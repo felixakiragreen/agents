@@ -1,7 +1,7 @@
 # 02 — The Work Doctrine
 
 **Mantle · Tier:** Architect · fable-max · **Gate:** keel (LANDED); soft interlock with
-01 · **Status:** OPEN
+01 · **Status:** **LANDED** 2026-08-03 → `canon/work/`
 
 ## Mission
 
@@ -80,3 +80,53 @@ appended, commits in Felix's git style.
 You are an Architect at fable-max. Wear ~/code/agents/canon/mantles/architect.md, then
 read GENESIS.md and plans/02-work-doctrine.md, and execute the brief.
 ```
+
+## Findings (2026-08-03)
+
+The doctrine itself is the deliverable — `canon/work/DOCTRINE.md` + six templates,
+D16–D23 (proposed). Below: the calls that sharpened or departed from the sources, and
+the v2 seed list the brief requires. Questions 1–10 all settled; none escalated.
+
+1. **Board column is "Work", not the brief's suggested "question".** Evidence: simmy's
+   own board holds builder rows under its Question header — B1 reads "Mega/harness
+   simmy-enablers: PathResolver contexts, gateway guard, `--timings`" (simmy README §6),
+   which is no question. Mixed boards need the neutral noun; briefs keep questions
+   inside the doc.
+2. **BOARD.md rejected.** Neither parent ever minted one — hexwright boards in GENESIS
+   (§6 roadmap), simmy in README §6. A separate file is one more hop on every cold
+   start, against §1's two-minute law.
+3. **Ledger optional at pure spike-board scale only.** Simmy ran a 10+ session parallel
+   campaign with no ledger — board + findings carried all state. The ledger earns its
+   keep when sessions do work no single work doc captures; exhibit: this repo's
+   04-Stage-A ledger entries, which no brief could hold. Boundary codified in §7.
+4. **CLAUDE.md state digests warned against.** hexwright's CLAUDE.md §State has grown
+   into a dense restatement of WO outcomes — a second home for truth (rot risk, against
+   one-function-one-home). Doctrine §3: pointers, not digests.
+5. **Probes-ship-with-a-control promoted to law** (§6.2). The 04 spike produced two
+   false negatives caught only by control arms — F6 (dirname≠name skill silently
+   ignored) and F11 (keybindings probe void: even a regular malformed file raises no
+   error) — LEDGER 2026-08-03; flagged for 02 by the Grand Architect same entry.
+6. **The decision queue is not a file.** Simmy's /helm was cap-mega machinery, not
+   doctrine. The queue = proposed-uncountersigned D-entries + open escalations,
+   surfaced at every boundary (§8). No new artifact minted.
+7. **Bulletin archives by fold, not ceremony.** Simmy's bulletin was never pruned and
+   never hurt — entries go stale-but-harmless once the Architect folds findings
+   (spikes/BULLETIN.md spans batches 2–3 unarchived). §9 codifies append-only for the
+   campaign's life.
+8. **Working agreements deduplicated to project physics.** Simmy §8 mixed universal law
+   (evidence grade, kill-fast, bulletin protocol) with venue rules. The universal parts
+   are now doctrine/charter law; master-doc agreements hold only physics (§3) — one
+   home per rule.
+
+**v2 seed list — what retrofitting the parents would touch (noted, not executed; D5):**
+
+- **hexwright:** local role names → mantle summons (its Grand Architect → the project's
+  Architect; Area Architect → per-area Architect); D7's "Fable @ max" vocabulary → tier
+  names (`fable-max`); WOs gain kickoff-verbatim footers, Findings sections, and status
+  vocabulary (DONE → LANDED); GENESIS §6 roadmap + CLAUDE.md §State → a board table
+  with §State pruned to pointers; LEDGER/DECISIONS conform as-is (they are ancestors).
+- **simmy:** board Session column → Staffing with canonical tier names ("Fable · high"
+  → `fable-high`, "Opus · med" → `opus-medium`); DISPATCHER.md retired for
+  `canon/mantles/dispatcher.md` + an instantiated rider; README §6's role-system
+  paragraph → mantle pointers; §8 agreements deduped to physics; spike briefs and
+  BULLETIN.md conform as-is (they are ancestors).

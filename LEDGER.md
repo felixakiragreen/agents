@@ -99,3 +99,19 @@ countersign), briefs 02/03/04B conformed to D13 kickoff grammar + dispatched-mod
 Decided: D14, D15 (✓ Felix — "go" + his keybindings ruling). Next: Felix summons the
 Dispatcher (fgreen, sonnet-medium) on the GENESIS §5 board; Max `/login` deferred — 04B
 smokes it as PENDING.
+
+---
+
+**2026-08-03 · Architect (02)** — Landed the work doctrine: `canon/work/DOCTRINE.md` —
+first principles, file set + scaling law, board law, work-doc anatomies (brief/order),
+findings law, ledger/decisions shapes, bulletin, batches, session contract, genesis
+ritual, glossary — plus six templates in `canon/work/templates/`. Distilled per the
+harvest law: every section cites its birthplace (hexwright/simmy); one new law where
+evidence forced it — **probes ship with a control** (04's F6/F11, the Grand Architect's
+flag). Repo conformed as example #1: GENESIS §5 board trued to canonical columns (02
+LANDED), §7 rewritten as the doctrine instantiation, doctrine pointers in CLAUDE.md and
+the mantles README (01's vocabulary hook swapped to point at DOCTRINE.md §§), 02 brief
+closed with findings — eight design calls with evidence + the v2 seed list (D5: noted,
+not executed). Decided: D16–D23, all **(proposed — pending Felix countersign)**. Next:
+the tending session escalates D16–D23 to Felix for countersign; on ✓, dispatch 03 —
+kickoff verbatim in `plans/03-global-claude-md.md`.
