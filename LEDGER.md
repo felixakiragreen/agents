@@ -67,11 +67,16 @@ is void: no error surfaces even from a *regular* malformed `keybindings.json`, b
 this; without it a silent result would have been misread as "symlink not followed" and routed
 the target to copy-mode on false evidence — the second false negative in this spike that only
 a control caught (F6 was the first). Standing rule: probes here ship with a control (F11).
-Verdict table now three-of-four proven symlink-mode at the real target; `keybindings.json`
-is unmeasured, not failed. U2 needs one keypress in an interactive session:
-`~/spike-04-keybindings.sh {control|symlink|restore|status}` plants an unused chord
-(`ctrl+x ctrl+j` → `app:toggleTodos`) and reads control-vs-symlink. Also noted for Stage B:
-`deploy` displacing live config files trips the same agent permission guard, so it is a
-Felix-run command or it needs an explicit rule. Next: Felix spends the keypress (or the
-Architect rules copy-mode for `keybindings.json` — cheap, one `cp` + one `cmp`, and
-defensible either way); Architect then cuts the mechanism D-entry; Stage B gated on 01–03.
+**U2 KILLED (F12).** The interactive canary was armed and the chord was dead in the *control*
+arm, so the symlink arm could conclude nothing either — third dead end from one root cause:
+`keybindings.json` is unobservable without a human in the loop. Felix's ruling ended it — the
+target was admitted on a cheapness assumption this spike disproved, and it syncs nothing he
+values. **Recommended D3 amendment: sync set v1 drops `keybindings.json`** → global
+`CLAUDE.md`, `agents/` tiers, mantles via `skills/` shims. Three targets, one mechanism, no
+human-verified step; Stage B loses its copy-mode branch entirely and requirement 1's
+per-target mechanism table collapses to a single rule. `keybindings.json` has no verdict in
+either direction — out of scope, not proven unsafe. Also noted for Stage B: `deploy`
+displacing live config files trips the agent permission guard, so it is a Felix-run command
+or it needs an explicit rule. All spike artefacts removed; three config dirs verified
+pristine. **Stage A COMPLETE — no open questions.** Next: Architect cuts the mechanism
+D-entry + the D3 amendment, marks 04 Stage A LANDED, summons 02 (Architect · fable-max).

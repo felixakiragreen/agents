@@ -71,10 +71,11 @@ command and the output that produced it.
 | `CLAUDE.md` | **symlink** (single file) | **proven at user scope, in a live config dir** (F10) |
 | `agents/` | **symlink** (whole dir) | **proven at user scope, in a live config dir** (F8) |
 | `skills/` | **symlink** (whole dir) | **proven at user scope, in a live config dir** (F8) |
-| `keybindings.json` | **undetermined** | headless probe is void (F11); needs one keypress (U2) |
+| `keybindings.json` | **dropped from the sync set** | KILLED by Felix's ruling (F12) — not a mechanism finding |
 
-Three of four targets are settled symlink-mode, proven at the real target in a live config
-dir. No target has been disqualified — `keybindings.json` is unmeasured, not failed.
+The sync set is now three targets, all settled symlink-mode, all proven at the real target in
+a live config dir. Nothing was disqualified on mechanism; `keybindings.json` left the set
+because it has no value to sync (F12).
 
 ### F1 — Auth is per-config-dir; the brief's "scratch config dir" method is unavailable
 
@@ -328,28 +329,46 @@ read `keybindings.json` at all — the file is invisible to every headless probe
 not. U2 is therefore not answerable by any `-p` method; it needs an interactive session and
 a human finger.
 
-### Open — U2 only, needs one keypress
+### F12 — U2 KILLED: `keybindings.json` leaves the sync set
 
-`~/spike-04-keybindings.sh {control|symlink|restore|status}` (default account: fgreen) arms
-the interactive test and disarms it. It injects an unused chord — `ctrl+x ctrl+j` →
-`app:toggleTodos`, valid JSON built with `python3`, present only in the canary file — then
-Felix relaunches `a-thg-0` (keybindings load at session start, same as agent definitions per
-D8) and presses it.
+The interactive test was armed (`~/spike-04-keybindings.sh control` — canary chord
+`ctrl+x ctrl+j` → `app:toggleTodos`, installed as a regular file) and Felix pressed it:
+**nothing happened.** Per the control table below, a dead chord in the *control* arm means the
+canary is unproven, so the symlink arm could conclude nothing either — a third dead end from
+the same root cause as F11: nothing about `keybindings.json` is observable without an
+interactive session, and even there the observation is fiddly.
 
-Run `control` **first** — canary as a regular file. Per F11 that is not optional: if the
-chord is dead in the control, the canary is broken and the symlink arm is meaningless.
+Felix's ruling, which ends it: *"I don't really care about the keybindings, they were only
+something that the first agent told me would be free... I don't have any keybindings that need
+copying anyway."* Correct call. The target was admitted to the sync set on a cheapness
+assumption (GENESIS §4, "identical ×3 today") that this spike disproved — it is the only
+target requiring a human in the loop to verify, and it syncs nothing Felix values.
 
-| `control` (regular) | `symlink` | verdict |
+**Recommended amendment for the Architect: D3's sync set drops `keybindings.json`.** Sync set
+v1 = global `CLAUDE.md`, `agents/` tiers, `canon/mantles/` via `skills/` shims. Three targets,
+one mechanism, zero human-verified steps. Stage B gets simpler: `deploy` and `check` handle
+symlinks only, no copy-mode branch, no `cmp` path, no drift-check for a second mechanism —
+requirement 1's per-target mechanism table collapses to a single rule.
+
+If Felix ever wants keybindings shared, the file is already byte-identical ×3 (F5) and never
+rewritten (F3), so hand-copying it once costs nothing and needs no tooling.
+
+The control table the F12 kill was read against, kept because it is why the result was
+recorded as *unmeasured* rather than as a negative:
+
+| `control` (regular file) | `symlink` | verdict |
 |---|---|---|
-| chord dead | — | canary broken → redesign, conclude nothing |
-| chord toggles todos | chord toggles todos | **symlink followed → U2 closed** |
-| chord toggles todos | chord dead | **not followed → `keybindings.json` copy-mode** |
+| chord dead | — | canary unproven → conclude nothing ← **what happened** |
+| chord toggles todos | chord toggles todos | symlink followed |
+| chord toggles todos | chord dead | not followed → copy-mode |
 
-**This does not block Stage B.** `keybindings.json` is one static file that F3 shows is never
-rewritten and F5 shows is already byte-identical ×3; copy-mode for it costs one `cp` in
-`deploy` and one `cmp` in `check`. If Felix would rather not spend the keypress, the
-defensible default is **copy-mode for `keybindings.json`** — the Architect's call to make in
-the mechanism D-entry, not the spike's.
+`keybindings.json` therefore has **no mechanism verdict in either direction.** It is out of
+scope, not proven unsafe. Anyone re-admitting it to the sync set later starts from zero.
+
+### Nothing open
+
+Stage A is complete. All spike artefacts removed; all three config dirs verified pristine
+(original hashes, regular files, no leftover symlinks, no `agents/` or `skills/` residue).
 
 ### Note on how the last two findings were obtained
 
