@@ -43,5 +43,5 @@ if [ "$drift" -ne 0 ]; then
 	echo "DRIFT. Fix with sync/deploy (Felix-run), or delete the stray file."
 	exit 1
 fi
-echo "green — ${#CONFIG_DIRS[@]} dirs × ${#TARGETS[@]} targets all linked to canon."
+echo "green — ${#CONFIG_DIRS[@]}×${#TARGETS[@]} links, all pointing at canon."
 echo "A session that still misbehaves after this is auth, not sync: try /login (F9)."
