@@ -67,9 +67,16 @@ ceremony they didn't need.
 - `DECISIONS.md` appended; `GENESIS.md` board updated; `LEDGER.md` appended.
 - This repo's docs conformed to the doctrine (or a bounded follow-up order).
 
+## Dispatched mode (batch 2)
+
+This brief runs dispatched (rider: `plans/RIDER.md`). New D-entries land marked
+**"(proposed — pending Felix countersign)"**; the tending session escalates them to
+Felix before 03 dispatches. End-of-session protocol unchanged: board trued, ledger
+appended, commits in Felix's git style.
+
 ## Kickoff (verbatim)
 
 ```
-You are an Architect wearing the mantle at fable-max. Read GENESIS.md, then
-plans/02-work-doctrine.md, and execute the brief.
+You are an Architect at fable-max. Wear ~/code/agents/canon/mantles/architect.md, then
+read GENESIS.md and plans/02-work-doctrine.md, and execute the brief.
 ```

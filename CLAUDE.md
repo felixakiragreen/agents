@@ -12,8 +12,9 @@ you where we are.
 
 - Declare your mantle: Grand Architect · Architect · Dispatcher · Digger · Builder.
 - Design sessions (01–03) run Fable at max effort; briefs name everything else.
-- Nothing in `canon/` deploys until session 04 lands — until then the three config dirs
-  are maintained by hand, and canon changes here do NOT reach live accounts.
+- Deployment state: `canon/agents/` and `canon/skills/` are **live in all three config
+  dirs** (symlinks, D14, 2026-08-03) — tier and shim edits reach accounts instantly, but
+  only sessions started afterward see them. `canon/CLAUDE.md` deploys with 03/04.
 - Canon changes require Felix's sign-off (a D-entry).
 - End every session: append `LEDGER.md` (date · mantle · changed · decided · next),
   commit in Felix's git style. Suggest a break at every clean boundary and hand the next

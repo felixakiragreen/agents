@@ -1,8 +1,8 @@
 # 04 — Sync: Canon → Mirrors
 
-**Two stages.** Spike: Digger · opus-high — **parallel-safe now** (no gate). Build:
-Builder, staffing set by the Architect when blessing — gated on 01–03 LANDED.
-**Status:** OPEN
+**Two stages.** Spike: Digger · opus-high — **LANDED 2026-08-03** (F1–F12; U1 closed,
+U2 killed). Build: **Builder · opus-high** — gated on 01–03 LANDED, dispatched (rider:
+`plans/RIDER.md`). **Status:** build OPEN
 
 ## Mission
 
@@ -46,12 +46,20 @@ Requirements (fewest that work):
    when something feels off.
 3. Zero dependencies beyond the shell. Simplest language that works; bash is the
    default answer.
-4. New-machine bootstrap = clone + `deploy`. Nothing else.
+4. New-machine bootstrap = clone + `deploy` + `/login` per account (F1). Nothing else.
+5. Mechanism is ratified — **symlink for every target** (D14): `CLAUDE.md` as a file
+   link, `agents/` and `skills/` as whole-dir links (already planted ×3 on 2026-08-03 —
+   adopt and verify, don't re-plant). No copy-mode branch (D15). `deploy` asserts skill
+   dirname == frontmatter `name` (F6) and flags untracked files in `canon/` (F7).
+6. Displacing the live `CLAUDE.md` files trips the agent permission guard (findings
+   §note): the prompt surfacing to Felix in the tending session IS the explicit rule —
+   never work around the guard.
 
 **DoD:** deploy run on all three accounts; a canary edit in `canon/` is visible in every
-account (symlink) or flagged by `check` until redeployed (copy); `check` green; a fresh
-`CLAUDE_CONFIG_DIR` smoke-summon in each account loads the canon CLAUDE.md; LEDGER +
-board updated; D-entry recording the per-target mechanism table.
+account through the links; `check` green; a fresh smoke-summon per account loads the
+canon CLAUDE.md — fgreen and doorbell now, `~/.claude` (Max) recorded PENDING Felix's
+`/login` (F9), not blocking; the default account is tested with `CLAUDE_CONFIG_DIR`
+**unset**, never set to `~/.claude` (F9); LEDGER + board updated.
 
 ## Out of scope
 
@@ -404,9 +412,10 @@ You are a Digger. Read GENESIS.md, then plans/04-sync.md, and run Stage A only.
 Append evidence-grade findings under ## Findings; do not build Stage B.
 ```
 
-## Kickoff — Stage B (verbatim, only after the Architect blesses the spike's verdict)
+## Kickoff — Stage B (verbatim; spike verdict blessed as D14/D15)
 
 ```
-You are a Builder. Read GENESIS.md, then plans/04-sync.md including the spike
-findings, and build Stage B to its DoD.
+You are a Builder at opus-high. Wear ~/code/agents/canon/mantles/builder.md, then read
+GENESIS.md and plans/04-sync.md including the spike findings, and build Stage B to its
+DoD.
 ```

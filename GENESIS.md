@@ -33,7 +33,7 @@ This repo canonizes all of it. One source of truth, deployed everywhere, version
 
 Every session is **tier × mantle × context**:
 
-- **Tier** — the engine: model × effort (× fast). Pure preset, zero role content.
+- **Tier** — the engine: model × effort. Pure preset, zero role content.
   Lives in `canon/agents/`, deployed to each account's `agents/` for dispatch.
   Proven format: simmy's `cap-mega/.claude/agents/*.md`.
 - **Mantle** — the charter: mission, powers, forbidden list, deliverables. Pure content,
@@ -62,16 +62,17 @@ operational law in `canon/mantles/README.md`.
 
 | Canon | → Mirror | Notes |
 |---|---|---|
-| `canon/CLAUDE.md` | `~/.claude*/CLAUDE.md` | the global file (session 03) |
-| `canon/agents/*.md` | `~/.claude*/agents/` | capability tiers (session 01) |
+| `canon/CLAUDE.md` | `~/.claude*/CLAUDE.md` | the global file (session 03; deployed by 04's build) |
+| `canon/agents/*.md` | `~/.claude*/agents/` | capability tiers — **live ×3 since 2026-08-03** (D14 symlinks) |
 | `canon/mantles/*.md` | read by path | canonical delivery (D12) — summons name the charter path |
-| `canon/skills/<mantle>/SKILL.md` | `~/.claude*/skills/` | interactive sugar: `/architect` … (D12; D3 amended) |
-| `canon/keybindings.json` | `~/.claude*/keybindings.json` | identical ×3 today (md5-verified 2026-08-02) |
+| `canon/skills/<mantle>/SKILL.md` | `~/.claude*/skills/` | interactive sugar: `/architect` … — **live ×3 since 2026-08-03** |
 | `canon/work/` | not deployed | doctrine + templates, referenced by projects (session 02) |
 
-Mechanism (session 04): **symlink-first hypothesis** — one inode of truth, no sync
-problem to solve; the script only bootstraps and verifies. A Digger spike confirms Claude
-Code follows symlinks per target; any target that doesn't goes copy-mode with drift-check.
+Mechanism: **symlink, confirmed** (04's spike — F2, F7, F8, F10): one inode of truth, one
+rule for every target, no copy-mode branch. `keybindings.json` left the sync set (D15;
+F11/F12: unobservable without a human in the loop — byte-identical ×3 today, hand-copy if
+ever wanted). 04's build lands `sync/deploy` (bootstrap + adopt) and `sync/check` (the
+drift alarm).
 
 ## 5. The campaign board
 
@@ -80,11 +81,15 @@ Code follows symlinks per target; any target that doesn't goes copy-mode with dr
 | 0 | Genesis — lay the keel | Grand Architect · fable | Felix's blessing | **LANDED** 2026-08-02 |
 | 01 | [Composition model](plans/01-composition-model.md) | Architect · fable-max | keel | **LANDED** 2026-08-02 |
 | 02 | [Work doctrine](plans/02-work-doctrine.md) | Architect · fable-max | keel; soft interlock with 01 | OPEN |
-| 03 | [Global CLAUDE.md](plans/03-global-claude-md.md) | Architect · fable-max | 01 + 02 LANDED | OPEN |
-| 04 | [Sync](plans/04-sync.md) | Digger · opus-high, then Builder | build: 01–03 LANDED | spike **LANDED** 2026-08-02 (U1/U2 → Felix) · build OPEN |
+| 03 | [Global CLAUDE.md](plans/03-global-claude-md.md) | Architect · fable-max | 01 + 02 LANDED, 02's D-entries countersigned | OPEN |
+| 04 | [Sync](plans/04-sync.md) | Digger · opus-high → Builder · opus-high | build: 01–03 LANDED | spike **LANDED** 2026-08-03 (U1 closed F10 · U2 killed F12) · build OPEN |
 
 Statuses: OPEN → IN FLIGHT → LANDED / KILLED. Any account can host any session — the repo
 carries the truth; account choice is quota arbitrage.
+
+**Batch 2 (cut 2026-08-03): 02 → 03 → 04 build — sequential, dispatched.** A Dispatcher
+tends the chain; each design landing pauses for Felix's countersign of its proposed
+D-entries before the next row dispatches. Rider: `plans/RIDER.md`.
 
 ## 6. Non-goals (v1, defended)
 
@@ -104,3 +109,13 @@ Until 02 canonizes the real doctrine, this repo runs hexwright-style:
 - Briefs live in `plans/`, each ending with its kickoff prompt verbatim.
 - Suggest a break at every clean boundary; hand the next session its summons verbatim.
 - Session 02 may amend this repo's own docs to match the doctrine it canonizes.
+
+## 8. Definition of done — canon v1
+
+1. `canon/` complete: CLAUDE.md · `agents/` (20 tiers) · `mantles/` (5 + README) ·
+   `skills/` (5 shims) · `work/` (doctrine + templates).
+2. `sync/deploy` + `sync/check` landed; `check` green across all three accounts.
+3. All three accounts serve canon live; smoke-summon passes per account (`~/.claude`
+   pending Felix's `/login` — recorded, not blocking).
+4. This repo conforms to its own doctrine (02).
+5. Board all LANDED; LEDGER and DECISIONS current.

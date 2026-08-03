@@ -1,6 +1,6 @@
 # 01 — The Composition Model
 
-**Mantle · Tier:** Architect · fable-max · **Gate:** keel (LANDED) · **Status:** OPEN
+**Mantle · Tier:** Architect · fable-max · **Gate:** keel (LANDED) · **Status:** **LANDED** 2026-08-02
 
 ## Mission
 

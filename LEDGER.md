@@ -80,3 +80,22 @@ displacing live config files trips the agent permission guard, so it is a Felix-
 or it needs an explicit rule. All spike artefacts removed; three config dirs verified
 pristine. **Stage A COMPLETE — no open questions.** Next: Architect cuts the mechanism
 D-entry + the D3 amendment, marks 04 Stage A LANDED, summons 02 (Architect · fable-max).
+
+---
+
+**2026-08-03 · Grand Architect** — Reviewed 01 and 04 Stage A: both PASS. 01's charters
+hit the DISPATCHER.md grade bar; one nit (GENESIS §2 still said "× fast" against D9) fixed.
+04's findings exemplary — two false negatives caught only by controls; the probes-ship-
+with-a-control rule noted for 02's doctrine. Cut **D14** (mechanism: symlink every target,
+no copy-mode; deploy adopts, check alarms; surfaced permission prompt = the rule for live
+displacement) and **D15** (D3 amended: keybindings.json out — sync set final: CLAUDE.md,
+agents/, skills/). **First live deployment:** planted `agents/` + `skills/` symlinks in
+all three config dirs (additive, F4/F8; deploy adopts idempotently) — tier dispatch and
+`/mantle` shims now work in any fresh session on any account. Cut **batch 2**: 02 → 03 →
+04 build, sequential, dispatched; Dispatcher tends; countersign gate after each design
+landing. Prep: board trued (04 build staffed Builder · opus-high; 03 gated on 02's
+countersign), briefs 02/03/04B conformed to D13 kickoff grammar + dispatched-mode notes,
+03's hand-deploy moved to 04B, `plans/RIDER.md` instantiated, GENESIS §8 v1 DoD added.
+Decided: D14, D15 (✓ Felix — "go" + his keybindings ruling). Next: Felix summons the
+Dispatcher (fgreen, sonnet-medium) on the GENESIS §5 board; Max `/login` deferred — 04B
+smokes it as PENDING.

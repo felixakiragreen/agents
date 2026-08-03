@@ -1,6 +1,7 @@
 # 03 — The Global CLAUDE.md
 
-**Mantle · Tier:** Architect · fable-max · **Gate:** 01 + 02 LANDED · **Status:** OPEN
+**Mantle · Tier:** Architect · fable-max · **Gate:** 01 + 02 LANDED, 02's D-entries
+countersigned · **Status:** OPEN
 
 ## Mission
 
@@ -35,9 +36,8 @@ in the system.
    consequence ("durable truth goes in repos") or leaves it to doctrine.
 5. **What moves OUT.** Anything in the incumbent that is really mantle- or
    doctrine-content moves to 01/02's files; the global file points, never duplicates.
-6. **Deployment note.** Until 04 lands, landing this session means hand-copying
-   `canon/CLAUDE.md` to all three config dirs (one command, listed in your deliverable)
-   — do it, verify byte-identity, record in LEDGER.
+6. **Deployment: none in this session.** 04's build deploys `canon/CLAUDE.md` to all
+   three accounts (symlink, D14) immediately after — land the file in the repo only.
 
 ## Out of scope
 
@@ -45,13 +45,19 @@ in the system.
 
 ## Deliverables
 
-- `canon/CLAUDE.md` ratified + hand-deployed ×3 (md5-verified).
+- `canon/CLAUDE.md` ratified in the repo (deployment: 04's build, per D14).
 - `DECISIONS.md` appended (what changed vs incumbent, what moved where);
   `GENESIS.md` board updated; `LEDGER.md` appended.
+
+## Dispatched mode (batch 2)
+
+This brief runs dispatched (rider: `plans/RIDER.md`). New D-entries land marked
+**"(proposed — pending Felix countersign)"**; the tending session escalates them to
+Felix before 04's build dispatches. End-of-session protocol unchanged.
 
 ## Kickoff (verbatim)
 
 ```
-You are an Architect wearing the mantle at fable-max. Read GENESIS.md, then
-plans/03-global-claude-md.md, and execute the brief.
+You are an Architect at fable-max. Wear ~/code/agents/canon/mantles/architect.md, then
+read GENESIS.md and plans/03-global-claude-md.md, and execute the brief.
 ```

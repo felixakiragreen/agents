@@ -56,3 +56,15 @@
   universal core (dispatched framing · files-are-the-deliverable ·
   report-is-logistics-only) vs project slots (agreements ref, bulletin path, worktree
   specifics — 02's turf).
+- **D14** (2026-08-03, Grand Architect · ✓ Felix): **Sync mechanism = symlink, every
+  target, no copy-mode branch.** `CLAUDE.md` as a file link (F2 + F10), `agents/` and
+  `skills/` as whole-dir links (F7 + F8). `deploy` = bootstrap + adopt + verify;
+  `check` = drift alarm (untracked files in `canon/` included, per F7). Agent-run
+  displacement of live config files trips the permission guard by design — the surfaced
+  prompt to Felix IS the rule (findings §note). `agents/` + `skills/` hand-planted ×3
+  on 2026-08-03 ahead of Stage B; `deploy` adopts them idempotently.
+- **D15** (2026-08-03, Felix): **D3 amended — `keybindings.json` leaves the sync set**
+  (F11/F12: unobservable without a human in the loop; admitted on a cheapness assumption
+  the spike disproved; syncs nothing Felix values). Sync set v1 final: `canon/CLAUDE.md`
+  · `canon/agents/` · `canon/skills/` (mantles read-by-path per D12). No mechanism
+  verdict exists for keybindings in either direction; re-admission starts from zero.
