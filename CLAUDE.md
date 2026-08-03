@@ -11,6 +11,8 @@ you where we are.
 ## Session protocol
 
 - Declare your mantle: Grand Architect · Architect · Dispatcher · Digger · Builder.
+- Work doctrine: `canon/work/DOCTRINE.md` — boards, work docs, findings, ledger law;
+  this repo conforms (GENESIS §7).
 - Design sessions (01–03) run Fable at max effort; briefs name everything else.
 - Deployment state: `canon/agents/` and `canon/skills/` are **live in all three config
   dirs** (symlinks, D14, 2026-08-03) — tier and shim edits reach accounts instantly, but

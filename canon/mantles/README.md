@@ -121,11 +121,12 @@ correct in their own sessions.
   lasts one turn (documented), and a one-turn tier masquerading as a session tier is
   hidden state — the guard verifies instead.
 
-## Doctrine vocabulary — flags for 02
+## Doctrine vocabulary
 
-Charters use, and 02 canonizes: board · brief · work order · findings · bulletin ·
-batch report · decision queue · statuses (OPEN / IN FLIGHT / LANDED / KILLED / BLOCKED /
-PENDING) · parked · blessed · trued. Until 02 lands, simmy/hexwright usage governs.
+Board · brief · work order · findings · bulletin · batch report · decision queue ·
+statuses (OPEN / IN FLIGHT / LANDED / KILLED / BLOCKED / PENDING) · the working verbs —
+canonized in the work doctrine (`canon/work/DOCTRINE.md`, landed 2026-08-03): the board
+§4, work docs §5, findings §6, the bulletin §9, batches §10, glossary §13.
 
 ## The charter template
 

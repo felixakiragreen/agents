@@ -66,7 +66,7 @@ operational law in `canon/mantles/README.md`.
 | `canon/agents/*.md` | `~/.claude*/agents/` | capability tiers — **live ×3 since 2026-08-03** (D14 symlinks) |
 | `canon/mantles/*.md` | read by path | canonical delivery (D12) — summons name the charter path |
 | `canon/skills/<mantle>/SKILL.md` | `~/.claude*/skills/` | interactive sugar: `/architect` … — **live ×3 since 2026-08-03** |
-| `canon/work/` | not deployed | doctrine + templates, referenced by projects (session 02) |
+| `canon/work/` | not deployed | doctrine + templates, referenced by projects — landed 2026-08-03 (02) |
 
 Mechanism: **symlink, confirmed** (04's spike — F2, F7, F8, F10): one inode of truth, one
 rule for every target, no copy-mode branch. `keybindings.json` left the sync set (D15;
@@ -76,16 +76,17 @@ drift alarm).
 
 ## 5. The campaign board
 
-| # | Session | Mantle · Tier | Gate | Status |
+| ID | Work | Depends on | Staffing | Status |
 |---|---|---|---|---|
-| 0 | Genesis — lay the keel | Grand Architect · fable | Felix's blessing | **LANDED** 2026-08-02 |
-| 01 | [Composition model](plans/01-composition-model.md) | Architect · fable-max | keel | **LANDED** 2026-08-02 |
-| 02 | [Work doctrine](plans/02-work-doctrine.md) | Architect · fable-max | keel; soft interlock with 01 | IN FLIGHT 2026-08-03 |
-| 03 | [Global CLAUDE.md](plans/03-global-claude-md.md) | Architect · fable-max | 01 + 02 LANDED, 02's D-entries countersigned | OPEN |
-| 04 | [Sync](plans/04-sync.md) | Digger · opus-high → Builder · opus-high | build: 01–03 LANDED | spike **LANDED** 2026-08-03 (U1 closed F10 · U2 killed F12) · build OPEN |
+| 0 | Genesis — lay the keel | Felix's blessing | Grand Architect · fable | **LANDED** 2026-08-02 |
+| 01 | [Composition model](plans/01-composition-model.md) | keel | Architect · fable-max | **LANDED** 2026-08-02 |
+| 02 | [Work doctrine](plans/02-work-doctrine.md) | keel; soft interlock with 01 | Architect · fable-max | **LANDED** 2026-08-03 → `canon/work/` |
+| 03 | [Global CLAUDE.md](plans/03-global-claude-md.md) | 01 + 02 LANDED, 02's D-entries countersigned | Architect · fable-max | OPEN |
+| 04 | [Sync](plans/04-sync.md) | build: 01–03 LANDED | Digger · opus-high → Builder · opus-high | spike **LANDED** 2026-08-03 (U1 closed F10 · U2 killed F12) · build OPEN |
 
-Statuses: OPEN → IN FLIGHT → LANDED / KILLED. Any account can host any session — the repo
-carries the truth; account choice is quota arbitrage.
+Statuses per the doctrine (`canon/work/DOCTRINE.md` §4): OPEN → IN FLIGHT → LANDED /
+KILLED. Any account can host any session — the repo carries the truth; account choice is
+quota arbitrage.
 
 **Batch 2 (cut 2026-08-03): 02 → 03 → 04 build — sequential, dispatched.** A Dispatcher
 tends the chain; each design landing pauses for Felix's countersign of its proposed
@@ -99,16 +100,17 @@ D-entries before the next row dispatches. Rider: `plans/RIDER.md`.
 - `settings.json` sync — revisit when a real need appears.
 - Plugin sync. Multi-machine (clone-and-deploy makes it nearly free later; not designed now).
 
-## 7. Bootstrap conventions
+## 7. Doctrine
 
-Until 02 canonizes the real doctrine, this repo runs hexwright-style:
+This repo runs the work doctrine it canonizes — `canon/work/DOCTRINE.md` (02, D16–D23) —
+and is example #1 of it. Local physics:
 
-- Ratified choices → `DECISIONS.md` (D-entries). Canon changes require Felix's sign-off.
-- Every session ends: append `LEDGER.md` (date · mantle · changed · decided · next),
-  commit in Felix's git style.
-- Briefs live in `plans/`, each ending with its kickoff prompt verbatim.
-- Suggest a break at every clean boundary; hand the next session its summons verbatim.
-- Session 02 may amend this repo's own docs to match the doctrine it canonizes.
+- Master doc = this file; the board = §5; work docs in `plans/`; rider = `plans/RIDER.md`.
+  No bulletin — batches here are sequential.
+- Canon changes require Felix's sign-off; dispatched sessions mark D-entries
+  "(proposed — pending Felix countersign)".
+- Briefs 0–04 predate the templates and are grandfathered; new work docs instantiate
+  `canon/work/templates/`.
 
 ## 8. Definition of done — canon v1
 
