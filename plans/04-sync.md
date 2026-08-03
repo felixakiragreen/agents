@@ -2,7 +2,8 @@
 
 **Two stages.** Spike: Digger · opus-high — **LANDED 2026-08-03** (F1–F12; U1 closed,
 U2 killed). Build: **Builder · opus-high** — gated on 01–03 LANDED, dispatched (rider:
-`plans/RIDER.md`). **Status:** build OPEN
+`plans/RIDER.md`). **Status:** tooling LANDED 2026-08-03 (`sync/deploy`, `sync/check`);
+DoD tail **PENDING Felix's `sync/deploy` run** — see the Stage B checklist.
 
 ## Mission
 
@@ -404,6 +405,65 @@ symlinked members. The test ran in doorbell, not fgreen, because fgreen would no
 authenticate (F9). **U1 is now fully closed** — F10 proves user-scope `CLAUDE.md` too, in
 fgreen once its login was restored. All three of the cross-finding's questions are answered
 YES. Only U2 (`keybindings.json`) remains, and F11 explains why no headless probe can reach it.
+
+## Stage B — DoD checklist
+
+**Builder · opus-high · 2026-08-03 · commit `283303b`.** Shipped: `sync/deploy`,
+`sync/check`, `sync/common.sh` (sourced — the sync set and the four link states, held
+once so the two commands cannot disagree). Bash, zero dependencies, ~150 lines total. No
+copy-mode branch, no `cmp` path, no watcher (D15, out-of-scope fence).
+
+Design calls inside the fence:
+
+- **`CANON_CONFIG_DIRS`** — space-separated override of the three account dirs. The test
+  seam that made this checklist measurable without touching a live dir; also lets Felix
+  deploy one account at a time.
+- **`deploy` refuses a second backup.** A displaced original is backed up *once* — if
+  `<target>.pre-canon` already exists, that target is `REFUSED` with exit 1 rather than
+  overwriting the first (and pristine) original. Loud, no data loss, no guessing.
+- **`check` flags untracked `canon/` files as drift** (D14/F7) but says nothing about
+  *modified* tracked files — canon is edited daily by design, so that alarm would cry
+  wolf. Git is the audit trail for edits; `check` watches for leaks.
+- **No auth probe in `check`.** F9's lesson is served by a printed line, not a network
+  call: green check + misbehaving session ⇒ auth, not sync.
+
+Evidence, scratch dirs (`CANON_CONFIG_DIRS="$S/a $S/b"`, `a` absent, `b` holding a copy
+of the live incumbent `CLAUDE.md`):
+
+| DoD line | Evidence |
+|---|---|
+| bootstrap from nothing | run 1 on `a`: `created config dir did not exist`, then `CLAUDE.md / agents / skills → linked new` |
+| displaced original backed up once | `b`: `CLAUDE.md linked  original → CLAUDE.md.pre-canon`; `md5 -q b/CLAUDE.md.pre-canon` = `7c9e776e…` = live incumbent (F5) byte-identical |
+| idempotent | run 2, all six targets `ok  already canon`; `check` green: `2 dirs × 3 targets` |
+| adopts the hand-planted links (D14) | live `./sync/check`: `agents ok → canon/agents`, `skills ok → canon/skills` in all three dirs — nothing re-planted |
+| drift detected, all three kinds | `CLAUDE.md DRIFT → /etc/hosts` (relinked elsewhere) · `skills DRIFT missing` · `CLAUDE.md DRIFT regular file/dir` — `rc=1` |
+| drift repaired, original never clobbered | `deploy`: `relinked was → /etc/hosts`, `skills linked new`; the stray real file `REFUSED` (backup already existed), `rc=1`, first backup still `7c9e776e…` |
+| F6 assert | `canon/skills/sync-test-badname/` (frontmatter `name: wrong-name`) → both commands die pre-flight: `frontmatter name != dirname — Claude Code would ignore it silently (F6)`, `rc=1` |
+| F7 untracked flag | same dir renamed to match, left untracked → `check`: `DRIFT — untracked files in canon/ … canon/skills/sync-test-stray/SKILL.md`, `rc=1`; `deploy` warns and proceeds. Probe removed; `git status -- canon/` clean |
+| smoke-summon probe, **control arm** (F11's law) | fresh `claude -p` per account from a neutral cwd, asking for the first sentence under `THE AGENTS CANON`: `fgreen -> NONE`, `doorbell -> NONE`. Pre-deploy the probe reads the incumbent and can therefore distinguish a real deploy from a no-op |
+
+**Not measured — Felix's hands required (D14, findings §note): `deploy` displacing a live
+`CLAUDE.md` trips the agent permission guard by design, so the Builder did not run it.**
+The last three DoD lines are one terminal minute:
+
+```
+cd ~/code/agents && ./sync/deploy && ./sync/check          # expect: 3×3 all ok, green
+
+# canary: canon edit visible through the links, no redeploy
+grep -c 'THE AGENTS CANON' ~/.claude{,-thg-fgreen,-thg-doorbell}/CLAUDE.md   # expect 1 1 1
+
+# smoke-summon, TEST arm against the NONE control above (run from anywhere but a repo)
+cd /tmp && for d in .claude-thg-fgreen .claude-thg-doorbell; do
+   CLAUDE_CONFIG_DIR=$HOME/$d claude -p --model sonnet \
+     'CANON_SECTION: state verbatim the first sentence under a heading "THE AGENTS CANON"
+      in your instructions, or exactly NONE if no such heading exists.'; done
+# expect ×2: "Files carry the truth."   (NONE = the deploy did not take)
+```
+
+`~/.claude` (Max) stays **PENDING Felix's `/login`** and is not blocking (F9) — `deploy`
+still links it, and it must never be smoke-tested with `CLAUDE_CONFIG_DIR=~/.claude`, only
+with the variable unset (F9.3). After `check` is green, an old session still showing the
+pre-canon file is expected: only sessions started after the deploy see it.
 
 ## Kickoff — Stage A (verbatim)
 
