@@ -45,7 +45,8 @@ Summoning:
 - **Interactive:** open a session at the right model/effort, speak the summons
   (*"You are an Architect… read X and execute"*).
 
-The exact grammar, the tier matrix, and the five charters are session 01's deliverable.
+The exact grammar, the tier matrix, and the five charters landed in session 01 —
+operational law in `canon/mantles/README.md`.
 
 ## 3. The five mantles
 
@@ -63,7 +64,8 @@ The exact grammar, the tier matrix, and the five charters are session 01's deliv
 |---|---|---|
 | `canon/CLAUDE.md` | `~/.claude*/CLAUDE.md` | the global file (session 03) |
 | `canon/agents/*.md` | `~/.claude*/agents/` | capability tiers (session 01) |
-| `canon/mantles/*.md` | TBD | delivery decided in 01: skills vs read-by-path (D3 amends if skills) |
+| `canon/mantles/*.md` | read by path | canonical delivery (D12) — summons name the charter path |
+| `canon/skills/<mantle>/SKILL.md` | `~/.claude*/skills/` | interactive sugar: `/architect` … (D12; D3 amended) |
 | `canon/keybindings.json` | `~/.claude*/keybindings.json` | identical ×3 today (md5-verified 2026-08-02) |
 | `canon/work/` | not deployed | doctrine + templates, referenced by projects (session 02) |
 
@@ -76,7 +78,7 @@ Code follows symlinks per target; any target that doesn't goes copy-mode with dr
 | # | Session | Mantle · Tier | Gate | Status |
 |---|---|---|---|---|
 | 0 | Genesis — lay the keel | Grand Architect · fable | Felix's blessing | **LANDED** 2026-08-02 |
-| 01 | [Composition model](plans/01-composition-model.md) | Architect · fable-max | keel | OPEN |
+| 01 | [Composition model](plans/01-composition-model.md) | Architect · fable-max | keel | **LANDED** 2026-08-02 |
 | 02 | [Work doctrine](plans/02-work-doctrine.md) | Architect · fable-max | keel; soft interlock with 01 | OPEN |
 | 03 | [Global CLAUDE.md](plans/03-global-claude-md.md) | Architect · fable-max | 01 + 02 LANDED | OPEN |
 | 04 | [Sync](plans/04-sync.md) | Digger · opus-high, then Builder | spike: none (parallel-safe now) · build: 01–03 LANDED | OPEN |
