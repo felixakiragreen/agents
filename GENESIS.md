@@ -62,7 +62,7 @@ operational law in `canon/mantles/README.md`.
 
 | Canon | → Mirror | Notes |
 |---|---|---|
-| `canon/CLAUDE.md` | `~/.claude*/CLAUDE.md` | the global file — landed 2026-08-03 (03); deploys via 04's build |
+| `canon/CLAUDE.md` | `~/.claude*/CLAUDE.md` | the global file — landed 2026-08-03 (03); **PENDING Felix's `sync/deploy`** (agent guard, D14) |
 | `canon/agents/*.md` | `~/.claude*/agents/` | capability tiers — **live ×3 since 2026-08-03** (D14 symlinks) |
 | `canon/mantles/*.md` | read by path | canonical delivery (D12) — summons name the charter path |
 | `canon/skills/<mantle>/SKILL.md` | `~/.claude*/skills/` | interactive sugar: `/architect` … — **live ×3 since 2026-08-03** |
@@ -71,8 +71,10 @@ operational law in `canon/mantles/README.md`.
 Mechanism: **symlink, confirmed** (04's spike — F2, F7, F8, F10): one inode of truth, one
 rule for every target, no copy-mode branch. `keybindings.json` left the sync set (D15;
 F11/F12: unobservable without a human in the loop — byte-identical ×3 today, hand-copy if
-ever wanted). 04's build lands `sync/deploy` (bootstrap + adopt) and `sync/check` (the
-drift alarm).
+ever wanted). Tooling landed 2026-08-03 (04 build): **`sync/deploy`** (bootstrap + adopt,
+idempotent, backs up a displaced original once) and **`sync/check`** (the drift alarm —
+run it when something feels off; green + still broken ⇒ auth, not sync). `deploy` is
+**Felix-run**: displacing a live config file trips the agent permission guard by design.
 
 ## 5. The campaign board
 
@@ -82,7 +84,7 @@ drift alarm).
 | 01 | [Composition model](plans/01-composition-model.md) | keel | Architect · fable-max | **LANDED** 2026-08-02 |
 | 02 | [Work doctrine](plans/02-work-doctrine.md) | keel; soft interlock with 01 | Architect · fable-max | **LANDED** 2026-08-03 → `canon/work/` |
 | 03 | [Global CLAUDE.md](plans/03-global-claude-md.md) | 01 + 02 LANDED, 02's D-entries countersigned | Architect · fable-max | **LANDED** 2026-08-03 |
-| 04 | [Sync](plans/04-sync.md) | build: 01–03 LANDED | Digger · opus-high → Builder · opus-high | spike **LANDED** 2026-08-03 (U1 closed F10 · U2 killed F12) · build IN FLIGHT 2026-08-03 |
+| 04 | [Sync](plans/04-sync.md) | build: 01–03 LANDED | Digger · opus-high → Builder · opus-high | spike **LANDED** 2026-08-03 (U1 closed F10 · U2 killed F12) · build: tooling **LANDED** 2026-08-03, DoD tail **PENDING** Felix's `sync/deploy` run |
 
 Statuses per the doctrine (`canon/work/DOCTRINE.md` §4): OPEN → IN FLIGHT → LANDED /
 KILLED. Any account can host any session — the repo carries the truth; account choice is
@@ -116,8 +118,10 @@ and is example #1 of it. Local physics:
 
 1. `canon/` complete: CLAUDE.md · `agents/` (20 tiers) · `mantles/` (5 + README) ·
    `skills/` (5 shims) · `work/` (doctrine + templates).
-2. `sync/deploy` + `sync/check` landed; `check` green across all three accounts.
-3. All three accounts serve canon live; smoke-summon passes per account (`~/.claude`
-   pending Felix's `/login` — recorded, not blocking).
+2. `sync/deploy` + `sync/check` landed ✓; `check` green across all three accounts —
+   **pending Felix's deploy run** (`CLAUDE.md` is the last unlinked target).
+3. All three accounts serve canon live; smoke-summon passes per account — control arm
+   measured, test arm pending the deploy (`~/.claude` also pending Felix's `/login` —
+   recorded, not blocking).
 4. This repo conforms to its own doctrine (02).
 5. Board all LANDED; LEDGER and DECISIONS current.

@@ -14,10 +14,12 @@ you where we are.
 - Work doctrine: `canon/work/DOCTRINE.md` — boards, work docs, findings, ledger law;
   this repo conforms (GENESIS §7).
 - Design sessions (01–03) run Fable at max effort; briefs name everything else.
-- Deployment state: `canon/agents/` and `canon/skills/` are **live in all three config
-  dirs** (symlinks, D14, 2026-08-03) — tier and shim edits reach accounts instantly, but
-  only sessions started afterward see them. `canon/CLAUDE.md` landed (03); 04's build
-  deploys it.
+- Deployment: `./sync/deploy` symlinks the sync set into all three config dirs,
+  `./sync/check` is the drift alarm — `deploy` is **Felix-run** (an agent tripping the
+  permission guard on a live config file is the design, D14). `canon/agents/` and
+  `canon/skills/` are live ×3 since 2026-08-03, so tier and shim edits reach the accounts
+  instantly — but only sessions started afterward see them. `canon/CLAUDE.md` awaits
+  Felix's first deploy run.
 - Canon changes require Felix's sign-off (a D-entry).
 - End every session: append `LEDGER.md` (date · mantle · changed · decided · next),
   commit in Felix's git style. Suggest a break at every clean boundary and hand the next

@@ -135,3 +135,26 @@ relayed in my summons); 03 LANDED on the board; §4 map row trued. Decided: **D2
 (proposed — pending Felix countersign)** — canon/CLAUDE.md ratified. Next: tending
 session escalates D24 to Felix; on ✓, dispatch 04 build — kickoff verbatim in
 `plans/04-sync.md` ("Kickoff — Stage B"), Builder · opus-high.
+
+---
+
+**2026-08-03 · Builder (04 Stage B)** — Built the sync tooling: `sync/deploy` (bootstrap
++ adopt + verify, idempotent, one `*.pre-canon` backup and never a second), `sync/check`
+(the drift alarm: symlink identity ×3 targets ×3 dirs, F7 untracked-canon leak, exit 1 and
+loud on any of it), `sync/common.sh` holding the sync set and the four link states once so
+the two commands cannot disagree. ~150 lines of bash, zero deps, no copy-mode branch
+(D15), no watcher. F6's dirname==name assert is pre-flight in both commands — a misnamed
+mantle shim now dies loudly instead of vanishing. DoD measured against scratch config dirs
+via the `CANON_CONFIG_DIRS` seam: bootstrap, displacement-with-backup, idempotency, three
+kinds of drift detected and repaired, both asserts firing — evidence pasted in the brief's
+Stage B checklist. Live `check` adopts the hand-planted `agents/`/`skills/` links in all
+three dirs and flags `CLAUDE.md` as the one unlinked target. Smoke-summon **control arm**
+run per F11's law: fresh `claude -p` in fgreen and doorbell both answer `NONE` pre-deploy,
+so the post-deploy probe can distinguish a real deploy from a no-op. **Not run: `deploy`
+itself** — displacing a live `CLAUDE.md` trips the agent permission guard by design (D14,
+findings §note), so the last three DoD lines are Felix's, commands pasted ready to
+paste. Decided: nothing — mechanism was ratified (D14/D15); design calls inside the fence
+are recorded in the checklist. Next: **Felix runs `cd ~/code/agents && ./sync/deploy &&
+./sync/check`**, then the canary + smoke-summon test arm from the checklist; on green the
+Architect flips 04 to LANDED and closes the canon v1 DoD (GENESIS §8), with `~/.claude`
+`/login` still the one open PENDING.
