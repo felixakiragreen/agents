@@ -68,12 +68,13 @@ command and the output that produced it.
 
 | Target | Mechanism | Confidence |
 |---|---|---|
-| `CLAUDE.md` | **symlink** (single file) | project-scope **proven** (F2); user-scope inferred (U1) |
+| `CLAUDE.md` | **symlink** (single file) | **proven at user scope, in a live config dir** (F10) |
 | `agents/` | **symlink** (whole dir) | **proven at user scope, in a live config dir** (F8) |
 | `skills/` | **symlink** (whole dir) | **proven at user scope, in a live config dir** (F8) |
-| `keybindings.json` | **unproven** | not tested (U2) — no project-scope equivalent exists |
+| `keybindings.json` | **undetermined** | headless probe is void (F11); needs one keypress (U2) |
 
-No target has been disqualified. Nothing here justifies copy-mode for anything.
+Three of four targets are settled symlink-mode, proven at the real target in a live config
+dir. No target has been disqualified — `keybindings.json` is unmeasured, not failed.
 
 ### F1 — Auth is per-config-dir; the brief's "scratch config dir" method is unavailable
 
@@ -280,27 +281,85 @@ unaffected (only `CLAUDE.md`, `agents/`, `skills/`, `keybindings.json` are writt
 The Max account being expired since ~2026-07-06 (its `history.jsonl` mtime) is Felix's to
 act on, not the spike's — flagged because GENESIS §1 counts it as a third of the capability.
 
-### Open — blocked, needs Felix to run two commands
+### F10 — U1 CLOSED: user-scope `CLAUDE.md` is followed through a symlink
 
-The permission classifier permits *additive* writes to a live config dir but refuses to
-**displace an existing file** there. That leaves exactly two tests unrun. Both are scripted,
-with backups taken and a restore trap, at
-`$SPIKE/displacement-test.sh` — run it and paste the output.
+Felix ran `~/spike-04-displacement.sh` against `~/.claude-thg-fgreen` (2026-08-03). The
+script backed up the live file, symlinked `$D/CLAUDE.md` to a canon copy carrying a codeword
+present in no other file, probed, and restored:
 
-- **U1 — user-scope `CLAUDE.md`.** F2 proves the loader follows symlinks at project scope;
-  the config-dir file itself was never swapped. Same loader, so the inference is strong —
-  but this spike trades in proof. T1 in the script symlinks the config-dir `CLAUDE.md` to a
-  canon copy carrying the codeword `MARMOSET-3310` and asks for it back.
-- **U2 — `keybindings.json`.** No verdict at all: no project-scope equivalent, and a keypress
-  cannot be driven through `claude -p`. T2 symlinks a deliberately **malformed**
-  `keybindings.json` and greps debug output — a surfaced parse error proves the file was read
-  through the link. If T2 comes back silent it is *inconclusive, not negative*, and the
-  fallback is Felix pressing one rebound key in a live session. Until then
-  `keybindings.json` must not be assumed symlink-safe just because its neighbours are.
+```
+target: /Users/felix/.claude-thg-fgreen
+CLAUDE.md=7c9e776eb9bdc6c82955144e9e792a46  keybindings.json=7a5ad5fd4dfdb0d9580e2db86732d160
+=== preflight: does this account authenticate? ===
+OK
+=== T1 — user-scope CLAUDE.md as a symlink (expect: MARMOSET-3310) ===
+CODEWORD: MARMOSET-3310
+=== RESTORED (/Users/felix/.claude-thg-fgreen) ===
+CLAUDE.md         7c9e776eb9bdc6c82955144e9e792a46  MATCHES-ORIGINAL
+keybindings.json  7a5ad5fd4dfdb0d9580e2db86732d160  MATCHES-ORIGINAL
+both regular files: YES
+```
 
-**Stage B is not blocked for `agents/` and `skills/`** (proven) **or `CLAUDE.md`** (strong
-inference, cheap to confirm). Only `keybindings.json` needs its verdict before `deploy` can
-pick a mechanism for it — and copy-mode for that one file is a perfectly cheap fallback.
+The codeword came back through the symlink. With F8, **the three targets that carry all the
+canon content — `CLAUDE.md`, `agents/`, `skills/` — are proven symlink-mode at user scope in
+a live config dir.** D1's symlink-first hypothesis is confirmed where it matters.
+
+### F11 — The malformed-file probe for `keybindings.json` is void, and the control proved it
+
+Same run, T2. A deliberately malformed `keybindings.json` surfaced no error **as a regular
+file**, so the symlink arm could say nothing:
+
+```
+=== T2a — CONTROL: malformed keybindings.json as a REGULAR file ===
+    (no matching lines)
+=== T2b — malformed keybindings.json through a SYMLINK ===
+    (no matching lines)
+=== T2 verdict ===
+INVALID METHOD: even a regular malformed file surfaces nothing.
+```
+
+**Why this matters methodologically:** without T2a, the silent T2b would have read as
+"symlink not followed" and routed `keybindings.json` to copy-mode on false evidence. Two
+probes in this spike (F6's skill naming, this one) produced false negatives that only a
+control caught. Any future probe here ships with a control or it does not ship.
+
+**Diagnosis:** `claude -p` is non-interactive and never binds keys, so it has no reason to
+read `keybindings.json` at all — the file is invisible to every headless probe, malformed or
+not. U2 is therefore not answerable by any `-p` method; it needs an interactive session and
+a human finger.
+
+### Open — U2 only, needs one keypress
+
+`~/spike-04-keybindings.sh {control|symlink|restore|status}` (default account: fgreen) arms
+the interactive test and disarms it. It injects an unused chord — `ctrl+x ctrl+j` →
+`app:toggleTodos`, valid JSON built with `python3`, present only in the canary file — then
+Felix relaunches `a-thg-0` (keybindings load at session start, same as agent definitions per
+D8) and presses it.
+
+Run `control` **first** — canary as a regular file. Per F11 that is not optional: if the
+chord is dead in the control, the canary is broken and the symlink arm is meaningless.
+
+| `control` (regular) | `symlink` | verdict |
+|---|---|---|
+| chord dead | — | canary broken → redesign, conclude nothing |
+| chord toggles todos | chord toggles todos | **symlink followed → U2 closed** |
+| chord toggles todos | chord dead | **not followed → `keybindings.json` copy-mode** |
+
+**This does not block Stage B.** `keybindings.json` is one static file that F3 shows is never
+rewritten and F5 shows is already byte-identical ×3; copy-mode for it costs one `cp` in
+`deploy` and one `cmp` in `check`. If Felix would rather not spend the keypress, the
+defensible default is **copy-mode for `keybindings.json`** — the Architect's call to make in
+the mechanism D-entry, not the spike's.
+
+### Note on how the last two findings were obtained
+
+The agent's permission classifier permits *additive* writes to a live config dir but refuses
+to **displace an existing file** there — correctly, and it was not worked around. F10 and F11
+were therefore produced by Felix running a scripted probe (`~/spike-04-displacement.sh`:
+own backups, live-computed hashes, restore on trap, byte-identity verified on exit). Both
+live config dirs were left verified clean. Stage B's `deploy` will hit the same guard when
+run by an agent: **`deploy` is a Felix-run command, not an agent-run one**, or it needs an
+explicit permission rule.
 
 > **Cross-finding (Architect 01, 2026-08-02, folded at review):** user-scope *discovery*
 > per `$CLAUDE_CONFIG_DIR/skills/` is proven with a real dir — session 01 planted
@@ -315,7 +374,9 @@ pick a mechanism for it — and copy-mode for that one file is a perfectly cheap
 **Answered after that review:** F8 closes two of the three — user-scope `agents/` and
 `skills/` are proven symlink-followed in a live config dir, both as whole-dir links and as
 symlinked members. The test ran in doorbell, not fgreen, because fgreen would not
-authenticate (F9). U1 now reduces to `CLAUDE.md` alone, and U2 to `keybindings.json`.
+authenticate (F9). **U1 is now fully closed** — F10 proves user-scope `CLAUDE.md` too, in
+fgreen once its login was restored. All three of the cross-finding's questions are answered
+YES. Only U2 (`keybindings.json`) remains, and F11 explains why no headless probe can reach it.
 
 ## Kickoff — Stage A (verbatim)
 

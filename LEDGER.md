@@ -56,6 +56,22 @@ var for the default account or it fails for reasons unrelated to sync (F9). Deci
 the per-target mechanism table is the Architect's D-entry to cut. Two tests unrun: the
 permission classifier allows additive writes to a live config dir but refuses to displace
 an existing file, so user-scope `CLAUDE.md` (U1) and `keybindings.json` (U2) need Felix to
-run `$SPIKE/displacement-test.sh` (backups taken, restore trap, md5-verified). Both live
-dirs left verified clean. Next: Felix runs the displacement script and pastes output;
-Architect folds the result and cuts the mechanism D-entry; Stage B gated on 01–03.
+run the scripted displacement probe (backups taken, restore trap, md5-verified). Both live
+dirs left verified clean.
+
+**Resolved same session (2026-08-03):** Felix ran `~/spike-04-displacement.sh` against
+fgreen. **U1 CLOSED** — user-scope `CLAUDE.md` symlink followed, codeword returned, files
+restored byte-identical (F10). **U2 undetermined by construction** — the malformed-file probe
+is void: no error surfaces even from a *regular* malformed `keybindings.json`, because
+`claude -p` never binds keys and so never reads the file. The T2a control is what caught
+this; without it a silent result would have been misread as "symlink not followed" and routed
+the target to copy-mode on false evidence — the second false negative in this spike that only
+a control caught (F6 was the first). Standing rule: probes here ship with a control (F11).
+Verdict table now three-of-four proven symlink-mode at the real target; `keybindings.json`
+is unmeasured, not failed. U2 needs one keypress in an interactive session:
+`~/spike-04-keybindings.sh {control|symlink|restore|status}` plants an unused chord
+(`ctrl+x ctrl+j` → `app:toggleTodos`) and reads control-vs-symlink. Also noted for Stage B:
+`deploy` displacing live config files trips the same agent permission guard, so it is a
+Felix-run command or it needs an explicit rule. Next: Felix spends the keypress (or the
+Architect rules copy-mode for `keybindings.json` — cheap, one `cp` + one `cmp`, and
+defensible either way); Architect then cuts the mechanism D-entry; Stage B gated on 01–03.
