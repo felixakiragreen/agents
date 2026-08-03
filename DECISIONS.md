@@ -68,13 +68,13 @@
   the spike disproved; syncs nothing Felix values). Sync set v1 final: `canon/CLAUDE.md`
   · `canon/agents/` · `canon/skills/` (mantles read-by-path per D12). No mechanism
   verdict exists for keybindings in either direction; re-admission starts from zero.
-- **D16** (2026-08-03, Architect (02) — proposed, pending Felix countersign): **The work
+- **D16** (2026-08-03, Architect (02) · ✓ Felix): **The work
   doctrine is canon at `canon/work/DOCTRINE.md`, templates at `canon/work/templates/` —
   referenced by path, never deployed to config dirs** (confirms GENESIS §4). Six
   templates: claude-md · genesis · ledger · decisions · brief · order (`claude-md.md`
   named so the skeleton itself is never auto-loaded). Projects instantiate; canon stays
   the single source, like the mantles (D12).
-- **D17** (2026-08-03, Architect (02) — proposed, pending Felix countersign): **The
+- **D17** (2026-08-03, Architect (02) · ✓ Felix): **The
   canonical file set + scaling law.** Full project: CLAUDE.md · initial.md (when an
   origin dump exists — immutable, hexwright's law) · GENESIS.md as master doc ·
   LEDGER.md · DECISIONS.md · `plans/`, with `docs/` and `lab/` on demand. Subproject or
@@ -83,7 +83,7 @@
   gains its own write pattern, never ahead of need (anti-sprawl, hexwright §7).
   Subproject docs live with the subproject; the repo CLAUDE.md gets one pointer line
   (simmy D4). CLAUDE.md ≤ ~60 lines, pointers over state digests.
-- **D18** (2026-08-03, Architect (02) — proposed, pending Felix countersign): **Board
+- **D18** (2026-08-03, Architect (02) · ✓ Felix): **Board
   law.** One board per project, living in the master doc — BOARD.md rejected (extra
   cold-start hop, no ancestor). Row = one dispatchable unit = one work doc = one
   session. Columns: ID · Work · Depends on · Staffing · Status ("Work", not "Question"
@@ -92,7 +92,7 @@
   external-precondition annotation, never dispatched. A documented kill is a win.
   Retired synonyms: DONE, CLOSED, WIP, TODO, AUTHORED. Batch notes and the parked list
   live under the board.
-- **D19** (2026-08-03, Architect (02) — proposed, pending Felix countersign): **Work
+- **D19** (2026-08-03, Architect (02) · ✓ Felix): **Work
   docs: two genres, one skeleton.** Brief (Digger): questions · method-as-suggestion ·
   kill criteria mandatory · findings section. Order (Builder): goal · blessed spec
   (blessing recorded — who, when) · measurable DoD mandatory · out-of-scope fence
@@ -100,7 +100,7 @@
   generalized); pre-chewed — every meetable fork decided or named a kill/escalation
   point; kickoff verbatim, fenced, last in the file, edited only by the Architect
   re-cutting the row.
-- **D20** (2026-08-03, Architect (02) — proposed, pending Felix countersign): **Findings
+- **D20** (2026-08-03, Architect (02) · ✓ Felix): **Findings
   law.** Evidence-grade appends under the work doc, never edited after the row closes;
   a claim without evidence is a draft (simmy §8). **Probes ship with a control** — a
   negative result counts only when a control proves the probe could have seen the
@@ -110,7 +110,7 @@
   rows: findings ride the branch, the board carries the branch name until Architect
   merge. Fold-and-strike at review: durable docs absorb with dated notes; findings
   remain provenance.
-- **D21** (2026-08-03, Architect (02) — proposed, pending Felix countersign): **LEDGER
+- **D21** (2026-08-03, Architect (02) · ✓ Felix): **LEDGER
   and DECISIONS shapes ratified as proven.** Ledger: one entry per session — date ·
   mantle (· row) · changed · decided · next; acceptance test: the tail alone reboots a
   cold session; a pure spike-board subproject may lean on board + findings until a
@@ -119,7 +119,7 @@
   (Felix's decisions carry his name and wait for him); dispatched sessions mark
   "(proposed — pending Felix countersign)". The decision queue is not a file: it is the
   proposed-uncountersigned entries + open escalations, surfaced at every boundary.
-- **D22** (2026-08-03, Architect (02) — proposed, pending Felix countersign): **Bulletin
+- **D22** (2026-08-03, Architect (02) · ✓ Felix): **Bulletin
   + rider instantiation.** The bulletin exists only while a parallel batch runs: the
   Dispatcher creates `plans/BULLETIN.md` at first parallel dispatch; agents append
   verbatim findings + evidence pointers the moment a discovery changes another row's
@@ -129,7 +129,7 @@
   instantiated once per project as `plans/RIDER.md` from the canon template, filling
   D13's three project slots: agreements ref · bulletin path (or dropped sentence) ·
   worktree specifics.
-- **D23** (2026-08-03, Architect (02) — proposed, pending Felix countersign): **The
+- **D23** (2026-08-03, Architect (02) · ✓ Felix): **The
   genesis ritual.** A new project is founded by an Architect at `fable-max` in one
   session: Felix inits the repo (branch `master`) and drops `initial.md` when an origin
   dump exists — immutable from that moment; the founding summons reads DOCTRINE.md +
