@@ -34,6 +34,8 @@ inside the spec are the Builder's; anything touching the contract escalates.⟩
 **Kickoff (verbatim):**
 
 ```
-You are a Builder at ⟨tier⟩. Wear ~/code/agents/canon/mantles/builder.md, then read
-⟨master doc / sections⟩ and ⟨this order's path⟩, and build it to its DoD.
+You are a Builder at ⟨tier⟩.
+Wear ~/code/agents/canon/mantles/builder.md,
+then read ⟨master doc / sections⟩ and ⟨this order's path⟩,
+and build it to its DoD.
 ```

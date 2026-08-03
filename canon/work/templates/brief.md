@@ -40,6 +40,8 @@ it; probes ship with a control)*
 **Kickoff (verbatim):**
 
 ```
-You are a Digger at ⟨tier⟩. Wear ~/code/agents/canon/mantles/digger.md, then read
-⟨master doc / sections⟩ and ⟨this brief's path⟩, and execute the brief.
+You are a Digger at ⟨tier⟩.
+Wear ~/code/agents/canon/mantles/digger.md,
+then read ⟨master doc / sections⟩ and ⟨this brief's path⟩,
+and execute the brief.
 ```
