@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+# Point every account's sync set at canon — bootstrap, adopt, idempotent (D14).
+# New machine: clone + deploy + /login per account (F1). deploy provisions no auth.
+#
+# FELIX-RUN, not agent-run: displacing a live config file trips the agent permission
+# guard by design, and the surfaced prompt IS the rule (04 findings §note).
+
+source "$(dirname "$0")/common.sh"
+
+preflight
+
+echo "canon: $CANON"
+rc=0
+
+for dir in "${CONFIG_DIRS[@]}"; do
+	echo
+	echo "$dir"
+	[ -d "$dir" ] || { mkdir -p "$dir"; row "" created "config dir did not exist"; }
+
+	for target in "${TARGETS[@]}"; do
+		want="$CANON/$target"
+		dest="$dir/$target"
+		case "$(dest_state "$dest" "$want")" in
+			linked)
+				row "$target" ok "already canon"
+				;;
+			absent)
+				ln -sfn "$want" "$dest"
+				row "$target" linked "new"
+				;;
+			wrong)
+				was="$(readlink "$dest")"
+				ln -sfn "$want" "$dest"
+				row "$target" relinked "was → $was"
+				;;
+			real)
+				if [ -e "$dest.pre-canon" ]; then
+					row "$target" REFUSED "$target.pre-canon exists — backing up twice would destroy the first original; move it aside yourself"
+					rc=1
+				else
+					mv "$dest" "$dest.pre-canon"
+					ln -sfn "$want" "$dest"
+					row "$target" linked "original → $target.pre-canon"
+				fi
+				;;
+		esac
+	done
+done
+
+untracked="$(untracked_canon)"
+if [ -n "$untracked" ]; then
+	echo
+	echo "untracked in canon/ — an account-local addition has leaked into the repo (F7):"
+	while read -r path; do echo "   $path"; done <<< "$untracked"
+fi
+
+echo
+if [ "$rc" -eq 0 ]; then
+	echo "deployed. Verify with sync/check; only sessions started from now on see the change."
+else
+	echo "deploy INCOMPLETE — see REFUSED above."
+fi
+exit "$rc"

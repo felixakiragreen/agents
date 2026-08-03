@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# The drift alarm: is every account still a live mirror of canon? (D14)
+# Run this when something feels off. Exit 0 = green, 1 = drift.
+
+source "$(dirname "$0")/common.sh"
+
+preflight
+
+echo "canon: $CANON"
+drift=0
+
+for dir in "${CONFIG_DIRS[@]}"; do
+	echo
+	echo "$dir"
+	if [ ! -d "$dir" ]; then
+		row "" DRIFT "config dir missing — run sync/deploy"
+		drift=1
+		continue
+	fi
+
+	for target in "${TARGETS[@]}"; do
+		want="$CANON/$target"
+		dest="$dir/$target"
+		case "$(dest_state "$dest" "$want")" in
+			linked) row "$target" ok      "→ canon/$target" ;;
+			wrong)  row "$target" DRIFT   "→ $(readlink "$dest")" ; drift=1 ;;
+			real)   row "$target" DRIFT   "regular file/dir, not a link to canon" ; drift=1 ;;
+			absent) row "$target" DRIFT   "missing" ; drift=1 ;;
+		esac
+	done
+done
+
+untracked="$(untracked_canon)"
+if [ -n "$untracked" ]; then
+	echo
+	echo "DRIFT — untracked files in canon/, i.e. an account-local addition leaked here (F7):"
+	while read -r path; do echo "   $path"; done <<< "$untracked"
+	drift=1
+fi
+
+echo
+if [ "$drift" -ne 0 ]; then
+	echo "DRIFT. Fix with sync/deploy (Felix-run), or delete the stray file."
+	exit 1
+fi
+echo "green — ${#CONFIG_DIRS[@]} dirs × ${#TARGETS[@]} targets all linked to canon."
+echo "A session that still misbehaves after this is auth, not sync: try /login (F9)."
