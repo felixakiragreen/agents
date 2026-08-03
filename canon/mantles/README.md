@@ -47,6 +47,17 @@ When a mantle is worn via its skill shim (`/architect` …), the shim injects th
 effort (`${CLAUDE_EFFORT}` substitution, verified 2026-08-02), and the guard covers both
 axes.
 
+## The null mantle
+
+Session-sized work — fix a bug, add a feature — wears no mantle: a bare session under
+the global CLAUDE.md is the default worker, staffed by tier alone. The boundary test is
+succession and coordination: work that must outlive its session or coordinate several
+sessions gets a board and mantles; work that fits one session with Felix in the room
+gets neither. Tiers are universal — "how much brain" is a question every task has;
+mantles exist only where more than one session must share responsibility. A bare
+session that discovers it's holding campaign-sized work says so and stops — Felix
+summons an Architect.
+
 ## Summons grammar
 
 Interactive (canonical):

@@ -173,3 +173,14 @@ sonnet-5 outage, caught by F11's control-arm law, evidence in the Stage B checkl
 LANDED. Canon v1 CLOSED** (GENESIS §8) — one PENDING: Max `/login` + smoke. Decided: D24
 countersign recorded, D25. Next: Felix's word cuts v2 (retrofits: hexwright, simmy) with a
 fresh Grand Architect summons — `/grand-architect` now works on every account.
+
+---
+
+**2026-08-03 · Grand Architect** — Deliberated mantle universality (the bob-mount case):
+no sixth "fixer" mantle — the harvest law kills it (no birthplace; the global CLAUDE.md
+already is the fixer charter). The gap was one sentence of law, not a charter: cut
+**D26 ✓ — the null mantle** into `canon/mantles/README.md`. Session-sized work wears no
+mantle; the boundary test is succession/coordination; tiers are universal, mantles are
+not; a bare session holding campaign-sized work says so and stops. Changed: mantles
+README + DECISIONS. Decided: D26. Next: bob mount gets a bare session (opus-high,
+in-repo); v2 (retrofits) still awaits Felix's word.

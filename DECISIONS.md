@@ -161,3 +161,14 @@
   charters, tiers, templates). `initial.md` stays lowercase by the protocol test — a
   singleton artifact, not a followed protocol. Codified in `DOCTRINE.md` §3; practiced
   since hexwright/simmy, written down at Felix's ask.
+- **D26** (2026-08-03, Grand Architect · ✓ Felix): **The null mantle.** Session-sized
+  work (fix a bug, add a feature) wears no mantle — a bare session under the global
+  CLAUDE.md is the default worker, staffed by tier alone. The boundary test: work that
+  must outlive its session or coordinate several sessions gets a board and mantles;
+  one-session work with Felix in the room gets neither. Tiers are universal, mantles
+  are not — no sixth "fixer" charter (harvest law: no birthplace; the global CLAUDE.md
+  already commands minimal scope and pushback). The escalation duty rides the clause:
+  a bare session that discovers campaign-sized work says so and stops; Felix summons
+  an Architect. Ancestor: the bare session — Felix's ancestral workflow, proven
+  everywhere; codified in `canon/mantles/README.md` after the 2026-08-03 deliberation
+  (bob-mount case).
