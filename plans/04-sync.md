@@ -68,12 +68,12 @@ command and the output that produced it.
 
 | Target | Mechanism | Confidence |
 |---|---|---|
-| `CLAUDE.md` | **symlink** (single file) | project-scope proven; user-scope inferred (U1) |
-| `agents/` | **symlink** (whole dir) | project-scope proven; user-scope inferred (U1) |
-| `skills/` | **symlink** (whole dir) | project-scope proven; user-scope inferred (U1) |
+| `CLAUDE.md` | **symlink** (single file) | project-scope **proven** (F2); user-scope inferred (U1) |
+| `agents/` | **symlink** (whole dir) | **proven at user scope, in a live config dir** (F8) |
+| `skills/` | **symlink** (whole dir) | **proven at user scope, in a live config dir** (F8) |
 | `keybindings.json` | **unproven** | not tested (U2) — no project-scope equivalent exists |
 
-No target has been disqualified. Nothing here yet justifies copy-mode for anything.
+No target has been disqualified. Nothing here justifies copy-mode for anything.
 
 ### F1 — Auth is per-config-dir; the brief's "scratch config dir" method is unavailable
 
@@ -206,28 +206,81 @@ file. Under D1 (canon is the single source of truth) that is the desired behavio
 `check` reporting untracked files in `canon/` turns the leak into a visible signal rather
 than a surprise. Recommend `deploy` symlink whole dirs and `check` flag untracked canon files.
 
-### Open — blocked, needs Felix
+### F8 — `agents/` and `skills/` symlinks proven at **user scope**, in a live config dir
 
-- **U1 — user-scope confirmation.** F2 proves the *loaders* follow symlinks, but at project
-  scope. `$CLAUDE_CONFIG_DIR/CLAUDE.md`, `agents/`, `skills/` are the actual targets and
-  were not directly tested: the permission classifier refused both routes into a live
-  config dir (cloning auth to a scratch dir; planting spike symlinks in `$D`). Same file
-  loaders, so the inference is strong — but it is an inference, and this spike is supposed
-  to trade in proof. **Ask:** approval to run the bounded test in the *idle* account
-  `~/.claude-thg-fgreen` — plant `agents/spike-tier-zebra.md` and `skills/spike-skill-quokka`
-  (purely additive, F4 says nothing is displaced), and back up + symlink + probe + restore
-  `CLAUDE.md` with md5 verification, a window of well under a minute.
-- **U2 — `keybindings.json`.** Untested. There is no project-scope equivalent to fall back
-  on, and a keypress cannot be driven through `claude -p`. Proposed proof without an
-  interactive session: symlink a deliberately **malformed** `keybindings.json` into a config
-  dir — if the parse error surfaces, the file was read through the link. Needs the same U1
-  approval. Fallback if that yields nothing: Felix presses a rebound key once in a live
-  session and reports. Until then `keybindings.json` has no verdict; it must not be assumed
-  symlink-safe just because its neighbours are.
+Felix approved a bounded live test. Run in `~/.claude-thg-doorbell` (see F9 for why not
+fgreen), both layouts, probed via `claude -p` with `CLAUDE_CONFIG_DIR` inherited:
 
-**Stage B is not blocked on U1/U2 for `CLAUDE.md`/`agents/`/`skills/`** — those three can be
-built symlink-mode now. Only `keybindings.json` needs its verdict before `deploy` picks a
-mechanism for it.
+```
+$ mkdir -p $D/agents $D/skills                                    # F4: nothing displaced
+$ ln -sfn $SPIKE/canon/agents/spike-tier-zebra.md $D/agents/spike-tier-zebra.md
+$ ln -sfn $SPIKE/canon/skills/spike-skill-quokka  $D/skills/spike-skill-quokka
+$ ( cd $SPIKE/work && claude -p --model sonnet '…AGENT_ZEBRA…SKILL_QUOKKA…' )
+1) AGENT_ZEBRA: YES
+2) SKILL_QUOKKA: YES
+
+$ rm -f $D/agents/spike-tier-zebra.md $D/skills/spike-skill-quokka && rmdir $D/agents $D/skills
+$ ln -sfn $SPIKE/canon/agents $D/agents                           # whole dir symlinked
+$ ln -sfn $SPIKE/canon/skills $D/skills
+$ ( cd $SPIKE/work && claude -p --model sonnet '…' )
+1) AGENT_ZEBRA: YES
+2) SKILL_QUOKKA: YES
+```
+
+Both accounts were restored and verified clean afterwards:
+
+```
+fgreen:   agents=absent skills=absent CLAUDE.md md5=7c9e776e… keybindings md5=7a5ad5fd…
+doorbell: agents=absent skills=absent CLAUDE.md=regular md5=7c9e776e… keybindings md5=7a5ad5fd…
+```
+
+`agents/` and `skills/` are settled: **whole-dir symlink, user scope, proven.** F2 remains
+the evidence for `CLAUDE.md`, at project scope only — see U1.
+
+### F9 — `~/.claude-thg-fgreen` does not authenticate from a non-interactive subprocess
+
+Discovered while trying to run F8 in the idle account, and it is not a spike artefact:
+
+```
+$ CLAUDE_CONFIG_DIR=~/.claude-thg-fgreen claude -p --model sonnet '…'
+Not logged in · Please run /login
+```
+
+The same command against `~/.claude-thg-doorbell` authenticates fine. There is one
+keychain item for all three accounts (F1), no `.credentials.json` in any config dir, and
+no token in the environment — the child shell carries only `CLAUDE_CONFIG_DIR`,
+`CLAUDE_CODE_SESSION_ID`, `CLAUDECODE` and friends. The most likely reading is that the
+single `Claude Code-credentials` item currently holds doorbell's token, and fgreen has no
+usable credential from a fresh process.
+
+**Not proven:** whether an *interactive* `a-thg-0` session still works (it may unlock
+keychain differently, or prompt). fgreen's `history.jsonl` was live at 20:54 today, so it
+was working recently. **Worth Felix checking** — if `a-thg-0` is silently logged out, the
+three-account quota strategy is down a third and this spike found it by accident. It also
+matters to Stage B's DoD, which requires a smoke-summon **per account**: that step cannot
+pass on fgreen until its auth is sorted.
+
+### Open — blocked, needs Felix to run two commands
+
+The permission classifier permits *additive* writes to a live config dir but refuses to
+**displace an existing file** there. That leaves exactly two tests unrun. Both are scripted,
+with backups taken and a restore trap, at
+`$SPIKE/displacement-test.sh` — run it and paste the output.
+
+- **U1 — user-scope `CLAUDE.md`.** F2 proves the loader follows symlinks at project scope;
+  the config-dir file itself was never swapped. Same loader, so the inference is strong —
+  but this spike trades in proof. T1 in the script symlinks the config-dir `CLAUDE.md` to a
+  canon copy carrying the codeword `MARMOSET-3310` and asks for it back.
+- **U2 — `keybindings.json`.** No verdict at all: no project-scope equivalent, and a keypress
+  cannot be driven through `claude -p`. T2 symlinks a deliberately **malformed**
+  `keybindings.json` and greps debug output — a surfaced parse error proves the file was read
+  through the link. If T2 comes back silent it is *inconclusive, not negative*, and the
+  fallback is Felix pressing one rebound key in a live session. Until then
+  `keybindings.json` must not be assumed symlink-safe just because its neighbours are.
+
+**Stage B is not blocked for `agents/` and `skills/`** (proven) **or `CLAUDE.md`** (strong
+inference, cheap to confirm). Only `keybindings.json` needs its verdict before `deploy` can
+pick a mechanism for it — and copy-mode for that one file is a perfectly cheap fallback.
 
 > **Cross-finding (Architect 01, 2026-08-02, folded at review):** user-scope *discovery*
 > per `$CLAUDE_CONFIG_DIR/skills/` is proven with a real dir — session 01 planted
