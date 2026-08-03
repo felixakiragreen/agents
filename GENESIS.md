@@ -81,7 +81,7 @@ Code follows symlinks per target; any target that doesn't goes copy-mode with dr
 | 01 | [Composition model](plans/01-composition-model.md) | Architect · fable-max | keel | **LANDED** 2026-08-02 |
 | 02 | [Work doctrine](plans/02-work-doctrine.md) | Architect · fable-max | keel; soft interlock with 01 | OPEN |
 | 03 | [Global CLAUDE.md](plans/03-global-claude-md.md) | Architect · fable-max | 01 + 02 LANDED | OPEN |
-| 04 | [Sync](plans/04-sync.md) | Digger · opus-high, then Builder | spike: none (parallel-safe now) · build: 01–03 LANDED | OPEN |
+| 04 | [Sync](plans/04-sync.md) | Digger · opus-high, then Builder | build: 01–03 LANDED | spike **LANDED** 2026-08-02 (U1/U2 → Felix) · build OPEN |
 
 Statuses: OPEN → IN FLIGHT → LANDED / KILLED. Any account can host any session — the repo
 carries the truth; account choice is quota arbitrage.

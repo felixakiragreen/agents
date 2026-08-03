@@ -21,6 +21,9 @@ definitions load at session start (mid-session mint invisible); `haiku-xhigh`
 dispatches green (effort clamps per docs); skills ARE discovered from
 `$CLAUDE_CONFIG_DIR/skills/`; `${CLAUDE_EFFORT}` substitutes live — so skill-worn
 mantles guard both tier axes. Decided: D7–D13 (D3 amended: skills join the sync set).
-Next: summon 02 (Architect · fable-max), kickoff verbatim in
-`plans/02-work-doctrine.md`; 04's Stage A spike stays parallel-safe and now includes
-the `skills/` target (D12).
+Mid-session, 04's Stage A spike landed in parallel (816f2ac) — reviewed at
+end-of-session: findings evidence-grade, board trued (spike LANDED, U1/U2 escalated to
+Felix), 01's skill-probe cross-finding folded into its findings (narrows U1 to
+symlink-following only); canon's five shim dirs conform to F6 (dirname == name).
+Next: Felix — countersign D7–D13 and answer U1/U2; then summon 02 (Architect ·
+fable-max), kickoff verbatim in `plans/02-work-doctrine.md`.

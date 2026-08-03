@@ -229,6 +229,16 @@ than a surprise. Recommend `deploy` symlink whole dirs and `check` flag untracke
 built symlink-mode now. Only `keybindings.json` needs its verdict before `deploy` picks a
 mechanism for it.
 
+> **Cross-finding (Architect 01, 2026-08-02, folded at review):** user-scope *discovery*
+> per `$CLAUDE_CONFIG_DIR/skills/` is proven with a real dir — session 01 planted
+> `~/.claude-thg-doorbell/skills/mantle-probe/` and a fresh `claude -p` inheriting that
+> config dir invoked it: output `SKILL-OK effort=xhigh` (simultaneously proving
+> `${CLAUDE_EFFORT}` substitution, see D12). U1 therefore narrows to: does the
+> *user-scope* loader follow a **symlinked** `skills/` / `agents/` / `CLAUDE.md`? The
+> bounded fgreen test is still needed for that — and note 01 chose skills delivery
+> (D12), so the `skills/` target is live and F6's dirname==name assert belongs in
+> Stage B's `deploy`. Canon's five shim dirs already conform.
+
 ## Kickoff — Stage A (verbatim)
 
 ```
