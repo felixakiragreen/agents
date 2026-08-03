@@ -25,5 +25,7 @@ Mid-session, 04's Stage A spike landed in parallel (816f2ac) — reviewed at
 end-of-session: findings evidence-grade, board trued (spike LANDED, U1/U2 escalated to
 Felix), 01's skill-probe cross-finding folded into its findings (narrows U1 to
 symlink-following only); canon's five shim dirs conform to F6 (dirname == name).
-Next: Felix — countersign D7–D13 and answer U1/U2; then summon 02 (Architect ·
-fable-max), kickoff verbatim in `plans/02-work-doctrine.md`.
+Countersigned in-session: D7–D13 ✓ Felix; D9 amended — fast mode unused, patience over
+premium; "(fast)" struck from the README bullet and the Builder charter. Next: Felix
+answers U1/U2 (04 spike); summon 02 (Architect · fable-max), kickoff verbatim in
+`plans/02-work-doctrine.md`.

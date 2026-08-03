@@ -28,10 +28,9 @@ full cross product, pre-minted: **4 models (fable, opus, sonnet, haiku) × 5 eff
   boards point; they never duplicate. The rule of thumb the descriptions encode:
   **Fable where a wrong conclusion is expensive; Opus where a wrong step is cheap;
   Sonnet for the mechanical; Haiku for drudgework.**
-- **Fast mode is a session property, never tier data:** `/fast` is session-level and
-  Opus-only (documented). Boards may annotate a row "(fast)" as an instruction to the
-  human summoning interactively; dispatched agents run without it, which costs nothing —
-  fast optimizes a human's wait, and dispatched work has no human waiting.
+- **Fast mode is unused (D9, Felix's ruling):** `/fast` exists — session-level,
+  Opus-only, documented — but the ruling is patience over premium: no board annotates
+  it, no summons invokes it. The `-fast` suffix stays reserved and unminted.
 - Tiers never carry `tools:` restrictions — conduct limits are charter law (mantles),
   not engine configuration.
 

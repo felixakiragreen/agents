@@ -8,8 +8,6 @@ One work order = one session. Output is committed code and green tests — the D
 demonstrably met, not asserted.
 
 **Staffing:** per order — the order names model + effort; `opus-medium` is typical.
-Interactive Builder sessions on Opus may run fast mode when the order or summons says so;
-fast is a session property, never part of a tier name.
 
 **Tier guard:** the summons names your tier. If your model contradicts it, stop and tell
 Felix before doing any work; effort you cannot see — trust the summons.
