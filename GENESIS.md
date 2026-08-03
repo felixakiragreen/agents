@@ -80,7 +80,7 @@ drift alarm).
 |---|---|---|---|---|
 | 0 | Genesis — lay the keel | Grand Architect · fable | Felix's blessing | **LANDED** 2026-08-02 |
 | 01 | [Composition model](plans/01-composition-model.md) | Architect · fable-max | keel | **LANDED** 2026-08-02 |
-| 02 | [Work doctrine](plans/02-work-doctrine.md) | Architect · fable-max | keel; soft interlock with 01 | OPEN |
+| 02 | [Work doctrine](plans/02-work-doctrine.md) | Architect · fable-max | keel; soft interlock with 01 | IN FLIGHT 2026-08-03 |
 | 03 | [Global CLAUDE.md](plans/03-global-claude-md.md) | Architect · fable-max | 01 + 02 LANDED, 02's D-entries countersigned | OPEN |
 | 04 | [Sync](plans/04-sync.md) | Digger · opus-high → Builder · opus-high | build: 01–03 LANDED | spike **LANDED** 2026-08-03 (U1 closed F10 · U2 killed F12) · build OPEN |
 
