@@ -16,7 +16,8 @@ you where we are.
 - Design sessions (01–03) run Fable at max effort; briefs name everything else.
 - Deployment state: `canon/agents/` and `canon/skills/` are **live in all three config
   dirs** (symlinks, D14, 2026-08-03) — tier and shim edits reach accounts instantly, but
-  only sessions started afterward see them. `canon/CLAUDE.md` deploys with 03/04.
+  only sessions started afterward see them. `canon/CLAUDE.md` landed (03); 04's build
+  deploys it.
 - Canon changes require Felix's sign-off (a D-entry).
 - End every session: append `LEDGER.md` (date · mantle · changed · decided · next),
   commit in Felix's git style. Suggest a break at every clean boundary and hand the next

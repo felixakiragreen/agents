@@ -115,3 +115,23 @@ closed with findings — eight design calls with evidence + the v2 seed list (D5
 not executed). Decided: D16–D23, all **(proposed — pending Felix countersign)**. Next:
 the tending session escalates D16–D23 to Felix for countersign; on ✓, dispatch 03 —
 kickoff verbatim in `plans/03-global-claude-md.md`.
+
+---
+
+**2026-08-03 · Architect (03)** — Minted `canon/CLAUDE.md`, the global file: the 59-line
+incumbent survives **byte-intact** (diff = a single appended hunk; incumbent verified
+md5-identical ×3 first) plus one 11-line section, **THE AGENTS CANON** — files-carry-truth
+fused with the three-account silo physics (the one fact a session can't discover from
+inside), the canon repo pointer (mantles · tiers · doctrine), and D11's precedence hook
+mirrored in its exact terms, disarming the known "don't write code without asking" vs
+blessed-Builder-order collision. Audit verdicts: Coding Directives untouched (constitution
++ Felix's taste), git guidelines at fixed point (tightening found nothing to cut),
+personality kept per brief; nothing moved out — the incumbent held no mantle/doctrine
+content. Creep rejected and documented (brief findings): branch-`master` stays project
+physics, no mantle-name/grammar duplication, no doctrine-path line. Deployment untouched
+per brief — mirrors still serve the incumbent until 04B symlinks (D14). Board truing:
+D16–D23 converted to `· ✓ Felix` (Felix's verbal countersign from the tending session,
+relayed in my summons); 03 LANDED on the board; §4 map row trued. Decided: **D24
+(proposed — pending Felix countersign)** — canon/CLAUDE.md ratified. Next: tending
+session escalates D24 to Felix; on ✓, dispatch 04 build — kickoff verbatim in
+`plans/04-sync.md` ("Kickoff — Stage B"), Builder · opus-high.

@@ -137,3 +137,20 @@
   master doc + board, LEDGER, DECISIONS with the day-one ratifications), cuts the first
   rows, hands the first summons verbatim. The Grand Architect founds nothing — it keeps
   the canon; every project is its own Architect's board.
+- **D24** (2026-08-03, Architect (03) — proposed, pending Felix countersign):
+  **`canon/CLAUDE.md` ratified — the global file.** The incumbent (2026-07-09,
+  byte-identical ×3, md5 `7c9e776e…`) survives **byte-intact**: Coding Directives
+  unchanged (the constitution — and Felix's taste, above session delegation to rewrite),
+  Git Development Guidelines unchanged (audited for tightening — already at fixed
+  point), Agent Personality unchanged (standing preference per brief; its "don't start
+  writing code without asking" stays, disarmed in mantled sessions by the hook). One
+  section appended, **THE AGENTS CANON**: files-carry-truth + the three-account silo
+  physics (the one fact no session can discover from inside — durable knowledge goes in
+  repos); the canon repo pointer (mantles · tiers · doctrine); D11's precedence law
+  mirrored in its exact terms — explicit summons only, charter overrides the global
+  file on workflow (when to ask, when to act), personality/code style/git conventions
+  always apply. Nothing moved out — the incumbent held no mantle- or doctrine-content.
+  Defended non-additions in the brief's findings (branch-`master` stays project
+  physics; no mantle-name/grammar duplication; no doctrine path — project CLAUDE.mds
+  carry it). Deployment: 04's build (D14); until then mirrors serve the incumbent by
+  design.
