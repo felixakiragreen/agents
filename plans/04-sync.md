@@ -292,6 +292,11 @@ pick a mechanism for it — and copy-mode for that one file is a perfectly cheap
 > (D12), so the `skills/` target is live and F6's dirname==name assert belongs in
 > Stage B's `deploy`. Canon's five shim dirs already conform.
 
+**Answered after that review:** F8 closes two of the three — user-scope `agents/` and
+`skills/` are proven symlink-followed in a live config dir, both as whole-dir links and as
+symlinked members. The test ran in doorbell, not fgreen, because fgreen would not
+authenticate (F9). U1 now reduces to `CLAUDE.md` alone, and U2 to `keybindings.json`.
+
 ## Kickoff — Stage A (verbatim)
 
 ```

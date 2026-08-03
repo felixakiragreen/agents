@@ -29,3 +29,29 @@ Countersigned in-session: D7–D13 ✓ Felix; D9 amended — fast mode unused, p
 premium; "(fast)" struck from the README bullet and the Builder charter. Next: Felix
 answers U1/U2 (04 spike); summon 02 (Architect · fable-max), kickoff verbatim in
 `plans/02-work-doctrine.md`.
+
+---
+
+**2026-08-02 · Digger (04 Stage A)** — Ran the symlink spike; findings appended to
+`plans/04-sync.md` (F1–F9), Stage B untouched per brief. Symlink-first survives: no
+target disqualified. Proven at **user scope in a live config dir** — `agents/` and
+`skills/` followed as whole-dir symlinks and as symlinked members (F8). Proven at project
+scope with a real-file control — `CLAUDE.md`, `agents/`, `skills/` (F2). Brief question 1
+answered clean: nothing rewrites `CLAUDE.md` or `keybindings.json` in place — `settings.json`
+was rewritten mid-spike while those two sat untouched for weeks/months (F3). Question 2:
+recommend whole-dir symlinks — one link per target, new canon files appear with no
+redeploy; per-member linking would force `deploy` to reconcile adds/deletes, i.e. the
+sync engine the brief forbids (F7). Also: `agents/`/`skills/` exist in no config dir, so
+first deploy displaces nothing (F4); a skill whose dirname ≠ frontmatter `name` is
+silently ignored, no warning — `deploy` must assert it (F6); the brief's scratch-config-dir
+method is dead, auth is per-config-dir and `deploy` can never provision it, so new-machine
+bootstrap is clone + deploy + `/login` ×3 (F1). Unplanned catch: **`~/.claude-thg-fgreen`
+would not authenticate from a fresh subprocess** — "Not logged in", while doorbell works;
+worth Felix checking whether `a-thg-0` is silently logged out, and it blocks Stage B's
+per-account smoke-summon DoD (F9). Decided: nothing — Digger proposes, Architect ratifies;
+the per-target mechanism table is the Architect's D-entry to cut. Two tests unrun: the
+permission classifier allows additive writes to a live config dir but refuses to displace
+an existing file, so user-scope `CLAUDE.md` (U1) and `keybindings.json` (U2) need Felix to
+run `$SPIKE/displacement-test.sh` (backups taken, restore trap, md5-verified). Both live
+dirs left verified clean. Next: Felix runs the displacement script and pastes output;
+Architect folds the result and cuts the mechanism D-entry; Stage B gated on 01–03.
