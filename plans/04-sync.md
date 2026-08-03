@@ -237,28 +237,48 @@ doorbell: agents=absent skills=absent CLAUDE.md=regular md5=7c9e776e… keybindi
 `agents/` and `skills/` are settled: **whole-dir symlink, user scope, proven.** F2 remains
 the evidence for `CLAUDE.md`, at project scope only — see U1.
 
-### F9 — `~/.claude-thg-fgreen` does not authenticate from a non-interactive subprocess
+### F9 — Auth state per account: fgreen was logged out (now fixed); `~/.claude` is expired
 
-Discovered while trying to run F8 in the idle account, and it is not a spike artefact:
+Discovered while trying to run F8 in the idle account. `~/.claude-thg-fgreen` returned
+`Not logged in · Please run /login` while doorbell authenticated from the same shell —
+so the spike moved to doorbell. Felix re-logged in to fgreen; retested:
 
 ```
-$ CLAUDE_CONFIG_DIR=~/.claude-thg-fgreen claude -p --model sonnet '…'
-Not logged in · Please run /login
+$ for d in .claude .claude-thg-fgreen .claude-thg-doorbell; do
+    CLAUDE_CONFIG_DIR=$HOME/$d claude -p --model sonnet 'Reply with exactly: OK'; done
+.claude                ->  Claude configuration file not found at: /Users/felix/.claude/.claude.json
+.claude-thg-fgreen     ->  OK
+.claude-thg-doorbell   ->  OK
 ```
 
-The same command against `~/.claude-thg-doorbell` authenticates fine. There is one
-keychain item for all three accounts (F1), no `.credentials.json` in any config dir, and
-no token in the environment — the child shell carries only `CLAUDE_CONFIG_DIR`,
-`CLAUDE_CODE_SESSION_ID`, `CLAUDECODE` and friends. The most likely reading is that the
-single `Claude Code-credentials` item currently holds doorbell's token, and fgreen has no
-usable credential from a fresh process.
+Three consequences, each load-bearing for Stage B:
 
-**Not proven:** whether an *interactive* `a-thg-0` session still works (it may unlock
-keychain differently, or prompt). fgreen's `history.jsonl` was live at 20:54 today, so it
-was working recently. **Worth Felix checking** — if `a-thg-0` is silently logged out, the
-three-account quota strategy is down a third and this spike found it by accident. It also
-matters to Stage B's DoD, which requires a smoke-summon **per account**: that step cannot
-pass on fgreen until its auth is sorted.
+1. **Logins do not evict each other.** fgreen and doorbell authenticate *concurrently* from
+   fresh subprocesses after fgreen's re-login. Despite there being one visible keychain
+   item (F1), the three-account strategy is structurally sound — a `/login` in one account
+   does not cost you another. This was the real risk and it is now closed.
+2. **An account can go silently logged out.** fgreen was dead to a fresh process while its
+   `history.jsonl` showed use earlier the same day. Nothing announced it. Stage B's DoD
+   requires a smoke-summon per account, which makes `deploy`/`check` the natural place to
+   notice: a failed summon should read as *auth*, not as *sync drift*, or the next person
+   debugs the wrong system.
+3. **`~/.claude` (the Max account) is separately expired**, and its config file lives
+   *outside* its config dir:
+
+```
+$ env -u CLAUDE_CONFIG_DIR claude -p --model sonnet 'Reply with exactly: OK'
+Failed to authenticate: OAuth session expired and could not be refreshed
+$ ls -l ~/.claude.json          # 63400 bytes, mtime 2026-07-20 — NOT ~/.claude/.claude.json
+```
+
+So `CLAUDE_CONFIG_DIR=~/.claude` is **not** equivalent to leaving it unset: set explicitly,
+the CLI demands `~/.claude/.claude.json`, which does not exist, and fails for a reason that
+has nothing to do with auth or sync. **Stage B must not smoke-test the default account by
+setting `CLAUDE_CONFIG_DIR=~/.claude`** — it must unset it. Deploying *into* `~/.claude` is
+unaffected (only `CLAUDE.md`, `agents/`, `skills/`, `keybindings.json` are written there).
+
+The Max account being expired since ~2026-07-06 (its `history.jsonl` mtime) is Felix's to
+act on, not the spike's — flagged because GENESIS §1 counts it as a third of the capability.
 
 ### Open — blocked, needs Felix to run two commands
 

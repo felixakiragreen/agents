@@ -47,8 +47,12 @@ silently ignored, no warning — `deploy` must assert it (F6); the brief's scrat
 method is dead, auth is per-config-dir and `deploy` can never provision it, so new-machine
 bootstrap is clone + deploy + `/login` ×3 (F1). Unplanned catch: **`~/.claude-thg-fgreen`
 would not authenticate from a fresh subprocess** — "Not logged in", while doorbell works;
-worth Felix checking whether `a-thg-0` is silently logged out, and it blocks Stage B's
-per-account smoke-summon DoD (F9). Decided: nothing — Digger proposes, Architect ratifies;
+it was genuinely logged out. Felix re-logged in mid-session and it now authenticates
+**concurrently** with doorbell — logins do not evict each other, so the three-account
+strategy is structurally sound. Same retest caught `~/.claude` (Max) sitting on an expired
+OAuth session since ~Jul 6, and the gotcha that `CLAUDE_CONFIG_DIR=~/.claude` ≠ unset (its
+`.claude.json` lives outside the dir) — Stage B's per-account smoke-summon must unset the
+var for the default account or it fails for reasons unrelated to sync (F9). Decided: nothing — Digger proposes, Architect ratifies;
 the per-target mechanism table is the Architect's D-entry to cut. Two tests unrun: the
 permission classifier allows additive writes to a live config dir but refuses to displace
 an existing file, so user-scope `CLAUDE.md` (U1) and `keybindings.json` (U2) need Felix to
