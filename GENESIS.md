@@ -84,7 +84,7 @@ run it when something feels off; green + still broken ⇒ auth, not sync). `depl
 | 01 | [Composition model](plans/01-composition-model.md) | keel | Architect · fable-max | **LANDED** 2026-08-02 |
 | 02 | [Work doctrine](plans/02-work-doctrine.md) | keel; soft interlock with 01 | Architect · fable-max | **LANDED** 2026-08-03 → `canon/work/` |
 | 03 | [Global CLAUDE.md](plans/03-global-claude-md.md) | 01 + 02 LANDED, 02's D-entries countersigned | Architect · fable-max | **LANDED** 2026-08-03 |
-| 04 | [Sync](plans/04-sync.md) | build: 01–03 LANDED | Digger · opus-high → Builder · opus-high | spike **LANDED** 2026-08-03 (U1 closed F10 · U2 killed F12) · build: tooling **LANDED** 2026-08-03, DoD tail **PENDING** Felix's `sync/deploy` run |
+| 04 | [Sync](plans/04-sync.md) | build: 01–03 LANDED | Digger · opus-high → Builder · opus-high | **LANDED** 2026-08-03 — deploy + check green 3×3, canary ×3, smoke ✓ fgreen + doorbell (Max smoke PENDING `/login`) |
 
 Statuses per the doctrine (`canon/work/DOCTRINE.md` §4): OPEN → IN FLIGHT → LANDED /
 KILLED. Any account can host any session — the repo carries the truth; account choice is
@@ -117,11 +117,13 @@ and is example #1 of it. Local physics:
 ## 8. Definition of done — canon v1
 
 1. `canon/` complete: CLAUDE.md · `agents/` (20 tiers) · `mantles/` (5 + README) ·
-   `skills/` (5 shims) · `work/` (doctrine + templates).
-2. `sync/deploy` + `sync/check` landed ✓; `check` green across all three accounts —
-   **pending Felix's deploy run** (`CLAUDE.md` is the last unlinked target).
-3. All three accounts serve canon live; smoke-summon passes per account — control arm
-   measured, test arm pending the deploy (`~/.claude` also pending Felix's `/login` —
-   recorded, not blocking).
-4. This repo conforms to its own doctrine (02).
-5. Board all LANDED; LEDGER and DECISIONS current.
+   `skills/` (5 shims) · `work/` (doctrine + templates). ✓
+2. `sync/deploy` + `sync/check` landed; `check` green across all three accounts. ✓
+3. All three accounts serve canon live; smoke-summon passes per account. ✓ fgreen +
+   doorbell (`~/.claude` smoke PENDING Felix's `/login` — recorded, not blocking).
+4. This repo conforms to its own doctrine (02). ✓
+5. Board all LANDED; LEDGER and DECISIONS current. ✓
+
+**Canon v1 CLOSED 2026-08-03** — evidence in the 04 Stage B checklist. The one PENDING:
+Max `/login` + its smoke. Next campaign when Felix calls it: **v2 — the retrofits**
+(hexwright, simmy onto the canon), cut fresh by a Grand Architect.

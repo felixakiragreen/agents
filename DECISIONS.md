@@ -137,7 +137,8 @@
   master doc + board, LEDGER, DECISIONS with the day-one ratifications), cuts the first
   rows, hands the first summons verbatim. The Grand Architect founds nothing — it keeps
   the canon; every project is its own Architect's board.
-- **D24** (2026-08-03, Architect (03) — proposed, pending Felix countersign):
+- **D24** (2026-08-03, Architect (03) · ✓ Felix — countersigned by his own `sync/deploy`
+  run, 2026-08-03: deploying the file IS the disposition):
   **`canon/CLAUDE.md` ratified — the global file.** The incumbent (2026-07-09,
   byte-identical ×3, md5 `7c9e776e…`) survives **byte-intact**: Coding Directives
   unchanged (the constitution — and Felix's taste, above session delegation to rewrite),
@@ -154,3 +155,9 @@
   physics; no mantle-name/grammar duplication; no doctrine path — project CLAUDE.mds
   carry it). Deployment: 04's build (D14); until then mirrors serve the incumbent by
   design.
+- **D25** (2026-08-03, Grand Architect · ✓ Felix): **The naming law** — ALLCAPS for
+  protocol singletons (both tests: only one can exist in its scope, AND sessions are
+  told to read it as protocol); lowercase-kebab for addressable siblings (work docs,
+  charters, tiers, templates). `initial.md` stays lowercase by the protocol test — a
+  singleton artifact, not a followed protocol. Codified in `DOCTRINE.md` §3; practiced
+  since hexwright/simmy, written down at Felix's ask.

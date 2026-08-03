@@ -2,8 +2,8 @@
 
 **Two stages.** Spike: Digger · opus-high — **LANDED 2026-08-03** (F1–F12; U1 closed,
 U2 killed). Build: **Builder · opus-high** — gated on 01–03 LANDED, dispatched (rider:
-`plans/RIDER.md`). **Status:** tooling LANDED 2026-08-03 (`sync/deploy`, `sync/check`);
-DoD tail **PENDING Felix's `sync/deploy` run** — see the Stage B checklist.
+`plans/RIDER.md`). **Status:** **LANDED** 2026-08-03 — DoD fully evidenced (Stage B
+checklist); Max smoke PENDING Felix's `/login`, not blocking.
 
 ## Mission
 
@@ -464,6 +464,18 @@ cd /tmp && for d in .claude-thg-fgreen .claude-thg-doorbell; do
 still links it, and it must never be smoke-tested with `CLAUDE_CONFIG_DIR=~/.claude`, only
 with the variable unset (F9.3). After `check` is green, an old session still showing the
 pre-canon file is expected: only sessions started after the deploy see it.
+
+**DoD tail evidenced (2026-08-03, Felix + Grand Architect):** Felix ran `./sync/deploy &&
+./sync/check`. GA verification: `check` rerun green (`3×3 links, all pointing at canon`,
+exit 0); canary read through all three mirrors — `THE AGENTS CANON` present ×3
+(`~/.claude`, fgreen, doorbell all serve canon line 61); smoke-summon test arm vs the NONE
+control — doorbell: `CANON_SECTION: Files carry the truth.` ✓; fgreen: first probe
+(sonnet) returned `NONE` **against** three pieces of file-level evidence, retry on haiku
+returned `Files carry the truth.` ✓ — probe flake during a live sonnet-5 outage (the same
+outage blocked this session's own tool classifier minutes prior), not sync; F11's
+control-arm law is what made the contradiction visible instead of trusted. Link verified:
+`CLAUDE.md -> /Users/felix/code/agents/canon/CLAUDE.md`; no `CLAUDE.local.md` override.
+Max: linked by deploy, smoke PENDING `/login` (F9), not blocking.
 
 ## Kickoff — Stage A (verbatim)
 

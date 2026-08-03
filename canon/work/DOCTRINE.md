@@ -69,6 +69,15 @@ its own write pattern — decisions split out when the countersign workflow arri
 when the first fold needs a home; the bulletin exists only during parallel batches (§9);
 the rider when the first batch dispatches (§10). Never split ahead of need.
 
+- **Naming law (D25):** **ALLCAPS for protocol singletons; lowercase-kebab for
+  addressable siblings.** A file is ALLCAPS when both tests pass: only one of it can
+  exist in its scope, AND sessions are told to read it as protocol — `CLAUDE.md`,
+  `GENESIS.md`, `README.md`, `LEDGER.md`, `DECISIONS.md`, `DOCTRINE.md`, `RIDER.md`,
+  `BULLETIN.md`, `SKILL.md`. One of many addressable siblings is lowercase-kebab — work
+  docs (`plans/04-sync.md`), mantle charters, tiers, templates. `initial.md` stays
+  lowercase by the second test: a singleton, but an artifact interpreted once at
+  founding, not a protocol followed. Practiced since hexwright/simmy; codified
+  2026-08-03.
 - **CLAUDE.md law:** target ≤ ~60 lines (hexwright's budget). What this is (2–3 lines),
   hard laws (project physics only — Felix's global directives already load), session
   protocol, pointers. State digests rot: point at the board and ledger, don't restate

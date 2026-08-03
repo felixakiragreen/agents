@@ -158,3 +158,18 @@ are recorded in the checklist. Next: **Felix runs `cd ~/code/agents && ./sync/de
 ./sync/check`**, then the canary + smoke-summon test arm from the checklist; on green the
 Architect flips 04 to LANDED and closes the canon v1 DoD (GENESIS §8), with `~/.claude`
 `/login` still the one open PENDING.
+
+---
+
+**2026-08-03 · Grand Architect** — Reviewed batch 2: 02, 03, 04B all PASS. 02's doctrine
+distills clean with birthplaces cited throughout; 03's byte-intact-plus-one-section verdict
+on the global file is exactly right (byte-churn on a constitution is negative value); 04B's
+control-arm discipline paid off same-day. Stamped **D24 ✓** (Felix's own `deploy` run IS
+the disposition). Cut **D25 ✓** — the naming law (ALLCAPS protocol singletons ·
+lowercase-kebab addressable siblings), codified into DOCTRINE.md §3 at Felix's ask. Ran the
+DoD tail Felix skipped: `check` green 3×3; canary ×3 (all mirrors serve THE AGENTS CANON);
+smoke doorbell ✓, fgreen NONE on sonnet then ✓ on haiku retry — probe flake during a live
+sonnet-5 outage, caught by F11's control-arm law, evidence in the Stage B checklist. **04
+LANDED. Canon v1 CLOSED** (GENESIS §8) — one PENDING: Max `/login` + smoke. Decided: D24
+countersign recorded, D25. Next: Felix's word cuts v2 (retrofits: hexwright, simmy) with a
+fresh Grand Architect summons — `/grand-architect` now works on every account.
