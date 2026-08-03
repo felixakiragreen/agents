@@ -60,7 +60,174 @@ board updated; D-entry recording the per-target mechanism table.
 
 ## Findings
 
-*(spike appends here, evidence-grade)*
+**Stage A · Digger · opus-high · 2026-08-02 · Claude Code 2.1.220 · macOS 24.6.0**
+`$SPIKE` = session scratchpad; `$D` = a live config dir. Every verdict below carries the
+command and the output that produced it.
+
+### Verdict table (provisional — see U1/U2)
+
+| Target | Mechanism | Confidence |
+|---|---|---|
+| `CLAUDE.md` | **symlink** (single file) | project-scope proven; user-scope inferred (U1) |
+| `agents/` | **symlink** (whole dir) | project-scope proven; user-scope inferred (U1) |
+| `skills/` | **symlink** (whole dir) | project-scope proven; user-scope inferred (U1) |
+| `keybindings.json` | **unproven** | not tested (U2) — no project-scope equivalent exists |
+
+No target has been disqualified. Nothing here yet justifies copy-mode for anything.
+
+### F1 — Auth is per-config-dir; the brief's "scratch config dir" method is unavailable
+
+The method sketch in Stage A assumes a throwaway `CLAUDE_CONFIG_DIR`. It cannot log in:
+
+```
+$ cd $SPIKE/work
+$ CLAUDE_CONFIG_DIR=$SPIKE/cfg-symlink claude -p --model claude-haiku-4-5-20251001 "Reply with exactly: OK"
+Not logged in · Please run /login
+```
+
+The token is not in the config dir's `.claude.json` (keys present: `hasCompletedOnboarding`,
+`oauthAccount{accountUuid,emailAddress,organizationUuid,…}` — no token/key field), and only
+one keychain item exists for all three accounts:
+
+```
+$ security find-generic-password -s "Claude Code-credentials"
+    "acct"<blob>="felix"     "svce"<blob>="Claude Code-credentials"
+$ security find-generic-password -s "Claude Code"                       # → no result
+```
+
+So per-account separation is *not* achieved by distinct keychain services, and a fresh dir
+with no `.claude.json` reads as logged out. Cloning auth into a scratch dir, and writing
+spike files into a live dir, were both refused by the permission classifier — hence U1.
+**Consequence for Stage B:** a new-machine bootstrap is `clone + deploy + /login per
+account`; `deploy` cannot provision auth and must not try.
+
+### F2 — Symlinks are followed for CLAUDE.md, `agents/`, and `skills/` (project scope, controlled)
+
+Three project dirs, identical content, differing only in mechanism. `proj-control` is
+real files and validates the probe; `proj-symlink` symlinks each *member*; `proj-dirlink`
+symlinks each *whole directory*. Canon holds a canary codeword, an agent
+`spike-tier-zebra`, and a skill `spike-skill-quokka`.
+
+```
+$ ( cd $SPIKE/<dir> && claude -p --model sonnet \
+    '1) CODEWORD: state the codeword from your context, or NONE.
+     2) AGENT_ZEBRA: is an agent type named spike-tier-zebra available to you? YES or NO.
+     3) SKILL_QUOKKA: is a skill named spike-skill-quokka available to you? YES or NO.' )
+```
+
+| dir | mechanism | CODEWORD | AGENT_ZEBRA | SKILL_QUOKKA |
+|---|---|---|---|---|
+| `proj-control` | real files (control) | `PANGOLIN-7742` | YES | YES |
+| `proj-symlink` | symlinked files inside real dirs | `PANGOLIN-7742` | YES | YES |
+| `proj-dirlink` | whole dirs symlinked | `PANGOLIN-7742` | YES | YES |
+
+Both symlink layouts are indistinguishable from real files. The control matters: the first
+`SKILL_QUOKKA` run returned NO in *both* arms, which was a broken probe, not a symlink
+failure — see F6.
+
+### F3 — Claude Code does not rewrite CLAUDE.md or keybindings.json in place
+
+Brief question 1 — the one that could have forced copy-mode. It does not.
+
+```
+$ stat -f '%N mtime=%Sm' -t '%F %T' $D/{CLAUDE.md,keybindings.json,settings.json,history.jsonl}
+```
+
+| file | `~/.claude` | `~/.claude-thg-fgreen` | `~/.claude-thg-doorbell` |
+|---|---|---|---|
+| `CLAUDE.md` | 2026-07-09 20:49 | 2026-07-09 20:49 | 2026-07-09 20:49 |
+| `keybindings.json` | 2026-03-25 11:12 | 2026-03-25 11:12 | 2026-03-25 11:12 |
+| `settings.json` | 2026-07-03 18:25 | **2026-08-02 17:35** | **2026-08-02 22:20** |
+| `history.jsonl` | 2026-07-06 08:23 | **2026-08-02 20:54** | **2026-08-02 22:21** |
+
+`settings.json` was rewritten minutes before this spike ran, and `history.jsonl` is live —
+so these dirs are under heavy daily use, yet `CLAUDE.md` is untouched for ~4 weeks and
+`keybindings.json` for ~4 months. The tool reads them and never writes them.
+This is also direct confirmation of the premise behind D3's `settings.json` deferral.
+
+Corroborating: after five probe runs, canon files were unmodified and every planted
+symlink was still a symlink (nothing was clobbered by a write-through-then-replace):
+
+```
+$ stat -f '%N inode=%i mtime=%Sm size=%z' -t '%F %T' $SPIKE/canon/CLAUDE.md
+$SPIKE/canon/CLAUDE.md  inode=2897201443  mtime=2026-08-02 22:17:43  size=83   # = creation time
+$ for f in proj-symlink/CLAUDE.md proj-dirlink/{CLAUDE.md,.claude/agents,.claude/skills}; do [ -L … ]
+SYMLINK OK ×4
+```
+
+**Caveat, not disproven:** this shows the *agent loop* never writes them. It does not prove
+no interactive surface does — a future in-app keybinding editor or `/config` writer would
+edit `keybindings.json` through the symlink and silently dirty the canon repo. `check`
+comparing against git is the cheap guard; no action needed now.
+
+### F4 — `agents/` and `skills/` do not exist in any config dir today
+
+```
+$ for d in ~/.claude ~/.claude-thg-fgreen ~/.claude-thg-doorbell; do … done
+~/.claude:              agents=no skills=no
+~/.claude-thg-fgreen:   agents=no skills=no
+~/.claude-thg-doorbell: agents=no skills=no
+```
+
+`deploy` creates them from nothing — no displaced originals to back up, no merge problem.
+The `*.pre-canon` backup path in Stage B requirement 1 is therefore only ever exercised by
+`CLAUDE.md` and `keybindings.json`.
+
+### F5 — CLAUDE.md and keybindings.json are already byte-identical ×3
+
+```
+$ md5 -q ~/.claude{,-thg-fgreen,-thg-doorbell}/CLAUDE.md | sort -u | wc -l        → 1
+$ md5 -q ~/.claude{,-thg-fgreen,-thg-doorbell}/keybindings.json | sort -u | wc -l → 1
+```
+
+Confirms GENESIS §4's md5 note and extends it to `CLAUDE.md`. First `deploy` is a
+no-op-equivalent for content: nothing is at risk of being lost, only relinked.
+
+### F6 — A skill's directory name must equal its frontmatter `name`
+
+Methodology trap, and a live constraint on Stage B if 01 chooses skills delivery for
+mantles. Directory `spike-skill/` holding `name: spike-skill-quokka` was silently ignored
+in both the control and the symlink arm (`SKILL_QUOKKA: NO`). Renaming the directory to
+`spike-skill-quokka/`, changing nothing else, flipped both arms to YES.
+
+Silent rejection, no warning. If mantles ship as skills, `deploy` should assert
+dirname == frontmatter name, or a misnamed mantle vanishes without a word.
+
+### F7 — Layout recommendation: symlink the whole directory, not each member
+
+Both work (F2). Whole-dir wins on least-magic and least-maintenance: one link per target,
+and a new file added to `canon/agents/` appears in all three accounts with **no redeploy**.
+Per-member symlinking requires `deploy` to reconcile additions and deletions — i.e. exactly
+the sync engine the brief forbids.
+
+The tradeoff to accept knowingly: a whole-dir symlink makes account-local additions
+impossible — anything dropped into `$D/agents/` lands in the canon repo as an untracked
+file. Under D1 (canon is the single source of truth) that is the desired behaviour, and
+`check` reporting untracked files in `canon/` turns the leak into a visible signal rather
+than a surprise. Recommend `deploy` symlink whole dirs and `check` flag untracked canon files.
+
+### Open — blocked, needs Felix
+
+- **U1 — user-scope confirmation.** F2 proves the *loaders* follow symlinks, but at project
+  scope. `$CLAUDE_CONFIG_DIR/CLAUDE.md`, `agents/`, `skills/` are the actual targets and
+  were not directly tested: the permission classifier refused both routes into a live
+  config dir (cloning auth to a scratch dir; planting spike symlinks in `$D`). Same file
+  loaders, so the inference is strong — but it is an inference, and this spike is supposed
+  to trade in proof. **Ask:** approval to run the bounded test in the *idle* account
+  `~/.claude-thg-fgreen` — plant `agents/spike-tier-zebra.md` and `skills/spike-skill-quokka`
+  (purely additive, F4 says nothing is displaced), and back up + symlink + probe + restore
+  `CLAUDE.md` with md5 verification, a window of well under a minute.
+- **U2 — `keybindings.json`.** Untested. There is no project-scope equivalent to fall back
+  on, and a keypress cannot be driven through `claude -p`. Proposed proof without an
+  interactive session: symlink a deliberately **malformed** `keybindings.json` into a config
+  dir — if the parse error surfaces, the file was read through the link. Needs the same U1
+  approval. Fallback if that yields nothing: Felix presses a rebound key once in a live
+  session and reports. Until then `keybindings.json` has no verdict; it must not be assumed
+  symlink-safe just because its neighbours are.
+
+**Stage B is not blocked on U1/U2 for `CLAUDE.md`/`agents/`/`skills/`** — those three can be
+built symlink-mode now. Only `keybindings.json` needs its verdict before `deploy` picks a
+mechanism for it.
 
 ## Kickoff — Stage A (verbatim)
 
