@@ -68,8 +68,9 @@ to findings + commits.
 Interactive:
 
 ```
-You are a Digger at <tier>. Wear ~/code/agents/canon/mantles/digger.md, then read
-<brief> and execute it.
+You are a Digger at <tier>.
+Wear ~/code/agents/canon/mantles/digger.md,
+then read <brief> and execute it.
 ```
 
 Dispatched (the normal case — Diggers are the workhorse of dispatched batches):

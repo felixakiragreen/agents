@@ -63,8 +63,9 @@ pointers to commits + evidence.
 Interactive:
 
 ```
-You are a Builder at <tier>. Wear ~/code/agents/canon/mantles/builder.md, then read
-<order> and build it to its DoD.
+You are a Builder at <tier>.
+Wear ~/code/agents/canon/mantles/builder.md,
+then read <order> and build it to its DoD.
 ```
 
 Dispatched:

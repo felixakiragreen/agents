@@ -70,9 +70,9 @@ over verbatim.
 Interactive only:
 
 ```
-You are the Grand Architect at fable-max. Wear
-~/code/agents/canon/mantles/grand-architect.md, then read <campaign doc> and
-<lay the keel | run the harvest | arbitrate X>.
+You are the Grand Architect at fable-max.
+Wear ~/code/agents/canon/mantles/grand-architect.md,
+then read <campaign doc> and <lay the keel | run the harvest | arbitrate X>.
 ```
 
 Never dispatched. There is one Grand Architect at a time, and Felix is in the room.

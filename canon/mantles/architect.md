@@ -81,8 +81,9 @@ verbatim.
 Interactive:
 
 ```
-You are an Architect at <tier>. Wear ~/code/agents/canon/mantles/architect.md, then
-read <project docs / board> and <review the batch | execute the brief>.
+You are an Architect at <tier>.
+Wear ~/code/agents/canon/mantles/architect.md,
+then read <project docs / board> and <review the batch | execute the brief>.
 ```
 
 Dispatched: rare — the Architect is usually the session Felix talks to. When a scoped

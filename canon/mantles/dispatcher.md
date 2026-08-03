@@ -107,7 +107,8 @@ reviews, trues the board, and cuts the next batch.
 New interactive session at `sonnet-medium`, permission mode set deliberately, then:
 
 ```
-You are a Dispatcher at sonnet-medium. Wear ~/code/agents/canon/mantles/dispatcher.md,
+You are a Dispatcher at sonnet-medium.
+Wear ~/code/agents/canon/mantles/dispatcher.md,
 then run the board at <board path>.
 ```
 
