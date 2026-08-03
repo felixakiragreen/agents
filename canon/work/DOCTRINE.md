@@ -302,9 +302,9 @@ A new project boots onto the doctrine in one founding session:
 
    ```
    You are an Architect at fable-max.
-   Wear ~/code/agents/canon/mantles/architect.md, then read
-   ~/code/agents/canon/work/DOCTRINE.md and <initial.md | Felix's telling>, and found
-   the project.
+   Wear ~/code/agents/canon/mantles/architect.md,
+   then read ~/code/agents/canon/work/DOCTRINE.md
+   and <initial.md | Felix's telling>, and found the project.
    ```
 
 3. **The founding session:** interrogate the vision — question every requirement,
