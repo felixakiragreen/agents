@@ -184,3 +184,23 @@ mantle; the boundary test is succession/coordination; tiers are universal, mantl
 not; a bare session holding campaign-sized work says so and stops. Changed: mantles
 README + DECISIONS. Decided: D26. Next: bob mount gets a bare session (opus-high,
 in-repo); v2 (retrofits) still awaits Felix's word.
+
+---
+
+**2026-08-04 · Grand Architect** — Keel laid for **snappy** (cap-mega: Felix's "binary
+star" — performance + program-tree operations). Recon before keel-laying: four dispatched
+probes (tree cascade, variables, view latency, robot side — filed verbatim at
+`cap-mega/snappy/recon/`) + the July review + tree-ops contract doc. Verdict: one system,
+three theaters; barycenter is derived-state scatter (indexes/names/order/variable-identity/
+validity across five stores) — reconciler thesis, Phase-1 contract session to validate.
+Felix disposed live: ONE campaign, one Architect (over two peers), home `snappy/`, budgets
+bind ≤1k nodes (10k headroom, 100k ceiling-finding), boot evidence = bench + old URSim
+(simmy untested), no deadline. Founding files committed on cap-mega `fix/perf` (`50e0ab05`:
+initial.md, keel.md, recon ×4). Decided: nothing canon-side. Next: Felix summons the
+founding Architect —
+```
+You are an Architect at fable-max.
+Wear ~/code/agents/canon/mantles/architect.md,
+then read ~/code/agents/canon/work/DOCTRINE.md, snappy/initial.md, and snappy/keel.md,
+and found the snappy campaign — instantiate the master doc and board, cut Phase 0.
+```
