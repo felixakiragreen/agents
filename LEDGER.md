@@ -204,3 +204,19 @@ Wear ~/code/agents/canon/mantles/architect.md,
 then read ~/code/agents/canon/work/DOCTRINE.md, snappy/initial.md, and snappy/keel.md,
 and found the snappy campaign — instantiate the master doc and board, cut Phase 0.
 ```
+
+---
+
+**2026-08-04 · Architect** — Felix's memory question settled: do account memories sync —
+no (verified: per-account silos at `<config>/projects/<slug>/memory/`; the Jul-3
+hand-cloned silos diverged on schedule — doorbell alone knows the SMB-mount deadlock,
+Max's cap-mega silo is ~20 files stale); can they — mechanically yes (symlinks;
+F2/F7/F8/F10 generalize) but ruled against: ungoverned fan-out under the countersign
+ritual, `MEMORY.md` races across parallel sessions, a sync engine 04 fenced off — for
+cargo the doctrine already routes to repos. Also killed: project-account pinning
+(surrenders the quota arbitrage GENESIS §5 ratified) and banning memory (overshoot — the
+failure mode is memory becoming truth's only home, a promotion discipline, not a feature).
+Changed: DECISIONS (D27), GENESIS §6. Decided: **D27 ✓ — the silo law** (memory is a
+per-account cache; promote on sight; harvest chore, not sync, if loss ever bites). Next:
+Felix summons the snappy founding Architect (summons in prior entry); v2 retrofits await
+his word; Max `/login` still pending.

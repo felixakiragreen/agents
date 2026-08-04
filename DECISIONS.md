@@ -172,3 +172,18 @@
   an Architect. Ancestor: the bare session — Felix's ancestral workflow, proven
   everywhere; codified in `canon/mantles/README.md` after the 2026-08-03 deliberation
   (bob-mount case).
+- **D27** (2026-08-04, Architect · ✓ Felix): **The silo law — memory stays per-account.**
+  Agent memory (`<config>/projects/<slug>/memory/`) joins sessions/history (D5) as an
+  explicit sync non-goal. Memory is a per-account cache: account-local facts and
+  pointers to repo truth — legitimate only if losing it costs a re-read of the repo.
+  Anything whose loss would hurt is promoted to repo docs on sight; a durable fact
+  living only in memory is a promotion failure, not a sync gap. Projects are never
+  pinned to accounts (GENESIS §5 stands: account choice is quota arbitrage). Kill
+  reasons on file: memory-sync would tunnel under the countersign ritual (agent-written,
+  ungoverned, fan-out ×3 with no git audit — curated truth wants fan-out, uncurated
+  scribbles want quarantine), race `MEMORY.md` across the parallel sessions the doctrine
+  runs on purpose, and rebuild the sync engine 04 fenced off — for cargo the doctrine
+  already routes to repos. Mechanism was never the blocker (F2/F7/F8/F10 generalize).
+  Evidence: the Jul-3 hand-cloned silos diverged on schedule — doorbell, fgreen, and Max
+  each hold facts the others lack. If silo loss ever bites, the pressure valve is a
+  harvest chore (bare session: promote keepers to repo docs, delete the rest) — not sync.

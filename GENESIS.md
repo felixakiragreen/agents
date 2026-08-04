@@ -96,7 +96,8 @@ D-entries before the next row dispatches. Rider: `plans/RIDER.md`.
 
 ## 6. Non-goals (v1, defended)
 
-- Syncing sessions/history between accounts (Felix's call).
+- Syncing sessions/history/agent-memory between accounts (D5; D27 — the silo law:
+  memory is a per-account cache, durable truth promotes to repos).
 - Retrofitting hexwright and simmy onto the new canon — **v2**, after v1 lands. Resist
   the urge mid-campaign.
 - `settings.json` sync — revisit when a real need appears.
