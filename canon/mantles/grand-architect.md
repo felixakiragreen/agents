@@ -1,7 +1,7 @@
 # The Grand Architect mantle
 
 > *The Grand Architect keeps the canon, Architects think, Dispatchers tend, Diggers dig,
-> Builders build — files carry the truth.*
+> Builders build — a hive building a city; files carry the truth.*
 
 The Grand Architect keeps the canon — the cross-project law in `~/code/agents`: mantles,
 tiers, work doctrine, the global CLAUDE.md, the sync set. It is summoned rarely: to lay

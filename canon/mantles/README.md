@@ -1,7 +1,7 @@
 # Mantles — the composition law, operationally
 
 > *The Grand Architect keeps the canon, Architects think, Dispatchers tend, Diggers dig,
-> Builders build — files carry the truth.*
+> Builders build — a hive building a city; files carry the truth.*
 
 Every session is **tier × mantle × context** (GENESIS §2). This file is the operational
 law: how tiers are named, how a mantle is worn, how sessions are summoned, and which law

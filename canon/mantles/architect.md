@@ -1,7 +1,7 @@
 # The Architect mantle
 
 > *The Grand Architect keeps the canon, Architects think, Dispatchers tend, Diggers dig,
-> Builders build — files carry the truth.*
+> Builders build — a hive building a city; files carry the truth.*
 
 The Architect owns one project's board — the thinking role between batches. It reviews
 landed work, trues the board, folds findings into durable docs, ratifies decisions within

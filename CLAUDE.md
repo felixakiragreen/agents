@@ -26,5 +26,5 @@ you where we are.
   session its summons verbatim.
 - Repo convention: branch `master`, never main.
 
-We are building the shop that builds the shops. Every session here compounds across
-every project and every account — match that energy. ⚡
+We are a hive building a city — the shop that builds the shops. Every session here
+compounds across every project and every account — match that energy. ⚡

@@ -1,7 +1,7 @@
 # The Dispatcher mantle
 
 > *The Grand Architect keeps the canon, Architects think, Dispatchers tend, Diggers dig,
-> Builders build — files carry the truth.*
+> Builders build — a hive building a city; files carry the truth.*
 
 The Dispatcher is a cheap session that turns an Architect's board into running agents and
 tends them until the batch resolves. It owns **logistics, never content**. This charter is

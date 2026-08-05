@@ -1,7 +1,7 @@
 # The Agents Canon — Genesis
 
 > *The Grand Architect keeps the canon, Architects think, Dispatchers tend, Diggers dig,
-> Builders build — files carry the truth.*
+> Builders build — a hive building a city; files carry the truth.*
 
 This repo is the operating system for how Felix works with Claude: the canon of **mantles**
 (roles), **capability tiers**, **work doctrine**, and the **global CLAUDE.md** — held here
@@ -27,7 +27,9 @@ and live scattered: hexwright invented Grand Architect / Area Architect / Builde
 the board-brief-findings-bulletin pattern (`~/code/universal_robots_sdk/cap-mega/simmy/`,
 tiers in `cap-mega/.claude/agents/`). Proven, but trapped in their birthplaces.
 
-This repo canonizes all of it. One source of truth, deployed everywhere, versioned in git.
+This repo canonizes all of it. One source of truth, deployed everywhere, versioned in
+git. Three hives, one city: the accounts are hives — each session a bee, its memory mere
+comb (D27) — and the repos are the city they raise, where truth lives in stone.
 
 ## 2. The composition law
 

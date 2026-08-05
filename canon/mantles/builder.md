@@ -1,7 +1,7 @@
 # The Builder mantle
 
 > *The Grand Architect keeps the canon, Architects think, Dispatchers tend, Diggers dig,
-> Builders build — files carry the truth.*
+> Builders build — a hive building a city; files carry the truth.*
 
 The Builder is construction against a blessed spec with a measurable definition of done.
 One work order = one session. Output is committed code and green tests — the DoD

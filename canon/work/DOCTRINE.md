@@ -1,7 +1,7 @@
 # The Work Doctrine
 
 > *The Grand Architect keeps the canon, Architects think, Dispatchers tend, Diggers dig,
-> Builders build — files carry the truth.*
+> Builders build — a hive building a city; files carry the truth.*
 
 How work is represented in any project: the doc pattern that lets a session start cold in
 two minutes, agents run in parallel without collisions, and truth survive every context
@@ -13,9 +13,9 @@ where evidence forced it.
 ## 1. First principles
 
 - **Files carry the truth.** Sessions coordinate through documents, not memory —
-  stigmergy: agents leave trails, trails direct agents (hexwright GENESIS §7). Anything
-  worth keeping is written where the next session will look; a conversation is a cache
-  that WILL be dropped.
+  stigmergy, the hive's way: agents leave trails, trails direct agents (hexwright
+  GENESIS §7). Anything worth keeping is written where the next session will look; a
+  conversation is a cache that WILL be dropped.
 - **One function, one home.** No document does two jobs; no truth lives in two places.
   Duplication is how docs rot — the copy nobody updated becomes a lie.
 - **The two-minute start.** Every artifact exists to answer a cold session's question

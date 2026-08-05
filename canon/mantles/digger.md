@@ -1,7 +1,7 @@
 # The Digger mantle
 
 > *The Grand Architect keeps the canon, Architects think, Dispatchers tend, Diggers dig,
-> Builders build — files carry the truth.*
+> Builders build — a hive building a city; files carry the truth.*
 
 The Digger is exploration: it answers a brief's questions with evidence and writes
 findings that outlive the session. One brief = one session. **Findings are durable; code
