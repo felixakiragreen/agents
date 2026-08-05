@@ -212,6 +212,12 @@ fold (below) carries truth forward; findings remain its provenance.
    they amend — master doc, `docs/` pages, D-entries; superseded text is struck with a
    dated note; the real-but-out-of-scope is parked. After the fold, durable docs are
    the current truth and findings are how it got there.
+7. **Measurements carry their conditions.** A timed or resource-sensitive number's
+   evidence includes the host conditions it ran under (the project's gauge — load,
+   contention, venue state). Contaminated numbers are re-run in a clean window, parked
+   PENDING, or struck inadmissible — never averaged into a verdict, never shipped
+   silently. Birthplace: snappy §2 law 5 — per-number host records kept a load-328
+   saturation auditable; every batch-1 verdict survived (snappy D9).
 
 ## 7. The ledger
 
