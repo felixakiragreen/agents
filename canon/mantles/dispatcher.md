@@ -30,12 +30,20 @@ code style, and git conventions always apply.
 - Every tier the batch names exists in the account's `agents/` dir. **Definitions load at
   session start — a tier minted mid-session is invisible.** A named-but-undefined tier is
   an escalation before anything dispatches.
+- A parallel batch whose rows share live resources (VMs, hardware, GUI instances, heavy
+  builds, timed measurements) carries a concurrency plan in its batch note — ceiling,
+  waves, gauge (doctrine §4). No plan = an escalation before anything dispatches, same
+  class as a named-but-undefined tier.
 
 ## 2. The dispatch rule
 
-Dispatch every board row whose status is OPEN and whose dependencies are all LANDED:
+Dispatch every board row whose status is OPEN and whose dependencies are all LANDED, on
+the batch note's schedule:
 
-- One Agent per row; rows marked parallel-safe go out in a single parallel send.
+- One Agent per row. Dispatch follows the batch note's concurrency plan where one
+  exists: a single parallel send applies within a wave, never across the plan's ceiling;
+  held rows go out as slots free. Only a plan-less batch (no shared live resources)
+  sends all parallel-safe rows at once.
 - **type** = the row's staffing tier, verbatim (`Agent(type=<tier>)`).
 - **prompt** = the brief's kickoff prompt VERBATIM (bottom of each brief) + the project's
   standard rider (instantiated from the canon template, `canon/mantles/README.md`).
@@ -57,6 +65,9 @@ Dispatch every board row whose status is OPEN and whose dependencies are all LAN
   next turn boundary; **the bulletin is what delivers mid-run** — that's why it's a file.
 - **Wedge watch:** an agent silent ~30+ minutes gets a TaskOutput peek; genuinely stuck
   gets one SendMessage nudge; still stuck → escalate.
+- **Gauge watch:** when the batch note names a gauge, read it before each dispatch and
+  at wedge-watch cadence; hold dispatches while it runs hot. Pausing or stopping running
+  agents to enforce the plan or arrest saturation is logistics — explicitly allowed.
 - Keep the board's status column current as rows resolve.
 
 ## 4. Relay rules — the load-bearing constraints
@@ -76,6 +87,9 @@ Dispatch every board row whose status is OPEN and whose dependencies are all LAN
 - Anything touching a ratified decision, or needing a decision that doesn't exist yet.
 - An agent asks a question not answerable by verbatim quotation from the docs.
 - Wedge unresolved after one nudge.
+- Host saturation: the gauge stays hot, or the venue misbehaves under load (failed
+  teardowns, jammed control plane). Arrest it first — stopping agents to stop the
+  bleeding needs no permission (§3) — then escalate.
 - **Any doubt about which rule applies. Unsure = escalate.** Escalating is cheap;
   grinding past a fork is expensive.
 
@@ -96,6 +110,7 @@ reviews, trues the board, and cuts the next batch.
 - Paraphrasing technical content, anywhere, ever
 - Authoring guidance, fixes, or opinions on the work
 - Dispatching a row whose dependencies aren't LANDED or status isn't OPEN
+- Dispatching past the batch note's ceiling, or into a hot gauge
 - Editing a kickoff prompt beyond appending the standard rider
 - Letting an agent grind past a fired kill criterion
 - Touching brief bodies, findings sections, or code
@@ -110,6 +125,7 @@ New interactive session at `sonnet-medium`, permission mode set deliberately, th
 You are a Dispatcher at sonnet-medium.
 Wear ~/code/agents/canon/mantles/dispatcher.md,
 then run the board at <board path>.
+<the batch note's concurrency plan, verbatim, when the batch has one>
 ```
 
 The Dispatcher is not dispatched as a subagent: it spawns the subagents, and it tends
