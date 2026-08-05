@@ -259,7 +259,6 @@ files carry the truth"), DOCTRINE §1 stigmergy the hive's way, GENESIS §1 "Thr
 one city", CLAUDE.md closer; flavor altitude only, no renames (D25), global CLAUDE.md
 untouched (D24). Changed: DOCTRINE, dispatcher.md, architect.md, templates/genesis.md,
 the epigraph carriers, GENESIS (§1 + board 05 LANDED), CLAUDE.md, DECISIONS, plans/05
-findings. Decided: D28–D31, all (proposed — pending Felix countersign). Next: Felix
-countersigns D28–D31 live; then v2 (retrofits: hexwright, simmy — now including the
-snappy §6.5-pointer touch-up when DOCTRINE next renumbers) awaits his word; Max
-`/login` still pending.
+findings. Decided: D28–D31 — countersigned in-session, ✓ Felix. Next: v2 (retrofits:
+hexwright, simmy — including the snappy §6.5-pointer touch-up when DOCTRINE next
+renumbers) awaits Felix's word; Max `/login` still pending.

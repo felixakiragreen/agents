@@ -187,7 +187,7 @@
   Evidence: the Jul-3 hand-cloned silos diverged on schedule — doorbell, fgreen, and Max
   each hold facts the others lack. If silo loss ever bites, the pressure valve is a
   harvest chore (bare session: promote keepers to repo docs, delete the rest) — not sync.
-- **D28** (2026-08-05, Grand Architect (05) — proposed, pending Felix countersign):
+- **D28** (2026-08-05, Grand Architect (05) · ✓ Felix):
   **The parallel-affordable law.** "Parallel-safe" (no file/doc collisions — a
   correctness judgment) and "parallel-affordable" (the shared live resources bear the
   simultaneity — a physics judgment) are separate calls, and canon knew only the first:
@@ -203,7 +203,7 @@
   extended beyond the proposal to `architect.md` (review-loop cut step — the charter
   that performs the cut must name the plan) and the genesis template's batch-note slot.
   Birthplace: snappy §6.8 + D8/D9; the fix held through snappy batches 2–4.
-- **D29** (2026-08-05, Grand Architect (05) — proposed, pending Felix countersign):
+- **D29** (2026-08-05, Grand Architect (05) · ✓ Felix):
   **The Dispatcher's resource duty.** Six surgical amendments to `dispatcher.md`:
   (1) §1 — a parallel batch sharing live resources with no concurrency plan in its batch
   note is an escalation **before anything dispatches**, same class as a
@@ -219,7 +219,7 @@
   law's own chain. **Tier unchanged** — sonnet-medium enforced slot handoffs flawlessly
   once the plan existed as orders (bulletin 18:20 on); never escalate tier to compensate
   for incomplete orders. Birthplace: snappy D8/D9 + the batch-1 bulletin.
-- **D30** (2026-08-05, Grand Architect (05) — proposed, pending Felix countersign):
+- **D30** (2026-08-05, Grand Architect (05) · ✓ Felix):
   **Measurements carry their conditions.** DOCTRINE §6 gains clause 7: a timed or
   resource-sensitive number's evidence includes the host conditions it ran under;
   contaminated numbers are re-run in a clean window, parked PENDING, or struck
@@ -233,8 +233,7 @@
   nothing shipped dirty. It is clause 1's evidence-grade principle made explicit for
   numbers: for a measurement, the environment is part of the evidence. Birthplace:
   snappy §2 law 5 + D9.
-- **D31** (2026-08-05, Grand Architect, at Felix's ask — proposed, pending Felix
-  countersign): **The hive and the city — canon voice.** The working metaphor is **a
+- **D31** (2026-08-05, Grand Architect, at Felix's ask · ✓ Felix): **The hive and the city — canon voice.** The working metaphor is **a
   hive building a city**. The map: the **city** is the durable built world — repos,
   canon, docs — truth in stone; the **hive** is the swarm that raises it — accounts,
   sessions, agents — its memory mere comb, per-account wax (D27); **stigmergy** is the
