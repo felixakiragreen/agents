@@ -1,6 +1,6 @@
 # 05 — Saturation harvest: snappy batch-1 lessons → canon
 
-**Status:** OPEN · **Depends on:** — · **Staffing:** Grand Architect · fable-max
+**Status:** LANDED 2026-08-05 · **Depends on:** — · **Staffing:** Grand Architect · fable-max
 
 ## Mission
 
@@ -145,7 +145,47 @@ Numbered assuming D28–D30 are next free; renumber at entry if DECISIONS moved.
 
 ## Findings
 
-*(append here)*
+**2026-08-05 · Grand Architect — the harvest ruled.** Birthplaces read before ruling
+(harvest law): snappy README §2/§6/D8–D10 and the bulletin arc. The synopsis above
+checked clean against all of them — breach-while-quoting verbatim at bulletin:119
+("already one over README §6.1's 'at most 2 snappy cells live concurrently'. 03 needs a
+cell to measure at all, so it is bringing up `snappy-03` as the fourth"); Felix's ruling
+at load 126.87 (bulletin:748); peak 328.72 / swap 7.9 GB (bulletin:919/926); slot
+handoffs and HOLDING discipline from 18:20 on (bulletin:754/799/949). No correction
+needed.
+
+- **D28 ENTERED, amended.** Edit sites extended beyond DOCTRINE §4/§10 to two surfaces
+  the proposal missed: `architect.md` review-loop step 6 (the charter that performs the
+  cut must name the plan — law that binds the cut but doesn't live where the cut is
+  performed would be D28's own defect one level up) and `templates/genesis.md`'s
+  batch-note slot (future projects instantiate the plan from day one).
+- **D29 ENTERED, amended.** The four proposed amendments, plus two that complete the
+  law's own chain: a §7 forbidden line — *dispatching past the batch note's ceiling, or
+  into a hot gauge* — because the single-glance list must catch the incident's exact
+  move; and a §8 summons slot carrying the plan verbatim — D28 requires the summons to
+  carry it, so the charter's own summons template is the delivery vehicle. §2's intro
+  gains "on the batch note's schedule" so the section's command and its bullets can't
+  contradict. Tier ruling upheld: `sonnet-medium`, unchanged.
+- **D30 ENTERED, amended.** The strike disposition added (the incident record shows all
+  three: re-ran / parked PENDING / marked inadmissible), and the clause lands as §6
+  **clause 7**, not an insert at 3: clause numbers are live external references — snappy
+  cites doctrine §6.5 — and renumbering would break them silently or force a mid-campaign
+  retrofit this row's own fence forbids. Survives its anti-sprawl flag on its record:
+  the one defense that provably worked.
+- **Rejections: all four UPHELD** as defended above — tier escalation (the failure was
+  incomplete orders, not judgment), human-reads-everything (kills the autopilot),
+  machine enforcement in canon (venue tooling; the principle is already Directive 2.1,
+  the implementation is parked on simmy's board), new artifacts (the batch note and the
+  summons already reach the right readers).
+- **D31 cut in the same session** (Felix's ask, rode the summons): hive-city as canon
+  voice. Epigraph amended across all eight carriers; DOCTRINE §1 names stigmergy the
+  hive's way; GENESIS §1 closes "Three hives, one city"; the repo CLAUDE.md closer leads
+  with the hive. Flavor altitude only — law text stays surgical; no renames (D25); the
+  global `canon/CLAUDE.md` untouched (D24 byte-discipline).
+
+D28–D31 queued in `DECISIONS.md`, all **(proposed — pending Felix countersign)**. No
+deploy run needed: DOCTRINE and mantles are read by path (D16/D12) — sessions started
+after this land see the amended law immediately.
 
 ---
 

@@ -241,3 +241,25 @@ Wear ~/code/agents/canon/mantles/grand-architect.md,
 then read ~/code/agents/plans/05-saturation-harvest.md and run the harvest:
 rule on D28–D30, amend canon where ruled, and queue the countersigns for Felix.
 ```
+
+---
+
+**2026-08-05 · Grand Architect (05)** — Ran the saturation harvest. Birthplaces read
+per the harvest law (snappy README §2/§6/D8–D10, bulletin arc — breach-while-quoting
+verified verbatim at bulletin:119); the plan's synopsis checked clean. Rulings: **D28
+entered amended** — parallel-affordable law: DOCTRINE §4/§10 + two sites the proposal
+missed, `architect.md`'s cut step and the genesis template's batch-note slot; **D29
+entered amended** — Dispatcher resource duty: the four proposed edits plus a §7
+forbidden line (dispatching past the ceiling / into a hot gauge) and the §8 summons
+slot for the plan; tier stays `sonnet-medium`; **D30 entered amended** — measurements
+carry their conditions, as DOCTRINE §6 clause 7 (append, don't renumber — snappy cites
+§6.5 live) with the strike disposition added; **all four rejections upheld**. **D31
+cut** at Felix's ask: hive-city as canon voice — epigraph ×8 ("a hive building a city;
+files carry the truth"), DOCTRINE §1 stigmergy the hive's way, GENESIS §1 "Three hives,
+one city", CLAUDE.md closer; flavor altitude only, no renames (D25), global CLAUDE.md
+untouched (D24). Changed: DOCTRINE, dispatcher.md, architect.md, templates/genesis.md,
+the epigraph carriers, GENESIS (§1 + board 05 LANDED), CLAUDE.md, DECISIONS, plans/05
+findings. Decided: D28–D31, all (proposed — pending Felix countersign). Next: Felix
+countersigns D28–D31 live; then v2 (retrofits: hexwright, simmy — now including the
+snappy §6.5-pointer touch-up when DOCTRINE next renumbers) awaits his word; Max
+`/login` still pending.

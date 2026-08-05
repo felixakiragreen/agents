@@ -187,3 +187,64 @@
   Evidence: the Jul-3 hand-cloned silos diverged on schedule — doorbell, fgreen, and Max
   each hold facts the others lack. If silo loss ever bites, the pressure valve is a
   harvest chore (bare session: promote keepers to repo docs, delete the rest) — not sync.
+- **D28** (2026-08-05, Grand Architect (05) — proposed, pending Felix countersign):
+  **The parallel-affordable law.** "Parallel-safe" (no file/doc collisions — a
+  correctness judgment) and "parallel-affordable" (the shared live resources bear the
+  simultaneity — a physics judgment) are separate calls, and canon knew only the first:
+  six cells at once was *compliance* with `dispatcher.md` §2's "single parallel send."
+  Now law (DOCTRINE §4, §10): when a batch's rows contend for live resources — VMs,
+  hardware, GUI instances, CPU-heavy builds, timed measurements — the batch note carries
+  the **concurrency plan** (ceiling, waves or strictly-serial, the gauge to hold on) and
+  the Dispatcher's summons carries it verbatim; a constraint living only in a working
+  agreement is invisible at dispatch time. Cross-row scheduling is a fork the pre-chew
+  law reserves to the cut: the Architect decides it — never emergent from individually
+  compliant rows (each of six read the cell cap as its own compliance; nobody owned the
+  sum — load 6.7 → 328, swap 7.9 GB, control plane jammed). Entered amended: edit sites
+  extended beyond the proposal to `architect.md` (review-loop cut step — the charter
+  that performs the cut must name the plan) and the genesis template's batch-note slot.
+  Birthplace: snappy §6.8 + D8/D9; the fix held through snappy batches 2–4.
+- **D29** (2026-08-05, Grand Architect (05) — proposed, pending Felix countersign):
+  **The Dispatcher's resource duty.** Six surgical amendments to `dispatcher.md`:
+  (1) §1 — a parallel batch sharing live resources with no concurrency plan in its batch
+  note is an escalation **before anything dispatches**, same class as a
+  named-but-undefined tier; (2) §2 — dispatch follows the plan: a single parallel send
+  applies within a wave; held rows go out as slots free; (3) §3 — gauge watch: read the
+  plan's gauge before each dispatch and at wedge-watch cadence, hold while hot;
+  (4) §3 + §5 — host saturation is an escalation trigger, and pausing or stopping
+  running agents to enforce the plan or arrest saturation is logistics, **explicitly
+  allowed** (the halt authority Felix had to exercise himself at 18:20); (5) §7 —
+  dispatching past the ceiling or into a hot gauge joins the forbidden list; (6) §8 —
+  the summons template gains the plan's verbatim slot (the delivery vehicle D28
+  requires). Entered amended: the proposal named four edits; (5) and (6) complete the
+  law's own chain. **Tier unchanged** — sonnet-medium enforced slot handoffs flawlessly
+  once the plan existed as orders (bulletin 18:20 on); never escalate tier to compensate
+  for incomplete orders. Birthplace: snappy D8/D9 + the batch-1 bulletin.
+- **D30** (2026-08-05, Grand Architect (05) — proposed, pending Felix countersign):
+  **Measurements carry their conditions.** DOCTRINE §6 gains clause 7: a timed or
+  resource-sensitive number's evidence includes the host conditions it ran under;
+  contaminated numbers are re-run in a clean window, parked PENDING, or struck
+  inadmissible — never averaged into a verdict, never shipped silently. Entered amended
+  twice: the strike disposition added (the birthplace record shows all three — re-ran /
+  parked / marked arms inadmissible), and appended as clause 7 rather than inserted at 3
+  — clause numbers are live external references (snappy cites doctrine §6.5); the
+  findings law grows monotonically, like the decisions it feeds. Survives its
+  anti-sprawl flag on its record: the one defense in the incident that provably worked —
+  per-number host records kept batch-1's verdicts auditable through a load-328 thrash;
+  nothing shipped dirty. It is clause 1's evidence-grade principle made explicit for
+  numbers: for a measurement, the environment is part of the evidence. Birthplace:
+  snappy §2 law 5 + D9.
+- **D31** (2026-08-05, Grand Architect, at Felix's ask — proposed, pending Felix
+  countersign): **The hive and the city — canon voice.** The working metaphor is **a
+  hive building a city**. The map: the **city** is the durable built world — repos,
+  canon, docs — truth in stone; the **hive** is the swarm that raises it — accounts,
+  sessions, agents — its memory mere comb, per-account wax (D27); **stigmergy** is the
+  hive's way — files are the trails, the bulletin is the waggle dance; the mantles are
+  its castes. 05's lesson in these terms: local rules build comb, not load-bearing
+  walls — a city needs zoning (the concurrency plan) and an inspector on the gauge (the
+  Dispatcher). Woven at flavor altitude only: the epigraph across all eight carriers now
+  reads "…Builders build — a hive building a city; files carry the truth"; DOCTRINE §1
+  names stigmergy the hive's way; GENESIS §1 closes "Three hives, one city"; the repo
+  CLAUDE.md's closer leads with the hive. Law text stays surgical — flavor lives in
+  epigraphs and framing, never in operative clauses; no artifact renames (D25 stands:
+  `BULLETIN.md` does not become the waggle dance, tempting as that is); the global
+  `canon/CLAUDE.md` untouched (D24 byte-discipline — auto-loaded bytes are taxed).
