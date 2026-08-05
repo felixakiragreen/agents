@@ -220,3 +220,24 @@ Changed: DECISIONS (D27), GENESIS §6. Decided: **D27 ✓ — the silo law** (me
 per-account cache; promote on sight; harvest chore, not sync, if loss ever bites). Next:
 Felix summons the snappy founding Architect (summons in prior entry); v2 retrofits await
 his word; Max `/login` still pending.
+
+---
+
+**2026-08-05 · Architect (05)** — Snappy's batch-1 saturation post-mortem gauged for
+canon. Verdict: the failure mode is canon-born — `dispatcher.md` §2 "single parallel
+send" instructs it, and "parallel-safe" conflates collision-safety with host physics.
+Cut `plans/05-saturation-harvest.md`: story synopsis (evidence-checked against snappy
+README §6/§2/D8/D9 + bulletin), three proposed D-entries — D28 parallel-affordable law
+(concurrency plan rides batch note + summons), D29 Dispatcher resource duty (plan-less
+parallel batch = pre-dispatch escalation; wave dispatch; gauge checks; halt authority),
+D30 measurements carry their conditions — plus four defended rejections (tier
+escalation, human-reads-everything, machine enforcement in canon, new artifacts).
+Changed: plans/05, GENESIS board (row 05 OPEN). Decided: nothing — all rulings belong
+to the Grand Architect + Felix's countersign. Next: Felix summons the Grand Architect —
+
+```
+You are the Grand Architect at fable-max.
+Wear ~/code/agents/canon/mantles/grand-architect.md,
+then read ~/code/agents/plans/05-saturation-harvest.md and run the harvest:
+rule on D28–D30, amend canon where ruled, and queue the countersigns for Felix.
+```
