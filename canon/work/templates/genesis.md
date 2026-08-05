@@ -25,7 +25,8 @@ dated amendment notes, never silent rewrites:⟩
 Statuses: OPEN → IN FLIGHT → LANDED / KILLED; BLOCKED transient, PENDING annotates
 external waits — law in `~/code/agents/canon/work/DOCTRINE.md` §4.
 
-**Batch ⟨n⟩ (cut ⟨date⟩):** ⟨rows; parallel or sequential; who tends⟩.
+**Batch ⟨n⟩ (cut ⟨date⟩):** ⟨rows; parallel or sequential; who tends; concurrency plan
+when rows share live resources — ceiling, waves, gauge⟩.
 
 **Parked (tracked, not lost):**
 

@@ -135,7 +135,15 @@ TODO (→ OPEN), AUTHORED (a filed design is LANDED; its blessing gates the NEXT
 
 - **Batch notes** — the Architect cuts each batch as a dated note: which rows, parallel
   or sequential, who tends (a Dispatcher, or Felix direct). Parallel-safety is marked
-  here and in the work-doc headers.
+  here and in the work-doc headers. **Parallel-safe is not parallel-affordable:** safety
+  is correctness (no file/doc collisions); affordability is physics (the shared live
+  resources bear the simultaneity). When rows contend for live resources — VMs, hardware,
+  GUI instances, CPU-heavy builds, timed measurements — the note carries the
+  **concurrency plan**: ceiling, waves or strictly-serial, and the gauge to hold on
+  ("hold timed arms until load < 12"). The plan rides this note AND the Dispatcher's
+  summons verbatim — a constraint living only in a working agreement is invisible at
+  dispatch time (snappy §6.8/D9: six rows each read the cell cap as its own compliance;
+  nobody owned the sum).
 - **The parked list** — real but out of scope: tracked, not lost (simmy README §7).
   Items enter with a pointer; they leave by promotion to a row (struck through, with
   "promoted to <id>") or by deletion when the project closes.
@@ -271,9 +279,12 @@ Dispatcher creates `plans/BULLETIN.md` (next to the work docs — simmy's lived 
 ## 10. Batches — how the docs run agents
 
 - **The Architect cuts; the Dispatcher runs.** The cut is a board act: rows OPEN,
-  dependencies LANDED, staffing named, parallel-safety marked, batch note dated.
-  Dispatch mechanics, tending, relay, and the batch report are the Dispatcher charter's
-  law — the doctrine fixes only the files they touch.
+  dependencies LANDED, staffing named, parallel-safety marked, batch note dated — and
+  when rows contend for live resources, the concurrency plan cut with it (§4).
+  Cross-row scheduling is a fork the pre-chew law reserves to the cut: the Architect
+  decides it, the summons carries it, the Dispatcher enforces it — never left to emerge
+  from individually compliant rows. Dispatch mechanics, tending, relay, and the batch
+  report are the Dispatcher charter's law — the doctrine fixes only the files they touch.
 - **The rider** is instantiated ONCE per project, as `plans/RIDER.md`, from the canon
   template (`canon/mantles/README.md`), filling the three slots: working-agreements ref
   (a master doc §), bulletin path (drop the sentence when batches are sequential), and

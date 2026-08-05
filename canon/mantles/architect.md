@@ -39,7 +39,8 @@ code style, and git conventions always apply.
 4. **True the board:** statuses, dependencies, staffing.
 5. **Ratify or escalate:** settle what the evidence settles; escalate what it doesn't.
 6. **Cut the next batch:** OPEN rows with LANDED dependencies, parallel-safety marked,
-   every row staffed and briefed.
+   the concurrency plan cut when rows share live resources (doctrine §4), every row
+   staffed and briefed.
 7. **Hand off:** a Dispatcher summons for a dispatched batch, or the next session's
    summons verbatim.
 
