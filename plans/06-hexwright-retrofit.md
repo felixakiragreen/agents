@@ -1,6 +1,6 @@
 # 06 — hexwright retrofit
 
-**Status:** OPEN · **Depends on:** — · **Staffing:** Architect · fable-high ·
+**Status:** LANDED 2026-08-06 · **Depends on:** — · **Staffing:** Architect · fable-high ·
 **Blessed:** D32 ✓ Felix, 2026-08-06 (the keel's touch map; the dream rename per D33)
 
 ## Goal
@@ -100,6 +100,63 @@ An order run by the project's Architect: the conformance pass is board-truing wo
 ## Findings
 
 *(append here — evidence-grade)*
+
+**2026-08-06 · Architect · fable-high — retrofit executed, LANDED.** hexwright commit
+`bf8343f` ("canon retrofit: mantles, board minted, dream rename (D9)"), 5 files, on clean
+`master` as the keel recon promised. Spec items 1–9 all executed; deviations: none.
+Discretion calls the spec delegated:
+
+- **§5 φ line converted** — "the Grand Architect will die on this hill" → "the Architect":
+  it reads as live voice (a standing position on an open canon question, not a dated
+  quote), and post-retirement the old title would point at the canon-keeper, who does not
+  own hexwright's hills.
+- **GENESIS header status line converted** — "amendable in Grand Architect sessions" →
+  "Architect sessions (D9)": same live-voice test. The header *credit* ("Written
+  2026-08-01 by Grand Architect Fable") stays — authorial, spec-exempt.
+- **§6 Phase-3 line converted** — "each gains an Area Architect" → per-area `plans/<area>/`
+  scoping (DOCTRINE §3): live roadmap voice on a DoD-scoped surface.
+
+### DoD evidence
+
+- [x] **Role vocabulary purged from live surfaces.**
+  `grep -n "Grand Architect\|Area Architect\|Fable @\|Opus @" CLAUDE.md GENESIS.md` →
+  exactly two hits, both historical/authorial and exempt:
+  `GENESIS.md:4` (founding credit — spec item 6 names it) and `GENESIS.md:34` (naming-hunt
+  lore, past-tense narrative). Zero hits in CLAUDE.md; zero "Area Architect" anywhere;
+  zero `Fable @`/`Opus @` outside untouched history (`DECISIONS.md` D7's original text,
+  `LEDGER.md` — history conforms as-is per spec item 6).
+- [x] **Board minted.** GENESIS §6 head: canonical columns (ID · Work · Depends on ·
+  Staffing · Status), WO-001–004 LANDED with dates + `plans/core/` pointers, staffing
+  retro-labeled (`Builder · fable-high` / `opus-high` / `fable-max` / `opus-high` per
+  D7's original assignments); **PENDING: Felix's Phase-1 ruling** recorded as a named
+  external precondition, explicitly not a row. Phase 2/3 not cut — roadmap prose stays
+  below the board as the plan.
+- [x] **CLAUDE.md ≤ ~60 lines.** `wc -l` → **30**. §State digest replaced by pointers
+  (phase one-liner + PENDING ruling, board pointer, ledger pointer, toolchain line, repo
+  line); version law is now Hard Law 6.
+- [x] **Canon untouched.** `git -C ~/code/agents status --short` before agents-side
+  landing edits → only `?? lab/` `?? summon/` (row 08's in-flight work, not mine;
+  the `M plans/08-summon-rig.md` from session start was committed by its own session
+  mid-flight). `git diff --stat -- canon/` → empty.
+- [x] **Dream renamed, bytes identical.** `git hash-object dream.md` =
+  `git rev-parse HEAD:initial.md` = `6b7543a9e12e957d3b4b2bf86770163e5a68d2d8` (pre-commit);
+  commit shows `rename initial.md => dream.md (100%)`; `git log --follow -- dream.md`
+  traces through to `5fe4f3c` (founding). `initial.md` gone; both live pointers
+  (CLAUDE.md:5, GENESIS header) updated; the LEDGER's historical mention untouched.
+- [x] **hexwright D9 cut, countersign recorded.** Decider: Felix (2026-08-06, v2 keel
+  Q&A); ✓ carried by agents D32 — the blessing on this order, which specifies D9's
+  content verbatim. Ledger appended (date · mantle · changed · decided · next);
+  committed `bf8343f`.
+- [x] **Cold-boot check** (DOCTRINE §2, each question against the new surfaces):
+  *How do we work here?* → CLAUDE.md, 30 lines: mantles by canon path, tiers canonical,
+  doctrine pointer. *What is this / the plan?* → GENESIS (§1–§6). *State of work?* →
+  the §6 board: four LANDED rows, one PENDING precondition — the true state at a glance.
+  *What do I do right now?* → no OPEN rows by design; the board says why (ruling gates
+  Phase 2/3) and the ledger's Next carries the summons. *What have we learned?* →
+  ledger entries per session (hexwright predates per-WO findings sections; history
+  conforms as-is). *Where were we?* → LEDGER tail, freshly appended. *What's decided?* →
+  DECISIONS.md D1–D9. *Mid-flight changes?* → no bulletin; campaign is sequential. All
+  answerable; two-minute start holds.
 
 ---
 

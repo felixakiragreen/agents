@@ -365,3 +365,18 @@ key. Changed: `plans/08-summon-rig.md` (E1 resolved, bare mode, yank, DoD trued)
 GENESIS row 08 → IN FLIGHT, D34 marked ✓ (countersigned by dispatch), D35 entered.
 Decided: D35 ✓ Felix (in-session). Next: Builder re-reads the amended brief and
 continues; row 06 still dispatchable anytime.
+
+---
+
+**2026-08-06 · Architect (06)** — hexwright retrofit LANDED: live surfaces speak canon
+(hexwright commit `bf8343f` — CLAUDE.md 30 lines on mantles + canonical tiers + doctrine
+pointer, version law promoted to Hard Law; GENESIS §6 board minted with WO-001–004
+LANDED + Phase-1 ruling PENDING; §7 onto canon mantles, stigmergy paragraph kept;
+`initial.md` → `dream.md` at 100% similarity, both live pointers updated; hexwright D9
+cut, ✓ Felix via D32). Project physics untouched; canon untouched (diff empty). Evidence:
+[plans/06 findings](plans/06-hexwright-retrofit.md). Board: 06 → LANDED; **canon v2
+CLOSED** (06 + 07 both landed, countersigns recorded). Decided: nothing here (hexwright
+D9 is its repo's). Next: row 08 (summon rig) still IN FLIGHT with its Builder; hexwright
+waits on Felix's Phase-1 ruling, then "You are an Architect at fable-max. Wear
+~/code/agents/canon/mantles/architect.md, then read hexwright's GENESIS.md + LEDGER tail
+and cut the Phase 2/3 batch."

@@ -88,7 +88,7 @@ run it when something feels off; green + still broken ⇒ auth, not sync). `depl
 | 03 | [Global CLAUDE.md](plans/03-global-claude-md.md) | 01 + 02 LANDED, 02's D-entries countersigned | Architect · fable-max | **LANDED** 2026-08-03 |
 | 04 | [Sync](plans/04-sync.md) | build: 01–03 LANDED | Digger · opus-high → Builder · opus-high | **LANDED** 2026-08-03 — deploy + check green 3×3, canary ×3, smoke ✓ fgreen + doorbell (Max smoke PENDING `/login`) |
 | 05 | [Saturation harvest — snappy batch-1 → canon](plans/05-saturation-harvest.md) | — | Grand Architect · fable-max | **LANDED** 2026-08-05 — D28–D30 entered amended, rejections upheld, D31 (hive-city voice) cut; D28–D31 ✓ Felix same day |
-| 06 | [hexwright retrofit](plans/06-hexwright-retrofit.md) | — (D32 ✓ 2026-08-06) | Architect · fable-high | **OPEN** |
+| 06 | [hexwright retrofit](plans/06-hexwright-retrofit.md) | — (D32 ✓ 2026-08-06) | Architect · fable-high | **LANDED** 2026-08-06 → [findings](plans/06-hexwright-retrofit.md); hexwright D9 ✓ Felix (via D32); board minted, dream renamed |
 | 07 | [simmy retrofit](plans/07-simmy-retrofit.md) | — (D32 ✓ 2026-08-06) | Architect · fable-high | **LANDED** 2026-08-06 → [findings](plans/07-simmy-retrofit.md); simmy D16 ✓ Felix; B14 clear to resume |
 | 08 | [summon rig](plans/08-summon-rig.md) | D34 ✓ 2026-08-06 | Builder · opus-high | **IN FLIGHT** 2026-08-06 — D35 riders (clipboard law, bare mode) folded into the brief mid-flight |
 
@@ -161,3 +161,7 @@ Max `/login` + its smoke. Next campaign when Felix calls it: **v2 — the retrof
    (the harvest queue), never patched locally.
 
 Closed when 06 + 07 are LANDED with countersigns recorded.
+
+**Canon v2 CLOSED 2026-08-06** — 06 (hexwright D9 ✓ Felix, carried by D32) and 07
+(simmy D16 ✓ Felix) both LANDED; evidence in each row's findings. Hexwright's one
+PENDING is its own: Felix's Phase-1 acceptance ruling, on hexwright's board.
