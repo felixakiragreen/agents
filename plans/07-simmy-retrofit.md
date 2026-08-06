@@ -1,7 +1,7 @@
 # 07 — simmy retrofit
 
-**Status:** OPEN · **Depends on:** D32 countersign · **Staffing:** Architect · fable-high ·
-**Blessed:** D32 (the keel's touch map) — execute only once D32 carries ✓ Felix
+**Status:** OPEN · **Depends on:** — · **Staffing:** Architect · fable-high ·
+**Blessed:** D32 ✓ Felix, 2026-08-06 (the keel's touch map)
 
 ## Goal
 

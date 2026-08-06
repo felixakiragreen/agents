@@ -247,8 +247,8 @@
   epigraphs and framing, never in operative clauses; no artifact renames (D25 stands:
   `BULLETIN.md` does not become the waggle dance, tempting as that is); the global
   `canon/CLAUDE.md` untouched (D24 byte-discipline — auto-loaded bytes are taxed).
-- **D32** (2026-08-06, Grand Architect — proposed, pending Felix countersign; his four
-  keel calibrations of this date are embedded verbatim-adjacent): **v2 cut — the
+- **D32** (2026-08-06, Grand Architect · ✓ Felix — countersigned 2026-08-06 at 07's
+  summons; his four keel calibrations of this date are embedded verbatim-adjacent): **v2 cut — the
   retrofit campaign.** Rows 06 (hexwright) + 07 (simmy) on the GENESIS board; the §6
   v1 non-goal struck by its own terms. **Scope law:** retrofits touch live and
   forward-looking surfaces only — auto-loaded files, boards, role docs, kickoff

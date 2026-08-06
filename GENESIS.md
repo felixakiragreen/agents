@@ -88,8 +88,8 @@ run it when something feels off; green + still broken ⇒ auth, not sync). `depl
 | 03 | [Global CLAUDE.md](plans/03-global-claude-md.md) | 01 + 02 LANDED, 02's D-entries countersigned | Architect · fable-max | **LANDED** 2026-08-03 |
 | 04 | [Sync](plans/04-sync.md) | build: 01–03 LANDED | Digger · opus-high → Builder · opus-high | **LANDED** 2026-08-03 — deploy + check green 3×3, canary ×3, smoke ✓ fgreen + doorbell (Max smoke PENDING `/login`) |
 | 05 | [Saturation harvest — snappy batch-1 → canon](plans/05-saturation-harvest.md) | — | Grand Architect · fable-max | **LANDED** 2026-08-05 — D28–D30 entered amended, rejections upheld, D31 (hive-city voice) cut; D28–D31 ✓ Felix same day |
-| 06 | [hexwright retrofit](plans/06-hexwright-retrofit.md) | D32 countersign | Architect · fable-high | **OPEN** |
-| 07 | [simmy retrofit](plans/07-simmy-retrofit.md) | D32 countersign | Architect · fable-high | **OPEN** |
+| 06 | [hexwright retrofit](plans/06-hexwright-retrofit.md) | — (D32 ✓ 2026-08-06) | Architect · fable-high | **OPEN** |
+| 07 | [simmy retrofit](plans/07-simmy-retrofit.md) | — (D32 ✓ 2026-08-06) | Architect · fable-high | **OPEN** |
 
 Statuses per the doctrine (`canon/work/DOCTRINE.md` §4): OPEN → IN FLIGHT → LANDED /
 KILLED. Any account can host any session — the repo carries the truth; account choice is

@@ -311,4 +311,6 @@ harvested the reverse). Felix renamed the origin artifact: `initial.md` → **`d
 (lowercase stands), rename-is-a-move law, DOCTRINE §3/§12 + both templates amended,
 GENESIS §9 reworded, 06's spec/DoD/fence gain the `git mv`; snappy/manny grandfathered
 to their own boundaries. Decision queue at this boundary: **D32 + D33 — one countersign
-flips both.**
+flips both.** **Countersigned same sitting: D32 ✓ Felix** (his mark, "at 07's summons");
+D33 was his from the cut. v2 is live — board gates cleared, blessings recorded in both
+work docs. Queue empty.
