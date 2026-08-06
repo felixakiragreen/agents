@@ -424,3 +424,20 @@ inside D34/D35. Next: **Felix** — add `source ~/code/agents/summon/summon.zsh`
 `~/.dotfiles/zsh/`, `reload`, then smoke one real launch per account (`~/.claude` still
 needs `/login`); then rule on F3 (v2 row or parked). Row 06 (hexwright) and B14 (simmy)
 remain dispatchable — kickoffs verbatim in their docs.
+
+---
+
+**2026-08-06 · Architect (09 cut)** — v1.1 cut from Felix's first live day on the rig
+(D36 queued; dispatch countersigns): sticky selection state à la the Claude Code model
+selector — panel opens pre-selected, **Ctrl-G Enter refires in 2 keys**, retiring the
+3-key double-Ctrl-G repeat and `log/last`; the sticky form forced staging out — every
+key global, haiku remapped `h`→`k` so `[h]igh` is unambiguous, preset cascades with
+single-field overrides, `[n]one` makes bare a state not a mode, persist-on-fire only
+(Esc discards, Ctrl-G toggles closed); palette per Felix — grey brackets/unselected,
+bold selected with inline ✓, labels green/yellow/orange(208)/red, preset ● swatches;
+responsive wrap clean at 60 cols; preview footer shows exactly what Enter fires.
+Changed: `plans/09-summon-rig-v11.md`, GENESIS row 09, D36 entered. Decided: D36
+queued (Felix's three findings + Architect rulings above). F3 (agent-def colour frees
+the positional for the summons) stays escalated — canon question, not folded into 09.
+Next: Felix dispatches 09 (kickoff verbatim in the brief); his dotfiles source line +
+3-account smoke still PENDING from 08; F3 awaits a Grand Architect row if wanted.

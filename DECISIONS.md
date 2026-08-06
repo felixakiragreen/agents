@@ -318,3 +318,20 @@
   model key). Floors move +1 — repeat 3, preset 3–4, bare 4–5 — explicit confirmation
   bought full visibility. Riders + amendment folded into the brief same sitting; the
   Builder (stopped mid-flight for this) restarts onto the amended brief.
+- **D36** (2026-08-06, Architect · QUEUED — dispatch of row 09 countersigns, per D34
+  precedent): **summon rig v1.1 — sticky state, palette, responsive panel.** From
+  Felix's first live day (his calls): selection state is **sticky** like the Claude
+  Code model selector — fields persist, the panel opens pre-selected, Enter refires;
+  the ✓ moves **inline** onto the selected item; palette — grey brackets/unselected,
+  bold selected, labels mantle=green/model=yellow/effort=orange(256c 208; ANSI has no
+  orange)/account=red; the panel must wrap cleanly in narrow terminals. **Architect
+  rulings the sticky form forces:** staging retired, every key global — haiku remaps
+  `h`→`k` so `[h]igh` is unambiguous; preset key cascades (mantle+model+effort+color),
+  model/effort keys override single fields; mantle row gains `[n]one` — bare is a
+  state, not a mode; state persists **on fire only** (Esc discards; Ctrl-G toggles the
+  panel closed); double-Ctrl-G repeat and `log/last` retire — **`Ctrl-G Enter` refires
+  in 2 keys**, beating the old 3-key repeat; preview footer shows exactly what Enter
+  fires; invalid keys ignored but counted. Floors: refire 2 · one-field change 3 ·
+  fresh preset 3–4. Brief: `plans/09-summon-rig-v11.md`, Builder · opus-high. F3
+  (agent-definition color, positional freed for the summons) deliberately NOT folded —
+  canon question, stays escalated.
