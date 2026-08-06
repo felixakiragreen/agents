@@ -262,3 +262,21 @@ the epigraph carriers, GENESIS (§1 + board 05 LANDED), CLAUDE.md, DECISIONS, pl
 findings. Decided: D28–D31 — countersigned in-session, ✓ Felix. Next: v2 (retrofits:
 hexwright, simmy — including the snappy §6.5-pointer touch-up when DOCTRINE next
 renumbers) awaits Felix's word; Max `/login` still pending.
+
+---
+
+**2026-08-06 · Grand Architect** — Laid the keel for **manny**, the MegaCap User Manual
+campaign (cap-mega, `feature/user-manual` worktree, commit `809d6ac2`): `manny/initial.md`
+(Felix's origin dump, immutable), `manny/keel.md` (verdict: the manual is a compiler plus
+a corpus — two SSoTs one seam, md→Typst one-way via a third markydown.py emitter;
+task-lifecycle book shape, no skill tiers; troubleshooting headings byte-identical to
+pendant strings; delegate-by-document-number fence), `manny/research/` (four verbatim
+probe reports: craft, standards/regs, domain exemplars, SSoT/Typst — opus-high fleet,
+evidence-graded). Felix calibrated live via structured Q&A: home `manny/`, deliverables
+manual + quick-start, SSoT direction ratified, hardware chapter in scope. Snappy keel
+format harvested verbatim (birthplace: snappy/keel.md). Decided: nothing in canon —
+campaign calibrations recorded in keel §1, D-entries belong to manny's founding.
+Next: summon manny's founding Architect — "You are an Architect at fable-max. Wear
+~/code/agents/canon/mantles/architect.md, then read ~/code/agents/canon/work/DOCTRINE.md,
+manny/initial.md, and manny/keel.md, and found the manny campaign — instantiate the
+master doc and board, cut M1."
