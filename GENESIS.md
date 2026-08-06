@@ -90,7 +90,7 @@ run it when something feels off; green + still broken ⇒ auth, not sync). `depl
 | 05 | [Saturation harvest — snappy batch-1 → canon](plans/05-saturation-harvest.md) | — | Grand Architect · fable-max | **LANDED** 2026-08-05 — D28–D30 entered amended, rejections upheld, D31 (hive-city voice) cut; D28–D31 ✓ Felix same day |
 | 06 | [hexwright retrofit](plans/06-hexwright-retrofit.md) | — (D32 ✓ 2026-08-06) | Architect · fable-high | **LANDED** 2026-08-06 → [findings](plans/06-hexwright-retrofit.md); hexwright D9 ✓ Felix (via D32); board minted, dream renamed |
 | 07 | [simmy retrofit](plans/07-simmy-retrofit.md) | — (D32 ✓ 2026-08-06) | Architect · fable-high | **LANDED** 2026-08-06 → [findings](plans/07-simmy-retrofit.md); simmy D16 ✓ Felix; B14 clear to resume |
-| 08 | [summon rig](plans/08-summon-rig.md) | D34 ✓ 2026-08-06 | Builder · opus-high | **IN FLIGHT** 2026-08-06 — D35 riders (clipboard law, bare mode) folded into the brief mid-flight |
+| 08 | [summon rig](plans/08-summon-rig.md) | D34 ✓ 2026-08-06 | Builder · opus-high | **IN FLIGHT** 2026-08-06 — D35 riders + panel/Enter-law amendment folded into the brief; Builder stopped, restarts on the amended brief |
 
 Statuses per the doctrine (`canon/work/DOCTRINE.md` §4): OPEN → IN FLIGHT → LANDED /
 KILLED. Any account can host any session — the repo carries the truth; account choice is

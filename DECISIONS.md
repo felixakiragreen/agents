@@ -308,5 +308,13 @@
   superseding D34's default delivery (decisions are never rewritten). **Bare mode
   (Felix):** tier launches without a mantle — reserved model keys `f/o/s/h` → effort
   `l/m/h/x/M` → account digit, 4 keys; command carries only config-dir/model/effort,
-  no name/color/prompt; `presets.tsv` may never claim a reserved key. Riders folded
-  into the brief same sitting; the Builder re-reads it.
+  no name/color/prompt; `presets.tsv` may never claim a reserved key. **Amended same
+  day (Felix): the panel + the Enter law.** On Ctrl-G the full hotkey panel is visible
+  and re-renders live on every press — all bindings, current selections, and the
+  keystroke counter (the launch key counts). **Enter, and only Enter, fires**;
+  selection keys never launch by side-effect; Enter with fields unset fires the
+  defaults (account = last-used). Repeat: second Ctrl-G arms, panel shows it resolved,
+  Enter fires. Key namespaces stay staged (`h` = haiku at first choice, high after a
+  model key). Floors move +1 — repeat 3, preset 3–4, bare 4–5 — explicit confirmation
+  bought full visibility. Riders + amendment folded into the brief same sitting; the
+  Builder (stopped mid-flight for this) restarts onto the amended brief.

@@ -380,3 +380,17 @@ D9 is its repo's). Next: row 08 (summon rig) still IN FLIGHT with its Builder; h
 waits on Felix's Phase-1 ruling, then "You are an Architect at fable-max. Wear
 ~/code/agents/canon/mantles/architect.md, then read hexwright's GENESIS.md + LEDGER tail
 and cut the Phase 2/3 batch."
+
+---
+
+**2026-08-06 · Architect (08 panel)** — D35 amended in place (Felix's call, his entry,
+same day, pre-build): the panel + the Enter law. On Ctrl-G the full hotkey panel
+renders and live-updates per press — all bindings, selections, keystroke counter
+(launch key counts); **Enter, and only Enter, fires** — selection keys never launch by
+side-effect, Enter with fields unset fires defaults (account = last-used); repeat arms
+on the second Ctrl-G and fires on Enter. Namespaces stay staged (`h` = haiku first,
+high after a model key). Floors +1: repeat 3 · preset 3–4 · bare 4–5 — confirmation
+bought visibility. Changed: brief interaction section rewritten with a rendering
+guide, DoD retrued, GENESIS row 08 note, D35 amended. Decided: within D35 ✓ Felix.
+Next: restart the Builder on the amended brief — kickoff unchanged, verbatim in
+`plans/08-summon-rig.md`.
