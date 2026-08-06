@@ -91,7 +91,7 @@ run it when something feels off; green + still broken ⇒ auth, not sync). `depl
 | 06 | [hexwright retrofit](plans/06-hexwright-retrofit.md) | — (D32 ✓ 2026-08-06) | Architect · fable-high | **LANDED** 2026-08-06 → [findings](plans/06-hexwright-retrofit.md); hexwright D9 ✓ Felix (via D32); board minted, dream renamed |
 | 07 | [simmy retrofit](plans/07-simmy-retrofit.md) | — (D32 ✓ 2026-08-06) | Architect · fable-high | **LANDED** 2026-08-06 → [findings](plans/07-simmy-retrofit.md); simmy D16 ✓ Felix; B14 clear to resume |
 | 08 | [summon rig](plans/08-summon-rig.md) | D34 ✓ 2026-08-06 | Builder · opus-high | **LANDED** 2026-08-06 → `summon/` + [DoD evidence](plans/08-summon-rig.md) (33 assertions green, `lab/08/run`); dotfiles source line ✓ 2026-08-06; smoke ×3 PENDING (one real launch per account — the shim couldn't prove account routing). F3 PARKED (Felix): deferred into the future slash-summons work |
-| 09 | [summon rig v1.1](plans/09-summon-rig-v11.md) | 08 LANDED; D36 (dispatch countersigns) | Builder · opus-high | **OPEN** — sticky state (2-key refire), palette, responsive panel; cut from Felix's first live day |
+| 09 | [summon rig v1.1](plans/09-summon-rig-v11.md) | 08 LANDED; D36 (dispatch countersigns) | Builder · opus-high | **LANDED** 2026-08-06 → [DoD evidence](plans/09-summon-rig-v11.md) (76 assertions green, `lab/08/run`); 2-key refire, cascade+override, `[n]one` bare, palette, 60-col wrap. Palette trap fired — escapes die in `zle -M`, so the colours ride `region_highlight` (F1/F2). Felix's visual pass + smoke ×3 still PENDING |
 
 Statuses per the doctrine (`canon/work/DOCTRINE.md` §4): OPEN → IN FLIGHT → LANDED /
 KILLED. Any account can host any session — the repo carries the truth; account choice is

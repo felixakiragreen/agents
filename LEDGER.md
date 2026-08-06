@@ -455,3 +455,24 @@ Grand Architect when that row is cut. Changed: GENESIS row 08 note + §5 batch n
 Decided: F3 deferral (Felix, in-session). Next: Felix smokes ×3 (Ctrl-G launch on
 accounts 0/1/2, verify silo/name/color, check the JSONL); row 09 dispatchable —
 kickoff in `plans/09-summon-rig-v11.md`.
+
+---
+
+**2026-08-06 · Builder (09)** — summon rig v1.1 LANDED: `Ctrl-G Enter` refires in 2 keys,
+staging gone (every key global, `k`=haiku so `h`=[h]igh), preset cascade with single-field
+overrides, `[n]one` bare, sticky four-field state in `log/state` persisted on fire only
+(Esc and Ctrl-G-toggle discard, eject too), preview footer = what fires, responsive wrap
+clean at 60 columns. **The brief's palette trap fired:** `zle -M` prints a raw ANSI escape
+as literal `^[[…m`, so the palette took the alternate path the brief named — plain
+`POSTDISPLAY` + zle `region_highlight` spans, which puts D36's exact bytes on the wire
+(`fg=8`→`\e[90m`, `fg=208`→`\e[38;5;208m`); `zle -I` was tried for repaint determinism and
+rejected (one stale panel per keystroke). Also found: `stty columns` never updated zsh's
+`$COLUMNS`, so 08's "wide" assertions had been running at 80 all along (F4). Changed:
+`summon/summon.zsh` (rewritten panel + state + telemetry), `summon/README.md`, `lab/08/`
+(drive rewritten, `render.zsh` + `preview.exp` + `narrow.exp` added), `plans/09` DoD
+evidenced + F1–F10, GENESIS row 09. Evidence: `./lab/08/run` — **76 assertions, 0
+failures**; keystroke cost 1.476 ms, per-invocation 0.343 ms (host load 2.01). Decided:
+nothing new — D36 was the ruling; its "dispatch countersigns" clause is now satisfied and
+wants an Architect's pen. Next: **Felix** — visual pass on the palette (the DoD asks for
+his eyes) and smoke ×3, one real launch per account through the rig; then an Architect
+marks D36 `✓ Felix` and folds F1/F2 (the escape-vs-highlight law) wherever canon wants it.
