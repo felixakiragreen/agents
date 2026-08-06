@@ -55,8 +55,9 @@ An order run by the project's Architect: the conformance pass is board-truing wo
    (e.g. `Builder · opus-high`). Record **PENDING: Felix's Phase-1 ruling** as the named
    external precondition. Phase 2/3 items are NOT cut as rows — the next Architect
    session cuts them; the roadmap prose stays below the board as the plan.
-6. **History conforms as-is.** `plans/core/*`, `LEDGER.md`, `DECISIONS.md`, `initial.md`
-   untouched. Authorial/historical mentions of the old titles stay (GENESIS header
+6. **History conforms as-is.** `plans/core/*`, `LEDGER.md`, `DECISIONS.md` untouched;
+   the dream's content likewise — its rename is item 7, a move, never an edit.
+   Authorial/historical mentions of the old titles stay (GENESIS header
    credit, §5's "the Grand Architect will die on this hill" flavor — the session may
    convert the §5 line to "the Architect" if it reads as live voice; its call, note it).
 7. **Rename the dream (canon D33).** `git mv initial.md dream.md` — a move, not an
