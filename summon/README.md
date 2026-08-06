@@ -1,8 +1,10 @@
 # summon — Ctrl-G ignition
 
-Three keys reach any mantle × account session; two repeat the last one. Every invocation
-is logged, so `presets.tsv` is only the hypothesis and `log/invocations.jsonl` is the
-evidence. Designed in [D34/D35](../DECISIONS.md), built to [plans/08](../plans/08-summon-rig.md).
+Three keys reach a mantled session, five reach any tier on any account, three repeat the
+last one — and the panel shows you exactly what will launch before you confirm it. Every
+invocation is logged, so `presets.tsv` is only the hypothesis and `log/invocations.jsonl`
+is the evidence. Designed in [D34/D35](../DECISIONS.md), built to
+[plans/08](../plans/08-summon-rig.md).
 
 ## Install — one line, Felix's own repo
 
@@ -12,24 +14,44 @@ source ~/code/agents/summon/summon.zsh      # → ~/.dotfiles/zsh/*.zsh
 
 Nothing else: no plugin manager, no `PATH` entry. `reload` re-sources cleanly.
 
-## Keys
+## The panel
+
+Ctrl-G paints every live hotkey, re-renders on every press with your selections, and
+counts the keys you have spent — the launch key included:
+
+```
+summon · keys: 4
+Ctrl-G   repeat  → architect fable-high @ thg-fgreen
+mantle    [g] grand-architect fable-max  [a] architect fable-high  [A] architect fable-max  [d] dispatcher sonnet-medium
+model     [f] fable  [o] opus  [s] sonnet  [h] haiku   → fable ✓
+effort    [l] low  [m] medium  [h] high  [x] xhigh  [M] max   → xhigh ✓
+account   [0] personal  [1] thg-fgreen  [2] thg-doorbell   → thg-fgreen ✓
+          [y]ank summons   [.] eject   [Esc] abort   [Enter] invoke
+```
+
+**Enter, and only Enter, fires.** Every other key selects; nothing launches by
+side-effect.
 
 | Gesture | Keys | What launches |
 |---|---|---|
-| `^G <preset> <account>` | 3 | mantled session — model, effort, `-n <mantle>`, `/color <colour>` |
-| `^G <preset> y <account>` | 4 | same, and `y` yanks the summons to the clipboard first |
-| `^G <model> <effort> <account>` | 4 | **bare** — model + effort only, no name, colour, or prompt |
-| `^G ^G` | 2 | repeat the last invocation, verbatim |
-| `^G .` | 2 | **eject** — the resolved command lands in the line, editable, unlaunched |
-| `^G <esc>` | 2 | abort (any unbound key aborts) |
+| `^G <preset> ⏎` | 3 | mantled session on the last-used account |
+| `^G <preset> <account> ⏎` | 4 | …on a named account — model, effort, `-n <mantle>`, `/color <colour>` |
+| `^G <preset> y <account> ⏎` | 5 | …and `y` yanks the summons to the clipboard first |
+| `^G <model> <effort> [<account>] ⏎` | 4–5 | **bare** — model + effort only, no name, colour, or prompt |
+| `^G ^G ⏎` | 3 | arm the last invocation (panel shows it resolved), then fire it |
+| `^G .` | 2–3 | **eject** — the resolved command lands in the line, editable, unlaunched |
+| `^G <esc>` | 2 | abort |
 
-Bare-path keys: models `f` fable · `o` opus · `s` sonnet · `h` haiku, then efforts
-`l` low · `m` medium · `h` high · `x` xhigh · `M` max. The account key fires — no ⏎
-needed; ⏎ *means* "the account I used last".
+Key namespaces are **staged**, so overloaded letters stay unambiguous: `h` is haiku at
+the first choice, high after a model key. Selections are forward-only — a fat-finger is
+Esc and redo. An unrecognised key is ignored, and Enter fires the defaults for anything
+unset: the account falls back to last-used, and with nothing selected at all Enter fires
+nothing. Arming the repeat and choosing a preset are mutually exclusive; the panel never
+shows two futures at once.
 
-The presets and the account digits come from the data files, so the menu is always the
-truth. `f o s h .` are reserved by the state machine: a preset claiming one makes the rig
-refuse to open, loudly, naming the key.
+Presets and accounts come from the data files, so the panel is always the truth.
+`f o s h`, `y`, `.`, the digits, and the account keys are reserved by the panel: a preset
+claiming one makes the rig refuse to open, loudly, naming the key.
 
 ## Data — edit freely, re-read every invocation
 
@@ -52,9 +74,9 @@ so the rig spends the positional on the colour and Felix speaks the summons hims
 - **A real work order** — paste the kickoff from the work doc as the first message. That
   is the normal path, and why the rig leaves the clipboard alone: it usually already
   holds that kickoff.
-- **A generic mantle session** — press `y` at the account stage; the derived summons is
-  on the clipboard, so ⌘V ⏎ is the whole first message. `y` is the only clipboard write
-  this rig ever makes.
+- **A generic mantle session** — press `y` before confirming; the derived summons is on
+  the clipboard, so ⌘V ⏎ is the whole first message. `y` is the only clipboard write this
+  rig ever makes.
 
 ## Telemetry
 

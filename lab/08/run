@@ -34,15 +34,25 @@ count() {	# <name> <expected> <literal> [file]
 	fi
 }
 
-print -r -- '--- the picker ------------------------------------------------------'
-check 'menu renders, stage 1 (presets + bare keys)' '   bare: f fable o opus s sonnet h haiku'
-check 'menu renders, stage 2'                       '· keys: 2'
-check 'Ctrl-G a 2 → 3 keys, right flags/name/colour' 'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model fable --effort high -n architect /color green'
-check '⏎ = last-used account (doorbell, set by T2)'  'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model sonnet --effort medium -n dispatcher /color pink'
-check '. ejects an editable resolved command'        'CLAUDE_CONFIG_DIR=~/.claude-thg-doorbell claude --model fable --effort high -n architect "/color green"'
+print -r -- '--- the panel -------------------------------------------------------'
+check 'every live hotkey on the panel: mantle row'  'mantle    [g] grand-architect fable-max'
+check 'every live hotkey: model row'                'model     [f] fable  [o] opus  [s] sonnet  [h] haiku'
+check 'every live hotkey: effort row'               'effort    [l] low  [m] medium  [h] high'
+check 'every live hotkey: account row + default'    '(unset ⇒ last-used:'
+check 'panel shows selections'                      '→ architect ✓'
+check 'counter counts the launch key (^G alone = 1)' 'summon · keys: 1'
+check 'counter advances per press'                   'summon · keys: 4'
+check 'Ctrl-G a 2 ⏎ → right flags, name, colour'    'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model fable --effort high -n architect /color green'
+check 'Ctrl-G d ⏎ → 3 keys on the last-used account' 'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model sonnet --effort medium -n dispatcher /color pink'
+check 'repeat is armed and shown resolved before firing' 'ARMED · architect fable-high @ thg-doorbell'
+check '. ejects an editable resolved command'        'CLAUDE_CONFIG_DIR=~/.claude-thg-doorbell claude --model fable --effort max -n grand-architect "/color green"'
+count 'the ejected command was never executed'    0 'args=--model fable --effort max -n grand-architect'
+check 'the eject is logged with its description'    '"mode":"eject","keys":3,"n":"grand-architect"' $LOG
 check 'esc aborts'                                   'summon: aborted'
 check 'non-empty buffer survives (push-input)'       'KEEPME'
-check 'Ctrl-G f x 1 → bare, no -n/colour/prompt'     'SHIM cfg=/Users/felix/.claude-thg-fgreen args=--model fable --effort xhigh'
+check 'Ctrl-G f x 1 ⏎ → bare, no -n/colour/prompt'  'SHIM cfg=/Users/felix/.claude-thg-fgreen args=--model fable --effort xhigh'
+check 'Enter with nothing selected fires nothing'    'summon: nothing selected'
+count 'selection keys never launch: 6 launches, not 8' 6 'SHIM cfg='
 
 print -r -- '--- clipboard law ---------------------------------------------------'
 check 'y yanks the derived summons' 'CLIP[You are an Architect at fable-max. Wear ~/code/agents/canon/mantles/architect.md.]'
@@ -81,16 +91,19 @@ for i, line in enumerate(open(sys.argv[1]), 1):
 		print(f"  FAIL  line {i} keys is not a number: {rec['keys']!r}"); bad += 1
 if not bad:
 	print(f"  PASS  {len(rows)} lines, all well-formed JSONL with the full field set")
-for want, mode, keys in ((True,"pick",3), (True,"bare",4), (True,"repeat",2), (True,"eject",2)):
+# the floors the brief fixes: repeat 3, preset on last-used 3, preset+account 4, bare 5
+for mode, keys, what in (("pick",3,"preset on the last-used account"), ("pick",4,"preset + account"),
+								 ("bare",5,"model + effort + account"), ("repeat",3,"^G ^G ⏎"),
+								 ("eject",2,"^G . — the default source is log/last"), ("eject",3,"^G <preset> .")):
 	hit = [r for r in rows if r["mode"] == mode and r["keys"] == keys]
-	print(f"  {'PASS' if hit else 'FAIL'}  a {mode} line at {keys} keys")
+	print(f"  {'PASS' if hit else 'FAIL'}  {mode} at {keys} keys — {what}")
 	bad += 0 if hit else 1
 bare = [r for r in rows if r["mode"] == "bare"]
 ok = bare and all(r["mantle"] is None and r["color"] is None and r["n"] is None for r in bare)
 print(f"  {'PASS' if ok else 'FAIL'}  bare lines carry mantle/color/n = null")
 bad += 0 if ok else 1
-yank = [r for r in rows if r["mode"] == "pick" and r["keys"] == 4]
-print(f"  {'PASS' if yank else 'FAIL'}  the y press is counted (a pick at 4 keys)")
+yank = [r for r in rows if r["mode"] == "pick" and r["keys"] == 5]
+print(f"  {'PASS' if yank else 'FAIL'}  the y press is counted (a pick at 5 keys)")
 bad += 0 if yank else 1
 sys.exit(1 if bad else 0)
 PY

@@ -3,6 +3,7 @@
 
 PS1='%# '
 unsetopt zle_bracketed_paste 2>/dev/null
+stty columns 200 rows 60 2>/dev/null		# the panel is wide; wrapping would break assertions
 
 # stand-ins: the widget's accept-line runs a normal command line, so a function named
 # `claude` intercepts exactly what a real launch would have received.

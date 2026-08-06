@@ -2,12 +2,19 @@
 #
 # Source from .zshrc:   source ~/code/agents/summon/summon.zsh
 #
-#   ^G <preset> <account>       launch a mantled session          (3 keys)
-#   ^G <preset> y <account>     …and yank its summons first       (4 keys)
-#   ^G <model> <effort> <acct>  launch bare — no name, no colour  (4 keys)
-#   ^G ^G                       repeat the last invocation        (2 keys)
-#   ^G .                        eject an editable command, no launch
-#   ^G <esc, or anything unbound>   abort
+# Ctrl-G opens the panel; every key selects; **Enter, and only Enter, fires**.
+#
+#   ^G <preset> ⏎                    mantled session on the last-used account  (3 keys)
+#   ^G <preset> <account> ⏎          …on a named account                       (4 keys)
+#   ^G <preset> y <account> ⏎        …and yank its summons first               (5 keys)
+#   ^G <model> <effort> [<acct>] ⏎   bare — no name, no colour, no prompt     (4–5 keys)
+#   ^G ^G ⏎                          repeat the last invocation                (3 keys)
+#   ^G .                             eject an editable command, no launch
+#   ^G <esc>                         abort
+#
+# Key namespaces are staged, so overloaded letters stay unambiguous: `h` is haiku at the
+# first choice, high after a model key. Selections are forward-only — a fat-finger is
+# Esc and redo.
 #
 # Clipboard law: `y` is the only clipboard write this rig ever makes — Felix's clipboard
 # usually carries the previous agent's kickoff, and clobbering it costs more than the
@@ -23,10 +30,10 @@ typeset -g SUMMON_HOME=${${(%):-%x}:A:h}
 [[ -d $SUMMON_HOME/log ]] || mkdir -p $SUMMON_HOME/log
 
 typeset -gA _summon_preset _summon_account				# key → tab-joined row
-typeset -ga _summon_preset_keys _summon_account_keys	# menu order, as filed
+typeset -ga _summon_preset_keys _summon_account_keys	# panel order, as filed
 typeset -g  _summon_error										# why _summon_load refused
 
-# the bare path's ordered key maps — display order and lookup from one source
+# the staged key namespaces — panel order and lookup from one source
 typeset -ga _summon_models=(f:fable o:opus s:sonnet h:haiku)
 typeset -ga _summon_efforts=(l:low m:medium h:high x:xhigh M:max)
 
@@ -60,8 +67,9 @@ _summon_load() {
 		_summon_error='presets.tsv / accounts.tsv empty'
 		return 1
 	}
-	# the state machine owns the model keys and the eject key — a preset may not shadow one
-	local -a reserved=(${_summon_models%%:*} .)
+	# the panel owns these at the first choice — a preset may not shadow one
+	local -a reserved=(${_summon_models%%:*} y . {0..9} $_summon_account_keys)
+	reserved=(${(u)reserved})
 	for key in $_summon_preset_keys; do
 		(( $reserved[(Ie)$key] )) || continue
 		_summon_error="presets.tsv claims reserved key '$key' (reserved: $reserved)"
@@ -162,115 +170,156 @@ _summon_widget() {
 	_summon_forget
 	_summon_load || {
 		zle -M "summon: $_summon_error"
-		_summon_log abort 1 ''								# a keystroke that went nowhere still counts
+		_summon_log abort 1 ''							# a keystroke that went nowhere still counts
 		return 1
 	}
 	_summon_recall
 
-	# menus are built from builtins only — a fork here is input delay Felix would feel
-	local key press pair label head hint menu='summon · keys: 1'$'\n'
-	local -a p
+	# what the last invocation was, for the repeat row — resolved once, not per render
+	local lastdesc=${_summon_last:-—}
 	local lastlabel=${${(ps:\t:)${_summon_account[$_summon_last_account]:-}}[2]:-—}
-	for key in $_summon_preset_keys; do
-		p=(${(ps:\t:)_summon_preset[$key]})
-		menu+="   $key $p[1] $p[2]-$p[3]"
-	done
-	menu+=$'\n'"   bare:"
-	for pair in $_summon_models; do menu+=" ${pair%%:*} ${pair#*:}"; done
-	menu+=$'\n'"   ^G repeat ($lastlabel) · . eject · esc abort"
-	zle -M "$menu"
-	zle -R
-	read -k 1 press
+	if [[ -n $_summon_last ]] && _summon_identify "$_summon_last_account" "$_summon_last"; then
+		lastdesc="$_summon_mantle $_summon_model-$_summon_effort @ $lastlabel"
+	fi
+	_summon_forget
 
-	case $press in
-		$'\a')			# ^G — repeat last, the 2-key floor
-			[[ -n $_summon_last ]] || {
-				zle -M 'summon: nothing to repeat yet'
-				_summon_log abort 2 ''
-				return 1
-			}
-			_summon_identify "$_summon_last_account" "$_summon_last"	# nulls when it was bare
-			_summon_cmd=$_summon_last
-			_summon_log repeat 2 "$_summon_last_account"
-			BUFFER=$_summon_cmd
-			zle accept-line
-			return 0
-			;;
-		'.')				# eject — an editable command, launched by Felix's own ⏎
-			if [[ -n $_summon_last ]]; then
-				_summon_identify "$_summon_last_account" "$_summon_last"
-				_summon_cmd=$_summon_last
-				_summon_log eject 2 "$_summon_last_account"
-			else
-				_summon_describe $_summon_preset_keys[1]
-				_summon_assemble $_summon_account_keys[1]
-				_summon_log eject 2 $_summon_account_keys[1]
-			fi
-			BUFFER=$_summon_cmd
-			CURSOR=$#BUFFER
-			zle -M ''
-			return 0
-			;;
-	esac
+	local press pair key panel row fired=''
+	local preset='' model='' effort='' account='' armed='' yanked=''
+	local -a p
+	local -i keys=1
+	while (( keys < 32 )); do						# a picker cannot run away
+		# the panel: every live hotkey, the current selections, the running counter —
+		# builtins only, because a fork here is input delay Felix would feel
+		panel="summon · keys: $keys"
+		panel+=$'\n'"Ctrl-G   repeat  → ${armed:+ARMED · }$lastdesc"
 
-	# --- key 2: a preset, or a model key onto the bare path
-	local mode=pick model=''
-	for pair in $_summon_models; do
-		[[ ${pair%%:*} == $press ]] && { mode=bare; model=${pair#*:}; break }
-	done
-	local -i keys=2
-	if [[ $mode == bare ]]; then
-		keys=3
-		menu="summon · $model · keys: 2"$'\n'
-		for pair in $_summon_efforts; do menu+="   ${pair%%:*} ${pair#*:}"; done
-		menu+=$'\n'"   esc abort"
-		zle -M "$menu"
-		zle -R
-		read -k 1 press
-		for pair in $_summon_efforts; do
-			[[ ${pair%%:*} == $press ]] && { _summon_describe_bare $model ${pair#*:}; break }
+		row=''
+		for key in $_summon_preset_keys; do
+			p=(${(ps:\t:)_summon_preset[$key]})
+			row+="  [$key] $p[1] $p[2]-$p[3]"
 		done
-		[[ -n $_summon_effort ]] || { zle -M 'summon: aborted'; _summon_log abort 3 ''; return 1 }
-		head="$model-$_summon_effort"
-	else
-		[[ -n ${_summon_preset[$press]:-} ]] || {
-			zle -M 'summon: aborted'
-			_summon_log abort 2 ''
-			return 1
-		}
-		_summon_describe $press
-		head="$_summon_mantle $_summon_model-$_summon_effort"
-		hint=' · y yank summons'
-	fi
+		panel+=$'\n'"mantle  $row"
+		[[ -n $preset ]] && panel+="   → $_summon_mantle ✓"
 
-	# --- last key: the account — this one fires
-	menu="summon · $head · keys: $keys"$'\n'
-	for key in $_summon_account_keys; do
-		label=${${(ps:\t:)_summon_account[$key]}[2]}
-		menu+="   $key $label"
-	done
-	menu+=$'\n'"   ⏎ last: $lastlabel$hint · esc abort"
-	zle -M "$menu"
-	zle -R
-	read -k 1 press
+		row=''
+		for pair in $_summon_models; do row+="  [${pair%%:*}] ${pair#*:}"; done
+		panel+=$'\n'"model   $row"
+		[[ -n $model ]] && panel+="   → $model ✓"
+		[[ -n $preset ]] && panel+="   → $_summon_model (preset)"
 
-	if [[ $press == y && $mode == pick ]]; then		# opt-in clipboard, mantle path only
-		_summon_yank
-		(( keys++ ))
-		zle -M "$menu"$'\n'"   summons yanked · keys: $keys"
+		row=''
+		for pair in $_summon_efforts; do row+="  [${pair%%:*}] ${pair#*:}"; done
+		panel+=$'\n'"effort  $row"
+		[[ -n $effort ]] && panel+="   → $effort ✓"
+		[[ -n $preset ]] && panel+="   → $_summon_effort (preset)"
+
+		row=''
+		for key in $_summon_account_keys; do
+			row+="  [$key] ${${(ps:\t:)_summon_account[$key]}[2]}"
+		done
+		panel+=$'\n'"account $row"
+		if [[ -n $account ]]; then
+			panel+="   → ${${(ps:\t:)_summon_account[$account]}[2]} ✓"
+		else
+			panel+="   (unset ⇒ last-used: $lastlabel)"
+		fi
+
+		panel+=$'\n'"          [y]ank summons${yanked:+ ✓}   [.] eject   [Esc] abort   [Enter] invoke"
+		zle -M "$panel"
 		zle -R
+
 		read -k 1 press
-	fi
-	(( keys++ ))
-	[[ $press == $'\r' || $press == $'\n' ]] && press=$_summon_last_account
-	[[ -n $press && -n ${_summon_account[$press]:-} ]] || {
-		zle -M 'summon: aborted'
+		(( keys++ ))
+		case $press in
+			$'\r'|$'\n')	fired=1; break ;;					# Enter — and only Enter — fires
+			$'\e'|$'\C-c')	zle -M 'summon: aborted'
+								_summon_forget
+								_summon_log abort $keys ''
+								return 1 ;;
+			$'\a')			# arm the repeat — arming and selecting are mutually exclusive,
+								# so the panel never shows two futures at once
+								[[ -n $_summon_last ]] || continue
+								armed=$_summon_last
+								preset='' model='' effort=''
+								_summon_forget ;;
+			'.')				# eject the selected, armed, or last config — Felix's own ⏎ launches it
+								if [[ -n $preset || -n $effort ]]; then
+									[[ -n $preset ]] && _summon_describe $preset
+									[[ -n $effort ]] && _summon_describe_bare $model $effort
+									key=${account:-${_summon_last_account:-$_summon_account_keys[1]}}
+									_summon_assemble $key
+									_summon_log eject $keys $key
+								elif [[ -n $_summon_last ]]; then
+									_summon_identify "$_summon_last_account" "$_summon_last"
+									_summon_cmd=$_summon_last
+									_summon_log eject $keys "$_summon_last_account"
+								else						# nothing selected, nothing ever launched
+									_summon_describe $_summon_preset_keys[1]
+									_summon_assemble $_summon_account_keys[1]
+									_summon_log eject $keys $_summon_account_keys[1]
+								fi
+								BUFFER=$_summon_cmd
+								CURSOR=$#BUFFER
+								zle -M ''
+								return 0 ;;
+			y)					[[ -n $preset ]] || continue					# mantle path only
+								_summon_describe $preset
+								_summon_yank && yanked=1 ;;
+			*)					if [[ -n ${_summon_account[$press]:-} ]]; then
+									account=$press
+								elif [[ -z $preset && -z $model && -n ${_summon_preset[$press]:-} ]]; then
+									preset=$press armed=''
+									_summon_describe $preset
+								elif [[ -z $preset && -z $model ]]; then
+									for pair in $_summon_models; do
+										[[ ${pair%%:*} == $press ]] && { model=${pair#*:} armed=''; break }
+									done
+								elif [[ -n $model && -z $effort ]]; then
+									for pair in $_summon_efforts; do
+										[[ ${pair%%:*} == $press ]] && { effort=${pair#*:}; break }
+									done
+								fi ;;							# anything else: ignored, forward-only
+		esac
+	done
+
+	[[ -n $fired ]] || {						# fell out of the loop on the runaway guard
+		zle -M 'summon: too many keys — aborted'
+		_summon_forget
 		_summon_log abort $keys ''
 		return 1
 	}
 
-	_summon_assemble $press
-	_summon_log $mode $keys $press
+	# --- Enter: fire what the panel showed
+	local mode=pick
+	if [[ -n $armed ]]; then
+		mode=repeat
+		_summon_identify "$_summon_last_account" "$armed"		# nulls when it was bare
+		_summon_cmd=$armed
+		account=$_summon_last_account
+	else
+		[[ -n $preset ]] && _summon_describe $preset
+		[[ -n $model ]] && { mode=bare; _summon_describe_bare $model $effort }
+		[[ -n $_summon_model && -n $_summon_effort ]] || {
+			if [[ -n $model ]]; then
+				zle -M "summon: $model selected but no effort — press l/m/h/x/M"
+			else
+				zle -M 'summon: nothing selected — press a mantle or a model key'
+			fi
+			_summon_forget
+			_summon_log abort $keys ''
+			return 1
+		}
+		account=${account:-$_summon_last_account}
+		[[ -n $account ]] || {						# never guess which Claude account to spend
+			zle -M 'summon: no account selected and no last-used — press an account digit'
+			_summon_forget
+			_summon_log abort $keys ''
+			return 1
+		}
+		_summon_assemble $account
+	fi
+
+	_summon_log $mode $keys "$account"
 	print -r -- $_summon_cmd > $SUMMON_HOME/log/last
 	BUFFER=$_summon_cmd
 	zle accept-line

@@ -1,5 +1,6 @@
 #!/usr/bin/env expect
-# lab/08 — drives the Ctrl-G widget through every DoD path in one live zsh + pty.
+# lab/08 — drives the Ctrl-G panel through every DoD path in one live zsh + pty.
+# Enter, and only Enter, fires: every selection below is confirmed before it launches.
 # usage: drive.exp <transcript> <rc.zsh>
 
 set timeout 15
@@ -15,23 +16,27 @@ proc mark {n} {
 	expect "MARK$n\r"
 }
 
-# T2 — 3 keys: ^G a 2 → architect · fable-high on thg-doorbell, clipboard untouched
+# T2 — 4 keys: ^G a 2 ⏎ → architect · fable-high on thg-doorbell, clipboard untouched
 send "\a"
 expect "keys: 1"
 send "a"
 expect "keys: 2"
 send "2"
+expect "keys: 3"
+send "\r"
 expect "SHIM"
 mark 2
 
-# T3 — 2 keys: ^G ^G repeats it verbatim
+# T3 — 3 keys: ^G ^G ⏎ arms the last invocation, shows it resolved, then fires it
 send "\a"
 expect "keys: 1"
 send "\a"
+expect "ARMED"
+send "\r"
 expect "SHIM"
 mark 3
 
-# T4 — ⏎ at the account stage takes the last-used account (doorbell, from T2)
+# T4 — 3 keys: ^G d ⏎ fires on the last-used account (doorbell, from T2)
 send "\a"
 expect "keys: 1"
 send "d"
@@ -40,20 +45,33 @@ send "\r"
 expect "SHIM"
 mark 4
 
-# T5 — `.` ejects an editable command instead of launching it; ^U clears the line
+# T5 — `.` ejects an editable command instead of launching it; ^U clears the line.
+# Eject the one config nothing else in this drive launches, so the assertion cannot
+# match a stray echo: grand-architect · fable-max.
+send "\a"
+expect "keys: 1"
+send "g"
+expect "grand-architect ✓"
+send "."
+expect "grand-architect"
+send "\025"
+mark 5
+
+# T5b — `^G .` with nothing selected ejects the last invocation (log/last is the default
+# source), at the 2-key floor. Asserted through the log: dispatcher, from T4.
 send "\a"
 expect "keys: 1"
 send "."
 expect "CLAUDE_CONFIG_DIR"
 send "\025"
-mark 5
+mark 6
 
 # T6 — esc aborts
 send "\a"
 expect "keys: 1"
 send "\033"
 expect "aborted"
-mark 6
+mark 7
 
 # T7 — a line in progress survives: push-input restores it after the launch
 send "print -r -- KEEPME"
@@ -62,36 +80,60 @@ expect "keys: 1"
 send "a"
 expect "keys: 2"
 send "1"
+expect "keys: 3"
+send "\r"
 expect "SHIM"
 expect "KEEPME"
-mark 7
+mark 8
 
-# T8 — bare: ^G f x 1 → fable · xhigh on thg-fgreen, no name, no colour, no prompt
+# T8 — bare, 5 keys: ^G f x 1 ⏎ → fable · xhigh on thg-fgreen, no name/colour/prompt
 send "\a"
 expect "keys: 1"
 send "f"
-expect "keys: 2"
+expect "fable ✓"
 send "x"
-expect "keys: 3"
+expect "xhigh ✓"
 send "1"
+expect "keys: 4"
+send "\r"
 expect "SHIM"
-mark 8
+mark 9
 
-# T9 — y yanks the summons, then the account key fires (4 keys)
+# T9 — y yanks the summons, then account + Enter (5 keys)
 send "\a"
 expect "keys: 1"
 send "A"
 expect "keys: 2"
 send "y"
-expect "yanked"
+expect "yank summons ✓"
 send "2"
+expect "keys: 4"
+send "\r"
 expect "SHIM"
-mark 9
+mark 10
 
-# T10 — the reporter
+# T10 — a selection key alone never fires: hold at the panel, then abort
+send "\a"
+expect "keys: 1"
+send "g"
+expect "grand-architect ✓"
+send "0"
+expect "personal ✓"
+send "\033"
+expect "aborted"
+mark 11
+
+# T11 — Enter with nothing selected fires nothing
+send "\a"
+expect "keys: 1"
+send "\r"
+expect "nothing selected"
+mark 12
+
+# T12 — the reporter
 send "summon-stats\r"
 expect "leverage"
-mark 10
+mark 13
 
 send "exit\r"
 expect eof
