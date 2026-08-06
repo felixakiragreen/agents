@@ -3,7 +3,11 @@
 
 PS1='%# '
 unsetopt zle_bracketed_paste 2>/dev/null
-stty columns 200 rows 60 2>/dev/null		# the panel is wide; wrapping would break assertions
+# the wide drive renders one row per field; narrow.exp asks for 60 to exercise the wrap.
+# Both are set: zsh caches its terminal size, so stty alone leaves $COLUMNS stale at 80 —
+# which would have the rig wrapping to one width while zle wraps to another.
+stty columns ${SUMMON_COLUMNS:-200} rows 60 2>/dev/null
+COLUMNS=${SUMMON_COLUMNS:-200}
 
 # stand-ins: the widget's accept-line runs a normal command line, so a function named
 # `claude` intercepts exactly what a real launch would have received.

@@ -1,0 +1,18 @@
+#!/usr/bin/env expect
+# lab/08 — the preview footer against the launch it promised, on a real screen. One gesture,
+# so the panel's paint is whole and deterministic: open on the sticky state, read the footer,
+# press Enter, and the shim reports what actually ran.
+# usage: preview.exp <transcript> <rc.zsh>
+
+set timeout 15
+log_file -noappend [lindex $argv 0]
+spawn zsh -f -i
+send "source [lindex $argv 1]\r"
+expect "READY"
+
+send "\a"
+expect "keys: 1"
+send "\r"
+expect "SHIM"
+send "exit\r"
+expect eof

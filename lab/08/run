@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 # lab/08 — the DoD harness: run the rig in a sandbox pty, then assert on what it did.
+# The panel is a pure function of the selection and $COLUMNS (render.zsh), so the palette
+# and the responsive wrap are asserted byte-exactly with no pty in the way.
 #   ./lab/08/run          → transcript + verdicts, artefacts under lab/08/out/
 set -u
 
@@ -7,6 +9,7 @@ LAB=${0:A:h}
 RIG=${LAB:h:h}/summon
 export SANDBOX=$LAB/out/sandbox
 TRANSCRIPT=$LAB/out/transcript.txt
+PLAIN=$LAB/out/transcript-plain.txt
 LOG=$SANDBOX/log/invocations.jsonl
 
 rm -rf $LAB/out
@@ -15,9 +18,14 @@ cp $RIG/summon.zsh $RIG/presets.tsv $RIG/accounts.tsv $SANDBOX/
 expect $LAB/drive.exp $TRANSCRIPT $LAB/rc.zsh > /dev/null 2>&1
 cp $LOG $LAB/out/log-at-stats.jsonl		# what summon-stats saw, before later tests append
 
+# the styled transcript, with the styling taken back off: assertions on what Felix reads.
+# A carriage return becomes a newline, not nothing — zle sends one before rewriting a line,
+# so deleting them would glue unrelated text into one line and defeat whole-line matching.
+sed -E $'s/\x1b\\[[0-9;?]*[a-zA-Z]//g' $TRANSCRIPT | tr '\r' '\n' > $PLAIN
+
 typeset -i fails=0
 check() {	# <name> <literal> [file]
-	if grep -qF -- "$2" ${3:-$TRANSCRIPT}; then
+	if grep -qF -- "$2" ${3:-$PLAIN}; then
 		print -r -- "  PASS  $1"
 	else
 		print -r -- "  FAIL  $1\n          missing: $2"
@@ -25,7 +33,7 @@ check() {	# <name> <literal> [file]
 	fi
 }
 count() {	# <name> <expected> <literal> [file]
-	local -i got=$(grep -cF -- "$3" ${4:-$TRANSCRIPT})
+	local -i got=$(grep -cF -- "$3" ${4:-$PLAIN})
 	if (( got == $2 )); then
 		print -r -- "  PASS  $1 ($got)"
 	else
@@ -33,51 +41,211 @@ count() {	# <name> <expected> <literal> [file]
 		(( fails++ ))
 	fi
 }
+line() {	# <name> <expected count> <whole line> — exact, so a longer line cannot satisfy it
+	local -i got=$(grep -cFx -- "$3" $PLAIN)
+	if (( got == $2 )); then
+		print -r -- "  PASS  $1 ($got)"
+	else
+		print -r -- "  FAIL  $1 — expected $2 whole-line matches, got $got: $3"
+		(( fails++ ))
+	fi
+}
+# raw/absent search the untouched transcript, escape bytes and all. Byte search is python's
+# job here, not the shell's: zsh pattern-quoting rewrites a raw ESC into printable `\e`,
+# and this environment's grep skips files it judges binary — both would report a false miss.
+_summon_bytes_in() { python3 -c 'import sys
+hay = open(sys.argv[1], "rb").read()
+sys.exit(0 if hay.find(sys.argv[2].encode()) >= 0 else 1)' $2 $1 }
+raw() {	# <name> <literal> <file>
+	if _summon_bytes_in "$2" $3; then
+		print -r -- "  PASS  $1"
+	else
+		print -r -- "  FAIL  $1\n          missing: ${(V)2}"
+		(( fails++ ))
+	fi
+}
+absent() {	# <name> <literal> <file> — the same test, inverted: this must NOT be there
+	if _summon_bytes_in "$2" $3; then
+		print -r -- "  FAIL  $1\n          present: ${(V)2}"
+		(( fails++ ))
+	else
+		print -r -- "  PASS  $1"
+	fi
+}
+widest() {	# <file> <columns> — every rendered line fits, counted in characters not bytes
+	local l ; local -i over=0 max=0
+	while IFS= read -r l; do
+		(( ${#l} > max )) && max=${#l}
+		(( ${#l} > $2 )) && (( over++ ))
+	done < $1
+	if (( over == 0 )); then
+		print -r -- "  PASS  every panel line fits $2 columns (widest $max)"
+	else
+		print -r -- "  FAIL  $over panel line(s) exceed $2 columns (widest $max)"
+		(( fails++ ))
+	fi
+}
 
-print -r -- '--- the panel -------------------------------------------------------'
-check 'every live hotkey on the panel: mantle row'  'mantle    [g] grand-architect fable-max'
-check 'every live hotkey: model row'                'model     [f] fable  [o] opus  [s] sonnet  [h] haiku'
-check 'every live hotkey: effort row'               'effort    [l] low  [m] medium  [h] high'
-check 'every live hotkey: account row + default'    '(unset ⇒ last-used:'
-check 'panel shows selections'                      '→ architect ✓'
-check 'counter counts the launch key (^G alone = 1)' 'summon · keys: 1'
-check 'counter advances per press'                   'summon · keys: 4'
-check 'Ctrl-G a 2 ⏎ → right flags, name, colour'    'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model fable --effort high -n architect /color green'
-check 'Ctrl-G d ⏎ → 3 keys on the last-used account' 'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model sonnet --effort medium -n dispatcher /color pink'
-check 'repeat is armed and shown resolved before firing' 'ARMED · architect fable-high @ thg-doorbell'
-check '. ejects an editable resolved command'        'CLAUDE_CONFIG_DIR=~/.claude-thg-doorbell claude --model fable --effort max -n grand-architect "/color green"'
-count 'the ejected command was never executed'    0 'args=--model fable --effort max -n grand-architect'
-check 'the eject is logged with its description'    '"mode":"eject","keys":3,"n":"grand-architect"' $LOG
-check 'esc aborts'                                   'summon: aborted'
-check 'non-empty buffer survives (push-input)'       'KEEPME'
-check 'Ctrl-G f x 1 ⏎ → bare, no -n/colour/prompt'  'SHIM cfg=/Users/felix/.claude-thg-fgreen args=--model fable --effort xhigh'
-check 'Enter with nothing selected fires nothing'    'summon: nothing selected'
-count 'selection keys never launch: 6 launches, not 8' 6 'SHIM cfg='
+# --- the panel, rendered without a pty --------------------------------------------
+# <file> <columns> <mantle> <model> <effort> <account> <keys> [yank]
+render() { zsh -f $LAB/render.zsh $SANDBOX $2 "$3" "$4" "$5" "$6" $7 "${8:-}" > $LAB/out/$1 }
+plain()  { sed -E $'s/\x1b\\[[0-9;?]*[a-zA-Z]//g' $LAB/out/$1 > $LAB/out/${1:r}-plain.txt }
+render panel-200.txt 200 a fable high 1 2	; plain panel-200.txt
+render panel-60.txt   60 a fable high 1 2	; plain panel-60.txt
+render panel-bare.txt 60 '' haiku high 2 3	; plain panel-bare.txt
+render panel-cold.txt 80 '' '' '' '' 1		; plain panel-cold.txt
+render panel-noacct.txt 80 g fable max '' 3 1	; plain panel-noacct.txt
+P200=$LAB/out/panel-200-plain.txt
+
+print -r -- '--- the panel: every live hotkey, the selection, the preview -----------'
+check 'mantle row, ● swatches, [n]one, ✓ inline on the selected item' \
+	'mantle   ●[g]rand-architect  ●[a]rchitect·high ✓  ●[A]rchitect·max  ●[d]ispatcher  [n]one' $P200
+check 'model row — haiku is hai[k]u'  'model    [f]able ✓  [o]pus  [s]onnet  hai[k]u' $P200
+check 'effort row — [h]igh is high'   'effort   [l]ow  [m]edium  [h]igh ✓  [x]high  [M]ax' $P200
+check 'account row'                   'account  [0] personal  [1] thg-fgreen ✓  [2] thg-doorbell' $P200
+check 'action row'                    '         [y]ank  [.] eject  [Esc] close  [Enter] invoke' $P200
+check 'preview footer states exactly what Enter fires' \
+	'⏎  architect · fable-high @ thg-fgreen · green · keys: 2' $P200
+check 'mantle cleared ⇒ [n]one selected, and the footer says bare' \
+	'[n]one ✓' $LAB/out/panel-bare-plain.txt
+check 'bare footer carries no colour' \
+	'⏎  bare · haiku-high @ thg-doorbell · keys: 3' $LAB/out/panel-bare-plain.txt
+check 'cold state: the footer refuses instead of guessing' \
+	'⏎  nothing selected — press a mantle, or a model and an effort · keys: 1' \
+	$LAB/out/panel-cold-plain.txt
+check 'no account: the footer names the one thing the rig will never guess' \
+	'@ no account — press an account digit' $LAB/out/panel-noacct-plain.txt
+
+print -r -- '--- palette (D36) — the spans, each shown over the text it covers ----'
+check 'mantle label green'        'fg=green ⟨mantle   ⟩'  $P200
+check 'model label yellow'        'fg=yellow ⟨model    ⟩' $P200
+check 'effort label orange (208)' 'fg=208 ⟨effort   ⟩'    $P200
+check 'account label red'         'fg=red ⟨account  ⟩'    $P200
+count 'every opening bracket grey — one per item' 21 'fg=8 ⟨[⟩' $P200
+count 'every closing bracket too'                 21 'fg=8 ⟨]⟩' $P200
+check 'unselected item text grey'  'fg=8 ⟨pus⟩'           $P200
+check 'unselected mantle grey too' 'fg=8 ⟨rand-architect⟩' $P200
+check 'selected item bold, and the ✓ is inline on the item' \
+	'bold ⟨rchitect·high⟩'  $P200
+check 'the inline ✓ is part of the selected item, not a trailing arrow' \
+	'bold ⟨ ✓⟩' $P200
+check 'preset ● swatch in its session colour — green' 'fg=green ⟨●⟩'  $P200
+check 'preset ● swatch in its session colour — pink'  'fg=213 ⟨●⟩'    $P200
+# the styles above are zle's names for exactly the codes D36 named, so the proof that the
+# palette survives to the terminal is the wire itself: grey 90, bold 1, orange 38;5;208
+raw 'grey reaches the terminal as \e[90m (live pty)'  $'\e[90m' $TRANSCRIPT
+raw 'bold reaches the terminal as \e[1m (live pty)'   $'\e[1m'  $TRANSCRIPT
+raw 'orange reaches the terminal as \e[38;5;208m'     $'\e[38;5;208m' $TRANSCRIPT
+raw 'green reaches the terminal as \e[32m'            $'\e[32m' $TRANSCRIPT
+raw 'the pink swatch reaches the terminal as \e[38;5;213m' $'\e[38;5;213m' $TRANSCRIPT
+absent 'and no escape reaches the screen as literal ^[[ text' '^[[' $TRANSCRIPT
+
+print -r -- '--- responsive render -----------------------------------------------'
+widest $LAB/out/panel-60-plain.txt 60
+widest $LAB/out/panel-bare-plain.txt 60
+check 'wraps at an item boundary, continuation aligned under the first item' \
+	'         ●[A]rchitect·max  ●[d]ispatcher  [n]one' $LAB/out/panel-60-plain.txt
+count 'no item is broken across lines: each survives whole' 1 \
+	'●[A]rchitect·max' $LAB/out/panel-60-plain.txt
+check 'the same panel is one row per field at full width' \
+	'mantle   ●[g]rand-architect  ●[a]rchitect·high ✓  ●[A]rchitect·max' $P200
+# and in a real 60-column terminal: the break must be ours, not the terminal's
+SUMMON_COLUMNS=60 expect $LAB/narrow.exp $LAB/out/narrow.txt $LAB/rc.zsh > /dev/null 2>&1
+sed -E $'s/\x1b\\[[0-9;?]*[a-zA-Z]//g' $LAB/out/narrow.txt | tr '\r' '\n' > $LAB/out/narrow-plain.txt
+check 'live 60-column pty: the mantle row wraps where we put the break' \
+	'mantle   ●[g]rand-architect  ●[a]rchitect·high' $LAB/out/narrow-plain.txt
+check 'live 60-column pty: the continuation line is intact and aligned' \
+	'         ●[A]rchitect·max ✓  ●[d]ispatcher  [n]one' $LAB/out/narrow-plain.txt
+
+print -r -- '--- preview footer vs the launch it promised (live pty) --------------'
+# one gesture on the state the drive left behind, so the paint is whole and comparable
+expect $LAB/preview.exp $LAB/out/preview.txt $LAB/rc.zsh > /dev/null 2>&1
+sed -E $'s/\x1b\\[[0-9;?]*[a-zA-Z]//g' $LAB/out/preview.txt | tr '\r' '\n' > $LAB/out/preview-plain.txt
+check 'the panel opens pre-selected from log/state, and says what Enter will fire' \
+	'⏎  architect · opus-max @ thg-fgreen · green · keys: 1' $LAB/out/preview-plain.txt
+check 'Enter then fires exactly that — mantle, tier and account' \
+	'SHIM cfg=/Users/felix/.claude-thg-fgreen args=--model opus --effort max -n architect /color green' \
+	$LAB/out/preview-plain.txt
+
+print -r -- '--- sticky state ----------------------------------------------------'
+check 'cold: Enter with nothing selected fires nothing' 'summon: nothing selected'
+count 'and `.` refuses to eject nothing, same refusal' 2 'summon: nothing selected'
+line 'Ctrl-G a 2 ⏎ (4 keys) → architect · fable-high on thg-doorbell, then 3 refires of it' 4 \
+	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model fable --effort high -n architect /color green'
+check 'the panel opens pre-selected from state' 'architect · fable-high @ thg-doorbell'
+check 'Esc closes and discards this panel'      'summon: closed — changes discarded'
+count 'Esc and a second Ctrl-G both close, both discard' 2 'summon: closed — changes discarded'
+line 'cascade + single-field override: A then k → architect · haiku-max' 1 \
+	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model haiku --effort max -n architect /color green'
+line 'fresh preset on the sticky account (3 keys)' 1 \
+	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model sonnet --effort medium -n dispatcher /color pink'
+line 'h = [h]igh: the model stays sonnet' 1 \
+	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model haiku --effort high -n dispatcher /color pink'
+line 'k = hai[k]u: the effort stays high' 1 \
+	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model sonnet --effort high -n dispatcher /color pink'
+line '[n]one → bare launch: no -n, no colour, no prompt' 1 \
+	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model haiku --effort high'
+line 'override + account, and the refire after two ejects (2 launches)' 2 \
+	'SHIM cfg=/Users/felix/.claude-thg-fgreen args=--model opus --effort max -n architect /color green'
+count 'nothing fires but Enter: 11 launches across 20 gestures' 11 'SHIM cfg='
+check 'non-empty buffer survives (push-input)' 'KEEPME'
+
+print -r -- '--- state file ------------------------------------------------------'
+if [[ -r $SANDBOX/log/state ]]; then
+	print -r -- "  PASS  log/state written on fire: $(tr '\t' '=' < $SANDBOX/log/state | tr '\n' ' ')"
+else
+	print -r -- '  FAIL  no log/state after 11 launches'; (( fails++ ))
+fi
+check 'state holds the last fired configuration, not the last panel' $'mantle\tA' $SANDBOX/log/state
+check 'state keeps the overridden model, not the one the preset cascaded' \
+	$'model\topus' $SANDBOX/log/state
+if [[ -e $SANDBOX/log/last ]]; then
+	print -r -- '  FAIL  log/last is retired but still written'; (( fails++ ))
+else
+	print -r -- '  PASS  log/last retired — log/state is the only sidecar'
+fi
+
+print -r -- '--- eject -----------------------------------------------------------'
+check '`^G .` ejects the sticky config itself (2 keys)' \
+	'CLAUDE_CONFIG_DIR=~/.claude-thg-fgreen claude --model opus --effort max -n architect "/color green"'
+check '`^G g 0 .` ejects an editable resolved command' \
+	'CLAUDE_CONFIG_DIR=~/.claude claude --model fable --effort max -n grand-architect "/color green"'
+count 'the ejected command was never executed' 0 'args=--model fable --effort max -n grand-architect'
+check 'the eject is logged with its description' '"mode":"eject"' $LOG
 
 print -r -- '--- clipboard law ---------------------------------------------------'
-check 'y yanks the derived summons' 'CLIP[You are an Architect at fable-max. Wear ~/code/agents/canon/mantles/architect.md.]'
+check 'y yanks the summons for the OVERRIDDEN tier' \
+	'CLIP[You are an Architect at opus-max. Wear ~/code/agents/canon/mantles/architect.md.]'
 count 'clipboard written exactly once, on the one y press' 1 'CLIP['
 
 print -r -- '--- reserved keys ---------------------------------------------------'
-printf 'f\tfable-shadow\tfable\thigh\tgreen\n' >> $SANDBOX/presets.tsv
+printf 'm\tmedium-shadow\tfable\thigh\tgreen\n' >> $SANDBOX/presets.tsv
 expect $LAB/reserved.exp $LAB/out/reserved.txt $LAB/rc.zsh > /dev/null 2>&1
-check "load refuses a preset on a reserved key" "reserved key 'f'" $LAB/out/reserved.txt
-check 'the refusal is logged too (abort at 1 key)' '"mode":"abort","keys":1' $LOG
+check 'load refuses a preset on a now-global effort key' "reserved key 'm'" $LAB/out/reserved.txt
+check 'the reserved set is the whole panel: models, efforts, n, y, ., digits' \
+	'(reserved: f o s k l m h x M n y .' $LAB/out/reserved.txt
+check 'the refusal is logged too (a keystroke at 1 key)' '"mode":"abort","n":1' $LOG
 sed -i '' '$d' $SANDBOX/presets.tsv
 
 print -r -- '--- input delay -----------------------------------------------------'
 print -r -- "  host: $(uptime | sed 's/.*load/load/')"
 zsh -f -c "source $SANDBOX/summon.zsh 2>/dev/null
+COLUMNS=200
+_summon_load; _summon_state_load
 typeset -F start=\$EPOCHREALTIME
-for i in {1..500}; do _summon_load; _summon_recall; done
-printf '  every-invocation work (2 TSV reads + recall, no forks): %.3f ms/invocation\n' \
+for i in {1..500}; do _summon_load; _summon_state_load; done
+printf '  per invocation (2 TSV reads + state, no forks): %.3f ms\n' \
+	\$(( (\$EPOCHREALTIME - start) * 1000 / 500 ))
+start=\$EPOCHREALTIME
+for i in {1..500}; do _summon_panel 3 '' 0; done
+printf '  per keystroke  (full panel render + resolve):   %.3f ms\n' \
 	\$(( (\$EPOCHREALTIME - start) * 1000 / 500 ))"
 
 print -r -- '--- telemetry -------------------------------------------------------'
-print -r -- "  $(wc -l < $LOG | tr -d ' ') lines · modes: $(for m in pick bare repeat eject abort; do print -rn -- "$m $(grep -c "\"mode\":\"$m\"" $LOG) "; done)"
+print -r -- "  $(wc -l < $LOG | tr -d ' ') lines · modes: $(for m in refire pick eject abort; do print -rn -- "$m $(grep -c "\"mode\":\"$m\"" $LOG) "; done)"
 python3 - "$LOG" <<'PY' || fails=$(( fails + 1 ))
 import json, sys
-need = {"ts","mode","keys","n","account","mantle","model","effort","color","cmd"}
+need = {"ts","mode","n","keys","account","mantle","model","effort","color","cmd"}
 rows, bad = [], 0
 for i, line in enumerate(open(sys.argv[1]), 1):
 	try:
@@ -87,48 +255,63 @@ for i, line in enumerate(open(sys.argv[1]), 1):
 	rows.append(rec)
 	if set(rec) != need:
 		print(f"  FAIL  line {i} field set off by {sorted(set(rec) ^ need)}"); bad += 1
-	if not isinstance(rec["keys"], int):
-		print(f"  FAIL  line {i} keys is not a number: {rec['keys']!r}"); bad += 1
+	if not isinstance(rec["n"], int):
+		print(f"  FAIL  line {i} n is not a number: {rec['n']!r}"); bad += 1
 if not bad:
 	print(f"  PASS  {len(rows)} lines, all well-formed JSONL with the full field set")
-# the floors the brief fixes: repeat 3, preset on last-used 3, preset+account 4, bare 5
-for mode, keys, what in (("pick",3,"preset on the last-used account"), ("pick",4,"preset + account"),
-								 ("bare",5,"model + effort + account"), ("repeat",3,"^G ^G ⏎"),
-								 ("eject",2,"^G . — the default source is log/last"), ("eject",3,"^G <preset> .")):
-	hit = [r for r in rows if r["mode"] == mode and r["keys"] == keys]
-	print(f"  {'PASS' if hit else 'FAIL'}  {mode} at {keys} keys — {what}")
+# the floors D36 fixes: refire 2 · one-field change 3 · fresh preset 3–4 · eject 2
+for mode, n, what in (("refire",2,"^G ⏎ — the 2-key refire"), ("pick",3,"one-field change"),
+							 ("pick",4,"preset + account, and cascade + override"),
+							 ("eject",2,"^G . — the sticky config itself"), ("abort",2,"^G Esc")):
+	hit = [r for r in rows if r["mode"] == mode and r["n"] == n]
+	print(f"  {'PASS' if hit else 'FAIL'}  {mode} at {n} keys — {what}")
 	bad += 0 if hit else 1
-bare = [r for r in rows if r["mode"] == "bare"]
-ok = bare and all(r["mantle"] is None and r["color"] is None and r["n"] is None for r in bare)
-print(f"  {'PASS' if ok else 'FAIL'}  bare lines carry mantle/color/n = null")
+bare = [r for r in rows if r["mode"] in ("pick","refire") and r["cmd"] and " -n " not in r["cmd"]]
+ok = bare and all(r["mantle"] is None and r["color"] is None for r in bare)
+print(f"  {'PASS' if ok else 'FAIL'}  bare is inferred from mantle/color = null, not a mode")
 bad += 0 if ok else 1
-yank = [r for r in rows if r["mode"] == "pick" and r["keys"] == 5]
-print(f"  {'PASS' if yank else 'FAIL'}  the y press is counted (a pick at 5 keys)")
-bad += 0 if yank else 1
+invalid = [r for r in rows if r["keys"] == "^GZ⏎"]
+ok = len(invalid) == 1 and invalid[0]["n"] == 3 and invalid[0]["mode"] == "refire"
+print(f"  {'PASS' if ok else 'FAIL'}  an invalid key is ignored, counted in n, and kept in keys")
+bad += 0 if ok else 1
+ok = all(r["keys"].startswith("^G") for r in rows) and any(r["keys"] == "^G⏎" for r in rows)
+print(f"  {'PASS' if ok else 'FAIL'}  every line carries its raw keystrokes, ^G included")
+bad += 0 if ok else 1
+yank = [r for r in rows if "y" in r["keys"]]
+ok = len(yank) == 1 and yank[0]["n"] == 6
+print(f"  {'PASS' if ok else 'FAIL'}  the y press is counted (a pick at 6 keys)")
+bad += 0 if ok else 1
 sys.exit(1 if bad else 0)
 PY
 
-print -r -- '--- repeat fidelity -------------------------------------------------'
-pick=$(grep -m1 '"mode":"pick"' $LOG | sed -e 's/.*"cmd":"//' -e 's/"}$//')
-rep=$(grep -m1 '"mode":"repeat"' $LOG | sed -e 's/.*"cmd":"//' -e 's/"}$//')
+print -r -- '--- refire fidelity -------------------------------------------------'
+pick=$(grep -m1 '"mode":"pick"' $LOG | sed -e 's/.*"cmd":"//' -e 's/","keys".*//')
+rep=$(grep -m1 '"mode":"refire"' $LOG | sed -e 's/.*"cmd":"//' -e 's/","keys".*//')
 if [[ -n $rep && $rep == $pick ]]; then
-	print -r -- '  PASS  repeat cmd byte-identical to the pick it repeats'
+	print -r -- '  PASS  refire cmd byte-identical to the pick it repeats'
 else
-	print -r -- "  FAIL  repeat != pick\n          pick:   $pick\n          repeat: $rep"
+	print -r -- "  FAIL  refire != pick\n          pick:   $pick\n          refire: $rep"
 	(( fails++ ))
 fi
 
 print -r -- '--- derived summons, every preset -----------------------------------'
 zsh -f -c "source $SANDBOX/summon.zsh 2>/dev/null; _summon_load
-for k in \$_summon_preset_keys; do _summon_describe \$k; print -r -- \"    \$_summon_summons\"; done"
+for k in \$_summon_preset_keys; do
+	_summon_mantle_key=\$k
+	_summon_model=\${\${(ps:\t:)_summon_preset[\$k]}[2]}
+	_summon_effort=\${\${(ps:\t:)_summon_preset[\$k]}[3]}
+	_summon_account_key=\$_summon_account_keys[1]
+	_summon_resolve
+	print -r -- \"    \$_summon_summons\"
+done"
 
 print -r -- '--- summon-stats ----------------------------------------------------'
-sed -n '/summon-stats ·/,/leverage/p' $TRANSCRIPT | tr -d '\r'
+sed -n '/summon-stats ·/,/leverage/p' $PLAIN | sed '/^$/d'
 # the reporter parses JSON with zsh builtins — cross-check its arithmetic against python
 typeset -a want=(${(z)"$(python3 -c 'import json,sys
 rows=[json.loads(l) for l in open(sys.argv[1])]
-print(len(rows), sum(r["keys"] for r in rows), sum(len(r["cmd"] or "") for r in rows))' $LAB/out/log-at-stats.jsonl)"})
-report="$(grep -F 'invocations ·' $TRANSCRIPT | tr -d '\r') $(grep -F 'leverage' $TRANSCRIPT | tr -d '\r')"
+print(len(rows), sum(r["n"] for r in rows), sum(len(r["cmd"] or "") for r in rows))' $LAB/out/log-at-stats.jsonl)"})
+report="$(grep -F 'invocations ·' $PLAIN) $(grep -F 'leverage' $PLAIN)"
 expected="$want[1] invocations · $want[2] keys · $want[3] chars"
 if [[ $report == *"$want[1] invocations"* && $report == *" $want[2] spent"* && $report == *" $want[3] chars"* ]]; then
 	print -r -- "  PASS  counts agree with python ($expected)"

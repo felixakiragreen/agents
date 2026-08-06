@@ -1,7 +1,16 @@
 #!/usr/bin/env expect
-# lab/08 — drives the Ctrl-G panel through every DoD path in one live zsh + pty.
+# lab/08 — drives the sticky Ctrl-G panel through every DoD path in one live zsh + pty.
+# The order is the test: state carries from gesture to gesture, so a refire two gestures
+# later proves what the aborts and ejects in between did NOT persist.
 # Enter, and only Enter, fires: every selection below is confirmed before it launches.
 # usage: drive.exp <transcript> <rc.zsh>
+#
+# Synchronisation is on outcomes, never on the panel: zle repaints incrementally, so mid-
+# gesture renders reach the pty as diffs and no single render is guaranteed whole. A whole
+# gesture is one `send` — the tty buffers the keys and read -k drains them in order — and
+# what is waited on is the launch, the message or the ejected line it ends with. What the
+# panel *displays* is proved without a pty (render.zsh) and on a real screen one paint at a
+# time (preview.exp, narrow.exp).
 
 set timeout 15
 log_file -noappend [lindex $argv 0]
@@ -16,124 +25,101 @@ proc mark {n} {
 	expect "MARK$n\r"
 }
 
-# T2 — 4 keys: ^G a 2 ⏎ → architect · fable-high on thg-doorbell, clipboard untouched
-send "\a"
-expect "keys: 1"
-send "a"
-expect "keys: 2"
-send "2"
-expect "keys: 3"
-send "\r"
-expect "SHIM"
+# T1 — cold, with no log/state yet: Enter fires nothing and `.` ejects nothing
+send "\a\r"
+expect "nothing selected"
+mark 1
+send "\a."
+expect "nothing selected"
 mark 2
 
-# T3 — 3 keys: ^G ^G ⏎ arms the last invocation, shows it resolved, then fires it
-send "\a"
-expect "keys: 1"
-send "\a"
-expect "ARMED"
-send "\r"
+# T2 — 4 keys: ^G a 2 ⏎ → architect · fable-high on thg-doorbell, clipboard untouched
+send "\aa2\r"
 expect "SHIM"
 mark 3
 
-# T4 — 3 keys: ^G d ⏎ fires on the last-used account (doorbell, from T2)
-send "\a"
-expect "keys: 1"
-send "d"
-expect "keys: 2"
-send "\r"
+# T3 — 2 keys: ^G ⏎ refires it exactly, every field pre-selected from log/state
+send "\a\r"
 expect "SHIM"
 mark 4
 
-# T5 — `.` ejects an editable command instead of launching it; ^U clears the line.
-# Eject the one config nothing else in this drive launches, so the assertion cannot
-# match a stray echo: grand-architect · fable-max.
-send "\a"
-expect "keys: 1"
-send "g"
-expect "grand-architect ✓"
-send "."
-expect "grand-architect"
-send "\025"
+# T4 — 3 keys: an invalid key is ignored but counted, and the fire is still a refire
+send "\aZ\r"
+expect "SHIM"
 mark 5
 
-# T5b — `^G .` with nothing selected ejects the last invocation (log/last is the default
-# source), at the 2-key floor. Asserted through the log: dispatcher, from T4.
-send "\a"
-expect "keys: 1"
-send "."
-expect "CLAUDE_CONFIG_DIR"
-send "\025"
+# T5 — Esc discards this panel's changes (the g never reaches log/state)
+send "\ag\033"
+expect "closed"
 mark 6
 
-# T6 — esc aborts
-send "\a"
-expect "keys: 1"
-send "\033"
-expect "aborted"
+# T6 — Ctrl-G again toggles the panel shut, same discard
+send "\ad\a"
+expect "closed"
 mark 7
 
-# T7 — a line in progress survives: push-input restores it after the launch
-send "print -r -- KEEPME"
-send "\a"
-expect "keys: 1"
-send "a"
-expect "keys: 2"
-send "1"
-expect "keys: 3"
-send "\r"
+# T7 — 2 keys: still architect · fable-high — neither discard touched the state
+send "\a\r"
 expect "SHIM"
-expect "KEEPME"
 mark 8
 
-# T8 — bare, 5 keys: ^G f x 1 ⏎ → fable · xhigh on thg-fgreen, no name/colour/prompt
-send "\a"
-expect "keys: 1"
-send "f"
-expect "fable ✓"
-send "x"
-expect "xhigh ✓"
-send "1"
-expect "keys: 4"
-send "\r"
+# T8 — 4 keys: the cascade plus a single-field override — A sets architect fable-max,
+# then k overrides the model only, keeping the mantle and the effort
+send "\aAk\r"
 expect "SHIM"
 mark 9
 
-# T9 — y yanks the summons, then account + Enter (5 keys)
-send "\a"
-expect "keys: 1"
-send "A"
-expect "keys: 2"
-send "y"
-expect "yank summons ✓"
-send "2"
-expect "keys: 4"
-send "\r"
+# T9 — 3 keys: a fresh preset on the sticky account
+send "\ad\r"
 expect "SHIM"
 mark 10
 
-# T10 — a selection key alone never fires: hold at the panel, then abort
-send "\a"
-expect "keys: 1"
-send "g"
-expect "grand-architect ✓"
-send "0"
-expect "personal ✓"
-send "\033"
-expect "aborted"
+# T10 — 3 keys: h is [h]igh, unambiguously — the model stays sonnet
+send "\ah\r"
+expect "SHIM"
 mark 11
 
-# T11 — Enter with nothing selected fires nothing
-send "\a"
-expect "keys: 1"
-send "\r"
-expect "nothing selected"
+# T11 — 3 keys: k is hai[k]u — the effort stays high
+send "\ak\r"
+expect "SHIM"
 mark 12
 
-# T12 — the reporter
+# T12 — 3 keys: [n]one clears the mantle — bare is a state, not a mode
+send "\an\r"
+expect "SHIM"
+mark 13
+
+# T13 — 6 keys: y yanks the summons for the OVERRIDDEN tier (opus-max, not A's fable-max)
+send "\aAoy1\r"
+expect "SHIM"
+mark 14
+
+# T14 — 2 keys: `^G .` ejects the sticky config itself, launching nothing; ^U clears it
+send "\a."
+expect "CLAUDE_CONFIG_DIR"
+send "\025"
+mark 15
+
+# T15 — 4 keys: eject a config nothing in this drive launches, so the assertion cannot
+# match a stray echo: grand-architect · fable-max on personal
+send "\ag0."
+expect "grand-architect"
+send "\025"
+mark 16
+
+# T16 — a line in progress survives (push-input), and the refire proves the two ejects
+# above changed nothing: it fires T13's architect · opus-max @ thg-fgreen
+send "print -r -- KEEPME"
+send "\a\r"
+expect "SHIM"
+expect "KEEPME"
+send "\025"
+mark 17
+
+# T17 — the reporter
 send "summon-stats\r"
 expect "leverage"
-mark 13
+mark 18
 
 send "exit\r"
 expect eof
