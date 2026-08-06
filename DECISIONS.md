@@ -272,3 +272,16 @@
   branch-drift reconciliation (its own merge hygiene); the bob repo; `/helm`;
   hexwright Phase-2/3 planning; any canon edit from a retrofit session — gaps
   escalate to the Grand Architect (harvest law), never patch locally.
+- **D33** (2026-08-06, Felix): **The dream.** The origin artifact `initial.md` is
+  renamed **`dream.md`** — Felix's dream for the project; everything else is born from
+  the dream. The D25 naming test re-run: lowercase stands — still a singleton
+  interpreted once at founding, never followed as protocol; only the noun improved
+  (over the runner-up "origin"). Immutability untouched and sharpened: **the rename is
+  a MOVE, never an edit** — content bytes are forever, `git mv` + `--follow` carry the
+  lineage. Amended in place: DOCTRINE §3 (file set, naming-law worked example, the
+  artifact bullet) + §12 (genesis ritual, founding summons), both templates
+  (claude-md, genesis), GENESIS §9, 06's spec/DoD/fence — hexwright executes its own
+  `git mv` in 06. D17/D23/D25's `initial.md` references are superseded in name by this
+  entry; decisions are never rewritten. Migration law: new foundings mint `dream.md`;
+  snappy and manny (not v2 theaters) validly carry the old name until their own
+  Architects rename at a batch boundary — the name is inert, nothing breaks meanwhile.

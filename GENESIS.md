@@ -148,8 +148,9 @@ Max `/login` + its smoke. Next campaign when Felix calls it: **v2 — the retrof
    doctrine vocabulary, boards true (hexwright's minted; simmy's re-staffed).
 2. The pre-canon tier shadow dead: `.claude/agents/` gone on all three live cap-mega
    branches; `DISPATCHER.md` retired to a tombstone; `spikes/RIDER.md` instantiated.
-3. History unedited — closed WOs, spike briefs, bulletins, ledgers, D-entries,
-   `initial.md` conform as-is: they are the canon's ancestors, not its debtors.
+3. History unedited — closed WOs, spike briefs, bulletins, ledgers, D-entries conform
+   as-is, and the dream's bytes survive its rename (`initial.md` → `dream.md`, D33):
+   they are the canon's ancestors, not its debtors.
 4. Each parent's own D-entry + ledger records its retrofit, Felix-countersigned.
 5. Canon untouched by the retrofit sessions — gaps escalated to the Grand Architect
    (the harvest queue), never patched locally.

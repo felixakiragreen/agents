@@ -3,7 +3,7 @@
 > ⟨motto, if one exists⟩
 
 ⟨What this is and why it exists — the vision distilled to a few paragraphs. If
-`initial.md` exists, this doc interprets it; never edit that file.⟩
+`dream.md` exists, this doc interprets it; never edit that file.⟩
 
 ## 1. The bet
 

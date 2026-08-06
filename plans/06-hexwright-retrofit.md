@@ -59,10 +59,16 @@ An order run by the project's Architect: the conformance pass is board-truing wo
    untouched. Authorial/historical mentions of the old titles stay (GENESIS header
    credit, §5's "the Grand Architect will die on this hill" flavor — the session may
    convert the §5 line to "the Architect" if it reads as live voice; its call, note it).
-7. **hexwright D-entry (D9).** The retrofit ratification: canon mantles govern; both
+7. **Rename the dream (canon D33).** `git mv initial.md dream.md` — a move, not an
+   edit: the bytes stay identical forever (the immutability law binds content). Update
+   the two live pointers — `CLAUDE.md` line 5 and the GENESIS header line; prose saying
+   "origin vision/text" may stay (it describes, it doesn't point); ledger history
+   untouched.
+8. **hexwright D-entry (D9).** The retrofit ratification: canon mantles govern; both
    local titles retired (Felix, 2026-08-06, v2 keel); tier names canonical; board
-   minted; D7's policy restated, not changed. Felix countersigns in-session.
-8. **`LEDGER.md` appended** (date · mantle · changed · decided · next), committed in
+   minted; D7's policy restated, not changed; the dream renamed per canon D33. Felix
+   countersigns in-session.
+9. **`LEDGER.md` appended** (date · mantle · changed · decided · next), committed in
    Felix's git style.
 
 ## Acceptance criteria — the DoD
@@ -75,6 +81,8 @@ An order run by the project's Architect: the conformance pass is board-truing wo
 - [ ] `CLAUDE.md` ≤ ~60 lines; §State digest replaced by pointers; version law present
   under Hard Laws.
 - [ ] Canon untouched: `git -C ~/code/agents status` clean, pasted.
+- [ ] `dream.md` present, `initial.md` gone, content byte-identical — `git log --follow`
+  shows the move; evidence pasted.
 - [ ] hexwright D9 cut with Felix's countersign recorded; ledger appended; committed.
 - [ ] Cold-boot check narrated in findings: DOCTRINE §2's cold-session questions each
   answerable from the new surfaces.
@@ -82,7 +90,8 @@ An order run by the project's Architect: the conformance pass is board-truing wo
 ## Out of scope
 
 - Phase 2/3 planning or cutting rows for it — the next Architect session's job.
-- Editing closed WOs, ledger history, existing D-entries, `initial.md`.
+- Editing closed WOs, ledger history, existing D-entries, or the dream's content —
+  the D33 rename is a move; byte edits never.
 - Renaming hexwright's `canon/` dir (the ART canon — unambiguous in-repo).
 - Any code, goldens, or Greenhouse changes; any edit to the agents repo (canon gaps
   are escalations to the Grand Architect — the harvest queue, never a local patch).

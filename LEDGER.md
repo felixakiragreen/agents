@@ -303,3 +303,12 @@ orb-machine sweep discipline — both proven in the birthplace. Decided: D32 (pr
 pending Felix countersign). Next: Felix countersigns D32, then summons 07 first
 (kickoff verbatim in `plans/07-simmy-retrofit.md`), 06 anytime (kickoff in
 `plans/06-hexwright-retrofit.md`); B14 resumes after 07 lands.
+
+**Same sitting, after Felix's keel review:** the hexwright title ruling explained and
+approved (direction confirmed: hexwright conforms to canon; canon untouched — v1 already
+harvested the reverse). Felix renamed the origin artifact: `initial.md` → **`dream.md`**
+("everything else is born from the dream") — cut **D33** (his): naming law re-run
+(lowercase stands), rename-is-a-move law, DOCTRINE §3/§12 + both templates amended,
+GENESIS §9 reworded, 06's spec/DoD/fence gain the `git mv`; snappy/manny grandfathered
+to their own boundaries. Decision queue at this boundary: **D32 + D33 — one countersign
+flips both.**

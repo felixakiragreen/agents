@@ -51,7 +51,7 @@ A **full project** (weeks+, multiple mantles) carries at its root:
 
 ```
 CLAUDE.md      orientation: what this is, hard laws, session protocol — auto-loaded
-initial.md     origin vision, when one exists — IMMUTABLE: never edited, only read
+dream.md       Felix's dream, when one exists — IMMUTABLE: never edited, only read
 GENESIS.md     master doc: architecture, the bet, non-goals, board, agreements, DoD
 LEDGER.md      append-only session log
 DECISIONS.md   ratified choices — D-entries
@@ -74,10 +74,10 @@ the rider when the first batch dispatches (§10). Never split ahead of need.
   exist in its scope, AND sessions are told to read it as protocol — `CLAUDE.md`,
   `GENESIS.md`, `README.md`, `LEDGER.md`, `DECISIONS.md`, `DOCTRINE.md`, `RIDER.md`,
   `BULLETIN.md`, `SKILL.md`. One of many addressable siblings is lowercase-kebab — work
-  docs (`plans/04-sync.md`), mantle charters, tiers, templates. `initial.md` stays
-  lowercase by the second test: a singleton, but an artifact interpreted once at
-  founding, not a protocol followed. Practiced since hexwright/simmy; codified
-  2026-08-03.
+  docs (`plans/04-sync.md`), mantle charters, tiers, templates. `dream.md` (né
+  `initial.md` — D33) stays lowercase by the second test: a singleton, but an artifact
+  interpreted once at founding, not a protocol followed. Practiced since
+  hexwright/simmy; codified 2026-08-03.
 - **CLAUDE.md law:** target ≤ ~60 lines (hexwright's budget). What this is (2–3 lines),
   hard laws (project physics only — Felix's global directives already load), session
   protocol, pointers. State digests rot: point at the board and ledger, don't restate
@@ -88,8 +88,9 @@ the rider when the first batch dispatches (§10). Never split ahead of need.
   resources, branch rules), definition of done. Corrections fold in as dated amendment
   notes (simmy's `> **S0 correction (08-02).** …` blockquotes) — the doc stays current,
   the history stays visible.
-- **initial.md** exists when Felix has an origin dump, and is immutable from the moment
-  it lands. The master doc interprets it; nobody edits it (hexwright).
+- **dream.md** exists when Felix has an origin dump — his dream for the project;
+  everything else is born from it. Immutable from the moment it lands: the master doc
+  interprets it; nobody edits it (hexwright's law; renamed from `initial.md`, D33).
 - **plans/ stays flat** until a single board stops working; then subdivide by area
   (hexwright `plans/core/`). An area split is an Architect decision, never a default.
 
@@ -322,7 +323,7 @@ Every session, any mantle:
 A new project boots onto the doctrine in one founding session:
 
 1. **Felix:** repo + `git init` (branch `master`, never main); the origin dump lands as
-   `initial.md` if one exists — immutable from that moment.
+   `dream.md` if one exists — immutable from that moment.
 2. **Summon the founding Architect** — a foundational session, `fable-max` (architect
    charter staffing):
 
@@ -330,7 +331,7 @@ A new project boots onto the doctrine in one founding session:
    You are an Architect at fable-max.
    Wear ~/code/agents/canon/mantles/architect.md,
    then read ~/code/agents/canon/work/DOCTRINE.md
-   and <initial.md | Felix's telling>, and found the project.
+   and <dream.md | Felix's telling>, and found the project.
    ```
 
 3. **The founding session:** interrogate the vision — question every requirement,
