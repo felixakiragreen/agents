@@ -280,3 +280,26 @@ Next: summon manny's founding Architect — "You are an Architect at fable-max. 
 ~/code/agents/canon/mantles/architect.md, then read ~/code/agents/canon/work/DOCTRINE.md,
 manny/initial.md, and manny/keel.md, and found the manny campaign — instantiate the
 master doc and board, cut M1."
+
+---
+
+**2026-08-06 · Grand Architect** — Laid the keel for **v2 — the retrofits** (GENESIS §8's
+named successor; this summons was Felix's word). Recon per the harvest law: hexwright
+read whole (quiet on clean `master` at its Phase-1/2 boundary — WO-001–004 landed,
+Felix's Greenhouse ruling PENDING; role trinity collides with canon by name); simmy read
+in its live worktree (`feature/simmy`, batch 9 mid-flight — B14 IN FLIGHT **and its
+session dead on token limits**; DISPATCHER.md wearing the pre-canon banner after the
+08-06 mis-dispatch, which simmy's own ledger ruled canon-born; four git-tracked
+pre-canon tier files shadowing the deployed grid on three live branches); 02's v2 seed
+list trued against both — holds, with live deltas (simmy ledger now exists; the banner;
+B13's stop-discipline flag, which closes by construction once kickoffs cite canon).
+Felix calibrated live (four keel answers): staffing Architect · fable-high ×2; **07
+before B14's resumption**; tier sweep = all three branches; hexwright's local titles
+retire. Cut rows 06 + 07 as Architect-run orders (`plans/06-…`, `plans/07-…` — touch
+maps pre-chewed, DoDs measurable, kickoffs verbatim), GENESIS §5 rows + v2 batch note,
+§6 non-goal struck by its own terms, §9 v2 DoD; D32 queued. Harvest candidates spotted,
+not acted on (GA queue, post-v2): simmy §8's third-party pre-authorization rule and the
+orb-machine sweep discipline — both proven in the birthplace. Decided: D32 (proposed —
+pending Felix countersign). Next: Felix countersigns D32, then summons 07 first
+(kickoff verbatim in `plans/07-simmy-retrofit.md`), 06 anytime (kickoff in
+`plans/06-hexwright-retrofit.md`); B14 resumes after 07 lands.

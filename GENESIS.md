@@ -88,6 +88,8 @@ run it when something feels off; green + still broken ⇒ auth, not sync). `depl
 | 03 | [Global CLAUDE.md](plans/03-global-claude-md.md) | 01 + 02 LANDED, 02's D-entries countersigned | Architect · fable-max | **LANDED** 2026-08-03 |
 | 04 | [Sync](plans/04-sync.md) | build: 01–03 LANDED | Digger · opus-high → Builder · opus-high | **LANDED** 2026-08-03 — deploy + check green 3×3, canary ×3, smoke ✓ fgreen + doorbell (Max smoke PENDING `/login`) |
 | 05 | [Saturation harvest — snappy batch-1 → canon](plans/05-saturation-harvest.md) | — | Grand Architect · fable-max | **LANDED** 2026-08-05 — D28–D30 entered amended, rejections upheld, D31 (hive-city voice) cut; D28–D31 ✓ Felix same day |
+| 06 | [hexwright retrofit](plans/06-hexwright-retrofit.md) | D32 countersign | Architect · fable-high | **OPEN** |
+| 07 | [simmy retrofit](plans/07-simmy-retrofit.md) | D32 countersign | Architect · fable-high | **OPEN** |
 
 Statuses per the doctrine (`canon/work/DOCTRINE.md` §4): OPEN → IN FLIGHT → LANDED /
 KILLED. Any account can host any session — the repo carries the truth; account choice is
@@ -97,12 +99,19 @@ quota arbitrage.
 tends the chain; each design landing pauses for Felix's countersign of its proposed
 D-entries before the next row dispatches. Rider: `plans/RIDER.md`.
 
+**v2 (cut 2026-08-06, D32): 06 + 07 — the retrofits.** Interactive, Felix-tended,
+parallel-safe (disjoint repos), no Dispatcher and no bulletin — nothing dispatches.
+Ordering rider (Felix): **07 lands before B14's resumption** — simmy's in-flight verify
+row lost its session to token limits and resumes from another account onto retrofitted
+docs; 06 runs anytime.
+
 ## 6. Non-goals (v1, defended)
 
 - Syncing sessions/history/agent-memory between accounts (D5; D27 — the silo law:
   memory is a per-account cache, durable truth promotes to repos).
-- Retrofitting hexwright and simmy onto the new canon — **v2**, after v1 lands. Resist
-  the urge mid-campaign.
+- ~~Retrofitting hexwright and simmy onto the new canon — **v2**, after v1 lands. Resist
+  the urge mid-campaign.~~ *(struck 2026-08-06: v1 landed, Felix called v2 — rows 06/07,
+  D32. The remaining non-goals stand for v2 unchanged.)*
 - `settings.json` sync — revisit when a real need appears.
 - Plugin sync. Multi-machine (clone-and-deploy makes it nearly free later; not designed now).
 
@@ -130,4 +139,19 @@ and is example #1 of it. Local physics:
 
 **Canon v1 CLOSED 2026-08-03** — evidence in the 04 Stage B checklist. The one PENDING:
 Max `/login` + its smoke. Next campaign when Felix calls it: **v2 — the retrofits**
-(hexwright, simmy onto the canon), cut fresh by a Grand Architect.
+(hexwright, simmy onto the canon), cut fresh by a Grand Architect. — **Called and cut
+2026-08-06** (rows 06/07, D32).
+
+## 9. Definition of done — canon v2
+
+1. Both parents' live surfaces speak canon: mantles by path, canonical tier names,
+   doctrine vocabulary, boards true (hexwright's minted; simmy's re-staffed).
+2. The pre-canon tier shadow dead: `.claude/agents/` gone on all three live cap-mega
+   branches; `DISPATCHER.md` retired to a tombstone; `spikes/RIDER.md` instantiated.
+3. History unedited — closed WOs, spike briefs, bulletins, ledgers, D-entries,
+   `initial.md` conform as-is: they are the canon's ancestors, not its debtors.
+4. Each parent's own D-entry + ledger records its retrofit, Felix-countersigned.
+5. Canon untouched by the retrofit sessions — gaps escalated to the Grand Architect
+   (the harvest queue), never patched locally.
+
+Closed when 06 + 07 are LANDED with countersigns recorded.

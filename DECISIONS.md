@@ -247,3 +247,28 @@
   epigraphs and framing, never in operative clauses; no artifact renames (D25 stands:
   `BULLETIN.md` does not become the waggle dance, tempting as that is); the global
   `canon/CLAUDE.md` untouched (D24 byte-discipline — auto-loaded bytes are taxed).
+- **D32** (2026-08-06, Grand Architect — proposed, pending Felix countersign; his four
+  keel calibrations of this date are embedded verbatim-adjacent): **v2 cut — the
+  retrofit campaign.** Rows 06 (hexwright) + 07 (simmy) on the GENESIS board; the §6
+  v1 non-goal struck by its own terms. **Scope law:** retrofits touch live and
+  forward-looking surfaces only — auto-loaded files, boards, role docs, kickoff
+  vocabulary; history conforms as-is (closed WOs, spike briefs, bulletins, ledgers,
+  existing D-entries, `initial.md` — ancestors, not debtors). **Staffing (Felix):**
+  Architect · fable-high ×2 — order-genre docs run by each project's own Architect;
+  conformance is board-truing work, and Builder staffing would forbid the D-entries
+  and board minting the rows require; blessing = this countersign. **hexwright ruling
+  (Felix):** both local titles retire — "Grand Architect" is reserved for the
+  canon-keeper, its project duties fall to the Architect; "Area Architect" becomes an
+  Architect session scoped to an area (DOCTRINE §3 absorbed the split); D7's staffing
+  *policy* survives in canon vocabulary. **simmy rulings (Felix):** `DISPATCHER.md`
+  retires to a tombstone pointer at canon's `dispatcher.md` + an instantiated
+  `spikes/RIDER.md`; the four tracked pre-canon tier files are deleted on ALL three
+  live branches (`feature/simmy`, `fix/perf`, `feature/user-manual`) — same-name
+  dispatch then resolves to the deployed canon grid (bodies byte-identical today,
+  drift risk dead). **Ordering (Felix):** 07 lands before B14's resumption — the
+  in-flight verify session died on token limits and restarts from another account
+  onto retrofitted docs. **Non-goals, defended:** snappy + manny docs (canon-native;
+  their branches receive only the tier-deletion commit); cap-mega `CLAUDE.md`
+  branch-drift reconciliation (its own merge hygiene); the bob repo; `/helm`;
+  hexwright Phase-2/3 planning; any canon edit from a retrofit session — gaps
+  escalate to the Grand Architect (harvest law), never patch locally.
