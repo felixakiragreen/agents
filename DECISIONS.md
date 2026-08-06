@@ -285,3 +285,17 @@
   entry; decisions are never rewritten. Migration law: new foundings mint `dream.md`;
   snappy and manny (not v2 theaters) validly carry the old name until their own
   Architects rename at a batch boundary — the name is inert, nothing breaks meanwhile.
+- **D34** (2026-08-06, Architect · QUEUED for Felix's countersign): **The summon rig —
+  row 08.** A single-keystroke ignition system for mantled sessions lives at `summon/`
+  (peer of `sync/` — tooling, not canon-law), sourced from Felix's dotfiles. **Felix's
+  calls (in-session):** accounts `0=~/.claude` (personal) / `1=thg-fgreen` /
+  `2=thg-doorbell`; launch key **Ctrl-G**; presets carry the **full mantle summons**,
+  not just `/color`. **Architect's design (delegated scope):** the invocation space is
+  mantle × account — everything else derives; a 3-key ZLE picker (launch · preset ·
+  account), Ctrl-G Ctrl-G = repeat-last (2-key floor), `.` ejects an editable resolved
+  command; presets/accounts are Felix-editable TSV data; every invocation (aborts
+  included) logs one JSONL line so `presets.tsv` is the hypothesis and the log is the
+  evidence — Architect sessions true the presets from `summon-stats`. Rejected: typed
+  grammar in v1 (5 keys vs 3, second surface), fzf/TUI (latency). Summons delivery is
+  experiment E1 in the brief with a guaranteed pbcopy fallback. Staffing: Builder ·
+  opus-high (ZLE has traps). Brief: `plans/08-summon-rig.md`.

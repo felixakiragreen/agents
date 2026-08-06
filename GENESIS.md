@@ -90,6 +90,7 @@ run it when something feels off; green + still broken ⇒ auth, not sync). `depl
 | 05 | [Saturation harvest — snappy batch-1 → canon](plans/05-saturation-harvest.md) | — | Grand Architect · fable-max | **LANDED** 2026-08-05 — D28–D30 entered amended, rejections upheld, D31 (hive-city voice) cut; D28–D31 ✓ Felix same day |
 | 06 | [hexwright retrofit](plans/06-hexwright-retrofit.md) | — (D32 ✓ 2026-08-06) | Architect · fable-high | **OPEN** |
 | 07 | [simmy retrofit](plans/07-simmy-retrofit.md) | — (D32 ✓ 2026-08-06) | Architect · fable-high | **LANDED** 2026-08-06 → [findings](plans/07-simmy-retrofit.md); simmy D16 ✓ Felix; B14 clear to resume |
+| 08 | [summon rig](plans/08-summon-rig.md) | D34 countersign | Builder · opus-high | **OPEN** |
 
 Statuses per the doctrine (`canon/work/DOCTRINE.md` §4): OPEN → IN FLIGHT → LANDED /
 KILLED. Any account can host any session — the repo carries the truth; account choice is
@@ -104,6 +105,9 @@ parallel-safe (disjoint repos), no Dispatcher and no bulletin — nothing dispat
 Ordering rider (Felix): **07 lands before B14's resumption** — simmy's in-flight verify
 row lost its session to token limits and resumes from another account onto retrofitted
 docs; 06 runs anytime.
+
+**08 (cut 2026-08-06, D34 queued): summon rig** — single Builder row, independent of
+06/B14, dispatchable the moment Felix countersigns D34; kickoff verbatim in the brief.
 
 ## 6. Non-goals (v1, defended)
 

@@ -335,3 +335,19 @@ account: "You are a Dispatcher at sonnet-medium. Wear
 ~/code/universal_robots_sdk/cap-mega/.claude/worktrees/simmy/simmy/README.md §6." (or
 dispatch the b14 kickoff + rider at `fable-high` directly); row 06 (hexwright)
 dispatchable anytime — kickoff verbatim in `plans/06-hexwright-retrofit.md`.
+
+---
+
+**2026-08-06 · Architect (08 cut)** — the summon rig designed and cut as board row 08:
+Ctrl-G single-keystroke ignition for mantled sessions — 3 keys to any mantle × account
+launch, 2 to repeat last, `.` to eject an editable command; presets carry flags AND the
+mantle summons (the real keystroke sink was the summons paste, not the flags); every
+invocation logged as JSONL so presets evolve on evidence. Changed:
+`plans/08-summon-rig.md` (brief, kickoff verbatim, E1 summons-delivery experiment with
+pbcopy fallback), GENESIS §5 row 08 + batch note, D34 queued. Decided: Felix in-session
+— accounts 0=personal/1=fgreen/2=doorbell, Ctrl-G, full summons; Architect within
+delegation — picker-only v1, `summon/` dir, TSV data + JSONL telemetry, Builder ·
+opus-high staffing. **Decision queue: D34 — one countersign flips it.** Next: Felix
+countersigns D34, then run the kickoff in `plans/08-summon-rig.md` (any account); Felix
+adds the one dotfiles source line after the rig lands; row 06 still dispatchable
+anytime.
