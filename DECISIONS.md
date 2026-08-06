@@ -285,8 +285,8 @@
   entry; decisions are never rewritten. Migration law: new foundings mint `dream.md`;
   snappy and manny (not v2 theaters) validly carry the old name until their own
   Architects rename at a batch boundary — the name is inert, nothing breaks meanwhile.
-- **D34** (2026-08-06, Architect · QUEUED for Felix's countersign): **The summon rig —
-  row 08.** A single-keystroke ignition system for mantled sessions lives at `summon/`
+- **D34** (2026-08-06, Architect · ✓ Felix 2026-08-06 — countersigned by dispatch, the
+  rig went to build the same sitting): **The summon rig — row 08.** A single-keystroke ignition system for mantled sessions lives at `summon/`
   (peer of `sync/` — tooling, not canon-law), sourced from Felix's dotfiles. **Felix's
   calls (in-session):** accounts `0=~/.claude` (personal) / `1=thg-fgreen` /
   `2=thg-doorbell`; launch key **Ctrl-G**; presets carry the **full mantle summons**,
@@ -299,3 +299,14 @@
   grammar in v1 (5 keys vs 3, second surface), fzf/TUI (latency). Summons delivery is
   experiment E1 in the brief with a guaranteed pbcopy fallback. Staffing: Builder ·
   opus-high (ZLE has traps). Brief: `plans/08-summon-rig.md`.
+- **D35** (2026-08-06, Felix · in-session, mid-flight riders on row 08): **E1 closed +
+  clipboard law + bare mode.** E1 closed by Felix's own test: one positional message
+  only — the `/color` parser swallows a combined prompt (`Invalid color "blue you are
+  a digger."`). **Clipboard law (Felix):** the rig never writes the clipboard by
+  default — it usually already carries the previous agent's kickoff prompt; the
+  derived summons survives as an opt-in yank (`y` at the account stage, mantle path),
+  superseding D34's default delivery (decisions are never rewritten). **Bare mode
+  (Felix):** tier launches without a mantle — reserved model keys `f/o/s/h` → effort
+  `l/m/h/x/M` → account digit, 4 keys; command carries only config-dir/model/effort,
+  no name/color/prompt; `presets.tsv` may never claim a reserved key. Riders folded
+  into the brief same sitting; the Builder re-reads it.

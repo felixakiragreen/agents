@@ -351,3 +351,17 @@ opus-high staffing. **Decision queue: D34 — one countersign flips it.** Next: 
 countersigns D34, then run the kickoff in `plans/08-summon-rig.md` (any account); Felix
 adds the one dotfiles source line after the rig lands; row 06 still dispatchable
 anytime.
+
+---
+
+**2026-08-06 · Architect (08 riders)** — D35 cut on Felix's mid-flight evidence and
+folded into the brief. E1 closed: the `/color` parser swallows a combined first message
+— one positional, one job. Clipboard law: the rig never writes the clipboard by default
+(it usually already carries the previous agent's kickoff); the derived summons survives
+as an opt-in `y` yank at the account stage. Bare mode: tier launches without a mantle —
+reserved keys `f/o/s/h` → effort `l/m/h/x/M` → account, 4 keys (`Ctrl-G f x 1` =
+fable-xhigh on thg-fgreen), no name/color/prompt; presets may never claim a reserved
+key. Changed: `plans/08-summon-rig.md` (E1 resolved, bare mode, yank, DoD trued),
+GENESIS row 08 → IN FLIGHT, D34 marked ✓ (countersigned by dispatch), D35 entered.
+Decided: D35 ✓ Felix (in-session). Next: Builder re-reads the amended brief and
+continues; row 06 still dispatchable anytime.
