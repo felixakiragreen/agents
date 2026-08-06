@@ -314,3 +314,24 @@ to their own boundaries. Decision queue at this boundary: **D32 + D33 — one co
 flips both.** **Countersigned same sitting: D32 ✓ Felix** (his mark, "at 07's summons");
 D33 was his from the cut. v2 is live — board gates cleared, blessings recorded in both
 work docs. Queue empty.
+
+---
+
+**2026-08-06 · Architect (07)** — simmy retrofit executed to its DoD, all boxes checked
+(evidence in the work doc's findings F1–F4): `DISPATCHER.md` tombstoned (banner
+superseded in the same commit), `spikes/RIDER.md` instantiated, board §6 canonical
+(headers + all 20 rows `Mantle · tier`, B14 resume annotation), §8 deduped to venue
+physics behind a DOCTRINE pointer, the four pre-canon tier files deleted on all three
+live branches — `feature/simmy` `22269c3e`+`1d8a28df`, `fix/perf` `3bc872b3`,
+`feature/user-manual` `82e55578` — cap-mega `CLAUDE.md` D4 pointer added, simmy D16 cut
+✓ Felix (in-session), simmy ledger appended. Two corrections banked: the keel's
+"byte-identical" tier claim was semantic-not-byte (YAML description wrapping only;
+behavior delta zero — F2), and the naive dead-name grep false-positives on canonical
+names (word-bound it — F1). Harvest note for the GA: canon's wrapped frontmatter
+descriptions YAML-fold with a stray space (F2). Decided: simmy D16 (✓ Felix); D32
+countersign mark recorded (swept into Felix's `5b32514`). Next: **B14 resumes** — any
+account: "You are a Dispatcher at sonnet-medium. Wear
+~/code/agents/canon/mantles/dispatcher.md, then run the board at
+~/code/universal_robots_sdk/cap-mega/.claude/worktrees/simmy/simmy/README.md §6." (or
+dispatch the b14 kickoff + rider at `fable-high` directly); row 06 (hexwright)
+dispatchable anytime — kickoff verbatim in `plans/06-hexwright-retrofit.md`.

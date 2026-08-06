@@ -1,6 +1,6 @@
 # 07 — simmy retrofit
 
-**Status:** OPEN · **Depends on:** — · **Staffing:** Architect · fable-high ·
+**Status:** LANDED 2026-08-06 · **Depends on:** — · **Staffing:** Architect · fable-high ·
 **Blessed:** D32 ✓ Felix, 2026-08-06 (the keel's touch map)
 
 ## Goal
@@ -85,19 +85,19 @@ project's Architect: re-staffing a live board is board-truing work.
 
 ## Acceptance criteria — the DoD
 
-- [ ] `git ls-tree <branch> .claude/agents/` empty on all three branches — output pasted.
-- [ ] Per-branch grep: no live doc names `opus-med`/`sonnet-med` (history exempt —
-  spike briefs, bulletin, ledger, tombstone provenance); evidence pasted.
-- [ ] Board §6: canonical headers, every row `Mantle · tier`; B14 annotation present.
-- [ ] `DISPATCHER.md` is a tombstone pointer; `spikes/RIDER.md` exists, three slots
-  filled; the pre-canon banner gone.
-- [ ] cap-mega `CLAUDE.md` (feature/simmy) carries the simmy pointer line.
-- [ ] Canon untouched: `git -C ~/code/agents status` clean, pasted.
-- [ ] simmy D16 cut with Felix's countersign recorded; simmy ledger appended; commit
-  hashes for all three branches listed here.
-- [ ] Cold-boot walk narrated in findings (no actual dispatch): a fresh Dispatcher
+- [x] `git ls-tree <branch> .claude/agents/` empty on all three branches — output pasted (F3.1).
+- [x] Per-branch grep: no live doc names `opus-med`/`sonnet-med` (history exempt —
+  spike briefs, bulletin, ledger, tombstone provenance); evidence pasted (F1, F3.2).
+- [x] Board §6: canonical headers, every row `Mantle · tier`; B14 annotation present (F3.3).
+- [x] `DISPATCHER.md` is a tombstone pointer; `spikes/RIDER.md` exists, three slots
+  filled; the pre-canon banner gone (F3.4).
+- [x] cap-mega `CLAUDE.md` (feature/simmy) carries the simmy pointer line (F3.5).
+- [x] Canon untouched: `git -C ~/code/agents status` clean, pasted (F3.6).
+- [x] simmy D16 cut with Felix's countersign recorded; simmy ledger appended; commit
+  hashes for all three branches listed here (F3.7).
+- [x] Cold-boot walk narrated in findings (no actual dispatch): a fresh Dispatcher
   summoned per canon (dispatcher.md + board + rider) would dispatch B14's resumption
-  with the right tier quoted from the call.
+  with the right tier quoted from the call (F4).
 
 ## Out of scope
 
@@ -112,7 +112,83 @@ project's Architect: re-staffing a live board is board-truing work.
 
 ## Findings
 
-*(append here — evidence-grade)*
+**F1 — pre-flight grep (spec item 7): word-bound the probe or it lies.** A naive
+`grep "opus-med\|sonnet-med"` false-positives on every canonical name (`opus-med` is a
+substring of `opus-medium`) and flagged 10 snappy/manny files that were in fact clean.
+The honest probe: `grep -rlnE "(opus|sonnet)-med\b" --include="*.md"`, per branch,
+pre-retrofit:
+- `fix/perf`: `simmy/DISPATCHER.md` only — snappy's own docs clean (canon-era founding,
+  as the spec predicted).
+- `feature/user-manual`: `simmy/DISPATCHER.md` only — manny clean.
+- `feature/simmy`: `simmy/DISPATCHER.md:48` only (the old §3 dispatch rule's tier list).
+  The board's cells used `Opus · med` spacing — a different string, converted this row.
+
+**F2 — the keel's "byte-identical" claim was wrong at the byte level, right at the
+level that matters.** `git show HEAD:.claude/agents/fable-high.md | diff -
+~/code/agents/canon/agents/fable-high.md` → the only hunk is YAML `description:`
+line-wrapping (canon wraps the scalar across lines; the project copies hold one line);
+same for `opus-high`. `model:`, `effort:`, and the body are identical;
+`opus-med`/`sonnet-med` have no canon counterpart (D7-outlawed names). Deletion's
+behavior change is still zero — by semantic identity, not byte identity. Disclosed to
+Felix at the D16 countersign. **Harvest note for the Grand Architect** (no local patch —
+out of scope): canon's wrapped plain scalars fold with a stray space when YAML-parsed
+(`opus-high`'s description parses as "bounded-but- gnarly") — cosmetic, grid-wide wrap
+pattern, worth one sweep.
+
+**F3 — DoD evidence.**
+
+1. `for b in feature/simmy fix/perf feature/user-manual; do git ls-tree $b
+   .claude/agents/; done` → empty output for all three (zero rows printed).
+2. Post-retrofit residual grep (same word-bounded probe): `feature/simmy` →
+   `simmy/README.md` only, and the hit is D16 itself naming the four files it deleted —
+   deletion provenance (decisions are never rewritten). `fix/perf` and
+   `feature/user-manual` → `simmy/DISPATCHER.md` only: the stale branch-drift copy of
+   simmy's tree as seen from foreign branches; simmy's live line is `feature/simmy`,
+   foreign branches receive only the deletion commit (spec item 1, minimal footprint),
+   and drift reconciles at merge (spec item 8 / D32 non-goal). No snappy or manny doc
+   names a dead tier on any branch.
+3. Board §6: headers `| ID | Work | Depends on | Staffing | Status |`;
+   `grep -E "\| (Opus|Fable|Sonnet) ·" README.md` → no matches (zero pre-canon staffing
+   cells across all 20 rows); S-rows → Digger, B-rows → Builder, S7's design/build split
+   and the worktree/venue annotations kept. B14 annotation present: "session lost to
+   token limits 08-06 — resumes post-retrofit by fresh summons, any account".
+4. `DISPATCHER.md` is a 14-line tombstone (canon `dispatcher.md` · `spikes/RIDER.md` ·
+   board §6); the pre-canon banner died with the body, its protections superseded in the
+   same commit (canonical staffing + "the tier string IS the `subagent_type`" now live
+   on the board itself). `spikes/RIDER.md` exists, three slots filled: agreements =
+   `README.md §8`, bulletin = `spikes/BULLETIN.md` with the main-checkout-path append
+   rule and Dispatcher-commits wording harvested from the old rider, worktrees =
+   branch-per-code-row + `feature/simmy` never switched.
+5. cap-mega `CLAUDE.md` (feature/simmy) §1, line 68: "The simmy tooling subproject (our
+   own URSim runtime + test venue) keeps its docs, board, and lifecycle with itself →
+   `simmy/README.md` (simmy D4)."
+6. Canon untouched: this session's only agents-repo writes are the D32 countersign mark
+   in `DECISIONS.md` (swept into Felix's own commit `5b32514`), this findings append,
+   the ledger entry, and the board row (`GENESIS.md`) — nothing under `canon/`.
+   Pre-commit `git status --short` showed exactly `GENESIS.md`, `LEDGER.md`,
+   `plans/07-simmy-retrofit.md`; clean after the landing commit.
+7. simmy D16 cut in `README.md §7`, countersigned ✓ Felix in-session (2026-08-06, after
+   the F2 correction was disclosed). Commits — `feature/simmy`: `22269c3e` (tier
+   deletion) + `1d8a28df` (tombstone, rider, board, §8, D16, CLAUDE.md pointer, ledger);
+   `fix/perf`: `3bc872b3` (deletions only); `feature/user-manual`: `82e55578`
+   (deletions only). simmy `LEDGER.md` appended in `1d8a28df`.
+
+**F4 — cold-boot walk (narrated, nothing dispatched).** Felix opens a fresh session:
+"You are a Dispatcher at sonnet-medium. Wear ~/code/agents/canon/mantles/dispatcher.md,
+then run the board at
+~/code/universal_robots_sdk/cap-mega/.claude/worktrees/simmy/simmy/README.md §6."
+The session wears the charter and clears §1 prerequisites: board trued (this row), tree
+committed clean, and `fable-high` exists in the account's agents dir — the deployed
+canon grid, now the ONLY definition that name resolves to, since the project shadow is
+deleted. B14's row reads `**Digger · fable-high** (worktree, read-only on B12's
+branch)` with the resume annotation authorizing re-dispatch of the orphaned row.
+Charter §2: type = the row's staffing tier verbatim → `Agent(type=fable-high,
+prompt=<b14 brief's "Kickoff prompt (verbatim)"> + <spikes/RIDER.md, verbatim>,
+isolation=worktree)`, and the dispatch report quotes `fable-high` from the call. The
+B11/B12/B13 miss class is structurally dead: the board cell IS the call string — no
+translation step remains for a report to misstate. B13's builder stop-discipline flag
+closes the same way: the kickoff + rider now cite canon charters whose forbidden lists
+carry the stop law (DOCTRINE §5).
 
 ---
 
