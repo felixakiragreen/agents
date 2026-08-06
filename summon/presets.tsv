@@ -1,0 +1,9 @@
+#key	mantle	model	effort	color
+g	grand-architect	fable	max	green
+a	architect	fable	high	green
+A	architect	fable	max	green
+d	dispatcher	sonnet	medium	pink
+# Builder and Digger tiers vary per brief — eject (.) covers them until the log
+# argues for real rows. Uncomment and true these from `summon-stats`.
+#b	builder	opus	medium	blue
+#D	digger	opus	high	cyan

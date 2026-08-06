@@ -1,0 +1,15 @@
+#!/usr/bin/env expect
+# lab/08 — a preset claiming a reserved key must fail loudly at load, not shadow bare mode.
+# usage: reserved.exp <transcript> <rc.zsh>
+
+set timeout 15
+log_file -noappend [lindex $argv 0]
+spawn zsh -f -i
+send "source [lindex $argv 1]\r"
+expect "READY"
+
+send "\a"
+expect "reserved"
+send "\r"
+send "exit\r"
+expect eof

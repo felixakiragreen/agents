@@ -1,0 +1,129 @@
+#!/usr/bin/env zsh
+# lab/08 — the DoD harness: run the rig in a sandbox pty, then assert on what it did.
+#   ./lab/08/run          → transcript + verdicts, artefacts under lab/08/out/
+set -u
+
+LAB=${0:A:h}
+RIG=${LAB:h:h}/summon
+export SANDBOX=$LAB/out/sandbox
+TRANSCRIPT=$LAB/out/transcript.txt
+LOG=$SANDBOX/log/invocations.jsonl
+
+rm -rf $LAB/out
+mkdir -p $SANDBOX
+cp $RIG/summon.zsh $RIG/presets.tsv $RIG/accounts.tsv $SANDBOX/
+expect $LAB/drive.exp $TRANSCRIPT $LAB/rc.zsh > /dev/null 2>&1
+cp $LOG $LAB/out/log-at-stats.jsonl		# what summon-stats saw, before later tests append
+
+typeset -i fails=0
+check() {	# <name> <literal> [file]
+	if grep -qF -- "$2" ${3:-$TRANSCRIPT}; then
+		print -r -- "  PASS  $1"
+	else
+		print -r -- "  FAIL  $1\n          missing: $2"
+		(( fails++ ))
+	fi
+}
+count() {	# <name> <expected> <literal> [file]
+	local -i got=$(grep -cF -- "$3" ${4:-$TRANSCRIPT})
+	if (( got == $2 )); then
+		print -r -- "  PASS  $1 ($got)"
+	else
+		print -r -- "  FAIL  $1 — expected $2, got $got: $3"
+		(( fails++ ))
+	fi
+}
+
+print -r -- '--- the picker ------------------------------------------------------'
+check 'menu renders, stage 1 (presets + bare keys)' '   bare: f fable o opus s sonnet h haiku'
+check 'menu renders, stage 2'                       '· keys: 2'
+check 'Ctrl-G a 2 → 3 keys, right flags/name/colour' 'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model fable --effort high -n architect /color green'
+check '⏎ = last-used account (doorbell, set by T2)'  'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model sonnet --effort medium -n dispatcher /color pink'
+check '. ejects an editable resolved command'        'CLAUDE_CONFIG_DIR=~/.claude-thg-doorbell claude --model fable --effort high -n architect "/color green"'
+check 'esc aborts'                                   'summon: aborted'
+check 'non-empty buffer survives (push-input)'       'KEEPME'
+check 'Ctrl-G f x 1 → bare, no -n/colour/prompt'     'SHIM cfg=/Users/felix/.claude-thg-fgreen args=--model fable --effort xhigh'
+
+print -r -- '--- clipboard law ---------------------------------------------------'
+check 'y yanks the derived summons' 'CLIP[You are an Architect at fable-max. Wear ~/code/agents/canon/mantles/architect.md.]'
+count 'clipboard written exactly once, on the one y press' 1 'CLIP['
+
+print -r -- '--- reserved keys ---------------------------------------------------'
+printf 'f\tfable-shadow\tfable\thigh\tgreen\n' >> $SANDBOX/presets.tsv
+expect $LAB/reserved.exp $LAB/out/reserved.txt $LAB/rc.zsh > /dev/null 2>&1
+check "load refuses a preset on a reserved key" "reserved key 'f'" $LAB/out/reserved.txt
+check 'the refusal is logged too (abort at 1 key)' '"mode":"abort","keys":1' $LOG
+sed -i '' '$d' $SANDBOX/presets.tsv
+
+print -r -- '--- input delay -----------------------------------------------------'
+print -r -- "  host: $(uptime | sed 's/.*load/load/')"
+zsh -f -c "source $SANDBOX/summon.zsh 2>/dev/null
+typeset -F start=\$EPOCHREALTIME
+for i in {1..500}; do _summon_load; _summon_recall; done
+printf '  every-invocation work (2 TSV reads + recall, no forks): %.3f ms/invocation\n' \
+	\$(( (\$EPOCHREALTIME - start) * 1000 / 500 ))"
+
+print -r -- '--- telemetry -------------------------------------------------------'
+print -r -- "  $(wc -l < $LOG | tr -d ' ') lines · modes: $(for m in pick bare repeat eject abort; do print -rn -- "$m $(grep -c "\"mode\":\"$m\"" $LOG) "; done)"
+python3 - "$LOG" <<'PY' || fails=$(( fails + 1 ))
+import json, sys
+need = {"ts","mode","keys","n","account","mantle","model","effort","color","cmd"}
+rows, bad = [], 0
+for i, line in enumerate(open(sys.argv[1]), 1):
+	try:
+		rec = json.loads(line)
+	except Exception as e:
+		print(f"  FAIL  line {i} is not JSON: {e}"); bad += 1; continue
+	rows.append(rec)
+	if set(rec) != need:
+		print(f"  FAIL  line {i} field set off by {sorted(set(rec) ^ need)}"); bad += 1
+	if not isinstance(rec["keys"], int):
+		print(f"  FAIL  line {i} keys is not a number: {rec['keys']!r}"); bad += 1
+if not bad:
+	print(f"  PASS  {len(rows)} lines, all well-formed JSONL with the full field set")
+for want, mode, keys in ((True,"pick",3), (True,"bare",4), (True,"repeat",2), (True,"eject",2)):
+	hit = [r for r in rows if r["mode"] == mode and r["keys"] == keys]
+	print(f"  {'PASS' if hit else 'FAIL'}  a {mode} line at {keys} keys")
+	bad += 0 if hit else 1
+bare = [r for r in rows if r["mode"] == "bare"]
+ok = bare and all(r["mantle"] is None and r["color"] is None and r["n"] is None for r in bare)
+print(f"  {'PASS' if ok else 'FAIL'}  bare lines carry mantle/color/n = null")
+bad += 0 if ok else 1
+yank = [r for r in rows if r["mode"] == "pick" and r["keys"] == 4]
+print(f"  {'PASS' if yank else 'FAIL'}  the y press is counted (a pick at 4 keys)")
+bad += 0 if yank else 1
+sys.exit(1 if bad else 0)
+PY
+
+print -r -- '--- repeat fidelity -------------------------------------------------'
+pick=$(grep -m1 '"mode":"pick"' $LOG | sed -e 's/.*"cmd":"//' -e 's/"}$//')
+rep=$(grep -m1 '"mode":"repeat"' $LOG | sed -e 's/.*"cmd":"//' -e 's/"}$//')
+if [[ -n $rep && $rep == $pick ]]; then
+	print -r -- '  PASS  repeat cmd byte-identical to the pick it repeats'
+else
+	print -r -- "  FAIL  repeat != pick\n          pick:   $pick\n          repeat: $rep"
+	(( fails++ ))
+fi
+
+print -r -- '--- derived summons, every preset -----------------------------------'
+zsh -f -c "source $SANDBOX/summon.zsh 2>/dev/null; _summon_load
+for k in \$_summon_preset_keys; do _summon_describe \$k; print -r -- \"    \$_summon_summons\"; done"
+
+print -r -- '--- summon-stats ----------------------------------------------------'
+sed -n '/summon-stats ·/,/leverage/p' $TRANSCRIPT | tr -d '\r'
+# the reporter parses JSON with zsh builtins — cross-check its arithmetic against python
+typeset -a want=(${(z)"$(python3 -c 'import json,sys
+rows=[json.loads(l) for l in open(sys.argv[1])]
+print(len(rows), sum(r["keys"] for r in rows), sum(len(r["cmd"] or "") for r in rows))' $LAB/out/log-at-stats.jsonl)"})
+report="$(grep -F 'invocations ·' $TRANSCRIPT | tr -d '\r') $(grep -F 'leverage' $TRANSCRIPT | tr -d '\r')"
+expected="$want[1] invocations · $want[2] keys · $want[3] chars"
+if [[ $report == *"$want[1] invocations"* && $report == *" $want[2] spent"* && $report == *" $want[3] chars"* ]]; then
+	print -r -- "  PASS  counts agree with python ($expected)"
+else
+	print -r -- "  FAIL  counts disagree with python — expected: $expected"
+	(( fails++ ))
+fi
+
+print -r -- ''
+print -r -- "$fails failure(s)"
+exit $(( fails > 0 ))

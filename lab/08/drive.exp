@@ -1,0 +1,97 @@
+#!/usr/bin/env expect
+# lab/08 — drives the Ctrl-G widget through every DoD path in one live zsh + pty.
+# usage: drive.exp <transcript> <rc.zsh>
+
+set timeout 15
+log_file -noappend [lindex $argv 0]
+spawn zsh -f -i
+send "source [lindex $argv 1]\r"
+expect "READY"
+
+# a mark round-trips the prompt: seeing its output means the previous line is done.
+# (Do not wait on the prompt itself — zsh trails escape sequences after it.)
+proc mark {n} {
+	send "print -r -- MARK$n\r"
+	expect "MARK$n\r"
+}
+
+# T2 — 3 keys: ^G a 2 → architect · fable-high on thg-doorbell, clipboard untouched
+send "\a"
+expect "keys: 1"
+send "a"
+expect "keys: 2"
+send "2"
+expect "SHIM"
+mark 2
+
+# T3 — 2 keys: ^G ^G repeats it verbatim
+send "\a"
+expect "keys: 1"
+send "\a"
+expect "SHIM"
+mark 3
+
+# T4 — ⏎ at the account stage takes the last-used account (doorbell, from T2)
+send "\a"
+expect "keys: 1"
+send "d"
+expect "keys: 2"
+send "\r"
+expect "SHIM"
+mark 4
+
+# T5 — `.` ejects an editable command instead of launching it; ^U clears the line
+send "\a"
+expect "keys: 1"
+send "."
+expect "CLAUDE_CONFIG_DIR"
+send "\025"
+mark 5
+
+# T6 — esc aborts
+send "\a"
+expect "keys: 1"
+send "\033"
+expect "aborted"
+mark 6
+
+# T7 — a line in progress survives: push-input restores it after the launch
+send "print -r -- KEEPME"
+send "\a"
+expect "keys: 1"
+send "a"
+expect "keys: 2"
+send "1"
+expect "SHIM"
+expect "KEEPME"
+mark 7
+
+# T8 — bare: ^G f x 1 → fable · xhigh on thg-fgreen, no name, no colour, no prompt
+send "\a"
+expect "keys: 1"
+send "f"
+expect "keys: 2"
+send "x"
+expect "keys: 3"
+send "1"
+expect "SHIM"
+mark 8
+
+# T9 — y yanks the summons, then the account key fires (4 keys)
+send "\a"
+expect "keys: 1"
+send "A"
+expect "keys: 2"
+send "y"
+expect "yanked"
+send "2"
+expect "SHIM"
+mark 9
+
+# T10 — the reporter
+send "summon-stats\r"
+expect "leverage"
+mark 10
+
+send "exit\r"
+expect eof
