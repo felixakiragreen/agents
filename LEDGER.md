@@ -441,3 +441,17 @@ queued (Felix's three findings + Architect rulings above). F3 (agent-def colour 
 the positional for the summons) stays escalated — canon question, not folded into 09.
 Next: Felix dispatches 09 (kickoff verbatim in the brief); his dotfiles source line +
 3-account smoke still PENDING from 08; F3 awaits a Grand Architect row if wanted.
+
+---
+
+**2026-08-06 · Architect (08 closeout tending)** — Felix added the dotfiles source line
+(08's last integration step); smoke ×3 remains PENDING — one real launch per account
+through the rig, since `lab/08/run` proved everything against a shim and account
+routing (`CLAUDE_CONFIG_DIR` → the right silo) is the one failure mode only a real
+launch can catch. F3 **PARKED by Felix**: the agent-definition colour channel (which
+would free the positional prompt for auto-summons) is deferred until the slash-summons
+work (`/grand-architect` et al.) — it folds in there; canon question reserved for the
+Grand Architect when that row is cut. Changed: GENESIS row 08 note + §5 batch note.
+Decided: F3 deferral (Felix, in-session). Next: Felix smokes ×3 (Ctrl-G launch on
+accounts 0/1/2, verify silo/name/color, check the JSONL); row 09 dispatchable —
+kickoff in `plans/09-summon-rig-v11.md`.
