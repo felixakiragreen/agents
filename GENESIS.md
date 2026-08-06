@@ -90,7 +90,7 @@ run it when something feels off; green + still broken ⇒ auth, not sync). `depl
 | 05 | [Saturation harvest — snappy batch-1 → canon](plans/05-saturation-harvest.md) | — | Grand Architect · fable-max | **LANDED** 2026-08-05 — D28–D30 entered amended, rejections upheld, D31 (hive-city voice) cut; D28–D31 ✓ Felix same day |
 | 06 | [hexwright retrofit](plans/06-hexwright-retrofit.md) | — (D32 ✓ 2026-08-06) | Architect · fable-high | **LANDED** 2026-08-06 → [findings](plans/06-hexwright-retrofit.md); hexwright D9 ✓ Felix (via D32); board minted, dream renamed |
 | 07 | [simmy retrofit](plans/07-simmy-retrofit.md) | — (D32 ✓ 2026-08-06) | Architect · fable-high | **LANDED** 2026-08-06 → [findings](plans/07-simmy-retrofit.md); simmy D16 ✓ Felix; B14 clear to resume |
-| 08 | [summon rig](plans/08-summon-rig.md) | D34 ✓ 2026-08-06 | Builder · opus-high | **IN FLIGHT** 2026-08-06 — D35 riders + panel/Enter-law amendment folded into the brief; Builder stopped, restarts on the amended brief |
+| 08 | [summon rig](plans/08-summon-rig.md) | D34 ✓ 2026-08-06 | Builder · opus-high | **LANDED** 2026-08-06 → `summon/` + [DoD evidence](plans/08-summon-rig.md) (33 assertions green, `lab/08/run`); Felix: add the dotfiles source line, then smoke ×3 (PENDING). Escalated: F3 — the colour channel is not forced |
 
 Statuses per the doctrine (`canon/work/DOCTRINE.md` §4): OPEN → IN FLIGHT → LANDED /
 KILLED. Any account can host any session — the repo carries the truth; account choice is
@@ -107,8 +107,12 @@ row lost its session to token limits and resumes from another account onto retro
 docs; 06 runs anytime.
 
 **08 (cut 2026-08-06, D34 ✓ · D35 riders same day): summon rig** — single Builder row,
-independent of 06/B14, IN FLIGHT; mid-flight riders folded into the brief — the
-Builder re-reads it before continuing.
+independent of 06/B14, **LANDED** same day onto the amended brief. `summon/` is live in
+the repo but inert until Felix adds the one dotfiles source line; the three-account smoke
+is his (PENDING). One escalation open: F3 — a file-based agent definition sets the session
+colour flag-only, so the positional prompt need not spend itself on `/color`; adopting it
+is a canon question (mantles-by-path vs colour-carrying agent definitions), a v2 row if
+Felix wants it.
 
 ## 6. Non-goals (v1, defended)
 

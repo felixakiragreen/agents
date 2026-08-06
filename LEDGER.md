@@ -394,3 +394,33 @@ bought visibility. Changed: brief interaction section rewritten with a rendering
 guide, DoD retrued, GENESIS row 08 note, D35 amended. Decided: within D35 ✓ Felix.
 Next: restart the Builder on the amended brief — kickoff unchanged, verbatim in
 `plans/08-summon-rig.md`.
+
+---
+
+**2026-08-06 · Builder (08)** — the summon rig built and LANDED to the amended brief:
+`summon/summon.zsh` (Ctrl-G ZLE panel, mantle + bare paths, arm-and-fire repeat, eject,
+opt-in `y` yank, JSONL telemetry, `summon-stats`), `summon/presets.tsv` +
+`accounts.tsv` (D34 seeds, Builder/Digger commented), `summon/README.md`,
+`.gitignore` (`summon/log/`, `lab/*/out/`), harness in `lab/08/` (expect drives a real
+pty against a sandbox copy; `claude` and `pbcopy` shims capture what would have
+launched and what touched the clipboard). DoD: **33 assertions, 0 failures** — every
+floor exercised (pick 3/4, bare 5, repeat 3, eject 2/3), clipboard written exactly once
+across 13 gestures, panel/Enter law proven (6 launches from 8 confirmable gestures),
+menu work measured at 0.365 ms/invocation, JSONL validated field-by-field and its stats
+cross-checked against python. Findings F1–F8 with controls: E1 re-confirmed dead (F1,
+with the positive control this session's own `/color blue` provides), no second-message
+affordance (F2), `--effort` takes `med` AND `medium` but an unknown value warns and
+silently falls back to default effort (F4 — the rig emits canonical long names), `-n`
+verified (F5), three spec silences ruled and flagged (F6 — Enter with nothing selected,
+bare without effort, and launch with no account all refuse rather than guess: the
+account picks which subscription pays). **F3, escalated and corrected mid-session on
+Felix's challenge: the colour channel is NOT forced** — a file-based agent definition
+carrying `color:` paints the session badge green with no first message spent (verified
+in a pty against a positive control; the inline `--agents` JSON route does not work). If
+adopted, the positional prompt carries the summons and the ⌘V ritual dies — but it needs
+colour-carrying per-mantle agent definitions, cutting across D12's mantles-by-path and
+the content-free tier grid: a canon call, not a Builder's. Decided: nothing new — built
+inside D34/D35. Next: **Felix** — add `source ~/code/agents/summon/summon.zsh` to
+`~/.dotfiles/zsh/`, `reload`, then smoke one real launch per account (`~/.claude` still
+needs `/login`); then rule on F3 (v2 row or parked). Row 06 (hexwright) and B14 (simmy)
+remain dispatchable — kickoffs verbatim in their docs.
