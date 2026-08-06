@@ -59,35 +59,42 @@ Data files are re-read on every invocation — no caching, no stale state.
 - **Key 2 — preset:** a preset key; or **Ctrl-G again = repeat last** (from `log/last`,
   the 2-key floor); or **`.` = eject** — resolve the default config into `BUFFER` for
   manual editing and return to ZLE (the override escape hatch); or **Esc = abort**.
+- **Bare mode — no mantle (D35):** the model keys **f/o/s/h**
+  (fable/opus/sonnet/haiku) are reserved at the preset stage and branch to a tier
+  launch: model key → effort key (`l/m/h/x/M` = low/medium/high/xhigh/max) → account
+  digit. 4 keys total: `Ctrl-G f x 1` = fable-xhigh on thg-fgreen. The command carries
+  only `CLAUDE_CONFIG_DIR`, `--model`, `--effort` — no `-n`, no color, no prompt.
+  `presets.tsv` may never claim a reserved key — fail loudly at load if it does.
 - **Key 3 — account:** digit, or Enter = last-used account. This key fires — no
-  trailing Enter.
+  trailing Enter. Mantle path only: `y` first = yank the derived summons to the
+  clipboard (the only clipboard write the rig ever makes), then the account key.
 - Execution mechanism: assemble the command string, log, set `BUFFER`, `zle
   accept-line` — claude runs as a normal foreground command and the invocation lands in
   zsh history for free. Never `exec`, never run claude inside the widget.
 
-Command shape: `CLAUDE_CONFIG_DIR=<dir> claude --model <model> --effort <effort>
--n <mantle> <prompt per E1>`.
+Command shape — mantle path: `CLAUDE_CONFIG_DIR=<dir> claude --model <model>
+--effort <effort> -n <mantle> "/color <color>"`; bare path: the first three only.
 
-### E1 — summons delivery experiment
+### E1 — summons delivery — RESOLVED 2026-08-06 (Felix's evidence, D35)
 
-`/color green` may need to be the entire first message, colliding with summons-as-prompt.
-Try, in order, ~30 min budget total:
+Combining is dead: the `/color` parser eats the entire first message —
+`Invalid color "blue you are a digger."`. One positional, one job. Ruling:
 
-1. One positional prompt carrying both (e.g. `"/color green"` + newline + summons) —
-   does the slash command still execute?
-2. Any CLI affordance for two initial messages / queued input.
-3. **Guaranteed fallback — ship this if 1–2 fail:** positional stays `"/color <color>"`;
-   the rig pipes the summons to `pbcopy` (post-decision subprocess, allowed); wearing
-   the mantle = ⌘V as the first message. Document the ritual in the README.
+- Positional stays `"/color <color>"` (mantle path only).
+- **Clipboard law: the rig never writes the clipboard by default** — Felix's clipboard
+  usually already carries the previous agent's kickoff prompt; clobbering it is worse
+  than the paste it saves. Summons-yank is **opt-in**: pressing `y` at the account
+  stage pipes the derived generic summons to `pbcopy`, then continues to the account
+  key. Document the kickoff-paste ritual in the README.
 
-Kill criterion: 1 and 2 both dead within budget → ship 3 without agonizing. While
-here, verify `--effort` accepted values (`med` vs `medium`) and `-n` behavior; record
-all of it in Findings.
+Still verify `--effort` accepted values (`med` vs `medium`) and `-n` behavior; record
+in Findings.
 
 ### Telemetry
 
 One JSON line per invocation — including repeats, ejects, and aborts:
-`{ts, mode: pick|repeat|eject|abort, keys, n, account, mantle, model, effort, color, cmd}`.
+`{ts, mode: pick|bare|repeat|eject|abort, keys, n, account, mantle, model, effort,
+color, cmd}` — `mantle`/`color` null on the bare path; `keys` includes `y` when yanked.
 Eject logs the pre-edit resolved command; the edited final lives in zsh history —
 accepted v1 gap, note it in the README. `summon-stats`: a minimal reporter (~20 lines)
 — invocation counts by mantle × account, mode split, total keys spent vs the naive
@@ -101,10 +108,13 @@ typed baseline. Anything fancier is a later row fed by real data.
 - [ ] `Ctrl-G Ctrl-G` (2 keys) repeats the last invocation exactly
 - [ ] Enter at the account stage uses the last-used account
 - [ ] `.` ejects an editable resolved command into the buffer
+- [ ] `Ctrl-G f x 1` (4 keys) launches bare fable · xhigh on thg-fgreen — no name,
+      color, or prompt; a preset claiming a reserved key fails loudly at load
+- [ ] `y` yanks the derived summons; clipboard untouched on every other path
 - [ ] Every path (abort included) appends a well-formed JSONL line; `log/` gitignored
-- [ ] E1 resolved with evidence in Findings; shipped delivery mode documented
+- [ ] `--effort` accepted values and `-n` behavior verified, recorded in Findings
 - [ ] `summon-stats` prints its report from real log lines
-- [ ] README: the dotfiles source line, key map, data-file format, E1 ritual
+- [ ] README: the dotfiles source line, key map, data-file format, kickoff-paste ritual
 - [ ] Smoke: one real launch per account, logged (Felix-attended — logins are his)
 
 ## Out of scope — defended
@@ -114,6 +124,7 @@ typed baseline. Anything fancier is a later row fed by real data.
 - Editing `~/.dotfiles` — Felix's repo; he adds the one source line himself.
 - Log sync across accounts/machines — local telemetry, not canon truth.
 - Preset auto-promotion — stats inform; Architect sessions true `presets.tsv`.
+- Name/color on the bare path — the eject key covers the exceptions.
 - Retiring the old `a-thg-*` aliases — Felix's call once the rig proves out.
 
 ## Escalation
