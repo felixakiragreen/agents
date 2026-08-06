@@ -7,7 +7,7 @@ evidence, not vibes.
 ## Goal
 
 Replace hand-typed `CLAUDE_CONFIG_DIR=… claude --model … --effort … -n … "/color …"`
-lines (~78 keystrokes plus a summons paste) with a 2–3 keystroke gesture that sets all
+lines (~78 keystrokes plus a summons paste) with a 3–5 keystroke gesture that sets all
 five properties — account, model, effort, name, color — **and delivers the mantle
 summons**. Zero perceptible input delay. Full invocation telemetry.
 
@@ -51,24 +51,47 @@ name (`-n`) = mantle slug; summons text = `You are a/an {Mantle} at {model}-{eff
 Wear ~/code/agents/canon/mantles/{mantle}.md.` (title-case the slug, correct article).
 Data files are re-read on every invocation — no caching, no stale state.
 
-### Interaction — the state machine
+### Interaction — the panel (D35, amended)
+
+**Enter, and only Enter, fires.** Every other key selects; nothing launches by
+side-effect.
 
 - `bindkey '^G'` → ZLE widget. Non-empty buffer: `zle push-input` first, never clobber.
-- Menu renders instantly (`zle -M`, pure builtins — no subprocess before launch):
-  presets from `presets.tsv`, accounts, and a live `keys: n` counter updated per press.
-- **Key 2 — preset:** a preset key; or **Ctrl-G again = repeat last** (from `log/last`,
-  the 2-key floor); or **`.` = eject** — resolve the default config into `BUFFER` for
-  manual editing and return to ZLE (the override escape hatch); or **Esc = abort**.
-- **Bare mode — no mantle (D35):** the model keys **f/o/s/h**
-  (fable/opus/sonnet/haiku) are reserved at the preset stage and branch to a tier
-  launch: model key → effort key (`l/m/h/x/M` = low/medium/high/xhigh/max) → account
-  digit. 4 keys total: `Ctrl-G f x 1` = fable-xhigh on thg-fgreen. The command carries
-  only `CLAUDE_CONFIG_DIR`, `--model`, `--effort` — no `-n`, no color, no prompt.
-  `presets.tsv` may never claim a reserved key — fail loudly at load if it does.
-- **Key 3 — account:** digit, or Enter = last-used account. This key fires — no
-  trailing Enter. Mantle path only: `y` first = yank the derived summons to the
-  clipboard (the only clipboard write the rig ever makes), then the account key.
-- Execution mechanism: assemble the command string, log, set `BUFFER`, `zle
+- The **full panel** renders instantly on Ctrl-G and re-renders on every press
+  (`zle -M`, pure builtins — no subprocess before launch): every live hotkey, the
+  current selections, and the running `keys: n` counter — **the launch key counts**
+  (after `Ctrl-G f` the panel reads `fable ✓ · keys: 2`). Rendering guide:
+
+```
+summon · keys: 2
+Ctrl-G   repeat last  →  architect · fable-high @ thg-fgreen
+mantle   [g]rand  [a]rchitect  [A]rch-max  [d]ispatcher
+model    [f]able  [o]pus  [s]onnet  [h]aiku            → fable ✓
+effort   [l]ow  [m]ed  [h]igh  [x]high  [M]ax
+account  [0] personal  [1] thg-fgreen  [2] thg-doorbell   (unset ⇒ last-used)
+         [y]ank summons   [.] eject   [Esc] abort   [Enter] invoke
+```
+
+- Key namespaces are **staged**, so overloaded letters stay unambiguous: at the first
+  choice `h` = haiku (model); after a model key `h` = high (effort). Selections are
+  forward-only — a fat-finger is `Esc` + redo, two keys.
+- Paths from the panel, all ending in **Enter**:
+  - **Mantle:** preset key → optional `y` (yank the derived summons — the rig's only
+    clipboard write) → optional account digit → Enter.
+  - **Bare (D35):** model key `f/o/s/h` → effort key `l/m/h/x/M` → optional account
+    digit → Enter. Command carries only `CLAUDE_CONFIG_DIR`/`--model`/`--effort` —
+    no `-n`, no color, no prompt.
+  - **Repeat:** Ctrl-G again *arms* the last invocation (from `log/last`), panel shows
+    it fully resolved → Enter fires it.
+  - `.` = eject the armed (or default) config into `BUFFER` for manual editing;
+    `Esc` = abort (logged).
+- **Enter with anything unset fires the defaults** — account defaults to last-used, so
+  Enter straight after a preset is a legal 3-key launch.
+- Reserved keys — `f/o/s/h`, `y`, `.`, digits: `presets.tsv` may never claim one;
+  fail loudly at load.
+- Keystroke floors: repeat 3 (`Ctrl-G Ctrl-G Enter`) · preset on last-used account 3 ·
+  preset + account 4 · bare 4–5.
+- Execution mechanism: on Enter, assemble the command string, log, set `BUFFER`, `zle
   accept-line` — claude runs as a normal foreground command and the invocation lands in
   zsh history for free. Never `exec`, never run claude inside the widget.
 
@@ -102,14 +125,17 @@ typed baseline. Anything fancier is a later row fed by real data.
 
 ## Acceptance criteria — the DoD
 
-- [ ] Ctrl-G from empty and non-empty buffer opens the picker with no perceptible delay
-- [ ] `Ctrl-G a 2` (3 keys) launches architect · fable-high on thg-doorbell with correct
-      flags, name, color
-- [ ] `Ctrl-G Ctrl-G` (2 keys) repeats the last invocation exactly
-- [ ] Enter at the account stage uses the last-used account
+- [ ] Ctrl-G from empty and non-empty buffer opens the panel with no perceptible delay
+- [ ] The panel shows every live hotkey and re-renders on each press with selections
+      and the counter (launch key counted); nothing fires except Enter
+- [ ] `Ctrl-G a 2 Enter` (4 keys) launches architect · fable-high on thg-doorbell with
+      correct flags, name, color
+- [ ] `Ctrl-G Ctrl-G Enter` (3 keys) repeats the last invocation exactly, shown
+      resolved in the panel before firing
+- [ ] `Ctrl-G a Enter` (3 keys) fires with the last-used account
 - [ ] `.` ejects an editable resolved command into the buffer
-- [ ] `Ctrl-G f x 1` (4 keys) launches bare fable · xhigh on thg-fgreen — no name,
-      color, or prompt; a preset claiming a reserved key fails loudly at load
+- [ ] `Ctrl-G f x 1 Enter` (5 keys) launches bare fable · xhigh on thg-fgreen — no
+      name, color, or prompt; a preset claiming a reserved key fails loudly at load
 - [ ] `y` yanks the derived summons; clipboard untouched on every other path
 - [ ] Every path (abort included) appends a well-formed JSONL line; `log/` gitignored
 - [ ] `--effort` accepted values and `-n` behavior verified, recorded in Findings
