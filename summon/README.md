@@ -4,8 +4,9 @@
 field already selected — mantle, model, effort, account — exactly like the Claude Code
 model selector: change what you want, Enter fires it, and what fired is what the panel
 promised. Every invocation is logged, so `presets.tsv` is only the hypothesis and
-`log/invocations.jsonl` is the evidence. Designed in [D34/D35/D36](../DECISIONS.md), built
-to [plans/08](../plans/08-summon-rig.md) and [plans/09](../plans/09-summon-rig-v11.md).
+`log/invocations.jsonl` is the evidence. Designed in [D34/D35/D36/D41](../DECISIONS.md),
+built to [plans/08](../plans/08-summon-rig.md), [plans/09](../plans/09-summon-rig-v11.md)
+and [plans/10](../plans/10-summon-rig-v12-usage.md).
 
 ## Install — one line, Felix's own repo
 
@@ -68,6 +69,59 @@ or no account. The account picks which subscription pays and which silo the work
 so a guess is the one error the rig must never make; the preview footer says so before
 Enter is pressed.
 
+## Usage — the quota table
+
+The account row's whole job is quota arbitrage, so the panel shows what each account has
+left. `summon-usage` once creates `log/usage/` and turns the block on; without that
+directory the panel is byte-identical to v1.1.
+
+```
+account  [0] personal  [1] thg-fgreen ✓  [2] thg-doorbell
+usage    0  sess —         week —         fable —
+         1  sess 42%+31    week 61%-13    fable 12%+55
+         2  sess 78%-13    week 45%+2     fable —
+```
+
+One line per account, in `accounts.tsv` order. A cell is `<window> <used>%<pacing delta>`
+over three windows — **sess** (the 5-hour session limit), **week** (the 7-day limit) and
+**fable** (the 7-day Fable-scoped limit). A bucket the account doesn't have, or an account
+with no cache yet, reads `—`.
+
+**The pacing delta is the clock, rendered.** It is `elapsed% − used%`: how far ahead of
+the window's own countdown your spend is. `42%+31` means 42% burned with 73% of the window
+already elapsed — thirty-one points of headroom. `61%-13` means the burn is outrunning the
+clock and the window will run dry early. That is the number to read; the reset time itself
+is not shown because the delta already contains it.
+
+**Colour is trust.** A line fetched within 10 minutes renders in normal text with its
+delta **green** (headroom) or **red** (burning fast). Older than that, the whole line drops
+to grey with the delta uncoloured — vivid means live, grey means don't trust it. Opening
+the panel refetches any account whose cache has gone cold, after the first paint, in the
+background; the numbers land on the next keystroke.
+
+`summon-usage` run by hand fetches all three accounts in the foreground and prints the
+table plus each cache's age — the answer to "why is my table grey".
+
+**Where the numbers come from, and the caveats** ([plans/10 — E2](../plans/10-summon-rig-v12-usage.md)):
+
+- The source is the OAuth usage endpoint, the same payload `/usage` shows. The rig reads
+  each account's token from the Keychain, whose service name it derives — never stores —
+  as `Claude Code-credentials-<sha256 of the config dir's absolute path>[:8]`.
+- **The rig never refreshes or rotates a token.** Claude Code owns the auth lifecycle; a
+  rig-side refresh could race it and invalidate live sessions. An expired token is a
+  failed fetch is a stale table, and the table says so in grey.
+- The token goes from `security` into `curl`'s stdin and lives nowhere else — never in
+  argv (where `ps` would leak it), never in a cache or log. A failed fetch leaves the
+  previous cache untouched rather than replacing it with nothing.
+- macOS may prompt the first time `security` reads an entry; "Always Allow" once per
+  account settles it. If you decline, that account simply stays grey.
+- `.claude.json`'s own `cachedUsageUtilization` is the same data, but it is refreshed on
+  no clock you control — measured 77 minutes and 2.5 hours stale, and once showing 70%
+  session usage against a window that had already reset when the truth was 0%. That is
+  why the rig fetches rather than reads it.
+- Caches are `log/usage/<config-dir-basename>.json` — dotfiles, since the config dirs are
+  (`.claude-thg-fgreen.json`). Delete one and its line goes back to `—`.
+
 ## Data — edit freely, re-read every invocation
 
 Tab-separated, `#` comments, order is menu order.
@@ -120,8 +174,14 @@ the panel's own key loop, and the entries are dropped the moment it closes.
 
 ## Tests
 
-`../lab/08/run` — 76 assertions, 0 failures. The gestures run in a real pty against a
+`../lab/08/run` — 130 assertions, 0 failures. The gestures run in a real pty against a
 sandbox copy with `claude` and `pbcopy` shims; the panel's text, wrap and palette spans are
 asserted without a pty (`render.zsh`, a pure function of the selection and `$COLUMNS`); and
 `preview.exp` / `narrow.exp` prove one whole paint on a real screen — the footer against
 the launch it promised, and the 60-column wrap.
+
+The usage arms never touch a real credential store or the network: `security` and `curl`
+are shims serving fixtures, the pacing arithmetic is asserted at its edges (reset imminent,
+reset already past, used ahead of the clock, both clamps, half-rounding), the hand-rolled
+ISO-8601 → epoch is cross-checked against python, and a sweep proves no token byte reaches
+any artefact the harness produced.
