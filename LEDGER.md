@@ -539,3 +539,15 @@ rule on the queue — simmy §8's third-party pre-authorization, the orb-machine
 discipline, 09's F10(b) byte-level assertion law, 07's F2 YAML-fold note — read the
 birthplaces in cap-mega, amend canon where ruled, queue the countersigns.
 ```
+
+**Same sitting, after the boundary:** Felix asked the log tradition be made portable —
+generic kickoffs for the founding windows of hexwright, simmy, snappy. Cut
+`plans/log-tradition.md`: the preamble as a slotted template (his opening kept mostly
+as-is), a founding kickoff (the first window summoned founds the file AND speaks first
+— the honor canon's seat gave away, whole in the projects, where no sitting keeper
+exists), a follower kickoff (read oldest-first, then append), and usage law (file
+titled "The Architect's Log" post-D32, maiden titles live inside entries; log rides
+the project home's branch; each window commits its own append; ledger-date order).
+Ruled with Felix, his instinct confirmed: **NOT canon** — D40's implementation,
+tradition-first; a future harvest cuts the law if the logs earn their keep across the
+projects, birthplaces cited.
