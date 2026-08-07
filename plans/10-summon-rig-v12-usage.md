@@ -460,6 +460,48 @@ and **away from zero** — `printf '%.0f'` would have rounded half to even, maki
 `+0.5 → +0` and `+1.5 → +2`, which reads as a bug in a two-character cell. Asserted both
 directions (`half rounds up → +1`, `half rounds down → -1`).
 
+**F7 — a latent v1.1 bug the new by-hand path exposed: with no tty, `COLUMNS` is `0`, not
+unset.** `${COLUMNS:-80}` therefore keeps the zero, `avail` goes to −10, and `_summon_wrap`
+breaks every item onto its own line. Nothing in v1.1 could reach it — the panel only ever
+renders inside zle, where `COLUMNS` is real, and the harness sets it explicitly — but
+`summon-usage` is a plain function that can be run from a script or a pipe, and it found
+the bug the first time it was run for real:
+
+```
+usage    0
+         sess 19%+32
+         week 4%+30
+         …
+```
+
+Fixed in `_summon_wrap` (the defensive place, not the caller): a non-positive width falls
+back to 80. Byte-identity with v1.1 is unaffected and still asserted, because every tested
+path sets a positive `COLUMNS`. **This is the argument for the by-hand DoD item**: the
+shimmed arms all passed while this was broken, because each of them set `COLUMNS` first.
+
+**F8 — the fetcher, proven against the three live accounts** (2026-08-07, Felix's grant):
+
+```
+  fetched  0 personal
+  fetched  1 thg-fgreen
+  fetched  2 thg-doorbell
+
+usage    0  sess 19%+32    week 4%+30     fable 2%+32
+         1  sess 25%+29    week 35%-20    fable 49%-34
+         2  sess 0%+31     week 91%-48    fable 81%-38
+  cache age
+    0 personal          0 s  fresh
+    1 thg-fgreen        0 s  fresh
+    2 thg-doorbell      0 s  fresh
+```
+
+Three real Keychain reads, three real HTTPS fetches, three caches written — and the table
+does the job the row was cut for at a glance: doorbell is 91% into its week at a −48 pace,
+fgreen is mid-week at −20, personal is wide open at 4% and +30. Note personal **does**
+carry a Fable bucket (2%), so the missing-bucket arm is a real capability of the renderer
+rather than a description of that account. Felix's visual pass on the panel itself is
+still owed.
+
 **F6 — adjacent, parked, not fixed:** (a) GENESIS row 04 still carries "Max smoke PENDING
 `/login`" for `~/.claude`; that account is demonstrably live and authenticated
 (`organizationType: claude_max`, `default_claude_max_20x`, profile fetched the same day,

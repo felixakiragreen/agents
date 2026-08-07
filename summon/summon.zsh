@@ -494,7 +494,11 @@ _summon_append() {
 # under the first item. Consumes and clears the item arrays.
 _summon_wrap() {
 	local sep=$3 s
-	local -i width=$#1 avail=$(( ${COLUMNS:-80} - $#1 - 1 )) w=0 i at base=$4
+	# with no tty zsh reports COLUMNS as 0, not unset, and `:-` keeps the zero — which would
+	# make every item wrap. A piped `summon-usage` is the case that finds this.
+	local -i cols=${COLUMNS:-80}
+	(( cols > 0 )) || cols=80
+	local -i width=$#1 avail=$(( cols - $#1 - 1 )) w=0 i at base=$4
 	_summon_append $'\n' '' $base
 	_summon_append "$1" "$2" $base
 	for (( i = 1; i <= $#_summon_item_plain; i++ )); do
