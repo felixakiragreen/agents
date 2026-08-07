@@ -318,8 +318,8 @@
   model key). Floors move +1 — repeat 3, preset 3–4, bare 4–5 — explicit confirmation
   bought full visibility. Riders + amendment folded into the brief same sitting; the
   Builder (stopped mid-flight for this) restarts onto the amended brief.
-- **D36** (2026-08-06, Architect · QUEUED — dispatch of row 09 countersigns, per D34
-  precedent): **summon rig v1.1 — sticky state, palette, responsive panel.** From
+- **D36** (2026-08-06, Architect · ✓ Felix 2026-08-06 — countersigned by dispatch, per
+  D34 precedent): **summon rig v1.1 — sticky state, palette, responsive panel.** From
   Felix's first live day (his calls): selection state is **sticky** like the Claude
   Code model selector — fields persist, the panel opens pre-selected, Enter refires;
   the ✓ moves **inline** onto the selected item; palette — grey brackets/unselected,

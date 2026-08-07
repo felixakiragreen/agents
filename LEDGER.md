@@ -476,3 +476,18 @@ nothing new — D36 was the ruling; its "dispatch countersigns" clause is now sa
 wants an Architect's pen. Next: **Felix** — visual pass on the palette (the DoD asks for
 his eyes) and smoke ×3, one real launch per account through the rig; then an Architect
 marks D36 `✓ Felix` and folds F1/F2 (the escape-vs-highlight law) wherever canon wants it.
+
+---
+
+**2026-08-06 · Architect (09 review)** — Board trued after row 09. D36 marked ✓ Felix
+(countersigned by dispatch, per D34 precedent — the visual pass is DoD acceptance, a
+separate track, and landed the same day: Felix ran the rig all first live day and
+adopted it). F1/F2 (escapes die in `zle -M`; panel colour rides `region_highlight`)
+folded nowhere new by ruling — the law lives in 09's findings and `summon/README.md`;
+zle mechanics are not canon. No rows cut: 09's findings argue for none — F3 stays
+parked (slash-summons, Felix), F4 fixed in harness, the rig now accrues refinements
+from live use over the coming weeks. Changed: DECISIONS D36, GENESIS row 09.
+Decided: D36 ✓ Felix; fold-nothing + cut-nothing (Felix, in-session). Next: smoke ×3
+still PENDING (per-account routing proof, Felix's); harvest candidate for the next
+Grand Architect session — 09's F10(b): grep wrappers and zsh pattern-quoting silently
+falsify byte-level transcript assertions in any repo, search bytes with python.
