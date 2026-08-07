@@ -47,7 +47,10 @@ typeset -ga _summon_efforts=(l:low m:medium h:high x:xhigh M:max)
 # is bright black — zle's `fg=90` would mean palette index 90, a purple — and zle emits it
 # as `\e[90m`, so the wire bytes are exactly what D36 specified.
 typeset -g _summon_grey='fg=8' _summon_bold='bold'
-typeset -gA _summon_label_color=(mantle fg=green model fg=yellow effort fg=208 account fg=red)
+# `usage` is grey, not a colour of its own: the other four labels name key namespaces, and
+# grey is already the panel's word for "nothing here is selectable" (v1.2)
+typeset -gA _summon_label_color=(mantle fg=green model fg=yellow effort fg=208 account fg=red
+	usage fg=8)
 typeset -gA _summon_swatch=(green fg=green pink fg=213 red fg=red blue fg=blue
 	yellow fg=yellow magenta fg=magenta cyan fg=cyan orange fg=208 grey fg=8 gray fg=8)
 
@@ -156,6 +159,283 @@ _summon_resolve() {
 	_summon_cmd="CLAUDE_CONFIG_DIR=$acct[1] claude --model $_summon_model --effort $_summon_effort"
 	[[ -n $_summon_mantle ]] && _summon_cmd+=" -n $_summon_mantle \"/color $_summon_color\""
 	return 0
+}
+
+# --- usage (v1.2) ----------------------------------------------------------------
+
+# Per-account quota, so the account digit Felix presses is an informed spend (D41). The
+# source is the OAuth usage endpoint — the same payload `/usage` shows, and the same one
+# Claude Code caches in `.claude.json`; the rig fetches it live because that cache is
+# stale by hours (10-E2), and a stale session number inverts the very decision the row
+# exists to inform.
+#
+# Token law, absolute: the access token flows `security` → _summon_usage_header → curl's
+# stdin and lives nowhere else — never in argv (`ps` leaks that), never in a cache, log or
+# message. The rig only ever READS the credential store: it never refreshes or rotates a
+# token, because Claude Code owns the auth lifecycle and a rig-side refresh could race it
+# and invalidate live sessions. An expired token is a failed fetch is a stale table.
+
+typeset -g  _summon_usage_url='https://api.anthropic.com/api/oauth/usage'
+typeset -ga _summon_usage_buckets=(sess week fable)
+typeset -gA _summon_usage_window=(sess 18000 week 604800 fable 604800)
+typeset -g  _summon_usage_fresh=600		# a cache older than this renders grey, uncoloured
+typeset -g  _summon_usage_stale=60			# ...and a cache older than this is refetched on open
+
+typeset -gi _summon_usage_delta_value		# the pacing delta, in whole points
+typeset -gA _summon_usage_fetched			# account key → fetched_at epoch; unset ⇒ no cache
+typeset -gA _summon_usage_cell				# "<key>.<bucket>" → "<used_pct> <resets_at>"
+
+# <ISO-8601 UTC> → $_summon_usage_epoch_value. The API stamps `2026-08-07T22:00:00.470292
+# +00:00`; days-from-civil turns that into an epoch with no fork and no TZ dependency —
+# `strftime -r` would read it as local time, and a `TZ=UTC` prefix on a builtin leaks into
+# the interactive shell's environment. Cross-checked against python in lab/08.
+_summon_usage_epoch() {
+	local iso=$1
+	_summon_usage_epoch_value=0
+	# fixed-width by the standard, so sliced rather than pattern-matched: `(#b)` would make
+	# the rig depend on EXTENDED_GLOB being set in whatever shell sourced it
+	[[ $#iso -ge 19 && $iso[5] == '-' && $iso[8] == '-' && $iso[11] == 'T' \
+		&& $iso[14] == ':' && $iso[17] == ':' ]] || return 1
+	# 10# because a zero-padded month is not an octal literal
+	local -i y=10#$iso[1,4] m=10#$iso[6,7] d=10#$iso[9,10]
+	local -i hh=10#$iso[12,13] mm=10#$iso[15,16] ss=10#$iso[18,19]
+	local -i yy era yoe doy doe
+	(( yy  = y - (m <= 2) ))
+	(( era = (yy >= 0 ? yy : yy - 399) / 400 ))
+	(( yoe = yy - era * 400 ))
+	(( doy = (153 * (m + (m > 2 ? -3 : 9)) + 2) / 5 + d - 1 ))
+	(( doe = yoe * 365 + yoe / 4 - yoe / 100 + doy ))
+	(( _summon_usage_epoch_value = (era * 146097 + doe - 719468) * 86400 + hh * 3600 + mm * 60 + ss ))
+	return 0
+}
+
+# <config dir> → $_summon_usage_service_value. Claude Code files each account's credentials
+# under the sha256 of its config dir's absolute path, first 8 hex (10-E2, verified against
+# all three accounts) — so the service name derives from accounts.tsv and the rig stores no
+# secret and no mapping of its own.
+_summon_usage_service() {
+	local dir=${~1} sum
+	sum=$(print -rn -- ${dir:A} | shasum -a 256)
+	_summon_usage_service_value="Claude Code-credentials-${sum[1,8]}"
+	return 0
+}
+
+# stdin: the Keychain credential blob → stdout: the one Authorization header, for `curl -H @-`.
+# This function is the token's entire lifetime.
+_summon_usage_header() {
+	local blob token
+	IFS= read -r -d '' blob
+	token=${${blob#*\"accessToken\":\"}%%\"*}
+	[[ -n $token && $token != $blob ]] || return 1
+	print -r -- "Authorization: Bearer $token"
+	return 0
+}
+
+# <response body> → $_summon_usage_parsed: "<bucket> <used_pct> <resets_epoch>" per bucket the
+# response actually carried. sess/week read the flat scalar objects; only fable needs the
+# limits[] array, where it is the weekly_scoped entry scoped to the Fable model.
+_summon_usage_parse() {
+	local body=$1 bucket seg iso used chunk
+	local -A scalar=(sess '"five_hour":{' week '"seven_day":{')
+	_summon_usage_parsed=()
+	for bucket in sess week; do
+		seg=${body#*${scalar[$bucket]}}
+		[[ $seg == $body ]] && continue					# the response omitted this bucket
+		seg=${seg%%\}*}
+		used=${${seg#*\"utilization\":}%%,*}
+		iso=${${seg#*\"resets_at\":\"}%%\"*}
+		[[ $used == null || -z $iso ]] && continue
+		_summon_usage_epoch $iso || continue
+		_summon_usage_parsed+=("$bucket ${used%%.*} $_summon_usage_epoch_value")
+	done
+	seg=${body#*\"limits\":\[}
+	[[ $seg == $body ]] && return 0
+	seg=${seg%%\]*}
+	# every element opens with its `kind`, so that is the boundary — walked explicitly rather
+	# than counting nested braces, of which `scope` has two
+	while [[ $seg == *'{"kind":"'* ]]; do
+		seg=${seg#*\{\"kind\":\"}
+		chunk=${seg%%\{\"kind\":\"*}
+		[[ $chunk == weekly_scoped\"* && $chunk == *'"display_name":"Fable"'* ]] || continue
+		used=${${chunk#*\"percent\":}%%,*}
+		iso=${${chunk#*\"resets_at\":\"}%%\"*}
+		[[ $used == null || -z $iso ]] && continue
+		_summon_usage_epoch $iso || continue
+		_summon_usage_parsed+=("fable ${used%%.*} $_summon_usage_epoch_value")
+		break
+	done
+	return 0
+}
+
+# <config dir> <cache path> → one account fetched and cached, or a non-zero return with the
+# previous cache untouched. Limits on everything: one attempt, `curl -m 5`, and a body that
+# does not parse is a failure rather than a cache full of nothing.
+_summon_usage_fetch() {
+	local dir=$1 cache=$2 body line tmp
+	_summon_usage_service $dir
+	body=$(security find-generic-password -w -s $_summon_usage_service_value -a $USER 2>/dev/null \
+		| _summon_usage_header \
+		| curl -sS -m 5 -H @- -H 'anthropic-beta: oauth-2025-04-20' $_summon_usage_url 2>/dev/null)
+	_summon_usage_parse "$body"
+	(( $#_summon_usage_parsed )) || return 1
+	# atomic: a background fetcher racing a render must never serve a torn read
+	tmp=$cache.$$.tmp
+	{
+		print -rn -- "{\"fetched_at\":$EPOCHSECONDS,\"windows\":{"
+		for line in $_summon_usage_parsed; do
+			local -a f=(${=line})
+			print -rn -- "\"$f[1]\":{\"used_pct\":$f[2],\"resets_at\":$f[3],\"window_secs\":${_summon_usage_window[$f[1]]}}"
+			[[ $line == $_summon_usage_parsed[-1] ]] || print -rn -- ','
+		done
+		print -r -- '}}'
+	} > $tmp || { rm -f $tmp; return 1 }
+	mv -f $tmp $cache || { rm -f $tmp; return 1 }
+	return 0
+}
+
+# every cache file → $_summon_usage_fetched + $_summon_usage_cell. Builtins only: this runs
+# on every paint, and the files are the truth (the TSV law), so a background fetch landing
+# mid-panel shows up on the next keystroke.
+_summon_usage_load() {
+	local key dir cache raw seg bucket
+	_summon_usage_fetched=() _summon_usage_cell=()
+	[[ -d $SUMMON_HOME/log/usage ]] || return 1		# not configured ⇒ no block at all
+	for key in $_summon_account_keys; do
+		dir=${${(ps:\t:)_summon_account[$key]}[1]}
+		cache=$SUMMON_HOME/log/usage/${${~dir}:t}.json
+		[[ -r $cache ]] || continue
+		raw=$(<$cache)
+		[[ $raw == *\"fetched_at\":* ]] || continue
+		_summon_usage_fetched[$key]=${${raw#*\"fetched_at\":}%%,*}
+		for bucket in $_summon_usage_buckets; do
+			seg=${raw#*\"$bucket\":\{}
+			[[ $seg == $raw ]] && continue				# this account has no such bucket
+			seg=${seg%%\}*}
+			_summon_usage_cell[$key.$bucket]="${${seg#*\"used_pct\":}%%,*} ${${seg#*\"resets_at\":}%%,*}"
+		done
+	done
+	return 0
+}
+
+# <used_pct> <resets_at> <window_secs> → $_summon_usage_delta_value, the pacing delta:
+# how far ahead of the window's own clock the spend is. Positive is headroom.
+_summon_usage_delta() {
+	local -F elapsed diff
+	(( elapsed = 100.0 * (1.0 - ($2 - EPOCHSECONDS) / (1.0 * $3)) ))
+	(( elapsed < 0 ))   && (( elapsed = 0 ))			# a reset further out than one window
+	(( elapsed > 100 )) && (( elapsed = 100 ))		# a reset already past: the clock ran out
+	# assignment to an integer truncates toward zero, so the half is added by hand — and
+	# away from zero, not to even, so a delta reads the way a human rounds it
+	(( diff = elapsed - $1 ))
+	(( _summon_usage_delta_value = diff + (diff >= 0 ? 0.5 : -0.5) ))
+	return 0
+}
+
+# the usage block: one line per account, appended behind the `usage` label. Colours are
+# trust — a fresh line renders in default foreground with the delta green (headroom) or red
+# (burning faster than the clock); a stale line drops entirely to grey with the delta
+# uncoloured. Stale data never wears colour.
+_summon_usage_rows() {
+	local -i base=$1
+	local key bucket text value delta style label='usage'
+	local -a c
+	local -i fresh at
+	_summon_usage_load || return 1
+	for key in $_summon_account_keys; do
+		fresh=0
+		[[ -n ${_summon_usage_fetched[$key]:-} ]] &&
+			(( EPOCHSECONDS - _summon_usage_fetched[$key] <= _summon_usage_fresh )) && fresh=1
+		style=$_summon_grey
+		(( fresh )) && style=''
+		_summon_item_plain+=("$key")
+		_summon_item_span+=("${style:+0 $#key $style}")
+		for bucket in $_summon_usage_buckets; do
+			c=(${=${_summon_usage_cell[$key.$bucket]:-}})
+			delta=''
+			if (( $#c == 2 )); then
+				_summon_usage_delta $c[1] $c[2] ${_summon_usage_window[$bucket]}
+				printf -v delta '%+d' $_summon_usage_delta_value
+				value="$c[1]%$delta"
+			else
+				value='—'											# the account has no such bucket
+			fi
+			text="$bucket $value"
+			# a cell is padded whole, so every line's columns start in the same place; fable is
+			# last and takes no trailing pad, so no line ends in whitespace. 13 is the widest a
+			# cell can get — `sess 100%-100`
+			[[ $bucket == $_summon_usage_buckets[-1] ]] || text="${(r:13:)text}"
+			_summon_item_plain+=("$text")
+			if (( fresh )) && [[ -n $delta ]]; then
+				# only the delta wears colour: the eye is looking for the sign, not the percentage
+				at=$(( $#bucket + 1 + ${#c[1]} + 1 ))		# past `<name> `, `<used>`, `%`
+				if (( _summon_usage_delta_value >= 0 )); then
+					_summon_item_span+=("$at $(( at + $#delta )) fg=green")
+				else
+					_summon_item_span+=("$at $(( at + $#delta )) fg=red")
+				fi
+			else
+				_summon_item_span+=("${style:+0 $#text $style}")
+			fi
+		done
+		_summon_row "$label" $base
+		label=''														# the label heads the block, not every line
+	done
+	return 0
+}
+
+# panel open, after the first paint: one disowned background fetch per account whose cache
+# has gone cold. This is the only fork the rig adds to opening the panel, and it happens
+# once, after Felix already has his panel on screen. Two panels racing spawn duplicate
+# fetches — harmless under atomic writes, and accepted.
+_summon_usage_spawn() {
+	local key dir cache
+	[[ -d $SUMMON_HOME/log/usage ]] || return 1
+	for key in $_summon_account_keys; do
+		[[ -n ${_summon_usage_fetched[$key]:-} ]] &&
+			(( EPOCHSECONDS - _summon_usage_fetched[$key] < _summon_usage_stale )) && continue
+		dir=${${(ps:\t:)_summon_account[$key]}[1]}
+		cache=$SUMMON_HOME/log/usage/${${~dir}:t}.json
+		{ _summon_usage_fetch $dir $cache } > /dev/null 2>&1 &!
+	done
+	return 0
+}
+
+# summon-usage — the by-hand fetcher, and the diagnostic for "why is my table grey": every
+# account fetched in the foreground, then the very table the panel will paint, then each
+# cache's age. The table comes from the panel's own renderer, so this and the panel cannot
+# disagree about what the numbers are.
+summon-usage() {
+	_summon_load || { print -u2 "summon-usage: $_summon_error"; return 1 }
+	[[ -d $SUMMON_HOME/log/usage ]] || mkdir -p $SUMMON_HOME/log/usage
+	local key dir cache label
+	local -i failed=0 age
+	for key in $_summon_account_keys; do
+		dir=${${(ps:\t:)_summon_account[$key]}[1]}
+		label=${${(ps:\t:)_summon_account[$key]}[2]}
+		cache=$SUMMON_HOME/log/usage/${${~dir}:t}.json
+		if _summon_usage_fetch $dir $cache; then
+			print -r -- "  fetched  $key $label"
+		else
+			print -r -- "  FAILED   $key $label — previous cache left untouched"
+			(( failed++ ))
+		fi
+	done
+	_summon_panel_value='' _summon_highlight=()
+	_summon_item_plain=() _summon_item_span=()
+	_summon_usage_rows 0
+	print -r -- $_summon_panel_value
+	print -r -- '  cache age'
+	for key in $_summon_account_keys; do
+		label=${${(ps:\t:)_summon_account[$key]}[2]}
+		if [[ -z ${_summon_usage_fetched[$key]:-} ]]; then
+			printf '    %s %-14s no cache — the line renders all —\n' $key $label
+			continue
+		fi
+		(( age = EPOCHSECONDS - _summon_usage_fetched[$key] ))
+		printf '    %s %-14s %4d s  %s\n' $key $label $age \
+			"$( (( age <= _summon_usage_fresh )) && print -rn fresh || print -rn 'stale — renders grey')"
+	done
+	return $(( failed > 0 ))
 }
 
 # --- the panel -------------------------------------------------------------------
@@ -287,6 +567,8 @@ _summon_panel() {
 	done
 	_summon_row account $base
 
+	_summon_usage_rows $base			# absent entirely when log/usage/ does not exist
+
 	_summon_item y yank "$2"
 	_summon_item . eject ''
 	_summon_item Esc close ''
@@ -366,7 +648,7 @@ _summon_widget() {
 	_summon_state_load
 	local before="$_summon_mantle_key|$_summon_model|$_summon_effort|$_summon_account_key"
 
-	local press pair keys='^G' yanked='' fired=''
+	local press pair keys='^G' yanked='' fired='' refreshed=''
 	local -a p
 	local -i n=1
 	while (( n < 32 )); do							# a picker cannot run away
@@ -375,6 +657,10 @@ _summon_widget() {
 		region_highlight=("$_summon_highlight[@]")
 		zle -R										# in place: `zle -I` would abandon each paint and
 														# leave one stale panel on screen per keystroke
+		[[ -n $refreshed ]] || {				# after the first paint, never before it, and once
+			_summon_usage_spawn
+			refreshed=1
+		}
 
 		read -k 1 press
 		_summon_keyname $press
