@@ -594,3 +594,48 @@ Wear ~/code/agents/canon/mantles/builder.md,
 then execute the brief at ~/code/agents/plans/10-summon-rig-v12-usage.md.
 Phase A (E2) runs with Felix at the keyboard; its gate is in the brief.
 ```
+
+---
+
+**2026-08-07 · Builder (10)** — summon rig v1.2, the usage panel: **LANDED**, `lab/08/run`
+**130 assertions, 0 failures** (76 at v1.1). Phase A settled E2 with Felix at the keyboard.
+(a) local sidecars: `policy-limits.json`, `daemon.status.json`, `stats-cache.json` all
+ruled out with evidence — but `.claude.json` → `cachedUsageUtilization` carries every
+bucket. It is hours stale on no clock the rig controls (fgreen frozen 77 min across six
+file rewrites; doorbell one refresh in 2 h 30 m), and once **inverted** the decision: cache
+said 70% session used against a reset already past, live said 0% — a free account the table
+would have told Felix to avoid. Gate put to Felix; he chose probe (b), and granted three
+permissions (keychain enumeration, entry metadata, hash derivation). (b) is the source:
+`GET /api/oauth/usage` answered **HTTP 200 on all three accounts** in 193–361 ms, body
+byte-identical to the cached object, and the Keychain service name is **derivable** —
+`Claude Code-credentials-<sha256(config dir absolute path)[:8]>` (dcd01a92 · 15cc4976 ·
+33751bfc, all three verified and now asserted in the harness), so `accounts.tsv` needs no
+change. Phase B built it in pure zsh — no new runtime dependency, token flows
+`security` → header builder → `curl -H @-` and lives nowhere else, never refreshed. Table
+renders per the guide with the pacing delta green/red, whole line grey when stale; no
+`log/usage/` ⇒ panel **byte-identical to v1.1 at 200/80/60 columns**, text and spans,
+`cmp`'d against v1.1 checked out from `b426166`. Fork-freeness asserted directly (200
+paints invoked no external command), panel-open spawn 0.019 ms fresh / 3.735 ms all-cold
+(budget 5). Proven on the three live accounts (F8). Adjacent, honest: the harness was
+**already red at 840e541** — `e3556c8` added the `b builder` preset without re-running it —
+trued rather than parked, because an unmeasurable DoD is not a DoD (F3). Per-keystroke rose
+1.569 → 2.562 ms and I declined to optimise it (F1, flagged not buried). Changed:
+`summon/summon.zsh`, `summon/README.md`, `lab/08/{run,rc.zsh,fetch.zsh,usage.zsh,
+usage-seed.zsh,spawn.zsh,usage.exp,fixtures/}`, `plans/10` (E2 finding, DoD evidenced,
+F1–F8), GENESIS §5 row 10. Decided: nothing new — D41 stands as countersigned; F1 and
+F6(a) are queued for the Architect. Next: Felix's visual pass —
+
+```
+source ~/code/agents/summon/summon.zsh   # or a fresh shell
+summon-usage                             # creates log/usage/, fetches all three
+^G                                       # the panel, with the table
+```
+
+then an Architect trues the board and rules on F1 (per-keystroke budget) and F6(a) (row
+04's stale `~/.claude` PENDING):
+
+```
+You are an Architect at fable-high.
+Wear ~/code/agents/canon/mantles/architect.md,
+then read ~/code/agents/GENESIS.md and true the board after row 10.
+```
