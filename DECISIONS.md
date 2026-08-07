@@ -388,8 +388,9 @@
   mantle's own diary). ALLCAPS by D25's test: a protocol singleton, read as protocol at
   every summons. Royal and Imperial Architects inherit the institution with their
   mantles when they are born (D39).
-- **D41** (2026-08-07, Architect · proposed — pending Felix countersign; D34/D36
-  precedent: countersign by dispatch when the build fires): **summon rig v1.2 — the
+- **D41** (2026-08-07, Architect · ✓ Felix 2026-08-07 — countersigned in-session, ahead
+  of the build; the pacing-delta form explicitly ratified as closer to the vision than
+  the raw table he described): **summon rig v1.2 — the
   usage panel, row 10.** **Felix's call:** the Ctrl-G panel gains a condensed
   per-account usage table — session / week / Fable utilization per account — with
   quota-pacing deltas colored green/red against each account's reset clock, so the
