@@ -652,3 +652,26 @@ changed what grey means — a panel refetches anything over 60 s before Felix re
 grey in normal use now signals a *failing* fetch, not an old one. `lab/08/run` **134
 assertions, 0 failures**. Changed: `summon/summon.zsh`, `summon/README.md`, `lab/08/run`,
 `plans/10` (F9 + DoD), GENESIS §5 row 10.
+
+**Addendum 2, same session** — Felix asked how to fix the staleness he saw, and whether the
+panel could poll continuously the way a menubar app does. Answered with a measurement
+rather than an opinion: `read -k 1 -t 0.4` **does** work inside a zle widget (probe: 7
+timer-driven repaints over a 3 s silence, `ticks=7 keys=1`), so a keystroke-free repaint is
+available fork-free. But the diagnosis moved the target — the defect is that the panel
+repaints **only on a keystroke**, so the open-time fetch lands invisibly if Felix just
+looks; continuous polling would spend a rate-limited endpoint on numbers that cannot change
+in the two seconds a panel is open. Proposed instead: a `precmd` warm-keeper (freshness won
+*before* the panel opens) plus an await-mode tick that runs **only while a spawned fetch is
+in flight** and repaints only when the bytes changed — the warm case stays byte-for-byte
+v1.2. Felix chose **"write the brief, don't build it"**. Changed: `plans/11-summon-rig-v13-
+live-refresh.md` (new — **spec UNBLESSED**, drafted by a Builder, not an Architect; the doc
+says so in its header), GENESIS §5 (row 11 OPEN). Decided: nothing ratified. Next: an
+Architect reviews and cuts row 11 — it is the same desk that owes rulings on 10-F1
+(per-keystroke 1.57→2.56 ms) and 10-F6(a) (row 04's stale `~/.claude` PENDING):
+
+```
+You are an Architect at fable-high.
+Wear ~/code/agents/canon/mantles/architect.md,
+then read ~/code/agents/GENESIS.md and true the board after row 10:
+review and cut row 11, and rule on 10-F1 and 10-F6(a).
+```
