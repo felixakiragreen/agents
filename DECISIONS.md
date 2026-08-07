@@ -388,3 +388,25 @@
   mantle's own diary). ALLCAPS by D25's test: a protocol singleton, read as protocol at
   every summons. Royal and Imperial Architects inherit the institution with their
   mantles when they are born (D39).
+- **D41** (2026-08-07, Architect · proposed — pending Felix countersign; D34/D36
+  precedent: countersign by dispatch when the build fires): **summon rig v1.2 — the
+  usage panel, row 10.** **Felix's call:** the Ctrl-G panel gains a condensed
+  per-account usage table — session / week / Fable utilization per account — with
+  quota-pacing deltas colored green/red against each account's reset clock, so the
+  account digit is an informed spend, not a guess. **Architect's design (delegated
+  scope):** the table sits under the account row, one line per account; pacing delta =
+  window-elapsed% − used% (green ≥ 0 headroom, red < 0 outrunning the clock); colors
+  are trust — a cache older than 10 min drops the line to grey, deltas uncolored; no
+  cache at all and the panel is byte-identical to v1.1. Data path is **E2**, the row's
+  gating experiment: probe local sidecars first (zero credentials), then the OAuth
+  usage endpoint with existing tokens — probe order, security law (tokens never in
+  argv/cache/log; the rig never refreshes a token — Claude Code owns auth), the
+  Felix-gate on any new credential grant, and kill criteria all in the brief; a
+  documented kill lands the row. Fetches are disowned background jobs after first
+  paint, atomic cache writes, keystroke loop stays fork-free; render re-reads cache
+  every paint (the TSV law). Rejected: reset countdowns in the table (the delta is the
+  clock, rendered), quota-at-fire telemetry (parked until a question needs it), a
+  refresh key (open-time auto-refresh covers it). Staffing: Builder · opus-high — ZLE
+  plus auth traps; Phase A runs with Felix at the keyboard (agent probes of live config
+  dirs trip the permission guard — measured this sitting, D14's spirit). Brief:
+  `plans/10-summon-rig-v12-usage.md`.

@@ -551,3 +551,30 @@ the project home's branch; each window commits its own append; ledger-date order
 Ruled with Felix, his instinct confirmed: **NOT canon** — D40's implementation,
 tradition-first; a future harvest cuts the law if the logs earn their keep across the
 projects, birthplaces cited.
+
+---
+
+**2026-08-07 · Architect (row 10 cut)** — summon rig v1.2: the usage panel. Felix's
+call: a condensed per-account session/week/Fable table in the Ctrl-G panel, pacing
+deltas green/red against each window's reset clock — the account digit becomes an
+informed spend. Designed the row: delta = elapsed% − used%; colors are trust (stale
+lines grey out at 10 min); no cache ⇒ panel byte-identical to v1.1; fetches disowned
+post-first-paint, atomic cache writes, keystroke loop stays fork-free. The one hard
+unknown — where usage data lives — is E2, the row's gating experiment: local sidecars
+first, then the OAuth endpoint with existing tokens; hard security law (tokens never in
+argv/cache/log, the rig never refreshes — Claude Code owns auth); kill criteria named,
+a documented kill lands the row. Measured this sitting: agent probes of Keychain and
+live config-dir files trip the auto-mode classifier — so Phase A runs with Felix at the
+keyboard, and the brief says so. Swept per summons: builder preset uncommented and
+trued to opus-high from the log (five bare opus-high fires; 08/09 both staffed
+Builder · opus-high) — `^G b` now works; digger stays commented. Changed: brief
+`plans/10-summon-rig-v12-usage.md` (new), DECISIONS (D41 proposed), GENESIS §5 (row
+10), `summon/presets.tsv`. Decided: D41 queued — countersign by dispatch when Felix
+fires the build (D34/D36 precedent). Next: Felix fires the Builder —
+
+```
+You are a Builder at opus-high.
+Wear ~/code/agents/canon/mantles/builder.md,
+then execute the brief at ~/code/agents/plans/10-summon-rig-v12-usage.md.
+Phase A (E2) runs with Felix at the keyboard; its gate is in the brief.
+```
