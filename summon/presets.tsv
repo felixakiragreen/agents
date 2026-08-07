@@ -6,5 +6,5 @@ d	dispatcher	sonnet	medium	pink
 # Trued 2026-08-07 from the log: builder launches run opus-high (five bare opus-high
 # fires, briefs 08/09 both staffed Builder · opus-high). Digger stays ejected-for
 # until the log argues otherwise.
-b	builder	opus	high	blue
-#D	digger	opus	high	cyan
+b	builder	opus	high	cyan
+#D	digger	opus	high	blue
