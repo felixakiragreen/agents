@@ -194,7 +194,14 @@ are new; every v1/v1.1 guarantee still asserted and green).
       `PASS no log/usage ⇒ panel byte-identical to v1.1 at 200, 80 and 60 columns`: v1.1's
       `summon.zsh` is checked out from its landing commit `b426166` into its own sandbox and
       rendered beside v1.2 through the same `render.zsh`, then `cmp`'d — **text and spans
-      both**, at three widths
+      both**, at three widths.
+      > **Superseded 2026-08-07, after landing:** Felix asked for a space between each
+      > preset's `●` swatch and its `[key]` (the glyphs collide in his font), which changes
+      > a v1.1 element deliberately. This DoD item was true as measured at landing; the
+      > assertion now normalises that one space out of the v1.2 side and reads *"identical
+      > to v1.1 … (bar the swatch space)"*, so the guarantee it actually protects — an
+      > unconfigured rig grows no usage block — keeps being asserted. The 60-column wrap
+      > structure is unchanged (widest line 57).
 - [x] Panel-open spawns fetches only for stale caches, after first paint; keystroke loop
       fork-free; both latencies re-measured and under budget — `PASS panel open refetches
       only the cold caches, and leaves the fresh one alone (1)`: seeded with one account

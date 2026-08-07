@@ -675,3 +675,17 @@ Wear ~/code/agents/canon/mantles/architect.md,
 then read ~/code/agents/GENESIS.md and true the board after row 10:
 review and cut row 11, and rule on 10-F1 and 10-F6(a).
 ```
+
+**Addendum 3, same session** — Felix's eye on the live panel: the preset `●` swatch collides
+with the following `[` at his font, so `_summon_item` now emits `● ` and the highlight span
+still covers only the glyph. Small change, one real consequence recorded rather than
+glossed: it **deliberately alters a v1.1 element**, so row 10's "panel byte-identical to
+v1.1" DoD item is superseded — struck in place with a dated note, not rewritten. The
+assertion now normalises that single space out of the v1.2 side and reads "identical to
+v1.1 … (bar the swatch space)", which keeps protecting what it was really for: an
+unconfigured rig grows no usage block. 60-column wrap structure unchanged (widest 57).
+`lab/08/run` **134 assertions, 0 failures**. Also checked while there: the builder swatch
+asks zle for `fg=blue` and is correct — it renders orange in Felix's terminal theme, which
+is a theme mapping, not a rig bug. Changed: `summon/summon.zsh`, `summon/README.md`,
+`lab/08/run`, `plans/10` (DoD note). Decided: nothing. Next: unchanged — the Architect
+summons at the end of Addendum 2 still stands.

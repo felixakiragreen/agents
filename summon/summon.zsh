@@ -465,8 +465,8 @@ _summon_item() {
 		pre=${label[1,$#cut]} post=${label[$#cut+2,-1]}
 	fi
 	[[ -n $sel ]] && style=$_summon_bold
-	[[ -n $swatch ]] && {
-		plain='●' ; span+=("0 1 ${_summon_swatch[$swatch]:-fg=white}") ; at=1
+	[[ -n $swatch ]] && {			# the space is load-bearing: at most fonts the ● crowds the [
+		plain='● ' ; span+=("0 1 ${_summon_swatch[$swatch]:-fg=white}") ; at=2
 	}
 	# the brackets stay grey even when the item is bold, so no two spans ever overlap
 	(( $#pre )) && { plain+=$pre ; span+=("$at $((at + $#pre)) $style") ; at+=$#pre }

@@ -24,7 +24,7 @@ will fire.
 
 ```
 summon
-mantle   ●[g]rand-architect  ●[a]rchitect·high ✓  ●[A]rchitect·max  ●[d]ispatcher  [n]one
+mantle   ● [g]rand-architect  ● [a]rchitect·high ✓  ● [A]rchitect·max  ● [d]ispatcher  ● [b]uilder  [n]one
 model    [f]able ✓  [o]pus  [s]onnet  hai[k]u
 effort   [l]ow  [m]edium  [h]igh ✓  [x]high  [M]ax
 account  [0] personal  [1] thg-fgreen ✓  [2] thg-doorbell

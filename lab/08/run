@@ -100,7 +100,7 @@ P200=$LAB/out/panel-200-plain.txt
 
 print -r -- '--- the panel: every live hotkey, the selection, the preview -----------'
 check 'mantle row, ● swatches, [n]one, ✓ inline on the selected item' \
-	'mantle   ●[g]rand-architect  ●[a]rchitect·high ✓  ●[A]rchitect·max  ●[d]ispatcher  ●[b]uilder  [n]one' $P200
+	'mantle   ● [g]rand-architect  ● [a]rchitect·high ✓  ● [A]rchitect·max  ● [d]ispatcher  ● [b]uilder  [n]one' $P200
 check 'model row — haiku is hai[k]u'  'model    [f]able ✓  [o]pus  [s]onnet  hai[k]u' $P200
 check 'effort row — [h]igh is high'   'effort   [l]ow  [m]edium  [h]igh ✓  [x]high  [M]ax' $P200
 check 'account row'                   'account  [0] personal  [1] thg-fgreen ✓  [2] thg-doorbell' $P200
@@ -145,18 +145,18 @@ print -r -- '--- responsive render ---------------------------------------------
 widest $LAB/out/panel-60-plain.txt 60
 widest $LAB/out/panel-bare-plain.txt 60
 check 'wraps at an item boundary, continuation aligned under the first item' \
-	'         ●[A]rchitect·max  ●[d]ispatcher  ●[b]uilder' $LAB/out/panel-60-plain.txt
+	'         ● [A]rchitect·max  ● [d]ispatcher  ● [b]uilder' $LAB/out/panel-60-plain.txt
 count 'no item is broken across lines: each survives whole' 1 \
-	'●[A]rchitect·max' $LAB/out/panel-60-plain.txt
+	'● [A]rchitect·max' $LAB/out/panel-60-plain.txt
 check 'the same panel is one row per field at full width' \
-	'mantle   ●[g]rand-architect  ●[a]rchitect·high ✓  ●[A]rchitect·max' $P200
+	'mantle   ● [g]rand-architect  ● [a]rchitect·high ✓  ● [A]rchitect·max' $P200
 # and in a real 60-column terminal: the break must be ours, not the terminal's
 SUMMON_COLUMNS=60 expect $LAB/narrow.exp $LAB/out/narrow.txt $LAB/rc.zsh > /dev/null 2>&1
 sed -E $'s/\x1b\\[[0-9;?]*[a-zA-Z]//g' $LAB/out/narrow.txt | tr '\r' '\n' > $LAB/out/narrow-plain.txt
 check 'live 60-column pty: the mantle row wraps where we put the break' \
-	'mantle   ●[g]rand-architect  ●[a]rchitect·high' $LAB/out/narrow-plain.txt
+	'mantle   ● [g]rand-architect  ● [a]rchitect·high' $LAB/out/narrow-plain.txt
 check 'live 60-column pty: the continuation line is intact and aligned' \
-	'         ●[A]rchitect·max ✓  ●[d]ispatcher  ●[b]uilder' $LAB/out/narrow-plain.txt
+	'         ● [A]rchitect·max ✓  ● [d]ispatcher  ● [b]uilder' $LAB/out/narrow-plain.txt
 
 print -r -- '--- preview footer vs the launch it promised (live pty) --------------'
 # one gesture on the state the drive left behind, so the paint is whole and comparable
@@ -287,11 +287,11 @@ cp $RIG/presets.tsv $RIG/accounts.tsv $V11/
 typeset -i identical=1
 for w in 200 80 60; do
 	zsh -f $LAB/render.zsh $V11       $w a fable high 1 2 > $LAB/out/v11-$w.txt
-	zsh -f $LAB/render.zsh $USANDBOX  $w a fable high 1 2 > $LAB/out/v12-$w.txt
+	zsh -f $LAB/render.zsh $USANDBOX  $w a fable high 1 2 | sed 's/● /●/g' > $LAB/out/v12-$w.txt
 	cmp -s $LAB/out/v11-$w.txt $LAB/out/v12-$w.txt || identical=0
 done
 if (( identical )); then
-	print -r -- '  PASS  no log/usage ⇒ panel byte-identical to v1.1 at 200, 80 and 60 columns'
+	print -r -- '  PASS  no log/usage ⇒ panel identical to v1.1 at 200, 80 and 60 columns (bar the swatch space)'
 else
 	print -r -- '  FAIL  the panel changed without usage being configured'; (( fails++ ))
 fi
