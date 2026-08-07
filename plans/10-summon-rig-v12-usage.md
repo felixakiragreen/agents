@@ -131,24 +131,90 @@ Evidence: `lab/08/run` extended, green, no regressions; byte-level assertions in
 per 09-F10(b); fetch shimmed (a `curl` shim serving fixture JSON, a `security` shim if
 Keychain is the source).
 
-- [ ] E2 finding filed in this doc: source, shape, field mapping, freshness, and the
-      grant story; Felix's gate decision recorded if one was needed
-- [ ] `summon-usage` by hand: fetches ×3, normalized caches written atomically, table +
-      ages printed; a failed fetch leaves the prior cache intact (asserted)
-- [ ] Token hygiene asserted: the shim proves no token in argv; python proves no token
-      byte in any cache, log or transcript the harness produced
-- [ ] Pacing math unit-asserted at the edges: reset imminent, reset just passed,
-      used > elapsed, used 0, clamps
-- [ ] Table renders per spec — fixture caches → text + spans: green/red delta spans,
+Evidence: **`./lab/08/run` — 130 assertions, 0 failures** on 2026-08-07 (76 at v1.1, so 54
+are new; every v1/v1.1 guarantee still asserted and green).
+
+- [x] E2 finding filed in this doc: source, shape, field mapping, freshness, and the
+      grant story; Felix's gate decision recorded if one was needed — **above**: (a)'s four
+      candidates ruled out with evidence, `cachedUsageUtilization` found and measured stale,
+      the gate put to Felix, his "probe (b) first" recorded, and (b) probed to HTTP 200 on
+      all three accounts. The keychain service derivation is asserted in the harness, not
+      just documented: `PASS keychain service derived for personal (sha256 → dcd01a92)`,
+      `… thg-fgreen (sha256 → 15cc4976)`, `… thg-doorbell (sha256 → 33751bfc)`
+- [x] `summon-usage` by hand: fetches ×3, normalized caches written atomically, table +
+      ages printed; a failed fetch leaves the prior cache intact (asserted) — `PASS
+      summon-usage fetches every account in accounts.tsv (3)`, `PASS and reports each cache
+      age, so "why is my table grey" has an answer` (`1 thg-fgreen 0 s fresh`), the three
+      normalized buckets asserted byte-exactly (`"sess":{"used_pct":42,"resets_at":
+      1786140000,"window_secs":18000}`, week and fable likewise), and both failure arms:
+      `PASS a fail fetch leaves the previous cache byte-identical`, `PASS a garbage fetch
+      leaves the previous cache byte-identical` (a token that won't read, and an
+      authentication-error body — the two real failures), `PASS and it says so per account
+      rather than failing silently (3)`, `PASS atomic writes leave no .tmp behind, on
+      success or failure`
+- [x] Token hygiene asserted: the shim proves no token in argv; python proves no token
+      byte in any cache, log or transcript the harness produced — `PASS curl is called with
+      a 5-second limit, one attempt, header from stdin (3)` (argv is exactly `-sS -m 5 -H @-
+      -H anthropic-beta: … <url>`), `PASS the token reaches curl on stdin, intact, once per
+      account (3)` — the shim compares stdin against the expected header and records only
+      the verdict, so no artefact holds even the fake token — and the sweep: `PASS no token
+      byte in any of the 51 artefacts this harness produced`, plus `PASS no token byte in
+      curl argv — ps cannot leak it`. The harness can never reach the real store: `security`
+      and `curl` are shimmed in `rc.zsh` itself
+- [x] Pacing math unit-asserted at the edges: reset imminent, reset just passed,
+      used > elapsed, used 0, clamps — ten cases, each a fixed answer because every reset is
+      expressed as an offset from now: `reset imminent → +58`, `reset just passed → +58`
+      (clamped at 100, never beyond), `used ahead of clock (90 at 50% elapsed) → -40`,
+      `used nothing → +50`, `reset a window away → -10` (clamped at 0, never negative),
+      `dead level → +0` (signed), `half rounds up → +1` / `half rounds down → -1` (away from
+      zero, not to even), and both of the brief's worked examples reproduced exactly:
+      `session window used=42 → +31`, `week window used=61 → -13`. The hand-rolled
+      ISO-8601 → epoch has a second opinion: `PASS all 5 ISO-8601 stamps agree with python
+      to the second`, and `PASS a timestamp the rig cannot parse is refused, not guessed`.
+      The parser is asserted against all three real payload shapes: 3 buckets, 2 buckets
+      (no Fable limit — *not* a fabricated third), and 0 from an error body
+- [x] Table renders per spec — fixture caches → text + spans: green/red delta spans,
       fresh vs stale arms, missing-bucket `—`, no-cache line, aligned columns, 60-column
-      wrap on the live pty
-- [ ] No `log/usage/` ⇒ panel byte-identical to v1.1 (asserted against the v1.1 render)
-- [ ] Panel-open spawns fetches only for stale caches, after first paint; keystroke loop
-      fork-free; both latencies re-measured and under budget
-- [ ] README: the usage section — the table, the pacing delta, the trust palette, the
-      staleness story, the E2 caveats
+      wrap on the live pty — the whole rendering guide, line for line: `PASS an account with
+      no cache file renders every cell as —` (`usage    0  sess —         week —         fable —`),
+      `PASS a fresh account renders used% and the pacing delta, columns aligned`
+      (`         1  sess 42%+31    week 61%-13    fable 12%+55`), `PASS a bucket the account
+      does not have renders —, the rest still render` (`         2  sess 78%-13    week
+      45%+2     fable —`), `PASS the block sits between the account row and the hotkey row`.
+      Palette as spans over the text they cover: `fg=green ⟨+31⟩`, `fg=red ⟨-13⟩`,
+      `fg=green ⟨+55⟩`, and the stale arm grey *whole* — `fg=8 ⟨sess 78%-13  ⟩`, `fg=8 ⟨week
+      45%+2   ⟩` — with `PASS the fresh line wears no grey: only its deltas are coloured
+      (0)` proving the two arms are actually different. 60 columns: `PASS every panel line
+      fits 60 columns (widest 57)` and the block intact. On a live 60-column pty:
+      `PASS live 60-column pty: the usage block paints on a real screen` (`usage    0  sess
+      17%+13`), with `\e[32m` and `\e[31m` both on the wire
+- [x] No `log/usage/` ⇒ panel byte-identical to v1.1 (asserted against the v1.1 render) —
+      `PASS no log/usage ⇒ panel byte-identical to v1.1 at 200, 80 and 60 columns`: v1.1's
+      `summon.zsh` is checked out from its landing commit `b426166` into its own sandbox and
+      rendered beside v1.2 through the same `render.zsh`, then `cmp`'d — **text and spans
+      both**, at three widths
+- [x] Panel-open spawns fetches only for stale caches, after first paint; keystroke loop
+      fork-free; both latencies re-measured and under budget — `PASS panel open refetches
+      only the cold caches, and leaves the fresh one alone (1)`: seeded with one account
+      cacheless, one stale and one fresh, the spawn records exactly `SPAWNED personal
+      thg-doorbell`. Fork-freeness is asserted directly, not inferred from a clock:
+      `PASS 200 paints over three live caches invoked no external command` (`security`,
+      `curl`, `shasum` and `mv` all made loud during the paint loop; the record stayed
+      empty). Latencies, host load 3.19–4.33:
+
+      | measurement | v1.1 | v1.2, usage configured |
+      |---|---|---|
+      | per invocation (TSV + state) | 0.370 ms | 0.323 ms |
+      | per keystroke (full paint) | 1.569 ms | **2.562 ms** |
+      | panel-open spawn, caches fresh — the ordinary open | — | **0.019 ms** |
+      | panel-open spawn, all three cold | — | **3.735 ms** (load 3.63–3.94) |
+
+      Panel-open added latency is inside the 5 ms budget in the worst case and effectively
+      free in the common one. The per-keystroke number is **not** unchanged — see F1.
+- [x] README: the usage section — the table, the pacing delta, the trust palette, the
+      staleness story, the E2 caveats — `summon/README.md` § *Usage — the quota table*
 - [ ] Felix's visual pass on a live terminal, three real accounts — the smoke only his
-      tokens can run
+      tokens can run. **OWED** — `summon-usage` on the live rig, then Ctrl-G.
 
 ## Out of scope — defended
 
@@ -342,6 +408,69 @@ the endpoint is the contract).
   is a stale table, and the panel says so in grey.
 
 **Verdict: not a kill — Phase B builds on (b).**
+
+**F1 — the per-keystroke cost is not unchanged: 1.569 ms → 2.562 ms, and I did not
+optimize it.** The latency law asked for "per-keystroke delay unchanged"; it rose by
+0.99 ms, a 1.6× multiple, because the spec also requires re-reading every cache on every
+paint (*"the files are the truth"*, so a background fetch shows on the next keystroke).
+Those two clauses are in tension and the re-read clause is the one that carries the
+feature. Measured, not estimated, at host load 3.19–4.33; control is the same harness's
+v1.1 number in the same run. **Judgment: ship it.** 2.6 ms is two orders of magnitude below
+anything a hand can feel, it is still fork-free (asserted, not timed — 200 paints invoked
+no external command), and the obvious optimisation (skip the re-read unless `zstat` says
+the mtime moved) buys a millisecond nobody can perceive at the cost of a staleness bug
+class. Premature optimisation; measured and declined. Flagged rather than buried because
+the DoD line said "unchanged" and it is not.
+
+**F2 — cosmetic deviations from the rendering guide, and why** (09-F8's precedent). The
+guide's cells (`sess 42%+31  week 61%-8   fable 12%+55`) pad each cell whole; that is what
+ships, at a fixed 13 columns — the width of the widest cell the data can produce,
+`sess 100%-100`. The guide's `—` lines (`sess    —`) don't follow its own cell grammar, so
+they render as `sess —` instead: one rule, no special case. The last cell takes no trailing
+pad, so no panel line ends in whitespace. The `usage` label is **grey** rather than a
+colour of its own: D36 gave one colour per row label, but those four label key namespaces
+and grey is already the panel's word for "nothing here is selectable" — which the usage
+block is.
+
+**F3 — the harness was already red before this row, and the cause was data drift.**
+`lab/08/run` failed 5 assertions at `840e541`, the commit this session started from —
+verified by running it there in a worktree. Cause: `e3556c8` uncommented the `b builder`
+preset without re-running the harness, so the mantle-row expectation, the bracket counts
+(21 → 22) and both 60-column continuation lines encoded a preset table that no longer
+existed. The rig was correct throughout; the fixtures were stale. **Trued rather than
+parked**, against the Builder rule that adjacent discoveries are parked, because a red
+harness makes this row's DoD unmeasurable — "green, no regressions" cannot be evidenced
+against a baseline that isn't green. Nothing was weakened: the expectations now name the
+preset that `presets.tsv` actually carries. Lesson for the board: `presets.tsv` and
+`accounts.tsv` are harness fixtures as well as rig data, and changing them means re-running
+`lab/08/run`.
+
+**F4 — `(#b)` pattern backreferences are a trap in a sourced rig.** The first cut of the
+ISO-8601 parser used `[[ $iso == (#b)(<->)-(<->)-… ]]`, which silently does nothing unless
+`EXTENDED_GLOB` is set — it is off under `zsh -f`, and whether it is on in Felix's
+interactive shell is not the rig's business either way. A file that gets sourced into
+someone else's shell may not depend on that shell's options, and must not set them. Now
+sliced by fixed offsets with a shape check, which also removed the dependency. Same family
+of hazard: `${body#*\"limits\":[}` — a bare `[` opens a character class, so a JSON array
+key needs `\[`. Both bugs were caught by the harness, not by reading.
+
+**F5 — `int()` is not available without `zmodload zsh/mathfunc`, so the rounding is
+explicit.** Assignment to an integer truncates toward zero, so the half is added by hand
+and **away from zero** — `printf '%.0f'` would have rounded half to even, making
+`+0.5 → +0` and `+1.5 → +2`, which reads as a bug in a two-character cell. Asserted both
+directions (`half rounds up → +1`, `half rounds down → -1`).
+
+**F6 — adjacent, parked, not fixed:** (a) GENESIS row 04 still carries "Max smoke PENDING
+`/login`" for `~/.claude`; that account is demonstrably live and authenticated
+(`organizationType: claude_max`, `default_claude_max_20x`, profile fetched the same day,
+and its OAuth usage endpoint answered HTTP 200). The PENDING looks stale — an Architect's
+call to strike, not a Builder's. (b) Cache files are dotfiles (`log/usage/.claude.json`),
+because the spec names the config dir's basename as the stable identity and those
+basenames start with a dot. It works and is documented, but `log/usage/.claude.json`
+sitting next to the real `~/.claude/.claude.json` is a name collision waiting to confuse a
+future reader. (c) The `security` read completed without a GUI prompt in this session; a
+first-run prompt on Felix's own shell is still possible and is a README caveat, not a
+design.
 
 ## Kickoff — verbatim
 
