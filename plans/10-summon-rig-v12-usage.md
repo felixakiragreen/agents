@@ -160,6 +160,116 @@ Keychain is the source).
 - Token refresh, re-auth, or any write to any credential store — forbidden, not parked.
 - Data format changes to `presets.tsv` / `accounts.tsv`.
 
+## Findings
+
+**E2 — the usage source: it is on disk, uncredentialed, and it is stale by hours.**
+Probed 2026-08-07, Felix at the keyboard, in the brief's order.
+
+**(a) Local sidecars — the named candidates are all dead, but a fourth one is not.**
+
+| File | Verdict |
+|---|---|
+| `policy-limits.json` (both THG, absent on personal) | org policy restrictions — `restrictions.allow_quick_web_setup`, `compliance_taints`, `monitoring_notice`, `defaults.remote_control_at_startup`. **No usage data at all.** |
+| `daemon.status.json` (both THG) | `{supervisorPid, supervisorProcStart, writtenAt, workers:{}}` — a supervisor heartbeat, 5.9 days stale. **No.** |
+| `stats-cache.json` (both THG) | per-day token counts by model (`dailyActivity`, `modelUsage.<model>.{inputTokens,…,costUSD}`). Tokens and dollars, **no windows, no resets, no utilization**; stale 15 h (fgreen) / 8.8 d (doorbell); absent on personal. **No.** |
+| `remote-settings.json` | `{}`. **No.** |
+
+The sweep that found the real one (regex `resets_at|utilization|five_hour|seven_day|rate_limit|…`
+over every config dir, history/projects/caches excluded) returned exactly two hit classes:
+`cache/changelog.md` (prose) and **`.claude.json`** on all three accounts.
+
+**The source: `$CONFIG_DIR/.claude.json` → `cachedUsageUtilization`.** Zero credentials,
+zero new grants, one file per account. Shape, measured (fgreen, 2026-08-07 14:21):
+
+```json
+"cachedUsageUtilization": {
+  "fetchedAtMs": 1786122282637,
+  "accountUuid": "…",
+  "utilization": {
+    "five_hour":  {"utilization": 0,  "resets_at": "2026-08-07T22:00:00.470292+00:00", "limit_dollars": null, …},
+    "seven_day":  {"utilization": 32, "resets_at": "2026-08-13T18:00:00.470313+00:00", …},
+    "seven_day_opus": null, "seven_day_sonnet": null, … (nine more null buckets),
+    "extra_usage": {"is_enabled": true, "monthly_limit": 25000, "used_credits": 5396, "utilization": 21.584, …},
+    "limits": [
+      {"kind":"session",       "group":"session","percent":0,  "severity":"normal","resets_at":"2026-08-07T22:00:00.470292+00:00","scope":null},
+      {"kind":"weekly_all",    "group":"weekly", "percent":32, "severity":"normal","resets_at":"2026-08-13T18:00:00.470313+00:00","scope":null},
+      {"kind":"weekly_scoped", "group":"weekly", "percent":44, "severity":"normal","resets_at":"2026-08-13T18:00:00.470491+00:00",
+       "scope":{"model":{"id":null,"display_name":"Fable"},"surface":null}}
+    ],
+    "spend": {"used":{"amount_minor":5396,…},"limit":{"amount_minor":25000,…},"percent":22,…}
+  }
+}
+```
+
+**Field mapping for the fetcher** — the `limits[]` array serves all three buckets uniformly
+(`percent` + `resets_at`), and cross-checks against the scalar buckets exactly
+(`limits[session].percent 0 == five_hour.utilization 0`; `weekly_all 32 == seven_day 32`):
+
+| Brief's bucket | Source | `window_secs` |
+|---|---|---|
+| `sess` | `limits[kind=session]` (= `five_hour`) | 18000 (5 h — confirmed: `resets_at` 22:00:00.470292 vs weekly 18:00:00.470313, both on the hour) |
+| `week` | `limits[kind=weekly_all]` (= `seven_day`) | 604800 |
+| `fable` | `limits[kind=weekly_scoped, scope.model.display_name="Fable"]` | 604800 |
+| — | `fetched_at` ← `fetchedAtMs / 1000` | — |
+
+This is the `/usage` screen's own cache, not a coincidence: `cache/changelog.md:471` —
+*"Fixed `/usage` showing stale cached bars over fresher data"* — and `:492`, *"`/usage` now
+shows your last-known usage bars with an 'as of' note when the usage endpoint is
+rate-limited"*. So (a) and (b) are the same payload; (a) is (b) already fetched, cached, and
+timestamped by Claude Code itself. **This also settles the shape question the brief asked of
+(b) without spending a token: the endpoint body is what is cached here.**
+
+**Two defects, both material.**
+
+**(1) Freshness is hours, not minutes — and the rig cannot fix it.** `fetchedAtMs` is
+refreshed by Claude Code, on no clock the rig controls. Measured across each account's own
+`backups/.claude.json.backup.*` series (the file is rewritten every ~1–3 min; the usage
+stamp inside it is not):
+
+```
+fgreen    written 13:33 13:36 13:59 14:03 14:19 14:20 → fetchedAt 13:04:42 for all six  (77 min stale and counting)
+doorbell  written 11:30 11:48 12:47                   → fetchedAt 10:18:39
+          written 13:00 14:19 14:20                   → fetchedAt 12:48:15  (one refresh in 2 h 30 m)
+```
+
+Control: the same reader over the same six files reports the *file* mtime advancing every
+few minutes, so the probe can see change — it is `fetchedAtMs` that is frozen. Refresh is
+not tied to session start either (doorbell's newest shell-snapshot is 23:48 the previous
+day; its cache refreshed at 12:48 today, mid-session).
+
+What that costs the pacing delta, which is the whole feature:
+
+| Bucket | Window | 90 min stale ⇒ phantom headroom |
+|---|---|---|
+| `sess` | 5 h | **+30 points** — the delta is mostly a lie |
+| `week` | 7 d | +0.9 points — negligible |
+| `fable` | 7 d | +0.9 points — negligible |
+
+The session row is the one Felix reads before pressing a digit, and it is the one that
+rots fastest. The week and Fable rows are sound.
+
+**(2) The personal account has no `cachedUsageUtilization` key at all.** Not stale —
+absent, across `~/.claude/.claude.json` and all five of its backups (14:06 → 14:19).
+The account is live and authenticated (`organizationType: claude_max`,
+`organizationRateLimitTier: default_claude_max_20x`, `profileFetchedAt` 13:13 today), so
+this is not a login gap — GENESIS row 04's `~/.claude` "PENDING `/login`" note is stale,
+parked, not fixed here. The likely cause is that the key is written when a session
+actually fetches usage (`/usage` opened, or a limit event), and Felix has never opened
+`/usage` on personal. **One keystroke from Felix settles it** — that is the ask at the
+gate. Until it exists, source (a) renders account `0` as all `—`.
+
+**(b) The OAuth endpoint — not probed, by design.** No `.credentials.json` exists in any
+of the three config dirs, so `https://api.anthropic.com/api/oauth/usage` needs a Keychain
+read, and the brief makes that Felix's call, not an agent's prompt storm. Two unknowns
+remain unprobed and would need his grant to settle: whether the Keychain holds one entry
+per account and how the three are distinguished (one Keychain, three config dirs), and
+whether the endpoint answers for the personal account. What (b) buys over (a) is exactly
+one thing: **live session numbers instead of hour-stale ones**, for all three accounts.
+
+**Verdict: not a kill.** A source exists that meets the brief's bar for two of three
+buckets with zero grants; the third bucket's data is present but too stale to wear colour
+honestly. The fork is Felix's and is at the gate.
+
 ## Kickoff — verbatim
 
 ```
