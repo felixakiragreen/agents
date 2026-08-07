@@ -491,3 +491,16 @@ Decided: D36 ✓ Felix; fold-nothing + cut-nothing (Felix, in-session). Next: sm
 still PENDING (per-account routing proof, Felix's); harvest candidate for the next
 Grand Architect session — 09's F10(b): grep wrappers and zsh pattern-quoting silently
 falsify byte-level transcript assertions in any repo, search bytes with python.
+
+---
+
+**2026-08-06 · Architect (09 review, addendum)** — Felix named the system: **the
+Guild** — the mantled-agent system formerly "the agent mantle system". His decree,
+in-session, with provenance worth keeping: he ideated and extensively deliberated a
+guild system as a teenager, then built it as an adult without noticing until the name
+surfaced. Folding it into canon is Grand Architect work (naming law, canon voice —
+D31/D33 class); summons queued below, verbatim in this entry and handed to Felix.
+Changed: this ledger. Decided: the name (Felix, by decree). Next: Felix summons the
+Grand Architect to ratify + fold; rider — the same sitting sweeps the harvest queue
+(09's F10(b): grep wrappers and zsh pattern-quoting silently falsify byte-level
+transcript assertions; search bytes with python).
