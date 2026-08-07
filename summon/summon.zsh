@@ -331,14 +331,17 @@ _summon_usage_delta() {
 	return 0
 }
 
-# the usage block: one line per account, appended behind the `usage` label. Colours are
-# trust — a fresh line renders in default foreground with the delta green (headroom) or red
-# (burning faster than the clock); a stale line drops entirely to grey with the delta
-# uncoloured. Stale data never wears colour.
+# the usage block: one line per account, appended behind the `usage` label. The figures
+# always read at full contrast — used% in the terminal's own foreground, the delta green
+# (headroom) or red (burning faster than the clock) — because a number you have to squint
+# at is a number you misread. Staleness greys the furniture instead: the account digit and
+# the window names. A line whose fetch has stopped landing therefore looks visibly different
+# without any figure on it ever becoming hard to read (Felix's ruling, amending D41's
+# "stale data never wears colour").
 _summon_usage_rows() {
 	local -i base=$1
 	local key bucket text value delta style label='usage'
-	local -a c
+	local -a c spans
 	local -i fresh at
 	_summon_usage_load || return 1
 	for key in $_summon_account_keys; do
@@ -365,17 +368,19 @@ _summon_usage_rows() {
 			# cell can get — `sess 100%-100`
 			[[ $bucket == $_summon_usage_buckets[-1] ]] || text="${(r:13:)text}"
 			_summon_item_plain+=("$text")
-			if (( fresh )) && [[ -n $delta ]]; then
-				# only the delta wears colour: the eye is looking for the sign, not the percentage
+			spans=()
+			[[ -n $style ]] && spans+=("0 $#bucket $style")	# the window name is furniture
+			if [[ -n $delta ]]; then
 				at=$(( $#bucket + 1 + ${#c[1]} + 1 ))		# past `<name> `, `<used>`, `%`
 				if (( _summon_usage_delta_value >= 0 )); then
-					_summon_item_span+=("$at $(( at + $#delta )) fg=green")
+					spans+=("$at $(( at + $#delta )) fg=green")
 				else
-					_summon_item_span+=("$at $(( at + $#delta )) fg=red")
+					spans+=("$at $(( at + $#delta )) fg=red")
 				fi
-			else
-				_summon_item_span+=("${style:+0 $#text $style}")
+			elif [[ -n $style ]]; then
+				spans=("0 $#text $style")						# no number to protect: grey it whole
 			fi
+			_summon_item_span+=("${(j:|:)spans}")
 		done
 		_summon_row "$label" $base
 		label=''														# the label heads the block, not every line

@@ -380,14 +380,17 @@ check 'a bucket the account does not have renders —, the rest still render' \
 check 'headroom is green'                    'fg=green ⟨+31⟩' $UP
 check 'burning faster than the clock is red' 'fg=red ⟨-13⟩'   $UP
 check 'the Fable bucket carries its own delta' 'fg=green ⟨+55⟩' $UP
-check 'a stale line drops entirely to grey — colour is trust' \
-	'fg=8 ⟨sess 78%-13  ⟩' $UP
-check 'and its delta wears no colour at all'   'fg=8 ⟨week 45%+2   ⟩' $UP
-check 'a no-cache line is grey too'            'fg=8 ⟨sess —       ⟩' $UP
+check 'a stale line greys its furniture — the window name, not the figure' 'fg=8 ⟨sess⟩' $UP
+count 'no figure is ever dimmed: a used% never carries a grey span' 0 'fg=8 ⟨sess 78%' $UP
+count 'and the delta keeps its colour when stale — red is the point' 2 'fg=red ⟨-13⟩' $UP
+check 'a stale delta reads green just the same when there is headroom' 'fg=green ⟨+2⟩' $UP
+check 'a stale bucket with no figure to protect greys whole' 'fg=8 ⟨fable —⟩' $UP
+check 'a no-cache line greys whole for the same reason' 'fg=8 ⟨sess —       ⟩' $UP
 check 'the usage label is grey: nothing in this block is selectable' \
 	'fg=8 ⟨usage    ⟩' $UP
-count 'the fresh line wears no grey: only its deltas are coloured' 0 \
+count 'the fresh line wears no grey at all, furniture included' 0 \
 	'fg=8 ⟨sess 42%+31  ⟩' $UP
+count 'exactly one window name is greyed per stale line, not per panel' 1 'fg=8 ⟨week⟩' $UP
 widest $LAB/out/usage-60-plain.txt 60
 check 'the block survives 60 columns without wrapping a cell' \
 	'         1  sess 42%+31    week 61%-13    fable 12%+55' $LAB/out/usage-60-plain.txt

@@ -131,7 +131,7 @@ Evidence: `lab/08/run` extended, green, no regressions; byte-level assertions in
 per 09-F10(b); fetch shimmed (a `curl` shim serving fixture JSON, a `security` shim if
 Keychain is the source).
 
-Evidence: **`./lab/08/run` — 130 assertions, 0 failures** on 2026-08-07 (76 at v1.1, so 54
+Evidence: **`./lab/08/run` — 134 assertions, 0 failures** on 2026-08-07 (76 at v1.1, so 58
 are new; every v1/v1.1 guarantee still asserted and green).
 
 - [x] E2 finding filed in this doc: source, shape, field mapping, freshness, and the
@@ -182,9 +182,11 @@ are new; every v1/v1.1 guarantee still asserted and green).
       does not have renders —, the rest still render` (`         2  sess 78%-13    week
       45%+2     fable —`), `PASS the block sits between the account row and the hotkey row`.
       Palette as spans over the text they cover: `fg=green ⟨+31⟩`, `fg=red ⟨-13⟩`,
-      `fg=green ⟨+55⟩`, and the stale arm grey *whole* — `fg=8 ⟨sess 78%-13  ⟩`, `fg=8 ⟨week
-      45%+2   ⟩` — with `PASS the fresh line wears no grey: only its deltas are coloured
-      (0)` proving the two arms are actually different. 60 columns: `PASS every panel line
+      `fg=green ⟨+55⟩`, and — per Felix's amendment at the visual pass (F9) — the stale arm
+      greys only its furniture: `fg=8 ⟨sess⟩` with `PASS no figure is ever dimmed: a used%
+      never carries a grey span (0)` and `PASS and the delta keeps its colour when stale —
+      red is the point (2)`, against `PASS the fresh line wears no grey at all, furniture
+      included (0)` proving the two arms are actually different. 60 columns: `PASS every panel line
       fits 60 columns (widest 57)` and the block intact. On a live 60-column pty:
       `PASS live 60-column pty: the usage block paints on a real screen` (`usage    0  sess
       17%+13`), with `\e[32m` and `\e[31m` both on the wire
@@ -501,6 +503,30 @@ fgreen is mid-week at −20, personal is wide open at 4% and +30. Note personal 
 carry a Fable bucket (2%), so the missing-bucket arm is a real capability of the renderer
 rather than a description of that account. Felix's visual pass on the panel itself is
 still owed.
+
+**F9 — D41's palette law amended by Felix at the visual pass: staleness greys the
+furniture, never the figures.** The brief's §2 said *"a stale line drops entirely to grey,
+deltas uncoloured — vivid means live, grey means don't trust it. Colours are trust; stale
+data never wears them."* Built and shipped that way; the first look found the problem. What
+Felix saw was a table 858 s old — every line past the 10-minute line, so `91%` and its
+`−48` were both grey, and the numbers he needed were the hardest thing on screen to read.
+
+The concern raised against changing it, and its answer: greying was guarding a real failure
+(E2 measured a cached session number reading 70% when the truth was 0%), so deleting the
+signal outright was refused. **Felix's ruling: keep the signal, move it.** used% now renders
+in the terminal's own foreground and the delta always wears green (≥ 0) or red (< 0),
+fresh or stale; staleness greys the account digit and the window names instead. A cell with
+no data has no figure to protect and greys whole. The trust signal survives, the figures
+are never dimmed.
+
+Worth recording alongside it: **with open-time refetch, grey no longer means "a bit old"**
+— a panel refetches anything over 60 s before Felix reads it, so a grey line in normal use
+means the fetch is *failing* (expired token, no network). That is rarer and more worth
+seeing than the condition the original rule was written for, which makes the demoted signal
+the better-targeted one. Asserted both ways: `PASS a stale line greys its furniture — the
+window name, not the figure` (`fg=8 ⟨sess⟩`), `PASS no figure is ever dimmed: a used% never
+carries a grey span (0)`, `PASS and the delta keeps its colour when stale — red is the
+point (2)`, `PASS the fresh line wears no grey at all, furniture included (0)`.
 
 **F6 — adjacent, parked, not fixed:** (a) GENESIS row 04 still carries "Max smoke PENDING
 `/login`" for `~/.claude`; that account is demonstrably live and authenticated

@@ -639,3 +639,16 @@ You are an Architect at fable-high.
 Wear ~/code/agents/canon/mantles/architect.md,
 then read ~/code/agents/GENESIS.md and true the board after row 10.
 ```
+
+**Addendum, same session** — Felix's first look at the live table amended D41's palette
+law: he was reading an 858 s-old cache, so `91%` and its `−48` were both grey and the
+figures he needed were the hardest thing on screen. Concern raised (E2 measured a cached
+session number reading 70% when the truth was 0%, so the staleness signal was guarding a
+real failure) and answered by moving it rather than deleting it: **used% now renders in the
+terminal's own foreground and the delta always wears green/red, fresh or stale; staleness
+greys the account digit and the window names instead.** A cell with no figure to protect
+still greys whole. Recorded as F9, with the observation that open-time refetch has already
+changed what grey means — a panel refetches anything over 60 s before Felix reads it, so
+grey in normal use now signals a *failing* fetch, not an old one. `lab/08/run` **134
+assertions, 0 failures**. Changed: `summon/summon.zsh`, `summon/README.md`, `lab/08/run`,
+`plans/10` (F9 + DoD), GENESIS §5 row 10.

@@ -93,11 +93,18 @@ already elapsed — thirty-one points of headroom. `61%-13` means the burn is ou
 clock and the window will run dry early. That is the number to read; the reset time itself
 is not shown because the delta already contains it.
 
-**Colour is trust.** A line fetched within 10 minutes renders in normal text with its
-delta **green** (headroom) or **red** (burning fast). Older than that, the whole line drops
-to grey with the delta uncoloured — vivid means live, grey means don't trust it. Opening
-the panel refetches any account whose cache has gone cold, after the first paint, in the
-background; the numbers land on the next keystroke.
+**The figures always read at full contrast.** used% is your terminal's own foreground and
+the delta is **green** (headroom) or **red** (burning fast) — always, fresh or stale. A
+number you have to squint at is a number you misread.
+
+**Staleness greys the furniture, not the figures.** If a cache is over 10 minutes old, the
+account digit and the window names (`sess`, `week`, `fable`) go grey while every number
+keeps its colour — so a line whose fetch has stopped landing looks visibly different
+without any figure becoming hard to read. A cell with no data at all has no figure to
+protect, so it greys whole. Opening the panel refetches any account whose cache has gone
+cold, after the first paint, in the background; the numbers land on the next keystroke —
+which means grey in normal use signals a *failing* fetch (expired token, no network),
+not merely an old one.
 
 `summon-usage` run by hand fetches all three accounts in the foreground and prints the
 table plus each cache's age — the answer to "why is my table grey".
@@ -174,7 +181,7 @@ the panel's own key loop, and the entries are dropped the moment it closes.
 
 ## Tests
 
-`../lab/08/run` — 130 assertions, 0 failures. The gestures run in a real pty against a
+`../lab/08/run` — 134 assertions, 0 failures. The gestures run in a real pty against a
 sandbox copy with `claude` and `pbcopy` shims; the panel's text, wrap and palette spans are
 asserted without a pty (`render.zsh`, a pure function of the selection and `$COLUMNS`); and
 `preview.exp` / `narrow.exp` prove one whole paint on a real screen — the footer against
