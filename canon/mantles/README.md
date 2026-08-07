@@ -3,9 +3,9 @@
 > *The Grand Architect keeps the canon, Architects think, Dispatchers tend, Diggers dig,
 > Builders build — a hive building a city; files carry the truth.*
 
-Every session is **tier × mantle × context** (GENESIS §2). This file is the operational
-law: how tiers are named, how a mantle is worn, how sessions are summoned, and which law
-wins when laws collide.
+Every session is **tier × mantle × context** (GENESIS §2) — together, **the Guild**
+(D37). This file is its operational law: how tiers are named, how a mantle is worn, how
+sessions are summoned, and which law wins when laws collide.
 
 ## The tier grid (`canon/agents/`)
 

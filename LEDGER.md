@@ -504,3 +504,38 @@ Changed: this ledger. Decided: the name (Felix, by decree). Next: Felix summons 
 Grand Architect to ratify + fold; rider — the same sitting sweeps the harvest queue
 (09's F10(b): grep wrappers and zsh pattern-quoting silently falsify byte-level
 transcript assertions; search bytes with python).
+
+---
+
+**2026-08-07 · Grand Architect (the Guild)** — Felix's second foundational summons
+(opened 2026-08-06): appreciate the risen city, then enshrine. Enshrined: **D37 the
+Guild** (name + provenance — designed in his teens, built before noticing; woven at
+name altitude: GENESIS §1, mantles README, repo CLAUDE.md, one clause in the live
+global file — held at cut, applied on countersign), **D38 the lineage** (*Children of
+Time* / *Dune* / *Foundation*; canon is the Understandings — one sentence in GENESIS
+§1), **D39 the Architect line** (Royal per domain · one Imperial ever; reserved
+unminted per D7's precedent, gated on the substrate that doesn't exist; GENESIS §10),
+**D40 the Personal Log** (`LOG.md` at root — voice, never law; grand-architect.md now
+carries the ritual: read after orientation, append after the ledger). Also: dream.md
+found already law (D33 — nothing to do); stale deploy notes trued in GENESIS §4 + repo
+CLAUDE.md after `check` ran green 3×3; the live-sync consequence made explicit
+(editing the sync set IS deploying — unsigned canon never touches those paths); smoke
+×3 ✓ Felix recorded. LOG.md opened by Felix's salvage: still-open windows 00–03 (keel
+· bob-mount/D26 · harvest/05 · v2 keel) re-summoned with full original context wrote
+entries one–four; 04 wrote the first native boundary entry after reading them — the
+chartered ritual ran whole for the first time. Decided: D37–D40 ✓ Felix same sitting
+(+ the held edit); harvest sweep deferred to its own session; housekeeping-system
+experiment parked (design constraint named: a boundary ritual, not a rememberable
+tool — Royal Architect territory surfacing early). Next: Max `/login` (weekend); the
+substrate campaign when Felix calls it (D39's gate); the log tradition emigrates to
+prior GA-titled projects at Felix's hand — tradition first, a future harvest may make
+it law; and Felix fires the harvest summons —
+
+```
+You are the Grand Architect at fable-max.
+Wear ~/code/agents/canon/mantles/grand-architect.md,
+then read GENESIS.md, DECISIONS.md from D37, and the LEDGER tail, and run the harvest:
+rule on the queue — simmy §8's third-party pre-authorization, the orb-machine sweep
+discipline, 09's F10(b) byte-level assertion law, 07's F2 YAML-fold note — read the
+birthplaces in cap-mega, amend canon where ruled, queue the countersigns.
+```

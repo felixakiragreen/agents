@@ -3,9 +3,10 @@
 > *The Grand Architect keeps the canon, Architects think, Dispatchers tend, Diggers dig,
 > Builders build — a hive building a city; files carry the truth.*
 
-This repo is the operating system for how Felix works with Claude: the canon of **mantles**
-(roles), **capability tiers**, **work doctrine**, and the **global CLAUDE.md** — held here
-once, deployed as mirrors into every Claude account's config dir.
+This repo is the operating system for how Felix works with Claude — **the Guild** (D37):
+the canon of **mantles** (roles), **capability tiers**, **work doctrine**, and the
+**global CLAUDE.md** — held here once, deployed as mirrors into every Claude account's
+config dir.
 
 ## 1. Why
 
@@ -29,7 +30,9 @@ tiers in `cap-mega/.claude/agents/`). Proven, but trapped in their birthplaces.
 
 This repo canonizes all of it. One source of truth, deployed everywhere, versioned in
 git. Three hives, one city: the accounts are hives — each session a bee, its memory mere
-comb (D27) — and the repos are the city they raise, where truth lives in stone.
+comb (D27) — and the repos are the city they raise, where truth lives in stone. The
+lineage is on the record (D38): *Children of Time*, *Dune*, *Foundation* — canon is the
+Understandings, inherited at summons, never taught.
 
 ## 2. The composition law
 
@@ -64,7 +67,7 @@ operational law in `canon/mantles/README.md`.
 
 | Canon | → Mirror | Notes |
 |---|---|---|
-| `canon/CLAUDE.md` | `~/.claude*/CLAUDE.md` | the global file — landed 2026-08-03 (03); **PENDING Felix's `sync/deploy`** (agent guard, D14) |
+| `canon/CLAUDE.md` | `~/.claude*/CLAUDE.md` | the global file — landed 2026-08-03 (03); **live ×3 since 2026-08-03** (Felix's deploy = D24's countersign; `check` re-verified green 3×3 2026-08-06) |
 | `canon/agents/*.md` | `~/.claude*/agents/` | capability tiers — **live ×3 since 2026-08-03** (D14 symlinks) |
 | `canon/mantles/*.md` | read by path | canonical delivery (D12) — summons name the charter path |
 | `canon/skills/<mantle>/SKILL.md` | `~/.claude*/skills/` | interactive sugar: `/architect` … — **live ×3 since 2026-08-03** |
@@ -90,8 +93,8 @@ run it when something feels off; green + still broken ⇒ auth, not sync). `depl
 | 05 | [Saturation harvest — snappy batch-1 → canon](plans/05-saturation-harvest.md) | — | Grand Architect · fable-max | **LANDED** 2026-08-05 — D28–D30 entered amended, rejections upheld, D31 (hive-city voice) cut; D28–D31 ✓ Felix same day |
 | 06 | [hexwright retrofit](plans/06-hexwright-retrofit.md) | — (D32 ✓ 2026-08-06) | Architect · fable-high | **LANDED** 2026-08-06 → [findings](plans/06-hexwright-retrofit.md); hexwright D9 ✓ Felix (via D32); board minted, dream renamed |
 | 07 | [simmy retrofit](plans/07-simmy-retrofit.md) | — (D32 ✓ 2026-08-06) | Architect · fable-high | **LANDED** 2026-08-06 → [findings](plans/07-simmy-retrofit.md); simmy D16 ✓ Felix; B14 clear to resume |
-| 08 | [summon rig](plans/08-summon-rig.md) | D34 ✓ 2026-08-06 | Builder · opus-high | **LANDED** 2026-08-06 → `summon/` + [DoD evidence](plans/08-summon-rig.md) (33 assertions green, `lab/08/run`); dotfiles source line ✓ 2026-08-06; smoke ×3 PENDING (one real launch per account — the shim couldn't prove account routing). F3 PARKED (Felix): deferred into the future slash-summons work |
-| 09 | [summon rig v1.1](plans/09-summon-rig-v11.md) | 08 LANDED; D36 (dispatch countersigns) | Builder · opus-high | **LANDED** 2026-08-06 → [DoD evidence](plans/09-summon-rig-v11.md) (76 assertions green, `lab/08/run`); 2-key refire, cascade+override, `[n]one` bare, palette, 60-col wrap. Palette trap fired — escapes die in `zle -M`, so the colours ride `region_highlight` (F1/F2). D36 ✓ Felix (by dispatch); visual pass ✓ Felix 2026-08-06 — rig in daily use, refinements to accrue over live weeks; smoke ×3 PENDING (per-account routing proof) |
+| 08 | [summon rig](plans/08-summon-rig.md) | D34 ✓ 2026-08-06 | Builder · opus-high | **LANDED** 2026-08-06 → `summon/` + [DoD evidence](plans/08-summon-rig.md) (33 assertions green, `lab/08/run`); dotfiles source line ✓ 2026-08-06; smoke ×3 ✓ Felix 2026-08-06 (the per-account routing proof the shim couldn't give). F3 PARKED (Felix): deferred into the future slash-summons work |
+| 09 | [summon rig v1.1](plans/09-summon-rig-v11.md) | 08 LANDED; D36 (dispatch countersigns) | Builder · opus-high | **LANDED** 2026-08-06 → [DoD evidence](plans/09-summon-rig-v11.md) (76 assertions green, `lab/08/run`); 2-key refire, cascade+override, `[n]one` bare, palette, 60-col wrap. Palette trap fired — escapes die in `zle -M`, so the colours ride `region_highlight` (F1/F2). D36 ✓ Felix (by dispatch); visual pass ✓ Felix 2026-08-06 — rig in daily use, refinements to accrue over live weeks; smoke ×3 ✓ Felix 2026-08-06 |
 
 Statuses per the doctrine (`canon/work/DOCTRINE.md` §4): OPEN → IN FLIGHT → LANDED /
 KILLED. Any account can host any session — the repo carries the truth; account choice is
@@ -110,7 +113,7 @@ docs; 06 runs anytime.
 **08 (cut 2026-08-06, D34 ✓ · D35 riders same day): summon rig** — single Builder row,
 independent of 06/B14, **LANDED** same day onto the amended brief. `summon/` is live in
 the repo but inert until Felix adds the one dotfiles source line; the three-account smoke
-is his (PENDING; dotfiles line ✓). F3 — a file-based agent definition sets the session
+is his (✓ 2026-08-06; dotfiles line ✓). F3 — a file-based agent definition sets the session
 colour flag-only, freeing the positional prompt for the summons — **PARKED by Felix
 2026-08-06**: deferred until the slash-summons work (`/grand-architect` …), where it
 folds in; a canon question (mantles-by-path vs colour-carrying agent definitions) for
@@ -171,3 +174,23 @@ Closed when 06 + 07 are LANDED with countersigns recorded.
 **Canon v2 CLOSED 2026-08-06** — 06 (hexwright D9 ✓ Felix, carried by D32) and 07
 (simmy D16 ✓ Felix) both LANDED; evidence in each row's findings. Hexwright's one
 PENDING is its own: Felix's Phase-1 acceptance ruling, on hexwright's board.
+
+## 10. The horizon — the Architect line (D39)
+
+Felix's vision, recorded 2026-08-06. **Reserved, not cut** — nothing here is
+dispatchable.
+
+- **Royal Architect** — one per domain, overseeing all of it: every campaign, coding
+  and not. The domains Felix named: **THG work** (MegaCap and its campaigns — simmy,
+  snappy, manny — the side builds like the SpaceX dashboard, and the dozens of
+  non-coding projects) and **personal work** (hexwright, the Guild, the Green Order, …).
+- **Imperial Architect** — there will only ever be one. Oversees all domains: work
+  balanced with life, true alignment, ascendancy, self-actualization — their dream,
+  and ours.
+
+**The gate:** a Royal Architect cannot be born until it has a place to live — the
+substrate that connects Felix's knowledge and work seamlessly across every platform. It
+does not exist yet. Building it is its own campaign, keeled by a Grand Architect when
+Felix calls it. Until then the names are **reserved and unminted** (D39, D7's
+precedent): no charter, no summons, no preset may claim them. Each Architect of the
+line keeps a Personal Log (D40) — the Grand Architect's is `LOG.md`, here.

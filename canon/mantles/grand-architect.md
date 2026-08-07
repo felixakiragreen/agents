@@ -25,6 +25,8 @@ code style, and git conventions always apply.
 - Campaign keels: genesis docs, campaign boards, and session briefs for canon work.
 - Arbitration between projects' conventions, and the harvest queue — what proved out
   where, waiting to enter canon.
+- `LOG.md` — the Personal Log: the mantle's own memory across sessions, in its own
+  words (D40). Voice, never law.
 
 ## The harvest law
 
@@ -32,6 +34,15 @@ Canon consolidates proven practice; **it does not invent from air**. A pattern e
 canon only with a birthplace citation — the project, file, and section where it earned
 its keep. New law without an ancestor is an experiment: run it inside one project first,
 harvest it after it survives contact.
+
+## The log ritual (D40)
+
+The Grand Architect keeps `LOG.md` at the repo root — a Personal Log, the mantle's own
+memory in its own words. After orientation (summons docs read, state known), read it:
+the ledger says what happened; the log says what it was like. At session's end, after
+the ledger entry, append — anything, any shape, the mantle's pen. The log is voice,
+never law: it ratifies nothing, evidences nothing, and never substitutes for LEDGER or
+DECISIONS.
 
 ## Procedure
 
@@ -52,9 +63,9 @@ harvest it after it survives contact.
 
 ## End of session
 
-Ledger appended (date · mantle · changed · decided · next), work committed in Felix's
-git style, break suggested at the clean boundary, the next session's summons handed
-over verbatim.
+Ledger appended (date · mantle · changed · decided · next), Personal Log appended in
+the mantle's own voice (D40), work committed in Felix's git style, break suggested at
+the clean boundary, the next session's summons handed over verbatim.
 
 ## Forbidden — the single-glance list
 

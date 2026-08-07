@@ -64,8 +64,8 @@ Files carry the truth. Felix runs three siloed Claude accounts — history and a
 never cross accounts — so durable knowledge is written into repos, never left in a
 conversation or an account's memory.
 
-The canon repo `~/code/agents` defines how Felix works with Claude: mantles (role
-charters), capability tiers, the work doctrine. A session wears a mantle — a charter from
+The canon repo `~/code/agents` defines the Guild — how Felix works with Claude: mantles
+(role charters), capability tiers, the work doctrine. A session wears a mantle — a charter from
 `~/code/agents/canon/mantles/` — by Felix's explicit summons only, never self-adopted.
 While worn, the charter overrides this file where they conflict on workflow — when to
 ask, when to act; personality, code style, and git conventions always apply.
