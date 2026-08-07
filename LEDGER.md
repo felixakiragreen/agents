@@ -552,6 +552,22 @@ Ruled with Felix, his instinct confirmed: **NOT canon** — D40's implementation
 tradition-first; a future harvest cuts the law if the logs earn their keep across the
 projects, birthplaces cited.
 
+**Same sitting, later — the salvage complete:** Felix re-summoned the founding windows
+across the Guild; all three houses now keep logs. `~/code/hexwright/LOG.md` (one entry
+— the placeholder window; eyes deliberately kept off the renders until Felix's Phase-1
+ruling), `cap-mega/simmy/LOG.md` (the founding window; its birthday self-corrected to
+08-02 — the template's "the window remembers it better than any doc" proven on first
+contact), `cap-mega/snappy/LOG.md` (four entries — keel written blind by Felix's
+request, close, rope, and a day-after stranger's hands). Each house bent the preamble
+at exactly its own law: hexwright exempted the file from its determinism law; simmy
+licensed the one room a sentence may stand unarmed; snappy made even its diary answer
+to the pinned cell. The tradition speciated on contact — noted for the future harvest:
+birthplaces now run four repos deep, with organs the template never designed (blind
+entries, before/after audits, stranger's-hands entries). Provenance recovered en route:
+the title "Grand Architect" was coined inside hexwright's dream.md — the dream named
+the office before the canon existed to harvest it. Read by 04 same sitting; log coda
+appended.
+
 ---
 
 **2026-08-07 · Architect (row 10 cut)** — summon rig v1.2: the usage panel. Felix's
