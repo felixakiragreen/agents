@@ -14,5 +14,10 @@ COLUMNS=${SUMMON_COLUMNS:-200}
 claude() { print -r -- "SHIM cfg=$CLAUDE_CONFIG_DIR args=$*" }
 pbcopy() { local s; IFS= read -r -d '' s; print -r -- "CLIP[$s]" }
 
+# and the usage fetcher's two: no test may ever reach Felix's real credential store or the
+# network, whatever a panel decides to refresh. The token here was never real.
+security() { print -rn -- '{"claudeAiOauth":{"accessToken":"FAKE-TOKEN-DO-NOT-LOG-9f3a"}}' }
+curl() { local sink; IFS= read -r -d '' sink; cat $SANDBOX/fixtures/usage-full.json }
+
 source $SANDBOX/summon.zsh
 print -r -- "READY $SUMMON_HOME"

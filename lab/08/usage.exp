@@ -1,0 +1,18 @@
+#!/usr/bin/env expect
+# lab/08 — the usage block on a real 60-column screen. Every cache is seeded fresh, so the
+# panel spawns no background fetch and the paint this captures is the only one there is.
+# Open, look, close — no launch.
+# usage: usage.exp <transcript> <rc.zsh>
+
+set timeout 15
+log_file -noappend [lindex $argv 0]
+spawn zsh -f -i
+send "source [lindex $argv 1]\r"
+expect "READY"
+
+send "\a"
+expect "keys: 1"
+send "\033"
+expect "closed"
+send "exit\r"
+expect eof

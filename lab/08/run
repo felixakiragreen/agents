@@ -15,6 +15,7 @@ LOG=$SANDBOX/log/invocations.jsonl
 rm -rf $LAB/out
 mkdir -p $SANDBOX
 cp $RIG/summon.zsh $RIG/presets.tsv $RIG/accounts.tsv $SANDBOX/
+cp -R $LAB/fixtures $SANDBOX/				# the rc's usage shims serve these, never the network
 expect $LAB/drive.exp $TRANSCRIPT $LAB/rc.zsh > /dev/null 2>&1
 cp $LOG $LAB/out/log-at-stats.jsonl		# what summon-stats saw, before later tests append
 
@@ -41,8 +42,8 @@ count() {	# <name> <expected> <literal> [file]
 		(( fails++ ))
 	fi
 }
-line() {	# <name> <expected count> <whole line> — exact, so a longer line cannot satisfy it
-	local -i got=$(grep -cFx -- "$3" $PLAIN)
+line() {	# <name> <expected count> <whole line> [file] — exact: a longer line cannot satisfy it
+	local -i got=$(grep -cFx -- "$3" ${4:-$PLAIN})
 	if (( got == $2 )); then
 		print -r -- "  PASS  $1 ($got)"
 	else
@@ -99,7 +100,7 @@ P200=$LAB/out/panel-200-plain.txt
 
 print -r -- '--- the panel: every live hotkey, the selection, the preview -----------'
 check 'mantle row, ● swatches, [n]one, ✓ inline on the selected item' \
-	'mantle   ●[g]rand-architect  ●[a]rchitect·high ✓  ●[A]rchitect·max  ●[d]ispatcher  [n]one' $P200
+	'mantle   ●[g]rand-architect  ●[a]rchitect·high ✓  ●[A]rchitect·max  ●[d]ispatcher  ●[b]uilder  [n]one' $P200
 check 'model row — haiku is hai[k]u'  'model    [f]able ✓  [o]pus  [s]onnet  hai[k]u' $P200
 check 'effort row — [h]igh is high'   'effort   [l]ow  [m]edium  [h]igh ✓  [x]high  [M]ax' $P200
 check 'account row'                   'account  [0] personal  [1] thg-fgreen ✓  [2] thg-doorbell' $P200
@@ -121,8 +122,8 @@ check 'mantle label green'        'fg=green ⟨mantle   ⟩'  $P200
 check 'model label yellow'        'fg=yellow ⟨model    ⟩' $P200
 check 'effort label orange (208)' 'fg=208 ⟨effort   ⟩'    $P200
 check 'account label red'         'fg=red ⟨account  ⟩'    $P200
-count 'every opening bracket grey — one per item' 21 'fg=8 ⟨[⟩' $P200
-count 'every closing bracket too'                 21 'fg=8 ⟨]⟩' $P200
+count 'every opening bracket grey — one per item' 22 'fg=8 ⟨[⟩' $P200
+count 'every closing bracket too'                 22 'fg=8 ⟨]⟩' $P200
 check 'unselected item text grey'  'fg=8 ⟨pus⟩'           $P200
 check 'unselected mantle grey too' 'fg=8 ⟨rand-architect⟩' $P200
 check 'selected item bold, and the ✓ is inline on the item' \
@@ -144,7 +145,7 @@ print -r -- '--- responsive render ---------------------------------------------
 widest $LAB/out/panel-60-plain.txt 60
 widest $LAB/out/panel-bare-plain.txt 60
 check 'wraps at an item boundary, continuation aligned under the first item' \
-	'         ●[A]rchitect·max  ●[d]ispatcher  [n]one' $LAB/out/panel-60-plain.txt
+	'         ●[A]rchitect·max  ●[d]ispatcher  ●[b]uilder' $LAB/out/panel-60-plain.txt
 count 'no item is broken across lines: each survives whole' 1 \
 	'●[A]rchitect·max' $LAB/out/panel-60-plain.txt
 check 'the same panel is one row per field at full width' \
@@ -155,7 +156,7 @@ sed -E $'s/\x1b\\[[0-9;?]*[a-zA-Z]//g' $LAB/out/narrow.txt | tr '\r' '\n' > $LAB
 check 'live 60-column pty: the mantle row wraps where we put the break' \
 	'mantle   ●[g]rand-architect  ●[a]rchitect·high' $LAB/out/narrow-plain.txt
 check 'live 60-column pty: the continuation line is intact and aligned' \
-	'         ●[A]rchitect·max ✓  ●[d]ispatcher  [n]one' $LAB/out/narrow-plain.txt
+	'         ●[A]rchitect·max ✓  ●[d]ispatcher  ●[b]uilder' $LAB/out/narrow-plain.txt
 
 print -r -- '--- preview footer vs the launch it promised (live pty) --------------'
 # one gesture on the state the drive left behind, so the paint is whole and comparable
@@ -227,6 +228,202 @@ check 'the reserved set is the whole panel: models, efforts, n, y, ., digits' \
 check 'the refusal is logged too (a keystroke at 1 key)' '"mode":"abort","n":1' $LOG
 sed -i '' '$d' $SANDBOX/presets.tsv
 
+print -r -- '--- usage: pacing arithmetic and the response parser ------------------'
+# a sandbox of its own: the drive above ran with no log/usage at all, which is exactly the
+# v1.1 panel, and these arms are about to create one
+USANDBOX=$LAB/out/usage-sandbox
+mkdir -p $USANDBOX
+cp $RIG/summon.zsh $RIG/presets.tsv $RIG/accounts.tsv $USANDBOX/
+cp -R $LAB/fixtures $USANDBOX/
+zsh -f $LAB/usage.zsh $USANDBOX > $LAB/out/usage-unit.txt 2>&1
+U=$LAB/out/usage-unit.txt
+check 'reset imminent: the whole window counts as elapsed' \
+	'reset imminent               used=42  → +58' $U
+check 'reset already past: elapsed clamps at 100, never beyond' \
+	'reset just passed            used=42  → +58' $U
+check 'used ahead of the clock reads negative' \
+	'used ahead of clock          used=90  → -40' $U
+check 'used nothing: the delta is the whole elapsed window' \
+	'used nothing                 used=0   → +50' $U
+check 'a reset further out than one window clamps elapsed at 0' \
+	'reset a window away          used=10  → -10' $U
+check 'dead level on pace is +0, and it is signed' \
+	'dead level                   used=50  → +0' $U
+check 'half rounds away from zero, up'   'half rounds up               used=42  → +1' $U
+check 'half rounds away from zero, down' 'half rounds down             used=42  → -1' $U
+check "the brief's worked session example: 42% used at 73% elapsed" \
+	'session window               used=42  → +31' $U
+check "the brief's worked week example: 61% used at 48% elapsed" \
+	'week window                  used=61  → -13' $U
+check 'a timestamp the rig cannot parse is refused, not guessed' 'EPOCH junk refused, value 0' $U
+check 'the full payload yields all three buckets' \
+	'PARSE full → 3 bucket(s): sess 42 1786140000, week 61 1786644000, fable 12 1786644000' $U
+check 'a payload with no Fable limit yields two, not a fabricated third' \
+	'PARSE nofable → 2 bucket(s): sess 17 1786140600, week 4 1786528800' $U
+check 'an error body yields nothing at all' 'PARSE garbage → 0 bucket(s)' $U
+# the epoch arithmetic is hand-rolled (no fork, no TZ), so python is the second opinion
+python3 - "$U" <<'PY' || fails=$(( fails + 1 ))
+import sys, datetime as dt
+bad = 0
+seen = 0
+for line in open(sys.argv[1]):
+	if not line.startswith("EPOCH 2"): continue
+	_, iso, got = line.split()
+	want = int(dt.datetime.fromisoformat(iso).timestamp())
+	seen += 1
+	if int(got) != want:
+		print(f"  FAIL  {iso}: rig says {got}, python says {want}"); bad += 1
+print(f"  {'PASS' if not bad else 'FAIL'}  all {seen} ISO-8601 stamps agree with python to the second")
+sys.exit(1 if bad else 0)
+PY
+
+print -r -- '--- usage: unconfigured ⇒ the panel is v1.1, byte for byte -----------'
+# b426166 is the commit that landed v1.1; the guarantee is that a rig without usage
+# configured does not change by one byte, spans included
+V11=$LAB/out/v11-sandbox
+mkdir -p $V11
+git -C ${LAB:h:h} show b426166:summon/summon.zsh > $V11/summon.zsh
+cp $RIG/presets.tsv $RIG/accounts.tsv $V11/
+typeset -i identical=1
+for w in 200 80 60; do
+	zsh -f $LAB/render.zsh $V11       $w a fable high 1 2 > $LAB/out/v11-$w.txt
+	zsh -f $LAB/render.zsh $USANDBOX  $w a fable high 1 2 > $LAB/out/v12-$w.txt
+	cmp -s $LAB/out/v11-$w.txt $LAB/out/v12-$w.txt || identical=0
+done
+if (( identical )); then
+	print -r -- '  PASS  no log/usage ⇒ panel byte-identical to v1.1 at 200, 80 and 60 columns'
+else
+	print -r -- '  FAIL  the panel changed without usage being configured'; (( fails++ ))
+fi
+
+print -r -- '--- usage: the fetcher, under a shimmed Keychain and curl -------------'
+rm -f $LAB/out/shim-security.txt $LAB/out/shim-curl.txt
+zsh -f $LAB/fetch.zsh $USANDBOX ok > $LAB/out/fetch-ok.txt 2>&1
+FO=$LAB/out/fetch-ok.txt
+count 'summon-usage fetches every account in accounts.tsv' 3 '  fetched  ' $FO
+check 'and reports each cache age, so "why is my table grey" has an answer' \
+	'1 thg-fgreen        0 s  fresh' $FO
+# the service name is derived from the config dir, not stored: sha256 of the absolute path
+check 'keychain service derived for personal    (sha256 → dcd01a92)' \
+	'find-generic-password -w -s Claude Code-credentials-dcd01a92 -a' $LAB/out/shim-security.txt
+check 'keychain service derived for thg-fgreen  (sha256 → 15cc4976)' \
+	'find-generic-password -w -s Claude Code-credentials-15cc4976 -a' $LAB/out/shim-security.txt
+check 'keychain service derived for thg-doorbell (sha256 → 33751bfc)' \
+	'find-generic-password -w -s Claude Code-credentials-33751bfc -a' $LAB/out/shim-security.txt
+count 'the token reaches curl on stdin, intact, once per account' 3 \
+	'CURL stdin: the Authorization header arrived intact' $LAB/out/shim-curl.txt
+count 'curl is called with a 5-second limit, one attempt, header from stdin' 3 \
+	'CURL argv: -sS -m 5 -H @- -H anthropic-beta: oauth-2025-04-20' $LAB/out/shim-curl.txt
+check 'the normalized cache is what the render expects, and nothing else' \
+	'{"fetched_at":' $USANDBOX/log/usage/.claude-thg-fgreen.json
+check 'the session bucket normalized: percent, reset epoch, window' \
+	'"sess":{"used_pct":42,"resets_at":1786140000,"window_secs":18000}' \
+	$USANDBOX/log/usage/.claude-thg-fgreen.json
+check 'the week bucket, at a seven-day window' \
+	'"week":{"used_pct":61,"resets_at":1786644000,"window_secs":604800}' \
+	$USANDBOX/log/usage/.claude-thg-fgreen.json
+check 'the Fable bucket, lifted out of the limits[] array by model scope' \
+	'"fable":{"used_pct":12,"resets_at":1786644000,"window_secs":604800}' \
+	$USANDBOX/log/usage/.claude-thg-fgreen.json
+
+print -r -- '--- usage: a failed fetch never damages what is already cached --------'
+cp $USANDBOX/log/usage/.claude-thg-fgreen.json $LAB/out/cache-before.json
+for mode in fail garbage; do
+	zsh -f $LAB/fetch.zsh $USANDBOX $mode > $LAB/out/fetch-$mode.txt 2>&1
+	if cmp -s $LAB/out/cache-before.json $USANDBOX/log/usage/.claude-thg-fgreen.json; then
+		print -r -- "  PASS  a $mode fetch leaves the previous cache byte-identical"
+	else
+		print -r -- "  FAIL  a $mode fetch damaged the cache"; (( fails++ ))
+	fi
+done
+count 'and it says so per account rather than failing silently' 3 '  FAILED   ' $LAB/out/fetch-fail.txt
+if [[ -z $(print -rn -- $USANDBOX/log/usage/*.tmp(N)) ]]; then
+	print -r -- '  PASS  atomic writes leave no .tmp behind, on success or failure'
+else
+	print -r -- '  FAIL  a temporary cache file was left behind'; (( fails++ ))
+fi
+
+print -r -- '--- usage: token hygiene --------------------------------------------'
+absent 'no token byte in any cache the fetcher wrote' 'FAKE-TOKEN' \
+	$USANDBOX/log/usage/.claude-thg-fgreen.json
+absent 'no token byte in curl argv — `ps` cannot leak it' 'FAKE-TOKEN' $LAB/out/shim-curl.txt
+absent 'no token byte in the keychain call either'        'FAKE-TOKEN' $LAB/out/shim-security.txt
+python3 - "$LAB/out" <<'PY' || fails=$(( fails + 1 ))
+import os, sys
+needle = b"FAKE-TOKEN-DO-NOT-LOG-9f3a"
+hits = []
+for dp, dn, fn in os.walk(sys.argv[1]):
+	for f in fn:
+		p = os.path.join(dp, f)
+		try:
+			if open(p, "rb").read().find(needle) >= 0: hits.append(p)
+		except Exception: pass
+print(f"  {'PASS' if not hits else 'FAIL'}  no token byte in any of the {sum(len(f) for _,_,f in os.walk(sys.argv[1]))} artefacts this harness produced")
+for h in hits: print(f"          leaked into: {h}")
+sys.exit(1 if hits else 0)
+PY
+
+print -r -- '--- usage: the table ------------------------------------------------'
+zsh -f $LAB/usage-seed.zsh $USANDBOX mixed
+urender() { zsh -f $LAB/render.zsh $USANDBOX $2 "$3" "$4" "$5" "$6" $7 "${8:-}" > $LAB/out/$1 }
+urender usage-200.txt 200 a fable high 1 2 ; plain usage-200.txt
+urender usage-60.txt   60 a fable high 1 2 ; plain usage-60.txt
+UP=$LAB/out/usage-200-plain.txt
+check 'the block sits between the account row and the hotkey row' \
+	'account  [0] personal  [1] thg-fgreen ✓  [2] thg-doorbell' $UP
+check 'an account with no cache file renders every cell as —' \
+	'usage    0  sess —         week —         fable —' $UP
+check 'a fresh account renders used% and the pacing delta, columns aligned' \
+	'         1  sess 42%+31    week 61%-13    fable 12%+55' $UP
+check 'a bucket the account does not have renders —, the rest still render' \
+	'         2  sess 78%-13    week 45%+2     fable —' $UP
+check 'headroom is green'                    'fg=green ⟨+31⟩' $UP
+check 'burning faster than the clock is red' 'fg=red ⟨-13⟩'   $UP
+check 'the Fable bucket carries its own delta' 'fg=green ⟨+55⟩' $UP
+check 'a stale line drops entirely to grey — colour is trust' \
+	'fg=8 ⟨sess 78%-13  ⟩' $UP
+check 'and its delta wears no colour at all'   'fg=8 ⟨week 45%+2   ⟩' $UP
+check 'a no-cache line is grey too'            'fg=8 ⟨sess —       ⟩' $UP
+check 'the usage label is grey: nothing in this block is selectable' \
+	'fg=8 ⟨usage    ⟩' $UP
+count 'the fresh line wears no grey: only its deltas are coloured' 0 \
+	'fg=8 ⟨sess 42%+31  ⟩' $UP
+widest $LAB/out/usage-60-plain.txt 60
+check 'the block survives 60 columns without wrapping a cell' \
+	'         1  sess 42%+31    week 61%-13    fable 12%+55' $LAB/out/usage-60-plain.txt
+
+print -r -- '--- usage: panel-open refresh ---------------------------------------'
+zsh -f $LAB/usage-seed.zsh $USANDBOX mixed
+zsh -f $LAB/spawn.zsh $USANDBOX > $LAB/out/spawn.txt 2>&1
+line 'panel open refetches only the cold caches, and leaves the fresh one alone' 1 \
+	'SPAWNED personal thg-doorbell' $LAB/out/spawn.txt
+# and on a real 60-column screen, with every cache fresh so nothing races the paint
+zsh -f $LAB/usage-seed.zsh $USANDBOX fresh
+SANDBOX=$USANDBOX SUMMON_COLUMNS=60 expect $LAB/usage.exp $LAB/out/usage-pty.txt $LAB/rc.zsh > /dev/null 2>&1
+sed -E $'s/\x1b\\[[0-9;?]*[a-zA-Z]//g' $LAB/out/usage-pty.txt | tr '\r' '\n' > $LAB/out/usage-pty-plain.txt
+check 'live 60-column pty: the usage block paints on a real screen' \
+	'usage    0  sess 17%+13' $LAB/out/usage-pty-plain.txt
+raw 'and the delta reaches the terminal green' $'\e[32m' $LAB/out/usage-pty.txt
+raw 'and red where the burn outruns the clock' $'\e[31m' $LAB/out/usage-pty.txt
+
+print -r -- '--- usage: the keystroke loop stays fork-free ------------------------'
+: > $LAB/out/paint-forks.txt
+zsh -f -c "source $USANDBOX/summon.zsh 2>/dev/null
+COLUMNS=200
+_summon_load; _summon_state_load
+# every external command the usage path could reach, made loud
+security() { print -r -- security >> $LAB/out/paint-forks.txt }
+curl()     { print -r -- curl     >> $LAB/out/paint-forks.txt }
+shasum()   { print -r -- shasum   >> $LAB/out/paint-forks.txt }
+mv()       { print -r -- mv       >> $LAB/out/paint-forks.txt }
+for i in {1..200}; do _summon_panel 3 '' 0; done"
+if [[ ! -s $LAB/out/paint-forks.txt ]]; then
+	print -r -- '  PASS  200 paints over three live caches invoked no external command'
+else
+	print -r -- "  FAIL  a paint forked: $(sort -u $LAB/out/paint-forks.txt | tr '\n' ' ')"
+	(( fails++ ))
+fi
+
 print -r -- '--- input delay -----------------------------------------------------'
 print -r -- "  host: $(uptime | sed 's/.*load/load/')"
 zsh -f -c "source $SANDBOX/summon.zsh 2>/dev/null
@@ -239,6 +436,18 @@ printf '  per invocation (2 TSV reads + state, no forks): %.3f ms\n' \
 start=\$EPOCHREALTIME
 for i in {1..500}; do _summon_panel 3 '' 0; done
 printf '  per keystroke  (full panel render + resolve):   %.3f ms\n' \
+	\$(( (\$EPOCHREALTIME - start) * 1000 / 500 ))"
+# and the same two, now with three usage caches re-read on every single paint
+zsh -f -c "source $USANDBOX/summon.zsh 2>/dev/null
+COLUMNS=200
+_summon_load; _summon_state_load
+typeset -F start=\$EPOCHREALTIME
+for i in {1..500}; do _summon_load; _summon_state_load; done
+printf '  per invocation, usage configured:               %.3f ms\n' \
+	\$(( (\$EPOCHREALTIME - start) * 1000 / 500 ))
+start=\$EPOCHREALTIME
+for i in {1..500}; do _summon_panel 3 '' 0; done
+printf '  per keystroke,  usage configured (3 caches):    %.3f ms\n' \
 	\$(( (\$EPOCHREALTIME - start) * 1000 / 500 ))"
 
 print -r -- '--- telemetry -------------------------------------------------------'

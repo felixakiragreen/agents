@@ -2,13 +2,16 @@
 # lab/08 — deterministic usage caches, written relative to now so the pacing deltas are
 # fixed numbers rather than whatever the wall clock says. The values reproduce the brief's
 # worked examples: session 42% used at 73% elapsed → +31; week 61% at 48% → −13.
-#   usage-seed.zsh <sandbox>
-# Leaves: account 0 with no cache at all, 1 fresh with all three buckets, 2 stale and
-# missing the fable bucket.
+#   usage-seed.zsh <sandbox> [mixed|fresh]
+# mixed (the default) leaves account 0 with no cache at all, 1 fresh with all three buckets,
+# and 2 stale and missing the fable bucket — every render arm in one panel. fresh gives all
+# three current caches, so opening the panel spawns no background fetch and the pty arm has
+# nothing racing its paint.
 set -u
 zmodload zsh/datetime
 
 SANDBOX=$1
+MODE=${2:-mixed}
 DIR=$SANDBOX/log/usage
 mkdir -p $DIR
 
@@ -30,6 +33,12 @@ seed() {
 	print -r -- "$out}}" > $file
 }
 
+rm -f $DIR/.claude.json $DIR/.claude-thg-fgreen.json $DIR/.claude-thg-doorbell.json
 seed $DIR/.claude-thg-fgreen.json    0   sess:42:73  week:61:48  fable:12:67
-seed $DIR/.claude-thg-doorbell.json  900 sess:78:65  week:45:47
-# account 0 (personal) is deliberately left with no cache file
+if [[ $MODE == fresh ]]; then
+	seed $DIR/.claude.json             0   sess:17:30  week:4:60   fable:8:60
+	seed $DIR/.claude-thg-doorbell.json 0  sess:78:65  week:45:47
+else
+	seed $DIR/.claude-thg-doorbell.json 900 sess:78:65  week:45:47
+	# account 0 (personal) is deliberately left with no cache file
+fi
