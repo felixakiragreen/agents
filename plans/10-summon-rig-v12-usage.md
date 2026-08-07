@@ -258,17 +258,90 @@ actually fetches usage (`/usage` opened, or a limit event), and Felix has never 
 `/usage` on personal. **One keystroke from Felix settles it** — that is the ask at the
 gate. Until it exists, source (a) renders account `0` as all `—`.
 
-**(b) The OAuth endpoint — not probed, by design.** No `.credentials.json` exists in any
-of the three config dirs, so `https://api.anthropic.com/api/oauth/usage` needs a Keychain
-read, and the brief makes that Felix's call, not an agent's prompt storm. Two unknowns
-remain unprobed and would need his grant to settle: whether the Keychain holds one entry
-per account and how the three are distinguished (one Keychain, three config dirs), and
-whether the endpoint answers for the personal account. What (b) buys over (a) is exactly
-one thing: **live session numbers instead of hour-stale ones**, for all three accounts.
+**(b) The OAuth endpoint — probed at the gate, with Felix's grant. It is the source.**
 
-**Verdict: not a kill.** A source exists that meets the brief's bar for two of three
-buckets with zero grants; the third bucket's data is present but too stale to wear colour
-honestly. The fork is Felix's and is at the gate.
+The gate was put to Felix with (a)'s two defects measured; he chose **probe (b) first**
+(2026-08-07). Three permission grants were needed and given — keychain service
+enumeration, per-entry metadata, and the hash-derivation test. No `.credentials.json`
+exists in any config dir, so the token comes from the Keychain.
+
+**The service name is derivable — no new config, no `accounts.tsv` change:**
+
+```
+service = "Claude Code-credentials-" + sha256(<absolute config dir path>)[:8]
+account = $USER
+```
+
+Verified against all five `Claude Code-credentials*` entries on the machine (enumerated
+via `security dump-keychain`, attributes only):
+
+| Config dir | sha256[:8] | Keychain entry |
+|---|---|---|
+| `/Users/felix/.claude` | `dcd01a92` | present |
+| `/Users/felix/.claude-thg-fgreen` | `15cc4976` | present |
+| `/Users/felix/.claude-thg-doorbell` | `33751bfc` | present |
+
+The hash is over the **absolute** path (`~` expanded), no trailing slash. A bare
+`Claude Code-credentials` (unsuffixed, legacy) and one orphan `fcc8838d` from a retired
+config dir also exist and are ignored. The derivation was found by hypothesis test over
+{md5, sha1, sha224/256/384/512, blake2b/2s} × {absolute, `~`-relative, basename, ±trailing
+slash} — sha256-of-absolute-path hit all three accounts and nothing else did; the binary
+itself is a 277 MB Bun-compiled Mach-O with no recoverable `Claude Code-credentials`
+string (0 occurrences), so the algorithm is evidence, not source-reading.
+
+**Credential blob shape** (names and types only — no value ever printed, then or now):
+
+```
+claudeAiOauth.accessToken            str len=108
+claudeAiOauth.refreshToken           str len=108
+claudeAiOauth.expiresAt              int   (fgreen: ~2 h out at probe time)
+claudeAiOauth.refreshTokenExpiresAt  int
+claudeAiOauth.scopes                 ['user:file_upload','user:inference','user:mcp_servers','user:profile','user:sessions:claude_code']
+claudeAiOauth.subscriptionType       str
+claudeAiOauth.rateLimitTier          str
+```
+
+**`GET https://api.anthropic.com/api/oauth/usage`, `Authorization: Bearer <accessToken>`,
+`anthropic-beta: oauth-2025-04-20` — all three accounts, HTTP 200:**
+
+| Account | Status | Latency | five_hour | seven_day | Fable (weekly_scoped) |
+|---|---|---|---|---|---|
+| personal | 200 | 193 ms | 17 | 4 | — (null) |
+| thg-fgreen | 200 | 361 ms | 19 | 35 | 48 |
+| thg-doorbell | 200 | 357 ms | 0 | 91 | (present) |
+
+**The response body is the cached object verbatim** — same seventeen top-level keys, same
+`limits[]` array, same nulls. So (a) and (b) are one payload at two ages, the field mapping
+above is confirmed against the live source, and **the personal account is served fine by
+(b)** — its missing `cachedUsageUtilization` key was never a plan limitation, only an
+artefact of the cache never having been written there.
+
+**Live-vs-cached, the staleness cost made concrete** (same instant, same accounts):
+
+| Account | Bucket | Cached says | Live says | Verdict |
+|---|---|---|---|---|
+| fgreen | session | 0 % | **19 %** | cache 77 min stale, understates burn |
+| doorbell | session | 70 %, `resets_at` **already past** | **0 %** | the window rolled over; the cache would send Felix away from a completely free account |
+
+The doorbell row is the decisive one: stale data is not merely imprecise, it inverts the
+arbitrage decision the panel exists to inform. **(b) is the source; (a) is retired to a
+documented fallback that this build does not implement** (out of scope, not parked debt —
+the endpoint is the contract).
+
+**Mechanics confirmed for the spec's security law:**
+
+- `curl 8.7.1` (system) supports **`-H @-`** — verified live against `httpbin.org/headers`,
+  which echoed `X-Probe-Header` back: the header is read from stdin and **never appears in
+  argv**, so `ps` cannot leak the token.
+- The `security find-generic-password -w` read completed **without a GUI prompt** in this
+  session (login keychain unlocked, item ACL not binary-restricted). A first-run prompt on
+  Felix's own shell remains possible; "Always Allow" once per entry settles it. Named in
+  the README, not designed around.
+- `expiresAt` is ~2 h out and Claude Code refreshes it in the normal course of use. The rig
+  **never refreshes or rotates** (brief's absolute law): an expired token is a failed fetch
+  is a stale table, and the panel says so in grey.
+
+**Verdict: not a kill — Phase B builds on (b).**
 
 ## Kickoff — verbatim
 
