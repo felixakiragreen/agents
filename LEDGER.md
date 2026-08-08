@@ -725,3 +725,31 @@ Wear ~/code/agents/canon/mantles/architect.md,
 then read ~/code/agents/GENESIS.md and true the board after row 10:
 review and cut row 11, and rule on 10-F1, 10-F6(a), and 10-F10's spawn options.
 ```
+
+---
+
+**2026-08-08 · Grand Architect (the handoff harvest)** — Felix's field evidence (manny
+batch-3's kickoff-on-ask-only, node-param's three-option close + mantle-less kickoffs,
+units' conforming board with its self-invented Gate column) diagnosed as one failure
+surface: the session boundary. First, the mantle ruling for the record: the summon rig
+is tooling, not canon (D34's own words) — the usage panel and builder preset are
+Architect work; the four-step routing test written out (charter/tier/doctrine/sync-set
+change → GA; cross-project D-entry → GA; multi-session → Architect's board;
+session-sized → null mantle). History had already agreed: a concurrent Architect cut
+row 10 (usage panel) the day before — D41 ✓ Felix. Then D42–D45 cut and applied on
+countersign: **D42 the baton law** (operative report formats gain the mandatory close —
+exactly one fire-now next move; tier unchanged per D29), **D43 serial chains are
+Dispatcher work** (ancestor batch 2; corrects node-param §10.1's "no batch to tend"),
+**D44 gates are rows** + the cut maximizes the run between Felix's judgment calls,
+**D45 the summons line is load-bearing** (any table that staffs sessions is a board;
+the rigid formats moved into architect.md — law lives where it's loaded). Mid-apply,
+the Guild's first numbering collision: the concurrent D41 claimed the number while
+this sitting wrote; date seniority ruled, mine renumbered, ids monotonic, refs bumped
+(2a964fc). Migration paste handed and fired into the three live Architect windows
+(true board → re-cut as Dispatcher chain → fork sheet → baton). The context load-map
+answered for the record: doctrine travels compiled, not raw. Max `/login` done — v1's
+last PENDING closed. Decided: D42–D45 (✓ Felix in-session). Next: Felix answers the
+three fork sheets and fires the returned Dispatcher summonses; the row-11 Architect
+summons stands verbatim in the prior entry; the harvest sweep stays queued — summons
+verbatim in the 2026-08-07 GA entry (simmy §8 pre-authorization, orb-machine sweep,
+09's F10(b), 07's F2 YAML fold).
