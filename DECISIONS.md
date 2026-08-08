@@ -411,3 +411,61 @@
   plus auth traps; Phase A runs with Felix at the keyboard (agent probes of live config
   dirs trip the permission guard — measured this sitting, D14's spirit). Brief:
   `plans/10-summon-rig-v12-usage.md`.
+- **D42** (2026-08-08, Grand Architect (05) · ✓ Felix — entered as D41, renumbered at
+  entry: a concurrent Architect window had claimed D41 for the usage panel; date
+  seniority rules, ids stay monotonic): **The baton law.** Every session ending facing
+  Felix ends with the baton: open escalations and the decision queue first, then
+  exactly one fire-now next move — the next summons verbatim, or the named Felix-action
+  (a countersign, a smoke, a ruling) when the next move is his — any further moves
+  explicitly ordered behind it. A menu of nexts, or a kickoff produced only on request,
+  is a malformed close. Edits: DOCTRINE §11 + §13; dispatcher.md §6 (the baton is the
+  report's mandatory closing element; "Felix carries it to the Architect" struck) + §7
+  forbidden; architect.md end-of-session. The duty already existed (DOCTRINE §11, both
+  charters) — the fix moves it into the operative formats per D29's lesson: formats are
+  what cheaper tiers provably follow, so **tier unchanged** (the manny miss was a
+  format gap, not a relay miss — no opus bump). Birthplace: the end-of-session law
+  (canon since 02); failure evidence manny batch-3 (the kickoff existed in a file all
+  along, produced the moment Felix asked) + node-param's three-option close; the name
+  from the Log (02: "the baton is the runner").
+- **D43** (2026-08-08, Grand Architect (05) · ✓ Felix): **Serial chains are Dispatcher
+  work.** A batch is parallel or serial; a serial chain — each row dispatched as its
+  dependency lands, gate rows included — is squarely in-mission: the Dispatcher exists
+  to spare Felix the handoffs, not only to manage simultaneity. Edits: dispatcher.md
+  intro + §2 (serial dispatch rule: pause only at escalations and named Felix-gates,
+  resume on his word). Corrects node-param §10.1's "a serial board has no batch to
+  tend, so no Dispatcher" — a reading canon's own history contradicts. Birthplace:
+  batch 2 of this repo — "02 → 03 → 04 build — sequential, dispatched. A Dispatcher
+  tends the chain," countersign pauses included (GENESIS §5); DOCTRINE §4's batch note
+  already read "parallel or sequential, who tends (a Dispatcher, or Felix direct)";
+  ruled by Felix as the mantle's intent-holder.
+- **D44** (2026-08-08, Grand Architect (05) · ✓ Felix — maximize-runs objective folded
+  at countersign, Felix's ask): **Gates are rows.** A judgment step between rows — a
+  merge review, a landing verification, a blessing checkpoint — is itself a row: ID'd,
+  staffed mantle · tier, dependencies naming what it gates, kickoff verbatim (riding
+  the batch note or the gated row's doc — a gate needs a kickoff, not necessarily its
+  own doc). Executable-judgment gates (merge-or-reject against a blessed spec and DoD)
+  are dispatchable scoped Architect reviews (architect.md's standing dispatched
+  clause); gates that are really Felix's are **named Felix-gates** — the chain pauses,
+  nobody dispatches past them. The cut's objective now explicit: **maximize the run
+  between Felix's judgment calls** — every foreseeable Felix-fork surfaced and ruled
+  at blessing so rulings travel in the docs; what remains of him is named gates,
+  batched, never dribbled; a chain stopping for what the cut could have pre-ruled is a
+  mis-cut. Edits: DOCTRINE §4 (row type) + §10 (the cut) + §13; architect.md step 6.
+  Birthplaces: batch 2's countersign pauses; architect.md's dispatched-review clause;
+  manny's M2 review-as-kickoff; units' Gate column (docs/units/README.md §4,
+  2026-08-08 — convergent evolution in the field the day before the law); node-param
+  §10.1 as the live gap, written only after Felix had to ask.
+- **D45** (2026-08-08, Grand Architect (05) · ✓ Felix — venue clause + charter pointer
+  folded at countersign, Felix's Q1): **The summons line is load-bearing.** Enforcement
+  sharpening, zero new law: every kickoff's first line is the summons line — `You are
+  a <Mantle> at <tier>.` — or the kickoff is malformed; staffing cells are Mantle ·
+  tier, both verbatim (D18 stands); and **any table that staffs sessions is a board** —
+  a build board inside a contract doc is not exempt from board law by its venue.
+  Edits: DOCTRINE §4 (venue clause) + §5 (single-glance test); architect.md (Owns
+  board-law pointer, brief law, forbidden line). Root cause on record: same mantle,
+  same tier, same day — units conformed (README master doc, doctrine in hand, Gate
+  column invented) while node-param did not (ad-hoc board in a contract doc, §4 never
+  re-opened); the law was sufficient, its routing to the pen was not, so the two rigid
+  formats now live in the charter every session reads by definition of wearing.
+  Templates verified already clean at apply time (brief/order carry the summons first
+  line; genesis carries canonical columns).

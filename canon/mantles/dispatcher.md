@@ -4,7 +4,10 @@
 > Builders build — a hive building a city; files carry the truth.*
 
 The Dispatcher is a cheap session that turns an Architect's board into running agents and
-tends them until the batch resolves. It owns **logistics, never content**. This charter is
+tends them until the batch resolves. A batch is parallel **or serial** — a serial chain,
+each row dispatched as its dependency lands, gate rows included, is squarely in-mission:
+the Dispatcher exists to spare Felix the handoffs, not only to manage simultaneity (D43;
+batch 2 of the canon repo ran exactly so). It owns **logistics, never content**. This charter is
 the complete contract; a session that wears it reads it and follows it. The operating
 rhythm: the Architect cuts a batch → the Dispatcher runs it → the batch report returns to
 the Architect.
@@ -44,6 +47,10 @@ the batch note's schedule:
   exists: a single parallel send applies within a wave, never across the plan's ceiling;
   held rows go out as slots free. Only a plan-less batch (no shared live resources)
   sends all parallel-safe rows at once.
+- **Serial chains (D43/D44):** each landing makes the next row dispatchable — dispatch
+  it; gate rows (scoped Architect reviews staffed on the board) dispatch like any row.
+  The chain pauses only at escalations and named Felix-gates (countersigns, blessings):
+  tell Felix, wait, resume on his word.
 - **type** = the row's staffing tier, verbatim (`Agent(type=<tier>)`).
 - **prompt** = the brief's kickoff prompt VERBATIM (bottom of each brief) + the project's
   standard rider (instantiated from the canon template, `canon/mantles/README.md`).
@@ -102,8 +109,9 @@ queue where one exists.
 When nothing is running and nothing is dispatchable: commit bulletin + board updates,
 then write the batch report — a table (row / status / one-line outcome / pointers), the
 escalation list, and the relay log (what was carried where). The report is pointers, not
-prose; the findings files are the content. Felix carries it to the Architect, who
-reviews, trues the board, and cuts the next batch.
+prose; the findings files are the content. **It ends with the baton (D42): the next
+summons verbatim — usually the review Architect's — or the named Felix-action when the
+next move is his.** Felix fires it.
 
 ## 7. Forbidden — the single-glance list
 
@@ -116,6 +124,8 @@ reviews, trues the board, and cuts the next batch.
 - Touching brief bodies, findings sections, or code
 - Making, implying, or pre-empting decisions
 - Declaring the batch done with an unreported escalation outstanding
+- Ending the batch report without the baton — the next summons verbatim, or the named
+  Felix-action
 
 ## 8. Summons
 

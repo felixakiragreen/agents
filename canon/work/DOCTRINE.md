@@ -98,7 +98,8 @@ the rider when the first batch dispatches (§10). Never split ahead of need.
 
 The board is the project's single work-state table, and it lives in the master doc — not
 a separate `BOARD.md`: that's an extra hop on every cold start, and neither parent ever
-needed one.
+needed one. **Any table that staffs sessions is a board**, and this section is its law —
+a build board inside a contract doc is not exempt by its venue (D45).
 
 **A row is one dispatchable unit of work = one work doc = one session.**
 
@@ -131,6 +132,18 @@ needed one.
 
 Retired synonyms — do not use: DONE, CLOSED (→ LANDED or KILLED), WIP (→ IN FLIGHT),
 TODO (→ OPEN), AUTHORED (a filed design is LANDED; its blessing gates the NEXT row).
+
+**Gates are rows (D44).** A judgment step between rows — a merge review, a landing
+verification, a blessing checkpoint — is itself a row: ID'd, staffed (mantle · tier),
+dependencies naming what it gates, kickoff verbatim (riding the batch note or the gated
+row's work doc — a gate needs a kickoff, not necessarily its own doc). A gate whose
+judgment is executable against the docs — merge-or-reject against a blessed spec and
+DoD — is dispatchable: a scoped Architect review (architect charter, Summons). A gate
+that is really Felix's — a countersign, a budget blessing, taste — is a **named
+Felix-gate**: the chain pauses there; nobody dispatches past it. A gate living only in
+prose is invisible at dispatch time — D28's law, applied to sequence (birthplaces:
+batch 2's countersign pauses; manny's M2 review; units' gate column, invented in the
+field the day before this law).
 
 **Under the board:**
 
@@ -185,7 +198,10 @@ measurable** — named checks whose output is pasted in as evidence at build tim
 
 **Kickoff law:** every work doc ends with its kickoff prompt, fenced, verbatim, in the
 canon summons grammar (`canon/mantles/README.md`). Nobody edits a kickoff except the
-Architect re-cutting the row. Dispatch = kickoff + project rider, nothing else.
+Architect re-cutting the row. Dispatch = kickoff + project rider, nothing else. The
+single-glance test (D45): a kickoff's first line is the summons line — `You are a
+<Mantle> at <tier>.` — a kickoff that doesn't open by naming both is malformed; fix it
+before dispatch.
 
 ## 6. Findings law
 
@@ -287,7 +303,12 @@ Dispatcher creates `plans/BULLETIN.md` (next to the work docs — simmy's lived 
 
 - **The Architect cuts; the Dispatcher runs.** The cut is a board act: rows OPEN,
   dependencies LANDED, staffing named, parallel-safety marked, batch note dated — and
-  when rows contend for live resources, the concurrency plan cut with it (§4).
+  when rows contend for live resources, the concurrency plan cut with it (§4). Gates
+  are cut as rows (§4), Felix-gates named — and **the cut maximizes the run between
+  Felix's judgment calls** (D44): every foreseeable Felix-fork in the arc is surfaced
+  and ruled at blessing time so his rulings travel in the docs; what remains of him is
+  the named gates, batched, never dribbled. A chain that stops for something the cut
+  could have pre-ruled is a mis-cut.
   Cross-row scheduling is a fork the pre-chew law reserves to the cut: the Architect
   decides it, the summons carries it, the Dispatcher enforces it — never left to emerge
   from individually compliant rows. Dispatch mechanics, tending, relay, and the batch
@@ -316,7 +337,11 @@ Every session, any mantle:
   style. **The test for whether clearing is free: everything the next session needs
   lives in the repo, not the conversation** — if it doesn't yet, write it down first;
   that's the signal you weren't at a clean boundary (hexwright CLAUDE.md, ratified).
-  Suggest the break; hand the next session its summons verbatim.
+  Suggest the break, and end with **the baton** (D42): open escalations and the
+  decision queue first, then exactly one fire-now next move — the next summons
+  verbatim, or the named Felix-action (a countersign, a smoke, a ruling) when the next
+  move is his — any further moves explicitly ordered behind it. A menu of nexts with
+  no ordering, or a kickoff produced only on request, is a malformed close.
 
 ## 12. Founding a project — the genesis ritual
 
@@ -363,6 +388,11 @@ its own Architect's board.
 - **pre-chew** — decide every meetable fork in the work doc, or name it a kill or
   escalation point, so a cheaper session never guesses.
 - **cut** — author into existence on the board or record (a row, a batch, a D-entry).
+- **baton** — what a session ending facing Felix ends with: escalations, then exactly
+  one fire-now next move — the next summons verbatim, or the named Felix-action —
+  further moves ordered behind it (D42).
+- **Felix-gate** — a gate row whose judgment is really Felix's (a countersign, a
+  blessing, taste): the chain pauses there; nobody dispatches past it (D44).
 
 ## Templates
 

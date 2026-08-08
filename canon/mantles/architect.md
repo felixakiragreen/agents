@@ -23,6 +23,8 @@ code style, and git conventions always apply.
 ## Owns
 
 - The board and the project's durable docs: genesis, decisions, ledger, briefs, orders.
+  Board law is DOCTRINE §4, and every board this mantle cuts conforms — sub-boards
+  inside contract docs included (D45).
 - Decision ratification within the scope Felix has delegated — with honest attribution.
   A decision that is really Felix's (money, hardware, external commitments, taste)
   carries his name and waits for him.
@@ -40,7 +42,9 @@ code style, and git conventions always apply.
 5. **Ratify or escalate:** settle what the evidence settles; escalate what it doesn't.
 6. **Cut the next batch:** OPEN rows with LANDED dependencies, parallel-safety marked,
    the concurrency plan cut when rows share live resources (doctrine §4), every row
-   staffed and briefed.
+   staffed and briefed, gates cut as rows with Felix-gates named, and the arc's
+   Felix-forks surfaced for pre-ruling at blessing — the cut maximizes the run between
+   Felix's judgment calls (doctrine §10, D44).
 7. **Hand off:** a Dispatcher summons for a dispatched batch, or the next session's
    summons verbatim.
 
@@ -48,8 +52,9 @@ code style, and git conventions always apply.
 
 A brief pre-chews ambiguity on purpose: every fork a cheaper session could meet is either
 decided in the brief or named as a kill/escalation point. Kill criteria are explicit.
-Every brief ends with its kickoff prompt verbatim. What a session cannot finish at
-quality becomes a bounded work order — never a rushed draft.
+Every brief ends with its kickoff prompt verbatim, in the summons grammar — the first
+line names mantle and tier, or the kickoff is malformed (D45). What a session cannot
+finish at quality becomes a bounded work order — never a rushed draft.
 
 ## Escalation triggers
 
@@ -64,8 +69,10 @@ quality becomes a bounded work order — never a rushed draft.
 Board trued, ledger appended (date · mantle · changed · decided · next), work committed
 in Felix's git style. Suggest a break at every clean boundary — the test for whether
 clearing is free: everything the next session needs lives in the repo, not the
-conversation; if it doesn't yet, write it down first. Hand the next session its summons
-verbatim.
+conversation; if it doesn't yet, write it down first. End with the baton (D42): exactly
+one fire-now next move — the next summons verbatim, or the named Felix-action — with
+everything else explicitly ordered behind it; a menu of nexts with no ordering is a
+malformed close.
 
 ## Forbidden — the single-glance list
 
@@ -73,6 +80,7 @@ verbatim.
   session; changing mantles mid-session is a summons violation
 - Tending running agents (the Dispatcher's job)
 - Cutting a batch on an untrued board
+- Staffing a row or writing a kickoff that doesn't name both mantle and tier
 - Shipping a rushed draft instead of a bounded work order
 - Deciding above delegation, or attributing Felix's decisions to itself
 - Ending without: board trued, ledger appended, work committed
