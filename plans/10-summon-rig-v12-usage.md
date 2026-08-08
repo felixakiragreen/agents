@@ -535,6 +535,56 @@ window name, not the figure` (`fg=8 ⟨sess⟩`), `PASS no figure is ever dimmed
 carries a grey span (0)`, `PASS and the delta keeps its colour when stale — red is the
 point (2)`, `PASS the fresh line wears no grey at all, furniture included (0)`.
 
+**F10 — the panel-open spawn wedged the machine, twice over: forked-from-zle is a trap
+with two jaws** (2026-08-07, found live by Felix — Activity Monitor full of 95%-CPU zsh —
+and forensically reduced the same evening; fix landed same session, harness green).
+
+*Symptom.* Every panel-open left three immortal `-/bin/zsh` processes, each pinning a
+core. Growth was monotonic: the wedged fetch never writes its cache, so the cache is
+stale at every subsequent open, so every open spawns three more. Six trees (~60
+processes, ~7 cores) had accumulated in an afternoon before the cause was found.
+
+*Jaw (a) — the shipped bug.* v1.2's spawn was `{ _summon_usage_fetch } &! ` from inside
+`_summon_widget` — a fork of the interactive shell taken **while zle is active**. On zsh
+5.9 that copy busy-spins forever in the pipeline wait of the fetch's `$(security | header
+| curl)`: `sample` shows the loop in `execpline`'s jobs-table polling (`execlist`/
+`hasprocs` leaves), with the pipeline's own forks blocked behind write-ends the spinner
+still holds. Reproduced deterministically in a scripted pty: one ^G + Esc = three
+spinners. The foreground `summon-usage` path never had the bug — same fetch, no
+fork-from-zle.
+
+*Jaw (b) — found while fixing (a).* Exec'ing the worker (`zsh -fc 'source …;
+_summon_usage_fetch …' &!`) washes the inherited zle/job state and kills the spin — but
+the worker still holds the panel's tty as controlling terminal, and spawned mid-widget
+its pipeline members get stopped cold by SIGTTIN/SIGTTOU: caught live, whole trees in
+state `T`, curl blocked on a header that never comes (curl's `-H @-` stdin read happens
+in init, *before* `-m 5` starts counting — a frozen pipe defeats the timeout law).
+`trap '' TTOU TTIN TSTP` in the worker is not a fix: zsh subshells reset dispositions,
+so the pipeline's own forks revert to stoppable. The same components spawned from the
+*prompt* run clean — the widget context is the trigger, so nothing short of losing the
+tty is trustworthy.
+
+*The landed fix.* The worker is fully detached: `perl -MPOSIX -e 'fork && exit; setsid;
+exec @ARGV' -- zsh -fc 'source $1/summon.zsh && _summon_usage_fetch $2 $3' summon-fetch
+…` — fork+setsid+exec, no controlling terminal, no tty signals possible, `security`
+cannot try to prompt (an unauthorized keychain item now fails the fetch instead of
+freezing it, which the stale-table law already handles). Argv carries only paths — the
+token law holds — and `summon-fetch` is greppable in `ps`. Verified: pty run with staled
+caches refetches all three accounts in ~1 s and leaves zero processes behind; harness
+134/134 (spawn.zsh's shims became PATH executables — function shims die at the exec
+boundary, and had silently let the worker hit the real keychain and endpoint).
+
+*For v1.3 to evaluate* (the row 11 rework should choose deliberately, not inherit):
+(i) keep the perl-setsid worker — proven, but perl is a new dependency for one syscall;
+(ii) spawn from the `precmd` warm-keeper instead, where zle is inactive — untested
+whether jaw (a) or (b) bites outside a widget, and the panel's own open-time spawn still
+needs *some* safe shape; (iii) a zsh-native detach if one exists (`zsh -m` pgrp games,
+`script -q /dev/null` as a throwaway-pty wrapper — both unexplored); (iv) drop the
+open-time spawn entirely and let the warm-keeper own freshness, making the panel a pure
+reader. Whatever wins, the invariant this finding buys: **no code path may fork the
+interactive shell and run substitutions or pipelines in the copy while zle is active,
+and no fetch worker may share the panel's controlling terminal.**
+
 **F6 — adjacent, parked, not fixed:** (a) GENESIS row 04 still carries "Max smoke PENDING
 `/login`" for `~/.claude`; that account is demonstrably live and authenticated
 (`organizationType: claude_max`, `default_claude_max_20x`, profile fetched the same day,

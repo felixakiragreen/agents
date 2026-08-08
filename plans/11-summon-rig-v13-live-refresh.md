@@ -141,6 +141,19 @@ Evidence: `lab/08/run` extended, green, no regressions; the row's numbers pasted
 
 *(append here — deviations from spec, discoveries, parked adjacents)*
 
+**2026-08-07, post-draft, pre-bless — this spec is already stale where it touches the
+spawn, and the Architect must reconcile it with [10-F10](10-summon-rig-v12-usage.md)
+before cutting.** The same evening this brief was drafted, v1.2's panel-open spawn was
+found wedging the machine — two distinct mechanisms, forensics and the landed hotfix
+(a setsid-detached `summon-fetch` worker) are all in 10-F10. Consequences for this row:
+§1's "the same `_summon_usage_fetch` the panel already spawns" now means *the detached
+worker*, not a `&!` block — the block shape is banned by F10's invariant; §Out of
+scope's "any change to the fetch" is already violated by the hotfix and the line should
+be re-drawn around the new spawn; and F10 closes with four spawn-architecture options
+(keep perl-setsid · precmd-side spawning · zsh-native detach · warm-keeper-only
+freshness) that this row is the right desk to decide between — the warm-keeper §1
+proposes may itself change the answer, since precmd runs outside zle.
+
 ---
 
 **Kickoff (verbatim):**

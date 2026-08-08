@@ -122,6 +122,11 @@ table plus each cache's age — the answer to "why is my table grey".
   previous cache untouched rather than replacing it with nothing.
 - macOS may prompt the first time `security` reads an entry; "Always Allow" once per
   account settles it. If you decline, that account simply stays grey.
+- Background fetches run as `summon-fetch` — a fresh zsh, detached from the terminal via
+  `perl`'s `setsid` (macOS-shipped). Forking the panel's own shell for this wedged the
+  machine two different ways; the forensics and the ban are
+  [10-F10](../plans/10-summon-rig-v12-usage.md). `pgrep -fl summon-fetch` answers "is a
+  fetch in flight"; a wedge would show there too, and never should again.
 - `.claude.json`'s own `cachedUsageUtilization` is the same data, but it is refreshed on
   no clock you control — measured 77 minutes and 2.5 hours stale, and once showing 70%
   session usage against a window that had already reset when the truth was 0%. That is

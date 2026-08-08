@@ -689,3 +689,39 @@ asks zle for `fg=blue` and is correct — it renders orange in Felix's terminal 
 is a theme mapping, not a rig bug. Changed: `summon/summon.zsh`, `summon/README.md`,
 `lab/08/run`, `plans/10` (DoD note). Decided: nothing. Next: unchanged — the Architect
 summons at the end of Addendum 2 still stands.
+
+---
+
+**2026-08-07 · (null mantle, D26 — forensic session, unsummoned)** — Felix's Activity
+Monitor filled with 95%-CPU zsh processes, three more per Ctrl-G; traced, reduced,
+hotfixed, all same evening. The cause was v1.2's panel-open usage spawn — a trap with
+two jaws, full forensics in **10-F10**: (a) `{ _summon_usage_fetch } &!` forks the
+interactive shell *inside an active zle widget*, and on zsh 5.9 the copy busy-spins
+forever in `execpline`'s jobs-table polling while its own pipeline forks block behind
+pipe ends the spinner holds — the fetch never lands, the cache stays stale, every open
+spawns three more; (b) the obvious fix (exec a fresh worker zsh) trades the spin for
+SIGTTIN/SIGTTOU stops — the worker still shares the panel's tty, curl's `-H @-` stdin
+read precedes its `-m 5` clock, and `trap ''` cannot protect zsh subshells. Landed:
+the worker is fork+setsid+exec'd via macOS-shipped perl (`summon-fetch` in `ps`), no
+controlling terminal, no tty signals possible. Proven in a scripted pty: staled caches
+→ one ^G → all three accounts refetched in ~1 s, zero processes left; before the fix the
+same gesture deterministically left three immortal spinners. Six wedged trees (~60
+processes, ~7 cores, up to 71 min CPU each) were verified by stack sample and killed.
+`lab/08/spawn.zsh` shims became PATH executables — function shims die at the exec
+boundary and had silently let the test hit the real keychain; harness **134/134**.
+Side effects owned: test panels appended ~7 abort rows to `log/invocations.jsonl`
+(telemetry, left as data), and the fetch endpoint 429'd briefly under test load.
+Changed: `summon/summon.zsh` (spawn + comment), `lab/08/spawn.zsh`, `plans/10` (F10),
+`plans/11` (pre-bless addendum: spec stale where it touches the spawn), `summon/README.md`
+(worker caveat). Decided: nothing ratified — the setsid worker is a hotfix wearing F10's
+invariant (*never fork the interactive shell into substitutions/pipelines while zle is
+active; never let a fetch worker share the panel's tty*); the spawn architecture is the
+row-11 Architect's to choose from F10's four options. Next: the standing Architect
+summons, widened by one ruling:
+
+```
+You are an Architect at fable-high.
+Wear ~/code/agents/canon/mantles/architect.md,
+then read ~/code/agents/GENESIS.md and true the board after row 10:
+review and cut row 11, and rule on 10-F1, 10-F6(a), and 10-F10's spawn options.
+```

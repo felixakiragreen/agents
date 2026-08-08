@@ -392,6 +392,18 @@ _summon_usage_rows() {
 # has gone cold. This is the only fork the rig adds to opening the panel, and it happens
 # once, after Felix already has his panel on screen. Two panels racing spawn duplicate
 # fetches — harmless under atomic writes, and accepted.
+#
+# The worker is a setsid-detached fresh zsh, never a `{ _summon_usage_fetch } &!` block —
+# two independent hazards force this shape (10-F10). (a) A block forked here is a copy of
+# the interactive shell taken *inside an active zle widget*, and on zsh 5.9 such a copy
+# busy-spins forever in the pipeline wait of the fetch's `$(...)` — one wedged 95%-CPU
+# zsh per account per panel-open. (b) Even an exec'd fresh worker still has the panel's
+# tty as controlling terminal, and spawned mid-widget the kernel stops its pipeline
+# members with SIGTTIN/SIGTTOU — the fetch freezes, the cache stays stale, and every
+# open spawns three more frozen trees. `trap '' TTOU` cannot save the pipeline (zsh
+# subshells reset dispositions), so the worker drops the tty entirely: fork+setsid+exec
+# via macOS-shipped perl. `summon-fetch` is the name `ps` shows; argv carries only paths
+# — the token law holds.
 _summon_usage_spawn() {
 	local key dir cache
 	[[ -d $SUMMON_HOME/log/usage ]] || return 1
@@ -400,7 +412,9 @@ _summon_usage_spawn() {
 			(( EPOCHSECONDS - _summon_usage_fetched[$key] < _summon_usage_stale )) && continue
 		dir=${${(ps:\t:)_summon_account[$key]}[1]}
 		cache=$SUMMON_HOME/log/usage/${${~dir}:t}.json
-		{ _summon_usage_fetch $dir $cache } > /dev/null 2>&1 &!
+		perl -MPOSIX -e 'fork && exit; setsid; exec @ARGV' -- \
+			zsh -fc 'source $1/summon.zsh && _summon_usage_fetch $2 $3' summon-fetch \
+			$SUMMON_HOME $dir $cache < /dev/null > /dev/null 2>&1 &!
 	done
 	return 0
 }
