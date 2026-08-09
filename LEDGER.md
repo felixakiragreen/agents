@@ -753,3 +753,45 @@ three fork sheets and fires the returned Dispatcher summonses; the row-11 Archit
 summons stands verbatim in the prior entry; the harvest sweep stays queued — summons
 verbatim in the 2026-08-07 GA entry (simmy §8 pre-authorization, orb-machine sweep,
 09's F10(b), 07's F2 YAML fold).
+
+---
+
+**2026-08-08 · Grand Architect (06)** — The growing-pains sitting: Felix's field
+reports (ISSUES.md) diagnosed and folded. Ruled the b15 close an invalid baton — two
+holders is zero holders, no instrument, and behind it an undispatched executable gate
+(a D44 row the chain should have eaten); cohort caveat recorded — charters are read
+at wearing, so pre-D42 windows never saw the baton clause and their drops are
+deployment lag, not law failure. Investigated the new inter-agent plane (docs pull +
+live probe): ListAgents from this window showed 14 idle Guild sessions; the plane is
+OS-user-scoped — it crosses all three account silos, the Guild's first live
+cross-account channel — ephemeral, no audit trail; verdict attention-layer-never-
+truth-layer, the bulletin untouched. Cut and applied on countersign: **D46** the
+baton has one holder (literal shape + relay test — dispatcher.md §6/§7, DOCTRINE
+§11/§13, architect.md), **D47** the tier string is the dispatch (§2 negative space +
+first-dispatch audit + §7 forbidden; tier unchanged per D29), **D48** the merge-gate
+laws (instrument named verbatim; passing = FINISHED; shared branches never rewound;
+targets read from the repo — DOCTRINE §4/§10/§6.8), **D49** ISSUES.md the incident
+inbox (GA sweeps every summons — grand-architect.md, GENESIS §7; amended at
+countersign, Felix's call: swept entries are deleted, not struck-and-kept — the
+D-entry records folds, this ledger line records rejections, git archives the bytes).
+First sweep ran this sitting: all three entries ruled and folded — b15 → D46,
+batch-11 → D47 + row 12, G2 → D48; no rejections; inbox drained empty (entries
+archived in the apply commit, drained in the next). Row 12 cut, spec blessed
+in-session: the dispatch guard — a repo-committed PreToolUse hook denying
+`model:`/`effort:` on Agent calls with feedback naming the grid (venue tooling per
+05's rejection terms; wrong-tier *selection* stays D47's audit — a hook can't read
+the board). Felix's routing: the peer-messaging experiment **parked for a future
+harvest** (flows, guard-rails, kill criteria in GENESIS §5's parked note);
+"/agent commands" answered — user-side surfaces, they don't bind a Dispatcher's tool
+calls. Decided: D46–D49 (✓ Felix in-session, D49 amended at countersign); row 12
+cut; messaging parked. Next: fire row 12 —
+
+```
+You are a Builder at opus-high.
+Wear ~/code/agents/canon/mantles/builder.md,
+then execute the order at ~/code/agents/plans/12-dispatch-guard.md.
+```
+
+Behind it: the row-11 Architect summons (verbatim in the 2026-08-07 entries) · the
+queued harvest sweep (verbatim in the 2026-08-07 GA entry) · the parked messaging
+experiment.

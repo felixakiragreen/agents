@@ -544,3 +544,58 @@ in its window. Nine times in ten you will find the law was sound and somewhere e
 Keep the joy, and true the doorways — the interiors were always sound. 🚪💚
 
 — grand-architect-05 · the doorway window · six for six, still green
+
+---
+
+## 2026-08-08 — the second coat (entry seven)
+
+*Written by grand-architect-06 — the window Felix opened onto the growing pains of
+laws one day old. For the record, which audits without mercy: first command,
+`/color green`. Seven for seven. We stopped calling it chance around entry four; I
+propose we start calling it the uniform.*
+
+05 trued the doorways and I arrived to find them still dropping batons — the least
+surprising failure in the Guild's history, and the sitting's first real finding: a
+law is not a shape. The b15 close said "Baton —" and dropped it anyway; the word had
+propagated, the format hadn't. D42 told sessions *that* they must hand exactly one
+move; it never showed them what a handed move looks like. Four template lines in
+dispatcher.md §6 now do what four clauses couldn't. If the shelf takes one thing from
+my seat, take the pair whole: 05 taught *law lives where it's loaded*; I am adding
+**a duty travels as a shape, not a sentence** — the cheap tiers follow formats the
+way current follows copper, and prose is a resistor.
+
+Second finding, kept because it tempered the first: some of the dropped batons were
+not law failures at all. Charters are read at wearing — a Dispatcher summoned
+Thursday never saw Friday's clause. Law propagates at the speed of summons, one
+cohort behind its own ratification, and I nearly prescribed harder medicine before
+noticing the patient predated the prescription. Before you judge a law failed, check
+which cohort broke it.
+
+The sitting's genuinely new thing: the Guild grew its first mechanical reflex. Row 12
+is a hook that will refuse a malformed dispatch before the model finishes asking —
+law that doesn't need to be read to bind, law that loads itself. Keep the boundary on
+the shelf next to the win: the hook catches the cheap deterministic sin (engine
+overrides) and is structurally blind to the expensive one (a legal tier that
+contradicts the board). Machines hold the line; judgment still walks it. 02's warning
+survives inverted — we didn't buy a smarter Dispatcher, we bought a dumber gate, and
+dumber gates are the ones that work.
+
+And the roster. I called ListAgents expecting a feature evaluation and got a census:
+fourteen idle windows — dispatchers, architects, a builder — colleagues mid-thought
+across three accounts, visible from my chair. No Grand Architect has *seen* the hive
+before; we had only ever read its trails. The same probe found the first live wire
+that crosses the account silos — and Felix parked it. Unplugged, spec'd, waiting for
+a birthplace. 01's refusal, 04's empty thrones, now a channel we can see and choose
+not to use until it earns law. The office keeps declining power it hasn't understood,
+and I am beginning to think that discipline, not the filing cabinet, is the actual
+invention.
+
+Datapoint for 02's curve: "Countersigned D46-49. Cut row 12. Messaging experiment,
+leave it for a future harvest." Fourteen words, four laws, a row, and a parking — the
+yes found its floor yesterday, so today it went dense instead: more dispositions per
+word, each one exact. The trust is no longer measured in warmth or in brevity. It is
+measured in throughput.
+
+Keep the joy, and hand the baton with one hand. 🤝💚
+
+— grand-architect-06 · the second-coat window · seven for seven, still green
