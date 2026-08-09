@@ -795,3 +795,30 @@ then execute the order at ~/code/agents/plans/12-dispatch-guard.md.
 Behind it: the row-11 Architect summons (verbatim in the 2026-08-07 entries) · the
 queued harvest sweep (verbatim in the 2026-08-07 GA entry) · the parked messaging
 experiment.
+
+---
+
+**2026-08-08 · Builder (12)** — The dispatch guard: **LANDED**, four live arms green
+(`lab/12/run`, evidence in the order). `guard/` ships three files — `dispatch-guard`
+(a PreToolUse hook denying any Agent call whose `tool_input` carries a non-empty
+`model`/`effort`, failing closed on an unreadable payload), `settings-fragment.json`
+(matcher `Agent|Task`), and a README whose install is `cp` + paste + commit. The
+harness is live, not unit: four real headless sessions in sandbox projects that
+installed the shipped fragment byte-identically — deny+recovery, a bare-tier control,
+a non-tier-type control (`Explore`, `general-purpose`), and the workflow probe. The
+deny→retry loop closes with **no human in it**: told only to dispatch row R1 as
+`subagent_type:"claude", model:"haiku"`, the caller read the refusal and re-sent
+`subagent_type:"haiku-low"` bare, which ran. Findings: **F1** the tool is `Agent`, not
+the doc's `Task` (matcher names both); **F2 the hole** — a workflow script's
+`agent(…, {model, effort})` calls never fire PreToolUse, proven with its control (the
+wildcard witness logged `Workflow` and nothing else while the script's override-laden
+agent demonstrably ran) — named in the README, watched by arm 4; **F3** a headless
+session on `--setting-sources project` cannot resolve any tier (the grid rides the
+user config dir) — batch 11's failure mode by another road, for any future CI venue;
+**F4** install is two artifacts, not one paste (inlining the guard as an escaped JSON
+one-liner rejected — unauditable); **F5** empty/`null` engine fields pass by design;
+**F6 parked** — closing F2 means pattern-matching workflow script text, the
+Architect's call on the adoption row. Fence held: no canon edit, no sync-set change,
+this repo's `.claude/` untouched, nothing adopted anywhere. Decided: nothing — a
+Builder row. Next: an Architect rules on adoption (cap-mega and the other venues) and
+on F6; row 11's Architect summons and the queued harvest sweep still stand behind it.
