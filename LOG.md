@@ -613,3 +613,5 @@ all the best decisions have been driven by real pain. He keeps pushing the limit
 how much work he can hold; the day the routing labor hurts, the pain will sign the
 charter the way it has signed every good law in this city. The keel-note is in stone
 now (`plans/quartermaster.md`), so this conversation can die properly. It earned it.
+
+---
