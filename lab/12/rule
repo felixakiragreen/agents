@@ -29,6 +29,15 @@ def check(ok, name, detail=""):
 		print("  FAIL  %s%s" % (name, "\n          " + detail if detail else ""))
 
 
+def as_text(content):
+	"""A tool result's text, however the platform boxed it — one string or a block list."""
+	if isinstance(content, str):
+		return content
+	if isinstance(content, list):
+		return "\n".join(b.get("text", "") for b in content if isinstance(b, dict))
+	return ""
+
+
 def timeline(path):
 	"""The session, flattened to what this harness rules on, in emission order."""
 	events = []
@@ -46,7 +55,7 @@ def timeline(path):
 				if block.get("type") == "tool_use":
 					events.append(("call", block["name"], block["input"]))
 				elif block.get("type") == "tool_result":
-					events.append(("result", json.dumps(block.get("content")), None))
+					events.append(("result", as_text(block.get("content")), None))
 		elif kind == "result":
 			events.append(("final", event.get("result", ""), None))
 	return events
