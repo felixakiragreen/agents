@@ -858,3 +858,35 @@ rule on 12-F6, and cut the rig's name-stamp row (plans/quartermaster.md §5).
 Behind it: guard adoption in cap-mega (its own Architect's board — the guard travels
 in that board's next summons) · the queued harvest sweep (verbatim in the 2026-08-07
 GA entry) · the parked messaging experiment (plans/quartermaster.md).
+
+---
+
+**2026-08-08 · Architect (board truing after 10–12)** — The standing summons executed
+in full; every ruling filed where its finding lives. **10-F1 accepted** (2.562 ms per
+keystroke; the latency clause was the defect — "unchanged" becomes a budget:
+per-keystroke ≤ 5 ms measured, fork-free asserted; row 11 inherits). **10-F6(a)
+struck** — 10-E2 measured `~/.claude` live and authenticated (OAuth 200, claude_max
+profile same-day) and row 08's rig smoke ran ×3, so GENESIS row 04, §8 item 3 and the
+v1 closure note lose the stale Max `/login` PENDING. **10-F10 ruled option (i)** — the
+setsid-detached `summon-fetch` worker is the rig's ONE spawn shape at both spawn
+sites; panel-open spawn retained (idle terminals draw no prompts — warm-keeper-only
+reintroduces the stale-open defect); zsh-native detach declined (probe work vs a green
+134-assertion harness); perl accepted (`security` already binds the rig to macOS).
+**12-F6 closed, no-build** — regexing workflow-script source makes a deterministic
+guard probabilistic in both directions; the hole stays named (README) and watched
+(arm 4), D47 binds workflow authors procedurally, adoption rows install as shipped.
+**Row 11 reviewed and cut** — the Builder's draft was sound; its four open forks ruled
+in the doc (*The cut*): spawn shape, F1 inheritance, constants shipped as named
+variables (300 s / 5 s / 0.2 s), the multi-terminal race bounded by the idle-terminal
+observation; DoD extended with the F10 regression guard (zero stray processes,
+asserted) and the one-spawn-shape assertion; staffing confirmed Builder · opus-high;
+**Felix's blessing is the named gate — no build before it**. **Row 13 cut** (the
+name-stamp — Felix's call, quartermaster §5): `claude --name` verified as the
+launch-time mechanism (guide probe against `--help`, build ~2.1.x; it is also a resume
+handle); scheme ruled `<mantle>-<theater>-<account>`, theater `${PWD:t}`, bare
+launches drop the mantle segment, eject keeps the stamp editable, no uniquifying
+suffix until collision bites; depends on 11 — file collision, serial by physics.
+Batch note on the board: **v1.3 chain 11 → 13, strictly serial, Felix-tended, no
+Dispatcher**. Decided: the rulings above, all inside delegated scope — nothing claimed
+that is Felix's; his one call is the named blessing. Next: Felix blesses row 11; the
+chain runs behind his word.

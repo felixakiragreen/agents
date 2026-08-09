@@ -185,6 +185,17 @@ is JavaScript source; catching `agent(…, {model: …})` there means pattern-ma
 the false positives and bypasses that implies. Not built, not in scope — the Architect's, on
 whatever row takes up adoption.
 
+> **Ruled 2026-08-08 (Architect, post-landing review): no text-matcher, closed.** The
+> guard's value is that it is deterministic; regexing JavaScript source makes it
+> probabilistic in both directions — a false positive teaches callers the guard is
+> noise (F5's own logic), and a bypass is one computed options-object away. The hole
+> stays **named** (README) and **watched** (arm 4 goes red the day a build closes it —
+> at which point the guard covers workflows for free). The venue answer is procedural,
+> already law: D47 binds the author of a workflow script exactly as it binds an Agent
+> call — `agentType` carries the tier, engine overrides never ride. Adoption rows
+> (cap-mega first) inherit this ruling: install the guard as shipped, quote the hole
+> from the README, no matcher work.
+
 ---
 
 Kickoff (verbatim):

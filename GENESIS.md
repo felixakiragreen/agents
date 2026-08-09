@@ -89,15 +89,16 @@ run it when something feels off; green + still broken ⇒ auth, not sync). `depl
 | 01 | [Composition model](plans/01-composition-model.md) | keel | Architect · fable-max | **LANDED** 2026-08-02 |
 | 02 | [Work doctrine](plans/02-work-doctrine.md) | keel; soft interlock with 01 | Architect · fable-max | **LANDED** 2026-08-03 → `canon/work/` |
 | 03 | [Global CLAUDE.md](plans/03-global-claude-md.md) | 01 + 02 LANDED, 02's D-entries countersigned | Architect · fable-max | **LANDED** 2026-08-03 |
-| 04 | [Sync](plans/04-sync.md) | build: 01–03 LANDED | Digger · opus-high → Builder · opus-high | **LANDED** 2026-08-03 — deploy + check green 3×3, canary ×3, smoke ✓ fgreen + doorbell (Max smoke PENDING `/login`) |
+| 04 | [Sync](plans/04-sync.md) | build: 01–03 LANDED | Digger · opus-high → Builder · opus-high | **LANDED** 2026-08-03 — deploy + check green 3×3, canary ×3, smoke ✓ ×3 (Max `/login` PENDING **struck 2026-08-08**, 10-F6(a): 10-E2 measured `~/.claude` live and authenticated — OAuth usage HTTP 200, `claude_max` profile fetched same day — and row 08's rig smoke ran ×3 on 2026-08-06) |
 | 05 | [Saturation harvest — snappy batch-1 → canon](plans/05-saturation-harvest.md) | — | Grand Architect · fable-max | **LANDED** 2026-08-05 — D28–D30 entered amended, rejections upheld, D31 (hive-city voice) cut; D28–D31 ✓ Felix same day |
 | 06 | [hexwright retrofit](plans/06-hexwright-retrofit.md) | — (D32 ✓ 2026-08-06) | Architect · fable-high | **LANDED** 2026-08-06 → [findings](plans/06-hexwright-retrofit.md); hexwright D9 ✓ Felix (via D32); board minted, dream renamed |
 | 07 | [simmy retrofit](plans/07-simmy-retrofit.md) | — (D32 ✓ 2026-08-06) | Architect · fable-high | **LANDED** 2026-08-06 → [findings](plans/07-simmy-retrofit.md); simmy D16 ✓ Felix; B14 clear to resume |
 | 08 | [summon rig](plans/08-summon-rig.md) | D34 ✓ 2026-08-06 | Builder · opus-high | **LANDED** 2026-08-06 → `summon/` + [DoD evidence](plans/08-summon-rig.md) (33 assertions green, `lab/08/run`); dotfiles source line ✓ 2026-08-06; smoke ×3 ✓ Felix 2026-08-06 (the per-account routing proof the shim couldn't give). F3 PARKED (Felix): deferred into the future slash-summons work |
 | 09 | [summon rig v1.1](plans/09-summon-rig-v11.md) | 08 LANDED; D36 (dispatch countersigns) | Builder · opus-high | **LANDED** 2026-08-06 → [DoD evidence](plans/09-summon-rig-v11.md) (76 assertions green, `lab/08/run`); 2-key refire, cascade+override, `[n]one` bare, palette, 60-col wrap. Palette trap fired — escapes die in `zle -M`, so the colours ride `region_highlight` (F1/F2). D36 ✓ Felix (by dispatch); visual pass ✓ Felix 2026-08-06 — rig in daily use, refinements to accrue over live weeks; smoke ×3 ✓ Felix 2026-08-06 |
-| 10 | [summon rig v1.2 — the usage panel](plans/10-summon-rig-v12-usage.md) | 09 LANDED; D41 ✓ 2026-08-07 | Builder · opus-high | **LANDED** 2026-08-07 → [DoD evidence](plans/10-summon-rig-v12-usage.md) (134 assertions green, `lab/08/run`). E2 settled: the usage source is the OAuth endpoint, keychain service derived as `sha256(config dir)[:8]` — the `.claude.json` cache was measured hours stale and once inverted the arbitrage, so the rig fetches. Felix's gate: probe (b), granted 2026-08-07. Fetcher proven on all three live accounts (F8). Felix's first look amended D41's palette law in-session — staleness greys the furniture, never the figures (F9). **Full panel visual pass PENDING Felix**; F1 (per-keystroke 1.57→2.56 ms, declined to optimise) and F6(a) (row 04's stale `~/.claude` PENDING) are the Architect's to rule on |
-| 11 | [summon rig v1.3 — the live table](plans/11-summon-rig-v13-live-refresh.md) | 10 LANDED | Builder · opus-high *(proposed)* | **OPEN — spec unblessed.** Drafted 2026-08-07 by row 10's Builder at Felix's direction, not by an Architect: **an Architect reviews and cuts it, Felix blesses, before anyone builds.** Fixes what row 10's visual pass exposed — the panel repaints only on a keystroke, so an in-flight fetch is invisible if Felix just looks. Two mechanisms: a `precmd` warm-keeper (the panel opens already-current) and an await-mode tick (`read -k -t` verified working in a zle widget — 7 timer repaints over a 3 s silence). Continuous polling while open is argued and rejected in the doc, with the rate-limit evidence |
-| 12 | [the dispatch guard](plans/12-dispatch-guard.md) | — | Builder · opus-high | **LANDED** 2026-08-08 → `guard/` + [DoD evidence](plans/12-dispatch-guard.md) (four live arms green, `lab/12/run`). The deny→retry loop closes with no human in it. **The hole, proven:** workflow-script `agent(…, {model, effort})` calls never fire `PreToolUse` (F2) — README names it, arm 4 watches it. Adoption anywhere is still its own row |
+| 10 | [summon rig v1.2 — the usage panel](plans/10-summon-rig-v12-usage.md) | 09 LANDED; D41 ✓ 2026-08-07 | Builder · opus-high | **LANDED** 2026-08-07 → [DoD evidence](plans/10-summon-rig-v12-usage.md) (134 assertions green, `lab/08/run`). E2 settled: the usage source is the OAuth endpoint, keychain service derived as `sha256(config dir)[:8]` — the `.claude.json` cache was measured hours stale and once inverted the arbitrage, so the rig fetches. Felix's gate: probe (b), granted 2026-08-07. Fetcher proven on all three live accounts (F8). Felix's first look amended D41's palette law in-session — staleness greys the furniture, never the figures (F9). **Full panel visual pass PENDING Felix**. Ruled 2026-08-08 (Architect): F1 accepted — latency clause is now a budget, per-keystroke ≤ 5 ms; F6(a) struck (row 04 amended); F10's spawn options ruled option (i), operative in row 11's spec |
+| 11 | [summon rig v1.3 — the live table](plans/11-summon-rig-v13-live-refresh.md) | 10 LANDED; **Felix-gate: blessing** | Builder · opus-high | **OPEN — cut 2026-08-08 (Architect), blessing PENDING Felix.** Fixes what row 10's visual pass exposed — the panel repaints only on a keystroke, so an in-flight fetch is invisible if Felix just looks. Two mechanisms: a `precmd` warm-keeper (the panel opens already-current) and an await-mode tick (`read -k -t` verified in a zle widget). The cut ruled the 10-F10 spawn fork: one detached `summon-fetch` worker shape at both spawn sites, panel-open spawn retained (idle terminals draw no prompts), 10-F1 inherited as a ≤ 5 ms budget. No build before Felix's blessing |
+| 12 | [the dispatch guard](plans/12-dispatch-guard.md) | — | Builder · opus-high | **LANDED** 2026-08-08 → `guard/` + [DoD evidence](plans/12-dispatch-guard.md) (four live arms green, `lab/12/run`). The deny→retry loop closes with no human in it. **The hole, proven:** workflow-script `agent(…, {model, effort})` calls never fire `PreToolUse` (F2) — README names it, arm 4 watches it. F6 ruled 2026-08-08 (Architect): no text-matcher — deterministic or nothing; the hole stays named + watched, D47 binds workflow authors procedurally. Adoption anywhere is still its own row |
+| 13 | [summon rig — the name-stamp](plans/13-summon-rig-name-stamp.md) | 11 LANDED (file collision: `summon.zsh` + `lab/08` fixtures) | Builder · opus-high | **OPEN — cut 2026-08-08** on Felix's call (quartermaster §5). The rig stamps `--name <mantle>-<theater>-<account>` at fire (`claude --name` verified against `--help`, ~2.1.x); bare launches drop the mantle segment, eject keeps the stamp editable. The roster stops being anonymous doors |
 
 Statuses per the doctrine (`canon/work/DOCTRINE.md` §4): OPEN → IN FLIGHT → LANDED /
 KILLED. Any account can host any session — the repo carries the truth; account choice is
@@ -126,6 +127,14 @@ the Grand Architect when that row is cut. Parked is tracked, not lost.
 row, independent: a repo-committed PreToolUse hook that denies engine overrides on
 Agent calls (D47's mechanical arm; venue tooling per 05's rejection terms). Kickoff
 in the order.
+
+**v1.3 chain (cut 2026-08-08, Architect): 11 → 13 — strictly serial, Felix-tended.**
+Serial by physics, not logic: both rows edit `summon/summon.zsh` and the `lab/08`
+fixtures. No Dispatcher — the chain's gates are Felix's own (bless 11 at the top;
+a visual pass / smoke at each landing) and he tends the rig work directly, as rows
+08–10. Kickoffs verbatim in each work doc. Behind the chain, unordered against it:
+guard adoption in cap-mega (that board's own Architect) and the queued harvest sweep
+(Grand Architect).
 
 **Parked:** the peer-messaging experiment (SendMessage taps between live sessions —
 gate-delivery pokes, cross-account bulletin pokes; pointers-not-payloads,
@@ -163,13 +172,14 @@ and is example #1 of it. Local physics:
 1. `canon/` complete: CLAUDE.md · `agents/` (20 tiers) · `mantles/` (5 + README) ·
    `skills/` (5 shims) · `work/` (doctrine + templates). ✓
 2. `sync/deploy` + `sync/check` landed; `check` green across all three accounts. ✓
-3. All three accounts serve canon live; smoke-summon passes per account. ✓ fgreen +
-   doorbell (`~/.claude` smoke PENDING Felix's `/login` — recorded, not blocking).
+3. All three accounts serve canon live; smoke-summon passes per account. ✓ ×3
+   *(the `~/.claude` PENDING struck 2026-08-08 — 10-F6(a): account measured live and
+   authenticated, rig smoke ×3 ✓ 2026-08-06 at row 08).*
 4. This repo conforms to its own doctrine (02). ✓
 5. Board all LANDED; LEDGER and DECISIONS current. ✓
 
-**Canon v1 CLOSED 2026-08-03** — evidence in the 04 Stage B checklist. The one PENDING:
-Max `/login` + its smoke. Next campaign when Felix calls it: **v2 — the retrofits**
+**Canon v1 CLOSED 2026-08-03** — evidence in the 04 Stage B checklist. The one PENDING
+at closure — Max `/login` + its smoke — was struck 2026-08-08 (10-F6(a), item 3 above). Next campaign when Felix calls it: **v2 — the retrofits**
 (hexwright, simmy onto the canon), cut fresh by a Grand Architect. — **Called and cut
 2026-08-06** (rows 06/07, D32).
 

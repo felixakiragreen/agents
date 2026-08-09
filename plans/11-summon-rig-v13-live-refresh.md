@@ -1,9 +1,10 @@
 # 11 — summon rig v1.3: the live table
 
-**Status:** OPEN · **Depends on:** 10 LANDED · **Staffing:** Builder · opus-high
-(proposed) · **Blessed:** ⟨nobody yet — spec drafted by row 10's Builder at Felix's
-direction 2026-08-07; an Architect reviews and cuts, Felix blesses. **No build before
-this line is filled.**⟩
+**Status:** OPEN · **Depends on:** 10 LANDED; **Felix's blessing (named gate)** ·
+**Staffing:** Builder · opus-high (confirmed at the cut — same trap class as rows
+08–10: zle, detached spawns, harness fixtures) · **Blessed:** ⟨Architect reviewed and
+cut 2026-08-08 — rulings in *The cut* below, spawn architecture reconciled with 10-F10.
+**Felix's blessing PENDING; no build before it.**⟩
 
 > Provenance, honestly: this document is a Builder's design, not an Architect's. Felix
 > asked how to fix the staleness he saw at row 10's visual pass, chose "write the brief,
@@ -47,13 +48,46 @@ rate-limited endpoint (`cache/changelog.md:492` — *"`/usage` now shows your la
 usage bars with an 'as of' note when the usage endpoint is rate-limited"*) on numbers that
 cannot have changed. Freshness is won *before* the panel opens (§1), not during it.
 
+## The cut — Architect rulings, 2026-08-08
+
+The draft was sound; four forks it left open are ruled here so the Builder meets none
+of them:
+
+1. **Spawn architecture (10-F10's four options): option (i) — the setsid-detached
+   `summon-fetch` worker is the rig's ONE spawn shape, both spawn sites.** The
+   `precmd` warm-keeper and the panel-open spawn both exec the landed worker
+   (`perl -MPOSIX` fork+setsid+exec); the `{ … } &!` block form is banned by F10's
+   invariant, which this row inherits as law: *no code path may fork the interactive
+   shell and run substitutions or pipelines in the copy while zle is active, and no
+   fetch worker may share the panel's controlling terminal.* Option (ii) alone is
+   insufficient — the panel-open spawn still needs a safe shape; (iii) is unexplored
+   probe work for zero proven benefit over a green 134-assertion harness; (iv) is
+   rejected on a hole: an idle terminal draws no prompts, so under a warm-keeper-only
+   design a window untouched for an hour opens the panel on hour-old caches and
+   nothing ever refetches — the exact defect this row exists to fix. The perl
+   dependency is accepted: `security` already binds the rig to macOS, and
+   `/usr/bin/perl` ships with it.
+2. **10-F1 ruled, inherited (per §4):** 2.562 ms per keystroke is accepted as landed.
+   The latency clause for this row is a budget, not "unchanged": **per-keystroke
+   ≤ 5 ms measured, fork-free asserted**; a tick costs one paint against the same
+   budget.
+3. **The proposed constants stand:** warm threshold 300 s, await limit 5 s, tick
+   0.2 s — shipped as named variables (`_summon_usage_warm`, `_summon_usage_await`),
+   Felix-editable, defaults as proposed. Not worth a config surface.
+4. **The multi-terminal race stays accepted, with the observation that bounds it:**
+   only terminals actively drawing prompts warm anything — idle windows fired their
+   last `precmd` long ago. The ceiling is one fetch per *active* terminal per 300 s;
+   Felix drives one to three at a time. Lock file only on measured evidence, as
+   drafted.
+
 ## Spec
 
 ### 1. The warm-keeper — `precmd`, the higher-value half
 
 - A `precmd` hook: on every prompt, if any account's cache is older than
-  `_summon_usage_warm` (**300 s**, proposed), spawn one disowned background fetch for that
-  account — the same `_summon_usage_fetch` the panel already spawns.
+  `_summon_usage_warm` (**300 s**), spawn one detached background fetch for that
+  account — the same setsid-detached `summon-fetch` worker the panel spawns (10-F10's
+  landed shape; the `&!` block form is banned — see *The cut*, ruling 1).
 - **The check must be fork-free**: `fetched_at` already lives inside each cache and
   `_summon_usage_load` reads it with `$(<file)`, no fork. A prompt hook that forks on every
   prompt is a tax on every command Felix runs and would be worse than the problem.
@@ -96,10 +130,10 @@ cannot have changed. Freshness is won *before* the panel opens (§1), not during
 
 - Zero forks in the keystroke loop, ticks included: a tick re-reads caches with `$(<file)`
   and rebuilds the panel, both fork-free. The only forks remain the disowned fetch spawns.
-- **The amended clause:** 10-F1 recorded per-keystroke rising 1.569 → 2.562 ms and Felix
-  has not yet ruled on it. A tick costs one paint, so at 0.2 s that is ~1.3% of one core
-  **while awaiting only** (≤ 5 s per panel open). Re-measure; if the Architect rules 10-F1
-  unacceptable, this row inherits that ruling rather than re-litigating it.
+- **The amended clause — ruled at the cut:** 10-F1 is accepted (see *The cut*,
+  ruling 2); the clause is a budget: **per-keystroke ≤ 5 ms measured, fork-free
+  asserted**. A tick costs one paint, so at 0.2 s that is ~1.3% of one core **while
+  awaiting only** (≤ 5 s per panel open). Re-measure and paste the numbers.
 
 ## Acceptance criteria — the DoD
 
@@ -120,7 +154,14 @@ Evidence: `lab/08/run` extended, green, no regressions; the row's numbers pasted
       removable
 - [ ] No `log/usage/` ⇒ panel **and** prompt byte-identical to v1.2 (the v1.2 render is the
       reference, as v1.1 was for row 10)
-- [ ] Latencies re-measured: per-keystroke, per-tick, per-prompt-hook, panel-open
+- [ ] Latencies re-measured: per-keystroke, per-tick, per-prompt-hook, panel-open —
+      per-keystroke inside the ≤ 5 ms budget
+- [ ] **No stray processes** (10-F10's regression guard): a live pty run that opens the
+      panel on cold caches, sits through await-mode, and closes leaves zero worker or
+      shell processes behind — asserted, not eyeballed
+- [ ] **One spawn shape**: both spawn sites — `precmd` and panel-open — exec the
+      detached `summon-fetch` worker; no `&!` fork of the interactive shell exists
+      anywhere in the rig (asserted by grep or harness, either is fine)
 - [ ] README: the freshness story — what grey means now, what the warm-keeper does
 - [ ] Felix's visual pass: open `^G` on a cold cache and watch the numbers arrive
 
@@ -128,8 +169,10 @@ Evidence: `lab/08/run` extended, green, no regressions; the row's numbers pasted
 
 - **Polling the endpoint on a timer while the panel is open** — rejected above, with the
   rate-limit evidence. Not parked: argued and closed.
-- Any change to the fetch, the normalization, the cache format, or the keychain derivation
-  — row 10 landed those and they are not reopened here.
+- Any change to the fetch itself, the normalization, the cache format, or the keychain
+  derivation — row 10 landed those (in their post-F10-hotfix shape) and they are not
+  reopened here. The **spawn sites** are this row's to build per *The cut*, ruling 1 —
+  that is the one place the old "any change to the fetch" line is redrawn.
 - Token refresh, re-auth, or any write to any credential store — forbidden, inherited.
 - A refresh key or usage toggle key — the reserved-key set does not grow (10's fence).
 - `launchd`/`cron` as the warm-keeper. A prompt hook needs no install step, no plist and
@@ -153,6 +196,10 @@ be re-drawn around the new spawn; and F10 closes with four spawn-architecture op
 (keep perl-setsid · precmd-side spawning · zsh-native detach · warm-keeper-only
 freshness) that this row is the right desk to decide between — the warm-keeper §1
 proposes may itself change the answer, since precmd runs outside zle.
+
+> **Reconciled at the cut, 2026-08-08:** all three consequences absorbed — §1 now
+> names the detached worker, the out-of-scope line is redrawn around the spawn sites,
+> and the four options are ruled (*The cut*, ruling 1). Closed.
 
 ---
 

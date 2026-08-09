@@ -431,6 +431,13 @@ the mtime moved) buys a millisecond nobody can perceive at the cost of a stalene
 class. Premature optimisation; measured and declined. Flagged rather than buried because
 the DoD line said "unchanged" and it is not.
 
+> **Ruled 2026-08-08 (Architect, row 10 review): accepted as landed.** The re-read
+> clause carries the feature, fork-freeness is asserted directly, and 2.562 ms is two
+> orders below perception. The latency law's word was the defect: "unchanged" makes a
+> millisecond that buys correctness read as a violation. For row 11 onward the clause
+> is a budget — **per-keystroke ≤ 5 ms measured, fork-free asserted** — and row 11
+> inherits this ruling (its §4).
+
 **F2 — cosmetic deviations from the rendering guide, and why** (09-F8's precedent). The
 guide's cells (`sess 42%+31  week 61%-8   fable 12%+55`) pad each cell whole; that is what
 ships, at a fixed 13 columns — the width of the widest cell the data can produce,
@@ -585,6 +592,14 @@ reader. Whatever wins, the invariant this finding buys: **no code path may fork 
 interactive shell and run substitutions or pipelines in the copy while zle is active,
 and no fetch worker may share the panel's controlling terminal.**
 
+> **Ruled 2026-08-08 (Architect, row 10 review): option (i) — the perl-setsid worker
+> stays, as the rig's ONE spawn shape.** Row 11's warm-keeper spawns the same detached
+> worker from `precmd`; the panel-open spawn is retained (an idle terminal draws no
+> prompts, so the warm-keeper alone reintroduces the stale-open defect); options (iii)
+> and (iv) are declined — reasoning in row 11's spec, where the ruling is operative.
+> The perl dependency is accepted: `security` already binds the rig to macOS, and
+> `/usr/bin/perl` ships with it. F10's invariant is law for every future rig row.
+
 **F6 — adjacent, parked, not fixed:** (a) GENESIS row 04 still carries "Max smoke PENDING
 `/login`" for `~/.claude`; that account is demonstrably live and authenticated
 (`organizationType: claude_max`, `default_claude_max_20x`, profile fetched the same day,
@@ -596,6 +611,13 @@ sitting next to the real `~/.claude/.claude.json` is a name collision waiting to
 future reader. (c) The `security` read completed without a GUI prompt in this session; a
 first-run prompt on Felix's own shell is still possible and is a README caveat, not a
 design.
+
+> **F6(a) ruled 2026-08-08 (Architect, row 10 review): struck.** The PENDING was
+> written when `~/.claude` had never authenticated; this row measured the account live
+> (`organizationType: claude_max`, profile fetched same day, OAuth usage HTTP 200), and
+> row 08's rig smoke ran ×3 accounts on 2026-08-06 — the per-account launch proof the
+> PENDING was waiting for. GENESIS row 04 and §8 item 3 amended with this citation.
+> (b) and (c) stay parked untouched.
 
 ## Kickoff — verbatim
 
