@@ -72,7 +72,8 @@ clearing is free: everything the next session needs lives in the repo, not the
 conversation; if it doesn't yet, write it down first. End with the baton (D42): exactly
 one fire-now next move — the next summons verbatim, or the named Felix-action — with
 everything else explicitly ordered behind it; a menu of nexts with no ordering is a
-malformed close.
+malformed close. One holder, one instrument — a baton naming two hands, or an "or",
+is malformed (D46).
 
 ## Forbidden — the single-glance list
 

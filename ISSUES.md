@@ -6,6 +6,13 @@ Baton — the next move is yours or the Architect's: review and merge spike/b15-
 
 My question: Is this a valid baton hand-off?
 
+**Folded 2026-08-08 (GA-06): NO — struck → D46.** Two holders ("yours or the
+Architect's") is zero holders; no instrument (no fenced summons); and the move was an
+undispatched executable gate — a D44 row the chain should have eaten. Baton shape +
+relay test now law (dispatcher.md §6/§7, DOCTRINE §11). Cohort caveat on record:
+pre-D42 windows never saw the baton clause; their drops are deployment lag, not law
+failure.
+
 ---
 
 ## 2026-08-08 — cap-mega node-param G2: dispatched Architect pushed to origin/dev directly
@@ -39,6 +46,11 @@ ledger).
    premature merge is an escalation, not a rewind.
 4. A remediation target is verified from the repo (merge-parent forensics), never taken
    from a summons' recollection.
+
+**Folded 2026-08-08 (GA-06): struck → D48.** Candidates 1+2 → DOCTRINE §4 (instrument
+named verbatim; passing = the proving run FINISHED); 3 → §10 (shared branches never
+rewound); 4 → §6 clause 8 (targets read from the repo). Ruling 15 stays cap-mega
+project physics — canon absorbs no branch policy.
 
 ---
 
@@ -90,5 +102,11 @@ same day.
 3. Consider whether the Agent tool's `model` parameter should be documented as
    incompatible with tier-named `subagent_type`s (redundant/conflicting), to make this
    class of mistake harder to make silently.
+
+**Folded 2026-08-08 (GA-06): struck → D47 + row 12.** Candidates 1+2 → dispatcher.md
+§2 (verbatim tier string, never a generic type + engine overrides; first-dispatch
+audit) + §7 forbidden line. Candidate 3 → the harness docs are not canon's surface;
+instead cut row 12 — a repo-committed PreToolUse guard that DENIES Agent calls
+carrying `model:`/`effort:` (plans/12-dispatch-guard.md).
 
 

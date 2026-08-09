@@ -98,6 +98,7 @@ run it when something feels off; green + still broken ⇒ auth, not sync). `depl
 | 10 | [summon rig v1.2 — the usage panel](plans/10-summon-rig-v12-usage.md) | 09 LANDED; D41 ✓ 2026-08-07 | Builder · opus-high | **LANDED** 2026-08-07 → [DoD evidence](plans/10-summon-rig-v12-usage.md) (134 assertions green, `lab/08/run`). E2 settled: the usage source is the OAuth endpoint, keychain service derived as `sha256(config dir)[:8]` — the `.claude.json` cache was measured hours stale and once inverted the arbitrage, so the rig fetches. Felix's gate: probe (b), granted 2026-08-07. Fetcher proven on all three live accounts (F8). Felix's first look amended D41's palette law in-session — staleness greys the furniture, never the figures (F9). **Full panel visual pass PENDING Felix**; F1 (per-keystroke 1.57→2.56 ms, declined to optimise) and F6(a) (row 04's stale `~/.claude` PENDING) are the Architect's to rule on |
 
 | 11 | [summon rig v1.3 — the live table](plans/11-summon-rig-v13-live-refresh.md) | 10 LANDED | Builder · opus-high *(proposed)* | **OPEN — spec unblessed.** Drafted 2026-08-07 by row 10's Builder at Felix's direction, not by an Architect: **an Architect reviews and cuts it, Felix blesses, before anyone builds.** Fixes what row 10's visual pass exposed — the panel repaints only on a keystroke, so an in-flight fetch is invisible if Felix just looks. Two mechanisms: a `precmd` warm-keeper (the panel opens already-current) and an await-mode tick (`read -k -t` verified working in a zle widget — 7 timer repaints over a 3 s silence). Continuous polling while open is argued and rejected in the doc, with the rate-limit evidence |
+| 12 | [the dispatch guard](plans/12-dispatch-guard.md) | — | Builder · opus-high | **OPEN** — cut 2026-08-08 at the D46–D49 sitting, spec blessed same sitting (D47's mechanical arm) |
 
 Statuses per the doctrine (`canon/work/DOCTRINE.md` §4): OPEN → IN FLIGHT → LANDED /
 KILLED. Any account can host any session — the repo carries the truth; account choice is
@@ -122,6 +123,17 @@ colour flag-only, freeing the positional prompt for the summons — **PARKED by 
 folds in; a canon question (mantles-by-path vs colour-carrying agent definitions) for
 the Grand Architect when that row is cut. Parked is tracked, not lost.
 
+**12 (cut 2026-08-08, at the D46–D49 sitting): the dispatch guard** — single Builder
+row, independent: a repo-committed PreToolUse hook that denies engine overrides on
+Agent calls (D47's mechanical arm; venue tooling per 05's rejection terms). Kickoff
+in the order.
+
+**Parked:** the peer-messaging experiment (SendMessage taps between live sessions —
+gate-delivery pokes, cross-account bulletin pokes; pointers-not-payloads,
+message-never-summons; the plane is OS-user-scoped and crosses all three accounts,
+ephemeral, no audit trail) — Felix 2026-08-08: future harvest; spec sketch in this
+date's ledger entry. The bulletin stands untouched.
+
 ## 6. Non-goals (v1, defended)
 
 - Syncing sessions/history/agent-memory between accounts (D5; D27 — the silo law:
@@ -139,6 +151,8 @@ and is example #1 of it. Local physics:
 
 - Master doc = this file; the board = §5; work docs in `plans/`; rider = `plans/RIDER.md`.
   No bulletin — batches here are sequential.
+- `ISSUES.md` is the incident inbox (D49) — swept by the Grand Architect at every
+  summons.
 - Canon changes require Felix's sign-off; dispatched sessions mark D-entries
   "(proposed — pending Felix countersign)".
 - Briefs 0–04 predate the templates and are grandfathered; new work docs instantiate

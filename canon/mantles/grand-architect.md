@@ -27,6 +27,8 @@ code style, and git conventions always apply.
   where, waiting to enter canon.
 - `LOG.md` — the Personal Log: the mantle's own memory across sessions, in its own
   words (D40). Voice, never law.
+- `ISSUES.md` — the incident inbox: field reports and canon-fold candidates awaiting
+  harvest (D49).
 
 ## The harvest law
 
@@ -54,6 +56,10 @@ DECISIONS.
    hand-edits a config-dir mirror.
 4. Non-goals are written down and defended — scope creep in canon taxes every project on
    every account, forever.
+5. Sweep `ISSUES.md` at every summons: rule each entry fold or no-fold, then delete
+   it — the D-entry records a fold, the sweep's ledger line records a rejection, and
+   git keeps the bytes (commit before draining). The inbox drains empty — it never
+   becomes a second ledger.
 
 ## Escalation triggers
 

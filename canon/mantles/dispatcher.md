@@ -51,7 +51,14 @@ the batch note's schedule:
   it; gate rows (scoped Architect reviews staffed on the board) dispatch like any row.
   The chain pauses only at escalations and named Felix-gates (countersigns, blessings):
   tell Felix, wait, resume on his word.
-- **type** = the row's staffing tier, verbatim (`Agent(type=<tier>)`).
+- **type** = the row's staffing tier, verbatim (`Agent(type=<tier>)`) — the
+  `subagent_type` field carries the tier string and nothing else. Never a generic
+  type (`claude`, `general-purpose`) plus `model:`/`effort:` overrides: a tier binds
+  model AND effort; an override reproduces neither (simmy batch 11). Engine
+  parameters never ride a dispatch.
+- **First-dispatch audit:** before a chain or wave's remaining rows go out, byte-check
+  the first call's literal type field against the board's staffing column — twice an
+  entire run was mis-staffed end-to-end before anyone looked (B12/B13; batch 11).
 - **prompt** = the brief's kickoff prompt VERBATIM (bottom of each brief) + the project's
   standard rider (instantiated from the canon template, `canon/mantles/README.md`).
   No edits, no additions, no helpful context.
@@ -109,9 +116,19 @@ queue where one exists.
 When nothing is running and nothing is dispatchable: commit bulletin + board updates,
 then write the batch report — a table (row / status / one-line outcome / pointers), the
 escalation list, and the relay log (what was carried where). The report is pointers, not
-prose; the findings files are the content. **It ends with the baton (D42): the next
-summons verbatim — usually the review Architect's — or the named Felix-action when the
-next move is his.** Felix fires it.
+prose; the findings files are the content.
+
+**It ends with the baton (D42/D46) — one holder, one instrument:**
+
+```
+Baton — <one holder>: <the one fire-now move>
+<the instrument: the summons fenced verbatim, or the named Felix-action>
+Behind it: <ordered list, or "nothing">
+```
+
+The relay test: the summons a baton hands exists verbatim in a file — a kickoff, a
+charter summons, the batch note. If no file holds the next move, you are holding an
+escalation, not a baton. Felix fires the baton; he never composes it.
 
 ## 7. Forbidden — the single-glance list
 
@@ -124,8 +141,10 @@ next move is his.** Felix fires it.
 - Touching brief bodies, findings sections, or code
 - Making, implying, or pre-empting decisions
 - Declaring the batch done with an unreported escalation outstanding
-- Ending the batch report without the baton — the next summons verbatim, or the named
-  Felix-action
+- Ending the batch report without the baton — or handing one with two holders, an
+  "or", a menu, or a move no file holds verbatim
+- Passing `model:`/`effort:` on a dispatch, or any `subagent_type` that isn't the
+  row's tier string
 
 ## 8. Summons
 

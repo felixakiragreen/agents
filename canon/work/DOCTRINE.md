@@ -143,7 +143,10 @@ that is really Felix's — a countersign, a budget blessing, taste — is a **na
 Felix-gate**: the chain pauses there; nobody dispatches past it. A gate living only in
 prose is invisible at dispatch time — D28's law, applied to sequence (birthplaces:
 batch 2's countersign pauses; manny's M2 review; units' gate column, invented in the
-field the day before this law).
+field the day before this law). A gate that merges names its instrument verbatim in
+its kickoff — source branch, target, PR-vs-push — and verifies THEN merges: "passing"
+means the run that proves it has FINISHED — not started, not predicted — before the
+merge executes (D48).
 
 **Under the board:**
 
@@ -235,6 +238,12 @@ fold (below) carries truth forward; findings remain its provenance.
    PENDING, or struck inadmissible — never averaged into a verdict, never shipped
    silently. Birthplace: snappy §2 law 5 — per-number host records kept a load-328
    saturation auditable; every batch-1 verdict survived (snappy D9).
+8. **Targets are read from the repo.** A state-changing operation — a merge, a push,
+   a remediation rewind — takes its target from the live repo at execution time
+   (merge-parent forensics), never from a summons' recollection: a summons'
+   description of repo state is a hypothesis, not a coordinate. Birthplace:
+   node-param G2 — a stale tip, encoded unverified, overshot a rewind by 14 commits
+   (D48).
 
 ## 7. The ledger
 
@@ -321,6 +330,8 @@ Dispatcher creates `plans/BULLETIN.md` (next to the work docs — simmy's lived 
 - **Worktree law:** the shared checkout's branch is NEVER switched — parallel sessions
   live there (simmy §8). Work that needs a branch runs in a worktree, and its work doc
   says so; the board records unmerged branches until the Architect merges or rejects.
+  A shared branch is never rewound: no force-push, planned or contingent — red after a
+  premature merge is an escalation, not a rewind (D48).
 - **The batch report** (dispatcher charter §6): a table — row / status / one-line
   outcome / pointers — plus the escalation list and the relay log. Pointers, not prose;
   the findings files are the content.
@@ -341,7 +352,11 @@ Every session, any mantle:
   decision queue first, then exactly one fire-now next move — the next summons
   verbatim, or the named Felix-action (a countersign, a smoke, a ruling) when the next
   move is his — any further moves explicitly ordered behind it. A menu of nexts with
-  no ordering, or a kickoff produced only on request, is a malformed close.
+  no ordering, or a kickoff produced only on request, is a malformed close. The baton
+  takes one shape: `Baton — <one holder>: <move>`, then the instrument (the summons
+  fenced verbatim, or the named Felix-action), then what's ordered behind it. One
+  holder, one instrument — a baton naming two hands, or joining moves with "or", is
+  dropped by construction (D46).
 
 ## 12. Founding a project — the genesis ritual
 
@@ -390,7 +405,7 @@ its own Architect's board.
 - **cut** — author into existence on the board or record (a row, a batch, a D-entry).
 - **baton** — what a session ending facing Felix ends with: escalations, then exactly
   one fire-now next move — the next summons verbatim, or the named Felix-action —
-  further moves ordered behind it (D42).
+  further moves ordered behind it (D42). One holder, one instrument (D46).
 - **Felix-gate** — a gate row whose judgment is really Felix's (a countersign, a
   blessing, taste): the chain pauses there; nobody dispatches past it (D44).
 

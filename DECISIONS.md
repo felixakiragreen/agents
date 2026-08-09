@@ -469,3 +469,56 @@
   formats now live in the charter every session reads by definition of wearing.
   Templates verified already clean at apply time (brief/order carry the summons first
   line; genesis carries canonical columns).
+- **D46** (2026-08-08, Grand Architect (06) · ✓ Felix): **The baton has one holder.**
+  Enforcement sharpening of D42, zero new duty (D45's genre): the baton takes a
+  literal shape — `Baton — <one holder>: <move>`, then the instrument (the summons
+  fenced verbatim, or the named Felix-action), then what's ordered behind it — and
+  **one holder, one instrument** is law: two hands, an "or", a menu, an
+  instrument-less action, or a kickoff produced on request is a dropped baton. With it
+  the **relay test**: the move a baton hands exists verbatim in a file (a kickoff, a
+  charter summons, the batch note) — no file, no baton: it's an escalation. Full
+  template in dispatcher.md §6 (the cheapest tier gets the strongest format — D29's
+  lesson, D42's own reasoning); §7 forbidden sharpened; DOCTRINE §11 + §13 appended;
+  architect.md one sentence. Birthplace: D42's evidence base plus the b15 close
+  (ISSUES 2026-08-08) — "yours or the Architect's," no fenced summons, an undispatched
+  D44 gate behind it. Cohort caveat on record: charters are read at wearing —
+  pre-D42 windows never saw the baton clause; their drops are deployment lag, not law
+  failure.
+- **D47** (2026-08-08, Grand Architect (06) · ✓ Felix): **The tier string is the
+  dispatch.** dispatcher.md §2: the `subagent_type` field carries the row's staffing
+  tier verbatim and nothing else — never a generic type (`claude`, `general-purpose`)
+  plus `model:`/`effort:` overrides; a tier binds model AND effort, and an override
+  reproduces neither. **First-dispatch audit:** before a chain or wave's remaining
+  rows go out, byte-check the first call's literal type field against the board's
+  staffing column. §7 forbidden line added. Tier unchanged (D29: never escalate tier
+  to compensate for incomplete orders). Birthplaces: simmy batch 11 — every call
+  `subagent_type:"claude", model:"opus"`, the effort binding silently lost; G16
+  re-executed at true tier, B16 stood on evidence (the project's verify-not-abort
+  precedent) — and B12/B13, the selection-error class the audit half-catches. The
+  mechanical arm is row 12 — venue tooling per 05's rejection terms ("canon states
+  the law; venues enforce their own physics"), not canon law.
+- **D48** (2026-08-08, Grand Architect (06) · ✓ Felix): **The merge-gate laws.** Four
+  clauses, one birthplace (node-param G2 + Felix's ruling 15, recorded in cap-mega
+  `docs/node-global-parameters.md` §10.5): (1) a gate that merges names its
+  instrument verbatim in its kickoff — source branch, target, PR-vs-push (DOCTRINE
+  §4); (2) "passing" means the run that proves it has FINISHED — not started, not
+  predicted — before the merge executes (§4, same breath); (3) a shared branch is
+  never rewound — no force-push, planned or contingent; red after a premature merge
+  is an escalation, not a rewind (§10 worktree law); (4) targets are read from the
+  repo at execution time — merge-parent forensics; a summons' recollection of repo
+  state is a hypothesis, not a coordinate (§6 clause 8, appended not renumbered, per
+  D30 — clause numbers are live external references). Ruling 15 itself stays cap-mega
+  project physics — canon absorbs no project branch policy.
+- **D49** (2026-08-08, Grand Architect (06) · ✓ Felix — amended at countersign,
+  Felix's call: swept entries are deleted, not struck-and-kept): **ISSUES.md — the
+  incident inbox.** The canon repo carries `ISSUES.md`: field reports and canon-fold
+  candidates land there (Felix's hand, or a session's at his word); the Grand
+  Architect sweeps it at every summons — each entry ruled fold or no-fold, then
+  **deleted**: the D-entry is the record for folds, the sweep's ledger line for
+  rejections, and git keeps the bytes (an entry is committed before it is drained).
+  An inbox that accumulates strikes is a second ledger, which it must never become;
+  protocol rides the file's header. ALLCAPS by D25's both tests (one per scope, read
+  as protocol). Edits: grand-architect.md (Owns + procedure step 5), GENESIS §7.
+  Birthplace: Felix's own invention 2026-08-08 (commit 4143d94) — the harvest queue
+  got a file; this sitting ran its first sweep: three entries → D46, D47+row 12,
+  D48, inbox drained empty.
