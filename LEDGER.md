@@ -822,3 +822,39 @@ Architect's call on the adoption row. Fence held: no canon edit, no sync-set cha
 this repo's `.claude/` untouched, nothing adopted anywhere. Decided: nothing — a
 Builder row. Next: an Architect rules on adoption (cap-mega and the other venues) and
 on F6; row 11's Architect summons and the queued harvest sweep still stand behind it.
+
+---
+
+**2026-08-08 · Grand Architect (06) — addendum, same sitting** — The sitting outlived
+its boundary (row 12 went blessed → fired → LANDED between paragraphs; the Builder's
+entry above). At Felix's ask, the peer-plane deliberation written down:
+`plans/quartermaster.md` — the capability map dated to build ~2.1.226 (roster schema
+name · id · state · age and nothing else; messages are input, never commands —
+authority does not travel; delivered/held/refused; no audit trail; OS-user scope
+crossing all three silos), the pivotal unknown (does a poke WAKE an idle window or
+queue until touched — autonomous pools vs pre-staged context) with its two-window
+probe spec, the unlocks (Felix leaves the data plane; three silos one schedulable
+pool; the roster census; naming as infrastructure; substrate-shaped — D39's gate,
+watched), and the mantle deliberation: the Dispatcher absorbs in-batch poking; the
+uncovered duty is cross-theater logistics — pools, quota routing, law sweeps, roster
+hygiene — whose current name is Felix's hands; candidate name **Quartermaster**,
+Felix deliberating, nothing reserved, nothing minted; the path is probe → one-day
+experiment → charter with birthplace (D26's discipline), and his minting principle
+rides the doc: the best decisions are driven by real pain. Name-stamp: Felix wants
+the rig stamping session names (mantle-theater-account — the roster's only semantic
+carrier); routed direct to the Architect desk as decided work, not an inbox entry —
+ISSUES stays for incidents and canon-folds. GENESIS parked note re-pointed at the
+doc. Decided: nothing — deliberation recorded, routing only. Next: the row-11
+Architect summons, widened —
+
+```
+You are an Architect at fable-high.
+Wear ~/code/agents/canon/mantles/architect.md,
+then read ~/code/agents/GENESIS.md and true the board after rows 10–12:
+review and cut row 11, rule on 10-F1, 10-F6(a), and 10-F10's spawn options,
+rule on 12-F6, and cut the rig's name-stamp row (plans/quartermaster.md §5).
+```
+
+Behind it: guard adoption in cap-mega (its own Architect's board — the guard travels
+in that board's next summons) · the queued harvest sweep (verbatim in the 2026-08-07
+GA entry) · the parked messaging experiment (plans/quartermaster.md).

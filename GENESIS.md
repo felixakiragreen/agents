@@ -131,8 +131,9 @@ in the order.
 **Parked:** the peer-messaging experiment (SendMessage taps between live sessions —
 gate-delivery pokes, cross-account bulletin pokes; pointers-not-payloads,
 message-never-summons; the plane is OS-user-scoped and crosses all three accounts,
-ephemeral, no audit trail) — Felix 2026-08-08: future harvest; spec sketch in this
-date's ledger entry. The bulletin stands untouched.
+ephemeral, no audit trail) — Felix 2026-08-08: future harvest; capability map,
+probe spec, and the Quartermaster deliberation in `plans/quartermaster.md`. The
+bulletin stands untouched.
 
 ## 6. Non-goals (v1, defended)
 
