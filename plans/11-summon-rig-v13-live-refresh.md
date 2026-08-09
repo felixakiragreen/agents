@@ -4,7 +4,8 @@
 **Staffing:** Builder · opus-high (confirmed at the cut — same trap class as rows
 08–10: zle, detached spawns, harness fixtures) · **Blessed:** ⟨Architect reviewed and
 cut 2026-08-08 — rulings in *The cut* below, spawn architecture reconciled with 10-F10.
-**Felix's blessing PENDING; no build before it.**⟩
+**Felix's blessing PENDING; no build before it.** Deferred by Felix 2026-08-08 —
+row 13 goes first; this row rebases on it when unshelved.⟩
 
 > Provenance, honestly: this document is a Builder's design, not an Architect's. Felix
 > asked how to fix the staleness he saw at row 10's visual pass, chose "write the brief,

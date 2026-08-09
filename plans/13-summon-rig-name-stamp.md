@@ -1,7 +1,8 @@
 # 13 — summon rig: the name-stamp
 
-**Status:** OPEN · **Depends on:** 11 LANDED (file collision, not logic — both rows
-edit `summon/summon.zsh` and the `lab/08` fixtures; serial by physics) · **Staffing:**
+**Status:** OPEN · **Depends on:** — *(was 11, a file-collision ordering; 11 deferred
+by Felix 2026-08-08, so this row goes first and 11 rebases on it — never both in
+flight)* · **Staffing:**
 Builder · opus-high · **Blessed:** Architect cut 2026-08-08 on Felix's standing call
 (2026-08-08, `plans/quartermaster.md` §5 — the stamp is his ask; the scheme below is
 the Architect's delegated design).

@@ -890,3 +890,22 @@ Batch note on the board: **v1.3 chain 11 → 13, strictly serial, Felix-tended, 
 Dispatcher**. Decided: the rulings above, all inside delegated scope — nothing claimed
 that is Felix's; his one call is the named blessing. Next: Felix blesses row 11; the
 chain runs behind his word.
+
+**2026-08-08 · Architect — addendum, same sitting** — Felix defers row 11 (the live
+refresh). Board re-trued: the blessing gate stands unmet, nothing dispatches; the
+v1.3 chain inverts — **13 is dispatchable now** (its only dependency was the file
+collision with 11) and 11 rebases on it when unshelved; never both in flight. The
+dispatch guard's one open move is adoption — cap-mega first (batch 11's birthplace;
+install is `cp` + paste + commit per `guard/README.md`; the F2 workflow hole and F3
+setting-sources caveat travel with it, both ruled). The adoption summons, verbatim:
+
+```
+You are an Architect at fable-high.
+Wear ~/code/agents/canon/mantles/architect.md,
+then read ~/code/universal_robots_sdk/cap-mega/simmy/README.md, true the board,
+and cut the dispatch-guard adoption row per ~/code/agents/guard/README.md —
+12-F2 (workflow hole) and 12-F3 (setting-sources) ride the row as named caveats.
+```
+
+Decided: the re-cut only — the deferral is Felix's, recorded with his name. Next:
+Felix fires the adoption summons; row 13's kickoff behind it.
