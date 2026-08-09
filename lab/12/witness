@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+"""lab/12 fixture: record every PreToolUse the platform fires, whatever the tool.
+
+Arm D's control. Without it, "the guard never saw the workflow's agents" and "the guard
+saw them under a name we did not match" are the same silence.
+"""
+import json
+import os
+import sys
+
+payload = json.load(sys.stdin)
+log = os.path.join(os.path.dirname(os.path.abspath(__file__)), "witness.jsonl")
+with open(log, "a") as f:
+	f.write(json.dumps({"tool_name": payload.get("tool_name")}) + "\n")

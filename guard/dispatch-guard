@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+"""The dispatch guard (D47): engine overrides never ride a dispatch.
+
+A PreToolUse hook. Denies any Agent call whose tool_input carries `model` or `effort`;
+everything else passes untouched. The canon tier grid (canon/agents/) is the only engine
+authority — a tier binds model AND effort, and an override reproduces neither.
+
+Scope is the settings matcher's job ("Agent|Task"), not this script's: it reads one hook
+payload on stdin and answers on stdout. Malformed input fails closed (exit 2) — a guard
+that cannot read its input must not wave the dispatch through.
+"""
+import json
+import sys
+
+ENGINE_PARAMS = ("model", "effort")
+
+
+def refuse(carried):
+	return (
+		"Dispatch guard (D47): engine overrides never ride a dispatch. This call carries "
+		+ " and ".join("`%s`" % p for p in carried)
+		+ " — drop it and re-send with the row's staffing tier alone: "
+		'Agent(subagent_type: "<tier>"). A tier from the canon grid (canon/agents/) binds '
+		"model AND effort; an override reproduces neither — that is how simmy batch 11 "
+		"lost every effort binding while looking like a clean run."
+	)
+
+
+def main():
+	try:
+		payload = json.load(sys.stdin)
+		tool_input = payload["tool_input"]
+		carried = [p for p in ENGINE_PARAMS if tool_input.get(p) not in (None, "")]
+	except (ValueError, KeyError, AttributeError, TypeError) as err:
+		print("dispatch-guard: unreadable PreToolUse payload (%s)" % err, file=sys.stderr)
+		return 2
+
+	if carried:
+		json.dump({"hookSpecificOutput": {
+			"hookEventName": "PreToolUse",
+			"permissionDecision": "deny",
+			"permissionDecisionReason": refuse(carried),
+		}}, sys.stdout)
+	return 0
+
+
+if __name__ == "__main__":
+	sys.exit(main())

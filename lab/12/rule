@@ -1,0 +1,182 @@
+#!/usr/bin/env python3
+"""lab/12 verdicts: rule on the four arms from their stream-json transcripts.
+
+	rule <out-dir>    exit 0 = every arm green.
+
+Each arm reads one headless session's event stream. A dispatch and the guard's verdict on
+it are paired positionally — hook events carry no tool_use_id, but the platform emits them
+between the call and its result, so the next PreToolUse:Agent response after a call is that
+call's verdict.
+"""
+import json
+import os
+import subprocess
+import sys
+
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+GUARD = os.path.join(REPO, "guard", "dispatch-guard")
+DISPATCH_TOOLS = ("Agent", "Task")
+
+fails = 0
+
+
+def check(ok, name, detail=""):
+	global fails
+	if ok:
+		print("  PASS  %s" % name)
+	else:
+		fails += 1
+		print("  FAIL  %s%s" % (name, "\n          " + detail if detail else ""))
+
+
+def timeline(path):
+	"""The session, flattened to what this harness rules on, in emission order."""
+	events = []
+	for line in open(path):
+		event = json.loads(line)
+		subtype, kind = event.get("subtype"), event.get("type")
+		if subtype == "hook_response" and event.get("hook_event") == "PreToolUse":
+			events.append(("hook", event["hook_name"].split(":", 1)[1], event["output"]))
+		elif subtype == "task_started":
+			events.append(("spawn", event.get("subagent_type"), event.get("task_type")))
+		elif kind in ("assistant", "user"):
+			for block in event["message"].get("content") or []:
+				if not isinstance(block, dict):
+					continue
+				if block.get("type") == "tool_use":
+					events.append(("call", block["name"], block["input"]))
+				elif block.get("type") == "tool_result":
+					events.append(("result", json.dumps(block.get("content")), None))
+		elif kind == "result":
+			events.append(("final", event.get("result", ""), None))
+	return events
+
+
+def denial(output):
+	"""The reason the guard sent back, or None if it waved the call through."""
+	if not output:
+		return None
+	decision = json.loads(output)["hookSpecificOutput"]
+	return decision["permissionDecisionReason"] if decision["permissionDecision"] == "deny" else None
+
+
+def dispatches(events):
+	"""Every Agent call paired with the guard's verdict on it: (tool_input, reason|None)."""
+	paired, pending = [], None
+	for kind, name, payload in events:
+		if kind == "call" and name in DISPATCH_TOOLS:
+			pending = payload
+		elif kind == "hook" and name in DISPATCH_TOOLS and pending is not None:
+			paired.append((pending, denial(payload)))
+			pending = None
+	return paired
+
+
+def guard_says(tool_input):
+	"""What the guard itself answers for this call — the yardstick for what got delivered."""
+	payload = json.dumps({"tool_name": "Agent", "tool_input": tool_input})
+	out = subprocess.run([GUARD], input=payload, capture_output=True, text=True).stdout
+	return denial(out)
+
+
+def spawned(events):
+	return [name for kind, name, _ in events if kind == "spawn"]
+
+
+def transcript(events):
+	return "\n".join(payload for kind, payload, _ in events if kind in ("result", "final"))
+
+
+def bare(tool_input):
+	return not any(tool_input.get(p) for p in ("model", "effort"))
+
+
+# ── the arms ─────────────────────────────────────────────────────────────────────────
+
+def arm_deny(out):
+	"""The probe: a batch-11 call is refused, and the refusal turns into a legal dispatch."""
+	print("\ndeny — an engine override is refused, and the caller recovers")
+	events = timeline(os.path.join(out, "deny.jsonl"))
+	calls = dispatches(events)
+	check(len(calls) >= 2, "the caller dispatched, was refused, and dispatched again",
+			"%d guarded Agent calls in the session" % len(calls))
+	if len(calls) < 2:
+		return
+
+	first, reason = calls[0]
+	check(first.get("model") is not None, "arm 1 replayed batch 11 (a `model` rode the call)",
+			json.dumps(first))
+	check(reason is not None, "the guard denied it")
+	check(reason == guard_says(first), "the caller was handed the guard's reason verbatim")
+	check(reason in transcript(events), "…and it reached the model as the tool result")
+	if reason:
+		print("\n  the deny feedback, verbatim:\n\n    %s\n" % reason)
+
+	retry, verdict = calls[-1]
+	check(bare(retry), "the retry carried no engine parameters", json.dumps(retry))
+	check(retry.get("subagent_type") == "haiku-low",
+			"the retry carried the row's staffing tier", str(retry.get("subagent_type")))
+	check(verdict is None, "the guard passed the retry", str(verdict))
+	check("haiku-low" in spawned(events), "haiku-low actually ran", str(spawned(events)))
+	check("PONG" in transcript(events), "the row landed")
+
+
+def arm_pass(out):
+	"""Control: the guard is live in this session and still lets a clean tier through."""
+	print("\npass (control) — a bare tier dispatch is untouched")
+	events = timeline(os.path.join(out, "pass.jsonl"))
+	calls = dispatches(events)
+	check(len(calls) == 1, "one guarded dispatch", "%d" % len(calls))
+	if not calls:
+		return
+
+	tool_input, verdict = calls[0]
+	check(tool_input.get("subagent_type") == "opus-medium", "subagent_type: opus-medium",
+			json.dumps(tool_input))
+	check(bare(tool_input), "no engine parameters on the call")
+	check(verdict is None, "the guard passed it", str(verdict))
+	check("opus-medium" in spawned(events), "opus-medium actually ran", str(spawned(events)))
+	check("PONG" in transcript(events), "the dispatch landed")
+
+
+def arm_types(out):
+	"""Control: non-tier subagent types are not this guard's business."""
+	print("\ntypes (control) — Explore and general-purpose pass untouched")
+	events = timeline(os.path.join(out, "types.jsonl"))
+	calls = dispatches(events)
+	seen = {tool_input.get("subagent_type"): verdict for tool_input, verdict in calls}
+	for kind in ("Explore", "general-purpose"):
+		check(kind in seen, "%s was dispatched and seen by the guard" % kind, str(list(seen)))
+		check(seen.get(kind) is None, "%s passed untouched" % kind, str(seen.get(kind)))
+	check(all(bare(tool_input) for tool_input, _ in calls), "no engine parameters on either call")
+	check("PONG" in transcript(events), "both replies came back")
+
+
+def arm_workflow(out):
+	"""The Workflow surface: do a workflow script's agent() calls route through PreToolUse?"""
+	print("\nworkflow — does a workflow script's agent() reach the guard?")
+	events = timeline(os.path.join(out, "workflow.jsonl"))
+	witnessed = [json.loads(line)["tool_name"]
+			for line in open(os.path.join(out, "witnessed", ".claude", "hooks", "witness.jsonl"))]
+
+	check("Workflow" in witnessed, "the wildcard witness fired — PreToolUse is live here",
+			str(witnessed))
+	check(any(kind == "spawn" and task == "local_workflow" for kind, _, task in events),
+			"the workflow ran (its agent carried model AND effort)")
+	check("PONG" in transcript(events), "its agent completed — there was something to catch")
+	check(not any(name in DISPATCH_TOOLS for name in witnessed),
+			"VERDICT: workflow-internal agents never reach PreToolUse — the guard cannot see them",
+			"witness saw %s" % witnessed)
+
+
+def main():
+	out = sys.argv[1]
+	print("lab/12 — ruling on %s" % out)
+	for arm in (arm_deny, arm_pass, arm_types, arm_workflow):
+		arm(out)
+	print("\n%s — %d failure(s)" % ("RED" if fails else "GREEN", fails))
+	return 1 if fails else 0
+
+
+if __name__ == "__main__":
+	sys.exit(main())

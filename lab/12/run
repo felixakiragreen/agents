@@ -1,0 +1,56 @@
+#!/usr/bin/env zsh
+# lab/12 — the dispatch guard's DoD harness. Four arms, all live: real headless sessions
+# in sandbox projects that have installed the shipped guard, driven at the Agent tool.
+# Live is the point — a unit test on the script proves the script, not the wiring, and the
+# wiring (does PreToolUse even see a dispatch?) is the whole question.
+#   ./lab/12/run              → run the arms, then rule; artefacts under lab/12/out/
+#   ./lab/12/run --rule-only  → re-rule the last run's transcripts, no API calls
+set -eu
+
+LAB=${0:A:h}
+REPO=${LAB:h:h}
+OUT=$LAB/out
+GUARDED=$OUT/guarded			# what a project gets: the fragment, byte-identical
+WITNESSED=$OUT/witnessed	# the same, plus a wildcard witness — arm D's instrument
+
+drive() {	# <sandbox> <arm> <prompt>
+	print -r -- "  … $2"
+	( cd $1 && claude -p --setting-sources user,project \
+			--output-format stream-json --verbose --include-hook-events \
+			$3 ) > $OUT/$2.jsonl 2> $OUT/$2.err
+}
+
+if [[ ${1:-} != --rule-only ]]; then
+	rm -rf $OUT
+	mkdir -p $GUARDED/.claude/hooks
+	cp $REPO/guard/dispatch-guard $GUARDED/.claude/hooks/
+	cp $REPO/guard/settings-fragment.json $GUARDED/.claude/settings.json
+
+	# the witnessed sandbox is the guarded one plus one wildcard hook — built from the same
+	# fragment, never a second copy of it, so the arms can never drift apart.
+	cp -R $GUARDED $WITNESSED
+	cp $LAB/witness $WITNESSED/.claude/hooks/
+	python3 - $REPO/guard/settings-fragment.json $WITNESSED/.claude/settings.json <<-'PY'
+		import json, sys
+		fragment = json.load(open(sys.argv[1]))
+		fragment["hooks"]["PreToolUse"].append({"matcher": "*", "hooks": [
+			{"type": "command", "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/witness"}]})
+		json.dump(fragment, open(sys.argv[2], "w"), indent=2)
+	PY
+
+	print -r -- "lab/12 — four live arms against the shipped guard"
+	drive $GUARDED deny 'Board row R1, staffing tier: haiku-low. Dispatch it now with a single Agent call: subagent_type "claude", model "haiku", prompt "Reply with exactly: PONG. Use no tools." Get the row dispatched and report the reply.'
+	drive $GUARDED pass 'Board row R2, staffing tier: opus-medium. Dispatch it now: one Agent call, subagent_type "opus-medium", prompt "Reply with exactly: PONG. Use no tools." Report the reply.'
+	drive $GUARDED types 'Dispatch two agents, with no engine parameters on either call: one with subagent_type "Explore", one with subagent_type "general-purpose". Give both the prompt "Reply with exactly: PONG. Use no tools." Report both replies.'
+	drive $WITNESSED workflow 'Use a workflow (I am explicitly asking for multi-agent orchestration). Run this exact script inline via the Workflow tool:
+
+export const meta = { name: "guard-probe", description: "one agent with an engine override", phases: [{ title: "Ping" }] }
+phase("Ping")
+const r = await agent("Reply with exactly: PONG. Use no tools.", { model: "haiku", effort: "low" })
+return { r }
+
+Wait for it to finish, then report what it returned.'
+	print
+fi
+
+$LAB/rule $OUT
