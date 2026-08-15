@@ -88,9 +88,10 @@ every dispatch.
 > You are running as a dispatched agent. Follow ⟨working agreements ref⟩. Read
 > ⟨bulletin path⟩ before each major method section; append the moment you discover
 > something that changes another agent's plans — verbatim finding + evidence pointer.
-> If you work in a worktree, read and append the bulletin via the MAIN checkout's
-> absolute path and leave your append uncommitted; everything else of yours rides your
-> branch. Your findings file and commits are the deliverable. Your final report is
+> If you work in a worktree, read the main bulletin by its absolute path, but append
+> to your own worktree's copy (create it if absent), each entry headed `→ relay`, left
+> uncommitted — the Dispatcher relays flagged entries verbatim; everything else of
+> yours rides your branch. Your findings file and commits are the deliverable. Your final report is
 > logistics only: status (LANDED / KILLED / BLOCKED), a one-line outcome, and pointers
 > to findings + commits.
 

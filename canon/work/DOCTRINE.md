@@ -303,8 +303,18 @@ Dispatcher creates `plans/BULLETIN.md` (next to the work docs — simmy's lived 
   (dispatcher charter).
 - **Who writes:** agents append their own entries mid-flight; the Dispatcher commits
   bulletin updates, and copies the relevant excerpts from landed findings while others
-  still run. Worktree agents append via the MAIN checkout's absolute path and leave the
-  append uncommitted — everything else rides their branch.
+  still run. Worktree-isolated agents cannot write outside their tree (the harness
+  refuses the write; reads pass) — each appends to its own worktree's bulletin copy
+  (created if absent), entries headed `→ relay`, left uncommitted; the Dispatcher
+  relays flagged entries verbatim into the main bulletin as part of tending —
+  everything else rides their branch (D50; birthplace: arborist A8, rooted `ec1a6a1`).
+- **Late relocation (D50):** when a batch's parallel-isolation window closes and every
+  remaining consumer shares one worktree, the bulletin may relocate into that worktree
+  (still uncommitted), two riders mandatory: fold-completeness verified first — every
+  entry has a committed home or pointer — and a never-`git add` line in the bulletin's
+  own header, because inside a mergeable branch's worktree one careless `-A` ships the
+  relay channel into mainline as durable truth (birthplace: cap-mega `feature/tig-avc`
+  @ `9538e14b`, Felix-directed).
 - **Archive:** none. Append-only for the campaign's life; the Architect's fold makes
   entries archival where they stand; findings sections remain the archive of record.
 
@@ -408,6 +418,10 @@ its own Architect's board.
   further moves ordered behind it (D42). One holder, one instrument (D46).
 - **Felix-gate** — a gate row whose judgment is really Felix's (a countersign, a
   blessing, taste): the chain pauses there; nobody dispatches past it (D44).
+- **waggle** — the decision-density signal: the whole field at a glance — lower
+  resolution, never crop the frame. Four lines, fixed anatomy: Problem / Move / Stakes
+  / Dig. Served from any mantle on "waggle me X"; not a default duty (D51 — usage
+  decides the fold).
 
 ## Templates
 

@@ -522,3 +522,41 @@
   Birthplace: Felix's own invention 2026-08-08 (commit 4143d94) — the harvest queue
   got a file; this sitting ran its first sweep: three entries → D46, D47+row 12,
   D48, inbox drained empty.
+- **D50** (2026-08-15, Grand Architect (07) · ✓ Felix): **The bulletin's worktree law
+  — relay form, late relocation.** §9 commanded the impossible: the harness refuses
+  worktree-isolated agents writes outside their tree, so "append via the MAIN
+  checkout's absolute path" could not execute (reads pass, writes refuse — arborist
+  ARB-07 Builder, rooted `arborist/BULLETIN.md` entry 16). **(a) Relay form:**
+  worktree-isolated agents append to their own worktree's bulletin copy (created if
+  absent), each entry headed `→ relay`, left uncommitted; the Dispatcher copies
+  flagged entries verbatim into the main bulletin as part of tending — the bulletin
+  is already inside its write-set. Birthplace: arborist's rider per rooted A8
+  (`arborist/README.md` §6), relay executed at rooted `ec1a6a1`. **(b) Late
+  relocation:** when a batch's parallel-isolation window closes and every remaining
+  consumer shares one worktree, the bulletin MAY relocate into that worktree (still
+  uncommitted), two riders mandatory — fold-completeness verified first (every entry
+  has a committed home or pointer), and an explicit never-`git add` line in the
+  bulletin header: inside a mergeable branch's worktree one careless `-A` ships the
+  relay channel into mainline as durable truth. Birthplace: cap-mega
+  `feature/tig-avc` @ `9538e14b`, Felix-directed, `docs/tig-avc.md` §Log 2026-08-12.
+  Edits: DOCTRINE §9 (who-writes reworded; relocation clause added); the rider
+  template (`canon/mantles/README.md`). Supersedes D22's worktree sentence in
+  mechanism (relay replaces main-checkout append); D22 is not rewritten. Swept from
+  ISSUES.md (entries 08-12, 08-13), inbox drained.
+- **D51** (2026-08-15, Grand Architect (07) · ✓ Felix same sitting): **The city, the
+  hive, and the waggle.** The Guild's framing glossary lands at `docs/the-city.md` —
+  the city register (building code / standards office / sovereign / buildings /
+  programmes of works) and the hive register (bees / comb / trails), one page,
+  reference never law: where it and a charter disagree, the charter wins. With it,
+  **the waggle** enters the working vocabulary — a decision-density signal for a
+  sovereign protecting his throughput: the whole field at a glance, lower resolution
+  never crop the frame, four-line anatomy (Problem / Move / Stakes / Dig), served
+  from any mantle on "waggle me X". NOT a default duty — Felix's own ruling: usage
+  decides; if the asks keep coming, a future sweep folds sovereign-facing surfaces
+  (escalations, batch reports, the decision queue) to waggle-by-default. Edits:
+  `docs/the-city.md` minted; DOCTRINE §13 gains the verb. Birthplaces: the frame —
+  this sitting's routing arbitration (the whiteboardy mis-summons); the waggle —
+  sitting 02's `waggle-dance.md` coinage (LOG entry three) plus this sitting's live
+  demo, on whose strength D50 was countersigned. Felix's words at ratification: "a
+  decision-density signal for a sovereign protecting his throughput… I want this to
+  become canon."
