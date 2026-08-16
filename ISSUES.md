@@ -35,3 +35,9 @@ ListAgents showed no Dispatcher (likely another account silo; sessions never cro
 accounts), so the relay went through Felix's hand. An amendment protocol should name
 that fallback: the Architect drafts the message verbatim; whoever can see the Dispatcher
 delivers it.
+
+---
+
+From Felix: I want JS/TS projects to default to using bun & bun test, not npm & vitest. I've had to specify this twice now. It doesn't *feel* like Canon or a Decision thing. Besides, there will probably be a new JS runtime tomorrow, so it needs to be regularly update-able. But, it's overkill to put in the global CLAUDE.md. I'm unsure.
+
+---
