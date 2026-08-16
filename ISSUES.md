@@ -40,4 +40,8 @@ delivers it.
 
 From Felix: I want JS/TS projects to default to using bun & bun test, not npm & vitest. I've had to specify this twice now. It doesn't *feel* like Canon or a Decision thing. Besides, there will probably be a new JS runtime tomorrow, so it needs to be regularly update-able. But, it's overkill to put in the global CLAUDE.md. I'm unsure.
 
+Invocations need to be able to customize and/or auto-derive session names. For example:
+- grand-architect-08, next is grand-architect-09
+- architect-whiteboardy-02, next is architect-whiteboardy-03
+
 ---
