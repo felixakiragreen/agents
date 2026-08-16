@@ -909,3 +909,32 @@ and cut the dispatch-guard adoption row per ~/code/agents/guard/README.md —
 
 Decided: the re-cut only — the deferral is Felix's, recorded with his name. Next:
 Felix fires the adoption summons; row 13's kickoff behind it.
+
+---
+
+**2026-08-15 · Grand Architect (07)** — Summoned in the whiteboardy checkout to found
+that project; ruled the summons mis-mantled — founding is an Architect's act
+(DOCTRINE §12) — and held the fence: zero project work done under this charter. The
+sweep ran: both inbox entries ruled fold → **D50** (bulletin worktree law — relay
+form + late relocation; DOCTRINE §9 + rider template amended; inbox drained empty,
+second time in its life). Then the sitting turned into teaching, at Felix's ask:
+`docs/` minted — **`the-city.md`** (the city & hive framing glossary, the routing
+law in city form, the sovereign keystone) and **`load-map.md`** (`temp-ref.md`
+graduated and trued: absolute dates, GA row gains ISSUES, Dispatcher row gains
+rider). The **waggle** ratified (**D51**, amended same sitting: Dig may fall silent
+when the depth is this conversation) and its invocation line deployed live to the
+global CLAUDE.md ×3 (countersigned deploy, D37's precedent — the edit watched
+arriving in this session's own mirror mid-sitting). The **clarification lane**
+opened (**D52** — the behavior-change test, the ancestor-citation guard) and used
+at birth: grand-architect.md now reads "a new canon campaign" (clarification #1,
+ancestor: the Owns line). Commits `50f5a80`, `27fad11`, plus this close; Felix's
+`summon/presets.tsv` stray untouched throughout. Decided: D50 · D51 (+ amendment) ·
+D52 — all ✓ Felix in-sitting. Next: **Felix founds whiteboardy in a fresh window** —
+`dream.md` lands by his hand (his telling, verbatim), then:
+
+```
+You are an Architect at fable-max.
+Wear ~/code/agents/canon/mantles/architect.md,
+then read ~/code/agents/canon/work/DOCTRINE.md
+and ~/code/whiteboardy/dream.md, and found the project.
+```
