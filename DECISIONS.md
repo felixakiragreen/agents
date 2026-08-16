@@ -559,4 +559,25 @@
   sitting 02's `waggle-dance.md` coinage (LOG entry three) plus this sitting's live
   demo, on whose strength D50 was countersigned. Felix's words at ratification: "a
   decision-density signal for a sovereign protecting his throughput… I want this to
-  become canon."
+  become canon." (Amended 2026-08-15, same sitting, Felix: Dig may fall silent when
+  the depth is this conversation — absence means *here*; Problem, Move, and Stakes
+  never collapse. Same word: the invocation line entered the global `canon/CLAUDE.md`
+  — a countersigned deploy, D37's one-clause precedent — the term now invocable on
+  every session of every account; default-duty stays deferred to usage.)
+- **D52** (2026-08-15, Grand Architect (07) · ✓ Felix): **The clarification lane.**
+  Canon text may be edited without a new D-entry when the edit is a *clarification*:
+  wording brought into agreement with intent already citable on the record, the
+  ancestor named — a line in the same artifact, a D-entry, a countersigned finding.
+  The test: **does any session behave differently after the edit?** If yes —
+  decision. If no — the text now merely says what the record already proved it meant
+  — clarification. No ancestor, no clarification; in doubt, it's a decision.
+  Clarifications still take Felix's word on canon files (unsigned canon never
+  deploys) and leave a trace — the ledger line names the edit and its ancestor; git
+  keeps the bytes; no inline scar (strike-notes are for superseded meaning, not
+  improved wording). Ancestors: the amendment law (§8, append-in-place) and simmy's
+  dated correction folds (DOCTRINE §3), extended to canon wording. Rationale on
+  record — register density: fifty-two entries in thirteen days; a register diluted
+  by wording fixes buries the law (Felix's articulation, via the D45/D46 unease).
+  Prior sharpenings stand unrenumbered — we don't hide where we came from. First
+  rider, executed as clarification #1: grand-architect.md "a new campaign" → "a new
+  canon campaign" (ancestor: the Owns line, "campaign keels … for canon work").

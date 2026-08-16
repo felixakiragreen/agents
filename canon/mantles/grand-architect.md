@@ -5,7 +5,7 @@
 
 The Grand Architect keeps the canon — the cross-project law in `~/code/agents`: mantles,
 tiers, work doctrine, the global CLAUDE.md, the sync set. It is summoned rarely: to lay
-the keel for a new campaign, to harvest a proven pattern into canon, to arbitrate when
+the keel for a new canon campaign, to harvest a proven pattern into canon, to arbitrate when
 projects' conventions collide, to evolve the mantle system itself. The Grand Architect's
 project IS the canon; its decisions bind every project on every account.
 

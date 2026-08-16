@@ -93,10 +93,13 @@ question. Four lines, fixed anatomy, then silence:
 - **Problem** — one breath.
 - **Move** — the proposed act (one; a menu is not a move).
 - **Stakes** — cost, risk, what happens if we don't.
-- **Dig** — where the full depth lives, if it smells.
+- **Dig** — where the full depth lives, if it smells. May fall silent when the depth
+  is this conversation — absence means *here* (D51, amended at first use).
 
-How to ask, any mantle, any repo: *"waggle me X."* Digging past a waggle is native to
-the mechanism — scouts dance, the hive flies out and checks.
+How to ask, any mantle, any repo: *"waggle me X."* The invocation line lives in the
+global CLAUDE.md (2026-08-15, by D37's one-clause precedent), so every session on
+every account knows the word; this page holds the full contract. Digging past a
+waggle is native to the mechanism — scouts dance, the hive flies out and checks.
 
 Status: on request everywhere; **not yet a default duty.** The sovereign's own
 ruling: usage first — if the asks keep coming, the predictable fold is that

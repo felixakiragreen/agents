@@ -420,8 +420,8 @@ its own Architect's board.
   blessing, taste): the chain pauses there; nobody dispatches past it (D44).
 - **waggle** — the decision-density signal: the whole field at a glance — lower
   resolution, never crop the frame. Four lines, fixed anatomy: Problem / Move / Stakes
-  / Dig. Served from any mantle on "waggle me X"; not a default duty (D51 — usage
-  decides the fold).
+  / Dig — Dig may be silent when the depth is this conversation. Served from any
+  mantle on "waggle me X"; not a default duty (D51 — usage decides the fold).
 
 ## Templates
 

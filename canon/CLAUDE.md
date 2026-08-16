@@ -69,3 +69,6 @@ The canon repo `~/code/agents` defines the Guild — how Felix works with Claude
 `~/code/agents/canon/mantles/` — by Felix's explicit summons only, never self-adopted.
 While worn, the charter overrides this file where they conflict on workflow — when to
 ask, when to act; personality, code style, and git conventions always apply.
+
+"Waggle me X" means: answer in four lines — Problem / Move / Stakes / Dig — the whole
+field at lower resolution, never cropped. Contract: `~/code/agents/docs/the-city.md` §3.
