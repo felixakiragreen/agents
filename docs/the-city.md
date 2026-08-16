@@ -21,7 +21,7 @@ hives' work looks like one city and not three.
 | The city | every repo on every account — three hives, one city |
 | The building code | canon: charters, tiers, doctrine, the global CLAUDE.md |
 | The standards office | the Grand Architect — one office, a succession of holders |
-| **The sovereign** | **Felix** — commissions every work, signs every change order, holds the treasury and taste |
+| **The sovereign** | **Felix** — commissions every work, signs every change order, holds the treasury and guards taste like a dragon |
 | A building | a project — a repo with its own board |
 | Architect of record | that project's Architect |
 | The commission letter | `dream.md` — the client's own words, framed, never edited |
