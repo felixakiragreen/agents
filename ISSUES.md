@@ -196,3 +196,50 @@ Why more kickoff reading would NOT have fixed it, and what might:
 Cornerizer has adopted the local form of 1+3 (its §8 "verdict law" + a rider line,
 2026-08-19). This entry asks whether they fold into the Architect mantle and the
 campaign-doc/summons templates Guild-wide.
+
+---
+
+From Felix:
+
+I keep having to search for the summons or ask for it:
+
+[...]
+
+The C33 brief (§37)
+
+Builder · opus-high, gate-free — no schema, no corner_args change (needing either is a kill). Script chirality + Java frame-true reading + the fence + lab CornerFrame/OctantPart + viz corner-frame basis with per-leg roll and L1 as the demo cell — the single most useful picture we could put in front of Tyler. Perf tier owed because the red touches getErrors (§11.1 is law, and C31 already told us which breaches aren't ours). Board trued, log appended, memory updated.
+
+This is a clean boundary — everything the next session needs is in the repo.
+
+Baton — Felix: fire the batch-18 Dispatcher (summons verbatim in §37's batch note) — one row, C33, gate-free. Behind it: C6 iron, then the C33 review/merge. 🤖⚡
+
+✻ Baked for 15m 10s
+
+❯ Can you give me the dispatcher summons? I can't find it in the giant note.
+
+Here it is, verbatim from §37's batch-18 note:
+
+You are a Dispatcher at sonnet-medium.
+Wear ~/code/agents/canon/mantles/dispatcher.md,
+then run the board at docs/cornerizer.md §8 (batch 18 note, in §37) — one row:
+C33 (brief + kickoff §37), worktree branch cornerizer/c33-any-orientation,
+kickoff + rider appended verbatim, gate-free. Fence: no schema, no corner_args
+change, goldens move only with a zero-unexplained audit, frozen lab files
+untouched. On landing: verify the row's contract, true the board row, close
+the batch with a log line in §38. The review (merge) is the Architect's.
+
+Open it in a fresh session at the campaign worktree (.claude/worktrees/cornerizer), same as batches past.
+
+---
+
+From Felix: 
+
+This interaction, I can't see the dispatched agents anymore. I don't like not being to see what's active, because it's important for managing my session limits.
+
+Felix: is it still going? why can I see the subagents anymore?
+
+Dispatcher: Yes, C35 is still running — that's expected. It's a background subagent I spawned with the Agent tool (id a394db156243d82d4), not a peer session, so it doesn't show up in ListAgents (that lists other interactive Claude sessions, not my own spawned workers). Its last check-in: bless run and F5 probe are done; it's now mid-way through the gesture.rename perf A/B (6 reps needed, rep 1 running), with a Monitor armed to notify when the remaining reps finish. I'll get an automatic notification when it lands or wedges — no action needed from you.
+
+---
+
+From Felix: my default permissionMode keeps getting reset from 'auto' to 'acceptEdits'. I want to sync this somehow.
