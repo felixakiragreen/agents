@@ -1,0 +1,50 @@
+#!/usr/bin/env expect
+# lab/08 — the name-stamp's lineage counter, driven live: the seed path, the floor, and the
+# proof that only fires advance it. The sandbox's log starts empty and $PWD is the theater,
+# so every ordinal below is derived, never contrived.
+# usage: name.exp <transcript> <rc.zsh>
+
+set timeout 15
+log_file -noappend [lindex $argv 0]
+spawn zsh -f -i
+send "source [lindex $argv 1]\r"
+expect "READY"
+
+# G1 — a lineage the log has never seen opens at 01; eight `+` seed it to Felix's own count
+send "\ag0++++++++\r"
+expect "SHIM"
+
+# G2 — the log carries the lineage forward: the next open derives 10, with no restart at 01
+send "\a\r"
+expect "SHIM"
+
+# G3 — fifteen `-` hit the floor and stop there: 01, never a zero or a negative ordinal
+send "\a---------------\r"
+expect "SHIM"
+
+# G4 — the counter is the highest ever fired, not the last one fired: back to 11
+send "\a\r"
+expect "SHIM"
+
+# G5 — an abort fires nothing, so it stamps nothing...
+send "\a\033"
+expect "closed"
+
+# G6 — ...and the next fire proves it: 12, not 13
+send "\a\r"
+expect "SHIM"
+
+# G7 — bare: the theater alone, counting its own lineage from 01
+send "\an\r"
+expect "SHIM"
+
+# G8 — one whole paint on a real screen: the next name is on the panel before any key but
+# ^G. (Mid-gesture paints are no good for this — zle updates the footer character by
+# character, so only a panel's first paint reaches the pty as a readable line.)
+send "\a"
+expect "keys: 1"
+send "\033"
+expect "closed"
+
+send "exit\r"
+expect eof

@@ -16,7 +16,12 @@ rm -rf $LAB/out
 mkdir -p $SANDBOX
 cp $RIG/summon.zsh $RIG/presets.tsv $RIG/accounts.tsv $SANDBOX/
 cp -R $LAB/fixtures $SANDBOX/				# the rc's usage shims serve these, never the network
-expect $LAB/drive.exp $TRANSCRIPT $LAB/rc.zsh > /dev/null 2>&1
+
+# the name-stamp's theater is $PWD's own basename, so every run happens in a named directory
+# rather than wherever the harness was invoked from — the stamps below are then byte-exact.
+THEATER=$LAB/out/theater
+mkdir -p $THEATER/hive $THEATER/atelier $THEATER/hexwright $THEATER/agents $THEATER/foundry
+( cd $THEATER/hive && expect $LAB/drive.exp $TRANSCRIPT $LAB/rc.zsh ) > /dev/null 2>&1
 cp $LOG $LAB/out/log-at-stats.jsonl		# what summon-stats saw, before later tests append
 
 # the styled transcript, with the styling taken back off: assertions on what Felix reads.
@@ -30,6 +35,14 @@ check() {	# <name> <literal> [file]
 		print -r -- "  PASS  $1"
 	else
 		print -r -- "  FAIL  $1\n          missing: $2"
+		(( fails++ ))
+	fi
+}
+matches() {	# <name> <extended regex> [file] — for the one field that legitimately varies: a clock
+	if grep -qE -- "$2" ${3:-$PLAIN}; then
+		print -r -- "  PASS  $1"
+	else
+		print -r -- "  FAIL  $1\n          no line matching: $2"
 		(( fails++ ))
 	fi
 }
@@ -76,6 +89,7 @@ absent() {	# <name> <literal> <file> — the same test, inverted: this must NOT 
 widest() {	# <file> <columns> — every rendered line fits, counted in characters not bytes
 	local l ; local -i over=0 max=0
 	while IFS= read -r l; do
+		[[ $l == '--- '* ]] && break			# the panel ends where render.zsh's own sections start
 		(( ${#l} > max )) && max=${#l}
 		(( ${#l} > $2 )) && (( over++ ))
 	done < $1
@@ -89,7 +103,7 @@ widest() {	# <file> <columns> — every rendered line fits, counted in character
 
 # --- the panel, rendered without a pty --------------------------------------------
 # <file> <columns> <mantle> <model> <effort> <account> <keys> [yank]
-render() { zsh -f $LAB/render.zsh $SANDBOX $2 "$3" "$4" "$5" "$6" $7 "${8:-}" > $LAB/out/$1 }
+render() { ( cd $THEATER/atelier && zsh -f $LAB/render.zsh $SANDBOX $2 "$3" "$4" "$5" "$6" $7 "${8:-}" ) > $LAB/out/$1 }
 plain()  { sed -E $'s/\x1b\\[[0-9;?]*[a-zA-Z]//g' $LAB/out/$1 > $LAB/out/${1:r}-plain.txt }
 render panel-200.txt 200 a fable high 1 2	; plain panel-200.txt
 render panel-60.txt   60 a fable high 1 2	; plain panel-60.txt
@@ -100,30 +114,35 @@ P200=$LAB/out/panel-200-plain.txt
 
 print -r -- '--- the panel: every live hotkey, the selection, the preview -----------'
 check 'mantle row, ● swatches, [n]one, ✓ inline on the selected item' \
-	'mantle   ● [g]rand-architect  ● [a]rchitect·high ✓  ● [A]rchitect·max  ● [d]ispatcher  ● [b]uilder  [n]one' $P200
+	'mantle   ● [g]rand-architect  ● [a]rchitect·high ✓  ● [A]rchitect·max  ● [d]ispatcher  ● [b]uilder  ● [D]igger  [n]one' $P200
 check 'model row — haiku is hai[k]u'  'model    [f]able ✓  [o]pus  [s]onnet  hai[k]u' $P200
 check 'effort row — [h]igh is high'   'effort   [l]ow  [m]edium  [h]igh ✓  [x]high  [M]ax' $P200
 check 'account row'                   'account  [0] personal  [1] thg-fgreen ✓  [2] thg-doorbell' $P200
 check 'action row'                    '         [y]ank  [.] eject  [Esc] close  [Enter] invoke' $P200
-check 'preview footer states exactly what Enter fires' \
-	'⏎  architect · fable-high @ thg-fgreen · green · keys: 2' $P200
-check 'mantle cleared ⇒ [n]one selected, and the footer says bare' \
+check 'preview footer states exactly what Enter fires — the name-stamp leading it' \
+	'⏎  architect-atelier-01 · fable-high @ thg-fgreen · green · keys: 2' $P200
+check 'and the command that footer promised carries the stamp as --name' \
+	'CLAUDE_CONFIG_DIR=~/.claude-thg-fgreen claude --model fable --effort high -n architect-atelier-01 "/color green"' \
+	$P200
+check 'mantle cleared ⇒ [n]one selected' \
 	'[n]one ✓' $LAB/out/panel-bare-plain.txt
-check 'bare footer carries no colour' \
-	'⏎  bare · haiku-high @ thg-doorbell · keys: 3' $LAB/out/panel-bare-plain.txt
+check 'bare footer: the theater stamp alone, and no colour' \
+	'⏎  atelier-01 · haiku-high @ thg-doorbell · keys: 3' $LAB/out/panel-bare-plain.txt
 check 'cold state: the footer refuses instead of guessing' \
 	'⏎  nothing selected — press a mantle, or a model and an effort · keys: 1' \
 	$LAB/out/panel-cold-plain.txt
 check 'no account: the footer names the one thing the rig will never guess' \
 	'@ no account — press an account digit' $LAB/out/panel-noacct-plain.txt
+check 'even a refusal names itself — the stamp needs neither tier nor account' \
+	'⏎  grand-architect-02 · fable-max @ no account' $LAB/out/panel-noacct-plain.txt
 
 print -r -- '--- palette (D36) — the spans, each shown over the text it covers ----'
 check 'mantle label green'        'fg=green ⟨mantle   ⟩'  $P200
 check 'model label yellow'        'fg=yellow ⟨model    ⟩' $P200
 check 'effort label orange (208)' 'fg=208 ⟨effort   ⟩'    $P200
 check 'account label red'         'fg=red ⟨account  ⟩'    $P200
-count 'every opening bracket grey — one per item' 22 'fg=8 ⟨[⟩' $P200
-count 'every closing bracket too'                 22 'fg=8 ⟨]⟩' $P200
+count 'every opening bracket grey — one per item' 23 'fg=8 ⟨[⟩' $P200
+count 'every closing bracket too'                 23 'fg=8 ⟨]⟩' $P200
 check 'unselected item text grey'  'fg=8 ⟨pus⟩'           $P200
 check 'unselected mantle grey too' 'fg=8 ⟨rand-architect⟩' $P200
 check 'selected item bold, and the ✓ is inline on the item' \
@@ -151,7 +170,7 @@ count 'no item is broken across lines: each survives whole' 1 \
 check 'the same panel is one row per field at full width' \
 	'mantle   ● [g]rand-architect  ● [a]rchitect·high ✓  ● [A]rchitect·max' $P200
 # and in a real 60-column terminal: the break must be ours, not the terminal's
-SUMMON_COLUMNS=60 expect $LAB/narrow.exp $LAB/out/narrow.txt $LAB/rc.zsh > /dev/null 2>&1
+( cd $THEATER/hive && SUMMON_COLUMNS=60 expect $LAB/narrow.exp $LAB/out/narrow.txt $LAB/rc.zsh ) > /dev/null 2>&1
 sed -E $'s/\x1b\\[[0-9;?]*[a-zA-Z]//g' $LAB/out/narrow.txt | tr '\r' '\n' > $LAB/out/narrow-plain.txt
 check 'live 60-column pty: the mantle row wraps where we put the break' \
 	'mantle   ● [g]rand-architect  ● [a]rchitect·high' $LAB/out/narrow-plain.txt
@@ -160,34 +179,40 @@ check 'live 60-column pty: the continuation line is intact and aligned' \
 
 print -r -- '--- preview footer vs the launch it promised (live pty) --------------'
 # one gesture on the state the drive left behind, so the paint is whole and comparable
-expect $LAB/preview.exp $LAB/out/preview.txt $LAB/rc.zsh > /dev/null 2>&1
+( cd $THEATER/hive && expect $LAB/preview.exp $LAB/out/preview.txt $LAB/rc.zsh ) > /dev/null 2>&1
 sed -E $'s/\x1b\\[[0-9;?]*[a-zA-Z]//g' $LAB/out/preview.txt | tr '\r' '\n' > $LAB/out/preview-plain.txt
 check 'the panel opens pre-selected from log/state, and says what Enter will fire' \
-	'⏎  architect · opus-max @ thg-fgreen · green · keys: 1' $LAB/out/preview-plain.txt
-check 'Enter then fires exactly that — mantle, tier and account' \
-	'SHIM cfg=/Users/felix/.claude-thg-fgreen args=--model opus --effort max -n architect /color green' \
+	'⏎  architect-hive-09 · opus-max @ thg-fgreen · green · keys: 1' $LAB/out/preview-plain.txt
+check 'Enter then fires exactly that — stamp, mantle, tier and account' \
+	'SHIM cfg=/Users/felix/.claude-thg-fgreen args=--model opus --effort max -n architect-hive-09 /color green' \
 	$LAB/out/preview-plain.txt
 
 print -r -- '--- sticky state ----------------------------------------------------'
 check 'cold: Enter with nothing selected fires nothing' 'summon: nothing selected'
 count 'and `.` refuses to eject nothing, same refusal' 2 'summon: nothing selected'
-line 'Ctrl-G a 2 ⏎ (4 keys) → architect · fable-high on thg-doorbell, then 3 refires of it' 4 \
-	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model fable --effort high -n architect /color green'
-check 'the panel opens pre-selected from state' 'architect · fable-high @ thg-doorbell'
+count 'Ctrl-G a 2 ⏎ (4 keys) → architect · fable-high on thg-doorbell, then 3 refires of it' 4 \
+	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model fable --effort high -n architect-hive-'
+for nn in 01 02 03 04; do
+	line "  ...and each was born its own session: architect-hive-$nn" 1 \
+		"SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model fable --effort high -n architect-hive-$nn /color green"
+done
+check 'the panel opens pre-selected from state' 'architect-hive-02 · fable-high @ thg-doorbell'
 check 'Esc closes and discards this panel'      'summon: closed — changes discarded'
 count 'Esc and a second Ctrl-G both close, both discard' 2 'summon: closed — changes discarded'
 line 'cascade + single-field override: A then k → architect · haiku-max' 1 \
-	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model haiku --effort max -n architect /color green'
-line 'fresh preset on the sticky account (3 keys)' 1 \
-	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model sonnet --effort medium -n dispatcher /color pink'
+	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model haiku --effort max -n architect-hive-05 /color green'
+line 'fresh preset on the sticky account (3 keys) — a mantle of its own counts from 01' 1 \
+	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model sonnet --effort medium -n dispatcher-hive-01 /color pink'
 line 'h = [h]igh: the model stays sonnet' 1 \
-	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model haiku --effort high -n dispatcher /color pink'
+	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model sonnet --effort high -n dispatcher-hive-02 /color pink'
 line 'k = hai[k]u: the effort stays high' 1 \
-	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model sonnet --effort high -n dispatcher /color pink'
-line '[n]one → bare launch: no -n, no colour, no prompt' 1 \
-	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model haiku --effort high'
-line 'override + account, and the refire after two ejects (2 launches)' 2 \
-	'SHIM cfg=/Users/felix/.claude-thg-fgreen args=--model opus --effort max -n architect /color green'
+	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model haiku --effort high -n dispatcher-hive-03 /color pink'
+line '[n]one → bare launch: the theater stamp alone, no colour, no prompt' 1 \
+	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model haiku --effort high -n hive-01'
+line 'override + account (6 keys) → the architect lineage continues at 06' 1 \
+	'SHIM cfg=/Users/felix/.claude-thg-fgreen args=--model opus --effort max -n architect-hive-06 /color green'
+line 'and the refire after two ejects: 08, because an eject fires and so counts' 1 \
+	'SHIM cfg=/Users/felix/.claude-thg-fgreen args=--model opus --effort max -n architect-hive-08 /color green'
 count 'nothing fires but Enter: 11 launches across 20 gestures' 11 'SHIM cfg='
 check 'non-empty buffer survives (push-input)' 'KEEPME'
 
@@ -207,12 +232,130 @@ else
 fi
 
 print -r -- '--- eject -----------------------------------------------------------'
-check '`^G .` ejects the sticky config itself (2 keys)' \
-	'CLAUDE_CONFIG_DIR=~/.claude-thg-fgreen claude --model opus --effort max -n architect "/color green"'
-check '`^G g 0 .` ejects an editable resolved command' \
-	'CLAUDE_CONFIG_DIR=~/.claude claude --model fable --effort max -n grand-architect "/color green"'
+check '`^G .` ejects the sticky config itself (2 keys), stamp and all' \
+	'CLAUDE_CONFIG_DIR=~/.claude-thg-fgreen claude --model opus --effort max -n architect-hive-07 "/color green"'
+check '`^G g 0 .` ejects an editable resolved command — and the Grand Architect carries no theater' \
+	'CLAUDE_CONFIG_DIR=~/.claude claude --model fable --effort max -n grand-architect-01 "/color green"'
 count 'the ejected command was never executed' 0 'args=--model fable --effort max -n grand-architect'
 check 'the eject is logged with its description' '"mode":"eject"' $LOG
+
+print -r -- '--- the name-stamp: the lineage counter, against a fixture log --------'
+# a sandbox with a hand-written log, so every ordinal below is derived from history the
+# assertion can see. The theater is $PWD's own basename, so each render cds to the one it
+# means, and what is asserted is the composed command — the thing that actually launches.
+NAMES=$LAB/out/name-sandbox
+mkdir -p $NAMES/log
+cp $RIG/summon.zsh $RIG/presets.tsv $RIG/accounts.tsv $NAMES/
+nrender() {	# <out> <theater> <mantle-key> [bump]
+	( cd $THEATER/$2 && zsh -f $LAB/render.zsh $NAMES 200 "$3" fable high 1 2 '' ${4:-0} ) \
+		> $LAB/out/name-$1.txt
+}
+stamp() {	# <name> <expected stamp> <file> [tail] — the whole composed command, byte for byte
+	line "$1" 1 \
+		"CLAUDE_CONFIG_DIR=~/.claude-thg-fgreen claude --model fable --effort high -n $2${4- \"/color green\"}" \
+		$LAB/out/name-$3.txt
+}
+nrender virgin hexwright a
+stamp 'a log with no history at all: the lineage opens at 01' architect-hexwright-01 virgin
+
+cat > $NAMES/log/invocations.jsonl <<'JSONL'
+{"ts":"2026-08-10T09:00:00-0400","mode":"pick","n":4,"account":"personal","mantle":"architect","model":"fable","effort":"high","color":"green","cmd":"claude --model fable --effort high -n architect","keys":"^Ga0⏎"}
+{"ts":"2026-08-10T10:00:00-0400","mode":"pick","n":4,"account":"personal","mantle":"architect","model":"fable","effort":"high","color":"green","name":null,"cmd":"claude --model fable --effort high -n architect","keys":"^Ga0⏎"}
+{"ts":"2026-08-11T09:00:00-0400","mode":"pick","n":4,"account":"personal","mantle":"architect","model":"fable","effort":"high","color":"green","name":"architect-hexwright-03","cmd":"claude -n architect-hexwright-03","keys":"^Ga0⏎"}
+{"ts":"2026-08-11T11:00:00-0400","mode":"refire","n":2,"account":"personal","mantle":"architect","model":"fable","effort":"high","color":"green","name":"architect-hexwright-07","cmd":"claude -n architect-hexwright-07","keys":"^G⏎"}
+{"ts":"2026-08-11T12:00:00-0400","mode":"refire","n":2,"account":"personal","mantle":"architect","model":"fable","effort":"high","color":"green","name":"architect-hexwright-05","cmd":"claude -n architect-hexwright-05","keys":"^G⏎"}
+{"ts":"2026-08-12T09:00:00-0400","mode":"eject","n":2,"account":"personal","mantle":"grand-architect","model":"fable","effort":"max","color":"green","name":"grand-architect-09","cmd":"claude -n grand-architect-09","keys":"^G."}
+{"ts":"2026-08-12T10:00:00-0400","mode":"pick","n":3,"account":"personal","mantle":null,"model":"fable","effort":"high","color":null,"name":"hexwright-02","cmd":"claude -n hexwright-02","keys":"^Gn⏎"}
+{"ts":"2026-08-12T11:00:00-0400","mode":"abort","n":2,"account":"personal","mantle":"architect","model":"fable","effort":"high","color":"green","name":null,"cmd":"claude -n architect-hexwright-99","keys":"^G⎋"}
+JSONL
+
+nrender seeded  hexwright a
+nrender crossed agents    a
+nrender ga      hexwright g
+nrender ga-else agents    g
+nrender bare    hexwright ''
+stamp 'the ordinal is one past the highest ever fired, not past the last one logged' \
+	architect-hexwright-08 seeded
+stamp 'a legacy record with no name field, and a null one, are both skipped' \
+	architect-hexwright-08 seeded
+stamp 'theater isolates the lineage: the same mantle elsewhere starts at 01' \
+	architect-agents-01 crossed
+stamp 'the bare lineage is the theater alone, counted separately and wearing no colour' \
+	hexwright-03 bare ''
+check 'the Grand Architect carries no theater — one office, so the segment says nothing' \
+	'-n grand-architect-10 "/color green"' $LAB/out/name-ga.txt
+if cmp -s <(grep -F CLAUDE_CONFIG_DIR $LAB/out/name-ga.txt) \
+			 <(grep -F CLAUDE_CONFIG_DIR $LAB/out/name-ga-else.txt); then
+	print -r -- '  PASS  ...so the Grand Architect counts one lineage across every theater'
+else
+	print -r -- '  FAIL  the Grand Architect stamp changed with the theater'; (( fails++ ))
+fi
+nrender bumped-up   agents    a 8
+nrender bumped-down agents    a -5
+nrender bumped-back hexwright a -3
+stamp 'the panel bump seeds a hand-counted lineage: eight + on a virgin lineage' \
+	architect-agents-09 bumped-up
+stamp 'and the floor is 01, however far down the bump is pressed' \
+	architect-agents-01 bumped-down
+stamp 'a bump down corrects a live lineage without restarting it' \
+	architect-hexwright-05 bumped-back
+check 'and the panel footer carries the bumped name in full, before anything fires' \
+	'⏎  architect-agents-09 · fable-high @ thg-fgreen · green · keys: 2' $LAB/out/name-bumped-up.txt
+check '...the floored one too — the footer and the launch can never disagree' \
+	'⏎  architect-agents-01 · fable-high @ thg-fgreen · green · keys: 2' $LAB/out/name-bumped-down.txt
+
+print -r -- '--- the name-stamp: one pass at open, O(1) in the keystroke loop ------'
+# the log is taken away after the scan: if a paint re-read it the ordinal would fall back
+# to 01, so the stamp surviving 500 paints IS the proof that the read happened once
+( cd $THEATER/hexwright && zsh -f -c "source $NAMES/summon.zsh 2>/dev/null
+COLUMNS=200
+_summon_load; _summon_ordinal_scan
+mv $NAMES/log/invocations.jsonl $LAB/out/name-log-taken.jsonl
+_summon_mantle_key=a _summon_model=fable _summon_effort=high _summon_account_key=1
+for i in {1..500}; do _summon_panel 3 '' 0; done
+print -r -- \"500 PAINTS WITH THE LOG TAKEN AWAY: \$_summon_name\"
+typeset -F start=\$EPOCHREALTIME
+for i in {1..500}; do _summon_panel 3 '' 0; done
+printf '  per keystroke, the stamp resolved with it: %.3f ms\n' \
+	\$(( (\$EPOCHREALTIME - start) * 1000 / 500 ))
+start=\$EPOCHREALTIME
+for i in {1..50}; do _summon_ordinal_scan; done
+printf '  per panel open, the one pass over the log:  %.3f ms\n' \
+	\$(( (\$EPOCHREALTIME - start) * 1000 / 50 ))" ) > $LAB/out/name-onepass.txt 2>&1
+mv $LAB/out/name-log-taken.jsonl $NAMES/log/invocations.jsonl
+check 'the ordinal outlives the log file: it was read once, at open, and never again' \
+	'500 PAINTS WITH THE LOG TAKEN AWAY: architect-hexwright-08' $LAB/out/name-onepass.txt
+grep -F 'per ' $LAB/out/name-onepass.txt
+
+print -r -- '--- the name-stamp: the seed and correction path, live ----------------'
+NPTY=$LAB/out/name-pty-sandbox
+mkdir -p $NPTY
+cp $RIG/summon.zsh $RIG/presets.tsv $RIG/accounts.tsv $NPTY/
+cp -R $LAB/fixtures $NPTY/
+( cd $THEATER/foundry && SANDBOX=$NPTY expect $LAB/name.exp $LAB/out/name-pty.txt $LAB/rc.zsh ) \
+	> /dev/null 2>&1
+sed -E $'s/\x1b\\[[0-9;?]*[a-zA-Z]//g' $LAB/out/name-pty.txt | tr '\r' '\n' > $LAB/out/name-pty-plain.txt
+NP=$LAB/out/name-pty-plain.txt
+ga() {	# <name> <expected stamp> [tail]
+	line "$1" 1 "SHIM cfg=/Users/felix/.claude args=--model fable --effort max -n $2${3- /color green}" $NP
+}
+check 'the derived name is on the panel, whole, before any key but ^G' \
+	'⏎  foundry-02 · fable-max @ personal · keys: 1' $NP
+ga 'eight + seed a hand-counted lineage where Felix says his count stands' grand-architect-09
+ga '...and the log carries it forward: the next open derives 10, with no restart at 01' \
+	grand-architect-10
+ga 'fifteen - stop dead at the floor: 01, never a zero or a negative ordinal' \
+	grand-architect-01
+ga 'the counter is the highest ever fired, not the last one fired: 11 follows that 01' \
+	grand-architect-11
+ga 'an abort in between is inert — it fires nothing, so it counts for nothing: 12' \
+	grand-architect-12
+ga 'a bare launch counts its own theater lineage, from 01' foundry-01 ''
+count 'eight gestures, six fires: neither abort launched anything' 6 'SHIM cfg=' $NP
+check 'and every fired stamp landed in its own record, for the next open to count' \
+	'"name":"grand-architect-12"' $NPTY/log/invocations.jsonl
+count 'while the abort stamped null' 1 '"mode":"abort","n":2,"account":"personal","mantle":"grand-architect","model":"fable","effort":"max","color":"green","name":null' \
+	$NPTY/log/invocations.jsonl
 
 print -r -- '--- clipboard law ---------------------------------------------------'
 check 'y yanks the summons for the OVERRIDDEN tier' \
@@ -223,8 +366,8 @@ print -r -- '--- reserved keys -------------------------------------------------
 printf 'm\tmedium-shadow\tfable\thigh\tgreen\n' >> $SANDBOX/presets.tsv
 expect $LAB/reserved.exp $LAB/out/reserved.txt $LAB/rc.zsh > /dev/null 2>&1
 check 'load refuses a preset on a now-global effort key' "reserved key 'm'" $LAB/out/reserved.txt
-check 'the reserved set is the whole panel: models, efforts, n, y, ., digits' \
-	'(reserved: f o s k l m h x M n y .' $LAB/out/reserved.txt
+check 'the reserved set is the whole panel: models, efforts, n, y, ., digits, the ± bumps' \
+	'(reserved: f o s k l m h x M n y . 0 1 2 3 4 5 6 7 8 9 + -)' $LAB/out/reserved.txt
 check 'the refusal is logged too (a keystroke at 1 key)' '"mode":"abort","n":1' $LOG
 sed -i '' '$d' $SANDBOX/presets.tsv
 
@@ -279,30 +422,38 @@ PY
 
 print -r -- '--- usage: unconfigured ⇒ the panel is v1.1, byte for byte -----------'
 # b426166 is the commit that landed v1.1; the guarantee is that a rig without usage
-# configured does not change by one byte, spans included
+# configured does not change by one byte, spans included. Row 13 stamps the session name
+# into the footer and the command, so those two lines are compared on their own below and
+# everything above them must still match to the byte.
 V11=$LAB/out/v11-sandbox
 mkdir -p $V11
 git -C ${LAB:h:h} show b426166:summon/summon.zsh > $V11/summon.zsh
 cp $RIG/presets.tsv $RIG/accounts.tsv $V11/
+rows() { sed -E '/^⏎  /d; /^   [^ ]/d' $1 | sed '/^--- cmd/,$d' }	# the footer and the launch out
 typeset -i identical=1
 for w in 200 80 60; do
-	zsh -f $LAB/render.zsh $V11       $w a fable high 1 2 > $LAB/out/v11-$w.txt
-	zsh -f $LAB/render.zsh $USANDBOX  $w a fable high 1 2 | sed 's/● /●/g' > $LAB/out/v12-$w.txt
-	cmp -s $LAB/out/v11-$w.txt $LAB/out/v12-$w.txt || identical=0
+	( cd $THEATER/atelier && zsh -f $LAB/render.zsh $V11 $w a fable high 1 2 ) > $LAB/out/v11-$w.txt
+	( cd $THEATER/atelier && zsh -f $LAB/render.zsh $USANDBOX $w a fable high 1 2 ) \
+		| sed 's/● /●/g' > $LAB/out/v13-$w.txt
+	cmp -s <(rows $LAB/out/v11-$w.txt) <(rows $LAB/out/v13-$w.txt) || identical=0
 done
 if (( identical )); then
-	print -r -- '  PASS  no log/usage ⇒ panel identical to v1.1 at 200, 80 and 60 columns (bar the swatch space)'
+	print -r -- '  PASS  no log/usage ⇒ every panel row identical to v1.1 at 200, 80 and 60 columns (bar the swatch space)'
 else
-	print -r -- '  FAIL  the panel changed without usage being configured'; (( fails++ ))
+	print -r -- '  FAIL  the panel rows changed without usage being configured'; (( fails++ ))
 fi
+check 'v1.1 named the mantle in the footer...' \
+	'⏎  architect · fable-high @ thg-fgreen · green · keys: 2' $LAB/out/v11-200.txt
+check '...and row 13 names the session, the one line that parted from it' \
+	'⏎  architect-atelier-01 · fable-high @ thg-fgreen · green · keys: 2' $LAB/out/v13-200.txt
 
 print -r -- '--- usage: the fetcher, under a shimmed Keychain and curl -------------'
 rm -f $LAB/out/shim-security.txt $LAB/out/shim-curl.txt
 zsh -f $LAB/fetch.zsh $USANDBOX ok > $LAB/out/fetch-ok.txt 2>&1
 FO=$LAB/out/fetch-ok.txt
 count 'summon-usage fetches every account in accounts.tsv' 3 '  fetched  ' $FO
-check 'and reports each cache age, so "why is my table grey" has an answer' \
-	'1 thg-fgreen        0 s  fresh' $FO
+matches 'and reports each cache age, so "why is my table grey" has an answer' \
+	'^    1 thg-fgreen +[0-9]+ s  fresh$' $FO
 # the service name is derived from the config dir, not stored: sha256 of the absolute path
 check 'keychain service derived for personal    (sha256 → dcd01a92)' \
 	'find-generic-password -w -s Claude Code-credentials-dcd01a92 -a' $LAB/out/shim-security.txt
@@ -365,7 +516,7 @@ PY
 
 print -r -- '--- usage: the table ------------------------------------------------'
 zsh -f $LAB/usage-seed.zsh $USANDBOX mixed
-urender() { zsh -f $LAB/render.zsh $USANDBOX $2 "$3" "$4" "$5" "$6" $7 "${8:-}" > $LAB/out/$1 }
+urender() { ( cd $THEATER/atelier && zsh -f $LAB/render.zsh $USANDBOX $2 "$3" "$4" "$5" "$6" $7 "${8:-}" ) > $LAB/out/$1 }
 urender usage-200.txt 200 a fable high 1 2 ; plain usage-200.txt
 urender usage-60.txt   60 a fable high 1 2 ; plain usage-60.txt
 UP=$LAB/out/usage-200-plain.txt
@@ -402,7 +553,7 @@ line 'panel open refetches only the cold caches, and leaves the fresh one alone'
 	'SPAWNED personal thg-doorbell' $LAB/out/spawn.txt
 # and on a real 60-column screen, with every cache fresh so nothing races the paint
 zsh -f $LAB/usage-seed.zsh $USANDBOX fresh
-SANDBOX=$USANDBOX SUMMON_COLUMNS=60 expect $LAB/usage.exp $LAB/out/usage-pty.txt $LAB/rc.zsh > /dev/null 2>&1
+( cd $THEATER/hive && SANDBOX=$USANDBOX SUMMON_COLUMNS=60 expect $LAB/usage.exp $LAB/out/usage-pty.txt $LAB/rc.zsh ) > /dev/null 2>&1
 sed -E $'s/\x1b\\[[0-9;?]*[a-zA-Z]//g' $LAB/out/usage-pty.txt | tr '\r' '\n' > $LAB/out/usage-pty-plain.txt
 check 'live 60-column pty: the usage block paints on a real screen' \
 	'usage    0  sess 17%+13' $LAB/out/usage-pty-plain.txt
@@ -457,7 +608,7 @@ print -r -- '--- telemetry -----------------------------------------------------
 print -r -- "  $(wc -l < $LOG | tr -d ' ') lines · modes: $(for m in refire pick eject abort; do print -rn -- "$m $(grep -c "\"mode\":\"$m\"" $LOG) "; done)"
 python3 - "$LOG" <<'PY' || fails=$(( fails + 1 ))
 import json, sys
-need = {"ts","mode","n","keys","account","mantle","model","effort","color","cmd"}
+need = {"ts","mode","n","keys","account","mantle","model","effort","color","name","cmd"}
 rows, bad = [], 0
 for i, line in enumerate(open(sys.argv[1]), 1):
 	try:
@@ -478,9 +629,20 @@ for mode, n, what in (("refire",2,"^G ⏎ — the 2-key refire"), ("pick",3,"one
 	hit = [r for r in rows if r["mode"] == mode and r["n"] == n]
 	print(f"  {'PASS' if hit else 'FAIL'}  {mode} at {n} keys — {what}")
 	bad += 0 if hit else 1
-bare = [r for r in rows if r["mode"] in ("pick","refire") and r["cmd"] and " -n " not in r["cmd"]]
-ok = bare and all(r["mantle"] is None and r["color"] is None for r in bare)
-print(f"  {'PASS' if ok else 'FAIL'}  bare is inferred from mantle/color = null, not a mode")
+bare = [r for r in rows if r["mode"] in ("pick","refire") and r["mantle"] is None]
+ok = bare and all(r["color"] is None and r["name"] == "hive-01" for r in bare)
+print(f"  {'PASS' if ok else 'FAIL'}  bare is inferred from mantle/color = null, not a mode — and stamps the theater alone")
+bad += 0 if ok else 1
+fired = [r for r in rows if r["mode"] != "abort"]
+ok = all(r["name"] and f' -n {r["name"]}' in r["cmd"] for r in fired)
+print(f"  {'PASS' if ok else 'FAIL'}  every one of the {len(fired)} fired records carries its stamp, and its cmd carries it as -n")
+bad += 0 if ok else 1
+ok = all(r["name"] is None for r in rows if r["mode"] == "abort")
+print(f"  {'PASS' if ok else 'FAIL'}  every abort stamps null — nothing fired, so nothing counted")
+bad += 0 if ok else 1
+lineage = [r["name"] for r in fired if r["name"].startswith("architect-hive-")]
+ok = lineage == ["architect-hive-%02d" % i for i in range(1, len(lineage) + 1)] and len(lineage) == 9
+print(f"  {'PASS' if ok else 'FAIL'}  the architect lineage ran 01..{len(lineage):02d} in order — no gap, no repeat, one per fire")
 bad += 0 if ok else 1
 invalid = [r for r in rows if r["keys"] == "^GZ⏎"]
 ok = len(invalid) == 1 and invalid[0]["n"] == 3 and invalid[0]["mode"] == "refire"
@@ -497,13 +659,20 @@ sys.exit(1 if bad else 0)
 PY
 
 print -r -- '--- refire fidelity -------------------------------------------------'
+# a refire repeats the configuration, not the session: since row 13 the one byte that must
+# differ is the ordinal, because what it launches is a new session and needs its own handle
 pick=$(grep -m1 '"mode":"pick"' $LOG | sed -e 's/.*"cmd":"//' -e 's/","keys".*//')
 rep=$(grep -m1 '"mode":"refire"' $LOG | sed -e 's/.*"cmd":"//' -e 's/","keys".*//')
-if [[ -n $rep && $rep == $pick ]]; then
-	print -r -- '  PASS  refire cmd byte-identical to the pick it repeats'
+if [[ -n $rep && ${pick/architect-hive-01/} == ${rep/architect-hive-02/} ]]; then
+	print -r -- '  PASS  refire cmd byte-identical to the pick it repeats, but for the ordinal'
 else
 	print -r -- "  FAIL  refire != pick\n          pick:   $pick\n          refire: $rep"
 	(( fails++ ))
+fi
+if [[ $pick == *' -n architect-hive-01 '* && $rep == *' -n architect-hive-02 '* ]]; then
+	print -r -- '  PASS  ...and the ordinal advanced by exactly one: 01 → 02'
+else
+	print -r -- '  FAIL  the refire did not advance the lineage by one'; (( fails++ ))
 fi
 
 print -r -- '--- derived summons, every preset -----------------------------------'
