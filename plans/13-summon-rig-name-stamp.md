@@ -37,10 +37,11 @@ count for him.
   - **mantle** — the preset's mantle field verbatim (`architect`, `grand-architect`, …).
   - **theater** — `${PWD:t}` at fire time. No `git rev-parse` (a fork the string
     doesn't need); firing from a subdirectory stamps the subdirectory — Felix summons
-    at repo roots, and if this ever lies in practice it's a one-line revisit. Theater
-    stays in **every** stamp, the Grand Architect's included
-    (`grand-architect-agents-09`) — uniform scheme, no home-repo special case; the
-    ordinal, not the segment count, carries the lineage.
+    at repo roots, and if this ever lies in practice it's a one-line revisit.
+    **Grand Architect excepted** (Felix, 2026-08-22, overruling the Architect's
+    uniform-scheme draft): there is only one office — its theater is redundancy, not
+    information. `grand-architect` stamps `grand-architect-<NN>`, no theater segment;
+    every other mantle carries theater.
   - ~~**account** — the `accounts.tsv` label verbatim~~ — **struck 2026-08-22
     (Felix):** accounts are quota arbitrage, not identity (MAP §5); the account never
     enters the name.

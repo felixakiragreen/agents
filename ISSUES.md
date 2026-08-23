@@ -7,3 +7,19 @@ rejection, and git keeps the bytes (entries are committed before they are draine
 A swept inbox is empty.
 
 ---
+
+From Felix, via the row-13 Architect (2026-08-22):
+
+**Core-value candidate: eliminating redundancy OVER enforcing blind consistency.**
+Consistency IS very important, but for its own sake it can become overbearing.
+Birthplace: the row-13 name-stamp amendment — the Architect ruled theater into every
+stamp "uniform scheme, no home-repo special case," stamping the Grand Architect
+`grand-architect-agents-09`; Felix overruled mid-commit: there is only one GA office,
+so its theater segment is redundancy, not information — `grand-architect-09`. The
+reflex to watch for: "no special case" invoked to defend a segment/field/rule that
+carries zero information in context. For the Grand Architect's sweep: where does this
+land — the Coding Directives already gesture at it (§1 simplicity, §2.5 names), but
+nothing states the tiebreak *redundancy-elimination beats consistency-for-its-own-sake*
+as an explicit value.
+
+---
