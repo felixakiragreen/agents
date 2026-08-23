@@ -25,7 +25,7 @@ hives' work looks like one city and not three.
 | A building | a project — a repo with its own board |
 | Architect of record | that project's Architect |
 | The commission letter | `dream.md` — the client's own words, framed, never edited |
-| The master plan | the master doc — `GENESIS.md` / `README.md` |
+| The master plan | the master doc — `MAP.md` / `README.md` (D60) |
 | A programme of works | a campaign — a bounded arc of rows with its own DoD |
 | The works schedule | the board; a row = one job = one crew's shift (a session) |
 | A job ticket | a work doc — a brief (survey) or an order (construction) |

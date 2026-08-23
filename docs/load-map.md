@@ -29,9 +29,9 @@ summons and work doc name.
 
 | Session | Loads | Doctrine? |
 |---|---|---|
-| Grand Architect | charter + GENESIS + LEDGER + DECISIONS + LOG + ISSUES (the D49 sweep), then birthplaces per the harvest law | Yes — owns it |
+| Grand Architect | charter + MAP + LEDGER + DECISIONS + LOG + ISSUES (the D49 sweep), then birthplaces per the harvest law | Yes — owns it |
 | Architect (founding) | charter + DOCTRINE + `dream.md` | Yes — the summons names it |
-| Architect (sitting) | charter + master doc/board + ledger tail + landed findings | §-reads as the work demands — the charter points at §4 |
+| Architect (sitting) | charter + master doc/board + ledger tail + landed findings + the inbox (the D53 sweep) | §-reads as the work demands — the charter points at §4 |
 | Dispatcher | charter + the board + batch note + kickoffs (relayed verbatim) + rider + bulletin | No |
 | Digger / Builder | charter + their one work doc + rider + the doc's Inputs list | No |
 | Bare session | the two CLAUDE.mds only | No — no charter either |

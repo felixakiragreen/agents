@@ -6,7 +6,7 @@ bulletin sentence — batches here are sequential; no worktrees — work rides t
 tree on `master`.
 
 > You are running as a dispatched agent. Follow this repo's conventions: `CLAUDE.md` and
-> `GENESIS.md` §7. Any D-entry you cut lands marked "(proposed — pending Felix
+> `MAP.md` §7. Any D-entry you cut lands marked "(proposed — pending Felix
 > countersign)". Your files and commits are the deliverable. Your final report is
 > logistics only: status (LANDED / KILLED / BLOCKED), a one-line outcome, and pointers to
 > findings + commits.

@@ -4,15 +4,15 @@ The operating system for how Felix works with Claude across three accounts and e
 repo — **the Guild** (D37): mantles, capability tiers, work doctrine, global CLAUDE.md —
 canonized here, mirrored into `~/.claude*` config dirs.
 
-**Read `GENESIS.md` before any work** — it is the master architecture and holds the
+**Read `MAP.md` before any work** — it is the master architecture and holds the
 campaign board. Ratified choices live in `DECISIONS.md`; the tail of `LEDGER.md` tells
-you where we are.
+you where we are; field reports land in `ISSUES.md` (D49) — file and move on.
 
 ## Session protocol
 
 - Declare your mantle: Grand Architect · Architect · Dispatcher · Digger · Builder.
 - Work doctrine: `canon/work/DOCTRINE.md` — boards, work docs, findings, ledger law;
-  this repo conforms (GENESIS §7).
+  this repo conforms (MAP §7).
 - Design sessions (01–03) run Fable at max effort; briefs name everything else.
 - Deployment: `./sync/deploy` symlinks the sync set into all three config dirs,
   `./sync/check` is the drift alarm — `deploy` is **Felix-run** (an agent tripping the

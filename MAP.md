@@ -1,4 +1,4 @@
-# The Agents Canon — Genesis
+# The Agents Canon — The Map
 
 > *The Grand Architect keeps the canon, Architects think, Dispatchers tend, Diggers dig,
 > Builders build — a hive building a city; files carry the truth.*
