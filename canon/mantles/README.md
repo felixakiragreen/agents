@@ -3,7 +3,7 @@
 > *The Grand Architect keeps the canon, Architects think, Dispatchers tend, Diggers dig,
 > Builders build — a hive building a city; files carry the truth.*
 
-Every session is **tier × mantle × context** (GENESIS §2) — together, **the Guild**
+Every session is **tier × mantle × context** (MAP §2) — together, **the Guild**
 (D37). This file is its operational law: how tiers are named, how a mantle is worn, how
 sessions are summoned, and which law wins when laws collide.
 
@@ -67,8 +67,8 @@ You are a <Mantle> at <tier>. Wear ~/code/agents/canon/mantles/<mantle>.md, then
 <context docs> and <execute the brief | build the order | run the board | review the batch>.
 ```
 
-Once skill shims are deployed (04), `/<mantle>` replaces the "Wear <path>" clause for
-interactive sessions; the rest of the summons is unchanged.
+The skill shims (live ×3 since 2026-08-03) let `/<mantle>` replace the "Wear <path>"
+clause for interactive sessions; the rest of the summons is unchanged.
 
 Dispatched (canonical):
 
@@ -91,12 +91,14 @@ every dispatch.
 > If you work in a worktree, read the main bulletin by its absolute path, but append
 > to your own worktree's copy (create it if absent), each entry headed `→ relay`, left
 > uncommitted — the Dispatcher relays flagged entries verbatim; everything else of
-> yours rides your branch. Your findings file and commits are the deliverable. Your final report is
+> yours rides your branch. Third-party code — fetch, vendor, install beyond existing
+> deps, or execute from the network — only where your work doc names it; otherwise
+> STOP and escalate (D54). Your findings file and commits are the deliverable. Your final report is
 > logistics only: status (LANDED / KILLED / BLOCKED), a one-line outcome, and pointers
 > to findings + commits.
 
 Universal core (never varies): the dispatched framing · files-are-the-deliverable ·
-report-is-logistics-only. Project slots: agreements ref, bulletin path (projects with no
+report-is-logistics-only · third-party pre-authorization (D54). Project slots: agreements ref, bulletin path (projects with no
 bulletin drop that sentence), worktree specifics.
 
 ## The precedence law

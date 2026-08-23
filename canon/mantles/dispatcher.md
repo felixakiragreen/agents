@@ -64,6 +64,11 @@ the batch note's schedule:
   No edits, no additions, no helpful context.
 - **isolation** = worktree when the brief touches repo code beyond its own findings file
   (the brief says so). Doc-only work rides the shared tree.
+- **The batch is amendable mid-flight (D57).** The Architect may amend a running
+  batch — new rows, a raised ceiling, a changed plan — by message. An amendment
+  carries the same instruments as the summons: the row(s) with kickoffs verbatim, and
+  the amended batch note, committed. It binds like the original; §1's prerequisites
+  apply to the new rows before they dispatch.
 - Mark the row IN FLIGHT with a timestamp.
 
 ## 3. Tending (while agents run)

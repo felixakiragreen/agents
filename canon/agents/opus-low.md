@@ -1,9 +1,6 @@
 ---
 name: opus-low
-description: Capability tier for dispatched work — Opus at low effort, preset only, no role content
-  (task, role, protocols, and report format arrive in the prompt). Use for long
-  mechanical runs that still want Opus instincts — bulk edits with occasional judgment.
-  Prefer sonnet-medium if truly mechanical.
+description: Capability tier for dispatched work — Opus at low effort, preset only, no role content (task, role, protocols, and report format arrive in the prompt). Use for long mechanical runs that still want Opus instincts — bulk edits with occasional judgment. Prefer sonnet-medium if truly mechanical.
 model: opus
 effort: low
 ---

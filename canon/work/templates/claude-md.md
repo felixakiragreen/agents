@@ -2,9 +2,10 @@
 
 ⟨Two or three lines: the system, for whom, the bet. No history, no state — point.⟩
 
-**Read `GENESIS.md` before any work** — master architecture and the board.⟨ `dream.md`
+**Read `MAP.md` before any work** — master architecture and the board.⟨ `dream.md`
 is Felix's dream for the project: immutable, never edit it.⟩ The tail of `LEDGER.md`
-says where we are; ratified choices live in `DECISIONS.md`.
+says where we are; ratified choices live in `DECISIONS.md`; field reports go to
+`ISSUES.md` — file it and move on.
 
 ## Hard laws (project physics; Felix's global directives also apply)
 
@@ -19,7 +20,8 @@ says where we are; ratified choices live in `DECISIONS.md`.
   names the rest."⟩
 - End every session: state written, `LEDGER.md` appended (date · mantle · changed ·
   decided · next), commits in Felix's git style. Suggest a break at every clean
-  boundary; hand the next session its summons verbatim.
+  boundary; end with the baton — one holder, one instrument, the next summons pasted
+  verbatim (DOCTRINE §11).
 - Repo: branch `master`, never main. ⟨Other conventions: worktree rules, protected
   paths, what stays out of git.⟩
 

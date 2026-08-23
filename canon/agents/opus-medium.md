@@ -1,8 +1,6 @@
 ---
 name: opus-medium
-description: Capability tier for dispatched work — Opus at medium effort, preset only, no role
-  content (task, role, protocols, and report format arrive in the prompt). Use for spec-
-  driven construction and well-specified recon or execution.
+description: Capability tier for dispatched work — Opus at medium effort, preset only, no role content (task, role, protocols, and report format arrive in the prompt). Use for spec-driven construction and well-specified recon or execution.
 model: opus
 effort: medium
 ---

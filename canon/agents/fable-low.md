@@ -1,9 +1,6 @@
 ---
 name: fable-low
-description: Capability tier for dispatched work — Fable at low effort, preset only, no role content
-  (task, role, protocols, and report format arrive in the prompt). Grid-completeness
-  cell; almost always mis-staffed — throttled Fable is still Fable-priced. Prefer opus-
-  high, or fable-high if the conclusion matters.
+description: Capability tier for dispatched work — Fable at low effort, preset only, no role content (task, role, protocols, and report format arrive in the prompt). Grid-completeness cell; almost always mis-staffed — throttled Fable is still Fable-priced. Prefer opus-high, or fable-high if the conclusion matters.
 model: fable
 effort: low
 ---

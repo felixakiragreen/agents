@@ -1,9 +1,6 @@
 ---
 name: sonnet-max
-description: Capability tier for dispatched work — Sonnet at max effort, preset only, no role content
-  (task, role, protocols, and report format arrive in the prompt). Use rarely — Sonnet
-  stretched to its ceiling on well-trodden multi-step work — if the care genuinely
-  matters, opus-medium is usually the honest staffing.
+description: Capability tier for dispatched work — Sonnet at max effort, preset only, no role content (task, role, protocols, and report format arrive in the prompt). Use rarely — Sonnet stretched to its ceiling on well-trodden multi-step work — if the care genuinely matters, opus-medium is usually the honest staffing.
 model: sonnet
 effort: max
 ---

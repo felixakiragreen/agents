@@ -1,8 +1,6 @@
 ---
 name: haiku-medium
-description: Capability tier for dispatched work — Haiku at medium effort, preset only, no role
-  content (task, role, protocols, and report format arrive in the prompt). Use for bulk
-  trivial transforms and relay drudgework with a bit of care.
+description: Capability tier for dispatched work — Haiku at medium effort, preset only, no role content (task, role, protocols, and report format arrive in the prompt). Use for bulk trivial transforms and relay drudgework with a bit of care.
 model: haiku
 effort: medium
 ---

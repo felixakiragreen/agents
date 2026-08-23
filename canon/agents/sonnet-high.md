@@ -1,9 +1,6 @@
 ---
 name: sonnet-high
-description: Capability tier for dispatched work — Sonnet at high effort, preset only, no role
-  content (task, role, protocols, and report format arrive in the prompt). Use for well-
-  trodden work with mild judgment — tests against clear specs, structured refactors,
-  careful doc surgery.
+description: Capability tier for dispatched work — Sonnet at high effort, preset only, no role content (task, role, protocols, and report format arrive in the prompt). Use for well-trodden work with mild judgment — tests against clear specs, structured refactors, careful doc surgery.
 model: sonnet
 effort: high
 ---

@@ -1,9 +1,6 @@
 ---
 name: sonnet-xhigh
-description: Capability tier for dispatched work — Sonnet at xhigh effort, preset only, no role
-  content (task, role, protocols, and report format arrive in the prompt). Use for
-  sustained mechanical work with occasional traps — long sweeps where a moment's care
-  beats a retry.
+description: Capability tier for dispatched work — Sonnet at xhigh effort, preset only, no role content (task, role, protocols, and report format arrive in the prompt). Use for sustained mechanical work with occasional traps — long sweeps where a moment's care beats a retry.
 model: sonnet
 effort: xhigh
 ---

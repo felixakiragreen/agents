@@ -1,8 +1,6 @@
 ---
 name: sonnet-low
-description: Capability tier for dispatched work — Sonnet at low effort, preset only, no role content
-  (task, role, protocols, and report format arrive in the prompt). Use for high-volume
-  trivial transforms where latency and cost dominate.
+description: Capability tier for dispatched work — Sonnet at low effort, preset only, no role content (task, role, protocols, and report format arrive in the prompt). Use for high-volume trivial transforms where latency and cost dominate.
 model: sonnet
 effort: low
 ---

@@ -52,7 +52,9 @@ code style, and git conventions always apply.
 
 Findings appended · status line updated · commits on the right branch. The final report
 is logistics only: status (LANDED / KILLED / BLOCKED), a one-line outcome, and pointers
-to findings + commits.
+to findings + commits. A Felix-tended session (no Dispatcher) ends facing Felix, and
+ends with the baton — one holder, one instrument, the summons pasted verbatim
+(D42/D46; shape in DOCTRINE §11).
 
 ## Forbidden — the single-glance list
 

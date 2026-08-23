@@ -1,9 +1,6 @@
 ---
 name: opus-xhigh
-description: Capability tier for dispatched work — Opus at xhigh effort, preset only, no role content
-  (task, role, protocols, and report format arrive in the prompt). Use when opus-high
-  demonstrably under-thought the problem — long judgment-dense runs that need more
-  deliberation, not more supervision.
+description: Capability tier for dispatched work — Opus at xhigh effort, preset only, no role content (task, role, protocols, and report format arrive in the prompt). Use when opus-high demonstrably under-thought the problem — long judgment-dense runs that need more deliberation, not more supervision.
 model: opus
 effort: xhigh
 ---

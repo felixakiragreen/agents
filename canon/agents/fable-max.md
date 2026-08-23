@@ -1,9 +1,6 @@
 ---
 name: fable-max
-description: Capability tier for dispatched work — Fable at max effort, preset only, no role content
-  (task, role, protocols, and report format arrive in the prompt). Use for the deepest
-  single-session thinking — canon design, merged foundational sessions, one-shot
-  architecture with no second chance.
+description: Capability tier for dispatched work — Fable at max effort, preset only, no role content (task, role, protocols, and report format arrive in the prompt). Use for the deepest single-session thinking — canon design, merged foundational sessions, one-shot architecture with no second chance.
 model: fable
 effort: max
 ---

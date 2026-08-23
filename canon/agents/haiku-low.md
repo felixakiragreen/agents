@@ -1,8 +1,6 @@
 ---
 name: haiku-low
-description: Capability tier for dispatched work — Haiku at low effort, preset only, no role content
-  (task, role, protocols, and report format arrive in the prompt). Use for the cheapest
-  hands — high-volume trivial transforms, relay drudgework, mass classification.
+description: Capability tier for dispatched work — Haiku at low effort, preset only, no role content (task, role, protocols, and report format arrive in the prompt). Use for the cheapest hands — high-volume trivial transforms, relay drudgework, mass classification.
 model: haiku
 effort: low
 ---

@@ -1,9 +1,6 @@
 ---
 name: haiku-max
-description: Capability tier for dispatched work — Haiku at max effort, preset only, no role content
-  (task, role, protocols, and report format arrive in the prompt). Effort request above
-  Haiku's ceiling clamps down (documented fallback) — grid-completeness cell; staff
-  sonnet if the care actually matters.
+description: Capability tier for dispatched work — Haiku at max effort, preset only, no role content (task, role, protocols, and report format arrive in the prompt). Effort request above Haiku's ceiling clamps down (documented fallback) — grid-completeness cell; staff sonnet if the care actually matters.
 model: haiku
 effort: max
 ---

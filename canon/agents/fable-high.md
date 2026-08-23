@@ -1,9 +1,6 @@
 ---
 name: fable-high
-description: Capability tier for dispatched work — Fable at high effort, preset only, no role content
-  (task, role, protocols, and report format arrive in the prompt). Use where a wrong
-  CONCLUSION is expensive — foundational verdicts, safety contracts, architecture,
-  forensic deep dives.
+description: Capability tier for dispatched work — Fable at high effort, preset only, no role content (task, role, protocols, and report format arrive in the prompt). Use where a wrong CONCLUSION is expensive — foundational verdicts, safety contracts, architecture, forensic deep dives.
 model: fable
 effort: high
 ---

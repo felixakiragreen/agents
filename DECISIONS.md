@@ -581,3 +581,97 @@
   Prior sharpenings stand unrenumbered — we don't hide where we came from. First
   rider, executed as clarification #1: grand-architect.md "a new campaign" → "a new
   canon campaign" (ancestor: the Owns line, "campaign keels … for canon work").
+- **D53** (2026-08-22, Grand Architect (08) · ✓ Felix): **ISSUES.md generalizes —
+  every project's incident inbox.** Field reports and fold candidates land there
+  mid-work: Felix's hand, or a session's at his word (a null-mantle session told to
+  file does so and moves on). The project's Architect sweeps at every review sitting:
+  each entry ruled — folded into the docs, cut as a row, rejected, or escalated by
+  class (canon-shaped entries go to the canon repo's inbox) — then **deleted**: the
+  fold's home records folds, the ledger line records rejections, git keeps the bytes
+  (entries are committed before they are drained). The inbox drains empty — never a
+  second ledger; protocol rides the file header. Minted at founding (`ISSUES.md`,
+  empty, header only); a subproject adopts on first need. The null-mantle delivery is
+  the project CLAUDE.md's one clause — bare sessions read nothing else. Edits:
+  DOCTRINE §2/§3/§12 + templates (`issues.md` minted, claude-md clause),
+  architect.md (Owns + step 5). Birthplaces: this repo's inbox (D49, three sweeps
+  run, drained empty each time) + simmy's, in daily use.
+- **D54** (2026-08-22, Grand Architect (08) · ✓ Felix): **The pre-authorization
+  law.** Fetching, vendoring, installing beyond the repo's existing dependencies, or
+  executing anything pulled from the network happens only when the work doc names
+  it — an unnamed need is a STOP-and-escalate fork, never an after-the-fact review.
+  A vendored tree records its exact upstream version and carries its license FILE —
+  a license named from memory is not a record. Edits: DOCTRINE §5; the rider
+  template's universal core (canon/mantles/README.md) — every dispatched session
+  provably holds the rider. Birthplace: simmy §8 (S8's noVNC/websockify vendoring,
+  blessed only after a 59-file hash-verify against upstream tarballs and two license
+  corrections — "MIT" was MPL-2.0, "BSD-3" was LGPL-3.0; authorization is the cheap
+  path, review is the expensive one; minted there 2026-08-06, `4f25e0f56`).
+- **D55** (2026-08-22, Grand Architect (08) · ✓ Felix): **The venue law.** A row
+  that mints a disposable live venue — a VM, a container, a machine — deletes it at
+  landing; pausing is for mid-work, never for done. A teardown the permission guard
+  refuses is reported in the row's report for the Architect's sweep at batch close:
+  a refused delete reported is fine, a venue silently kept is not. The project's
+  agreements name the standing set that is never swept. Edit: DOCTRINE §10.
+  Birthplace: simmy §8 (`01f2cf3c8` — delete-not-stop): eight machines up coincided
+  with an OrbStack control-plane panic that took every session's venue down
+  (bulletin 2026-08-03); 23 machines accumulated by 08-06, most from landed spikes.
+- **D56** (2026-08-22, Grand Architect (08) · ✓ Felix): **The verdict law.** A
+  verdict about the system's behavior — geometry, emission, anything an operator or
+  user sees — cites the governing contract section it stands on: **no citation, no
+  verdict**, whatever job the session was summoned for — sessions drift jobs, and
+  the citation duty is what re-triggers the read when the question class changes.
+  A field incident arriving mid-session is a **Digger-shaped question**: first move
+  is the governing contract + findings; the first analysis is a hypothesis until a
+  reproduction confirms it, and it leaves the session *labeled* hypothesis, never
+  guidance. Edits: architect.md (new section + forbidden line). Birthplace:
+  cornerizer §8 preamble + rider (`25637111a`, 2026-08-19 — the L1 forensic: two
+  confident wrong geometry verdicts in one sitting, both corrected by a two-minute
+  contract read; survived in the field since). The entry's third candidate (the
+  one-screen invariants block + summons line) has no birthplace — routed to
+  cornerizer as an experiment per the harvest law, not folded.
+- **D57** (2026-08-22, Grand Architect (08) · ✓ Felix): **The batch is amendable
+  mid-flight.** The Architect may amend a running batch — new rows, a raised
+  ceiling, a changed plan — by message to its Dispatcher. An amendment carries the
+  same instruments as the summons: the row(s) with kickoffs verbatim, and the
+  amended batch note, committed; it binds like the original, and dispatcher.md §1's
+  prerequisites apply to the new rows before they dispatch. The Architect's cut asks
+  first whether a running batch can absorb the row — a sequencing reason is tested:
+  real dependency, or a convention a worktree dissolves? The amendment message is
+  drafted verbatim by the Architect and delivered by whoever can see the Dispatcher —
+  the account silos hide peers, so Felix's hand is the standing fallback. Edits:
+  dispatcher.md §2, architect.md step 6, DOCTRINE §10. Birthplace: cornerizer batch 8
+  ("AMENDED 2026-08-16 mid-flight: + C15, ceiling 2" — the batch-9 sequencing existed
+  only for the shared-tree rule; a worktree dissolved it; Felix's question started it).
+- **D58** (2026-08-22, Grand Architect (08) · ✓ Felix): **The linking law.** Durable
+  docs link the files they reference at first mention —
+  `[plans/04-sync.md](plans/04-sync.md)`, `[D19](DECISIONS.md)` — one click beats a
+  minute's hunt. Anchors only onto real headings: a bold list item resolves no
+  anchor — the file link is the value. Boards link their work docs. Edit: DOCTRINE
+  §3. Ancestor practice: this repo's board has linked its work docs since founding;
+  ratified at Felix's ask (his own `[Decisions D19](DECISIONS.md#D19)` field test).
+- **D59** (2026-08-22, Felix): **bun is the JS/TS default.** The global
+  `canon/CLAUDE.md` gains a STACK DEFAULTS section: JS/TS work defaults to bun
+  (`bun`, `bun test`, `bunx`) — never npm/node/vitest unless the repo's own files
+  say otherwise. Sited in the global file by the load-map's enforcement corollary:
+  the pain strikes in bare sessions at project start, and the global file is the
+  only file provably open there — a stack doc nobody loads is dead law, and memory
+  is siloed comb (D27). Updateable by countersigned edit when the runtime fashion
+  changes. Evidence: Felix specified bun by hand twice in one week; whiteboardy
+  already runs it.
+- **D60** (2026-08-22, Felix · applied by the Grand Architect (08)): **GENESIS
+  becomes MAP.** The master doc of a full project is **`MAP.md`** — the D25 test
+  re-run: a protocol singleton (one per scope, read as protocol) → ALLCAPS; the noun
+  names the doc's life, not its birth (genesis is the founding moment; the map is
+  how the city thinks — the city register already called it the master plan).
+  Rename-is-a-move (D33): `git mv`, content bytes forever. The word *genesis*
+  retires: DOCTRINE §12 becomes "the founding ritual" — the vocabulary was already
+  *found/founding* everywhere else; template `genesis.md` → `map.md`. Migration per
+  D33's precedent: new foundings mint `MAP.md`; existing repos rename at their own
+  Architects' boundaries — the old name is valid until then, nothing breaks
+  meanwhile; subprojects keep `README.md` as master doc (D17 unchanged). History
+  unedited (D32's scope law): D-entries, ledger, closed briefs, and birthplace
+  citations to other repos' files keep saying GENESIS. Live surfaces renamed this
+  sitting: this repo's `MAP.md` (example #1), repo CLAUDE.md, DOCTRINE §2/§3/§12 +
+  templates table, templates/claude-md, mantles README, architect.md +
+  grand-architect.md Owns wording, docs/the-city.md, docs/load-map.md,
+  plans/RIDER.md, plans/quartermaster.md.

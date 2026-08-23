@@ -1,8 +1,6 @@
 ---
 name: haiku-high
-description: Capability tier for dispatched work — Haiku at high effort, preset only, no role content
-  (task, role, protocols, and report format arrive in the prompt). Use for drudgework
-  needing a touch of care — relay checks, bulk classification with edge cases.
+description: Capability tier for dispatched work — Haiku at high effort, preset only, no role content (task, role, protocols, and report format arrive in the prompt). Use for drudgework needing a touch of care — relay checks, bulk classification with edge cases.
 model: haiku
 effort: high
 ---

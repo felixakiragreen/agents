@@ -1,9 +1,6 @@
 ---
 name: fable-medium
-description: Capability tier for dispatched work — Fable at medium effort, preset only, no role
-  content (task, role, protocols, and report format arrive in the prompt). Use
-  sparingly — Fable judgment at cruising effort for moderate verdict-shaped questions —
-  justify vs fable-high or opus-high before staffing.
+description: Capability tier for dispatched work — Fable at medium effort, preset only, no role content (task, role, protocols, and report format arrive in the prompt). Use sparingly — Fable judgment at cruising effort for moderate verdict-shaped questions — justify vs fable-high or opus-high before staffing.
 model: fable
 effort: medium
 ---

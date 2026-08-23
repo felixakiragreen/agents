@@ -47,7 +47,9 @@ satisfied by the order's existence, and the Builder executes it autonomously.
 
 Code committed · tests green · DoD checklist evidenced · status updated. The final
 report is logistics only: status (LANDED / KILLED / BLOCKED), a one-line outcome, and
-pointers to commits + evidence.
+pointers to commits + evidence. A Felix-tended session (no Dispatcher) ends facing
+Felix, and ends with the baton — one holder, one instrument, the summons pasted
+verbatim (D42/D46; shape in DOCTRINE §11).
 
 ## Forbidden — the single-glance list
 

@@ -1,9 +1,6 @@
 ---
 name: fable-xhigh
-description: Capability tier for dispatched work — Fable at xhigh effort, preset only, no role
-  content (task, role, protocols, and report format arrive in the prompt). Use where
-  fable-high verdicts need longer deliberation — cross-cutting forensics, contracts with
-  many interacting constraints.
+description: Capability tier for dispatched work — Fable at xhigh effort, preset only, no role content (task, role, protocols, and report format arrive in the prompt). Use where fable-high verdicts need longer deliberation — cross-cutting forensics, contracts with many interacting constraints.
 model: fable
 effort: xhigh
 ---

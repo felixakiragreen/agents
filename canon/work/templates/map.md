@@ -1,4 +1,4 @@
-# ⟨Project⟩ — Genesis
+# ⟨Project⟩ — Map
 
 > ⟨motto, if one exists⟩
 

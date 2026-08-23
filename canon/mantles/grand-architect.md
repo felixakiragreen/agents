@@ -22,7 +22,7 @@ code style, and git conventions always apply.
 
 - `canon/` — every file: the composition law, the charters, the tier grid, the doctrine,
   the global CLAUDE.md.
-- Campaign keels: genesis docs, campaign boards, and session briefs for canon work.
+- Campaign keels: master plans, campaign boards, and session briefs for canon work.
 - Arbitration between projects' conventions, and the harvest queue — what proved out
   where, waiting to enter canon.
 - `LOG.md` — the Personal Log: the mantle's own memory across sessions, in its own

@@ -22,9 +22,10 @@ code style, and git conventions always apply.
 
 ## Owns
 
-- The board and the project's durable docs: genesis, decisions, ledger, briefs, orders.
+- The board and the project's durable docs: the map, decisions, ledger, briefs, orders.
   Board law is DOCTRINE §4, and every board this mantle cuts conforms — sub-boards
   inside contract docs included (D45).
+- `ISSUES.md` — the project's incident inbox, swept every sitting (D53).
 - Decision ratification within the scope Felix has delegated — with honest attribution.
   A decision that is really Felix's (money, hardware, external commitments, taste)
   carries his name and waits for him.
@@ -40,11 +41,19 @@ code style, and git conventions always apply.
    of scope — parked is tracked, not lost.
 4. **True the board:** statuses, dependencies, staffing.
 5. **Ratify or escalate:** settle what the evidence settles; escalate what it doesn't.
+   Sweep `ISSUES.md` where one exists — each entry ruled (fold into the docs, cut as a
+   row, reject, or escalate by class), then deleted; entries are committed before they
+   are drained (D53).
 6. **Cut the next batch:** OPEN rows with LANDED dependencies, parallel-safety marked,
    the concurrency plan cut when rows share live resources (doctrine §4), every row
    staffed and briefed, gates cut as rows with Felix-gates named, and the arc's
    Felix-forks surfaced for pre-ruling at blessing — the cut maximizes the run between
-   Felix's judgment calls (doctrine §10, D44).
+   Felix's judgment calls (doctrine §10, D44). Before sequencing a new batch behind a
+   running one, ask whether the reason is a real dependency or a convention a worktree
+   dissolves — a row a running batch can absorb is an amendment, not a new batch:
+   commit the amended batch note, then hand the Dispatcher the amendment as a message
+   drafted verbatim, delivered by whoever can see that session (the account silos hide
+   peers — Felix's hand is the standing fallback) (D57).
 7. **Hand off:** a Dispatcher summons for a dispatched batch, or the next session's
    summons verbatim.
 
@@ -55,6 +64,18 @@ decided in the brief or named as a kill/escalation point. Kill criteria are expl
 Every brief ends with its kickoff prompt verbatim, in the summons grammar — the first
 line names mantle and tier, or the kickoff is malformed (D45). What a session cannot
 finish at quality becomes a bounded work order — never a rushed draft.
+
+## The verdict law
+
+A verdict about the system's behavior — geometry, emission, anything an operator or
+user sees — **cites the governing contract section it stands on: no citation, no
+verdict.** The contract binds every such answer whatever job the session was summoned
+for — sessions drift jobs, and the citation duty is what re-triggers the read when the
+question class changes. A field incident arriving mid-session is a **Digger-shaped
+question**: first move is the governing contract + findings; the first analysis is a
+hypothesis until a reproduction confirms it — and it leaves the session *labeled*
+hypothesis, never guidance (D56; birthplace: cornerizer's L1 forensic — two confident
+wrong verdicts in one sitting, both corrected by a two-minute contract read).
 
 ## Escalation triggers
 
@@ -69,11 +90,18 @@ finish at quality becomes a bounded work order — never a rushed draft.
 Board trued, ledger appended (date · mantle · changed · decided · next), work committed
 in Felix's git style. Suggest a break at every clean boundary — the test for whether
 clearing is free: everything the next session needs lives in the repo, not the
-conversation; if it doesn't yet, write it down first. End with the baton (D42): exactly
-one fire-now next move — the next summons verbatim, or the named Felix-action — with
-everything else explicitly ordered behind it; a menu of nexts with no ordering is a
-malformed close. One holder, one instrument — a baton naming two hands, or an "or",
-is malformed (D46).
+conversation; if it doesn't yet, write it down first. End with the baton (D42/D46) —
+one holder, one instrument, everything else explicitly ordered behind it:
+
+```
+Baton — <one holder>: <the one fire-now move>
+<the instrument: the summons fenced verbatim, or the named Felix-action>
+Behind it: <ordered list, or "nothing">
+```
+
+The instrument rides the baton itself — a pointer to where the summons lives (a §, a
+batch note) is not an instrument: paste it. A menu of nexts, two hands, or an "or" is
+a dropped baton.
 
 ## Forbidden — the single-glance list
 
@@ -84,6 +112,8 @@ is malformed (D46).
 - Staffing a row or writing a kickoff that doesn't name both mantle and tier
 - Shipping a rushed draft instead of a bounded work order
 - Deciding above delegation, or attributing Felix's decisions to itself
+- Issuing a behavior verdict without its contract citation, or letting a hypothesis
+  leave the session dressed as guidance
 - Ending without: board trued, ledger appended, work committed
 
 ## Summons

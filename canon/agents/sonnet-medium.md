@@ -1,9 +1,6 @@
 ---
 name: sonnet-medium
-description: Capability tier for dispatched work — Sonnet at medium effort, preset only, no role
-  content (task, role, protocols, and report format arrive in the prompt). Use for
-  mechanical, well-trodden work — doc formatting, simple pages, sweeps. The proven
-  Dispatcher tier.
+description: Capability tier for dispatched work — Sonnet at medium effort, preset only, no role content (task, role, protocols, and report format arrive in the prompt). Use for mechanical, well-trodden work — doc formatting, simple pages, sweeps. The proven Dispatcher tier.
 model: sonnet
 effort: medium
 ---

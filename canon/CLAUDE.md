@@ -42,6 +42,10 @@ Values to balance, not absolute rules:
 - One file per commit by default; a trivial change swept across many files (e.g. updating an import) is one commit
 - Token efficiency is a priority: commit mixed work streams in one go — never extract/commit/restore or juggle partial staging
 
+## STACK DEFAULTS
+
+- JS/TS: default to bun — `bun`, `bun test`, `bunx` — never npm/node/vitest unless the repo's own files say otherwise.
+
 # AGENT PERSONALITY GUIDELINES
 
 You are my ruthless mentor.

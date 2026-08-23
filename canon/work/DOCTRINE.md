@@ -37,13 +37,14 @@ where evidence forced it.
 | The question | The answer | Law |
 |---|---|---|
 | How do we work here? | `CLAUDE.md` — auto-loaded orientation | §3 |
-| What is this, what's the plan? | the master doc (`GENESIS.md` / `README.md`) | §3 |
+| What is this, what's the plan? | the master doc (`MAP.md` / `README.md`) | §3 |
 | What's the state of work? | the board, in the master doc | §4 |
 | What do I do right now? | your work doc — a brief or an order | §5 |
 | What have we learned? | findings, appended under each work doc | §6 |
 | Where were we? | the `LEDGER.md` tail | §7 |
 | What's been decided? | `DECISIONS.md` | §8 |
 | What changed mid-flight? | the bulletin — parallel batches only | §9 |
+| What came in from the field? | `ISSUES.md` — the incident inbox | §3 |
 
 ## 3. The file set and the scaling law
 
@@ -52,9 +53,10 @@ A **full project** (weeks+, multiple mantles) carries at its root:
 ```
 CLAUDE.md      orientation: what this is, hard laws, session protocol — auto-loaded
 dream.md       Felix's dream, when one exists — IMMUTABLE: never edited, only read
-GENESIS.md     master doc: architecture, the bet, non-goals, board, agreements, DoD
+MAP.md         master doc: architecture, the bet, non-goals, board, agreements, DoD
 LEDGER.md      append-only session log
 DECISIONS.md   ratified choices — D-entries
+ISSUES.md      incident inbox: field reports await the Architect's sweep — drained, never archived
 plans/         work docs (briefs + orders); RIDER.md once dispatching starts
 docs/          durable distillations — once findings outgrow the master doc
 lab/           disposable code by row id (lab/<id>/) — runnable scripts, not transcripts
@@ -72,12 +74,17 @@ the rider when the first batch dispatches (§10). Never split ahead of need.
 - **Naming law (D25):** **ALLCAPS for protocol singletons; lowercase-kebab for
   addressable siblings.** A file is ALLCAPS when both tests pass: only one of it can
   exist in its scope, AND sessions are told to read it as protocol — `CLAUDE.md`,
-  `GENESIS.md`, `README.md`, `LEDGER.md`, `DECISIONS.md`, `DOCTRINE.md`, `RIDER.md`,
+  `MAP.md`, `README.md`, `LEDGER.md`, `DECISIONS.md`, `ISSUES.md`, `DOCTRINE.md`, `RIDER.md`,
   `BULLETIN.md`, `SKILL.md`. One of many addressable siblings is lowercase-kebab — work
   docs (`plans/04-sync.md`), mantle charters, tiers, templates. `dream.md` (né
   `initial.md` — D33) stays lowercase by the second test: a singleton, but an artifact
   interpreted once at founding, not a protocol followed. Practiced since
   hexwright/simmy; codified 2026-08-03.
+- **Linking law (D58):** durable docs link the files they reference at first mention —
+  `[plans/04-sync.md](plans/04-sync.md)`, `[D19](DECISIONS.md)` — one click beats a
+  minute's hunt. Anchors only onto real headings: a bold list item resolves no anchor —
+  the file link is the value. Boards link their work docs (this repo's board, since
+  founding).
 - **CLAUDE.md law:** target ≤ ~60 lines (hexwright's budget). What this is (2–3 lines),
   hard laws (project physics only — Felix's global directives already load), session
   protocol, pointers. State digests rot: point at the board and ledger, don't restate
@@ -91,6 +98,16 @@ the rider when the first batch dispatches (§10). Never split ahead of need.
 - **dream.md** exists when Felix has an origin dump — his dream for the project;
   everything else is born from it. Immutable from the moment it lands: the master doc
   interprets it; nobody edits it (hexwright's law; renamed from `initial.md`, D33).
+- **ISSUES.md law (D53):** the project's incident inbox — field reports and fold
+  candidates land there mid-work: Felix's hand, or a session's at his word (a
+  null-mantle session told to file does so and moves on). The project's Architect
+  sweeps at every review sitting: each entry ruled — folded into the docs, cut as a
+  row, rejected, or escalated by class (canon-shaped entries go to the canon repo's
+  inbox) — then **deleted**: the fold's home records folds, the ledger line records
+  rejections, git keeps the bytes (entries are committed before they are drained).
+  The inbox drains empty — it never becomes a second ledger; protocol rides the
+  file's header. Minted at founding; a subproject adopts on first need. Birthplace:
+  the canon repo's own inbox (D49, three sweeps run) + simmy's, in daily use.
 - **plans/ stays flat** until a single board stops working; then subdivide by area
   (hexwright `plans/core/`). An area split is an Architect decision, never a default.
 
@@ -205,6 +222,15 @@ Architect re-cutting the row. Dispatch = kickoff + project rider, nothing else. 
 single-glance test (D45): a kickoff's first line is the summons line — `You are a
 <Mantle> at <tier>.` — a kickoff that doesn't open by naming both is malformed; fix it
 before dispatch.
+
+**Third-party pre-authorization (D54):** fetching, vendoring, installing beyond the
+repo's existing dependencies, or executing anything pulled from the network happens
+only when the work doc names it — an unnamed need is a STOP-and-escalate fork, never
+an after-the-fact review. A vendored tree records its exact upstream version and
+carries its license FILE — a license named from memory is not a record. Birthplace:
+simmy §8 (S8's vendoring: blessed only after a 59-file hash-verify against upstream
+tarballs and two license corrections — authorization is the cheap path, review is the
+expensive one).
 
 ## 6. Findings law
 
@@ -330,7 +356,11 @@ Dispatcher creates `plans/BULLETIN.md` (next to the work docs — simmy's lived 
   could have pre-ruled is a mis-cut.
   Cross-row scheduling is a fork the pre-chew law reserves to the cut: the Architect
   decides it, the summons carries it, the Dispatcher enforces it — never left to emerge
-  from individually compliant rows. Dispatch mechanics, tending, relay, and the batch
+  from individually compliant rows. A running batch is amendable: the Architect commits
+  the amended batch note and hands the Dispatcher the new rows as a message carrying
+  the same instruments as the summons — sequencing an independent row behind a running
+  batch it doesn't depend on is a mis-cut (D57; birthplace: cornerizer batch 8, amended
+  mid-flight 2026-08-16). Dispatch mechanics, tending, relay, and the batch
   report are the Dispatcher charter's law — the doctrine fixes only the files they touch.
 - **The rider** is instantiated ONCE per project, as `plans/RIDER.md`, from the canon
   template (`canon/mantles/README.md`), filling the three slots: working-agreements ref
@@ -342,6 +372,13 @@ Dispatcher creates `plans/BULLETIN.md` (next to the work docs — simmy's lived 
   says so; the board records unmerged branches until the Architect merges or rejects.
   A shared branch is never rewound: no force-push, planned or contingent — red after a
   premature merge is an escalation, not a rewind (D48).
+- **Venue law (D55):** a row that mints a disposable live venue — a VM, a container, a
+  machine — deletes it at landing; pausing is for mid-work, never for done. A teardown
+  the permission guard refuses is reported in the row's report for the Architect's
+  sweep at batch close: a refused delete reported is fine, a venue silently kept is
+  not. The project's agreements name the standing set that is never swept. Birthplace:
+  simmy §8 — eight machines up coincided with a control-plane panic that took every
+  session's venue down; 23 accumulated by 08-06, most from landed spikes.
 - **The batch report** (dispatcher charter §6): a table — row / status / one-line
   outcome / pointers — plus the escalation list and the relay log. Pointers, not prose;
   the findings files are the content.
@@ -368,7 +405,7 @@ Every session, any mantle:
   holder, one instrument — a baton naming two hands, or joining moves with "or", is
   dropped by construction (D46).
 
-## 12. Founding a project — the genesis ritual
+## 12. Founding a project — the founding ritual
 
 A new project boots onto the doctrine in one founding session:
 
@@ -388,8 +425,8 @@ A new project boots onto the doctrine in one founding session:
    define minimal scope, defend against creep — then instantiate from
    `canon/work/templates/`: `CLAUDE.md`, the master doc with its board (first rows cut
    and staffed), `LEDGER.md` (entry one), `DECISIONS.md` (the day-one ratifications:
-   name, scope, non-goals — there are always some). Subproject scale: `README.md`
-   alone (§3).
+   name, scope, non-goals — there are always some), `ISSUES.md` (empty, header only —
+   D53). Subproject scale: `README.md` alone (§3).
 4. **Hand off:** first batch cut or first summons handed verbatim; ledger appended;
    committed.
 
@@ -425,15 +462,16 @@ its own Architect's board.
 
 ## Templates
 
-`canon/work/templates/` — skeletons with ⟨slots⟩; the genesis ritual instantiates them.
-Referenced by path, like the mantles; never deployed to config dirs (GENESIS §4).
+`canon/work/templates/` — skeletons with ⟨slots⟩; the founding ritual instantiates them.
+Referenced by path, like the mantles; never deployed to config dirs (MAP §4).
 
 | Template | Becomes |
 |---|---|
 | `claude-md.md` | the project `CLAUDE.md` (named so the skeleton is never auto-loaded) |
-| `genesis.md` | the master doc — `GENESIS.md`, or trimmed into a `README.md` |
+| `map.md` | the master doc — `MAP.md`, or trimmed into a `README.md` |
 | `ledger.md` | `LEDGER.md` |
 | `decisions.md` | `DECISIONS.md` |
+| `issues.md` | `ISSUES.md` — the incident inbox |
 | `brief.md` | `plans/<id>-<name>.md` — Digger work |
 | `order.md` | `plans/<id>-<name>.md` — Builder work |
 

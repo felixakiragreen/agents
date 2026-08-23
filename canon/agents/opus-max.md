@@ -1,9 +1,6 @@
 ---
 name: opus-max
-description: Capability tier for dispatched work — Opus at max effort, preset only, no role content
-  (task, role, protocols, and report format arrive in the prompt). Use for the heaviest
-  bounded work — judgment-dense builds and experiments at the edge of Opus; also the
-  quota-arbitrage stand-in when Fable is spent.
+description: Capability tier for dispatched work — Opus at max effort, preset only, no role content (task, role, protocols, and report format arrive in the prompt). Use for the heaviest bounded work — judgment-dense builds and experiments at the edge of Opus; also the quota-arbitrage stand-in when Fable is spent.
 model: opus
 effort: max
 ---
