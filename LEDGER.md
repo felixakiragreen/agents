@@ -1032,3 +1032,17 @@ one summons, bump a lineage to where his count stands, read the name in the term
 title and the peer roster (the rig is live on the next new shell; `summon/` is sourced
 from dotfiles, not deployed). Behind it: row 11 stays deferred at his word, and rebases
 onto this when he unshelves it.
+
+**2026-08-22 · Architect (fable-high) · board trued post-GA-08, row 13 amended +
+dispatched + landed.** Changed: `plans/13` scheme amended in-sitting with Felix — the
+numbering ask (ISSUES 04152cf) ruled into mechanics: `<mantle>-<theater>-<NN>`, account
+segment out (arbitrage, not identity), **GA drops theater — one office, redundancy is
+not information (Felix, overruling the uniform-scheme draft; core-value candidate filed
+to ISSUES: eliminating redundancy over enforcing blind consistency)**; `%02d` ordinal
+from `invocations.jsonl` (new `name` field, one pass at panel open), `+`/`-` bump as
+seed-and-correct path — no synthetic seeds, no restart, GA continues at 09. Builder
+dispatched at opus-high, LANDED same sitting (170×3 green, re-run by this hand).
+Decided (delegated scope): F4/F5 row-10 contract narrowings **ratified** — forced by
+the scheme, protections preserved; F1 guard **cut into row 11's rebase scope** (MAP
+row 11); F7 seed ceiling **accepted parked** — revisit only if it bites. Next: Felix's
+smoke (row 13's one open box), then row 11 awaits his unshelving.
