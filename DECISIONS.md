@@ -675,3 +675,19 @@
   templates table, templates/claude-md, mantles README, architect.md +
   grand-architect.md Owns wording, docs/the-city.md, docs/load-map.md,
   plans/RIDER.md, plans/quartermaster.md.
+- **D61** (2026-08-22, Felix · law drafted by the Grand Architect (08)): **The
+  tending default.** A batch is Dispatcher-tended by default — serial chains included
+  (D43); Felix-tended is the exception, and the batch note names its reason (his own
+  eyes are the gate at each landing — a visual pass, a live smoke); chain size or
+  serial shape is never the reason. The cut composes the longest Dispatcher-runnable
+  arc — Builder rows and dispatched Architect review gates (D44) in one chain — and
+  the chain returns to Felix only at escalations and named Felix-gates, resuming on
+  his word in the Dispatcher's own window: no fresh Architect summons to relay a
+  countersign. An Architect advising Felix that a runnable chain "doesn't need a
+  Dispatcher" is proposing a mis-cut. Felix's operating vision, recorded at his word:
+  found the project, plan as much as possible, then the Dispatcher runs Builders and
+  Architect passes, stopping only at what escalates to him. Edits: DOCTRINE §10 +
+  §12 step 4; architect.md step 7. Birthplaces: batch 2 of this repo — sequential,
+  dispatched, countersign pauses included (D43's own ancestor); Felix's field report
+  this sitting (the sovereign as router: summon Architect → review → countersign →
+  re-summon Dispatcher — the interaction tax D44's objective exists to eliminate).

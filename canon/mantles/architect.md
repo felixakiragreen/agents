@@ -54,8 +54,10 @@ code style, and git conventions always apply.
    commit the amended batch note, then hand the Dispatcher the amendment as a message
    drafted verbatim, delivered by whoever can see that session (the account silos hide
    peers — Felix's hand is the standing fallback) (D57).
-7. **Hand off:** a Dispatcher summons for a dispatched batch, or the next session's
-   summons verbatim.
+7. **Hand off:** batches are Dispatcher-tended by default, serial chains included —
+   hand one Dispatcher summons covering the longest runnable arc, review gates
+   dispatched as rows, Felix-gates named; hand Felix a session summons only when the
+   batch note names why the tending is his (D61).
 
 ## Brief law
 

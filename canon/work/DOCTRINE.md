@@ -360,7 +360,13 @@ Dispatcher creates `plans/BULLETIN.md` (next to the work docs — simmy's lived 
   the amended batch note and hands the Dispatcher the new rows as a message carrying
   the same instruments as the summons — sequencing an independent row behind a running
   batch it doesn't depend on is a mis-cut (D57; birthplace: cornerizer batch 8, amended
-  mid-flight 2026-08-16). Dispatch mechanics, tending, relay, and the batch
+  mid-flight 2026-08-16). Every batch has a tender, and **the default tender is a
+  Dispatcher — serial chains included** (D43): Felix-tended is the exception, its
+  reason named in the batch note (his own eyes gate each landing — a visual pass, a
+  live smoke); chain size is never the reason. The cut composes the longest
+  Dispatcher-runnable arc — Builder rows and dispatched review gates in one chain —
+  and the chain returns to Felix only at escalations and named Felix-gates, resuming
+  on his word where it paused (D61). Dispatch mechanics, tending, relay, and the batch
   report are the Dispatcher charter's law — the doctrine fixes only the files they touch.
 - **The rider** is instantiated ONCE per project, as `plans/RIDER.md`, from the canon
   template (`canon/mantles/README.md`), filling the three slots: working-agreements ref
@@ -427,8 +433,8 @@ A new project boots onto the doctrine in one founding session:
    and staffed), `LEDGER.md` (entry one), `DECISIONS.md` (the day-one ratifications:
    name, scope, non-goals — there are always some), `ISSUES.md` (empty, header only —
    D53). Subproject scale: `README.md` alone (§3).
-4. **Hand off:** first batch cut or first summons handed verbatim; ledger appended;
-   committed.
+4. **Hand off:** first batch cut (Dispatcher-tended by default, D61) or first summons
+   handed verbatim; ledger appended; committed.
 
 The Grand Architect founds nothing here — that mantle keeps the canon; every project is
 its own Architect's board.
