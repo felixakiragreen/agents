@@ -1000,3 +1000,35 @@ from this sitting) · Felix drops the invariants-block experiment note at corner
 Architect desk (D56's routed candidate) · the cap-mega guard-adoption summons
 (standing, verbatim in the 2026-08-08 Architect addendum) · row 11 stays deferred at
 Felix's word.
+
+---
+
+**2026-08-22 · Builder (13)** — The name-stamp: **LANDED**, 170 assertions green three
+runs running (`lab/08/run`, evidence in the order). Every session the rig fires is now
+born named — `-n <mantle>-<theater>-<NN>`, the theater `${PWD:t}` at fire time, the
+Grand Architect theaterless (one office), a bare launch mantle-less. The ordinal is the
+lineage's: one past the highest ever fired under that prefix, counted in a single pass
+over `log/invocations.jsonl` when the panel opens — the record gained a `name` field to
+count, and `+`/`-` bump the panel's ordinal (floor 01) as both the seed path and the
+correction path, so Felix's hand-counted lineages carry forward without synthetic
+records. Only fires stamp: an abort logs `name: null` and counts for nothing; an eject
+stamps, counts, and hands the name over editable. The stamp leads the preview footer, so
+the panel and the launch still cannot disagree. `--name` re-verified against the live
+`claude --help` before building — the probe held, and the stamp is a `--resume` handle
+into the bargain. Findings: **F1** the harness arrived **3 assertions red** — Felix's
+`D digger` preset (08-09) never got swept through `lab/08`, exactly the coupling 10-F3
+named and nothing enforces; **F2** two drive assertions had their labels crossed since
+row 09 and passed anyway; **F3** a green-only-on-an-idle-machine assertion pinned a
+clock to `0 s`; **F4/F5** two row-10 guarantees deliberately narrowed (v1.1
+byte-identity now covers every panel *row*, footer and command asserted separately; a
+refire is identity-but-for-the-ordinal, because it launches a new session); **F7
+parked** the 32-key runaway guard caps one panel's seed at ~28 ordinals; **F8** zle
+repaints the footer character by character, so only a panel's *first* paint can be
+asserted from a pty; **F9** `${PWD:t}` is empty at `/`, which would have composed a name
+starting with `-` — guarded to `root`. Fence held: no canon edit, no sync-set change, no
+`presets.tsv`/`accounts.tsv` format change, no session-name parsing anywhere. Decided:
+nothing — a Builder row; the scheme was ruled at the cut. Next: **Felix's smoke** — fire
+one summons, bump a lineage to where his count stands, read the name in the terminal
+title and the peer roster (the rig is live on the next new shell; `summon/` is sourced
+from dotfiles, not deployed). Behind it: row 11 stays deferred at his word, and rebases
+onto this when he unshelves it.
