@@ -4,9 +4,11 @@
 field already selected — mantle, model, effort, account — exactly like the Claude Code
 model selector: change what you want, Enter fires it, and what fired is what the panel
 promised. Every invocation is logged, so `presets.tsv` is only the hypothesis and
-`log/invocations.jsonl` is the evidence. Designed in [D34/D35/D36/D41](../DECISIONS.md),
-built to [plans/08](../plans/08-summon-rig.md), [plans/09](../plans/09-summon-rig-v11.md)
-and [plans/10](../plans/10-summon-rig-v12-usage.md).
+`log/invocations.jsonl` is the evidence. Every session it fires is born
+named. Designed in [D34/D35/D36/D41](../DECISIONS.md), built to
+[plans/08](../plans/08-summon-rig.md), [plans/09](../plans/09-summon-rig-v11.md),
+[plans/10](../plans/10-summon-rig-v12-usage.md) and
+[plans/13](../plans/13-summon-rig-name-stamp.md).
 
 ## Install — one line, Felix's own repo
 
@@ -29,7 +31,7 @@ model    [f]able ✓  [o]pus  [s]onnet  hai[k]u
 effort   [l]ow  [m]edium  [h]igh ✓  [x]high  [M]ax
 account  [0] personal  [1] thg-fgreen ✓  [2] thg-doorbell
          [y]ank  [.] eject  [Esc] close  [Enter] invoke
-⏎  architect · fable-high @ thg-fgreen · green · keys: 2
+⏎  architect-agents-05 · fable-high @ thg-fgreen · green · keys: 2
 ```
 
 Brackets and unselected items are grey; the selected item is bold and carries the ✓
@@ -45,7 +47,8 @@ side-effect.
 | `^G ⏎` | 2 | **refire** — the last configuration, exactly |
 | `^G <key> ⏎` | 3 | one field changed: a different model, effort, account or mantle |
 | `^G <preset> <account> ⏎` | 4 | a fresh mantle on a named account |
-| `^G n ⏎` | 3 | **bare** — model + effort only, no name, colour or prompt |
+| `^G n ⏎` | 3 | **bare** — model + effort only, no mantle, colour or prompt |
+| `^G + / -` | +1 | bump the lineage ordinal the name-stamp will carry |
 | `^G <preset> y … ⏎` | +1 | `y` yanks the derived summons to the clipboard on the way past |
 | `^G .` | 2 | **eject** — the resolved command lands in the line, editable, unlaunched |
 | `^G <esc>` / `^G ^G` | 2 | close, discarding this panel's changes |
@@ -61,13 +64,49 @@ haiku-max. `[n]one` clears the mantle: bare is a state, not a mode. haiku is **`
 right one. An unrecognised key is ignored (and counted: the log never flatters).
 
 Presets and accounts come from the data files, so the panel is always the truth. The panel
-owns `f o s k` · `l m h x M` · `n` · `y` · `.` · the digits: a preset claiming one makes
-the rig refuse to open, loudly, naming the key.
+owns `f o s k` · `l m h x M` · `n` · `y` · `.` · `+` · `-` · the digits: a preset claiming
+one makes the rig refuse to open, loudly, naming the key.
 
 Enter refuses rather than guessing when the selection cannot launch — no model, no effort,
 or no account. The account picks which subscription pays and which silo the work lands in,
 so a guess is the one error the rig must never make; the preview footer says so before
 Enter is pressed.
+
+## The name-stamp — every session born named
+
+The peer roster lists sessions by name and nothing else, so an unnamed session is an
+anonymous door. The rig knows the mantle, the theater and the whole lineage's history at
+fire time, so it names the session itself: `--name <mantle>-<theater>-<NN>`.
+
+```
+architect-agents-05     mantle · theater · the fifth architect this theater has seen
+grand-architect-09      the Grand Architect keeps no theater — there is only one office
+agents-03               a bare launch keeps no mantle: the theater counts on its own
+```
+
+- **theater** is the working directory's own name at fire time — Felix summons at repo
+  roots, so it reads as the project.
+- **NN** is the lineage ordinal: one more than the highest ever fired under that same
+  prefix, counted from `log/invocations.jsonl` in a single pass when the panel opens (never
+  per keystroke — the panel stays a builtins-only render). A lineage the log has never seen
+  opens at `01`, and the count is of the highest ever fired, not the last.
+- **`+` and `-` bump it**, floored at `01`, and the footer shows the full name before Enter
+  is pressed. The bump is both the seed path and the correction path: the first stamped fire
+  of a lineage Felix has been counting in his head opens at `01`, he bumps it to where his
+  count actually stands, fires — and the log carries the lineage on from there. There are no
+  synthetic seed records and no restart at `01`.
+- **Only a fire counts.** Pick, refire and eject all stamp the record and advance the
+  lineage; a close or a refusal launches nothing, so it stamps nothing. An eject drops the
+  stamp into the editable line with everything else — change it, or delete it, before you
+  press Enter; the counter never sees that edit, so the bump is the correction that counts.
+
+**The stamp is also a resume handle.** Unlike Claude Code's own generated names, a name you
+set is one `claude --resume <name>` accepts — so `architect-agents-05` is what the prompt
+box, the `/resume` picker, the terminal title and the statusline all show, *and* the way
+back into that session. The ordinal is what keeps it unique.
+
+This is rig convention, not canon: it returns to canon by harvest if tools ever start
+parsing session names ([quartermaster §5](../plans/quartermaster.md)).
 
 ## Usage — the quota table
 
@@ -143,7 +182,7 @@ presets.tsv    key  mantle  model  effort  colour     a  architect  fable  high 
 accounts.tsv   key  config-dir  label                 2  ~/.claude-thg-doorbell  thg-doorbell
 ```
 
-Derived, never stored: `-n` is the mantle slug; the summons is
+Derived, never stored: `-n` is the name-stamp; the summons is
 `You are {a|an|the} {Mantle} at {model}-{effort}. Wear ~/code/agents/canon/mantles/{mantle}.md.`
 — with the tier you actually selected, overrides included. A mantle carried by two presets
 shows the effort in its panel label (`●[a]rchitect·high`) so the row never reads as a
@@ -168,10 +207,12 @@ the rig spends the positional on the colour and Felix speaks the summons himself
 `log/` is gitignored — local evidence, not canon truth.
 
 - `log/invocations.jsonl` — one line per invocation, closes included:
-  `{ts, mode: refire|pick|eject|abort, n, account, mantle, model, effort, color, cmd, keys}`.
-  `n` is the keystrokes spent, `keys` the keystrokes themselves (`^G`, `⏎`, `⎋`, and every
-  fat-finger). A **bare** launch is `mantle`/`color` = `null`, not a mode of its own; a
-  **refire** is a fire with all four fields unchanged.
+  `{ts, mode: refire|pick|eject|abort, n, account, mantle, model, effort, color, name, cmd,
+  keys}`. `n` is the keystrokes spent, `keys` the keystrokes themselves (`^G`, `⏎`, `⎋`, and
+  every fat-finger). A **bare** launch is `mantle`/`color` = `null`, not a mode of its own; a
+  **refire** is a fire with all four fields unchanged — a new session, so a new ordinal.
+  `name` is the stamp that fired, and the counter reads that field and only that field: an
+  abort logs `null`, and so does every record written before the field existed.
 - `log/state` — the four fields of the last launch, tab-separated `field<TAB>value` lines.
   Delete it and the next panel opens empty. (`log/last` is retired; a leftover file is
   inert.)
@@ -186,11 +227,19 @@ the panel's own key loop, and the entries are dropped the moment it closes.
 
 ## Tests
 
-`../lab/08/run` — 134 assertions, 0 failures. The gestures run in a real pty against a
+`../lab/08/run` — 170 assertions, 0 failures. The gestures run in a real pty against a
 sandbox copy with `claude` and `pbcopy` shims; the panel's text, wrap and palette spans are
-asserted without a pty (`render.zsh`, a pure function of the selection and `$COLUMNS`); and
-`preview.exp` / `narrow.exp` prove one whole paint on a real screen — the footer against
-the launch it promised, and the 60-column wrap.
+asserted without a pty (`render.zsh`, a pure function of the selection, `$COLUMNS`, `$PWD`
+and the sandbox's log); and `preview.exp` / `narrow.exp` prove one whole paint on a real
+screen — the footer against the launch it promised, and the 60-column wrap.
+
+The name-stamp is asserted on the composed command, byte for byte, against a hand-written
+fixture log: the ordinal past the highest ever fired rather than the last, records predating
+the `name` field skipped, theaters counted apart, the Grand Architect counted together, the
+bump and its floor. `name.exp` drives the seed path live — a virgin lineage bumped to
+Felix's own count, carried forward by the log, floored, and left untouched by an abort — and
+the counter is proved to read the log once by taking the file away after the panel opens and
+watching 500 repaints keep the ordinal.
 
 The usage arms never touch a real credential store or the network: `security` and `curl`
 are shims serving fixtures, the pacing arithmetic is asserted at its edges (reset imminent,
