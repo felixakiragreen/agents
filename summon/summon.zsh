@@ -8,7 +8,8 @@
 #   ^G ⏎                        refire the last configuration exactly       (2 keys)
 #   ^G <key> ⏎                  change one field, fire                     (3 keys)
 #   ^G <preset> <account> ⏎     a fresh mantle on a named account           (4 keys)
-#   ^G n ⏎                      bare — no name, no colour, no prompt
+#   ^G n ⏎                      bare — no mantle, no colour, no prompt
+#   ^G + / -                    bump the lineage ordinal the name-stamp carries
 #   ^G <preset> y … ⏎           yank the derived summons on the way past
 #   ^G .                        eject an editable command, launching nothing
 #   ^G <esc>  /  ^G ^G          close, discarding this panel's changes
@@ -57,6 +58,7 @@ typeset -gA _summon_swatch=(green fg=green pink fg=213 red fg=red blue fg=blue
 # the selection: four sticky fields, and everything _summon_resolve derives from them
 typeset -g _summon_mantle_key _summon_model _summon_effort _summon_account_key
 typeset -g _summon_mantle _summon_color _summon_summons _summon_desc _summon_cmd _summon_why
+typeset -g _summon_name
 
 # --- data ------------------------------------------------------------------------
 
@@ -83,7 +85,7 @@ _summon_load() {
 		return 1
 	}
 	# every key is global now, so the panel owns all of them — a preset may shadow none
-	local -a reserved=(${_summon_models%%:*} ${_summon_efforts%%:*} n y . {0..9})
+	local -a reserved=(${_summon_models%%:*} ${_summon_efforts%%:*} n y . {0..9} + -)
 	reserved=(${(u)reserved})
 	for key in $_summon_preset_keys; do
 		(( $reserved[(Ie)$key] )) || continue
@@ -125,6 +127,58 @@ _summon_state_save() {
 	return 0
 }
 
+# --- the name-stamp --------------------------------------------------------------
+
+# Every session the rig fires is born named — `<mantle>-<theater>-<NN>` — because the peer
+# roster's only semantic carrier is the session name (plans/13, quartermaster §5). The
+# ordinal is the lineage's: one more than the highest this log has ever fired under the same
+# prefix, which makes every stamp a unique `claude --resume <name>` handle by construction.
+
+typeset -gA _summon_ordinal	# name prefix → the highest ordinal ever fired under it
+typeset -gi _summon_bump		# the panel's ± correction to that count; cleared on every open
+
+# log/invocations.jsonl → $_summon_ordinal. ONE pass, at panel open: the keystroke loop only
+# ever does an O(1) lookup into this map (the 10-F1 budget). Records that predate the `name`
+# field read null, as do aborts — which fire nothing, so they stamp nothing and count for
+# nothing. A hand-renamed lineage the log has never seen therefore opens at 01 and is seeded
+# by the bump, not by a synthetic record.
+_summon_ordinal_scan() {
+	local line name prefix tail
+	local -i ord
+	_summon_ordinal=()
+	[[ -r $SUMMON_HOME/log/invocations.jsonl ]] || return 0
+	while IFS= read -r line; do
+		name=${line#*\"name\":\"}
+		[[ $name == $line ]] && continue					# no name field at all, or a null one
+		name=${name%%\"*}
+		prefix=${name%-*} tail=${name##*-}
+		[[ -n $prefix && $tail == <-> ]] || continue	# not a stamp this rig wrote
+		ord=10#$tail
+		(( ord > ${_summon_ordinal[$prefix]:-0} )) && _summon_ordinal[$prefix]=$ord
+	done < $SUMMON_HOME/log/invocations.jsonl
+	return 0
+}
+
+# the mantle + $PWD + the counter → $_summon_name, the stamp this fire would carry. The
+# theater is the working directory's own name — Felix summons at repo roots. The Grand
+# Architect carries no theater: there is one office, so the segment would be redundancy
+# rather than information (Felix, 2026-08-22); a bare launch carries no mantle segment.
+_summon_name_stamp() {
+	local theater=${${PWD:t}:-root} prefix
+	local -i base
+	case $_summon_mantle in
+		grand-architect)	prefix=$_summon_mantle ;;
+		'')					prefix=$theater ;;
+		*)						prefix=$_summon_mantle-$theater ;;
+	esac
+	(( base = ${_summon_ordinal[$prefix]:-0} + 1 ))
+	# the floor is 01, clamped on the bump itself so that one `+` off the floor moves the
+	# ordinal — a bump that only counted downwards would strand Felix pressing `+` at 01
+	(( _summon_bump < 1 - base )) && (( _summon_bump = 1 - base ))
+	printf -v _summon_name '%s-%02d' $prefix $(( base + _summon_bump ))	# three digits past 99
+	return 0
+}
+
 # --- the selection → what Enter fires --------------------------------------------
 
 # the four fields → mantle slug, colour, summons, one-line description and command line;
@@ -132,13 +186,14 @@ _summon_state_save() {
 # footer, the eject, the fire, the refusal and the log all read this, so none of them can
 # disagree with what the panel showed.
 _summon_resolve() {
-	_summon_mantle='' _summon_color='' _summon_summons=''
+	_summon_mantle='' _summon_color='' _summon_summons='' _summon_name=''
 	_summon_desc='' _summon_cmd='' _summon_why=''
 	local -a p
 	if [[ -n $_summon_mantle_key ]]; then
 		p=(${(ps:\t:)_summon_preset[$_summon_mantle_key]})
 		_summon_mantle=$p[1] _summon_color=$p[4]
 	fi
+	_summon_name_stamp			# needs neither tier nor account, so even a refusal names itself
 	[[ -n $_summon_model && -n $_summon_effort ]] || {
 		_summon_why='nothing selected — press a mantle, or a model and an effort'
 		return 1
@@ -149,7 +204,7 @@ _summon_resolve() {
 		[[ $_summon_mantle == grand-architect ]] && article=the	# canon: "the Grand Architect"
 		_summon_summons="You are $article $title at $_summon_model-$_summon_effort. Wear ~/code/agents/canon/mantles/$_summon_mantle.md."
 	fi
-	local desc="${_summon_mantle:-bare} · $_summon_model-$_summon_effort"
+	local desc="$_summon_name · $_summon_model-$_summon_effort"	# the stamp, always on show
 	[[ -n $_summon_account_key ]] || {			# never guess which Claude account to spend
 		_summon_why="$desc @ no account — press an account digit"
 		return 1
@@ -157,7 +212,8 @@ _summon_resolve() {
 	local -a acct=(${(ps:\t:)_summon_account[$_summon_account_key]})
 	_summon_desc="$desc @ $acct[2]${_summon_color:+ · $_summon_color}"
 	_summon_cmd="CLAUDE_CONFIG_DIR=$acct[1] claude --model $_summon_model --effort $_summon_effort"
-	[[ -n $_summon_mantle ]] && _summon_cmd+=" -n $_summon_mantle \"/color $_summon_color\""
+	_summon_cmd+=" -n $_summon_name"						# every session is born named
+	[[ -n $_summon_color ]] && _summon_cmd+=" \"/color $_summon_color\""
 	return 0
 }
 
@@ -647,6 +703,10 @@ _summon_log() {
 	_summon_json "$_summon_model"		; rec+=",\"model\":$_summon_json_value"
 	_summon_json "$_summon_effort"	; rec+=",\"effort\":$_summon_json_value"
 	_summon_json "$_summon_color"		; rec+=",\"color\":$_summon_json_value"
+	# the fired stamp, post-bump — and only on a fire: an abort launches nothing, so it names
+	# nothing, and this one field is the whole of what the ordinal counter reads back
+	if [[ $1 == abort ]]; then _summon_json ''; else _summon_json "$_summon_name"; fi
+	rec+=",\"name\":$_summon_json_value"
 	_summon_json "$_summon_cmd"		; rec+=",\"cmd\":$_summon_json_value"
 	_summon_json "$3"						; rec+=",\"keys\":$_summon_json_value}"
 	print -r -- "$rec" >> $SUMMON_HOME/log/invocations.jsonl
@@ -669,6 +729,8 @@ _summon_widget() {
 		return 1
 	}
 	_summon_state_load
+	_summon_ordinal_scan			# one pass, here and nowhere else — the loop below only looks up
+	_summon_bump=0					# the ordinal is derived, never sticky: each panel counts afresh
 	local before="$_summon_mantle_key|$_summon_model|$_summon_effort|$_summon_account_key"
 
 	local press pair keys='^G' yanked='' fired='' refreshed=''
@@ -710,6 +772,8 @@ _summon_widget() {
 			y)					_summon_resolve					# the summons needs no account, so ignore
 								_summon_yank && yanked=1 ;;	# the verdict — the yank has its own guard
 			n)					_summon_mantle_key='' ;;		# bare is a state, not a mode
+				'+')				(( _summon_bump++ , 1 )) ;;	# the lineage ordinal, up — this is
+				'-')				(( _summon_bump-- , 1 )) ;;	# both the seed and the correction path
 			*)					if [[ -n ${_summon_preset[$press]:-} ]]; then
 									p=(${(ps:\t:)_summon_preset[$press]})
 									_summon_mantle_key=$press				# the cascade: mantle sets the tier
