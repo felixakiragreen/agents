@@ -1,7 +1,7 @@
 # 13 — summon rig: the name-stamp
 
-**Status:** LANDED 2026-08-22 (Builder · opus-high) — DoD green, one box open: Felix's
-smoke. · **Depends on:** — *(was 11, a file-collision ordering; 11 deferred
+**Status:** LANDED 2026-08-22 (Builder · opus-high) — DoD green; smoke ✓ Felix
+2026-08-22. · **Depends on:** — *(was 11, a file-collision ordering; 11 deferred
 by Felix 2026-08-08, so this row goes first and 11 rebases on it — never both in
 flight)* · **Staffing:**
 Builder · opus-high · **Blessed:** Architect cut 2026-08-08 on Felix's standing call
@@ -171,8 +171,8 @@ Evidence: `lab/08/run` extended, green, **no regressions** — byte assertions p
       eject escape hatch, the resume-handle bonus
       → `summon/README.md` §*The name-stamp — every session born named*, plus the
       gesture table, the reserved-key list, the telemetry schema and the test count.
-- [ ] **Felix's smoke** (the one open box): fire one summons, bump a lineage to his
-      hand-count, see the name in the terminal title and the roster
+- [x] **Felix's smoke**: fire one summons, bump a lineage to his hand-count, see the
+      name in the terminal title and the roster → ✓ Felix 2026-08-22, "it works"
 
 ## Out of scope — defended
 
