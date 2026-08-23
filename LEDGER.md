@@ -938,3 +938,65 @@ Wear ~/code/agents/canon/mantles/architect.md,
 then read ~/code/agents/canon/work/DOCTRINE.md
 and ~/code/whiteboardy/dream.md, and found the project.
 ```
+
+---
+
+**2026-08-22 · Grand Architect (08)** — The great harvest: sixteen items — twelve
+inbox entries plus the four-item queue standing since 08-07 — every one ruled, the
+inbox drained empty (third drain, biggest yet). **Folded, ✓ Felix in-sitting:
+D53–D61** — ISSUES generalizes (every project's inbox, Architect-swept,
+`templates/issues.md` minted, the null-mantle delivery = one project-CLAUDE.md
+clause); pre-authorization (simmy §8 → DOCTRINE §5 + rider universal core); venue law
+(simmy §8 → §10); verdict law + incident-is-Digger-shaped (cornerizer §8/rider →
+architect.md + forbidden); mid-flight batch amendment (cornerizer batch 8 →
+dispatcher §2, architect step 6, DOCTRINE §10); linking law (DOCTRINE §3); bun stack
+default (global CLAUDE.md — watched deploying into this session's own mirror at
+save); **GENESIS → MAP** (D25 re-run, `git mv`, founding ritual renamed — *genesis*
+retires, lazy migration per D33, history unedited per D32; the founder wrote the file
+self-relative, so the rename was a title and a move); **the tending default** (D61,
+Felix's operating vision recorded — Dispatcher-tended by default, Felix-tended needs
+a named reason; cut on his field report after the wave, own countersign).
+**Clarifications (D52 lane) #2–#4, ancestors on record:** #2 tier-grid YAML unwrap
+(07-F2 — 20/20 single-line, zero fold artifacts, four splits healed incl. fable-low
+recommending "opus- high"); #3 the baton delivery completed (D42 scope + D46
+instrument + DOCTRINE §11 — architect.md gains the fenced shape and
+pointer-is-not-an-instrument, builder/digger gain the Felix-tended line, claude-md
+template trued); #4 mantles README shim tense (MAP §4, live ×3 since 08-03).
+**Conformance pass (Felix's ask):** every D-entry's named edit sites audited against
+all five charters, the README, DOCTRINE, six templates, five shims — conformant
+throughout except the baton's delivery, the one leak, now closed. **Rejections:**
+09-F10(b) byte-assertion law — subsumed by §6.2's control law, the python craft tip
+stays in 09's findings; the ScheduleWakeup prompt-error nag — harness tool-schema UX,
+self-healing, outside jurisdiction; a rider-wide verdict line — held, the charter
+fold covers the observed failure class. **Answered, no action:** cross-account
+Architect memories — D27 working as designed (comb, pointers to repo truth, silos
+prevent the feared confusion); Dispatcher background-subagent visibility — levers
+named (/tasks in the Dispatcher's window, the board, asking), filed as the first
+entry in quartermaster.md's new pain ledger (§7). **Routed:** session-name
+numbering → row 13 amendment (supersedes its no-suffix pre-ruling; summons in Next);
+the L1 invariants-block candidate → cornerizer experiment, no birthplace yet
+(harvest law). **permissionMode diagnosed, no canon action:** user-level "auto" ×3
+correct; rooted's `.claude/settings.local.json` `defaultMode: acceptEdits` overrides
+by precedence — not a reset; fix = delete project-local overrides (deeper grep
+handed, Felix's hands); §6 settings non-goal stays armed, untriggered. Changed:
+DECISIONS (D53–D61), DOCTRINE, five charters + mantles README, templates (issues.md
+minted, genesis.md → map.md, claude-md), canon/agents ×20, canon/CLAUDE.md, MAP.md
+(né GENESIS.md), repo CLAUDE.md, docs/the-city.md + load-map.md, plans/RIDER.md +
+quartermaster.md, ISSUES.md drained. Decided: D53–D61 ✓ Felix in-sitting;
+clarifications #2–#4 at his word. Next: Felix fires the board-truing Architect —
+
+```
+You are an Architect at fable-high.
+Wear ~/code/agents/canon/mantles/architect.md,
+then read ~/code/agents/MAP.md and true the board after the GA-08 harvest:
+amend row 13 per Felix's numbering ask (ISSUES 2026-08-16, archived at 04152cf) —
+session names carry an auto-derived ordinal (grand-architect-08 → next 09,
+architect-whiteboardy-02 → next 03; counter source summon/log/invocations.jsonl),
+superseding row 13's "no uniquifying suffix" pre-ruling — then dispatch row 13.
+```
+
+Behind it: Felix deletes the project-local `defaultMode` overrides (the deeper grep
+from this sitting) · Felix drops the invariants-block experiment note at cornerizer's
+Architect desk (D56's routed candidate) · the cap-mega guard-adoption summons
+(standing, verbatim in the 2026-08-08 Architect addendum) · row 11 stays deferred at
+Felix's word.
