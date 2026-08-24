@@ -1046,3 +1046,39 @@ Decided (delegated scope): F4/F5 row-10 contract narrowings **ratified** — for
 the scheme, protections preserved; F1 guard **cut into row 11's rebase scope** (MAP
 row 11); F7 seed ceiling **accepted parked** — revisit only if it bites. Next: Felix's
 smoke (row 13's one open box), then row 11 awaits his unshelving.
+
+---
+
+**2026-08-24 · Builder (opus-high, dispatched) · row 14 — the theater cycle.** Changed:
+`summon/summon.zsh` gains `.summon-theaters` (fire directory only, one theater per line,
+first line the default, no file → `${PWD:t}` unchanged), the reserved `t` key cycling it
+with wrap, and per-directory stickiness in `log/theaters` under the same on-fire-only law
+as the four fields; the name-stamp now takes its theater from the cycle where a list
+exists. `lab/08/run` +27 assertions (170 → **197 green ×4**): cycle order and wrap on the
+composed command byte for byte, three campaigns counted apart from one fixture log, the
+missing-file fallback, the GA no-op, `t` reserved, the 60-column law at the longest
+theater name, read-once-at-open proved by taking the file away mid-panel, and a new live
+pty drive (`lab/08/theater.exp`) for stickiness — cycle, fire, reopen preselected, refire;
+a second directory unmoved; an aborted cycle byte-compared out of the map; a dropped
+theater falling back to the default. **13-F1's guard landed**: the harness now derives the
+mantle row and the panel's bracket count from `presets.tsv`/`accounts.tsv` instead of
+typing them — proved both ways by appending one row to the live data file (new harness
+green and following, pre-14 harness red in exactly the three predicted places).
+`summon/README.md` documents the cycle, `log/theaters` and the derived fixtures. Findings:
+**F1** a theater becomes argv, so a line that is not a plain name refuses the panel out
+loud — 13-F9's hazard arriving from a data file; a deliberate spec extension, nine lines,
+one `if` to revert. **F2** the sticky map lives in `log/theaters`, not `log/state` (an
+unbounded map has a different shape and lifetime than four scalars), and only directories
+that file a list ever enter it. **F3** deriving the mantle row exposed two assertions that
+only looked like assertions; both strengthened, none weakened. **F4** zsh's `local a=$1
+b=${a}` does not see `a` — silent without `set -u`. **F5** the 32-key runaway guard caps
+one panel's cycle at ~28 positions; no cap on the list itself, parked. Budget holds: 1.803
+ms/keystroke with a list in play (≤ 5 ms), 0.0052 ms per `t`, 0.054 ms for the one read at
+open. Fence held: no canon edit, no sync-set change, no `presets.tsv`/`accounts.tsv`
+format change, no parent walk, no state-map trimming, no session-name parsing. Decided:
+nothing — a Builder row; the scheme and both forks were ruled at the cut. Next: **Felix's
+smoke** — drop `.summon-theaters` in bob, cycle to pods, fire, read `architect-pods-NN` in
+the title, reopen the panel and find pods preselected (the rig is live on the next new
+shell; `summon/` is sourced from dotfiles, not deployed). Behind it: row 11 stays deferred
+at his word and now rebases onto 13 *and* 14; the parked adjacent is a `summon-stats` that
+reports lineages and campaigns, which 13 and 14 both left behind.
