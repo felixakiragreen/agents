@@ -1082,3 +1082,16 @@ the title, reopen the panel and find pods preselected (the rig is live on the ne
 shell; `summon/` is sourced from dotfiles, not deployed). Behind it: row 11 stays deferred
 at his word and now rebases onto 13 *and* 14; the parked adjacent is a `summon-stats` that
 reports lineages and campaigns, which 13 and 14 both left behind.
+
+**2026-08-24 · Architect (fable-high) · row 14 cut, dispatched, landed, ruled.** The
+theater cycle — Felix's ask (bob hosts bob/lunchbox/pods; deep-firing fragments the
+project silo, eject blinds the counter), forks ruled by him (`t` key, sticky per dir).
+Builder at opus-high LANDED same day: 200 assertions ×4 (re-run green by this hand),
+13-F1's guard landed with it and proved both ways. Decided (delegated scope): 14-F1
+**accepted** — a malformed theater line refuses the panel loudly (argv hazard, 13-F9's
+class; silent skip rejected as a lie to the cycle); 14-F2 **accepted** — sticky map is
+`log/theaters`, listing directories only (narrower state than the order's wording,
+observably identical); F5 **accepted parked** (28-position cycle ceiling, no list cap).
+Parked adjacent noted: a lineage × theater `summon-stats` report — lands with 13's or
+not at all. Next: Felix's smoke (drop `.summon-theaters` in bob, cycle to pods, fire,
+reopen sticky), then row 11 still deferred at his word.
