@@ -10,6 +10,7 @@
 #   ^G <preset> <account> ⏎     a fresh mantle on a named account           (4 keys)
 #   ^G n ⏎                      bare — no mantle, no colour, no prompt
 #   ^G + / -                    bump the lineage ordinal the name-stamp carries
+#   ^G t                        cycle the theater the stamp carries (.summon-theaters)
 #   ^G <preset> y … ⏎           yank the derived summons on the way past
 #   ^G .                        eject an editable command, launching nothing
 #   ^G <esc>  /  ^G ^G          close, discarding this panel's changes
@@ -35,7 +36,7 @@ typeset -g SUMMON_HOME=${${(%):-%x}:A:h}
 
 typeset -gA _summon_preset _summon_account				# key → tab-joined row
 typeset -ga _summon_preset_keys _summon_account_keys	# panel order, as filed
-typeset -g  _summon_error										# why _summon_load refused
+typeset -g  _summon_error										# why the panel refused to open
 
 # the global key namespaces — panel order and lookup from one source
 typeset -ga _summon_models=(f:fable o:opus s:sonnet k:haiku)
@@ -85,7 +86,7 @@ _summon_load() {
 		return 1
 	}
 	# every key is global now, so the panel owns all of them — a preset may shadow none
-	local -a reserved=(${_summon_models%%:*} ${_summon_efforts%%:*} n y . {0..9} + -)
+	local -a reserved=(${_summon_models%%:*} ${_summon_efforts%%:*} n y . t {0..9} + -)
 	reserved=(${(u)reserved})
 	for key in $_summon_preset_keys; do
 		(( $reserved[(Ie)$key] )) || continue
@@ -127,6 +128,79 @@ _summon_state_save() {
 	return 0
 }
 
+# --- the theater cycle -------------------------------------------------------------
+
+# A campaign is not always a directory: one repo can host several (bob hosts bob, lunchbox
+# and pods). `.summon-theaters` in the fire directory names them — one per line, the first
+# line the default — and `t` cycles through them, so the *stamp* carries the campaign while
+# Felix goes on firing at repo roots. Claude Code keys history, `/resume` and auto-memory to
+# the launch cwd, so deep-firing a subdirectory would fragment the project silo; and eject
+# cannot do this job at all, since a hand-edited name never reaches the lineage counter.
+# No file, or no directory list: the theater is $PWD's own name, exactly as row 13 had it.
+# cwd only — there is no parent walk.
+
+typeset -ga _summon_theaters			# the fire directory's campaign list, in filed order
+typeset -gi _summon_theater_i			# 1-based index into it; 0 when there is no list
+typeset -gA _summon_theater_sticky	# fire directory → the theater last fired there
+
+# log/theaters → $_summon_theater_sticky. A cache of what fired where, not a contract: a
+# directory whose list has moved on falls back to the default rather than failing anything.
+_summon_theater_sticky_load() {
+	local dir theater
+	_summon_theater_sticky=()
+	[[ -r $SUMMON_HOME/log/theaters ]] || return 1
+	while IFS=$'\t' read -r dir theater; do
+		[[ -n $dir && -n $theater ]] && _summon_theater_sticky[$dir]=$theater
+	done < $SUMMON_HOME/log/theaters
+	return 0
+}
+
+# the fired theater → log/theaters, keyed by the fire directory. Called on fire and nowhere
+# else — the same discard rule the four fields live under. A directory with no list has no
+# theater to remember, so it never enters the map.
+_summon_theater_sticky_save() {
+	local dir
+	(( _summon_theater_i )) || return 1
+	_summon_theater_sticky[$PWD]=$_summon_theaters[_summon_theater_i]
+	for dir in ${(ko)_summon_theater_sticky}; do
+		print -r -- "$dir"$'\t'"$_summon_theater_sticky[$dir]"
+	done > $SUMMON_HOME/log/theaters
+	return 0
+}
+
+# $PWD/.summon-theaters → $_summon_theaters, preselected from the sticky map. ONE read, at
+# panel open: the keystroke loop only ever indexes the array. Refuses rather than guesses,
+# because a theater becomes argv — `-n <mantle>-<theater>-NN` — so a name carrying a space
+# would split the launch in two, and one starting with `-` would make a bare launch's stamp
+# read as a flag (13-F9's hazard, from a data file this time).
+_summon_theaters_load() {
+	local file=$PWD/.summon-theaters line
+	_summon_theaters=() _summon_theater_i=0
+	[[ -f $file && -r $file ]] || return 0
+	while IFS= read -r line || [[ -n $line ]]; do			# a file with no trailing newline
+		[[ -z $line ]] && continue
+		[[ $line == -* || -n ${line//[A-Za-z0-9._-]/} ]] && {
+			_summon_theaters=()
+			_summon_error=".summon-theaters: '$line' is not a plain name"
+			return 1
+		}
+		_summon_theaters+=($line)
+	done < $file
+	(( $#_summon_theaters )) || return 0
+	# the sticky theater, or the default — which is the first line, and also where a sticky
+	# theater the file no longer lists lands (`(Ie)` answers 0 for absent)
+	_summon_theater_i=${_summon_theaters[(Ie)${_summon_theater_sticky[$PWD]:-}]}
+	(( _summon_theater_i )) || _summon_theater_i=1
+	return 0
+}
+
+# the one keystroke: forward through the list, wrapping. O(1), as the 10-F1 budget demands.
+_summon_theater_cycle() {
+	(( $#_summon_theaters )) || return 1				# no list here — `t` is inert, not an error
+	(( _summon_theater_i = _summon_theater_i % $#_summon_theaters + 1 ))
+	return 0
+}
+
 # --- the name-stamp --------------------------------------------------------------
 
 # Every session the rig fires is born named — `<mantle>-<theater>-<NN>` — because the peer
@@ -159,12 +233,14 @@ _summon_ordinal_scan() {
 	return 0
 }
 
-# the mantle + $PWD + the counter → $_summon_name, the stamp this fire would carry. The
-# theater is the working directory's own name — Felix summons at repo roots. The Grand
-# Architect carries no theater: there is one office, so the segment would be redundancy
-# rather than information (Felix, 2026-08-22); a bare launch carries no mantle segment.
+# the mantle + the theater + the counter → $_summon_name, the stamp this fire would carry.
+# The theater is the cycle's pick where the fire directory files a campaign list, and the
+# directory's own name where it does not — Felix summons at repo roots. The Grand Architect
+# carries no theater: there is one office, so the segment would be redundancy rather than
+# information (Felix, 2026-08-22); a bare launch carries no mantle segment.
 _summon_name_stamp() {
 	local theater=${${PWD:t}:-root} prefix
+	(( _summon_theater_i )) && theater=$_summon_theaters[_summon_theater_i]
 	local -i base
 	case $_summon_mantle in
 		grand-architect)	prefix=$_summon_mantle ;;
@@ -729,6 +805,12 @@ _summon_widget() {
 		return 1
 	}
 	_summon_state_load
+	_summon_theater_sticky_load
+	_summon_theaters_load || {					# a campaign list that would compose a bad launch
+		zle -M "summon: $_summon_error"
+		_summon_log abort 1 '^G'
+		return 1
+	}
 	_summon_ordinal_scan			# one pass, here and nowhere else — the loop below only looks up
 	_summon_bump=0					# the ordinal is derived, never sticky: each panel counts afresh
 	local before="$_summon_mantle_key|$_summon_model|$_summon_effort|$_summon_account_key"
@@ -774,6 +856,8 @@ _summon_widget() {
 			n)					_summon_mantle_key='' ;;		# bare is a state, not a mode
 				'+')				(( _summon_bump++ , 1 )) ;;	# the lineage ordinal, up — this is
 				'-')				(( _summon_bump-- , 1 )) ;;	# both the seed and the correction path
+				t)					_summon_theater_cycle ;;		# the campaign the stamp carries; the
+																			# footer shows it on the next paint
 			*)					if [[ -n ${_summon_preset[$press]:-} ]]; then
 									p=(${(ps:\t:)_summon_preset[$press]})
 									_summon_mantle_key=$press				# the cascade: mantle sets the tier
@@ -807,7 +891,8 @@ _summon_widget() {
 	[[ "$_summon_mantle_key|$_summon_model|$_summon_effort|$_summon_account_key" == $before ]] && mode=refire
 
 	_summon_log $mode $n "$keys"
-	_summon_state_save						# on fire, and only on fire
+	_summon_state_save						# on fire, and only on fire — and so is the theater
+	_summon_theater_sticky_save
 	BUFFER=$_summon_cmd
 	zle accept-line
 }
