@@ -1054,7 +1054,7 @@ smoke (row 13's one open box), then row 11 awaits his unshelving.
 first line the default, no file → `${PWD:t}` unchanged), the reserved `t` key cycling it
 with wrap, and per-directory stickiness in `log/theaters` under the same on-fire-only law
 as the four fields; the name-stamp now takes its theater from the cycle where a list
-exists. `lab/08/run` +27 assertions (170 → **197 green ×4**): cycle order and wrap on the
+exists. `lab/08/run` +30 assertions (170 → **200 green ×4**): cycle order and wrap on the
 composed command byte for byte, three campaigns counted apart from one fixture log, the
 missing-file fallback, the GA no-op, `t` reserved, the 60-column law at the longest
 theater name, read-once-at-open proved by taking the file away mid-panel, and a new live

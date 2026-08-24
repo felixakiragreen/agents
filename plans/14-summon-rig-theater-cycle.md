@@ -147,21 +147,21 @@ Evidence: `lab/08/run` extended, green, **no regressions**, byte assertions. Bui
       PASS  ...which is the scratch preset appearing in both
       ```
       and the guard proved live, both ways, by appending one row to the **real**
-      `summon/presets.tsv` and running both harnesses: the new one stays 197/0 green
-      with the counts following (24 items), the pre-14 one goes red in exactly the
-      three places 13-F1 predicted —
+      `summon/presets.tsv` and running both harnesses: the new one stays green with
+      the counts following (24 items, 197/0 at the time of that check), the pre-14 one
+      goes red in exactly the three places 13-F1 predicted —
       ```
       FAIL  mantle row, ● swatches, [n]one, ✓ inline on the selected item
       FAIL  every opening bracket grey — one per item — expected 23, got 24
       FAIL  every closing bracket too — expected 23, got 24
       ```
 - [x] `lab/08/run` fully green, count pasted here
-      → **197 assertions, 0 failures**, exit 0 — four consecutive runs:
+      → **200 assertions, 0 failures**, exit 0 — four consecutive runs:
       ```
-      run 1: exit=0 · 197 PASS · 0 failure(s)
-      run 2: exit=0 · 197 PASS · 0 failure(s)
-      run 3: exit=0 · 197 PASS · 0 failure(s)
-      run 4: exit=0 · 197 PASS · 0 failure(s)
+      run 1: exit=0 · 200 PASS · 0 failure(s)
+      run 2: exit=0 · 200 PASS · 0 failure(s)
+      run 3: exit=0 · 200 PASS · 0 failure(s)
+      run 4: exit=0 · 200 PASS · 0 failure(s)
       ```
       (was 170 at row 13; all 170 still green, none weakened — two were *strengthened*,
       see F3.)
@@ -198,7 +198,13 @@ refuses a line that is not a plain name (`A-Z a-z 0-9 . _ -`, not leading `-`), 
 naming the line, exactly as `_summon_load` refuses a reserved key. Silently skipping was
 the alternative and was rejected: a skipped line means `t` cycles past a campaign Felix
 filed and believes in. Nine lines of rig, and one `if` to delete if Felix wants the
-looser parse.
+looser parse. Asserted live (`lab/08/badlist.exp`), because fail-fast code nothing
+exercises is a liability:
+```
+PASS  a theater that is not a plain name refuses the panel, and names the line
+PASS  and nothing is launched from it (0)
+PASS  a leading dash too — a bare launch would have stamped a name that reads as a flag
+```
 
 **F2 — the sticky map lives in `log/theaters`, not `log/state`.** The order says "rig
 state keyed by the fire directory". `log/state` is four scalar `field<TAB>value` lines

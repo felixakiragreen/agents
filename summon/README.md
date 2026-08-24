@@ -264,7 +264,7 @@ the panel's own key loop, and the entries are dropped the moment it closes.
 
 ## Tests
 
-`../lab/08/run` — 197 assertions, 0 failures. The gestures run in a real pty against a
+`../lab/08/run` — 200 assertions, 0 failures. The gestures run in a real pty against a
 sandbox copy with `claude` and `pbcopy` shims; the panel's text, wrap and palette spans are
 asserted without a pty (`render.zsh`, a pure function of the selection, `$COLUMNS`, `$PWD`
 and the sandbox's log); and `preview.exp` / `narrow.exp` prove one whole paint on a real

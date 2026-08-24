@@ -527,6 +527,25 @@ line '...and the other directory kept its own entry' 1 \
 count 'nothing else is in it: two directories were fired from, two lines' 2 '/theater-pty/' \
 	$TPTY/log/theaters
 
+print -r -- '--- the theater cycle: a list the rig will not fire from --------------'
+# a theater becomes argv — `-n <mantle>-<theater>-NN`, run by zsh — so a name carrying a
+# space would split the launch in two and one starting with `-` would read as a flag
+# (13-F9, arriving from a data file). The panel refuses to open, the way it refuses a
+# preset on a reserved key.
+BAD=$LAB/out/badlist
+mkdir -p $BAD
+printf 'bob\nmy repo\n' > $BAD/.summon-theaters
+( cd $BAD && SANDBOX=$TPTY expect $LAB/badlist.exp $LAB/out/badlist.txt $LAB/rc.zsh ) \
+	> /dev/null 2>&1
+check 'a theater that is not a plain name refuses the panel, and names the line' \
+	"summon: .summon-theaters: 'my repo' is not a plain name" $LAB/out/badlist.txt
+count 'and nothing is launched from it' 0 'SHIM cfg=' $LAB/out/badlist.txt
+printf -- '-pods\n' > $BAD/.summon-theaters
+( cd $BAD && SANDBOX=$TPTY expect $LAB/badlist.exp $LAB/out/badlist-dash.txt $LAB/rc.zsh ) \
+	> /dev/null 2>&1
+check 'a leading dash too — a bare launch would have stamped a name that reads as a flag' \
+	"summon: .summon-theaters: '-pods' is not a plain name" $LAB/out/badlist-dash.txt
+
 print -r -- '--- clipboard law ---------------------------------------------------'
 check 'y yanks the summons for the OVERRIDDEN tier' \
 	'CLIP[You are an Architect at opus-max. Wear ~/code/agents/canon/mantles/architect.md.]'
