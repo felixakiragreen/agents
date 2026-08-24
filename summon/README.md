@@ -7,8 +7,9 @@ promised. Every invocation is logged, so `presets.tsv` is only the hypothesis an
 `log/invocations.jsonl` is the evidence. Every session it fires is born
 named. Designed in [D34/D35/D36/D41](../DECISIONS.md), built to
 [plans/08](../plans/08-summon-rig.md), [plans/09](../plans/09-summon-rig-v11.md),
-[plans/10](../plans/10-summon-rig-v12-usage.md) and
-[plans/13](../plans/13-summon-rig-name-stamp.md).
+[plans/10](../plans/10-summon-rig-v12-usage.md),
+[plans/13](../plans/13-summon-rig-name-stamp.md) and
+[plans/14](../plans/14-summon-rig-theater-cycle.md).
 
 ## Install — one line, Felix's own repo
 
@@ -49,6 +50,7 @@ side-effect.
 | `^G <preset> <account> ⏎` | 4 | a fresh mantle on a named account |
 | `^G n ⏎` | 3 | **bare** — model + effort only, no mantle, colour or prompt |
 | `^G + / -` | +1 | bump the lineage ordinal the name-stamp will carry |
+| `^G t` | +1 | cycle the theater the stamp will carry (where the directory files a list) |
 | `^G <preset> y … ⏎` | +1 | `y` yanks the derived summons to the clipboard on the way past |
 | `^G .` | 2 | **eject** — the resolved command lands in the line, editable, unlaunched |
 | `^G <esc>` / `^G ^G` | 2 | close, discarding this panel's changes |
@@ -64,8 +66,8 @@ haiku-max. `[n]one` clears the mantle: bare is a state, not a mode. haiku is **`
 right one. An unrecognised key is ignored (and counted: the log never flatters).
 
 Presets and accounts come from the data files, so the panel is always the truth. The panel
-owns `f o s k` · `l m h x M` · `n` · `y` · `.` · `+` · `-` · the digits: a preset claiming
-one makes the rig refuse to open, loudly, naming the key.
+owns `f o s k` · `l m h x M` · `n` · `y` · `.` · `t` · `+` · `-` · the digits: a preset
+claiming one makes the rig refuse to open, loudly, naming the key.
 
 Enter refuses rather than guessing when the selection cannot launch — no model, no effort,
 or no account. The account picks which subscription pays and which silo the work lands in,
@@ -107,6 +109,39 @@ back into that session. The ordinal is what keeps it unique.
 
 This is rig convention, not canon: it returns to canon by harvest if tools ever start
 parsing session names ([quartermaster §5](../plans/quartermaster.md)).
+
+### The theater cycle — one repo, several campaigns
+
+A campaign is not always a directory: `bob` hosts bob, lunchbox and pods. Firing from a
+subdirectory is the wrong fix — Claude Code keys history, `/resume` and auto-memory to the
+launch cwd, so deep-firing fragments the project silo — and eject cannot do it either,
+because a hand-edited name never reaches the lineage counter. So the *stamp* carries the
+campaign, and Felix goes on firing at repo roots.
+
+```
+bob/.summon-theaters       bob          the default: the first line
+                           lunchbox     ^G t
+                           pods         ^G t t
+```
+
+- **`.summon-theaters` in the fire directory** — one theater per line, blank lines ignored,
+  the first line the default. Commit it: the campaign list is repo truth. **cwd only**,
+  no parent walk. No file, and the theater is the directory's own name exactly as above.
+- **`t` cycles** through the list in filed order, wrapping. The footer shows the re-stamped
+  name on the next paint, so what fires is never a surprise. `t` is a reserved key, on the
+  same terms as `+`/`-`.
+- **Sticky per directory.** The fired theater is remembered against the fire directory in
+  `log/theaters`, under the same on-fire-only law as the four fields: an abort or an Esc
+  after cycling persists nothing. The next panel opened there preselects it; a sticky
+  theater the file no longer lists falls back to the default.
+- **The lineage follows the campaign, not the directory** — `architect-pods-NN` and
+  `architect-bob-NN` count independently, for free, because the counter keys the whole
+  prefix. The `+`/`-` seed path works per theater.
+- **The Grand Architect is unchanged:** it carries no theater, so with GA selected the
+  cycle changes nothing that fires. The footer says so.
+- A theater must be a plain name (`A-Z a-z 0-9 . _ -`, not leading `-`): it becomes argv as
+  `-n <mantle>-<theater>-NN`, so a space would split the launch in two. A line that is not
+  one makes the panel refuse to open, naming the line.
 
 ## Usage — the quota table
 
@@ -216,6 +251,8 @@ the rig spends the positional on the colour and Felix speaks the summons himself
 - `log/state` — the four fields of the last launch, tab-separated `field<TAB>value` lines.
   Delete it and the next panel opens empty. (`log/last` is retired; a leftover file is
   inert.)
+- `log/theaters` — `directory<TAB>theater`, one line per directory ever fired from that
+  files a `.summon-theaters`. Delete it and every such directory opens on its default.
 - `summon-stats` — counts by mantle × account, the mode split, and keys spent against the
   chars-of-command baseline.
 
@@ -227,7 +264,7 @@ the panel's own key loop, and the entries are dropped the moment it closes.
 
 ## Tests
 
-`../lab/08/run` — 170 assertions, 0 failures. The gestures run in a real pty against a
+`../lab/08/run` — 197 assertions, 0 failures. The gestures run in a real pty against a
 sandbox copy with `claude` and `pbcopy` shims; the panel's text, wrap and palette spans are
 asserted without a pty (`render.zsh`, a pure function of the selection, `$COLUMNS`, `$PWD`
 and the sandbox's log); and `preview.exp` / `narrow.exp` prove one whole paint on a real
@@ -240,6 +277,15 @@ bump and its floor. `name.exp` drives the seed path live — a virgin lineage bu
 Felix's own count, carried forward by the log, floored, and left untouched by an abort — and
 the counter is proved to read the log once by taking the file away after the panel opens and
 watching 500 repaints keep the ordinal.
+
+The theater cycle is asserted the same way: the order and the wrap on the composed command
+against a fixture `.summon-theaters`, three campaigns counted apart from one fixture log,
+the missing-file fallback, the GA no-op, and `.summon-theaters` proved read-once by the same
+take-the-file-away trick. `theater.exp` drives the stickiness live — cycle, fire, reopen
+preselected, refire; a second directory unmoved; an aborted cycle byte-compared out of
+`log/theaters`; and a sticky theater dropped from the file falling back to the default.
+The harness now **derives** the mantle row and the panel's bracket count from `presets.tsv`
+and `accounts.tsv` rather than typing them (13-F1): a data-file edit can no longer rot it.
 
 The usage arms never touch a real credential store or the network: `security` and `curl`
 are shims serving fixtures, the pacing arithmetic is asserted at its edges (reset imminent,
