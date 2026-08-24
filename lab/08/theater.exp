@@ -1,0 +1,68 @@
+#!/usr/bin/env expect
+# lab/08 — the theater cycle, driven live: what a fire makes sticky, what an abort does not,
+# and what happens when the campaign list moves under a directory that remembers one.
+# The sandbox's log starts empty, so every ordinal below is derived from these gestures alone.
+# usage: theater.exp <transcript> <rc.zsh>   (env: SANDBOX, THEATER_ROOT)
+
+set timeout 15
+log_file -noappend [lindex $argv 0]
+set root $env(THEATER_ROOT)
+spawn zsh -f -i
+send "source [lindex $argv 1]\r"
+expect "READY"
+
+# a mark round-trips the prompt: seeing its output means the previous line is done
+proc mark {n} {
+	send "print -r -- MARK$n\r"
+	expect "MARK$n\r"
+}
+
+send "cd $root/bob\r"
+mark 1
+
+# C1 — one t on the way past: the fire carries the second campaign, not the directory's name
+send "\aa1t\r"
+expect "SHIM"
+mark 2
+
+# C2 — the next open in that same directory preselects it: one whole first paint, so the
+# footer reaches the pty as a readable line (13-F8)
+send "\a"
+expect "keys: 1"
+send "\033"
+expect "closed"
+mark 3
+
+# C3 — ...and the refire proves the preselection is real, continuing that lineage
+send "\a\r"
+expect "SHIM"
+mark 4
+
+# C4 — a different directory filing the same list is untouched by bob's stickiness
+send "cd $root/carrier\r"
+send "\a\r"
+expect "SHIM"
+mark 5
+
+# C5 — an abort after cycling persists nothing: the map is byte-compared across it, and the
+# fire afterwards still carries what C3 left sticky
+send "cd $root/bob\r"
+send "cp \$SUMMON_HOME/log/theaters \$SUMMON_HOME/log/abort-before\r"
+mark 6
+send "\att\033"
+expect "closed"
+send "cp \$SUMMON_HOME/log/theaters \$SUMMON_HOME/log/abort-after\r"
+mark 7
+send "\a\r"
+expect "SHIM"
+mark 8
+
+# C6 — the campaign list drops the sticky theater: the next open falls back to the default
+send "printf 'bob\\npods\\n' > .summon-theaters\r"
+mark 9
+send "\a\r"
+expect "SHIM"
+mark 10
+
+send "exit\r"
+expect eof

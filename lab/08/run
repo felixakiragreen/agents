@@ -21,6 +21,10 @@ cp -R $LAB/fixtures $SANDBOX/				# the rc's usage shims serve these, never the n
 # rather than wherever the harness was invoked from — the stamps below are then byte-exact.
 THEATER=$LAB/out/theater
 mkdir -p $THEATER/hive $THEATER/atelier $THEATER/hexwright $THEATER/agents $THEATER/foundry
+# ...and two directories that file a campaign list of their own, the way bob does: one repo,
+# three theaters, the `t` key choosing which one the stamp carries
+mkdir -p $THEATER/bob $THEATER/carrier
+printf 'bob\nlunchbox\npods\n' | tee $THEATER/bob/.summon-theaters > $THEATER/carrier/.summon-theaters
 ( cd $THEATER/hive && expect $LAB/drive.exp $TRANSCRIPT $LAB/rc.zsh ) > /dev/null 2>&1
 cp $LOG $LAB/out/log-at-stats.jsonl		# what summon-stats saw, before later tests append
 
@@ -101,6 +105,56 @@ widest() {	# <file> <columns> — every rendered line fits, counted in character
 	fi
 }
 
+# --- the data files are fixtures too (13-F1) --------------------------------------
+# The mantle row and the panel's bracket count are DERIVED from presets.tsv and
+# accounts.tsv, never typed. A one-line preset edit rotted this harness for a fortnight
+# (13-F1) because a data file and its harness sweep were two acts joined only by memory;
+# memory is not a guard, so the fixture reads the data. The bracket placement is
+# re-implemented here rather than borrowed from the rig — a derivation that called
+# _summon_item would assert nothing but itself.
+typeset -a PKEY PMANTLE PEFFORT
+typeset -A PDUP
+typeset -i NACCT=0
+presets_read() {	# <presets.tsv> <accounts.tsv>
+	local k m e rest
+	PKEY=() PMANTLE=() PEFFORT=() PDUP=() NACCT=0
+	while IFS=$'\t' read -r k m rest e rest; do
+		[[ -z $k || $k == '#'* ]] && continue
+		PKEY+=($k) PMANTLE+=($m) PEFFORT+=($e)
+		PDUP[$m]=$(( ${PDUP[$m]:-0} + 1 ))
+	done < $1
+	while IFS=$'\t' read -r k rest; do
+		[[ -z $k || $k == '#'* ]] && continue
+		(( NACCT++ ))
+	done < $2
+}
+bracketed() {	# <key> <label> → the key bracketed where it falls in the label, else prefixed
+	local key=$1 label=$2
+	local cut=${${label:l}%%${(b)${key:l}}*}		# `local` sets its names one statement at a time
+	[[ $cut == ${label:l} ]] && { print -rn -- "[$key] $label"; return }
+	print -rn -- "${label[1,$#cut]}[$key]${label[$#cut+2,-1]}"
+}
+mantle_row() {	# <selected key> → the whole mantle row the panel must paint
+	local item
+	local -a items
+	local -i i
+	for (( i = 1; i <= $#PKEY; i++ )); do
+		item=$PMANTLE[i]
+		(( PDUP[$PMANTLE[i]] > 1 )) && item+="·$PEFFORT[i]"
+		item="● $(bracketed $PKEY[i] $item)"
+		[[ $PKEY[i] == $1 ]] && item+=' ✓'
+		items+=($item)
+	done
+	items+=("$(bracketed n none)")
+	print -rn -- "mantle   ${(j:  :)items}"
+}
+# every bracketed item on the panel: the presets, [n]one, the tier keys the rig itself
+# names, the accounts, and the four action keys
+typeset -i NTIER=$(zsh -fc "source $RIG/summon.zsh 2>/dev/null
+	print -r -- \$(( \$#_summon_models + \$#_summon_efforts ))")
+items_expected() { print -rn -- $(( $#PKEY + 1 + NTIER + NACCT + 4 )) }
+presets_read $RIG/presets.tsv $RIG/accounts.tsv
+
 # --- the panel, rendered without a pty --------------------------------------------
 # <file> <columns> <mantle> <model> <effort> <account> <keys> [yank]
 render() { ( cd $THEATER/atelier && zsh -f $LAB/render.zsh $SANDBOX $2 "$3" "$4" "$5" "$6" $7 "${8:-}" ) > $LAB/out/$1 }
@@ -114,7 +168,7 @@ P200=$LAB/out/panel-200-plain.txt
 
 print -r -- '--- the panel: every live hotkey, the selection, the preview -----------'
 check 'mantle row, ● swatches, [n]one, ✓ inline on the selected item' \
-	'mantle   ● [g]rand-architect  ● [a]rchitect·high ✓  ● [A]rchitect·max  ● [d]ispatcher  ● [b]uilder  ● [D]igger  [n]one' $P200
+	"$(mantle_row a)" $P200
 check 'model row — haiku is hai[k]u'  'model    [f]able ✓  [o]pus  [s]onnet  hai[k]u' $P200
 check 'effort row — [h]igh is high'   'effort   [l]ow  [m]edium  [h]igh ✓  [x]high  [M]ax' $P200
 check 'account row'                   'account  [0] personal  [1] thg-fgreen ✓  [2] thg-doorbell' $P200
@@ -141,8 +195,8 @@ check 'mantle label green'        'fg=green ⟨mantle   ⟩'  $P200
 check 'model label yellow'        'fg=yellow ⟨model    ⟩' $P200
 check 'effort label orange (208)' 'fg=208 ⟨effort   ⟩'    $P200
 check 'account label red'         'fg=red ⟨account  ⟩'    $P200
-count 'every opening bracket grey — one per item' 23 'fg=8 ⟨[⟩' $P200
-count 'every closing bracket too'                 23 'fg=8 ⟨]⟩' $P200
+count 'every opening bracket grey — one per item' $(items_expected) 'fg=8 ⟨[⟩' $P200
+count 'every closing bracket too'                 $(items_expected) 'fg=8 ⟨]⟩' $P200
 check 'unselected item text grey'  'fg=8 ⟨pus⟩'           $P200
 check 'unselected mantle grey too' 'fg=8 ⟨rand-architect⟩' $P200
 check 'selected item bold, and the ✓ is inline on the item' \
@@ -167,8 +221,7 @@ check 'wraps at an item boundary, continuation aligned under the first item' \
 	'         ● [A]rchitect·max  ● [d]ispatcher  ● [b]uilder' $LAB/out/panel-60-plain.txt
 count 'no item is broken across lines: each survives whole' 1 \
 	'● [A]rchitect·max' $LAB/out/panel-60-plain.txt
-check 'the same panel is one row per field at full width' \
-	'mantle   ● [g]rand-architect  ● [a]rchitect·high ✓  ● [A]rchitect·max' $P200
+line 'the same panel is one row per field at full width' 1 "$(mantle_row a)" $P200
 # and in a real 60-column terminal: the break must be ours, not the terminal's
 ( cd $THEATER/hive && SUMMON_COLUMNS=60 expect $LAB/narrow.exp $LAB/out/narrow.txt $LAB/rc.zsh ) > /dev/null 2>&1
 sed -E $'s/\x1b\\[[0-9;?]*[a-zA-Z]//g' $LAB/out/narrow.txt | tr '\r' '\n' > $LAB/out/narrow-plain.txt
@@ -304,6 +357,54 @@ check 'and the panel footer carries the bumped name in full, before anything fir
 check '...the floored one too — the footer and the launch can never disagree' \
 	'⏎  architect-agents-01 · fable-high @ thg-fgreen · green · keys: 2' $LAB/out/name-bumped-down.txt
 
+print -r -- '--- the theater cycle: the campaign the stamp carries -----------------'
+# a sandbox whose log has already seen two of the three campaigns bob hosts, so the ordinals
+# below prove the lineages are counted apart as well as stamped apart
+TSAND=$LAB/out/theater-sandbox
+mkdir -p $TSAND/log
+cp $RIG/summon.zsh $RIG/presets.tsv $RIG/accounts.tsv $TSAND/
+cat > $TSAND/log/invocations.jsonl <<'JSONL'
+{"ts":"2026-08-20T09:00:00-0400","mode":"pick","n":4,"account":"personal","mantle":"architect","model":"fable","effort":"high","color":"green","name":"architect-bob-02","cmd":"claude -n architect-bob-02","keys":"^Ga0⏎"}
+{"ts":"2026-08-20T10:00:00-0400","mode":"pick","n":4,"account":"personal","mantle":"architect","model":"fable","effort":"high","color":"green","name":"architect-bob-04","cmd":"claude -n architect-bob-04","keys":"^Ga0⏎"}
+{"ts":"2026-08-20T11:00:00-0400","mode":"pick","n":4,"account":"personal","mantle":"architect","model":"fable","effort":"high","color":"green","name":"architect-pods-01","cmd":"claude -n architect-pods-01","keys":"^Ga0⏎"}
+JSONL
+trender() {	# <out> <directory> <t presses> [mantle-key] [columns]
+	( cd $THEATER/$2 && zsh -f $LAB/render.zsh $TSAND ${5:-200} "${4-a}" fable high 1 2 '' 0 $3 ) \
+		> $LAB/out/theater-$1.txt
+}
+tstamp() {	# <name> <expected stamp> <out> — the whole composed command, byte for byte
+	line "$1" 1 \
+		"CLAUDE_CONFIG_DIR=~/.claude-thg-fgreen claude --model fable --effort high -n $2 \"/color green\"" \
+		$LAB/out/theater-$3.txt
+}
+trender t0 bob 0 ; trender t1 bob 1 ; trender t2 bob 2 ; trender t3 bob 3
+tstamp 'no press: the default theater is the first line of .summon-theaters' \
+	architect-bob-05 t0
+tstamp 'one t: the second line' architect-lunchbox-01 t1
+tstamp 'two: the third'        architect-pods-02     t2
+tstamp 'three: the cycle wraps back to the first'  architect-bob-05 t3
+check 'and the footer carries the re-stamped name, before anything fires' \
+	'⏎  architect-lunchbox-01 · fable-high @ thg-fgreen · green · keys: 2' $LAB/out/theater-t1.txt
+print -r -- '  ...the lineages counted apart from one log: bob 05, pods 02, lunchbox 01'
+trender elsewhere carrier 1
+tstamp 'the theater travels with the file, not the directory name' \
+	architect-lunchbox-01 elsewhere
+trender nofile hexwright 1
+tstamp 'no .summon-theaters: the theater is $PWD, and t is inert rather than an error' \
+	architect-hexwright-01 nofile
+trender ga bob 0 g ; trender ga-cycled bob 1 g
+if cmp -s <(grep -F CLAUDE_CONFIG_DIR $LAB/out/theater-ga.txt) \
+			 <(grep -F CLAUDE_CONFIG_DIR $LAB/out/theater-ga-cycled.txt); then
+	print -r -- '  PASS  the Grand Architect keeps no theater, so the cycle changes nothing it fires'
+else
+	print -r -- '  FAIL  the cycle reached the Grand Architect stamp'; (( fails++ ))
+fi
+check '...and what the GA fires is the untheatered stamp itself' \
+	'-n grand-architect-01 "/color green"' $LAB/out/theater-ga-cycled.txt
+trender narrow bob 1 a 60
+sed -E $'s/\x1b\\[[0-9;?]*[a-zA-Z]//g' $LAB/out/theater-narrow.txt > $LAB/out/theater-narrow-plain.txt
+widest $LAB/out/theater-narrow-plain.txt 60
+
 print -r -- '--- the name-stamp: one pass at open, O(1) in the keystroke loop ------'
 # the log is taken away after the scan: if a paint re-read it the ordinal would fall back
 # to 01, so the stamp surviving 500 paints IS the proof that the read happened once
@@ -326,6 +427,31 @@ mv $LAB/out/name-log-taken.jsonl $NAMES/log/invocations.jsonl
 check 'the ordinal outlives the log file: it was read once, at open, and never again' \
 	'500 PAINTS WITH THE LOG TAKEN AWAY: architect-hexwright-08' $LAB/out/name-onepass.txt
 grep -F 'per ' $LAB/out/name-onepass.txt
+# the same proof for the campaign list, and the price of the keystroke that cycles it
+( cd $THEATER/bob && zsh -f -c "source $TSAND/summon.zsh 2>/dev/null
+COLUMNS=200
+_summon_load; _summon_theater_sticky_load; _summon_ordinal_scan
+typeset -F start=\$EPOCHREALTIME
+for i in {1..50}; do _summon_theaters_load; done
+printf '  per panel open, the one read of the list:  %.3f ms\n' \
+	\$(( (\$EPOCHREALTIME - start) * 1000 / 50 ))
+_summon_theater_cycle
+mv .summon-theaters $LAB/out/theater-file-taken
+_summon_mantle_key=a _summon_model=fable _summon_effort=high _summon_account_key=1
+for i in {1..500}; do _summon_panel 3 '' 0; done
+print -r -- \"500 PAINTS WITH THE LIST TAKEN AWAY: \$_summon_name\"
+start=\$EPOCHREALTIME
+for i in {1..500}; do _summon_panel 3 '' 0; done
+printf '  per keystroke, a campaign list in play:    %.3f ms\n' \
+	\$(( (\$EPOCHREALTIME - start) * 1000 / 500 ))
+start=\$EPOCHREALTIME
+for i in {1..500}; do _summon_theater_cycle; done
+printf '  per t press, the cycle itself:             %.4f ms\n' \
+	\$(( (\$EPOCHREALTIME - start) * 1000 / 500 ))" ) > $LAB/out/theater-onepass.txt 2>&1
+mv $LAB/out/theater-file-taken $THEATER/bob/.summon-theaters
+check 'the cycled theater outlives the file: the list is read once, at open, and never again' \
+	'500 PAINTS WITH THE LIST TAKEN AWAY: architect-lunchbox-01' $LAB/out/theater-onepass.txt
+grep -F 'per ' $LAB/out/theater-onepass.txt
 
 print -r -- '--- the name-stamp: the seed and correction path, live ----------------'
 NPTY=$LAB/out/name-pty-sandbox
@@ -357,6 +483,50 @@ check 'and every fired stamp landed in its own record, for the next open to coun
 count 'while the abort stamped null' 1 '"mode":"abort","n":2,"account":"personal","mantle":"grand-architect","model":"fable","effort":"max","color":"green","name":null' \
 	$NPTY/log/invocations.jsonl
 
+print -r -- '--- the theater cycle: sticky per directory, on fire only (live) ------'
+# its own sandbox and its own pair of campaign directories: this arm rewrites a
+# .summon-theaters mid-run, and nothing else may be standing under it when it does
+TPTY=$LAB/out/theater-pty-sandbox
+mkdir -p $TPTY
+cp $RIG/summon.zsh $RIG/presets.tsv $RIG/accounts.tsv $TPTY/
+cp -R $LAB/fixtures $TPTY/
+TROOT=$LAB/out/theater-pty
+mkdir -p $TROOT/bob $TROOT/carrier
+printf 'bob\nlunchbox\npods\n' | tee $TROOT/bob/.summon-theaters > $TROOT/carrier/.summon-theaters
+( cd $TROOT/bob && SANDBOX=$TPTY THEATER_ROOT=$TROOT \
+	expect $LAB/theater.exp $LAB/out/theater-pty.txt $LAB/rc.zsh ) > /dev/null 2>&1
+sed -E $'s/\x1b\\[[0-9;?]*[a-zA-Z]//g' $LAB/out/theater-pty.txt | tr '\r' '\n' \
+	> $LAB/out/theater-pty-plain.txt
+TP=$LAB/out/theater-pty-plain.txt
+tp() {	# <name> <expected stamp>
+	line "$1" 1 \
+		"SHIM cfg=/Users/felix/.claude-thg-fgreen args=--model fable --effort high -n $2 /color green" $TP
+}
+tp 'a t on the way past: the fire carries the campaign, not the directory' architect-lunchbox-01
+check 'the next open in that directory preselects it — whole, on the first paint' \
+	'⏎  architect-lunchbox-02 · fable-high @ thg-fgreen · green · keys: 1' $TP
+tp '...and the refire fires exactly that, continuing the campaign lineage' architect-lunchbox-02
+tp 'a different directory filing the same list keeps its own default' architect-bob-01
+if cmp -s $TPTY/log/abort-before $TPTY/log/abort-after; then
+	print -r -- '  PASS  an abort after cycling persists nothing: the map is byte-identical across it'
+else
+	print -r -- '  FAIL  an aborted cycle reached log/theaters'; (( fails++ ))
+fi
+tp 'and the fire after that abort still carries what the last fire made sticky' \
+	architect-lunchbox-03
+tp 'a sticky theater the list no longer carries falls back to the default (first line)' \
+	architect-bob-02
+print -r -- '  ...and that 02 is the lineage bob-01 opened from the other directory: the'
+print -r -- '     ordinal follows the campaign, not the fire directory'
+count 'ten gestures, five fires: neither abort nor the preselect paint launched anything' 5 \
+	'SHIM cfg=' $TP
+line 'the map is one line per fire directory, keyed by the directory itself' 1 \
+	"$TROOT/bob"$'\t'"bob" $TPTY/log/theaters
+line '...and the other directory kept its own entry' 1 \
+	"$TROOT/carrier"$'\t'"bob" $TPTY/log/theaters
+count 'nothing else is in it: two directories were fired from, two lines' 2 '/theater-pty/' \
+	$TPTY/log/theaters
+
 print -r -- '--- clipboard law ---------------------------------------------------'
 check 'y yanks the summons for the OVERRIDDEN tier' \
 	'CLIP[You are an Architect at opus-max. Wear ~/code/agents/canon/mantles/architect.md.]'
@@ -366,10 +536,35 @@ print -r -- '--- reserved keys -------------------------------------------------
 printf 'm\tmedium-shadow\tfable\thigh\tgreen\n' >> $SANDBOX/presets.tsv
 expect $LAB/reserved.exp $LAB/out/reserved.txt $LAB/rc.zsh > /dev/null 2>&1
 check 'load refuses a preset on a now-global effort key' "reserved key 'm'" $LAB/out/reserved.txt
-check 'the reserved set is the whole panel: models, efforts, n, y, ., digits, the ± bumps' \
-	'(reserved: f o s k l m h x M n y . 0 1 2 3 4 5 6 7 8 9 + -)' $LAB/out/reserved.txt
+check 'the reserved set is the whole panel: models, efforts, n, y, ., t, digits, the ± bumps' \
+	'(reserved: f o s k l m h x M n y . t 0 1 2 3 4 5 6 7 8 9 + -)' $LAB/out/reserved.txt
 check 'the refusal is logged too (a keystroke at 1 key)' '"mode":"abort","n":1' $LOG
 sed -i '' '$d' $SANDBOX/presets.tsv
+# and the theater key joins that namespace on the same terms as ± did
+printf 't\ttheater-shadow\tfable\thigh\tgreen\n' >> $SANDBOX/presets.tsv
+expect $LAB/reserved.exp $LAB/out/reserved-t.txt $LAB/rc.zsh > /dev/null 2>&1
+check 'a preset claiming the theater key gets the reserved-key treatment, not the panel' \
+	"reserved key 't'" $LAB/out/reserved-t.txt
+count 'and it never reaches the mantle row' 0 'theater-shadow' $LAB/out/reserved-t.txt
+sed -i '' '$d' $SANDBOX/presets.tsv
+
+print -r -- '--- 13-F1: the harness follows presets.tsv, it does not remember it ---'
+# the guard row 13 asked for: a data-file edit must not be able to rot this harness again.
+# A scratch preset is added, the derivation re-read, and the panel rendered from it — if
+# anything above were a typed literal, this arm would go red instead of following.
+F1=$LAB/out/f1-sandbox
+mkdir -p $F1/log
+cp $RIG/summon.zsh $RIG/accounts.tsv $RIG/presets.tsv $F1/
+printf 'w\twarden\tsonnet\tlow\tmagenta\n' >> $F1/presets.tsv
+presets_read $F1/presets.tsv $F1/accounts.tsv
+( cd $THEATER/atelier && zsh -f $LAB/render.zsh $F1 200 a fable high 1 2 ) > $LAB/out/f1-panel.txt
+plain f1-panel.txt
+line 'a preset added to the data file lands in the row the harness derived from it' 1 \
+	"$(mantle_row a)" $LAB/out/f1-panel-plain.txt
+count 'and the bracket count follows the data too — one per item, derived' \
+	$(items_expected) 'fg=8 ⟨[⟩' $LAB/out/f1-panel.txt
+check '...which is the scratch preset appearing in both' '● [w]arden' $LAB/out/f1-panel-plain.txt
+presets_read $RIG/presets.tsv $RIG/accounts.tsv		# back to the rig's own data
 
 print -r -- '--- usage: pacing arithmetic and the response parser ------------------'
 # a sandbox of its own: the drive above ran with no log/usage at all, which is exactly the
