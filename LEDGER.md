@@ -1095,3 +1095,22 @@ observably identical); F5 **accepted parked** (28-position cycle ceiling, no lis
 Parked adjacent noted: a lineage × theater `summon-stats` report — lands with 13's or
 not at all. Next: Felix's smoke (drop `.summon-theaters` in bob, cycle to pods, fire,
 reopen sticky), then row 11 still deferred at his word.
+
+---
+
+**2026-08-24/25 · Grand Architect (GA-09) → Mentat 00** — The night-shift deliberation,
+at Felix's ask (what does the Guild need to build without him): keel-note landed at
+[plans/night-shift.md](plans/night-shift.md) — the three wants untangled, the throne
+ruling (D39 stands; the office is the **Steward**, Felix's name-ruling, unminted), the
+dated harness-autonomy census, the five missing laws + two builds, dsh ruled
+watch-don't-marry. Mid-sitting Felix renamed the window `mentat-00` and decreed the
+mint — the rename + "Do it all. Make it so." is the explicit re-summons that closes the
+GA-09 books and opens the office: sixth mantle at
+[canon/mantles/mentat.md](canon/mantles/mentat.md), [SAPHO.md](SAPHO.md) founded
+(Standing Computation + entry one), woven into MAP §3, the-city §1/§2, load-map §2, and
+`summon/presets.tsv` (`e` = m[e]ntat · fable-max · red — `lab/08/run` 200 green, the
+13-F1 guard following the data). ISSUES sweep waived by Felix this sitting
+(exploration) — the redundancy-over-consistency entry stays for GA-10. Decided: D62
+(✓ Felix in-session). Next: Felix smokes the preset on a new shell (`^G e ⏎`) — parked
+behind it: the rig's one-office stamp exception for mentat and the skill shim (both
+named in D62); the night-shift keel waits at his word.
