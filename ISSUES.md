@@ -23,3 +23,21 @@ nothing states the tiebreak *redundancy-elimination beats consistency-for-its-ow
 as an explicit value.
 
 ---
+
+From Felix:
+
+New Rule: no directly spawned subagents. I NEED visibility into every agent that is running.
+
+Incident: 
+
+Felix:
+> I can't see Row 30, even with /tasks - how do I see it?
+
+Dispatcher:
+> Row 30 is running as a subagent I spawned directly (Agent tool), not a background Bash job or a Workflow run — those are what /tasks lists. Subagents like this one don't surface in /tasks; I'm the only one tracking it, and I get notified when it lands or needs a decision (like the §7.1 gate it hit earlier).
+
+If you want visibility into it yourself, your options are:
+- Ask me for status any time — I'll relay what it's reported (verbatim, per the Dispatcher's relay rule).
+- Wait for the completion notification — I'll post it here as soon as the waypoint_step* slice verdict comes back.
+
+There's no /tasks-visible handle for it right now. Want me to poll it directly instead of waiting for its own notification?
