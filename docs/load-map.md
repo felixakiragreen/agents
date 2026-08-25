@@ -30,6 +30,7 @@ summons and work doc name.
 | Session | Loads | Doctrine? |
 |---|---|---|
 | Grand Architect | charter + MAP + LEDGER + DECISIONS + LOG + ISSUES (the D49 sweep), then birthplaces per the harvest law | Yes — owns it |
+| Mentat | charter + `SAPHO.md` (the Standing Computation + recent entries), then whatever the thought needs — no standing city boot | No |
 | Architect (founding) | charter + DOCTRINE + `dream.md` | Yes — the summons names it |
 | Architect (sitting) | charter + master doc/board + ledger tail + landed findings + the inbox (the D53 sweep) | §-reads as the work demands — the charter points at §4 |
 | Dispatcher | charter + the board + batch note + kickoffs (relayed verbatim) + rider + bulletin | No |

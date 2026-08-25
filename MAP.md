@@ -53,7 +53,7 @@ Summoning:
 The exact grammar, the tier matrix, and the five charters landed in session 01 —
 operational law in `canon/mantles/README.md`.
 
-## 3. The five mantles
+## 3. The mantles
 
 | Mantle | Mission |
 |---|---|
@@ -62,6 +62,7 @@ operational law in `canon/mantles/README.md`.
 | **Dispatcher** | Logistics only, never content: turns a board into running agents, tends, relays verbatim, escalates. |
 | **Digger** | Exploration: answers a brief's questions. Findings are durable; code is disposable. Kills fast, and a documented kill is a win. |
 | **Builder** | Construction against a blessed spec with a measurable DoD. Output is merged code and green tests. |
+| **Mentat** | Thinks beside the sovereign — the cross-project thinking partner: explores, pushes back, maps the branches. Changes minds, not files; one office, interactive only (D62). |
 
 ## 4. Deployment map
 

@@ -22,6 +22,7 @@ hives' work looks like one city and not three.
 | The building code | canon: charters, tiers, doctrine, the global CLAUDE.md |
 | The standards office | the Grand Architect — one office, a succession of holders |
 | **The sovereign** | **Felix** — commissions every work, signs every change order, holds the treasury and guards taste like a dragon |
+| The sovereign's counsel | the Mentat (D62) — thinks beside the throne, holds no seal |
 | A building | a project — a repo with its own board |
 | Architect of record | that project's Architect |
 | The commission letter | `dream.md` — the client's own words, framed, never edited |
@@ -45,7 +46,7 @@ wallpaper.
 
 ## 2. The routing law, city form
 
-Who to summon, in five clauses:
+Who to summon, in six clauses:
 
 1. **Touching the code** — any law every firm builds under, or a ruling all projects
    must obey → **the standards office** (Grand Architect).
@@ -58,6 +59,9 @@ Who to summon, in five clauses:
    **no permit needed** (null mantle, D26).
 5. The standing exception: **the metro** (the substrate) is the standards office's
    groundbreaking, at the sovereign's call, when it comes (D39).
+6. **Thinking beside the sovereign** — cross-project, no works, no permit → **the
+   Mentat** (D62): changes minds, not files; a thought that becomes work is handed to
+   clauses 1–4.
 
 And the keystone, recorded because the sovereign once forgot his own address: the
 standards office never commissions. **The sovereign determines when; the office is
