@@ -691,3 +691,36 @@
   dispatched, countersign pauses included (D43's own ancestor); Felix's field report
   this sitting (the sovereign as router: summon Architect → review → countersign →
   re-summon Dispatcher — the interaction tax D44's objective exists to eliminate).
+- **D62** (2026-08-25, Felix, by decree · charter + book drafted by the founding window
+  (the GA-09 sitting, renamed `mentat-00` mid-sitting by Felix's own hand) · ✓ Felix
+  same sitting — point-by-point on the six-clause shape, then "Do it all. Make it so."):
+  **The Mentat — the sixth mantle.** The sovereign's cross-project thinking partner:
+  explores, pushes back, expands awareness, anticipates problems, maps the branches —
+  **zero authority: changes minds, not files.** One office, a succession of windows,
+  interactive only, never dispatched; staffing fable, max effort by default; name-stamp
+  `mentat-<NN>`, no theater (one office — 13's redundancy ruling, applied by Felix's
+  rename before the law was written). Two rituals only: **the book** and **capture**
+  (keepers written to the building they belong to before the window dies; taste spoken
+  aloud captured with its why — the corpus itself stays a future campaign in stone,
+  never a mantle's pocket). **The book is `SAPHO.md`** (D40's institution, second
+  holder) — the juice by which windows acquire the office's speed — with new physics for
+  a high-frequency office: a one-line floor per session, weight earns paragraphs, and a
+  **Standing Computation** (a folded head the Mentat maintains) so orientation stays two
+  minutes forever while the tail grows — append/fold/strike, applied to a self. The book
+  is the Mentat's ledger; `LEDGER.md` only when a sitting changes repo state beyond it.
+  **The Imperial strike (Felix):** "help me become the best version of myself" struck
+  from the duties as Imperial-throne work (D39) — the Mentat stays FUN; the sentiment
+  survives at mission altitude only. Fences: drafts everything, executes nothing;
+  campaigns gestate here and are handed to Architects; read-only scouts allowed;
+  Royal/Imperial work never claimed. **Birthplaces (harvest law):** the early Grand
+  Architect windows, used as thinking partners before they architected (Felix's
+  telling); the deliberation-sitting genre (plans/quartermaster.md, the map sitting,
+  the night-shift deliberation 2026-08-24/25); and the mis-summons that proved the
+  hole — this window, summoned "an Architect at fable-max" with no board to own,
+  because no mantle fit the ask. Woven: MAP §3, docs/the-city.md, docs/load-map.md §2,
+  `summon/presets.tsv` (`e` → m[e]ntat, fable-max, red — the sapho stain; harness
+  re-run green). Deferred, named: the skill shim (`canon/skills/` is the live sync
+  set — a future signed sitting) and the rig's one-office name-stamp exception for
+  mentat (fires currently stamp a theater segment; a Builder row when Felix wants it).
+  The epigraph's working-castes verse stays untouched on purpose (D31): the Mentat sits
+  beside the sovereign, outside the hive's verse.
