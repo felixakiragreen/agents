@@ -1134,4 +1134,8 @@ entries queued). *Addendum, same sitting:* venue ruled by Felix — **in-repo**,
 `agents/belvedere/` at subproject scale (simmy pattern, own README board; canon board
 carries one line), keel §11 amended with the ruling, the canon-path fences, and revised
 pre-steps: mkdir + `dream.md` only, summons fired from the subdirectory (theater law
-stamps `architect-belvedere-01`). No `~/code/belvedere` init.
+stamps `architect-belvedere-01`). No `~/code/belvedere` init. *Second addendum, close
+of sitting:* at Felix's ask the Mentat drafted `belvedere/dream.md` in his voice —
+left **uncommitted** on purpose: Felix reviews, edits, and commits it by his own hand
+(the landing that makes it immutable), then fires the founding summons from
+`belvedere/`. The baton is unchanged but for that first step being a red pen.
