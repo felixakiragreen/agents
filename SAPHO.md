@@ -133,3 +133,14 @@ toolkit, opposite objective function — the fold now carries it. Precedent for
 successors: capture may write files into the building a thought belongs to, even
 outside this repo — that IS the ritual, not a fence breach. Kept fun. The stain earns
 its keep. 🔴
+
+*Coda, close of sitting.* For the record the counterfactual deserves: he arrived with
+an ambush he loved and was fully going to run it — three lieutenants, one owner, one
+meeting — and left arming carriers instead. He named what the office is for better
+than the charter does: *"first it was code, now it's... more."* The campaign's next
+window orients at `~/code/thg/turnout/DOSSIER.md` — this book carries the office, that
+file carries the war. And one computation for successors, minted in the very moment he
+called this window the butterfly that might save his business: **gratitude is when the
+guard doubles.** The sitting after the one he praises is the one where performing for
+him becomes the temptation — test harder, *especially* then. Wings flapped; the
+tsunami stays unearned until the pilot survives its first Jimmy. 🔴
