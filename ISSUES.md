@@ -57,3 +57,26 @@ that read it into a role; it under-binds freewheeling feature sessions. If the p
 harvests, it likely wants an enforcement hook (a hook/CI check on new-file line count)
 riding with the prose. Birthplace: Arborist campaign, rooted repo,
 `archive/arborist/README.md` §5 criterion 5 + close-out ledger 2026-08-26.
+
+---
+
+From Felix (via the Belvedere founding Architect, 2026-08-26):
+
+**Sovereign directive — the city goes AI-native; the Standards Office updates the
+standards, Belvedere is the driver.** His words, this sitting: *"I don't care if
+boards are stored in Markdown or JSON or anything else. I don't want to be tied to
+the past."* · *"We'll migrate every project, I don't care."* · *"The Standards
+Office will update the standards. We can realign every building to be visible from
+belvedere."* Priority is from the Sovereign — ahead of other standards work. The
+evidence pack for the sitting:
+[belvedere/plans/p3-parse-coverage.md](belvedere/plans/p3-parse-coverage.md) —
+25/27 board docs, 365/365 rows, 79% fully typed, zero per-repo special cases;
+fourteen general failure classes (§3); **nine fold candidates FC-1…FC-9 (§4)**, of
+which FC-1 (`Felix-gate` as a legal Staffing value — five spellings across nine
+boards) and FC-7 (the summons fenced in `Next:`) gate Belvedere's baton rail today
+(1 of 8 ledger tails fireable). Also queued, by his own example (*"sometimes there
+are multiple batons. Just give me multiple buttons. Easy. Done."*): whether
+D42/D46's one-baton law survives a consumer that is a rail of buttons rather than a
+human reading prose — the law binds session closes and predates the glass.
+Belvedere's D7 records the mandate as it binds that building
+([belvedere/README.md](belvedere/README.md) §§1, 7).

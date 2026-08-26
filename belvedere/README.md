@@ -25,6 +25,14 @@ terminal-first and are NOT sacred — where a doctrine format fights the glass, 
 may be a format amendment (escalated to the Grand Architect via the canon inbox),
 never a fatter parser. [P3](plans/p3-parse-coverage.md) gathers the evidence.
 
+> **Amended 2026-08-26, same day (Felix's word, post-P3): the mandate is AI-native
+> (D7).** Storage is unconstrained — markdown, JSON, anything ("I don't want to be
+> tied to the past"); terminal-first conventions never cap what Belvedere can be;
+> city-wide migration is pre-authorized ("We'll migrate every project, I don't
+> care") and takes **priority from the Sovereign**. The channel is unchanged: the
+> Standards Office cuts the standards — the directive and P3's evidence ride the
+> canon inbox entry of this date.
+
 ## 2. The fence
 
 Read-everything, write-narrow. The write list is exhaustive (D3):
@@ -50,6 +58,9 @@ never truth.
 2. **Glass (render)** — one bun server (canon D59), localhost, my_checklist-simple.
    **City View**: buildings = doctrine repos (the register,
    [the-city §1](../docs/the-city.md)); windows colored by mantle, rings by status.
+   P3 (2026-08-26): 17 buildings carry doctrine artifacts today, four of them
+   worktree-only (`manny`, `cornerizer`, `tig-avc`, `schema-migration`) — the
+   register must look inside `.claude/worktrees/`, never just repo roots.
    **Building pages**: DOCTRINE §2's cold-session questions as panels. **The baton
    rail — the home page**: every ledger-tail baton, named Felix-gate, and pending
    countersign in one column; a session-holder baton becomes a Dispatch button, a
@@ -147,6 +158,14 @@ genre — keel §7) · superset's attachments convention (rides the images chapt
   day): **Census home: `summon/log/census/`** — beside `invocations.jsonl`,
   one telemetry neighborhood, already gitignored (verified at founding:
   `.gitignore:1  summon/log/`).
+- **D7** (2026-08-26, Felix): **The mandate is AI-native.** Belvedere is designed
+  for what the city should be, never capped by what markdown made it — storage
+  format unconstrained, terminal-first conventions carry no veto, city-wide
+  migration pre-authorized at his word, priority from the Sovereign. Execution
+  channel unchanged: the Standards Office (Grand Architect) cuts the standards;
+  Belvedere supplies needs and evidence ([P3 §4](plans/p3-parse-coverage.md), the
+  canon inbox entry of this date). Sharpens §1's rework mandate from "amend where
+  formats fight" to "the design leads, the standards follow."
 
 ## 8. Definition of done — v0
 

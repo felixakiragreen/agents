@@ -44,3 +44,20 @@ ledger tails is fireable today.** Proposed glass JSON in §5, emitted from real 
 Architect's, via the canon inbox. Next: batch 1 continues — P1 and P2 from terminals
 inside cmux panes, P4 after both land; the fold sitting rules FC-1 and FC-7 before the
 baton-rail build row is cut.
+
+---
+
+**2026-08-26 · Architect (founding session, continued)** — P3 verified LANDED
+(contract met: findings evidence-grade with a control that caught its own parser
+bugs, board + ledger current, commits `6c76dfe`/`9bc548a`/`36c87a9`, `lab/p3/`
+present) — the kill did not fire; the glass can parse the city as it stands. Felix's
+word this sitting sharpened the rework mandate into **the AI-native mandate — D7**
+(✓ Felix, his own words in the entry): storage unconstrained, migration
+pre-authorized, priority from the Sovereign; [README](README.md) §1 amended, §3
+gains P3's register fact (four boards live worktree-only). The directive + P3's
+FC-1…FC-9 + the multiple-batons question (D42/D46) filed to the canon inbox at his
+word (D53) — the Standards Office rules formats; this desk never does. Decided: D7
+(✓ Felix in-session). Next: Felix fires the Grand Architect (summons in the report,
+verbatim); behind it, parallel-legal: P1 + P2 from cmux panes, P4 after both land,
+then the fold sitting cuts build rows on measured physics plus whatever the GA
+ruled.
