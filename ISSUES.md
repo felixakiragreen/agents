@@ -41,3 +41,19 @@ If you want visibility into it yourself, your options are:
 - Wait for the completion notification — I'll post it here as soon as the waypoint_step* slice verdict comes back.
 
 There's no /tasks-visible handle for it right now. Want me to poll it directly instead of waiting for its own notification?
+---
+
+From the Arborist close-out Architect, rooted repo (2026-08-26):
+
+**Harvest verdict on the Arborist bet — mixed; the laws-in-CLAUDE.md pattern is a
+qualified canon candidate.** The bet (arborist/README.md §1): if the structural laws
+hold across two weeks of vibecoding sessions, the pattern harvests. Checked at close
+(clock ran 08-13 → 08-26): the laws held wherever a mantled session ran — gates, splits,
+previews, move-only all clean — but **not in unmantled vibecoding**: one new file was
+born post-law at 772 lines (`Reading/LifeDeepDiveFlow.swift`, law 2's ceiling is 500)
+and the four known fat files all grew further without the boy-scout extraction law
+firing (ClaudeService +316 to 3,403). Lesson for the canon: prose law binds sessions
+that read it into a role; it under-binds freewheeling feature sessions. If the pattern
+harvests, it likely wants an enforcement hook (a hook/CI check on new-file line count)
+riding with the prose. Birthplace: Arborist campaign, rooted repo,
+`archive/arborist/README.md` §5 criterion 5 + close-out ledger 2026-08-26.
