@@ -103,7 +103,7 @@ word only) · editing truth (forever-class, §2).
 |---|---|---|---|---|
 | P1 | [Census join](plans/p1-census-join.md) — hook events, payloads, CMUX_* env, heartbeat cost | — (batch note: fire inside a cmux pane) | Digger · opus-high | OPEN |
 | P2 | [Spawn recipe](plans/p2-spawn-recipe.md) — socket access model; new-workspace + send ×3 accounts; resume variant | — (batch note: fire inside a cmux pane) | Digger · opus-high | OPEN |
-| P3 | [Parse coverage](plans/p3-parse-coverage.md) — board/ledger/baton/queue parsers vs every live doctrine repo | — | Digger · opus-high | OPEN |
+| P3 | [Parse coverage](plans/p3-parse-coverage.md) — board/ledger/baton/queue parsers vs every live doctrine repo | — | Digger · opus-high | **LANDED** 2026-08-26 — kill did NOT fire: one strict parser, **zero per-repo special cases**, 25/27 board docs · 365/365 rows found · 288 fully typed (79%). 14 failure classes, all general; **9 fold candidates (FC-1…FC-9) escalate to canon** — FC-1 (`Felix-gate` as a legal Staffing value) and FC-7 (fenced summons in `Next:`) **gate the baton rail**: 1 of 8 ledger tails is fireable today. Findings + JSON shapes in [P3](plans/p3-parse-coverage.md) |
 | P4 | [Restore semantics](plans/p4-restore-semantics.md) — quit/relaunch over a live turn, measured | P2 (recipe); P1 + P2 LANDED (kills the venue) | Digger · opus-high | OPEN |
 
 **Batch 1 (cut at founding, 2026-08-26) — Felix-tended, reasons named:** the venue
