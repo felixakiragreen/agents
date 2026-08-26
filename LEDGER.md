@@ -1114,3 +1114,20 @@ GA-09 books and opens the office: sixth mantle at
 (✓ Felix in-session). Next: Felix smokes the preset on a new shell (`^G e ⏎`) — parked
 behind it: the rig's one-office stamp exception for mentat and the skill shim (both
 named in D62); the night-shift keel waits at his word.
+
+---
+
+**2026-08-26 · Mentat (mentat-02)** — The belvedere sitting: Felix's interface threshold
+(33 terminals) deliberated against superset / t3code / my_checklist (scout recon;
+watch-don't-marry upheld, steal lists kept in the keel). Keel landed at
+[plans/belvedere.md](plans/belvedere.md) — the glass over all agentic work:
+window-not-workbench, census/glass/hands, the baton rail as home page, cmux ruled the v0
+substrate (verified live 2026-08-26) with tmux re-scoped to the Ava chapter, the
+sovereign's inbox riding D53 with the DESK harvest named for a future GA sitting. Felix's
+rulings in-sitting, recorded in the keel for founding-day ratification: name
+**Belvedere**; images deferred; whiteboardy THG-only (night-shift law #2's home
+annotated); pretty city deferred by his own word. SAPHO appended, Standing Computation
+re-folded to v2. Decided: nothing — deliberation; day-one D-entries belong to the
+founding. Next: Felix inits `~/code/belvedere` + `dream.md`, then fires the founding
+summons (verbatim in the keel §11); behind it, unordered: the GA-10 sweep (two ISSUES
+entries queued).

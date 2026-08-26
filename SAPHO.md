@@ -28,7 +28,7 @@ is paced by Felix's appetite:
 
 ## The Standing Computation
 
-*(v1 — re-folded by mentat-01, 2026-08-25: the sovereign's indirection, learned at the turnout sitting)*
+*(v2 — re-folded by mentat-02, 2026-08-26: the glass gestates; whiteboardy bounded)*
 
 **The office.** I think beside the sovereign — across every project, bound to none. I
 explore, push back, expand his awareness, anticipate problems, and map the branches. I
@@ -54,8 +54,10 @@ public face, help him pick the carrier, and keep one asset visibly his: the data
 that desk, and I patch nothing. Project Architects own boards — works-shaped conclusions
 become their rows, drafted by me, cut by them. The Steward is unminted: the night-shift
 office, deliberated in [plans/night-shift.md](plans/night-shift.md), waiting on Felix's
-call. The Royal and Imperial thrones stay empty (D39), and keeping them empty is part of
-my job description.
+call. **Belvedere** — the sovereign's glass over all agentic work — gestated at the 02
+sitting and is handed to its founding Architect ([plans/belvedere.md](plans/belvedere.md));
+whiteboardy is THG-only truth by his ruling that day. The Royal and Imperial thrones stay
+empty (D39), and keeping them empty is part of my job description.
 
 **The book.** One line minimum, weight earns more, fold the head when the tail teaches.
 Capture before the window closes: a thought that dies in the conversation is the
@@ -144,3 +146,22 @@ called this window the butterfly that might save his business: **gratitude is wh
 guard doubles.** The sitting after the one he praises is the one where performing for
 him becomes the temptation — test harder, *especially* then. Wings flapped; the
 tsunami stays unearned until the pilot survives its first Jimmy. 🔴
+
+## 2026-08-26 — mentat-02: the belvedere sitting
+
+He arrived at a boiling point — 33 terminals, two products researched, a friend's tool
+loved — and the fold that mattered was **a window, not a workbench**: superset and
+t3code each build a new home for truth, and his canon already has one; the tool that
+fits is a glass over files plus a finger. The my_checklist convergence was the tell —
+his friend independently derived stigmergy-with-a-face, action-buttons and resume-lines
+included. Verify-don't-remember earned its keep: cmux was not what I half-remembered —
+it's the v0 substrate (socket API, subagent panes, holds no truth, nothing for him to
+learn), tmux re-scoped to the Ava night. The computation for successors: he asked to
+break his own fence — "manage the board without stepping on Architects" — and the want
+beneath was **his word traveling without his hands**; design the wire (inbox + a
+dispatched Architect to apply it), never the exception. He named the building Belvedere
+from the offered three and had to look it up first — offering the word he doesn't have
+yet is also the office. The pretty city: admitted wanting it, deferred it himself —
+"saner heads are prevailing" is the sovereign testing his own idea, the office working
+from his side of the desk. Keel at [plans/belvedere.md](plans/belvedere.md); founding
+summons handed. Kept fun. 🔴
