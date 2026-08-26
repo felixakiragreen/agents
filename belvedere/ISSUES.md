@@ -1,0 +1,10 @@
+# Issues — Belvedere's incident inbox (D53 pattern)
+
+Field reports, render failures (parser-as-lint, [README §1](README.md)), and
+sovereign-inbox entries (`From Felix (via Belvedere): …`) land here — Felix's hand,
+a session's at his word, or the glass's third write ([README §2](README.md)). This
+building's Architect sweeps at every sitting: each entry ruled — folded, cut as a
+row, rejected, or escalated (canon-shaped entries go to the canon repo's inbox) —
+then deleted; entries are committed before they are drained. A swept inbox is empty.
+
+---

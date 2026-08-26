@@ -8,6 +8,9 @@ canonized here, mirrored into `~/.claude*` config dirs.
 campaign board. Ratified choices live in `DECISIONS.md`; the tail of `LEDGER.md` tells
 you where we are; field reports land in `ISSUES.md` (D49) — file and move on.
 
+Subproject: `belvedere/` — the sovereign's glass; its own board and docs live with it
+(`belvedere/README.md`).
+
 ## Session protocol
 
 - Declare your mantle: Grand Architect · Architect · Dispatcher · Digger · Builder.

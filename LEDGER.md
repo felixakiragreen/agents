@@ -1139,3 +1139,18 @@ of sitting:* at Felix's ask the Mentat drafted `belvedere/dream.md` in his voice
 left **uncommitted** on purpose: Felix reviews, edits, and commits it by his own hand
 (the landing that makes it immutable), then fires the founding summons from
 `belvedere/`. The baton is unchanged but for that first step being a red pen.
+
+---
+
+**2026-08-26 · Architect (founding, fable-max — belvedere)** — Belvedere founded at
+[belvedere/](belvedere/README.md) on the keel + dream (dream.md landed immutable as
+the first commit — Felix fired the summons ordered behind his red pen; flagged for
+his veto). Master doc with board, fence, and rework mandate; local D1–D6 (D1–D2
+✓ Felix via the keel sitting, D3–D6 pending countersign); ISSUES minted; probes
+P1–P4 cut and staffed (Digger · opus-high ×4), batch 1 Felix-tended — P1/P2 fire
+INSIDE cmux panes: founding smoke proved the socket refuses outside processes
+(now P2's first question). Canon touches: CLAUDE.md pointer line, MAP §5 row 15,
+this entry. Belvedere sessions ledger locally from here (its working agreement §5)
+— the campaign never re-enters this file. Decided: belvedere D1–D6 (states above);
+canon: nothing. Next: Felix countersigns D3–D6, then fires batch 1 — kickoffs
+verbatim in belvedere/plans/.
