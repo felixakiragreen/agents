@@ -133,18 +133,18 @@ genre — keel §7) · superset's attachments convention (rides the images chapt
   simmy pattern — own README board, one pointer line in the repo CLAUDE.md, one row
   on the canon board; rows never write `canon/**`, `sync/**`, `docs/**`, or root
   protocol files; extraction later is a cheap subtree split (keel §11 amendment).
-- **D3** (2026-08-26, founding Architect per keel §2 — pending Felix countersign):
+- **D3** (2026-08-26, founding Architect per keel §2 · ✓ Felix same day):
   **The fence.** §2's write list is exhaustive; any new write class is an
   Architect-desk question first, never a feature. Glass-shatters and parser-as-lint
   are standing bars.
-- **D4** (2026-08-26, founding Architect per keel §4 — pending Felix countersign):
+- **D4** (2026-08-26, founding Architect per keel §4 · ✓ Felix same day):
   **Substrate: cmux for v0, behind the driver fence**; tmux re-scoped to the Ava
   chapter (detach + ssh is that chapter's real requirement).
 - **D5** (2026-08-26, founding Architect per keel §8; the deferrals within it ruled
-  by Felix at the keel sitting — pending countersign as a set): **v0 scope and
-  non-goals** as §4 states them.
-- **D6** (2026-08-26, founding Architect — the keel's named call, pending Felix
-  countersign): **Census home: `summon/log/census/`** — beside `invocations.jsonl`,
+  by Felix at the keel sitting · ✓ Felix same day): **v0 scope and non-goals** as §4
+  states them.
+- **D6** (2026-08-26, founding Architect — the keel's named call · ✓ Felix same
+  day): **Census home: `summon/log/census/`** — beside `invocations.jsonl`,
   one telemetry neighborhood, already gitignored (verified at founding:
   `.gitignore:1  summon/log/`).
 

@@ -1151,6 +1151,6 @@ P1–P4 cut and staffed (Digger · opus-high ×4), batch 1 Felix-tended — P1/P
 INSIDE cmux panes: founding smoke proved the socket refuses outside processes
 (now P2's first question). Canon touches: CLAUDE.md pointer line, MAP §5 row 15,
 this entry. Belvedere sessions ledger locally from here (its working agreement §5)
-— the campaign never re-enters this file. Decided: belvedere D1–D6 (states above);
-canon: nothing. Next: Felix countersigns D3–D6, then fires batch 1 — kickoffs
-verbatim in belvedere/plans/.
+— the campaign never re-enters this file. Decided: belvedere D1–D6, all ✓ Felix
+in-session; canon: nothing. Next: Felix fires batch 1 — kickoffs verbatim in
+belvedere/plans/.

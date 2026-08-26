@@ -18,7 +18,7 @@ processes** (verbatim error in [P2](plans/p2-spawn-recipe.md), now its first
 question); felikai copies — `felix/src` ≡ `hexwright/canon`, whiteboardy diverged;
 design inputs recorded incl. bob's design system and the SpaceX dashboard (Felix,
 in-session). Canon touches: CLAUDE.md pointer line, MAP §5 row 15, canon LEDGER
-founding line. Decided: D1–D6 (D1–D2 ✓ Felix via the keel sitting; D3–D6 pending
-his countersign). Next: Felix countersigns D3–D6, then fires batch 1 — P3 anywhere;
-P1 + P2 from terminals inside cmux panes; P4 after both land (kickoffs verbatim in
-the briefs).
+founding line. Decided: D1–D6, all ✓ Felix (D1–D2 via the keel sitting; D3–D6
+countersigned in-session — D3's why explained at his ask, recorded in the entry's
+own terms in README §2). Next: Felix fires batch 1 — P3 anywhere; P1 + P2 from
+terminals inside cmux panes; P4 after both land (kickoffs verbatim in the briefs).
