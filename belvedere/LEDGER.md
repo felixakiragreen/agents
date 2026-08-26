@@ -22,3 +22,25 @@ founding line. Decided: D1–D6, all ✓ Felix (D1–D2 via the keel sitting; D3
 countersigned in-session — D3's why explained at his ask, recorded in the entry's
 own terms in README §2). Next: Felix fires batch 1 — P3 anywhere; P1 + P2 from
 terminals inside cmux panes; P4 after both land (kickoffs verbatim in the briefs).
+
+---
+
+**2026-08-26 · Digger (P3, opus-high)** — Parse coverage landed; **kill criterion did
+NOT fire.** Five doctrine-strict parsers ([lab/p3/](lab/p3/), `6c76dfe`) over 17
+buildings: **25/27 board docs yield a canonical board, 365/365 rows extracted, 288
+fully typed (79%), zero per-repo special cases.** Discovery added **whiteboardy** —
+off the brief's pre-list and the city's second-largest doctrine corpus — and found
+`manny` + `cornerizer` living only inside cap-mega worktrees (invisible to a
+repo-walking glass). 14 failure classes, all general, every one with its verbatim
+excerpt in [P3 §3](plans/p3-parse-coverage.md); the control (§0) caught two of my own
+parser bugs before they were filed as corpus defects — one accounted for 32 of the
+canon repo's 35 apparent decision failures. **Nine fold candidates FC-1…FC-9** (§4)
+are canon amendments this building may not write (D2 fence); **FC-1** (`Felix-gate` as
+a legal Staffing value — gate rows have no legal staffing today, spelled 5 ways across
+9 boards) and **FC-7** (the summons fenced in `Next:`) **gate the baton rail: 1 of 8
+ledger tails is fireable today.** Proposed glass JSON in §5, emitted from real parses
+(`bun run.ts --json <repo>`), not invented. Repo work for other Architects listed in
+§4, filed nowhere (brief's fence). Decided: nothing — FC-1…FC-9 are the Grand
+Architect's, via the canon inbox. Next: batch 1 continues — P1 and P2 from terminals
+inside cmux panes, P4 after both land; the fold sitting rules FC-1 and FC-7 before the
+baton-rail build row is cut.
