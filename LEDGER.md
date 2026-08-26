@@ -1130,4 +1130,8 @@ annotated); pretty city deferred by his own word. SAPHO appended, Standing Compu
 re-folded to v2. Decided: nothing — deliberation; day-one D-entries belong to the
 founding. Next: Felix inits `~/code/belvedere` + `dream.md`, then fires the founding
 summons (verbatim in the keel §11); behind it, unordered: the GA-10 sweep (two ISSUES
-entries queued).
+entries queued). *Addendum, same sitting:* venue ruled by Felix — **in-repo**,
+`agents/belvedere/` at subproject scale (simmy pattern, own README board; canon board
+carries one line), keel §11 amended with the ruling, the canon-path fences, and revised
+pre-steps: mkdir + `dream.md` only, summons fired from the subdirectory (theater law
+stamps `architect-belvedere-01`). No `~/code/belvedere` init.

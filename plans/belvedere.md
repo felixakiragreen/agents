@@ -222,3 +222,19 @@ Day-one D-entries at founding (§12's ritual): name (**Belvedere** — ruled), s
 (§8's cut), non-goals (§8's deferrals), substrate (§4's ruling), the fence (§2).
 Behind it, unordered: the GA-10 sweep (two queued ISSUES entries, and the desk
 question when Felix calls it).
+
+> **§11 amended 2026-08-26, same sitting (Felix's venue ruling):** Belvedere lives
+> **in-repo** — `~/code/agents/belvedere/`, subproject scale (DOCTRINE §3, the simmy
+> pattern): its own `README.md` master doc + board + `plans/`, one pointer line added
+> to the repo `CLAUDE.md` at founding; the canon board (MAP §5) carries one line, not
+> the campaign. The rig precedent generalizes — Guild tooling lives in the canon
+> repo, runs from it, never enters the sync set (`summon/`, now `belvedere/`).
+> Fences, cut at founding: Belvedere rows never write `canon/**`, `sync/**`,
+> `docs/**`, or root protocol files — an optional `guard/` deny arm makes it
+> deterministic; the census home is the founding's call (candidate: beside the rig's
+> logs). Pre-steps replace the originals above: `mkdir ~/code/agents/belvedere`,
+> `dream.md` lands there (immutable) — no `git init`, the repo exists. The fenced
+> summons stands, fired **from that directory** ("found the project" reads at
+> subproject scale) — the theater law (row 14) then stamps `architect-belvedere-01`
+> for free. Extraction to a standalone repo later, if ever needed, is a cheap
+> subtree split — low-regret either way.

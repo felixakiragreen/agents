@@ -165,3 +165,12 @@ yet is also the office. The pretty city: admitted wanting it, deferred it himsel
 "saner heads are prevailing" is the sovereign testing his own idea, the office working
 from his side of the desk. Keel at [plans/belvedere.md](plans/belvedere.md); founding
 summons handed. Kept fun. 🔴
+
+*Coda, same sitting.* He came back with the venue question already leaning — "like the
+summons, but next level" — and the right answer was **bless the instinct, correct the
+shape**: in-repo, yes (the rig set the delivery class: Guild tooling lives in the canon
+repo, runs from it, never enters the sync set; and the data gravity is here), but as a
+simmy-grade subproject with its own board — thirty build rows on the canon board would
+bury the law under the scaffolding. Costs named, not waved: merge-adjacency to live
+canon (fenced at founding, guard-armable) and history mixing (filterable, splittable).
+A leaning offered for testing is still a test — the slap can be a millimeter. 🔴
