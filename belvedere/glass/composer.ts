@@ -282,7 +282,7 @@ const LEGEND = `<section class="legend">
  * Felix may mean, and the glass reports rather than refuses. What DOES disarm is the hands'
  * refusal, because that fire would 400 anyway, and cold hands, because there is nothing to fire with.
  */
-function planCard(p: Plan, armed: boolean): string {
+export function planCard(p: Plan, armed: boolean): string {
 	if ('blocked' in p.fire || p.refusal !== null)
 		return `<section class="panel tone-purple plan">
 			<h2>Nothing composed</h2>
@@ -336,7 +336,7 @@ function planCard(p: Plan, armed: boolean): string {
 	</section>`;
 }
 
-function form(p: Plan, rig: Rig, entries: Entry[], usages: Usage[], nowSeconds: number): string {
+export function form(p: Plan, rig: Rig, entries: Entry[], usages: Usage[], nowSeconds: number): string {
 	const d = p.draft;
 	const byLabel = new Map(usages.map(u => [u.account, u]));
 
