@@ -6,7 +6,7 @@ the canon LEDGER (working agreement, [README §5](README.md)).
 
 ---
 
-**2026-08-26 · Architect (founding, fable-max)** — Founded on the keel
+**2026-08-26 · Architect · fable-max (founding)** — Founded on the keel
 ([../plans/belvedere.md](../plans/belvedere.md)) and [dream.md](dream.md) (landed
 immutable as the first commit — Felix's red pen presumed done since he fired the
 summons ordered behind it; flagged in the founding report for his veto). Master doc
@@ -25,7 +25,7 @@ terminals inside cmux panes; P4 after both land (kickoffs verbatim in the briefs
 
 ---
 
-**2026-08-26 · Digger (P3, opus-high)** — Parse coverage landed; **kill criterion did
+**2026-08-26 · Digger · opus-high (P3)** — Parse coverage landed; **kill criterion did
 NOT fire.** Five doctrine-strict parsers ([lab/p3/](lab/p3/), `6c76dfe`) over 17
 buildings: **25/27 board docs yield a canonical board, 365/365 rows extracted, 288
 fully typed (79%), zero per-repo special cases.** Discovery added **whiteboardy** —
@@ -47,7 +47,7 @@ baton-rail build row is cut.
 
 ---
 
-**2026-08-26 · Architect (founding session, continued)** — P3 verified LANDED
+**2026-08-26 · Architect · fable-max** — *founding session, continued.* P3 verified LANDED
 (contract met: findings evidence-grade with a control that caught its own parser
 bugs, board + ledger current, commits `6c76dfe`/`9bc548a`/`36c87a9`, `lab/p3/`
 present) — the kill did not fire; the glass can parse the city as it stands. Felix's
