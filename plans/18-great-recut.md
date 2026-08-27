@@ -32,7 +32,7 @@ city-wide by the Sovereign (D63/D65: "We'll migrate every project, I don't care"
 | 18c | whiteboardy — house-format ledger ×103, GENESIS + 6 sub-boards, the m3-shells:670 unescaped pipe | — | Architect · opus-high | BLOCKED (2026-08-26) — board half landed (166 → 149; six rows recovered from invisibility); ledger half refused on two `migrate` defects, 28 board cells on Depends-on resolution scope. Findings below; commits `3575630`/`b82b089`/`8a39750`/`3b9a299` |
 | 18d | bob — lunchbox, pods, theseus: DONE→LANDED, PASSED/MERGED re-spellings, depends prose | — | Architect · opus-medium | LANDED (2026-08-26) — 53/54 typed, 1 unrecorded (linter vocab gap, escalated), commits 1bec7f0/54bdc97/553c5db/b90847e |
 | 18e | cap-mega/simmy — ledger 29 entries (5 parse), ISSUES ## headings → D63h bullets, board depends | — | Architect · opus-high | OPEN |
-| 18f | cap-mega snappy + snappy/ch2 + docs cluster (units, waypoint-stepper, advanced-naming, node-param) | — | Architect · opus-medium | OPEN |
+| 18f | cap-mega snappy + snappy/ch2 + docs cluster (units, waypoint-stepper, advanced-naming, node-param) | — | Architect · opus-medium | LANDED partial (2026-08-26) — 4 of 5 buildings migrated (7 residual, all the escalated vocab gaps); **snappy BLOCKED** on a malformed ledger, escalated. Findings §18f |
 | 18g | cap-mega worktree boards — manny, tig-avc, schema-migration, cornerizer (columns re-cut to the canonical five): each edited inside its own worktree, committed on its own branch | — | Architect · opus-medium | OPEN |
 | 18h | rooted (repot + arborist archive) + spacex ×2 — small sweeps; absent Decided:/Next: → `unrecorded` | — | Architect · sonnet-high | OPEN |
 
@@ -261,3 +261,122 @@ Concurrency plan: ceiling 4 concurrent rows; all eight parallel-safe (disjoint
 repos; 18e/f/g disjoint files within cap-mega; 18g inside per-board worktrees);
 no gauge — doc-only work. Announce every dispatch (D67).
 ```
+
+### 18f — cap-mega: snappy, ch2, and the docs cluster (2026-08-26)
+
+**LANDED partial.** Four of five buildings speak D63; **snappy is BLOCKED** on a document
+defect that makes the converter unrunnable there. Commits in `cap-mega` (branch `dev`):
+`38fa39ca1` (migrate output) · `2a7b26453` (units + waypoint-stepper residues) ·
+`49b46333a` (ch2) · `477ba65f3` (naming + node-global, by hand) · `351f4df91` (board
+annotations) · `ec0f3ae` (snappy ISSUES).
+
+**DoD 1 — the lint, verbatim.** Four buildings, 93 rows:
+
+```
+$ doctrine lint cap-mega/{docs/units,docs/waypoint-stepper,snappy/ch2} \
+                cap-mega/docs/{advanced-naming-system,node-global-parameters}.md
+=== FAILURE CLASSES
+     4  board.staffing
+     3  board.tier
+=== TOTALS
+  4 buildings · 5/5 board docs yielded a board · 7 boards · 93 rows · 86 fully typed (92%)
+  0 worktree checkout(s) skipped as branch copies · per-repo special cases: 0
+  7 failure(s) in 2 class(es)
+```
+
+Per building: **units 4 → 0** · **advanced-naming-system 26 → 0** ·
+**node-global-parameters 2 → 0** · **ch2 16 → 1** · **waypoint-stepper 17 → 6**.
+All **7 residual failures are the typed-absence vocabulary gap** — the linter has no
+`unrecorded` (18a/18d's bulletin entry) and D63 has no token for a deliberately unstaffed
+row (18f's own, filed). `unrecorded` counts written: **4** (3 tiers on waypoint-stepper
+rows 12–14, 1 staffing on ch2 row 05, all cited below). No hand-patching of `doctrine/`.
+
+**DoD 2 — migration entries.** None of the four buildings carries a `LEDGER.md`, so per
+§method step 5 the **board annotation carries the date**: one dated `> **D63 migration
+(2026-08-26, `agents` row 18f)**` note under each of the five boards, naming that board's
+residual lint. No ledger minted.
+
+**DoD 3 — round-trip.** Held on all three `--write` runs (`round-trip ok` per file); a
+second `doctrine migrate` over each of the four buildings afterwards reports **"already in
+the current grammar — nothing to migrate"**, which also proves the by-hand work on the
+`docs` pair matches what the converter would have emitted. Every commit is doc-only.
+
+**DoD 4 — deferrals.** None. Zero IN FLIGHT rows across all five boards; `cap-mega`'s
+working tree was dirty only under `simmy/` (18e's live work), never touched here.
+
+#### Two converter/doctrine defects found — both escalated, neither hand-fixed
+
+1. **`migrate` orphans a `**` when a status cell's bold run is wider than its leading
+   token** (`replaceLead`, `src/migrate.ts`). `**MERGED (2026-08-11, `6dc03690`)** — DoD
+   met …` → `LANDED — MERGED (2026-08-11, `6dc03690`)** — DoD met …`. **The round-trip law
+   does not catch it** (`annotation` is a declared-changed field), so "round-trip ok" is no
+   proof of a clean diff. Four rows in `advanced-naming-system.md` (N12/N13/N16/N17); the
+   same file's eight *unbolded* `MERGED (…)` cells convert correctly. `status.retired` and
+   `status.pending` share the helper. 18f refused those writes and hand-applied the correct
+   spelling (`**LANDED — MERGED (…)**`) under §method step 3's residue authority. Filed to
+   the canon inbox as a row-16 follow-up; posted to the bulletin, since every remaining
+   wave row runs `--write`.
+
+2. **snappy's `LEDGER.md` is missing ~38 `---` separators** — 22 entries parse where ~60
+   session heads exist, so runs of sessions are glued into single entries (one swallows
+   23,587 characters across eight sessions). `migrate` emits 16 form-correct head edits and
+   then **aborts with 5 round-trip violations**, because the heads it rewrote sit inside
+   *other* entries' `body`/`decided`/`next`. The tool blames itself ("This is a converter
+   bug, not a doc defect") — **it is wrong**: the parse is correct and the document is
+   malformed. Repairing it is form-only by §7's letter but re-frames 38 invisible entries
+   into the parse, each then owing its own residue ruling — a row's worth of work and a
+   structural move §method does not pre-chew, so it is **a fork, escalated, not a guess**
+   (`snappy/ISSUES.md` + the canon inbox). snappy stays BLOCKED until it is ruled.
+
+#### A third find, fixed: a blank line silently truncates a board
+
+ch2's board was **three tables** — blank lines after rows 11 and 12 — so rows 12 and 13
+were invisible to the parser *and* to the lint, which therefore reported them as zero
+defects. Removing the two blank lines (form only) exposed 5 further residues, including
+row 12's leading `MERGED` verdict. **A low row count is a symptom, not a clean bill**;
+bulletined for the other rows.
+
+#### Residue rulings, by class
+
+- **Depends-on prose → row ids + `Felix-gate:`** (30 segments). Every Felix ruling cited
+  in a dependency became `Felix-gate: <text>` after checking its decider in the doc's own
+  decisions list — ch2's D32/D34/D38/D40/D43 are all recorded `(…, Felix)`; naming's
+  FG-rulings / FG-toml{,-2,-4,-5} / FG-venue / F7 / F9 / F11 / F12-chase / F13 / §19
+  rulings likewise. **No new gate rows were cut**: every prose precondition sat on an
+  already-LANDED row, where a retroactive gate row would be fiction. Scheduling and
+  qualifying prose moved verbatim into the Status annotation (§method step 3's sanctioned
+  home) — e.g. units row 03's "(07 gates suite evidence only)", ch2 row 02's bands
+  parenthetical, waypoint-stepper row 11's "(icons landed)".
+- **`01–03 ✓` → `01 · 02 · 03`** (ch2 row 04). 18c parked en-dash ranges as ambiguous
+  across sub-boards; this one is unambiguous — all three ids sit on the same board — so it
+  was expanded rather than parked. If the Grand Architect rules ranges legal, this is a
+  no-op.
+- **Verdict-led statuses → `LANDED — <verdict>`** (13 rows): 12 in `advanced-naming-system`,
+  1 in ch2 (row 12's `MERGED to feature/snappy (D42)`, visible only after the table was
+  reunited).
+- **Non-lifecycle leads → the state leads** (3): waypoint-stepper FG1 `PART-LANDED` →
+  `OPEN — **PART-LANDED …**` (its own Status names remaining bench items); row 24 `RUN` →
+  `LANDED — **RUN …**` (the run happened; its verdict is E1's job); ch2 row 04 `RULED in
+  part` → `OPEN — **RULED in part …**` (the budget-blessing leg is still owed). In all
+  three the annotation is byte-preserved — only the leading state was added.
+- **Absent tiers → `unrecorded`** (waypoint-stepper 12/13/14). Evidence was sought first:
+  `docs/waypoint-stepper/LOG.md:43,57,67` records those sessions as "Architect (fable)" —
+  a *model*, not one of D63's tier tokens — so no cited fill was available. Mantle kept,
+  rider kept: `Architect · unrecorded (in-session; Felix released the mantle's no-code rule
+  for this arc, 2026-08-13)`.
+- **`—` staffing → `unrecorded`** (ch2 row 05, KILLED at D34 before it was ever staffed).
+- **`unstaffed` left verbatim** (waypoint-stepper 18/19/23) — a recorded fact, not an
+  absent record; see the escalation.
+- **Decision titles → bold labels** (ch2 D34, D43). The doc's own words were promoted into
+  the label slot with their bytes and case intact (`**four rulings.**`,
+  `**three rulings, one session.**`) — nothing authored.
+- **An off-board dependency** (`node-global-parameters` row B depends on `A`). Row A was
+  dispatched, landed and audited on 2026-08-08 and removed when the board was re-cut to
+  D42–D45 (§13). Re-adding it would be adding a row, so the dependency reads `—` and the
+  Status annotation carries "(after row A, landed and audited off-board — §13)".
+
+**Untouched, by law:** snappy's `README.md:653` row 13 (`CHARTERED` + `Felix (bench) +
+keyboard session TBD`), its `README.md:1229` D19 head, and its `ISSUES.md` `##` entries —
+all inside the BLOCKED building and all judgment for snappy's own Architect; noted in
+`snappy/ISSUES.md`. No meaning edited, no row added or removed, no re-staffing, no writes
+to `canon/`, `sync/` or `doctrine/`.
