@@ -217,6 +217,11 @@ password were the lock. **Architect's call**, and it is a one-line doc question,
 does the glass keep requiring a credential it does not strictly need? B4 says yes — an
 explicit arming gesture is the cheapest safety a one-click dispatcher can carry.
 
+**Ruled 2026-08-27, Architect — D9:** yes to both. The fence and deployment wording now
+say admission-not-restriction (README §§2–3; D8 annotated), and the credential stays
+required — the arming switch ratified — holding the real password, not a sentinel, so the
+glass outlives the CLI's courtesy fallback (Ava chapter included).
+
 ### E2 — an agent cannot provision the credential (Felix-gate, one command)
 
 Copying the socket password out of cmux's settings into `~/.config/belvedere/env` was

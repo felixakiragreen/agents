@@ -51,8 +51,12 @@ It never edits boards, ledgers, decisions, or canon — those are mantle work; F
 word travels as inbox entries the building's Architect applies with his name on the
 ruling. Repo fences (D2): Belvedere rows never write `canon/**`, `sync/**`,
 `docs/**`, or root protocol files. The server binds 127.0.0.1 only — real auth
-arrives with the Ava chapter, before exposure. Census is telemetry: gitignored,
-never truth.
+arrives with the Ava chapter, before exposure. The hands arm only by Felix's
+gesture — `~/.config/belvedere/env` (B4 E2) — and that credential is an **arming
+switch, not the lock** (B4 E1, D9): the socket already admits any local process
+of Felix's, so what stands between a stray agent and the desktop is the
+permission guard and this fence, never the password. Census is telemetry:
+gitignored, never truth.
 
 ## 3. The organs
 
@@ -94,6 +98,12 @@ OUTSIDE cmux under `socketControlMode: password` — the socket gate is *live*
 ancestry, so a pane-resident glass dies with every cmux restart and can never
 reconnect; pane-resident is bootstrap/fallback only. The server presents
 `CMUX_SOCKET_PASSWORD` from launch env or a gitignored local file, never git.
+Sharpened by B4 E1 (D9): the password's function is **admission, not
+restriction** — it lets a non-descendant glass connect at all, while the CLI
+resolves an absent password from cmux Settings, so any local process of Felix's
+is admitted regardless. The credential file is Belvedere's **arming switch** —
+absent, every hand answers 503 — and it holds the real password, not a
+sentinel, so the glass outlives any tightening of that courtesy fallback.
 
 **Design inputs (Felix, founding session):** theme = **felikai** —
 `~/code/felix/src/felikai.css` (89 lines; `hexwright/canon/felikai.css`
@@ -149,7 +159,7 @@ word only) · editing truth (forever-class, §2).
 | B2 | [Glass spine](plans/b2-glass-spine.md) — bun server: City View + building pages over `doctrine/` + census | — | Builder · opus-high | **LANDED** 2026-08-26 — merged at G1 (`a22a841`); DoD in [B2](plans/b2-glass-spine.md); E1 ruled at G1 (zero-cache scopes to CONTENT; register ≤30 s warm, age printed — implementation rides B3); F1→B5, F2→canon inbox; visual pass **✓ Felix 2026-08-27** |
 | G1 | Batch-2 review — merge B1+B2; **Felix-gate: census deploy ×3 + B2 visual pass**; cut B3–B6 orders | B1, B2 | Architect · fable-high | **LANDED (Architect half)** 2026-08-26 — both branches merged, escalations ruled (D54 accepted; E1 → content-scope; F2 → honest off-register + canon question), B3–B6 orders cut and blessed. Felix half **✓ 2026-08-27**: deploy ×3 run, visual pass given — G1 complete |
 | B3 | [Baton rail](plans/b3-baton-rail.md) — `/` becomes the rail; move/wave/fork buttons, Felix-cards never auto-fired | B4 | Builder · opus-high | OPEN — order blessed at G1; carries the E1 ruling (register ≤30 s) + the fire affordance (new session / copy summons) |
-| B4 | [Hands](plans/b4-hands.md) — /fire /worktree /focus /halt + hardened spawn lib; credential `~/.config/belvedere/env` | G1 (Architect half ✓) | Builder · opus-high | **LANDED** 2026-08-27 — all four hands on `master`, DoD evidenced in [B4](plans/b4-hands.md): fire byte-exact (sha ×2 identical) + resume + worktree + focus **off the live census** + HALT + disabled-mode 503s; **62 tests green**; venue restored, HALT cleared. **E1 → Architect** (the socket already admits any local process; the credential is an arming switch, not the lock) · **E2 → Felix-gate: one command arms `~/.config/belvedere/env`** — until then every hand answers 503 and the City View says so honestly. D54 slip (`bunx tsc`, B1's again) self-reported |
+| B4 | [Hands](plans/b4-hands.md) — /fire /worktree /focus /halt + hardened spawn lib; credential `~/.config/belvedere/env` | G1 (Architect half ✓) | Builder · opus-high | **LANDED** 2026-08-27 — all four hands on `master`, DoD evidenced in [B4](plans/b4-hands.md): fire byte-exact (sha ×2 identical) + resume + worktree + focus **off the live census** + HALT + disabled-mode 503s; **62 tests green**; venue restored, HALT cleared. **E1 ruled — D9** (arming switch, not lock; fence + D8 framing amended, credential kept) · **E2 → Felix-gate: one command arms `~/.config/belvedere/env`** — until then every hand answers 503 and the City View says so honestly. D54 slip (`bunx tsc`, B1's again) self-reported |
 | B5 | [Shelf + gauges](plans/b5-shelf-gauges.md) — resume ×3 by transcript-stamp; usage strip; WIP gauges | B4 | Builder · opus-high | OPEN — order blessed at G1; F1/F3 folded in |
 | B6 | [Sovereign inbox](plans/b6-sovereign-inbox.md) — gestures → D63 ISSUES appends + the apply button | B4 | Builder · opus-high | OPEN — order blessed at G1 |
 | B7 | [Summon composer](plans/b7-summon-composer.md) — fire-anything: form + templates (founding incl.) + worktree composition | B4 | Builder · opus-high | OPEN — cut 2026-08-27 (Felix's ask), joined batch 3 by amendment |
@@ -265,7 +275,8 @@ engine, the Steward the same flow unattended; v0 usage is the evidence). · a gu
   is fallback only — the gate is live ancestry; a pane glass dies with every cmux
   restart and can never reconnect (P4 §A). Evidence: `cmux --password '…'
   workspace list` from a non-cmux terminal listed both live workspaces,
-  2026-08-26.
+  2026-08-26. *(Framing sharpened by D9: the password admits — it does not
+  restrict.)*
 - **D7** (2026-08-26, Felix): **The mandate is AI-native.** Belvedere is designed
   for what the city should be, never capped by what markdown made it — storage
   format unconstrained, terminal-first conventions carry no veto, city-wide
@@ -274,6 +285,24 @@ engine, the Steward the same flow unattended; v0 usage is the evidence). · a gu
   Belvedere supplies needs and evidence ([P3 §4](plans/p3-parse-coverage.md), the
   canon inbox entry of this date). Sharpens §1's rework mandate from "amend where
   formats fight" to "the design leads, the standards follow."
+- **D9** (2026-08-27, Architect, on B4 E1's measurements — awaiting Felix's ✓):
+  **The credential is an arming switch, not the lock — and it stays.**
+  `socketControlMode: password` *admits* the outside glass (live ancestry no
+  longer required — its load-bearing function, P4 §A); it does not *restrict*:
+  the CLI's documented fallback resolves an absent password from cmux Settings,
+  so any local process of Felix's drives the socket today (measured, B4 E1 — a
+  wrong password fails loudly, none at all succeeds). No Belvedere text may
+  present the password as what keeps agents off the desktop — the permission
+  guard, the fence (D3), and the audit stand there. The glass keeps requiring
+  `~/.config/belvedere/env` anyway (B4's call, ratified): an explicit Felix
+  gesture is the cheapest safety a one-click dispatcher can carry — it gates
+  accidents, not adversaries. The file keeps holding the real password, not an
+  empty sentinel (the CLI would resolve one from Settings): D8's operative text
+  says the server *presents* the credential, a content-ignored file is hidden
+  state, and presenting the real value keeps the glass alive under the Ava
+  chapter and any future tightening of the CLI's courtesy fallback. D8's
+  deployment ruling stands whole; only its auth framing retires. Fence +
+  deployment wording amended (§§2–3).
 
 ## 8. Definition of done — v0
 

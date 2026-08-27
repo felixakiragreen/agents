@@ -332,3 +332,23 @@ D54 slip self-reported: `bunx tsc` (B1's again, zero harm, no lockfile) — the 
 gap is that the city has no offline type-checker. Decided: audit belongs to the
 write, not the route (no caller routes around it). Next: B3 (the baton rail) —
 bulletin carries the wire contract and the disabled-state requirement.
+
+---
+
+**2026-08-27 · Architect · fable-max (B4 E1)** — Ruled: **D9** — the credential is
+an **arming switch, not the lock**, and it stays. B4's measurement (a wrong
+password rejected loudly, none at all admitted via the CLI's Settings fallback)
+retires D8's auth *framing* while its deployment ruling stands whole: password
+mode's function is admission (P4 §A's load-bearing fact), never local
+restriction — what stands between a stray agent and the desktop is the
+permission guard, the fence (D3), and the audit. Ratified B4's call to keep
+requiring `~/.config/belvedere/env` (it gates accidents, not adversaries) and to
+keep the real password in it, not a sentinel — D8's operative text, no hidden
+state, and the Ava chapter needs the value presented for real.
+[README](README.md) §§2–3 amended, D8 annotated, D9 cut (awaiting Felix's ✓);
+board B4 row trued; ruling line appended to [B4 E1](plans/b4-hands.md). P2 §A3's
+"knows the password" prediction left as filed history — B4 E1 carries the
+correction. Inbox swept: empty. Decided: D9 (delegated scope — wording + ratifying
+landed behavior; countersign pending). Next: Felix — countersign D9 and run E2's
+one-command arm; behind it: the batch-3 chain runs on (B3 → B5 → B6 → B7) to the
+close gates.
