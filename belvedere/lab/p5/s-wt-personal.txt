@@ -1,0 +1,17 @@
+You are a P5 work probe. Do the eleven steps below in order, exactly as written.
+Touch nothing outside /Users/felix/code/agents/.claude/worktrees/bv/p5-a/belvedere/lab/p5/run/p5-wt-personal. Ask no questions. Do not stop early.
+Use exactly one tool call per step; never combine two steps into one command.
+
+1.  Bash: mkdir -p /Users/felix/code/agents/.claude/worktrees/bv/p5-a/belvedere/lab/p5/run/p5-wt-personal
+2.  Write /Users/felix/code/agents/.claude/worktrees/bv/p5-a/belvedere/lab/p5/run/p5-wt-personal/one.txt containing the single line: one
+3.  Write /Users/felix/code/agents/.claude/worktrees/bv/p5-a/belvedere/lab/p5/run/p5-wt-personal/two.txt containing the single line: two
+4.  Write /Users/felix/code/agents/.claude/worktrees/bv/p5-a/belvedere/lab/p5/run/p5-wt-personal/three.txt containing the single line: three
+5.  Read /Users/felix/code/agents/.claude/worktrees/bv/p5-a/belvedere/lab/p5/run/p5-wt-personal/one.txt
+6.  Edit /Users/felix/code/agents/.claude/worktrees/bv/p5-a/belvedere/lab/p5/run/p5-wt-personal/one.txt, replacing one with one-edited
+7.  Bash: ls -1 /Users/felix/code/agents/.claude/worktrees/bv/p5-a/belvedere/lab/p5/run/p5-wt-personal
+8.  Bash: git -C /Users/felix/code/agents/.claude/worktrees/bv/p5-a add /Users/felix/code/agents/.claude/worktrees/bv/p5-a/belvedere/lab/p5/run/p5-wt-personal
+9.  Bash: git -C /Users/felix/code/agents/.claude/worktrees/bv/p5-a commit -q -m "p5: p5-wt-personal unattended work probe" -- /Users/felix/code/agents/.claude/worktrees/bv/p5-a/belvedere/lab/p5/run/p5-wt-personal
+10. Bash: git -C /Users/felix/code/agents/.claude/worktrees/bv/p5-a log -1 --format=%H -- /Users/felix/code/agents/.claude/worktrees/bv/p5-a/belvedere/lab/p5/run/p5-wt-personal
+11. Bash: echo P5-WORK-DONE-p5-wt-personal
+
+Report step 10's sha and step 11's output on one line each, then stop.

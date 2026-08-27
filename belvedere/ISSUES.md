@@ -11,13 +11,3 @@ go to the canon repo's inbox) — then deleted; entries are committed before the
 are drained. A swept inbox is empty.
 
 ---
-
-- 2026-08-27 · Felix (the deck sitting, continued) · the decoder must decode
-  the AGENTS' words too — verbatim below; ruled same sitting.
-
-Verbatim:
-
-> That's exactly the kind of thing the popup also needs to handle. I want to
-> hover over YOUR words [canon row 17] and see a tooltip for it. Potentially
-> it even has an action {like bless} in it. (Also, is blessing the same as
-> countersign? if so, I like the word bless more.

@@ -30,8 +30,14 @@ Architect's glossary in his head.
 1. **The detector.** One pass over rendered text (server- or client-side —
    wherever the deck's render seam is; one place, not per-tenant):
    `\b[PBG]\d+\b` (row ids), `\bD\d+\b`, `§\d+(\.\d+)?`, `\bFC-\d+\b`,
-   `\bGA-\d+\b` — wrapped as decoder spans. Code blocks and fenced kickoffs
-   are exempt (a summons stays byte-sacred).
+   `\bGA-\d+\b`, and **the row-keyword form** `\b(?:(canon|<building>)\s+)?row
+   \d+\b` — "canon row 17", "bob row 3", bare "row 14" — because the canon
+   board's row ids are bare numerals and only the keyword anchors them.
+   All wrapped as decoder spans. Code blocks and fenced kickoffs are exempt
+   (a summons stays byte-sacred). **The corpus is every prose surface the
+   deck renders — the Chat's transcripts included (Felix's ask, verbatim: "I
+   want to hover over YOUR words [canon row 17] and see a tooltip for it")**
+   — the seam sits upstream of tenants, so B16 inherits by construction.
 2. **The resolver — context-scoped, local first.** A reference resolves
    against its **containing document's building** first (a `D2` in a
    belvedere doc is belvedere's D2), then the canon repo (a `D63` anywhere
@@ -46,7 +52,14 @@ Architect's glossary in his head.
    head (rows), the entry's first sentence (decisions), the section's first
    lines (§). Footer: **jump** — row → its Workshop board row / plan doc;
    decision → the entry in the Workshop queue panel; § → the doc viewer at
-   the heading (B15's anchors).
+   the heading (B15's anchors) — **and the object's live gestures, where it
+   carries any from the queue's own set** (Felix's ask: "potentially it even
+   has an action"): a pending-countersign decision carries the countersign
+   gesture, any object carries the note gesture — B6's wire, previewed bytes
+   before the append (the countersign law). **Gestures only, never fires**:
+   tooltips gesture, the composer and the Works fire (D10's discipline);
+   the gesture verb follows canon's vocabulary until the Office rules the
+   bless/countersign ask (canon inbox, 2026-08-27).
 4. **Nesting.** Tooltip bodies pass through the detector too; **depth cap
    3**, and a cycle (D2 → §7 → D2) renders the repeat as plain text — the
    cap and the cycle guard are tested, not hoped.
@@ -64,6 +77,15 @@ Architect's glossary in his head.
   D2; `D63` resolves to canon's; a deliberately out-of-range id (`D99` in
   belvedere) renders **unresolved** with candidates named.
 - [ ] `§5` inside a doc resolves to that doc's §5 and jumps line-anchored.
+- [ ] **The commissioning hover:** the literal phrase `canon row 17` in
+  rendered prose (a fixture transcript line — the Chat lands later; the
+  SEAM is what this proves) resolves to the agents board's row 17 with its
+  title and status; bare `row 14` in a canon doc resolves locally.
+- [ ] A pending-countersign decision's tooltip carries the working
+  countersign gesture (B6's wire; a fixture decision if the city holds no
+  true pending — B6 F2's finding) with the exact bytes previewed; a fired
+  gesture lands the legal append (diff pasted). Zero fire wiring in any
+  tooltip (structural grep).
 - [ ] Fenced kickoffs and code blocks carry zero decoder spans (structural
   grep).
 - [ ] Three tenants sampled (City, Workshop, queue) all decode; zero new

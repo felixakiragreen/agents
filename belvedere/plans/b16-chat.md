@@ -38,7 +38,10 @@ here.
    user/assistant turns styled per felikai; tool activity summarized to one
    encapsulated line each (dataviz first — the full record is one jump
    away). Live targets append within one poll (census `Stop`/beat-driven
-   re-read); dead targets render their stillness honestly.
+   re-read); dead targets render their stillness honestly. **Transcript
+   prose passes B20's decoder** — hovering `canon row 17` in an agent's own
+   words decodes like everything else; fenced kickoffs inside transcripts
+   stay exempt (B20 §1).
 3. **Send (Action).** The draft box + send button, armed per D18 class 1:
    credential-gated, D10-bound (no unambiguous single target — no send),
    delivery via P6's mechanism per target state (live-idle · mid-turn ·

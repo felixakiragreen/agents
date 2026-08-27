@@ -847,6 +847,30 @@ else in your summons stands.
 
 Behind it: canon row 17 at his word; this desk returns at G2.
 
+---
+
+**2026-08-27 · Architect · fable-max** — *decoder sharpened, vocabulary
+escalated (same session, continued; B13 LANDED under the Dispatcher —
+320 tests, Chrome-probe DoD, the chain runs).* Felix's note filed
+verbatim, ruled, drained: **B20 amended** (undispatched — no relay
+needed): the detector gains the **row-keyword form** (`canon row 17`,
+`bob row 3`, bare `row 14` — the canon board's ids are bare numerals, the
+keyword anchors them), the corpus is **every prose surface the deck
+renders, the Chat's transcripts included** ("I want to hover over YOUR
+words"), and tooltips carry the object's **live gestures** from the
+queue's set — a pending countersign, a note — B6's wire, previewed bytes,
+**gestures only, never fires**; the DoD gains the commissioning hover and
+the gesture proof. **B16 amended**: transcript prose passes the decoder,
+kickoff fences exempt. **The bless/countersign ask escalated to the canon
+inbox** (they are two acts today — bless approves a spec, countersign
+confirms a D-entry; whether "bless" becomes the one spoken Felix-yes is
+the Office's; the deck renders canon's vocabulary until ruled). Decided:
+the B20/B16 amendments (delegated; the commission is his note). Next:
+unchanged — **Felix delivers the lane amendment to the Dispatcher** (if
+not already done; message verbatim in the previous entry); behind it: a
+GA sitting is now genuinely ripe — the canon inbox holds 16 entries and
+row 17's gate is paid — his word fires it.
+
 **2026-08-27 · Builder · opus-high (B13)** — the deck shell: the app exists. `/deck`
 serves three panes (Context · Focus · Action), each walking minimal → typical →
 expanded under the law of space, plus the pinnable drawer, the tooltip primitive, the

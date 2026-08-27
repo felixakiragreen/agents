@@ -16,6 +16,7 @@ if (!tag || !repo || !dir) {
 
 process.stdout.write(`You are a P5 work probe. Do the eleven steps below in order, exactly as written.
 Touch nothing outside ${dir}. Ask no questions. Do not stop early.
+Use exactly one tool call per step; never combine two steps into one command.
 
 1.  Bash: mkdir -p ${dir}
 2.  Write ${dir}/one.txt containing the single line: one

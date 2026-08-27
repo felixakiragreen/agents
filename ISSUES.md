@@ -424,3 +424,16 @@ From agents. Haha.
   touched nothing under `doctrine/`. For row 16's suite: corpus tests belong on
   checked-in fixtures; live-corpus assertions belong in `lint`, not the test suite.
   Evidence: belvedere/ISSUES entry drained 2026-08-27 (git keeps the bytes).
+
+---
+
+- 2026-08-27 · Felix (via the Belvedere Architect, the deck sitting) ·
+  **Vocabulary ask: he prefers "bless" — is countersign the same act?** His
+  words: "is blessing the same as countersign? if so, I like the word bless
+  more." DOCTRINE §13 splits them: bless = approve a spec/design for
+  construction; countersign = confirm a proposed D-entry — the sovereign's
+  yes to two different objects. Ask for the Office: may **bless** become the
+  one spoken verb for the Felix-yes ("bless a spec", "bless a decision"),
+  countersign retiring from the working vocabulary while the D63 `✓ Felix`
+  marker stands unchanged? Live surface: Belvedere's deck tooltips carry the
+  gesture (belvedere B20) and render canon's vocabulary until ruled.
