@@ -1,0 +1,12 @@
+{
+	"name": "glass",
+	"version": "0.1.0",
+	"description": "Belvedere's glass: one bun server rendering the city from the truth layer. Read-everything, write-nothing.",
+	"private": true,
+	"type": "module",
+	"module": "server.ts",
+	"scripts": {
+		"start": "bun server.ts",
+		"test": "bun test"
+	}
+}
