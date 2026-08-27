@@ -150,5 +150,33 @@ is a straight write. Shipped [`lab/p1/`](lab/p1/) — `beat.sh` (the production
 candidate), `capture.sh`/`envdump.sh` (probe), `mkproject.sh`, `run.sh`,
 `pty_run.py` (interactive driver — headless never emits `Notification`), `bench.py`,
 `slow.sh`. No live settings file was touched. Decided: nothing — no D-entry; the
-record schema is a build-row input, not canon. Next: P4 is now unblocked (P1 and P2
-both landed); then the fold sitting cuts the v0 build rows on measured physics.
+record schema is a build-row input, not canon.
+
+**Baton — Felix (fork; his call because only he knows if the wave can pause):**
+P1 and P2 both landed, so P4's dependency is paid — but P4 **kills the venue**
+(README §5) and **45 `claude` processes are live** right now (`ps -Ao pid,command |
+grep -c '[c]laude'` → `45`), row 18's re-cut wave among them.
+
+- **A — fire P4 (recommended)** once the wave is at a boundary: it is the last
+  unmeasured physics, and the fold sitting would otherwise cut the shelf/restore
+  build rows on docs-read guesses.
+
+  ```
+  You are a Digger at opus-high.
+  Wear ~/code/agents/canon/mantles/digger.md,
+  then read ~/code/agents/belvedere/README.md
+  and ~/code/agents/belvedere/plans/p4-restore-semantics.md,
+  and execute the brief.
+  ```
+
+- **B — fire the fold sitting now** on three probes' physics, parking P4's questions
+  as a named build-row risk. Cheaper today, pays for it at the shelf row.
+
+  ```
+  You are an Architect at fable-high.
+  Wear ~/code/agents/canon/mantles/architect.md,
+  then read ~/code/agents/belvedere/README.md and the P1/P2/P3 findings,
+  and cut the v0 build rows.
+  ```
+
+Ordered behind either: the other one.
