@@ -397,3 +397,26 @@ Decided: the register may be held warm but never on the serving thread; the rail
 resolves and never invents — a blocked instrument shows its reason and no button.
 Next: **fire B5** — the shelf and the gauges; the bulletin carries the rail's wire
 notes and the two canon asks.
+
+---
+
+**2026-08-27 · Architect · fable-max (B3 E1/E2)** — *same session, continued.* B3
+verified LANDED (18 commits `1ec54a3…ffb3d19`, tree clean, findings + three canon
+asks filed, board/ledger current — including the killed run's leftover diff
+reviewed and corrected rather than discarded). Ruled **E1**: the worker is law —
+the walk never rides the request thread; TTL **5 min** (a 20 s TTL over a 9.5 s
+walk re-walked ~half of Felix's reading time, for data that changes at building
+cadence), the glass's own fires/worktrees bust the register, a manual re-walk
+rides beside the printed age. Ruled **E2 — D10, ambiguity never arms**: a fire
+affordance renders armed only when parse and prose agree; where B3's collision
+note fires, the card loses its wiring (note + copy stay); parse untouched (D65),
+the grammar stays canon's; B6's apply and B7's composer inherit. Inbox swept — 4
+entries, all ruled, drained: isolation + unwind + the rulings → **B8 cut**
+([plans/b8-glass-hardenings.md](plans/b8-glass-hardenings.md)), joining batch 3
+by amendment and **firing first**; the trust dialog → B7's order amended (warn,
+never answer); the 3-for-3 `bunx tsc` pattern → offline type gate into B8 + rider
+amended + escalated to the canon inbox (city-standard question). Decided: D10
+(awaiting Felix's ✓); the E1 register policy (delegated — amends this desk's own
+G1 ruling). Next: Felix delivers the batch-3 amendment to the Dispatcher
+(verbatim in the report); the chain runs **B8 → B5 → B6 → B7** to the close
+gates.

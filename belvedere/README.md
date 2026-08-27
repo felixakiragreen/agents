@@ -158,11 +158,12 @@ word only) · editing truth (forever-class, §2).
 | B1 | [Census deploy](plans/b1-census-deploy.md) — the liveness sensor live ×3 accounts | — | Builder · opus-high | **LANDED** 2026-08-26 — merged at G1 (`ab4d857`); DoD evidence in [B1](plans/b1-census-deploy.md); D54 slip (unnamed `bunx tsc`) self-caught + accepted at G1, zero harm; live ×3 deploy **✓ Felix 2026-08-27** — the sensor is live on all three accounts |
 | B2 | [Glass spine](plans/b2-glass-spine.md) — bun server: City View + building pages over `doctrine/` + census | — | Builder · opus-high | **LANDED** 2026-08-26 — merged at G1 (`a22a841`); DoD in [B2](plans/b2-glass-spine.md); E1 ruled at G1 (zero-cache scopes to CONTENT; register ≤30 s warm, age printed — implementation rides B3); F1→B5, F2→canon inbox; visual pass **✓ Felix 2026-08-27** |
 | G1 | Batch-2 review — merge B1+B2; **Felix-gate: census deploy ×3 + B2 visual pass**; cut B3–B6 orders | B1, B2 | Architect · fable-high | **LANDED (Architect half)** 2026-08-26 — both branches merged, escalations ruled (D54 accepted; E1 → content-scope; F2 → honest off-register + canon question), B3–B6 orders cut and blessed. Felix half **✓ 2026-08-27**: deploy ×3 run, visual pass given — G1 complete |
-| B3 | [Baton rail](plans/b3-baton-rail.md) — `/` becomes the rail; move/wave/fork buttons, Felix-cards never auto-fired | B4 | Builder · opus-high | **LANDED** 2026-08-27 — `/` is the rail (City View → `/city`), DoD evidenced in [B3](plans/b3-baton-rail.md): **8 of 8** city batons rendered (the 9th ledger writes `Next —`, not `Next:`), Felix-cards **structurally unwired** (35 of 38 cards carry zero fire wiring), a **composed worktree fire** landed byte-exact (fence = clipboard = first user turn, one sha256, probe cleaned up), fork badged, `/` **p95 48 ms**. **E1 — the G1 ruling's own implementation cost a p95 of 8.3 s**: the deferred walk still held Bun's only thread; moved to `register.worker.ts` (fixed here), but the **20 s TTL over a 9.5 s walk is the Architect's to rule**. **E2 — all three live fireable batons are Felix-gated in prose while `classifyBaton` calls them session batons**; reported on the card, escalated to canon, never overruled. F1 rig colours ≠ cmux colours (`cyan`/`pink` refused — fires died mid-way) · F2 fires into an untrusted tree stall at Claude's folder-trust dialog (**bites B7**) · F3 `bun test belvedere/glass` red on a **pre-existing** B4 collision (105 green per file) · F4/F5 canon asks: `Baton.kind`, and a **field** for a row's branch (prose reading was 0/62 sound) |
+| B3 | [Baton rail](plans/b3-baton-rail.md) — `/` becomes the rail; move/wave/fork buttons, Felix-cards never auto-fired | B4 | Builder · opus-high | **LANDED** 2026-08-27 — `/` is the rail (City View → `/city`), DoD evidenced in [B3](plans/b3-baton-rail.md): **8 of 8** city batons rendered (the 9th ledger writes `Next —`, not `Next:`), Felix-cards **structurally unwired** (35 of 38 cards carry zero fire wiring), a **composed worktree fire** landed byte-exact (fence = clipboard = first user turn, one sha256, probe cleaned up), fork badged, `/` **p95 48 ms**. **E1 — the G1 ruling's own implementation cost a p95 of 8.3 s**: the deferred walk still held Bun's only thread; moved to `register.worker.ts` (fixed here), but the **20 s TTL over a 9.5 s walk is the Architect's to rule**. **E2 — all three live fireable batons are Felix-gated in prose while `classifyBaton` calls them session batons**; reported on the card, escalated to canon, never overruled. F1 rig colours ≠ cmux colours (`cyan`/`pink` refused — fires died mid-way) · F2 fires into an untrusted tree stall at Claude's folder-trust dialog (**bites B7**) · F3 `bun test belvedere/glass` red on a **pre-existing** B4 collision (105 green per file) · F4/F5 canon asks: `Baton.kind`, and a **field** for a row's branch (prose reading was 0/62 sound). **E1 ruled 2026-08-27** — the worker is law (the walk never rides the request thread); TTL 5 min + hands-bust + re-walk button → [B8](plans/b8-glass-hardenings.md). **E2 ruled 2026-08-27 — D10, ambiguity never arms**: collided cards lose fire wiring, keep note + copy → B8; the grammar stays canon's (ask filed) |
 | B4 | [Hands](plans/b4-hands.md) — /fire /worktree /focus /halt + hardened spawn lib; credential `~/.config/belvedere/env` | G1 (Architect half ✓) | Builder · opus-high | **LANDED** 2026-08-27 — all four hands on `master`, DoD evidenced in [B4](plans/b4-hands.md): fire byte-exact (sha ×2 identical) + resume + worktree + focus **off the live census** + HALT + disabled-mode 503s; **62 tests green**; venue restored, HALT cleared. **E1 ruled — D9** (arming switch, not lock; fence + D8 framing amended, credential kept) · **E2 paid ✓ Felix 2026-08-27** — `~/.config/belvedere/env` armed by his hand (0600 verified), socket password rotated off G1's temporary; the batch-close rail fire is the end-to-end password proof. D54 slip (`bunx tsc`, B1's again) self-reported |
 | B5 | [Shelf + gauges](plans/b5-shelf-gauges.md) — resume ×3 by transcript-stamp; usage strip; WIP gauges | B4 | Builder · opus-high | OPEN — order blessed at G1; F1/F3 folded in |
 | B6 | [Sovereign inbox](plans/b6-sovereign-inbox.md) — gestures → D63 ISSUES appends + the apply button | B4 | Builder · opus-high | OPEN — order blessed at G1 |
-| B7 | [Summon composer](plans/b7-summon-composer.md) — fire-anything: form + templates (founding incl.) + worktree composition | B4 | Builder · opus-high | OPEN — cut 2026-08-27 (Felix's ask), joined batch 3 by amendment |
+| B7 | [Summon composer](plans/b7-summon-composer.md) — fire-anything: form + templates (founding incl.) + worktree composition | B4 | Builder · opus-high | OPEN — cut 2026-08-27 (Felix's ask), joined batch 3 by amendment; amended at the ruling sitting: trust-dialog warning (B3 F2) |
+| B8 | [Glass hardenings](plans/b8-glass-hardenings.md) — E1/E2 rulings live (register policy, ambiguity-never-arms), fire unwind, test isolation, offline type gate | B3 | Builder · opus-high | OPEN — cut 2026-08-27 at the ruling sitting; joins batch 3 by amendment, **fires first** |
 
 **Batch 1 (cut at founding, 2026-08-26) — Felix-tended, reasons named:** the venue
 is his live desktop (first contact with a new substrate — his eyes at each landing),
@@ -212,10 +213,12 @@ Felix's. Escalations and the batch report come back to Felix.
 
 
 **Batch 3 (cut at G1, 2026-08-26) — the organs, strictly serial on master:**
-B4 → B3 → B5 → B6 → B7 *(chain amended 2026-08-27 — B7 joined at Felix's ask; B3 amended pre-dispatch: worktree-composed fires)*, one row in flight, straight to `master` (single-writer
+B4 → B3 → B8 → B5 → B6 → B7 *(chain amended 2026-08-27 — B7 joined at Felix's ask; B3 amended pre-dispatch: worktree-composed fires; B8 joined at the E1/E2 ruling sitting, firing first — the rulings go live before B5 builds over them)*, one row in flight, straight to `master` (single-writer
 physics, the rig rows' precedent — no worktrees), Dispatcher-tended (D61),
-announce duty (D67). The E1 ruling binds every page: content never cached, the
-register ≤30 s warm with its age printed. Felix-gates, batched at the close:
+announce duty (D67). The E1 ruling binds every page (as ruled 2026-08-27):
+content never cached; the register serves warm off the worker — the walk never
+rides the request thread — TTL 5 min with its age printed, busted by the glass's
+own fires/worktrees, a manual re-walk beside the age. Felix-gates, batched at the close:
 visual pass (rail + city) and the live-fire smoke from the rail. His G1 half
 (census deploy ×3 + spine look) runs in parallel with B4 — batch 3 reads no live
 census until B5's gauges, and those degrade honestly. Dispatcher summons,
@@ -303,6 +306,16 @@ engine, the Steward the same flow unattended; v0 usage is the evidence). · a gu
   chapter and any future tightening of the CLI's courtesy fallback. D8's
   deployment ruling stands whole; only its auth framing retires. Fence +
   deployment wording amended (§§2–3).
+- **D10** (2026-08-27, Architect, on B3 E2's corpus evidence — awaiting Felix's ✓):
+  **Ambiguity never arms.** A glass affordance that fires work renders armed only
+  when parse and prose agree; any collision renders safe — unwired, the conflict
+  named on the card, copy-summons allowed (copying is reading; the gate stays
+  Felix's). Interim over batons until canon rules the holder grammar (the ask is
+  filed); permanent as design law for every fire affordance — B6's apply button
+  and B7's composer inherit it. Generalizes D9: the one-click path gates
+  accidents, and a wired button under "pending Felix" prose is an accident
+  waiting. Parse stays the parser's (D65) — this is render law, not a second
+  parser.
 
 ## 8. Definition of done — v0
 

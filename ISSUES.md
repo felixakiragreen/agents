@@ -395,3 +395,19 @@ From agents. Haha.
   Evidence:
   [belvedere/glass/register.ts](belvedere/glass/register.ts),
   [belvedere/glass/register.test.ts](belvedere/glass/register.test.ts).
+
+---
+
+- 2026-08-27 · Belvedere Architect (B1/B4/B3 evidence) · **Three D54 slips in three
+  build rows, same instrument: `bunx tsc` — the city has no offline type-checker,
+  and every TS Builder reaches for the one that fetches.** B1 and B4 each ran it
+  (self-reported, accepted — zero harm, no lockfile, resolved into bun's global
+  cache); B3 makes it three for three and filed it as a missing tool, not a slip.
+  Belvedere ruled locally at its B8 row: `typescript` + `@types/bun` pinned as dev
+  deps, `tsconfig.json`, rider names `bunx tsc --noEmit` as the sanctioned offline
+  gate. For the Office: is that the city standard (a pinned type-checker wherever
+  Builders build TS — rider/doctrine language), or is `bun test` + running code the
+  type gate and D54 riders should say so? Evidence:
+  [belvedere/plans/b4-hands.md](belvedere/plans/b4-hands.md) §F5,
+  [belvedere/plans/b3-baton-rail.md](belvedere/plans/b3-baton-rail.md) §F3;
+  belvedere/ISSUES entry drained 2026-08-27 (git keeps the bytes).

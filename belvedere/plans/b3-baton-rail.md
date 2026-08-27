@@ -197,6 +197,13 @@ weekly, not hourly. Three options, none taken here: raise the TTL to minutes; ke
 already printed. The canon-side fold (`readdirSync({withFileTypes})`, 2.5×) is
 already filed on the canon inbox from B2.
 
+**Ruled 2026-08-27, Architect:** the worker is law — the walk never rides the
+request thread again. TTL **5 min** (weekly-cadence data earns no 47% duty cycle),
+the glass's own fires/worktrees bust the register immediately, and a manual
+re-walk button rides beside the printed age. Option 2 rejected — coupling
+freshness to which page you visit is hidden state. Implementation →
+[B8](b8-glass-hardenings.md); the amended binding sentence is in the batch-3 note.
+
 ### E2 — all three of the live city's fireable batons are gated on Felix, and the parser still calls them session batons
 
 `classifyBaton` (canon `doctrine/src/parse.ts`) reads the instrument first: any
@@ -216,6 +223,12 @@ call). It reports the collision: a session baton whose clause contains the word
 session baton — read the clause before firing.` Two of three live cards carry it.
 **The real fix is a grammar question for the Standards Office** — filed to the canon
 inbox with this row's evidence.
+
+**Ruled 2026-08-27, Architect — D10, ambiguity never arms:** where B3's collision
+note already fires, the card loses its fire wiring (note + copy-summons stay — the
+gate is Felix's, the instrument rides the card). No new heuristic, no parse change
+(D65 intact); the grammar fix stays canon's. B6's apply button and B7's composer
+inherit the law. Implementation → [B8](b8-glass-hardenings.md).
 
 ### F1 — the rig's mantle colours are not cmux colours; two of five are rejected outright
 

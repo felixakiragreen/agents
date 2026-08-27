@@ -33,6 +33,17 @@ buildings, ad-hoc sittings — without a terminal in the loop.
 5. Fire → `POST /hands/fire` (workspace color set natively, summons as argv —
    B4's recipe). Hands disabled → composer renders read-only with the banner.
 
+> **Amended 2026-08-27 (Architect, at the B3 E1/E2 ruling sitting — B3 F2 /
+> inbox):** a fire whose target cwd has no **trusted ancestor** (`~/.claude.json`
+> project entries; worktrees inherit their repo's trust) stalls silently at
+> Claude Code's folder-trust dialog — launched, no transcript, no census beat.
+> The composer reads the trust roots and **warns on the fire button** when the
+> target is cold ("untrusted directory — the session will wait on Claude's trust
+> prompt; jump in to answer it"), never answers the dialog itself, and renders
+> such a fire honestly (a stalled fire is a stalled fire, not a success — the
+> focus hand is the jump-in). DoD gains: one cold-dir fire showing the warning
+> and the honest state.
+
 ## Acceptance criteria / DoD — evidence pasted here at build time
 
 - [ ] A composed fire lands: right account, stamped, colored, summons byte-exact
