@@ -64,6 +64,9 @@ the batch note's schedule:
   No edits, no additions, no helpful context.
 - **isolation** = worktree when the brief touches repo code beyond its own findings file
   (the brief says so). Doc-only work rides the shared tree.
+- **Announce every dispatch (D67):** as each agent fires, post one line in this
+  session — row · tier · vehicle. Directly spawned subagents never appear in /tasks;
+  the Dispatcher's thread IS Felix's roster, so a silent fire is an invisible agent.
 - **The batch is amendable mid-flight (D57).** The Architect may amend a running
   batch — new rows, a raised ceiling, a changed plan — by message. An amendment
   carries the same instruments as the summons: the row(s) with kickoffs verbatim, and
@@ -123,17 +126,25 @@ then write the batch report — a table (row / status / one-line outcome / point
 escalation list, and the relay log (what was carried where). The report is pointers, not
 prose; the findings files are the content.
 
-**It ends with the baton (D42/D46) — one holder, one instrument:**
+**It ends with the baton (D42/D46/D64) — one holder; a move, a wave, or a fork:**
 
 ```
-Baton — <one holder>: <the one fire-now move>
-<the instrument: the summons fenced verbatim, or the named Felix-action>
+Baton — <one holder>: <the fire-now move>
+<the instrument: the summons fenced verbatim, `fire <row-ids>`, or the named Felix-action>
 Behind it: <ordered list, or "nothing">
 ```
 
+A **wave** hands n parallel instruments — legal only when the holder could fire all
+of them right now without choosing between them. A **fork** hands Felix a choice:
+few exclusive options, every option instrumented (choosing A fires *this*), a
+recommendation named — or the call explicitly marked taste. Ambiguity, never
+plurality, is the sin: an uninstrumented option or a menu with no recommendation is
+a dropped baton.
+
 The relay test: the summons a baton hands exists verbatim in a file — a kickoff, a
-charter summons, the batch note. If no file holds the next move, you are holding an
-escalation, not a baton. Felix fires the baton; he never composes it.
+charter summons, the batch note; `fire <row-ids>` points at the work docs' own
+fences. If no file holds the next move, you are holding an escalation, not a baton.
+Felix fires the baton; he never composes it.
 
 ## 7. Forbidden — the single-glance list
 
@@ -147,7 +158,9 @@ escalation, not a baton. Felix fires the baton; he never composes it.
 - Making, implying, or pre-empting decisions
 - Declaring the batch done with an unreported escalation outstanding
 - Ending the batch report without the baton — or handing one with two holders, an
-  "or", a menu, or a move no file holds verbatim
+  uninstrumented option, a fork with no recommendation (or unmarked taste), or a
+  move no file holds verbatim (D64)
+- Firing an agent without announcing it in this session (D67)
 - Passing `model:`/`effort:` on a dispatch, or any `subagent_type` that isn't the
   row's tier string
 

@@ -88,7 +88,10 @@ the rider when the first batch dispatches (§10). Never split ahead of need.
 - **CLAUDE.md law:** target ≤ ~60 lines (hexwright's budget). What this is (2–3 lines),
   hard laws (project physics only — Felix's global directives already load), session
   protocol, pointers. State digests rot: point at the board and ledger, don't restate
-  them. A subproject adds ONE pointer line to the repo's `CLAUDE.md` and keeps its docs
+  them. **A law that must bind bare sessions lives here or in a hook** — charters bind
+  only the mantled, and this file plus the global one is all a bare session provably
+  loads (D65; birthplace: the arborist close-out — prose law held wherever a mantled
+  session ran and under-bound freewheeling ones). A subproject adds ONE pointer line to the repo's `CLAUDE.md` and keeps its docs
   with itself (simmy D4).
 - **The master doc** holds the durable design AND the board: architecture, the bet,
   defended non-goals, working agreements (project physics — venues, shared and live
@@ -108,6 +111,10 @@ the rider when the first batch dispatches (§10). Never split ahead of need.
   The inbox drains empty — it never becomes a second ledger; protocol rides the
   file's header. Minted at founding; a subproject adopts on first need. Birthplace:
   the canon repo's own inbox (D49, three sweeps run) + simmy's, in daily use.
+  **Entry format (D63):** `- <YYYY-MM-DD> · <who> · <what>` — one bullet per entry;
+  an entry that needs evidence becomes a `---`-separated block opening with that same
+  line, evidence lines under it (bob's invention, harvested). No `Open`/`Harvested`
+  sectioning — a Harvested section is a second ledger; the drain law stands.
 - **plans/ stays flat** until a single board stops working; then subdivide by area
   (hexwright `plans/core/`). An area split is an Architect decision, never a default.
 
@@ -125,9 +132,17 @@ a build board inside a contract doc is not exempt by its venue (D45).
 
 - **ID** — stable, never reused; the work doc carries it (`plans/04-sync.md`).
 - **Work** — one line: the question (brief) or the mission (order).
-- **Depends on** — row ids that must be LANDED first ("—" when none), plus any named
-  gate (a countersign, a blessing).
-- **Staffing** — mantle · tier, both verbatim (`Digger · opus-high`). Staffing guidance
+- **Depends on** — exactly two forms (D63): row ids that must be LANDED first, and
+  `Felix-gate: <text>` for a named gate (a countersign, a blessing); "—" when none.
+  Anything else is not a dependency: a physical precondition becomes a gate row (D44),
+  a scheduling note rides the batch note (D28) or the Status annotation. This column
+  exists to compute the dependency graph; prose breaks it.
+- **Staffing** — mantle · tier, both verbatim (`Digger · opus-high`), **or the literal
+  token `Felix-gate`** for a gate row that is really his (D63) — the glass renders his
+  card and never auto-fires it. Either form may carry a parenthetical **rider** —
+  `Builder · opus-high (worktree)`, `Felix-gate (smoke ×3)` — annotation for eyes,
+  parsed and ignored by dispatch; the rider never homes the concurrency plan (the
+  batch note and the summons stay its home, D28). Staffing guidance
   lives in the tier descriptions (`canon/agents/`) — the single home; boards point,
   never duplicate.
 - **Status** — the lifecycle below, plus annotations: dates, findings pointers, unmerged
@@ -145,10 +160,17 @@ a build board inside a contract doc is not exempt by its venue (D45).
   row sits at the Architect's desk until it is re-cut, killed, or escalated to Felix.
 - **PENDING** — an annotation, not a lifecycle state: a named remainder waiting on an
   external precondition (a login, hardware reach). Recorded, not blocking; nobody
-  dispatches PENDING (simmy's Pi cells; this campaign's Max `/login`).
+  dispatches PENDING (simmy's Pi cells; this campaign's Max `/login`). **Never the
+  leading token** (D63): write `OPEN — PENDING <precondition>` — the state leads, the
+  annotation follows.
 
 Retired synonyms — do not use: DONE, CLOSED (→ LANDED or KILLED), WIP (→ IN FLIGHT),
 TODO (→ OPEN), AUTHORED (a filed design is LANDED; its blessing gates the NEXT row).
+
+**Resolution vocabulary (D63):** gate, merge, and design rows resolve into the five
+states, the verdict riding the annotation — `LANDED — PASSED <evidence>`,
+`LANDED — MERGED <sha>`, `LANDED — BLESSED <date>`. The lifecycle stays five words;
+PASSED / MERGED / BLESSED never lead.
 
 **Gates are rows (D44).** A judgment step between rows — a merge review, a landing
 verification, a blessing checkpoint — is itself a row: ID'd, staffed (mantle · tier),
@@ -276,10 +298,17 @@ fold (below) carries truth forward; findings remain its provenance.
 `LEDGER.md` — append-only, one entry per session, newest last, `---` between entries:
 
 ```
-**<date> · <mantle> (<row id, when the session ran one>)** — <what changed: outcomes +
-pointers>. Decided: <D-ids, or "nothing">. Next: <the handoff — the next summons
-verbatim when known>.
+**<date> · <mantle> · <tier> (<row id, when the session ran one>)** — <what changed:
+outcomes + pointers>. Decided: <D-ids, or "nothing">. Next: <the handoff>.
 ```
+
+The head's bold run holds those four things and nothing else (D63) — riders, session
+titles, and color go in the body. **The Next law (D63):** when the baton hands a
+session, `Next:` carries the summons — fenced verbatim in the entry when it lives
+nowhere else, or by naming the board row(s) whose work docs carry the fences
+(`fire <row-ids>`) — never re-typed from memory: a kickoff the Architect re-cuts must
+not leave a stale twin here. A `Next:` that names a next session without its
+instrument is a dropped baton (D46/D64).
 
 The acceptance test: **the tail alone reboots a cold session.** Write it for the
 stranger who reads it next — that stranger is you (hexwright format, ratified). Sessions
@@ -297,14 +326,22 @@ Monotonic ids, never reused, never rewritten:
 - **D<n>** (<date>, <decider> [· ✓ Felix]): **<title>.** <body>
 ```
 
+- **The title is a label (D63):** the bold delimits the whole title and nothing else —
+  a card headline, never a mid-sentence phrase with the bold on its load-bearing word.
 - **Attribution is honest:** the decider named is whoever actually decided. A decision
   that is really Felix's — money, hardware, external commitments, taste — carries his
   name and waits for him (architect charter).
 - **Dispatched and delegated sessions** mark entries **"(proposed — pending Felix
   countersign)"**; countersign converts the mark to `✓ Felix`, amendments recorded in
   place ("amended at countersign: …" — this repo's D9).
-- **Amendment law:** append, never rewrite — "(amended <date>: …)" inside the entry, or
-  a superseding entry that names what it supersedes.
+- **Amendment law — form vs meaning (D63, the molt clause):** meaning changes append,
+  never rewrite in place — "(amended <date>: …)" inside the entry, or a superseding
+  entry that names what it supersedes: citations and countersigns hang off entries, and
+  sessions load working trees, not git archaeology. **Form migrates freely** — history
+  included: a format migration re-emits entries in the current grammar, meaning
+  byte-preserved (the converter never paraphrases), the migration commit blessed as a
+  whole; a countersign attaches to meaning, so it survives the re-shape. Changing a
+  mind is always legal and costs one visible line — the stone is git.
 - **The decision queue** is not a file: it is the set of proposed-not-yet-countersigned
   entries plus open escalations. The tending session surfaces it to Felix at every
   boundary — batch reports list it, ledger entries name it in Next.
@@ -406,10 +443,16 @@ Every session, any mantle:
   verbatim, or the named Felix-action (a countersign, a smoke, a ruling) when the next
   move is his — any further moves explicitly ordered behind it. A menu of nexts with
   no ordering, or a kickoff produced only on request, is a malformed close. The baton
-  takes one shape: `Baton — <one holder>: <move>`, then the instrument (the summons
-  fenced verbatim, or the named Felix-action), then what's ordered behind it. One
-  holder, one instrument — a baton naming two hands, or joining moves with "or", is
-  dropped by construction (D46).
+  takes one shape — `Baton — <one holder>: <move>` — and the move takes one of three
+  forms (D64): **the move** (one instrument — the summons fenced verbatim, a
+  `fire <row-id>` reference, or the named Felix-action); **the wave** (n parallel
+  instruments, legal iff the holder could fire all of them now without choosing
+  between them — D44's batching, given its shape); **the fork** (the choice IS the
+  move: few exclusive options, every option instrumented — choosing A fires *this* —
+  with a recommendation named, or explicitly marked taste). Then what's ordered
+  behind it. **Forbidden is ambiguity, never plurality** (D64, amending D46): an
+  uninstrumented option, a menu with no recommendation, two holders, or a decision
+  smuggled in prose is a dropped baton.
 
 ## 12. Founding a project — the founding ritual
 
@@ -456,11 +499,15 @@ its own Architect's board.
 - **pre-chew** — decide every meetable fork in the work doc, or name it a kill or
   escalation point, so a cheaper session never guesses.
 - **cut** — author into existence on the board or record (a row, a batch, a D-entry).
-- **baton** — what a session ending facing Felix ends with: escalations, then exactly
-  one fire-now next move — the next summons verbatim, or the named Felix-action —
-  further moves ordered behind it (D42). One holder, one instrument (D46).
+- **baton** — what a session ending facing Felix ends with: escalations, then the
+  fire-now set — a move (one instrument), a wave (parallel instruments, fire-all-now),
+  or a fork (his choice, every option instrumented, recommendation named or marked
+  taste) — further moves ordered behind it (D42/D46/D64). One holder; ambiguity, never
+  plurality, is the sin.
 - **Felix-gate** — a gate row whose judgment is really Felix's (a countersign, a
-  blessing, taste): the chain pauses there; nobody dispatches past it (D44).
+  blessing, taste): the chain pauses there; nobody dispatches past it (D44). A legal
+  Staffing value and Depends-on form (D63) — the glass renders his card, never a fire
+  button.
 - **waggle** — the decision-density signal: the whole field at a glance — lower
   resolution, never crop the frame. Four lines, fixed anatomy: Problem / Move / Stakes
   / Dig — Dig may be silent when the depth is this conversation. Served from any

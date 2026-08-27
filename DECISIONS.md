@@ -724,3 +724,94 @@
   mentat (fires currently stamp a theater segment; a Builder row when Felix wants it).
   The epigraph's working-castes verse stays untouched on purpose (D31): the Mentat sits
   beside the sovereign, outside the hive's verse.
+- **D63** (2026-08-26, Grand Architect (10) · ✓ Felix — history clause widened at his
+  word: "we have git history… it doesn't have to be just tails"): **The schema fold —
+  FC-1…FC-9 + the molt clause.** Nine format amendments, every one blessing or fencing
+  what the field already does (birthplace: Belvedere P3, the 27-doc corpus scan —
+  `belvedere/plans/p3-parse-coverage.md` §§3–4): (a) `Felix-gate` is a legal Staffing
+  value — the glass renders his card, never a fire button; (b) gate/merge/design rows
+  resolve into the five states, the verdict riding the annotation (`LANDED — PASSED …`
+  / `— MERGED <sha>` / `— BLESSED …`) — the lifecycle stays five words; (c) `PENDING`
+  never leads: `OPEN — PENDING <precondition>`; (d) the staffing rider is legal —
+  `<Mantle> · <tier> (<rider>)`, parsed and ignored by dispatch, never the concurrency
+  plan's home (D28 stands); (e) Depends-on takes exactly two forms — row ids and
+  `Felix-gate: <text>`; preconditions become gate rows (D44), scheduling rides the
+  batch note; (f) the ledger head gains a tier slot — `**<date> · <mantle> · <tier>
+  (<row>)**`, nothing else in the bold; (g) the Next law — a baton handing a session
+  carries the summons fenced in the entry, or by row-reference (`fire <row-ids>`)
+  resolved to the work docs' fences: no stale twins; (h) bob's ISSUES entry line folds
+  (`- <date> · <who> · <what>` + `---` evidence blocks) — its Open/Harvested sections
+  do NOT: the drain law stands; (i) a decision title is a label — the bold delimits
+  the whole title and nothing else. **The molt clause:** form migrates freely, history
+  included — tool-assisted (`doctrine migrate`, row 16), diff-reviewed, meaning
+  byte-preserved (the converter never paraphrases; a countersign attaches to meaning
+  and survives the re-shape); meaning changes append or supersede visibly, never
+  silent in-place rewrite — citations and countersigns hang off entries, and sessions
+  load working trees, not git archaeology. Supersedes D32's "history conforms as-is"
+  **for form**; D32's meaning scope stands, and `dream.md` is untouched by its own law
+  (D33). Edits: DOCTRINE §§3/4/7/8; templates ledger/issues/decisions. Amendments
+  bind new writing on landing (doctrine is read at wearing); the corpus converges via
+  row 18.
+- **D64** (2026-08-26, Grand Architect (10) · ✓ Felix — the fork shape added at his
+  word: "I AM absolutely okay with A/B choices, as long as it's clear"): **The baton
+  grammar — move, wave, fork.** D42/D46 amended: **ambiguity was the sin; plurality
+  never was.** The baton stays `Baton — <one holder>: <move>`, and the move takes one
+  of three forms: the **move** — one instrument (summons fenced, `fire <row-id>`
+  reference, or the named Felix-action); the **wave** — n parallel instruments, legal
+  iff the holder could fire all of them now without choosing between them (D44's
+  batching, given its shape); the **fork** — the choice IS the move: few exclusive
+  options, every option instrumented (choosing A fires *this*), a recommendation
+  named or the call explicitly marked taste. Instruments are fenced verbatim or
+  row-references the rail resolves to work-doc fences (D63g). Still dropped by
+  construction: an uninstrumented option, a menu with no recommendation, two holders,
+  a decision smuggled in prose. The rail renders move/wave/fork as one / n / choice
+  buttons. Edits: DOCTRINE §11 + §13; dispatcher.md §6/§7; architect.md
+  end-of-session. Birthplaces: Belvedere's founding close (three parallel kickoffs
+  disguised as one prose move); P3 §3i (1 of 8 tails fireable); node-param's
+  three-option close re-read — wrong for handing three vague levers, not for the
+  number three.
+- **D65** (2026-08-26, Felix · campaign cut by the Grand Architect (10)): **v3 — the
+  molt: the AI-native format campaign.** The Belvedere mandate ratified canon-side
+  (belvedere D7 arriving home): machine consumers are first-class readers of the
+  truth layer; terminal-first convention carries no veto; the design leads, the
+  standards follow — and evidence leads the design. The standing ruling: **the schema
+  is the standard; serialization is per-consumer** — the types are law, doctrine-
+  markdown stays the canonical write surface (lossless once D63 propagates) until row
+  17 dethrones it with numbers, and P3 §5's JSON shapes are the normative parse of a
+  conforming corpus. Rows cut (MAP §5, priority from the Sovereign, ahead of the
+  parked standards work): **16** — the doctrine linter: P3's probes harden into canon
+  `doctrine/`, one parser in the city (CLI `doctrine lint` / `parse --json` /
+  `migrate`; the glass imports the library); **17** — the storage experiment: does
+  structured-source truth beat schema-markdown for all three consumers (Felix's hand,
+  a session's cold start, the glass)? one building as lab, after glass v0 supplies
+  evidence — tested, never decreed; **18** — the great re-cut: full-corpus migration,
+  history included, `doctrine lint` green ×17 buildings. With it the load-map
+  corollary (the Arborist fold): a law that must bind bare sessions lives in
+  CLAUDE.md or a hook — charters bind only the mantled (DOCTRINE §3); the line-count
+  hook itself stays project physics (05's rejection terms). Birthplaces: belvedere
+  D7 + P3; the arborist close-out (`~/code/rooted/archive/arborist/README.md` §5).
+- **D66** (2026-08-26, Felix · clause drafted by the Grand Architect (10)): **The
+  redundancy tiebreak — Directive §1.7.** The Coding Directives gain: *"Eliminate
+  Redundancy Over Blind Consistency → Consistency Must Carry Information — 'No
+  Special Case' Is Not a Reason."* The fenced reflex: "no special case" invoked to
+  defend a field, segment, or rule that carries zero information in context.
+  Birthplace: the row-13 name-stamp overrule — Felix, mid-commit: one GA office means
+  the theater segment is redundancy, not information (`grand-architect-09`, never
+  `grand-architect-agents-09`). With it: **the Directives are D-entry-governed** —
+  every future value change rides this register; the constitution in `canon/CLAUDE.md`
+  stays the single home (organize-shape A, Felix's call — a commentary register is
+  minted the day a value needs more why than an arrow-line holds). Live deploy ×3 at
+  his countersign, D37/D51 one-clause precedent.
+- **D67** (2026-08-26, Grand Architect (10) · ✓ Felix): **Dispatch visibility — the
+  interim law.** From Felix's decree ("I NEED visibility into every agent that is
+  running"; the Row-30 incident — a subagent invisible to /tasks): dispatcher.md
+  gains the **announce duty** — every dispatch posted in the tending session as it
+  fires (row · tier · vehicle), so there is always one place to ask what is running.
+  The census requirement routes to Belvedere (its inbox, this date): P1 must count
+  Agent-tool subagents or name the blindness. The vehicle fork is named, not
+  resolved: Workflow-vehicle is /tasks-visible but bypasses the row-12 guard (its
+  named hole, D47); Agent-vehicle is guarded but invisible. The full
+  no-invisible-agents law is cut when the census proves what it can see — the
+  mechanism signs the charter (Felix's minting principle, quartermaster keel-note).
+  The blanket ban is declined on the record: it would unstaff the Dispatcher with
+  nothing to replace its limbs.

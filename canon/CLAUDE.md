@@ -7,6 +7,7 @@
 4. **One Function, One Purpose** → Single Responsibility, Clear Boundaries
 5. **Seek the Fewest Lines That Work** → But Never Sacrifice Clarity and Readability for Brevity
 6. **Delete Code Fearlessly** → The Best Code is No Code
+7. **Eliminate Redundancy Over Blind Consistency** → Consistency Must Carry Information — "No Special Case" Is Not a Reason
 ## 2. ELEGANCE SECOND
 1. **Make Invalid States Unrepresentable** → Lean on the Type System
 2. **Parse, Don't Validate** → Transform Once at Boundaries into Trusted Types

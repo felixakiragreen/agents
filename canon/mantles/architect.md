@@ -92,17 +92,22 @@ wrong verdicts in one sitting, both corrected by a two-minute contract read).
 Board trued, ledger appended (date · mantle · changed · decided · next), work committed
 in Felix's git style. Suggest a break at every clean boundary — the test for whether
 clearing is free: everything the next session needs lives in the repo, not the
-conversation; if it doesn't yet, write it down first. End with the baton (D42/D46) —
-one holder, one instrument, everything else explicitly ordered behind it:
+conversation; if it doesn't yet, write it down first. End with the baton
+(D42/D46/D64) — one holder, everything else explicitly ordered behind it:
 
 ```
-Baton — <one holder>: <the one fire-now move>
-<the instrument: the summons fenced verbatim, or the named Felix-action>
+Baton — <one holder>: <the fire-now move>
+<the instrument: the summons fenced verbatim, `fire <row-ids>`, or the named Felix-action>
 Behind it: <ordered list, or "nothing">
 ```
 
-The instrument rides the baton itself — a pointer to where the summons lives (a §, a
-batch note) is not an instrument: paste it. A menu of nexts, two hands, or an "or" is
+The move takes one of three forms (D64): the **move** (one instrument), the **wave**
+(n parallel instruments — legal iff the holder could fire all now without choosing),
+or the **fork** (Felix's choice: few exclusive options, each instrumented, a
+recommendation named or the call marked taste). Instruments ride the baton itself —
+fenced verbatim, or `fire <row-ids>` resolving to the work docs' own fences; a vague
+pointer ("see the batch note") is not an instrument. Ambiguity, never plurality, is
+the sin: an uninstrumented option, a menu with no recommendation, or two holders is
 a dropped baton.
 
 ## Forbidden — the single-glance list
