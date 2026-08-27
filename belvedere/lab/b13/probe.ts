@@ -70,8 +70,17 @@ const chrome = Bun.spawn([CHROME,
 	`--remote-debugging-port=${CDP_PORT}`, '--remote-allow-origins=*', DECK,
 ], { stdout: 'pipe', stderr: 'pipe' });
 
-const shut = () => { chrome.kill(); glass.kill(); rmSync(ROOT, { recursive: true, force: true }); };
-process.on('exit', shut);
+/**
+ * Leave nothing behind (D55). The sleep is not decoration: Chrome is still writing its profile
+ * when `kill` returns, and an `rmSync` racing it leaves the temp tree standing — measured, twice,
+ * before this wait existed.
+ */
+async function shut(): Promise<void> {
+	chrome.kill();
+	glass.kill();
+	await Bun.sleep(400);
+	rmSync(ROOT, { recursive: true, force: true });
+}
 
 // ---------- the DevTools wire ----------
 
@@ -283,5 +292,5 @@ ok('zero external requests — every byte the deck loaded came from this origin'
 	offOrigin.length === 0, `${offOrigin.length} off-origin requests${offOrigin.length ? ': ' + offOrigin.join(', ') : ''}`);
 
 console.log(`\n${failures === 0 ? 'ALL GREEN' : failures + ' FAILED'}\n`);
-shut();
+await shut();
 process.exit(failures === 0 ? 0 : 1);
