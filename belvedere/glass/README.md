@@ -6,7 +6,7 @@ are the fence's whole write list (README §2) and nothing else in here writes.
 
 ```
 bun belvedere/glass/server.ts        # → http://127.0.0.1:4400
-bun test belvedere/glass             # 271 green in one process (B8 §4)
+bun test belvedere/glass             # 302 green in one process (B8 §4, B9)
 bunx tsc --noEmit                    # from this directory — the type gate, offline (B8 §5)
 ```
 
@@ -98,6 +98,36 @@ mantle colour from `summon/presets.tsv`, account from `summon/accounts.tsv`.
 session *was doing*; `kill -0 pid` says whether it still *exists*. A SIGKILL leaves `Stop`
 as the last line forever, so a state rendered from one sensor is a lie waiting to happen.
 No pid, or a stale record still claiming work — **unknown, never working**.
+
+**The design laws, rendered** (README §3; swept over every page at B9). **Two faces and
+one rule between them**: `body` is IosevkaFelix, so numbers, titles, buttons and tables
+are mono by default, and `.prose` opts running prose into **Inter — vendored**
+(`assets/inter-latin-{400,700}.woff2`, SIL OFL 1.1 beside them, served off `/assets/…`).
+IosevkaFelix is installed on the machine and referenced by family; **nothing on any page
+reaches the network** — the only `url()` in either stylesheet is a local one, and no
+served byte carries an `http` URL. **Encapsulation-first**: a card, row or panel leads
+with the name its own text wrote — the head before the first seam, dash before colon
+(`B8: glass hardenings` is one phrase), at most six words — and `[expand]` holds the
+whole thing on a scriptless `<details>`. **Derivation never invents**: no seam, an
+oversized head, or a disclosure that would reveal less than the card already shows, and
+the text renders **whole** with no control at all. On the live city that is 11 of 38 rail
+cards named and 27 whole, which is the row-17 evidence that the shapes need a **name
+field** ([B9 F1](../plans/b9-visual-law.md#findings)) — not a fatter parser.
+**No `<select>` anywhere**: every choice is a link or a radio wearing `.btn`, so the
+browser holds the state and the back button walks it. **Legends** on `/` and `/city`,
+always drawn, no control inside. **`/city` groups by `~/code/<x>`** — a worktree
+checkout groups with its repo, a path outside the city is named rather than housed —
+and **attention decides across groups while recency only orders inside one**
+(`attentionOf`: live sessions → his pen → in play → filed → quiet).
+
+**The auditor delta** (`gauges.ts`, on B5 E1's ruling): beside every WIP figure, one
+approximate count of `claude` processes — `8 tracked · ≈35 claude processes visible ·
+27 beyond the census`. It is a **count, never sessions**: it joins nothing, houses
+nothing and never reaches a card, because the census stays the sole identity authority
+(P1 F5). Today's gap is the pre-hook horizon and decays with it; a gap that reopens
+afterwards means a sensor is lying. It matches `argv[0]`'s basename and drops the
+harness's own `bg-*` helpers — B5 E1's `[c]laude` grep counted five shell snapshots as
+sessions. Cost: **36 ms** per page, a spawn rather than a walk (B8 F3's bar is the work).
 
 Env: `GLASS_CITY` (default `~/code`), `CENSUS_DIR` (B1's own knob), `USAGE_DIR` (the rig's
 caches — **rendered, never fetched**), `BELVEDERE_ENV` (the
