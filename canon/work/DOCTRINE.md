@@ -341,7 +341,10 @@ Monotonic ids, never reused, never rewritten:
   included: a format migration re-emits entries in the current grammar, meaning
   byte-preserved (the converter never paraphrases), the migration commit blessed as a
   whole; a countersign attaches to meaning, so it survives the re-shape. Changing a
-  mind is always legal and costs one visible line — the stone is git.
+  mind is always legal and costs one visible line — the stone is git. Where a
+  pre-doctrine source never held a required field, migration writes the literal
+  **`unrecorded`** — a typed absence, never a guess; replacing it takes cited
+  evidence and a visible commit (D63 as amended; row 16's F2).
 - **The decision queue** is not a file: it is the set of proposed-not-yet-countersigned
   entries plus open escalations. The tending session surfaces it to Felix at every
   boundary — batch reports list it, ledger entries name it in Next.

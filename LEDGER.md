@@ -1213,3 +1213,22 @@ then read ~/code/agents/MAP.md, the tail of ~/code/agents/LEDGER.md,
 and ~/code/agents/plans/16-doctrine-linter.md §Findings —
 rule F1 and F2, then cut row 18's work doc (the great re-cut).
 ```
+
+---
+
+**2026-08-26 · Grand Architect · fable-max** — Second act, same window: Felix carried
+the Builder's baton back into the warm GA sitting by choice. Row 16 verified LANDED
+(evidence in place, fence held, board self-trued). **F1 accepted** as the round-trip
+law's canonical reading — D52 lane, ancestor D63's molt clause: declared-changes +
+identical-otherwise + byte assertion, no new number. **F2 accepted and generalized:**
+the converter's refusal to invent a decider is D63 working; the literal `unrecorded`
+becomes the typed absence for any required field a pre-doctrine source never held —
+D63 amended in place + one §8 sentence (**pending Felix countersign**). Row 18 cut:
+[plans/18-great-recut.md](plans/18-great-recut.md) — an 8-row wave of scoped
+Architects (18a–18h, one per venue; ceiling 4; meaning-untouchable fence; per-building
+lint-to-zero DoD; deferral law for live batches), Dispatcher-tended, the D67 announce
+duty's first live outing. Belvedere inbox +1 (rail affordance, Felix-deferred: fire
+buttons offer new-session / continue-in-window). MAP rows 16/18 trued. Decided: F1/F2
+rulings (GA-10); D63 amendment pending countersign. Next: Felix countersigns the D63
+amendment (`unrecorded`), then fires the wave — the Dispatcher summons fenced in
+[plans/18-great-recut.md](plans/18-great-recut.md); 17 stays behind its Felix-gate.

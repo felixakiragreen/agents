@@ -18,3 +18,12 @@ then deleted; entries are committed before they are drained. A swept inbox is em
   build row. Census requirement (D67): P1 must count Agent-tool subagents or name the
   blindness — Felix's visibility decree routes here. Reference parser = canon row 16
   (`doctrine/`); the glass imports, never forks it (D65).
+
+---
+
+- 2026-08-26 · Grand Architect (GA-10, at Felix's word) · Rail affordance, deferred by
+  Felix: a baton's fire button should offer **new session / continue in an existing
+  window** — he chose to continue a Builder's GA-baton in the warm GA window and wants
+  that choice cheap ("sometimes I really grow attached to specific windows"). Already
+  legal by law (a summons is text; the window is his); this is glass UX for when the
+  rail exists.

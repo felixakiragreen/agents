@@ -751,7 +751,12 @@
   **for form**; D32's meaning scope stands, and `dream.md` is untouched by its own law
   (D33). Edits: DOCTRINE §§3/4/7/8; templates ledger/issues/decisions. Amendments
   bind new writing on landing (doctrine is read at wearing); the corpus converges via
-  row 18.
+  row 18. *(Amended 2026-08-26 at row 16's F2 ruling — proposed, pending Felix
+  countersign: where a pre-doctrine source never held a required field — a decider, a
+  tier, a `Decided:`/`Next:` clause — migration writes the literal **`unrecorded`**: a
+  typed absence, never a guess. Lint reads it as conforming; grep finds it forever;
+  replacing it takes cited evidence and a visible commit, by a session, never the
+  converter.)*
 - **D64** (2026-08-26, Grand Architect (10) · ✓ Felix — the fork shape added at his
   word: "I AM absolutely okay with A/B choices, as long as it's clear"): **The baton
   grammar — move, wave, fork.** D42/D46 amended: **ambiguity was the sin; plurality
