@@ -80,3 +80,31 @@ row 17's Felix-gate. Decided: nothing new — two inbox rulings (fold, park).
 Next: fire P1 + P2 — a D64 wave, kickoffs in their briefs, both from terminals
 inside cmux panes; P4 after both land; then the fold sitting cuts the v0 build
 rows.
+
+---
+
+**2026-08-26 · Digger · opus-high** — [P2](plans/p2-spawn-recipe.md) LANDED, no
+kill fired. **Q1 (pivotal):** the access gate is a server setting,
+`socketControlMode` — **not** an env token. Isolated it four ways from inside a
+pane: unset, corrupt, clean-env-with-token, clean-env-with-**no `CMUX_*` at all** —
+every one admitted (`cmuxOnly` resolves the caller by process ancestry, which is
+how `cmux identify` names the caller's surface). So D4 stands and the glass can
+ship **in a cmux pane today, zero config, zero security delta**; outside access is
+a documented `password` mode (schema enum + `--password`/`CMUX_SOCKET_PASSWORD`),
+left **Felix-gated** — proving it means re-posturing his live desktop, and §5 names
+that a shared resource. **Q2:** recipe proven ×3 accounts — summons byte-exact as
+the **first user turn** (sha `19256ec9…` ×3), silo intact (each transcript under
+its own config dir, nowhere else), `CMUX_*` exported inside with a per-surface
+capability. The unlock: `/color` **leaves the prompt** — cmux owns colour over the
+socket, which frees argv for the summons and closes the **359-fire paste gap**.
+**Q3:** resume rides the identical path (+2 argv tokens), keeps its transcript, may
+be re-stamped — the shelf is cheap. **Q4:** `send` is byte-exact for prose but
+rewrites literal `\n`/`\t`/`\r`; `set-buffer`+`paste-buffer` is escape-safe; neither
+may be pointed at a live TUI (T4 splits and auto-submits — a truncated summons looks
+like it worked). Shipped [`lab/p2/spawn.ts`](lab/p2/spawn.ts) + `sanitize.ts` (the
+superset port, plus the cmux-specific escape guard), probes and all eight probe
+workspaces cleaned. Parked, not chased: spawned sessions boot into manual mode and
+stall at the first tool call (S5 — a fire-button design input). Decided: nothing —
+no D-entry; the two rulings this dig surfaces are Felix's (E1) and the Standards
+Office's (E2, filed to ISSUES). Next: P4 once P1 lands (P2's half of its dependency
+is paid); then the fold sitting cuts the v0 build rows on measured physics.
