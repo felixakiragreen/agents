@@ -1,4 +1,5 @@
-// The glass: one bun server, localhost only, read-everything and write-nothing.
+// The glass: one bun server, localhost only. Read-everything; write only what the fence's four
+// hands are (README §2) — every other route on this server touches nothing on disk.
 //
 // Run: bun belvedere/glass/server.ts     → http://127.0.0.1:4400
 //
@@ -7,6 +8,7 @@
 
 import { readFileSync } from 'fs';
 import { join } from 'path';
+import { handsRoute } from './hands';
 import { HOST, PORT } from './paths';
 import { buildingPage, cityPage, docPage, errorPage, notFound } from './pages';
 
@@ -39,8 +41,13 @@ function route(url: URL): Response {
 const server = Bun.serve({
 	hostname: HOST,                          // D3: 127.0.0.1 and nothing else, until real auth
 	port: PORT,
-	fetch(req) {
-		try { return route(new URL(req.url)); }
+	async fetch(req) {
+		try {
+			const url = new URL(req.url);
+			// The only writing routes in the building, and the only async ones (B4).
+			if (url.pathname.startsWith('/hands/')) return await handsRoute(req, url.pathname.slice('/hands/'.length));
+			return route(url);
+		}
 		catch (e) { return html(errorPage(e), 500); }
 	},
 });

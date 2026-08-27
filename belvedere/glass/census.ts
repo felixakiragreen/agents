@@ -23,6 +23,8 @@ export type Beat = {
 	sid: string;
 	acct: string | null;    // CLAUDE_CONFIG_DIR — which of the three accounts
 	pid: number | null;     // CLAUDE_PID — the F5 liveness syscall
+	ws: string | null;      // CMUX_WORKSPACE_ID — empty on every session outside a pane (hooks are venue-blind)
+	sf: string | null;      // CMUX_SURFACE_ID — the panel `/hands/focus` jumps to
 	cwd: string | null;
 	tp: string | null;      // transcript_path — where the name-stamp lives
 	tool: string | null;
@@ -109,6 +111,7 @@ export function toBeat(raw: unknown): Beat | null {
 		t, ev, sid,
 		acct: str(r.acct),
 		pid: Number.isInteger(pid) && pid > 0 ? pid : null,
+		ws: str(r.ws), sf: str(r.sf),
 		cwd: str(r.cwd), tp: str(r.tp), tool: str(r.tool), why: str(r.why),
 	};
 }

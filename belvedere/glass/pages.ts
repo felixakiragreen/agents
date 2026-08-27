@@ -5,6 +5,7 @@ import { readFileSync, statSync } from 'fs';
 import { dirname, resolve, sep } from 'path';
 import { discover, lastWalk, type Building, type Board, type BoardRow, type Fail } from '../../doctrine';
 import { readCensus, isLive, type CensusRead, type Session } from './census';
+import { handsState } from './hands';
 import { readRig, accountLabel, mantleOf, type Rig } from './rig';
 import { CITY } from './paths';
 import { baseOf, docHref, esc, inline, label, page, pill, rigTone, sessionTone, short, stateTone } from './html';
@@ -69,7 +70,17 @@ export function cityPage(): string {
 	const tally = { working: 0, 'needs-input': 0, idle: 0, unknown: 0 } as Record<string, number>;
 	for (const s of census.sessions.filter(isLive)) tally[s.state] = (tally[s.state] ?? 0) + 1;
 
+	// The hands' own state, said out loud on the home page: a glass that cannot write should
+	// never look like one that can (B4 §2).
+	const hands = handsState();
+	const banner = hands.armed ? '' : `<section class="panel"><h2>Hands disabled</h2>
+		<p class="note">The fence's four write powers are off — fire, worktree, focus and halt all answer 503.
+		Everything below is unaffected: the glass reads the city either way.
+		<br><span class="bad">${esc(hands.note)}</span></p></section>`;
+
 	const strip = `<section class="strip">
+		<div class="stat"><span class="label">hands</span><b class="small">${hands.armed
+			? pill('armed', 'green') : pill('disabled', 'orange')}</b></div>
 		<div class="stat"><span class="label">buildings</span><b>${buildings.length}</b></div>
 		<div class="stat"><span class="label">live sessions</span><b>${census.sessions.filter(isLive).length}</b></div>
 		${Object.entries(tally).map(([k, v]) => `<div class="stat"><span class="label">${esc(k)}</span><b class="t-${k}">${v}</b></div>`).join('')}
@@ -99,7 +110,7 @@ export function cityPage(): string {
 
 	const ms = performance.now() - t0;
 	return page('Belvedere — City View', '<span>city</span>',
-		strip + `<section class="cards">${cards}</section>` + off,
+		banner + strip + `<section class="cards">${cards}</section>` + off,
 		`re-read from disk in ${ms.toFixed(0)} ms · ${suppressed} worktree copies deduped · ${esc(CITY)}`);
 }
 
