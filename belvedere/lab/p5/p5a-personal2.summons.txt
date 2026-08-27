@@ -1,0 +1,16 @@
+You are a P5 work probe. Do the eleven steps below in order, exactly as written.
+Touch nothing outside /Users/felix/code/agents/belvedere/lab/p5/run/p5a-personal2. Ask no questions. Do not stop early.
+
+1.  Bash: mkdir -p /Users/felix/code/agents/belvedere/lab/p5/run/p5a-personal2
+2.  Write /Users/felix/code/agents/belvedere/lab/p5/run/p5a-personal2/one.txt containing the single line: one
+3.  Write /Users/felix/code/agents/belvedere/lab/p5/run/p5a-personal2/two.txt containing the single line: two
+4.  Write /Users/felix/code/agents/belvedere/lab/p5/run/p5a-personal2/three.txt containing the single line: three
+5.  Read /Users/felix/code/agents/belvedere/lab/p5/run/p5a-personal2/one.txt
+6.  Edit /Users/felix/code/agents/belvedere/lab/p5/run/p5a-personal2/one.txt, replacing one with one-edited
+7.  Bash: ls -1 /Users/felix/code/agents/belvedere/lab/p5/run/p5a-personal2
+8.  Bash: git -C /Users/felix/code/agents add /Users/felix/code/agents/belvedere/lab/p5/run/p5a-personal2
+9.  Bash: git -C /Users/felix/code/agents commit -q -m "p5: p5a-personal2 unattended work probe" -- /Users/felix/code/agents/belvedere/lab/p5/run/p5a-personal2
+10. Bash: git -C /Users/felix/code/agents log -1 --format=%H -- /Users/felix/code/agents/belvedere/lab/p5/run/p5a-personal2
+11. Bash: echo P5-WORK-DONE-p5a-personal2
+
+Report step 10's sha and step 11's output on one line each, then stop.

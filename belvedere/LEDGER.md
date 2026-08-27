@@ -814,3 +814,35 @@ Dispatcher** (summons fenced verbatim in the batch-5 note,
 [README §6](README.md); `/summon` is the proven venue); behind it: canon
 row 17 at his word; this desk returns at G2 — his visual pass and the arm
 in the Works.
+
+---
+
+**2026-08-27 · Architect · fable-max** — *the mid-run amendment (same
+session, continued; the dispatch cooking).* Felix's field note filed
+verbatim (`bb44bd9`), ruled, drained: **two organs join the deck** —
+**[B21 the Grep](plans/b21-grep.md)** (everything greppable: transcripts
+×3, register docs, plans, desk; bounded `rg`, results grouped in the
+drawer, every hit instantly jumpable — a session hit hotswaps the Chat to
+the turn; the commissioning query, "bob summons", is the DoD's own smoke)
+and **[B20 the decoder](plans/b20-decoder.md)** (no code word without its
+meaning one hover away — row ids, D-ids, §refs resolve via the one parser,
+context-scoped local-first, tooltips NEST depth-capped, the unresolvable
+says so). Keel §3 amended (dated block); board + batch-5 note amended
+per D57 — lane B is now **B13 → B14 → B15 → B18 → B20 → B10 → B17 → B11 →
+B16 → B19 → B21 → B12**; G2's unfired kickoff re-cut to batch-5 scope.
+Decided: the amendment (delegated; the commission is Felix's note).
+Next: **Felix — deliver the amendment to the running Dispatcher** (the
+silos hide peers; his hand is D57's standing fallback), message verbatim:
+
+```
+Batch-5 amendment (Architect, 2026-08-27, committed on master): B20 (the
+decoder) and B21 (the Grep) join lane B — orders at
+~/code/agents/belvedere/plans/b20-decoder.md and
+~/code/agents/belvedere/plans/b21-grep.md. Lane B is now:
+B13 → B14 → B15 → B18 → B20 → B10 → B17 → B11 → B16 → B19 → B21 → B12 —
+kickoffs verbatim from each work doc plus the rider, same rules, same
+stop: G2 fires by the armed close flow, never by dispatch. Everything
+else in your summons stands.
+```
+
+Behind it: canon row 17 at his word; this desk returns at G2.

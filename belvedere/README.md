@@ -199,7 +199,7 @@ word only) · editing truth (forever-class, §2).
 | B10 | [The Works](plans/b10-flow-dag.md) — the flow file behind `glass/flow.ts` + the building's whole work drawn: past above the now-line (dim), live blinking on it, the plan below (D14); node actions per state | P5; B14 | Builder · opus-high | OPEN — re-seated 2026-08-27 into the deck (keel §6); interim serialization = canon row 17 evidence (D7), swappable behind one module |
 | B11 | [Arm + engine](plans/b11-flow-engine.md) — D11 live: one click in the Works arms; the engine fires declared steps through the existing hands, pauses at Felix-cards / D10 ambiguity / HALT, step timeouts, run-state in the census home | P5; B10; B17 | Builder · opus-high | OPEN — cut 2026-08-27, re-seated same day (bill = B17's live usage); no new write class — fires ride the hands, run-state is telemetry (D6 neighborhood) |
 | B12 | [Reactive gate + dynamic extension](plans/b12-flow-reactive.md) — an escalation-marked landing auto-fires the scoped Architect into the lane (keel §5.1; B6's apply is the prototype); the DAG grows mid-flow per D12 | B11 | Builder · opus-high | OPEN — cut 2026-08-27; D12 flag set at the batch-5 blessing |
-| G2 | Deck + engine gate — verify P5/P6/B13–B19/B10–B12, fold findings, schema evidence → canon inbox (row 17), close batch 5 | B12; B19; Felix-gate: the deck visual pass + arm the close flow | Architect · fable-high | OPEN — fired by the armed close flow, the engine's first real act (kickoff in the batch-5 note; fallback: `/summon`) |
+| G2 | Deck + engine gate — verify batch 5's landings (P5/P6, B10–B21), fold findings, schema evidence → canon inbox (row 17), close batch 5 | B12; Felix-gate: the deck visual pass + arm the close flow | Architect · fable-high | OPEN — fired by the armed close flow, the engine's first real act (kickoff in the batch-5 note; fallback: `/summon`) |
 | P6 | [Message transport](plans/p6-message-transport.md) — the Chat's send physics: byte-exact single-turn delivery to live / mid-turn / dead sessions; T4's trap measured, bracketed paste first | — | Digger · opus-high | OPEN — cut 2026-08-27 (deck sitting); gates B16's send; kill = Chat ships read+jump permanently (keel §5's named fallback) |
 | B13 | [Deck shell](plans/b13-deck-shell.md) — `/deck`: three panes with min/typical/expanded states under the law of space, drawer, tooltips, the `FocusView` seam, `/deck/state` polling | — | Builder · opus-high | OPEN — cut 2026-08-27; the app (client state legal, D13); vanilla TS + SVG, zero new deps |
 | B14 | [City + attention](plans/b14-city-attention.md) — the Context pane: buildings, dots, attention badges (attention outranks recency); the drawer's needs-you queue, answerable in place (D15) | B13 | Builder · opus-high | OPEN — cut 2026-08-27; the waiting-input blindness dies here, twice |
@@ -208,6 +208,8 @@ word only) · editing truth (forever-class, §2).
 | B17 | [Composer + live usage](plans/b17-composer-usage.md) — Action at rest: every knob live-updating the summons, mantle colors, stamp follows the BUILDING (never cwd), usage fetched live ×3 with age printed | B10 | Builder · opus-high | OPEN — cut 2026-08-27; closes the wrong-stamp class and the 391-minute usage |
 | B18 | [Live identity](plans/b18-live-identity.md) — D16 built: socket-read names/colors into state, rename/recolor write-through hands (D18), the felikai↔cmux color map (B3 F1 closed at cause), the dead jump reproduced | B15 | Builder · opus-high | OPEN — cut 2026-08-27 |
 | B19 | [The desk](plans/b19-desk.md) — D17 built: write anywhere, `desk/` persists it, send routes (→ building ISSUES via B6's wire, → session via B16, → composer); previewed bytes before every routed append | B16 | Builder · opus-high | OPEN — cut 2026-08-27; the glass writes only under `desk/`, commits never |
+| B20 | [The decoder](plans/b20-decoder.md) — every rendered code word (row ids, D-ids, §refs) resolves on hover via the one parser: encapsulation, status, jump; tooltips nest, depth-capped; context-scoped, never guessed | B18 | Builder · opus-high | OPEN — cut 2026-08-27 mid-run (D57 amendment, Felix's field note) |
+| B21 | [The Grep](plans/b21-grep.md) — everything greppable: transcripts ×3, register docs, plans, desk — bounded `rg`, grouped in the drawer, every hit instantly jumpable (Chat at the turn, viewer at the line, desk at the note) | B15; B16; B19 | Builder · opus-high | OPEN — cut 2026-08-27 mid-run (D57 amendment); the commissioning query is the DoD's own smoke |
 
 **Batch 1 (cut at founding, 2026-08-26) — Felix-tended, reasons named:** the venue
 is his live desktop (first contact with a new substrate — his eyes at each landing),
@@ -322,10 +324,15 @@ rider applies:**
   cmux quit/relaunch anywhere (P4-class excluded), no account settings
   touched (posture is read, never re-postured).
 - **Lane B — the build chain, strictly serial on master, one in flight:**
-  **B13 → B14 → B15 → B18 → B10 → B17 → B11 → B16 → B19 → B12** — the
-  identity-sentence order: dataviz (shell, City+attention, Workshop,
-  identity), command (the Works, composer+usage, arm+engine), comms (Chat),
-  the desk, the reactive gate. Lanes A ∥ B are parallel-safe (disjoint
+  **B13 → B14 → B15 → B18 → B20 → B10 → B17 → B11 → B16 → B19 → B21 →
+  B12** — the identity-sentence order: dataviz (shell, City+attention,
+  Workshop, identity, decoder), command (the Works, composer+usage,
+  arm+engine), comms (Chat), the desk, the Grep, the reactive gate.
+  *(Amended 2026-08-27 mid-run, D57 — the dispatch was cooking: B20 and B21
+  joined on Felix's field note, ISSUES this date, ruled and drained same
+  sitting, keel §3 amended; the fired Dispatcher summons below stands as
+  history — the amendment message travels by Felix's hand, drafted verbatim
+  in the ledger's sitting report.)* Lanes A ∥ B are parallel-safe (disjoint
   files: `lab/p5|p6/` + telemetry vs `glass/`); the Dispatcher serializes
   landings (one board/ledger true at a time). B16 consumes P6's findings —
   lane A finishes long before the chain reaches it; if P6 KILLED, B16 ships
@@ -415,10 +422,12 @@ verbatim:
 You are an Architect at fable-high.
 Wear ~/code/agents/canon/mantles/architect.md,
 then read ~/code/agents/belvedere/README.md §§5–6 (agreements, board,
-batch-4 note) and the P5/B10/B11/B12 findings, verify the landings, fold —
-the flow-schema evidence goes to the canon inbox for row 17 — sweep the
-inbox, true the board, and close flow batch 1.
+batch-5 note) and the batch-5 findings (P5/P6, B10–B21), verify the
+landings, fold — the flow-schema evidence goes to the canon inbox for
+row 17 — sweep the inbox, true the board, and close batch 5.
 ```
+*(G2's kickoff re-cut 2026-08-27 at the batch-5 amendment — unfired, so the
+re-cut is legal; scope grew from flow batch 1 to the whole of batch 5.)*
 
 **Post-probe return:** the probes' fold sitting (this Architect) cuts the build
 rows — the v0 spine slices D5's scope; nothing builds on unmeasured physics. Glass

@@ -75,6 +75,21 @@ small seam (a `FocusView` interface in the shell order: render, states,
 actions). Workshop, Chat, and the Works are the first three tenants, not the
 last; replacing a pane is a module, never a rebuild.
 
+> **Amended 2026-08-27, mid-batch-5 (Felix, the dispatch cooking — ISSUES
+> this date, ruled same sitting):** two organs join the deck.
+> **The Grep (B21):** everything is greppable — transcripts ×3 accounts, the
+> register's docs, plans, the desk — fast, bounded, and every hit **instantly
+> jumpable**: a session hit hotswaps the Chat to that turn, a doc hit opens
+> the viewer at the line, a desk hit opens the editor. "What was that session
+> where I was talking about 'bob summons'?" is one keystroke and one click.
+> **The decoder (B20):** no code word without its meaning one hover away —
+> every rendered reference (row ids, D-ids, §refs, FC/GA ids) resolves on
+> hover to its object via the one parser (D65): encapsulation, status, jump.
+> **Tooltips nest** — a tooltip's content passes through the same detector —
+> depth-capped (everything has a limit). Resolution is context-scoped:
+> building-local first, canon fallback; the unresolvable says so honestly
+> (D10's family — never guess).
+
 ## 4. Attention (ruled in-session)
 
 *"I'm getting notified cmux is waiting my input, but I don't see that anywhere

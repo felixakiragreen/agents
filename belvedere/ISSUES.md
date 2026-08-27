@@ -11,15 +11,3 @@ go to the canon repo's inbox) — then deleted; entries are committed before the
 are drained. A swept inbox is empty.
 
 ---
-
-- 2026-08-27 · Felix (mid-batch-5, the dispatch cooking) · greppability + the
-  code-word decoder — verbatim below; ruled same sitting.
-
-Verbatim:
-
-> Another thing, everything needs to be greppable. (ex: what was that session
-> where I was talking about "bob summons"?) grappable and fast/instantly
-> jumpable. Also, when it comes to grepping, take something like B18 -- all
-> of these "code words" == D2, B13, §5, etc -- goes without saying I have no
-> idea what they are. These should all have the hover tooltips. (that can
-> nest)
