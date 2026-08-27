@@ -180,3 +180,49 @@ grep -c '[c]laude'` → `45`), row 18's re-cut wave among them.
   ```
 
 Ordered behind either: the other one.
+
+---
+
+**2026-08-26 · Digger · opus-high (P4)** — Restore semantics landed; **kill criterion did
+NOT fire** — restore lost no session, both victims returned **byte-identical**
+(458/736796 · 505/791537 either side of the quit). The brief forked on contact: this
+Digger was the **only** occupant of cmux (`workspace list` → one workspace, itself; the
+other 17 live sessions all children of Ghostty, not cmux), so the STOP precondition's
+"non-probe workspace" *was the dig's own session* and the method's observer was the thing
+the method destroys — escalated, not worked around. **Felix ruled by acting**: quit cmux
+himself and resumed this session in Ghostty, which put the observer outside the blast
+radius and staged the experiment on two real victims (the P1 and P2 Diggers, killed
+mid-desk). Measured from outside: cmux persists a **per-panel resume binding, never
+conversational state** (`~/Library/Application Support/cmux/session-…json`, snapshotted at
+the quit instant), gated by `wasAgentRunning` — an exited agent persists as plain
+scrollback instead; the binding carries `CLAUDE_CONFIG_DIR`, so **the account silo survives
+restore**. Unattended restore: **socket back 0.8 s, both agents re-exec'd 3.4 s**, argv
+exactly the persisted binding. Loss is **the in-flight assistant turn and nothing else** —
+assistant messages are atomic (measured twice at a true midpoint: ~6 s of generation → zero
+assistant records; allowed to finish → the whole 5251-char record appears), and a restored
+session **does not retry** the dropped turn, it answers `No response requested.` — it comes
+back idle, context-complete, one turn short, with nothing on screen saying so. Control
+(Q3): a cmux quit costs a session exactly what closing a terminal tab costs it — cmux's
+flush signature *is* the SIGHUP signature, SIGKILL flushes nothing yet still resumes clean
+(**a hard kill does not corrupt a transcript**) — so **cmux's delta is recovery, not
+loss**. §A sharpens P2's ancestry hypothesis into a mechanism (orphan with a live parent →
+admitted; same orphan at `ppid=1` → denied) and thereby **upgrades E1**: socket access is
+*live* ancestry, so a glass in a pane **cannot survive a cmux restart** — `password` mode
+is load-bearing for any glass expected to outlive its substrate, not cosmetic. Probe code
+[lab/p4/](lab/p4/). Decided: nothing — E1 and the one residual measurement (mid-generation
+*inside* a pane, which needs `socketControlMode: password` or `.newWorkspaceCommand`) are
+Felix's, both named, neither taken. Next: **Baton — Felix: fire the fold
+sitting.** All four probes' physics are measured; nothing in the v0 spine is left to cut on
+a docs-read guess.
+
+```
+You are an Architect at fable-high.
+Wear ~/code/agents/canon/mantles/architect.md,
+then read ~/code/agents/belvedere/README.md and the P1–P4 findings,
+and cut the v0 build rows.
+```
+
+Ordered behind it: close the stray workspace this dig left on the desk (needs a pane —
+`cmux <path>` can open one from outside but nothing outside can close it), then the two
+standing Felix-gates — **E1** (`socketControlMode: password`, promoted from cosmetic to
+load-bearing by §A) and P4's residual mid-generation-inside-a-pane measurement.

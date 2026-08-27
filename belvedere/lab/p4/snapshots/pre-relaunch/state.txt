@@ -1,0 +1,16 @@
+label=pre-relaunch
+wall=2026-08-27T02:27:41.3NZ  epoch=1787797661.166573
+--- cmux app process ---
+(cmux app NOT running)
+--- socket ---
+ls: /Users/felix/.local/state/cmux/cmux.sock: No such file or directory
+--- socket reachable from here (outside cmux) ---
+Error: Socket not found at /Users/felix/.local/state/cmux/cmux.sock
+cmux_exit=1
+--- claude processes for the two bound sessions ---
+(neither digger-agents-02 nor -03 is running)
+--- all claude session processes (count) ---
+count=41
+--- transcripts ---
+aa67709f-a7d4-4024-b3a3-1bd2ceddac23 bytes=736796 lines=458 mtime=2026-08-26T22:24:17
+5b9f1786-7387-4855-8481-b6aded8a2246 bytes=791537 lines=505 mtime=2026-08-26T22:24:17
