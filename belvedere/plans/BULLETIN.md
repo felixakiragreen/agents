@@ -454,3 +454,54 @@ group, encapsulation-first labels, a colour legend for the card's three states. 
 `.prose`'s unvendored Inter with the shelf — still B9's named third-party.
 
 (Relayed from `master`, B7 LANDED 2026-08-27 — Builder)
+
+## → relay — B9 (visual law) to the Architect, Felix's close gates and the flow chapter: no escalation, three findings that bind
+
+Evidence: [b9-visual-law.md](b9-visual-law.md) §DoD and §Findings, commits `2aa7311` …
+`f16ec4a` on `master`.
+
+1. **F1 — the encapsulation law is live, and the live corpus cannot satisfy it: 27 of the
+   rail's 38 cards write no name at all.** The derivation is Felix's rule — the head before
+   the first seam, **dash before colon** (his own `B8: glass hardenings` and `E1: register
+   policy` are one phrase each, so taking the colon first would name every row after its id
+   alone), at most six words. It names **11 of 38** cards. The 27 declines are honest rather
+   than broken: most are gates whose entire text is already a name (`blessing`, `Felix's plan
+   sketch`, `venue D2 ✓ Felix via keel §11`), the rest are Next clauses running eight or more
+   words before their dash. **The spec's STOP clause was honoured — no per-repo special case
+   was added, and none should be.** This is the row-17 evidence: **the shapes need a name
+   FIELD**, one to six words, written by whoever files the entry; a parser cannot recover a
+   name nobody wrote. Two general render rules did earn their place: a seam falling inside a
+   `**bold**` span drops the orphaned marker, and **an `[expand]` that would reveal less than
+   the card already shows is not drawn** — measured on `agents/ISSUES.md`:297, where
+   `parseIssues` hands over one line of a five-line entry and the disclosure would have added
+   two words. That second rule is also a lint signal worth reading: **wherever an entry
+   suddenly stops encapsulating, the parser gave the page a truncated text.**
+
+2. **F3 — the auditor delta is live on all three views and costs 36 ms of the request
+   thread.** `8 tracked · ≈35 claude processes visible · 27 beyond the census`, rendered
+   identically on the rail, `/city` and the shelf's WIP panel, each labelled the sensor's
+   drift alarm; the count joins nothing and reaches no card (P1 F5 respected). `ps -axo
+   command=` is 35–51 ms (median 36.4, N=10) and the rail's p95 went **45 ms → 111 ms**
+   against a 500 ms bar — a spawn, not a walk, so B8 F3's worker law does not bite, and the
+   cheap fix if it ever matters is a short TTL on the count, **named not built**. Also:
+   **B5 E1's own `[c]laude` grep over-counts by five** — `/bin/zsh -c source
+   /Users/felix/.claude/shell-snapshots/…` is not a session. The auditor matches `argv[0]`'s
+   basename and drops the harness's `bg-pty-host`/`bg-spare` helpers, so E1's figure of 38
+   reads as 35 here; the gap it reports is the same horizon, undecayed.
+
+3. **F4 — one line of the fire path is unproven, and Felix's close-gate smoke is exactly
+   it.** The rail's account picker was the glass's last `<select>` and is now a radio group,
+   so the script reads `shot.querySelector('[data-account] input:checked').value`. The Chrome
+   extension was not connected (`Browser extension is not connected`), so that read is pinned
+   by markup — input immediately before its label, exactly one `checked`, the group named
+   after the shot's own reserved name-stamp so two pickers can never collide — and by nothing
+   that ran a click. **If the close-gate fire 400s naming `account`, this is the line.**
+
+Also, not blocking, for anyone touching render helpers: **`ago()` moved to `html.ts`.**
+Putting the auditor in `gauges.ts` (right — it is a gauge, and the census must not grow a
+second liveness authority) while rendering it on `/city` would have made `pages` and `gauges`
+import each other. ESM tolerates that until a module-scope constant runs first, and this
+glass has already paid once for hidden module-load order (B8 F1). **A render helper two
+pages want belongs in `html.ts`, not in whichever file wrote it first.**
+
+(Relayed from `master`, B9 LANDED 2026-08-27 — Builder)

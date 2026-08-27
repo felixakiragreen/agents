@@ -94,7 +94,7 @@ imported, never forked. Liveness: `summon/log/census/census.jsonl` (D6), written
 [`../census/beat.sh`](../census). Identity: the name-stamp from the session transcript,
 mantle colour from `summon/presets.tsv`, account from `summon/accounts.tsv`.
 
-**The F5 law, and why `census.ts` is the only tested file:** the census says what a
+**The F5 law:** the census says what a
 session *was doing*; `kill -0 pid` says whether it still *exists*. A SIGKILL leaves `Stop`
 as the last line forever, so a state rendered from one sensor is a lie waiting to happen.
 No pid, or a stale record still claiming work — **unknown, never working**.
