@@ -86,3 +86,83 @@ $ ./cli.ts lint ~/code/agents --verbose | grep -A3 kickoff.summons
 ```
 
 ---
+
+- 2026-08-26 · 18c Architect (whiteboardy) · **`doctrine migrate` emits a malformed
+  ledger head and the round-trip law does not catch it — a doc goes from 0 failures to
+  2.** `ledger.pre-doctrine-head` splits `## <date> · <rest>` on `·` and takes segment 1
+  whole as the mantle, so a source head whose tier rides a parenthetical
+  (`Builder (opus-medium)`) is re-emitted with the tier still inside the mantle segment
+  and the row id bolted on as a second parenthetical. `ledger.tier-slot` cannot repair
+  it: it runs earlier in `RULES` and, run later, its `trailingParen` finds the row id,
+  not the tier. Correct emission is `**<date> · <Mantle> · <tier> (<row>)**`. Round-trip
+  reports `ok` because `mantle`/`tier` are both in the rule's declared `changes`, so the
+  assertion licenses the damage. **Live hazard for the wave:** whiteboardy carries 13 of
+  these heads and 18c refused `--write` on that basis; hexwright's 9 (row 18b) hit the
+  milder half of the same bug — no parenthesised tier, so they land with no tier slot at
+  all, which is row 16's own §DoD-4 diff, published as if it were correct. Row-16
+  follow-up; the fixture below is the whole test.
+
+```
+$ printf '# Ledger\n\n---\n\n## 2026-08-19 · Builder (opus-medium) · SH3 — the bundle-push pipeline\n\nStuff. Decided: nothing. Next: fire 20.\n' > LEDGER.md
+
+$ doctrine lint .                 →  0 failure(s) in 0 class(es)
+$ doctrine migrate . --write
+-## 2026-08-19 · Builder (opus-medium) · SH3 — the bundle-push pipeline
++**2026-08-19 · Builder (opus-medium) (SH3)** — the bundle-push pipeline
+   round-trip ok — 1 edit(s), meaning-bearing fields unchanged
+$ doctrine lint .                 →  2 failure(s) in 2 class(es)
+     1  ledger.mantle    "Builder (opus-medium)"
+     1  ledger.tier      the head carries no tier slot (D63f)
+```
+
+---
+
+- 2026-08-26 · 18c Architect (whiteboardy) · **no migrate rule recognises an unbolded
+  pre-doctrine ledger head**, which is 96 of whiteboardy's 104 ledger blocks and the
+  bulk of row 18c. The house form is a bare head line plus labelled body lines —
+  `2026-08-15 · Digger · fable-high (dispatched, row 01)` / `Changed: …` / `Decided: …` /
+  `Next: …`. Nothing is wrong with it that a rule cannot move: bold the head, hoist the
+  row id out of the overloaded parenthetical, and the `—` separator replaces the
+  `Changed:` label the grammar already implies. This is not a per-repo special case —
+  `ledger.pre-doctrine-head` was itself written from one repo's dialect (hexwright's
+  `## ` form) and is general in shape; this is the second dialect, not an exception.
+  What must stay a human's is the parenthetical's non-row-id remainder (`dispatched`,
+  `gate 10 — misfire, no review possible`, `E1 — app skeleton`), which D63f sends to the
+  body and `migrate.ts`'s own header already declares out of the converter's reach.
+  Three heads wrap across lines — row 16's parked note ("the day one does") has its day.
+  Row-16 follow-up; whiteboardy is the corpus that proves the rule, which is why 18c did
+  not hand-migrate it.
+
+```
+$ doctrine lint ~/code/whiteboardy | grep ledger.head
+    97  ledger.head
+$ doctrine migrate ~/code/whiteboardy
+Dry run: 13 edit(s) across 1 file(s).      # the 13 `## ` heads only — and see the entry above
+```
+
+---
+
+- 2026-08-26 · 18c Architect (whiteboardy) · **Depends-on resolves against one
+  DOCUMENT's row ids, not the building's** — which narrows 18d's cross-building
+  question to something much smaller and, I think, purely a tool scope bug.
+  `parseBoards` builds `knownIds` per markdown file, so a master board that depends on
+  its own sub-board's rows fails, and so does every sub-board row that depends on the
+  gate that blessed it. These are not cross-building references: one building, one
+  register entry, ids unique across it. whiteboardy is the extreme case — a master board
+  plus six sub-boards, all `docs/*.md`, sanctioned by D45 — and **28 of its 45 residual
+  `board.depends` failures are exactly this**, 23 plain ids and 5 en-dash ranges
+  (`E1–E9`, `SH1–SH4`, `T1–T6`, `C1–C4`, `X1–X7`). D63e says "row ids"; it does not say
+  "on this board", and the linter's own message asserts a scope the doctrine text never
+  set. The register already computes the building, so the fix looks like one line —
+  resolve against the union of the building's board docs. Ranges are a separate, smaller
+  question (expand `E1–E9`, or spell it `E1, E2, …`). 18c left all 28 untouched rather
+  than guess, since the two candidate spellings differ.
+
+```
+$ doctrine lint ~/code/whiteboardy | grep board.depends
+    45  board.depends
+   # bucketed: 23 cross-document ids · 5 cross-document ranges · 6 ids on no board
+   #           · 5 same-doc id + prose tail · 6 prose needing a ruling
+```
+
+---
