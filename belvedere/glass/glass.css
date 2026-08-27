@@ -1,0 +1,167 @@
+/* The glass, built on felikai's tokens. Hand-written, no build step, no framework.
+   Feel borrowed from the SpaceX dashboard (cap-mega/felix/spacex-dashboard-c2) and bob's
+   design routes: hairline rules, uppercase micro-labels, outline chrome, glow never shadow. */
+
+:root {
+	--mono: 'Iosevka Felix', ui-monospace, SFMono-Regular, Menlo, monospace;
+	--wide: 'Iosevka Felix Extended', var(--mono);
+	--ease: cubic-bezier(.4, 0, .2, 1);
+	--snap: 69ms;
+}
+
+/* --- the tone vocabulary: one triple, consumed by generic rules --- */
+.tone-felix  { --t: var(--felix);      --t-soft: var(--green-300);  --t-bg: var(--green-900); }
+.tone-green  { --t: var(--green-400);  --t-soft: var(--green-300);  --t-bg: var(--green-900); }
+.tone-blue   { --t: var(--blue-400);   --t-soft: var(--blue-300);   --t-bg: var(--blue-900); }
+.tone-cyan   { --t: var(--blue-300);   --t-soft: var(--blue-200);   --t-bg: var(--blue-900); }
+.tone-yellow { --t: var(--yellow-400); --t-soft: var(--yellow-300); --t-bg: var(--yellow-900); }
+.tone-orange { --t: var(--orange-400); --t-soft: var(--orange-300); --t-bg: var(--orange-900); }
+.tone-red    { --t: var(--red-400);    --t-soft: var(--red-300);    --t-bg: var(--red-900); }
+.tone-pink   { --t: var(--red-300);    --t-soft: var(--red-200);    --t-bg: var(--red-900); }
+.tone-purple { --t: var(--purple-400); --t-soft: var(--purple-300); --t-bg: var(--purple-900); }
+.tone-grey   { --t: var(--grey-450);   --t-soft: var(--grey-350);   --t-bg: var(--grey-750); }
+
+* { box-sizing: border-box; }
+
+body {
+	margin: 0; padding: 18px 22px 28px;
+	background: var(--grey-950); color: var(--grey-250);
+	font-family: var(--mono); font-size: 13px; line-height: 1.45;
+	-webkit-font-smoothing: antialiased;
+}
+
+/* the ambient hairline grid — behind everything, catches no clicks */
+.grid {
+	position: fixed; inset: 0; z-index: 0; pointer-events: none;
+	background-image:
+		linear-gradient(rgba(170, 171, 160, .05) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(170, 171, 160, .05) 1px, transparent 1px);
+	background-size: 48px 48px;
+}
+header, main, footer { position: relative; z-index: 1; }
+
+/* --- chrome --- */
+header {
+	display: flex; align-items: flex-end; justify-content: space-between; gap: 18px;
+	border-bottom: 1px solid var(--grey-750); padding-bottom: 11px; margin-bottom: 16px;
+}
+h1 { margin: 0; font-family: var(--wide); font-size: 20px; font-weight: 900; letter-spacing: .34em; }
+h1 a { color: var(--felix); text-decoration: none; }
+nav { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--grey-500); }
+nav a { color: var(--grey-400); }
+footer {
+	margin-top: 22px; padding-top: 10px; border-top: 1px solid var(--grey-800);
+	font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--grey-600);
+}
+
+a { color: var(--blue-300); text-decoration: none; }
+a:hover { color: var(--felix); }
+code { font-family: var(--mono); color: var(--grey-350); }
+strong { color: var(--grey-100); font-weight: 700; }
+.bad { color: var(--orange-300); }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+.label {
+	font-size: 10px; font-weight: 600; letter-spacing: .1em;
+	text-transform: uppercase; line-height: 1; color: var(--grey-500);
+}
+.note { margin: 0 0 10px; font-size: 11px; color: var(--grey-500); max-width: 90ch; }
+.rider { color: var(--grey-500); }
+
+.pill {
+	display: inline-block; font-size: 9.5px; font-weight: 700; letter-spacing: .07em;
+	text-transform: uppercase; padding: 1px 7px; border-radius: 99px; white-space: nowrap;
+	background: var(--t-bg); color: var(--t-soft);
+	border: 1px solid color-mix(in srgb, var(--t) 45%, transparent);
+}
+
+/* --- the summary strip --- */
+.strip { display: flex; flex-wrap: wrap; gap: 26px; margin-bottom: 18px; }
+.stat { display: flex; flex-direction: column; gap: 4px; }
+.stat b { font-family: var(--wide); font-size: 22px; font-weight: 900; line-height: 1; color: var(--grey-150); }
+.stat b.small { font-size: 11px; font-weight: 600; letter-spacing: .06em; color: var(--grey-400); }
+.t-working { color: var(--green-400); }
+.t-needs-input { color: var(--red-400); }
+.t-idle { color: var(--blue-400); }
+.t-unknown { color: var(--orange-400); }
+
+/* --- City View cards --- */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.card {
+	display: flex; flex-direction: column; gap: 9px;
+	border: 1px solid var(--grey-750); border-left: 3px solid var(--t); border-radius: 4px;
+	background: linear-gradient(180deg, var(--grey-900), #060605);
+	padding: 11px 13px 10px; color: inherit;
+	transition: border-color var(--snap) var(--ease), box-shadow var(--snap) var(--ease);
+}
+.card:hover { border-color: var(--grey-500); border-left-color: var(--t); box-shadow: 0 0 24px -12px var(--t); }
+.card-h { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.card .name { font-size: 12.5px; font-weight: 600; letter-spacing: .1em; color: var(--grey-150); word-break: break-all; }
+.card .count { font-family: var(--wide); font-size: 18px; font-weight: 900; color: var(--felix); }
+.windows { display: flex; flex-wrap: wrap; gap: 5px; min-height: 10px; align-items: center; }
+.pulse { display: flex; flex-wrap: wrap; gap: 5px; }
+.dark { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--grey-700); }
+
+/* a lit window: mantle hue in the fill, liveness in the ring */
+.win {
+	display: inline-block; width: 9px; height: 9px; border-radius: 50%;
+	background: var(--t); box-shadow: 0 0 9px var(--t); vertical-align: middle;
+}
+.win.st-working { animation: softblink 2.3s ease-in-out infinite; }
+.win.st-idle { box-shadow: none; opacity: .55; }
+.win.st-needs-input { box-shadow: 0 0 0 2px var(--red-400), 0 0 12px var(--red-400); }
+.win.st-unknown { background: none; box-shadow: none; border: 1.5px solid var(--orange-400); }
+@keyframes softblink { 0%, 100% { opacity: 1 } 50% { opacity: .45 } }
+
+/* --- panels --- */
+.panel {
+	border: 1px solid var(--grey-750); border-radius: 6px; background: var(--grey-900);
+	padding: 14px 16px; margin-bottom: 12px;
+}
+.panel h2 {
+	margin: 0 0 8px; font-size: 12px; font-weight: 700; letter-spacing: .1em;
+	text-transform: uppercase; color: var(--grey-200);
+}
+
+/* --- tables --- */
+table { width: 100%; border-collapse: collapse; }
+th {
+	text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--grey-700);
+	font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--grey-500);
+}
+td { padding: 7px 10px; border-bottom: 1px solid var(--grey-800); vertical-align: top; }
+tbody tr:hover { background: var(--grey-850); }
+td.id { font-weight: 700; color: var(--grey-200); white-space: nowrap; }
+table.board td:nth-child(5) { min-width: 22ch; }
+table.sessions td { white-space: nowrap; }
+table.lint-t td:last-child code { color: var(--grey-450); word-break: break-all; }
+
+.lint {
+	margin-top: 5px; padding: 4px 8px; border-left: 2px solid var(--orange-400);
+	background: var(--orange-900); font-size: 11px; color: var(--orange-200);
+}
+.lint b { color: var(--orange-300); }
+.lint code { color: var(--grey-350); word-break: break-all; }
+
+/* --- ledger --- */
+.entry-h { font-size: 12px; font-weight: 700; letter-spacing: .06em; color: var(--felix); margin-bottom: 6px; }
+.kv { display: flex; gap: 10px; align-items: baseline; margin-top: 8px; }
+.kv .label { flex: 0 0 7ch; }
+.summons {
+	margin: 10px 0 0; padding: 10px 12px; border: 1px dashed var(--grey-650); border-radius: 4px;
+	background: var(--grey-850); color: var(--green-300); font-size: 11.5px; white-space: pre-wrap;
+}
+.inst { margin-top: 8px; font-size: 11px; color: var(--grey-400); }
+
+/* --- lists --- */
+ul.queue, ul.issues { margin: 0; padding: 0; list-style: none; }
+ul.queue li, ul.issues li { padding: 7px 0; border-bottom: 1px solid var(--grey-800); font-size: 12px; }
+ul.queue li:last-child, ul.issues li:last-child { border-bottom: 0; }
+.when { color: var(--grey-500); }
+.who { color: var(--grey-400); font-weight: 600; }
+
+pre.doc {
+	margin: 0; padding: 12px; border: 1px solid var(--grey-800); border-radius: 4px;
+	background: var(--grey-950); color: var(--grey-300); font-size: 12px;
+	white-space: pre-wrap; word-break: break-word; overflow-x: auto;
+}
