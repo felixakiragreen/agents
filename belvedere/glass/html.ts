@@ -48,6 +48,65 @@ const RIG_TONES = new Set<string>(['green', 'blue', 'cyan', 'pink', 'red', 'purp
 export const rigTone = (colour: string | null): Tone =>
 	colour !== null && RIG_TONES.has(colour) ? colour as Tone : 'grey';
 
+// ---------- encapsulation-first (design law, README §3) ----------
+
+/**
+ * The seam a name ends at: a spaced dash, or a colon. Only the FIRST LINE is searched — a name
+ * that reached across a paragraph break would be a name the text never wrote.
+ */
+const SEAM = /\s[—–-]\s|:\s/;
+/** Felix's law is 1–6 words. A longer head is not a name, so the text has none. */
+const NAME_WORDS = 6;
+
+export type Encap = { name: string; full: string; encapsulated: boolean };
+
+/**
+ * The short name a card leads with, **derived, never invented**: the text before the first seam,
+ * when that head is a name-length phrase. Anything else — no seam, an empty head, a head running
+ * past six words — has no name to lead with and renders whole (spec §3). No per-repo special
+ * cases live here and none may: the moment derivation needs one, the row STOPS and files it.
+ */
+export function encap(text: string): Encap {
+	const full = text.trim();
+	const firstLine = full.split('\n')[0]!;
+	const m = SEAM.exec(firstLine);
+	const head = m ? firstLine.slice(0, m.index).trim() : '';
+	const ok = head !== '' && head.split(/\s+/).length <= NAME_WORDS && head.length < full.length;
+	return { name: ok ? head : full, full, encapsulated: ok };
+}
+
+/** The [expand] control: a scriptless `<details>`, so the disclosure is the browser's (B5's shape). */
+export const expand = (inner: string, summary = 'expand') =>
+	`<details class="more"><summary>${esc(summary)}</summary>${inner}</details>`;
+
+/**
+ * Encapsulation-first, rendered: the name alone, and `[expand]` holding the whole text. A text
+ * with no derivable name renders whole and gains no control — an [expand] over nothing is furniture.
+ */
+export function encapHtml(text: string, base: string, cls: string): string {
+	const e = encap(text);
+	const whole = `<p class="${cls}">${inline(e.full, base)}</p>`;
+	return e.encapsulated ? `<p class="encap">${inline(e.name, base)}</p>${expand(whole)}` : whole;
+}
+
+// ---------- legends: every coloured view owes the reader one (design law) ----------
+
+export const legend = (keys: string[]) =>
+	`<section class="legend">${label('legend')}${keys.map(k => `<span class="key">${k}</span>`).join('')}</section>`;
+
+/** The liveness rings `window_()` paints — the ring is the state, the fill is the mantle. */
+export const LIVENESS_KEYS = [
+	`<span class="win tone-grey st-working"></span>working — heartbeat inside the stale window`,
+	`<span class="win tone-grey st-needs-input"></span>needs input — a permission prompt is waiting`,
+	`<span class="win tone-grey st-idle"></span>idle — last said <code>Stop</code>`,
+	`<span class="win tone-grey st-unknown"></span>unknown — no pid to ask, or a dead sensor`,
+];
+
+/** The mantle hues, read off the rig's own table — the fill of every window in the city. */
+export const mantleKeys = (colours: Map<string, string>) =>
+	[...colours].map(([mantle, colour]) => `<span class="win tone-${rigTone(colour)}"></span>${esc(mantle)}`)
+		.concat(`<span class="win tone-grey"></span>unstamped — no mantle to colour by`);
+
 export const pill = (text: string, tone: Tone, title = '') =>
 	`<span class="pill tone-${tone}"${title ? ` title="${esc(title)}"` : ''}>${esc(text)}</span>`;
 

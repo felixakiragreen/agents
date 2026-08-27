@@ -93,6 +93,42 @@ export const pacing = (q: Quota, nowSeconds: number): number => {
 	return Math.trunc(diff + (diff >= 0 ? 0.5 : -0.5));
 };
 
+// ---------- the auditor: the sensor's own drift alarm (B9 amendment, on B5 E1) ----------
+
+/**
+ * One approximate count of `claude` processes on this machine, to sit beside the census figure.
+ *
+ * **It is a count, never sessions.** The census stays the sole identity authority (P1 F5): this
+ * joins nothing, houses nothing, and never reaches a card. It is the `sync/check` pattern pointed
+ * at the sensor — the gap is the pre-horizon floor today (6 tracked, ~38 visible; B5 E1), it decays
+ * as those sessions die, and a gap that REOPENS after the horizon means a sensor is lying.
+ *
+ * The rule is `argv[0]`'s basename, minus the harness's own `bg-*` helpers. B5 E1's `[c]laude` grep
+ * counted 41 here where the CLI processes were 36: the five were shell snapshots sourcing a path
+ * with `.claude` in it, and one glass counting its own audit noise is a drift alarm that cries.
+ */
+export function auditorCount(): number | null {
+	try {
+		const ps = Bun.spawnSync(['ps', '-axo', 'command=']);
+		if (!ps.success) return null;
+		return ps.stdout.toString().split('\n').filter(line => {
+			const argv = line.trim().split(/\s+/);
+			return basename(argv[0] ?? '') === 'claude' && !(argv[1] ?? '').startsWith('bg-');
+		}).length;
+	} catch { return null; }              // no `ps` is no alarm, never a zero
+}
+
+/**
+ * The delta line, one voice on all three views: what the census tracks, what the machine shows,
+ * and — while the pre-hook floor lasts — that the gap is the horizon rather than a defect.
+ */
+export function auditorLine(tracked: number, visible: number | null): string {
+	if (visible === null) return `<span class="audit">${tracked} tracked · <span class="bad">no process auditor — <code>ps</code> did not answer</span></span>`;
+	const gap = visible - tracked;
+	return `<span class="audit">${tracked} tracked · ≈${visible} claude processes visible`
+		+ (gap > 0 ? ` · <b class="bad">${gap} beyond the census</b>` : ' · <b>no gap</b>') + `</span>`;
+}
+
 export const usageAge = (u: Usage, nowSeconds: number): number | null =>
 	u.fetchedAt === null ? null : Math.max(0, nowSeconds - u.fetchedAt);
 
@@ -216,10 +252,16 @@ const bar = (n: number, of: number) =>
  * WIP, per account and per building. Degrades honestly (spec §4): with no census the panel says
  * the sensor is not deployed rather than drawing a city with nothing in it.
  */
-export function wipGauges(w: Wip): string {
+export function wipGauges(w: Wip, visible: number | null): string {
+	const tracked = w.accounts.reduce((n, a) => n + a.sessions, 0);
+	const audit = `<p class="prose note">${auditorLine(tracked, visible)} — the census is the only thing here
+		that knows <em>which</em> sessions; the process count joins nothing and names nothing. It is the sensor's
+		drift alarm: today's gap is the pre-hook horizon and decays with it, and a gap that reopens afterwards
+		means a sensor is lying.</p>`;
+
 	if (!w.present) return `<section class="panel gauge"><h2>WIP</h2>
 		<p class="prose note bad">unknown — census not deployed. The shelf above still lists every transcript;
-		nothing here can be counted until <code>belvedere/census/deploy.ts</code> has run.</p></section>`;
+		nothing here can be counted until <code>belvedere/census/deploy.ts</code> has run.</p>${audit}</section>`;
 
 	const most = Math.max(1, ...w.accounts.map(a => a.sessions));
 	const rows = w.accounts.map(a => `<div class="wline">
@@ -249,6 +291,7 @@ export function wipGauges(w: Wip): string {
 			contributes nothing here and reads <code>?</code>, never <code>0</code>${
 			w.subagents.unobserved ? ` — <b class="bad">${w.subagents.unobserved} of ${w.accounts.reduce((n, a) => n + a.sessions, 0)}
 			live sessions have never been observed carrying one</b>` : ''}.</p>
+		${audit}
 		<p class="prose note">Live sessions by account and by building, off the census.</p>
 		<div class="counts">
 			<div class="stat"><span class="label">subagents</span><b class="t-working">${esc(rosterText(w.subagents))}</b></div>
