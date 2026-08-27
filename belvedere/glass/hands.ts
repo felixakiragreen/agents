@@ -79,6 +79,20 @@ const EFFORT = /^[a-z]{1,10}$/;
 const UUID = /^[0-9a-fA-F-]{8,64}$/;                     // session ids and cmux surface ids alike
 const BRANCH = /^[A-Za-z0-9][A-Za-z0-9._\/-]{0,79}$/;    // git-legal enough; `..` is refused below
 
+/**
+ * A fire, or a resume — one hand, because both are "spawn a session" and the fence has one line
+ * for that (D3). What separates them is `resume`, and one rule follows from it:
+ *
+ * **On a resume, a field the glass does not know is omitted from argv, never guessed.** A dead
+ * transcript carries its own uuid and (sometimes) its own name-stamp; it does not carry the tier
+ * it ran at, and it certainly does not carry a next instruction. So on a resume `stamp`, `model`,
+ * `effort` and `summons` may all be empty, and each empty one drops its flag — claude comes back
+ * on the session's own settings. On a fresh fire every one of them is still required.
+ *
+ * The summons is the sharp end: `/shelf` exists so Felix can **stand in** a session, and a resume
+ * that injected a first user turn would wake a three-week-dead agent and set it working with no
+ * instruction. That is the self-inflicted DoS this row was cut to prevent, not a convenience.
+ */
 export type Fire = {
 	account: string; stamp: string; cwd: string; model: string; effort: string;
 	color: string; summons: string; resume: string | null;
@@ -100,6 +114,10 @@ function directory(path: string, what: string): string | null {
 	return null;
 }
 
+/** Required on a fresh fire; on a resume, empty is legal and means "leave it as the session had it". */
+const known = (value: string, re: RegExp, what: string, optional: boolean): string | null =>
+	optional && value === '' ? null : re.test(value) ? null : `${what} must match ${re} — got "${value}"`;
+
 export function parseFire(raw: unknown): Outcome<Fire> {
 	if (typeof raw !== 'object' || raw === null) return fail('body must be a JSON object');
 	const r = raw as Record<string, unknown>;
@@ -108,14 +126,17 @@ export function parseFire(raw: unknown): Outcome<Fire> {
 		model: field(r, 'model'), effort: field(r, 'effort'), color: field(r, 'color'),
 		summons: field(r, 'summons'), resume: field(r, 'resume') || null,
 	};
-	if (!STAMP.test(fire.stamp)) return fail(`stamp must match ${STAMP} — got "${fire.stamp}"`);
-	if (!MODEL.test(fire.model)) return fail(`model must match ${MODEL} — got "${fire.model}"`);
-	if (!EFFORT.test(fire.effort)) return fail(`effort must match ${EFFORT} — got "${fire.effort}"`);
-	if (!COLOR.test(fire.color)) return fail(`color must be a cmux colour name or #rrggbb — got "${fire.color}"`);
 	if (fire.resume !== null && !UUID.test(fire.resume)) return fail(`resume must be a session id — got "${fire.resume}"`);
-	if (fire.summons === '') return fail('summons is empty — the fire IS the summons');
-	if (Buffer.byteLength(fire.summons) > LIMITS.summonsBytes) return fail(`summons exceeds ${LIMITS.summonsBytes} bytes`);
-	const bad = directory(fire.cwd, 'cwd');
+	const resuming = fire.resume !== null;
+	// The colour is never optional: it is a property of the workspace this call is about to make,
+	// not of the session it is reviving, so there is nothing to leave alone.
+	const bad = known(fire.stamp, STAMP, 'stamp', resuming)
+		?? known(fire.model, MODEL, 'model', resuming)
+		?? known(fire.effort, EFFORT, 'effort', resuming)
+		?? (COLOR.test(fire.color) ? null : `color must be a cmux colour name or #rrggbb — got "${fire.color}"`)
+		?? (!resuming && fire.summons === '' ? 'summons is empty — the fire IS the summons' : null)
+		?? (Buffer.byteLength(fire.summons) > LIMITS.summonsBytes ? `summons exceeds ${LIMITS.summonsBytes} bytes` : null)
+		?? directory(fire.cwd, 'cwd');
 	return bad ? fail(bad) : { ok: true, result: fire };
 }
 
@@ -171,20 +192,36 @@ const parseRef = (out: string): string | null => out.match(/\b((?:workspace|surf
 
 // ---------- the four hands ----------
 
-export type Fired = { workspace: string; summonsPath: string; sha: string; bytes: number };
+/** `summonsPath`/`sha` are null on a resume: there was no first user turn to write or to prove. */
+export type Fired = { workspace: string; summonsPath: string | null; sha: string | null; bytes: number };
 
 /**
  * The launch, as one shell line. The summons travels by file and is read back by `"$(cat …)"`,
  * so nothing multi-line is ever typed at a shell prompt (P2 S3) and nothing is ever pasted into
  * a live TUI (T4). Every interpolation is single-quoted even where the parse already proved it
  * inert: a quoting rule with an exception is a quoting rule nobody can check by eye.
+ *
+ * An empty field drops its flag — the resume law (§Fire). `summonsPath` is null exactly when
+ * there is no first user turn, and the line then ends at the last flag: `claude --resume <uuid>`,
+ * which is the shape cmux's own restore binding re-execs (P4 §R).
  */
-export function launchCommand(req: Fire, configDir: string, summonsPath: string): string {
-	const flags = ['--model', req.model, '--effort', req.effort, '-n', req.stamp];
+export function launchCommand(req: Fire, configDir: string, summonsPath: string | null): string {
+	const flags: string[] = [];
+	if (req.model) flags.push('--model', req.model);
+	if (req.effort) flags.push('--effort', req.effort);
+	if (req.stamp) flags.push('-n', req.stamp);
 	if (req.resume) flags.push('--resume', req.resume);
-	return `cd ${q(req.cwd)} && CLAUDE_CONFIG_DIR=${q(configDir)} claude `
-		+ flags.map(q).join(' ') + ` "$(cat ${q(summonsPath)})"`;
+	return `cd ${q(req.cwd)} && CLAUDE_CONFIG_DIR=${q(configDir)} claude ${flags.map(q).join(' ')}`
+		+ (summonsPath ? ` "$(cat ${q(summonsPath)})"` : '');
 }
+
+/**
+ * The cmux workspace's label. A fresh fire is its name-stamp; a resume of a session that never
+ * had one is named after the transcript it is reviving, because a workspace called `""` is a
+ * workspace Felix cannot find and the glass will not invent him a lineage he did not fire.
+ */
+export const workspaceName = (req: Fire): string =>
+	req.stamp || (req.resume ? `resume-${req.resume.slice(0, 8)}` : 'belvedere');
 
 /**
  * One fire = one cmux workspace + one claude session + the summons already landed.
@@ -201,14 +238,19 @@ async function attemptFire(req: Fire, password: string): Promise<Outcome<Fired>>
 	const configDir = [...readRig().accounts].find(([, label]) => label === req.account)?.[0];
 	if (!configDir) return fail(`unknown account "${req.account}" — the rig's accounts.tsv names the three`);
 
-	const text = sanitizeSummons(req.summons);
-	const summonsPath = join(summonsDir(), `${req.stamp}.summons.txt`);
-	mkdirSync(summonsDir(), { recursive: true });
-	writeFileSync(summonsPath, text, { mode: 0o600 });
+	// No summons, no file: a resume that writes an empty summons file would leave the audit
+	// claiming a first user turn that never happened.
+	const text = req.summons === '' ? '' : sanitizeSummons(req.summons);
+	let summonsPath: string | null = null;
+	if (text !== '') {
+		summonsPath = join(summonsDir(), `${workspaceName(req)}.summons.txt`);
+		mkdirSync(summonsDir(), { recursive: true });
+		writeFileSync(summonsPath, text, { mode: 0o600 });
+	}
 
 	const command = launchCommand(req, configDir, summonsPath);
 	const created = await cmux(password, 'workspace', 'create',
-		'--name', req.stamp, '--cwd', req.cwd, '--focus', 'false', '--command', command);
+		'--name', workspaceName(req), '--cwd', req.cwd, '--focus', 'false', '--command', command);
 	if (!created.ok) return created;
 	const workspace = parseRef(created.result);
 	// A workspace with no readable ref cannot be closed — there is nothing to name. Say so with
@@ -223,7 +265,7 @@ async function attemptFire(req: Fire, password: string): Promise<Outcome<Fired>>
 
 	return { ok: true, result: {
 		workspace, summonsPath,
-		sha: createHash('sha256').update(text).digest('hex').slice(0, 16),
+		sha: summonsPath === null ? null : createHash('sha256').update(text).digest('hex').slice(0, 16),
 		bytes: Buffer.byteLength(text),
 	} };
 }

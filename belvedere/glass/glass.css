@@ -5,9 +5,16 @@
 :root {
 	--mono: 'Iosevka Felix', ui-monospace, SFMono-Regular, Menlo, monospace;
 	--wide: 'Iosevka Felix Extended', var(--mono);
+	/* The design law's prose face (README §3). Referenced by family with a real fallback stack —
+	   B9 owns vendoring the woff2, and until it lands the stack degrades to the system sans
+	   rather than reaching the network at serve time (glass-shatters). */
+	--prose: Inter, ui-sans-serif, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
 	--ease: cubic-bezier(.4, 0, .2, 1);
 	--snap: 69ms;
 }
+
+/* Running prose reads in Inter; every number, title, button and table stays IosevkaFelix. */
+.prose { font-family: var(--prose); letter-spacing: 0; }
 
 /* --- the tone vocabulary: one triple, consumed by generic rules --- */
 .tone-felix  { --t: var(--felix);      --t-soft: var(--green-300);  --t-bg: var(--green-900); }
@@ -214,3 +221,79 @@ pre.doc {
 	background: var(--grey-950); color: var(--grey-300); font-size: 12px;
 	white-space: pre-wrap; word-break: break-word; overflow-x: auto;
 }
+
+/* --- the shelf and the gauges (B5) --- */
+
+/* the bill: one line per account, three cells, the figures at full contrast always */
+.gauge .counts { display: flex; flex-wrap: wrap; gap: 26px; margin: 10px 0 14px; }
+.uline, .wline {
+	display: flex; flex-wrap: wrap; align-items: baseline; gap: 14px;
+	padding: 6px 0; border-bottom: 1px solid var(--grey-850);
+}
+.uline:last-child, .wline:last-child { border-bottom: 0; }
+.uline .acct, .wline .acct {
+	flex: 0 0 15ch; font-size: 11.5px; font-weight: 700; letter-spacing: .06em; color: var(--grey-200);
+}
+.cell { display: inline-flex; align-items: baseline; gap: 6px; min-width: 14ch; }
+.cell .bucket { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--grey-500); }
+.cell .pct { font-family: var(--wide); font-size: 14px; font-weight: 900; color: var(--grey-100); font-variant-numeric: tabular-nums; }
+.cell .delta { font-size: 11.5px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.delta.headroom { color: var(--green-400); }
+.delta.burning { color: var(--red-400); }
+.cell.empty { color: var(--grey-700); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
+.uline .fetched { margin-left: auto; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--grey-600); }
+/* Staleness greys the FURNITURE — the account name and the bucket labels — never the figures. */
+.uline.stale .acct, .uline.stale .bucket, .uline.stale .fetched { color: var(--grey-700); }
+
+.wgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; }
+.wline .n { font-family: var(--wide); font-size: 15px; font-weight: 900; color: var(--grey-100); font-variant-numeric: tabular-nums; }
+.bar { flex: 1 1 60px; height: 4px; border-radius: 2px; background: var(--grey-800); overflow: hidden; }
+.bar > span { display: block; height: 100%; background: var(--felix); }
+
+/* filters: toggled button groups, never a dropdown (design law, README §3) */
+.filters { display: flex; flex-wrap: wrap; gap: 22px; margin-bottom: 12px; }
+.group { display: flex; flex-direction: column; gap: 5px; }
+.btns { display: flex; flex-wrap: wrap; gap: 5px; }
+.btn {
+	font-size: 10.5px; font-weight: 700; letter-spacing: .07em; padding: 3px 9px; border-radius: 3px;
+	border: 1px solid var(--grey-750); color: var(--grey-400); white-space: nowrap;
+}
+.btn:hover { border-color: var(--grey-500); color: var(--grey-200); }
+.btn.on { border-color: var(--felix); color: var(--felix); background: color-mix(in srgb, var(--felix) 12%, transparent); }
+
+/* the colour legend every coloured view owes the reader (design law) */
+.legend {
+	display: flex; flex-wrap: wrap; align-items: center; gap: 16px;
+	padding: 8px 12px; margin-bottom: 12px;
+	border: 1px solid var(--grey-800); border-radius: 4px; background: var(--grey-900);
+	font-family: var(--prose); font-size: 11px; color: var(--grey-500);
+}
+.legend .key { display: inline-flex; align-items: center; gap: 6px; }
+
+/* one berth per session: name first, [expand] for the rest */
+.berths { display: flex; flex-direction: column; gap: 6px; }
+.berth {
+	border: 1px solid var(--grey-800); border-left: 3px solid var(--t); border-radius: 4px;
+	background: var(--grey-900); padding: 8px 12px;
+}
+.berth-h { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; }
+.berth .stamp { font-size: 12.5px; font-weight: 700; letter-spacing: .05em; color: var(--grey-100); }
+.berth .stamp.unstamped { color: var(--grey-600); font-weight: 600; }
+.berth .acct { font-size: 10.5px; letter-spacing: .08em; color: var(--grey-500); }
+.berth .where { font-size: 11px; color: var(--blue-300); }
+.berth .when { margin-left: auto; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--grey-600); font-variant-numeric: tabular-nums; }
+.berth .reason { font-family: var(--prose); font-size: 11px; color: var(--grey-600); }
+.win.st-gone { background: none; box-shadow: none; border: 1.5px solid var(--grey-700); }
+
+.berth .more { margin-top: 6px; }
+.berth .more > summary {
+	cursor: pointer; list-style: none; width: max-content;
+	font-size: 9.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--grey-600);
+}
+.berth .more > summary::before { content: '['; }
+.berth .more > summary::after { content: ']'; }
+.berth .more > summary:hover { color: var(--felix); }
+.berth .more[open] > summary { color: var(--grey-400); }
+.kvs { margin-top: 7px; padding-left: 2px; display: flex; flex-direction: column; gap: 3px; font-size: 11.5px; }
+.kvs .kv { margin-top: 0; }
+.kvs .kv .label { flex: 0 0 11ch; }

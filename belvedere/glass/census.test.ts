@@ -9,7 +9,8 @@ import { sessionState, isAlive, toBeat, STALE_SECONDS, type Beat, type SessionSt
 
 const NOW = 1_800_000_000;
 const beat = (ev: string, over: Partial<Beat> = {}): Beat =>
-	({ t: NOW, ev, sid: 's', acct: null, pid: 4242, ws: null, sf: null, cwd: null, tp: null, tool: null, why: null, ...over });
+	({ t: NOW, ev, sid: 's', acct: null, pid: 4242, ws: null, sf: null, cwd: null, tp: null, tool: null, why: null,
+		aid: null, at: null, bg: [], ...over });
 
 type Case = [name: string, last: Beat, alive: boolean | null, want: SessionState];
 

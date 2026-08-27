@@ -37,11 +37,15 @@ export const registerNote = (reg: Register, here: string) =>
 /**
  * A session's building is the deepest one containing its cwd. A worktree checkout counts as
  * its repo: `<repo>/.claude/worktrees/<branch>/x` is `<repo>/x` wearing a branch.
+ *
+ * Generic over anything that carries a name and a path, so the shelf can attribute against the
+ * register's own `Entry[]` — the file list, without re-reading a single board (B8 F3: content
+ * the page does not render is content the page must not pay for).
  */
-export function buildingOf(cwd: string | null, buildings: Building[]): Building | null {
+export function buildingOf<T extends { building: string; path: string }>(cwd: string | null, buildings: T[]): T | null {
 	if (!cwd) return null;
 	const norm = cwd.replace(/\/\.claude\/worktrees\/[^/]+/, '');
-	let best: Building | null = null;
+	let best: T | null = null;
 	for (const b of buildings)
 		if ((norm === b.path || norm.startsWith(b.path + sep)) && (!best || b.path.length > best.path.length)) best = b;
 	return best;
@@ -121,7 +125,7 @@ export function cityPage(): string {
 		${sessionTable(loose, rig)}</section>` : '';
 
 	const ms = performance.now() - t0;
-	return page('Belvedere — City View', '<a href="/">rail</a> <span>/</span> <span>city</span>',
+	return page('Belvedere — City View', '<a href="/">rail</a> <span>/</span> <span>city</span> <span>/</span> <a href="/shelf">shelf</a>',
 		banner + strip + `<section class="cards">${cards}</section>` + off,
 		`content re-read in ${ms.toFixed(0)} ms · ${registerNote(reg, '/city')} · ${esc(cityRoot())}`);
 }

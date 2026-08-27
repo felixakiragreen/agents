@@ -12,6 +12,7 @@ import { handsRoute } from './hands';
 import { HOST, port } from './paths';
 import { buildingPage, cityPage, docPage, errorPage, notFound } from './pages';
 import { railPage } from './rail';
+import { shelfPage } from './shelf';
 import { boot, rewalk } from './register';
 
 const HERE = import.meta.dir;
@@ -26,6 +27,7 @@ function route(url: URL): Response {
 
 	if (url.pathname === '/') return html(railPage());       // the morning (B3)
 	if (url.pathname === '/city') return html(cityPage());
+	if (url.pathname === '/shelf') return html(shelfPage(url.searchParams));   // resume anything (B5)
 
 	if (url.pathname === '/doc') {
 		const p = url.searchParams.get('p');

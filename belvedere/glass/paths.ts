@@ -33,6 +33,12 @@ export const PRESETS = join(home, 'code/agents/summon/presets.tsv');
 export const ACCOUNTS = join(home, 'code/agents/summon/accounts.tsv');
 export const INVOCATIONS = join(home, 'code/agents/summon/log/invocations.jsonl');
 
+/** The rig's usage caches — one per account, written by `summon-usage`. Read only, never written. */
+export const usageDir = () => process.env.USAGE_DIR ?? join(home, 'code/agents/summon/log/usage');
+
+/** Where an account keeps its transcripts. The shelf's whole corpus is these three trees. */
+export const projectsDir = (configDir: string) => join(configDir, 'projects');
+
 /** D3 — localhost only. Real auth arrives with the Ava chapter, before any other bind. */
 export const HOST = '127.0.0.1';
 export const port = () => Number(process.env.GLASS_PORT ?? 4400);

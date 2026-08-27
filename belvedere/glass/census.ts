@@ -11,10 +11,25 @@ import { censusFile } from './paths';
 export const LIMITS = { tail: 4 << 20, transcript: 64 << 10 } as const;
 
 /**
+ * `beat.sh` slices the background roster `[0:16]` so one record can never outgrow the stdio
+ * buffer and split into two writes (P1 F6's concurrent-append guard). **A full roster is a
+ * sample, not a count** — the batch-2 bulletin §3 says it in B1's own words, and every gauge
+ * that renders `bg` must say `16+` rather than `16`.
+ */
+export const BG_CAP = 16;
+
+/**
  * A working session heartbeats on every tool call. A gap this long with no `Stop` means the
  * sensor died, not that a tool ran for half an hour — and "working" would then be a lie.
  */
 export const STALE_SECONDS = 30 * 60;
+
+/**
+ * One entry of `beat.sh`'s background roster. `type` separates a subagent from a background
+ * shell — P1 F4's named blindness is the shell's *completion*, so a shell here is "launched and
+ * last seen running", never "running now" on the strength of this field alone.
+ */
+export type Task = { id: string; type: string; status: string; agentType: string | null };
 
 /** P1 F6's record, projected to what the spine renders. The dropped fields stay dropped. */
 export type Beat = {
@@ -29,6 +44,9 @@ export type Beat = {
 	tp: string | null;      // transcript_path — where the name-stamp lives
 	tool: string | null;
 	why: string | null;     // source // reason // notification_type // trigger
+	aid: string | null;     // agent_id — the subagent this tool call ran INSIDE, not a child roster
+	at: string | null;      // agent_type — its tier; absent on the `SubagentStop` payload (measured)
+	bg: Task[];             // background_tasks, capped at BG_CAP by the hook — a sample, never a total
 };
 
 export type SessionState = 'working' | 'needs-input' | 'idle' | 'gone' | 'unknown';
@@ -42,6 +60,11 @@ export type Session = {
 	cwd: string | null;
 	tool: string | null;
 	stamp: string | null;   // the rig's name-stamp, read from the transcript
+	transcript: string | null;
+	/** The subagent the last beat was executing inside, if any — the session's own depth. */
+	agent: { id: string; type: string | null } | null;
+	tasks: Task[];          // the last beat's roster
+	tasksCapped: boolean;   // the roster filled the hook's slice: render `16+`, never `16`
 };
 
 /** What one read of the census yielded — including what it could NOT read (parser-as-lint). */
@@ -98,6 +121,20 @@ export function isAlive(pid: number | null): boolean | null {
  */
 const str = (v: unknown): string | null => typeof v === 'string' && v !== '' ? v : null;
 
+/** A roster entry with no id names nothing and is dropped; the rest of the roster still counts. */
+function toTasks(raw: unknown): Task[] {
+	if (!Array.isArray(raw)) return [];
+	const out: Task[] = [];
+	for (const item of raw) {
+		if (typeof item !== 'object' || item === null) continue;
+		const t = item as Record<string, unknown>;
+		const id = str(t.id);
+		if (id === null) continue;
+		out.push({ id, type: str(t.type) ?? 'unknown', status: str(t.status) ?? 'unknown', agentType: str(t.agent_type) });
+	}
+	return out.slice(0, BG_CAP);
+}
+
 /** The parse boundary: F6's wire record in, a trusted `Beat` out, or null and a lint count. */
 export function toBeat(raw: unknown): Beat | null {
 	if (typeof raw !== 'object' || raw === null) return null;
@@ -113,6 +150,7 @@ export function toBeat(raw: unknown): Beat | null {
 		pid: Number.isInteger(pid) && pid > 0 ? pid : null,
 		ws: str(r.ws), sf: str(r.sf),
 		cwd: str(r.cwd), tp: str(r.tp), tool: str(r.tool), why: str(r.why),
+		aid: str(r.aid), at: str(r.at), bg: toTasks(r.bg),
 	};
 }
 
@@ -133,17 +171,39 @@ function window(path: string, bytes: number, from: 'start' | 'end'): string | nu
 }
 
 /**
- * The name-stamp the shelf resumes by (P4 §R) — the transcript's `agent-name` record, which
- * `claude -n <stamp>` writes within its first few lines. A session renamed after the window
- * reads as unstamped: honest, and cheaper than scanning a multi-megabyte transcript.
+ * Who a transcript is, read from a bounded head window — the one identity join in the city.
+ *
+ * The name-stamp is the transcript's `agent-name` record, which `claude -n <stamp>` writes within
+ * its first few lines; **it does not join through `invocations.jsonl`, which carries no session
+ * id at all** (B2 F1, batch-2 bulletin §2). The cwd is the first record that carries one, and it
+ * is the transcript's own word — never the project-directory slug, which flattens `_` and `/` to
+ * the same `-` and cannot be inverted (`universal_robots_sdk` and `universal-robots-sdk` share a
+ * slug).
+ *
+ * A session renamed after the window reads as unstamped, and one whose head holds no user turn
+ * reads as cwd-less: honest, shown, and cheaper than scanning a multi-megabyte transcript.
  */
-function stampOf(transcript: string | null): string | null {
-	if (!transcript) return null;
+export type Identity = { stamp: string | null; cwd: string | null };
+
+/** JSON-escaped on the wire; unescaped exactly once, here, or not trusted at all. */
+const unescape = (raw: string): string | null => {
+	try { return JSON.parse(`"${raw}"`) as string; } catch { return null; }
+};
+
+export function identify(transcript: string): Identity {
 	const head = window(transcript, LIMITS.transcript, 'start');
-	if (head === null) return null;
-	const hits = [...head.matchAll(/"agentName":"((?:[^"\\]|\\.)*)"/g)];
-	return hits.at(-1)?.[1] ?? null;
+	if (head === null) return { stamp: null, cwd: null };
+	const names = [...head.matchAll(/"agentName":"((?:[^"\\]|\\.)*)"/g)];
+	const last = names.at(-1)?.[1];
+	const cwd = head.match(/"cwd":"((?:[^"\\]|\\.)*)"/)?.[1];
+	return {
+		stamp: last === undefined ? null : unescape(last),
+		cwd: cwd === undefined ? null : unescape(cwd),
+	};
 }
+
+const stampOf = (transcript: string | null): string | null =>
+	transcript === null ? null : identify(transcript).stamp;
 
 /** One read of the whole census: every session it has ever seen, stated as of now. */
 export function readCensus(nowSeconds = Date.now() / 1000): CensusRead {
@@ -173,6 +233,10 @@ export function readCensus(nowSeconds = Date.now() / 1000): CensusRead {
 		cwd: last.cwd,
 		tool: last.tool,
 		stamp: stampOf(last.tp),
+		transcript: last.tp,
+		agent: last.aid === null ? null : { id: last.aid, type: last.at },
+		tasks: last.bg,
+		tasksCapped: last.bg.length >= BG_CAP,
 	})).sort((a, b) => b.last.t - a.last.t);
 
 	return { present: true, sessions, beats, malformed };
