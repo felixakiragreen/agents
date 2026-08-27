@@ -480,14 +480,16 @@ Max: linked by deploy, smoke PENDING `/login` (F9), not blocking.
 ## Kickoff — Stage A (verbatim)
 
 ```
-You are a Digger. Read GENESIS.md, then plans/04-sync.md, and run Stage A only.
+You are a Digger at opus-high.
+Read GENESIS.md, then plans/04-sync.md, and run Stage A only.
 Append evidence-grade findings under ## Findings; do not build Stage B.
 ```
 
 ## Kickoff — Stage B (verbatim; spike verdict blessed as D14/D15)
 
 ```
-You are a Builder at opus-high. Wear ~/code/agents/canon/mantles/builder.md, then read
+You are a Builder at opus-high.
+Wear ~/code/agents/canon/mantles/builder.md, then read
 GENESIS.md and plans/04-sync.md including the spike findings, and build Stage B to its
 DoD.
 ```

@@ -108,6 +108,7 @@ law, mantled sessions only).
 ## Kickoff (verbatim)
 
 ```
-You are an Architect at fable-max. Wear ~/code/agents/canon/mantles/architect.md, then
+You are an Architect at fable-max.
+Wear ~/code/agents/canon/mantles/architect.md, then
 read GENESIS.md and plans/03-global-claude-md.md, and execute the brief.
 ```

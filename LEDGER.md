@@ -4,7 +4,7 @@ Append per session: date · mantle · changed · decided · next.
 
 ---
 
-**2026-08-02 · Grand Architect** — Laid the keel: GENESIS.md (composition law, five
+**2026-08-02 · Grand Architect · unrecorded** — Laid the keel: GENESIS.md (composition law, five
 mantles, deployment map, campaign board), CLAUDE.md, DECISIONS.md, LEDGER.md, briefs
 01–04. Recon: agents repo was bare; global CLAUDE.md and keybindings.json byte-identical
 across all three accounts (hand-synced); simmy tiers found real in
@@ -13,7 +13,7 @@ summon 01 (Architect · fable-max); 04's spike is parallel-safe in any spare acc
 
 ---
 
-**2026-08-02 · Architect (01)** — Landed the composition model: `canon/agents/` (full
+**2026-08-02 · Architect · fable-max (01)** — Landed the composition model: `canon/agents/` (full
 pre-minted 20-tier grid), `canon/mantles/` (five charters to the DISPATCHER.md grade
 bar + README with summons grammar, rider template, precedence law, charter template),
 `canon/skills/` (five shims — path canonical, skills sugar). Empirical findings: agent
@@ -32,7 +32,7 @@ answers U1/U2 (04 spike); summon 02 (Architect · fable-max), kickoff verbatim i
 
 ---
 
-**2026-08-02 · Digger (04 Stage A)** — Ran the symlink spike; findings appended to
+**2026-08-02 · Digger · opus-high (04)** — *Stage A.* Ran the symlink spike; findings appended to
 `plans/04-sync.md` (F1–F9), Stage B untouched per brief. Symlink-first survives: no
 target disqualified. Proven at **user scope in a live config dir** — `agents/` and
 `skills/` followed as whole-dir symlinks and as symlinked members (F8). Proven at project
@@ -83,7 +83,7 @@ D-entry + the D3 amendment, marks 04 Stage A LANDED, summons 02 (Architect · fa
 
 ---
 
-**2026-08-03 · Grand Architect** — Reviewed 01 and 04 Stage A: both PASS. 01's charters
+**2026-08-03 · Grand Architect · unrecorded** — Reviewed 01 and 04 Stage A: both PASS. 01's charters
 hit the DISPATCHER.md grade bar; one nit (GENESIS §2 still said "× fast" against D9) fixed.
 04's findings exemplary — two false negatives caught only by controls; the probes-ship-
 with-a-control rule noted for 02's doctrine. Cut **D14** (mechanism: symlink every target,
@@ -102,7 +102,7 @@ smokes it as PENDING.
 
 ---
 
-**2026-08-03 · Architect (02)** — Landed the work doctrine: `canon/work/DOCTRINE.md` —
+**2026-08-03 · Architect · fable-max (02)** — Landed the work doctrine: `canon/work/DOCTRINE.md` —
 first principles, file set + scaling law, board law, work-doc anatomies (brief/order),
 findings law, ledger/decisions shapes, bulletin, batches, session contract, genesis
 ritual, glossary — plus six templates in `canon/work/templates/`. Distilled per the
@@ -118,7 +118,7 @@ kickoff verbatim in `plans/03-global-claude-md.md`.
 
 ---
 
-**2026-08-03 · Architect (03)** — Minted `canon/CLAUDE.md`, the global file: the 59-line
+**2026-08-03 · Architect · fable-max (03)** — Minted `canon/CLAUDE.md`, the global file: the 59-line
 incumbent survives **byte-intact** (diff = a single appended hunk; incumbent verified
 md5-identical ×3 first) plus one 11-line section, **THE AGENTS CANON** — files-carry-truth
 fused with the three-account silo physics (the one fact a session can't discover from
@@ -138,7 +138,7 @@ session escalates D24 to Felix; on ✓, dispatch 04 build — kickoff verbatim i
 
 ---
 
-**2026-08-03 · Builder (04 Stage B)** — Built the sync tooling: `sync/deploy` (bootstrap
+**2026-08-03 · Builder · opus-high (04)** — *Stage B.* Built the sync tooling: `sync/deploy` (bootstrap
 + adopt + verify, idempotent, one `*.pre-canon` backup and never a second), `sync/check`
 (the drift alarm: symlink identity ×3 targets ×3 dirs, F7 untracked-canon leak, exit 1 and
 loud on any of it), `sync/common.sh` holding the sync set and the four link states once so
@@ -161,7 +161,7 @@ Architect flips 04 to LANDED and closes the canon v1 DoD (GENESIS §8), with `~/
 
 ---
 
-**2026-08-03 · Grand Architect** — Reviewed batch 2: 02, 03, 04B all PASS. 02's doctrine
+**2026-08-03 · Grand Architect · unrecorded** — Reviewed batch 2: 02, 03, 04B all PASS. 02's doctrine
 distills clean with birthplaces cited throughout; 03's byte-intact-plus-one-section verdict
 on the global file is exactly right (byte-churn on a constitution is negative value); 04B's
 control-arm discipline paid off same-day. Stamped **D24 ✓** (Felix's own `deploy` run IS
@@ -176,7 +176,7 @@ fresh Grand Architect summons — `/grand-architect` now works on every account.
 
 ---
 
-**2026-08-03 · Grand Architect** — Deliberated mantle universality (the bob-mount case):
+**2026-08-03 · Grand Architect · fable-high** — Deliberated mantle universality (the bob-mount case):
 no sixth "fixer" mantle — the harvest law kills it (no birthplace; the global CLAUDE.md
 already is the fixer charter). The gap was one sentence of law, not a charter: cut
 **D26 ✓ — the null mantle** into `canon/mantles/README.md`. Session-sized work wears no
@@ -187,7 +187,7 @@ in-repo); v2 (retrofits) still awaits Felix's word.
 
 ---
 
-**2026-08-04 · Grand Architect** — Keel laid for **snappy** (cap-mega: Felix's "binary
+**2026-08-04 · Grand Architect · unrecorded** — Keel laid for **snappy** (cap-mega: Felix's "binary
 star" — performance + program-tree operations). Recon before keel-laying: four dispatched
 probes (tree cascade, variables, view latency, robot side — filed verbatim at
 `cap-mega/snappy/recon/`) + the July review + tree-ops contract doc. Verdict: one system,
@@ -207,7 +207,7 @@ and found the snappy campaign — instantiate the master doc and board, cut Phas
 
 ---
 
-**2026-08-04 · Architect** — Felix's memory question settled: do account memories sync —
+**2026-08-04 · Architect · unrecorded** — Felix's memory question settled: do account memories sync —
 no (verified: per-account silos at `<config>/projects/<slug>/memory/`; the Jul-3
 hand-cloned silos diverged on schedule — doorbell alone knows the SMB-mount deadlock,
 Max's cap-mega silo is ~20 files stale); can they — mechanically yes (symlinks;
@@ -223,7 +223,7 @@ his word; Max `/login` still pending.
 
 ---
 
-**2026-08-05 · Architect (05)** — Snappy's batch-1 saturation post-mortem gauged for
+**2026-08-05 · Architect · unrecorded (05)** — Snappy's batch-1 saturation post-mortem gauged for
 canon. Verdict: the failure mode is canon-born — `dispatcher.md` §2 "single parallel
 send" instructs it, and "parallel-safe" conflates collision-safety with host physics.
 Cut `plans/05-saturation-harvest.md`: story synopsis (evidence-checked against snappy
@@ -244,7 +244,7 @@ rule on D28–D30, amend canon where ruled, and queue the countersigns for Felix
 
 ---
 
-**2026-08-05 · Grand Architect (05)** — Ran the saturation harvest. Birthplaces read
+**2026-08-05 · Grand Architect · fable-max (05)** — Ran the saturation harvest. Birthplaces read
 per the harvest law (snappy README §2/§6/D8–D10, bulletin arc — breach-while-quoting
 verified verbatim at bulletin:119); the plan's synopsis checked clean. Rulings: **D28
 entered amended** — parallel-affordable law: DOCTRINE §4/§10 + two sites the proposal
@@ -265,7 +265,7 @@ renumbers) awaits Felix's word; Max `/login` still pending.
 
 ---
 
-**2026-08-06 · Grand Architect** — Laid the keel for **manny**, the MegaCap User Manual
+**2026-08-06 · Grand Architect · unrecorded** — Laid the keel for **manny**, the MegaCap User Manual
 campaign (cap-mega, `feature/user-manual` worktree, commit `809d6ac2`): `manny/initial.md`
 (Felix's origin dump, immutable), `manny/keel.md` (verdict: the manual is a compiler plus
 a corpus — two SSoTs one seam, md→Typst one-way via a third markydown.py emitter;
@@ -283,7 +283,7 @@ master doc and board, cut M1."
 
 ---
 
-**2026-08-06 · Grand Architect** — Laid the keel for **v2 — the retrofits** (GENESIS §8's
+**2026-08-06 · Grand Architect · unrecorded** — Laid the keel for **v2 — the retrofits** (GENESIS §8's
 named successor; this summons was Felix's word). Recon per the harvest law: hexwright
 read whole (quiet on clean `master` at its Phase-1/2 boundary — WO-001–004 landed,
 Felix's Greenhouse ruling PENDING; role trinity collides with canon by name); simmy read
@@ -317,7 +317,7 @@ work docs. Queue empty.
 
 ---
 
-**2026-08-06 · Architect (07)** — simmy retrofit executed to its DoD, all boxes checked
+**2026-08-06 · Architect · fable-high (07)** — simmy retrofit executed to its DoD, all boxes checked
 (evidence in the work doc's findings F1–F4): `DISPATCHER.md` tombstoned (banner
 superseded in the same commit), `spikes/RIDER.md` instantiated, board §6 canonical
 (headers + all 20 rows `Mantle · tier`, B14 resume annotation), §8 deduped to venue
@@ -338,7 +338,7 @@ dispatchable anytime — kickoff verbatim in `plans/06-hexwright-retrofit.md`.
 
 ---
 
-**2026-08-06 · Architect (08 cut)** — the summon rig designed and cut as board row 08:
+**2026-08-06 · Architect · unrecorded (08)** — the summon rig designed and cut as board row 08:
 Ctrl-G single-keystroke ignition for mantled sessions — 3 keys to any mantle × account
 launch, 2 to repeat last, `.` to eject an editable command; presets carry flags AND the
 mantle summons (the real keystroke sink was the summons paste, not the flags); every
@@ -354,7 +354,7 @@ anytime.
 
 ---
 
-**2026-08-06 · Architect (08 riders)** — D35 cut on Felix's mid-flight evidence and
+**2026-08-06 · Architect · unrecorded (08)** — *riders.* D35 cut on Felix's mid-flight evidence and
 folded into the brief. E1 closed: the `/color` parser swallows a combined first message
 — one positional, one job. Clipboard law: the rig never writes the clipboard by default
 (it usually already carries the previous agent's kickoff); the derived summons survives
@@ -368,7 +368,7 @@ continues; row 06 still dispatchable anytime.
 
 ---
 
-**2026-08-06 · Architect (06)** — hexwright retrofit LANDED: live surfaces speak canon
+**2026-08-06 · Architect · fable-high (06)** — hexwright retrofit LANDED: live surfaces speak canon
 (hexwright commit `bf8343f` — CLAUDE.md 30 lines on mantles + canonical tiers + doctrine
 pointer, version law promoted to Hard Law; GENESIS §6 board minted with WO-001–004
 LANDED + Phase-1 ruling PENDING; §7 onto canon mantles, stigmergy paragraph kept;
@@ -383,7 +383,7 @@ and cut the Phase 2/3 batch."
 
 ---
 
-**2026-08-06 · Architect (08 panel)** — D35 amended in place (Felix's call, his entry,
+**2026-08-06 · Architect · unrecorded (08)** — D35 amended in place (Felix's call, his entry,
 same day, pre-build): the panel + the Enter law. On Ctrl-G the full hotkey panel
 renders and live-updates per press — all bindings, selections, keystroke counter
 (launch key counts); **Enter, and only Enter, fires** — selection keys never launch by
@@ -397,7 +397,7 @@ Next: restart the Builder on the amended brief — kickoff unchanged, verbatim i
 
 ---
 
-**2026-08-06 · Builder (08)** — the summon rig built and LANDED to the amended brief:
+**2026-08-06 · Builder · opus-high (08)** — the summon rig built and LANDED to the amended brief:
 `summon/summon.zsh` (Ctrl-G ZLE panel, mantle + bare paths, arm-and-fire repeat, eject,
 opt-in `y` yank, JSONL telemetry, `summon-stats`), `summon/presets.tsv` +
 `accounts.tsv` (D34 seeds, Builder/Digger commented), `summon/README.md`,
@@ -427,7 +427,7 @@ remain dispatchable — kickoffs verbatim in their docs.
 
 ---
 
-**2026-08-06 · Architect (09 cut)** — v1.1 cut from Felix's first live day on the rig
+**2026-08-06 · Architect · unrecorded (09)** — v1.1 cut from Felix's first live day on the rig
 (D36 queued; dispatch countersigns): sticky selection state à la the Claude Code model
 selector — panel opens pre-selected, **Ctrl-G Enter refires in 2 keys**, retiring the
 3-key double-Ctrl-G repeat and `log/last`; the sticky form forced staging out — every
@@ -444,7 +444,7 @@ Next: Felix dispatches 09 (kickoff verbatim in the brief); his dotfiles source l
 
 ---
 
-**2026-08-06 · Architect (08 closeout tending)** — Felix added the dotfiles source line
+**2026-08-06 · Architect · unrecorded (08)** — *closeout tending.* Felix added the dotfiles source line
 (08's last integration step); smoke ×3 remains PENDING — one real launch per account
 through the rig, since `lab/08/run` proved everything against a shim and account
 routing (`CLAUDE_CONFIG_DIR` → the right silo) is the one failure mode only a real
@@ -458,7 +458,7 @@ kickoff in `plans/09-summon-rig-v11.md`.
 
 ---
 
-**2026-08-06 · Builder (09)** — summon rig v1.1 LANDED: `Ctrl-G Enter` refires in 2 keys,
+**2026-08-06 · Builder · opus-high (09)** — summon rig v1.1 LANDED: `Ctrl-G Enter` refires in 2 keys,
 staging gone (every key global, `k`=haiku so `h`=[h]igh), preset cascade with single-field
 overrides, `[n]one` bare, sticky four-field state in `log/state` persisted on fire only
 (Esc and Ctrl-G-toggle discard, eject too), preview footer = what fires, responsive wrap
@@ -479,7 +479,7 @@ marks D36 `✓ Felix` and folds F1/F2 (the escape-vs-highlight law) wherever can
 
 ---
 
-**2026-08-06 · Architect (09 review)** — Board trued after row 09. D36 marked ✓ Felix
+**2026-08-06 · Architect · unrecorded (09)** — Board trued after row 09. D36 marked ✓ Felix
 (countersigned by dispatch, per D34 precedent — the visual pass is DoD acceptance, a
 separate track, and landed the same day: Felix ran the rig all first live day and
 adopted it). F1/F2 (escapes die in `zle -M`; panel colour rides `region_highlight`)
@@ -494,7 +494,7 @@ falsify byte-level transcript assertions in any repo, search bytes with python.
 
 ---
 
-**2026-08-06 · Architect (09 review, addendum)** — Felix named the system: **the
+**2026-08-06 · Architect · unrecorded (09)** — *review, addendum.* Felix named the system: **the
 Guild** — the mantled-agent system formerly "the agent mantle system". His decree,
 in-session, with provenance worth keeping: he ideated and extensively deliberated a
 guild system as a teenager, then built it as an adult without noticing until the name
@@ -507,7 +507,7 @@ transcript assertions; search bytes with python).
 
 ---
 
-**2026-08-07 · Grand Architect (the Guild)** — Felix's second foundational summons
+**2026-08-07 · Grand Architect · unrecorded** — *the Guild.* Felix's second foundational summons
 (opened 2026-08-06): appreciate the risen city, then enshrine. Enshrined: **D37 the
 Guild** (name + provenance — designed in his teens, built before noticing; woven at
 name altitude: GENESIS §1, mantles README, repo CLAUDE.md, one clause in the live
@@ -570,7 +570,7 @@ appended.
 
 ---
 
-**2026-08-07 · Architect (row 10 cut)** — summon rig v1.2: the usage panel. Felix's
+**2026-08-07 · Architect · unrecorded (10)** — *cut.* summon rig v1.2: the usage panel. Felix's
 call: a condensed per-account session/week/Fable table in the Ctrl-G panel, pacing
 deltas green/red against each window's reset clock — the account digit becomes an
 informed spend. Designed the row: delta = elapsed% − used%; colors are trust (stale
@@ -597,7 +597,7 @@ Phase A (E2) runs with Felix at the keyboard; its gate is in the brief.
 
 ---
 
-**2026-08-07 · Builder (10)** — summon rig v1.2, the usage panel: **LANDED**, `lab/08/run`
+**2026-08-07 · Builder · opus-high (10)** — summon rig v1.2, the usage panel: **LANDED**, `lab/08/run`
 **130 assertions, 0 failures** (76 at v1.1). Phase A settled E2 with Felix at the keyboard.
 (a) local sidecars: `policy-limits.json`, `daemon.status.json`, `stats-cache.json` all
 ruled out with evidence — but `.claude.json` → `cachedUsageUtilization` carries every
@@ -692,7 +692,7 @@ summons at the end of Addendum 2 still stands.
 
 ---
 
-**2026-08-07 · (null mantle, D26 — forensic session, unsummoned)** — Felix's Activity
+**2026-08-07 · unrecorded · unrecorded** — *null mantle, D26 — forensic session, unsummoned.* Felix's Activity
 Monitor filled with 95%-CPU zsh processes, three more per Ctrl-G; traced, reduced,
 hotfixed, all same evening. The cause was v1.2's panel-open usage spawn — a trap with
 two jaws, full forensics in **10-F10**: (a) `{ _summon_usage_fetch } &!` forks the
@@ -728,7 +728,7 @@ review and cut row 11, and rule on 10-F1, 10-F6(a), and 10-F10's spawn options.
 
 ---
 
-**2026-08-08 · Grand Architect (the handoff harvest)** — Felix's field evidence (manny
+**2026-08-08 · Grand Architect · unrecorded** — *the handoff harvest.* Felix's field evidence (manny
 batch-3's kickoff-on-ask-only, node-param's three-option close + mantle-less kickoffs,
 units' conforming board with its self-invented Gate column) diagnosed as one failure
 surface: the session boundary. First, the mantle ruling for the record: the summon rig
@@ -756,7 +756,7 @@ verbatim in the 2026-08-07 GA entry (simmy §8 pre-authorization, orb-machine sw
 
 ---
 
-**2026-08-08 · Grand Architect (06)** — The growing-pains sitting: Felix's field
+**2026-08-08 · Grand Architect · unrecorded (06)** — The growing-pains sitting: Felix's field
 reports (ISSUES.md) diagnosed and folded. Ruled the b15 close an invalid baton — two
 holders is zero holders, no instrument, and behind it an undispatched executable gate
 (a D44 row the chain should have eaten); cohort caveat recorded — charters are read
@@ -798,7 +798,7 @@ experiment.
 
 ---
 
-**2026-08-08 · Builder (12)** — The dispatch guard: **LANDED**, four live arms green
+**2026-08-08 · Builder · opus-high (12)** — The dispatch guard: **LANDED**, four live arms green
 (`lab/12/run`, evidence in the order). `guard/` ships three files — `dispatch-guard`
 (a PreToolUse hook denying any Agent call whose `tool_input` carries a non-empty
 `model`/`effort`, failing closed on an unreadable payload), `settings-fragment.json`
@@ -825,7 +825,7 @@ on F6; row 11's Architect summons and the queued harvest sweep still stand behin
 
 ---
 
-**2026-08-08 · Grand Architect (06) — addendum, same sitting** — The sitting outlived
+**2026-08-08 · Grand Architect · unrecorded (06)** — *addendum, same sitting.* The sitting outlived
 its boundary (row 12 went blessed → fired → LANDED between paragraphs; the Builder's
 entry above). At Felix's ask, the peer-plane deliberation written down:
 `plans/quartermaster.md` — the capability map dated to build ~2.1.226 (roster schema
@@ -861,7 +861,7 @@ GA entry) · the parked messaging experiment (plans/quartermaster.md).
 
 ---
 
-**2026-08-08 · Architect (board truing after 10–12)** — The standing summons executed
+**2026-08-08 · Architect · fable-high** — *board truing after 10–12.* The standing summons executed
 in full; every ruling filed where its finding lives. **10-F1 accepted** (2.562 ms per
 keystroke; the latency clause was the defect — "unchanged" becomes a budget:
 per-keystroke ≤ 5 ms measured, fork-free asserted; row 11 inherits). **10-F6(a)
@@ -891,7 +891,9 @@ Dispatcher**. Decided: the rulings above, all inside delegated scope — nothing
 that is Felix's; his one call is the named blessing. Next: Felix blesses row 11; the
 chain runs behind his word.
 
-**2026-08-08 · Architect — addendum, same sitting** — Felix defers row 11 (the live
+---
+
+**2026-08-08 · Architect · fable-high** — *addendum, same sitting.* Felix defers row 11 (the live
 refresh). Board re-trued: the blessing gate stands unmet, nothing dispatches; the
 v1.3 chain inverts — **13 is dispatchable now** (its only dependency was the file
 collision with 11) and 11 rebases on it when unshelved; never both in flight. The
@@ -912,7 +914,7 @@ Felix fires the adoption summons; row 13's kickoff behind it.
 
 ---
 
-**2026-08-15 · Grand Architect (07)** — Summoned in the whiteboardy checkout to found
+**2026-08-15 · Grand Architect · unrecorded (07)** — Summoned in the whiteboardy checkout to found
 that project; ruled the summons mis-mantled — founding is an Architect's act
 (DOCTRINE §12) — and held the fence: zero project work done under this charter. The
 sweep ran: both inbox entries ruled fold → **D50** (bulletin worktree law — relay
@@ -941,7 +943,7 @@ and ~/code/whiteboardy/dream.md, and found the project.
 
 ---
 
-**2026-08-22 · Grand Architect (08)** — The great harvest: sixteen items — twelve
+**2026-08-22 · Grand Architect · unrecorded (08)** — The great harvest: sixteen items — twelve
 inbox entries plus the four-item queue standing since 08-07 — every one ruled, the
 inbox drained empty (third drain, biggest yet). **Folded, ✓ Felix in-sitting:
 D53–D61** — ISSUES generalizes (every project's inbox, Architect-swept,
@@ -1003,7 +1005,7 @@ Felix's word.
 
 ---
 
-**2026-08-22 · Builder (13)** — The name-stamp: **LANDED**, 170 assertions green three
+**2026-08-22 · Builder · opus-high (13)** — The name-stamp: **LANDED**, 170 assertions green three
 runs running (`lab/08/run`, evidence in the order). Every session the rig fires is now
 born named — `-n <mantle>-<theater>-<NN>`, the theater `${PWD:t}` at fire time, the
 Grand Architect theaterless (one office), a bare launch mantle-less. The ordinal is the
@@ -1033,8 +1035,10 @@ title and the peer roster (the rig is live on the next new shell; `summon/` is s
 from dotfiles, not deployed). Behind it: row 11 stays deferred at his word, and rebases
 onto this when he unshelves it.
 
-**2026-08-22 · Architect (fable-high) · board trued post-GA-08, row 13 amended +
-dispatched + landed.** Changed: `plans/13` scheme amended in-sitting with Felix — the
+---
+
+**2026-08-22 · Architect · fable-high** — *board trued post-GA-08, row 13 amended +
+dispatched + landed.* Changed: `plans/13` scheme amended in-sitting with Felix — the
 numbering ask (ISSUES 04152cf) ruled into mechanics: `<mantle>-<theater>-<NN>`, account
 segment out (arbitrage, not identity), **GA drops theater — one office, redundancy is
 not information (Felix, overruling the uniform-scheme draft; core-value candidate filed
@@ -1042,14 +1046,14 @@ to ISSUES: eliminating redundancy over enforcing blind consistency)**; `%02d` or
 from `invocations.jsonl` (new `name` field, one pass at panel open), `+`/`-` bump as
 seed-and-correct path — no synthetic seeds, no restart, GA continues at 09. Builder
 dispatched at opus-high, LANDED same sitting (170×3 green, re-run by this hand).
-Decided (delegated scope): F4/F5 row-10 contract narrowings **ratified** — forced by
+Decided: (delegated scope) F4/F5 row-10 contract narrowings **ratified** — forced by
 the scheme, protections preserved; F1 guard **cut into row 11's rebase scope** (MAP
 row 11); F7 seed ceiling **accepted parked** — revisit only if it bites. Next: Felix's
 smoke (row 13's one open box), then row 11 awaits his unshelving.
 
 ---
 
-**2026-08-24 · Builder (opus-high, dispatched) · row 14 — the theater cycle.** Changed:
+**2026-08-24 · Builder · opus-high (14)** — *dispatched — the theater cycle.* Changed:
 `summon/summon.zsh` gains `.summon-theaters` (fire directory only, one theater per line,
 first line the default, no file → `${PWD:t}` unchanged), the reserved `t` key cycling it
 with wrap, and per-directory stickiness in `log/theaters` under the same on-fire-only law
@@ -1083,11 +1087,13 @@ shell; `summon/` is sourced from dotfiles, not deployed). Behind it: row 11 stay
 at his word and now rebases onto 13 *and* 14; the parked adjacent is a `summon-stats` that
 reports lineages and campaigns, which 13 and 14 both left behind.
 
-**2026-08-24 · Architect (fable-high) · row 14 cut, dispatched, landed, ruled.** The
+---
+
+**2026-08-24 · Architect · fable-high (14)** — *cut, dispatched, landed, ruled.* The
 theater cycle — Felix's ask (bob hosts bob/lunchbox/pods; deep-firing fragments the
 project silo, eject blinds the counter), forks ruled by him (`t` key, sticky per dir).
 Builder at opus-high LANDED same day: 200 assertions ×4 (re-run green by this hand),
-13-F1's guard landed with it and proved both ways. Decided (delegated scope): 14-F1
+13-F1's guard landed with it and proved both ways. Decided: (delegated scope) 14-F1
 **accepted** — a malformed theater line refuses the panel loudly (argv hazard, 13-F9's
 class; silent skip rejected as a lie to the cycle); 14-F2 **accepted** — sticky map is
 `log/theaters`, listing directories only (narrower state than the order's wording,
@@ -1098,7 +1104,7 @@ reopen sticky), then row 11 still deferred at his word.
 
 ---
 
-**2026-08-24/25 · Grand Architect (GA-09) → Mentat 00** — The night-shift deliberation,
+**2026-08-24 · Grand Architect · unrecorded (GA-09)** — *2026-08-24/25 → Mentat 00.* The night-shift deliberation,
 at Felix's ask (what does the Guild need to build without him): keel-note landed at
 [plans/night-shift.md](plans/night-shift.md) — the three wants untangled, the throne
 ruling (D39 stands; the office is the **Steward**, Felix's name-ruling, unminted), the
@@ -1117,7 +1123,7 @@ named in D62); the night-shift keel waits at his word.
 
 ---
 
-**2026-08-26 · Mentat (mentat-02)** — The belvedere sitting: Felix's interface threshold
+**2026-08-26 · Mentat · unrecorded (mentat-02)** — The belvedere sitting: Felix's interface threshold
 (33 terminals) deliberated against superset / t3code / my_checklist (scout recon;
 watch-don't-marry upheld, steal lists kept in the keel). Keel landed at
 [plans/belvedere.md](plans/belvedere.md) — the glass over all agentic work:
@@ -1142,7 +1148,7 @@ left **uncommitted** on purpose: Felix reviews, edits, and commits it by his own
 
 ---
 
-**2026-08-26 · Architect (founding, fable-max — belvedere)** — Belvedere founded at
+**2026-08-26 · Architect · fable-max (15)** — *founding — belvedere.* Belvedere founded at
 [belvedere/](belvedere/README.md) on the keel + dream (dream.md landed immutable as
 the first commit — Felix fired the summons ordered behind his red pen; flagged for
 his veto). Master doc with board, fence, and rework mandate; local D1–D6 (D1–D2

@@ -77,7 +77,8 @@ appended, commits in Felix's git style.
 ## Kickoff (verbatim)
 
 ```
-You are an Architect at fable-max. Wear ~/code/agents/canon/mantles/architect.md, then
+You are an Architect at fable-max.
+Wear ~/code/agents/canon/mantles/architect.md, then
 read GENESIS.md and plans/02-work-doctrine.md, and execute the brief.
 ```
 

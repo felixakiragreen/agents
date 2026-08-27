@@ -107,6 +107,7 @@ exactly. If the prompt names documents to read, read them before acting.
 ## Kickoff (verbatim)
 
 ```
-You are an Architect wearing the mantle at fable-max. Read GENESIS.md, then
+You are an Architect at fable-max.
+Wearing the mantle, read GENESIS.md, then
 plans/01-composition-model.md, and execute the brief.
 ```
