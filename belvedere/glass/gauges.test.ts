@@ -178,7 +178,7 @@ describe('WIP — a roster figure is a floor, and says so', () => {
 		const w = wip(read([session({ sid: 'a', roster: { tasks: full, at: NOW, capped: true } })]), rig, () => 'agents');
 		expect(w.subagents).toEqual({ n: BG_CAP, capped: true, unobserved: 0 });
 		expect(rosterText(w.subagents)).toBe('16+');
-		expect(wipGauges(w)).toContain('16+');
+		expect(wipGauges(w, 9)).toContain('16+');
 	});
 
 	test('rosterText leaves an uncapped figure alone — the `+` carries information', () => {
@@ -191,7 +191,7 @@ describe('WIP — a roster figure is a floor, and says so', () => {
 		const w = wip(read([session({ sid: 'a', roster: null })]), rig, () => 'agents');
 		expect(w.subagents).toEqual({ n: 0, capped: false, unobserved: 1 });
 		expect(rosterText(w.subagents)).toBe('?');
-		expect(wipGauges(w)).toContain('never been observed');
+		expect(wipGauges(w, 9)).toContain('never been observed');
 	});
 
 	test('an observed EMPTY roster really is zero — that session did tell the census', () => {
@@ -200,7 +200,7 @@ describe('WIP — a roster figure is a floor, and says so', () => {
 	});
 
 	test('no census degrades honestly: the panel says the sensor is missing, it does not draw zero', () => {
-		const html = wipGauges(wip({ present: false, sessions: [], beats: 0, malformed: 0, since: null }, rig, () => null));
+		const html = wipGauges(wip({ present: false, sessions: [], beats: 0, malformed: 0, since: null }, rig, () => null), 9);
 		expect(html).toContain('census not deployed');
 		expect(html).not.toContain('by account');
 	});

@@ -18,7 +18,7 @@
 import { readdirSync, existsSync, statSync } from 'fs';
 import { join } from 'path';
 import { identify, isLive, readCensus, type CensusRead, type Session } from './census';
-import { usageStrip, wip, wipGauges, readUsage, usageNote } from './gauges';
+import { auditorCount, usageStrip, wip, wipGauges, readUsage, usageNote } from './gauges';
 import { handsState } from './hands';
 import { esc, label, page, pill, short } from './html';
 import { ago, buildingOf, censusNote, registerNote, window_ } from './pages';
@@ -305,6 +305,6 @@ export function shelfPage(query: URLSearchParams): string {
 
 	const ms = performance.now() - t0;
 	return page('Belvedere — the shelf', '<a href="/">rail</a> <span>/</span> <a href="/city">city</a> <span>/</span> <span>shelf</span> <span>/</span> <a href="/summon">summon</a>',
-		banner + counts + usageStrip(usages, now) + wipGauges(load) + filters + LEGEND + list + SCRIPT,
+		banner + counts + usageStrip(usages, now) + wipGauges(load, auditorCount()) + filters + LEGEND + list + SCRIPT,
 		`${all.length} transcripts scanned in ${ms.toFixed(0)} ms · ${usageNote(usages)} · ${registerNote(reg, '/shelf')}`);
 }

@@ -24,7 +24,8 @@ import { dirname, resolve } from 'path';
 import { parseKickoffs, type Baton, type BoardRow, type Building, type Decision, type Instrument, type LedgerEntry } from '../../doctrine';
 import { isLive, readCensus, type CensusRead, type Session } from './census';
 import { handsState } from './hands';
-import { esc, inline, page, pill, short, stateTone, type Tone } from './html';
+import { encap, encapHtml, esc, inline, legend, LIVENESS_KEYS, mantleKeys, page, pill, short, stateTone, type Tone } from './html';
+import { auditorCount, auditorLine } from './gauges';
 import { countersignAct, countersignPill, countersignState, INBOX_SCRIPT, noteBox, type Countersigned } from './inbox';
 import { buildingOf, censusNote, registerNote, window_ } from './pages';
 import { city } from './register';
@@ -204,8 +205,15 @@ export function cards(buildings: Building[], rig: Rig, account: string): Card[] 
 	const rank = (c: Card) => c.kind === 'baton'
 		? (c.wired && c.shots.length ? 0 : c.baton.holder === 'prose' ? 3 : 2)
 		: c.kind === 'countersign' ? 1 : 2;
-	return out.sort((a, c) => rank(a) - rank(c) || a.building.localeCompare(c.building));
+	// **Attention first, recency within** (design law): the rank is attention and it decides across
+	// groups; the date only ever orders inside one. A card the doctrine gives no date — a Felix-gate
+	// is a board row, not an entry — keeps its rank and falls to the named order, never to the top.
+	return out.sort((a, c) =>
+		rank(a) - rank(c) || dateOf(c).localeCompare(dateOf(a)) || a.building.localeCompare(c.building));
 }
+
+/** ISO dates sort as strings; a card with none sorts as the empty string, which is oldest. */
+const dateOf = (c: Card) => c.kind === 'baton' ? c.entry.date : c.kind === 'countersign' ? c.decision.date : '';
 
 // ---------- render ----------
 
@@ -233,6 +241,20 @@ const buildingLink = (slug: string) =>
  * cold state and a different one — the hands' credential is absent, so the button exists and is
  * disabled (B4 E2). One says "not this card"; the other says "not this glass, yet".
  */
+/**
+ * Which account fires this shot — **a toggled button group, never a dropdown** (design law, README
+ * §3; B9's sweep took the glass's last `<select>` out of this file). The radio IS the state, so the
+ * browser holds it and the script reads `:checked`; the composer's `input.pick + label.btn` costume
+ * is reused rather than re-invented. The group's name is the shot's own name-stamp, which `taken`
+ * already reserves once per render — so no two pickers on the rail can ever share a radio group.
+ */
+const accountPicker = (stamp: string, accounts: string[]) =>
+	`<span class="btns" data-account>${accounts.map((a, n) => {
+		const id = `as-${stamp}-${n}`;
+		return `<input class="pick" type="radio" name="as-${esc(stamp)}" id="${esc(id)}" value="${esc(a)}"${n ? '' : ' checked'}>`
+			+ `<label class="btn" for="${esc(id)}">${esc(a)}</label>`;
+	}).join('')}</span>`;
+
 function shotHtml(s: Shot, armed: boolean, accounts: string[], wired: boolean): string {
 	const head = `<div class="shot-h"><b>${esc(s.label)}</b>`
 		+ (s.recommended ? ' ' + pill('recommended', 'green') : '')
@@ -255,7 +277,7 @@ function shotHtml(s: Shot, armed: boolean, accounts: string[], wired: boolean): 
 	return `<div class="shot">${head}${summons}
 		<div class="acts">
 			<span class="label">as</span>
-			<select class="account" data-account>${accounts.map((a, n) => `<option${n ? '' : ' selected'}>${esc(a)}</option>`).join('')}</select>
+			${accountPicker(s.fire.body.stamp, accounts)}
 			<button class="go" data-fire="${esc(body)}"${wt}${disabled}>new session</button>
 			<button class="alt" data-copy>copy summons</button>
 			<span class="out" data-out>${esc(`${s.fire.body.stamp} · ${s.fire.body.model}-${s.fire.body.effort} · ${short(s.fire.body.cwd)}`)}</span>
@@ -287,15 +309,15 @@ function batonCard(c: Card & { kind: 'baton' }, armed: boolean, accounts: string
 	return `<article class="rail tone-${tone}" data-kind="baton" data-holder="${c.baton.holder}">
 		<div class="rail-h">${buildingLink(c.building)} ${pill(HOLDER[c.baton.holder], tone)} ${shape}
 			<span class="when">${esc(c.entry.date)} · ${esc(c.entry.mantle)}${c.entry.row ? ` (${esc(c.entry.row)})` : ''}</span></div>
-		<p class="rail-text">${inline(prose(c.baton.text), base)}</p>${forkNote}${dropped}${named}${shots}${foot}</article>`;
+		${encapHtml(prose(c.baton.text), base, 'rail-text')}${forkNote}${dropped}${named}${shots}${foot}</article>`;
 }
 
 const gateCard = (c: Card & { kind: 'gate' }, foot: string) =>
 	`<article class="rail tone-purple" data-kind="gate" data-holder="felix">
 		<div class="rail-h">${buildingLink(c.building)} ${pill('Felix-gate', 'purple')} ${pill(c.row.state ?? 'UNPARSED', stateTone(c.row.state))}
 			<span class="when">row ${esc(c.row.id)}</span></div>
-		<p class="rail-text">${inline(c.gate || c.row.work, dirname(c.file))}</p>
-		${c.gate ? `<p class="note">${esc(c.row.work).slice(0, 220)}</p>` : ''}${foot}</article>`;
+		${encapHtml(c.gate || c.row.work, dirname(c.file), 'rail-text')}
+		${c.gate ? `<p class="prose note">${esc(encap(c.row.work).name)}</p>` : ''}${foot}</article>`;
 
 const countersignCard = (c: Card & { kind: 'countersign' }, foot: string) =>
 	// The pill is the CARD'S state, not the queue's word for it: a decision the parser queues and
@@ -303,7 +325,7 @@ const countersignCard = (c: Card & { kind: 'countersign' }, foot: string) =>
 	`<article class="rail tone-yellow" data-kind="countersign" data-holder="felix">
 		<div class="rail-h">${buildingLink(c.building)} ${countersignPill(c.state)}
 			<span class="when">${esc(c.decision.id)} · ${esc(c.decision.date)} · ${esc(c.decision.decider)}</span></div>
-		<p class="rail-text">${inline(c.decision.title, dirname(c.file))}</p>
+		${encapHtml(c.decision.title, dirname(c.file), 'rail-text')}
 		${countersignAct(c.path, c.decision, c.state)}${foot}</article>`;
 
 /**
@@ -354,7 +376,7 @@ document.addEventListener('click', async ev => {
 	};
 	btn.disabled = true;
 	const body = JSON.parse(btn.dataset.fire);
-	body.account = shot.querySelector('[data-account]').value;
+	body.account = shot.querySelector('[data-account] input:checked').value;
 	try {
 		if (btn.dataset.worktree) {
 			out.textContent = 'worktree…';
@@ -372,6 +394,20 @@ document.addEventListener('click', async ev => {
 });
 </script>`;
 
+/**
+ * The rail's two colour vocabularies, said out loud (design law, README §3): the card's own left
+ * edge — whose card is this, and will it fire — and the city strip's windows, which are the City
+ * View's vocabulary appearing here in miniature.
+ */
+const railLegend = (rig: Rig) => legend([
+	`${pill('baton', 'green')} fireable — the parser and the clause agree it is a session's`,
+	`${pill("Felix's baton", 'purple')} his — a gate, a collision (D10), or a clause that names him`,
+	`${pill('pending countersign', 'yellow')} a decision waiting on his pen`,
+	`${pill('dropped baton', 'orange')} the Next clause carries no instrument at all`,
+	...LIVENESS_KEYS,
+	...mantleKeys(rig.colours),
+]);
+
 export function railPage(): string {
 	const t0 = performance.now();
 	const { reg, buildings } = city();
@@ -386,7 +422,7 @@ export function railPage(): string {
 	for (const c of list) { n[c.kind]++; if (c.kind === 'baton' && c.wired) n.fireable += c.shots.filter(s => !('blocked' in s.fire)).length; }
 
 	const banner = hands.armed ? '' : `<section class="panel"><h2>Hands disabled</h2>
-		<p class="note">Every Dispatch button below is cold — <code>/hands/*</code> answers 503 until the credential is armed.
+		<p class="prose note">Every Dispatch button below is cold — <code>/hands/*</code> answers 503 until the credential is armed.
 		The rail itself is unaffected: it reads the city either way.
 		<br><span class="bad">${esc(hands.note)}</span></p></section>`;
 
@@ -399,12 +435,14 @@ export function railPage(): string {
 		<div class="stat"><span class="label">live sessions</span><b>${census.sessions.filter(isLive).length}</b></div>
 		<div class="stat"><span class="label">hands</span><b class="small">${hands.armed ? pill('armed', 'green') : pill('disabled', 'orange')}</b></div>
 		<div class="stat"><span class="label">census</span><b class="small">${censusNote(census)}</b></div>
-	</section>`;
+	</section>
+	<p class="prose note">${auditorLine(census.sessions.filter(isLive).length, auditorCount())} — the count is the
+		sensor's drift alarm, never a session: it joins nothing and houses nothing (B5 E1's ruling).</p>`;
 
 	const body = list.map(c => cardHtml(c, hands.armed, accounts)).join('');
 
 	const ms = performance.now() - t0;
 	return page('Belvedere — the rail', '<span>rail</span> <span>/</span> <a href="/city">city</a> <span>/</span> <a href="/shelf">shelf</a> <span>/</span> <a href="/summon">summon</a>',
-		banner + counts + strip(buildings, census, rig) + `<section class="railcol">${body}</section>` + SCRIPT + INBOX_SCRIPT,
+		banner + counts + strip(buildings, census, rig) + railLegend(rig) + `<section class="railcol">${body}</section>` + SCRIPT + INBOX_SCRIPT,
 		`content re-read in ${ms.toFixed(0)} ms · ${registerNote(reg, '/')}`);
 }
