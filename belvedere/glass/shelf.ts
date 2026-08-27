@@ -20,11 +20,11 @@ import { join } from 'path';
 import { identify, isLive, readCensus, type CensusRead, type Session } from './census';
 import { usageStrip, wip, wipGauges, readUsage, usageNote } from './gauges';
 import { handsState } from './hands';
-import { esc, label, page, pill, sessionTone, short } from './html';
+import { esc, label, page, pill, short } from './html';
 import { ago, buildingOf, censusNote, registerNote, window_ } from './pages';
 import { projectsDir } from './paths';
 import { register, type Entry } from './register';
-import { accountLabel, mantleOf, readRig, type Rig } from './rig';
+import { mantleOf, readRig, type Rig } from './rig';
 import { colourOf } from './summon';
 
 /**
