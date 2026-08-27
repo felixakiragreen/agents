@@ -1286,3 +1286,30 @@ the migration rulings are inside 18a's delegated fence. Next: the wave's Dispatc
 closes 18a and the batch (18a's evidence rides its report verbatim); behind it, Felix's
 Grand Architect sweeps the four inbox entries — the `unrecorded` vocabulary ruling gates
 the last 27 failures in this repo and every other building in the wave.
+
+---
+
+**2026-08-26 · Architect · opus-medium (18f)** — cap-mega's snappy/ch2/docs cluster
+migrated to D63. Four of five buildings land clean: units 4→0, advanced-naming-system
+26→0, node-global-parameters 2→0, ch2 16→1, waypoint-stepper 17→6 — **7 residual
+failures across 93 rows, every one the typed-absence vocabulary gap** (18a/18d's
+`unrecorded`, plus 18f's own: D63 has no Staffing token for a deliberately *unstaffed*
+row, which is a recorded fact and not an absent record). **snappy is BLOCKED**: its
+`LEDGER.md` is missing ~38 `---` separators, so 22 entries parse where ~60 heads exist
+and `migrate` aborts on 5 round-trip violations — the tool blames itself, wrongly; the
+parse is right and the document is malformed. Repairing it re-frames 38 invisible
+entries into the parse, each owing its own residue ruling — a fork §method doesn't
+pre-chew, escalated rather than guessed (`snappy/ISSUES.md` + the canon inbox). Two
+converter defects found and neither hand-fixed: **(1)** `migrate` orphans a `**` when a
+status cell's bold run is wider than its leading verdict token, and **the round-trip law
+cannot catch it** because `annotation` is a declared-changed field — so "round-trip ok"
+is no proof of a clean diff; the `docs` pair was hand-spelled instead, then verified by a
+second `migrate` reporting "already in the current grammar". **(2)** a blank line inside
+a board table silently truncates it: ch2's board was three tables and rows 12–13 were
+invisible to the parser *and* the lint, which read their residues as zero — a low row
+count is a symptom, not a clean bill. Both bulletined for the rows still running
+`--write`. Commits in cap-mega: `38fa39ca1`, `2a7b26453`, `49b46333a`, `477ba65f3`,
+`351f4df91`, `56c68c567`; here: findings + ISSUES ×2 + bulletin. Decided: nothing — the
+`unstaffed` token and the snappy separator repair are both the Grand Architect's.
+Next: the wave's Dispatcher closes 18f (evidence rides its report verbatim); snappy
+returns as its own row once the separator fork is ruled.
