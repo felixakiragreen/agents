@@ -96,7 +96,16 @@ test('wire: a pid that is absent, empty or junk is unaskable, never pid 0', () =
 });
 
 test('wire: the full record renders a state, and no dropped field is load-bearing', () => {
-	// `ws`, `sf`, `pmt`, `mode`, `aid`, `at` and the capped `bg` roster (bulletin §3) are
-	// deliberately not read by the spine — B4's jump-in and B5's WIP gauges own them.
+	// `pmt`, `mode`, `aid`, `at` and the capped `bg` roster (bulletin §3) are deliberately not
+	// read by the spine — B5's WIP gauges own them.
 	expect(sessionState(toBeat(WIRE)!, true, WIRE.t + 10)).toBe('idle');
+});
+
+test('wire: the venue join is present or honestly absent, never an empty pane (B4)', () => {
+	// Hooks are venue-blind (P1 F1): a Ghostty session stamps `""` for both, and `/hands/focus`
+	// must read that as "no panel to jump to" rather than as a panel named "".
+	const outside = toBeat(WIRE)!;
+	expect([outside.ws, outside.sf]).toEqual([null, null]);
+	const inside = toBeat({ ...WIRE, ws: 'workspace-uuid', sf: 'surface-uuid' })!;
+	expect([inside.ws, inside.sf]).toEqual(['workspace-uuid', 'surface-uuid']);
 });
