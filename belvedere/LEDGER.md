@@ -548,33 +548,6 @@ Decided: E1/E2 rulings (delegated scope). Next: Felix relays the resume —
 
 ---
 
-**2026-08-27 · Architect · fable-max (v0 verify + flow hand-off)** — *same
-session, continued.* B6/B7/B9 verified LANDED off their plans: B6 — 219 tests,
-append-only proven under ten concurrent POSTs, adoption mints the template's own
-bytes, **the apply button fires a scoped Architect sitting** (first turn ≡
-template); B7 — composed/founding/worktree fires byte-exact (sha per fire),
-stamp ordinal proven against three sources, trust verdict on the card, disabled
-mode honest; B9 — 302 tests, Inter vendored-not-fetched (cheaper than the
-authorized fetch), auditor delta live on all three views (8 tracked · ≈35
-visible), city grouped, zero `<select>`; one unproven path named (F4 — the radio
-picker's `:checked`, proven by the close smoke). Inbox swept (1): B6's own first
-live gesture caught pre-D63 wording in README §2 write #3 and the inbox header —
-ruled TRUE THE DOCS, both trued, entry drained. **Felix's close words recorded**
-(batch-3 note): visual pass "capable", rearranging parked as flow-chapter design
-input; the live-fire smoke assigned — **firing the flow-cut Architect from
-`/summon`**, one act, three proofs. Keel amended at his word ("reactive, dynamic
-flow"): **dynamic extension** — the DAG grows mid-flow; the **arm-scope fork**
-(step-arm vs scope-arm) named as the chapter's first Felix-fork, his lean
-scope-arm, ruled at the cut sitting's blessing; S5 evidence note (starts and
-beats proven, sustained unattended tool work not — probe #1). Pre-ruled: the
-auditor count may take a register-pattern TTL when its p95 crosses half the
-bar; until then it stands as built. Decided: the sweep ruling (docs trued).
-Next: **Felix fires the flow-cut Architect from `/summon`** — kickoff verbatim
-in the report; that fire IS the close smoke; the fired sitting closes batch 3
-(§8 DoD) and cuts flow batch 1. This desk is clear.
-
----
-
 **2026-08-27 · Builder · opus-high (B6 — the sovereign's inbox)** — his word travels
 without his hands: `POST /inbox` is the fence's third write, and it is the only one
 that touches a file the city commits. Four gestures — a free-text note, `defer <row>`,
@@ -693,3 +666,34 @@ radio picker's `:checked` read is the one thing unproven without a browser (the 
 extension was not connected) — **the batch-close live fire from the rail is exactly that
 path**. Next: **batch 3 is complete — the close gates are Felix's**: the visual pass over
 rail + city, and the live-fire smoke from the rail (which doubles as F4's proof).
+
+---
+
+**2026-08-27 · Architect · fable-max (v0 verify + flow hand-off)** — *same
+session, continued.* B6/B7/B9 verified LANDED off their plans: B6 — 219 tests,
+append-only proven under ten concurrent POSTs, adoption mints the template's own
+bytes, **the apply button fires a scoped Architect sitting** (first turn ≡
+template); B7 — composed/founding/worktree fires byte-exact (sha per fire),
+stamp ordinal proven against three sources, trust verdict on the card, disabled
+mode honest; B9 — 302 tests, Inter vendored-not-fetched (cheaper than the
+authorized fetch), auditor delta live on all three views (8 tracked · ≈35
+visible), city grouped, zero `<select>`; one unproven path named (F4 — the radio
+picker's `:checked`, proven by the close smoke). Inbox swept (1): B6's own first
+live gesture caught pre-D63 wording in README §2 write #3 and the inbox header —
+ruled TRUE THE DOCS, both trued, entry drained. **Felix's close words recorded**
+(batch-3 note): visual pass "capable", rearranging parked as flow-chapter design
+input; the live-fire smoke assigned — **firing the flow-cut Architect from
+`/summon`**, one act, three proofs. Keel amended at his word ("reactive, dynamic
+flow"): **dynamic extension** — the DAG grows mid-flow; the **arm-scope fork**
+(step-arm vs scope-arm) named as the chapter's first Felix-fork, his lean
+scope-arm, ruled at the cut sitting's blessing; S5 evidence note (starts and
+beats proven, sustained unattended tool work not — probe #1). Pre-ruled: the
+auditor count may take a register-pattern TTL when its p95 crosses half the
+bar; until then it stands as built. Decided: the sweep ruling (docs trued).
+Next: **Felix fires the flow-cut Architect from `/summon`** — kickoff verbatim
+in the report; that fire IS the close smoke; the fired sitting closes batch 3
+(§8 DoD) and cuts flow batch 1. This desk is clear.
+
+*(moved to the tail 2026-08-27, flow-cut sitting: this entry was inserted
+mid-file at `920a129` — after its session's own prior entry, before three
+Builder entries already landed — breaking §7's newest-last; bytes preserved.)*
