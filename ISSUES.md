@@ -338,3 +338,60 @@ From agents. Haha.
   CONTAINS buildings deserve a campus card or a cwd-ascent housing rule, or is
   off-register the truth? Evidence:
   [belvedere/plans/b2-glass-spine.md](belvedere/plans/b2-glass-spine.md) §F2.
+
+---
+
+- 2026-08-27 · Belvedere B3 Builder (rail evidence) · **D64's baton grammar needs
+  three fields the parser cannot honestly infer: `kind`, the fork's
+  recommendation, and a row's branch.** The rail renders move/wave/fork from
+  `doctrine/`'s `Baton`, which is `{holder, text, instruments[]}` — no `kind`. Per
+  B3 §3 the shape is read render-side by a thin splitter over the baton's prose
+  (`/\bfork\b|\bexclusive\b|\bchoos|…/` vs `/\bwave\b|\bparallel\b|\bboth\b/`) and
+  plurality with neither marker renders as *"n instruments — shape unstated"*
+  rather than a guess; the recommendation is likewise scanned out of the sentence
+  containing "recommend". Both work, neither should be prose. The third is worse:
+  the amendment that composes `worktree → fire` needs the branch a row runs on, and
+  reading it from the work doc was **unsound on the real corpus** — the naive read
+  matched 12 of 62 live work docs and *every hit was retrospective* (`**Status:**
+  LANDED (branch …)`, `## Commits (branch …)`, a nested board row citing where
+  findings live), one of them on an OPEN row where a Dispatch would have composed a
+  worktree named after somebody else's finished agent checkout. Narrowed to the
+  doc's header block, worktree-naming lines only, never a landing record: 0 of 62.
+  Ask: `kind: 'move'|'wave'|'fork'`, a recommendation slot on the fork, and a
+  branch slot on the row. Evidence:
+  [belvedere/plans/b3-baton-rail.md](belvedere/plans/b3-baton-rail.md) §§F4–F5.
+
+---
+
+- 2026-08-27 · Belvedere B3 Builder (rail evidence) · **`classifyBaton` gives the
+  instrument precedence over Felix, and on the live corpus that inverts every
+  fireable baton.** Any fenced summons or `fire <row>` in a Next clause makes the
+  baton `holder: 'session'`; only a clause with no instrument at all can fall
+  through to `'felix'`. All three of the city's currently-fireable batons read the
+  other way in their own words — hexwright: *"Felix's Phase-1 acceptance ruling —
+  **PENDING** … On a pass, fire: ⟨fence⟩"*; simmy: *"**Felix** fires the summons
+  below"*; whiteboardy: *"fire 26 **when** the window's day-5 boundary lands"*. The
+  rail's holder law is satisfied (no Felix-holder baton is wired) while two
+  Dispatch buttons sit under text saying the fire is his and conditional. B3 did
+  **not** overrule the parser (D65) — the card now says *"The clause names Felix.
+  D64 reads the instrument first, so this is a session baton — read the clause
+  before firing."* — but a one-click dispatcher wants the grammar to carry this,
+  not a heuristic. Ask: an explicit holder/precondition token in the Next clause,
+  or a rule that a clause naming Felix is his regardless of the instrument it
+  quotes. Evidence:
+  [belvedere/plans/b3-baton-rail.md](belvedere/plans/b3-baton-rail.md) §E2.
+
+---
+
+- 2026-08-27 · Belvedere B3 Builder (rail evidence) · **`doctrine/` has no re-read
+  seam, so the glass hand-mirrors `assemble()`.** G1's E1 ruling splits the walk
+  (held warm) from the content (re-read per request), but `discover()` does both in
+  one pass and nothing exports "parse this file list again". `glass/register.ts`
+  therefore reimplements `assemble()`'s body — same parsers, same order, same
+  decisions-file fallback — and pins itself deep-equal to `discover()`'s own
+  `Building` in `register.test.ts` so the drift fails a test instead of quietly
+  rendering a thinner building. Ask: export the seam (`assemble(path, files)` or
+  `parseFiles(entry)`) so there is one implementation, not one plus a guarded copy.
+  Evidence:
+  [belvedere/glass/register.ts](belvedere/glass/register.ts),
+  [belvedere/glass/register.test.ts](belvedere/glass/register.test.ts).
