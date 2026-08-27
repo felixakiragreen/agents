@@ -248,3 +248,82 @@ canon rules the holder grammar or a ledger writes a clause whose two readings ag
 this batch's own close-out fire is the cheapest proof the ruling works.
 
 (Relayed from `master`, B8 LANDED 2026-08-27 — Builder)
+
+## → relay — B5 (shelf + gauges) to B6, B7, B9 and the Architect: two escalations, three findings that bind
+
+Evidence: [b5-shelf-gauges.md](b5-shelf-gauges.md) §DoD and §Findings, commits `3113670`
+… `7d1b0a3` on `master`.
+
+1. **E1 — the census sees 6 sessions; `ps` sees 38, and every WIP figure in the glass is a
+   floor.** The gauges match the census exactly (hand-counted, last beat per sid, `kill -0`
+   by hand: six sessions, same accounts, same cwds). But the census is not a census of
+   sessions, it is a census of **hooked** sessions, and B1's hooks went live at
+   `2026-08-27T04:03:16Z` (B4 F2) — so `claude --model fable --effort high -n architect` ×6,
+   `architect-cornerizer-10`, `architect-lunchbox-01`, `mentat-01`,
+   `dispatcher-cornerizer-02` and the rest of Felix's pre-hook work run on with no heartbeat
+   and will never have one. **A one-click dispatcher whose load gauge reads 6 against a
+   machine running 38 is exactly the hidden bill B5 was cut to prevent.** Built inside the
+   fence: `CensusRead.since` and a panel that leads with *"Every figure here is a floor, not
+   a total"* and prints the horizon's age. **The fix proper is the Architect's and it is a
+   sensor question, not a render one** — a process sensor is reading, but it is a *second
+   liveness authority* and P1 F5 warns against exactly those. **This binds the rail and the
+   City View identically**: both count live sessions off the same read, and both currently
+   understate by 6×.
+
+2. **E2 — a resume must not carry a summons, so `/hands/fire`'s contract widened.** B4 F1
+   makes `summons`, `stamp`, `model` and `effort` all required; the shelf stands in sessions
+   dead for weeks, and a resume that injected a first user turn would wake an agent **with no
+   instruction** and set it working. One rule added to `parseFire`: **on a resume, a field the
+   glass does not know is omitted from argv, never guessed.** `resume !== null` ⇒ those four
+   may be empty and each empty one drops its flag; a *fresh* fire still requires every one,
+   and a malformed value is still refused either way (both pinned). The line then ends at the
+   last flag — the shape cmux's own restore binding re-execs (P4 §R). **What B6 and B7
+   inherit:** `Fired.summonsPath` and `Fired.sha` are now `string | null` (null on a resume;
+   the audit records `summonsBytes: 0`), and a stampless resume names its workspace
+   `resume-<uuid8>` rather than `""`. **Backwards compatible** — every existing caller sends
+   all four fields. Proven live: three resumes, one per account, each back on its own
+   transcript under its own `CLAUDE_CONFIG_DIR`, and **the newest user turn in all three is
+   still 10–12 hours old**.
+
+3. **F1 — for the whole glass: a branch is not one path segment, and `buildingOf` assumed it
+   was.** `pages.ts` normalised a worktree cwd with
+   `cwd.replace(/\/\.claude\/worktrees\/[^/]+/, '')`. The city's branches are `bv/b3-smoke`,
+   `bv/b1-census`, `feat/x` at least as often as `naming`, so one segment came off and the
+   rest of the branch stayed on as a bogus directory:
+   `agents/.claude/worktrees/bv/b3-smoke/belvedere/lab/…` → `agents/b3-smoke/belvedere/lab/…`,
+   which still prefix-matches `agents` and so **housed in the repo root instead of the
+   sub-building — silently, with no lint.** **The City View and the rail read the same
+   function**, so both have been mis-housing worktree sessions since B2. Fixed at the cause:
+   nothing in a path says where a branch ends, so every split is offered and **the register
+   decides** (D65). The live b3-smoke session now houses in `agents/belvedere`.
+
+4. **F2 — for B6/B7 and anyone reading `bg`: only two payloads carry the roster.** Over 1739
+   live census records, **every one of the 210 non-empty rosters arrived on `Stop` (7) or
+   `SubagentStop` (203)** — not one on the 1820 `PreToolUse`/`PostToolUse` beats that
+   outnumber them 9:1. `beat.sh` stamps `(.background_tasks // [])`, so an absent field
+   arrives as `[]`, indistinguishable from an empty roster. The naive reading — "the last
+   beat's `bg`" — therefore answers **zero almost always**. `census.ts` now keys the roster
+   off the latest beat whose event actually carries one (`ROSTER_EVENTS`), keeps its
+   timestamp, and renders **`?` rather than `0`** where none was ever observed. The roster is
+   an **observation, not a state** (a shell's completion fires no event — P1 F4), so the page
+   says *last seen N ago*; and the hook's `[0:16]` slice makes any full roster a floor —
+   **induced live, not simulated**: 18 background shells in one session, the hook's own record
+   capped at `{"n":16,"types":{"shell":15,"subagent":1}}`, and that verbatim line served
+   through a real glass renders `background shells 15+`.
+
+5. **F3 — for B7: the project-directory slug is lossy and must never be parsed.**
+   `-Users-felix-code-universal-robots-sdk` is what **both** `universal_robots_sdk` and
+   `universal-robots-sdk` flatten to; `/` and `_` both become `-` and the map does not invert.
+   Read the cwd out of the transcript head instead (697 of 723 carry one in their first
+   64 KB); the other 26 say so and offer no resume, because there is nowhere honest to land.
+
+Also for B9, not blocking: **`/shelf` is built to the §3 design laws natively** — no
+dropdowns (filters are toggled button-group links, no client state, back button walks the
+history), usage sitting directly above the account group, attention-first sorting with
+recency inside each rank, `[expand]` encapsulation on a scriptless `<details>`, and a colour
+legend. **The one law it cannot finish alone is the prose face**: `.prose` is declared
+`Inter, ui-sans-serif, system-ui, …` and used throughout, but **Inter is not vendored** —
+that woff2 fetch is B9's named third-party (D54), not this row's — so the stack degrades to
+the system sans until B9 lands. Nothing reaches the network at serve time.
+
+(Relayed from `master`, B5 LANDED 2026-08-27 — Builder)
