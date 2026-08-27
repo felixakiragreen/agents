@@ -48,6 +48,11 @@ Read-everything, write-narrow. The write list is exhaustive (D3):
    Belvedere) · <what>` — trued 2026-08-27, B6's own first gesture caught the
    pre-D63 wording here)
 4. touch HALT
+5. deliver Felix's text to a session as a real turn (P6's mechanism, audited
+   by sha; D10 — an ambiguous target never sends) *(deck chapter, D18)*
+6. rename / recolor cmux display state, write-through, audited *(D18)*
+7. write files under `desk/` only — drafts, notes, dreams; commits are never
+   the glass's *(D17/D18)*
 
 It never edits boards, ledgers, decisions, or canon — those are mantle work; Felix's
 word travels as inbox entries the building's Architect applies with his name on the
@@ -128,6 +133,15 @@ Inter vendored, zero `<select>` city-wide, encapsulations and legends everywhere
 ≤6-word name, so a card leads with a derived name where the text has one and renders
 whole where it does not — the shapes need a name FIELD** (B9 F1, row-17 evidence).
 
+**Deck-era laws (Felix, 2026-08-27, the deck design sitting — [the deck
+keel](plans/deck-keel.md), BLESSED):** the law of space (no scrolling;
+proportional splits; fewest words, most things) · spelling is **color, center,
+grey** (his triple — American-mixed, for all new strings) · panes are a
+replaceable surface · **the striking law**: every law CAN be struck, channel
+discipline intact. The ⬡ hexagon motif (decorative SVG elements, hexagonal
+buttons) is reserved for the prettifying pass — parked until the deck
+functions.
+
 ## 4. Scope — v0 and non-goals
 
 **v0 (D5):** census + City View + building pages + baton rail + fire/worktree +
@@ -181,11 +195,19 @@ word only) · editing truth (forever-class, §2).
 | B7 | [Summon composer](plans/b7-summon-composer.md) — fire-anything: form + templates (founding incl.) + worktree composition | B4 | Builder · opus-high | **LANDED** 2026-08-27 — `/summon` is the blank page, fired; DoD evidenced in [B7](plans/b7-summon-composer.md). **Compose, then fire**: the form is inert radios (no client state, **zero `<select>` on the page**), one press resolves target · tier · stamp · colour · worktree · trust, and only that render carries a button wired to the exact JSON shown — armed by the hands' own `parseFire`. Four live fires **byte-exact** (sha256 identical page-side and transcript-side, one per criterion), the **founding template DOCTRINE §12 verbatim** at a scratch dir (185 B, `845e7932…` both sides), a **worktree-composed fire landed with cwd inside the cut worktree**, two consecutive fires incremented `builder-belvedere-02→03`, disabled mode honest (503 + in-DOM disabled button + the plan still composed), `git status` unchanged. **271 tests green in one process**, type gate exit 0, `/summon` **p95 13 ms**. **F1 — Claude's unit of trust is the PROJECT ROOT, per account, and a repository never borrows an ancestor's trust**: measured two ways in one `~/code` (a plain dir ran and beat the census 10×, a fresh `git init` stalled with 0 beats and no transcript), 36/36 live entries sit on project roots, 9/9 live sessions warm — the naive ancestor reading gives a **false warm**, which is the exact silent-success the amendment exists to prevent; binds B9 and the flow chapter · F2 the order's "scratch repo" is unfireable by construction (F1's consequence; the worktree DoD ran in `agents`) · F3 the glass's stamp slug is narrower than the rig's theater law, so `universal_robots_sdk` forks the lineage — refused loudly, never silently; a B4-boundary contract question · **F4 the live census is a load-bearing third stamp source** (`architect-belvedere` is in neither log and in the census; the rail still passes no `known` list and would double-assign it — parked to B3's ground) · F5 the Grand Architect's no-theater exception now matches the rig (`grand-architect-11` live); `.summon-theaters` read per row 14 · F6 probe residue named, not scrubbed |
 | B8 | [Glass hardenings](plans/b8-glass-hardenings.md) — E1/E2 rulings live (register policy, ambiguity-never-arms), fire unwind, test isolation, offline type gate | B3 | Builder · opus-high | **LANDED** 2026-08-27 — all five built, nothing escalated; DoD evidenced in [B8](plans/b8-glass-hardenings.md). **E1 policy live**: ttl 300 s, hands bust the register, re-walk button beside the age — footer reads `ttl 300s`, **p95 45 ms** (bar 500 ms), a live worktree moved it 75s → 3s without stalling the request that took the bust. **D10 live**: hexwright + simmy render **zero** fire wiring, note + copy intact, holder untouched. **Fire unwinds** — induced refused colour, `workspace:11` closed, `fire.unwind` audited, no orphan. **`bun test belvedere/glass` 109/109 in ONE process** (B3 F3 fixed at the cause: `paths.ts` resolves env anchors per call). **Offline type gate**: `typescript@7.0.2` + `@types/bun` pinned, lockfile committed, `bunx --offline tsc --noEmit` exit 0 — covers `doctrine/` too. F1 the isolation bug was never just eight red tests — **the suite armed the city's real HALT flag and left it armed** (cleared here, venue restored), wrote 16 lines into the real audit log (four stamping `builder-belvedere-01`, which `nextStamp` counts — parked to ISSUES), and **printed Felix's live socket password into a failure diff** · **F2 the live rail now arms 0 of 38 cards** — B3 E2's measurement arriving as a consequence, unblocked only by canon's holder grammar or an unambiguous clause · F3 the worker law binds B5's scans · F4 the gate found one latent `Beat` error · F5 12 810 worktree copies deduped, parked |
 | B9 | [Visual law sweep](plans/b9-visual-law.md) — §3 design laws over the pre-law pages: fonts, legends, encapsulations, city grouping, sorting, button groups | B7 | Builder · opus-medium | **LANDED** 2026-08-27 — nothing escalated; DoD evidenced in [B9](plans/b9-visual-law.md). **Inter vendored** (latin 400/700 woff2 + SIL OFL, taken from a licensed copy already in the city — no fetch), served off `/assets/…` **byte-identical** (`sha256 2301bb03…` both sides) and **zero `http(s)://` in any served page or stylesheet**; prose in Inter, numbers/titles/buttons/tables in IosevkaFelix. **`grep -c '<select'` = 0 on all seven routes** — the rail's account picker is now a radio group. Legends on `/` (15 keys) and `/city` (12). **Encapsulation-first**: 11 of 38 rail cards lead with a derived name + working `[expand]`, the other 27 render whole; board rows, ledger tail, queue and ISSUES the same. `/city` in **five `~/code/<x>` neighbourhoods**, off-register grouped the same way, **attention monotone across groups with recency only inside a rank**. Auditor delta live on all three views: `8 tracked · ≈35 claude processes visible · 27 beyond the census`. **302 tests green in one process**, type gate exit 0, rail p95 **111 ms**. F1 **27 of 38 cards write no name at all** — the row-17 ask is evidenced: the shapes need a **name field**; the derivation got no special case (spec's own STOP clause honoured) · F2 the `pages ↔ gauges` cycle the auditor would have opened, closed by moving `ago()` to `html.ts` · F3 the auditor costs **36 ms** of the request thread (p95 45 → 111 ms; a TTL is the fix if it matters, named not built), and B5 E1's `[c]laude` grep over-counts by five · F4 the picker's `:checked` read is unproven without a browser — **the close-gate live fire is that path** |
-| P5 | [Permission physics (S5)](plans/p5-permission-physics.md) — why spawned sessions stall in manual mode; the lever ≤ the account's own posture; the step's permission clause | — | Digger · opus-high | OPEN — PENDING the deck keel (batch-4 hold, 2026-08-27); cut 2026-08-27 (flow-cut sitting); probe #1, its kill shapes the chapter (keel §5.2); positive control exists (the flow-cut sitting itself ran `mode:auto` with sustained unattended tool work — do not re-derive) |
-| B10 | [Flow file + drawn DAG](plans/b10-flow-dag.md) — the batch note as data behind `glass/flow.ts`; `/flow/<name>` draws the whole DAG (City View vocabulary, lanes, gates as Felix-cards), census-lit, bill visible | P5 | Builder · opus-high | OPEN — cut 2026-08-27; interim serialization = canon row 17 evidence (D7), swappable behind one module |
-| B11 | [Arm + engine](plans/b11-flow-engine.md) — D11 live: one click on the rendered DAG arms; the engine fires declared steps through the existing hands, pauses at Felix-cards / D10 ambiguity / HALT, step timeouts, run-state in the census home | P5; B10 | Builder · opus-high | OPEN — cut 2026-08-27; no new write class — fires ride the hands, run-state is telemetry (D6 neighborhood) |
-| B12 | [Reactive gate + dynamic extension](plans/b12-flow-reactive.md) — an escalation-marked landing auto-fires the scoped Architect into the lane (keel §5.1; B6's apply is the prototype); the DAG grows mid-flow per D12 | B11 | Builder · opus-high | OPEN — cut 2026-08-27; D12 flag set at blessing |
-| G2 | Flow-chapter gate — verify P5–B12, fold findings, schema evidence → canon inbox (row 17), close flow batch 1 | B12; Felix-gate: arm the close flow | Architect · fable-high | OPEN — fired by the armed close flow, the engine's first real act (kickoff in the batch-4 note; fallback: `/summon`) |
+| P5 | [Permission physics (S5)](plans/p5-permission-physics.md) — why spawned sessions stall in manual mode; the lever ≤ the account's own posture; the step's permission clause | — | Digger · opus-high | OPEN — unfrozen at the deck keel's blessing 2026-08-27; probe #1, its kill shapes the engine chapter (keel §5.2); positive control exists (the flow-cut sitting itself ran `mode:auto` with sustained unattended tool work — do not re-derive) |
+| B10 | [The Works](plans/b10-flow-dag.md) — the flow file behind `glass/flow.ts` + the building's whole work drawn: past above the now-line (dim), live blinking on it, the plan below (D14); node actions per state | P5; B14 | Builder · opus-high | OPEN — re-seated 2026-08-27 into the deck (keel §6); interim serialization = canon row 17 evidence (D7), swappable behind one module |
+| B11 | [Arm + engine](plans/b11-flow-engine.md) — D11 live: one click in the Works arms; the engine fires declared steps through the existing hands, pauses at Felix-cards / D10 ambiguity / HALT, step timeouts, run-state in the census home | P5; B10; B17 | Builder · opus-high | OPEN — cut 2026-08-27, re-seated same day (bill = B17's live usage); no new write class — fires ride the hands, run-state is telemetry (D6 neighborhood) |
+| B12 | [Reactive gate + dynamic extension](plans/b12-flow-reactive.md) — an escalation-marked landing auto-fires the scoped Architect into the lane (keel §5.1; B6's apply is the prototype); the DAG grows mid-flow per D12 | B11 | Builder · opus-high | OPEN — cut 2026-08-27; D12 flag set at the batch-5 blessing |
+| G2 | Deck + engine gate — verify P5/P6/B13–B19/B10–B12, fold findings, schema evidence → canon inbox (row 17), close batch 5 | B12; B19; Felix-gate: the deck visual pass + arm the close flow | Architect · fable-high | OPEN — fired by the armed close flow, the engine's first real act (kickoff in the batch-5 note; fallback: `/summon`) |
+| P6 | [Message transport](plans/p6-message-transport.md) — the Chat's send physics: byte-exact single-turn delivery to live / mid-turn / dead sessions; T4's trap measured, bracketed paste first | — | Digger · opus-high | OPEN — cut 2026-08-27 (deck sitting); gates B16's send; kill = Chat ships read+jump permanently (keel §5's named fallback) |
+| B13 | [Deck shell](plans/b13-deck-shell.md) — `/deck`: three panes with min/typical/expanded states under the law of space, drawer, tooltips, the `FocusView` seam, `/deck/state` polling | — | Builder · opus-high | OPEN — cut 2026-08-27; the app (client state legal, D13); vanilla TS + SVG, zero new deps |
+| B14 | [City + attention](plans/b14-city-attention.md) — the Context pane: buildings, dots, attention badges (attention outranks recency); the drawer's needs-you queue, answerable in place (D15) | B13 | Builder · opus-high | OPEN — cut 2026-08-27; the waiting-input blindness dies here, twice |
+| B15 | [The Workshop](plans/b15-workshop.md) — one building inside: live sessions first, board/tail/queue/ISSUES collapsible + reorderable, doc viewer with line anchors | B14 | Builder · opus-high | OPEN — cut 2026-08-27 |
+| B16 | [The Chat](plans/b16-chat.md) — one hotswappable conversation view: transcript in Focus, draft in Action, independent scroll; send via P6's transport, verified after delivery; drafts persist under `desk/drafts/` | B11; P6 | Builder · opus-high | OPEN — cut 2026-08-27; if P6 kills, ships read+jump (named fallback, not a deviation) |
+| B17 | [Composer + live usage](plans/b17-composer-usage.md) — Action at rest: every knob live-updating the summons, mantle colors, stamp follows the BUILDING (never cwd), usage fetched live ×3 with age printed | B10 | Builder · opus-high | OPEN — cut 2026-08-27; closes the wrong-stamp class and the 391-minute usage |
+| B18 | [Live identity](plans/b18-live-identity.md) — D16 built: socket-read names/colors into state, rename/recolor write-through hands (D18), the felikai↔cmux color map (B3 F1 closed at cause), the dead jump reproduced | B15 | Builder · opus-high | OPEN — cut 2026-08-27 |
+| B19 | [The desk](plans/b19-desk.md) — D17 built: write anywhere, `desk/` persists it, send routes (→ building ISSUES via B6's wire, → session via B16, → composer); previewed bytes before every routed append | B16 | Builder · opus-high | OPEN — cut 2026-08-27; the glass writes only under `desk/`, commits never |
 
 **Batch 1 (cut at founding, 2026-08-26) — Felix-tended, reasons named:** the venue
 is his live desktop (first contact with a new substrate — his eyes at each landing),
@@ -283,6 +305,62 @@ sitting — evidence in the §8 close block and the ledger entry of this date.
 > word).** At the blessing: P5 unfreezes as cut, and the re-cut sitting cuts
 > deck batch 1 + re-seats B10 (the DAG becomes the Works focus view, keel §6);
 > B11/B12/G2 stand in substance.
+>
+> **SUPERSEDED same day — the keel was BLESSED and batch 4 dissolved into
+> batch 5 below (nothing had dispatched; the fences above remain G2's and the
+> engine's law).**
+
+**Batch 5 (the deck + the engine, cut at the deck sitting 2026-08-27, on the
+BLESSED keel) — two lanes, Dispatcher-tended (D61), announce duty (D67),
+rider applies:**
+
+- **Lane A — the probes:** P5 → P6, serial within the lane. Desktop rules:
+  probe sessions haiku-low fired through the glass's own hands, **≤2
+  concurrent spawned sessions city-wide across both lanes** (builder DoD
+  smokes count — the Dispatcher staggers a builder's live-fire window while
+  a probe's spawn burst runs), every workspace closed at landing (D55), no
+  cmux quit/relaunch anywhere (P4-class excluded), no account settings
+  touched (posture is read, never re-postured).
+- **Lane B — the build chain, strictly serial on master, one in flight:**
+  **B13 → B14 → B15 → B18 → B10 → B17 → B11 → B16 → B19 → B12** — the
+  identity-sentence order: dataviz (shell, City+attention, Workshop,
+  identity), command (the Works, composer+usage, arm+engine), comms (Chat),
+  the desk, the reactive gate. Lanes A ∥ B are parallel-safe (disjoint
+  files: `lab/p5|p6/` + telemetry vs `glass/`); the Dispatcher serializes
+  landings (one board/ledger true at a time). B16 consumes P6's findings —
+  lane A finishes long before the chain reaches it; if P6 KILLED, B16 ships
+  read+jump per its order (a named branch, not an escalation).
+- **G2 fires by the armed close flow** (B12 leaves
+  `flows/flow-close.flow.json`): **Felix's arm in the Works is the
+  Felix-gate**, the engine's first real act, and the deck's close smoke —
+  batch 3's `/summon` pattern, one rung up. His second close gate: **the
+  deck visual pass** (the rooms may not retire before it). Fallback if the
+  engine cannot fire: Felix fires G2's kickoff from `/summon` and the
+  failure becomes G2 evidence. G2's kickoff stands in the batch-4 note
+  above, its scope now the whole of batch 5.
+- **Blessing (Felix, at this batch's blessing — the one remaining fork):**
+  **D12, the arm-scope fork** — *step-arm* vs *scope-arm* (keel §4 of
+  [flow-keel.md](plans/flow-keel.md)); recommendation **scope-arm**, his
+  stated lean; judge insertions fire under either ruling (the landing law,
+  not plan growth). The **posture floor** rides unchanged from the batch-4
+  note (never beyond the account's own defaultMode; `bypassPermissions`
+  never). The rearranging input is delivered — it became the keel.
+
+Dispatcher summons, verbatim:
+
+```
+You are a Dispatcher at sonnet-medium.
+Wear ~/code/agents/canon/mantles/dispatcher.md,
+then read ~/code/agents/belvedere/README.md §§5–6 (agreements, board, batch-5
+note) and run batch 5 in two lanes: lane A — P5 then P6 (probes, desktop
+rules per the note); lane B — B13 → B14 → B15 → B18 → B10 → B17 → B11 →
+B16 → B19 → B12 strictly serial, one in flight, straight to master —
+kickoffs verbatim from each work doc plus the rider at
+~/code/agents/belvedere/plans/RIDER.md — tend each landing, dispatch the
+next on LANDED, stop after B12: G2 fires by the armed close flow (Felix's
+arm in the Works), never by dispatch. Escalations and the batch report come
+back to Felix.
+```
 
 **Batch 4 (flow batch 1, cut at the flow-cut sitting 2026-08-27) — the engine
 chapter, strictly serial on master:** P5 → B10 → B11 → B12, one row in flight,
@@ -357,7 +435,9 @@ batch 4**: P5 · B10 · B11 · B12 · G2, cut at the flow-cut sitting) · a guid
 **new-building flow** (post-v0: B7's founding template covers the fire; the
 ritual's Felix-steps — mkdir, the dream by his pen — stay his; the glass never
 writes founding docs) · the DAG renderer drawing a board's Depends-on graph on
-building pages (keel §4, post-chapter).
+building pages (keel §4, post-chapter) · **the prettifying pass** (⬡ — Felix
+at the deck-keel blessing: hexagonal decorative SVG elements, hexagonal
+buttons, "LOTS of SVG styling"; after the deck functions, never before).
 
 ## 7. Decisions
 
@@ -458,6 +538,14 @@ building pages (keel §4, post-chapter).
   Authorizes the new root directory in the canon repo; the D2 fence
   otherwise stands. The parked sovereign's-DESK genre lands here — its
   volume gate paid by the field report itself.
+- **D18** (2026-08-27, the deck keel §11 · ✓ Felix at the keel blessing —
+  "Bless!"): **The fence grows three write classes, and only three.**
+  (1) message-to-session — Felix's text delivered as a real turn via P6's
+  measured mechanism, audited by sha, D10-bound (an ambiguous target never
+  sends); (2) rename/recolor write-through to cmux display state, audited;
+  (3) desk writes — files under `desk/` only, commits never. §2's
+  exhaustive-list law stands; any further class is a new desk question
+  (D3).
 - **D11** (2026-08-27, Felix — the flow planning sitting): **The arm contract.**
   A flow — the batch note as data: rows, gates, accounts, venues
   ([plans/flow-keel.md](plans/flow-keel.md)) — renders as its whole DAG before

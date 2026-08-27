@@ -769,3 +769,34 @@ deck keel** ([plans/deck-keel.md](plans/deck-keel.md)): the §11 fence trio and
 Works/Line); on the bless, P5 unfreezes as cut and the re-cut sitting (this
 desk) cuts deck batch 1 + re-seats B10 into the Works; behind it: D12 + the
 batch blessing forks, then canon row 17 at his word.
+
+---
+
+**2026-08-27 · Architect · fable-max** — *the re-cut sitting (same session,
+continued).* **The keel is BLESSED** — Felix's word, all four items: the fence
+trio (D18 minted — message-to-session · rename/recolor write-through · desk
+writes; §2's list now seven, still exhaustive), the stack (vanilla TS + SVG —
+his blessing note recorded: the ⬡ hexagon prettifying pass parked until the
+deck functions), the names (**the Workshop · the Works**), the §6 node
+actions. "Do it all. Make it so" executed: **batch 5 cut on the blessed
+keel** — lane A probes **P5 → P6** ([P6](plans/p6-message-transport.md) new:
+the Chat's send physics, bracketed paste first, T4's trap measured, kill =
+read+jump forever); lane B strictly serial on master **B13 → B14 → B15 →
+B18 → B10 → B17 → B11 → B16 → B19 → B12** in the identity-sentence order
+(dataviz → command → comms), orders cut and blessed:
+[B13 shell](plans/b13-deck-shell.md) · [B14 City+attention](plans/b14-city-attention.md)
+· [B15 Workshop](plans/b15-workshop.md) · [B18 identity](plans/b18-live-identity.md)
+· [B17 composer+usage](plans/b17-composer-usage.md) · [B16 Chat](plans/b16-chat.md)
+· [B19 desk](plans/b19-desk.md); flow rows **re-seated** by dated amendment
+(B10 = the Works, D14's now-line, +B14 dep; B11 bill = B17's live usage;
+B12 surfaces = the Works; G2 = the whole batch-5 gate, Felix-gates: **deck
+visual pass + arm the close flow**). Batch 4 superseded in place — nothing
+had dispatched. **Inbox swept: both case files folded** (the keel + the
+batch-5 rows) **and drained** — the 17 field items homed: 1/2/4/5(stamp)/17
+→ B17 · 3 → B15 · 5(color)/7/8/10/11 → B18+D16/D18 · 6 → B13/B15 · 9 →
+canon row 17 (gate paid) · 12 → §3 law · 13 → B14/D15 · 14 → D16/D18 + the
+deck whole · 15 → keel §10 (the rooms die) · 16 → B19/D17. Decided: D18
+(✓ Felix at blessing); the batch-5 cut (delegated). Next: **Felix — rule D12
+(rec: scope-arm, his lean) and fire the Dispatcher** — summons fenced in the
+batch-5 note ([README §6](README.md)); behind it: canon row 17 at his word;
+the close returns at G2 (his visual pass + the arm in the Works).
