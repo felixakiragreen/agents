@@ -17,7 +17,7 @@
 
 import { expect, test, describe } from 'bun:test';
 import { join } from 'path';
-import { discover, type Baton, type Building, type Instrument } from '../../doctrine';
+import { discover, type Baton, type Building, type Decision, type Instrument } from '../../doctrine';
 import { branchFor, cardHtml, cards, recommended, shapeOf, type Card } from './rail';
 import { readRig } from './rig';
 import { nextStamp } from './summon';
@@ -219,6 +219,37 @@ describe("a Felix-holder baton is his card", () => {
 
 	test('gate and countersign cards are structurally unwired as well', () => {
 		for (const c of fixtureCards().filter(c => c.kind !== 'baton')) unwired(cardHtml(c, true, ACCOUNTS));
+	});
+
+	// B6: the one card that gains a button, and the one state that gives it one.
+	const queued = (over: Partial<Decision>): Building => ({
+		...synthetic('prose', []),
+		decisionQueue: [{ id: 'D11', date: '2026-08-27', decider: 'Architect', title: 'a ruling', body: '',
+			ratified: false, pending: true, line: 1, ...over }],
+		issues: over.ratified ? [] : [{ date: '2026-08-27', who: 'Felix (via Belvedere)', text: 'countersign D11: ✓', line: 2 }],
+		baton: null, ledgerTail: null,
+	});
+	const card = (b: Building) => cardHtml(cards([b], rig, ACCOUNTS[0]!).find(c => c.kind === 'countersign')!, true, ACCOUNTS);
+
+	test('a pending countersign card offers the button, and nothing that fires', () => {
+		const b: Building = { ...queued({}), issues: [] };
+		const html = card(b);
+		expect(html).toContain('pending countersign');
+		expect(html).toContain('data-gesture="{&quot;building&quot;:&quot;/tmp/scratch&quot;,&quot;kind&quot;:&quot;countersign&quot;,&quot;decision&quot;:&quot;D11&quot;}"');
+		unwired(html);
+	});
+
+	test('once his entry is in the inbox the card reads it back and drops the button', () => {
+		const html = card(queued({}));
+		expect(html).toContain('recorded — awaiting fold');
+		expect(html).not.toContain('kind&quot;:&quot;countersign');
+	});
+
+	test('a decision the parser queues but the entry already ratified headlines folded, not pending', () => {
+		const html = card(queued({ ratified: true }));
+		expect(html).toContain('folded — ✓ in the decision');
+		expect(html).not.toContain('pending countersign');
+		expect(html).not.toContain('kind&quot;:&quot;countersign');
 	});
 
 	test('the only button on a Felix-card is the note box, and it posts to the inbox', () => {

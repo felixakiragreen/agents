@@ -262,27 +262,35 @@ export function rowGestures(buildingPath: string, id: string, siblings: string[]
 		${withheld}${out()}</details>`;
 }
 
-const COUNTERSIGN: Record<Countersigned, { text: string; tone: Parameters<typeof pill>[1] }> = {
-	pending: { text: 'awaiting his pen', tone: 'yellow' },
-	recorded: { text: 'recorded — awaiting fold', tone: 'blue' },
-	folded: { text: 'folded — ✓ in the decision', tone: 'green' },
+const COUNTERSIGN: Record<Countersigned, { text: string; tone: Parameters<typeof pill>[1]; note: string }> = {
+	pending: { text: 'pending countersign', tone: 'yellow', note: '' },
+	recorded: { text: 'recorded — awaiting fold', tone: 'blue',
+		note: 'His word is in the inbox; the ✓ reaches the decision when this building\'s Architect sweeps.' },
+	folded: { text: 'folded — ✓ in the decision', tone: 'green',
+		note: 'The decision already carries its ✓. Nothing is owed here — the queue still lists it, so the card says which reading won.' },
 };
+
+/** The card's own headline. It is the STATE, never the queue's word for it — see `countersignAct`. */
+export const countersignPill = (state: Countersigned) =>
+	pill(COUNTERSIGN[state].text, COUNTERSIGN[state].tone);
 
 /**
  * The countersign gesture, and the two states that offer no button. **Recorded is not signed**:
  * the entry is in the inbox and the ✓ reaches the D-entry when the Architect sweeps, so the card
  * says so rather than letting a click look like a ratification.
+ *
+ * **Folded outranks pending, and that is D10 doing its job.** `parseDecisions` marks an entry
+ * pending whenever the phrase appears anywhere in it — including in the entry that *defines* the
+ * ritual (canon D21, which is `✓ Felix` and has sat on the rail as a pending countersign since B3).
+ * Two readings, one of them a false positive, so the card renders safe: no button, both readings
+ * named. The parse stays the parser's (D65); the ask rides this row's findings.
  */
 export function countersignAct(buildingPath: string, d: Decision, state: Countersigned): string {
-	const { text, tone } = COUNTERSIGN[state];
 	if (state === 'pending') return `<div class="gesture flat">
 		<p class="prose note">One line into <code>${esc(tilde(inboxFile(buildingPath)))}</code> — the glass records the countersign, it never pens the D-entry (D3).</p>
 		<div class="acts"><button class="ges" data-gesture="${payload(buildingPath, { kind: 'countersign', decision: d.id })}">countersign ${esc(d.id)}</button>
 		<span class="out" data-out></span></div></div>`;
-	return `<div class="gesture flat"><div class="acts">${pill(text, tone)}
-		<span class="prose note">${state === 'recorded'
-			? 'His word is in the inbox; the ✓ reaches the decision when this building\'s Architect sweeps.'
-			: 'The sweep stamped it — this card is history.'}</span></div></div>`;
+	return `<div class="gesture flat"><p class="prose note">${esc(COUNTERSIGN[state].note)}</p></div>`;
 }
 
 /**

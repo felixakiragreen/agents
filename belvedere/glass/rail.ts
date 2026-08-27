@@ -25,7 +25,7 @@ import { parseKickoffs, type Baton, type BoardRow, type Building, type Decision,
 import { isLive, readCensus, type CensusRead, type Session } from './census';
 import { handsState } from './hands';
 import { esc, inline, page, pill, short, stateTone, type Tone } from './html';
-import { countersignAct, countersignState, INBOX_SCRIPT, noteBox, type Countersigned } from './inbox';
+import { countersignAct, countersignPill, countersignState, INBOX_SCRIPT, noteBox, type Countersigned } from './inbox';
 import { buildingOf, censusNote, registerNote, window_ } from './pages';
 import { city } from './register';
 import { readRig, type Rig } from './rig';
@@ -298,8 +298,10 @@ const gateCard = (c: Card & { kind: 'gate' }, foot: string) =>
 		${c.gate ? `<p class="note">${esc(c.row.work).slice(0, 220)}</p>` : ''}${foot}</article>`;
 
 const countersignCard = (c: Card & { kind: 'countersign' }, foot: string) =>
+	// The pill is the CARD'S state, not the queue's word for it: a decision the parser queues and
+	// the entry itself has already ratified must not headline "pending" over a "folded" body (B6).
 	`<article class="rail tone-yellow" data-kind="countersign" data-holder="felix">
-		<div class="rail-h">${buildingLink(c.building)} ${pill('pending countersign', 'yellow')}
+		<div class="rail-h">${buildingLink(c.building)} ${countersignPill(c.state)}
 			<span class="when">${esc(c.decision.id)} · ${esc(c.decision.date)} · ${esc(c.decision.decider)}</span></div>
 		<p class="rail-text">${inline(c.decision.title, dirname(c.file))}</p>
 		${countersignAct(c.path, c.decision, c.state)}${foot}</article>`;
