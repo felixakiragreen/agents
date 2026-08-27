@@ -4,7 +4,7 @@
 // one is a dispatcher's brake, and a brake that under-reads is worse than no brake at all.
 
 import { expect, test, describe } from 'bun:test';
-import { BUCKETS, STALE_SECONDS, pacing, rosterText, toUsage, usageAge, usageStrip, wip, wipGauges, type Quota, type Usage } from './gauges';
+import { BUCKETS, STALE_SECONDS, auditorCount, auditorLine, pacing, rosterText, toUsage, usageAge, usageStrip, wip, wipGauges, type Quota, type Usage } from './gauges';
 import { BG_CAP, type Beat, type CensusRead, type Session, type Task } from './census';
 import type { Rig } from './rig';
 
@@ -203,5 +203,34 @@ describe('WIP — a roster figure is a floor, and says so', () => {
 		const html = wipGauges(wip({ present: false, sessions: [], beats: 0, malformed: 0, since: null }, rig, () => null), 9);
 		expect(html).toContain('census not deployed');
 		expect(html).not.toContain('by account');
+	});
+});
+
+// ---------- the auditor delta (B9, on B5 E1's ruling) ----------
+
+describe('the auditor — a count, never a session', () => {
+	test('it counts real `claude` processes on this machine, or says it could not', () => {
+		const n = auditorCount();
+		expect(n === null || (Number.isInteger(n) && n >= 0)).toBe(true);
+	});
+
+	test('the line names both figures and the gap between them', () => {
+		expect(auditorLine(6, 38)).toContain('6 tracked');
+		expect(auditorLine(6, 38)).toContain('≈38');
+		expect(auditorLine(6, 38)).toContain('32 beyond the census');
+	});
+
+	test('no gap is said out loud too — the alarm reads either way', () =>
+		expect(auditorLine(6, 6)).toContain('no gap'));
+
+	test('an auditor that cannot answer renders unknown, never zero', () => {
+		expect(auditorLine(6, null)).toContain('no process auditor');
+		expect(auditorLine(6, null)).not.toContain('≈0');
+	});
+
+	test('the WIP panel carries the delta even with no census — the alarm outlives the sensor', () => {
+		const html = wipGauges(wip({ present: false, sessions: [], beats: 0, malformed: 0, since: null }, rig, () => null), 38);
+		expect(html).toContain('≈38');
+		expect(html).toContain('census not deployed');
 	});
 });

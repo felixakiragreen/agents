@@ -51,14 +51,26 @@ export const rigTone = (colour: string | null): Tone =>
 // ---------- encapsulation-first (design law, README §3) ----------
 
 /**
- * The seam a name ends at: a spaced dash, or a colon. Only the FIRST LINE is searched — a name
- * that reached across a paragraph break would be a name the text never wrote.
+ * The seam a name ends at, in order of precedence: a **spaced dash** first, a colon only where the
+ * line has no dash. Felix's own examples are `B8: glass hardenings` and `E1: register policy` — the
+ * id and its name are one phrase, and the dash is what divides that phrase from the prose. Taking
+ * the colon first would name every row after its id alone and tell him nothing.
+ *
+ * Only the FIRST LINE is searched: a name reaching across a paragraph break is a name the text
+ * never wrote.
  */
-const SEAM = /\s[—–-]\s|:\s/;
+const SEAMS = [/\s[—–-]\s/, /:\s/];
 /** Felix's law is 1–6 words. A longer head is not a name, so the text has none. */
 const NAME_WORDS = 6;
 
 export type Encap = { name: string; full: string; encapsulated: boolean };
+
+/**
+ * The city writes `**Fork — choose one**`, so a seam can fall *inside* a bold span and hand the name
+ * back an orphaned marker, which `inline()` then renders as literal asterisks. Dropping the orphan
+ * is not inventing words — the marker was never one.
+ */
+const balance = (s: string) => (s.match(/\*\*/g) ?? []).length % 2 ? s.replace(/\*\*/, '') : s;
 
 /**
  * The short name a card leads with, **derived, never invented**: the text before the first seam,
@@ -69,10 +81,10 @@ export type Encap = { name: string; full: string; encapsulated: boolean };
 export function encap(text: string): Encap {
 	const full = text.trim();
 	const firstLine = full.split('\n')[0]!;
-	const m = SEAM.exec(firstLine);
+	const m = SEAMS.map(s => s.exec(firstLine)).find(x => x !== null);
 	const head = m ? firstLine.slice(0, m.index).trim() : '';
 	const ok = head !== '' && head.split(/\s+/).length <= NAME_WORDS && head.length < full.length;
-	return { name: ok ? head : full, full, encapsulated: ok };
+	return { name: ok ? balance(head) : full, full, encapsulated: ok };
 }
 
 /** The [expand] control: a scriptless `<details>`, so the disclosure is the browser's (B5's shape). */

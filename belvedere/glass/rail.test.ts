@@ -374,3 +374,52 @@ describe('the name-stamp', () => {
 	test('an unknown mantle has no lineage, so it has no stamp', () =>
 		expect(nextStamp(null, '/tmp/probe-stamp')).toBeNull());
 });
+
+// ---------- the design laws over the pre-law rail (B9) ----------
+
+describe('the visual law sweep', () => {
+	test('no dropdown anywhere on a card: the account picker is a toggled radio group', () => {
+		const html = cardHtml(baton('probe-row'), true, ACCOUNTS);
+		expect(html).not.toContain('<select');
+		expect(html).toContain('data-account');
+		// The radio IS the state, so the browser holds it and the back button walks it.
+		for (const a of ACCOUNTS) expect(html).toContain(`value="${a}"`);
+		expect((html.match(/type="radio"/g) ?? []).length).toBe(ACCOUNTS.length);
+		expect((html.match(/ checked>/g) ?? []).length).toBe(1);
+	});
+
+	test('the radio group is named after the shot\'s own reserved stamp — two pickers never collide', () => {
+		const card = baton('probe-fork');
+		const html = cardHtml(card, true, ACCOUNTS);
+		const names = new Set([...html.matchAll(/name="(as-[^"]+)"/g)].map(m => m[1]!));
+		expect(card.shots.length).toBeGreaterThan(1);
+		expect(names.size).toBe(card.shots.length);
+	});
+
+	test('a card leads with its encapsulation and keeps the whole clause one [expand] away', () => {
+		const html = cardHtml(baton('probe-row'), true, ACCOUNTS);
+		const full = html.match(/<p class="rail-text">([\s\S]*?)<\/p>/)![1]!;
+		if (html.includes('class="encap"')) {
+			const name = html.match(/<p class="encap">([\s\S]*?)<\/p>/)![1]!;
+			expect(name.split(/\s+/).length).toBeLessThanOrEqual(6);
+			expect(full).toContain(name);              // derived from the text, never invented
+			expect(html).toContain('<summary>expand</summary>');
+		} else {
+			expect(full.length).toBeGreaterThan(0);    // no seam ⇒ the clause renders whole
+		}
+	});
+
+	test('attention decides across ranks; recency only orders inside one', () => {
+		const list = cards(discover([FIXTURE]), rig, ACCOUNTS[0]!);
+		const rankOf = (c: Card) => c.kind === 'baton' ? (c.wired && c.shots.length ? 0 : c.baton.holder === 'prose' ? 3 : 2)
+			: c.kind === 'countersign' ? 1 : 2;
+		const ranks = list.map(rankOf);
+		expect(ranks).toEqual([...ranks].sort((a, b) => a - b));
+		// Inside one rank, the newer entry is drawn first — and never across ranks.
+		const dated = list.filter(c => c.kind === 'baton') as (Card & { kind: 'baton' })[];
+		for (const [i, c] of dated.entries()) {
+			const next = dated[i + 1];
+			if (next && rankOf(c) === rankOf(next)) expect(c.entry.date >= next.entry.date).toBe(true);
+		}
+	});
+});
