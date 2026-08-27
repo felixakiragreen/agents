@@ -113,7 +113,8 @@ export function cityPage(): string {
 	return page('Belvedere — City View', '<a href="/">rail</a> <span>/</span> <span>city</span>',
 		banner + strip + `<section class="cards">${cards}</section>` + off,
 		`content re-read in ${ms.toFixed(0)} ms · register ${ago(reg.at / 1000)} old${reg.refreshing ? ' (refreshing)' : ''}`
-		+ ` · walked in ${reg.ms.toFixed(0)} ms, ${reg.suppressed} worktree copies deduped · ${esc(CITY)}`);
+		+ ` · walked in ${reg.ms.toFixed(0)} ms, ${reg.suppressed} worktree copies deduped · ${esc(CITY)}`
+		+ (reg.error ? ` · <span class="bad">${esc(reg.error)}</span>` : ''));
 }
 
 // ---------- /b/<building> — the building page ----------

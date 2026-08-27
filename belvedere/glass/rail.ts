@@ -321,5 +321,6 @@ export function railPage(): string {
 		banner + counts + strip(buildings, census, rig) + `<section class="railcol">${body}</section>` + SCRIPT,
 		`content re-read in ${ms.toFixed(0)} ms · register ${ago(reg.at / 1000)} old`
 		+ `${reg.refreshing ? ' (refreshing)' : ''} · ${reg.entries.length} buildings walked in ${reg.ms.toFixed(0)} ms`
-		+ `, ${reg.suppressed} worktree copies deduped · ttl ${TTL_MS / 1000}s`);
+		+ `, ${reg.suppressed} worktree copies deduped · ttl ${TTL_MS / 1000}s`
+		+ (reg.error ? ` · <span class="bad">${esc(reg.error)}</span>` : ''));
 }

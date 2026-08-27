@@ -35,34 +35,57 @@ import { CITY } from './paths';
 export const TTL_MS = 20_000;
 
 export type Entry = { building: string; path: string; files: Building['files'] };
-export type Register = { entries: Entry[]; at: number; ms: number; suppressed: number; refreshing: boolean };
+export type Register = {
+	entries: Entry[]; at: number; ms: number; suppressed: number;
+	refreshing: boolean;
+	error: string | null;      // the last refresh that failed, still serving the warm copy
+};
 
 let held: Register | null = null;
 let refreshing = false;
+let error: string | null = null;
 
 function walk(): Register {
 	const t0 = performance.now();
 	const entries = discover([CITY]).map(b => ({ building: b.building, path: b.path, files: b.files }));
-	return { entries, at: Date.now(), ms: performance.now() - t0, suppressed: lastWalk.suppressed, refreshing: false };
+	return { entries, at: Date.now(), ms: performance.now() - t0, suppressed: lastWalk.suppressed, refreshing: false, error: null };
 }
 
 /**
- * The held register, refreshed off the request path. The refresh is deferred to a later tick
- * rather than awaited: the request that trips the TTL is served from the warm copy, and the
- * walk runs after the response is out. Bun is single-threaded, so that walk still blocks a
- * request arriving during it — a named cost on a single-user localhost glass, and the reason
- * `boot()` exists.
+ * The refresh, on a worker thread. Deferring it to a later tick is not enough: Bun runs one
+ * JavaScript thread, so a nine-second synchronous walk on it stalls every request that arrives
+ * while it runs — measured, before this changed, at p95 8.300 s over twenty 2 s-spaced requests
+ * (`register.worker.ts`). A failed refresh is recorded and printed, never swallowed: the glass
+ * keeps serving the warm copy and says the register stopped moving.
+ */
+function refresh(): void {
+	refreshing = true;
+	const t0 = performance.now();
+	const worker = new Worker(new URL('./register.worker.ts', import.meta.url).href);
+	const done = (next: Register | null, why: string | null) => {
+		if (next) held = next;
+		error = why;
+		refreshing = false;
+		worker.terminate();
+	};
+	worker.onmessage = (ev: MessageEvent<{ entries: Entry[]; at: number; suppressed: number }>) =>
+		done({ ...ev.data, ms: performance.now() - t0, refreshing: false, error: null }, null);
+	worker.onerror = (ev: ErrorEvent) =>
+		done(null, `register refresh failed: ${ev.message || 'worker error'}`);
+}
+
+/**
+ * The held copy, refreshed off the request path AND off the request thread. The request that
+ * trips the TTL is served warm and starts the walk; the copy a browsing session sees peaks at
+ * TTL + walk ≈ 30 s, which is G1's bar. The printed age is the ruling's honesty mechanism.
  */
 export function register(): Register {
 	if (!held) { held = walk(); return held; }
-	if (!refreshing && Date.now() - held.at > TTL_MS) {
-		refreshing = true;
-		setTimeout(() => { try { held = walk(); } finally { refreshing = false; } }, 0);
-	}
-	return { ...held, refreshing };
+	if (!refreshing && Date.now() - held.at > TTL_MS) refresh();
+	return { ...held, refreshing, error };
 }
 
-/** Walk once at server start, so the first page Felix opens is already warm. */
+/** Walk once at server start, on this thread: the first page Felix opens is already warm. */
 export const boot = () => { if (!held) held = walk(); };
 
 export const age = (r: Register) => Math.max(0, Date.now() - r.at) / 1000;
