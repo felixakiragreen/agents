@@ -63,7 +63,7 @@ transcript(ACCOUNTS[1]![0], '-Users-felix-elsewhere', FOREIGN, [
 mkdirSync(join(ACCOUNTS[0]![0], 'projects/-Users-felix-code-agents', STAMPED), { recursive: true });
 writeFileSync(join(ACCOUNTS[0]![0], 'projects/-Users-felix-code-agents', 'notes.md'), 'not a session\n');
 
-const EMPTY: CensusRead = { present: false, sessions: [], beats: 0, malformed: 0 };
+const EMPTY: CensusRead = { present: false, sessions: [], beats: 0, malformed: 0, since: null };
 
 const beat = (over: Partial<Beat>): Beat => ({
 	t: NOW, ev: 'PreToolUse', sid: 'x', acct: null, pid: process.pid, ws: null, sf: null,
@@ -116,7 +116,7 @@ describe('the scan', () => {
 
 describe('the census join', () => {
 	test('a live session takes its state, its stamp and its cwd from the census, not the head', () => {
-		const census: CensusRead = { present: true, beats: 3, malformed: 0,
+		const census: CensusRead = { present: true, beats: 3, malformed: 0, since: NOW,
 			sessions: [live(UNSTAMPED, { stamp: 'renamed-after-the-window', cwd: join(CITY, 'agents/belvedere') })] };
 		const s = scan(rig, entries, census).find(x => x.sid === UNSTAMPED)!;
 		expect(s.stamp).toBe('renamed-after-the-window');
@@ -125,7 +125,7 @@ describe('the census join', () => {
 	});
 
 	test('a census session the F5 law calls `gone` is shelved as dead, resumable again', () => {
-		const census: CensusRead = { present: true, beats: 1, malformed: 0, sessions: [live(STAMPED, { state: 'gone' })] };
+		const census: CensusRead = { present: true, beats: 1, malformed: 0, since: NOW, sessions: [live(STAMPED, { state: 'gone' })] };
 		expect(rankOf(scan(rig, entries, census).find(x => x.sid === STAMPED)!)).toBe('dead');
 	});
 });

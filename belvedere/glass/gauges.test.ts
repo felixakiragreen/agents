@@ -46,6 +46,14 @@ describe('pacing — the clock, rendered', () => {
 	test('a window that has not started is 0% elapsed, so all spend is over-pace', () => {
 		expect(pacing({ pct: 10, resetsAt: NOW + 3 * WEEK, windowSecs: WEEK }, NOW)).toBe(-10);
 	});
+
+	test('halves round AWAY from zero, exactly as the rig rounds them', () => {
+		// `summon.zsh:_summon_usage_delta` — `diff + (diff >= 0 ? 0.5 : -0.5)`, truncated toward
+		// zero. `Math.round` would print -13 here and the rig's own panel prints -14; two tables
+		// side by side must not disagree by a point.
+		expect(pacing({ pct: 50, resetsAt: NOW + WEEK * 0.635, windowSecs: WEEK }, NOW)).toBe(-14);
+		expect(pacing({ pct: 50, resetsAt: NOW + WEEK * 0.365, windowSecs: WEEK }, NOW)).toBe(14);
+	});
 });
 
 // ---------- the parse boundary ----------
@@ -134,7 +142,7 @@ describe('WIP — a roster figure is a floor, and says so', () => {
 		...over,
 	});
 
-	const read = (sessions: Session[]): CensusRead => ({ present: true, sessions, beats: sessions.length, malformed: 0 });
+	const read = (sessions: Session[]): CensusRead => ({ present: true, sessions, beats: sessions.length, malformed: 0, since: NOW });
 
 	test('sessions roll up per account and per building', () => {
 		const w = wip(read([
@@ -176,7 +184,7 @@ describe('WIP — a roster figure is a floor, and says so', () => {
 	});
 
 	test('no census degrades honestly: the panel says the sensor is missing, it does not draw zero', () => {
-		const html = wipGauges(wip({ present: false, sessions: [], beats: 0, malformed: 0 }, rig, () => null));
+		const html = wipGauges(wip({ present: false, sessions: [], beats: 0, malformed: 0, since: null }, rig, () => null));
 		expect(html).toContain('census not deployed');
 		expect(html).not.toContain('by account');
 	});

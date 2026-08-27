@@ -19,6 +19,7 @@ import { readFileSync } from 'fs';
 import { basename, join } from 'path';
 import { BG_CAP, isLive, type CensusRead, type Session } from './census';
 import { esc, label, short } from './html';
+import { ago } from './pages';
 import { usageDir } from './paths';
 import { accountLabel, type Rig } from './rig';
 
@@ -83,9 +84,13 @@ export function readUsage(rig: Rig): Usage[] {
  * because this number already contains it.
  */
 export const pacing = (q: Quota, nowSeconds: number): number => {
-	const elapsed = q.windowSecs - (q.resetsAt - nowSeconds);
-	const elapsedPct = Math.min(100, Math.max(0, (elapsed / q.windowSecs) * 100));
-	return Math.round(elapsedPct - q.pct);
+	const elapsed = 100 * (1 - (q.resetsAt - nowSeconds) / q.windowSecs);
+	const elapsedPct = Math.min(100, Math.max(0, elapsed));   // a reset already past, or further out than one window
+	const diff = elapsedPct - q.pct;
+	// The rig rounds **away from zero** (`summon.zsh:_summon_usage_delta`), so a delta reads the
+	// way a human rounds it. `Math.round` rounds half toward +∞ and would print `-13` where the
+	// rig's own panel prints `-14`: two tables side by side must not disagree by a point.
+	return Math.trunc(diff + (diff >= 0 ? 0.5 : -0.5));
 };
 
 export const usageAge = (u: Usage, nowSeconds: number): number | null =>
@@ -110,6 +115,7 @@ export type Wip = {
 	buildings: { building: string; sessions: number }[];
 	subagents: Roster;
 	shells: Roster;
+	since: number | null;      // the sensor's horizon — everything older than this is invisible
 };
 
 const roster = (ss: Session[], type: string): Roster => ({
@@ -144,6 +150,7 @@ export function wip(census: CensusRead, rig: Rig, buildingOfSession: (s: Session
 		accounts,
 		buildings: [...counts].map(([building, sessions]) => ({ building, sessions })).sort((a, b) => b.sessions - a.sessions),
 		subagents: roster(live, 'subagent'), shells: roster(live, 'shell'),
+		since: census.since,
 	};
 }
 
@@ -220,10 +227,14 @@ export function wipGauges(w: Wip): string {
 	</div>`).join('') : `<p class="prose note">No live session anywhere in the city.</p>`;
 
 	return `<section class="panel gauge"><h2>WIP — what is in flight</h2>
-		<p class="prose note">Live sessions by account and by building, off the census. The roster figures are
-			<b>lower bounds</b>: the heartbeat keeps at most ${BG_CAP} background entries per record, so a
-			full roster renders <code>${BG_CAP}+</code> and a background shell's completion is invisible
-			to the sensor (P1 F4) — a shell counted here was launched, not proven still running.</p>
+		<p class="prose note"><b class="bad">Every figure here is a floor, not a total.</b> The census only
+			knows sessions that have heartbeated${w.since === null ? '' : `, and its earliest beat on record is
+			<b>${esc(ago(w.since))}</b> old`} — a session started before the hooks went live never beats and is
+			invisible to this panel. The roster figures are bounded twice over: the heartbeat keeps at most
+			${BG_CAP} background entries per record, so a full roster renders <code>${BG_CAP}+</code>, and a
+			background shell's completion fires no event at all (P1 F4) — a shell counted here was launched,
+			not proven still running.</p>
+		<p class="prose note">Live sessions by account and by building, off the census.</p>
 		<div class="counts">
 			<div class="stat"><span class="label">subagents</span><b class="t-working">${esc(rosterText(w.subagents))}</b></div>
 			<div class="stat"><span class="label">background shells</span><b class="t-idle">${esc(rosterText(w.shells))}</b></div>

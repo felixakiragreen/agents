@@ -67,8 +67,18 @@ export type Session = {
 	tasksCapped: boolean;   // the roster filled the hook's slice: render `16+`, never `16`
 };
 
-/** What one read of the census yielded — including what it could NOT read (parser-as-lint). */
-export type CensusRead = { present: boolean; sessions: Session[]; beats: number; malformed: number };
+/**
+ * What one read of the census yielded — including what it could NOT read (parser-as-lint) and how
+ * far back it can see at all.
+ *
+ * `since` is the earliest beat in the window read, and it is the sensor's **horizon**: the hooks
+ * went live on 2026-08-27 (B1's deploy, B4 F2 §first beat), and a session started before that has
+ * never heartbeated and never will. Measured at this build row: `ps` counted **38 live `claude`
+ * processes** while the census knew **6 sessions**. Every figure derived from this read is
+ * therefore a floor, and the page that renders one must say so — a WIP gauge reading 6 against a
+ * machine running 38 is the hidden bill B5 exists to prevent.
+ */
+export type CensusRead = { present: boolean; sessions: Session[]; beats: number; malformed: number; since: number | null };
 
 // ---------- the state machine (pure — this is the tested core) ----------
 
@@ -208,17 +218,18 @@ const stampOf = (transcript: string | null): string | null =>
 /** One read of the whole census: every session it has ever seen, stated as of now. */
 export function readCensus(nowSeconds = Date.now() / 1000): CensusRead {
 	const text = window(censusFile(), LIMITS.tail, 'end');
-	if (text === null) return { present: false, sessions: [], beats: 0, malformed: 0 };
+	if (text === null) return { present: false, sessions: [], beats: 0, malformed: 0, since: null };
 
 	const latest = new Map<string, Beat>();
 	const counts = new Map<string, number>();
-	let beats = 0, malformed = 0;
+	let beats = 0, malformed = 0, since: number | null = null;
 	for (const line of text.split('\n')) {
 		if (!line.trim()) continue;
 		let beat: Beat | null = null;
 		try { beat = toBeat(JSON.parse(line)); } catch { beat = null; }
 		if (!beat) { malformed++; continue; }
 		beats++;
+		if (since === null || beat.t < since) since = beat.t;
 		counts.set(beat.sid, (counts.get(beat.sid) ?? 0) + 1);
 		const prev = latest.get(beat.sid);
 		if (!prev || beat.t >= prev.t) latest.set(beat.sid, beat);   // by timestamp, never by position (F4)
@@ -239,7 +250,7 @@ export function readCensus(nowSeconds = Date.now() / 1000): CensusRead {
 		tasksCapped: last.bg.length >= BG_CAP,
 	})).sort((a, b) => b.last.t - a.last.t);
 
-	return { present: true, sessions, beats, malformed };
+	return { present: true, sessions, beats, malformed, since };
 }
 
 export const isLive = (s: Session) => s.state !== 'gone';
