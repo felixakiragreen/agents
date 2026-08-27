@@ -1154,3 +1154,27 @@ this entry. Belvedere sessions ledger locally from here (its working agreement �
 — the campaign never re-enters this file. Decided: belvedere D1–D6, all ✓ Felix
 in-session; canon: nothing. Next: Felix fires batch 1 — kickoffs verbatim in
 belvedere/plans/.
+
+---
+
+**2026-08-26 · Grand Architect · fable-max** — The molt sitting. Inbox swept 4/4 and
+drained, no rejections: the sovereign's AI-native directive + P3's fold candidates
+became D63 (FC-1…9 + the molt clause — form migrates freely, history included;
+meaning supersedes visibly; D32's history scope superseded for form) with DOCTRINE
+§§3/4/7/8 and three templates amended; the baton regrammared move/wave/fork (D64 —
+Felix's amendment at sitting: ambiguity was the sin, plurality never was; dispatcher
+§6/§7 + architect close reshaped); v3 "the molt" cut (D65 — rows 16–18: the doctrine
+linter with `doctrine migrate`, the storage experiment behind a Belvedere-v0
+Felix-gate, the great re-cut ×17 buildings; Arborist verdict folded as §3's
+bare-session siting law); the redundancy tiebreak into the constitution as Directive
+§1.7 (D66 — live ×3 at countersign, watched arrive in this session's own mirror;
+Directives now D-entry-governed, organize-shape A); the visibility decree folded
+interim (D67 — dispatcher announce duty; census requirement routed to belvedere's
+inbox; the Workflow-visible-unguarded vs Agent-guarded-invisible fork named; blanket
+ban declined on the record). Row 16's order written
+([plans/16-doctrine-linter.md](plans/16-doctrine-linter.md)); both baton-rail gates
+(FC-1/FC-7) cleared for the glass. Decided: D63–D67, all ✓ Felix in-session ("make
+it ALL so"). Next: fire 16 — kickoff in
+[plans/16-doctrine-linter.md](plans/16-doctrine-linter.md); behind it: 18 waits on
+16, 17 on 16 + its Felix-gate, and the queued harvest work stands behind v3
+(Sovereign's priority).
