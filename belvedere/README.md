@@ -317,7 +317,7 @@ engine, the Steward the same flow unattended; v0 usage is the evidence — **kee
   chapter and any future tightening of the CLI's courtesy fallback. D8's
   deployment ruling stands whole; only its auth framing retires. Fence +
   deployment wording amended (§§2–3).
-- **D10** (2026-08-27, Architect, on B3 E2's corpus evidence — awaiting Felix's ✓):
+- **D10** (2026-08-27, Architect, on B3 E2's corpus evidence · ✓ Felix same day):
   **Ambiguity never arms.** A glass affordance that fires work renders armed only
   when parse and prose agree; any collision renders safe — unwired, the conflict
   named on the card, copy-summons allowed (copying is reading; the gate stays

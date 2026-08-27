@@ -37,6 +37,18 @@ The fence holds by wiring, not exception.
 4. Hands disabled → notes still append (file write is the glass's own, not a
    socket call); only the apply button disables.
 
+> **Amended 2026-08-27 (Architect, at Felix's ask — "a button inside Belvedere to
+> countersign things"):** the rail's pending-countersign cards (B3 renders them
+> city-wide) gain a **Countersign** button — a gesture like any other: ONE append
+> to that building's ISSUES, `- <YYYY-MM-DD> · Felix (via Belvedere) ·
+> countersign <D-id>: ✓`. The card reads its own entry back and renders
+> **recorded — awaiting fold** until the sweep stamps the ✓ into the decision
+> entry with his name (the fence's own sentence: his word travels as inbox
+> entries the Architect applies). Three card states, all derived from files:
+> pending → recorded → folded. The glass never pens the D-entry itself (D3;
+> editing truth is the forever non-goal). DoD gains: one countersign gesture
+> landing lint-green + the card's recorded state shown.
+
 ## Acceptance criteria / DoD — evidence pasted here at build time
 
 - [ ] A note gesture lands as a D63-legal entry in `belvedere/ISSUES.md` (the

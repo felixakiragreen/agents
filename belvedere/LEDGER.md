@@ -479,7 +479,11 @@ lighting; plan view = progress view); D10 + HALT bind the engine;
 landing-`holds` and S5 mode are the named physics; encapsulation joins
 kind/branch/holder/holds as the **row-17 evidence pile**. Timing (Felix): after
 v0 closes — rows at the v0 close sitting. Decided: D11 (✓ Felix in-session);
-D10 still awaits his ✓. Next: Felix — amendment #2 to the Dispatcher (B9 after
-B7), countersign D10, rotate the leaked password + re-run E2; behind it the
-chain runs B5 → B6 → B7 → B9 to his close gates, then the v0 close sitting cuts
-the flow rows.
+D10 ✓ Felix same sitting. **Felix's wave paid in-session**: amendment #2
+delivered, D10 countersigned, password rotated + E2 re-armed. His
+countersign-button ask ruled inside existing law — **a B6 gesture** (order
+amended: Countersign on pending-countersign cards → D63 inbox append, card
+states pending → recorded → folded; the glass never pens the D-entry — D3
+stands, no new write class). Next: the chain runs B5 → B6 → B7 → B9 to his
+close gates, then the v0 close sitting cuts the flow rows — nothing on this
+desk.
