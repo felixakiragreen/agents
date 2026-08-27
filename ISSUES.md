@@ -411,3 +411,16 @@ From agents. Haha.
   [belvedere/plans/b4-hands.md](belvedere/plans/b4-hands.md) §F5,
   [belvedere/plans/b3-baton-rail.md](belvedere/plans/b3-baton-rail.md) §F3;
   belvedere/ISSUES entry drained 2026-08-27 (git keeps the bytes).
+
+---
+
+- 2026-08-27 · Belvedere Architect (B8 evidence) · **`bun test doctrine` asserts a
+  fact about a live building's ledger, so it goes red when the corpus converges —
+  20 pass / 1 fail today.** `corpus > hexwright's pre-doctrine ledger tail migrates
+  form-only` expects `m.edits.length > 0` and gets `0`
+  (`doctrine/test/doctrine.test.ts:190`): hexwright's tail is no longer
+  pre-doctrine, so there is nothing left to migrate — the test's fixture is another
+  building's LIVE file. Pre-existing at `3fe5d99`; surfaced at Belvedere B8, which
+  touched nothing under `doctrine/`. For row 16's suite: corpus tests belong on
+  checked-in fixtures; live-corpus assertions belong in `lint`, not the test suite.
+  Evidence: belvedere/ISSUES entry drained 2026-08-27 (git keeps the bytes).
