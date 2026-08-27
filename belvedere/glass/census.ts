@@ -89,16 +89,22 @@ export function isAlive(pid: number | null): boolean | null {
 
 // ---------- the read ----------
 
+/**
+ * `jq --arg` stringifies everything and yields `""` for an unset env var, so the record's
+ * absent fields arrive as empty strings, never as null (B1's relay, batch-2 bulletin §1).
+ * One boundary conversion, and the rest of the glass sees honest nulls.
+ */
 const str = (v: unknown): string | null => typeof v === 'string' && v !== '' ? v : null;
 
-function toBeat(raw: unknown): Beat | null {
+/** The parse boundary: F6's wire record in, a trusted `Beat` out, or null and a lint count. */
+export function toBeat(raw: unknown): Beat | null {
 	if (typeof raw !== 'object' || raw === null) return null;
 	const r = raw as Record<string, unknown>;
 	const t = typeof r.t === 'number' ? r.t : null;
 	const sid = str(r.sid);
 	const ev = str(r.ev);
 	if (t === null || sid === null || ev === null) return null;   // no identity, no record
-	const pid = Number(r.pid);
+	const pid = Number(r.pid);                                    // `"89626"` — a STRING on the wire (bulletin §2)
 	return {
 		t, ev, sid,
 		acct: str(r.acct),

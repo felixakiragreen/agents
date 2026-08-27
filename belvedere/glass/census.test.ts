@@ -5,7 +5,7 @@
 // whether it still EXISTS. Never render a state without both.
 
 import { expect, test } from 'bun:test';
-import { sessionState, isAlive, STALE_SECONDS, type Beat, type SessionState } from './census';
+import { sessionState, isAlive, toBeat, STALE_SECONDS, type Beat, type SessionState } from './census';
 
 const NOW = 1_800_000_000;
 const beat = (ev: string, over: Partial<Beat> = {}): Beat =>
@@ -60,4 +60,43 @@ test('isAlive: our own pid is alive, pid 1 is alive (EPERM counts), a null pid i
 test('isAlive: a pid that cannot exist is dead', () => {
 	// 2^22 is above every default `kern.maxproc`; nothing is ever assigned it here.
 	expect(isAlive(4194303)).toBe(false);
+});
+
+// --- the wire contract with B1's `beat.sh`, locked to the batch-2 bulletin's three shapes ---
+
+/** B1's own `Stop` line, verbatim from a live hooked session (b1-census-deploy.md §DoD-1). */
+const WIRE = {
+	t: 1787801171.752986, ev: 'Stop', sid: 'fa284eec-60f3-4581-8e74-e5aa5f652975',
+	acct: '/Users/felix/.claude', ws: '', sf: '', pid: '89626',
+	cwd: '…/scratchpad/venue-hooks', tp: '/Users/felix/.claude/projects/…/fa284eec-….jsonl',
+	pmt: 'fb6a1fd5-67d7-4cd7-8012-b4960bd874fd', mode: 'default', aid: null, at: null,
+	tool: null, why: null,
+	bg: [{ id: 'a10431f998c45d31f', type: 'subagent', status: 'running', agent_type: 'general-purpose' }],
+};
+
+test('wire: `pid` is a string on the wire and a number in the glass (bulletin §2)', () => {
+	expect(toBeat(WIRE)!.pid).toBe(89626);
+});
+
+test('wire: jq --arg empty strings become nulls, never "" (bulletin §1)', () => {
+	const b = toBeat({ ...WIRE, acct: '', cwd: '', tp: '', tool: '', why: '' })!;
+	expect([b.acct, b.cwd, b.tp, b.tool, b.why]).toEqual([null, null, null, null, null]);
+});
+
+test('wire: a record with no sid, no ev or no timestamp is unreadable, not half-trusted', () => {
+	expect(toBeat({ ...WIRE, sid: '' })).toBe(null);
+	expect(toBeat({ ...WIRE, ev: undefined })).toBe(null);
+	expect(toBeat({ ...WIRE, t: '1787812345' })).toBe(null);
+	expect(toBeat('not an object')).toBe(null);
+});
+
+test('wire: a pid that is absent, empty or junk is unaskable, never pid 0', () => {
+	for (const pid of [undefined, null, '', 'x', '0', '-1'])
+		expect(toBeat({ ...WIRE, pid })!.pid).toBe(null);
+});
+
+test('wire: the full record renders a state, and no dropped field is load-bearing', () => {
+	// `ws`, `sf`, `pmt`, `mode`, `aid`, `at` and the capped `bg` roster (bulletin §3) are
+	// deliberately not read by the spine — B4's jump-in and B5's WIP gauges own them.
+	expect(sessionState(toBeat(WIRE)!, true, WIRE.t + 10)).toBe('idle');
 });

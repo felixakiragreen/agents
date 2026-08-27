@@ -209,7 +209,9 @@ function issuesPanel(b: Building): string {
  */
 function lintPanel(b: Building, used: Set<Fail>): string {
 	const rest = b.fails.filter(f => !used.has(f));
-	if (!rest.length) return `<section class="panel"><h2>Lint</h2><p class="note">Clean — every field the doctrine names, this building carries.</p></section>`;
+	if (!rest.length) return `<section class="panel"><h2>Lint</h2><p class="note">${b.fails.length
+		? `All ${b.fails.length} failure(s) are pinned to their board rows above.`
+		: 'Clean — every field the doctrine names, this building carries.'}</p></section>`;
 	const rows = rest.map(f => `<tr><td>${pill(f.artifact, 'orange')}</td><td><code>${esc(f.code)}</code></td>
 		<td>${esc(f.reason)}</td><td><a href="${esc(docHref(f.file, '/'))}">${esc(short(f.file))}</a>:${f.line}</td>
 		<td><code>${esc(f.excerpt)}</code></td></tr>`).join('');
