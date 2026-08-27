@@ -624,5 +624,5 @@ contract question. **F4** the live census is a load-bearing third stamp source
 `known` list**, so it would hand that name out twice — parked to B3's ground, one array
 away. **F5** the Grand Architect's no-theater exception now matches the rig
 (`grand-architect-11`, live). **F6** probe residue named, not scrubbed. Next: **fire B9** —
-the visual law sweep over the pre-law pages, the last row before Felix's close gates; the
+the visual law sweep over the pre-law pages, the last build row before the close gates; the
 bulletin carries F1 (which binds anything that fires), F3 and F4.

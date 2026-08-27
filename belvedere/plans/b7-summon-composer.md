@@ -166,6 +166,15 @@ handing that JSON to `POST /hands/fire`. Nothing was hand-assembled.
 **Gates:** `bun test belvedere/glass` → **271 pass / 0 fail in one process** (was 219;
 52 new, none weakened). `bunx --offline tsc --noEmit` from `belvedere/glass` → **exit 0**.
 `/summon` warm, 12 requests spaced 1 s: `n=12 min=0.006s p50=0.007s p95=0.013s max=0.017s`.
+`doctrine lint belvedere` → **14/14 board rows typed, the tail parsed, one fireable baton**;
+8 pre-existing failures, none at this row's row or entry.
+
+**And the row's own baton arms — the first one in the live city since D10.** B8 F2 measured
+the rail arming **0 of 38** cards, and named this batch's close-out fire as the cheapest proof
+the ruling works. Written unambiguously (the Next clause hands B9 to a session and names no
+Felix-action inside itself), it renders `tone-green · data-holder="session"`, **wired**, with
+the composed body `builder-belvedere-05 · opus-medium · cwd agents/belvedere` carrying B9's
+own kickoff fence — and the rail's `fireable` stat reads **1**.
 
 ## Out of scope
 
