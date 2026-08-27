@@ -27,7 +27,7 @@ type Account = { dir: string; label: string };
 type State =
 	| { kind: "installed" }                        // already exactly our hooks
 	| { kind: "ready"; settingsExist: boolean }    // no hooks — safe to merge
-	| { kind: "foreign"; keys: string }            // somebody else's hooks — refuse
+	| { kind: "foreign"; note: string }            // hooks we did not write — refuse
 	| { kind: "blocked"; why: string };            // can't proceed, and won't guess
 
 // hooks.json is a template: `@CENSUS@` becomes this directory (lab/p1's `@LAB@`
@@ -62,10 +62,29 @@ function probeBeat(command: string): string | null {
 	const run = Bun.spawnSync([command], { stdin: Buffer.from(payload), env: { ...process.env, CENSUS_DIR: dir } });
 	if (run.exitCode !== 0) return `hook exited ${run.exitCode} (it must always exit 0)`;
 	const out = join(dir, "census.jsonl");
-	if (!existsSync(out)) return `hook wrote no record — is /usr/bin/jq present?`;
-	const keys = Object.keys(JSON.parse(readFileSync(out, "utf8").trim()));
+	// An empty file is the jq-is-missing signature: the append redirect creates it,
+	// then the exec fails silently by design. Presence alone proves nothing.
+	const line = existsSync(out) ? readFileSync(out, "utf8").trim() : "";
+	if (!line) return "hook wrote no record — is /usr/bin/jq present?";
+	let keys: string[];
+	try {
+		keys = Object.keys(JSON.parse(line));
+	} catch (e) {
+		return `hook wrote a non-JSON record (${e}): ${line.slice(0, 120)}`;
+	}
 	if (keys.join(" ") !== F6_KEYS.join(" ")) return `record is not F6-shaped: ${keys.join(" ")}`;
 	return null;
+}
+
+// Every `command` string anywhere in a hooks block — so a refusal can name what it
+// found, which is how a stale worktree path in an old install gets diagnosed.
+function commandsIn(node: unknown, found = new Set<string>()): Set<string> {
+	if (Array.isArray(node)) for (const child of node) commandsIn(child, found);
+	else if (node && typeof node === "object")
+		for (const [key, value] of Object.entries(node))
+			if (key === "command" && typeof value === "string") found.add(value);
+			else commandsIn(value, found);
+	return found;
 }
 
 function inspect(a: Account): State {
@@ -80,8 +99,14 @@ function inspect(a: Account): State {
 	}
 	const hooks = settings.hooks;
 	if (hooks && Bun.deepEquals(hooks, fragment.hooks)) return { kind: "installed" };
-	if (hooks && typeof hooks === "object" && Object.keys(hooks).length > 0)
-		return { kind: "foreign", keys: Object.keys(hooks).join(" ") };
+	// Anything that is not null and not an empty object is somebody's configuration —
+	// including our own hooks left pointing at a stale path. Never guess, never overwrite.
+	const isEmpty = hooks == null || (typeof hooks === "object" && Object.keys(hooks).length === 0);
+	if (!isEmpty) {
+		const events = typeof hooks === "object" ? Object.keys(hooks).join(" ") : JSON.stringify(hooks);
+		const commands = [...commandsIn(hooks)].join(", ");
+		return { kind: "foreign", note: `existing hooks: ${events}${commands ? ` → ${commands}` : ""}` };
+	}
 	if (existsSync(path + BACKUP_SUFFIX))
 		return { kind: "blocked", why: `${BACKUP_SUFFIX} exists but hooks are gone — backing up twice would destroy the first original; move it aside yourself` };
 	return { kind: "ready", settingsExist: true };
@@ -123,7 +148,7 @@ for (const { a, state } of plan) {
 	switch (state.kind) {
 		case "installed": row(a.label, "ok", "census hooks in place"); break;
 		case "ready":     row(a.label, check ? "DRIFT" : "pending", state.settingsExist ? "no hooks — merge will add them" : "no settings.json — deploy will create it"); break;
-		case "foreign":   row(a.label, "REFUSED", `existing hooks: ${state.keys}`); break;
+		case "foreign":   row(a.label, "REFUSED", state.note); break;
 		case "blocked":   row(a.label, "REFUSED", state.why); break;
 	}
 }
