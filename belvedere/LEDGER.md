@@ -443,9 +443,14 @@ belvedere/glass` **109 pass / 0 fail in one process**. **The type gate is offlin
 `typescript@7.0.2` + `@types/bun@1.4.0` pinned with `bun.lock` committed,
 `tsconfig.json` strict and covering `../../doctrine/**`, `bunx --offline tsc --noEmit`
 exit 0 — the third-party fetch was the two the order named (D54 satisfied, not slipped).
-Findings F1–F5 in [B8](plans/b8-glass-hardenings.md): **F1 — the isolation bug printed
-Felix's live socket password into the test diff** (never assert on a credential's
-value); **F2 — D10 takes the live rail to 0 armed cards of 38**, which is B3 E2's
+Findings F1–F5 in [B8](plans/b8-glass-hardenings.md): **F1 — the isolation bug was never
+just eight red tests: the suite armed the city's real `summon/log/HALT` from
+`hands.test.ts` and left it armed, wrote 16 lines into the real `hands.jsonl` (four of
+them stamping `builder-belvedere-01`, which `nextStamp` has been counting as a real
+fire), and printed Felix's live socket password into a failure diff.** HALT cleared this
+row, venue restored as B4 left it; the audit lines parked to ISSUES — never assert on a
+credential's value, and prove a temp knob by asserting the temp path was written.
+**F2 — D10 takes the live rail to 0 armed cards of 38**, which is B3 E2's
 measurement arriving as a consequence, not a defect; F3 the worker law binds B5's
 scans; F4 the gate covers `doctrine/` and found one latent `Beat` error; F5 the walk
 now dedupes 12 810 worktree copies, parked for whoever owns its cost. Decided: nothing

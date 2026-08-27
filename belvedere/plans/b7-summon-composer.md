@@ -44,6 +44,12 @@ buildings, ad-hoc sittings — without a terminal in the loop.
 > focus hand is the jump-in). DoD gains: one cold-dir fire showing the warning
 > and the honest state.
 
+> **Amended 2026-08-27 (Felix's design laws, README §3):** **no dropdowns** — the
+> account picker is a toggled button group with usage beside each choice (the
+> bill visible), the register picker a wrapping group of building chips plus the
+> free-path field, templates a chip row. Labels encapsulation-first with [expand]
+> where the full text is long.
+
 ## Acceptance criteria / DoD — evidence pasted here at build time
 
 - [ ] A composed fire lands: right account, stamped, colored, summons byte-exact

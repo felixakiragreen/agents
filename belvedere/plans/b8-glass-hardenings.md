@@ -114,16 +114,34 @@ Shelf/gauges/inbox/composer (B5–B7) · any rail redesign · canon's `doctrine/
 
 ## Findings
 
-**F1 — the test-isolation bug printed Felix's live cmux socket password into the test
-output.** B3 F3 diagnosed the cause exactly right (`paths.ts` froze `process.env` at
-module load, so `hands.test.ts`'s knobs arrived too late whenever another file had
-imported the module first) but named the symptom as eight failures. One of those eight
-was the credential gate asserting `readCredential()` against `hunter2`, and the failure
-diff printed **the real password from `~/.config/belvedere/env`** — the file the tests
-swear they never read — into the terminal, the transcript, and any CI log that would
-have run it. Bun's `toEqual` diff has no idea one side is a secret.
+**F1 — the test-isolation bug was not eight red tests. The suite was writing to the real
+census neighbourhood, it armed the city's real HALT flag, and it printed Felix's live
+cmux socket password into the failure diff.** B3 F3 diagnosed the cause exactly right
+(`paths.ts` froze `process.env` at module load, so `hands.test.ts`'s knobs arrived too
+late whenever another file had imported the module first) but named the symptom as eight
+failures. The eight failures were the *harmless* half. What the same frozen anchors did
+on the way past:
 
-Two things follow, and both are general:
+- **`~/code/agents/summon/log/HALT` was armed by a unit test and left armed.** The HALT
+  test calls `hands.halt()` twice; with `haltFlag()` frozen to the live path it wrote the
+  city's stop flag. Found at this row's final sweep, contents
+  `2026-08-27T13:40:37.492Z felix again` — `felix again` is verbatim the test's own
+  requester string, and the audit carries two halts in the same millisecond, which is the
+  test's sequence and nothing else. **The flag is dormant today (its consumers arrive with
+  the Steward), which is the only reason this cost nothing.** Cleared by this row; the
+  venue is as B4 left it.
+- **The real audit log carries 16 test-shaped lines**, back to B4's own landing:
+  `{"action":"halt","args":{"requester":"felix again"}}`, worktrees under
+  `/private/tmp/…/scratchrepo`, a fire from `/var/folders/…/T`. Four of them stamp
+  `builder-belvedere-01`, and `nextStamp` reads `hands.jsonl` (B3 F4) — so the lineage
+  counter has been counting test fires as real ones. Gitignored telemetry, never truth,
+  and an append-only audit is not a Builder's to scrub: **parked to ISSUES**.
+- **The credential gate printed the password.** It asserts `readCredential()` equals
+  `hunter2`; against the real `~/.config/belvedere/env` the `toEqual` diff printed the
+  real value into the terminal, the transcript, and any log that would have kept it.
+  Bun's diff has no idea one side is a secret.
+
+Three things follow, and all three are general:
 
 1. **A frozen env anchor is not a style question.** Fixed at the cause: every
    env-derived anchor in `paths.ts` is now a function (`cityRoot()`, `censusDir()`,
@@ -134,6 +152,12 @@ Two things follow, and both are general:
    fails. `hands.test.ts` gets away with it now only because its anchor is guaranteed
    temp; the safer shape — assert `ok`, assert the error text names the path and not
    the value — is what the rest of that file already does.
+3. **A test that can reach a live anchor WILL reach it, and the fence's own files are
+   in reach.** HALT is one `writeFileSync` from any suite that imports `hands.ts`. The
+   structural answer is the one now in place — the anchor cannot be frozen to the wrong
+   value because it is never frozen — but the standing habit for every row after this
+   one is: point the knobs at temp, then prove it by asserting the temp path was
+   written, not merely that the call returned `ok`.
 
 **F2 — D10 is live, and the live rail now arms nothing: 0 fire buttons of 38 cards.**
 Not a bug and not an argument with the ruling — it is B3 E2's measurement arriving as a

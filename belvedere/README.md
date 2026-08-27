@@ -112,6 +112,16 @@ dashboard `~/code/universal_robots_sdk/cap-mega/felix/spacex-dashboard-c2` and
 bob's design system `~/code/universal_robots_sdk/bob/web/src/routes/design`. Which
 copy/exemplar leads is Felix's taste call at the glass build row.
 
+**Design laws (Felix, 2026-08-27):** **encapsulation-first** — every card and row
+leads with a 1–6-word name ("B8: glass hardenings", "E1: register policy"),
+[expand] reveals the full text or a waggle; **Inter for running prose,
+IosevkaFelix for numbers, titles, buttons, tabular data**; **colour legends** on
+every coloured view; the City View **groups by parent directory**; **recency
+informs sort order, never dictates it** (attention — batons, gates, escalations —
+outranks it); **account usage visible wherever accounts are chosen**; **no
+dropdowns** — toggled button groups. Rows from B5 on build to these natively;
+[B9](plans/b9-visual-law.md) sweeps the pages that predate them.
+
 ## 4. Scope — v0 and non-goals
 
 **v0 (D5):** census + City View + building pages + baton rail + fire/worktree +
@@ -163,7 +173,7 @@ word only) · editing truth (forever-class, §2).
 | B5 | [Shelf + gauges](plans/b5-shelf-gauges.md) — resume ×3 by transcript-stamp; usage strip; WIP gauges | B4 | Builder · opus-high | OPEN — order blessed at G1; F1/F3 folded in |
 | B6 | [Sovereign inbox](plans/b6-sovereign-inbox.md) — gestures → D63 ISSUES appends + the apply button | B4 | Builder · opus-high | OPEN — order blessed at G1 |
 | B7 | [Summon composer](plans/b7-summon-composer.md) — fire-anything: form + templates (founding incl.) + worktree composition | B4 | Builder · opus-high | OPEN — cut 2026-08-27 (Felix's ask), joined batch 3 by amendment; amended at the ruling sitting: trust-dialog warning (B3 F2) |
-| B8 | [Glass hardenings](plans/b8-glass-hardenings.md) — E1/E2 rulings live (register policy, ambiguity-never-arms), fire unwind, test isolation, offline type gate | B3 | Builder · opus-high | **LANDED** 2026-08-27 — all five built, nothing escalated; DoD evidenced in [B8](plans/b8-glass-hardenings.md). **E1 policy live**: ttl 300 s, hands bust the register, re-walk button beside the age — footer reads `ttl 300s`, **p95 45 ms** (bar 500 ms), a live worktree moved it 75s → 3s without stalling the request that took the bust. **D10 live**: hexwright + simmy render **zero** fire wiring, note + copy intact, holder untouched. **Fire unwinds** — induced refused colour, `workspace:11` closed, `fire.unwind` audited, no orphan. **`bun test belvedere/glass` 109/109 in ONE process** (B3 F3 fixed at the cause: `paths.ts` resolves env anchors per call). **Offline type gate**: `typescript@7.0.2` + `@types/bun` pinned, lockfile committed, `bunx --offline tsc --noEmit` exit 0 — covers `doctrine/` too. F1 the isolation bug **printed Felix's live socket password into the test diff** (never assert on a credential's value) · **F2 the live rail now arms 0 of 38 cards** — B3 E2's measurement arriving as a consequence, unblocked only by canon's holder grammar or an unambiguous clause · F3 the worker law binds B5's scans · F4 the gate found one latent `Beat` error · F5 12 810 worktree copies deduped, parked |
+| B8 | [Glass hardenings](plans/b8-glass-hardenings.md) — E1/E2 rulings live (register policy, ambiguity-never-arms), fire unwind, test isolation, offline type gate | B3 | Builder · opus-high | **LANDED** 2026-08-27 — all five built, nothing escalated; DoD evidenced in [B8](plans/b8-glass-hardenings.md). **E1 policy live**: ttl 300 s, hands bust the register, re-walk button beside the age — footer reads `ttl 300s`, **p95 45 ms** (bar 500 ms), a live worktree moved it 75s → 3s without stalling the request that took the bust. **D10 live**: hexwright + simmy render **zero** fire wiring, note + copy intact, holder untouched. **Fire unwinds** — induced refused colour, `workspace:11` closed, `fire.unwind` audited, no orphan. **`bun test belvedere/glass` 109/109 in ONE process** (B3 F3 fixed at the cause: `paths.ts` resolves env anchors per call). **Offline type gate**: `typescript@7.0.2` + `@types/bun` pinned, lockfile committed, `bunx --offline tsc --noEmit` exit 0 — covers `doctrine/` too. F1 the isolation bug was never just eight red tests — **the suite armed the city's real HALT flag and left it armed** (cleared here, venue restored), wrote 16 lines into the real audit log (four stamping `builder-belvedere-01`, which `nextStamp` counts — parked to ISSUES), and **printed Felix's live socket password into a failure diff** · **F2 the live rail now arms 0 of 38 cards** — B3 E2's measurement arriving as a consequence, unblocked only by canon's holder grammar or an unambiguous clause · F3 the worker law binds B5's scans · F4 the gate found one latent `Beat` error · F5 12 810 worktree copies deduped, parked |
 
 **Batch 1 (cut at founding, 2026-08-26) — Felix-tended, reasons named:** the venue
 is his live desktop (first contact with a new substrate — his eyes at each landing),

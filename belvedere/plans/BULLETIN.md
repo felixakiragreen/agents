@@ -196,15 +196,27 @@ Evidence: [b3-baton-rail.md](b3-baton-rail.md) §DoD and §Findings, commits `1e
 Evidence: [b8-glass-hardenings.md](b8-glass-hardenings.md) §DoD and §Findings, commits
 `2defc6e` … `42dba8a` on `master`.
 
-1. **F1 — the test-isolation bug printed Felix's LIVE cmux socket password into the test
-   output, and the shape that did it is a shape you will be tempted to copy.** B3 F3
-   diagnosed the cause exactly (frozen `process.env` in `paths.ts`) but named the symptom
-   as eight failures. One of the eight was `hands.test.ts` asserting
-   `readCredential()` equals `hunter2`; because the module had resolved the REAL
-   `~/.config/belvedere/env`, Bun's `toEqual` diff printed the real password — into the
+1. **F1 — the test-isolation bug was never just eight red tests: the suite armed the
+   city's real HALT flag, wrote 16 lines into the real audit log, and printed Felix's LIVE
+   cmux socket password into a failure diff.** B3 F3 diagnosed the cause exactly (frozen
+   `process.env` in `paths.ts`) but named the symptom as the failures. The failures were
+   the harmless half.
+   **`~/code/agents/summon/log/HALT` was armed by `hands.test.ts` and left armed** —
+   contents `2026-08-27T13:40:37.492Z felix again`, `felix again` being verbatim the
+   test's own requester and the audit carrying two halts in one millisecond. It cost
+   nothing only because HALT's consumers arrive with the Steward. **Cleared by B8; the
+   venue is as B4 left it.** The real `hands.jsonl` also carries 16 test-shaped lines back
+   to B4's landing, four stamping `builder-belvedere-01` — and `nextStamp` counts that log
+   (B3 F4), so the lineage counter has been counting test fires as real ones (filed to
+   ISSUES; an append-only audit is not a Builder's to scrub).
+   And the credential gate asserts `readCredential()` equals `hunter2`: against the real
+   `~/.config/belvedere/env`, Bun's `toEqual` diff printed the real password into the
    terminal, the transcript, and any log that would have kept it. **Never assert on a
    credential's value.** Assert `ok`, and assert that the error names the path and not the
-   value — which is what the rest of that file already does. Fixed at the cause: every
+   value — which is what the rest of that file already does. **And when you point a knob
+   at temp, prove it: assert the temp path was written, not merely that the call returned
+   `ok`.** HALT is one `writeFileSync` away from any suite that imports `hands.ts`.
+   Fixed at the cause: every
    env-derived anchor in `paths.ts` is now a function (`cityRoot()`, `censusDir()`,
    `handsEnv()`, …) and every non-env anchor is still a constant, so the parentheses carry
    the information. `bun test belvedere/glass` is **109 pass / 0 fail in one process** —
