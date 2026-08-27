@@ -61,3 +61,22 @@ word (D53) — the Standards Office rules formats; this desk never does. Decided
 verbatim); behind it, parallel-legal: P1 + P2 from cmux panes, P4 after both land,
 then the fold sitting cuts build rows on measured physics plus whatever the GA
 ruled.
+
+---
+
+**2026-08-26 · Architect · fable-max** — The molt folded into the glass: canon
+D63–D67 + row 16 read from the repo, inbox swept (2 entries, both ruled, drained).
+Folds: FC gates cleared (D63 — `Felix-gate` staffing token, the `Next:` law), baton
+grammar move/wave/fork (D64 — the rail renders one/n/choice buttons; the `Baton`
+shape gains `instruments[]` + kind at the build row), reference reader = canon
+[`doctrine/`](../doctrine/) — the glass imports, never forks (D65; README §§1, 3,
+5); rail fire-button affordance parked (Felix via GA-10, already legal — UX input
+at the rail row). [P1](plans/p1-census-join.md) re-cut: +Q5 — count
+Agent-tool/Bash/Workflow subagents from parent hooks or name the blindness
+precisely (D67 routes Felix's decree here). Board trued: P2/P4 untouched
+(substrate physics owe the format law nothing); canon row 18's wave runs
+city-wide in parallel, defers live buildings; glass v0's evidence noted as canon
+row 17's Felix-gate. Decided: nothing new — two inbox rulings (fold, park).
+Next: fire P1 + P2 — a D64 wave, kickoffs in their briefs, both from terminals
+inside cmux panes; P4 after both land; then the fold sitting cuts the v0 build
+rows.

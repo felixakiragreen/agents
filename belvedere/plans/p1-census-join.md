@@ -2,6 +2,8 @@
 
 **Status:** OPEN · **Depends on:** — (batch note: fire inside a cmux pane) ·
 **Staffing:** Digger · opus-high · **Parallel-safe with:** P2, P3
+**Re-cut 2026-08-26 (Architect):** question 5 added — canon D67 routes Felix's
+visibility decree here.
 
 ## Questions
 
@@ -16,6 +18,12 @@
 4. Propose the census record: one JSONL line per event — fields named, derived from
    what (1) and (2) actually provide. Home: `summon/log/census/` (README D6,
    gitignored — verified at founding).
+5. Subagent visibility (canon D67): when a session dispatches via the Agent tool, a
+   background Bash job, or a Workflow run, which of those lifecycles surface in the
+   PARENT session's hook events — and with what identifying fields? Deliverable per
+   vehicle: countable from hooks, or the blindness named precisely. The full
+   no-invisible-agents law is cut canon-side from what this census proves — the
+   mechanism signs the charter.
 
 ## Inputs — read before working
 
@@ -45,6 +53,9 @@ the census file stays silent there and speaks under hooks.
   fallbacks (pane title stamp, tty, cmux CLI census) and continue questions 1/3/4.
 - Per-event overhead > 50 ms → STOP, escalate: the sensor would tax every session
   in the city.
+- Subagent lifecycles invisible to every hook event → NOT a kill: the precisely
+  named blindness IS the finding (D67 — it shapes the canon law and the glass's
+  honest gaps).
 
 ## Deliverables
 

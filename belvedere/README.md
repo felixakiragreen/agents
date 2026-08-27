@@ -33,6 +33,11 @@ never a fatter parser. [P3](plans/p3-parse-coverage.md) gathers the evidence.
 > Standards Office cuts the standards — the directive and P3's evidence ride the
 > canon inbox entry of this date.
 
+> **Molt landed, same day (canon D63–D67, row 16):** the reference reader is canon
+> [`doctrine/`](../doctrine/) — one parser in the city; the glass imports it, never
+> forks it (D65). P3 §5's shapes are normative per D65; both baton-rail gates
+> (FC-1/FC-7) cleared by D63. P3's `lab/p3/` parsers retire to probe history.
+
 ## 2. The fence
 
 Read-everything, write-narrow. The write list is exhaustive (D3):
@@ -64,7 +69,9 @@ never truth.
    **Building pages**: DOCTRINE §2's cold-session questions as panels. **The baton
    rail — the home page**: every ledger-tail baton, named Felix-gate, and pending
    countersign in one column; a session-holder baton becomes a Dispatch button, a
-   Felix-holder baton renders as his card, never auto-fired. **Shelf**: resume
+   Felix-holder baton renders as his card, never auto-fired. Baton grammar is
+   move / wave / fork (canon D64) — the rail renders one / n / choice buttons; the
+   parsed `Baton` shape gains `instruments[]` + kind at the build row. **Shelf**: resume
    anything, any account. Usage strip + **WIP gauges from day one** — a one-click
    dispatcher that hides the bill is how a sovereign DoS's himself.
 3. **Hands (out, narrow)** — fire (P2's recipe; the summons text travels), auto
@@ -106,13 +113,17 @@ word only) · editing truth (forever-class, §2).
   exclusive, never over live work.
 - **ISSUES:** [ISSUES.md](ISSUES.md) is this building's inbox (D53 pattern), swept
   by this board's Architect every sitting.
+- **One parser in the city (D65):** the glass imports canon
+  [`doctrine/`](../doctrine/) (`parse()` → Building); it never forks or
+  re-implements it. New writing follows the D63 grammar on landing; the pre-molt
+  corpus converges via canon row 18.
 - Stack: bun (canon D59); tabs at width 3 (global directives).
 
 ## 6. The board
 
 | ID | Work | Depends on | Staffing | Status |
 |---|---|---|---|---|
-| P1 | [Census join](plans/p1-census-join.md) — hook events, payloads, CMUX_* env, heartbeat cost | — (batch note: fire inside a cmux pane) | Digger · opus-high | OPEN |
+| P1 | [Census join](plans/p1-census-join.md) — hook events, payloads, CMUX_* env, heartbeat cost, subagent visibility | — (batch note: fire inside a cmux pane) | Digger · opus-high | OPEN — re-cut 2026-08-26: +Q5 subagent census (canon D67) |
 | P2 | [Spawn recipe](plans/p2-spawn-recipe.md) — socket access model; new-workspace + send ×3 accounts; resume variant | — (batch note: fire inside a cmux pane) | Digger · opus-high | OPEN |
 | P3 | [Parse coverage](plans/p3-parse-coverage.md) — board/ledger/baton/queue parsers vs every live doctrine repo | — | Digger · opus-high | **LANDED** 2026-08-26 — kill did NOT fire: one strict parser, **zero per-repo special cases**, 25/27 board docs · 365/365 rows found · 288 fully typed (79%). 14 failure classes, all general; **9 fold candidates (FC-1…FC-9) escalate to canon** — FC-1 (`Felix-gate` as a legal Staffing value) and FC-7 (fenced summons in `Next:`) **gate the baton rail**: 1 of 8 ledger tails is fireable today. Findings + JSON shapes in [P3](plans/p3-parse-coverage.md) |
 | P4 | [Restore semantics](plans/p4-restore-semantics.md) — quit/relaunch over a live turn, measured | P2 (recipe); P1 + P2 LANDED (kills the venue) | Digger · opus-high | OPEN |
@@ -130,11 +141,21 @@ at landing boundaries. Venue state at founding: cmux installed
 (`/opt/homebrew/bin/cmux`, app launches); socket up but **access-gated** — P2's
 first question.
 
+**Batch note amended 2026-08-26 (post-GA):** canon row 18's re-cut wave (8 scoped
+Architects, Dispatcher-tended) runs city-wide in parallel — its method defers
+buildings with live work, so Belvedere sittings and the wave never collide (GA
+ledger, third act). P1 re-cut with D67's census question; P2/P4 untouched —
+substrate physics owe the format law nothing.
+
 **Post-probe return:** the probes' fold sitting (this Architect) cuts the build
-rows — the v0 spine slices D5's scope; nothing builds on unmeasured physics.
+rows — the v0 spine slices D5's scope; nothing builds on unmeasured physics. Glass
+v0's evidence is the Felix-gate on canon row 17 (the storage experiment) — this
+campaign's output feeds the Standards Office.
 
 **Parked:** the sovereign's-DESK mint (a GA sitting, when inbox volume proves the
-genre — keel §7) · superset's attachments convention (rides the images chapter).
+genre — keel §7) · superset's attachments convention (rides the images chapter) ·
+rail fire-button affordance — new session / continue in an existing window (Felix
+via GA-10, already legal by law; UX input when the rail row is cut).
 
 ## 7. Decisions
 
