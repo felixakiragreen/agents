@@ -23,7 +23,8 @@ const ACCOUNTS: [string, string][] = [
 	[join(ROOT, '.claude-thg-fgreen'), 'thg-fgreen'],
 ];
 
-const rig: Rig = { accounts: new Map(ACCOUNTS), colours: new Map([['builder', 'cyan']]), mantles: ['builder'] };
+const rig: Rig = { accounts: new Map(ACCOUNTS), colours: new Map([['builder', 'cyan']]),
+	tiers: new Map([['builder', 'opus-high']]), mantles: ['builder'] };
 
 const CITY = join(ROOT, 'code');
 const entries: Entry[] = [

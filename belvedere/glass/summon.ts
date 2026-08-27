@@ -7,7 +7,7 @@
 // The glass reads all four and mints exactly what `POST /hands/fire` parses (B4 F1).
 
 import { readFileSync, statSync } from 'fs';
-import { basename } from 'path';
+import { basename, join } from 'path';
 import { EFFORTS, MODELS } from '../../doctrine';
 import { auditLog, INVOCATIONS } from './paths';
 import type { Rig } from './rig';
@@ -47,8 +47,40 @@ export const colourOf = (rig: Rig, mantle: string | null) =>
 	CMUX_COLOURS[rig.colours.get(mantleKey(mantle) ?? '') ?? ''] ?? 'Charcoal';
 
 /** A theater is argv (`-n <mantle>-<theater>-NN`), so it is a plain lowercase token or nothing. */
+const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+
+/** The rig's own plain-name law for a filed theater (`summon.zsh:_summon_theaters_load`). */
+const PLAIN = /^[A-Za-z0-9._-]+$/;
+
+/**
+ * The fire directory's filed campaign, or nothing. One read of `<dir>/.summon-theaters`, first
+ * non-blank line, **no parent walk** — row 14's semantics exactly. A line that is not a plain
+ * name makes the rig refuse the whole file rather than compose a bad launch, so it makes the
+ * glass fall back to the directory name for the same reason.
+ */
+function filedTheater(dir: string): string | null {
+	let text: string;
+	try { text = readFileSync(join(dir, '.summon-theaters'), 'utf8'); } catch { return null; }
+	for (const line of text.split('\n')) {
+		if (line === '') continue;
+		return PLAIN.test(line) && !line.startsWith('-') ? line : null;
+	}
+	return null;
+}
+
+/**
+ * Row 14's theater: the fire directory's `.summon-theaters` first line, else the directory's own
+ * name — one repo can host several campaigns, and the stamp is what carries which (rig §theater
+ * cycle). Only the default is offered here; cycling is the rig panel's keystroke.
+ *
+ * The slug is the glass's own and it is **narrower than the rig's on purpose**: a stamp must also
+ * pass `hands.ts`'s `STAMP` (`^[a-z][a-z0-9-]{0,63}$`), so `universal_robots_sdk` becomes
+ * `universal-robots-sdk` here and stays `universal_robots_sdk` from the rig. Two lineages for one
+ * theater — named in B7's findings, not papered over: the stamp is always on show and editable,
+ * and an edit back to the rig's spelling is refused loudly by the parse boundary.
+ */
 export const theaterOf = (buildingPath: string) =>
-	basename(buildingPath).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+	slug(filedTheater(buildingPath) ?? basename(buildingPath));
 
 const tail = (path: string, bytes: number): string => {
 	try {
@@ -58,27 +90,49 @@ const tail = (path: string, bytes: number): string => {
 	} catch { return ''; }
 };
 
+/** One JSON log's values for one key, from a bounded tail. */
+const logged = (path: string, key: string): string[] =>
+	[...tail(path, LOG_BYTES).matchAll(new RegExp(`"${key}":"([^"]+)"`, 'g'))].map(m => m[1]!);
+
+/**
+ * A lineage's prefix, the rig's own two shapes (`summon.zsh:_summon_name_stamp`): **the Grand
+ * Architect keeps no theater** — there is one office, so the segment would be redundancy — and
+ * every other mantle is `<mantle>-<theater>`. The rig's third shape (a bare launch, the theater
+ * counting alone) is deliberately not offered: a mantle-less fire would arm what the glass could
+ * not name, and every glass affordance chooses a mantle.
+ */
+export const lineage = (mantle: string | null, buildingPath: string): string | null => {
+	const key = mantleKey(mantle);
+	if (!key) return null;
+	if (key === 'grand-architect') return key;
+	const theater = theaterOf(buildingPath);
+	return theater ? `${key}-${theater}` : null;
+};
+
 /**
  * The next ordinal in a lineage. The rig counts from `invocations.jsonl`'s `name` field; the
  * glass's own fires never reach that file, so the hands' audit is read alongside it — one
  * counter over both, or two dispatchers would hand out one stamp twice.
  *
+ * `known` is the third source and the reason it exists: a stamp the **live census** carries came
+ * from somewhere neither log records (a hand-typed `-n`, a session fired before the audit), and
+ * a counter blind to a running session hands its name out twice.
+ *
  * `taken` closes the same hole inside a single render: a wave of two Builders in one building
  * reads one disk state and would otherwise stamp both `builder-x-01`. Every stamp minted is
  * added to it, so the caller's set IS the reservation.
  */
-export function nextStamp(mantle: string | null, buildingPath: string, taken = new Set<string>()): string | null {
-	const key = mantleKey(mantle), theater = theaterOf(buildingPath);
-	if (!key || !theater) return null;
-	const prefix = `${key}-${theater}`;
+export function nextStamp(
+	mantle: string | null, buildingPath: string,
+	taken = new Set<string>(), known: readonly string[] = [],
+): string | null {
+	const prefix = lineage(mantle, buildingPath);
+	if (!prefix) return null;
 
 	let top = 0;
-	const seen = tail(INVOCATIONS, LOG_BYTES).match(/"name":"([^"]+)"/g) ?? [];
-	const fired = tail(auditLog(), LOG_BYTES).match(/"stamp":"([^"]+)"/g) ?? [];
-	for (const hit of [...seen, ...fired]) {
-		const m = hit.match(/:"(.+)"$/)?.[1];
-		if (!m || !m.startsWith(prefix + '-')) continue;
-		const n = Number(m.slice(prefix.length + 1));
+	for (const name of [...logged(INVOCATIONS, 'name'), ...logged(auditLog(), 'stamp'), ...known]) {
+		if (!name.startsWith(prefix + '-')) continue;
+		const n = Number(name.slice(prefix.length + 1));
 		if (Number.isInteger(n) && n > top) top = n;
 	}
 	let stamp = `${prefix}-${String(++top).padStart(2, '0')}`;
@@ -98,11 +152,11 @@ export type Composed = { body: FireBody } | { blocked: string };
 
 export function compose(rig: Rig, opts: {
 	summons: string; mantle: string | null; tier: string | null; cwd: string; account: string;
-	taken?: Set<string>;
+	taken?: Set<string>; known?: readonly string[]; stamp?: string;
 }): Composed {
 	const parts = tierParts(opts.tier);
 	if (!parts) return { blocked: `the summons names no known tier (got ${JSON.stringify(opts.tier)}) — model and effort are unguessable` };
-	const stamp = nextStamp(opts.mantle, opts.cwd, opts.taken);
+	const stamp = opts.stamp ?? nextStamp(opts.mantle, opts.cwd, opts.taken, opts.known);
 	if (!stamp) return { blocked: `no name-stamp: mantle ${JSON.stringify(opts.mantle)} · theater ${JSON.stringify(theaterOf(opts.cwd))}` };
 	if (!opts.summons.trim()) return { blocked: 'the instrument carries no summons text' };
 	return { body: {

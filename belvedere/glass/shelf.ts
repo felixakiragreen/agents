@@ -304,7 +304,7 @@ export function shelfPage(query: URLSearchParams): string {
 	const load = wip(census, rig, s => buildingOf(s.cwd, reg.entries)?.building ?? null);
 
 	const ms = performance.now() - t0;
-	return page('Belvedere — the shelf', '<a href="/">rail</a> <span>/</span> <a href="/city">city</a> <span>/</span> <span>shelf</span>',
+	return page('Belvedere — the shelf', '<a href="/">rail</a> <span>/</span> <a href="/city">city</a> <span>/</span> <span>shelf</span> <span>/</span> <a href="/summon">summon</a>',
 		banner + counts + usageStrip(usages, now) + wipGauges(load) + filters + LEGEND + list + SCRIPT,
 		`${all.length} transcripts scanned in ${ms.toFixed(0)} ms · ${usageNote(usages)} · ${registerNote(reg, '/shelf')}`);
 }

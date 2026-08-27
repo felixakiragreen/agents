@@ -146,7 +146,7 @@ export function cityPage(): string {
 		${sessionTable(loose, rig)}</section>` : '';
 
 	const ms = performance.now() - t0;
-	return page('Belvedere — City View', '<a href="/">rail</a> <span>/</span> <span>city</span> <span>/</span> <a href="/shelf">shelf</a>',
+	return page('Belvedere — City View', '<a href="/">rail</a> <span>/</span> <span>city</span> <span>/</span> <a href="/shelf">shelf</a> <span>/</span> <a href="/summon">summon</a>',
 		banner + strip + `<section class="cards">${cards}</section>` + off,
 		`content re-read in ${ms.toFixed(0)} ms · ${registerNote(reg, '/city')} · ${esc(cityRoot())}`);
 }

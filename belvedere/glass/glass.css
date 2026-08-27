@@ -338,3 +338,46 @@ button.ges.apply { color: var(--felix); border-color: color-mix(in srgb, var(--f
 td.ges-cell { width: 1%; white-space: nowrap; vertical-align: top; }
 td.ges-cell .gesture { margin-top: 0; }
 td.ges-cell .btns { max-width: 34ch; white-space: normal; }
+
+/* --- the summon composer (B7): a form with no dropdowns and no client state --- */
+
+/* A radio wearing the `.btn` costume. The input is the state — the browser holds it, the back
+   button walks it — and the label is the toggled button the design law asks for (README §3).
+   The `+` selector is why the input must sit immediately before its own label. */
+input.pick { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+label.btn { cursor: pointer; display: inline-flex; flex-direction: column; gap: 1px; }
+label.btn .sub {
+	font-size: 9px; font-weight: 600; letter-spacing: .06em; color: var(--grey-600);
+	font-variant-numeric: tabular-nums;
+}
+input.pick:checked + label.btn {
+	border-color: var(--felix); color: var(--felix); background: color-mix(in srgb, var(--felix) 12%, transparent);
+}
+input.pick:checked + label.btn .sub { color: color-mix(in srgb, var(--felix) 70%, var(--grey-400)); }
+input.pick:focus-visible + label.btn { outline: 1px solid var(--blue-300); outline-offset: 2px; }
+
+.composer { display: flex; flex-direction: column; gap: 12px; }
+.composer .filters { margin-bottom: 0; }
+.composer .group { max-width: 100%; }
+.composer .btns { max-width: 96ch; }
+/* A submit button dressed as a chip: the template row files into the same group furniture. */
+.composer button.btn { background: none; text-transform: none; cursor: pointer; }
+.composer input.path {
+	margin-top: 5px; padding: 5px 9px; width: min(60ch, 100%);
+	font-family: var(--mono); font-size: 11.5px; color: var(--grey-150);
+	background: var(--grey-950); border: 1px solid var(--grey-750); border-radius: 3px;
+}
+.composer textarea.summons-in {
+	display: block; width: 100%; padding: 9px 11px; resize: vertical;
+	font-family: var(--prose); font-size: 12.5px; line-height: 1.55; color: var(--grey-150);
+	background: var(--grey-950); border: 1px solid var(--grey-750); border-radius: 4px;
+}
+.composer input.path:focus, .composer textarea.summons-in:focus { outline: none; border-color: var(--felix); }
+
+/* the composed plan — the only place on the page a fire button may exist */
+.plan { border-left: 3px solid var(--t); }
+.plan h2 { color: var(--t); }
+.plan .kv .label { flex: 0 0 6ch; }
+.plan .warn { margin-top: 10px; border-left: 2px solid var(--orange-400); padding-left: 10px; }
+.plan .warn .note { margin-bottom: 6px; }
+.plan .summons { margin-top: 10px; max-height: 18em; overflow-y: auto; }

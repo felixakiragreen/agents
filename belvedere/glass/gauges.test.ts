@@ -14,6 +14,7 @@ const NOW = 1_800_000_000;
 const rig: Rig = {
 	accounts: new Map([['/Users/felix/.claude', 'personal'], ['/Users/felix/.claude-thg-fgreen', 'thg-fgreen']]),
 	colours: new Map([['builder', 'cyan']]),
+	tiers: new Map([['builder', 'opus-high']]),
 	mantles: ['builder'],
 };
 

@@ -8,6 +8,7 @@
 
 import { readFileSync } from 'fs';
 import { join } from 'path';
+import { summonRoute } from './composer';
 import { handsRoute } from './hands';
 import { inboxRoute } from './inbox';
 import { HOST, port } from './paths';
@@ -72,6 +73,9 @@ const server = Bun.serve({
 			// The fence's third write, and the one with no credential gate: a note is a file write,
 			// not a socket call, so cold hands must never cost Felix the ability to say something.
 			if (url.pathname === '/inbox') return await inboxRoute(req);
+			// The composer POSTs to itself because a summons does not belong in a URL. It writes
+			// nothing: the fence's write list is the four hands and the inbox, and this is a page.
+			if (url.pathname === '/summon') return html(await summonRoute(req, url));
 			if (url.pathname === '/rewalk') return await rewalkRoute(url);
 			return route(url);
 		}

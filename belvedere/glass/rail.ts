@@ -404,7 +404,7 @@ export function railPage(): string {
 	const body = list.map(c => cardHtml(c, hands.armed, accounts)).join('');
 
 	const ms = performance.now() - t0;
-	return page('Belvedere — the rail', '<span>rail</span> <span>/</span> <a href="/city">city</a> <span>/</span> <a href="/shelf">shelf</a>',
+	return page('Belvedere — the rail', '<span>rail</span> <span>/</span> <a href="/city">city</a> <span>/</span> <a href="/shelf">shelf</a> <span>/</span> <a href="/summon">summon</a>',
 		banner + counts + strip(buildings, census, rig) + `<section class="railcol">${body}</section>` + SCRIPT + INBOX_SCRIPT,
 		`content re-read in ${ms.toFixed(0)} ms · ${registerNote(reg, '/')}`);
 }

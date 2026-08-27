@@ -8,6 +8,7 @@ import { ACCOUNTS, PRESETS } from './paths';
 export type Rig = {
 	accounts: Map<string, string>;   // absolute config dir → label
 	colours: Map<string, string>;    // mantle key (`grand-architect`) → colour name (`green`)
+	tiers: Map<string, string>;      // mantle key → the tier its FIRST preset row staffs it at
 	mantles: string[];               // longest first, so `grand-architect` beats `architect`
 };
 
@@ -27,9 +28,16 @@ export function readRig(): Rig {
 	for (const [, dir, label] of rows(ACCOUNTS)) if (dir && label) accounts.set(abs(dir), label);
 
 	const colours = new Map<string, string>();
-	for (const [, mantle, , , colour] of rows(PRESETS)) if (mantle && colour) colours.set(mantle, colour);
+	// One mantle can hold several preset keys (`a` architect fable-high, `A` architect fable-max).
+	// **First row wins** for the tier a composer opens that mantle at: the lowercase key is the
+	// panel's everyday one, and the second row is the deliberate reach for more thinking.
+	const tiers = new Map<string, string>();
+	for (const [, mantle, model, effort, colour] of rows(PRESETS)) {
+		if (mantle && colour) colours.set(mantle, colour);
+		if (mantle && model && effort && !tiers.has(mantle)) tiers.set(mantle, `${model}-${effort}`);
+	}
 
-	return { accounts, colours, mantles: [...colours.keys()].sort((a, b) => b.length - a.length) };
+	return { accounts, colours, tiers, mantles: [...colours.keys()].sort((a, b) => b.length - a.length) };
 }
 
 /** The census carries `CLAUDE_CONFIG_DIR` verbatim; unset means a session the rig did not fire. */
