@@ -1,0 +1,12 @@
+{
+	"name": "doctrine",
+	"version": "1.0.0",
+	"description": "The Standards Office's reference reader: one parser in the city for the doctrine format.",
+	"private": true,
+	"type": "module",
+	"module": "index.ts",
+	"bin": { "doctrine": "./cli.ts" },
+	"scripts": {
+		"test": "bun test"
+	}
+}
