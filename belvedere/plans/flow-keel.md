@@ -53,6 +53,16 @@ with one click — which dissolves D57's relay dance. The arm view shows the bil
 tier per step, usage per account (B5's strip feeds it) — "a one-click dispatcher
 that hides the bill is how a sovereign DoS's himself" (founding line).
 
+**Dynamic extension (Felix's word at the B9 close: "reactive, dynamic flow").**
+The DAG is not fixed at arm time — judge sittings and gate Architects cut new
+rows mid-flow, and the engine re-reads the plan (files carry truth), so the
+string grows while it runs. What authorizes grown steps is the chapter's first
+**Felix-fork, pre-ruled at the cut sitting's blessing**: **step-arm** (every
+extension re-arms — one Felix click per batch boundary) vs **scope-arm** (the
+arm covers a declared scope — building + chapter — and judge-cut rows inside it
+auto-join; Felix-cards and HALT still stop everything). Felix leans scope-arm —
+the continuous flow is the commission — but the ruling waits for the blessing.
+
 ## 5. The physics, named — the chapter's probe questions
 
 1. **LANDED lies by omission.** B3 landed with two escalations pausing the chain;
@@ -72,7 +82,10 @@ that hides the bill is how a sovereign DoS's himself" (founding line).
 2. **S5 — spawned sessions stall in manual mode** at the first tool call (P2,
    parked), despite `defaultMode: auto` on the account. Measure the mechanism
    (cmux `--settings` injection?); permission mode becomes part of the step spec,
-   and the posture per venue is Felix's.
+   and the posture per venue is Felix's. Evidence to date: B6's apply probe and
+   B7's three fires all started, beat, and landed transcripts — but none proves
+   **sustained unattended tool work**. S5 is probe #1 and its kill criterion
+   shapes the chapter.
 3. **Concurrency lanes:** the flow file carries what batch notes carry — serial
    lanes on shared checkouts, parallel lanes in worktrees (the hands compose them
    today).

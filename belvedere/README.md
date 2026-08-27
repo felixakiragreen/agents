@@ -44,7 +44,9 @@ Read-everything, write-narrow. The write list is exhaustive (D3):
 
 1. spawn sessions (the hands)
 2. create worktrees/branches per [DOCTRINE §10](../canon/work/DOCTRINE.md)
-3. append sovereign-inbox entries (ISSUES, `From Felix (via Belvedere): …`)
+3. append sovereign-inbox entries (ISSUES, D63 grammar: `- <date> · Felix (via
+   Belvedere) · <what>` — trued 2026-08-27, B6's own first gesture caught the
+   pre-D63 wording here)
 4. touch HALT
 
 It never edits boards, ledgers, decisions, or canon — those are mantle work; Felix's
@@ -249,6 +251,13 @@ straight to master — kickoffs verbatim from each order plus the rider at
 LANDED, stop at the close: the visual pass and live-fire smoke are Felix's.
 Escalations and the batch report come back to Felix.
 ```
+
+**Close gates, 2026-08-27:** Felix's visual pass given in his words — "capable";
+the rearranging he wants is parked as design input for the flow chapter's
+sittings. The live-fire smoke is assigned: **firing the flow-cut Architect from
+`/summon`** — one act, three proofs (the smoke itself, B9 F4's radio-picker
+path, B4's password end-to-end). Batch 3 closes formally at that sitting (it
+runs §8's DoD).
 
 **Post-probe return:** the probes' fold sitting (this Architect) cuts the build
 rows — the v0 spine slices D5's scope; nothing builds on unmeasured physics. Glass
