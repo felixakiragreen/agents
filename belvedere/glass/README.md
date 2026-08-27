@@ -6,8 +6,10 @@ are the fence's whole write list (README §2) and nothing else in here writes.
 
 ```
 bun belvedere/glass/server.ts        # → http://127.0.0.1:4400
-bun test belvedere/glass             # 302 green in one process (B8 §4, B9)
-bunx tsc --noEmit                    # from this directory — the type gate, offline (B8 §5)
+bun test belvedere/glass             # 320 green in one process (B8 §4, B9, B13)
+bunx tsc --noEmit                    # from this directory — the type gate, offline (B8 §5);
+                                     # it covers the deck's client TS too (B13 F3)
+bun belvedere/lab/b13/probe.ts       # the deck's DoD in real headless Chrome (B13 F1)
 ```
 
 | Route | What |
@@ -17,9 +19,30 @@ bunx tsc --noEmit                    # from this directory — the type gate, of
 | `/b/<building>` | board · ledger tail + baton · decision queue · ISSUES · live sessions · lint |
 | `/shelf` | **every session all three accounts have ever held** — resume the dead, jump to the living; usage ×3 and WIP above them |
 | `/summon` | **the composer — fire anything**: building or free path · account · mantle · tier · templates · optional worktree; `POST` composes, the button fires |
+| `/deck` | **the deck** — the app: three panes (Context · Focus · Action), the drawer, the tooltip primitive, the `FocusView` seam. `/deck.js` is the bundle, `/deck/state` the snapshot |
 | `/doc?p=<path>` | the read-only viewer every rendered link resolves into (D58) |
 | `POST /hands/{fire,worktree,focus,halt}` | the four hands; 503 until `~/.config/belvedere/env` is armed |
 | `POST /inbox` | **the sovereign's inbox** — one gesture, one D63 line appended to a building's `ISSUES.md`; **no credential gate** |
+
+**The deck is an app, not a page** (B13, D13 — Felix: *"this is an app"*). `/deck` serves a
+skeleton with the **resting split already in the markup**, `/deck.js` is `deck.client.ts`
+bundled by `Bun.build` at server start (no framework, nothing off this origin; a failed
+build **stops the server** rather than serving a shell around nothing), and `/deck/state` is
+one composed read — census + the register's **held** copy — polled every 3 s, with the whole
+snapshot as the diff so an idle city redraws nothing. **The law of space is arithmetic**
+(`deck-model.ts`): a pane's state IS its weight — minimal 1 · typical 3 · expanded 6 — and
+one `columns()` serves both the server's resting render and the client's re-render, so they
+cannot disagree. `min-width: 0` on every grid child is what makes that true: an `Nfr` track
+is `minmax(auto, Nfr)`, and without it a pane's content silently outvotes the split. The
+body **never scrolls** — measured at all 27 state combinations, `scrollHeight − viewport` =
+0 px — and each pane owns its own overflow. **Panes are a replaceable surface**: the
+`FocusView` seam (`deck-view.ts`) is four members — `mount(focusHost, actionHost)`,
+`unmount`, `draw`, plus the states a tenant declares — and Action follows Focus, so one
+tenant owns both hosts and there is no second register. B13 ships three placeholders; the
+Workshop (B15), the Works (B10) and the Chat (B16) evict them through that interface and
+nowhere else. The browser half of its DoD is [`lab/b13/probe.ts`](../lab/b13/probe.ts) —
+real headless Chrome over the DevTools protocol, zero dependencies, written to be reused by
+every deck row after it.
 
 **The fence's third write** (B6, `inbox.ts`). A gesture — a free-text note, `defer <row>`,
 `<row> before <row>`, `countersign <D-id>: ✓` — becomes ONE append: `- <YYYY-MM-DD> ·
