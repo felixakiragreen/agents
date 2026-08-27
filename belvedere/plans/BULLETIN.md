@@ -327,3 +327,63 @@ that woff2 fetch is B9's named third-party (D54), not this row's — so the stac
 the system sans until B9 lands. Nothing reaches the network at serve time.
 
 (Relayed from `master`, B5 LANDED 2026-08-27 — Builder)
+
+## → relay — B6 (sovereign inbox) to B7, B9 and the Architect: no escalation, three findings that bind
+
+Evidence: [b6-sovereign-inbox.md](b6-sovereign-inbox.md) §DoD and §Findings, commits `a17de28`
+… `65474c1` on `master`.
+
+1. **F2 — `parseDecisions` marks an entry pending wherever the phrase appears, including in the
+   entry that DEFINES the marker, and the live rail has been showing a false countersign since
+   B3.** Canon **D21** is `(2026-08-03, Architect (02) · ✓ Felix)` — countersigned three weeks
+   ago — and its body is the decision that invents the ritual: *"dispatched sessions mark
+   `(proposed — pending Felix countersign)`"*. `pending` runs over the whole entry, body
+   included, so D21 parses `ratified: true, pending: true`. **It is the only one:** at this row's
+   capture the live rail read `countersigns: 2` and both were D21 (one through a worktree copy),
+   so **the live city has ZERO true pending countersigns** — B6's amendment could not be proven
+   against real data and its three states were run on a synthetic `D99` on a throwaway branch.
+   Handled render-side only (D65): `countersignState` puts **`ratified` first**, so the card
+   renders `folded — ✓ in the decision`, offers no button, and names which of the two readings
+   won — D10 applied to a countersign. The card's header pill became the **state** rather than
+   the queue's word for it, because a card headlining "pending countersign" over a "folded" body
+   is a card arguing with itself. **The fix proper is canon's**: match the marker only inside the
+   attribution parens, or let `ratified` short-circuit `pending`. Ask filed, parser untouched.
+
+2. **F3 — for B7 especially: `POST /inbox` is deliberately OUTSIDE the credential gate, and the
+   rule that put it there is general.** `handsRoute` answers 503 before it parses a body; `/inbox`
+   is mounted beside it in `server.ts` with no such gate, because spec §4 says notes must still
+   append when the hands are cold (D9: the arming switch gates one-click *dispatch*, and cold
+   hands must never cost Felix the ability to say something). **So: a write that reaches a socket
+   belongs in `hands.ts` behind the switch; a write that only touches a file in the city belongs
+   in `inbox.ts` in front of it.** The four wire primitives (`Outcome`, `fail`, `field`, `json`)
+   are now exported from `hands.ts` and shared, so both boundaries answer in one shape.
+   `inbox.test.ts` points `BELVEDERE_ENV` at a path that does not exist and asserts
+   `handsState().armed === false` before filing through the route — the cold case is pinned.
+
+3. **F4 — for anyone appending to an inbox: a bare bullet dropped onto a non-empty tail block
+   reads as that block's evidence.** D63h allows a bare bullet, but an entry needing evidence
+   becomes a `---`-separated block — so an inbox whose last block is `- <entry>` plus evidence
+   lines swallows a new bare bullet into it, where the sweeping Architect reads it as more
+   evidence for somebody else's entry. `addition()` opens a `---` when the tail block holds
+   anything and appends the bullet directly when it does not (the D53 template ends with `---`,
+   and a swept inbox drains to exactly that). Still ONE `appendFileSync`, still strictly
+   append-only, and byte-for-byte the shape the canon inbox already has.
+
+Also for B7, not blocking: **the sweep summons B7 §2 reuses is `sweepSummons()` in
+`glass/inbox.ts`** — B6 §2's template verbatim, `<building>` the only substitution, written
+`~`-relative the way the city writes paths; `sweepFire()` composes it into exactly what
+`POST /hands/fire` parses (Architect · fable-high). Proven live: the rendered apply button's
+first user turn was byte-identical to the template, 386 B, `sha bf1b1333…` both sides. And the
+apply button is **one button per account in a toggled group, never a dropdown** (design law §3),
+sharing one composed body and one name-stamp — only one of them will ever be clicked, and
+minting three stamps to render three labels would spend two on nothing.
+
+And for the Architect, not blocking: **three rail tests were narrowed deliberately and are
+strictly stronger.** B3's Felix-card law asserted `/<button/` — no button at all. B6's blessed
+amendment puts a Countersign button on a pending card and §1 puts a note box on every card, so
+that assertion stopped being true while the invariant it protected did not change: *nothing on
+his card may reach `/hands/fire`*. The check is now "no fire wiring **and** every button on this
+card is a `class="ges"` `/inbox` gesture" — same regression caught, plus one more (a fire button
+smuggled in without the old payload attributes). The reasoning sits at the assertion.
+
+(Relayed from `master`, B6 LANDED 2026-08-27 — Builder)
