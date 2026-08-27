@@ -697,3 +697,40 @@ in the report; that fire IS the close smoke; the fired sitting closes batch 3
 *(moved to the tail 2026-08-27, flow-cut sitting: this entry was inserted
 mid-file at `920a129` — after its session's own prior entry, before three
 Builder entries already landed — breaking §7's newest-last; bytes preserved.)*
+
+---
+
+**2026-08-27 · Architect · fable-max** — *the flow-cut sitting.* **I am the
+close smoke:** this session was fired from `/summon` by Felix's hand — summons
+file ≡ argv ≡ transcript first user turn, sha256 `6c3f2862…`, 405 B at all
+three hops (audit 20:42:21Z, `workspace:24`, account personal, fable · max,
+stamp `architect-agents-03`) — one act paying the live-fire gate and proving
+B9 F4's radio-`:checked` path and B4's rotated password end-to-end. B6/B7/B9
+re-verified mechanically: 302 tests green in one process, `bunx --offline tsc
+--noEmit` exit 0, commits present, DoD evidence in each plan. **§8's DoD RUN,
+seven for seven** (close block in [README §8](README.md)): hand-count — 10
+tracked ≡ 10 census-live ≡ every pid in `ps` by name (2 · 3 · 5 ×3 accounts),
+≈35 ≡ `ps` 35, horizon labeled; building page + `/doc` link 200 (D58); **the
+glass-shatters drill fired for real** — `kill -9` mid read-storm with a
+`/hands/worktree` write in flight: 10/10 sessions lived, `git status` and
+ISSUES byte-identical, the in-flight write died whole, relaunch one command
+(pid 87126, ppid 1 — survives cmux restarts), hands re-armed off the untouched
+env file. Strays cleared: a second rail on :4473 (Builder DoD leftover, D55
+class — killed) and the ledger's newest-last break (the v0-verify entry,
+inserted mid-file at `920a129`, moved to the tail byte-preserved). Inbox
+swept: empty. **Batch 3 CLOSED — v0 SHIPPED.** Fresh physics: this session
+runs census `mode:auto` with sustained unattended tool work — S5's stall is
+conditional, not universal (keel §5.2 upgraded; P5 inherits the positive
+control). **Flow batch 1 CUT (batch 4, board + note in [README §6](README.md)):**
+P5 (permission physics, probe #1) → B10 (flow file + drawn DAG; interim
+serialization = canon row 17 evidence) → B11 (arm + engine, D11) → B12
+(reactive gate + dynamic extension) → G2 (**fired by the armed close flow —
+Felix's arm IS the gate**, the engine's first real act; fallback `/summon`).
+Blessing forks surfaced in the note: **D12 arm-scope (rec: scope-arm)**, the
+posture floor, judge-insertions-under-either-ruling, his rearranging input.
+Canon row 17's Felix-gate (v0 evidence in hand) is **paid by this close** —
+the GA's board, his call. Decided: batch-3 close + the batch-4 cut (delegated
+scope); D12 is Felix's at blessing. Next: **Felix — bless batch 4** (rule D12
++ the posture floor, hand over the rearranging input), then fire the
+Dispatcher — summons fenced verbatim in the batch-4 note ([README §6](README.md));
+behind it: canon row 17 at his word.
