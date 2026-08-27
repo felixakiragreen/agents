@@ -1,7 +1,7 @@
 # 18 — v3: the great re-cut
 
-**Status:** OPEN · **Depends on:** 16 · **Staffing:** Dispatcher · sonnet-medium
-(tends the wave below)
+**Status:** LANDED partial (2026-08-26) — 7/8 rows LANDED (one partial), 1 BLOCKED ·
+**Depends on:** 16 · **Staffing:** Dispatcher · sonnet-medium (tends the wave below)
 
 ## Mission
 
@@ -100,6 +100,82 @@ writes. A fork this doc doesn't pre-chew is an escalation, not a guess.
 
 *(append here — the Dispatcher's batch report; per-building evidence rides each
 row's report verbatim)*
+
+### Dispatcher's batch report · 2026-08-26
+
+**Table.**
+
+| Row | Status | Outcome | Pointers |
+|---|---|---|---|
+| 18a | LANDED | belvedere 0 failures; agents 30/103 (all `unrecorded`-gap) | agents `888f9e4`/`afb983c`/`39daf6a` |
+| 18b | LANDED | hexwright 0 failures | hexwright `f7cb5e4`/`09db6fb` |
+| 18c | BLOCKED | whiteboardy board half landed (166→149); ledger half refused on 2 `migrate` defects + Depends-on document-scope bug | whiteboardy `3575630`/`b82b089`/`8a39750`/`3b9a299`; §18c below |
+| 18d | LANDED | bob 53/54 typed, 1 `unrecorded` (linter vocab gap) | bob `1bec7f0`/`54bdc97`/`553c5db`/`b90847e` |
+| 18e | LANDED | simmy 77→1 failure (linter vocab gap) | cap-mega `b2199f62e`/`dfde315b4`/`c5a6f4dce` |
+| 18f | LANDED partial | 4/5 buildings on D63 (7 residual, vocab gaps); snappy BLOCKED on a malformed ledger (~38 missing `---`) | cap-mega `38fa39ca1`/`2a7b26453`/`49b46333a`/`477ba65f3`/`351f4df91`/`56c68c567` |
+| 18g | LANDED | 4 worktree boards, 83→8 failures (vocab gaps); cornerizer's renamed columns hid 97 real defects | branch `worktree-agent-a55279e2283f84743` (agents, **unmerged**) `6d73d23`/`ecd7682`; cap-mega branches task/motion-migration `869ea98`, feature/tig-avc `d166d29`, feature/cornerizer `f19a413`/`b17bb15`, feature/user-manual `f6d4edc`/`00fed9f`/`7b179a9`/`c020b9c` |
+| 18h | LANDED | rooted 0/0 (2 buildings); spacex-dashboard 22→8 (2 escalated tool gaps); spacex-dashboard-c2 deferred (merged, inert worktree) | rooted `11d00d4`; cap-mega `f6be754` |
+
+**Escalations (14, all filed `~/code/agents/ISSUES.md` D63h bullets unless noted):**
+
+1. `doctrine/` has no `unrecorded` token — every landed row hit this (18a first; 18b/18d/18e/18g/18h corroborate). DoD 1's "0 failures" is unreachable city-wide until ruled. **Grand Architect ruling owed.**
+2. The gap has sub-shapes the single token flattens: a *partial* absence (18e — model known, effort not), a *deliberately-unstaffed* row (18f — `unstaffed` is a recorded fact, not an absence), and a `PARKED` lifecycle state (18g).
+3. `migrate` writes a malformed ledger head and the round-trip law prints `ok` while it does — reproduction filed (18c).
+4. `migrate` can orphan a `**` in a status cell's bold run; the round-trip law is blind to it too, `annotation` being a field the rule permits to change (18f).
+5. No rule recognises an unbolded pre-doctrine ledger head — 96/104 of whiteboardy's blocks, not a per-repo special case (18c).
+6. `Depends-on` resolves per-document, not per-building — 28/45 of whiteboardy's residual `board.depends` failures are this bug alone; narrows 18d's cross-building question (18c).
+7. No form exists for a genuine cross-*building* dependency (18d, narrowed by #6).
+8. `board.columns` undercounts by roughly two orders of magnitude when a board's columns are renamed — cornerizer alone hid 97 real defects across 37 rows (18g).
+9. A blank line inside a board table silently truncates it, with the lint reading the truncated remainder as clean — three sightings this wave (18f's ch2, plus corroboration elsewhere).
+10. The register has no ledger→master-doc fallback for DOCTRINE §3 subproject-format buildings (inline `## Ledger`/`## Decisions`, no `LEDGER.md`) — reads "ledger none" instead of parsing (18h, rooted).
+11. `parseDecisions` hardcodes the `D` id prefix — a building using `RP-`/`A`-prefixed decision ids parses 0 candidates, silently (18h).
+12. No `migrate` rule covers a decisions entry whose bold run wraps the id and attribution together with no separate title; fixing by hand is an editorial title-boundary call the fence forbids guessing at (18h, spacex-dashboard ×2 files, 14 failures standing).
+13. *(filed to whiteboardy's own `ISSUES.md`, not the canon inbox — repo-local)* batch 13's four rows (R1, W1, X8, B1) exist only in prose — cut, dispatched, LANDED, ledgered — but declared on no board; GENESIS's gate 26 can't compute its own dispatchability until this is fixed.
+14. The kickoff detector reads any `You are ` fence as a summons — three false positives in `plans/log-tradition.md`'s letter templates, same class as row 16's two prior fixes (18a).
+
+**Relay log (`plans/BULLETIN.md`, committed):**
+- 18a → all remaining rows: the `unrecorded` vocabulary gap (escalation #1).
+- 18c → 18b/18e/18h: the malformed-ledger-head `migrate` bug (#3) — lint after `--write`, never trust a clean round-trip line alone.
+- 18e → wave: corroborated #1, added the partial-absence nuance (#2).
+- 18f → wave: the `**`-orphan bug (#4), the blank-line board-truncation bug (#9).
+- 18h → 18g: the register/decisions parser gaps (#10, #11) — 18g's worktree boards were clear of both.
+
+**Deferrals (DoD 4):** none owed — no row found a live in-flight batch on its target building at read time. `spacex-dashboard-c2` was left untouched under row 16's stale-checkout convention (a merged, explicitly "inert; remove at leisure" worktree, not a live batch) — 18h recommends Felix `git worktree remove` it.
+
+**DoD 1 — `doctrine lint ~/code` totals, verbatim, post-wave:**
+```
+=== FAILURE CLASSES
+    97  ledger.head
+    68  board.depends
+    56  ledger.tier
+    27  ledger.row
+    15  decision.head
+    14  ledger.decided
+     8  board.staffing
+     6  ledger.mantle
+     5  board.tier
+     4  ledger.next
+     4  board.state
+     3  kickoff.summons
+     1  ledger.baton
+     1  ledger.date
+     1  issue.entry
+
+=== TOTALS
+  22 buildings · 30/30 board docs yielded a board · 33 boards · 430 rows · 416 fully typed (97%)
+  9/9 ledgers parsed a tail · 3 fireable baton(s) · 196 kickoffs in 233 work docs · decision queue 52 · 31 inbox entries
+  12810 worktree checkout(s) skipped as branch copies · per-repo special cases: 0
+  310 failure(s) in 15 class(es)
+```
+Not 0 — blocked entirely by escalations #1–#12 (tool gaps, not doc defects); the vast
+majority of the 310 sit in whiteboardy (149, BLOCKED, its own ledger half refused) and
+snappy (its ledger malformed, refused). Every `unrecorded` this wave wrote is cited in
+its row's own report and commit messages.
+
+**DoD 2/3:** every landed row's target ledger carries its migration entry (or board
+annotation where no ledger exists — rooted); every write asserted round-trip `ok`,
+and 18c/18f additionally *refused* writes the tool itself would have gotten wrong —
+verified in each row's report.
 
 ### 18c — whiteboardy · BLOCKED 2026-08-26
 
