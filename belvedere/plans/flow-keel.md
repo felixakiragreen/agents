@@ -69,6 +69,7 @@ extension re-arms — one Felix click per batch boundary) vs **scope-arm** (the
 arm covers a declared scope — building + chapter — and judge-cut rows inside it
 auto-join; Felix-cards and HALT still stop everything). Felix leans scope-arm —
 the continuous flow is the commission — but the ruling waits for the blessing.
+**(Ruled 2026-08-27 at the batch-5 blessing: scope-arm — D12, his word.)**
 
 ## 5. The physics, named — the chapter's probe questions
 

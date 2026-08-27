@@ -800,3 +800,17 @@ deck whole · 15 → keel §10 (the rooms die) · 16 → B19/D17. Decided: D18
 (rec: scope-arm, his lean) and fire the Dispatcher** — summons fenced in the
 batch-5 note ([README §6](README.md)); behind it: canon row 17 at his word;
 the close returns at G2 (his visual pass + the arm in the Works).
+
+---
+
+**2026-08-27 · Architect · fable-max** — *the ruling (same session,
+continued).* **D12 RULED: scope-arm** — Felix's word ("rec"), the
+recommendation his own lean since the keel. Recorded in README §7; the
+batch-5 note marks the batch **fully blessed**; B12's order ships the
+scope-arm branch live (step-arm under test); the flow keel §4 carries the
+ruled note. Nothing now stands between the Dispatcher summons and the close
+gates. Decided: D12 (✓ Felix in-session). Next: **Felix — fire the
+Dispatcher** (summons fenced verbatim in the batch-5 note,
+[README §6](README.md); `/summon` is the proven venue); behind it: canon
+row 17 at his word; this desk returns at G2 — his visual pass and the arm
+in the Works.

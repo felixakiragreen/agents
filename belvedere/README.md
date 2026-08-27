@@ -338,13 +338,13 @@ rider applies:**
   engine cannot fire: Felix fires G2's kickoff from `/summon` and the
   failure becomes G2 evidence. G2's kickoff stands in the batch-4 note
   above, its scope now the whole of batch 5.
-- **Blessing (Felix, at this batch's blessing — the one remaining fork):**
-  **D12, the arm-scope fork** — *step-arm* vs *scope-arm* (keel §4 of
-  [flow-keel.md](plans/flow-keel.md)); recommendation **scope-arm**, his
-  stated lean; judge insertions fire under either ruling (the landing law,
-  not plan growth). The **posture floor** rides unchanged from the batch-4
-  note (never beyond the account's own defaultMode; `bypassPermissions`
-  never). The rearranging input is delivered — it became the keel.
+- **Blessing (Felix, at this batch's blessing):** **D12 RULED — scope-arm**
+  (his word, "rec", 2026-08-27; entry in §7); judge insertions fire under
+  either ruling (the landing law, not plan growth). The **posture floor**
+  rides unchanged from the batch-4 note (never beyond the account's own
+  defaultMode; `bypassPermissions` never). The rearranging input is
+  delivered — it became the keel. **The batch is fully blessed; nothing
+  remains between the Dispatcher summons and the close gates.**
 
 Dispatcher summons, verbatim:
 
@@ -554,6 +554,15 @@ buttons, "LOTS of SVG styling"; after the deck functions, never before).
   on any ambiguity (D10), and on HALT; nothing emergent ever fires. Amending a
   flow re-arms its unfired steps. Timing, same word: the flow chapter builds
   **after v0 closes** — rows cut at the v0 close sitting.
+- **D12** (2026-08-27, Felix — "rec" at the batch-5 blessing; the
+  recommendation was his own stated lean since the keel): **Scope-arm.** An
+  armed flow's declared scope (building + chapter) authorizes growth:
+  judge-cut and Architect-cut steps inside the scope **auto-join** the
+  running flow — the re-arm is recorded, never clicked; edits to declared
+  steps, removals, and out-of-scope additions still pause for his re-arm;
+  Felix-cards, D10 ambiguity, and HALT stop everything regardless of scope.
+  Judge insertions were never plan growth — the landing law fires them under
+  any ruling. B12 ships the scope-arm branch live, step-arm under test.
 
 ## 8. Definition of done — v0
 

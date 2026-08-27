@@ -9,6 +9,10 @@ order builds both branches behind one flag and the ruling flips it.
 > the Works (B10 as re-seated); inserted judge nodes draw on its now-line's
 > plan side; `/flow/flow-close` renders as a Works target. Substance
 > unchanged.
+>
+> **D12 RULED 2026-08-27 — scope-arm** (Felix, "rec"; README §7): the module
+> constant ships scope-arm; the DoD's live branch is §4's scope-arm path,
+> step-arm under test only.
 
 ## Goal
 
