@@ -20,12 +20,27 @@ import { boot, rewalk } from './register';
 const HERE = import.meta.dir;
 const ASSETS: Readonly<Record<string, string>> = { '/felikai.css': 'felikai.css', '/glass.css': 'glass.css' };
 
+/**
+ * The vendored prose face (B9 §1). One directory, one extension, no path from the URL: the fonts
+ * are a fixed list, so a request names a key and never a file. Nothing else on this server serves
+ * bytes off disk by name.
+ */
+const FONTS: Readonly<Record<string, string>> = {
+	'/assets/inter-latin-400.woff2': 'assets/inter-latin-400.woff2',
+	'/assets/inter-latin-700.woff2': 'assets/inter-latin-700.woff2',
+};
+
 const html = (body: string, status = 200) =>
 	new Response(body, { status, headers: { 'content-type': 'text/html; charset=utf-8' } });
 
 function route(url: URL): Response {
 	const asset = ASSETS[url.pathname];
 	if (asset) return new Response(readFileSync(join(HERE, asset), 'utf8'), { headers: { 'content-type': 'text/css; charset=utf-8' } });
+
+	const font = FONTS[url.pathname];
+	// Immutable bytes under a fixed name: the browser asks once per glass, not once per page.
+	if (font) return new Response(readFileSync(join(HERE, font)),
+		{ headers: { 'content-type': 'font/woff2', 'cache-control': 'public, max-age=604800, immutable' } });
 
 	if (url.pathname === '/') return html(railPage());       // the morning (B3)
 	if (url.pathname === '/city') return html(cityPage());

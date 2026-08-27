@@ -2,12 +2,24 @@
    Feel borrowed from the SpaceX dashboard (cap-mega/felix/spacex-dashboard-c2) and bob's
    design routes: hairline rules, uppercase micro-labels, outline chrome, glow never shadow. */
 
+/* The prose face, vendored (B9 §1): two woff2 served off this same localhost, never a network
+   font at serve time (glass-shatters). SIL OFL 1.1 — `assets/inter-LICENSE.txt` rides beside them.
+   IosevkaFelix is NOT vendored and must not be: it is installed on the machine, so it is
+   referenced by family and the fallback stack answers anywhere else. */
+@font-face {
+	font-family: Inter; font-style: normal; font-weight: 400; font-display: swap;
+	src: url('/assets/inter-latin-400.woff2') format('woff2');
+}
+@font-face {
+	font-family: Inter; font-style: normal; font-weight: 700; font-display: swap;
+	src: url('/assets/inter-latin-700.woff2') format('woff2');
+}
+
 :root {
 	--mono: 'Iosevka Felix', ui-monospace, SFMono-Regular, Menlo, monospace;
 	--wide: 'Iosevka Felix Extended', var(--mono);
-	/* The design law's prose face (README §3). Referenced by family with a real fallback stack —
-	   B9 owns vendoring the woff2, and until it lands the stack degrades to the system sans
-	   rather than reaching the network at serve time (glass-shatters). */
+	/* The design law's prose face (README §3), with a real fallback stack behind the vendored
+	   faces: a glyph outside the latin subset falls through to the system sans per-glyph. */
 	--prose: Inter, ui-sans-serif, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
 	--ease: cubic-bezier(.4, 0, .2, 1);
 	--snap: 69ms;
