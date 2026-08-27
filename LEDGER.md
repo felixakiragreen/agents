@@ -1178,3 +1178,38 @@ it ALL so"). Next: fire 16 — kickoff in
 [plans/16-doctrine-linter.md](plans/16-doctrine-linter.md); behind it: 18 waits on
 16, 17 on 16 + its Felix-gate, and the queued harvest work stands behind v3
 (Sovereign's priority).
+
+---
+
+**2026-08-26 · Builder · opus-high (16)** — The doctrine linter. `doctrine/` stands at the
+repo root, peer of `sync/`: `src/grammar.ts` (every mantle, tier, state and verdict named
+once), `src/parse.ts` (the five artifact parsers, harvested from P3's probes and amended for
+D63/D64 — `Felix-gate` + rider typed, the ledger head's tier slot, baton instruments plural
+with `fire <row-ids>` references), `src/building.ts` (the register), `src/lint.ts`,
+`src/migrate.ts`, `cli.ts` — `lint [--live]` · `parse --json` · `migrate [--write]`. 21 tests
+green (`cd doctrine && bun test`), evidence pasted into
+[plans/16-doctrine-linter.md](plans/16-doctrine-linter.md). Corpus: 22 buildings, 28/29 board
+docs, 376 rows, 8/9 ledger tails, **zero per-repo special cases** — every P3 number cleared.
+The corpus is now a **rule, not a list**: a building is any directory carrying
+LEDGER/DECISIONS/ISSUES or a staffing master doc; orphan boards promote their own directory;
+a worktree checkout is skipped unless its branch put a board where the mainline has none
+(12,734 skipped, printed). The amended grammar is stricter than the probe on purpose — 718
+failures against P3's 339, because D63e resolves Depends-on against the row ids a board
+actually declares (232 hits, row 18's largest item) and D63f wants a tier slot (93 heads have
+none); `--live` narrows to 340. `migrate` is form-only with the round-trip law asserted, and
+it aborts a write on violation; the hexwright dry-run is nine `## ` heading lines and not one
+body byte. Nothing outside `~/code/agents` was written — the fence held. Two findings are the
+Architect's: **F1** the round-trip law needed a reading (declared-changes + identical-otherwise
++ a byte assertion — bare equality is impossible when migrate exists to fill fields), **F2**
+hexwright's decisions carry no decider field, so migrate leaves `decision.attribution`
+standing rather than invent one. Decided: nothing — F1 and F2 are rulings, not Builder calls.
+Next: fire the Grand Architect to rule F1/F2 and cut row 18's work doc (17 stays behind its
+Felix-gate — Belvedere v0's evidence):
+
+```
+You are a Grand Architect at fable-max.
+Wear ~/code/agents/canon/mantles/grand-architect.md,
+then read ~/code/agents/MAP.md, the tail of ~/code/agents/LEDGER.md,
+and ~/code/agents/plans/16-doctrine-linter.md §Findings —
+rule F1 and F2, then cut row 18's work doc (the great re-cut).
+```

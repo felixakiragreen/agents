@@ -10,7 +10,7 @@ import {
 } from '../src/parse';
 import { migrateText, roundTrip } from '../src/migrate';
 import { lint } from '../src/lint';
-import { parse } from '../src/building';
+import { parse, staffsSessions } from '../src/building';
 
 const FX = join(import.meta.dir, '..', 'fixtures');
 const fx = (kind: string, name: string) => readFileSync(join(FX, kind, name), 'utf8');
@@ -143,6 +143,16 @@ describe('migrate — pre-D63 fixtures', () => {
 	test('a conforming document is already home — no edits', () => {
 		for (const n of ['board.md', 'ledger.md', 'decisions.md'])
 			expect(migrateText(join(FX, 'conforming', n), fx('conforming', n)).edits).toEqual([]);
+	});
+});
+
+// ---------- discovery: the traps the control caught ----------
+
+describe('the register', () => {
+	test('a board doc is a table with a Staffing HEADER, not prose that says the word', () => {
+		expect(staffsSessions('| ID | Work | Depends on | Staffing | Status |\n|---|---|---|---|---|\n| 01 | a | — | Digger · opus-high | OPEN |')).toBe(true);
+		expect(staffsSessions('| a | b |\n|---|---|\n| x | it carries no Staffing column, so it never counts |')).toBe(false);
+		expect(staffsSessions('Staffing lives in the tier descriptions.')).toBe(false);
 	});
 });
 

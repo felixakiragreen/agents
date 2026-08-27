@@ -35,8 +35,8 @@ function liveFails(b: Building): Fail[] {
 }
 
 export function lint(roots: string[], opts: { live?: boolean } = {}): LintReport {
-	const buildings = discover(roots);
-	const fails = buildings.flatMap(b => opts.live ? liveFails(b) : b.fails);
+	const buildings = discover(roots).map(b => opts.live ? { ...b, fails: liveFails(b) } : b);
+	const fails = buildings.flatMap(b => b.fails);
 
 	const rows = buildings.flatMap(b => b.board.flatMap(x => x.rows));
 	const totals: Totals = {
@@ -64,12 +64,8 @@ const rel = (p: string) => p.replace(process.env.HOME + '/', '~/');
 
 export function render(r: LintReport, opts: { verbose?: boolean } = {}): string {
 	const out: string[] = [];
-	const byBuilding = new Map<string, Fail[]>();
-	for (const b of r.buildings) byBuilding.set(b.building, []);
-	for (const b of r.buildings) for (const f of r.fails) if (f.file.startsWith(b.path + '/')) byBuilding.get(b.building)!.push(f);
-
 	for (const b of r.buildings) {
-		const fs = byBuilding.get(b.building)!;
+		const fs = b.fails;
 		const rows = b.board.flatMap(x => x.rows);
 		const typed = rows.filter(x => (x.felixGate || (x.mantle && x.tier)) && x.state).length;
 		out.push(`\n${fs.length ? 'FAIL' : ' ok '}  ${b.building}  —  ${b.board.length} board(s) · ${typed}/${rows.length} rows typed · ` +

@@ -276,8 +276,10 @@ export function classifyBaton(entry: LedgerEntry | null): Baton | null {
 	// (a) the summons fenced verbatim in the entry (D63g)
 	for (const k of parseKickoffs(entry.block).kickoffs) instruments.push({ kind: 'summons', text: k.text, mantle: k.mantle, tier: k.tier });
 	// (b) the row-reference the rail resolves to the work doc's fence (D63g)
-	for (const m of entry.next.matchAll(/\bfire\s+([A-Za-z0-9]+(?:\s*[,+]\s*[A-Za-z0-9]+)*)/g))
-		for (const id of topSplit(m[1]!, [',', '+'])) instruments.push({ kind: 'row', row: id });
+	// `fire 16` is an instrument; `fire the Grand Architect` is prose. Every row id in the city
+	// carries a digit, and mistaking a word for one indicts the parser (P3 §0).
+	for (const m of entry.next.matchAll(/\bfire\s+([A-Za-z0-9-]+(?:\s*[,+]\s*[A-Za-z0-9-]+)*)/g))
+		for (const id of topSplit(m[1]!, [',', '+'])) if (/\d/.test(id)) instruments.push({ kind: 'row', row: id });
 
 	if (instruments.length) return { holder: 'session', text: entry.next, instruments };
 	if (/\bFelix\b/.test(entry.next)) return { holder: 'felix', text: entry.next, instruments };

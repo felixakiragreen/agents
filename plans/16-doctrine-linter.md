@@ -65,8 +65,8 @@ reader; two parsers of one format WILL drift.
 
 ## Findings
 
-**LANDED 2026-08-26.** `doctrine/` stands: 1,194 lines of library + CLI, 187 of suite, 120 of
-fixtures. `bun test` 20/20 green; the corpus clears every P3 number with **zero per-repo
+**LANDED 2026-08-26.** `doctrine/` stands: 1,199 lines of library + CLI, 196 of suite, 120 of
+fixtures. `bun test` 21/21 green; the corpus clears every P3 number with **zero per-repo
 special cases**; the round-trip law is an assertion that aborts a write, not a hope.
 
 ```
@@ -90,10 +90,10 @@ Commits: `01ed3c5` (library) · `2606966` (CLI, fixtures, suite) · `10a474c` (R
 
 ```
 $ cd doctrine && bun test
- 20 pass
+ 21 pass
  0 fail
- 76 expect() calls
-Ran 20 tests across 1 file. [9.42s]
+ 79 expect() calls
+Ran 21 tests across 1 file. [9.40s]
 ```
 
 The control (DOCTRINE §6.2) is five conforming fixtures written from the amended text alone —
@@ -115,6 +115,12 @@ source, and a converter that supplies one is paraphrasing, which D63 forbids. Mi
 `decision.attribution` standing for a human. The suite asserts that residue exactly rather
 than hiding it (`test/doctrine.test.ts` — "the converter refuses to invent a decider").
 Migration is also proven **idempotent**: a second pass over migrated text finds nothing.
+
+**The control earned its keep again** (P3 §0's lesson, twice more): `fire the Grand Architect`
+was read as an instrument on row `the` — every row id in the city carries a digit, so the
+baton parser now requires one; and a *findings doc* that merely wrote the word "Staffing" in
+prose was promoted to a board — the detector now demands the word in a header **cell**. Both
+are locked by tests. Neither was a corpus defect; both would have been filed as one.
 
 **2. Corpus run ≥ P3's baseline.**
 

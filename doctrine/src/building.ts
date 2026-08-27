@@ -16,9 +16,10 @@ import { basename, dirname, join, relative, resolve, sep } from 'path';
 import { homedir } from 'os';
 import {
 	batonFails, classifyBaton, parseBoards, parseDecisions, parseIssues, parseKickoffs, parseLedger,
+	isBoardHeader, tables,
 	type Baton, type BoardRow, type Decision, type Issue, type Kickoff, type LedgerEntry,
 } from './parse';
-import type { Fail } from './grammar';
+import { strip, type Fail } from './grammar';
 
 /** Everything has a limit (directive 3.1) — a walk that runs away is a bug, not a slow tool. */
 export const LIMITS = { files: 40_000, bytes: 8 << 20, depth: 24 } as const;
@@ -55,8 +56,14 @@ const read = (p: string) => {
 	return readFileSync(p, 'utf8');
 };
 
-/** D45 — any table that staffs sessions is a board. Cheap pre-filter before a full table parse. */
-const staffsSessions = (md: string) => /^\|.*\|\s*$/m.test(md) && /^\s*\|.*\bStaffing\b.*\|\s*$/m.test(md);
+/**
+ * D45 — any table that staffs sessions is a board. The word in a header CELL, not anywhere in
+ * the line: prose that merely says "Staffing" is not a board, and the cheap regex alone once
+ * promoted this repo's own findings doc.
+ */
+export const staffsSessions = (md: string) =>
+	/^\s*\|.*\bStaffing\b.*\|\s*$/m.test(md)
+	&& tables(md).some(t => isBoardHeader(t.header) || t.header.some(h => /^staffing$/i.test(strip(h))));
 
 type FoundFile = { path: string; dir: string; kind: 'ledger' | 'decisions' | 'issues' | 'board' | 'workdoc' };
 
