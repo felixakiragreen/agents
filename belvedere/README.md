@@ -59,7 +59,14 @@ never truth.
 1. **Census (in, passive)** — heartbeats from session hooks (P1), the rig's
    `summon/log/invocations.jsonl`, session dirs `~/.claude*/projects/` ×3, repo
    docs, usage `summon/log/usage/` ×3. Files only; home `summon/log/census/` (D6,
-   gitignored). The Steward's future tick reads the same census.
+   gitignored). The Steward's future tick reads the same census. P1 (measured):
+   ten hook events, the pane join deterministic (`CLAUDE_CODE_SESSION_ID` +
+   `CMUX_SURFACE_ID` in hook env, 87/87) but one-to-many — key by `session_id`,
+   surface is grouping; **`Stop` is the idle sensor** (`Notification` is a 60 s
+   nag, interactive-only); heartbeat 5.5 ms median (0.7 ms over an empty hook);
+   hooks are **venue-blind** — the census watches Ghostty sessions too, they just
+   carry no pane fields; all three subagent vehicles countable (D67 answered —
+   P1 F4). Deploy target clean: no account-level hooks exist today.
 2. **Glass (render)** — one bun server (canon D59), localhost, my_checklist-simple.
    **City View**: buildings = doctrine repos (the register,
    [the-city §1](../docs/the-city.md)); windows colored by mantle, rings by status.
@@ -74,8 +81,18 @@ never truth.
    parsed `Baton` shape gains `instruments[]` + kind at the build row. **Shelf**: resume
    anything, any account. Usage strip + **WIP gauges from day one** — a one-click
    dispatcher that hides the bill is how a sovereign DoS's himself.
-3. **Hands (out, narrow)** — fire (P2's recipe; the summons text travels), auto
-   worktree + branch, focus-panel jump-in, HALT.
+3. **Hands (out, narrow)** — fire (P2's recipe, proven ×3 accounts: the summons
+   travels **as argv**, byte-exact first user turn), auto worktree + branch,
+   focus-panel jump-in, HALT. Transport law (P2 T1–T4): text into panes rides
+   `set-buffer` + `paste-buffer` (`send` rewrites literal `\n`/`\t`/`\r`); never
+   paste into a live Claude TUI — it splits at the first blank line and
+   auto-submits. The shelf may address sessions **by name-stamp**
+   (`claude --resume "digger-agents-04"` is legal — P4 §R).
+
+**Deployment (pending Felix's ruling, P4 §A):** the glass server runs OUTSIDE
+cmux under `socketControlMode: password` — the socket gate is *live* ancestry, so
+a pane-resident glass dies with every cmux restart and can never reconnect;
+pane-resident is bootstrap/fallback only. P2 §A4 has the two-row comparison.
 
 **Design inputs (Felix, founding session):** theme = **felikai** —
 `~/code/felix/src/felikai.css` (89 lines; `hexwright/canon/felikai.css`
@@ -146,6 +163,11 @@ Architects, Dispatcher-tended) runs city-wide in parallel — its method defers
 buildings with live work, so Belvedere sittings and the wave never collide (GA
 ledger, third act). P1 re-cut with D67's census question; P2/P4 untouched —
 substrate physics owe the format law nothing.
+
+**Batch 1 CLOSED 2026-08-26 — four landings, zero kills.** The physics held:
+census join deterministic, spawn recipe proven ×3, parsers normative, restore
+lossless. One canon escalation filed (the rig's `/color` turn-burn, P2's find);
+one Felix-gate open: the deployment ruling (§3, `socketControlMode: password`).
 
 **Post-probe return:** the probes' fold sitting (this Architect) cuts the build
 rows — the v0 spine slices D5's scope; nothing builds on unmeasured physics. Glass

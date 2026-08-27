@@ -276,3 +276,18 @@ the right owner for a second `decisionHead` rule variant, once a title-boundary
 convention is ruled.
 
 ---
+
+---
+
+- 2026-08-26 · Belvedere Architect (P2 escalation, Digger evidence) · **The rig's
+  `cmd` burns turn 1 on `/color` — ask: the summons composes into `cmd`, colour
+  leaves the prompt.** P2 proved a summons lands byte-exact as the FIRST user turn
+  via argv (`claude … "$(cat <summons-file>)"`) — but only with the prompt slot
+  free; `summon/summon.zsh` + `presets.tsv` compose `"/color <c>"` there, forcing
+  every summons to arrive by paste, and paste into a live Claude TUI splits at the
+  first blank line and auto-submits paragraph 1 (P2 §T4 — the 359-fire gap,
+  reproduced; 370 fires logged at the sweep). cmux owns workspace colour natively
+  (`workspace-action --action set-color`); non-cmux venues can carry colour by
+  flag or post-launch send. Evidence:
+  [belvedere/plans/p2-spawn-recipe.md](belvedere/plans/p2-spawn-recipe.md) §S3,
+  §T4. `summon/**` is canon ground — not Belvedere's to cut.

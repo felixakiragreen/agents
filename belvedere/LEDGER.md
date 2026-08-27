@@ -226,3 +226,24 @@ Ordered behind it: close the stray workspace this dig left on the desk (needs a 
 `cmux <path>` can open one from outside but nothing outside can close it), then the two
 standing Felix-gates — **E1** (`socketControlMode: password`, promoted from cosmetic to
 load-bearing by §A) and P4's residual mid-generation-inside-a-pane measurement.
+
+---
+
+**2026-08-26 · Architect · fable-max** — Batch 1 CLOSED: P1/P2/P4 landings verified
+(P3 verified earlier this sitting), zero kills across four probes. Folds into
+[README](README.md) §3: the census is venue-blind (Ghostty sessions watchable —
+P4 found 17/18 live sessions outside cmux today), `Stop` is the idle sensor, the
+pane join is deterministic but one-to-many (key by `session_id`), heartbeat
+5.5 ms; hands' transport law (`set-buffer`+`paste-buffer`, never paste into a live
+TUI), summons-as-argv proven ×3, resume-by-name legal (the shelf addresses
+stamps). D67 answered: all three subagent vehicles countable from hooks (P1 F4).
+Inbox swept: P2's canon-shaped find (the rig's `/color` turn-burn) escalated to
+the canon inbox verbatim-with-evidence, drained here. **The load-bearing new
+fact (P4 §A): the socket gate is LIVE ancestry — a pane-resident glass dies with
+every cmux restart and can never reconnect; deployment (b), `socketControlMode:
+password`, upgraded from cleaner to required for a glass that outlives its
+substrate.** Decided: nothing — the deployment ruling is Felix's (his machine's
+posture; D8 when ruled). Next: Felix flips `socketControlMode` to `password` in
+cmux Settings + sets a password, then the 10-second smoke from any non-cmux
+terminal (`cmux --password '<pw>' workspace list`); on green, the fold sitting
+cuts the v0 build batch onto deployment (b).
