@@ -173,6 +173,10 @@ describe('deckState — one composed read, and the joins it makes', () => {
 		'{not json',
 	].join('\n') + '\n');
 
+	// The env knobs are restored, but `register.ts`'s held copy is a module singleton and stays
+	// warm with the fixture city for the rest of the process. That is safe only because no other
+	// test file calls `register()` — deliberately, since its first real call is a nine-second walk
+	// (`register.test.ts` §head). A file that starts calling it must not assume a cold register.
 	const saved = { census: process.env.CENSUS_DIR, city: process.env.GLASS_CITY };
 	afterAll(() => {
 		process.env.CENSUS_DIR = saved.census;
