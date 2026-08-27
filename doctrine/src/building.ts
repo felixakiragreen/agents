@@ -23,9 +23,10 @@ import type { Fail } from './grammar';
 /** Everything has a limit (directive 3.1) — a walk that runs away is a bug, not a slow tool. */
 export const LIMITS = { files: 40_000, bytes: 8 << 20, depth: 24 } as const;
 
-// `lab/` is disposable code by DOCTRINE §3 and `fixtures/` is a §6.2 control set: neither is
-// corpus. Both are still lintable when named as an explicit root — the skip is on descent only.
-const SKIP_DIRS = new Set(['node_modules', 'dist', 'build', 'target', 'vendor', 'coverage', '.venv', '__pycache__', '.next', '.cache', 'lab', 'fixtures']);
+// `lab/` is disposable code by DOCTRINE §3, `fixtures/` is a §6.2 control set, and
+// `templates/` holds ⟨placeholders⟩, not filled artifacts: none of the three is corpus. All
+// three stay lintable when named as an explicit root — the skip is on descent only.
+const SKIP_DIRS = new Set(['node_modules', 'dist', 'build', 'target', 'vendor', 'coverage', '.venv', '__pycache__', '.next', '.cache', 'lab', 'fixtures', 'templates']);
 const MASTER_DOCS = ['MAP.md', 'GENESIS.md', 'README.md'];
 const WORKTREES = join('.claude', 'worktrees');
 

@@ -62,7 +62,7 @@ const staffingRiderParens: Rule = {
 
 /** Replace a leading ALLCAPS token, bold wrapper and all, and keep the rest byte-for-byte. */
 function replaceLead(t: string, lead: string, to: string): string | null {
-	const m = t.match(new RegExp('^(?:\\*\\*)?\\s*' + lead.replace(/ /g, '\\s+') + '\\s*(?:\\*\\*)?'));
+	const m = t.match(new RegExp('^(?:\\*\\*\\s*)?' + lead.replace(/ /g, '\\s+') + '(?:\\s*\\*\\*)?'));
 	return m ? to + t.slice(m[0].length) : null;
 }
 
@@ -89,7 +89,7 @@ const rowish = (s: string) => /^[A-Za-z0-9][A-Za-z0-9-]*$/.test(s) && /\d/.test(
 const ledgerTierSlot: Rule = {
 	id: 'ledger.tier-slot', changes: ['tier', 'row'],
 	line: {
-		files: /^LEDGER\.md$/,
+		files: /^LEDGER\.md$/i,
 		run: t => {
 			const m = t.match(/^\*\*([^*]+?)\*\*(\s*[—–-]\s*.*)$/);
 			if (!m) return null;
@@ -110,7 +110,7 @@ const ledgerTierSlot: Rule = {
 const ledgerHeading: Rule = {
 	id: 'ledger.pre-doctrine-head', changes: ['date', 'mantle', 'tier', 'row', 'body', 'decided', 'next'],
 	line: {
-		files: /^LEDGER\.md$/,
+		files: /^LEDGER\.md$/i,
 		run: t => {
 			const m = t.match(/^##\s+(\d{4}-\d{2}-\d{2})\s*·\s*(.+)$/);
 			if (!m) return null;

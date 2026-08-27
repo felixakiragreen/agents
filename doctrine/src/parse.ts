@@ -102,6 +102,9 @@ function parseDependsOn(cell: string, id: string, line: number, knownIds: Set<st
 		const gate = seg.match(/^\**Felix-gate\**\s*:\s*(.+)$/);
 		if (gate) { gates.push(gate[1]!.trim()); continue; }
 		if (knownIds.has(seg)) { dependsOn.push(seg); continue; }
+		// Non-conforming, but still recover any row id it names: a null is a render decision,
+		// not an error (P3 §5) — the glass draws the graph while the lint files the defect.
+		dependsOn.push(...seg.split(/[\s+,]+/).filter(x => knownIds.has(x)));
 		fails.push(fail('board', 'board.depends', `depends-on segment is neither a row id on this board nor "${FELIX_GATE}: <text>"`, `${id}: ${JSON.stringify(seg.slice(0, 160))}`, line));
 	}
 	return { dependsOn, gates, fails };
