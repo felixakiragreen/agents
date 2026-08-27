@@ -268,7 +268,7 @@ no gauge — doc-only work. Announce every dispatch (D67).
 defect that makes the converter unrunnable there. Commits in `cap-mega` (branch `dev`):
 `38fa39ca1` (migrate output) · `2a7b26453` (units + waypoint-stepper residues) ·
 `49b46333a` (ch2) · `477ba65f3` (naming + node-global, by hand) · `351f4df91` (board
-annotations) · `ec0f3ae` (snappy ISSUES).
+annotations) · `56c68c567` (snappy ISSUES).
 
 **DoD 1 — the lint, verbatim.** Four buildings, 93 rows:
 
