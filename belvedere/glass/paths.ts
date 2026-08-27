@@ -28,6 +28,9 @@ export const haltFlag = () => join(dirname(censusDir()), 'HALT');
 /** The credential, outside the repo and outside every backup the city keeps (B4 §2). */
 export const handsEnv = () => process.env.BELVEDERE_ENV ?? join(home, '.config/belvedere/env');
 
+/** The D53 header a building's FIRST gesture mints its inbox from (DOCTRINE §3, adoption-on-first-need). */
+export const ISSUES_TEMPLATE = join(home, 'code/agents/canon/work/templates/issues.md');
+
 /** The rig's tables: mantle → colour, config dir → account label, and the lineage counter. */
 export const PRESETS = join(home, 'code/agents/summon/presets.tsv');
 export const ACCOUNTS = join(home, 'code/agents/summon/accounts.tsv');

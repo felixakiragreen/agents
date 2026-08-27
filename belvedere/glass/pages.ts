@@ -6,6 +6,7 @@ import { dirname, resolve, sep } from 'path';
 import { discover, type Building, type Board, type BoardRow, type Fail } from '../../doctrine';
 import { readCensus, isLive, type CensusRead, type Session } from './census';
 import { handsState } from './hands';
+import { applyAct, INBOX_SCRIPT, noteBox, rowGestures } from './inbox';
 import { city, TTL_MS, type Register } from './register';
 import { readRig, accountLabel, mantleOf, type Rig } from './rig';
 import { cityRoot } from './paths';
@@ -165,6 +166,8 @@ export function buildingPage(slug: string): string | null {
 
 	const census = readCensus();
 	const rig = readRig();
+	const hands = handsState();
+	const accounts = [...rig.accounts.values()];
 	const mine = census.sessions.filter(isLive).filter(s => buildingOf(s.cwd, local)?.path === abs);
 
 	const used = new Set<Fail>();
@@ -172,10 +175,11 @@ export function buildingPage(slug: string): string | null {
 		boardPanel(b, used),
 		ledgerPanel(b),
 		queuePanel(b),
-		issuesPanel(b),
+		issuesPanel(b, rig, accounts, hands.armed),
 		`<section class="panel"><h2>Live sessions</h2>${mine.length ? sessionTable(mine, rig)
 			: `<p class="note">${census.present ? 'None.' : 'unknown — census not deployed'}</p>`}</section>`,
 		lintPanel(b, used),
+		INBOX_SCRIPT,
 	].join('');
 
 	const ms = performance.now() - t0;
@@ -192,7 +196,7 @@ function failNote(fs: Fail[], used: Set<Fail>): string {
 		`<b>${esc(f.code)}</b> ${esc(f.reason)} <code>${esc(f.excerpt)}</code>`).join('<br>')}</div>` : '';
 }
 
-function boardRow(r: BoardRow, board: Board, b: Building, used: Set<Fail>): string {
+function boardRow(r: BoardRow, board: Board, b: Building, used: Set<Fail>, ids: string[]): string {
 	const base = baseOf(board.file);
 	const work = r.workDoc ? `<a href="${esc(docHref(r.workDoc, base))}">${esc(r.work)}</a>` : esc(r.work);
 	const deps = [...r.dependsOn.map(d => `<code>${esc(d)}</code>`), ...r.gates.map(g => pill('Felix-gate', 'purple', g))].join(' ') || '—';
@@ -201,15 +205,21 @@ function boardRow(r: BoardRow, board: Board, b: Building, used: Set<Fail>): stri
 	const status = `${pill(r.state ?? 'UNPARSED', stateTone(r.state))} ${inline(r.annotation, base)}`;
 	const note = failNote(failsAt(b, board.file, r.line), used);
 	return `<tr><td class="id">${esc(r.id)}</td><td>${work}${note}</td><td>${deps}</td>`
-		+ `<td>${staff}${r.rider ? ` <span class="rider">(${esc(r.rider)})</span>` : ''}</td><td>${status}</td></tr>`;
+		+ `<td>${staff}${r.rider ? ` <span class="rider">(${esc(r.rider)})</span>` : ''}</td><td>${status}</td>`
+		+ `<td class="ges-cell">${rowGestures(b.path, r.id, ids)}</td></tr>`;
 }
 
 function boardPanel(b: Building, used: Set<Fail>): string {
 	if (!b.board.length) return `<section class="panel"><h2>Board</h2><p class="note">No board in this building.</p></section>`;
-	return b.board.map(board => `<section class="panel"><h2>Board — ${esc(board.heading || 'untitled')}</h2>
+	return b.board.map(board => {
+		// The gestures a row offers are its siblings on ITS OWN board: "14 before 13" is a sentence
+		// about one ordering, and two boards in one building are two orderings.
+		const ids = board.rows.map(r => r.id);
+		return `<section class="panel"><h2>Board — ${esc(board.heading || 'untitled')}</h2>
 		<p class="note"><a href="${esc(docHref(board.file, '/'))}">${esc(short(board.file))}</a>:${board.line}</p>
-		<table class="board"><thead><tr><th>ID</th><th>Work</th><th>Depends on</th><th>Staffing</th><th>Status</th></tr></thead>
-		<tbody>${board.rows.map(r => boardRow(r, board, b, used)).join('')}</tbody></table></section>`).join('');
+		<table class="board"><thead><tr><th>ID</th><th>Work</th><th>Depends on</th><th>Staffing</th><th>Status</th><th>Gesture</th></tr></thead>
+		<tbody>${board.rows.map(r => boardRow(r, board, b, used, ids)).join('')}</tbody></table></section>`;
+	}).join('');
 }
 
 function ledgerPanel(b: Building): string {
@@ -240,14 +250,30 @@ function queuePanel(b: Building): string {
 		${items ? `<ul class="queue">${items}</ul>` : '<p class="note">Empty — nothing waits on Felix\'s pen.</p>'}</section>`;
 }
 
-function issuesPanel(b: Building): string {
-	if (!b.files.issues) return `<section class="panel"><h2>ISSUES</h2><p class="note">No inbox in this building.</p></section>`;
+/**
+ * The sovereign's inbox, rendered and writable (B6). Three things live here and only one of them
+ * is a hand: the entries (read), the note box (the fence's third write — no credential, §inbox),
+ * and the apply button (a fire, so it goes cold with the hands).
+ *
+ * **Non-empty includes an inbox the parser could not read.** An entry in a shape D63 does not
+ * know is exactly an entry that needs a human's sweep, so the lint filing it also arms the button.
+ */
+function issuesPanel(b: Building, rig: Rig, accounts: string[], armed: boolean): string {
+	const unreadable = b.fails.filter(f => f.artifact === 'issues').length;
+	const entries = b.issues.length + unreadable;
+	const gestures = `${entries ? applyAct(rig, b.path, accounts, armed, entries) : ''}${noteBox(b.path)}`;
+
+	if (!b.files.issues) return `<section class="panel"><h2>ISSUES</h2>
+		<p class="note">No inbox in this building — the first gesture mints one from the D53 header (DOCTRINE §3).</p>
+		${gestures}</section>`;
+
 	const base = baseOf(b.files.issues);
 	const items = b.issues.map(i => `<li><span class="when">${esc(i.date ?? '')}</span> <span class="who">${esc(i.who ?? '')}</span>
 		<div>${inline(i.text, base)}</div></li>`).join('');
 	return `<section class="panel"><h2>ISSUES</h2>
 		<p class="note"><a href="${esc(docHref(b.files.issues, '/'))}">${esc(short(b.files.issues))}</a></p>
-		${items ? `<ul class="issues">${items}</ul>` : '<p class="note">Drained empty (D53).</p>'}</section>`;
+		${items ? `<ul class="issues">${items}</ul>` : '<p class="note">Drained empty (D53).</p>'}
+		${gestures}</section>`;
 }
 
 /**

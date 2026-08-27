@@ -33,9 +33,24 @@ import { bust } from './register';
 /** Everything has a limit (directive 3.1). A hand that hangs is a glass that hangs. */
 const LIMITS = { summonsBytes: 64 << 10, requestBytes: 128 << 10, commandMs: 20_000, requester: 64 } as const;
 
+/**
+ * The write boundary's own vocabulary — `Outcome`, `fail`, `field` and `json`. The fence has a
+ * fifth write that is not a hand (README §2 #3: the sovereign's inbox, `inbox.ts`); it parses at
+ * the same boundary and answers in the same shapes, so it shares these rather than growing a
+ * second copy of them. Everything below this block is the four hands and nothing else.
+ */
 export type Outcome<T> = { ok: true; result: T } | { ok: false; error: string };
 
-const fail = (error: string): Outcome<never> => ({ ok: false, error });
+export const fail = (error: string): Outcome<never> => ({ ok: false, error });
+
+/** A string field, or the empty string: an absent field and a wrong-typed one refuse identically. */
+export function field(raw: Record<string, unknown>, key: string): string {
+	const value = raw[key];
+	return typeof value === 'string' ? value : '';
+}
+
+export const json = (body: unknown, status: number) =>
+	new Response(JSON.stringify(body, null, 2) + '\n', { status, headers: { 'content-type': 'application/json; charset=utf-8' } });
 
 // ---------- the credential ----------
 
@@ -100,11 +115,6 @@ export type Fire = {
 export type Worktree = { repo: string; branch: string };
 export type Focus = { sid: string };
 export type Halt = { requester: string };
-
-function field(raw: Record<string, unknown>, key: string): string {
-	const value = raw[key];
-	return typeof value === 'string' ? value : '';
-}
 
 /** An existing directory, absolute — the only kind of place a session or a repo can live. */
 function directory(path: string, what: string): string | null {
@@ -393,9 +403,6 @@ export const fireArgs = (f: Fire) => ({
 });
 
 // ---------- the route ----------
-
-const json = (body: unknown, status: number) =>
-	new Response(JSON.stringify(body, null, 2) + '\n', { status, headers: { 'content-type': 'application/json; charset=utf-8' } });
 
 /** A refusal is 409: the request was legal, the world said no. A malformed body is 400. */
 const answer = (outcome: Outcome<unknown>) => outcome.ok ? json(outcome, 200) : json(outcome, 409);

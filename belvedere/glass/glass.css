@@ -297,3 +297,44 @@ pre.doc {
 .kvs { margin-top: 7px; padding-left: 2px; display: flex; flex-direction: column; gap: 3px; font-size: 11.5px; }
 .kvs .kv { margin-top: 0; }
 .kvs .kv .label { flex: 0 0 11ch; }
+
+/* --- the sovereign's inbox (B6): gestures, encapsulated --- */
+
+/* Every gesture control leads with its name and opens on demand — the same scriptless
+   `<details>` the shelf uses, so the disclosure is the browser's (design law, README §3). */
+.gesture { margin-top: 9px; }
+.gesture > summary {
+	cursor: pointer; list-style: none; width: max-content;
+	font-size: 9.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--grey-600);
+}
+.gesture > summary::before { content: '['; }
+.gesture > summary::after { content: ']'; }
+.gesture > summary:hover { color: var(--felix); }
+.gesture[open] > summary { color: var(--grey-400); }
+/* `flat` is a gesture with nothing to disclose — the countersign act and the apply block. */
+.gesture.flat { margin-top: 10px; }
+.gesture .note { margin: 6px 0 0; }
+.gesture .btns { margin-top: 7px; }
+.gesture textarea {
+	display: block; width: 100%; margin-top: 7px; padding: 8px 10px; resize: vertical;
+	font-family: var(--prose); font-size: 12.5px; line-height: 1.5; color: var(--grey-150);
+	background: var(--grey-950); border: 1px solid var(--grey-750); border-radius: 4px;
+}
+.gesture textarea:focus { outline: none; border-color: var(--felix); }
+.gesture .summons { margin-top: 7px; max-height: 15em; overflow-y: auto; }
+.gesture .more > summary {
+	cursor: pointer; list-style: none; width: max-content; margin-top: 8px;
+	font-size: 9.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--grey-600);
+}
+.gesture .more > summary::before { content: '['; }
+.gesture .more > summary::after { content: ']'; }
+
+/* A gesture is never a fire: it wears the sovereign's colour, not the dispatch green. */
+button.ges { color: var(--grey-250); border-color: var(--grey-650); }
+button.ges:hover:not(:disabled) { border-color: var(--felix); color: var(--felix); }
+button.ges.apply { color: var(--felix); border-color: color-mix(in srgb, var(--felix) 50%, transparent); }
+
+/* the board's gesture column: narrow, and never wider than its contents */
+td.ges-cell { width: 1%; white-space: nowrap; vertical-align: top; }
+td.ges-cell .gesture { margin-top: 0; }
+td.ges-cell .btns { max-width: 34ch; white-space: normal; }

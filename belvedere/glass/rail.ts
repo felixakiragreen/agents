@@ -25,6 +25,7 @@ import { parseKickoffs, type Baton, type BoardRow, type Building, type Decision,
 import { isLive, readCensus, type CensusRead, type Session } from './census';
 import { handsState } from './hands';
 import { esc, inline, page, pill, short, stateTone, type Tone } from './html';
+import { countersignAct, countersignState, INBOX_SCRIPT, noteBox, type Countersigned } from './inbox';
 import { buildingOf, censusNote, registerNote, window_ } from './pages';
 import { city } from './register';
 import { readRig, type Rig } from './rig';
@@ -157,10 +158,15 @@ function shot(rig: Rig, b: Building, i: Instrument, ledgerLine: number, account:
  */
 export const collides = (b: Baton) => b.holder === 'session' && /\bFelix\b/.test(b.text);
 
+/**
+ * `path` is the building's own directory: every card carries a note box (B6), and a gesture lands
+ * in the building's `ISSUES.md`, which is a place on disk — never a slug the rail would have to
+ * resolve back through the register.
+ */
 export type Card =
-	| { kind: 'baton'; building: string; file: string; entry: LedgerEntry; baton: Baton; shape: Shape; shots: Shot[]; recommendation: number; wired: boolean }
-	| { kind: 'gate'; building: string; row: BoardRow; gate: string; file: string }
-	| { kind: 'countersign'; building: string; decision: Decision; file: string };
+	| { kind: 'baton'; building: string; path: string; file: string; entry: LedgerEntry; baton: Baton; shape: Shape; shots: Shot[]; recommendation: number; wired: boolean }
+	| { kind: 'gate'; building: string; path: string; row: BoardRow; gate: string; file: string }
+	| { kind: 'countersign'; building: string; path: string; decision: Decision; file: string; state: Countersigned };
 
 /** A gate is the rail's business while its row can still move. A LANDED gate is history. */
 const liveRow = (r: BoardRow) => r.state === 'OPEN' || r.state === 'IN FLIGHT' || r.state === 'BLOCKED' || r.state === null;
@@ -179,17 +185,19 @@ export function cards(buildings: Building[], rig: Rig, account: string): Card[] 
 				: [];
 			// The shots are still composed on a collided card — the summons is what the clipboard
 			// carries — but D10 keeps the wiring off them.
-			out.push({ kind: 'baton', building: b.building, file: b.files.ledger ?? b.path, entry: b.ledgerTail,
+			out.push({ kind: 'baton', building: b.building, path: b.path, file: b.files.ledger ?? b.path, entry: b.ledgerTail,
 				baton: b.baton, shape, shots, recommendation: rec, wired: !collides(b.baton) });
 		}
 		for (const board of b.board)
 			for (const r of board.rows) {
 				if (!liveRow(r)) continue;
-				if (r.felixGate) out.push({ kind: 'gate', building: b.building, row: r, gate: '', file: board.file });
-				for (const g of r.gates) out.push({ kind: 'gate', building: b.building, row: r, gate: g, file: board.file });
+				if (r.felixGate) out.push({ kind: 'gate', building: b.building, path: b.path, row: r, gate: '', file: board.file });
+				for (const g of r.gates) out.push({ kind: 'gate', building: b.building, path: b.path, row: r, gate: g, file: board.file });
 			}
+		// B6: the card's state is read off two files — the decision's ✓ and the building's own inbox.
 		for (const d of b.decisionQueue.filter(d => d.pending))
-			out.push({ kind: 'countersign', building: b.building, decision: d, file: b.files.decisions ?? b.path });
+			out.push({ kind: 'countersign', building: b.building, path: b.path, decision: d,
+				file: b.files.decisions ?? b.path, state: countersignState(d, b.issues) });
 	}
 	// Fireable first, then Felix's own work, then the rest: the morning reads top-down. A collided
 	// card is not fireable, so it sits with his — which is whose the clause says it is.
@@ -254,7 +262,7 @@ function shotHtml(s: Shot, armed: boolean, accounts: string[], wired: boolean): 
 		</div></div>`;
 }
 
-function batonCard(c: Card & { kind: 'baton' }, armed: boolean, accounts: string[]): string {
+function batonCard(c: Card & { kind: 'baton' }, armed: boolean, accounts: string[], foot: string): string {
 	const base = dirname(c.file);
 	// Tone answers "whose is this?", so a collided card wears his colour, not the fireable green.
 	const tone: Tone = c.baton.holder === 'prose' ? 'orange' : c.wired ? 'green' : 'purple';
@@ -279,25 +287,34 @@ function batonCard(c: Card & { kind: 'baton' }, armed: boolean, accounts: string
 	return `<article class="rail tone-${tone}" data-kind="baton" data-holder="${c.baton.holder}">
 		<div class="rail-h">${buildingLink(c.building)} ${pill(HOLDER[c.baton.holder], tone)} ${shape}
 			<span class="when">${esc(c.entry.date)} · ${esc(c.entry.mantle)}${c.entry.row ? ` (${esc(c.entry.row)})` : ''}</span></div>
-		<p class="rail-text">${inline(prose(c.baton.text), base)}</p>${forkNote}${dropped}${named}${shots}</article>`;
+		<p class="rail-text">${inline(prose(c.baton.text), base)}</p>${forkNote}${dropped}${named}${shots}${foot}</article>`;
 }
 
-const gateCard = (c: Card & { kind: 'gate' }) =>
+const gateCard = (c: Card & { kind: 'gate' }, foot: string) =>
 	`<article class="rail tone-purple" data-kind="gate" data-holder="felix">
 		<div class="rail-h">${buildingLink(c.building)} ${pill('Felix-gate', 'purple')} ${pill(c.row.state ?? 'UNPARSED', stateTone(c.row.state))}
 			<span class="when">row ${esc(c.row.id)}</span></div>
 		<p class="rail-text">${inline(c.gate || c.row.work, dirname(c.file))}</p>
-		${c.gate ? `<p class="note">${esc(c.row.work).slice(0, 220)}</p>` : ''}</article>`;
+		${c.gate ? `<p class="note">${esc(c.row.work).slice(0, 220)}</p>` : ''}${foot}</article>`;
 
-/** One card's HTML — the seam the DOM tests read, and the only place a card's kind is dispatched. */
-export const cardHtml = (c: Card, armed: boolean, accounts: string[]): string =>
-	c.kind === 'baton' ? batonCard(c, armed, accounts) : c.kind === 'gate' ? gateCard(c) : countersignCard(c);
-
-const countersignCard = (c: Card & { kind: 'countersign' }) =>
+const countersignCard = (c: Card & { kind: 'countersign' }, foot: string) =>
 	`<article class="rail tone-yellow" data-kind="countersign" data-holder="felix">
 		<div class="rail-h">${buildingLink(c.building)} ${pill('pending countersign', 'yellow')}
 			<span class="when">${esc(c.decision.id)} · ${esc(c.decision.date)} · ${esc(c.decision.decider)}</span></div>
-		<p class="rail-text">${inline(c.decision.title, dirname(c.file))}</p></article>`;
+		<p class="rail-text">${inline(c.decision.title, dirname(c.file))}</p>
+		${countersignAct(c.path, c.decision, c.state)}${foot}</article>`;
+
+/**
+ * One card's HTML — the seam the DOM tests read, and the only place a card's kind is dispatched.
+ * **Every card's foot is the note box** (B6 §1): his word about the thing he is looking at lands
+ * in that building's inbox. A gesture is never a fire, so no card gains fire wiring here — the
+ * holder law (§1) and D10 both still decide, alone, what may be dispatched.
+ */
+export const cardHtml = (c: Card, armed: boolean, accounts: string[]): string => {
+	const foot = noteBox(c.path, `note to ${c.building}`);
+	return c.kind === 'baton' ? batonCard(c, armed, accounts, foot)
+		: c.kind === 'gate' ? gateCard(c, foot) : countersignCard(c, foot);
+};
 
 /** The compact city strip: one dot per live session, grouped by building, `/city` for the rest. */
 function strip(buildings: Building[], census: CensusRead, rig: Rig): string {
@@ -386,6 +403,6 @@ export function railPage(): string {
 
 	const ms = performance.now() - t0;
 	return page('Belvedere — the rail', '<span>rail</span> <span>/</span> <a href="/city">city</a> <span>/</span> <a href="/shelf">shelf</a>',
-		banner + counts + strip(buildings, census, rig) + `<section class="railcol">${body}</section>` + SCRIPT,
+		banner + counts + strip(buildings, census, rig) + `<section class="railcol">${body}</section>` + SCRIPT + INBOX_SCRIPT,
 		`content re-read in ${ms.toFixed(0)} ms · ${registerNote(reg, '/')}`);
 }

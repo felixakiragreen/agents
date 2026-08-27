@@ -9,6 +9,7 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { handsRoute } from './hands';
+import { inboxRoute } from './inbox';
 import { HOST, port } from './paths';
 import { buildingPage, cityPage, docPage, errorPage, notFound } from './pages';
 import { railPage } from './rail';
@@ -66,8 +67,11 @@ const server = Bun.serve({
 	async fetch(req) {
 		try {
 			const url = new URL(req.url);
-			// The only writing routes in the building, and the only async ones (B4).
+			// The only writing routes in the building, and the only async ones (B4, B6).
 			if (url.pathname.startsWith('/hands/')) return await handsRoute(req, url.pathname.slice('/hands/'.length));
+			// The fence's third write, and the one with no credential gate: a note is a file write,
+			// not a socket call, so cold hands must never cost Felix the ability to say something.
+			if (url.pathname === '/inbox') return await inboxRoute(req);
 			if (url.pathname === '/rewalk') return await rewalkRoute(url);
 			return route(url);
 		}

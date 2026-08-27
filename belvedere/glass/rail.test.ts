@@ -1,8 +1,9 @@
 // The rail's two laws, tested where they can actually be wrong.
 //
 //  1. **The holder decides the wiring.** The Felix-card test is structural, not cosmetic: it
-//     asserts the rendered HTML contains no button, no payload and no hands path AT ALL. A
-//     `disabled` attribute would pass a weaker test and still be one devtools edit from a fire.
+//     asserts the rendered HTML carries no payload and no hands path AT ALL, and that every
+//     button on the card is a `/inbox` gesture (B6) rather than a fire. A `disabled` attribute
+//     would pass a weaker test and still be one devtools edit from a fire.
 //  2. **The rail resolves; it never invents.** A row that names no work doc, a summons with no
 //     known tier, a fork whose recommendation matches no option — each must say so and offer
 //     nothing.
@@ -173,7 +174,26 @@ const synthetic = (holder: Baton['holder'], instruments: Instrument[]): Building
 	baton: { holder, text: 'Felix rules the frame.', instruments },
 });
 
-const FIRE_WIRING = [/<button/, /data-fire/, /data-worktree/, /data-copy/, /\/hands\//, /data-account/];
+const FIRE_WIRING = [/data-fire/, /data-worktree/, /data-copy/, /\/hands\//, /data-account/];
+
+/**
+ * **Amended at B6, deliberately, and strictly stronger.** Until B6 this file asserted `/<button/`:
+ * a Felix-card carried no button at all. B6's blessed order puts a note box — and, on a pending
+ * countersign card, a Countersign button — on every card, so "no button" stopped being true while
+ * the invariant it was protecting did not change: *nothing on his card may reach `/hands/fire`*.
+ *
+ * So the button check became a claim about what the buttons ARE. A `class="ges"` button posts one
+ * D63 line to `/inbox`, which appends to a file a human then sweeps; it carries no summons, no
+ * account, no payload a fire could ride. If a fire button ever appears on one of these cards it
+ * fails both this and `FIRE_WIRING` — the weaker of the two possible regressions is still caught.
+ */
+const everyButtonIsAGesture = (html: string) =>
+	[...html.matchAll(/<button[^>]*>/g)].every(m => /class="ges[ "]/.test(m[0]));
+
+const unwired = (html: string) => {
+	for (const pattern of FIRE_WIRING) expect(html).not.toMatch(pattern);
+	expect(everyButtonIsAGesture(html)).toBe(true);
+};
 
 describe("a Felix-holder baton is his card", () => {
 	const summons: Instrument = { kind: 'summons', text: 'You are a Digger at opus-high.', mantle: 'Digger', tier: 'opus-high' };
@@ -181,7 +201,7 @@ describe("a Felix-holder baton is his card", () => {
 	test('carries no fire wiring in the DOM at all — not even a disabled one', () => {
 		const [card] = cards([synthetic('felix', [summons])], rig, ACCOUNTS[0]!);
 		const html = cardHtml(card!, true, ACCOUNTS);
-		for (const pattern of FIRE_WIRING) expect(html).not.toMatch(pattern);
+		unwired(html);
 		expect(html).toContain('data-holder="felix"');
 	});
 
@@ -193,13 +213,19 @@ describe("a Felix-holder baton is his card", () => {
 	test('a dropped baton (prose holder) is unwired too, and says it is dropped', () => {
 		const [card] = cards([synthetic('prose', [])], rig, ACCOUNTS[0]!);
 		const html = cardHtml(card!, true, ACCOUNTS);
-		for (const pattern of FIRE_WIRING) expect(html).not.toMatch(pattern);
+		unwired(html);
 		expect(html).toContain('Dropped baton');
 	});
 
 	test('gate and countersign cards are structurally unwired as well', () => {
-		for (const c of fixtureCards().filter(c => c.kind !== 'baton'))
-			for (const pattern of FIRE_WIRING) expect(cardHtml(c, true, ACCOUNTS)).not.toMatch(pattern);
+		for (const c of fixtureCards().filter(c => c.kind !== 'baton')) unwired(cardHtml(c, true, ACCOUNTS));
+	});
+
+	test('the only button on a Felix-card is the note box, and it posts to the inbox', () => {
+		const [card] = cards([synthetic('felix', [summons])], rig, ACCOUNTS[0]!);
+		const html = cardHtml(card!, true, ACCOUNTS);
+		expect([...html.matchAll(/<button/g)]).toHaveLength(1);
+		expect(html).toContain('data-gesture="{&quot;building&quot;:&quot;/tmp/scratch&quot;,&quot;kind&quot;:&quot;note&quot;}"');
 	});
 });
 
@@ -291,7 +317,7 @@ describe('the rail resolves; it never invents', () => {
 		const [card] = cards([b], rig, ACCOUNTS[0]!);
 		const shot = (card as Card & { kind: 'baton' }).shots[0]!;
 		expect(shot.fire).toEqual({ blocked: 'no row "Z9" on any board in scratch' });
-		expect(cardHtml(card!, true, ACCOUNTS)).not.toMatch(/<button/);
+		unwired(cardHtml(card!, true, ACCOUNTS));
 	});
 
 	test('a summons with no readable tier is blocked, not guessed', () => {
