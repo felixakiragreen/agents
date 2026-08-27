@@ -164,6 +164,14 @@ export function cards(buildings: Building[], rig: Rig, account: string): Card[] 
 const SHAPE_TONE: Record<Shape, Tone> = { move: 'green', wave: 'cyan', fork: 'yellow', plural: 'orange' };
 const HOLDER: Record<Baton['holder'], string> = { session: 'baton', felix: "Felix's baton", prose: 'dropped baton' };
 
+/**
+ * A baton's own instruments are rendered below it as cards. Leaving their fences in the prose
+ * prints every summons twice — the second time mangled, since `inline()` renders single ticks
+ * and a fence is three. Display shaping only: the text the buttons and the clipboard carry is
+ * the parser's, untouched.
+ */
+const prose = (text: string) => text.replace(/```[\s\S]*?```/g, ' ').replace(/\s{2,}/g, ' ').trim();
+
 const buildingLink = (slug: string) =>
 	`<a class="where" href="/b/${slug.split('/').map(encodeURIComponent).join('/')}">${esc(slug)}</a>`;
 
@@ -212,7 +220,7 @@ function batonCard(c: Card & { kind: 'baton' }, armed: boolean, accounts: string
 	return `<article class="rail tone-${tone}" data-kind="baton" data-holder="${c.baton.holder}">
 		<div class="rail-h">${buildingLink(c.building)} ${pill(HOLDER[c.baton.holder], tone)} ${shape}
 			<span class="when">${esc(c.entry.date)} · ${esc(c.entry.mantle)}${c.entry.row ? ` (${esc(c.entry.row)})` : ''}</span></div>
-		<p class="rail-text">${inline(c.baton.text, base)}</p>${forkNote}${dropped}${shots}</article>`;
+		<p class="rail-text">${inline(prose(c.baton.text), base)}</p>${forkNote}${dropped}${shots}</article>`;
 }
 
 const gateCard = (c: Card & { kind: 'gate' }) =>

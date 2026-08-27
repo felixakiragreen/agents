@@ -128,6 +128,15 @@ describe('the row reference', () => {
 	});
 });
 
+test('the prose drops the fences its own shots already render, and keeps everything else', () => {
+	const html = cardHtml(baton('probe-fork'), true, ACCOUNTS);
+	const text = html.match(/<p class="rail-text">([\s\S]*?)<\/p>/)![1]!;
+	expect(text).toContain('Recommendation: the Digger');
+	expect(text).not.toContain('Wear ~/code/agents/canon/mantles/digger.md');
+	// The instrument itself is untouched — only the prose above it is shaped.
+	expect(baton('probe-fork').shots[0]!.summons).toContain('Wear ~/code/agents/canon/mantles/digger.md');
+});
+
 test('copy-summons carries the kickoff byte-for-byte', () => {
 	const s = baton('probe-row').shots[0]!;
 	const html = cardHtml(baton('probe-row'), true, ACCOUNTS);
