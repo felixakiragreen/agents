@@ -5,7 +5,7 @@
 // Record schema: P1 F6, written by `belvedere/census/beat.sh` (B1). This module only reads.
 
 import { openSync, readSync, closeSync, statSync } from 'fs';
-import { CENSUS } from './paths';
+import { censusFile } from './paths';
 
 /** Everything has a limit (directive 3.1): the tail we read, and the transcript window we scan. */
 export const LIMITS = { tail: 4 << 20, transcript: 64 << 10 } as const;
@@ -147,7 +147,7 @@ function stampOf(transcript: string | null): string | null {
 
 /** One read of the whole census: every session it has ever seen, stated as of now. */
 export function readCensus(nowSeconds = Date.now() / 1000): CensusRead {
-	const text = window(CENSUS, LIMITS.tail, 'end');
+	const text = window(censusFile(), LIMITS.tail, 'end');
 	if (text === null) return { present: false, sessions: [], beats: 0, malformed: 0 };
 
 	const latest = new Map<string, Beat>();

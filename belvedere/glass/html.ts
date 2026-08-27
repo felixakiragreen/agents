@@ -5,7 +5,7 @@
 import { isAbsolute, join, dirname } from 'path';
 import type { SessionState } from './census';
 import type { State } from '../../doctrine';
-import { CITY } from './paths';
+import { cityRoot } from './paths';
 
 export const esc = (s: string) =>
 	s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -58,7 +58,10 @@ export const label = (text: string) => `<span class="label">${esc(text)}</span>`
 export const CSS = '<link rel="stylesheet" href="/felikai.css"><link rel="stylesheet" href="/glass.css">';
 
 /** `~/code`-relative wherever possible: the city's own coordinates, not the filesystem's. */
-export const short = (p: string) => p.startsWith(CITY + '/') ? p.slice(CITY.length + 1) : p;
+export const short = (p: string) => {
+	const root = cityRoot();
+	return p.startsWith(root + '/') ? p.slice(root.length + 1) : p;
+};
 
 export function page(title: string, crumbs: string, body: string, footer: string): string {
 	return `<!doctype html>
@@ -74,4 +77,4 @@ export function page(title: string, crumbs: string, body: string, footer: string
 }
 
 /** The base directory a document's relative links resolve against. */
-export const baseOf = (file: string | null) => file ? dirname(file) : CITY;
+export const baseOf = (file: string | null) => file ? dirname(file) : cityRoot();

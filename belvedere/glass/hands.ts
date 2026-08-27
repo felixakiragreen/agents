@@ -27,7 +27,7 @@ import { dirname, isAbsolute, join } from 'path';
 import { readCensus, isLive } from './census';
 import { readRig } from './rig';
 import { sanitizeSummons } from './sanitize';
-import { AUDIT, HALT, HANDS_ENV, SUMMONS_DIR } from './paths';
+import { auditLog, haltFlag, handsEnv, summonsDir } from './paths';
 
 /** Everything has a limit (directive 3.1). A hand that hangs is a glass that hangs. */
 const LIMITS = { summonsBytes: 64 << 10, requestBytes: 128 << 10, commandMs: 20_000, requester: 64 } as const;
@@ -46,13 +46,13 @@ const fail = (error: string): Outcome<never> => ({ ok: false, error });
  */
 export function readCredential(): Outcome<string> {
 	let mode: number;
-	try { mode = statSync(HANDS_ENV).mode; }
-	catch { return fail(`no credential at ${HANDS_ENV}`); }
-	if (mode & 0o077) return fail(`${HANDS_ENV} is mode ${(mode & 0o777).toString(8)} — must be 600`);
+	try { mode = statSync(handsEnv()).mode; }
+	catch { return fail(`no credential at ${handsEnv()}`); }
+	if (mode & 0o077) return fail(`${handsEnv()} is mode ${(mode & 0o777).toString(8)} — must be 600`);
 
 	let text: string;
-	try { text = readFileSync(HANDS_ENV, 'utf8'); }
-	catch (e) { return fail(`cannot read ${HANDS_ENV}: ${(e as Error).message}`); }
+	try { text = readFileSync(handsEnv(), 'utf8'); }
+	catch (e) { return fail(`cannot read ${handsEnv()}: ${(e as Error).message}`); }
 
 	for (const line of text.split('\n')) {
 		const m = line.match(/^\s*CMUX_SOCKET_PASSWORD\s*=\s*(.*?)\s*$/);
@@ -60,7 +60,7 @@ export function readCredential(): Outcome<string> {
 		const value = m[1]!.replace(/^(['"])(.*)\1$/, '$2');
 		if (value !== '') return { ok: true, result: value };
 	}
-	return fail(`${HANDS_ENV} carries no CMUX_SOCKET_PASSWORD`);
+	return fail(`${handsEnv()} carries no CMUX_SOCKET_PASSWORD`);
 }
 
 /** What the glass says about its own hands. The reason is a path and a diagnosis, never a value. */
@@ -201,8 +201,8 @@ async function attemptFire(req: Fire, password: string): Promise<Outcome<Fired>>
 	if (!configDir) return fail(`unknown account "${req.account}" — the rig's accounts.tsv names the three`);
 
 	const text = sanitizeSummons(req.summons);
-	const summonsPath = join(SUMMONS_DIR, `${req.stamp}.summons.txt`);
-	mkdirSync(SUMMONS_DIR, { recursive: true });
+	const summonsPath = join(summonsDir(), `${req.stamp}.summons.txt`);
+	mkdirSync(summonsDir(), { recursive: true });
 	writeFileSync(summonsPath, text, { mode: 0o600 });
 
 	const command = launchCommand(req, configDir, summonsPath);
@@ -280,10 +280,10 @@ export const halt = (req: Halt): Outcome<{ path: string; at: string }> =>
 function attemptHalt(req: Halt): Outcome<{ path: string; at: string }> {
 	const at = new Date().toISOString();
 	try {
-		mkdirSync(dirname(HALT), { recursive: true });
-		writeFileSync(HALT, `${at} ${req.requester}\n`);
-	} catch (e) { return fail(`cannot write ${HALT}: ${(e as Error).message}`); }
-	return { ok: true, result: { path: HALT, at } };
+		mkdirSync(dirname(haltFlag()), { recursive: true });
+		writeFileSync(haltFlag(), `${at} ${req.requester}\n`);
+	} catch (e) { return fail(`cannot write ${haltFlag()}: ${(e as Error).message}`); }
+	return { ok: true, result: { path: haltFlag(), at } };
 }
 
 // ---------- §audit ----------
@@ -301,8 +301,8 @@ export function audit(action: string, args: Record<string, unknown>, outcome: Ou
 		ts: new Date().toISOString(), action, args,
 		ok: outcome.ok, result: outcome.ok ? outcome.result : outcome.error,
 	});
-	mkdirSync(dirname(AUDIT), { recursive: true });
-	appendFileSync(AUDIT, line + '\n');
+	mkdirSync(dirname(auditLog()), { recursive: true });
+	appendFileSync(auditLog(), line + '\n');
 }
 
 /**

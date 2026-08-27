@@ -11,7 +11,7 @@
 // owns nothing.
 
 import { discover, lastWalk } from '../../doctrine';
-import { CITY } from './paths';
+import { cityRoot } from './paths';
 
-const entries = discover([CITY]).map(b => ({ building: b.building, path: b.path, files: b.files }));
+const entries = discover([cityRoot()]).map(b => ({ building: b.building, path: b.path, files: b.files }));
 postMessage({ entries, at: Date.now(), suppressed: lastWalk.suppressed });

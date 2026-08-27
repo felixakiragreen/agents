@@ -8,7 +8,7 @@ import { readCensus, isLive, type CensusRead, type Session } from './census';
 import { handsState } from './hands';
 import { city } from './register';
 import { readRig, accountLabel, mantleOf, type Rig } from './rig';
-import { CITY } from './paths';
+import { cityRoot } from './paths';
 import { baseOf, docHref, esc, inline, label, page, pill, rigTone, sessionTone, short, stateTone } from './html';
 
 const DOC_BYTES = 2 << 20;
@@ -121,8 +121,8 @@ export function cityPage(): string {
 
 export function buildingPage(slug: string): string | null {
 	const t0 = performance.now();
-	const abs = resolve(CITY, slug);
-	if (!abs.startsWith(CITY + sep)) return null;              // no climbing out of the city
+	const abs = resolve(cityRoot(), slug);
+	if (!abs.startsWith(cityRoot() + sep)) return null;        // no climbing out of the city
 
 	// One subtree, not the whole city: the page needs this building and any nested ones (so a
 	// session in `agents/belvedere` is not claimed by `agents`). 40 ms instead of nine seconds.
@@ -249,8 +249,8 @@ function sessionTable(ss: Session[], rig: Rig): string {
 // ---------- /doc — the link target, read-only ----------
 
 export function docPage(path: string): string {
-	if (!path.startsWith(CITY + sep)) return page('Belvedere — refused', '<a href="/">city</a>',
-		`<section class="panel"><h2>Outside the city</h2><p class="note">The viewer serves files under <code>${esc(CITY)}</code> only.</p>
+	if (!path.startsWith(cityRoot() + sep)) return page('Belvedere — refused', '<a href="/">city</a>',
+		`<section class="panel"><h2>Outside the city</h2><p class="note">The viewer serves files under <code>${esc(cityRoot())}</code> only.</p>
 		<code>${esc(path)}</code></section>`, 'read-only viewer');
 
 	let text: string;

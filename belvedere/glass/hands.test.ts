@@ -2,8 +2,9 @@
 // redaction, and the worktree refusal. What is NOT here is what cannot be faked — a real fire
 // against a real cmux socket is DoD evidence in `plans/b4-hands.md`, not a unit test.
 //
-// Every test that touches disk works inside its own temp directory, wired through the three
-// env knobs (`CENSUS_DIR`, `BELVEDERE_ENV`) the paths module already reads.
+// Every test that touches disk works inside its own temp directory, wired through the two env
+// knobs (`CENSUS_DIR`, `BELVEDERE_ENV`) `paths.ts` reads — per call, so this file's anchors hold
+// however the suite is ordered and whatever imported the module first (B8 §4).
 
 import { expect, test, describe, afterAll } from 'bun:test';
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, chmodSync, rmSync, existsSync } from 'fs';
@@ -12,9 +13,10 @@ import { join } from 'path';
 
 const scratch = () => mkdtempSync(join(tmpdir(), 'b4-hands-'));
 
-// The env knobs must be set before the module under test resolves its anchors — so the import is
-// explicit and ordered, not hoisted. Nothing in this file can touch the real census or the real
-// credential: `~/.config/belvedere/env` is never read here, at any point.
+// Nothing in this file can touch the real census or the real credential: `~/.config/belvedere/env`
+// is never read here, at any point. The import stays explicit and ordered because the knobs must
+// be in place before the FIRST call, and a hoisted static import invites the old frozen-env bug
+// back by looking harmless.
 const ROOT = scratch();
 const ENV_FILE = join(ROOT, 'env');
 process.env.CENSUS_DIR = join(ROOT, 'census');

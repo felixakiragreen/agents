@@ -23,7 +23,7 @@ import {
 	parseBoards, parseDecisions, parseIssues, parseKickoffs, parseLedger,
 	type Board, type Building, type Decision, type Fail, type Issue, type Kickoff, type LedgerEntry,
 } from '../../doctrine';
-import { CITY } from './paths';
+import { cityRoot } from './paths';
 
 /**
  * The staleness bar. G1's ruling caps the served register at 30 s; a refresh costs ~10 s and
@@ -47,7 +47,7 @@ let error: string | null = null;
 
 function walk(): Register {
 	const t0 = performance.now();
-	const entries = discover([CITY]).map(b => ({ building: b.building, path: b.path, files: b.files }));
+	const entries = discover([cityRoot()]).map(b => ({ building: b.building, path: b.path, files: b.files }));
 	return { entries, at: Date.now(), ms: performance.now() - t0, suppressed: lastWalk.suppressed, refreshing: false, error: null };
 }
 

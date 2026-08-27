@@ -9,7 +9,7 @@
 import { readFileSync, statSync } from 'fs';
 import { basename } from 'path';
 import { EFFORTS, MODELS } from '../../doctrine';
-import { AUDIT, INVOCATIONS } from './paths';
+import { auditLog, INVOCATIONS } from './paths';
 import type { Rig } from './rig';
 
 /** Everything has a limit: the lineage scan reads a bounded tail, never a whole history. */
@@ -74,7 +74,7 @@ export function nextStamp(mantle: string | null, buildingPath: string, taken = n
 
 	let top = 0;
 	const seen = tail(INVOCATIONS, LOG_BYTES).match(/"name":"([^"]+)"/g) ?? [];
-	const fired = tail(AUDIT, LOG_BYTES).match(/"stamp":"([^"]+)"/g) ?? [];
+	const fired = tail(auditLog(), LOG_BYTES).match(/"stamp":"([^"]+)"/g) ?? [];
 	for (const hit of [...seen, ...fired]) {
 		const m = hit.match(/:"(.+)"$/)?.[1];
 		if (!m || !m.startsWith(prefix + '-')) continue;

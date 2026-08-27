@@ -9,7 +9,7 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { handsRoute } from './hands';
-import { HOST, PORT } from './paths';
+import { HOST, port } from './paths';
 import { buildingPage, cityPage, docPage, errorPage, notFound } from './pages';
 import { railPage } from './rail';
 import { boot } from './register';
@@ -47,7 +47,7 @@ boot();
 
 const server = Bun.serve({
 	hostname: HOST,                          // D3: 127.0.0.1 and nothing else, until real auth
-	port: PORT,
+	port: port(),
 	async fetch(req) {
 		try {
 			const url = new URL(req.url);
