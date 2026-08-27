@@ -1,0 +1,14 @@
+{
+	"hooks": {
+		"SessionStart":     [{ "hooks": [{ "type": "command", "command": "@LAB@/capture.sh SessionStart" }, { "type": "command", "command": "@LAB@/envdump.sh" }] }],
+		"UserPromptSubmit": [{ "hooks": [{ "type": "command", "command": "@LAB@/capture.sh UserPromptSubmit" }] }],
+		"PreToolUse":       [{ "matcher": "*", "hooks": [{ "type": "command", "command": "@LAB@/capture.sh PreToolUse" }] }],
+		"PostToolUse":      [{ "matcher": "*", "hooks": [{ "type": "command", "command": "@LAB@/capture.sh PostToolUse" }] }],
+		"Notification":     [{ "hooks": [{ "type": "command", "command": "@LAB@/capture.sh Notification" }] }],
+		"Stop":             [{ "hooks": [{ "type": "command", "command": "@LAB@/capture.sh Stop" }] }],
+		"SubagentStop":     [{ "hooks": [{ "type": "command", "command": "@LAB@/capture.sh SubagentStop" }] }],
+		"SubagentStart":    [{ "hooks": [{ "type": "command", "command": "@LAB@/capture.sh SubagentStart" }] }],
+		"PreCompact":       [{ "hooks": [{ "type": "command", "command": "@LAB@/capture.sh PreCompact" }] }],
+		"SessionEnd":       [{ "hooks": [{ "type": "command", "command": "@LAB@/capture.sh SessionEnd" }] }]
+	}
+}
