@@ -31,6 +31,20 @@ export const STALE_SECONDS = 30 * 60;
  */
 export type Task = { id: string; type: string; status: string; agentType: string | null };
 
+/**
+ * **Only two hook payloads carry `background_tasks` at all** — measured over the live census,
+ * 1739 records: every one of the 210 non-empty rosters arrived on `Stop` (7) or `SubagentStop`
+ * (203), and not one on the 1820 `PreToolUse`/`PostToolUse` beats that outnumber them 9:1.
+ *
+ * So `bg: []` on a tool-use beat is **unknown, not none** — the field is absent from that
+ * payload, and `jq` fills the hole with `[]`. Reading it as "no background work" would make the
+ * WIP gauge answer zero almost always, which is the hidden bill this row exists to prevent.
+ */
+export const ROSTER_EVENTS: ReadonlySet<string> = new Set(['Stop', 'SubagentStop']);
+
+/** A roster as it stood at one instant, with the cap flag that makes its figures a floor. */
+export type Observed = { tasks: Task[]; at: number; capped: boolean };
+
 /** P1 F6's record, projected to what the spine renders. The dropped fields stay dropped. */
 export type Beat = {
 	t: number;              // jq `now` — epoch SECONDS, float. The sort key: file order is not causal (F4).
@@ -63,8 +77,8 @@ export type Session = {
 	transcript: string | null;
 	/** The subagent the last beat was executing inside, if any — the session's own depth. */
 	agent: { id: string; type: string | null } | null;
-	tasks: Task[];          // the last beat's roster
-	tasksCapped: boolean;   // the roster filled the hook's slice: render `16+`, never `16`
+	/** The last roster this session was ever seen carrying, or **null: never observed**. */
+	roster: Observed | null;
 };
 
 /**
@@ -215,12 +229,21 @@ export function identify(transcript: string): Identity {
 const stampOf = (transcript: string | null): string | null =>
 	transcript === null ? null : identify(transcript).stamp;
 
+/**
+ * A roster beat, projected — with its own timestamp, because it is an **observation, not a
+ * state**. P1 F4's named blindness is that a background shell's completion fires no event, so the
+ * page renders this as "last seen carrying", never as "running now".
+ */
+const observed = (beat: Beat | undefined): Observed | null =>
+	beat === undefined ? null : { tasks: beat.bg, at: beat.t, capped: beat.bg.length >= BG_CAP };
+
 /** One read of the whole census: every session it has ever seen, stated as of now. */
 export function readCensus(nowSeconds = Date.now() / 1000): CensusRead {
 	const text = window(censusFile(), LIMITS.tail, 'end');
 	if (text === null) return { present: false, sessions: [], beats: 0, malformed: 0, since: null };
 
 	const latest = new Map<string, Beat>();
+	const rosters = new Map<string, Beat>();      // the latest beat whose payload CARRIED a roster
 	const counts = new Map<string, number>();
 	let beats = 0, malformed = 0, since: number | null = null;
 	for (const line of text.split('\n')) {
@@ -233,6 +256,10 @@ export function readCensus(nowSeconds = Date.now() / 1000): CensusRead {
 		counts.set(beat.sid, (counts.get(beat.sid) ?? 0) + 1);
 		const prev = latest.get(beat.sid);
 		if (!prev || beat.t >= prev.t) latest.set(beat.sid, beat);   // by timestamp, never by position (F4)
+		if (ROSTER_EVENTS.has(beat.ev)) {
+			const seen = rosters.get(beat.sid);
+			if (!seen || beat.t >= seen.t) rosters.set(beat.sid, beat);
+		}
 	}
 
 	const sessions = [...latest.values()].map(last => ({
@@ -246,8 +273,7 @@ export function readCensus(nowSeconds = Date.now() / 1000): CensusRead {
 		stamp: stampOf(last.tp),
 		transcript: last.tp,
 		agent: last.aid === null ? null : { id: last.aid, type: last.at },
-		tasks: last.bg,
-		tasksCapped: last.bg.length >= BG_CAP,
+		roster: observed(rosters.get(last.sid)),
 	})).sort((a, b) => b.last.t - a.last.t);
 
 	return { present: true, sessions, beats, malformed, since };

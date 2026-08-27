@@ -136,7 +136,7 @@ describe('WIP — a roster figure is a floor, and says so', () => {
 
 	const session = (over: Partial<Session> & { sid: string }): Session => ({
 		state: 'working', beats: 1, account: '/Users/felix/.claude', cwd: '/Users/felix/code/agents',
-		tool: null, stamp: null, transcript: null, agent: null, tasks: [], tasksCapped: false,
+		tool: null, stamp: null, transcript: null, agent: null, roster: { tasks: [], at: NOW, capped: false },
 		last: { t: NOW, ev: 'PreToolUse', sid: over.sid, acct: '/Users/felix/.claude', pid: 1, ws: null, sf: null,
 			cwd: '/Users/felix/code/agents', tp: null, tool: null, why: null, aid: null, at: null, bg: [] } as Beat,
 		...over,
@@ -166,21 +166,36 @@ describe('WIP — a roster figure is a floor, and says so', () => {
 	});
 
 	test('subagents and shells are counted apart', () => {
-		const w = wip(read([session({ sid: 'a', tasks: [task(1), task(2), task(3, 'shell')] })]), rig, () => 'agents');
+		const seen = { tasks: [task(1), task(2), task(3, 'shell')], at: NOW, capped: false };
+		const w = wip(read([session({ sid: 'a', roster: seen })]), rig, () => 'agents');
 		expect([w.subagents.n, w.shells.n]).toEqual([2, 1]);
 		expect(w.subagents.capped).toBe(false);
 	});
 
 	test('a session at the hook cap makes the whole figure a floor: `16+`, never `16`', () => {
 		const full = Array.from({ length: BG_CAP }, (_, n) => task(n));
-		const w = wip(read([session({ sid: 'a', tasks: full, tasksCapped: true })]), rig, () => 'agents');
-		expect(w.subagents).toEqual({ n: BG_CAP, capped: true });
+		const w = wip(read([session({ sid: 'a', roster: { tasks: full, at: NOW, capped: true } })]), rig, () => 'agents');
+		expect(w.subagents).toEqual({ n: BG_CAP, capped: true, unobserved: 0 });
 		expect(rosterText(w.subagents)).toBe('16+');
 		expect(wipGauges(w)).toContain('16+');
 	});
 
 	test('rosterText leaves an uncapped figure alone — the `+` carries information', () => {
-		expect(rosterText({ n: 3, capped: false })).toBe('3');
+		expect(rosterText({ n: 3, capped: false, unobserved: 0 })).toBe('3');
+	});
+
+	test('a session never observed carrying a roster reads `?`, never `0`', () => {
+		// Only `Stop` and `SubagentStop` payloads carry `background_tasks` (measured, census.ts
+		// §ROSTER_EVENTS), so a session still mid-turn has told the census nothing at all.
+		const w = wip(read([session({ sid: 'a', roster: null })]), rig, () => 'agents');
+		expect(w.subagents).toEqual({ n: 0, capped: false, unobserved: 1 });
+		expect(rosterText(w.subagents)).toBe('?');
+		expect(wipGauges(w)).toContain('never been observed');
+	});
+
+	test('an observed EMPTY roster really is zero — that session did tell the census', () => {
+		const w = wip(read([session({ sid: 'a', roster: { tasks: [], at: NOW, capped: false } })]), rig, () => 'agents');
+		expect(rosterText(w.subagents)).toBe('0');
 	});
 
 	test('no census degrades honestly: the panel says the sensor is missing, it does not draw zero', () => {

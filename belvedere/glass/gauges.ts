@@ -98,8 +98,12 @@ export const usageAge = (u: Usage, nowSeconds: number): number | null =>
 
 // ---------- WIP, rolled up from the census ----------
 
-/** A roster figure and whether the hook's slice cut it off. `16+` is a lower bound, said so. */
-export type Roster = { n: number; capped: boolean };
+/**
+ * A roster figure, and the two ways it is a floor rather than a total: `capped` when the hook's
+ * slice cut a roster off (`16+`), `unobserved` for the live sessions that have never yet emitted
+ * a `Stop` or `SubagentStop` and so have contributed nothing at all.
+ */
+export type Roster = { n: number; capped: boolean; unobserved: number };
 
 export type AccountWip = {
 	account: string;
@@ -119,9 +123,10 @@ export type Wip = {
 };
 
 const roster = (ss: Session[], type: string): Roster => ({
-	n: ss.reduce((sum, s) => sum + s.tasks.filter(t => t.type === type).length, 0),
+	n: ss.reduce((sum, s) => sum + (s.roster?.tasks.filter(t => t.type === type).length ?? 0), 0),
 	// One session at the cap is enough to make the total a floor: the hook threw the rest away.
-	capped: ss.some(s => s.tasksCapped),
+	capped: ss.some(s => s.roster?.capped),
+	unobserved: ss.filter(s => s.roster === null).length,
 });
 
 /**
@@ -156,8 +161,13 @@ export function wip(census: CensusRead, rig: Rig, buildingOfSession: (s: Session
 
 // ---------- render ----------
 
-/** `16+` when the hook's slice cut the roster off, plain otherwise. The `+` is the whole point. */
-export const rosterText = (r: Roster) => `${r.n}${r.capped ? '+' : ''}`;
+/**
+ * `16+` when the hook's slice cut the roster off, plain otherwise — the `+` is the whole point.
+ * A figure standing on nothing but unobserved sessions is not `0`: it is `?`, because the census
+ * has never been told.
+ */
+export const rosterText = (r: Roster) =>
+	r.n === 0 && r.unobserved > 0 ? '?' : `${r.n}${r.capped ? '+' : ''}`;
 
 const cell = (u: Usage, bucket: Bucket, nowSeconds: number): string => {
 	const q = u.windows[bucket];
@@ -232,8 +242,13 @@ export function wipGauges(w: Wip): string {
 			<b>${esc(ago(w.since))}</b> old`} — a session started before the hooks went live never beats and is
 			invisible to this panel. The roster figures are bounded twice over: the heartbeat keeps at most
 			${BG_CAP} background entries per record, so a full roster renders <code>${BG_CAP}+</code>, and a
-			background shell's completion fires no event at all (P1 F4) — a shell counted here was launched,
-			not proven still running.</p>
+			background shell's completion fires no event at all (P1 F4) — a shell counted here was
+			<b>last seen</b> running, not proven running now. Worse, <b>only <code>Stop</code> and
+			<code>SubagentStop</code> payloads carry the roster at all</b> (measured: 210 of 210 non-empty
+			rosters, none on 1820 tool-use beats), so a session that has not stopped since it started work
+			contributes nothing here and reads <code>?</code>, never <code>0</code>${
+			w.subagents.unobserved ? ` — <b class="bad">${w.subagents.unobserved} of ${w.accounts.reduce((n, a) => n + a.sessions, 0)}
+			live sessions have never been observed carrying one</b>` : ''}.</p>
 		<p class="prose note">Live sessions by account and by building, off the census.</p>
 		<div class="counts">
 			<div class="stat"><span class="label">subagents</span><b class="t-working">${esc(rosterText(w.subagents))}</b></div>

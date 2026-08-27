@@ -191,9 +191,10 @@ function row(s: Shelved, rig: Rig, armed: boolean): string {
 					· ${esc(ago(s.live.last.t))} ago · ${s.live.beats} beats</span></div>` : ''}
 				${s.live?.agent ? `<div class="kv">${label('inside')}<span>subagent <code>${esc(s.live.agent.id)}</code>${
 					s.live.agent.type ? ` · ${esc(s.live.agent.type)}` : ''}</span></div>` : ''}
-				${s.live && s.live.tasks.length ? `<div class="kv">${label('roster')}<span>${
-					s.live.tasks.map(t => `${esc(t.type)} <code>${esc(t.id.slice(0, 8))}</code> ${esc(t.status)}`).join(' · ')
-					}${s.live.tasksCapped ? ' <b class="bad">+ more (hook cap)</b>' : ''}</span></div>` : ''}
+				${s.live?.roster ? `<div class="kv">${label('roster')}<span>${
+					s.live.roster.tasks.map(t => `${esc(t.type)} <code>${esc(t.id.slice(0, 8))}</code> ${esc(t.status)}`).join(' · ')
+					|| 'empty'}${s.live.roster.capped ? ' <b class="bad">+ more (hook cap)</b>' : ''}
+					<span class="when">last seen ${esc(ago(s.live.roster.at))} ago</span></span></div>` : ''}
 			</div></details></article>`;
 }
 

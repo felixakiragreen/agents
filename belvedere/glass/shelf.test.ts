@@ -73,7 +73,7 @@ const beat = (over: Partial<Beat>): Beat => ({
 const live = (sid: string, over: Partial<Session> = {}): Session => ({
 	sid, state: 'working', last: beat({ sid }), beats: 3, account: ACCOUNTS[0]![0],
 	cwd: join(CITY, 'agents'), tool: null, stamp: 'builder-agents-01', transcript: null,
-	agent: null, tasks: [], tasksCapped: false, ...over,
+	agent: null, roster: null, ...over,
 });
 
 describe('the scan', () => {
