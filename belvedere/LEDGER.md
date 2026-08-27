@@ -846,3 +846,60 @@ else in your summons stands.
 ```
 
 Behind it: canon row 17 at his word; this desk returns at G2.
+
+**2026-08-27 · Builder · opus-high (B13)** — the deck shell: the app exists. `/deck`
+serves three panes (Context · Focus · Action), each walking minimal → typical →
+expanded under the law of space, plus the pinnable drawer, the tooltip primitive, the
+`FocusView` seam and the poll that keeps it live; the v0 rooms serve on untouched
+(keel §10), one nav link the wider. Changed: `glass/deck-model.ts` new (**the law of
+space as arithmetic** — a pane's state IS its weight, 1 · 3 · 6, and one `columns()`
+serves the server's resting render and the client's re-render so they cannot disagree;
+plus `toLayout` parsing localStorage at the boundary and the `DeckSnapshot` shape both
+sides share), `glass/deck-view.ts` new (the `FocusView` seam — four members,
+`mount(focusHost, actionHost)` / `unmount` / `draw` / the states a tenant declares;
+**Action follows Focus, so one tenant owns both hosts** and there is no second
+register), `glass/deck.ts` new (`deckState()` — one composed read of census + the
+register's **held** copy, never a walk on the request thread; and the shell, which
+carries the resting split already in its markup), `glass/deck.client.ts` new (the whole
+app: layout, drawer, tooltips, the poll, three placeholder tenants B10/B15/B16 evict),
+`glass/deck.css` new, `glass/server.ts` (the bundle built by `Bun.build` at boot and
+served from memory, `/deck`, `/deck.js`, `/deck/state`, `/deck.css`),
+`glass/html.ts` (one line: the `deck` link in every nav), `glass/deck.test.ts` new and
+`lab/b13/probe.ts` new — **320 green in one process**, `bunx --offline tsc --noEmit`
+exit 0, zero new deps, `package.json`/`bun.lock` byte-unchanged since B8. DoD measured
+in **real headless Chrome** at 1600×900 against a real glass: resting `1198.50 / 199.75
+/ 199.75 px` (74.91 · 12.48 · 12.48 %) and flipped to 1:6:3 `159.80 / 958.80 / 479.41`
+(9.99 · 59.92 · 29.96 %), **all 27 state combinations walked with `scrollHeight −
+viewport` = 0 px**; click-to-expand driven **through the served bundle's own delegated
+handler** (`#host-focus`, the pane body, minimal → typical); the drawer overlaying at
+`position:fixed` over 3 tracks and **pinning to a fourth** (context 1198.50 → 871.08 px,
+drawer 435.55); the tooltip instant in the same turn as the hover, expanding on a
+450 ms hold with its action, dead on Escape; `/deck/state` **polled 4 times, counted by
+the browser's own resource timeline**, and one appended fixture beat reaching the DOM in
+**2097 ms** of a 3000 ms interval; **0 off-origin requests** browser-side and
+`grep -c 'https\?://'` = **0 on all ten served payloads**; every v0 route still 200.
+Cost: `/deck` p95 **2 ms**, `/deck/state` p95 **19 ms**, and a 9.264 s `/rewalk` had
+three polls land inside its window in **17 · 8 · 18 ms** — B8 F3's worker law intact.
+Decided: nothing escalated; the out-of-scope list held (no real tenant content, no
+SSE, no framework, no v0 page touched beyond its nav). Six findings, four binding:
+**F1 — a fake DOM cannot prove a deck DoD item.** happy-dom and jsdom do no CSS grid
+layout, so `getBoundingClientRect()` returns zeros there and a "measured width" from
+one is fabricated — the `min-width: 0` bug of F4 passes silently. `lab/b13/probe.ts`
+drives the machine's own installed Chrome over the DevTools protocol in ~60 lines of
+Bun, **zero dependencies fetched, installed or vendored** (the `ps` posture), against
+its own glass on a temp census — the live census is append-only telemetry and a DoD run
+does not get to write a beat into it (B8 F1). Written to be reused by every deck row
+behind this one. **F2 — the split is a 69 ms transition, so every measurement of it
+must settle first**: the probe's own first run read `74.14 · 12.87 · 12.87 %` five
+milliseconds into a move to `10/60/30` and failed itself — a number real, reproducible
+and meaningless. **F3** the client TS rides the **existing** offline type gate with no
+config change (`@types/bun` carries the DOM lib); it caught `Node.append` returning
+`void` before a browser ran the code. **F4 — `min-width: 0` on every grid child is the
+deck's only geometric guarantee**: an `Nfr` track is `minmax(auto, Nfr)`, so without it
+content silently outvotes the law, with no error and a page that still looks plausible.
+**F5** the snapshot is a shared budget — 15 000 B at 46 sessions every 3 s, one endpoint
+B15/B17/B18 widen rather than five — and the diff is the whole snapshot, so an idle city
+redraws nothing. **F6** a failed client bundle **stops the server**, deliberately: a
+shell around a bundle that is not there is this server's own definition of a lie.
+Next: **B14 — the Context pane** ([plans/b14-city-attention.md](plans/b14-city-attention.md)),
+the Dispatcher's to fire on lane B's serial chain.

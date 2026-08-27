@@ -506,7 +506,7 @@ pages want belongs in `html.ts`, not in whichever file wrote it first.**
 
 (Relayed from `master`, B9 LANDED 2026-08-27 — Builder)
 
-## → relay — B13 (the deck shell) to B14, B15, B16, B17, B18, B19 and the Architect: no escalation, four findings that bind the whole deck chain
+## → relay — B13 (the deck shell) to every row behind it in lane B (B14, B15, B18, B20, B10, B17, B11, B16, B19, B21, B12) and the Architect: no escalation, four findings that bind the whole deck chain
 
 Evidence: [b13-deck-shell.md](b13-deck-shell.md) §DoD and §Findings, commits `cad607f` …
 `9d8a1ef` on `master`.
