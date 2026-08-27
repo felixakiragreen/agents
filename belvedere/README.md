@@ -145,13 +145,13 @@ word only) · editing truth (forever-class, §2).
 | P2 | [Spawn recipe](plans/p2-spawn-recipe.md) — socket access model; new-workspace + send ×3 accounts; resume variant | — | Digger · opus-high | **LANDED** 2026-08-26 — no kill fired. Access gate is `socketControlMode` (server setting), **not** an env token: a pane process drives the socket with **zero `CMUX_*`** — D4 stands, glass ships in a pane today; outside access is a documented `password` mode, **Felix-gated** (E1). Recipe proven ×3 accounts — summons byte-exact as the **first user turn** (sha ×3), silo intact, resume proven. `/color` leaves the prompt (cmux owns colour) — that frees argv and closes the **359-fire paste gap**. `send` corrupts literal `\n`/`\t`/`\r`; never paste into a live TUI (T4). Spawn function: [`lab/p2/spawn.ts`](lab/p2/spawn.ts) |
 | P3 | [Parse coverage](plans/p3-parse-coverage.md) — board/ledger/baton/queue parsers vs every live doctrine repo | — | Digger · opus-high | **LANDED** 2026-08-26 — kill did NOT fire: one strict parser, **zero per-repo special cases**, 25/27 board docs · 365/365 rows found · 288 fully typed (79%). 14 failure classes, all general; **9 fold candidates (FC-1…FC-9) escalate to canon** — FC-1 (`Felix-gate` as a legal Staffing value) and FC-7 (fenced summons in `Next:`) **gate the baton rail**: 1 of 8 ledger tails is fireable today. Findings + JSON shapes in [P3](plans/p3-parse-coverage.md) |
 | P4 | [Restore semantics](plans/p4-restore-semantics.md) — quit/relaunch over a live turn, measured | P1; P2 | Digger · opus-high | **LANDED** 2026-08-26 — kill did NOT fire: restore lost **no session**; both killed sessions returned **byte-identical** (458/736796 · 505/791537 either side). cmux persists a per-panel **resume binding, never conversational state** — `wasAgentRunning` gates it, the binding carries `CLAUDE_CONFIG_DIR`, so **the silo survives restore**. Unattended restore: **socket back 0.8 s, agents re-exec'd 3.4 s**. Loss = **the in-flight assistant turn, nothing more** — assistant messages are atomic, and a restored session **does not retry** the dropped turn (`No response requested.`). Control (§C): a cmux quit costs exactly what closing a terminal tab costs (SIGHUP; SIGKILL flushes nothing and still resumes clean) — **cmux's delta is recovery, not loss**. **§A upgrades P2's E1:** socket access is *live* ancestry (orphan with `ppid=1` → denied), so a glass in a pane **cannot survive a cmux restart** — `password` mode is load-bearing, not cosmetic. One residual measurement Felix-gated. Findings in [P4](plans/p4-restore-semantics.md) |
-| B1 | [Census deploy](plans/b1-census-deploy.md) — the liveness sensor live ×3 accounts | — | Builder · opus-high | **LANDED** 2026-08-26 — `bv/b1-census` (4 commits), unmerged; DoD evidence in [B1](plans/b1-census-deploy.md); live ×3 deploy PENDING Felix at G1 |
-| B2 | [Glass spine](plans/b2-glass-spine.md) — bun server: City View + building pages over `doctrine/` + census | — | Builder · opus-high | **LANDED** 2026-08-26 — `bv/b2-glass` (4 commits), unmerged; DoD evidence in [B2](plans/b2-glass-spine.md); E1 (9 s City View) escalates to G1 |
-| G1 | Batch-2 review — merge B1+B2; **Felix-gate: census deploy ×3 + B2 visual pass**; cut B3–B6 orders | B1, B2 | Architect · fable-high | OPEN — gates batched here (D44) |
-| B3 | Baton rail — move/wave/fork buttons, Felix-cards never auto-fired | G1 | Builder · opus-high | OPEN — order cut at G1 |
-| B4 | Hands — fire (spawn+summons-as-argv), auto worktree+branch, jump-in, HALT | G1 | Builder · opus-high | OPEN — order cut at G1 |
-| B5 | Shelf (resume by stamp/uuid ×3) + usage strip + WIP gauges | G1 | Builder · opus-high | OPEN — order cut at G1 |
-| B6 | Sovereign's inbox — glass gestures → ISSUES appends + the apply button | G1 | Builder · opus-high | OPEN — order cut at G1 |
+| B1 | [Census deploy](plans/b1-census-deploy.md) — the liveness sensor live ×3 accounts | — | Builder · opus-high | **LANDED** 2026-08-26 — merged at G1 (`ab4d857`); DoD evidence in [B1](plans/b1-census-deploy.md); D54 slip (unnamed `bunx tsc`) self-caught + accepted at G1, zero harm; **live ×3 deploy PENDING Felix** — run from THIS checkout, never a worktree |
+| B2 | [Glass spine](plans/b2-glass-spine.md) — bun server: City View + building pages over `doctrine/` + census | — | Builder · opus-high | **LANDED** 2026-08-26 — merged at G1 (`a22a841`); DoD in [B2](plans/b2-glass-spine.md); E1 ruled at G1 (zero-cache scopes to CONTENT; register ≤30 s warm, age printed — implementation rides B3); F1→B5, F2→canon inbox; **visual pass PENDING Felix** (`bun belvedere/glass/server.ts` → 127.0.0.1:4400) |
+| G1 | Batch-2 review — merge B1+B2; **Felix-gate: census deploy ×3 + B2 visual pass**; cut B3–B6 orders | B1, B2 | Architect · fable-high | **LANDED (Architect half)** 2026-08-26 — both branches merged, escalations ruled (D54 accepted; E1 → content-scope; F2 → honest off-register + canon question), B3–B6 orders cut and blessed. **Felix half PENDING**: deploy ×3 + visual pass |
+| B3 | [Baton rail](plans/b3-baton-rail.md) — `/` becomes the rail; move/wave/fork buttons, Felix-cards never auto-fired | B4 | Builder · opus-high | OPEN — order blessed at G1; carries the E1 ruling (register ≤30 s) + the fire affordance (new session / copy summons) |
+| B4 | [Hands](plans/b4-hands.md) — /fire /worktree /focus /halt + hardened spawn lib; credential `~/.config/belvedere/env` | G1 (Architect half ✓) | Builder · opus-high | OPEN — order blessed at G1; batch 3 first row |
+| B5 | [Shelf + gauges](plans/b5-shelf-gauges.md) — resume ×3 by transcript-stamp; usage strip; WIP gauges | B4 | Builder · opus-high | OPEN — order blessed at G1; F1/F3 folded in |
+| B6 | [Sovereign inbox](plans/b6-sovereign-inbox.md) — gestures → D63 ISSUES appends + the apply button | B4 | Builder · opus-high | OPEN — order blessed at G1 |
 
 **Batch 1 (cut at founding, 2026-08-26) — Felix-tended, reasons named:** the venue
 is his live desktop (first contact with a new substrate — his eyes at each landing),
@@ -199,6 +199,28 @@ per the batch note — tend to landing, then stop: G1 is the Architect's and
 Felix's. Escalations and the batch report come back to Felix.
 ```
 
+
+**Batch 3 (cut at G1, 2026-08-26) — the organs, strictly serial on master:**
+B4 → B3 → B5 → B6, one row in flight, straight to `master` (single-writer
+physics, the rig rows' precedent — no worktrees), Dispatcher-tended (D61),
+announce duty (D67). The E1 ruling binds every page: content never cached, the
+register ≤30 s warm with its age printed. Felix-gates, batched at the close:
+visual pass (rail + city) and the live-fire smoke from the rail. His G1 half
+(census deploy ×3 + spine look) runs in parallel with B4 — batch 3 reads no live
+census until B5's gauges, and those degrade honestly. Dispatcher summons,
+verbatim:
+
+```
+You are a Dispatcher at sonnet-medium.
+Wear ~/code/agents/canon/mantles/dispatcher.md,
+then read ~/code/agents/belvedere/README.md §§5–6 (agreements, board, batch-3
+note) and run batch 3: B4 → B3 → B5 → B6 strictly serial, one in flight,
+straight to master — kickoffs verbatim from each order plus the rider at
+~/code/agents/belvedere/plans/RIDER.md — tend each landing, dispatch the next on
+LANDED, stop at the close: the visual pass and live-fire smoke are Felix's.
+Escalations and the batch report come back to Felix.
+```
+
 **Post-probe return:** the probes' fold sitting (this Architect) cuts the build
 rows — the v0 spine slices D5's scope; nothing builds on unmeasured physics. Glass
 v0's evidence is the Felix-gate on canon row 17 (the storage experiment) — this
@@ -206,11 +228,12 @@ campaign's output feeds the Standards Office.
 
 **Parked:** the sovereign's-DESK mint (a GA sitting, when inbox volume proves the
 genre — keel §7) · superset's attachments convention (rides the images chapter) ·
-rail fire-button affordance — new session / continue in an existing window (Felix
-via GA-10, already legal by law; UX input when the rail row is cut) · the
-programmatic-dispatcher horizon (Felix, 2026-08-26, filed to the canon inbox —
-"considering eliminating the Dispatcher for a deterministic programmatic one";
-the hands grow toward it, v0 usage is the evidence).
+~~rail fire-button affordance~~ (promoted to [B3](plans/b3-baton-rail.md) §4,
+2026-08-26) · **the continuous-flow horizon** (Felix, 2026-08-26, corrected
+wording filed to the canon inbox — the Dispatcher was a band-aid: work strings
+should keep flowing between Architects, Builders, Diggers, and gates, pausing
+ONLY at Felix-escalations; Belvedere's hands + rail + census are the natural
+engine, the Steward the same flow unattended; v0 usage is the evidence).
 
 ## 7. Decisions
 

@@ -294,12 +294,47 @@ convention is ruled.
 
 ---
 
-- 2026-08-26 · Felix (via the Belvedere Architect) · **Considering eliminating the
-  Dispatcher mantle for a deterministic programmatic dispatcher — not an LLM.**
-  His words, at the D8 deployment ruling: "if this works, I am considering
-  eliminating the Dispatcher and having an even purer Deterministic Programmatic
-  Dispatcher -- not an LLM one." Context: Belvedere's hands + census + rail
-  mechanize fire/watch/notify; the charter's judgment residue (relay triage,
-  escalation classification, batch reports) is the open question. A consideration,
-  not a decree — queued for a GA sitting once Belvedere v0 usage exists (pairs
-  naturally with canon row 17's Felix-gate, which waits on the same evidence).
+- 2026-08-26 · Felix (via the Belvedere Architect) · **The continuous flow — the
+  Dispatcher was a band-aid.** (Corrects this sitting's earlier "programmatic
+  dispatcher" framing at Felix's word, same day.) The goal is not a program where
+  the LLM sat: it is work that KEEPS RUNNING — strings of rows flowing between
+  Architects, Builders, Diggers, and gates; sittings cut new rows and the flow
+  continues; it stops ONLY for a Felix-escalation, or when the work is done. His
+  example, verbatim: "B1,B2,back to you,G1,B3-B6,back to you,you cut new rows,new
+  whole string of work,X1-5,new architect,X5-N,back to new architect,cut new
+  rows,it just keeps going until the work is done, or an architect escalates
+  something to me." The judgment stays in mantled sessions; the BETWEEN-sessions
+  logistics (fire on LANDED dependencies, fire gate sittings, pause at
+  Felix-cards) is what mechanizes — Belvedere's hands + rail + census are the
+  natural engine, and the Steward (night-shift keel) is the same flow unattended.
+  Queued for a GA sitting once Belvedere v0 usage exists (pairs with canon row
+  17's gate).
+
+
+---
+
+From Felix:
+
+Still getting:
+Error: `prompt` is required when `stop` is not true.
+From agents. Haha.
+---
+
+- 2026-08-26 · Belvedere Architect (B2 evidence) · **`doctrine/` `discover()`
+  costs 9 s over `~/code` — two measured folds available.** 50,795 dirs
+  statSync'd per walk; `readdirSync({withFileTypes})` is 2.5× (3.4 s, measured);
+  skipping descent into worktree checkouts that are byte-twins of mainline saves
+  most of the rest (35 cap-mega copies dominate). Belvedere ruled its own scope
+  at G1 (content never cached; register ≤30 s warm) but the walk is canon's
+  parser. Evidence: [belvedere/plans/b2-glass-spine.md](belvedere/plans/b2-glass-spine.md) §E1.
+
+---
+
+- 2026-08-26 · Belvedere Architect (B2 evidence) · **Register question: 20 of 38
+  live sessions house in no building.** Their cwds sit at repo roots whose boards
+  live in subdirs (`cap-mega` → simmy/snappy/docs) and in worktree checkouts. The
+  glass renders an "Off the register" panel — honest — but the City View cannot
+  show Felix where most of his live work is. For the Office: does a root that
+  CONTAINS buildings deserve a campus card or a cwd-ascent housing rule, or is
+  off-register the truth? Evidence:
+  [belvedere/plans/b2-glass-spine.md](belvedere/plans/b2-glass-spine.md) §F2.

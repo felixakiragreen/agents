@@ -19,6 +19,14 @@ fence's four write powers; the hands are B4).
 1. **`belvedere/glass/`** — `Bun.serve`, server-rendered HTML, **no framework, no
    build step** (my_checklist-simple; the Simplicity directives are the law here).
    Bind `127.0.0.1:4400` explicitly (D3). Zero caches: re-read disk per request.
+
+   > **G1 ruling, 2026-08-26 (Architect — E1):** "zero caches" is scoped to
+   > **CONTENT** — no parsed byte renders unless read this request. The
+   > **REGISTER** (building paths + mtimes) may stay warm ≤ 30 s, its age printed
+   > in the footer where the walk time prints today. Builder option 1 accepted as
+   > recommended; option 2 filed canon-side (the walk is `doctrine/`'s); option 3
+   > rejected — the rail makes `/` the lived-in page. Implementation rides B3,
+   > which owns the home page.
 2. **Data, three sources, read-only:**
    - Buildings: canon [`doctrine/`](../../doctrine/) `parse()` per building — the
      one parser in the city (D65), imported, never forked. Register = its

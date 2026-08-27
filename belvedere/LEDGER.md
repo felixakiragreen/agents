@@ -264,3 +264,25 @@ programmatic-dispatcher musing filed to the canon inbox (a consideration, not a
 decree) + parked here. Decided: D8 (✓ Felix, his smoke). Next: fire the
 Dispatcher — summons fenced in the batch note ([README §6](README.md)); behind
 it: G1, then B3–B6 in G1's cut order.
+
+---
+
+**2026-08-26 · Architect · fable-max (G1)** — Batch 2 verified and merged
+(`ab4d857`, `a22a841`; both bv/ worktrees torn down, venue law; the third
+worktree is canon row 18g's — untouched, not this board's). Escalations ruled:
+**D54 slip accepted** (self-caught, clean tree, zero harm — future orders name
+their typecheck instrument); **E1 ruled** — "zero caches" scopes to CONTENT,
+register ≤30 s warm with age printed (Builder option 1; option 2 → canon inbox:
+the walk is `doctrine/`'s; option 3 rejected — the rail lives on `/`); **F2** —
+off-register panel is right, the campus/cwd-ascent question filed to the canon
+inbox. B2's F1 (stamp via transcript head window, never `invocations.jsonl`)
+folded into B5's order. **B3–B6 orders cut and blessed**; batch 3 = B4 → B3 →
+B5 → B6 strictly serial on master, Dispatcher-tended, Felix-gates batched at
+close. Felix's inbox corrections recorded: the continuous-flow entry supersedes
+the programmatic-dispatcher framing (canon inbox, his verbatim example); his
+socket password is temporary — nothing consumes it until B4; credential home
+ruled `~/.config/belvedere/env` (B4 spec). His new field report (ScheduleWakeup
+`prompt` error) committed in the canon inbox for the GA sweep. Decided: G1
+rulings (delegated scope). Next: Felix — the G1 wave (census deploy ×3 from this
+checkout, spine look at 127.0.0.1:4400), then fire B4, B3, B5, B6 (batch 3,
+Dispatcher-tended — summons fenced in [README §6](README.md)).
