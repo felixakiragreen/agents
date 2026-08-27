@@ -456,3 +456,30 @@ scans; F4 the gate covers `doctrine/` and found one latent `Beat` error; F5 the 
 now dedupes 12 810 worktree copies, parked for whoever owns its cost. Decided: nothing
 — every fork was pre-chewed in the order. Next: **fire B5** — the shelf and the gauges;
 the bulletin carries F1's warning and F3's worker law.
+
+---
+
+**2026-08-27 · Architect · fable-max (flow keel + B8 sweep)** — *same session,
+continued.* B8 verified LANDED (nine commits `2defc6e…195441d`, five DoD items
+measured, zero escalations — the pre-chewed order held). Its F1 incident absorbed:
+the frozen anchors had armed the real HALT from a unit test (B8 cleared it) and
+printed the live socket password into a failure diff — rotation recommended to
+Felix (cheap; D9 bounds the real risk). Inbox swept (2): the audit's 16 test
+lines — **the scar stands** (no scrub; B8 F1 is the record; ordinals cosmetic per
+B7's spec); the `bun test doctrine` corpus-drift → canon inbox. **Felix's design
+laws recorded** (README §3, his words): encapsulation-first + [expand],
+Inter/IosevkaFelix split, legends, directory grouping, recency-informs, usage
+beside accounts, no dropdowns; B7 amended (dropdowns out); **B9 cut**
+([plans/b9-visual-law.md](plans/b9-visual-law.md), opus-medium, last before the
+close gates). **The flow chapter keeled**
+([plans/flow-keel.md](plans/flow-keel.md)): the Dispatcher's between-sessions
+logistics mechanizes — a flow is the batch note as data; **D11 (Felix): one
+click arms the declared DAG, drawn not listed** (nodes/edges/lanes/live census
+lighting; plan view = progress view); D10 + HALT bind the engine;
+landing-`holds` and S5 mode are the named physics; encapsulation joins
+kind/branch/holder/holds as the **row-17 evidence pile**. Timing (Felix): after
+v0 closes — rows at the v0 close sitting. Decided: D11 (✓ Felix in-session);
+D10 still awaits his ✓. Next: Felix — amendment #2 to the Dispatcher (B9 after
+B7), countersign D10, rotate the leaked password + re-run E2; behind it the
+chain runs B5 → B6 → B7 → B9 to his close gates, then the v0 close sitting cuts
+the flow rows.

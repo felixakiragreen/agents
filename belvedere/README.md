@@ -258,7 +258,7 @@ genre — keel §7) · superset's attachments convention (rides the images chapt
 wording filed to the canon inbox — the Dispatcher was a band-aid: work strings
 should keep flowing between Architects, Builders, Diggers, and gates, pausing
 ONLY at Felix-escalations; Belvedere's hands + rail + census are the natural
-engine, the Steward the same flow unattended; v0 usage is the evidence). · a guided **new-building flow** (post-v0: B7's founding template covers the fire; the ritual's Felix-steps — mkdir, the dream by his pen — stay his; the glass never writes founding docs).
+engine, the Steward the same flow unattended; v0 usage is the evidence — **keel cut 2026-08-27**: [plans/flow-keel.md](plans/flow-keel.md), D11 the arm contract, build rows at the v0 close sitting). · a guided **new-building flow** (post-v0: B7's founding template covers the fire; the ritual's Felix-steps — mkdir, the dream by his pen — stay his; the glass never writes founding docs).
 
 ## 7. Decisions
 
@@ -327,6 +327,14 @@ engine, the Steward the same flow unattended; v0 usage is the evidence). · a gu
   accidents, and a wired button under "pending Felix" prose is an accident
   waiting. Parse stays the parser's (D65) — this is render law, not a second
   parser.
+- **D11** (2026-08-27, Felix — the flow planning sitting): **The arm contract.**
+  A flow — the batch note as data: rows, gates, accounts, venues
+  ([plans/flow-keel.md](plans/flow-keel.md)) — renders as its whole DAG before
+  anything runs; **one click arms it, and the review of the rendered plan IS the
+  authorization.** The engine fires only declared steps, pauses at Felix-cards,
+  on any ambiguity (D10), and on HALT; nothing emergent ever fires. Amending a
+  flow re-arms its unfired steps. Timing, same word: the flow chapter builds
+  **after v0 closes** — rows cut at the v0 close sitting.
 
 ## 8. Definition of done — v0
 
