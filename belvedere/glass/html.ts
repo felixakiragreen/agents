@@ -83,7 +83,11 @@ export function encap(text: string): Encap {
 	const firstLine = full.split('\n')[0]!;
 	const m = SEAMS.map(s => s.exec(firstLine)).find(x => x !== null);
 	const head = m ? firstLine.slice(0, m.index).trim() : '';
-	const ok = head !== '' && head.split(/\s+/).length <= NAME_WORDS && head.length < full.length;
+	// The last condition is the furniture rule: an [expand] must reveal more than the card already
+	// shows, or it is a control over nothing. It earns its keep on the live city — `parseIssues`
+	// hands over the entry's FIRST LINE only, so `**The continuous flow — the` would otherwise render
+	// as a name plus a two-word disclosure (measured on `agents/ISSUES.md`:297).
+	const ok = head !== '' && head.split(/\s+/).length <= NAME_WORDS && full.length > 2 * head.length;
 	return { name: ok ? balance(head) : full, full, encapsulated: ok };
 }
 

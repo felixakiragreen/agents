@@ -228,7 +228,10 @@ ul.queue li:last-child, ul.issues li:last-child { border-bottom: 0; }
 .rail-h .where { font-size: 12px; font-weight: 700; letter-spacing: .08em; color: var(--grey-150); }
 .rail-h .when { margin-left: auto; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--grey-600); }
 /* Never crop the truth — a molt-era Next clause that runs long scrolls in place. */
-.rail-text { margin: 0; font-size: 12.5px; color: var(--grey-250); max-height: 11em; overflow-y: auto; }
+.rail-text {
+	margin: 0; font-family: var(--prose); font-size: 12.5px; line-height: 1.5;
+	color: var(--grey-250); max-height: 11em; overflow-y: auto;
+}
 .rail[data-holder="felix"] { background: linear-gradient(180deg, #14101a, #060605); }
 
 .shots { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }

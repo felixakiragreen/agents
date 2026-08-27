@@ -81,5 +81,12 @@ describe('legends — every coloured view owes the reader one', () => {
 test('a seam inside a bold span leaves no orphaned marker in the name', () => {
 	// The city really writes this: `**Fork — choose one**: …` (lab/b3/city/probe-fork).
 	expect(encap('**Fork — choose one**: the Digger or the Builder').name).toBe('Fork');
-	expect(encap('**B8: glass hardenings** — five of them').name).toBe('**B8: glass hardenings**');
+	expect(encap('**B8: glass hardenings** — five of them, all live, nothing escalated').name).toBe('**B8: glass hardenings**');
+});
+
+test('an [expand] that would reveal less than the card already shows is furniture, so there is none', () => {
+	// Live case: `parseIssues` hands over the entry's first line only (agents/ISSUES.md:297).
+	const e = encap('**The continuous flow — the');
+	expect(e.encapsulated).toBe(false);
+	expect(encapHtml(e.full, '/', 'prose')).not.toContain('<details');
 });
