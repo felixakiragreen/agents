@@ -356,3 +356,44 @@ mode only — the batch-close rail fire is the end-to-end proof the file's value
 matches the rotated password (mismatch → the first fire 409s `Invalid password`;
 fix is re-running E2). Decided: D9 (✓ Felix in-session). Next: the batch-3 chain
 runs on (B3 → B5 → B6 → B7) to the close gates — nothing on this desk.
+
+---
+
+**2026-08-27 · Builder · opus-high (B3)** — The baton rail LANDED. `/` is the
+morning — every ledger-tail baton in the city, every named Felix-gate still live on
+a board, every pending countersign, one column, buttons; the City View moved to
+`/city`. 38 cards over 22 buildings: **8 of 8** batons `doctrine/` can read (the
+ninth ledger closes `Next —`, an em-dash where D63 wants `Next:` — the corpus's
+defect, not the rail's), 29 gates, 1 countersign. D64 renders as one/n/choice with
+the fork's recommendation badged; the shape is a **thin render-side splitter** over
+the baton's prose, `doctrine/` untouched (D65). Holder law is **structural**: 35 of
+38 cards carry no `<button>`, no `data-fire`, no handler at all — not a `disabled`
+attribute. Fire affordance per GA-10: **new session** (worktree composed first when
+the work doc designates one) and **copy summons** to the clipboard, never a paste
+into a live TUI. Smoke: fence → clipboard → argv → first user turn, **one sha256**
+(`d6f9c69c…`, 113 B) across all four, stamped `builder-probe-row-03`, worktree
+`bv/b3-smoke` composed and torn down, venue restored. Two escalations. **E1 — the
+G1 E1 ruling's own implementation cost a p95 of 8.3 s**: B2's deferred walk left the
+request but not Bun's single thread, so two of twenty 2 s-spaced page loads stalled
+8.5 s. Moved to a worker (`glass/register.worker.ts`) — **p95 48 ms** — but a 20 s
+TTL over a 9.5 s walk re-walks 50 795 directories half the time Felix is reading;
+the TTL policy is the Architect's. **E2 — all three of the city's fireable batons
+are Felix-gated in their own prose while `classifyBaton` calls them session
+batons** (the instrument wins over the word "Felix"), so two Dispatch buttons sit
+under text saying the fire is his. The rail reports it on the card and escalates the
+grammar; it never overrules the parser. Findings: rig colours are **not** cmux
+colours — `cyan` (Builder) and `pink` (Dispatcher) are refused outright, and the
+fire hand sets colour *after* creating the workspace, so a refused colour cost a
+whole fire and left an orphan (audit line, verbatim, in B3 §F1); a fire into a tree
+with no trusted ancestor stalls at Claude Code's folder-trust dialog before the
+summons is ever a turn (**bites B7**); reading a row's branch out of prose was
+unsound (12 of 62 work docs matched, **all retrospective**, one on an OPEN row) and
+is now header-only, worktree-only, never a landing record — 0/62. `bun test
+belvedere/glass` is red on a **pre-existing** B4 cross-file env collision
+(reproduced at `286b370`); parked to ISSUES, 105 tests green per file. D54 slip
+self-reported: `bunx tsc` — B1's and B4's again, third time, no lockfile, no harm;
+the city still has no offline type-checker and that is now a pattern, not a slip.
+Decided: the register may be held warm but never on the serving thread; the rail
+resolves and never invents — a blocked instrument shows its reason and no button.
+Next: **fire B5** — the shelf and the gauges; the bulletin carries the rail's wire
+notes and the two canon asks.
