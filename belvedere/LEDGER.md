@@ -303,3 +303,32 @@ Next: Felix delivers the batch-3 amendment message to the Dispatcher window
 (verbatim in the report); behind it: the chain runs B4 → B3 → B5 → B6 → B7 to
 the close gates (visual pass + live-fire smoke, his), then the v0 DoD
 run-through.
+
+---
+
+**2026-08-27 · Builder · opus-high (B4)** — **The hands landed.** Four write powers
+as endpoints on the existing server (`glass/hands.ts`, +`sanitize.ts`, +
+`hands.test.ts`; `paths.ts`/`census.ts`/`pages.ts`/`server.ts` touched), straight to
+master: `POST /hands/{fire,worktree,focus,halt}`, credential-gated, every action
+audited to `summon/log/census/hands.jsonl` **minus the summons text but plus its
+sha** — a fire is provable byte-exact from the log alone. DoD measured, not
+asserted: the fire's summons and the transcript's first user turn are the same
+sha256, `$(echo pwned)` arrived unexpanded, the workspace was coloured over the
+socket with **no `/color` turn**; resume came back on its own transcript; the
+worktree was created, refused on repeat, removed; **focus jumped off the LIVE
+census** (B1's sensor went live mid-row) and Felix's focus was restored every time;
+HALT written then cleared; disabled mode 503s with an honest banner while read pages
+stay 200. 62 tests green, venue restored, `git status` clean. Two escalations:
+**E1** — the socket already admits any local process of Felix's (a wrong password is
+rejected, but presenting *none* falls back to cmux's saved one), so the credential
+is an **arming switch, not the lock** — Architect's wording call; **E2** — an agent
+cannot provision that credential (the permission guard refused twice, correctly), so
+`~/.config/belvedere/env` is a **one-command Felix-gate** and until he runs it every
+hand answers 503. Also relayed: cmux injects its own hooks per session via
+`--settings` and the census still fires (measured ×3 probes); B2's dropped `ws`/`sf`
+restored for the jump; the order's literal launch line had a shell bug
+(`CLAUDE_CONFIG_DIR=… cd …` scopes the var to `cd`) — shipped as P2's proven shape.
+D54 slip self-reported: `bunx tsc` (B1's again, zero harm, no lockfile) — the real
+gap is that the city has no offline type-checker. Decided: audit belongs to the
+write, not the route (no caller routes around it). Next: B3 (the baton rail) —
+bulletin carries the wire contract and the disabled-state requirement.

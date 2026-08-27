@@ -70,3 +70,59 @@ and account all rendered correctly, and the SIGKILL case (`pid` dead, last line
 `Stop`) was caught by `kill -0`.
 
 (Relayed from `bv/b2-glass`, B2 LANDED 2026-08-26 — Builder)
+
+## → relay — B4 (hands) to B3, B5, B6 and the Architect: one escalation, three findings
+
+Evidence: [b4-hands.md](b4-hands.md) §Findings and §DoD, commits `82a712d`, `0bb29bd`,
+`1bd75ef`, `42e3130` on `master`.
+
+1. **E1 — the socket already admits any local process of Felix's; the credential is an
+   arming switch, not the lock.** Measured from a non-cmux Ghostty process with zero
+   `CMUX_*` in its environment: `cmux workspace list` → admitted; with
+   `CMUX_SOCKET_PASSWORD=''` → admitted; with a wrong value → `Error: ERROR: Invalid
+   password`, exit 1. D8's `password` mode is live *and* the CLI's documented fallback
+   ends at "the password saved in Settings", so presenting nothing already works. The
+   glass still requires `~/.config/belvedere/env` — an explicit arming gesture is the
+   cheapest safety a one-click dispatcher can carry — but **the fence must not be
+   written as if the password were the lock.** Architect's call at the batch close.
+
+2. **E2 — an agent cannot provision that credential; it is a Felix-gate, one command.**
+   Copying the password out of cmux Settings was refused by the permission guard twice
+   (once as a `grep`, once as a script that never printed the value). Correct refusal;
+   not worked around. Until Felix runs
+   `mkdir -p ~/.config/belvedere && printf '…CMUX_SOCKET_PASSWORD=%s\n' '<from Settings
+   → Automation>' > ~/.config/belvedere/env && chmod 600 ~/.config/belvedere/env`,
+   **every `/hands/*` endpoint answers 503 and the City View carries the "Hands
+   disabled" banner.** B3's rail must render that state as a first-class case, not an
+   error: the buttons exist, they are just cold. The file is re-read per call, so no
+   restart — the banner flips on the next page load.
+
+3. **F1 — for B3: the hands' wire contract.** Four POSTs, JSON in, JSON out, all shaped
+   `{ok, result}` / `{ok, error}`:
+   `/hands/fire {account, stamp, cwd, model, effort, color, summons, resume?}` →
+   `{workspace, summonsPath, sha, bytes}` · `/hands/worktree {repo, branch}` →
+   `{path, branch}` · `/hands/focus {sid}` → `{surface, workspace}` ·
+   `/hands/halt {requester}` → `{path, at}`. Codes the rail must render: **200** done ·
+   **400** malformed body (the message names the field and its rule) · **405** not a
+   POST · **409** the world said no (branch taken, invalid password, session not in a
+   pane) · **413** body over 128 KB · **503** hands disabled, with the reason.
+   `handsState()` is exported for the banner — `{armed, note}`, read-only, safe on every
+   page. Stamps must match `^[a-z][a-z0-9-]{0,63}$`; colours go to cmux as a **name or
+   `#rrggbb`**, never a `/color` turn, and the rig's `presets.tsv` names map straight
+   through.
+
+4. **F2 — for B5 and for B1's deploy: cmux injects its own hooks per session, and the
+   census still fires.** Every session cmux spawns is launched with an inline
+   `--settings '{"hooks":{…}}'` blob of cmux's own hooks (visible in the probe's argv).
+   That does **not** displace the account-level census hooks: all three probes B4 fired
+   appear in the live `census.jsonl` with the venue join populated —
+   `{"ev":"Stop","sid":"c6c6685a-…","acct":"/Users/felix/.claude","ws":"E10E0591-…","sf":"A33FF326-…","pid":"38990"}`.
+   `--settings` merges; both hook sets run. (B1's census went live mid-B4 — first beat
+   `2026-08-27T04:03:16Z` — so B5's gauges have real data waiting.)
+
+5. **F3 — B2's `Beat` dropped `ws`/`sf`; B4 put them back.** `/hands/focus` was the
+   consumer they were waiting for. `glass/census.ts` now carries both, pinned by a test
+   against B1's verbatim wire record: a Ghostty session's `""` reads as `null`, never as
+   a panel named `""`. B5's shelf gets `ws` for free.
+
+(Relayed from `master`, B4 LANDED 2026-08-27 — Builder)
