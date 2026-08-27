@@ -10,3 +10,5 @@ row, rejected, or escalated (canon-shaped entries go to the canon repo's inbox) 
 then deleted; entries are committed before they are drained. A swept inbox is empty.
 
 ---
+
+- 2026-08-27 · Felix (via Belvedere) · README §2 write #3 and this file's own header still describe the sovereign-inbox entry as `From Felix (via Belvedere): …`, but B6's blessed spec writes D63 grammar — `- <date> · Felix (via Belvedere) · <what>` — and that is what the glass now appends. The pre-D63 wording survives in two places; true them or rule the other way.

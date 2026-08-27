@@ -6,7 +6,7 @@ are the fence's whole write list (README §2) and nothing else in here writes.
 
 ```
 bun belvedere/glass/server.ts        # → http://127.0.0.1:4400
-bun test belvedere/glass             # 166 green in one process (B8 §4)
+bun test belvedere/glass             # 219 green in one process (B8 §4)
 bunx tsc --noEmit                    # from this directory — the type gate, offline (B8 §5)
 ```
 
@@ -17,7 +17,27 @@ bunx tsc --noEmit                    # from this directory — the type gate, of
 | `/b/<building>` | board · ledger tail + baton · decision queue · ISSUES · live sessions · lint |
 | `/shelf` | **every session all three accounts have ever held** — resume the dead, jump to the living; usage ×3 and WIP above them |
 | `/doc?p=<path>` | the read-only viewer every rendered link resolves into (D58) |
-| `POST /hands/{fire,worktree,focus,halt}` | the four writes; 503 until `~/.config/belvedere/env` is armed |
+| `POST /hands/{fire,worktree,focus,halt}` | the four hands; 503 until `~/.config/belvedere/env` is armed |
+| `POST /inbox` | **the sovereign's inbox** — one gesture, one D63 line appended to a building's `ISSUES.md`; **no credential gate** |
+
+**The fence's third write** (B6, `inbox.ts`). A gesture — a free-text note, `defer <row>`,
+`<row> before <row>`, `countersign <D-id>: ✓` — becomes ONE append: `- <YYYY-MM-DD> ·
+Felix (via Belvedere) · <what>`, in **local** date (`toISOString()` is UTC and would file
+tonight's note tomorrow). **Append-only is the whole licence**: the bytes before a gesture
+are always a prefix of the bytes after, and nothing here rewrites, reorders or deletes.
+A building with no inbox gets one minted from
+[the D53 header](../../canon/work/templates/issues.md), verbatim, on its first gesture
+(adoption-on-first-need, DOCTRINE §3) — the one gesture that busts the register, because an
+`ISSUES.md` is an anchor. **A note needs no credential**: the arming switch (D9) gates
+one-click *dispatch*, so cold hands must never cost Felix the ability to say something —
+only the **apply** button, which is a `/hands/fire` of the scoped Architect sweep, goes cold.
+
+**The countersign has three states and all three are read off files**: `pending` (nothing
+filed) → `recorded — awaiting fold` (his entry is in the inbox) → `folded` (the ✓ is in the
+decision). The glass never pens the D-entry. **Folded outranks pending** — `parseDecisions`
+marks an entry pending wherever the phrase appears, *including in the entry that defines the
+ritual*, so canon D21 (`✓ Felix`) has been a false positive on the rail since B3; two
+readings disagree, so the card renders safe and names the winner (D10).
 
 **The shelf's three joins, and the one it refuses** (B5): the filename is the session id
 and the resume handle; the transcript's own 64 KB head gives the name-stamp and the cwd;
