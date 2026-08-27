@@ -1,8 +1,15 @@
 # B11 — the arm and the engine
 
-**Status:** OPEN · **Depends on:** P5; B10 · **Staffing:** Builder · opus-high ·
+**Status:** OPEN · **Depends on:** P5; B10; B17 · **Staffing:** Builder · opus-high ·
 **Blessed:** Architect, flow-cut sitting 2026-08-27 — the posture floor is
 Felix's blessing item 2 (README §6 batch-4 note) and binds this row verbatim.
+
+> **Re-seated 2026-08-27 (deck keel, BLESSED):** "the rendered page" below is
+> **the Works** (B10 as re-seated) — the arm button lives in the Works'
+> Action pane against a plan node, and only there; the bill's per-account
+> usage comes **live** from B17's fetch module (never a stale log), hence the
+> added dependency. Everything else — the tick, ready/landed law, pauses,
+> HALT, timeouts, run-state — stands as written.
 
 ## Goal
 

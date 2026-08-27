@@ -2,8 +2,13 @@
 
 **Status:** OPEN · **Depends on:** B11 · **Staffing:** Builder · opus-high ·
 **Blessed:** Architect, flow-cut sitting 2026-08-27 — **D12 (step-arm vs
-scope-arm) is Felix's at the batch-4 blessing** (README §6 batch-4 note); this
+scope-arm) is Felix's at the batch blessing** (README §6 batch-5 note); this
 order builds both branches behind one flag and the ruling flips it.
+
+> **Re-seated 2026-08-27 (deck keel, BLESSED):** the DAG surfaces below are
+> the Works (B10 as re-seated); inserted judge nodes draw on its now-line's
+> plan side; `/flow/flow-close` renders as a Works target. Substance
+> unchanged.
 
 ## Goal
 

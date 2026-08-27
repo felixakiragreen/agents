@@ -1,9 +1,36 @@
-# B10 — the flow file + the drawn DAG
+# B10 — the flow file + the drawn DAG (the Works)
 
-**Status:** OPEN · **Depends on:** P5 · **Staffing:** Builder · opus-high ·
+**Status:** OPEN · **Depends on:** P5; B14 · **Staffing:** Builder · opus-high ·
 **Blessed:** Architect, flow-cut sitting 2026-08-27 — batch-4 blessing forks are
 Felix's (README §6 batch-4 note); his rearranging design input, if handed at
 blessing, lands here as a dated spec amendment before dispatch.
+
+> **Re-seated 2026-08-27 — the deck keel (D13/D14, BLESSED) amends this
+> order; where it and the original spec conflict, the keel wins:**
+>
+> 1. **Venue:** the DAG is **the Works** — a `FocusView` tenant in the deck
+>    (B13's seam), not a standalone `/flow/<name>` page. The flow-file
+>    schema, `glass/flow.ts` parse boundary, refusals, and run-state format
+>    below stand unchanged; §5's page spec re-targets the Focus slot, City
+>    View vocabulary via the deck's primitives.
+> 2. **Time flows down — the now-line (D14):** the past above (landed rows +
+>    ledger arc, dimmed), NOW as the line where live sessions blink (census),
+>    the plan below (flow steps, OPEN rows, gates as Felix-cards); scroll up
+>    = history, down = future; the resting view centers on NOW. The Works
+>    draws **past AND future** — the declared-flow DAG below the line joins
+>    the building's landed history above it, one renderer.
+> 3. **Node actions (✓ Felix):** plan node → dispatch/customize/account/
+>    usage (the arm rides B11, in the Works' Action pane); in-flight node →
+>    hotswap to Chat (B16) / jump; landed node → the landing record + a
+>    follow-up fire. Wire what exists at build time; slots for the rest say
+>    so honestly.
+> 4. **DoD deltas:** every "page renders" criterion below re-reads as "the
+>    Works tenant renders in the deck"; the p95 bar applies to `/deck/state`
+>    + the tenant's render; the fixture flow and kickoff-resolution sha
+>    proofs stand as written. Depends-on gains **B14** (the deck City is the
+>    vocabulary source); P5 stands (the permission clause fields).
+> 5. **Kickoff:** read the deck keel too — the fence below is amended
+>    accordingly.
 
 ## Goal
 
@@ -125,6 +152,7 @@ You are a Builder at opus-high.
 Wear ~/code/agents/canon/mantles/builder.md,
 then read ~/code/agents/belvedere/README.md §§5–6,
 ~/code/agents/belvedere/plans/flow-keel.md,
-and ~/code/agents/belvedere/plans/b10-flow-dag.md,
+~/code/agents/belvedere/plans/deck-keel.md,
+and ~/code/agents/belvedere/plans/b10-flow-dag.md (the re-seat block first),
 and build it to its DoD.
 ```
