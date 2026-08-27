@@ -33,6 +33,12 @@ The home page becomes the morning: every baton in the city, one column, buttons.
 5. Hands disabled (no credential) → buttons render disabled with the honest
    banner; the rail stays fully readable.
 
+> **Amended 2026-08-27 (Architect, pre-dispatch — Felix's ask):** a Dispatch
+> button for a `fire <row-id>` baton whose work doc names a worktree/branch
+> composes `POST /hands/worktree` → `POST /hands/fire` with cwd = the worktree
+> path — "worktrees without asking" ([dream](../dream.md)). DoD gains: one such
+> composed fire shown against a scratch repo row.
+
 ## Acceptance criteria / DoD — evidence pasted here at build time
 
 - [ ] The rail lists the real city's batons — hand-verified against every ledger

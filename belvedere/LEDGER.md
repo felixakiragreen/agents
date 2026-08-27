@@ -286,3 +286,20 @@ ruled `~/.config/belvedere/env` (B4 spec). His new field report (ScheduleWakeup
 rulings (delegated scope). Next: Felix — the G1 wave (census deploy ×3 from this
 checkout, spine look at 127.0.0.1:4400), then fire B4, B3, B5, B6 (batch 3,
 Dispatcher-tended — summons fenced in [README §6](README.md)).
+
+---
+
+**2026-08-27 · Architect · fable-max** — G1 closed complete: Felix ran the census
+deploy ×3 (the sensor is LIVE city-wide) and passed the spine; batch 3 dispatched
+by his hand. His scope question ("summon agents / new campaigns / worktrees from
+Belvedere?") exposed two gaps, both closed: **B7 cut** (the summon composer —
+fire-anything with templates incl. the founding summons; joined the running chain
+after B6 by D57 amendment, batch note committed, the Dispatcher's amendment
+message drafted verbatim in the report) and **B3 amended pre-dispatch**
+(worktree-composed fires — a row-doc that names a branch gets /worktree → /fire,
+"worktrees without asking"). New-building guided flow parked (the founding
+ritual's Felix-steps stay his). Decided: B7 cut + B3 amendment (delegated scope).
+Next: Felix delivers the batch-3 amendment message to the Dispatcher window
+(verbatim in the report); behind it: the chain runs B4 → B3 → B5 → B6 → B7 to
+the close gates (visual pass + live-fire smoke, his), then the v0 DoD
+run-through.
