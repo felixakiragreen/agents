@@ -545,3 +545,42 @@ Evidence: five build rows, seven escalations, six Architect-delegated, every
 ruling hand-relayed by Felix — while B8's fully-pre-chewed order escalated zero.
 Decided: E1/E2 rulings (delegated scope). Next: Felix relays the resume —
 **proceed B6** — then B7 → B9 to the close gates.
+
+---
+
+**2026-08-27 · Builder · opus-high (B6 — the sovereign's inbox)** — his word travels
+without his hands: `POST /inbox` is the fence's third write, and it is the only one
+that touches a file the city commits. Four gestures — a free-text note, `defer <row>`,
+`<row> before <row>`, `countersign <D-id>: ✓` — each become **ONE append** in D63
+grammar (`- <YYYY-MM-DD> · Felix (via Belvedere) · <what>`, local date because
+`toISOString()` would file tonight's note tomorrow). Changed: `glass/inbox.ts` and
+`glass/inbox.test.ts` new (49 tests), `glass/pages.ts` (a gesture column on every board
+row; the ISSUES panel gained the note box and the apply button), `glass/rail.ts` (a note
+box on every card, the countersign act, the card's pill is now its state), `glass/hands.ts`
+(four wire primitives exported and shared — a socket write lives behind the arming switch,
+a file write in front of it), `server.ts`, `paths.ts`, `glass.css`, `glass/README.md` —
+**219 green in one process**, `bunx --offline tsc --noEmit` exit 0. DoD measured over HTTP
+against a live glass, with **every payload read out of the rendered HTML** rather than
+hand-written: append-only proven on **ten concurrent** gestures (BEFORE `sha256 742402d4…`
+byte-identical to AFTER's first 705 bytes, 12 entries, 0 lint); first-gesture adoption
+minted a header that is the D53 template's own bytes (`3d811b06…` both sides); the apply
+button fired the scoped Architect into cmux with a **byte-identical first user turn**
+(386 B, `bf1b1333…` both sides), probe on a throwaway worktree, closed in 4.7 s, venue
+restored; the countersign card walked **pending → recorded → folded**, all three read off
+files, the button only on pending. `git diff` over the one repo touched: two appended
+lines in `belvedere/ISSUES.md`. Decided: nothing — nothing escalated; the spec held.
+Four findings: **F1** the fence's own wording for an inbox entry is pre-D63 in two places
+(README §2 write #3 and the inbox's own header) while the blessed spec writes D63 — **filed
+by the glass itself, as the DoD smoke**; **F2** `parseDecisions` marks an entry pending
+wherever the phrase appears, *including in the entry that defines the marker*, so canon
+**D21** (`✓ Felix` since 2026-08-03) has been a false countersign on the rail since B3 —
+both live cards were D21, so **the city has zero true pending countersigns** and the
+amendment's DoD had to run on a synthetic decision; handled render-side (folded outranks
+pending — D10, ambiguity never arms), the parser ask escalates to canon; **F3** `/inbox`
+sits deliberately outside the credential gate (spec §4 — cold hands must never cost him
+the ability to say something); **F4** a bare bullet appended onto a non-empty tail block
+reads as that block's evidence, so `addition()` opens a `---` for it. Three rail tests
+narrowed deliberately and made stronger: "no button at all" became "no fire wiring **and**
+every button here is an `/inbox` gesture". Next: **fire B7** — the summon composer; the
+bulletin carries F2 (the countersign false positive), F3 (which side of the gate a new
+write belongs on) and B6's sweep template, which B7 §2 reuses.
