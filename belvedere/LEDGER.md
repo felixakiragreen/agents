@@ -420,3 +420,34 @@ amended + escalated to the canon inbox (city-standard question). Decided: D10
 G1 ruling). Next: Felix delivers the batch-3 amendment to the Dispatcher
 (verbatim in the report); the chain runs **B8 → B5 → B6 → B7** to the close
 gates.
+
+---
+
+**2026-08-27 · Builder · opus-high (B8)** — Glass hardenings landed; all five specs
+built to their DoD, nothing escalated. **The E1 policy is live**: `TTL_MS` 300 s, the
+glass's own successful fire or worktree calls `bust()`, and a **re-walk button** sits
+beside the printed age in every footer (`/rewalk?to=…` → 303 back, answering only when
+the new walk IS the held copy). Measured: footer reads `ttl 300s`, **p95 45 ms** over
+B3's 20-request protocol (bar: 500 ms), a live `/hands/worktree` moved the register
+75s → refreshing → 3s **without stalling the request that took the bust**, and three
+concurrent page loads inside a 9.2 s re-walk came back in 33–85 ms. **D10 is live**:
+`collides()` gates the wiring, so the two collided cards in the real city (hexwright,
+simmy) render with the collision named, the summons copyable, and **zero** fire wiring
+under B3's structural grep — holder still `session`, because D10 is render law, not a
+second parser. **The fire unwinds**: a failure after `workspace create` closes what it
+made — induced with B3 F1's own refused colour, `workspace:11` closed, `fire.unwind`
+audited before the fire's own line, `cmux workspace list` unchanged, no orphan process.
+**Test isolation fixed at the cause** — `paths.ts` resolves every env-derived anchor
+per call (a constant now means "the environment cannot move this"), `bun test
+belvedere/glass` **109 pass / 0 fail in one process**. **The type gate is offline**:
+`typescript@7.0.2` + `@types/bun@1.4.0` pinned with `bun.lock` committed,
+`tsconfig.json` strict and covering `../../doctrine/**`, `bunx --offline tsc --noEmit`
+exit 0 — the third-party fetch was the two the order named (D54 satisfied, not slipped).
+Findings F1–F5 in [B8](plans/b8-glass-hardenings.md): **F1 — the isolation bug printed
+Felix's live socket password into the test diff** (never assert on a credential's
+value); **F2 — D10 takes the live rail to 0 armed cards of 38**, which is B3 E2's
+measurement arriving as a consequence, not a defect; F3 the worker law binds B5's
+scans; F4 the gate covers `doctrine/` and found one latent `Beat` error; F5 the walk
+now dedupes 12 810 worktree copies, parked for whoever owns its cost. Decided: nothing
+— every fork was pre-chewed in the order. Next: **fire B5** — the shelf and the gauges;
+the bulletin carries F1's warning and F3's worker law.
