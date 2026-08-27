@@ -12,6 +12,62 @@ are drained. A swept inbox is empty.
 
 ---
 
+- 2026-08-27 · Felix (the deck design sitting) · the deck VISION — case file
+  #2, verbatim below: three-pane split (Context/Focus/Action) with
+  min/typical/expanded states; ontology City → Building → Agent; swappable
+  Focus (Building | one hotswappable Chat | DAG); identity sentence "dataviz
+  dashboard first, command center second, agent comms third"; the no-scroll
+  proportional-fill law; DAG shows past AND future, time-direction open.
+
+Verbatim:
+
+> Belvedere ⬡ new Vision
+>
+> Start with summons — Choose any of the things: Mantle, effort, directory,
+> theater (customize), increment, etc. See it update the summons. See the
+> usage here.
+>
+> What are the things? City = all projects. Project/Building = all agents for
+> that campaign/project/repo (need better name). Summon = new agent.
+>
+> Goal = minimize scrolling (take note of the available screen space, split it
+> proportionally according to priorities given its context, then fill it with
+> the highest level information, in as few words as possible, to maximize the
+> number of things that can fit inside)
+>
+> I want a Split View at all times: Context / Focus / Action.
+> Main View is split 3 ways: Context = City · Focus = Project/Building (need
+> better name) · Action = Summon.
+> Each "split view" has: minimal → super compact (~1 word limits + data viz)
+> OR none-existent · typical · expanded states.
+> At first city is the expanded, minimal project & summons. Just clicking
+> anywhere in the summons expands it. Clicking on a project in the city
+> expands the project with that one as the focus.
+>
+> This is a data visualization dashboard more than anything else. Then it's a
+> command center with which to plan work and dispatch it. Then it's an
+> interface to communicate with agents.
+>
+> Interaction can: expand/collapse split views · show instant hover tooltips
+> (that can expand with more information & actions) · add a drawer that
+> appears over everything (this can be pinned).
+>
+> The city view (Context = Split View) acts sort of like a sidebar. The
+> Focus = projects & action: summon split views can be replaced.
+> New Focus = chat view. (After summoning, this replaces). There is only one
+> chat view. I can "hotswap" any session into the chat view.
+> Action = respond, take notes, batons, anything else. (This allows me to
+> scroll through the chat & my response separately much more easily)
+>
+> Final focus view = DAG workflows (need better name of course). (Unsure if I
+> want them to go from bottom up or top down — this changes everything how I
+> look at it — which way does time flow)
+> This shows the entire history / new work of every session we've either had,
+> or the architect plans. (Technically it could show both PAST & FUTURE,
+> every guild session completed & planned)
+> If it's new work / plan: Action = dispatch the work, customize it, choose
+> accounts, see usage. If not landed work: Action = not sure yet.
+
 - 2026-08-27 · Felix (pasted into the flow-cut sitting — the delivery mechanism
   is itself the report's kill shot) · the command-deck field report: 17 items +
   the strategic fork (start over vs rework), verbatim below; case file for the
