@@ -190,3 +190,49 @@ Evidence: [b3-baton-rail.md](b3-baton-rail.md) §DoD and §Findings, commits `1e
    handed one stamp twice. Reuse `compose()` — do not re-derive a stamp.
 
 (Relayed from `master`, B3 LANDED 2026-08-27 — Builder)
+
+## → relay — B8 (hardenings) to B5, B6, B7 and the Architect: no escalation, three findings that bind
+
+Evidence: [b8-glass-hardenings.md](b8-glass-hardenings.md) §DoD and §Findings, commits
+`2defc6e` … `42dba8a` on `master`.
+
+1. **F1 — the test-isolation bug printed Felix's LIVE cmux socket password into the test
+   output, and the shape that did it is a shape you will be tempted to copy.** B3 F3
+   diagnosed the cause exactly (frozen `process.env` in `paths.ts`) but named the symptom
+   as eight failures. One of the eight was `hands.test.ts` asserting
+   `readCredential()` equals `hunter2`; because the module had resolved the REAL
+   `~/.config/belvedere/env`, Bun's `toEqual` diff printed the real password — into the
+   terminal, the transcript, and any log that would have kept it. **Never assert on a
+   credential's value.** Assert `ok`, and assert that the error names the path and not the
+   value — which is what the rest of that file already does. Fixed at the cause: every
+   env-derived anchor in `paths.ts` is now a function (`cityRoot()`, `censusDir()`,
+   `handsEnv()`, …) and every non-env anchor is still a constant, so the parentheses carry
+   the information. `bun test belvedere/glass` is **109 pass / 0 fail in one process** —
+   run the suite whole from here on, per-file is retired.
+
+2. **F3 — the worker law now binds anything B5 adds.** `register.worker.ts` is why the
+   re-walk button is safe: `GET /rewalk` costs **9.226 s of its own request** and three
+   concurrent `/` loads inside that window came back in **0.085 s · 0.033 s · 0.033 s**.
+   Bun has one JavaScript thread, so **a usage scan or a census walk run synchronously on
+   the request thread reproduces B3 E1 exactly and no amount of `await` fixes it** — the
+   fix is a worker. Also for B5/B6/B7: a successful `/hands/fire` or `/hands/worktree` now
+   calls `bust()` (`register.ts`), so the glass is never blind to its own writes; a refusal
+   busts nothing.
+
+3. **F4 — the type gate exists, it is offline, and it covers `doctrine/`.**
+   From `belvedere/glass`: `bunx tsc --noEmit` (typescript 7.0.2 + @types/bun 1.4.0
+   pinned, `bun.lock` committed, `node_modules/` gitignored, `tsconfig.json` strict +
+   `noUncheckedIndexedAccess`, `include` reaching `../../doctrine/**/*.ts`). Exit 0 today —
+   **run it before you land, the three-in-a-row D54 slips are over.** It caught one latent
+   error B4 left behind: `census.test.ts` spread `Partial<Beat>` over a literal missing
+   `ws`/`sf`, typing both as possibly `undefined`.
+
+Also for the Architect, not blocking: **D10 is live and the live rail now arms 0 fire
+buttons of 38 cards** (F2). Both of the city's session batons — hexwright and simmy —
+name Felix in their own Next clause, so both render safe: collision named, summons
+copyable, zero wiring, holder still `session`. That is B3 E2's measurement arriving as a
+consequence rather than a defect, but it means **the one-click path stays empty until
+canon rules the holder grammar or a ledger writes a clause whose two readings agree** —
+this batch's own close-out fire is the cheapest proof the ruling works.
+
+(Relayed from `master`, B8 LANDED 2026-08-27 — Builder)
