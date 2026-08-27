@@ -47,14 +47,16 @@ const keysOf = (i: Instrument): string[] =>
 	i.kind === 'row' ? [i.row] : [i.mantle, i.tier].filter((x): x is string => !!x);
 
 /**
- * D64 requires a fork to name its recommendation. The clause that says "recommend" is scanned
- * for the options' own names; a clause naming none — or naming two — resolves to nothing, and
+ * D64 requires a fork to name its recommendation. The span FROM the word "recommend" to the end
+ * of its sentence is scanned for the options' own names — the recommendation is what follows the
+ * word, and "Recommendation: the Digger" puts a colon between the two, so a clause-split on `:`
+ * hands back the empty half. A span naming no option — or naming two — resolves to nothing, and
  * the card says the recommendation is unreadable rather than badging a coin-flip.
  */
 export function recommended(text: string, instruments: Instrument[]): number {
-	const clause = text.split(/(?<=[.;:])\s+/).find(s => /recommend/i.test(s));
-	if (!clause) return -1;
-	const hay = clause.toLowerCase();
+	const from = text.search(/recommend/i);
+	if (from < 0) return -1;
+	const hay = text.slice(from).split(/(?<=[.!?])\s/)[0]!.slice(0, 240).toLowerCase();
 	const hits = instruments.flatMap((i, n) => keysOf(i).some(k => hay.includes(k.toLowerCase())) ? [n] : []);
 	return hits.length === 1 ? hits[0]! : -1;
 }
