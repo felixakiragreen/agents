@@ -211,19 +211,37 @@ async function attemptFire(req: Fire, password: string): Promise<Outcome<Fired>>
 		'--name', req.stamp, '--cwd', req.cwd, '--focus', 'false', '--command', command);
 	if (!created.ok) return created;
 	const workspace = parseRef(created.result);
-	if (!workspace) return fail(`no workspace ref in: ${created.result}`);
+	// A workspace with no readable ref cannot be closed — there is nothing to name. Say so with
+	// the raw output, because the thing is running and only Felix can find it now.
+	if (!workspace) return fail(`workspace created but no ref in its output — find it by hand and close it: ${created.result}`);
 
 	// Colour is a cmux property, not a `/color` turn — so the session's first user turn stays
 	// the summons, and the 359-fire paste gap stays closed (P2's find).
 	const colored = await cmux(password, 'workspace-action',
 		'--workspace', workspace, '--action', 'set-color', '--color', req.color);
-	if (!colored.ok) return fail(`fired ${workspace}, but set-color failed: ${colored.error}`);
+	if (!colored.ok) return unwind(password, workspace, `set-color failed: ${colored.error}`);
 
 	return { ok: true, result: {
 		workspace, summonsPath,
 		sha: createHash('sha256').update(text).digest('hex').slice(0, 16),
 		bytes: Buffer.byteLength(text),
 	} };
+}
+
+/**
+ * A fire is create-then-configure, so a failure after the create leaves a live workspace running
+ * a session nobody asked for — B3 F1 measured exactly that: a colour cmux refuses cost a whole
+ * fire and orphaned the workspace behind it. So a fire that dies after its create closes what it
+ * made, and the audit carries the unwind under its own action. **If the close fails too, the
+ * error names the live workspace** — an orphan Felix knows about is a chore; one he does not is
+ * a session burning quota in a window he never opens.
+ */
+async function unwind(password: string, workspace: string, why: string): Promise<Outcome<never>> {
+	const closed = await cmux(password, 'workspace', 'close', workspace);
+	audit('fire.unwind', { workspace, why }, closed);
+	return fail(closed.ok
+		? `${why} — ${workspace} closed, nothing left running`
+		: `${why} — AND the unwind failed: ${closed.error}. ${workspace} is still live; close it by hand.`);
 }
 
 /**
