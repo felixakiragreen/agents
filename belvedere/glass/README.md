@@ -6,7 +6,7 @@ are the fence's whole write list (README §2) and nothing else in here writes.
 
 ```
 bun belvedere/glass/server.ts        # → http://127.0.0.1:4400
-bun test belvedere/glass             # 219 green in one process (B8 §4)
+bun test belvedere/glass             # 271 green in one process (B8 §4)
 bunx tsc --noEmit                    # from this directory — the type gate, offline (B8 §5)
 ```
 
@@ -16,6 +16,7 @@ bunx tsc --noEmit                    # from this directory — the type gate, of
 | `/city` | City View — a card per building: lit windows, board pulse, lint count |
 | `/b/<building>` | board · ledger tail + baton · decision queue · ISSUES · live sessions · lint |
 | `/shelf` | **every session all three accounts have ever held** — resume the dead, jump to the living; usage ×3 and WIP above them |
+| `/summon` | **the composer — fire anything**: building or free path · account · mantle · tier · templates · optional worktree; `POST` composes, the button fires |
 | `/doc?p=<path>` | the read-only viewer every rendered link resolves into (D58) |
 | `POST /hands/{fire,worktree,focus,halt}` | the four hands; 503 until `~/.config/belvedere/env` is armed |
 | `POST /inbox` | **the sovereign's inbox** — one gesture, one D63 line appended to a building's `ISSUES.md`; **no credential gate** |
@@ -38,6 +39,34 @@ decision). The glass never pens the D-entry. **Folded outranks pending** — `pa
 marks an entry pending wherever the phrase appears, *including in the entry that defines the
 ritual*, so canon D21 (`✓ Felix`) has been a false positive on the rail since B3; two
 readings disagree, so the card renders safe and names the winner (D10).
+
+**Compose, then fire** (B7, `composer.ts`). The form writes nothing and decides nothing:
+every choice is a radio in a toggled button group, so the browser holds the state and the
+back button walks it. One **compose** press re-renders with the resolved target, tier,
+name-stamp, colour, worktree plan and trust verdict — and only *that* render carries a fire
+button, wired to the exact JSON the card is showing. What arms it is the hands' own
+`parseFire`, run over the composed body before the page is drawn: one gate, not a second
+copy of one. The page POSTs to itself because a summons does not belong in a URL; **it still
+writes nothing** — the fence's list is the four hands and the inbox.
+
+**A cold directory is named, never answered** (`trust.ts`). **The unit of trust is the
+project root, and it is per account**: each silo's `<config-dir>/.claude.json` names
+projects, the repo's *main* worktree root when the target is inside a repo (which is exactly
+why a linked worktree inherits), the directory itself when it is not. Its own entry wins;
+with no entry a **repository is cold** and a plain directory borrows an ancestor's blanket
+trust. Measured at B7: `~/code` is trusted for `personal`, a fire into a plain
+`~/code/b7-founding-probe` ran and beat the census ten times, and a fire into a fresh
+`git init` in the same `~/code` **stalled — no transcript, no census beat, the process alive
+on the dialog**. All 36 live trust entries sit on project roots; all 9 live sessions are warm
+under the rule. The composer warns on the button and marks the fire `data-cold`, so a
+stalled fire renders as *waiting on the trust prompt*, never as a session that started.
+
+**The name-stamp reads three sources.** `invocations.jsonl` (the rig's), `hands.jsonl` (the
+glass's own fires) and — new at B7 — **the live census**, because a stamp a running session
+carries came from somewhere neither log records. Proven live: `architect-belvedere` is absent
+from both logs and present in the census, so the logs alone would hand that name out twice.
+The theater is row 14's: `<dir>/.summon-theaters`' first line, else the directory name, no
+parent walk — and the **Grand Architect keeps no theater**, one office, as the rig has it.
 
 **The shelf's three joins, and the one it refuses** (B5): the filename is the session id
 and the resume handle; the transcript's own 64 KB head gives the name-stamp and the cwd;

@@ -584,3 +584,45 @@ narrowed deliberately and made stronger: "no button at all" became "no fire wiri
 every button here is an `/inbox` gesture". Next: **fire B7** — the summon composer; the
 bulletin carries F2 (the countersign false positive), F3 (which side of the gate a new
 write belongs on) and B6's sweep template, which B7 §2 reuses.
+
+---
+
+**2026-08-27 · Builder · opus-high (B7 — the summon composer)** — the blank page, fired.
+`/summon` composes and fires ANY session — new work, a new building, an ad-hoc sitting —
+with no terminal in the loop. **Compose, then fire**: the form is inert radios in toggled
+button groups (no client state, **zero `<select>` anywhere on the page**), one press
+resolves target · account · mantle · tier · name-stamp · colour · worktree plan · trust
+verdict, and only that render carries a fire button, wired to the exact JSON the card is
+showing — armed by the hands' own `parseFire` run over the composed body, one gate rather
+than a second copy of one. Eight templates (one per mantle, the founding Architect's
+DOCTRINE §12 fence, B6's inbox sweep), each a whole opening: applying one sets the mantle
+and the tier it speaks as. Changed: `glass/composer.ts` and `glass/trust.ts` new,
+`glass/composer.test.ts` new (52 tests), `glass/summon.ts` (`.summon-theaters`, the Grand
+Architect's no-theater lineage, a third stamp source), `glass/rig.ts` (`tiers`),
+`server.ts`, `glass.css`, three navs, `glass/README.md` — **271 green in one process**,
+`bunx --offline tsc --noEmit` exit 0, `/summon` p95 13 ms. DoD measured over HTTP against a
+live glass with **every fire body read out of the rendered HTML**: four fires byte-exact
+(sha256 identical page-side and transcript-side), the founding template verbatim at a
+scratch dir (185 B, `845e7932…` both sides), a worktree-composed fire landing with cwd
+**inside** the cut worktree, `builder-belvedere-02→03` on two consecutive fires, disabled
+mode honest (503, an in-DOM disabled button, the plan still composed), `git status`
+unchanged, venue restored. Decided: nothing escalated — one false assumption in the order
+was found and worked around in the open (F2). Six findings, one of which binds the rest of
+the campaign: **F1 — Claude Code's unit of trust is the PROJECT ROOT, it is per account,
+and a repository never borrows an ancestor's trust.** Measured two ways inside one trusted
+`~/code`: a plain directory ran and beat the census ten times, a fresh `git init` **stalled
+with zero census beats, no transcript and the process alive on the dialog** — and so did a
+worktree under it. All 36 live trust entries across the three accounts sit exactly on
+project roots; all 9 live sessions are warm under the rule. The naive "nearest trusted
+ancestor" reading returns a **false warm**, which is precisely the silent success the
+amendment was written to prevent. **F2** the order's "scratch repo" is therefore unfireable
+by construction (the worktree DoD ran in `agents`, B3's precedent). **F3** the glass's
+stamp slug is narrower than row 14's theater law, so `universal_robots_sdk` forks the
+lineage — refused loudly by `parseFire`, never fired as something else; a B4-boundary
+contract question. **F4** the live census is a load-bearing third stamp source
+(`architect-belvedere` is in neither log and in the census), and **the rail still passes no
+`known` list**, so it would hand that name out twice — parked to B3's ground, one array
+away. **F5** the Grand Architect's no-theater exception now matches the rig
+(`grand-architect-11`, live). **F6** probe residue named, not scrubbed. Next: **fire B9** —
+the visual law sweep over the pre-law pages, the last row before Felix's close gates; the
+bulletin carries F1 (which binds anything that fires), F3 and F4.
