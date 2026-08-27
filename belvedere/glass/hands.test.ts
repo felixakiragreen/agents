@@ -214,6 +214,14 @@ describe('the worktree hand', () => {
 		rmSync(dir, { recursive: true });
 	});
 
+	test('audits itself when called as a library — the route is not the only door', async () => {
+		const dir = repo();
+		await hands.worktree({ repo: dir, branch: 'bv/b4-audited' });
+		const last = JSON.parse(readFileSync(join(ROOT, 'census', 'hands.jsonl'), 'utf8').trimEnd().split('\n').at(-1)!);
+		expect(last).toMatchObject({ action: 'worktree', ok: true, args: { branch: 'bv/b4-audited' } });
+		rmSync(dir, { recursive: true });
+	});
+
 	test('a directory that is not a repo is a refusal, not a crash', async () => {
 		const dir = scratch();
 		mkdirSync(join(dir, 'plain'));

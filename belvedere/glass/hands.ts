@@ -193,7 +193,10 @@ export function launchCommand(req: Fire, configDir: string, summonsPath: string)
  * `--cwd` (the workspace label and the process's actual directory are two different things),
  * and every command is bounded. The shape itself is P2's, unchanged and proven ×3 accounts.
  */
-export async function fire(req: Fire, password: string): Promise<Outcome<Fired>> {
+export const fire = async (req: Fire, password: string): Promise<Outcome<Fired>> =>
+	audited('fire', fireArgs(req), await attemptFire(req, password));
+
+async function attemptFire(req: Fire, password: string): Promise<Outcome<Fired>> {
 	const configDir = [...readRig().accounts].find(([, label]) => label === req.account)?.[0];
 	if (!configDir) return fail(`unknown account "${req.account}" — the rig's accounts.tsv names the three`);
 
@@ -227,7 +230,10 @@ export async function fire(req: Fire, password: string): Promise<Outcome<Fired>>
  * branch every time. An existing branch is a refusal, not a checkout — a hand that silently
  * adopts someone else's branch is how two sessions end up writing one history.
  */
-export async function worktree(req: Worktree): Promise<Outcome<{ path: string; branch: string }>> {
+export const worktree = async (req: Worktree): Promise<Outcome<{ path: string; branch: string }>> =>
+	audited('worktree', { ...req }, await attemptWorktree(req));
+
+async function attemptWorktree(req: Worktree): Promise<Outcome<{ path: string; branch: string }>> {
 	const inside = await git(req.repo, 'rev-parse', '--show-toplevel');
 	if (!inside.ok) return fail(`not a git repo: ${req.repo}`);
 
@@ -246,7 +252,10 @@ export async function worktree(req: Worktree): Promise<Outcome<{ path: string; b
  * a Ghostty session carries none and cannot be jumped to — which is a fact to report, not a
  * failure to paper over (P1 F1, batch-2 bulletin §1).
  */
-export async function focus(req: Focus, password: string): Promise<Outcome<{ surface: string; workspace: string | null }>> {
+export const focus = async (req: Focus, password: string): Promise<Outcome<{ surface: string; workspace: string | null }>> =>
+	audited('focus', { ...req }, await attemptFocus(req, password));
+
+async function attemptFocus(req: Focus, password: string): Promise<Outcome<{ surface: string; workspace: string | null }>> {
 	const census = readCensus();
 	if (!census.present) return fail('census not deployed — the glass cannot see any panel');
 	const session = census.sessions.find(s => s.sid === req.sid);
@@ -265,7 +274,10 @@ export async function focus(req: Focus, password: string): Promise<Outcome<{ sur
  * the contract, so the button can exist now and mean something later. Last writer wins: a HALT
  * is a state, not a queue.
  */
-export function halt(req: Halt): Outcome<{ path: string; at: string }> {
+export const halt = (req: Halt): Outcome<{ path: string; at: string }> =>
+	audited('halt', { ...req }, attemptHalt(req));
+
+function attemptHalt(req: Halt): Outcome<{ path: string; at: string }> {
 	const at = new Date().toISOString();
 	try {
 		mkdirSync(dirname(HALT), { recursive: true });
@@ -291,6 +303,15 @@ export function audit(action: string, args: Record<string, unknown>, outcome: Ou
 	});
 	mkdirSync(dirname(AUDIT), { recursive: true });
 	appendFileSync(AUDIT, line + '\n');
+}
+
+/**
+ * Do it, then say you did it. Every hand returns through here, refusals included — the audit is
+ * a property of the write, not of the HTTP layer, so no caller can route around it.
+ */
+function audited<T>(action: string, args: Record<string, unknown>, outcome: Outcome<T>): Outcome<T> {
+	audit(action, args, outcome);
+	return outcome;
 }
 
 /** The audit's view of a fire: everything but the words. */
@@ -326,31 +347,19 @@ export async function handsRoute(req: Request, action: string): Promise<Response
 	switch (action) {
 		case 'fire': {
 			const parsed = parseFire(body);
-			if (!parsed.ok) return json(parsed, 400);
-			const done = await fire(parsed.result, cred.result);
-			audit('fire', fireArgs(parsed.result), done);
-			return answer(done);
+			return parsed.ok ? answer(await fire(parsed.result, cred.result)) : json(parsed, 400);
 		}
 		case 'worktree': {
 			const parsed = parseWorktree(body);
-			if (!parsed.ok) return json(parsed, 400);
-			const done = await worktree(parsed.result);
-			audit('worktree', parsed.result, done);
-			return answer(done);
+			return parsed.ok ? answer(await worktree(parsed.result)) : json(parsed, 400);
 		}
 		case 'focus': {
 			const parsed = parseFocus(body);
-			if (!parsed.ok) return json(parsed, 400);
-			const done = await focus(parsed.result, cred.result);
-			audit('focus', parsed.result, done);
-			return answer(done);
+			return parsed.ok ? answer(await focus(parsed.result, cred.result)) : json(parsed, 400);
 		}
 		case 'halt': {
 			const parsed = parseHalt(body);
-			if (!parsed.ok) return json(parsed, 400);
-			const done = halt(parsed.result);
-			audit('halt', parsed.result, done);
-			return answer(done);
+			return parsed.ok ? answer(halt(parsed.result)) : json(parsed, 400);
 		}
 		default:
 			return json({ ok: false, error: `no such hand: ${action} — fire, worktree, focus, halt` }, 404);
