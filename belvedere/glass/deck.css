@@ -1,0 +1,148 @@
+/* The deck. Loaded only by `/deck`, on top of felikai and glass.css — the v0 pages are untouched
+   by every rule in here, which is the point: the rooms keep serving until the deck replaces them
+   (keel §10).
+
+   The law of space (keel §2) is arithmetic in `deck-model.ts` and geometry here, and the two rules
+   that make it true are both in this file: `body.deck` is a fixed two-row grid that CANNOT scroll,
+   and every grid child carries `min-width: 0` so an `Nfr` track keeps its fraction instead of
+   losing it to its own content's minimum. Spelling is American-mixed by Felix's word: color,
+   center, grey. */
+
+html:has(body.deck) { height: 100%; }
+
+body.deck {
+	height: 100vh;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;                       /* the page body NEVER scrolls; panes own their overflow */
+	display: grid;
+	grid-template-rows: auto 1fr;
+}
+
+/* --- the bar: the only chrome, one row high --- */
+
+.deck .bar {
+	position: relative; z-index: 2;
+	display: flex; align-items: center; gap: 14px;
+	padding: 5px 12px;
+	border-bottom: 1px solid var(--grey-750);
+	background: var(--grey-950);
+}
+.deck .mark a {
+	font-family: var(--wide); font-size: 12px; font-weight: 900; letter-spacing: .3em;
+	color: var(--felix); text-decoration: none;
+}
+.deck .ways { display: flex; gap: 10px; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; }
+.deck .spacer { flex: 1; }
+.deck .pulse {
+	font-size: 10px; letter-spacing: .12em; color: var(--grey-600);
+	border: 1px solid var(--grey-800); border-radius: 3px; padding: 1px 7px;
+}
+.deck .pulse[data-fault='yes'] { color: var(--orange-300); border-color: var(--orange-700); }
+
+/* --- the three panes --- */
+
+.deck .app {
+	position: relative; z-index: 1;
+	display: grid;
+	gap: 1px;
+	min-height: 0;                          /* a grid row that can shrink is a row that cannot scroll */
+	background: var(--grey-750);            /* the gap, painted: hairline rules between panes */
+	transition: grid-template-columns var(--snap) var(--ease);
+}
+
+.deck .pane, .deck .drawer {
+	display: flex; flex-direction: column;
+	min-width: 0; min-height: 0;            /* the law's load-bearing line — see the header note */
+	background: var(--grey-950);
+	overflow: hidden;
+}
+
+.deck .pane-head {
+	display: flex; align-items: center; gap: 8px;
+	padding: 4px 8px;
+	border-bottom: 1px solid var(--grey-800);
+	white-space: nowrap; overflow: hidden;
+}
+.deck .pane-name {
+	font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+	color: var(--grey-450); overflow: hidden; text-overflow: ellipsis;
+}
+.deck .pane-head .states { margin-left: auto; }
+.deck .states, .deck .tenants { display: flex; gap: 3px; }
+
+.deck .st {
+	font-family: var(--mono); font-size: 9.5px; line-height: 1.6;
+	letter-spacing: .08em; text-transform: uppercase;
+	background: transparent; color: var(--grey-600);
+	border: 1px solid var(--grey-750); border-radius: 3px;
+	padding: 0 5px; cursor: pointer; text-decoration: none;
+}
+.deck .st.wide { padding: 0 8px; }
+.deck .st:hover { color: var(--felix); border-color: var(--grey-650); }
+.deck .st[data-on='yes'] { color: var(--felix); border-color: var(--felix); }
+
+.deck .pane-body {
+	flex: 1; min-height: 0;
+	overflow: auto;                         /* every pane owns its own overflow, and only its own */
+	padding: 10px;
+}
+
+/* Minimal is one word and a mark: the head's controls stay, the body goes vertical so a 12%-wide
+   track still reads. Nothing is hidden that the reader would have to guess at. */
+.deck .pane[data-state='minimal'] .pane-body { padding: 8px 4px; text-align: center; }
+.deck .pane[data-state='minimal'] .pane-name { display: none; }
+.deck .pane[data-state='minimal'] { cursor: zoom-in; }
+
+.deck .big {
+	display: block; font-family: var(--wide); font-size: 22px; font-weight: 900; line-height: 1.1;
+	color: var(--grey-150);
+}
+.deck .headline { display: flex; align-items: baseline; gap: 8px; }
+.deck .quiet { margin: 8px 0 0; font-size: 11px; color: var(--grey-500); max-width: 80ch; }
+
+.deck .rows { list-style: none; margin: 10px 0 0; padding: 0; }
+.deck .row {
+	display: flex; align-items: center; gap: 7px;
+	padding: 2px 4px; border-radius: 3px; cursor: default;
+}
+.deck .row:hover { background: var(--grey-900); }
+.deck .row .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.deck .row .num { margin-left: auto; color: var(--grey-450); font-variant-numeric: tabular-nums; }
+.deck .dot {
+	width: 6px; height: 6px; border-radius: 50%; flex: none;
+	background: var(--grey-700);
+}
+.deck .dot.on { background: var(--green-400); box-shadow: 0 0 6px var(--green-600); }
+
+/* --- the drawer: over everything, or a track of its own --- */
+
+.deck .drawer[data-state='shut'] { display: none; }
+.deck .drawer[data-state='open'] {
+	position: fixed; z-index: 30; right: 0; bottom: 0; top: 0;
+	width: min(420px, 40vw);
+	border-left: 1px solid var(--grey-700);
+	box-shadow: -18px 0 40px -20px var(--black);
+}
+.deck .drawer[data-state='pinned'] { position: static; }   /* in the grid: the split reapportions */
+
+.deck .scrim { position: fixed; inset: 0; z-index: 20; background: var(--semi); }
+
+/* --- the tooltip primitive: instant, expandable, dismissable --- */
+
+.deck .tip {
+	position: fixed; z-index: 40; max-width: 340px;
+	padding: 6px 9px;
+	background: var(--grey-900); border: 1px solid var(--grey-700); border-radius: 4px;
+	box-shadow: 0 0 24px -8px var(--black);
+	pointer-events: none;                   /* a hint must never eat the pointer that summoned it */
+	font-size: 11px; color: var(--grey-300);
+}
+.deck .tip[data-expanded='yes'] { pointer-events: auto; border-color: var(--grey-650); }
+.deck .tip-line { color: var(--grey-150); }
+.deck .tip-more { margin-top: 5px; color: var(--grey-450); }
+.deck .tip-hint {
+	margin-top: 4px; font-size: 9px; letter-spacing: .12em; text-transform: uppercase;
+	color: var(--grey-600);
+}
+.deck .tip-actions { margin-top: 7px; }
