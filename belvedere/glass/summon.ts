@@ -62,8 +62,12 @@ const tail = (path: string, bytes: number): string => {
  * The next ordinal in a lineage. The rig counts from `invocations.jsonl`'s `name` field; the
  * glass's own fires never reach that file, so the hands' audit is read alongside it — one
  * counter over both, or two dispatchers would hand out one stamp twice.
+ *
+ * `taken` closes the same hole inside a single render: a wave of two Builders in one building
+ * reads one disk state and would otherwise stamp both `builder-x-01`. Every stamp minted is
+ * added to it, so the caller's set IS the reservation.
  */
-export function nextStamp(mantle: string | null, buildingPath: string): string | null {
+export function nextStamp(mantle: string | null, buildingPath: string, taken = new Set<string>()): string | null {
 	const key = mantleKey(mantle), theater = theaterOf(buildingPath);
 	if (!key || !theater) return null;
 	const prefix = `${key}-${theater}`;
@@ -77,7 +81,10 @@ export function nextStamp(mantle: string | null, buildingPath: string): string |
 		const n = Number(m.slice(prefix.length + 1));
 		if (Number.isInteger(n) && n > top) top = n;
 	}
-	return `${prefix}-${String(top + 1).padStart(2, '0')}`;
+	let stamp = `${prefix}-${String(++top).padStart(2, '0')}`;
+	while (taken.has(stamp)) stamp = `${prefix}-${String(++top).padStart(2, '0')}`;
+	taken.add(stamp);
+	return stamp;
 }
 
 /** Exactly the body `POST /hands/fire` parses (B4 F1). `account` is the viewer's pick. */
@@ -91,10 +98,11 @@ export type Composed = { body: FireBody } | { blocked: string };
 
 export function compose(rig: Rig, opts: {
 	summons: string; mantle: string | null; tier: string | null; cwd: string; account: string;
+	taken?: Set<string>;
 }): Composed {
 	const parts = tierParts(opts.tier);
 	if (!parts) return { blocked: `the summons names no known tier (got ${JSON.stringify(opts.tier)}) — model and effort are unguessable` };
-	const stamp = nextStamp(opts.mantle, opts.cwd);
+	const stamp = nextStamp(opts.mantle, opts.cwd, opts.taken);
 	if (!stamp) return { blocked: `no name-stamp: mantle ${JSON.stringify(opts.mantle)} · theater ${JSON.stringify(theaterOf(opts.cwd))}` };
 	if (!opts.summons.trim()) return { blocked: 'the instrument carries no summons text' };
 	return { body: {

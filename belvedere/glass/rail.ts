@@ -107,18 +107,18 @@ function resolveRow(b: Building, id: string): { summons: string; source: string;
 	};
 }
 
-function shot(rig: Rig, b: Building, i: Instrument, ledgerLine: number, account: string, isRecommended: boolean): Shot {
+function shot(rig: Rig, b: Building, i: Instrument, ledgerLine: number, account: string, isRecommended: boolean, taken: Set<string>): Shot {
 	const base = { recommended: isRecommended, worktree: null as Shot['worktree'] };
 	if (i.kind === 'summons') {
 		const label = `${i.mantle ?? 'unknown mantle'} · ${i.tier ?? 'unknown tier'}`;
 		return { ...base, label, source: `${short(b.files.ledger ?? b.path)}:${ledgerLine}`, summons: i.text,
-			fire: compose(rig, { summons: i.text, mantle: i.mantle, tier: i.tier, cwd: b.path, account }) };
+			fire: compose(rig, { summons: i.text, mantle: i.mantle, tier: i.tier, cwd: b.path, account, taken }) };
 	}
 	const r = resolveRow(b, i.row);
 	if ('blocked' in r) return { ...base, label: `row ${i.row}`, source: short(b.files.ledger ?? b.path), summons: '', fire: r };
 	return { ...base, label: `row ${i.row} — ${r.mantle ?? 'unknown mantle'} · ${r.tier ?? 'unknown tier'}`,
 		source: r.source, summons: r.summons, worktree: r.worktree,
-		fire: compose(rig, { summons: r.summons, mantle: r.mantle, tier: r.tier, cwd: b.path, account }) };
+		fire: compose(rig, { summons: r.summons, mantle: r.mantle, tier: r.tier, cwd: b.path, account, taken }) };
 }
 
 // ---------- the cards ----------
@@ -133,13 +133,15 @@ const liveRow = (r: BoardRow) => r.state === 'OPEN' || r.state === 'IN FLIGHT' |
 
 export function cards(buildings: Building[], rig: Rig, account: string): Card[] {
 	const out: Card[] = [];
+	// One reservation for the whole render: no two buttons on this page carry one name-stamp.
+	const taken = new Set<string>();
 	for (const b of buildings) {
 		if (b.baton && b.ledgerTail) {
 			const shape = shapeOf(b.baton.text, b.baton.instruments.length);
 			const rec = shape === 'fork' ? recommended(b.baton.text, b.baton.instruments) : -1;
 			// Holder law: only a session-holder baton is ever wired. Felix's is his card.
 			const shots = b.baton.holder === 'session'
-				? b.baton.instruments.map((i, n) => shot(rig, b, i, b.ledgerTail!.line, account, n === rec))
+				? b.baton.instruments.map((i, n) => shot(rig, b, i, b.ledgerTail!.line, account, n === rec, taken))
 				: [];
 			out.push({ kind: 'baton', building: b.building, file: b.files.ledger ?? b.path, entry: b.ledgerTail, baton: b.baton, shape, shots, recommendation: rec });
 		}
@@ -219,6 +221,10 @@ const gateCard = (c: Card & { kind: 'gate' }) =>
 			<span class="when">row ${esc(c.row.id)}</span></div>
 		<p class="rail-text">${inline(c.gate || c.row.work, dirname(c.file))}</p>
 		${c.gate ? `<p class="note">${esc(c.row.work).slice(0, 220)}</p>` : ''}</article>`;
+
+/** One card's HTML — the seam the DOM tests read, and the only place a card's kind is dispatched. */
+export const cardHtml = (c: Card, armed: boolean, accounts: string[]): string =>
+	c.kind === 'baton' ? batonCard(c, armed, accounts) : c.kind === 'gate' ? gateCard(c) : countersignCard(c);
 
 const countersignCard = (c: Card & { kind: 'countersign' }) =>
 	`<article class="rail tone-yellow" data-kind="countersign" data-holder="felix">
@@ -308,8 +314,7 @@ export function railPage(): string {
 		<div class="stat"><span class="label">census</span><b class="small">${censusNote(census)}</b></div>
 	</section>`;
 
-	const body = list.map(c => c.kind === 'baton' ? batonCard(c, hands.armed, accounts)
-		: c.kind === 'gate' ? gateCard(c) : countersignCard(c)).join('');
+	const body = list.map(c => cardHtml(c, hands.armed, accounts)).join('');
 
 	const ms = performance.now() - t0;
 	return page('Belvedere — the rail', '<span>rail</span> <span>/</span> <a href="/city">city</a>',
