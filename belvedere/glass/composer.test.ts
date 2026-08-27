@@ -11,7 +11,7 @@
 // B8 §4), so nothing here reads the live census, the live audit log or the real credential.
 
 import { expect, test, describe, beforeEach, afterAll } from 'bun:test';
-import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'fs';
+import { mkdtempSync, mkdirSync, writeFileSync, realpathSync, rmSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
 import { MANTLES } from '../../doctrine';
@@ -23,11 +23,13 @@ import { sweepSummons } from './inbox';
 import type { Entry } from './register';
 import type { Rig } from './rig';
 import { lineage, nextStamp, theaterOf } from './summon';
-import { readTrust, trustOf } from './trust';
+import { projectOf, readTrust, trustOf } from './trust';
 import type { Usage } from './gauges';
 
 const NOW = 1_800_000_000;
-const ROOT = mkdtempSync(join(tmpdir(), 'b7-composer-'));
+// Realpath'd: on macOS `/var/folders` IS `/private/var/folders`, and `git rev-parse` answers with
+// the resolved spelling. A fixture that mixes the two tests the symlink, not the rule.
+const ROOT = realpathSync(mkdtempSync(join(tmpdir(), 'b7-composer-')));
 afterAll(() => rmSync(ROOT, { recursive: true, force: true }));
 
 const dir = (...parts: string[]) => { const p = join(ROOT, ...parts); mkdirSync(p, { recursive: true }); return p; };
@@ -36,10 +38,14 @@ const CITY = dir('code');
 const AGENTS = dir('code/agents');
 const BELVEDERE = dir('code/agents/belvedere');
 const COLD = dir('elsewhere/nothing-trusts-this');
+const PLAIN = dir('code/plain-directory');        // inside the city, not a repo
+const FRESH = dir('code/fresh-repo');             // a repo the account has never seen
+const REFUSED = dir('code/refused-repo');         // a repo with an explicit "no"
 
-// The worktree plan resolves its own repo (`git rev-parse --show-toplevel`) rather than asking
-// for one, so the fixture has to be a real repo for that resolution to be worth testing.
-Bun.spawnSync(['git', 'init', '-q', AGENTS], { stdout: 'ignore', stderr: 'ignore' });
+// The trust rule and the worktree plan both resolve real repositories, so the fixture has to
+// contain real ones. `AGENTS` stands in for a trusted repo; `BELVEDERE` for a subdirectory of it.
+for (const repo of [AGENTS, FRESH, REFUSED])
+	Bun.spawnSync(['git', 'init', '-q', repo], { stdout: 'ignore', stderr: 'ignore' });
 
 /** Two accounts, each with its OWN trust file — the whole point of the trust read (B7 F1). */
 const PERSONAL = dir('.claude');
@@ -48,10 +54,12 @@ const WORK = dir('.claude-work');
 const trustFile = (configDir: string, projects: Record<string, unknown>) =>
 	writeFileSync(join(configDir, '.claude.json'), JSON.stringify({ projects }));
 
+// `personal` trusts the whole city the way the live account trusts `~/code`; `work` names one
+// repo and refuses another — the two shapes the live corpus actually has.
 trustFile(PERSONAL, { [CITY]: { hasTrustDialogAccepted: true } });
 trustFile(WORK, {
 	[AGENTS]: { hasTrustDialogAccepted: true },
-	[BELVEDERE]: { hasTrustDialogAccepted: false },   // an explicit refusal under a trusted root
+	[REFUSED]: { hasTrustDialogAccepted: false },
 	[join(CITY, 'noise')]: { hasTrustDialogAccepted: 'yes' },   // not a boolean: no opinion at all
 });
 
@@ -245,29 +253,49 @@ describe('the ordinal', () => {
 // ---------- trust ----------
 
 describe('the folder-trust read', () => {
-	test('trust is inherited: a worktree under a trusted repo is warm', () => {
-		const t = readTrust(WORK);
-		expect(trustOf(join(AGENTS, '.claude/worktrees/bv/x'), t)).toEqual({ warm: true, root: AGENTS });
+	test('the project root is the repository, and a subdirectory of a trusted repo is warm', () => {
+		expect(projectOf(BELVEDERE)).toEqual({ path: AGENTS, repo: true });
+		expect(trustOf(BELVEDERE, readTrust(WORK)).warm).toBe(true);
 	});
 
-	test('the NEAREST opinion wins — a refusal under a trusted root is still a refusal', () => {
-		expect(trustOf(BELVEDERE, readTrust(WORK))).toEqual({ warm: false, refused: BELVEDERE });
+	test('a worktree resolves to its MAIN repo, which is why it inherits that repo\'s trust', () => {
+		const wt = join(AGENTS, '.claude/worktrees/bv/x');
+		mkdirSync(wt, { recursive: true });
+		Bun.spawnSync(['git', '-C', AGENTS, 'worktree', 'add', '--detach', wt], { stdout: 'ignore', stderr: 'ignore' });
+		expect(projectOf(wt)).toEqual({ path: AGENTS, repo: true });
+		expect(trustOf(wt, readTrust(WORK))).toMatchObject({ warm: true, root: AGENTS });
 	});
 
-	test('no opinion anywhere up the chain is cold, and says so without naming a refusal', () => {
-		expect(trustOf(COLD, readTrust(WORK))).toEqual({ warm: false, refused: null });
+	test('a plain directory borrows an ancestor\'s blanket trust (measured: `~/code`)', () => {
+		expect(projectOf(PLAIN)).toEqual({ path: PLAIN, repo: false });
+		expect(trustOf(PLAIN, readTrust(PERSONAL))).toMatchObject({ warm: true, root: CITY });
 	});
 
-	test('trust is PER ACCOUNT: the same directory is warm on one silo and cold on another', () => {
-		expect(trustOf(BELVEDERE, readTrust(PERSONAL))).toEqual({ warm: true, root: CITY });
-		expect(trustOf(BELVEDERE, readTrust(WORK)).warm).toBe(false);
+	test('a REPOSITORY never borrows it — the measured stall this whole warning exists for', () => {
+		const v = trustOf(FRESH, readTrust(PERSONAL));
+		expect(v).toMatchObject({ warm: false, refused: null });
+		expect(v.project).toEqual({ path: FRESH, repo: true });
+	});
+
+	test('an explicit refusal on a project root is a refusal, and names itself', () => {
+		expect(trustOf(REFUSED, readTrust(WORK))).toMatchObject({ warm: false, refused: REFUSED });
+	});
+
+	test('nothing anywhere is cold, and says so without inventing a refusal', () => {
+		expect(trustOf(COLD, readTrust(WORK))).toMatchObject({ warm: false, refused: null });
+	});
+
+	test('trust is PER ACCOUNT: the same project is warm on one silo and cold on another', () => {
+		expect(trustOf(FRESH, readTrust(WORK)).warm).toBe(false);
+		expect(trustOf(REFUSED, readTrust(PERSONAL)).warm).toBe(false);   // a repo, and personal names no repo
+		expect(trustOf(AGENTS, readTrust(WORK)).warm).toBe(true);
 	});
 
 	test('a non-boolean entry is no opinion, and a missing file is no opinions at all', () => {
 		expect(readTrust(WORK).roots.has(join(CITY, 'noise'))).toBe(false);
 		const none = readTrust(join(ROOT, 'no-such-account'));
 		expect(none.roots.size).toBe(0);
-		expect(trustOf(AGENTS, none)).toEqual({ warm: false, refused: null });
+		expect(trustOf(AGENTS, none)).toMatchObject({ warm: false, refused: null });
 	});
 });
 
@@ -312,19 +340,26 @@ describe('the plan', () => {
 		expect('blocked' in plan(rig, draft({ where: BELVEDERE, mantle: 'Builder' })).fire).toBe(true);
 	});
 
-	test('the trust verdict follows the chosen account, and the worktree path is what is asked about', () => {
-		const warm = plan(rig, draft({ where: BELVEDERE, mantle: 'Builder', summons: 'go', account: 'personal' }));
-		expect(warm.trust?.verdict.warm).toBe(true);
-		const cold = plan(rig, draft({ where: BELVEDERE, mantle: 'Builder', summons: 'go', account: 'work' }));
-		expect(cold.trust?.verdict.warm).toBe(false);
+	test('the trust verdict follows the chosen account — the same directory, two answers', () => {
+		const warm = plan(rig, draft({ where: BELVEDERE, mantle: 'Builder', summons: 'go', account: 'work' }));
+		expect(warm.trust?.verdict.warm).toBe(true);      // `work` names the repo BELVEDERE sits in
+		const cold = plan(rig, draft({ where: BELVEDERE, mantle: 'Builder', summons: 'go', account: 'personal' }));
+		expect(cold.trust?.verdict.warm).toBe(false);     // `personal` trusts only the city around it
 		expect(cold.trust?.where).toBe(BELVEDERE);
+	});
+
+	test('a worktree fire asks about the repo it will be cut from, never the path that does not exist yet', () => {
+		const p = plan(rig, draft({ where: BELVEDERE, mantle: 'Builder', summons: 'go', account: 'work', branch: 'bv/ask' }));
+		expect(p.trust?.where).toBe(AGENTS);
+		expect(p.trust?.verdict.warm).toBe(true);
 	});
 });
 
 // ---------- the page ----------
 
+// `work` is the warm account for this fixture: it names the repo `BELVEDERE` sits in.
 const composed = (over: Partial<Draft> = {}): Plan =>
-	plan(rig, draft({ where: BELVEDERE, mantle: 'Builder', summons: 'go', ...over }));
+	plan(rig, draft({ where: BELVEDERE, mantle: 'Builder', summons: 'go', account: 'work', ...over }));
 
 describe('the rendered page', () => {
 	test('no dropdowns, anywhere: every choice is a radio in a button group (design law §3)', () => {
@@ -371,10 +406,17 @@ describe('the rendered page', () => {
 		expect(html).toContain('data-cold="1"');
 	});
 
-	test('a warm directory names the root it inherited trust from, and carries no cold marker', () => {
-		const html = planCard(composed({ account: 'personal' }), true);
-		expect(html).toContain('warm — inherited from');
+	test('a warm target names the root that trusts it, and carries no cold marker', () => {
+		const html = planCard(composed(), true);
+		expect(html).toContain('warm —');
+		expect(html).toContain(AGENTS);
 		expect(html).not.toContain('data-cold');
+	});
+
+	test('a repository the account has never named is cold, and the card says why (the measured stall)', () => {
+		const html = planCard(composed({ where: '', cwd: FRESH, account: 'personal' }), true);
+		expect(html).toContain("never borrows an ancestor's trust");
+		expect(html).toContain('data-cold="1"');
 	});
 
 	test('a worktree plan names the branch, the repo and the path before anything is cut', () => {

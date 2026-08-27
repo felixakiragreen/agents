@@ -229,7 +229,9 @@ export function plan(rig: Rig, draft: Draft): Plan {
 
 	const cut = target && draft.branch ? worktreeCut(target, draft.branch) : null;
 
-	const askAbout = cut && 'path' in cut ? cut.path : target;
+	// A worktree the hand has not cut yet is not a repo git can resolve, so the question is asked
+	// of the repo it will be cut from — which IS the inheritance (`trust.ts` §projectOf).
+	const askAbout = cut && 'repo' in cut ? cut.repo : target;
 	const configDir = [...rig.accounts].find(([, l]) => l === account)?.[0] ?? null;
 	const trust = askAbout && configDir
 		? (({ file, roots }) => ({ file, where: askAbout, verdict: trustOf(askAbout, { file, roots }) }))(readTrust(configDir))
@@ -297,8 +299,10 @@ export function planCard(p: Plan, armed: boolean): string {
 		warnings.push(`<b>untrusted directory</b> — the session will wait on Claude's trust prompt; jump in to answer it.
 			${p.trust.verdict.refused
 				? `<code>${esc(short(p.trust.verdict.refused))}</code> is refused for <b>${esc(p.account)}</b>.`
-				: `No ancestor of <code>${esc(short(p.trust.where))}</code> is trusted for <b>${esc(p.account)}</b>.`}
-			Trust is per account and inherited; the glass reads <code>${esc(short(p.trust.file))}</code> and never answers that dialog.`);
+				: p.trust.verdict.project.repo
+					? `<code>${esc(short(p.trust.verdict.project.path))}</code> is a repository <b>${esc(p.account)}</b> has never trusted, and a repository never borrows an ancestor's trust.`
+					: `Nothing at or above <code>${esc(short(p.trust.verdict.project.path))}</code> is trusted for <b>${esc(p.account)}</b>.`}
+			Trust is per account and lives on the project root; the glass reads <code>${esc(short(p.trust.file))}</code> and never answers that dialog.`);
 	if (p.slots.length)
 		warnings.push(`<b>unfilled slots</b> — the summons still carries ${p.slots.map(s => `<code>${esc(s)}</code>`).join(' ')}.
 			The session will read them as written.`);
@@ -313,8 +317,8 @@ export function planCard(p: Plan, armed: boolean): string {
 		kv('cwd', wt ? `<code>${esc(short(wt.path))}</code> — cut first from <code>${esc(short(wt.repo))}</code> on branch <code>${esc(wt.branch)}</code>`
 			: `<code>${esc(short(body.cwd))}</code>`),
 		kv('trust', p.trust === null ? '—' : p.trust.verdict.warm
-			? `warm — inherited from <code>${esc(short(p.trust.verdict.root))}</code>`
-			: `<span class="bad">cold</span>`),
+			? `warm — <code>${esc(short(p.trust.verdict.root))}</code> is trusted for ${esc(p.account)}`
+			: `<span class="bad">cold</span> — project <code>${esc(short(p.trust.verdict.project.path))}</code>`),
 	].join('');
 
 	const notes = warnings.length
