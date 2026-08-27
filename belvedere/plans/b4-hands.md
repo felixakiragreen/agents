@@ -11,7 +11,9 @@ the permission guard refuses to read that secret, twice, by design. Every socket
 hand is proven end-to-end anyway (the library takes the password as an argument; cmux
 resolves an empty one to the password saved in its Settings), and the credential's own
 wiring is proven by a **deliberately wrong** password making the same call fail with
-`Invalid password`. One command from Felix arms the endpoints.
+`Invalid password`. One command from Felix arms the endpoints. **Paid ✓ Felix
+2026-08-27** — armed (0600, his hand), socket password rotated off the temporary;
+the batch-close rail fire is the end-to-end proof the file's value matches.
 
 ## Goal
 

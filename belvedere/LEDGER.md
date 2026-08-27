@@ -345,10 +345,14 @@ permission guard, the fence (D3), and the audit. Ratified B4's call to keep
 requiring `~/.config/belvedere/env` (it gates accidents, not adversaries) and to
 keep the real password in it, not a sentinel — D8's operative text, no hidden
 state, and the Ava chapter needs the value presented for real.
-[README](README.md) §§2–3 amended, D8 annotated, D9 cut (awaiting Felix's ✓);
+[README](README.md) §§2–3 amended, D8 annotated, D9 cut (✓ Felix in-session);
 board B4 row trued; ruling line appended to [B4 E1](plans/b4-hands.md). P2 §A3's
 "knows the password" prediction left as filed history — B4 E1 carries the
-correction. Inbox swept: empty. Decided: D9 (delegated scope — wording + ratifying
-landed behavior; countersign pending). Next: Felix — countersign D9 and run E2's
-one-command arm; behind it: the batch-3 chain runs on (B3 → B5 → B6 → B7) to the
-close gates.
+correction. Inbox swept: empty. **E2 paid in-session** — Felix armed
+`~/.config/belvedere/env` by his own hand (0600 verified, secret unread) and
+rotated the socket password off G1's temporary; the glass was down at check, so
+the armed banner shows on its next run, and `handsState()` checks presence and
+mode only — the batch-close rail fire is the end-to-end proof the file's value
+matches the rotated password (mismatch → the first fire 409s `Invalid password`;
+fix is re-running E2). Decided: D9 (✓ Felix in-session). Next: the batch-3 chain
+runs on (B3 → B5 → B6 → B7) to the close gates — nothing on this desk.
