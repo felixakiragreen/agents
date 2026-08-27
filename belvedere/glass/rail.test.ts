@@ -17,7 +17,7 @@
 import { expect, test, describe } from 'bun:test';
 import { join } from 'path';
 import { discover, type Baton, type Building, type Instrument } from '../../doctrine';
-import { cardHtml, cards, recommended, shapeOf, type Card } from './rail';
+import { branchFor, cardHtml, cards, recommended, shapeOf, type Card } from './rail';
 import { readRig } from './rig';
 import { nextStamp } from './summon';
 
@@ -126,6 +126,22 @@ describe('the row reference', () => {
 		expect(html).toContain('data-worktree=');
 		expect(html).toContain('worktree bv/b3-smoke');
 	});
+});
+
+describe('reading a branch out of a work doc', () => {
+	const doc = (header: string, body = '## Goal\n\nSomething.\n') => `# R1 — a row\n\n${header}\n\n${body}`;
+
+	test('a forward designation in the header is read', () =>
+		expect(branchFor(doc('**Status:** OPEN · runs in a worktree, branch `bv/x`'))).toBe('bv/x'));
+
+	test('a landing record in the header is not a designation', () =>
+		expect(branchFor(doc('**Status:** LANDED — worktree merged, branch `bv/x`'))).toBeNull());
+
+	test('a branch named without a worktree is not a designation', () =>
+		expect(branchFor(doc('**Status:** OPEN — rebases onto branch `master`'))).toBeNull());
+
+	test('a branch below the first heading is history, not a designation', () =>
+		expect(branchFor(doc('**Status:** OPEN', '## Commits\n\nOn worktree branch `bv/x`.\n'))).toBeNull());
 });
 
 test('the prose drops the fences its own shots already render, and keeps everything else', () => {

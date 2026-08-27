@@ -75,8 +75,28 @@ export type Shot = {
 const readDoc = (p: string) =>
 	statSync(p).size > WORK_DOC_BYTES ? readFileSync(p, 'utf8').slice(0, WORK_DOC_BYTES) : readFileSync(p, 'utf8');
 
-/** DOCTRINE §10's worktree law is prose in a work doc; the branch it names is not. */
 const BRANCH_IN_DOC = /\bbranch(?:es)?\s+`([A-Za-z0-9][A-Za-z0-9._/-]{0,79})`/;
+
+/**
+ * DOCTRINE §10's worktree law is prose in a work doc; the branch it names is not — so the rail
+ * reads it, narrowly. Only the header block (everything above the doc's first `##`), only a line
+ * that names a worktree, and never a line recording a landing.
+ *
+ * The narrowness is measured, not defensive. "First `` branch `x` `` anywhere in the doc" matched
+ * 12 of the city's 62 live work docs and **every single hit was retrospective** — `**Status:**
+ * LANDED (branch …)`, `## Commits (branch …)`, a nested board row citing where findings live.
+ * One of the twelve sat on an OPEN row, where a Dispatch would have composed a worktree named
+ * after somebody else's finished agent checkout. This rule matches none of the twelve. The real
+ * fix is a field, not a regex: the canon-inbox ask rides this row's findings.
+ */
+export function branchFor(text: string): string | null {
+	for (const line of text.split(/^##\s/m)[0]!.split('\n')) {
+		if (!/\bworktree\b/i.test(line) || /\bLANDED\b/.test(line)) continue;
+		const m = line.match(BRANCH_IN_DOC);
+		if (m) return m[1]!;
+	}
+	return null;
+}
 
 const findRow = (b: Building, id: string): { row: BoardRow; file: string } | null => {
 	for (const board of b.board) for (const r of board.rows) if (r.id === id) return { row: r, file: board.file };
@@ -100,7 +120,7 @@ function resolveRow(b: Building, id: string): { summons: string; source: string;
 	const k = parseKickoffs(text).kickoffs.at(-1);
 	if (!k) return { blocked: `row ${id}'s work doc carries no kickoff fence: ${short(doc)}` };
 
-	const branch = text.match(BRANCH_IN_DOC)?.[1] ?? null;
+	const branch = branchFor(text);
 	return {
 		summons: k.text, source: `${short(doc)}:${k.line}`, mantle: k.mantle, tier: k.tier,
 		worktree: branch ? { repo: b.path, branch } : null,
