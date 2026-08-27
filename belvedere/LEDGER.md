@@ -587,7 +587,7 @@ write belongs on) and B6's sweep template, which B7 §2 reuses.
 
 ---
 
-**2026-08-27 · Builder · opus-high (B7 — the summon composer)** — the blank page, fired.
+**2026-08-27 · Builder · opus-high (B7)** — the summon composer: the blank page, fired.
 `/summon` composes and fires ANY session — new work, a new building, an ad-hoc sitting —
 with no terminal in the loop. **Compose, then fire**: the form is inert radios in toggled
 button groups (no client state, **zero `<select>` anywhere on the page**), one press
