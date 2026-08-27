@@ -203,21 +203,68 @@ describe("a Felix-holder baton is his card", () => {
 	});
 });
 
+// ---------- D10: ambiguity never arms ----------
+
+/**
+ * The fire subset of `FIRE_WIRING`: everything a click could ride to `/hands/fire`. A collided
+ * card must carry none of it — while keeping the summons and the copy button, which are reading.
+ */
+const FIRE_ONLY = [/data-fire/, /data-worktree/, /data-account/, /class="go"/, /\/hands\//];
+
 describe('a session baton whose clause names Felix', () => {
 	const withText = (text: string) => {
 		const b = synthetic('session', [{ kind: 'summons', text: 'You are a Digger at opus-high.', mantle: 'Digger', tier: 'opus-high' }]);
 		return cards([{ ...b, baton: { ...b.baton!, text } }], rig, ACCOUNTS[0]!)[0]!;
 	};
 
-	test('keeps the parser\'s holder and its button, and says the clause names him', () => {
-		const html = cardHtml(withText("PENDING Felix's ruling — on a pass, fire the fence below."), true, ACCOUNTS);
-		expect(html).toContain('data-holder="session"');
-		expect(html).toContain('<button');
-		expect(html).toContain('The clause names <strong>Felix</strong>');
+	const collided = () => withText("PENDING Felix's ruling — on a pass, fire the fence below.");
+
+	test("keeps the parser's holder — D10 is render law, not a second parser", () =>
+		expect(cardHtml(collided(), true, ACCOUNTS)).toContain('data-holder="session"'));
+
+	test('carries no fire wiring at all, and says which two readings collided', () => {
+		const html = cardHtml(collided(), true, ACCOUNTS);
+		for (const pattern of FIRE_ONLY) expect(html).not.toMatch(pattern);
+		expect(html).toContain('Ambiguity never arms (D10)');
 	});
 
-	test('a clause not naming him carries no such note', () =>
-		expect(cardHtml(withText('fire the fence below.'), true, ACCOUNTS)).not.toContain('The clause names'));
+	test('keeps the note and the copy button — copying is reading, and the summons is byte-exact', () => {
+		const card = collided() as Card & { kind: 'baton' };
+		const html = cardHtml(card, true, ACCOUNTS);
+		expect(html).toMatch(/<button class="alt" data-copy>copy summons<\/button>/);
+		const pre = html.match(/<pre class="summons" data-summons>([\s\S]*?)<\/pre>/)![1]!;
+		expect(unesc(pre)).toBe(card.shots[0]!.summons);
+	});
+
+	test('an uncollided session baton keeps its buttons and carries no collision note', () => {
+		const html = cardHtml(withText('fire the fence below.'), true, ACCOUNTS);
+		expect(html).toContain('data-fire');
+		expect(html).toMatch(/<button class="go"/);
+		expect(html).not.toContain('Ambiguity never arms');
+	});
+});
+
+describe("the live city's collided clauses, verbatim", () => {
+	// The two cards the DoD names, pinned by the text their own ledgers carry today — not by
+	// walking their repos, which is nine seconds of city and a corpus that moves under the suite.
+	// Both parse as session batons and both name him; both must render safe.
+	const LIVE: [name: string, clause: string][] = [
+		['hexwright', "Felix's Phase-1 acceptance ruling — PENDING on the GENESIS §6 board: `bun run studio`, "
+			+ 'breed, keep, export, rule (determinism green ✓ · contact sheet ✓ · does he feel something?). '
+			+ 'On a pass, fire the fence below.'],
+		['simmy', 'Felix fires the summons below when the corpus lands.'],
+	];
+
+	for (const [name, clause] of LIVE)
+		test(`${name}: zero fire wiring, note and copy intact`, () => {
+			const b = synthetic('session', [{ kind: 'summons', text: 'You are a Digger at opus-high.', mantle: 'Digger', tier: 'opus-high' }]);
+			const card = cards([{ ...b, baton: { ...b.baton!, text: clause } }], rig, ACCOUNTS[0]!)[0]! as Card & { kind: 'baton' };
+			expect(card.wired).toBe(false);
+			const html = cardHtml(card, true, ACCOUNTS);
+			for (const pattern of FIRE_ONLY) expect(html).not.toMatch(pattern);
+			expect(html).toContain('Ambiguity never arms (D10)');
+			expect(html).toContain('data-copy');
+		});
 });
 
 // ---------- the honest cold state ----------

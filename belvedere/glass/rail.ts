@@ -7,7 +7,9 @@
 //  1. **The holder decides the wiring.** A session-holder baton gets Dispatch buttons wired to
 //     `POST /hands/fire`. A Felix-holder baton — and every gate and countersign, which are his
 //     by definition — renders as HIS CARD: no button, no payload, no handler, nothing in the
-//     DOM a click could reach. Structurally unwired, not disabled (B3 DoD).
+//     DOM a click could reach. Structurally unwired, not disabled (B3 DoD). **D10 sharpens it:
+//     where the parser says session and the clause says Felix, the two readings collide and the
+//     card renders safe too — note and copy-summons, no wiring (`collides()` below).**
 //  2. **The rail resolves; it never invents.** A row reference that names no work doc, a
 //     summons with no known tier, a fork whose recommendation matches no option: each says so
 //     on the card and offers no button. A greyed reason beats a guessed fire.
@@ -143,8 +145,20 @@ function shot(rig: Rig, b: Building, i: Instrument, ledgerLine: number, account:
 
 // ---------- the cards ----------
 
+/**
+ * **D10 — ambiguity never arms.** `classifyBaton` gives the instrument precedence over the word
+ * "Felix", so a clause reading *"PENDING Felix's ruling — on a pass, fire: ⟨fence⟩"* parses as a
+ * session baton. All three of the live city's fireable batons read exactly that way (B3 E2): the
+ * parser says session, the prose says his. Until canon rules the holder grammar, a card whose two
+ * readings disagree renders **safe** — the collision named, the summons copyable, no wiring at
+ * all. Copying is reading; the gate stays his.
+ *
+ * This is render law, not a second parser (D65): the holder stays exactly what `doctrine/` said.
+ */
+export const collides = (b: Baton) => b.holder === 'session' && /\bFelix\b/.test(b.text);
+
 export type Card =
-	| { kind: 'baton'; building: string; file: string; entry: LedgerEntry; baton: Baton; shape: Shape; shots: Shot[]; recommendation: number }
+	| { kind: 'baton'; building: string; file: string; entry: LedgerEntry; baton: Baton; shape: Shape; shots: Shot[]; recommendation: number; wired: boolean }
 	| { kind: 'gate'; building: string; row: BoardRow; gate: string; file: string }
 	| { kind: 'countersign'; building: string; decision: Decision; file: string };
 
@@ -163,7 +177,10 @@ export function cards(buildings: Building[], rig: Rig, account: string): Card[] 
 			const shots = b.baton.holder === 'session'
 				? b.baton.instruments.map((i, n) => shot(rig, b, i, b.ledgerTail!.line, account, n === rec, taken))
 				: [];
-			out.push({ kind: 'baton', building: b.building, file: b.files.ledger ?? b.path, entry: b.ledgerTail, baton: b.baton, shape, shots, recommendation: rec });
+			// The shots are still composed on a collided card — the summons is what the clipboard
+			// carries — but D10 keeps the wiring off them.
+			out.push({ kind: 'baton', building: b.building, file: b.files.ledger ?? b.path, entry: b.ledgerTail,
+				baton: b.baton, shape, shots, recommendation: rec, wired: !collides(b.baton) });
 		}
 		for (const board of b.board)
 			for (const r of board.rows) {
@@ -174,8 +191,11 @@ export function cards(buildings: Building[], rig: Rig, account: string): Card[] 
 		for (const d of b.decisionQueue.filter(d => d.pending))
 			out.push({ kind: 'countersign', building: b.building, decision: d, file: b.files.decisions ?? b.path });
 	}
-	// Fireable first, then Felix's own work, then the rest: the morning reads top-down.
-	const rank = (c: Card) => c.kind === 'baton' ? (c.shots.length ? 0 : c.baton.holder === 'felix' ? 2 : 3) : c.kind === 'countersign' ? 1 : 2;
+	// Fireable first, then Felix's own work, then the rest: the morning reads top-down. A collided
+	// card is not fireable, so it sits with his — which is whose the clause says it is.
+	const rank = (c: Card) => c.kind === 'baton'
+		? (c.wired && c.shots.length ? 0 : c.baton.holder === 'prose' ? 3 : 2)
+		: c.kind === 'countersign' ? 1 : 2;
 	return out.sort((a, c) => rank(a) - rank(c) || a.building.localeCompare(c.building));
 }
 
@@ -199,8 +219,13 @@ const buildingLink = (slug: string) =>
  * One instrument, with its two affordances (B3 §4): **new session** fires through the hands,
  * **copy summons** puts the byte-exact text on the clipboard for a window of Felix's choosing.
  * Nothing is ever pasted into a live TUI (P2 T4) — the clipboard is his hand, not the glass's.
+ *
+ * `wired: false` is D10's safe render: the summons and the copy button stay, and the account
+ * picker, the payload and the fire button are not in the DOM at all. `armed: false` is the other
+ * cold state and a different one — the hands' credential is absent, so the button exists and is
+ * disabled (B4 E2). One says "not this card"; the other says "not this glass, yet".
  */
-function shotHtml(s: Shot, armed: boolean, accounts: string[]): string {
+function shotHtml(s: Shot, armed: boolean, accounts: string[], wired: boolean): string {
 	const head = `<div class="shot-h"><b>${esc(s.label)}</b>`
 		+ (s.recommended ? ' ' + pill('recommended', 'green') : '')
 		+ (s.worktree ? ' ' + pill(`worktree ${s.worktree.branch}`, 'purple', `git worktree add .claude/worktrees/${s.worktree.branch}`) : '')
@@ -209,11 +234,17 @@ function shotHtml(s: Shot, armed: boolean, accounts: string[]): string {
 	if ('blocked' in s.fire)
 		return `<div class="shot">${head}<p class="note bad">${esc(s.fire.blocked)}</p></div>`;
 
+	const summons = `<pre class="summons" data-summons>${esc(s.fire.body.summons)}</pre>`;
+	if (!wired) return `<div class="shot">${head}${summons}
+		<div class="acts">
+			<button class="alt" data-copy>copy summons</button>
+			<span class="out" data-out>${esc(`${s.fire.body.model}-${s.fire.body.effort} · ${short(s.fire.body.cwd)}`)}</span>
+		</div></div>`;
+
 	const body = JSON.stringify(s.fire.body);
 	const wt = s.worktree ? ` data-worktree="${esc(JSON.stringify(s.worktree))}"` : '';
 	const disabled = armed ? '' : ' disabled';
-	return `<div class="shot">${head}
-		<pre class="summons" data-summons>${esc(s.fire.body.summons)}</pre>
+	return `<div class="shot">${head}${summons}
 		<div class="acts">
 			<span class="label">as</span>
 			<select class="account" data-account>${accounts.map((a, n) => `<option${n ? '' : ' selected'}>${esc(a)}</option>`).join('')}</select>
@@ -225,7 +256,8 @@ function shotHtml(s: Shot, armed: boolean, accounts: string[]): string {
 
 function batonCard(c: Card & { kind: 'baton' }, armed: boolean, accounts: string[]): string {
 	const base = dirname(c.file);
-	const tone: Tone = c.baton.holder === 'session' ? 'green' : c.baton.holder === 'felix' ? 'purple' : 'orange';
+	// Tone answers "whose is this?", so a collided card wears his colour, not the fireable green.
+	const tone: Tone = c.baton.holder === 'prose' ? 'orange' : c.wired ? 'green' : 'purple';
 	const shape = c.baton.instruments.length > 1 || c.baton.holder === 'session'
 		? pill(c.shape === 'plural' ? `${c.baton.instruments.length} instruments — shape unstated` : c.shape,
 			SHAPE_TONE[c.shape], 'D64: move · wave · fork') : '';
@@ -234,16 +266,15 @@ function batonCard(c: Card & { kind: 'baton' }, armed: boolean, accounts: string
 	const dropped = c.baton.holder === 'prose'
 		? `<p class="note bad">Dropped baton: the Next clause carries no instrument and names no Felix-action (D63g/D64).</p>` : '';
 
-	// `classifyBaton` gives the instrument precedence over the word "Felix", so a clause reading
-	// "PENDING Felix's ruling — on a pass, fire: ⟨fence⟩" is a SESSION baton and gets a Dispatch
-	// button. All three of the live city's fireable batons read that way (B3 §Findings E2). The
-	// rail reports the collision rather than overruling the parser: the holder stays the
-	// parser's, and the card says out loud that the clause names him.
-	const named = c.baton.holder === 'session' && /\bFelix\b/.test(c.baton.text)
-		? `<p class="note">The clause names <strong>Felix</strong>. D64 reads the instrument first, so this is a session baton — read the clause before firing.</p>` : '';
+	// D10, on the card: the parser and the prose disagree about whose baton this is, so the glass
+	// arms nothing and says which two readings collided. The summons is still copyable — reading
+	// is never gated — and the fire stays Felix's hand.
+	const named = c.wired ? ''
+		: `<p class="note bad">The clause names <strong>Felix</strong>, and D64 reads the instrument first — so the parser calls this a session baton and the prose calls it his.
+			Ambiguity never arms (D10): no button on this card. Copy the summons and fire it yourself if the clause is yours.</p>`;
 
 	// Felix's card and the dropped baton carry no shots at all — no payload, no handler, no button.
-	const shots = c.shots.length ? `<div class="shots">${c.shots.map(s => shotHtml(s, armed, accounts)).join('')}</div>` : '';
+	const shots = c.shots.length ? `<div class="shots">${c.shots.map(s => shotHtml(s, armed, accounts, c.wired)).join('')}</div>` : '';
 
 	return `<article class="rail tone-${tone}" data-kind="baton" data-holder="${c.baton.holder}">
 		<div class="rail-h">${buildingLink(c.building)} ${pill(HOLDER[c.baton.holder], tone)} ${shape}
@@ -332,7 +363,8 @@ export function railPage(): string {
 
 	const list = cards(buildings, rig, accounts[0] ?? 'personal');
 	const n = { baton: 0, gate: 0, countersign: 0, fireable: 0 };
-	for (const c of list) { n[c.kind]++; if (c.kind === 'baton') n.fireable += c.shots.filter(s => !('blocked' in s.fire)).length; }
+	// Fireable counts what this page will actually fire: a collided card's shots are not it (D10).
+	for (const c of list) { n[c.kind]++; if (c.kind === 'baton' && c.wired) n.fireable += c.shots.filter(s => !('blocked' in s.fire)).length; }
 
 	const banner = hands.armed ? '' : `<section class="panel"><h2>Hands disabled</h2>
 		<p class="note">Every Dispatch button below is cold — <code>/hands/*</code> answers 503 until the credential is armed.
