@@ -277,6 +277,12 @@ sitting — evidence in the §8 close block and the ledger entry of this date.
 > sitting rules the frame.** The flow chapter stays commissioned ("the DAG flow
 > is super important to me", same report); its specs re-enter under the new
 > keel.
+>
+> **The sitting ran same day — the frame is ruled: [the deck keel]
+> (plans/deck-keel.md), blessing PENDING Felix (D13–D17 carry his in-session
+> word).** At the blessing: P5 unfreezes as cut, and the re-cut sitting cuts
+> deck batch 1 + re-seats B10 (the DAG becomes the Works focus view, keel §6);
+> B11/B12/G2 stand in substance.
 
 **Batch 4 (flow batch 1, cut at the flow-cut sitting 2026-08-27) — the engine
 chapter, strictly serial on master:** P5 → B10 → B11 → B12, one row in flight,
@@ -420,6 +426,38 @@ building pages (keel §4, post-chapter).
   accidents, and a wired button under "pending Felix" prose is an accident
   waiting. Parse stays the parser's (D65) — this is render law, not a second
   parser.
+- **D13** (2026-08-27, Felix + Architect, the deck design sitting · ✓ Felix
+  in-session): **The deck commission.** Felix's vision (ISSUES case file #2,
+  folded into [plans/deck-keel.md](plans/deck-keel.md)) is Belvedere's second
+  commission: three panes **Context / Focus / Action** with
+  minimal/typical/expanded states, ontology **City → Building → Agent**, one
+  hotswappable **Chat**, the **Works** DAG, the identity sentence ("dataviz
+  dashboard first, command center second, comms third"), the no-scroll
+  proportional-fill law. Supersedes v0's page IA; **the organs stand**. The
+  v0 no-client-state law is **struck by his word** ("this is an app");
+  **the striking law is structural** — every law CAN be struck, channel
+  discipline intact (his third utterance; D7 generalized). Panes are a
+  replaceable surface.
+- **D14** (2026-08-27, deck sitting · ✓ Felix in-session): **Time flows
+  down — the now-line.** The Works draws the past above (landed, dim), NOW
+  as the line where live sessions blink, the plan below; scroll up =
+  history, down = future — agreeing with chat, ledger, and scrollback.
+- **D15** (2026-08-27, deck sitting · ✓ Felix in-session): **Attention lives
+  twice.** City badges (ambient — attention outranks recency, at rest,
+  always) + the drawer's needs-you queue (triage — ranked, answerable in
+  place, pinnable). The waiting-input blindness dies in both places.
+- **D16** (2026-08-27, deck sitting · ✓ Felix in-session): **cmux is truth
+  for live identity.** The deck reads names/colors off the socket; renames
+  and recolors in Belvedere write through to cmux; a cmux-side rename shows
+  in the deck. The rig's stamp is the birth name; `session_id` is the join
+  key. Kills the rename/not-green/wrong-stamp drift class at the model.
+- **D17** (2026-08-27, deck sitting · ✓ Felix in-session): **The desk — one
+  drawer, `~/code/agents/desk/`.** Gitted, city-wide, account-independent;
+  drafts persist there; sending routes (a field report → that building's
+  ISSUES, a message → a session via P6, a draft summons → the composer).
+  Authorizes the new root directory in the canon repo; the D2 fence
+  otherwise stands. The parked sovereign's-DESK genre lands here — its
+  volume gate paid by the field report itself.
 - **D11** (2026-08-27, Felix — the flow planning sitting): **The arm contract.**
   A flow — the batch note as data: rows, gates, accounts, venues
   ([plans/flow-keel.md](plans/flow-keel.md)) — renders as its whole DAG before

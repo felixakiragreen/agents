@@ -734,3 +734,38 @@ scope); D12 is Felix's at blessing. Next: **Felix — bless batch 4** (rule D12
 + the posture floor, hand over the rearranging input), then fire the
 Dispatcher — summons fenced verbatim in the batch-4 note ([README §6](README.md));
 behind it: canon row 17 at his word.
+
+---
+
+**2026-08-27 · Architect · fable-max** — *the deck design sitting (same
+session, continued — opened by the kitten, ratified by Felix).* His 17-item
+**field report** arrived by paste — the delivery mechanism its own kill shot
+("I would rather be writing this in Belvedere") — filed verbatim to
+[ISSUES](ISSUES.md), **batch 4 HELD** before anything dispatched (zero sunk
+cost — the baton was still on his desk). Strategic fork ruled with him
+present: **no restart — re-keel**; the organs are stone (census, hands, parse,
+audit, the loved aesthetic), the pages clay, the missing organ is **the
+voice**; the campaign's own files predicted both (the parked DESK's volume
+gate; "v0 usage is the evidence"). He returned with the **deck vision**
+(ISSUES case file #2, verbatim): three panes Context/Focus/Action with
+min/typical/expanded states, City → Building → Agent, one hotswappable Chat
+with independent response scroll, the DAG as the unified past+future work
+view, the identity sentence — dataviz first, command second, comms third —
+and the no-scroll proportional-fill law. Four forks ruled by his word
+in-session: **D14** time flows down through the now-line; **D15** attention =
+City badges + the drawer's needs-you queue; **D16** cmux is truth for live
+identity (stamp = birth name, write-through renames); **D17** the desk — one
+drawer, `~/code/agents/desk/`. **The deck keel cut**:
+[plans/deck-keel.md](plans/deck-keel.md) — commission D13, the striking law
+made structural (his third utterance: every law CAN be struck; the v0
+no-client-state law is its first formal casualty — the deck is an app,
+vanilla TS + SVG), panes a replaceable surface, Chat send gated on **P6** (the
+transport probe, T4's lesson), fence gains three proposed write classes
+(message-to-session · rename/recolor write-through · desk writes) minted at
+blessing, rooms die (rail/city/shelf), v0 serves until the deck replaces it.
+Decided: D13–D17 (✓ Felix in-session). Next: **Felix — red-pen + bless the
+deck keel** ([plans/deck-keel.md](plans/deck-keel.md)): the §11 fence trio and
+§9 stack ruling ride the blessing, plus two name picks (Workshop/Floor ·
+Works/Line); on the bless, P5 unfreezes as cut and the re-cut sitting (this
+desk) cuts deck batch 1 + re-seats B10 into the Works; behind it: D12 + the
+batch blessing forks, then canon row 17 at his word.
