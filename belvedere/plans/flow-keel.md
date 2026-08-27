@@ -6,6 +6,13 @@ date, D11) · The parked **continuous-flow horizon** lands here; Felix's canon-i
 wording is the commission ("work strings should keep flowing … pausing ONLY at
 Felix-escalations; Belvedere's hands + rail + census are the natural engine").
 
+> **Batch 1 cut 2026-08-27 (the flow-cut sitting, v0 closed same sitting):**
+> P5 (permission physics, §5.2's probe #1) → B10 (flow file + drawn DAG, §§3–4)
+> → B11 (arm + engine, D11) → B12 (reactive gate + dynamic extension) → G2
+> (fired by the armed close flow). Board + batch-4 note: [../README.md](../README.md)
+> §6; the D12 arm-scope fork rides that note's blessing, recommendation
+> scope-arm.
+
 ## 1. The bet
 
 The Dispatcher's between-sessions logistics is a state machine over files, and the
@@ -85,7 +92,12 @@ the continuous flow is the commission — but the ruling waits for the blessing.
    and the posture per venue is Felix's. Evidence to date: B6's apply probe and
    B7's three fires all started, beat, and landed transcripts — but none proves
    **sustained unattended tool work**. S5 is probe #1 and its kill criterion
-   shapes the chapter.
+   shapes the chapter. *(Upgraded 2026-08-27, the flow-cut sitting — its own
+   session is the positive control: fired from `/summon`, census `mode:auto`
+   on every beat, dozens of unattended tool calls to completion in a trusted
+   root on the personal account. The stall is conditional, not universal; P5
+   probes the failing cells and the mechanism —
+   [p5-permission-physics.md](p5-permission-physics.md).)*
 3. **Concurrency lanes:** the flow file carries what batch notes carry — serial
    lanes on shared checkouts, parallel lanes in worktrees (the hands compose them
    today).
