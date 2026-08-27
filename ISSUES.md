@@ -96,11 +96,13 @@ $ ./cli.ts lint ~/code/agents --verbose | grep -A3 kickoff.summons
   it: it runs earlier in `RULES` and, run later, its `trailingParen` finds the row id,
   not the tier. Correct emission is `**<date> · <Mantle> · <tier> (<row>)**`. Round-trip
   reports `ok` because `mantle`/`tier` are both in the rule's declared `changes`, so the
-  assertion licenses the damage. **Live hazard for the wave:** whiteboardy carries 13 of
-  these heads and 18c refused `--write` on that basis; hexwright's 9 (row 18b) hit the
-  milder half of the same bug — no parenthesised tier, so they land with no tier slot at
-  all, which is row 16's own §DoD-4 diff, published as if it were correct. Row-16
-  follow-up; the fixture below is the whole test.
+  assertion licenses the damage. whiteboardy carries 13 of these heads and 18c refused
+  `--write` on that basis. The milder half of the same bug is visible in row 16's own
+  §DoD-4 diff: a source head with no parenthesised tier re-emits with **no tier slot at
+  all** (`**2026-08-01 · Builder (WO-001)** — Kernel v0`), published there as proven
+  form-only. It did no harm in the field — 18b filled hexwright's 9 tiers by hand from
+  cited evidence and landed at 0 failures — but the converter's output was wrong both
+  times. Row-16 follow-up; the fixture below is the whole test.
 
 ```
 $ printf '# Ledger\n\n---\n\n## 2026-08-19 · Builder (opus-medium) · SH3 — the bundle-push pipeline\n\nStuff. Decided: nothing. Next: fire 20.\n' > LEDGER.md

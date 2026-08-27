@@ -31,9 +31,11 @@ $ doctrine migrate . --write
 $ doctrine lint .                 →  2 failure(s): ledger.mantle, ledger.tier
 ```
 
-**18b specifically:** hexwright's 9 heads carry no parenthesised tier, so they hit the
-milder half — they land with **no tier slot at all**. That is the exact diff row 16's
-findings §DoD-4 publish as proven form-only ("Before: 0 entries parse. After: 9"); the
-9 entries parse and each then fails `ledger.tier`. Lint after writing and count it.
-18c refused `--write` on whiteboardy on this basis and landed its board half only.
+**The milder half, for rows still to run:** a source head with no parenthesised tier
+re-emits with **no tier slot at all** — `**2026-08-01 · Builder (WO-001)** — Kernel v0`,
+which is the diff row 16's findings §DoD-4 publish as proven form-only. 18b already
+landed hexwright at 0 failures by filling those 9 tiers by hand from cited evidence, so
+nothing is broken in the field; the point for 18e/18h is that **the converter's output
+is not self-checking** — lint after `--write`, do not read a clean round-trip line as a
+clean document. 18c refused `--write` on whiteboardy and landed its board half only.
 Evidence: `~/code/agents/ISSUES.md` (18c's first entry).
