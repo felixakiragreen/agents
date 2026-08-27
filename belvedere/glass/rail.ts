@@ -23,8 +23,8 @@ import { parseKickoffs, type Baton, type BoardRow, type Building, type Decision,
 import { isLive, readCensus, type CensusRead, type Session } from './census';
 import { handsState } from './hands';
 import { esc, inline, page, pill, short, stateTone, type Tone } from './html';
-import { ago, buildingOf, censusNote, window_ } from './pages';
-import { city, TTL_MS } from './register';
+import { buildingOf, censusNote, registerNote, window_ } from './pages';
+import { city } from './register';
 import { readRig, type Rig } from './rig';
 import { compose, type Composed } from './summon';
 
@@ -355,8 +355,5 @@ export function railPage(): string {
 	const ms = performance.now() - t0;
 	return page('Belvedere — the rail', '<span>rail</span> <span>/</span> <a href="/city">city</a>',
 		banner + counts + strip(buildings, census, rig) + `<section class="railcol">${body}</section>` + SCRIPT,
-		`content re-read in ${ms.toFixed(0)} ms · register ${ago(reg.at / 1000)} old`
-		+ `${reg.refreshing ? ' (refreshing)' : ''} · ${reg.entries.length} buildings walked in ${reg.ms.toFixed(0)} ms`
-		+ `, ${reg.suppressed} worktree copies deduped · ttl ${TTL_MS / 1000}s`
-		+ (reg.error ? ` · <span class="bad">${esc(reg.error)}</span>` : ''));
+		`content re-read in ${ms.toFixed(0)} ms · ${registerNote(reg, '/')}`);
 }

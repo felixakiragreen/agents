@@ -26,13 +26,15 @@ import {
 import { cityRoot } from './paths';
 
 /**
- * The staleness bar. G1's ruling caps the served register at 30 s; a refresh costs ~10 s and
- * starts only once the held copy is this old, so the copy a browsing session sees peaks at
- * TTL + walk ≈ 30 s. After an idle stretch the first request serves an older register and
- * says so — the printed age IS the ruling's honesty mechanism, and a 10 s stall on the
- * morning's first page load is the thing it exists to prevent.
+ * The staleness bar, as the E1 ruling of 2026-08-27 set it: **300 s**. The walk is ~9.5 s of
+ * filesystem over 50 795 directories, so a 20 s TTL re-walked the city about half the time Felix
+ * was reading it — burning a core to re-learn a fact that changes weekly (B3 E1). Freshness is
+ * not lost, it is redirected: the two things that move the register *within* a morning are the
+ * glass's own fires and worktrees, and both call `bust()`, so the glass is never blind to its own
+ * writes. Anything else — a building Felix minted by hand in another window — is the re-walk
+ * button's job, one click beside the printed age.
  */
-export const TTL_MS = 20_000;
+export const TTL_MS = 300_000;
 
 export type Entry = { building: string; path: string; files: Building['files'] };
 export type Register = {
@@ -42,7 +44,8 @@ export type Register = {
 };
 
 let held: Register | null = null;
-let refreshing = false;
+let pending: Promise<void> | null = null;
+let stale = false;
 let error: string | null = null;
 
 function walk(): Register {
@@ -58,31 +61,56 @@ function walk(): Register {
  * (`register.worker.ts`). A failed refresh is recorded and printed, never swallowed: the glass
  * keeps serving the warm copy and says the register stopped moving.
  */
-function refresh(): void {
-	refreshing = true;
+function refresh(): Promise<void> {
+	if (pending) return pending;                  // one walk at a time; a second would race the first
 	const t0 = performance.now();
-	const worker = new Worker(new URL('./register.worker.ts', import.meta.url).href);
-	const done = (next: Register | null, why: string | null) => {
-		if (next) held = next;
-		error = why;
-		refreshing = false;
-		worker.terminate();
-	};
-	worker.onmessage = (ev: MessageEvent<{ entries: Entry[]; at: number; suppressed: number }>) =>
-		done({ ...ev.data, ms: performance.now() - t0, refreshing: false, error: null }, null);
-	worker.onerror = (ev: ErrorEvent) =>
-		done(null, `register refresh failed: ${ev.message || 'worker error'}`);
+	// The worker cannot answer before this constructor returns, so `pending` is always assigned
+	// before `done` can clear it.
+	pending = new Promise<void>(settle => {
+		const worker = new Worker(new URL('./register.worker.ts', import.meta.url).href);
+		const done = (next: Register | null, why: string | null) => {
+			if (next) held = next;
+			error = why;
+			pending = null;
+			worker.terminate();
+			settle();
+		};
+		worker.onmessage = (ev: MessageEvent<{ entries: Entry[]; at: number; suppressed: number }>) =>
+			done({ ...ev.data, ms: performance.now() - t0, refreshing: false, error: null }, null);
+		worker.onerror = (ev: ErrorEvent) =>
+			done(null, `register refresh failed: ${ev.message || 'worker error'}`);
+	});
+	return pending;
 }
 
 /**
  * The held copy, refreshed off the request path AND off the request thread. The request that
- * trips the TTL is served warm and starts the walk; the copy a browsing session sees peaks at
- * TTL + walk ≈ 30 s, which is G1's bar. The printed age is the ruling's honesty mechanism.
+ * trips the TTL — or finds the register busted — is served warm and starts the walk. The printed
+ * age is the ruling's honesty mechanism: the glass never pretends the copy is newer than it is.
  */
 export function register(): Register {
-	if (!held) { held = walk(); return held; }
-	if (!refreshing && Date.now() - held.at > TTL_MS) refresh();
-	return { ...held, refreshing, error };
+	if (!held) { held = walk(); stale = false; return held; }
+	if (!pending && (stale || Date.now() - held.at > TTL_MS)) { stale = false; refresh(); }
+	return { ...held, refreshing: pending !== null, error };
+}
+
+/**
+ * The glass's own writes are never invisible to it (B8 §1). A fire or a worktree can mint the
+ * very directory the register is a list of, so both mark it stale and the next request kicks the
+ * walk. Marking beats walking here: the hand answers at once, and the walk still never rides a
+ * request thread. A bust raised *during* a walk survives it — that walk began before the write.
+ */
+export const bust = () => { stale = true; };
+
+/**
+ * The button beside the printed age. It commands the glass's own memory, not the city — no fence
+ * question (B8 §1) — and it answers only when the held copy IS the new walk, so one click is one
+ * fresh page. A walk already in flight is joined rather than duplicated.
+ */
+export async function rewalk(): Promise<void> {
+	if (pending) { await pending; return; }   // a walk is already running; joining beats racing it
+	stale = false;
+	await refresh();
 }
 
 /** Walk once at server start, on this thread: the first page Felix opens is already warm. */

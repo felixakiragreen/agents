@@ -49,7 +49,7 @@ describe('content() is assemble()', () => {
 
 // The held register is not exercised here on purpose: its first call walks the real `~/code`,
 // nine seconds of filesystem, and a unit suite that pays that is a suite nobody runs. The TTL is
-// checkable for free; warmth and the printed age are measured against the live server in the
-// DoD (`plans/b3-baton-rail.md`), which is where a timing claim belongs anyway.
-test('the TTL honours G1: the served register can never be older than 30 s plus its own walk', () =>
-	expect(TTL_MS).toBeLessThanOrEqual(30_000));
+// checkable for free; warmth, the printed age and the bust are measured against the live server
+// in the DoD (`plans/b8-glass-hardenings.md`), which is where a timing claim belongs anyway.
+test('the TTL is the E1 ruling of 2026-08-27: 300 s, with the bust and the button for freshness', () =>
+	expect(TTL_MS).toBe(300_000));

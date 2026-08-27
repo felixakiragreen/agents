@@ -6,7 +6,7 @@ import { dirname, resolve, sep } from 'path';
 import { discover, type Building, type Board, type BoardRow, type Fail } from '../../doctrine';
 import { readCensus, isLive, type CensusRead, type Session } from './census';
 import { handsState } from './hands';
-import { city } from './register';
+import { city, TTL_MS, type Register } from './register';
 import { readRig, accountLabel, mantleOf, type Rig } from './rig';
 import { cityRoot } from './paths';
 import { baseOf, docHref, esc, inline, label, page, pill, rigTone, sessionTone, short, stateTone } from './html';
@@ -22,6 +22,17 @@ export const ago = (seconds: number) => {
 	if (d < 172800) return `${Math.round(d / 3600)}h`;
 	return `${Math.round(d / 86400)}d`;
 };
+
+/**
+ * The register's own footer line, one voice for every page that serves off the held copy: how old
+ * it is, what it cost, the TTL it lives under, and the button that walks it again now. The age is
+ * the E1 ruling's honesty mechanism — a 300 s TTL is only honest if the page says how warm it is.
+ */
+export const registerNote = (reg: Register, here: string) =>
+	`register ${ago(reg.at / 1000)} old${reg.refreshing ? ' (refreshing)' : ''}`
+	+ ` · ${reg.entries.length} buildings walked in ${reg.ms.toFixed(0)} ms, ${reg.suppressed} worktree copies deduped`
+	+ ` · ttl ${TTL_MS / 1000}s <a class="rewalk" href="/rewalk?to=${encodeURIComponent(here)}">re-walk</a>`
+	+ (reg.error ? ` · <span class="bad">${esc(reg.error)}</span>` : '');
 
 /**
  * A session's building is the deepest one containing its cwd. A worktree checkout counts as
@@ -112,9 +123,7 @@ export function cityPage(): string {
 	const ms = performance.now() - t0;
 	return page('Belvedere — City View', '<a href="/">rail</a> <span>/</span> <span>city</span>',
 		banner + strip + `<section class="cards">${cards}</section>` + off,
-		`content re-read in ${ms.toFixed(0)} ms · register ${ago(reg.at / 1000)} old${reg.refreshing ? ' (refreshing)' : ''}`
-		+ ` · walked in ${reg.ms.toFixed(0)} ms, ${reg.suppressed} worktree copies deduped · ${esc(CITY)}`
-		+ (reg.error ? ` · <span class="bad">${esc(reg.error)}</span>` : ''));
+		`content re-read in ${ms.toFixed(0)} ms · ${registerNote(reg, '/city')} · ${esc(cityRoot())}`);
 }
 
 // ---------- /b/<building> — the building page ----------

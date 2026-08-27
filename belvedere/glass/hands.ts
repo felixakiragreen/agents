@@ -28,6 +28,7 @@ import { readCensus, isLive } from './census';
 import { readRig } from './rig';
 import { sanitizeSummons } from './sanitize';
 import { auditLog, haltFlag, handsEnv, summonsDir } from './paths';
+import { bust } from './register';
 
 /** Everything has a limit (directive 3.1). A hand that hangs is a glass that hangs. */
 const LIMITS = { summonsBytes: 64 << 10, requestBytes: 128 << 10, commandMs: 20_000, requester: 64 } as const;
@@ -194,7 +195,7 @@ export function launchCommand(req: Fire, configDir: string, summonsPath: string)
  * and every command is bounded. The shape itself is P2's, unchanged and proven ×3 accounts.
  */
 export const fire = async (req: Fire, password: string): Promise<Outcome<Fired>> =>
-	audited('fire', fireArgs(req), await attemptFire(req, password));
+	busting(audited('fire', fireArgs(req), await attemptFire(req, password)));
 
 async function attemptFire(req: Fire, password: string): Promise<Outcome<Fired>> {
 	const configDir = [...readRig().accounts].find(([, label]) => label === req.account)?.[0];
@@ -231,7 +232,7 @@ async function attemptFire(req: Fire, password: string): Promise<Outcome<Fired>>
  * adopts someone else's branch is how two sessions end up writing one history.
  */
 export const worktree = async (req: Worktree): Promise<Outcome<{ path: string; branch: string }>> =>
-	audited('worktree', { ...req }, await attemptWorktree(req));
+	busting(audited('worktree', { ...req }, await attemptWorktree(req)));
 
 async function attemptWorktree(req: Worktree): Promise<Outcome<{ path: string; branch: string }>> {
 	const inside = await git(req.repo, 'rev-parse', '--show-toplevel');
@@ -311,6 +312,17 @@ export function audit(action: string, args: Record<string, unknown>, outcome: Ou
  */
 function audited<T>(action: string, args: Record<string, unknown>, outcome: Outcome<T>): Outcome<T> {
 	audit(action, args, outcome);
+	return outcome;
+}
+
+/**
+ * A hand that can mint a directory tells the register so (B8 §1) — a worktree IS a candidate
+ * building, and the walk that would find it costs nine seconds nobody may pay on a request
+ * thread. Marking is free and the next page picks it up. A refusal changed nothing, so it marks
+ * nothing.
+ */
+function busting<T>(outcome: Outcome<T>): Outcome<T> {
+	if (outcome.ok) bust();
 	return outcome;
 }
 

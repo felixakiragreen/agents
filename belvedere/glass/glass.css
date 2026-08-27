@@ -53,6 +53,13 @@ footer {
 	margin-top: 22px; padding-top: 10px; border-top: 1px solid var(--grey-800);
 	font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--grey-600);
 }
+/* The re-walk button reads as a button, in the footer's own key: the age it sits beside is the
+   reason to press it. */
+.rewalk {
+	margin-left: 6px; padding: 2px 7px; border: 1px solid var(--grey-700); border-radius: 3px;
+	color: var(--grey-400);
+}
+.rewalk:hover { border-color: var(--felix); color: var(--felix); }
 
 a { color: var(--blue-300); text-decoration: none; }
 a:hover { color: var(--felix); }
