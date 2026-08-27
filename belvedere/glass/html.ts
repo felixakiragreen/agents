@@ -158,7 +158,7 @@ export function page(title: string, crumbs: string, body: string, footer: string
 <title>${esc(title)}</title>${CSS}
 </head><body>
 <div class="grid" aria-hidden="true"></div>
-<header><h1><a href="/">BELVEDERE</a></h1><nav>${crumbs}</nav></header>
+<header><h1><a href="/">BELVEDERE</a></h1><nav>${crumbs} <span>/</span> <a href="/deck">deck</a></nav></header>
 <main>${body}</main>
 <footer>${footer}</footer>
 </body></html>`;

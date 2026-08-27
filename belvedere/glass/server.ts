@@ -9,6 +9,7 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { summonRoute } from './composer';
+import { deckPage, deckState } from './deck';
 import { handsRoute } from './hands';
 import { inboxRoute } from './inbox';
 import { HOST, port } from './paths';
@@ -18,7 +19,21 @@ import { shelfPage } from './shelf';
 import { boot, rewalk } from './register';
 
 const HERE = import.meta.dir;
-const ASSETS: Readonly<Record<string, string>> = { '/felikai.css': 'felikai.css', '/glass.css': 'glass.css' };
+const ASSETS: Readonly<Record<string, string>> = { '/felikai.css': 'felikai.css', '/glass.css': 'glass.css', '/deck.css': 'deck.css' };
+
+/**
+ * The deck's client bundle (B13): repo TypeScript, bundled once at server start, served from
+ * memory. No framework, no CDN, nothing off this origin — the fence's zero-new-dependencies line
+ * holds on the client too (D54).
+ *
+ * A build failure **stops the server**. It can only mean the repo's own TypeScript does not
+ * bundle, which is a defect to be seen now rather than a `/deck` that serves a shell around
+ * nothing: a blank page is a lie (this file's own law), and a silently scriptless app is a
+ * blank page with furniture.
+ */
+const bundle = await Bun.build({ entrypoints: [join(HERE, 'deck.client.ts')], target: 'browser' });
+if (!bundle.success) throw new AggregateError(bundle.logs, 'the deck bundle failed to build');
+const DECK_JS = await bundle.outputs[0]!.text();
 
 /**
  * The vendored prose face (B9 §1). One directory, one extension, no path from the URL: the fonts
@@ -41,6 +56,13 @@ function route(url: URL): Response {
 	// Immutable bytes under a fixed name: the browser asks once per glass, not once per page.
 	if (font) return new Response(readFileSync(join(HERE, font)),
 		{ headers: { 'content-type': 'font/woff2', 'cache-control': 'public, max-age=604800, immutable' } });
+
+	// The deck (B13): one shell, one bundle, one snapshot. `/deck/state` is a read like every other
+	// route here — it writes nothing and it never walks the city on this thread (see `deck.ts`).
+	if (url.pathname === '/deck') return html(deckPage());
+	if (url.pathname === '/deck.js') return new Response(DECK_JS,
+		{ headers: { 'content-type': 'text/javascript; charset=utf-8' } });
+	if (url.pathname === '/deck/state') return Response.json(deckState(), { headers: { 'cache-control': 'no-store' } });
 
 	if (url.pathname === '/') return html(railPage());       // the morning (B3)
 	if (url.pathname === '/city') return html(cityPage());
