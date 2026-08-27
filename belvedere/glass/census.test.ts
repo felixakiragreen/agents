@@ -5,7 +5,10 @@
 // whether it still EXISTS. Never render a state without both.
 
 import { expect, test } from 'bun:test';
-import { sessionState, isAlive, toBeat, STALE_SECONDS, type Beat, type SessionState } from './census';
+import { sessionState, isAlive, identify, toBeat, BG_CAP, STALE_SECONDS, type Beat, type SessionState } from './census';
+import { mkdtempSync, rmSync, writeFileSync } from 'fs';
+import { tmpdir } from 'os';
+import { join } from 'path';
 
 const NOW = 1_800_000_000;
 const beat = (ev: string, over: Partial<Beat> = {}): Beat =>
@@ -97,9 +100,32 @@ test('wire: a pid that is absent, empty or junk is unaskable, never pid 0', () =
 });
 
 test('wire: the full record renders a state, and no dropped field is load-bearing', () => {
-	// `pmt`, `mode`, `aid`, `at` and the capped `bg` roster (bulletin §3) are deliberately not
-	// read by the spine — B5's WIP gauges own them.
+	// `pmt` and `mode` are still deliberately unread; `aid`, `at` and `bg` are B5's, below.
 	expect(sessionState(toBeat(WIRE)!, true, WIRE.t + 10)).toBe('idle');
+});
+
+// --- B5's three fields: the agent join and the capped roster ---
+
+test('wire: the roster arrives typed, and a `""` agent_type reads as absent', () => {
+	// Measured on the live census: `SubagentStop` carries an `agent_id` with an EMPTY
+	// `agent_type`, while `PreToolUse` inside a running subagent carries both.
+	const b = toBeat({ ...WIRE, aid: 'a034cd32d4c166d84', at: '' })!;
+	expect([b.aid, b.at]).toEqual(['a034cd32d4c166d84', null]);
+	expect(b.bg).toEqual([{ id: 'a10431f998c45d31f', type: 'subagent', status: 'running', agentType: 'general-purpose' }]);
+});
+
+test('wire: a roster entry with no id names nothing and is dropped; the rest still counts', () => {
+	const b = toBeat({ ...WIRE, bg: [{ type: 'shell' }, { id: 'x', type: 'shell' }] })!;
+	expect(b.bg).toEqual([{ id: 'x', type: 'shell', status: 'unknown', agentType: null }]);
+});
+
+test('wire: `bg` absent or junk is an empty roster, never a crash and never a guess', () => {
+	for (const bg of [undefined, null, 'many', 7, {}]) expect(toBeat({ ...WIRE, bg })!.bg).toEqual([]);
+});
+
+test('wire: the roster is capped at BG_CAP — a full one is a sample, and says so (bulletin §3)', () => {
+	const many = Array.from({ length: 40 }, (_, n) => ({ id: `a${n}`, type: 'subagent', status: 'running' }));
+	expect(toBeat({ ...WIRE, bg: many })!.bg.length).toBe(BG_CAP);
 });
 
 test('wire: the venue join is present or honestly absent, never an empty pane (B4)', () => {
@@ -109,4 +135,49 @@ test('wire: the venue join is present or honestly absent, never an empty pane (B
 	expect([outside.ws, outside.sf]).toEqual([null, null]);
 	const inside = toBeat({ ...WIRE, ws: 'workspace-uuid', sf: 'surface-uuid' })!;
 	expect([inside.ws, inside.sf]).toEqual(['workspace-uuid', 'surface-uuid']);
+});
+
+// --- the identity join: who a transcript is, from a bounded head window (B2 F1, B5's shelf) ---
+
+const transcript = (lines: unknown[]): string => {
+	const dir = mkdtempSync(join(tmpdir(), 'b5-identity-'));
+	const path = join(dir, 'd285127e-0000-4000-8000-00000000abcd.jsonl');
+	writeFileSync(path, lines.map(l => JSON.stringify(l)).join('\n') + '\n');
+	return path;
+};
+
+test('identity: the name-stamp and the cwd come off the transcript, never off the slug', () => {
+	const path = transcript([
+		{ type: 'custom-title', customTitle: 'p4ctl-hup' },
+		{ type: 'agent-name', agentName: 'digger-agents-04' },
+		{ type: 'user', cwd: '/Users/felix/code/universal_robots_sdk', message: { role: 'user', content: 'hi' } },
+	]);
+	expect(identify(path)).toEqual({ stamp: 'digger-agents-04', cwd: '/Users/felix/code/universal_robots_sdk' });
+	rmSync(path, { force: true });
+});
+
+test('identity: a transcript with a title but no agent-name is UNSTAMPED, not titled', () => {
+	// Real shape, measured across the live corpus: **307 of 723 transcripts carry no
+	// `agent-name` at all**, and 9 of those carry a `custom-title` instead. A title is what a
+	// human typed; a stamp is what `claude -n` wrote, and only the second one is a lineage.
+	const path = transcript([
+		{ type: 'agent-color', agentColor: 'green' },
+		{ type: 'custom-title', customTitle: 'grand-architect' },
+		{ type: 'user', cwd: '/Users/felix/code/agents', message: { role: 'user', content: 'hi' } },
+	]);
+	expect(identify(path)).toEqual({ stamp: null, cwd: '/Users/felix/code/agents' });
+	rmSync(path, { force: true });
+});
+
+test('identity: a renamed session reads its LAST stamp, and a head with no turn has no cwd', () => {
+	const path = transcript([
+		{ type: 'agent-name', agentName: 'builder-agents-01' },
+		{ type: 'agent-name', agentName: 'builder-agents-02' },
+	]);
+	expect(identify(path)).toEqual({ stamp: 'builder-agents-02', cwd: null });
+	rmSync(path, { force: true });
+});
+
+test('identity: an unreadable transcript is unknown on both counts, never a throw', () => {
+	expect(identify('/no/such/transcript.jsonl')).toEqual({ stamp: null, cwd: null });
 });

@@ -34,9 +34,29 @@ export const registerNote = (reg: Register, here: string) =>
 	+ ` · ttl ${TTL_MS / 1000}s <a class="rewalk" href="/rewalk?to=${encodeURIComponent(here)}">re-walk</a>`
 	+ (reg.error ? ` · <span class="bad">${esc(reg.error)}</span>` : '');
 
+const WORKTREES = `${sep}.claude${sep}worktrees${sep}`;
+
 /**
- * A session's building is the deepest one containing its cwd. A worktree checkout counts as
- * its repo: `<repo>/.claude/worktrees/<branch>/x` is `<repo>/x` wearing a branch.
+ * A cwd, plus every reading of it as a worktree checkout: `<repo>/.claude/worktrees/<branch>/<x>`
+ * is `<repo>/<x>` wearing a branch.
+ *
+ * **A branch is not one path segment.** The city's own branches are `bv/b3-smoke`, `bv/b1-census`,
+ * `feat/whatever` at least as often as `naming` — and nothing in the path says where the branch
+ * ends and the checkout's interior begins. So every split is offered and the register decides
+ * which one names a building; only the register knows what a building is (D65). Measured cost:
+ * one candidate per segment, over a list the walk already built.
+ */
+function readings(cwd: string): string[] {
+	const at = cwd.indexOf(WORKTREES);
+	if (at < 0) return [cwd];
+	const repo = cwd.slice(0, at);
+	const rest = cwd.slice(at + WORKTREES.length).split(sep);
+	// `branch = rest.length` consumes the whole tail: the checkout's own root, which is the repo.
+	return [cwd, ...rest.map((_, n) => [repo, ...rest.slice(n + 1)].join(sep))];
+}
+
+/**
+ * A session's building is the deepest one containing its cwd, under any reading of that cwd.
  *
  * Generic over anything that carries a name and a path, so the shelf can attribute against the
  * register's own `Entry[]` — the file list, without re-reading a single board (B8 F3: content
@@ -44,10 +64,10 @@ export const registerNote = (reg: Register, here: string) =>
  */
 export function buildingOf<T extends { building: string; path: string }>(cwd: string | null, buildings: T[]): T | null {
 	if (!cwd) return null;
-	const norm = cwd.replace(/\/\.claude\/worktrees\/[^/]+/, '');
 	let best: T | null = null;
-	for (const b of buildings)
-		if ((norm === b.path || norm.startsWith(b.path + sep)) && (!best || b.path.length > best.path.length)) best = b;
+	for (const norm of readings(cwd))
+		for (const b of buildings)
+			if ((norm === b.path || norm.startsWith(b.path + sep)) && (!best || b.path.length > best.path.length)) best = b;
 	return best;
 }
 

@@ -145,6 +145,55 @@ describe('the launch line', () => {
 	});
 });
 
+/**
+ * B5's law: **a resume omits what the glass does not know, and never invents a first user turn.**
+ * The shelf resumes sessions that have been dead for weeks; a summons injected at that moment
+ * would wake an agent with no instruction and set it working — the self-inflicted DoS the whole
+ * row exists to prevent.
+ */
+describe('the resume widening (B5)', () => {
+	const UUID = 'd285127e-0000-4000-8000-00000000abcd';
+	const bare = { account: 'personal', cwd: tmpdir(), color: 'Charcoal', stamp: '', model: '', effort: '', summons: '' };
+
+	test('a resume may carry no stamp, no tier and no summons', () => {
+		const parsed = hands.parseFire({ ...bare, resume: UUID });
+		expect(parsed.ok).toBe(true);
+	});
+
+	test('a FRESH fire still requires every one of them', () => {
+		for (const patch of [{}, { stamp: 'builder-belvedere-01' }, { stamp: 'builder-belvedere-01', model: 'opus' }])
+			expect(hands.parseFire({ ...bare, ...patch, resume: null }).ok).toBe(false);
+	});
+
+	test('a resume still refuses a malformed field — empty is legal, junk is not', () => {
+		for (const patch of [{ stamp: 'Not A Stamp' }, { model: '--dangerously' }, { effort: 'VERY' }, { color: "x'; rm -rf /" }])
+			expect(hands.parseFire({ ...bare, ...patch, resume: UUID }).ok).toBe(false);
+	});
+
+	test('an empty field drops its flag; the line ends at --resume, with no user turn', () => {
+		const parsed = hands.parseFire({ ...bare, resume: UUID });
+		expect(parsed.ok).toBe(true);
+		if (!parsed.ok) return;
+		expect(hands.launchCommand(parsed.result, '/Users/felix/.claude-thg-fgreen', null)).toBe(
+			`cd '${tmpdir()}' && CLAUDE_CONFIG_DIR='/Users/felix/.claude-thg-fgreen' claude '--resume' '${UUID}'`);
+	});
+
+	test('a stamped resume keeps its own name and adds nothing else', () => {
+		const parsed = hands.parseFire({ ...bare, stamp: 'digger-agents-04', resume: UUID });
+		expect(parsed.ok).toBe(true);
+		if (!parsed.ok) return;
+		expect(hands.launchCommand(parsed.result, '/d', null)).toBe(
+			`cd '${tmpdir()}' && CLAUDE_CONFIG_DIR='/d' claude '-n' 'digger-agents-04' '--resume' '${UUID}'`);
+	});
+
+	test('the workspace is named by the stamp, or by the transcript it revives — never ""', () => {
+		const named = hands.parseFire({ ...bare, stamp: 'digger-agents-04', resume: UUID });
+		const nameless = hands.parseFire({ ...bare, resume: UUID });
+		expect(named.ok && hands.workspaceName(named.result)).toBe('digger-agents-04');
+		expect(nameless.ok && hands.workspaceName(nameless.result)).toBe('resume-d285127e');
+	});
+});
+
 describe('the audit', () => {
 	/** The log is append-only, so every assertion is about the line this test just wrote. */
 	const lastLine = () =>
