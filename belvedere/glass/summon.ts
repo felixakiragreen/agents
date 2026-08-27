@@ -28,9 +28,23 @@ export function tierParts(tier: string | null): { model: string; effort: string 
 export const mantleKey = (mantle: string | null) =>
 	mantle === null ? null : mantle.toLowerCase().replace(/\s+/g, '-');
 
-/** The rig's colour for a mantle; cmux's own default when the rig names none. */
+/**
+ * cmux's sixteen named colours (`cmux workspace-action --help`). The rig's palette is not a
+ * subset of them: measured at this build row against a live socket, `--color cyan` (the rig's
+ * Builder) and `--color pink` (its Dispatcher) both answer `invalid_params: Invalid color`,
+ * while `--color Aqua` returns `OK … color=#0E6B8C`. So the two tables meet HERE, at the
+ * boundary — and a name neither table knows falls back to one cmux will accept, because
+ * `attemptFire` creates the workspace BEFORE it sets the colour: a refused colour costs the
+ * whole fire and leaves the workspace behind (hands.ts §fire).
+ */
+const CMUX_COLOURS: Readonly<Record<string, string>> = {
+	green: 'Green', blue: 'Blue', red: 'Red', purple: 'Purple', orange: 'Orange',
+	yellow: 'Amber', cyan: 'Aqua', pink: 'Rose', grey: 'Charcoal', teal: 'Teal',
+};
+
+/** The rig's colour for a mantle, spelled the way cmux spells it. */
 export const colourOf = (rig: Rig, mantle: string | null) =>
-	rig.colours.get(mantleKey(mantle) ?? '') ?? 'grey';
+	CMUX_COLOURS[rig.colours.get(mantleKey(mantle) ?? '') ?? ''] ?? 'Charcoal';
 
 /** A theater is argv (`-n <mantle>-<theater>-NN`), so it is a plain lowercase token or nothing. */
 export const theaterOf = (buildingPath: string) =>
