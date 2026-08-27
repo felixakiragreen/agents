@@ -29,7 +29,7 @@ city-wide by the Sovereign (D63/D65: "We'll migrate every project, I don't care"
 |---|---|---|---|---|
 | 18a | agents + belvedere — MAP depends-on cells (19), LEDGER heads (44) + row slots (18), pre-D45 summons lines (plans/01, 04), belvedere tail's row slot | — | Architect · opus-high (dispatched, scoped) | LANDED (2026-08-26) — belvedere 0 failures, agents 30/103 (linter unrecorded gap, escalated), commits 888f9e4/afb983c/39daf6a |
 | 18b | hexwright — ledger 9 heads (dry-run proven), 9 decisions: deciders by evidence or `unrecorded` | — | Architect · opus-medium | LANDED (2026-08-26) — 0 lint failures, commits f7cb5e4/09db6fb in hexwright |
-| 18c | whiteboardy — house-format ledger ×103, GENESIS + 6 sub-boards, the m3-shells:670 unescaped pipe | — | Architect · opus-high | BLOCKED (2026-08-26) — board half landed (166 → 142; six rows recovered from invisibility); ledger half refused on two `migrate` defects, 28 board cells on Depends-on resolution scope. Findings below; commits `3575630`/`b82b089`/`8a39750`/`3b9a299` |
+| 18c | whiteboardy — house-format ledger ×103, GENESIS + 6 sub-boards, the m3-shells:670 unescaped pipe | — | Architect · opus-high | BLOCKED (2026-08-26) — board half landed (166 → 149; six rows recovered from invisibility); ledger half refused on two `migrate` defects, 28 board cells on Depends-on resolution scope. Findings below; commits `3575630`/`b82b089`/`8a39750`/`3b9a299` |
 | 18d | bob — lunchbox, pods, theseus: DONE→LANDED, PASSED/MERGED re-spellings, depends prose | — | Architect · opus-medium | LANDED (2026-08-26) — 53/54 typed, 1 unrecorded (linter vocab gap, escalated), commits 1bec7f0/54bdc97/553c5db/b90847e |
 | 18e | cap-mega/simmy — ledger 29 entries (5 parse), ISSUES ## headings → D63h bullets, board depends | — | Architect · opus-high | OPEN |
 | 18f | cap-mega snappy + snappy/ch2 + docs cluster (units, waypoint-stepper, advanced-naming, node-param) | — | Architect · opus-medium | OPEN |
@@ -103,7 +103,7 @@ row's report verbatim)*
 
 ### 18c — whiteboardy · BLOCKED 2026-08-26
 
-**Board half landed, ledger half refused.** 166 → 142 failures. The refusal is the
+**Board half landed, ledger half refused.** 166 → 149 failures. The refusal is the
 finding: `doctrine migrate` would have made this repo *worse*, and 96 of its 104 ledger
 blocks have no rule at all. Three escalations filed to `~/code/agents/ISSUES.md`, one
 warning to the wave's bulletin, two rulings left to whiteboardy's own Architect in a
@@ -118,7 +118,7 @@ $ doctrine lint ~/code/whiteboardy          # before                after
      2  ledger.tier                             2                      2
      2  ledger.decided                          2                      2
      1  board.pipe                              1                      0
-  166 failure(s) in 7 class(es)            →  142 failure(s) in 5 class(es)
+  166 failure(s) in 7 class(es)            →  149 failure(s) in 5 class(es)
   62 rows · 59 fully typed (95%)           →   68 rows · 68 fully typed (100%)
 ```
 
@@ -138,7 +138,7 @@ $ doctrine lint ~/code/whiteboardy          # before                after
 
 **The line 18c drew, and why:** land every edit whose correct form is determined today
 regardless of any pending ruling; escalate every edit whose form *depends* on one. That
-is the whole difference between the 24 cleared and the 142 standing.
+is the whole difference between the 17 cleared and the 149 standing.
 
 **Why `migrate --write` was refused** — a converter bug, reproduced in an isolated
 fixture, filed as the canon inbox's first 18c entry. `ledger.pre-doctrine-head` takes
@@ -178,7 +178,7 @@ E14 and the `12F` reference are the same shape. So GENESIS's one OPEN row, gate 
 cannot compute its own dispatchability — four of its five dependencies resolve to
 nothing. Filed to whiteboardy's inbox for gate 26, which is its own fix.
 
-**DoD:** 1 ✗ (142, blocked — the ledger on two converter defects, 28 board cells on
+**DoD:** 1 ✗ (149, blocked — the ledger on two converter defects, 28 board cells on
 resolution scope, 2 `ledger.tier` on the wave-wide `unrecorded` gap that 18a/18d already
 filed) · 2 ✓ (ledger entry appended, parses clean) · 3 ✓ (no `--write` ran; four
 doc-only commits, `git status` clean) · 4 n/a (no live batch — whiteboardy's board had
