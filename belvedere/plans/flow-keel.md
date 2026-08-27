@@ -22,6 +22,9 @@ escalations, taste. **Goal, his words: maximize time between Felix-gates.**
 3. Bulletin relay → **mechanical** copy; obsolete on serial-master batches.
 4. Hold on escalation/kill/block → the only judgment, and its mechanized form is
    **pause and surface** — D10's move, not a decision.
+5. Staff the judge on an escalated landing → **mechanical** (fire the scoped
+   Architect sitting; the judgment is the sitting's, staffing it never was) —
+   see §5.1, the reactive gate.
 
 ## 3. The flow object — the batch note as data
 
@@ -56,7 +59,16 @@ that hides the bill is how a sovereign DoS's himself" (founding line).
    a naive engine fires over them. Interim law: strict-parse the landing, anything
    malformed or escalation-marked → pause + card (pausing is cheap, wrong
    continuation is expensive). Real fix: a machine-readable `holds` on the landing
-   grammar — §6.
+   grammar — §6. **And the pause does not card Felix — it fires the judge (the
+   reactive gate; Felix's ask, B5 sitting):** an escalation-marked landing
+   auto-fires the scoped Architect sitting into the lane — the DAG draws the
+   inserted judge node — and the lane resumes when the sitting lands with holds
+   cleared; Felix's card appears only when that Architect escalates to *him*.
+   B6's apply button is this mechanism's v0 prototype. The campaign is the
+   evidence: five build rows, seven escalations, **six Architect-delegated** —
+   Felix hand-relayed every ruling — while B8's fully-pre-chewed order escalated
+   **zero**. Both facts point the same way: pre-chew what you can, staff the
+   judge for the rest, card the sovereign only for what is his.
 2. **S5 — spawned sessions stall in manual mode** at the first tool call (P2,
    parked), despite `defaultMode: auto` on the account. Measure the mechanism
    (cmux `--settings` injection?); permission mode becomes part of the step spec,

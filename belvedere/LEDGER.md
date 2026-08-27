@@ -522,3 +522,26 @@ design laws natively — no dropdowns, usage beside the accounts, attention-firs
 sorting, `[expand]`, a legend — with Inter's vendoring left where it belongs, in B9.
 Next: **fire B6** — the sovereign's inbox; the bulletin carries E2's wire change and
 F2's roster law.
+
+---
+
+**2026-08-27 · Architect · fable-max (B5 E1/E2)** — *same session, continued.* B5
+verified LANDED (8 commits `3113670…ea868b7`, tree clean, 166 tests one process,
+type gate 0; resume ×3 accounts with no turn injected, strip 9/9 vs the rig's own
+function, 16-cap induced live). Ruled **E1**: the census stays the **sole
+identity authority** (P1 F5 upheld — no second liveness authority); the 6-vs-38
+gap is the sensor's horizon (hooks live 04:03Z; pre-hook sessions are beat-less
+and die with the floor), and the glass renders it as the **auditor delta** — one
+approximate labeled `ps` count beside the census figure, never merged into
+cards: the `sync/check` pattern, the census's own standing drift alarm → B9
+amended, one read across shelf/rail/City View. Ruled **E2 — ratified whole**:
+"on a resume, a field the glass does not know is omitted, never guessed" is
+standing hands law; the uuid-only handle and jump-not-resume both stand (D10
+applied). F1 noted with respect: worktree mis-housing since B2, fixed at the
+cause city-wide. **Felix's meta-ask folded into the keel — the reactive gate**:
+an escalated landing fires the scoped Architect sitting into the lane (B6's
+apply button is the v0 prototype); Felix carded only on further escalation.
+Evidence: five build rows, seven escalations, six Architect-delegated, every
+ruling hand-relayed by Felix — while B8's fully-pre-chewed order escalated zero.
+Decided: E1/E2 rulings (delegated scope). Next: Felix relays the resume —
+**proceed B6** — then B7 → B9 to the close gates.

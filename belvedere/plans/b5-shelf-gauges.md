@@ -178,6 +178,17 @@ is a *second liveness authority* and P1 F5 warns exactly against those), or the 
 that the drift is temporary and dies with the pre-hook sessions. This binds the City
 View and the rail identically: both count live sessions off the same read.
 
+**Ruled 2026-08-27, Architect — both, because they answer different questions.** The
+census stays the **sole identity authority** (P1 F5 upheld: nothing else may claim a
+session, house it, or join it) and the drift is transitional — every invisible session
+pre-dates the 04:03Z horizon and dies with it. But `ps` enters as the **auditor
+delta**: one approximate, labeled count beside the census figure ("6 tracked · ≈38
+claude processes visible"), never merged into cards. A count is not an authority — it
+is the sensor's own standing drift alarm, the `sync/check` pattern: today the gap is
+the horizon's floor; once the floor decays, any reopening means a sensor is lying.
+Implementation → [B9](b9-visual-law.md) (amended), one read for shelf, rail, and City
+View.
+
 ### E2 — a resume must not carry a summons, so `/hands/fire`'s contract widened
 
 B4's wire contract makes `summons`, `stamp`, `model` and `effort` all required. The
@@ -214,6 +225,13 @@ Two narrowings inside the spec, both deliberate:
 - **A live session gets `jump to panel`, not `resume`.** Resuming something already
   running is not standing in it; `/hands/focus` is. A live session outside a cmux pane
   says so instead of offering a button that cannot work (hooks are venue-blind, P1 F1).
+
+**Ruled 2026-08-27, Architect — ratified whole.** The widening is blessed; "on a
+resume, a field the glass does not know is omitted from argv, never guessed" is
+standing hands law; both narrowings stand — the uuid-only handle is D10 applied (the
+stamp resolves through claude's most-recent rule, a blind choice while holding the
+exact handle), and jump-not-resume is the honest affordance. B7 inherits the widened
+contract via the bulletin.
 
 ### F1 — for the whole glass: a branch is not one path segment, and `buildingOf` assumed it was
 

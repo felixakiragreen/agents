@@ -34,6 +34,16 @@ them — B2's city/building pages, B3's rail, B4's banner and strip.
    order within groups, never dictates across them.
 6. **No dropdowns anywhere** — toggled or wrapping button groups.
 
+> **Amended 2026-08-27 (Architect, the B5 E1 ruling):** the WIP gauges — shelf
+> panel, rail, City View, one read — gain the **auditor delta**: beside the
+> census figure, one approximate process count (B5 E1's own `[c]laude` grep),
+> labeled — "6 tracked · ≈38 claude processes visible". The census stays the
+> **sole identity authority** (P1 F5): the auditor is a count, never sessions —
+> it houses nothing, joins nothing, and is never merged into cards. It is the
+> sensor's standing drift alarm (the `sync/check` pattern): the gap is the
+> pre-horizon floor today, decays with it, and any post-horizon reopening means
+> a sensor is lying. DoD gains: the delta line rendered on all three views.
+
 ## Acceptance criteria / DoD — evidence pasted here at build time
 
 - [ ] Fonts: prose renders Inter (vendored, served locally), data/titles/buttons
