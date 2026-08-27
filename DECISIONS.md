@@ -751,8 +751,8 @@
   **for form**; D32's meaning scope stands, and `dream.md` is untouched by its own law
   (D33). Edits: DOCTRINE §§3/4/7/8; templates ledger/issues/decisions. Amendments
   bind new writing on landing (doctrine is read at wearing); the corpus converges via
-  row 18. *(Amended 2026-08-26 at row 16's F2 ruling — proposed, pending Felix
-  countersign: where a pre-doctrine source never held a required field — a decider, a
+  row 18. *(Amended 2026-08-26 at row 16's F2 ruling · ✓ Felix same day: where a
+  pre-doctrine source never held a required field — a decider, a
   tier, a `Decided:`/`Next:` clause — migration writes the literal **`unrecorded`**: a
   typed absence, never a guess. Lint reads it as conforming; grep finds it forever;
   replacing it takes cited evidence and a visible commit, by a session, never the

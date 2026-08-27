@@ -1232,3 +1232,15 @@ buttons offer new-session / continue-in-window). MAP rows 16/18 trued. Decided: 
 rulings (GA-10); D63 amendment pending countersign. Next: Felix countersigns the D63
 amendment (`unrecorded`), then fires the wave — the Dispatcher summons fenced in
 [plans/18-great-recut.md](plans/18-great-recut.md); 17 stays behind its Felix-gate.
+
+---
+
+**2026-08-26 · Grand Architect · fable-max** — Third act, same window: D63's
+`unrecorded` amendment **✓ Felix** ("Countersigned"), marks converted in DECISIONS and
+MAP row 16. Felix returns to Belvedere — cleared: the wave is Dispatcher-tended (D61),
+returns to him only at escalations and the report, and 18a's method defers any
+building with live work, so Belvedere sittings and the wave run in parallel. Decided:
+D63 amendment ✓ Felix. Next: fire the wave — Dispatcher summons fenced in
+[plans/18-great-recut.md](plans/18-great-recut.md); behind it, Belvedere's own board
+(P1/P2 from cmux panes → the fold sitting → v0 build rows), whose evidence wakes
+row 17's Felix-gate.
