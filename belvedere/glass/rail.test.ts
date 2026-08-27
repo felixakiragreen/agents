@@ -187,6 +187,23 @@ describe("a Felix-holder baton is his card", () => {
 	});
 });
 
+describe('a session baton whose clause names Felix', () => {
+	const withText = (text: string) => {
+		const b = synthetic('session', [{ kind: 'summons', text: 'You are a Digger at opus-high.', mantle: 'Digger', tier: 'opus-high' }]);
+		return cards([{ ...b, baton: { ...b.baton!, text } }], rig, ACCOUNTS[0]!)[0]!;
+	};
+
+	test('keeps the parser\'s holder and its button, and says the clause names him', () => {
+		const html = cardHtml(withText("PENDING Felix's ruling — on a pass, fire the fence below."), true, ACCOUNTS);
+		expect(html).toContain('data-holder="session"');
+		expect(html).toContain('<button');
+		expect(html).toContain('The clause names <strong>Felix</strong>');
+	});
+
+	test('a clause not naming him carries no such note', () =>
+		expect(cardHtml(withText('fire the fence below.'), true, ACCOUNTS)).not.toContain('The clause names'));
+});
+
 // ---------- the honest cold state ----------
 
 describe('hands disabled', () => {

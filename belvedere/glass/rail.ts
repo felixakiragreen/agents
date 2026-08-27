@@ -214,13 +214,21 @@ function batonCard(c: Card & { kind: 'baton' }, armed: boolean, accounts: string
 	const dropped = c.baton.holder === 'prose'
 		? `<p class="note bad">Dropped baton: the Next clause carries no instrument and names no Felix-action (D63g/D64).</p>` : '';
 
+	// `classifyBaton` gives the instrument precedence over the word "Felix", so a clause reading
+	// "PENDING Felix's ruling — on a pass, fire: ⟨fence⟩" is a SESSION baton and gets a Dispatch
+	// button. All three of the live city's fireable batons read that way (B3 §Findings E2). The
+	// rail reports the collision rather than overruling the parser: the holder stays the
+	// parser's, and the card says out loud that the clause names him.
+	const named = c.baton.holder === 'session' && /\bFelix\b/.test(c.baton.text)
+		? `<p class="note">The clause names <strong>Felix</strong>. D64 reads the instrument first, so this is a session baton — read the clause before firing.</p>` : '';
+
 	// Felix's card and the dropped baton carry no shots at all — no payload, no handler, no button.
 	const shots = c.shots.length ? `<div class="shots">${c.shots.map(s => shotHtml(s, armed, accounts)).join('')}</div>` : '';
 
 	return `<article class="rail tone-${tone}" data-kind="baton" data-holder="${c.baton.holder}">
 		<div class="rail-h">${buildingLink(c.building)} ${pill(HOLDER[c.baton.holder], tone)} ${shape}
 			<span class="when">${esc(c.entry.date)} · ${esc(c.entry.mantle)}${c.entry.row ? ` (${esc(c.entry.row)})` : ''}</span></div>
-		<p class="rail-text">${inline(prose(c.baton.text), base)}</p>${forkNote}${dropped}${shots}</article>`;
+		<p class="rail-text">${inline(prose(c.baton.text), base)}</p>${forkNote}${dropped}${named}${shots}</article>`;
 }
 
 const gateCard = (c: Card & { kind: 'gate' }) =>
