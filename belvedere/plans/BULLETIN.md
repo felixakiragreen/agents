@@ -387,3 +387,70 @@ card is a `class="ges"` `/inbox` gesture" — same regression caught, plus one m
 smuggled in without the old payload attributes). The reasoning sits at the assertion.
 
 (Relayed from `master`, B6 LANDED 2026-08-27 — Builder)
+
+## → relay — B7 (composer) to B9, the flow chapter and the Architect: no escalation, three findings that bind
+
+Evidence: [b7-summon-composer.md](b7-summon-composer.md) §DoD and §Findings, commits `9e6707a`
+… `9434b2f` on `master`.
+
+1. **F1 — Claude Code's unit of trust is the PROJECT ROOT, it is per account, and a
+   repository never borrows an ancestor's trust. The naive reading of B3 F2 returns a FALSE
+   WARM.** B3 F2 is right that a cold tree stalls and that worktrees inherit; the rule
+   underneath is narrower than "nearest trusted ancestor", and getting it wrong renders a
+   stalled fire as a successful one — the exact silent success the B7 amendment exists to
+   prevent. Measured four ways:
+   **(a) per account** — each silo keeps its own `<config-dir>/.claude.json`. B3 F2 read
+   `~/.claude.json`, which is the file a session with **no** `CLAUDE_CONFIG_DIR` uses; the rig
+   always sets one, so the operative files are `~/.claude/.claude.json` (9 entries, including a
+   blanket `/Users/felix/code`), `~/.claude-thg-fgreen/.claude.json` (13, one an explicit
+   `false`) and `~/.claude-thg-doorbell/.claude.json` (12). **The same directory is warm on one
+   account and cold on another.**
+   **(b)** all **36** entries across the three accounts resolve to themselves under
+   `git rev-parse --path-format=absolute --git-common-dir` → `dirname`; **not one** is a
+   subdirectory of the project it names.
+   **(c) the two stalls, inside one trusted `~/code`** — a fire into the plain directory
+   `~/code/b7-founding-probe` reached its first user turn and beat the census **10 times**; a
+   fire into `~/code/b7-scratch-repo`, a fresh `git init` in that same `~/code`, produced **no
+   transcript directory and 0 census beats** with the `claude` process still alive holding the
+   dialog, and a worktree cut under it did the same. One difference: `.git`.
+   **(d)** cross-checked live: all **9** live sessions carrying a cwd are warm under the rule,
+   and a running session is warm by construction — one "cold" would have falsified it.
+   The rule, in `glass/trust.ts`: resolve the target to its project (the repo's **main**
+   worktree root via `--git-common-dir` — which is *why* a linked worktree inherits — else the
+   directory itself); its own entry wins; with no entry a **repository is cold** and a plain
+   directory asks its ancestors. Both spellings of every root are indexed, because Claude
+   records the cwd it was handed while `git` answers with symlinks resolved (`/tmp` IS
+   `/private/tmp`). **This binds B9's sweep, the flow chapter's DAG, and any row that composes a
+   fire into a directory the city has not run in before** — and it means **"fire at a scratch
+   repo" is ordering a stall** (F2): a fresh repo is cold on every account, so the worktree DoD
+   ran in `agents` on B3's precedent instead.
+
+2. **F4 — the live census is a load-bearing third source for the name-stamp, and the rail
+   still counts only two logs.** `nextStamp` gained an optional `known` list and the composer
+   passes every stamp the census carries. On live data: **`architect-belvedere` appears 0 times
+   in `invocations.jsonl` and 0 times in `hands.jsonl`** (`grep -c` both), yet the census
+   carries `architect-belvedere-01` right now — so the two logs alone hand that name out a
+   second time, and the composer mints `02`. **`railPage` and B6's apply button pass no `known`
+   list** (the default is `[]`) and would still double-assign it; `railPage` already calls
+   `readCensus()`, so the fix is threading one array through `cards()`. Parked as B3's ground,
+   not taken here.
+
+3. **F3 — for anyone composing a stamp: the glass's slug is narrower than row 14's theater
+   law, deliberately.** A theater may be `A-Za-z0-9._-` (`summon.zsh:_summon_theaters_load`);
+   `hands.ts`'s `STAMP` is `^[a-z][a-z0-9-]{0,63}$`. So `universal_robots_sdk` composes as
+   `builder-universal-robots-sdk-NN` here and `builder-universal_robots_sdk-NN` from the rig —
+   **two lineages for one theater**. Nothing is silent: the stamp is always on show and
+   editable, and an edit back to the rig's spelling is refused **loudly** by `parseFire` (400,
+   naming the rule). The fix is a contract change at B4's parse boundary — the Architect's.
+   Also matched to the rig here: **the Grand Architect keeps no theater** (`grand-architect-11`
+   measured live, not `grand-architect-belvedere-01`), and `theaterOf` reads
+   `.summon-theaters` — first non-blank line, no parent walk, a line the rig would refuse falls
+   back to the directory name.
+
+Also for B9, not blocking: `/summon` is built to the §3 design laws natively — **zero
+`<select>` elements on the page** (every choice is a radio wearing `.btn`, so the browser holds
+the state and the back button walks it), usage on each account chip *and* the strip above the
+group, encapsulation-first labels, a colour legend for the card's three states. It shares
+`.prose`'s unvendored Inter with the shelf — still B9's named third-party.
+
+(Relayed from `master`, B7 LANDED 2026-08-27 — Builder)
