@@ -291,3 +291,15 @@ convention is ruled.
   flag or post-launch send. Evidence:
   [belvedere/plans/p2-spawn-recipe.md](belvedere/plans/p2-spawn-recipe.md) §S3,
   §T4. `summon/**` is canon ground — not Belvedere's to cut.
+
+---
+
+- 2026-08-26 · Felix (via the Belvedere Architect) · **Considering eliminating the
+  Dispatcher mantle for a deterministic programmatic dispatcher — not an LLM.**
+  His words, at the D8 deployment ruling: "if this works, I am considering
+  eliminating the Dispatcher and having an even purer Deterministic Programmatic
+  Dispatcher -- not an LLM one." Context: Belvedere's hands + census + rail
+  mechanize fire/watch/notify; the charter's judgment residue (relay triage,
+  escalation classification, batch reports) is the open question. A consideration,
+  not a decree — queued for a GA sitting once Belvedere v0 usage exists (pairs
+  naturally with canon row 17's Felix-gate, which waits on the same evidence).

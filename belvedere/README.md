@@ -89,10 +89,11 @@ never truth.
    auto-submits. The shelf may address sessions **by name-stamp**
    (`claude --resume "digger-agents-04"` is legal — P4 §R).
 
-**Deployment (pending Felix's ruling, P4 §A):** the glass server runs OUTSIDE
-cmux under `socketControlMode: password` — the socket gate is *live* ancestry, so
-a pane-resident glass dies with every cmux restart and can never reconnect;
-pane-resident is bootstrap/fallback only. P2 §A4 has the two-row comparison.
+**Deployment (RULED — D8, Felix's smoke 2026-08-26):** the glass server runs
+OUTSIDE cmux under `socketControlMode: password` — the socket gate is *live*
+ancestry, so a pane-resident glass dies with every cmux restart and can never
+reconnect; pane-resident is bootstrap/fallback only. The server presents
+`CMUX_SOCKET_PASSWORD` from launch env or a gitignored local file, never git.
 
 **Design inputs (Felix, founding session):** theme = **felikai** —
 `~/code/felix/src/felikai.css` (89 lines; `hexwright/canon/felikai.css`
@@ -144,6 +145,13 @@ word only) · editing truth (forever-class, §2).
 | P2 | [Spawn recipe](plans/p2-spawn-recipe.md) — socket access model; new-workspace + send ×3 accounts; resume variant | — | Digger · opus-high | **LANDED** 2026-08-26 — no kill fired. Access gate is `socketControlMode` (server setting), **not** an env token: a pane process drives the socket with **zero `CMUX_*`** — D4 stands, glass ships in a pane today; outside access is a documented `password` mode, **Felix-gated** (E1). Recipe proven ×3 accounts — summons byte-exact as the **first user turn** (sha ×3), silo intact, resume proven. `/color` leaves the prompt (cmux owns colour) — that frees argv and closes the **359-fire paste gap**. `send` corrupts literal `\n`/`\t`/`\r`; never paste into a live TUI (T4). Spawn function: [`lab/p2/spawn.ts`](lab/p2/spawn.ts) |
 | P3 | [Parse coverage](plans/p3-parse-coverage.md) — board/ledger/baton/queue parsers vs every live doctrine repo | — | Digger · opus-high | **LANDED** 2026-08-26 — kill did NOT fire: one strict parser, **zero per-repo special cases**, 25/27 board docs · 365/365 rows found · 288 fully typed (79%). 14 failure classes, all general; **9 fold candidates (FC-1…FC-9) escalate to canon** — FC-1 (`Felix-gate` as a legal Staffing value) and FC-7 (fenced summons in `Next:`) **gate the baton rail**: 1 of 8 ledger tails is fireable today. Findings + JSON shapes in [P3](plans/p3-parse-coverage.md) |
 | P4 | [Restore semantics](plans/p4-restore-semantics.md) — quit/relaunch over a live turn, measured | P1; P2 | Digger · opus-high | **LANDED** 2026-08-26 — kill did NOT fire: restore lost **no session**; both killed sessions returned **byte-identical** (458/736796 · 505/791537 either side). cmux persists a per-panel **resume binding, never conversational state** — `wasAgentRunning` gates it, the binding carries `CLAUDE_CONFIG_DIR`, so **the silo survives restore**. Unattended restore: **socket back 0.8 s, agents re-exec'd 3.4 s**. Loss = **the in-flight assistant turn, nothing more** — assistant messages are atomic, and a restored session **does not retry** the dropped turn (`No response requested.`). Control (§C): a cmux quit costs exactly what closing a terminal tab costs (SIGHUP; SIGKILL flushes nothing and still resumes clean) — **cmux's delta is recovery, not loss**. **§A upgrades P2's E1:** socket access is *live* ancestry (orphan with `ppid=1` → denied), so a glass in a pane **cannot survive a cmux restart** — `password` mode is load-bearing, not cosmetic. One residual measurement Felix-gated. Findings in [P4](plans/p4-restore-semantics.md) |
+| B1 | [Census deploy](plans/b1-census-deploy.md) — the liveness sensor live ×3 accounts | — | Builder · opus-high | OPEN — cut 2026-08-26, spec blessed (Architect, on P1) |
+| B2 | [Glass spine](plans/b2-glass-spine.md) — bun server: City View + building pages over `doctrine/` + census | — | Builder · opus-high | OPEN — cut 2026-08-26, spec blessed (Architect, on P1–P4); parallel-safe with B1 (worktrees) |
+| G1 | Batch-2 review — merge B1+B2; **Felix-gate: census deploy ×3 + B2 visual pass**; cut B3–B6 orders | B1, B2 | Architect · fable-high | OPEN — gates batched here (D44) |
+| B3 | Baton rail — move/wave/fork buttons, Felix-cards never auto-fired | G1 | Builder · opus-high | OPEN — order cut at G1 |
+| B4 | Hands — fire (spawn+summons-as-argv), auto worktree+branch, jump-in, HALT | G1 | Builder · opus-high | OPEN — order cut at G1 |
+| B5 | Shelf (resume by stamp/uuid ×3) + usage strip + WIP gauges | G1 | Builder · opus-high | OPEN — order cut at G1 |
+| B6 | Sovereign's inbox — glass gestures → ISSUES appends + the apply button | G1 | Builder · opus-high | OPEN — order cut at G1 |
 
 **Batch 1 (cut at founding, 2026-08-26) — Felix-tended, reasons named:** the venue
 is his live desktop (first contact with a new substrate — his eyes at each landing),
@@ -167,7 +175,29 @@ substrate physics owe the format law nothing.
 **Batch 1 CLOSED 2026-08-26 — four landings, zero kills.** The physics held:
 census join deterministic, spawn recipe proven ×3, parsers normative, restore
 lossless. One canon escalation filed (the rig's `/color` turn-burn, P2's find);
-one Felix-gate open: the deployment ruling (§3, `socketControlMode: password`).
+the deployment ruling landed as D8 (Felix's smoke, same day).
+
+**Batch 2 (cut 2026-08-26, the fold sitting) — the spine wave, Dispatcher-tended
+(D61):** B1 ∥ B2, parallel-safe by construction — disjoint dirs
+(`belvedere/census/` vs `belvedere/glass/`), **worktrees mandatory** (branches
+`bv/b1-census`, `bv/b2-glass`; the shared checkout's branch is never switched;
+unmerged branches ride the board until G1). Neither row drives cmux and neither
+touches a live settings file — no desktop contention, no concurrency ceiling.
+Dispatcher creates [plans/BULLETIN.md](plans/BULLETIN.md) at first dispatch;
+announce duty applies (canon D67). **G1 batches every gate (D44):** Architect
+merges or rejects both branches and cuts B3–B6's orders; Felix runs the census
+deploy ×3 and gives B2 its visual pass — nothing dribbles between. Dispatcher
+summons, verbatim:
+
+```
+You are a Dispatcher at sonnet-medium.
+Wear ~/code/agents/canon/mantles/dispatcher.md,
+then read ~/code/agents/belvedere/README.md §§5–6 (agreements, board, this batch
+note) and run batch 2: dispatch B1 and B2 in parallel — kickoffs verbatim from
+their orders plus the rider at ~/code/agents/belvedere/plans/RIDER.md, worktrees
+per the batch note — tend to landing, then stop: G1 is the Architect's and
+Felix's. Escalations and the batch report come back to Felix.
+```
 
 **Post-probe return:** the probes' fold sitting (this Architect) cuts the build
 rows — the v0 spine slices D5's scope; nothing builds on unmeasured physics. Glass
@@ -177,7 +207,10 @@ campaign's output feeds the Standards Office.
 **Parked:** the sovereign's-DESK mint (a GA sitting, when inbox volume proves the
 genre — keel §7) · superset's attachments convention (rides the images chapter) ·
 rail fire-button affordance — new session / continue in an existing window (Felix
-via GA-10, already legal by law; UX input when the rail row is cut).
+via GA-10, already legal by law; UX input when the rail row is cut) · the
+programmatic-dispatcher horizon (Felix, 2026-08-26, filed to the canon inbox —
+"considering eliminating the Dispatcher for a deterministic programmatic one";
+the hands grow toward it, v0 usage is the evidence).
 
 ## 7. Decisions
 
@@ -201,6 +234,14 @@ via GA-10, already legal by law; UX input when the rail row is cut).
   day): **Census home: `summon/log/census/`** — beside `invocations.jsonl`,
   one telemetry neighborhood, already gitignored (verified at founding:
   `.gitignore:1  summon/log/`).
+- **D8** (2026-08-26, Felix — smoke by his own hand): **Deployment (b) ruled: the
+  glass lives OUTSIDE cmux.** Socket auth `socketControlMode: password`; the
+  server presents `CMUX_SOCKET_PASSWORD` (the documented CLI fallback, P2 §A3),
+  value in a gitignored local file or launch env, never committed. Pane-resident
+  is fallback only — the gate is live ancestry; a pane glass dies with every cmux
+  restart and can never reconnect (P4 §A). Evidence: `cmux --password '…'
+  workspace list` from a non-cmux terminal listed both live workspaces,
+  2026-08-26.
 - **D7** (2026-08-26, Felix): **The mandate is AI-native.** Belvedere is designed
   for what the city should be, never capped by what markdown made it — storage
   format unconstrained, terminal-first conventions carry no veto, city-wide

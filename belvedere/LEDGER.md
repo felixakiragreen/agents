@@ -247,3 +247,20 @@ posture; D8 when ruled). Next: Felix flips `socketControlMode` to `password` in
 cmux Settings + sets a password, then the 10-second smoke from any non-cmux
 terminal (`cmux --password '<pw>' workspace list`); on green, the fold sitting
 cuts the v0 build batch onto deployment (b).
+
+---
+
+**2026-08-26 · Architect · fable-max** — The fold sitting's cut: **D8 ratified**
+(deployment (b) — glass OUTSIDE cmux, `socketControlMode: password`; Felix's own
+smoke from a non-cmux terminal is the evidence) and **batch 2 cut** onto it. Board
+gains B1–B6 + G1: [B1](plans/b1-census-deploy.md) (census deploy — hook + ritual,
+spec blessed on P1 F5/F6) ∥ [B2](plans/b2-glass-spine.md) (glass spine — City View
++ building pages over `doctrine/` + census, spec blessed on P1–P4, felikai theme,
+port 4400) in worktrees `bv/b1-census`/`bv/b2-glass`; G1 batches every gate (D44):
+Architect merge + B3–B6 order-cutting, Felix's census deploy ×3 + B2 visual pass.
+B3–B6 (rail · hands · shelf+strip · inbox) cut OPEN, orders at G1.
+[RIDER.md](plans/RIDER.md) instantiated (first dispatched batch). Felix's
+programmatic-dispatcher musing filed to the canon inbox (a consideration, not a
+decree) + parked here. Decided: D8 (✓ Felix, his smoke). Next: fire the
+Dispatcher — summons fenced in the batch note ([README §6](README.md)); behind
+it: G1, then B3–B6 in G1's cut order.
