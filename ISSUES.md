@@ -168,3 +168,53 @@ $ doctrine lint ~/code/whiteboardy | grep board.depends
 ```
 
 ---
+
+- 2026-08-26 · Architect (row 18f) · **`doctrine migrate` corrupts markdown when a
+  status cell's bold run is wider than its leading verdict token.**
+
+`src/migrate.ts`'s `replaceLead` matches `^(?:\*\*\s*)?TOKEN(?:\s*\*\*)?`. That is right
+for `**MERGED**`, and wrong for `**MERGED (2026-08-11, `6dc03690`)** — DoD met …`, where
+the bold run spans the whole verdict clause: the opener is consumed with the token and the
+**closer is left dangling**.
+
+```
+- | … | **MERGED (2026-08-11, `6dc03690`)** — DoD met on every line: build green, …
++ | … | LANDED — MERGED (2026-08-11, `6dc03690`)** — DoD met on every line: build green, …
+                                                 ^^ orphaned
+```
+
+Four rows in `cap-mega/docs/advanced-naming-system.md` (N12, N13, N16, N17) hit it; the
+same file's eight *unbolded* `MERGED (…)` cells migrate correctly, so the bug is purely the
+wide-bold case. **The round-trip law does not catch it** — `annotation` is a field the
+`status.verdict` rule declares it may change, so the assertion passes over the damage.
+`status.retired` and `status.pending` share `replaceLead` and the same exposure.
+
+18f did not write those edits. It hand-applied the correct spelling instead
+(`**LANDED — MERGED (…)**`, state inside the bold run), verified by `doctrine migrate
+cap-mega/docs` afterwards reporting "already in the current grammar", and reports the bug
+here per row 18's out-of-scope clause. Fix belongs in row 16's suite, with a fixture whose
+bold run is wider than its token.
+
+- 2026-08-26 · Architect (row 18f) · **D63's Staffing grammar has no spelling for a
+  deliberately-unstaffed row, and `unrecorded` is the wrong word for one.**
+
+Distinct from the `unrecorded` vocabulary gap 18a/18d filed — that one is the linter not
+knowing a token the doctrine mandates. This is the doctrine not having a token at all.
+
+`cap-mega/docs/waypoint-stepper` rows 18, 19 and 23 are OPEN and read `unstaffed` in
+Staffing. That is a *recorded fact* — rows 18/19's own Status says "Felix's call whether it
+is worth a hook" — not an absent record, so writing `unrecorded` would assert ignorance
+where the board asserted knowledge. Spelling them `Felix-gate` is also wrong: they are work
+rows whose go/no-go is Felix's, not gate rows. 18f left all three verbatim.
+
+Two candidate rulings, both cheap: mint `unstaffed` as a third legal Staffing token
+(D63 as amended), or rule that an unstaffed OPEN row is malformed by construction and the
+Architect owes it a staffing at cut time. The second is stricter and matches "every row
+staffed" in the architect charter; the first matches what boards actually do.
+
+Residual lint from 18f's four buildings, for the count: **7 failures, all this class or
+18a's** — 3 × `board.tier` (`unrecorded`, waypoint-stepper rows 12–14, whose LOG.md records
+only "Architect (fable)", a model and not a tier), 4 × `board.staffing` (3 × `unstaffed`
+above, 1 × `unrecorded` on ch2 row 05, killed before it was ever staffed).
+
+---
