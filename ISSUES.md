@@ -218,3 +218,61 @@ only "Architect (fable)", a model and not a tier), 4 × `board.staffing` (3 × `
 above, 1 × `unrecorded` on ch2 row 05, killed before it was ever staffed).
 
 ---
+
+- 2026-08-26 · Architect (row 18h) · **The register silently skips subproject-format
+  ledgers, and the decisions parser silently skips non-`D`-prefixed decision ids —
+  both zero-candidate, not zero-failure.**
+
+`~/code/rooted`'s two buildings (`repot`, `archive/arborist`) are DOCTRINE §3
+subprojects: `README.md` carries the board **and** inline `## Decisions` / `## Ledger`
+sections (no `LEDGER.md` file). `building.ts`'s decisions parser already falls back to
+the master doc (`pick('decisions')[0] ?? boardFiles.find(f =>
+MASTER_DOCS.includes(basename(f)))`) — but the ledger parser has **no such fallback**
+(`pick('ledger')[0] ?? null`, full stop). Both buildings lint "ledger none", not
+"ledger: N failures" — their `## Ledger` sections (9 and 20 dated entries respectively,
+DOCTRINE §7-shaped) are never read at all.
+
+Separately, `parseDecisions` requires the literal prefix `D` (`/^\s*[-*]\s*\*\*D\d/`,
+`src/parse.ts:307`), so a building whose decision ids carry a project prefix —
+`repot`'s `RP-1`..`RP-8`, `arborist`'s `A1`..`A26` — produces `candidates: 0`, zero
+failures, zero decisions in the queue. Reproduction:
+
+```
+$ bun -e "import{parseDecisions}from './doctrine/src/parse';
+console.log(parseDecisions('## Decisions\n\n- **RP-1** (Felix, 08-26): Campaign named **Repot**.\n'))"
+{ decisions: [], queue: [], fails: [], candidates: 0 }
+```
+
+Both gaps read as "0 failures" — worse than an `unrecorded`-class failure, which at
+least says something was seen. row 16's own hexwright/bob fixtures all use bare `D<n>`
+and a standalone `LEDGER.md`, so neither gap tripped the corpus test. 18h did not
+hand-fix either parser (out of scope) or hand-migrate the 29 affected entries (D63i's
+title-bold question compounds the ledger one — see the next entry). Board-visible
+residues in both buildings were ruled and lint clean; the ledger/decisions sections
+stand unverified. Simmy (18e) already splits its ledger to a real `LEDGER.md`, so this
+does not block that row, but any later subproject-format building should check for it
+before trusting a "0 failures" reading.
+
+---
+
+- 2026-08-26 · Architect (row 18h) · **No `migrate` rule covers a decisions entry whose
+  bold run wraps the attribution instead of closing after the id, and title selection
+  for the fix is an editorial call, not a parse.**
+
+`cap-mega/felix/spacex-dashboard`'s (and its worktree twin `spacex-dashboard-c2`'s)
+`## Decisions` section reads `- **D1 (2026-08-13, Felix + Architect):** <prose>.` — the
+bold spans `D1 (date, decider):`, with no separate bolded title (D63i wants `- **D1**
+(date, decider): **<title>.** <body>`). `decisionHead` in `src/migrate.ts` only matches
+the `**D<n> · <date> · <title>**` (all-bold, `·`-separated) pre-doctrine shape — this
+one doesn't match, and migrate leaves it untouched. All 7 entries in both files hit
+this identically (shared pre-branch origin).
+
+Fixing it by hand means choosing where each entry's title ends and its body begins —
+none of the 7 have a natural title-length first sentence (D1 and D6 in particular run
+one clause into the next with no seam). That is a judgment call the fence reserves
+against ("no reworded prose"), not a mechanical punctuation fix, so 18h left all 14
+`decision.head` failures (7 × 2 files) standing rather than guess. Row 16's suite is
+the right owner for a second `decisionHead` rule variant, once a title-boundary
+convention is ruled.
+
+---

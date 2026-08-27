@@ -1313,3 +1313,26 @@ count is a symptom, not a clean bill. Both bulletined for the rows still running
 `unstaffed` token and the snappy separator repair are both the Grand Architect's.
 Next: the wave's Dispatcher closes 18f (evidence rides its report verbatim); snappy
 returns as its own row once the separator fork is ruled.
+
+---
+
+**2026-08-26 · Architect · sonnet-high (18h)** — rooted (repot + archive/arborist) and
+the two spacex-dashboard ledgers migrated. rooted: 0/0 both buildings — no `LEDGER.md`
+to migrate (DOCTRINE §3 subprojects, board-only lint surface), Depends-on/Staffing
+residues hand-ruled (`Felix-gates:` plural, `Felix (Xcode UI)`, a comma the column
+itself splits inside one Felix-gate clause, scheduling prose off a Depends-on cell).
+spacex-dashboard: `migrate --write` (round-trip clean) plus hand-ruled residues —
+22 → 8, both classes remaining escalated rather than guessed. spacex-dashboard-c2
+(confirmed a linked worktree, branch `chapter-2`, the mainline's own ledger already
+calling it "merged and inert; remove at leisure") left untouched — a stale checkout,
+not a live doc, 20 residual failures standing. Two canon defects filed to
+[ISSUES.md](ISSUES.md): the register's decisions→master-doc fallback has no ledger
+counterpart (rooted's inline `## Ledger` sections are unread, not failing); and
+`parseDecisions` hardcodes the `D` id prefix, so `RP-`/`A`-prefixed decisions
+(rooted's 34) parse zero candidates, zero failures — silent, not reported. Bulletined
+for 18g in case a worktree board turns out subproject-shaped. Commits: rooted
+`11d00d4` (branch `chris`), spacex-dashboard `f6be754` (`master`); here: ISSUES ×2,
+bulletin, plan findings. Decided: nothing — both defects are the Grand Architect's;
+the decision-title-boundary question (spacex's `decision.head` residue) is row 16's
+suite to rule, not a hand-guess. Next: the wave's Dispatcher closes 18h (evidence
+rides its report verbatim); 18g is the wave's last open row.

@@ -34,7 +34,7 @@ city-wide by the Sovereign (D63/D65: "We'll migrate every project, I don't care"
 | 18e | cap-mega/simmy — ledger 29 entries (5 parse), ISSUES ## headings → D63h bullets, board depends | — | Architect · opus-high | LANDED (2026-08-26) — 77→1 failure (linter unrecorded gap, escalated), commits b2199f62e/dfde315b4/c5a6f4dce (cap-mega) |
 | 18f | cap-mega snappy + snappy/ch2 + docs cluster (units, waypoint-stepper, advanced-naming, node-param) | — | Architect · opus-medium | LANDED partial (2026-08-26) — 4 of 5 buildings migrated (7 residual, all the escalated vocab gaps); **snappy BLOCKED** on a malformed ledger, escalated. Findings §18f |
 | 18g | cap-mega worktree boards — manny, tig-avc, schema-migration, cornerizer (columns re-cut to the canonical five): each edited inside its own worktree, committed on its own branch | — | Architect · opus-medium | OPEN |
-| 18h | rooted (repot + arborist archive) + spacex ×2 — small sweeps; absent Decided:/Next: → `unrecorded` | — | Architect · sonnet-high | OPEN |
+| 18h | rooted (repot + arborist archive) + spacex ×2 — small sweeps; absent Decided:/Next: → `unrecorded` | — | Architect · sonnet-high | LANDED (2026-08-26) — rooted 0/0 (2 buildings); spacex-dashboard 22→8 (both escalated tool gaps); spacex-dashboard-c2 deferred (merged, inert worktree). Two new canon defects filed. Commits: rooted `11d00d4`, spacex-dashboard `f6be754` |
 
 **Batch note (cut 2026-08-26, GA-10).** All eight parallel-safe: disjoint repos;
 18e/f/g share cap-mega but touch disjoint files, and 18g works inside per-board
@@ -187,6 +187,90 @@ one OPEN row and nothing IN FLIGHT) · 5 ✓.
 **Re-run contract.** When the two `migrate` rules and the resolution-scope ruling land,
 re-fire 18c against whiteboardy: the ledger migrates in one clean pass and 28 board
 cells fall out with it. Nothing landed here needs undoing.
+
+---
+
+### 18h — rooted + spacex ×2 · LANDED 2026-08-26
+
+**rooted: 0/0.** Both buildings are DOCTRINE §3 subprojects (`README.md` as master doc,
+no `LEDGER.md`/`DECISIONS.md`), so `migrate` had nothing to write — the board was the
+only lint-visible surface, and it's now clean:
+
+```
+$ doctrine lint ~/code/rooted          # before               after
+    4  board.depends                     4                     0
+    1  board.staffing                     1                     0
+  5 failure(s) in 2 class(es)       →  0 failure(s) in 0 class(es)
+  25 rows · 24/25 typed (96%)      →  25 rows · 25/25 typed (100%)
+```
+
+Residues ruled by hand (no migrate rule touches Depends-on prose): `arborist` ARB-02
+Staffing `Felix (Xcode UI)` → `Felix-gate (Xcode UI)`; ARB-05 Depends-on trimmed to the
+real row id `ARB-08`, its scheduling gloss moved to Status; ARB-16/ARB-18's internal
+comma inside one `Felix-gate: <text>` clause (which the column itself splits on)
+reworded "," → "and", wording otherwise untouched; `repot` REP-05's `Felix-gates:`
+(plural, not the D63 token) → `Felix-gate:`. Ledger-style entries appended to both
+docs' inline `## Ledger` sections in-house-style (the tool can't verify them — see
+below). Commit `11d00d4` (rooted, branch `chris`).
+
+**spacex-dashboard: 22 → 8, both residual classes escalated, not hand-fixed.**
+`migrate --write` handled the board (verdict-leads, retired spelling, Felix-gate token
+— 4 edits) and the ledger's tier-slot extraction (4 edits), round-trip clean both
+files. Hand-ruled after: every ledger head's row parenthetical trimmed to the bare row
+id (`01`/`02`/`03`) or dropped where no board row ran (2 founding/admin sessions);
+five "Next —" (em dash) retyped "Next:" — same word, wrong punctuation, zero content
+change; three entries with **no** Decided:/Next: clause at all got the literal
+`unrecorded` per this row's own brief; row 01's Depends-on freeze-waiver aside moved
+from the cell (which isn't legal prose) into Status. New migration-session ledger
+entry appended in full D63 grammar, itself lint-clean.
+
+```
+$ doctrine lint ~/code/.../spacex-dashboard   # before              after
+     7  decision.head                            7                    7
+     5  ledger.row                                5                    0
+     5  ledger.next                               5                    0
+     3  ledger.decided                            3                    0
+     2  board.verdict-leads                       2                    0
+     2  board.depends                             1→0 (1 hand-fixed)   0
+     1  ledger.tier                               1                    1
+     1  board.retired                             1                    0
+     1  board.staffing                            1                    0
+  22 failure(s) in 9 class(es)             →   8 failure(s) in 2 class(es)
+```
+
+The 8 residual: **7 `decision.head`** — no migrate rule matches a decisions entry whose
+bold wraps `D<n> (date, decider):` instead of closing after the id (D63i wants a
+separately-bolded title); fixing it means choosing where each of the 7 titles ends,
+which is an editorial call the judgment fence reserves, not a parse. **1 `ledger.tier`**
+— the founding entry's own post-landing follow-up never recorded a tier; same
+wave-wide gap 18a/18d already filed (doctrine has zero `unrecorded` vocabulary). Both
+filed to `~/code/agents/ISSUES.md`. Commit `f6be754` (spacex-dashboard, `master`).
+
+**spacex-dashboard-c2: deferred, untouched, 20 residual failures standing.** Confirmed
+by `git worktree list` — a linked worktree of `spacex-dashboard`, branch `chapter-2`,
+and that branch's own ledger entry in the mainline already reads "merged and inert;
+remove at leisure." Row 16's out-of-scope carve-out ("nobody edits stale checkouts —
+twins conform when their branches merge") applies in spirit even though the register
+doesn't auto-skip it (it lives outside the `.claude/worktrees/` convention the register
+special-cases, so it registers as its own building rather than a skipped twin — noted,
+not fixed, out of this row's scope). It also carries unrelated dirty local state
+(6 modified screenshot PNGs) unconnected to doctrine. Recommend Felix run `git worktree
+remove` at his convenience; no doc edit made.
+
+**Two new canon defects filed** (`~/code/agents/ISSUES.md`, echoed to `BULLETIN.md` for
+18g): (1) the register has a decisions→master-doc fallback for subprojects but no
+matching fallback for an inline `## Ledger` — rooted's ~29 combined ledger entries are
+invisible to `doctrine lint`, not failing, just unread; (2) `parseDecisions` hardcodes
+the id prefix `D`, so `RP-`/`A`-prefixed decisions (rooted's 34 combined) produce zero
+candidates and zero failures — silently, not as a reported gap. Neither trips on this
+row's other targets (bare `LEDGER.md` + `D<n>` ids), so DoD 1's "0 failures" for rooted
+is true of what the tool can see, not of the whole doc.
+
+**DoD:** 1 — pasted above per building; rooted 0/0, spacex-dashboard 8 (both classes
+escalated, evidenced), spacex-dashboard-c2 deferred (worktree, out of scope) · 2 ✓ —
+rooted's two inline Ledger sections and spacex-dashboard's `LEDGER.md` all carry this
+sweep's entry · 3 ✓ — round-trip asserted `ok` on every `migrate --write`, hand edits
+verified by re-lint after every file · 4 n/a — no live batch on either repo · 5 ✓.
 
 ---
 

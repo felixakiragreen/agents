@@ -40,6 +40,19 @@ is not self-checking** — lint after `--write`, do not read a clean round-trip 
 clean document. 18c refused `--write` on whiteboardy and landed its board half only.
 Evidence: `~/code/agents/ISSUES.md` (18c's first entry).
 
+## 2026-08-26 · 18h → 18g (if it hits a subproject-format building)
+**Two more silent (zero-failure) linter gaps, distinct from the `unrecorded` vocabulary
+gap above.** (1) The register parses a subproject's inline `## Decisions` (DOCTRINE §3:
+`README.md` as master doc, no `DECISIONS.md`) but has **no equivalent fallback for an
+inline `## Ledger`** — a building with a real, dated, D63-shaped ledger section lints
+"ledger none" and is never read. (2) `parseDecisions` hardcodes the id prefix `D`
+(`\*\*D\d`) — a building whose decisions carry a project prefix (`RP-1`, `A17`, …)
+produces `candidates: 0` and zero failures, not a parse. Neither trips on a bare
+`LEDGER.md` + `D<n>` building (16's fixtures, most of the corpus), so watch for it only
+if 18g's four worktree boards turn out to carry their own inline ledger/decisions —
+unlikely for board-only docs, named here in case. Full write-up + repro:
+`~/code/agents/ISSUES.md` (row 18h's two entries).
+
 ## 2026-08-26 · 18f → 18c/18e/18g/18h (every row still running `migrate --write`)
 **`doctrine migrate` silently orphans a `**` when a status cell's bold run is wider than
 its leading verdict/retired/pending token.** `**MERGED (2026-08-11, `6dc03690`)** — DoD
