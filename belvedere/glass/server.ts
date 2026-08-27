@@ -11,6 +11,8 @@ import { join } from 'path';
 import { handsRoute } from './hands';
 import { HOST, PORT } from './paths';
 import { buildingPage, cityPage, docPage, errorPage, notFound } from './pages';
+import { railPage } from './rail';
+import { boot } from './register';
 
 const HERE = import.meta.dir;
 const ASSETS: Readonly<Record<string, string>> = { '/felikai.css': 'felikai.css', '/glass.css': 'glass.css' };
@@ -22,7 +24,8 @@ function route(url: URL): Response {
 	const asset = ASSETS[url.pathname];
 	if (asset) return new Response(readFileSync(join(HERE, asset), 'utf8'), { headers: { 'content-type': 'text/css; charset=utf-8' } });
 
-	if (url.pathname === '/') return html(cityPage());
+	if (url.pathname === '/') return html(railPage());       // the morning (B3)
+	if (url.pathname === '/city') return html(cityPage());
 
 	if (url.pathname === '/doc') {
 		const p = url.searchParams.get('p');
@@ -37,6 +40,10 @@ function route(url: URL): Response {
 
 	return html(notFound(url.pathname), 404);
 }
+
+// The register walk is seconds of filesystem (register.ts). Pay it at boot, off the request
+// path, so the first rail Felix opens in the morning is already warm.
+boot();
 
 const server = Bun.serve({
 	hostname: HOST,                          // D3: 127.0.0.1 and nothing else, until real auth

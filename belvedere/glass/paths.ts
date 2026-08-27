@@ -21,9 +21,10 @@ export const HALT = join(dirname(CENSUS_DIR), 'HALT');
 /** The credential, outside the repo and outside every backup the city keeps (B4 §2). */
 export const HANDS_ENV = process.env.BELVEDERE_ENV ?? join(home, '.config/belvedere/env');
 
-/** The rig's tables: mantle → colour, config dir → account label. */
+/** The rig's tables: mantle → colour, config dir → account label, and the lineage counter. */
 export const PRESETS = join(home, 'code/agents/summon/presets.tsv');
 export const ACCOUNTS = join(home, 'code/agents/summon/accounts.tsv');
+export const INVOCATIONS = join(home, 'code/agents/summon/log/invocations.jsonl');
 
 /** D3 — localhost only. Real auth arrives with the Ava chapter, before any other bind. */
 export const HOST = '127.0.0.1';

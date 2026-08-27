@@ -160,6 +160,48 @@ ul.queue li:last-child, ul.issues li:last-child { border-bottom: 0; }
 .when { color: var(--grey-500); }
 .who { color: var(--grey-400); font-weight: 600; }
 
+/* --- the baton rail: one column, the morning --- */
+.citystrip {
+	display: flex; flex-wrap: wrap; align-items: center; gap: 16px;
+	padding: 9px 12px; margin-bottom: 14px;
+	border: 1px solid var(--grey-800); border-radius: 4px; background: var(--grey-900);
+	font-size: 11px;
+}
+.citystrip .more { letter-spacing: .14em; text-transform: uppercase; font-size: 10px; color: var(--felix); }
+.citystrip .bldg { display: inline-flex; align-items: center; gap: 6px; }
+.citystrip .where { color: var(--grey-400); }
+
+.railcol { display: flex; flex-direction: column; gap: 10px; }
+.rail {
+	border: 1px solid var(--grey-750); border-left: 3px solid var(--t); border-radius: 5px;
+	background: linear-gradient(180deg, var(--grey-900), #060605); padding: 12px 14px;
+}
+.rail-h { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; margin-bottom: 7px; }
+.rail-h .where { font-size: 12px; font-weight: 700; letter-spacing: .08em; color: var(--grey-150); }
+.rail-h .when { margin-left: auto; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--grey-600); }
+/* Never crop the truth — a molt-era Next clause that runs long scrolls in place. */
+.rail-text { margin: 0; font-size: 12.5px; color: var(--grey-250); max-height: 11em; overflow-y: auto; }
+.rail[data-holder="felix"] { background: linear-gradient(180deg, #14101a, #060605); }
+
+.shots { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+.shot { border: 1px solid var(--grey-800); border-radius: 4px; background: var(--grey-950); padding: 9px 11px; }
+.shot-h { display: flex; flex-wrap: wrap; align-items: baseline; gap: 7px; font-size: 12px; color: var(--grey-200); }
+.shot-h .src { margin-left: auto; font-size: 10px; color: var(--grey-600); word-break: break-all; }
+.shot .summons { max-height: 15em; overflow-y: auto; }
+.acts { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 9px; }
+.acts .out { font-size: 10.5px; color: var(--grey-500); word-break: break-all; }
+
+button, select.account {
+	font-family: var(--mono); font-size: 10.5px; font-weight: 700; letter-spacing: .08em;
+	text-transform: uppercase; padding: 4px 11px; border-radius: 3px; cursor: pointer;
+	background: transparent; color: var(--grey-300); border: 1px solid var(--grey-650);
+	transition: border-color var(--snap) var(--ease), color var(--snap) var(--ease);
+}
+select.account { text-transform: none; letter-spacing: 0; cursor: pointer; }
+button.go { color: var(--felix); border-color: color-mix(in srgb, var(--felix) 50%, transparent); }
+button:hover:not(:disabled) { border-color: var(--felix); color: var(--felix); }
+button:disabled { opacity: .38; cursor: not-allowed; }
+
 pre.doc {
 	margin: 0; padding: 12px; border: 1px solid var(--grey-800); border-radius: 4px;
 	background: var(--grey-950); color: var(--grey-300); font-size: 12px;

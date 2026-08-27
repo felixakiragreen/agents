@@ -3,9 +3,10 @@
 
 import { readFileSync, statSync } from 'fs';
 import { dirname, resolve, sep } from 'path';
-import { discover, lastWalk, type Building, type Board, type BoardRow, type Fail } from '../../doctrine';
+import { discover, type Building, type Board, type BoardRow, type Fail } from '../../doctrine';
 import { readCensus, isLive, type CensusRead, type Session } from './census';
 import { handsState } from './hands';
+import { city } from './register';
 import { readRig, accountLabel, mantleOf, type Rig } from './rig';
 import { CITY } from './paths';
 import { baseOf, docHref, esc, inline, label, page, pill, rigTone, sessionTone, short, stateTone } from './html';
@@ -14,7 +15,7 @@ const DOC_BYTES = 2 << 20;
 
 // ---------- shared bits ----------
 
-const ago = (seconds: number) => {
+export const ago = (seconds: number) => {
 	const d = Math.max(0, Date.now() / 1000 - seconds);
 	if (d < 90) return `${Math.round(d)}s`;
 	if (d < 5400) return `${Math.round(d / 60)}m`;
@@ -26,7 +27,7 @@ const ago = (seconds: number) => {
  * A session's building is the deepest one containing its cwd. A worktree checkout counts as
  * its repo: `<repo>/.claude/worktrees/<branch>/x` is `<repo>/x` wearing a branch.
  */
-function buildingOf(cwd: string | null, buildings: Building[]): Building | null {
+export function buildingOf(cwd: string | null, buildings: Building[]): Building | null {
 	if (!cwd) return null;
 	const norm = cwd.replace(/\/\.claude\/worktrees\/[^/]+/, '');
 	let best: Building | null = null;
@@ -36,11 +37,11 @@ function buildingOf(cwd: string | null, buildings: Building[]): Building | null 
 }
 
 /** One live session, as a dot: mantle-coloured, ringed by state. Unknown reads as unknown. */
-const window_ = (s: Session, rig: Rig) =>
+export const window_ = (s: Session, rig: Rig) =>
 	`<span class="win tone-${rigTone(rig.colours.get(mantleOf(rig, s.stamp) ?? '') ?? null)} st-${s.state}"`
 	+ ` title="${esc(`${s.stamp ?? s.sid.slice(0, 8)} · ${s.state} · ${accountLabel(rig, s.account) ?? 'account unknown'} · ${ago(s.last.t)} ago`)}"></span>`;
 
-const censusNote = (c: CensusRead) => c.present
+export const censusNote = (c: CensusRead) => c.present
 	? `census ${c.beats} beats${c.malformed ? ` · <span class="bad">${c.malformed} unreadable</span>` : ''}`
 	: `<span class="bad">unknown — census not deployed</span>`;
 
@@ -50,12 +51,12 @@ const stateCounts = (b: Building) => {
 	return n;
 };
 
-// ---------- / — the City View ----------
+// ---------- /city — the City View ----------
 
 export function cityPage(): string {
 	const t0 = performance.now();
-	const buildings = discover([CITY]);
-	const suppressed = lastWalk.suppressed;
+	// The E1 ruling binds every page: the register comes warm, the content is re-read here.
+	const { reg, buildings } = city();
 	const census = readCensus();
 	const rig = readRig();
 
@@ -109,9 +110,10 @@ export function cityPage(): string {
 		${sessionTable(loose, rig)}</section>` : '';
 
 	const ms = performance.now() - t0;
-	return page('Belvedere — City View', '<span>city</span>',
+	return page('Belvedere — City View', '<a href="/">rail</a> <span>/</span> <span>city</span>',
 		banner + strip + `<section class="cards">${cards}</section>` + off,
-		`re-read from disk in ${ms.toFixed(0)} ms · ${suppressed} worktree copies deduped · ${esc(CITY)}`);
+		`content re-read in ${ms.toFixed(0)} ms · register ${ago(reg.at / 1000)} old${reg.refreshing ? ' (refreshing)' : ''}`
+		+ ` · walked in ${reg.ms.toFixed(0)} ms, ${reg.suppressed} worktree copies deduped · ${esc(CITY)}`);
 }
 
 // ---------- /b/<building> — the building page ----------
