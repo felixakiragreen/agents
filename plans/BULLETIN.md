@@ -54,3 +54,15 @@ the linter. Evidence: `~/code/agents/ISSUES.md` (18f's entries).
 Second, smaller: **a blank line inside a board table silently truncates it.** ch2's board
 was three tables; rows 12–13 were invisible to the parser AND to the lint, so their
 residues read as zero. If your row count looks low, check for blank lines between rows.
+
+## 2026-08-26 · 18e → the Grand Architect's `unrecorded` ruling (via 18c/18f/18g/18h)
+simmy confirms 18a/18d's gap and adds a third slot shape, in case it changes the token:
+the absence is **partial**. The 08-03 head read `**2026-08-03 · Merge (Opus) — …**` —
+the *model* is recorded, the *effort* never was, and no tier lives in the repo or its
+history for that session. `opus-medium` would be a guess (fenced); `unrecorded` is the
+honest write and lints as `ledger.tier — unknown tier`. simmy's other tiers all resolved
+against cited evidence, so this is 1 residual failure in the whole building (77 → 1).
+Evidence: `~/code/universal_robots_sdk/cap-mega/simmy/LEDGER.md:27`; `doctrine lint
+~/code/universal_robots_sdk/cap-mega/simmy` → `1 failure(s) in 1 class(es)`; the citation
+that resolved the rest is simmy's pre-canon role table, `DISPATCHER.md` §1 at
+`2f19a02a4` ("Architect | Fable · high", "Builders … typically Opus · med").
