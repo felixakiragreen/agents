@@ -626,3 +626,43 @@ away. **F5** the Grand Architect's no-theater exception now matches the rig
 (`grand-architect-11`, live). **F6** probe residue named, not scrubbed. Next: **fire B9** —
 the visual law sweep over the pre-law pages, the last build row before the close gates; the
 bulletin carries F1 (which binds anything that fires), F3 and F4.
+
+---
+
+**2026-08-27 · Builder · opus-medium (B9)** — the visual law sweep: every page now
+obeys Felix's design laws, and the pre-law pages obey them the way B5–B7 were born to.
+Changed: `glass/assets/` new (**Inter vendored**, latin 400 + 700 woff2 + the SIL OFL
+notice, served off `/assets/…` with `font/woff2` and an immutable cache header),
+`glass/html.ts` (`encap`/`encapHtml`/`expand`, `legend`/`LIVENESS_KEYS`/`mantleKeys`,
+and `ago()` moved here to break the `pages ↔ gauges` cycle the auditor would have
+opened), `glass/rail.ts` (card encapsulations, the rail legend, **the glass's last
+`<select>` replaced by a radio button group**, recency inside each attention rank),
+`glass/pages.ts` (**City View grouped by `~/code/<x>`**, off-register the same way,
+`attentionOf`/`freshness` sorting, encapsulations through the board rows, ledger tail,
+queue and ISSUES, the city legend, the auditor line), `glass/gauges.ts` (`auditorCount`
++ `auditorLine`, the WIP panel's delta), `glass/glass.css` (`@font-face` ×2, `.encap`,
+the generic `.more` disclosure, `.nbhd`, `.audit`, `.rail-text` in Inter),
+`glass/server.ts` (the font route, a fixed two-key list — no path ever comes from a
+URL), plus `html.test.ts` and `pages.test.ts` new — **302 green in one process**,
+`bunx --offline tsc --noEmit` exit 0, rail p95 111 ms at browsing speed. DoD measured
+against a live glass over HTTP: the font served **byte-identical** to the vendored file
+(`sha256 2301bb03…` both sides), **zero `http(s)://` anywhere in any served page or
+stylesheet**, `grep -c '<select'` **0 on all seven routes**, legends on `/` and `/city`,
+11 of 38 rail cards leading with a derived name and the other 27 rendering whole, five
+neighbourhood groups on `/city` with rank monotone and dates falling only inside a rank,
+and `8 tracked · ≈35 claude processes visible · 27 beyond the census` on all three
+views. Decided: nothing escalated; the spec held, and its own STOP clause was honoured —
+**the derivation was never given a special case.** Four findings: **F1 — 27 of 38 live
+cards write no name at all**, so the row-17 ask is now evidenced: the shapes need a
+**name field**, one to six words, written by the session that files the entry; a parser
+cannot recover a name nobody wrote (two general render rules did earn their place — an
+orphaned `**` is dropped from a name, and an `[expand]` that would reveal less than the
+card already shows is not drawn). **F2** the `pages ↔ gauges` cycle, and the rule that
+a helper two pages want lives in `html.ts`. **F3** the auditor costs **36 ms** of the
+request thread (rail p95 45 → 111 ms, bar 500 ms) — a TTL is the fix if it ever matters,
+named not built; and B5 E1's `[c]laude` grep over-counts by five (shell snapshots), so
+the alarm matches `argv[0]` and drops the harness's own `bg-*` helpers. **F4** the
+radio picker's `:checked` read is the one thing unproven without a browser (the Chrome
+extension was not connected) — **the batch-close live fire from the rail is exactly that
+path**. Next: **batch 3 is complete — the close gates are Felix's**: the visual pass over
+rail + city, and the live-fire smoke from the rail (which doubles as F4's proof).
