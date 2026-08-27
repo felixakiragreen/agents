@@ -2,6 +2,7 @@
 // that makes D58's links resolve. Every page re-reads disk; nothing here is cached.
 
 import { readFileSync, statSync } from 'fs';
+import { homedir } from 'os';
 import { dirname, resolve, sep } from 'path';
 import { discover, type Building, type Board, type BoardRow, type Fail } from '../../doctrine';
 import { readCensus, isLive, type CensusRead, type Session } from './census';
@@ -10,19 +11,12 @@ import { applyAct, INBOX_SCRIPT, noteBox, rowGestures } from './inbox';
 import { city, TTL_MS, type Register } from './register';
 import { readRig, accountLabel, mantleOf, type Rig } from './rig';
 import { cityRoot } from './paths';
-import { baseOf, docHref, esc, inline, label, page, pill, rigTone, sessionTone, short, stateTone } from './html';
+import { auditorCount, auditorLine } from './gauges';
+import { ago, baseOf, docHref, encap, encapHtml, esc, expand, inline, label, legend, LIVENESS_KEYS, mantleKeys, page, pill, rigTone, sessionTone, short, stateTone } from './html';
 
 const DOC_BYTES = 2 << 20;
 
 // ---------- shared bits ----------
-
-export const ago = (seconds: number) => {
-	const d = Math.max(0, Date.now() / 1000 - seconds);
-	if (d < 90) return `${Math.round(d)}s`;
-	if (d < 5400) return `${Math.round(d / 60)}m`;
-	if (d < 172800) return `${Math.round(d / 3600)}h`;
-	return `${Math.round(d / 86400)}d`;
-};
 
 /**
  * The register's own footer line, one voice for every page that serves off the held copy: how old
@@ -81,6 +75,58 @@ export const censusNote = (c: CensusRead) => c.present
 	? `census ${c.beats} beats${c.malformed ? ` · <span class="bad">${c.malformed} unreadable</span>` : ''}`
 	: `<span class="bad">unknown — census not deployed</span>`;
 
+// ---------- the City View's two orders: what a building is under, and what it wants (B9) ----------
+
+/** The two groups that are not directories: a path outside the city, and a session with no cwd. */
+export const OUTSIDE = 'outside the city';
+const NO_CWD = 'no cwd on record';
+
+/**
+ * The group a thing belongs to: **its directory under the city root** (`~/code/<x>`), which is the
+ * repo — so `agents` and `agents/belvedere` are one neighbourhood and read as one (design law,
+ * README §3). A path the city root does not contain has no `~/code/<x>` to be under and says so.
+ */
+export const groupOf = (path: string): string => {
+	const root = cityRoot();
+	if (!path.startsWith(root + sep)) return OUTSIDE;
+	return path.slice(root.length + 1).split(sep)[0]!;
+};
+
+/** The group's name as Felix writes it: `~/code/<x>`. */
+export const groupLabel = (name: string) =>
+	name === OUTSIDE || name === NO_CWD ? name : `${cityRoot().replace(homedir(), '~')}/${name}`;
+
+/** The City View's colours, all three vocabularies: the pulse pills, the rings, the mantle hues. */
+const cityLegend = (rig: Rig) => legend([
+	`${pill('n in flight', 'felix')}${pill('n open', 'blue')}${pill('n blocked', 'red')}${pill('n landed', 'green')}${pill('n lint', 'orange')} board rows, by state`,
+	...LIVENESS_KEYS,
+	...mantleKeys(rig.colours),
+]);
+
+/**
+ * **Attention first** (design law): what a building wants from Felix, in one number. Recency never
+ * competes with it — it orders inside a rank and nowhere else, so a building that has been shouting
+ * for a week still outranks the one somebody touched five minutes ago.
+ */
+export const attentionOf = (b: Building, live: number): number => {
+	if (live > 0) return 0;                                              // work is happening here now
+	const rows = b.board.flatMap(x => x.rows);
+	if (b.baton?.holder === 'felix' || rows.some(r => r.felixGate || r.gates.length)
+		|| b.decisionQueue.some(d => d.pending) || rows.some(r => r.state === 'BLOCKED')) return 1;   // his pen
+	if (b.baton !== null || rows.some(r => r.state === 'IN FLIGHT')) return 2;                        // in play
+	if (b.issues.length || b.fails.length) return 3;                                                  // filed, unswept
+	return 4;
+};
+
+/** How recently this building said anything: its live sessions first, else the artifacts' own mtimes. */
+export function freshness(b: Building, live: Session[]): number {
+	let newest = Math.max(0, ...live.map(s => s.last.t));
+	if (newest > 0) return newest;
+	for (const f of [...b.files.boards, b.files.ledger, b.files.decisions, b.files.issues])
+		if (f) try { newest = Math.max(newest, statSync(f).mtimeMs / 1000); } catch { /* gone since the walk */ }
+	return newest;
+}
+
 const stateCounts = (b: Building) => {
 	const n = { OPEN: 0, 'IN FLIGHT': 0, BLOCKED: 0, LANDED: 0, KILLED: 0, unparsed: 0 };
 	for (const board of b.board) for (const r of board.rows) r.state ? n[r.state]++ : n.unparsed++;
@@ -111,7 +157,7 @@ export function cityPage(): string {
 	// never look like one that can (B4 §2).
 	const hands = handsState();
 	const banner = hands.armed ? '' : `<section class="panel"><h2>Hands disabled</h2>
-		<p class="note">The fence's four write powers are off — fire, worktree, focus and halt all answer 503.
+		<p class="prose note">The fence's four write powers are off — fire, worktree, focus and halt all answer 503.
 		Everything below is unaffected: the glass reads the city either way.
 		<br><span class="bad">${esc(hands.note)}</span></p></section>`;
 
@@ -122,9 +168,11 @@ export function cityPage(): string {
 		<div class="stat"><span class="label">live sessions</span><b>${census.sessions.filter(isLive).length}</b></div>
 		${Object.entries(tally).map(([k, v]) => `<div class="stat"><span class="label">${esc(k)}</span><b class="t-${k}">${v}</b></div>`).join('')}
 		<div class="stat"><span class="label">census</span><b class="small">${censusNote(census)}</b></div>
-	</section>`;
+	</section>
+	<p class="prose note">${auditorLine(census.sessions.filter(isLive).length, auditorCount())} — the count is the
+		sensor's drift alarm, never a session: it joins nothing and houses nothing (B5 E1's ruling).</p>`;
 
-	const cards = buildings.map(b => {
+	const card = (b: Building) => {
 		const live = housed.get(b.building) ?? [];
 		const n = stateCounts(b);
 		const pulse = [
@@ -139,15 +187,42 @@ export function cityPage(): string {
 			<div class="windows">${live.map(s => window_(s, rig)).join('') || '<span class="dark">dark</span>'}</div>
 			<div class="pulse">${pulse || label('no rows')}</div>
 		</a>`;
-	}).join('');
+	};
 
+	// Grouped by `~/code/<x>`, attention across the groups and recency inside them (design law).
+	const groups = new Map<string, Building[]>();
+	for (const b of buildings) groups.set(groupOf(b.path), [...(groups.get(groupOf(b.path)) ?? []), b]);
+	const rank = new Map(buildings.map(b => [b.building, attentionOf(b, (housed.get(b.building) ?? []).length)]));
+	const fresh = new Map(buildings.map(b => [b.building, freshness(b, housed.get(b.building) ?? [])]));
+	const sorted = [...groups].map(([name, bs]) => ({
+		name,
+		buildings: bs.sort((x, y) => rank.get(x.building)! - rank.get(y.building)!
+			|| fresh.get(y.building)! - fresh.get(x.building)! || x.building.localeCompare(y.building)),
+		rank: Math.min(...bs.map(b => rank.get(b.building)!)),
+		lit: bs.reduce((n, b) => n + (housed.get(b.building) ?? []).length, 0),
+	})).sort((a, b) => a.rank - b.rank || b.lit - a.lit || a.name.localeCompare(b.name));
+
+	const cards = sorted.map(g => `<section class="nbhd">
+		<div class="nbhd-h">${label(groupLabel(g.name))}<span class="dark">${g.buildings.length} building${
+			g.buildings.length === 1 ? '' : 's'} · ${g.lit} lit</span></div>
+		<div class="cards">${g.buildings.map(card).join('')}</div></section>`).join('');
+
+	// Off-register sessions group the same way — same honesty, same neighbourhoods (spec §4).
+	const byGroup = new Map<string, Session[]>();
+	for (const s of loose) {
+		const key = s.cwd ? groupOf(s.cwd) : NO_CWD;
+		byGroup.set(key, [...(byGroup.get(key) ?? []), s]);
+	}
 	const off = loose.length ? `<section class="panel"><h2>Off the register</h2>
-		<p class="note">Live sessions whose cwd sits in no building the parser found — counted here so the hand-count still adds up.</p>
-		${sessionTable(loose, rig)}</section>` : '';
+		<p class="prose note">Live sessions whose cwd sits in no building the parser found — counted here so the
+		hand-count still adds up, and grouped by <code>~/code/&lt;x&gt;</code> like the buildings above.</p>
+		${[...byGroup].sort((a, b) => b[1].length - a[1].length).map(([name, ss]) =>
+			`<div class="nbhd-h">${label(groupLabel(name))}<span class="dark">${ss.length} session${ss.length === 1 ? '' : 's'}</span></div>
+			${sessionTable(ss, rig)}`).join('')}</section>` : '';
 
 	const ms = performance.now() - t0;
 	return page('Belvedere — City View', '<a href="/">rail</a> <span>/</span> <span>city</span> <span>/</span> <a href="/shelf">shelf</a> <span>/</span> <a href="/summon">summon</a>',
-		banner + strip + `<section class="cards">${cards}</section>` + off,
+		banner + strip + cityLegend(rig) + cards + off,
 		`content re-read in ${ms.toFixed(0)} ms · ${registerNote(reg, '/city')} · ${esc(cityRoot())}`);
 }
 
@@ -177,7 +252,7 @@ export function buildingPage(slug: string): string | null {
 		queuePanel(b),
 		issuesPanel(b, rig, accounts, hands.armed),
 		`<section class="panel"><h2>Live sessions</h2>${mine.length ? sessionTable(mine, rig)
-			: `<p class="note">${census.present ? 'None.' : 'unknown — census not deployed'}</p>`}</section>`,
+			: `<p class="prose note">${census.present ? 'None.' : 'unknown — census not deployed'}</p>`}</section>`,
 		lintPanel(b, used),
 		INBOX_SCRIPT,
 	].join('');
@@ -198,11 +273,17 @@ function failNote(fs: Fail[], used: Set<Fail>): string {
 
 function boardRow(r: BoardRow, board: Board, b: Building, used: Set<Fail>, ids: string[]): string {
 	const base = baseOf(board.file);
-	const work = r.workDoc ? `<a href="${esc(docHref(r.workDoc, base))}">${esc(r.work)}</a>` : esc(r.work);
+	// Encapsulation-first (design law): the row leads with the work's own name and the annotation's
+	// own name; the whole of each is one [expand] away. A board row's annotation is where this city
+	// keeps its landing records — the longest prose in the building — and a table of them is a wall.
+	const w = encap(r.work);
+	const work = (r.workDoc ? `<a href="${esc(docHref(r.workDoc, base))}">${esc(w.name)}</a>` : esc(w.name))
+		+ (w.encapsulated ? expand(`<p class="prose">${inline(r.work, base)}</p>`) : '');
 	const deps = [...r.dependsOn.map(d => `<code>${esc(d)}</code>`), ...r.gates.map(g => pill('Felix-gate', 'purple', g))].join(' ') || '—';
 	const staff = r.felixGate ? pill('Felix-gate', 'purple')
 		: `${r.mantle ? esc(r.mantle) : '<span class="bad">?</span>'} · ${r.tier ? `<code>${esc(r.tier)}</code>` : '<span class="bad">?</span>'}`;
-	const status = `${pill(r.state ?? 'UNPARSED', stateTone(r.state))} ${inline(r.annotation, base)}`;
+	const status = pill(r.state ?? 'UNPARSED', stateTone(r.state))
+		+ (r.annotation.trim() ? encapHtml(r.annotation, base, 'prose') : '');
 	const note = failNote(failsAt(b, board.file, r.line), used);
 	return `<tr><td class="id">${esc(r.id)}</td><td>${work}${note}</td><td>${deps}</td>`
 		+ `<td>${staff}${r.rider ? ` <span class="rider">(${esc(r.rider)})</span>` : ''}</td><td>${status}</td>`
@@ -210,7 +291,7 @@ function boardRow(r: BoardRow, board: Board, b: Building, used: Set<Fail>, ids: 
 }
 
 function boardPanel(b: Building, used: Set<Fail>): string {
-	if (!b.board.length) return `<section class="panel"><h2>Board</h2><p class="note">No board in this building.</p></section>`;
+	if (!b.board.length) return `<section class="panel"><h2>Board</h2><p class="prose note">No board in this building.</p></section>`;
 	return b.board.map(board => {
 		// The gestures a row offers are its siblings on ITS OWN board: "14 before 13" is a sentence
 		// about one ordering, and two boards in one building are two orderings.
@@ -224,7 +305,7 @@ function boardPanel(b: Building, used: Set<Fail>): string {
 
 function ledgerPanel(b: Building): string {
 	const e = b.ledgerTail;
-	if (!e) return `<section class="panel"><h2>Ledger tail</h2><p class="note">No <code>LEDGER.md</code> in this building.</p></section>`;
+	if (!e) return `<section class="panel"><h2>Ledger tail</h2><p class="prose note">No <code>LEDGER.md</code> in this building.</p></section>`;
 	const base = baseOf(b.files.ledger);
 	const bt = b.baton;
 	const tone = bt?.holder === 'session' ? 'green' : bt?.holder === 'felix' ? 'purple' : 'orange';
@@ -234,7 +315,7 @@ function ledgerPanel(b: Building): string {
 	return `<section class="panel"><h2>Ledger tail</h2>
 		<p class="note"><a href="${esc(docHref(b.files.ledger!, '/'))}">${esc(short(b.files.ledger!))}</a>:${e.line}</p>
 		<div class="entry-h">${esc(e.date)} · ${esc(e.mantle)}${e.tier ? ` · <code>${esc(e.tier)}</code>` : ''}${e.row ? ` (${esc(e.row)})` : ''}</div>
-		<p>${inline(e.body, base)}</p>
+		${encapHtml(e.body, base, 'prose')}
 		<div class="kv">${label('decided')}<span>${e.decided ? inline(e.decided, base) : '<span class="bad">missing</span>'}</span></div>
 		<div class="kv">${label('baton')}<span>${pill(bt ? bt.holder : 'none', tone)} ${bt ? inline(bt.text, base) : '<span class="bad">no Next clause</span>'}</span></div>
 		${instruments}</section>`;
@@ -244,10 +325,10 @@ function queuePanel(b: Building): string {
 	const base = baseOf(b.files.decisions);
 	const items = b.decisionQueue.map(d => `<li><code>${esc(d.id)}</code> ${esc(d.date)} · ${esc(d.decider)}
 		${d.pending ? pill('pending countersign', 'yellow') : pill('unsigned', 'orange')}
-		<div>${inline(d.title, base)}</div></li>`).join('');
+		${encapHtml(d.title, base, 'prose')}</li>`).join('');
 	return `<section class="panel"><h2>Decision queue</h2>
 		${b.files.decisions ? `<p class="note"><a href="${esc(docHref(b.files.decisions, '/'))}">${esc(short(b.files.decisions))}</a></p>` : ''}
-		${items ? `<ul class="queue">${items}</ul>` : '<p class="note">Empty — nothing waits on Felix\'s pen.</p>'}</section>`;
+		${items ? `<ul class="queue">${items}</ul>` : '<p class="prose note">Empty — nothing waits on Felix\'s pen.</p>'}</section>`;
 }
 
 /**
@@ -264,15 +345,15 @@ function issuesPanel(b: Building, rig: Rig, accounts: string[], armed: boolean):
 	const gestures = `${entries ? applyAct(rig, b.path, accounts, armed, entries) : ''}${noteBox(b.path)}`;
 
 	if (!b.files.issues) return `<section class="panel"><h2>ISSUES</h2>
-		<p class="note">No inbox in this building — the first gesture mints one from the D53 header (DOCTRINE §3).</p>
+		<p class="prose note">No inbox in this building — the first gesture mints one from the D53 header (DOCTRINE §3).</p>
 		${gestures}</section>`;
 
 	const base = baseOf(b.files.issues);
 	const items = b.issues.map(i => `<li><span class="when">${esc(i.date ?? '')}</span> <span class="who">${esc(i.who ?? '')}</span>
-		<div>${inline(i.text, base)}</div></li>`).join('');
+		${encapHtml(i.text, base, 'prose')}</li>`).join('');
 	return `<section class="panel"><h2>ISSUES</h2>
 		<p class="note"><a href="${esc(docHref(b.files.issues, '/'))}">${esc(short(b.files.issues))}</a></p>
-		${items ? `<ul class="issues">${items}</ul>` : '<p class="note">Drained empty (D53).</p>'}
+		${items ? `<ul class="issues">${items}</ul>` : '<p class="prose note">Drained empty (D53).</p>'}
 		${gestures}</section>`;
 }
 
@@ -282,7 +363,7 @@ function issuesPanel(b: Building, rig: Rig, accounts: string[], armed: boolean):
  */
 function lintPanel(b: Building, used: Set<Fail>): string {
 	const rest = b.fails.filter(f => !used.has(f));
-	if (!rest.length) return `<section class="panel"><h2>Lint</h2><p class="note">${b.fails.length
+	if (!rest.length) return `<section class="panel"><h2>Lint</h2><p class="prose note">${b.fails.length
 		? `All ${b.fails.length} failure(s) are pinned to their board rows above.`
 		: 'Clean — every field the doctrine names, this building carries.'}</p></section>`;
 	const rows = rest.map(f => `<tr><td>${pill(f.artifact, 'orange')}</td><td><code>${esc(f.code)}</code></td>
@@ -309,7 +390,7 @@ function sessionTable(ss: Session[], rig: Rig): string {
 
 export function docPage(path: string): string {
 	if (!path.startsWith(cityRoot() + sep)) return page('Belvedere — refused', '<a href="/">city</a>',
-		`<section class="panel"><h2>Outside the city</h2><p class="note">The viewer serves files under <code>${esc(cityRoot())}</code> only.</p>
+		`<section class="panel"><h2>Outside the city</h2><p class="prose note">The viewer serves files under <code>${esc(cityRoot())}</code> only.</p>
 		<code>${esc(path)}</code></section>`, 'read-only viewer');
 
 	let text: string;
@@ -327,7 +408,7 @@ export function docPage(path: string): string {
 }
 
 export const notFound = (what: string) => page('Belvedere — 404', '<a href="/">city</a>',
-	`<section class="panel"><h2>Not on the register</h2><p class="note">${esc(what)}</p></section>`, '404');
+	`<section class="panel"><h2>Not on the register</h2><p class="prose note">${esc(what)}</p></section>`, '404');
 
 export const errorPage = (e: unknown) => page('Belvedere — error', '<a href="/">city</a>',
 	`<section class="panel"><h2>The glass cracked, the city stands</h2>

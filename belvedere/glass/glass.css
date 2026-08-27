@@ -127,7 +127,13 @@ strong { color: var(--grey-100); font-weight: 700; }
 .t-idle { color: var(--blue-400); }
 .t-unknown { color: var(--orange-400); }
 
-/* --- City View cards --- */
+/* --- City View cards, in neighbourhoods: one group per `~/code/<x>` (design law) --- */
+.nbhd { margin-bottom: 18px; }
+.nbhd-h {
+	display: flex; align-items: baseline; gap: 10px; margin: 0 0 7px;
+	padding-bottom: 4px; border-bottom: 1px solid var(--grey-850);
+}
+.nbhd-h .dark { letter-spacing: .1em; color: var(--grey-600); }
 .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
 .card {
 	display: flex; flex-direction: column; gap: 9px;

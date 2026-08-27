@@ -18,8 +18,7 @@
 import { readFileSync } from 'fs';
 import { basename, join } from 'path';
 import { BG_CAP, isLive, type CensusRead, type Session } from './census';
-import { esc, label, short } from './html';
-import { ago } from './pages';
+import { ago, esc, label, short } from './html';
 import { usageDir } from './paths';
 import { accountLabel, type Rig } from './rig';
 

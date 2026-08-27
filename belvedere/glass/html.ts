@@ -112,6 +112,19 @@ export const pill = (text: string, tone: Tone, title = '') =>
 
 export const label = (text: string) => `<span class="label">${esc(text)}</span>`;
 
+/**
+ * How long ago, in one glance. A display primitive and nothing else — it lives here so the pages,
+ * the gauges and the shelf can all say "3h" the same way without importing each other (B9 broke
+ * the `pages` ↔ `gauges` cycle the auditor delta would otherwise have opened).
+ */
+export const ago = (seconds: number) => {
+	const d = Math.max(0, Date.now() / 1000 - seconds);
+	if (d < 90) return `${Math.round(d)}s`;
+	if (d < 5400) return `${Math.round(d / 60)}m`;
+	if (d < 172800) return `${Math.round(d / 3600)}h`;
+	return `${Math.round(d / 86400)}d`;
+};
+
 // ---------- the shell ----------
 
 export const CSS = '<link rel="stylesheet" href="/felikai.css"><link rel="stylesheet" href="/glass.css">';
