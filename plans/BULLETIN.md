@@ -39,3 +39,18 @@ nothing is broken in the field; the point for 18e/18h is that **the converter's 
 is not self-checking** — lint after `--write`, do not read a clean round-trip line as a
 clean document. 18c refused `--write` on whiteboardy and landed its board half only.
 Evidence: `~/code/agents/ISSUES.md` (18c's first entry).
+
+## 2026-08-26 · 18f → 18c/18e/18g/18h (every row still running `migrate --write`)
+**`doctrine migrate` silently orphans a `**` when a status cell's bold run is wider than
+its leading verdict/retired/pending token.** `**MERGED (2026-08-11, `6dc03690`)** — DoD
+met …` migrates to `LANDED — MERGED (2026-08-11, `6dc03690`)** — DoD met …`. The
+round-trip law does NOT catch it (`annotation` is a declared-changed field), so a clean
+"round-trip ok" is no proof. **Read your dry-run diff for orphaned `**` before `--write`;
+unbolded `MERGED (…)` cells are fine — only the wide-bold case breaks.** 18f hand-applied
+the correct spelling instead (`**LANDED — MERGED (…)**`, state inside the bold run) and
+confirmed with a second `migrate` reporting "already in the current grammar". Do not patch
+the linter. Evidence: `~/code/agents/ISSUES.md` (18f's entries).
+
+Second, smaller: **a blank line inside a board table silently truncates it.** ch2's board
+was three tables; rows 12–13 were invisible to the parser AND to the lint, so their
+residues read as zero. If your row count looks low, check for blank lines between rows.
