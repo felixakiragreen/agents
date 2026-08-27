@@ -505,3 +505,61 @@ glass has already paid once for hidden module-load order (B8 F1). **A render hel
 pages want belongs in `html.ts`, not in whichever file wrote it first.**
 
 (Relayed from `master`, B9 LANDED 2026-08-27 — Builder)
+
+## → relay — B13 (the deck shell) to B14, B15, B16, B17, B18, B19 and the Architect: no escalation, four findings that bind the whole deck chain
+
+Evidence: [b13-deck-shell.md](b13-deck-shell.md) §DoD and §Findings, commits `cad607f` …
+`9d8a1ef` on `master`.
+
+1. **F1 — a fake DOM cannot prove a deck DoD item, and the probe that can is already
+   written: [`lab/b13/probe.ts`](../lab/b13/probe.ts).** Neither happy-dom nor jsdom does CSS
+   grid layout — in both, `getBoundingClientRect()` returns zeros, so a "measured width" from
+   one is a fabricated number and the `min-width: 0` bug in F4 passes silently. The probe
+   drives the machine's own installed Chrome over the DevTools protocol in ~60 lines of Bun
+   (launch with `--remote-debugging-port`, read `/json/list`, open the page target's
+   WebSocket, `Runtime.evaluate` with `returnByValue`) — **no dependency fetched, installed or
+   vendored**, same posture as `ps` in `gauges.ts`, every URL 127.0.0.1. It stands up its
+   **own** glass on port 4489 against a temp census and the `lab/b3/city` fixture, because
+   the live census is append-only telemetry and a DoD run does not get to write a beat into
+   it (B8 F1). **Point `CITY`/`CENSUS` at your fixture and add `ok(...)` lines** — every
+   later row's clicks, measurements and polls belong here rather than in `bun test`.
+
+2. **F2 — the split is a 69 ms CSS transition, so every measurement of deck geometry must
+   settle first.** `.app` transitions `grid-template-columns` on felikai's `--snap`. The
+   probe's first run clicked three state buttons and measured on the next DevTools round trip
+   — about five milliseconds in — and read `74.14% · 12.87% · 12.87%` for a deck **moving to**
+   `10/60/30`. It reported FAIL, correctly, for entirely the wrong reason. The number was
+   real and reproducible and meant nothing. `settle()` in the probe is the fix; anyone
+   measuring without it will publish a mid-slide.
+
+3. **F4 — `min-width: 0` on every grid child is the deck's only geometric guarantee, and it
+   is one deletion away from gone.** An `Nfr` track is really `minmax(auto, Nfr)`, so without
+   that line a pane's own content minimum silently outvotes the law of space and the split
+   stops being the split — with no error, no lint, and a page that still looks plausible. It
+   is in `deck.css` with that note on it. Also for the density calls B14+ make: the weights
+   are **minimal 1 · typical 3 · expanded 6** (this row's choice — the law fixes
+   proportionality, not the constants), so at 1600 px a minimal pane is **200 px** at rest,
+   **160 px** at its narrowest, an expanded pane **960 px**, a pinned drawer **436 px**.
+
+4. **F5 — `/deck/state` is one endpoint and a shared budget: 15 000 B at 46 sessions, every
+   3 s.** B15's Workshop, B17's usage ×3 and B18's socket identity all widen the same shape
+   by design — one endpoint, not five. Two rules already hold and must keep holding:
+   **nothing in the composition walks the city on the request thread** (`deckState()` calls
+   `register()`, which returns the held copy — B8 F3 re-proven here: a `/rewalk` costing
+   **9.264 s** of its own request had three polls land inside its window in **17 ms · 8 ms ·
+   18 ms**), and **the diff is the whole snapshot** — identical bytes redraw nothing, so an
+   idle city costs one `JSON.parse` and no DOM work. Live cost today: `/deck` p95 **2 ms**,
+   `/deck/state` p95 **19 ms**.
+
+Also, not blocking: **the client TypeScript rides the existing offline type gate with zero
+config change** (F3) — `@types/bun` already carries the DOM lib, so `deck.client.ts` and its
+`document`/`localStorage` typecheck under the same `tsconfig.json` and the same `bunx
+--offline tsc --noEmit`; it caught `Node.append` returning `void` before a browser ever ran
+the code. And **the `FocusView` seam is four members** — `mount(focusHost, actionHost)`,
+`unmount`, `draw(snap, focusState, actionState)`, plus the pane states a tenant declares.
+**Action follows Focus, so one tenant owns both hosts** and there is no second register for
+the Action pane; a tenant renders with DOM calls rather than HTML strings, which is why the
+client carries no `esc()`. B15, B10 and B16 evict the three placeholders through that
+interface and nowhere else.
+
+(Relayed from `master`, B13 LANDED 2026-08-27 — Builder)
