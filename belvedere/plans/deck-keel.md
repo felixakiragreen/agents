@@ -1,8 +1,9 @@
 # The deck keel — Belvedere's second commission
 
 **Status:** keel cut 2026-08-27 (Felix + Architect, the deck design sitting —
-the sitting the kitten fired) · **Blessing: PENDING Felix's red pen** — nothing
-builds until it lands · Commission = the two case files in
+the sitting the kitten fired) · **BLESSED 2026-08-27, Felix's word ("Bless!"
+×4, "Make it so"): the §11 fence trio, the §9 stack, the §6 node actions, and
+the names — the Workshop and the Works** · Commission = the two case files in
 [ISSUES](../ISSUES.md), Felix's words verbatim: the 17-item **field report**
 (the copy-paste kill shot) and the **deck vision** (three panes, the chat, the
 DAG). This keel folds both; where it and v0's page design conflict, this keel
@@ -53,9 +54,8 @@ own overflow.
 - **Context = the City** (sidebar-like): every building, grouped by
   neighborhood, live dots, attention badges (§4). Expanded at rest.
 - **Focus** is a slot, one of: **the Workshop** (one building: its agents,
-  board, tail — name candidate, Felix picks at blessing: Workshop / Floor /
-  keep Building) · **the Chat** (§5) · **the Works** (the DAG, §6 — name
-  candidate: the Works / the Line). Clicking a building in the City focuses
+  board, tail — named at blessing) · **the Chat** (§5) · **the Works** (the
+  DAG, §6 — named at blessing). Clicking a building in the City focuses
   its Workshop; summoning swaps in the Chat; the DAG is entered from a
   Workshop or the City.
 - **Action follows Focus:** at rest, the **Summon composer** (every knob —
@@ -117,7 +117,7 @@ planned** — the board, the ledger's arc, and the flow chapter's DAG become one
 renderer. It agrees with every other surface Felix reads: chat, ledger,
 scrollback.
 
-Node actions (Architect proposal, veto at blessing): a **plan** node →
+Node actions (✓ Felix at blessing — "great actions"): a **plan** node →
 dispatch / customize / account / usage (the flow chapter's arm rides here); an
 **in-flight** node → hotswap to Chat / jump to pane; a **landed** node → the
 landing record + a follow-up fire.
@@ -156,9 +156,13 @@ D17 is the authorization; the D2 fence otherwise stands.*
 The deck is an **app, not pages** — expansion states, hotswap, the drawer,
 live tooltips require client state; the v0 no-client-state law is **struck by
 Felix's own word**, the striking law's first formal casualty. Stack:
-**vanilla TS + SVG, no framework** (Architect, veto at blessing) — the simplicity
+**vanilla TS + SVG, no framework** (✓ Felix at blessing) — the simplicity
 directives, the felikai theme untouched, nothing in three panes + one chat
-needs React; revisit only if vanilla demonstrably fights. The spelling law
+needs React; revisit only if vanilla demonstrably fights. **His blessing note,
+recorded as design input for the prettifying pass:** once it all functions,
+he wants LOTS of SVG styling — hexagonal decorative elements, hexagonal
+buttons — the ⬡ of his own vision header; SVG-native is doubly ratified, the
+prettifying pass rides the parked list until the deck works. The spelling law
 joins §3's design laws: **color, center, grey** (Felix's triple, his name on
 it). Usage is **live** — the deck fetches the OAuth endpoint itself (the
 rig's proven fetcher pattern), never a stale log.
