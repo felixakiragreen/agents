@@ -126,3 +126,67 @@ Evidence: [b4-hands.md](b4-hands.md) §Findings and §DoD, commits `82a712d`, `0
    a panel named `""`. B5's shelf gets `ws` for free.
 
 (Relayed from `master`, B4 LANDED 2026-08-27 — Builder)
+
+## → relay — B3 (rail) to B5, B6, B7 and the Architect: two escalations, four findings
+
+Evidence: [b3-baton-rail.md](b3-baton-rail.md) §DoD and §Findings, commits `1ec54a3`
+… `92e15b7` on `master`.
+
+1. **E1 — the E1 ruling's own implementation cost a p95 of 8.3 s, and every page
+   inherits it.** B2's deferred register walk left the *request* but not Bun's single
+   JavaScript thread. Measured on the rail at browsing speed (20 requests, 2 s apart,
+   crossing the TTL twice): `n=20 min=0.031s p50=0.037s p95=8.300s max=8.612s` — two
+   page loads stalled ~8.5 s, the ones that arrived while `discover()` ran. **A tight
+   burst hides it completely** (p95 0.034 s), so anyone re-measuring must space the
+   requests. Fixed for every page by `glass/register.worker.ts`: same protocol after,
+   `p95 0.048s max 0.062s`. **B5 must not undo this** — any new server-side work that
+   runs synchronously on the request thread (a census walk, a usage scan) has the same
+   failure mode and the same fix. Still open for the Architect: a 20 s TTL over a
+   ~9.5 s walk re-walks 50 795 directories about half the time Felix is reading.
+
+2. **E2 — all three of the live city's fireable batons are Felix-gated in their own
+   prose, and `classifyBaton` still calls them session batons.** The instrument wins
+   over the word "Felix": hexwright — *"Felix's Phase-1 acceptance ruling — **PENDING**
+   … On a pass, fire: ⟨fence⟩"*; simmy — *"**Felix** fires the summons below"*;
+   whiteboardy — *"fire 26 **when** the window's day-5 boundary lands"*. The rail
+   reports the collision on the card and escalates the grammar to canon; it does not
+   overrule the parser (D65). **B6's inbox and B7's composer inherit the same
+   ambiguity** — anything that decides "is this Felix's?" from `holder` alone will
+   decide it the same wrong way.
+
+3. **F1 — for B5/B7: the rig's mantle colours are not cmux colours.** `cmux
+   workspace-action --action set-color --color cyan` → `Error: invalid_params: Invalid
+   color`, exit 1; `pink` likewise; `Aqua` → `OK … color=#0E6B8C`. cmux's sixteen are
+   Red, Crimson, Orange, Amber, Olive, Green, Teal, Aqua, Blue, Navy, Indigo, Purple,
+   Magenta, Rose, Brown, Charcoal — and `presets.tsv` spends `cyan` on **Builder** and
+   `pink` on **Dispatcher**. The two tables now meet in `glass/summon.ts`
+   (`CMUX_COLOURS`); **use `colourOf()`, never `rig.colours` raw.** The failure is not
+   cosmetic: `attemptFire` creates the workspace *before* setting the colour, so a
+   refused colour cost a whole fire and left an orphan workspace behind (audit line
+   quoted in §F1). Filed to `belvedere/ISSUES.md` for B4's hand.
+
+4. **F2 — for B7 especially: a fire into a tree with no trusted ancestor never
+   reaches a first user turn.** It launches, the summons is in argv, and the session
+   sits on `Quick safety check: Is this a project you created or one you trust?` — no
+   transcript, no census beat. Trust is **inherited, not per-directory**:
+   `~/.claude.json` carries 13 project entries and **zero** for any worktree, while the
+   city runs sessions in worktrees constantly. So a worktree under a trusted repo is
+   fine (proven — this row's smoke fired into
+   `~/code/agents/.claude/worktrees/bv/b3-smoke` with no prompt) and a fresh tree
+   outside one is not. **B7's founding template fires at exactly the directories
+   nothing has trusted.** The glass must never answer that dialog.
+
+5. **F3 — `bun test belvedere/glass` is red, and it is not B3's.** `paths.ts` freezes
+   `process.env` at module load; `hands.test.ts` sets its env knobs *after*
+   `census.test.ts` has already statically imported the module. One process, one cached
+   `paths.ts`, 8 failures. Reproduced at B4's own landing commit `286b370` (`54 pass /
+   8 fail`). **Run per file until it is fixed** — census 33 · hands 29 · rail 39 ·
+   register 4 = 105 green. B3's two test files are order-independent by construction.
+
+6. **F4 — for anyone composing a fire: the name-stamp is reserved per render, and the
+   lineage counter reads two logs.** `nextStamp` counts `invocations.jsonl`'s `name`
+   AND the hands' `hands.jsonl` `stamp` (glass fires never reach the rig's log), and
+   takes a `taken` set so a wave of two same-mantle instruments on one page cannot be
+   handed one stamp twice. Reuse `compose()` — do not re-derive a stamp.
+
+(Relayed from `master`, B3 LANDED 2026-08-27 — Builder)
