@@ -1250,3 +1250,39 @@ D63 amendment ✓ Felix. Next: fire the wave — Dispatcher summons fenced in
 [plans/18-great-recut.md](plans/18-great-recut.md); behind it, Belvedere's own board
 (P1/P2 from cmux panes → the fold sitting → v0 build rows), whose evidence wakes
 row 17's Felix-gate.
+
+---
+
+**2026-08-26 · Architect · opus-high (18a)** — *the great re-cut, row 18a.* Both
+buildings of the canon repo re-cut into the D63 grammar, form only.
+**agents/belvedere: 0 failures** — `doctrine migrate --write` lifted two tiers out of
+overloaded parentheticals (round-trip ok, 2 edits), the third head took `fable-max`
+from the sitting it says it continues, and the board's three prose Depends cells
+resolved to `—`/`P1; P2`: every word of them already stood verbatim in the batch note
+below the board. Its baton is fireable now; it was not before (`888f9e4`).
+**agents: 103 → 30 failures** (`afb983c`), and all 30 are tool gaps, not doc defects.
+`doctrine migrate` had nothing to offer here — "already in the current grammar" — so
+every edit was the judgment the converter refuses: 19 MAP Depends cells to row ids and
+`Felix-gate: <text>` (D63e), 16 ledger tier slots filled from cited evidence (MAP
+staffing, the prior entry's fenced summons, and for 2026-08-03's GA the session's own
+account of its summons in [LOG.md](LOG.md) entry two), 15 row slots emptied of session
+titles that moved verbatim into the body, three missing `---` separators (the parser
+was reading three pairs of entries as one block each), D2/D4/D6's titles re-delimited
+as labels (D63i), and D45's summons line made the whole first line in five kickoffs.
+Nothing was reworded, no status truth changed, no row added or removed; every displaced
+fragment survives verbatim in a body or a Status annotation. **25 heads carry the
+literal `unrecorded`** — the rig's `invocations.jsonl` was considered and rejected as
+per-entry evidence (a day aggregate cannot pin a session; the rig postdates
+2026-08-06 14:55; rig-less sittings exist — GA-09). Two escalations filed to
+[ISSUES.md](ISSUES.md), both row-16 follow-ups: **(1)** `doctrine/` contains zero
+occurrences of `unrecorded` — D63's amendment was countersigned after row 16 built, so
+all 27 typed absences (25 tiers, 1 board tier, 1 **mantle**: D26's lawful null mantle)
+lint as "unknown", and row 18's DoD cannot be met by any building that needs one; 18d
+hit the same wall from bob and filed first. **(2)** the kickoff detector reads any
+fence opening `You are ` as a summons, so `plans/log-tradition.md`'s three Personal-Log
+letter templates lint as malformed kickoffs; 18a refused to reshape a documented
+tradition to satisfy a detector. Decided: nothing — both are the Grand Architect's, and
+the migration rulings are inside 18a's delegated fence. Next: the wave's Dispatcher
+closes 18a and the batch (18a's evidence rides its report verbatim); behind it, Felix's
+Grand Architect sweeps the four inbox entries — the `unrecorded` vocabulary ruling gates
+the last 27 failures in this repo and every other building in the wave.
