@@ -487,3 +487,38 @@ states pending → recorded → folded; the glass never pens the D-entry — D3
 stands, no new write class). Next: the chain runs B5 → B6 → B7 → B9 to his
 close gates, then the v0 close sitting cuts the flow rows — nothing on this
 desk.
+
+---
+
+**2026-08-27 · Builder · opus-high (B5 — the shelf and the gauges)** — `/shelf` is
+live: 723 transcripts across all three accounts in **46 ms**, joined on the uuid
+from three sources (filename → session id and resume handle; the transcript's own
+64 KB head → name-stamp and cwd; the census → live or dead), and the projects
+**slug is never parsed** because `/` and `_` both flatten to `-`. Changed:
+`glass/shelf.ts` and `glass/gauges.ts` new, `glass/census.ts` (`aid`/`at`/`bg`, the
+identity join, the sensor horizon), `glass/hands.ts` (the resume widening),
+`glass/pages.ts` (`buildingOf`), `glass/paths.ts`, `glass.css`, `server.ts`, three
+test files — **166 green in one process**, `bunx --offline tsc --noEmit` exit 0,
+nothing written outside `belvedere/glass/` and the census dir. DoD measured, not
+asserted: **one dead session resumed from each account** (three `SessionStart`
+beats, each on its own transcript under its own `CLAUDE_CONFIG_DIR`) with **no user
+turn injected** — the newest turn in all three is still 10–12 h old — venue restored
+to the one workspace it started with; the usage strip matches the rig's **own**
+`_summon_usage_delta` on 9/9 cells at one instant (cost one real fix: the rig rounds
+away from zero); the 16-cap **induced live**, 18 shells in, `{"n":16}` out, `15+` on
+the page. Decided: nothing — two escalations filed instead. **E1: the census sees 6
+sessions where `ps` sees 38** — B1's hooks went live mid-city, so every pre-hook
+session is invisible and every WIP figure in the glass (rail and City View too) is a
+floor; the panel now prints the horizon, the sensor question is the Architect's and
+P1 F5 warns against a second liveness authority. **E2: `/hands/fire` widened** — on a
+resume, a field the glass does not know is omitted from argv, never guessed;
+backwards compatible, `summonsPath`/`sha` now nullable. Three findings bind the rest
+of batch 3: **F1** `buildingOf` assumed a branch was one path segment, so the city's
+own `bv/…` branches have been mis-housing every worktree session in its repo root
+since B2, silently, on the rail and City View as well (fixed at the cause); **F2**
+only `Stop`/`SubagentStop` carry `bg` (210 of 210), so an empty roster means
+*unknown* and renders `?`, never `0`; **F3** the slug is lossy. Built to the §3
+design laws natively — no dropdowns, usage beside the accounts, attention-first
+sorting, `[expand]`, a legend — with Inter's vendoring left where it belongs, in B9.
+Next: **fire B6** — the sovereign's inbox; the bulletin carries E2's wire change and
+F2's roster law.
