@@ -13,7 +13,7 @@
 
 import { copyFileSync, existsSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { basename, join } from "node:path";
 
 const HERE = import.meta.dir;
 const REPO = join(HERE, "..", "..");
@@ -30,13 +30,16 @@ type State =
 	| { kind: "foreign"; keys: string }            // somebody else's hooks — refuse
 	| { kind: "blocked"; why: string };            // can't proceed, and won't guess
 
-const fragment = JSON.parse(readFileSync(join(HERE, "hooks.json"), "utf8")) as {
-	hooks: Record<string, unknown>;
-};
+// hooks.json is a template: `@CENSUS@` becomes this directory (lab/p1's `@LAB@`
+// precedent). The absolute path is derived, never duplicated — so the fragment
+// can never name a beat.sh that isn't the one sitting beside this script.
+const fragment = JSON.parse(
+	readFileSync(join(HERE, "hooks.json"), "utf8").replaceAll("@CENSUS@", JSON.stringify(HERE).slice(1, -1)),
+) as { hooks: Record<string, unknown> };
 
 function accounts(): Account[] {
 	const override = process.env.CENSUS_CONFIG_DIRS;
-	if (override) return override.split(/\s+/).filter(Boolean).map(dir => ({ dir, label: "override" }));
+	if (override) return override.split(/\s+/).filter(Boolean).map(dir => ({ dir, label: basename(dir) }));
 	return readFileSync(join(REPO, "summon", "accounts.tsv"), "utf8")
 		.split("\n")
 		.filter(line => line && !line.startsWith("#"))
@@ -84,12 +87,15 @@ function inspect(a: Account): State {
 	return { kind: "ready", settingsExist: true };
 }
 
-function merge(a: Account): void {
+// Returns what happened to the original, for the report — nothing is invented.
+function merge(a: Account): string {
 	const path = join(a.dir, "settings.json");
-	if (existsSync(path)) copyFileSync(path, path + BACKUP_SUFFIX);
-	const settings = existsSync(path) ? JSON.parse(readFileSync(path, "utf8")) : {};
+	const had = existsSync(path);
+	if (had) copyFileSync(path, path + BACKUP_SUFFIX);
+	const settings = had ? JSON.parse(readFileSync(path, "utf8")) : {};
 	settings.hooks = fragment.hooks;
 	writeFileSync(path, JSON.stringify(settings, null, "\t") + "\n");
+	return had ? `original → settings.json${BACKUP_SUFFIX}` : "settings.json created (there was none)";
 }
 
 const row = (label: string, verdict: string, note: string) =>
@@ -145,9 +151,9 @@ if (!pending.length) {
 }
 console.log();
 for (const { a } of pending) {
-	merge(a);
+	const note = merge(a);
 	const after = inspect(a);
 	if (after.kind !== "installed") { console.error(`   ${a.label}: merge did not take (${after.kind}) — STOP`); process.exit(1); }
-	row(a.label, "merged", `original → settings.json${BACKUP_SUFFIX}`);
+	row(a.label, "merged", note);
 }
 console.log("\ndeployed. Only sessions started from now on carry the sensor.");
