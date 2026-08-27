@@ -108,3 +108,47 @@ stall at the first tool call (S5 — a fire-button design input). Decided: nothi
 no D-entry; the two rulings this dig surfaces are Felix's (E1) and the Standards
 Office's (E2, filed to ISSUES). Next: P4 once P1 lands (P2's half of its dependency
 is paid); then the fold sitting cuts the v0 build rows on measured physics.
+
+---
+
+**2026-08-26 · Digger · opus-high** — [P1](plans/p1-census-join.md) LANDED, no kill
+fired; 87 hook invocations across 13 scratch sessions, control clean. **Q2
+(pivotal):** the join is **deterministic and free** — a hook process sees both
+`CLAUDE_CODE_SESSION_ID` (byte-identical to the payload's `session_id`) and
+`CMUX_SURFACE_ID`, on **87/87 invocations across all 10 event types**. No pane-title
+stamp, no cmux CLI, no heuristic; the briefed fallbacks stay parked. Three traps
+named: `SURFACE_ID`==`PANEL_ID` and `WORKSPACE_ID`==`TAB_ID` (store one); the env is
+**inherited**, so pane→session is one-to-**many** — key by `session_id`, never by
+surface; and `CMUX_CLAUDE_PID` goes stale (use `CLAUDE_PID`). **Q1:** ten events
+fire, three the keel never named (`SubagentStart`, `PreCompact`, and a `SessionEnd`
+that lies — see below); field inventory + verbatim payloads + the observed
+vocabularies for `source`/`reason`/`notification_type`/`trigger`. **`Notification`
+is a 60-second nag, not the needs-input edge** (measured: `Stop` 01:54:37 →
+`Notification` 01:55:37) and never fires headless — **`Stop` is the rail's idle
+sensor**. **Q3:** hooks proven **blocking** (6 events × `sleep 0.5` → +3.38 s wall),
+so cost is process wall time: **5.5 ms median, 6.8 ms max at N=50, and only 0.7 ms
+over an empty hook** — the 4.8 ms floor is spawn, which no design escapes. 7× under
+the 50 ms bar. **Q5 / D67:** Agent-tool and Workflow agents are **fully countable** —
+`SubagentStart`/`SubagentStop` with stable `agent_id`, `agent_type`
+(`general-purpose`, `workflow-subagent`) and `agent_transcript_path` (the workflow
+run id rides the path); every nested tool call carries `agent_id`, and parent calls
+carry none, so the discriminator is exact. Background shell jobs are countable at
+launch (`run_in_background:true`) and in the roster, with **one precisely-named
+blindness: no completion event** — visible only via the re-injected
+`<task-notification>` or the next `Stop`'s roster. Bonus organ: **`background_tasks[]`
+on every `Stop` is a live WIP roster** — README §3's gauge, free. **Q4:** one JSONL
+line per event into `summon/log/census/census.jsonl`; the hook is one `exec` into
+`jq` that projects a fixed field set and drops every prompt, tool input and command
+string — telemetry, never truth. Proven end-to-end, 60-way concurrent appends
+intact. **Two traps the build rows must not inherit:** **SIGKILL leaves no
+`SessionEnd`** (last line reads `Stop` — indistinguishable from live idle), so the
+glass needs **two sensors**, the census *and* `kill -0 pid`; and **`/clear` rotates
+the session id in place** (`SessionEnd reason=clear` → `SessionStart source=clear`,
+same pane). Deploy is **additive** — `~/.claude/settings.json` carries no hooks
+today (`permissions.defaultMode: auto`, `hooks: null`), so the Felix-run ×3 ritual
+is a straight write. Shipped [`lab/p1/`](lab/p1/) — `beat.sh` (the production
+candidate), `capture.sh`/`envdump.sh` (probe), `mkproject.sh`, `run.sh`,
+`pty_run.py` (interactive driver — headless never emits `Notification`), `bench.py`,
+`slow.sh`. No live settings file was touched. Decided: nothing — no D-entry; the
+record schema is a build-row input, not canon. Next: P4 is now unblocked (P1 and P2
+both landed); then the fold sitting cuts the v0 build rows on measured physics.
