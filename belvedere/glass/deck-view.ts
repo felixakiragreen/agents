@@ -1,0 +1,45 @@
+// The `FocusView` seam — *"panes are a replaceable surface"* (D13) as code.
+//
+// The three-pane shell is the stable frame; what stands in Focus is a tenant, and Action follows
+// it (keel §3). B13 ships placeholders; the Workshop (B15), the Works (B10) and the Chat (B16)
+// move in through this interface and nowhere else. Replacing a pane is a module, never a rebuild —
+// so this file holds the contract and the register of who has signed it, and nothing else. It
+// mounts nothing and draws nothing: the app owns the hosts.
+
+import type { DeckSnapshot, PaneState } from './deck-model';
+
+export type FocusView = {
+	/** The registry key, and the fragment the deck remembers a focus by. One lowercase word. */
+	readonly name: string;
+	/** Encapsulation-first: the 1–6 word name the pane head leads with. */
+	readonly title: string;
+	/**
+	 * The pane states this tenant can actually draw. A tenant that declares only `typical` is
+	 * telling the shell not to offer the other two — the affordance is the tenant's to declare,
+	 * because only it knows whether it has a one-word form.
+	 */
+	readonly states: readonly PaneState[];
+	/**
+	 * Both hosts at once: Action follows Focus, so one tenant owns both and there is no second
+	 * registry for the Action pane. Called on swap-in; the hosts are empty and are the tenant's
+	 * until `unmount`.
+	 */
+	mount(focusHost: HTMLElement, actionHost: HTMLElement): void;
+	/** Swap-out. The shell empties the hosts afterwards; a tenant holding a timer clears it here. */
+	unmount(): void;
+	/** Every poll and every state change. `snap` is null before the first poll answers. */
+	draw(snap: DeckSnapshot | null, focusState: PaneState, actionState: PaneState): void;
+};
+
+const signed = new Map<string, FocusView>();
+
+/** Sign the lease. A second tenant under one name is a bug, not a replacement — it throws. */
+export function moveIn(view: FocusView): void {
+	if (signed.has(view.name)) throw new Error(`deck: two tenants named "${view.name}"`);
+	signed.set(view.name, view);
+}
+
+export const tenant = (name: string): FocusView | null => signed.get(name) ?? null;
+
+/** In signing order — the shell draws its swap buttons from this, so order is the tenants' own. */
+export const tenants = (): FocusView[] => [...signed.values()];
