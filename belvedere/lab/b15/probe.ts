@@ -12,7 +12,7 @@
 // live-city half — `agents/belvedere` and a hexwright-class building, and the poll's real cost —
 // is `live.ts`.
 
-import { mkdtempSync, rmSync, writeFileSync } from 'fs';
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
 
@@ -364,17 +364,23 @@ try {
 	await evaluate(SET('focus', 'typical'));
 	await evaluate(SET('action', 'typical'));
 	await Bun.sleep(400);
-	const typical = await evaluate<{ sections: string[]; note: string; action: string; overflow: number }>(`({
+	const typical = await evaluate<{ sections: string[]; note: string; action: string; on: string; overflow: number }>(`({
 		sections: [...document.querySelectorAll('#host-focus .sec')].map(x => x.dataset.sec),
 		note: [...document.querySelectorAll('#host-focus p.quiet')].at(-1).textContent,
 		action: document.getElementById('host-action').textContent,
+		on: document.querySelector('#host-action .plan-card').dataset.building,
 		overflow: document.documentElement.scrollHeight - window.innerHeight,
 	})`);
+	// **Amended at B17.** This asserted that Action held B15's own placeholder, whose text named the
+	// building. The placeholder is gone exactly as it said it would be — the composer moved in — so
+	// the check now reads the composer's own card. The invariant is unchanged and stated better:
+	// *Action follows Focus*, and what stands there is about the building Focus is holding. The name is
+	// matched by suffix because inside a fixture city a building IS its absolute path (B10 F5).
 	ok('typical shows the top of HIS order and says what it is holding back; Action follows Focus',
 		typical.sections.length === 3 && typical.sections.join(',') === 'sessions,board,ledger'
-		&& /2 more section/.test(typical.note) && typical.action.includes('nb/workshop') && typical.overflow === 0,
+		&& /2 more section/.test(typical.note) && typical.on.endsWith('nb/workshop') && typical.overflow === 0,
 		`typical → [${typical.sections.join(' → ')}] and the pane says "${typical.note}"\n`
-		+ `      Action holds: "${typical.action.replace(/\s+/g, ' ').slice(0, 160)}"\n`
+		+ `      Action holds the composer, and its plan card is about ${typical.on}: "${typical.action.replace(/\s+/g, ' ').slice(0, 120)}"\n`
 		+ `      scrollHeight − viewport = ${typical.overflow} px`);
 	await evaluate(SET('focus', 'expanded'));
 	await settle();
@@ -417,10 +423,19 @@ try {
 	const bundle = await (await fetch(`${ORIGIN}/deck.js`)).text();
 	const inBundle = (bundle.match(/hands\/fire/g) || []).length;
 	const inSource = (await Bun.file(join(HERE, 'glass/workshop.client.ts')).text()).match(/hands\/fire/g)?.length ?? 0;
-	ok('ZERO fire wiring in the Workshop — DOM, source and served bundle (D10)',
-		wiring.attrs === 0 && wiring.text === 0 && inBundle === 0 && inSource === 0,
+	// **Narrowed at B17, and strictly stronger.** The Action pane now holds the composer, which is the
+	// one surface on the deck that may fire (keel §3), so `/deck.js` carries that path exactly once. The
+	// invariant this check protects never changed — *nothing in these panes may reach it* — so it moved
+	// from "the bundle contains it zero times" to "which SOURCE contains it", which names the one file
+	// allowed to instead of counting a string. Reasoning at the assertion, per B6's precedent.
+	const ONLY = 'composer.client.ts';
+	const sources = ['deck.client.ts', 'deck-dom.ts', 'workshop.client.ts', 'works.client.ts', ONLY]
+		.map(f => [f, (readFileSync(join(HERE, 'glass', f), 'utf8').match(/hands\/fire/g) ?? []).length] as const);
+	const onlyComposer = sources.every(([f, n]) => (f === ONLY ? n >= 1 : n === 0));
+	ok('ZERO fire wiring in the Workshop — and the composer is the only source that fires (D10)',
+		wiring.attrs === 0 && wiring.text === 0 && onlyComposer && inSource === 0,
 		`DOM: 0 of [data-fire, data-apply, data-worktree, data-summons]; "hands/fire" ${wiring.text}× in the document\n`
-		+ `      glass/workshop.client.ts: "hands/fire" ${inSource}× · /deck.js is ${bundle.length} B and carries it ${inBundle}×\n`
+		+ `      glass/workshop.client.ts: "hands/fire" ${inSource}× · /deck.js is ${bundle.length} B and carries it ${inBundle}×\n`		+ `      per source: ${sources.map(([f, n]) => `${f} ${n}×`).join(' · ')}\n`
 		+ `      ${wiring.buttons} buttons across Focus and Action, and the only wire among them is /hands/focus`);
 
 }

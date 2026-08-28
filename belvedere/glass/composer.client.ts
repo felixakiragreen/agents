@@ -35,7 +35,7 @@ const DRAFT_KEY = 'belvedere.deck.draft';
 
 const EMPTY: ComposeDraft = {
 	building: '', cwd: '', account: '', mantle: '', model: '', effort: '',
-	theater: '', increment: '', branch: '', summons: '',
+	theater: '', increment: '', branch: '', summons: '', template: '',
 };
 
 /** localStorage is a per-viewer convenience and never load-bearing: anything unexpected is no memory. */
@@ -55,7 +55,8 @@ let usageAt = 0;
 let resolving = false;
 let pending = false;
 let debounce = 0;
-let template = '';
+/** The chip just pressed, sent once and cleared — `draft.template` is what stays sticky. */
+let clicked = '';
 
 let host: HTMLElement | null = null;
 let state: PaneState = 'minimal';
@@ -80,12 +81,16 @@ async function resolve(): Promise<void> {
 	if (resolving) { pending = true; return; }
 	resolving = true;
 	try {
-		const asked = template;
-		template = '';
-		plan = await post<ComposePlan>('/deck/compose', { ...draft, building: selection.building ?? '', template: asked });
-		// A template fills mantle, tier and summons together (D45), so the knobs re-seat from the
-		// answer rather than from what was on screen when it was asked for.
-		if (asked) { draft = { ...draft, ...plan.draft }; remember(DRAFT_KEY, draft); }
+		const asked = clicked;
+		clicked = '';
+		plan = await post<ComposePlan>('/deck/compose', { ...draft, building: selection.building ?? '', clicked: asked });
+		// The answer IS the draft: a template sets mantle and tier together (D45), and a sticky one
+		// re-speaks the summons at whatever the knobs now say. Re-seating from the answer rather than
+		// from what was on screen is what keeps one logic one logic.
+		draft = { ...draft, ...plan.draft };
+		remember(DRAFT_KEY, draft);
+		if (regions && regions.text.value !== draft.summons && document.activeElement !== regions.text)
+			regions.text.value = draft.summons;
 	}
 	catch (e) { plan = null; say('composer', `compose failed — ${e instanceof Error ? e.message : String(e)}`); }
 	finally { resolving = false; }
@@ -175,8 +180,10 @@ function chips(
 	return box;
 }
 
-function group(name: string, body: HTMLElement | HTMLElement[]): HTMLElement {
+/** One knob. `data-knob` names it, so a reader — and a probe — can say WHICH control moved. */
+function group(knob: string, name: string, body: HTMLElement | HTMLElement[]): HTMLElement {
 	const g = el('div', 'group');
+	g.dataset['knob'] = knob;
 	g.append(label(name));
 	for (const b of ([] as HTMLElement[]).concat(body)) g.append(b);
 	return g;
@@ -241,6 +248,9 @@ function kv(k: string, v: HTMLElement | string): HTMLElement {
 
 function planCard(): HTMLElement {
 	const card = el('section', 'plan-card');
+	// The card is always ABOUT a building, even when there is nothing composed yet — Action follows
+	// Focus, and a card that would not say which building it belongs to is a card in the wrong pane.
+	card.dataset['building'] = plan?.building?.building ?? selection.building ?? '';
 	if (!plan) {
 		card.dataset['tone'] = 'wait';
 		card.append(el('p', 'quiet prose', resolving ? 'resolving…' : 'move a knob and the plan resolves here.'));
@@ -253,6 +263,16 @@ function planCard(): HTMLElement {
 		return card;
 	}
 	card.dataset['tone'] = p.warnings.length ? 'warn' : 'ready';
+	// The plan's facts, on the element that states them: what the page is showing IS what the button
+	// will post, so they are readable without parsing a sentence — by a reader, and by a probe.
+	card.dataset['stamp'] = p.stamp;
+	card.dataset['tier'] = p.tier;
+	card.dataset['color'] = p.color;
+	card.dataset['theater'] = p.theater;
+	card.dataset['cwd'] = p.worktree?.path ?? p.cwd ?? '';
+	card.dataset['sha'] = p.sha;
+	card.dataset['bytes'] = String(p.bytes);
+	card.dataset['account'] = p.fire?.account ?? '';
 	const head = el('div', 'plan-h');
 	head.append(el('span', `pill tone-${p.warnings.length ? 'orange' : 'green'}`, p.warnings.length ? 'read the warnings' : 'ready'));
 	const swatch = el('span', 'swatch');
@@ -321,31 +341,31 @@ function drawKnobs(box: HTMLElement): void {
 	const p = plan;
 	const accounts = p?.accounts ?? [];
 	const account = p?.draft.account || draft.account || accounts[0] || '';
-	box.append(group('account · usage', chips(account,
+	box.append(group('account', 'account · usage', chips(account,
 		accounts.map(a => ({ value: a, text: a, sub: accountSub(a) })), v => knob({ account: v }))));
 
-	box.append(group('mantle', chips(draft.mantle, (p?.mantles ?? []).map(m =>
+	box.append(group('mantle', 'mantle', chips(draft.mantle, (p?.mantles ?? []).map(m =>
 		({ value: m.name, text: m.name, sub: m.preset || 'no preset', color: m.color })), v => knob({ mantle: v }))));
 
-	box.append(group('model', chips(draft.model, [{ value: '', text: 'preset', sub: p?.preset || '—' },
+	box.append(group('model', 'model', chips(draft.model, [{ value: '', text: 'preset', sub: p?.preset || '—' },
 		...['fable', 'opus', 'sonnet', 'haiku'].map(v => ({ value: v, text: v }))], v => knob({ model: v }))));
-	box.append(group('effort', chips(draft.effort, [{ value: '', text: 'preset', sub: p?.preset || '—' },
+	box.append(group('effort', 'effort', chips(draft.effort, [{ value: '', text: 'preset', sub: p?.preset || '—' },
 		...['low', 'medium', 'high', 'xhigh', 'max'].map(v => ({ value: v, text: v }))], v => knob({ effort: v }))));
 
 	if (state !== 'expanded') return;
 
-	box.append(group(`theater — ${p?.theaterNote ?? 'the building\'s own name'}`,
+	box.append(group('theater', `theater — ${p?.theaterNote ?? 'the building\'s own name'}`,
 		textKnob('theater', draft.theater, p?.theater ?? 'from the building', v => knob({ theater: v }, DEBOUNCE_MS))));
-	box.append(group(`increment — minted from both lineage logs and the live census${p?.increment === null ? '' : ` (next is ${p?.increment})`}`,
+	box.append(group('increment', `increment — minted from both lineage logs and the live census${p?.increment === null ? '' : ` (next is ${p?.increment})`}`,
 		textKnob('increment', draft.increment, String(p?.increment ?? ''), v => knob({ increment: v }, DEBOUNCE_MS))));
-	box.append(group('venue — where it runs; empty is the building itself',
+	box.append(group('cwd', 'venue — where it runs; empty is the building itself',
 		textKnob('cwd', draft.cwd, p?.building?.path ?? '~/code/…', v => knob({ cwd: v }, DEBOUNCE_MS))));
-	box.append(group('worktree branch — empty fires in the venue itself',
+	box.append(group('branch', 'worktree branch — empty fires in the venue itself',
 		textKnob('branch', draft.branch, 'bv/b17-something', v => knob({ branch: v }, DEBOUNCE_MS))));
 
-	box.append(group('template — fills the summons, and sets the mantle and tier it speaks as',
-		chips('', (p?.templates ?? []).map(t => ({ value: t.key, text: t.name })),
-			v => { template = v; knob({}); })));
+	box.append(group('template', 'template — fills the summons, and sets the mantle and tier it speaks as',
+		chips(draft.template, (p?.templates ?? []).map(t => ({ value: t.key, text: t.name })),
+			v => { clicked = v; knob({}); })));
 }
 
 function draw(): void {
@@ -401,7 +421,8 @@ export const composer = {
 		text.spellcheck = true;
 		text.placeholder = 'the first user turn, byte for byte';
 		text.value = draft.summons;
-		text.addEventListener('input', () => knob({ summons: text.value }, DEBOUNCE_MS));
+		// The first keystroke makes the words his: a sticky template stops re-writing what he typed.
+		text.addEventListener('input', () => knob({ summons: text.value, template: '' }, DEBOUNCE_MS));
 		const extra = el('div', 'c-extra');
 		into.append(head, card, text, knobs, extra);
 		regions = { head, card, knobs, text, extra };

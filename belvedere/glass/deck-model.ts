@@ -399,6 +399,16 @@ export type ComposeDraft = {
 	increment: string;
 	branch: string;
 	summons: string;
+	/**
+	 * The template the summons is still speaking through, or `''` once he has typed over it.
+	 *
+	 * It is **sticky** because §1 wants the summons *text* live under the knobs, not just the plan:
+	 * a fence names its own mantle and tier (D45), so `You are a Builder at opus-high.` has to
+	 * become `…at opus-low.` when the effort chip moves, or the page is showing a summons that
+	 * contradicts the fire it is about to make. The first keystroke in the box clears it — from
+	 * there the words are his and nothing rewrites them.
+	 */
+	template: string;
 };
 
 /** Exactly the body `POST /hands/fire` parses (B4 F1) — the plan carries it, the button sends it. */

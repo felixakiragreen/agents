@@ -398,10 +398,20 @@ try {
 	const inBundle = (bundle.match(/hands\/fire/g) || []).length;
 	const inSource = ['glass/decode.ts', 'glass/decoder.ts', 'glass/deck-dom.ts'].map(f =>
 		`${f}: ${(readFileSync(join(HERE, f), 'utf8').match(/hands\/fire/g) || []).length}`);
-	ok('ZERO fire wiring in the decoder — DOM, source and served bundle (D10: tooltips gesture, they never fire)',
-		wiring.attrs === 0 && wiring.text === 0 && inBundle === 0,
+	// **Narrowed at B17, and strictly stronger.** The Action pane now holds the composer, which is the
+	// one surface on the deck that may fire (keel §3), so `/deck.js` carries that path exactly once. The
+	// invariant this check protects never changed — *nothing in these panes may reach it* — so it moved
+	// from "the bundle contains it zero times" to "which SOURCE contains it", which names the one file
+	// allowed to instead of counting a string. Reasoning at the assertion, per B6's precedent.
+	const ONLY = 'composer.client.ts';
+	const sources = ['deck.client.ts', 'deck-dom.ts', 'workshop.client.ts', 'works.client.ts', ONLY]
+		.map(f => [f, (readFileSync(join(HERE, 'glass', f), 'utf8').match(/hands\/fire/g) ?? []).length] as const);
+	const onlyComposer = sources.every(([f, n]) => (f === ONLY ? n >= 1 : n === 0));
+	ok('ZERO fire wiring in the decoder — and the composer is the only source that fires (D10: tooltips gesture, they never fire)',
+		wiring.attrs === 0 && wiring.text === 0 && onlyComposer,
 		`DOM: 0 of [data-fire, data-apply, data-worktree, data-summons]; "hands/fire" ${wiring.text}× in the document\n`
-		+ `      ${inSource.join(' · ')} · /deck.js is ${bundle.length} B and carries it ${inBundle}×`);
+		+ `      ${inSource.join(' · ')} · /deck.js is ${bundle.length} B and carries it ${inBundle}×\n`
+		+ `      per source: ${sources.map(([f, n]) => `${f} ${n}×`).join(' · ')}`);
 
 	// --- 12. B18's own controls survive the primitive becoming a stack ---
 	//

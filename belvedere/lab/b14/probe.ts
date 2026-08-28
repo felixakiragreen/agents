@@ -263,10 +263,20 @@ try {
 	}))()`);
 	const bundle = await (await fetch(`${ORIGIN}/deck.js`)).text();
 	const inBundle = (bundle.match(/hands\/fire/g) || []).length;
-	ok('ZERO fire wiring anywhere in the City or the queue — in the DOM and in the served bundle (D10)',
-		domWiring.attrs === 0 && domWiring.text === 0 && inBundle === 0,
+	// **Narrowed at B17, and strictly stronger.** The Action pane now holds the composer, which is the
+	// one surface on the deck that may fire (keel §3), so `/deck.js` carries that path exactly once. The
+	// invariant this check protects never changed — *nothing in these panes may reach it* — so it moved
+	// from "the bundle contains it zero times" to "which SOURCE contains it", which names the one file
+	// allowed to instead of counting a string. Reasoning at the assertion, per B6's precedent.
+	const ONLY = 'composer.client.ts';
+	const sources = ['deck.client.ts', 'deck-dom.ts', 'workshop.client.ts', 'works.client.ts', ONLY]
+		.map(f => [f, (readFileSync(join(HERE, 'glass', f), 'utf8').match(/hands\/fire/g) ?? []).length] as const);
+	const onlyComposer = sources.every(([f, n]) => (f === ONLY ? n >= 1 : n === 0));
+	ok('ZERO fire wiring anywhere in the City or the queue — and the composer is the only source that fires (D10)',
+		domWiring.attrs === 0 && domWiring.text === 0 && onlyComposer,
 		`DOM: 0 of [data-fire, data-apply, data-worktree, data-summons]; "hands/fire" appears ${domWiring.text}× in the whole document\n`
-		+ `      /deck.js is ${bundle.length} B and contains "hands/fire" ${inBundle}× (it carries /inbox and /hands/focus, and nothing else)\n`
+		+ `      /deck.js is ${bundle.length} B and contains "hands/fire" ${inBundle}× — from ${ONLY} and nowhere else\n`
+		+ `      per source: ${sources.map(([f, n]) => `${f} ${n}×`).join(' · ')}\n`
 		+ `      every button in the two panes: ${JSON.stringify(domWiring.buttons)}`);
 
 	// --- 6. the legend, and the count readable with the drawer shut ---

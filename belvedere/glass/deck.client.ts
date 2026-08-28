@@ -11,8 +11,13 @@
 // **Nothing here can fire.** The wires a click may reach are `POST /inbox` (his word, one file
 // append), `POST /hands/focus` (his eyes, a jump) and B18's two write-throughs, `POST /hands/rename`
 // and `POST /hands/recolor` (cmux display state, D18 class 2 — a name and a colour, never a session).
-// There is no `/hands/fire` in this file, and every DoD from B14 on greps the served bundle to keep
-// it that way (D10).
+// The spawning hand is unreachable from this file, and its path is not spelled here so a grep can
+// say so (D10).
+//
+// **Amended at B17:** exactly one client file may reach that hand — `composer.client.ts`, which is
+// what Action holds at rest (keel §3). So the served bundle carries the path once, and the check
+// that keeps this honest moved from "the bundle contains it zero times" to "which SOURCE contains
+// it" — strictly stronger, because it names the one file allowed to (B17 F1).
 
 import {
 	ATTENTION, bump, columns, PANES, RESTING, toLayout,

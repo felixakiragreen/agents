@@ -430,13 +430,23 @@ try {
 			const ns = text.split(SVG_NS).length - 1;
 			return [u, all - ns, ns] as const;
 		}));
-	ok('ZERO fire wiring — DOM, source and served bundle — no dropdown, and nothing off this origin',
+	// **Narrowed at B17, and strictly stronger.** The Action pane now holds the composer, which is the
+	// one surface on the deck that may fire (keel §3), so `/deck.js` carries that path exactly once. The
+	// invariant this check protects never changed — *nothing in these panes may reach it* — so it moved
+	// from "the bundle contains it zero times" to "which SOURCE contains it", which names the one file
+	// allowed to instead of counting a string. Reasoning at the assertion, per B6's precedent.
+	const ONLY = 'composer.client.ts';
+	const sources = ['deck.client.ts', 'deck-dom.ts', 'workshop.client.ts', 'works.client.ts', ONLY]
+		.map(f => [f, (readFileSync(join(HERE, 'glass', f), 'utf8').match(/hands\/fire/g) ?? []).length] as const);
+	const onlyComposer = sources.every(([f, n]) => (f === ONLY ? n >= 1 : n === 0));
+	ok('ZERO fire wiring in the Works — no dropdown, nothing off this origin, and only the composer fires',
 		wiring.attrs === 0 && wiring.text === 0 && wiring.selects === 0
-		&& (bundle.match(/hands\/fire/g) ?? []).length === 0
+		&& onlyComposer
 		&& (source.match(/hands\/fire/g) ?? []).length === 0
 		&& served.every(([, n]) => n === 0),
 		`DOM: 0 fire attributes, "hands/fire" ${wiring.text}×, ${wiring.selects} <select>, ${wiring.buttons} buttons in Focus+Action\n`
-		+ `      glass/works.client.ts: 0× · /deck.js (${bundle.length} B): 0×\n`
+		+ `      glass/works.client.ts: 0× · /deck.js (${bundle.length} B): ${(bundle.match(/hands\/fire/g) ?? []).length}×, from ${ONLY} alone\n`
+		+ `      per source: ${sources.map(([f, n]) => `${f} ${n}×`).join(' · ')}\n`
 		+ `      fetchable http(s):// in served payloads — ${served.map(([u, n, ns]) => `${u.replace(ORIGIN, '')}: ${n}${ns ? ` (+${ns} SVG namespace, never fetched)` : ''}`).join(' · ')}`);
 
 	// --- 14. the cost: the poll, and the tenant's own render ---

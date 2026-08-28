@@ -8,7 +8,7 @@
 // override, and the lineage prefix the whole wrong-stamp class turns on.
 
 import { describe, expect, test } from 'bun:test';
-import { LIMITS, readDraft, readIncrement, withTemplate } from './deck-composer';
+import { LIMITS, readDraft, readIncrement, templateBody, withTemplate } from './deck-composer';
 import { FOUNDING } from './composer';
 import { nextOrdinal, ordinal, stampPrefix, theaterOf } from './summon';
 import type { Rig } from './rig';
@@ -132,6 +132,32 @@ describe('a template is a whole opening: it sets the mantle and the tier it spea
 		const out = withTemplate(draft(), 'sweep', rig(), '/Users/felix/code/agents/belvedere');
 		expect(out.summons).toContain('belvedere');
 		expect(out.mantle).toBe('Architect');
+	});
+
+	test('a clicked template becomes sticky, and that is what keeps the summons live', () => {
+		expect(withTemplate(draft(), 'builder', rig(), null).template).toBe('builder');
+	});
+
+	/**
+	 * §1's *"the summons text updating as knobs move"*, which is the whole reason stickiness exists:
+	 * a fence names its own tier (D45), so a page showing `at opus-high` beside an `opus-low` fire
+	 * is a page arguing with itself.
+	 */
+	test('a sticky template re-speaks at the CURRENT tier, and follows the mantle chip rather than freezing it', () => {
+		expect(templateBody('builder', 'Builder', 'opus-high', null)).toContain('You are a Builder at opus-high.');
+		expect(templateBody('builder', 'Builder', 'haiku-low', null)).toContain('You are a Builder at haiku-low.');
+		// The six mantle chips are ONE template parameterised by mantle, so moving the mantle knob
+		// moves the words rather than leaving a Digger speaking as a Builder.
+		expect(templateBody('builder', 'Digger', 'opus-high', null)).toContain('You are a Digger at opus-high.');
+		expect(templateBody('builder', 'Grand Architect', 'fable-max', null)).toContain('You are the Grand Architect at fable-max.');
+	});
+
+	test('the founding fence ignores the knobs, because DOCTRINE §12 is bytes and not a formula', () => {
+		expect(templateBody('founding', 'Builder', 'haiku-low', null)).toBe(FOUNDING);
+	});
+
+	test('a template nobody has heard of re-speaks nothing — his text is never replaced by a guess', () => {
+		expect(templateBody('no-such-template', 'Builder', 'opus-high', null)).toBeNull();
 	});
 
 	test('no template is not a template: the draft comes back untouched', () => {

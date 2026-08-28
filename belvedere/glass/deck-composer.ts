@@ -45,8 +45,11 @@ export const LIMITS = { bodyBytes: 128 << 10, summonsChars: 32 << 10, increment:
 
 const EMPTY: ComposeDraft = {
 	building: '', cwd: '', account: '', mantle: '', model: '', effort: '',
-	theater: '', increment: '', branch: '', summons: '',
+	theater: '', increment: '', branch: '', summons: '', template: '',
 };
+
+/** The mantle templates, by key — a sticky one of these follows the mantle chip rather than freezing it. */
+const MANTLE_KEYS = new Set(MANTLES.map(m => mantleKey(m) ?? ''));
 
 const str = (v: unknown): string => (typeof v === 'string' ? v.trim() : '');
 
@@ -64,7 +67,7 @@ export function readDraft(raw: unknown): ComposeDraft {
 		building: str(r['building']), cwd: str(r['cwd']), account: str(r['account']),
 		mantle: str(r['mantle']), model: str(r['model']), effort: str(r['effort']),
 		theater: str(r['theater']), increment: str(r['increment']), branch: str(r['branch']),
-		summons: summons.slice(0, LIMITS.summonsChars),
+		summons: summons.slice(0, LIMITS.summonsChars), template: str(r['template']),
 	};
 }
 
@@ -98,10 +101,12 @@ export const mantleChips = (rig: Rig): MantleChip[] =>
 	});
 
 /**
- * A `ComposeDraft` back through v0's `Draft` so a template can be applied by the one function that
- * knows the canon grammar (`composer.ts` §applyTemplate). A template sets mantle, tier and summons
- * together, because a summons fence already names its own mantle and tier (D45) and a chip that
- * filled only the words would leave the page disagreeing with itself.
+ * A template **clicked**: it sets the mantle and the tier it speaks as, and becomes the sticky
+ * source of the summons body. Routed back through v0's `Draft` so the canon grammar is applied by
+ * the one function that knows it (`composer.ts` §applyTemplate) rather than by a second copy.
+ *
+ * A summons fence already names its own mantle and its own tier (D45), so a chip that filled only
+ * the words would leave the page disagreeing with itself.
  */
 export function withTemplate(draft: ComposeDraft, key: string, rig: Rig, target: string | null): ComposeDraft {
 	if (key === '') return draft;
@@ -110,7 +115,19 @@ export function withTemplate(draft: ComposeDraft, key: string, rig: Rig, target:
 		effort: draft.effort, stamp: '', branch: draft.branch, summons: draft.summons,
 	};
 	const out = applyTemplate(v0, key, rig, target);
-	return { ...draft, mantle: out.mantle, model: out.model, effort: out.effort, summons: out.summons };
+	return { ...draft, mantle: out.mantle, model: out.model, effort: out.effort, summons: out.summons, template: key };
+}
+
+/**
+ * The summons a sticky template speaks, **at the knobs' current values**. A mantle template follows
+ * the mantle chip rather than freezing the one that was clicked — the six mantle chips are one
+ * template parameterised by mantle, not six templates — and every body is re-rendered at the tier
+ * the tier chips now say. A template the list does not carry re-renders nothing and keeps his text.
+ */
+export function templateBody(key: string, mantle: string, tier: string, target: string | null): string | null {
+	const wanted = MANTLE_KEYS.has(key) ? mantleKey(mantle) ?? key : key;
+	const t = TEMPLATES.find(x => x.key === wanted);
+	return t ? t.body({ tier, target }) : null;
 }
 
 /**
@@ -121,7 +138,7 @@ export function withTemplate(draft: ComposeDraft, key: string, rig: Rig, target:
  * known; which venue, so trust and the worktree can be asked about; which mantle and tier, so the
  * lineage prefix exists; then the ordinal, the stamp, and finally the body the hands must accept.
  */
-export function composePlan(draft: ComposeDraft, template = ''): ComposePlan {
+export function composePlan(draft: ComposeDraft, clicked = ''): ComposePlan {
 	const t0 = performance.now();
 	const rig = readRig();
 	const reg = register();
@@ -129,7 +146,7 @@ export function composePlan(draft: ComposeDraft, template = ''): ComposePlan {
 		.sort((a, b) => a.building.localeCompare(b.building));
 
 	const building = buildings.find(b => b.building === draft.building) ?? null;
-	const d = withTemplate(draft, template, rig, building?.path ?? null);
+	const d = withTemplate(draft, clicked, rig, building?.path ?? null);
 
 	const accounts = [...rig.accounts.values()];
 	const account = accounts.includes(d.account) ? d.account : accounts[0] ?? '';
@@ -188,9 +205,14 @@ export function composePlan(draft: ComposeDraft, template = ''): ComposePlan {
 		})(readTrust(configDir))
 		: null;
 
+	// A sticky template speaks at the CURRENT knobs, so `You are a Builder at opus-high.` becomes
+	// `…at opus-low.` when the effort chip moves — §1's "the summons text updating as knobs move".
+	// The first keystroke in the box clears the stickiness and the words become his.
+	const spoken = d.template ? templateBody(d.template, d.mantle, tier, building?.path ?? null) : null;
+
 	// The bytes, sanitized exactly once and exactly as the hands sanitize them — so the `<pre>` on
 	// the page, the JSON the button posts and the file the fire writes are one string with one sha.
-	const summons = sanitizeSummons(d.summons);
+	const summons = sanitizeSummons(spoken ?? d.summons);
 	const color = colourOf(rig, d.mantle);
 	const slots = slotsIn(summons);
 
@@ -216,7 +238,9 @@ export function composePlan(draft: ComposeDraft, template = ''): ComposePlan {
 
 	const hands = handsState();
 	return {
-		draft: d, accounts, mantles: mantleChips(rig),
+		// The draft as resolved: a sticky template's words come back so the box shows what will fire.
+		draft: { ...d, summons: spoken ?? d.summons },
+		accounts, mantles: mantleChips(rig),
 		templates: TEMPLATES.map(t => ({ key: t.key, name: t.name })),
 		buildings, building, cwd, cwdNote,
 		theater, theaterNote, increment, stamp, tier, preset, color,
@@ -250,8 +274,11 @@ export async function composeRoute(req: Request): Promise<Response> {
 	let parsed: unknown;
 	try { parsed = JSON.parse(raw); }
 	catch { return json({ error: 'the draft is not JSON' }, 400); }
-	const template = str((parsed as Record<string, unknown>)?.['template']);
-	return json(composePlan(readDraft(parsed), template), 200);
+	// `clicked` is the one-shot gesture — a chip just pressed — and `draft.template` is what the
+	// summons is still speaking through. Two fields because they answer two questions: which
+	// template sets the mantle right now, and which one keeps the body live afterwards.
+	const clicked = str((parsed as Record<string, unknown>)?.['clicked']);
+	return json(composePlan(readDraft(parsed), clicked), 200);
 }
 
 const json = (body: unknown, status: number) =>
