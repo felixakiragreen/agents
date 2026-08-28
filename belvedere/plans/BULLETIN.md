@@ -948,6 +948,13 @@ map as a third argument (no socket in a unit test — hand it a `Map`), **`deckS
 async** and `server.ts`'s `route` awaits it, and `DeckSnapshot` gained
 `identity {at, error, workspaces}` beside `DeckSession.live {name, color, ref}`.
 
+One predecessor probe was edited, deliberately and in the open: `lab/b14/probe.ts` asserted
+`legend keys === 9`, and B18 draws three more marks on those same lines (the swatch, the birth
+name, the stale marker) and owes them three more keys. The number is a *nobody dropped one*
+check, so it moved to 12 with the reason written at the assertion — **it will move again**, and
+a bare count in a probe is a trap the next row inherits. B13's, B14's and B15's probes were all
+re-run whole against this row's client: **ALL GREEN**, three for three.
+
 And for anyone writing a suite that imports `deck.ts`: **point `BELVEDERE_ENV` at a path that
 does not exist.** `deckState` reaches the socket when the glass is armed, and an armed test
 process drives Felix's real desktop — B8 F1's lesson, one door further along. `deck.test.ts`

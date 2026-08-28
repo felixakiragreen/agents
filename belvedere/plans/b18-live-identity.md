@@ -202,6 +202,14 @@ its rename/recolor would still work, because those address a uuid and uuids are 
 fix is `list-windows` plus one call per window, i.e. one more spawn per poll against F4's
 budget: filed, not built.
 
+**F8 — B13's, B14's and B15's probes were re-run whole and are green, and one of them had to
+be edited.** `lab/b14/probe.ts` asserted `legend keys === 9` — five dot states and four badges —
+and this row draws three more marks on those same session lines (the colour swatch, the birth
+name, the stale marker), each of which owes the legend a key under the design law. The count
+moved to 12 with the reason written at the assertion; the invariant it protects (nobody dropped
+one) is untouched. Named here rather than done quietly: **a bare count in a probe is a trap the
+next row inherits**, and B17/B20 will move it again.
+
 **F7 — B18's own socket targets are all uuids, and `attemptFire`'s are not (P6 F2).** Every
 target this row writes — rename, recolor, the jump's panel, workspace and window — is a
 uuid, so a stale one answers `not_found` rather than landing on whatever is focused. The

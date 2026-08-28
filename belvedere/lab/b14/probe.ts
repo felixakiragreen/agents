@@ -281,8 +281,12 @@ try {
 			needs: n.dataset.needs,
 		};
 	})()`);
+	// Nine at B14 — five dot states and four badges. **Twelve since B18**, which draws three more
+	// marks on these same lines and so owes them three more keys: the colour cmux is wearing, the
+	// birth name, and the stale marker. The number is a "nobody dropped one" check, so it moves
+	// with the vocabulary and is expected to move again.
 	ok('the legend carries the whole dot and badge vocabulary, and the count is readable with the drawer shut',
-		closed.keys.length === 9 && closed.drawerDisplay === 'none' && closed.needsWidth > 0 && closed.needs === '4',
+		closed.keys.length === 12 && closed.drawerDisplay === 'none' && closed.needsWidth > 0 && closed.needs === '4',
 		`drawer display:${closed.drawerDisplay} · header count "${closed.needs}" ${closed.needsWidth.toFixed(2)} px wide\n`
 		+ `      ${closed.keys.length} legend keys: ${closed.keys.join(' | ')}`);
 
