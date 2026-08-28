@@ -164,10 +164,10 @@ type Card = {
 
 const CARD = `(() => {
 	const c = document.querySelector('#host-action .plan-card');
-	const pre = document.querySelector('#host-action .summons-out');
+	const box = document.querySelector('#host-action textarea.summons-in');
 	const go = document.querySelector('#host-action button.go');
 	const out = document.querySelector('#host-action [data-out-for="composer"]');
-	return c ? { ...c.dataset, tone: c.dataset.tone, summons: pre ? pre.textContent : '',
+	return c ? { ...c.dataset, tone: c.dataset.tone, summons: box.value,
 		armed: go ? go.dataset.armed : 'none', out: out ? out.textContent : '' } : null;
 })()`;
 
@@ -390,7 +390,10 @@ await move('account', 'personal', c => c.account === 'personal');
 await move('model', 'haiku', c => c.tier.startsWith('haiku'));
 const armed = await move('effort', 'low', c => c.tier === 'haiku-low' && c.armed === 'yes');
 
-const previewed = await evaluate<string>(`document.querySelector('#host-action .summons-out').textContent`);
+// The box IS the preview, and the card states the sha of what will be delivered — so the chain has
+// four links, not three: what is on screen, what the card claims about it, what the hand wrote, and
+// what the session read.
+const previewed = await evaluate<string>(`document.querySelector('#host-action textarea.summons-in').value`);
 const pageSha = sha16(previewed);
 const before9 = Date.now();
 
@@ -420,10 +423,11 @@ const transcript = await until('the session\'s transcript', async () => {
 }, 90_000);
 
 ok('one live fire, end to end: the previewed bytes ARE the fired bytes ARE the first user turn',
-	sha16(transcript.content) === pageSha && receipt.includes(pageSha)
+	sha16(transcript.content) === pageSha && receipt.includes(pageSha) && armed.sha === pageSha
 	&& armed.stamp === 'builder-belvedere-78' && named?.title === 'builder-belvedere-78'
 	&& (named?.custom_color ?? '').toLowerCase() === '#0362b2',
-	`previewed on the page : ${Buffer.byteLength(previewed)} B · sha256 ${pageSha}\n`
+	`in the box on screen  : ${Buffer.byteLength(previewed)} B · sha256 ${pageSha}\n`
+	+ `      the card's own claim  : ${armed.bytes} B · sha256 ${armed.sha}\n`
 	+ `      the hands' receipt    : ${receipt}\n`
 	+ `      the transcript's turn : ${Buffer.byteLength(transcript.content)} B · sha256 ${sha16(transcript.content)} · ${transcript.file}\n`
 	+ `      cmux says             : ref ${ref} · uuid ${named?.id} · title "${named?.title}" · color ${named?.custom_color}\n`

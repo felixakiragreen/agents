@@ -391,9 +391,17 @@ function draw(): void {
 
 	r.card.textContent = '';
 	r.card.append(planCard());
-	const pre = el('pre', 'summons-out');
-	pre.textContent = plan?.summons ?? draft.summons;
-	r.card.append(pre, acts());
+	// The box below IS the preview: what he typed is what will be delivered, and the card states its
+	// byte count and its sha. The delivered bytes are quoted separately **only where they differ** —
+	// sanitizing expands tabs and strips control bytes (`sanitize.ts`), and that is the one case where
+	// a second copy carries information rather than repeating the first (directive 1.7).
+	if (plan && plan.summons !== plan.draft.summons) {
+		r.card.append(el('span', 'label', 'delivered bytes — your draft, sanitized: tabs expanded, control bytes stripped'));
+		const pre = el('pre', 'summons-out');
+		pre.textContent = plan.summons;
+		r.card.append(pre);
+	}
+	r.card.append(acts());
 
 	r.knobs.textContent = '';
 	drawKnobs(r.knobs);
