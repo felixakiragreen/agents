@@ -42,3 +42,37 @@ are drained. A swept inbox is empty.
   query is B16 F1's) — and the honest-disabled law: anything rendered inert
   says WHY on hover (B16's cold send does it right: "the hands are cold"); a
   slot that names a landed row reads as broken, not pending.
+
+---
+
+- 2026-08-28 · Felix (via the G2 Architect, deck field report) · **"Sometimes
+  selecting the verdict card works (changes the Act panel), but right now it's
+  not selecting it."** This is candidate 6's third face, and its clearest
+  signature: `wire(focus)`'s node click is a TOGGLE (`picked = picked === id ?
+  null : id`), so with N leaked handlers stacked on the host one click toggles
+  N times — **odd N selects, even N cancels itself to a visible no-op**.
+  "Sometimes works" is literally the parity of his tenant-swap count since page
+  load. Unreproduced, but the mechanism is the one already cut forward
+  (candidate 6, `88fa7c6`) and this face argues its priority: it breaks
+  READING, not just writing — the state-layer guards that made the POSTs safe
+  cannot help a pure client toggle. Workaround until the fix lands: a hard
+  reload resets every tenant to one handler. Fix unchanged: one
+  `AbortController` per mount, aborted at unmount.
+
+---
+
+- 2026-08-28 · Felix (via the G2 Architect, deck field report) · **"That agent
+  is complete, I went into it, read it, and it gave me a baton. But I can't see
+  that anywhere or act on it anywhere in belvedere."** The baton IS on file
+  (the recording sitting's ledger entry — holder Felix, the batch-6 cut
+  summons fenced) and IS rendered — but only in the Workshop's ledger-tail
+  panel (holder pill + text, `workshop.client.ts:256`) and on the v0 rail at
+  `/`, which still serves every city baton as cards. **The deck's attention
+  model does not include batons**: `attention.ts` has no baton bucket, so a
+  Felix-holder baton — needs-you class by definition (D15) — raises no City
+  badge and no queue item, and the deck-era sovereign never sees the one
+  thing the whole doctrine says to hand him. Ask for the rework chapter:
+  batons join the queue (Felix-holder ⇒ a queue item whose affordance is
+  "open in the composer", copy-is-reading, D10 intact; session-holder ⇒ the
+  rail's Dispatch semantics, D10's collision rules inherited); the Works'
+  landed terminal node could also surface "this landing handed a baton."
