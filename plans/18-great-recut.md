@@ -33,7 +33,7 @@ city-wide by the Sovereign (D63/D65: "We'll migrate every project, I don't care"
 | 18d | bob — lunchbox, pods, theseus: DONE→LANDED, PASSED/MERGED re-spellings, depends prose | — | Architect · opus-medium | LANDED (2026-08-26) — 53/54 typed, 1 unrecorded (linter vocab gap, escalated), commits 1bec7f0/54bdc97/553c5db/b90847e |
 | 18e | cap-mega/simmy — ledger 29 entries (5 parse), ISSUES ## headings → D63h bullets, board depends | — | Architect · opus-high | LANDED (2026-08-26) — 77→1 failure (linter unrecorded gap, escalated), commits b2199f62e/dfde315b4/c5a6f4dce (cap-mega) |
 | 18f | cap-mega snappy + snappy/ch2 + docs cluster (units, waypoint-stepper, advanced-naming, node-param) | — | Architect · opus-medium | LANDED partial (2026-08-26) — 4 of 5 buildings migrated (7 residual, all the escalated vocab gaps); **snappy BLOCKED** on a malformed ledger, escalated. Findings §18f |
-| 18g | cap-mega worktree boards — manny, tig-avc, schema-migration, cornerizer (columns re-cut to the canonical five): each edited inside its own worktree, committed on its own branch | — | Architect · opus-medium | LANDED (2026-08-26) — 83→8 failures (unrecorded/PARKED vocab gaps, escalated); findings on branch `worktree-agent-a55279e2283f84743` (agents repo, unmerged — commits 6d73d23/ecd7682), plus cap-mega branches task/motion-migration `869ea98`, feature/tig-avc `d166d29`, feature/cornerizer `f19a413`/`b17bb15`, feature/user-manual `f6d4edc`/`00fed9f`/`7b179a9`/`c020b9c` — Architect merges at review |
+| 18g | LANDED | 4 worktree boards, 83→8 failures (vocab gaps); cornerizer's renamed columns hid 97 real defects | branch `worktree-agent-a55279e2283f84743` (agents, **unmerged**) `6d73d23`/`ecd7682`; cap-mega branches task/motion-migration `869ea98`, feature/tig-avc `d166d29`, feature/cornerizer `f19a413`/`b17bb15`, feature/user-manual `f6d4edc`/`00fed9f`/`7b179a9`/`c020b9c` |
 | 18h | rooted (repot + arborist archive) + spacex ×2 — small sweeps; absent Decided:/Next: → `unrecorded` | — | Architect · sonnet-high | LANDED (2026-08-26) — rooted 0/0 (2 buildings); spacex-dashboard 22→8 (both escalated tool gaps); spacex-dashboard-c2 deferred (merged, inert worktree). Two new canon defects filed. Commits: rooted `11d00d4`, spacex-dashboard `f6be754` |
 
 **Batch note (cut 2026-08-26, GA-10).** All eight parallel-safe: disjoint repos;
@@ -540,3 +540,117 @@ keyboard session TBD`), its `README.md:1229` D19 head, and its `ISSUES.md` `##` 
 all inside the BLOCKED building and all judgment for snappy's own Architect; noted in
 `snappy/ISSUES.md`. No meaning edited, no row added or removed, no re-staffing, no writes
 to `canon/`, `sync/` or `doctrine/`.
+
+---
+
+### 18g — the cap-mega worktree boards · LANDED 2026-08-26
+
+Four boards, four worktrees, four branches, seven commits, **zero touches to the shared
+`cap-mega` checkout** (still on `dev`, never switched). Every edit was made inside the
+worktree that owns the branch the board lives on.
+
+```
+$ doctrine lint <the four 18g targets>                    # before          after
+  manny        (feature/user-manual)                          71               2
+  tig-avc      (feature/tig-avc)                               8               0
+  schema-migr. (task/motion-migration)                         3               1
+  cornerizer   (feature/cornerizer)                            1 *            5
+                                                            ----            ----
+                                                              83 *              8
+  * the cornerizer "1" is a lie — see below. Its real pre-state was 97.
+
+=== FAILURE CLASSES (after)          === TOTALS (after)
+     3  board.state                    4 buildings · 4/4 board docs yielded a board
+     2  board.staffing                 4 boards · 83 rows · 80 fully typed (96%)
+     2  ledger.tier                    1/1 ledgers parsed a tail · baton felix
+     1  board.depends                  8 failure(s) in 4 class(es)
+```
+
+**The row's most valuable landing was not on its work list: `board.columns` hides an
+entire board, and the lint line that reports it undercounts by two orders of magnitude.**
+cornerizer's header read `| Row | What | Staffing | Deps | Status |` — one renamed
+column and two swapped ones. `doctrine lint` reported **1 failure** and `0 boards · 0
+rows`, which reads like a nearly-clean building. Re-cutting the header to the canonical
+five (and swapping the two middle columns so every cell kept its meaning) turned that 1
+into **97 real failures across 37 rows that no parser in the city had ever seen** — 91
+`board.depends`, 4 `board.state`, 2 `board.staffing`. A `board.columns` failure is not a
+small job; the number behind it is unknown until the columns are re-cut.
+
+Hiding inside it: **a blank line between C31 and C32** (18c's whiteboardy find, 18f's ch2
+find — third sighting in one wave) that would have kept C32–C38 invisible the moment the
+columns were fixed. Any column re-cut must sweep for it in the same pass.
+
+**Commits** (doc-only, one board per commit):
+
+| branch | commit | what |
+|---|---|---|
+| `task/motion-migration` | `869ea98` | schema-migration: `Felix (named gate)` → `Felix-gate`; M2's `(staffed there)` filled `Builder · opus-high (staffed there — row V-B …)` from `docs/node-global-parameters.md`:1525 |
+| `feature/tig-avc` | `d166d29` | tig-avc: 4× `Felix` → `Felix-gate`; row 07's struck `~~Builder · opus-medium~~ Felix, by hand`; row 08's struck `~~05~~`; row 06 `OPEN (PENDING …)` → `OPEN — PENDING …`; row 05's `EXECUTED` |
+| `feature/cornerizer` | `f19a413` | cornerizer: the canonical five columns + the blank-line split |
+| `feature/cornerizer` | `b17bb15` | cornerizer: 91 `board.depends` → 0; C28's state token |
+| `feature/user-manual` | `f6d4edc` | manny: `doctrine migrate --write` (2 edits) |
+| `feature/user-manual` | `00fed9f` | manny: 26 Depends-on cells |
+| `feature/user-manual` | `7b179a9`, `c020b9c` | manny: 17 ledger heads + the 18g entry |
+
+**The judgment calls, named:**
+
+- **`EXECUTED` (tig-avc 05) → `OPEN — EXECUTED …`.** The gate reviewed everything, Felix
+  overrode the merge, and the cell's own words end "merge waits on 06 + 11 + 12". A merge
+  gate that has not merged is not LANDED; OPEN is the row's state and every byte of the
+  verdict rides the annotation unchanged.
+- **`WEDGED` (cornerizer C28) → `**LANDED** — **WEDGED** …`.** Determinate: the same cell
+  ends `MERGED 2026-08-18`. Only the state token was added.
+- **`PARKED` (cornerizer C8/C22/C34) → untouched, escalated.** Not determinate — §4's
+  lifecycle is five words, `PARKED` is none of them and is not a retired synonym either,
+  yet the Architect mantle uses the verb as doctrine. Three candidate rulings that are not
+  equivalent; filed to the canon inbox. Same for `staffed when unparked` (C8/C34), which
+  is a *recorded* fact, not an absent record — 18f drew the same line on snappy's
+  `unstaffed`, independently.
+- **Depends-on: `✓` and `merged` are not information.** The depended row's own Status
+  carries whether it landed or merged, so `C17 merged ✓` → `C17` loses nothing. Prose that
+  *was* information moved verbatim to the Status annotation as `Depends-on note: …` (14
+  cornerizer rows, 2 manny rows) — §4's own disposal route. Ranges were expanded to ids
+  (`14–23` → ten ids, `16–20` → five), which is determinate on a single board.
+- **Blessings became gates, with their attribution checked one by one.** `01 blessed ✓` →
+  `01 · Felix-gate: blessed` (manny, ×5). In cornerizer every `D<n>` precondition was
+  traced to its ruler before it was spelled: D9/D10/D18/D19/D20/D21 are Felix's (the
+  §Felix-forks note under the board and `docs/cornerizer.md`:4406/5375) and became
+  `Felix-gate: D<n>`; **D15 is the Architect's** (ruled at the batch-7 fold under Felix's
+  delegated criterion), so it is not a gate — it was dropped from the Depends-on column,
+  where its own row's Work cell already names it.
+- **manny's ledger tiers: five cited, four `unrecorded`.** Cited — rows 03/04/05/06/07
+  from the board's own Staffing column; both Dispatcher sittings from the summonses fenced
+  at `LEDGER.md`:136/234; founding and founding-review from `keel.md` §7 ("Founding +
+  blueprint: `fable-max`") and the founding summons at `keel.md`:348. Not cited, so typed
+  `unrecorded` — the M0 backfill (Grand Architect) and the D11 review. Twelve `Decided:`
+  and one `Next:` were typed `unrecorded` rather than reconstructed from the entries'
+  narrative prose: reconstructing what a session decided is interpretation, not citation.
+
+**The `migrate` warning did not fire here.** The BULLETIN's `ledger.pre-doctrine-head`
+defect needs an unbolded pre-D63 head; manny's were already `**<date> · <mantle> …**`, so
+`migrate` produced exactly 2 correct edits (row 28's leading `PENDING`, row 12's tier
+slot) and the post-write lint confirmed it. Every other repo-side edit in this row was by
+hand.
+
+**The 8 residual failures, every one already escalated:**
+
+| n | class | what | where it waits |
+|---|---|---|---|
+| 3 | `board.state` | cornerizer `PARKED` ×3 | canon inbox — 18g's entry |
+| 2 | `board.staffing` | cornerizer `staffed when unparked` ×2 | same entry |
+| 2 | `ledger.tier` | manny's two `unrecorded` tiers | the wave-wide `unrecorded` gap (18a/18d/18e) |
+| 1 | `board.depends` | schema-migration M2's `V-A` | 18c's resolution-scope entry — `V-A` is a real row id, on `docs/node-global-parameters.md`; `parseBoards` builds `knownIds` per file |
+
+**DoD:** 1 ✗ by the letter (8, all four causes escalated and none of them this row's to
+rule) · 2 ✓ (manny's ledger carries its migration entry and parses fully typed with a
+Felix-held baton; the other three buildings have no ledger and none was minted — the
+board annotation carries the date) · 3 ✓ (round-trip `ok` on the one `--write`, verified
+by a post-write lint per the BULLETIN; all seven commits doc-only, each worktree's
+pre-existing dirt left untouched) · 4 n/a — **no building was deferred**: nothing was IN
+FLIGHT on any of the four boards (cornerizer C37 OPEN / C38 BLOCKED, tig-avc 06/10/12
+OPEN, schema-migration all OPEN behind its M0 Felix-gate, manny 28 OPEN — PENDING) · 5 ✓.
+
+**Untouched, by law:** the ~12,700 branch twins of these files; the shared `cap-mega`
+checkout; the pre-existing uncommitted `pom.xml` (cornerizer) and `manual.typ`
+(user-manual) in those worktrees. No meaning edited, no row added or removed, no
+re-staffing, no status truth changed, no writes to `canon/`, `sync/` or `doctrine/`.

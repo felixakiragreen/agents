@@ -277,6 +277,67 @@ convention is ruled.
 
 ---
 
+- 2026-08-26 · 18g Architect (cap-mega worktree boards) · **`PARKED` has no place in
+  §4's vocabulary, and a parked row cannot be staffed.** cornerizer's C8, C22 and C34
+  lead their Status with `PARKED`, and C8/C34 carry `staffed when unparked` in Staffing
+  (`board.state` ×3, `board.staffing` ×2). 18g fixed neither — the correct form depends
+  on a ruling that is not this row's to make (18c's line: land what is determinate
+  today, escalate what waits on a ruling).
+
+  **The state question.** §4's lifecycle is five words and `PARKED` is none of them; it
+  is not in the retired-synonyms list either (DONE / CLOSED / WIP / TODO / AUTHORED).
+  Yet the Architect mantle uses the verb as doctrine — *"park what's real but out of
+  scope — parked is tracked, not lost"* — so the concept is canon while the token is
+  not. Three candidate rulings, not equivalent: (a) `PARKED` is an **annotation** on
+  OPEN exactly like PENDING (D63c), so the rows become `OPEN — PARKED <reason>` and the
+  fix is mechanical city-wide; (b) it is a **sixth lifecycle state**, and §4's "the
+  lifecycle stays five words" moves; (c) it is **KILLED** with a resurrection note —
+  wrong here, since all three cells say "earns a build on iron or not at all", a live
+  precondition rather than a kill. The evidence points at (a) and 18g recommends it, but
+  it changes §4, so it is the Grand Architect's or Felix's.
+
+  **The staffing corollary.** `staffed when unparked` is not an absent field that
+  `unrecorded` describes: the record is complete and says *nobody is staffed on
+  purpose*. D63d admits `<Mantle> · <tier>` or `Felix-gate` and neither is honest here;
+  filling `unrecorded` would assert a lost record that was never made, and staffing the
+  row is a re-staffing the 18g fence forbids. 18f drew the identical line on snappy's
+  `unstaffed` cells independently — two buildings, one missing token. If `PARKED` becomes
+  an OPEN annotation, Staffing still needs a legal spelling for a row nobody dispatches.
+
+  Blast radius: small but city-wide — likely in any campaign that parks levers behind
+  bench evidence. Five of row 18g's eight residual failures are this entry.
+
+---
+
+- 2026-08-26 · 18g Architect (cap-mega worktree boards) · **a renamed board column hides
+  the whole board, and the lint count lies about it by two orders of magnitude.**
+  `docs/cornerizer.md` reported **1 failure** (`board.columns`) and `0 boards · 0 rows`,
+  which reads as a nearly-clean building. Re-cutting its header from
+  `| Row | What | Staffing | Deps | Status |` to the canonical five exposed **97
+  failures across 37 rows** that no parser in the city had ever seen.
+
+```
+$ doctrine lint ~/code/universal_robots_sdk/cap-mega/.claude/worktrees/cornerizer/docs/cornerizer.md
+     1  board.columns                          →      91  board.depends
+  0 boards · 0 rows · 0 fully typed (0%)               4  board.state
+  1 failure(s) in 1 class(es)                          2  board.staffing
+                                                  1 boards · 37 rows · 33 typed (89%)
+                                                  97 failure(s) in 3 class(es)
+```
+
+  `board.columns` is a leaf failure today. It should either report the row count of the
+  staffing table it refused to parse, or parse the table positionally and file the
+  residues alongside the column defect — a board with the right five columns in the
+  wrong order is fully recoverable. Until then **no building carrying a `board.columns`
+  failure can be called nearly clean**, and any wave planned off lint totals is planned
+  off a number wrong in the dangerous direction.
+
+  Adjacent, now sighted three times in one wave (18c whiteboardy, 18f ch2, 18g
+  cornerizer): **a blank line inside a board table silently truncates it.** In
+  cornerizer it sat between C31 and C32 and would have hidden seven rows the instant the
+  columns were fixed. Worth a rule of its own — a `|`-row after a blank line after a
+  board is a truncated board, not a new table.
+
 ---
 
 - 2026-08-26 · Belvedere Architect (P2 escalation, Digger evidence) · **The rig's
