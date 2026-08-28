@@ -119,7 +119,7 @@ export async function deckState(open: string | null = null, talking: string | nu
 	// The Works asks the same question of the same building (B10): what is *declared* here. It rides
 	// the same `?b=` because the two tenants draw the same building — the board above the now-line and
 	// the plan below it — and a second query would be a second timer in all but name (B13 F5).
-	const works = worksOf(open);
+	const works = worksOf(open, buildings);
 
 	// The Chat asks the same way and for the same reason (B16): a transcript window is bytes nobody
 	// else on the deck is reading, so it rides `?s=` and is composed only when a session is named.

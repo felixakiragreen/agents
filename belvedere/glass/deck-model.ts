@@ -295,6 +295,12 @@ export type WorksNode = {
 	venue: string;
 	depends: string[];
 	depth: number;
+	/**
+	 * **The reactive gate put this node here** (B12 §2) — it is not in the flow file, it is derived
+	 * from an `extended` line in the engine's own log. Drawn as an insertion so the plan on screen
+	 * never claims a sitting was declared when it was staffed mid-run.
+	 */
+	inserted: boolean;
 	gate: 'none' | 'felix' | 'architect';
 	/** The Felix-card's text, where this step is his. Rendered in his idiom; never wired. */
 	card: string | null;

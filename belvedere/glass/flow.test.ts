@@ -279,7 +279,7 @@ describe('run-state — the engine’s working memory, read by timestamp', () =>
 			{ ts: 10, ev: 'armed' },
 			{ ts: 20, ev: 'fired', step: 'b10', sid: 'live-one', workspace: 'workspace:12' },
 		]);
-		const drawn = worksFlow(f, readRig());
+		const drawn = worksFlow(f, readRig(), join(CITY, 'agents/belvedere'));
 		expect(drawn.armedAt).toBe(10);
 		expect(drawn.run.present).toBe(true);
 		const b10 = drawn.nodes.find(n => n.id === 'b10')!;
@@ -293,7 +293,7 @@ describe('run-state — the engine’s working memory, read by timestamp', () =>
 
 const node = (over: Partial<WorksNode> = {}): WorksNode => ({
 	id: 'b11', name: 'Arm and engine', mantle: 'Builder', color: '#0362b2', tier: 'opus-high',
-	account: 'personal', venue: 'master ~/code/agents', depends: [], depth: 0, gate: 'none', card: null,
+	account: 'personal', venue: 'master ~/code/agents', depends: [], depth: 0, inserted: false, gate: 'none', card: null,
 	kickoff: 'You are a Builder…', from: null,
 	run: { ring: 'declared', ev: null, at: null, sid: null, workspace: null, why: null },
 	blocks: [], timeoutMinutes: DEFAULT_TIMEOUT_MINUTES, awaitingPass: false, ...over,

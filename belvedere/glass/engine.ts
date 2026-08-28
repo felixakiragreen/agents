@@ -30,6 +30,10 @@ import {
 } from './flow';
 import { escalationsIn } from './attention';
 import {
+	classifies, gatedOf, isJudge, judgeIdOf, judgeStep, judgesOf, scopeJoin, stepMarks,
+	type Join, type LandingCode,
+} from './judge';
+import {
 	fail, fire, json, readCredential, readHalt, worktree, type Halted, type Outcome,
 } from './hands';
 import { cityRoot, haltFlag } from './paths';
@@ -62,6 +66,13 @@ export type World = {
 	rowIds: ReadonlySet<string>;
 	/** Master checkouts already held by a live engine-fired step — single-writer physics (B11 §3). */
 	busy: Set<string>;
+	/** Where this flow's building sits on disk — the judge sitting's venue and the docs it is sent to read. */
+	buildingPath: string;
+	/**
+	 * D12's verdict on a flow whose file has moved since the arm (B12 §4). Decided by the caller
+	 * because the in-scope test spawns `git` for the trust precheck, and `plan()` stays pure.
+	 */
+	join: Join;
 };
 
 /** What one pass of one flow decided: lines to append, and steps to fire through the hands. */
@@ -109,33 +120,33 @@ function sessionOf(fired: RunLine | null, world: World): Session | null {
  *    pause. The judge that clears the second one is B12's; until then, pausing is the whole
  *    behaviour.
  */
-export type Verdict = { ev: 'landed' | 'paused'; why: string } | null;
+export type Verdict = { ev: 'landed' | 'paused'; code: LandingCode; why: string } | null;
 
 export function verdictOf(step: Step, fired: RunLine | null, world: World): Verdict {
 	const row = world.rows.get(step.id.toLowerCase()) ?? null;
 	if (row !== null) {
 		if (row.state === 'KILLED' || row.state === 'BLOCKED')
-			return { ev: 'paused', why: `the board says ${row.state} — the engine never advances past a state it did not expect` };
+			return { ev: 'paused', code: 'killed', why: `the board says ${row.state} — the engine never advances past a state it did not expect` };
 		// Somebody is already on it. Two readings disagree about whether this step needs starting, and
 		// an engine that fires over a live session is the wrong continuation D10 exists to prevent.
 		if (row.state === 'IN FLIGHT' && fired === null)
-			return { ev: 'paused', why: 'the board says IN FLIGHT and the engine never fired it — somebody is already on this step' };
+			return { ev: 'paused', code: 'in-flight', why: 'the board says IN FLIGHT and the engine never fired it — somebody is already on this step' };
 		if (row.state === 'LANDED') {
 			const raised = escalationsIn(row.annotation, world.rowIds);
 			return raised.length === 0
-				? { ev: 'landed', why: 'the board row parses LANDED clean' }
-				: { ev: 'paused', why: `LANDED, and ${raised.map(e => e.id).join(', ')} is raised with nothing saying it was ruled (keel §5.1 — the judge is B12's)` };
+				? { ev: 'landed', code: 'clean', why: 'the board row parses LANDED clean' }
+				: { ev: 'paused', code: 'escalated', why: `LANDED, and ${raised.map(e => e.id).join(', ')} is raised with nothing saying it was ruled (keel §5.1)` };
 		}
 	}
 
 	const session = sessionOf(fired, world);
 	if (session !== null && session.state === 'gone')
 		return session.last.ev === 'Stop'
-			? { ev: 'landed', why: 'the census: Stop was its last word and the pid is gone' }
-			: { ev: 'paused', why: `the session is gone and its last event was ${session.last.ev}, not Stop` };
+			? { ev: 'landed', code: 'clean', why: 'the census: Stop was its last word and the pid is gone' }
+			: { ev: 'paused', code: 'no-stop', why: `the session is gone and its last event was ${session.last.ev}, not Stop` };
 
 	if (fired !== null && world.now - fired.ts > step.timeoutMinutes * 60)
-		return { ev: 'paused', why: `timeout — ${step.timeoutMinutes} minutes since the fire and nothing says it landed` };
+		return { ev: 'paused', code: 'timeout', why: `timeout — ${step.timeoutMinutes} minutes since the fire and nothing says it landed` };
 
 	return null;
 }
@@ -183,19 +194,60 @@ export function plan(flow: Flow, run: Run, world: World): Plan {
 		return { lines, fires };
 	}
 
-	// Armed flows are immutable (§1). A hash that has moved pauses every NEW fire; what is already
-	// in flight runs on, and one click on re-arm covers the amendment.
+	/**
+	 * The plan as it stands **plus every judge the gate has inserted** (B12 §2). Judges are derived
+	 * from the run log rather than declared, because the glass writes no flow file — so from here on
+	 * `steps` is the DAG and `flow.steps` is only what was declared.
+	 */
+	const steps: Step[] = [...flow.steps, ...judgesOf(flow, run, world.buildingPath)];
+
+	// Armed flows are immutable (§1) — and D12 rules **scope-arm**, so growth inside the arm's own
+	// scope joins the running flow instead of waiting for a click (B12 §4). Everything else pauses,
+	// now with the reason on it rather than a generic sentence.
 	const armed = armedHash(run);
-	const amended = armed !== null && armed !== flow.hash;
-	if (amended) note(lines, last, { ev: 'paused', why: 'amended since the arm — re-arm to authorize the change (the flow file or a quoted kickoff moved)' });
+	let amended = armed !== null && armed !== flow.hash;
+	if (amended && world.join.kind === 'join') {
+		lines.push({ ev: 'armed', hash: flow.hash, steps: world.join.steps, why: world.join.why });
+		amended = false;
+	}
+	else if (amended)
+		note(lines, last, { ev: 'paused', why: world.join.kind === 'pause' ? world.join.why : 'amended since the arm — re-arm to authorize the change (the flow file or a quoted kickoff moved)' });
 	else if (last !== null && last.ev === 'paused' && (last.why ?? '').startsWith('amended'))
 		note(lines, last, { ev: 'resumed', why: 'the flow matches its arm again' });
+
+	// **The reactive gate's second half, and the one that matters: the verdict is read off the files,
+	// never off the judge's mouth** (§2). A judge that has sat is a judge whose gated row can be
+	// re-classified — clean now, the lane runs on; still not clean, the card is Felix's after all,
+	// and it is drawn on the judge node whose ring this pause sets.
+	for (const judge of steps) {
+		const gatedId = gatedOf(judge.id);
+		if (gatedId === null) continue;
+		const gated = flow.steps.find(s => s.id === gatedId);
+		if (gated === undefined || linesFor(run, judge.id).at(-1)?.ev !== 'landed') continue;
+		if (linesFor(run, gatedId).some(l => l.ev === 'resumed')) continue;      // ruled once, ruled
+
+		const again = verdictOf(gated, firstFire(linesFor(run, gatedId)), world);
+		if (again !== null && again.ev === 'landed')
+			lines.push({ ev: 'resumed', step: gatedId, why: `the judge sitting landed and ${gatedId} reads clean — the lane runs on` });
+		else
+			lines.push({ ev: 'paused', step: judge.id, why: `the judge sitting landed and ${gatedId} still does not read clean (${again?.why ?? 'the row says nothing either way'}) — this one is Felix's` });
+	}
 
 	// Landings first, so a dependant can fire in the same pass its dependency landed.
 	const landed = new Set<string>();
 	/** Steps the board says are not the engine's to start: KILLED, BLOCKED, or already IN FLIGHT. */
 	const held = new Set<string>();
-	for (const step of flow.steps) {
+	/** Judges minted this pass — they join the DAG immediately, so the gate costs a tick and not two. */
+	const inserted: Step[] = [];
+	/**
+	 * Steps this pass reached a verdict on that ends their run. `inFlight` reads the *log*, which does
+	 * not yet carry the line this pass is about to write, so without this a step decided at 12:00:00
+	 * keeps its concurrency slot and its checkout until 12:00:05 — and at `concurrency: 1` that starves
+	 * the judge the same pass staffed for it. `timeout` is deliberately not in here: that session is
+	 * still alive and still spending, and the engine kills nothing (B11 §6).
+	 */
+	const settled = new Set<string>();
+	for (const step of steps) {
 		const mine = linesFor(run, step.id);
 		const own = mine.at(-1) ?? null;
 		if (own?.ev === 'landed') { landed.add(step.id); continue; }
@@ -219,22 +271,41 @@ export function plan(flow: Flow, run: Run, world: World): Plan {
 		// on the drawing and it is drawn dashed precisely because it is the board's (B10 F4); writing
 		// it into the run log would claim the engine spoke when it only read. So a landed row lands the
 		// step for readiness and nothing else, and a KILLED / BLOCKED / IN FLIGHT row simply holds it.
+		// The gate follows the same line: the engine did not start that work, so it staffs no judge for
+		// how it ended — it just stops.
 		if (fired === null) { if (verdict.ev === 'paused') held.add(step.id); continue; }
-		note(lines, own, { ev: verdict.ev, step: step.id, sid: lastFire(mine)!.sid, why: verdict.why });
+		if (verdict.code !== 'timeout') settled.add(step.id);
+
+		// **No recursion** (§3): a judge's own sitting is never judged again, whatever it landed like.
+		const recursing = verdict.ev === 'paused' && classifies(verdict.code) && isJudge(step.id);
+		note(lines, own, {
+			ev: verdict.ev, step: step.id, sid: lastFire(mine)!.sid,
+			why: recursing ? `${verdict.why} — and a judge is never judged (one judge per gated landing, B12 §3): this one is Felix's` : verdict.why,
+		});
+
+		// **The gate** (§2): a landing the engine could not read as clean fires the scoped Architect
+		// sitting into the lane rather than carding the sovereign. One per gated landing — the id is
+		// derived, so a second insertion is unrepresentable and the `extended` line is its own guard.
+		if (verdict.ev !== 'paused' || !classifies(verdict.code) || isJudge(step.id)) continue;
+		const jid = judgeIdOf(step.id);
+		if (run.lines.some(l => l.ev === 'extended' && l.step === jid)) continue;
+		lines.push({ ev: 'extended', step: jid, why: verdict.why });
+		inserted.push(judgeStep(flow, step, world.buildingPath, verdict.why));
 	}
+	steps.push(...inserted);
 
 	// What is still running holds its slot **and its checkout**: a master-venue step in flight makes
 	// that checkout busy for every flow in this pass, which is single-writer physics city-wide and
 	// not a per-flow courtesy. A step that landed above frees both in the same pass.
 	let live = 0;
-	for (const step of flow.steps) {
-		if (landed.has(step.id) || !inFlight(step, run, world)) continue;
+	for (const step of steps) {
+		if (landed.has(step.id) || settled.has(step.id) || !inFlight(step, run, world)) continue;
 		live++;
 		const held = cwdOf(step);
 		if (held !== null) world.busy.add(held);
 	}
 
-	for (const step of flow.steps) {
+	for (const step of steps) {
 		const mine = linesFor(run, step.id);
 		if (firstFire(mine) !== null) continue;               // fired once is fired: the engine never re-fires
 		if (landed.has(step.id) || held.has(step.id)) continue;   // the board already spoke about this one
@@ -290,6 +361,27 @@ const trustTarget = (step: Step): string =>
 	step.venue.kind === 'master' ? step.venue.cwd : step.venue.repo;
 
 /**
+ * **The whole arm-time check for one step**, as one sentence or null. It is a function rather than
+ * inline code in `armFlow` because D12's scope-arm applies exactly the same bar to a step that joins
+ * an already-armed flow (B12 §4) — an addition that auto-joins must clear what the click would have
+ * cleared, and there is only one list of what that is.
+ */
+function refuseStep(step: Step, rig: Rig, trusts: Map<string, Trust>): string | null {
+	const blocked = blocksOf(step);
+	if (blocked.length > 0) return blocked.join(' ');
+
+	const dir = accountDir(rig, step.account);
+	if (dir === null) return `no account "${step.account}" in the rig's accounts.tsv`;
+	if (!trusts.has(dir)) trusts.set(dir, readTrust(dir));
+	const target = trustTarget(step);
+	const verdict = trustOf(target, trusts.get(dir)!);
+	return verdict.warm ? null
+		: `${step.account} has never trusted ${target}`
+			+ ` (project ${verdict.project.path}${verdict.project.repo ? ', a repository' : ''}${verdict.refused ? `, refused at ${verdict.refused}` : ''})`
+			+ ` — a fire there stalls on the folder-trust dialog with no transcript and no beat, and the glass never answers that dialog (B7 F1)`;
+}
+
+/**
  * **The arm** (D11): one click, and the review of the rendered plan IS the authorization.
  *
  * Everything that can refuse, refuses **here** — loudly, naming the step — because P5's whole lesson
@@ -315,21 +407,16 @@ export function armFlow(name: string, hash: string | null = null): Outcome<Armed
 	const rig = readRig();
 	const trusts = new Map<string, Trust>();
 	for (const step of flow.steps) {
+		// The model clause is a property of the step and reads "cannot be armed"; everything else is a
+		// property of the world and reads as a plain refusal. B11's own DoD quotes both, verbatim.
 		const blocked = blocksOf(step);
-		if (blocked.length > 0) return fail(`step ${step.id} cannot be armed: ${blocked.join(' ')}`);
-
-		const dir = accountDir(rig, step.account);
-		if (dir === null) return fail(`step ${step.id}: no account "${step.account}" in the rig's accounts.tsv`);
-		if (!trusts.has(dir)) trusts.set(dir, readTrust(dir));
-		const target = trustTarget(step);
-		const verdict = trustOf(target, trusts.get(dir)!);
-		if (!verdict.warm)
-			return fail(`step ${step.id}: ${step.account} has never trusted ${target}`
-				+ ` (project ${verdict.project.path}${verdict.project.repo ? ', a repository' : ''}${verdict.refused ? `, refused at ${verdict.refused}` : ''})`
-				+ ` — a fire there stalls on the folder-trust dialog with no transcript and no beat, and the glass never answers that dialog (B7 F1)`);
+		const refused = refuseStep(step, rig, trusts);
+		if (refused !== null) return fail(`step ${step.id}${blocked.length > 0 ? ' cannot be armed:' : ':'} ${refused}`);
 	}
 
-	appendRun(name, [{ ev: 'armed', hash: flow.hash }]);
+	// **What was armed, step by step** (B12 §4): the hash says the plan moved, these say which parts,
+	// and that difference is what lets growth inside the scope join without another click.
+	appendRun(name, [{ ev: 'armed', hash: flow.hash, steps: stepMarks(flow) }]);
 	return { ok: true, result: { name, hash: flow.hash, steps: flow.steps.length, building: flow.building } };
 }
 
@@ -443,6 +530,8 @@ async function pass(): Promise<TickReport> {
 	const busy = new Set<string>();
 	const cred = readCredential();
 
+	const trusts = new Map<string, Trust>();
+
 	for (const { flow, run } of armedReads) {
 		const home = buildings.find(b => b.building === flow.building) ?? null;
 		const rows = new Map<string, BoardRow>();
@@ -451,12 +540,16 @@ async function pass(): Promise<TickReport> {
 			rows.set(row.id.toLowerCase(), row);
 			rowIds.add(row.id);
 		}
+		const buildingPath = home?.path ?? join(cityRoot(), flow.building);
 
 		const world: World = {
 			now: Date.now() / 1000, halt,
 			sessions: new Map(census.sessions.map(s => [s.sid, s])),
 			stamped: new Map(census.sessions.filter(s => s.stamp !== null).map(s => [s.stamp!, s])),
-			rows, rowIds, busy,
+			rows, rowIds, busy, buildingPath,
+			// D12's decision is made here rather than in `plan()` because the in-scope test ends in a
+			// trust precheck, and that spawns `git` (B10 F7's cost, paid on a delta and nowhere else).
+			join: scopeJoin(flow, run, step => refuseStep(step, rig, trusts)),
 		};
 
 		const decided = plan(flow, run, world);
@@ -472,9 +565,8 @@ async function pass(): Promise<TickReport> {
 			if (changed(said, 'paused', why)) lines += appendRun(flow.name, [{ ev: 'paused', why }]);
 			continue;
 		}
-		const buildingPath = home?.path ?? join(cityRoot(), flow.building);
 		for (const step of decided.fires) {
-			const line = await fireStep(flow, step, rig, known, cred.result, buildingPath);
+			const line = await fireStep(flow, step, rig, known, cred.result, world.buildingPath);
 			lines += appendRun(flow.name, [line]);
 			if (line.ev === 'fired') fires++;
 		}

@@ -10,12 +10,16 @@
  * arm is B11's, and the string `hands/fire` appears nowhere in this file or in what it produces.
  */
 
+import { isAbsolute, join } from 'path';
+import type { Building } from '../../doctrine';
 import { cmuxColor } from './colors';
 import type { Works, WorksEdge, WorksFail, WorksFlow, WorksNode, WorksUsage } from './deck-model';
 import { blocksOf, armedAt, armedHash, flowLast, readFlows, readRun, stateOf, type Flow, type Step } from './flow';
 import { BUCKETS, pacing } from './gauges';
 import { handsState, readHalt } from './hands';
 import { short, tilde } from './html';
+import { gatedOf, isJudge, judgesOf } from './judge';
+import { cityRoot } from './paths';
 import { readRig, type Rig } from './rig';
 import { usageNow } from './usage';
 
@@ -38,13 +42,26 @@ const fromOf = (s: Step): string | null =>
 const colorOf = (mantle: string, rig: Rig): string | null =>
 	cmuxColor(rig.colours.get(mantle.toLowerCase().replace(/\s+/g, '-')) ?? '');
 
+/**
+ * **The card the reactive gate leaves behind** (B12 §2). A judge node whose lane the engine has
+ * paused is a judge that sat and left something Felix's: the pause's own sentence *is* the card, so
+ * the drawing states the engine's reason rather than inventing an idiom for it, and — like every
+ * Felix-card on this deck — nothing on it can fire (D10; `awaitingPass` stays false because the
+ * judge has already fired, so there is no pass gesture either).
+ */
+const residue = (s: Step, ring: string, last: ReturnType<typeof stateOf>['last']): string | null =>
+	isJudge(s.id) && ring === 'paused' && last?.why !== undefined && last.why !== null ? last.why : null;
+
 function node(s: Step, run: ReturnType<typeof readRun>, rig: Rig): WorksNode {
 	const { ring, last } = stateOf(run, s.id);
+	const card = residue(s, ring, last);
 	return {
 		id: s.id, name: s.name, mantle: s.mantle, color: colorOf(s.mantle, rig),
 		tier: s.tier, account: s.account,
 		venue: venueOf(s), depends: s.depends, depth: s.depth,
-		gate: s.gate.kind, card: s.gate.kind === 'felix' ? s.gate.card : null,
+		inserted: isJudge(s.id),
+		gate: card !== null ? 'felix' : s.gate.kind,
+		card: card ?? (s.gate.kind === 'felix' ? s.gate.card : null),
 		kickoff: s.kickoff.text, from: fromOf(s),
 		run: {
 			ring,
@@ -61,17 +78,27 @@ function node(s: Step, run: ReturnType<typeof readRun>, rig: Rig): WorksNode {
 	};
 }
 
-/** One flow, with its run log read once and every node drawn from it. */
-export function worksFlow(flow: Flow, rig: Rig): WorksFlow {
+/**
+ * One flow, with its run log read once and every node drawn from it — **including the judges the
+ * reactive gate inserted** (B12 §2). They are derived from the log by the same function the engine
+ * fires from, so the kickoff on the node is the kickoff that was sent, compared rather than argued
+ * about; and the edge from a gated step to its judge is drawn even though the judge *depends* on
+ * nothing, because insertion is the relation and readiness is not.
+ */
+export function worksFlow(flow: Flow, rig: Rig, buildingPath: string): WorksFlow {
 	const run = readRun(flow.name);
-	const edges: WorksEdge[] = flow.steps.flatMap(s => s.depends.map(from => ({ from, to: s.id })));
+	const judges = judgesOf(flow, run, buildingPath);
+	const edges: WorksEdge[] = [
+		...flow.steps.flatMap(s => s.depends.map(from => ({ from, to: s.id }))),
+		...judges.map(j => ({ from: gatedOf(j.id)!, to: j.id })),
+	];
 	const last = flowLast(run);
 	return {
 		name: flow.name, file: short(flow.file), building: flow.building, scope: flow.scope,
 		created: flow.created, concurrency: flow.concurrency, judgeTier: flow.judgeTier,
 		armedAt: armedAt(run),
 		hash: flow.hash, armedHash: armedHash(run),
-		nodes: flow.steps.map(s => node(s, run, rig)),
+		nodes: [...flow.steps, ...judges].map(s => node(s, run, rig)),
 		edges,
 		run: { file: short(run.file), present: run.present, lines: run.lines.length, malformed: run.malformed },
 		last: last === null ? null : { ev: last.ev, at: last.ts, why: last.why },
@@ -107,15 +134,19 @@ export function worksUsage(rig: Rig = readRig(), nowSeconds = Date.now() / 1000)
  * building-blind by necessity — a file that will not parse has no `building` field to filter on —
  * so they ride every building's Works and say which file they came from.
  */
-export function worksOf(building: string | null): Works | null {
+export function worksOf(building: string | null, buildings: readonly Building[] = []): Works | null {
 	if (building === null) return null;
 	const rig = readRig();
 	const reads = readFlows(rig);
+	// The register's own path for this building — the same one the engine hands the judge as its
+	// venue. Handed in from the poll's existing read rather than looked up again (B14 F8's budget).
+	const path = buildings.find(b => b.building === building)?.path
+		?? (isAbsolute(building) ? building : join(cityRoot(), building));
 	const flows: WorksFlow[] = [];
 	const fails: WorksFail[] = [];
 	for (const r of reads) {
 		if (!r.ok) fails.push({ ...r.fail, file: short(r.fail.file) });
-		else if (r.flow.building === building) flows.push(worksFlow(r.flow, rig));
+		else if (r.flow.building === building) flows.push(worksFlow(r.flow, rig, path));
 	}
 	return { building, flows, fails, usage: worksUsage(rig), halt: readHalt(), hands: handsState() };
 }

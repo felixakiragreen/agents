@@ -84,6 +84,16 @@ export type Step = {
 	timeoutMinutes: number;
 	/** Longest path from a root — the rank this step sits on when the DAG is drawn. */
 	depth: number;
+	/**
+	 * **This step's own content**, sha256 over everything a fire would use — id, name, resolved
+	 * kickoff, account, staffing, venue, dependencies, gate, timeout. `depth` is deliberately out:
+	 * it is a property of the graph, so adding a step somewhere else would otherwise read as an
+	 * edit to a step nobody touched.
+	 *
+	 * `Flow.hash` says *the plan moved*; this says **which steps moved**, which is the whole
+	 * difference between "re-arm to authorize the change" and D12's scope-arm auto-join (B12 §4).
+	 */
+	hash: string;
 };
 
 export type Flow = {
@@ -254,6 +264,17 @@ function ranked(steps: { id: string; depends: string[] }[]): Map<string, number>
 	return depth;
 }
 
+/**
+ * A step's content hash (§Step.hash). The fields are listed rather than spread so that adding one
+ * to `Step` is a deliberate decision about whether it changes the step's identity — a hash over
+ * `{...step}` would silently start counting `depth`, which is the graph's property and not the
+ * step's.
+ */
+export const stepHash = (s: Omit<Step, 'hash'>): string =>
+	createHash('sha256').update(JSON.stringify([
+		s.id, s.name, s.kickoff.text, s.account, s.mantle, s.tier, s.venue, s.depends, s.gate, s.timeoutMinutes,
+	])).digest('hex').slice(0, 16);
+
 function toFlow(name: string, file: string, text: string, raw: unknown, rig: Rig, read: (p: string) => string | null): Flow {
 	if (!isRaw(raw)) refuse('malformed', `${file}: the flow file is not a JSON object`);
 	const o = raw as Raw;
@@ -304,12 +325,13 @@ function toFlow(name: string, file: string, text: string, raw: unknown, rig: Rig
 		if (typeof timeout !== 'number' || !Number.isFinite(timeout) || timeout <= 0 || timeout > LIMITS.timeout)
 			refuse('field', `${where}: timeoutMinutes must be a number in (0, ${LIMITS.timeout}]`);
 
-		return {
+		const step = {
 			id: id!, name: stepName!.trim(), kickoff: kickoff(s['kickoff'], where, read),
 			account: account!, mantle, tier: t, venue: venue(s['venue'], where),
 			depends: depends as string[], gate: gate(s['gate'], where),
 			timeoutMinutes: timeout as number, depth: 0,
 		};
+		return { ...step, hash: stepHash(step) };
 	});
 
 	for (const s of parsed) for (const d of s.depends)
@@ -391,6 +413,15 @@ export type RunLine = {
 	 * (B11 §3; `engine.ts` §the join).
 	 */
 	stamp: string | null;
+	/**
+	 * On an `armed` line: **which steps were armed**, each as `<id>:<Step.hash>` (B12 §4).
+	 *
+	 * `hash` already says the plan moved; this says which parts of it did, which is what lets the
+	 * engine tell an *addition* from an *edit* without keeping a copy of the flow file. Null
+	 * everywhere else — and null on an `armed` line written before this field existed, where the
+	 * honest answer is "unknown" and the honest behaviour is B11's pause.
+	 */
+	steps: string[] | null;
 };
 
 /** A line as the engine hands it over: the clock is the log's, never the caller's. */
@@ -415,9 +446,14 @@ function toRunLine(raw: unknown): RunLine | null {
 	if (!isRaw(raw)) return null;
 	const ts = raw['ts'], ev = raw['ev'];
 	if (typeof ts !== 'number' || !Number.isFinite(ts) || !isRunEvent(ev)) return null;
+	const steps = raw['steps'];
 	return {
 		ts, ev, step: str(raw, 'step'), sid: str(raw, 'sid'), workspace: str(raw, 'workspace'),
 		why: str(raw, 'why'), hash: str(raw, 'hash'), stamp: str(raw, 'stamp'),
+		// A malformed marks list is *absent*, never half-read: the delta reader's whole job is to be
+		// certain what was armed, and a partial answer there authorizes fires nobody reviewed.
+		steps: Array.isArray(steps) && steps.length <= LIMITS.steps && steps.every(s => typeof s === 'string')
+			? steps as string[] : null,
 	};
 }
 
@@ -447,12 +483,13 @@ export function stateOf(run: Run, step: string): { ring: Ring; last: RunLine | n
 }
 
 /** Flow-level: an `armed` line naming no step is the flow's own authorization (D11's one click). */
-export const armedAt = (run: Run): number | null =>
-	run.lines.filter(l => l.step === null && l.ev === 'armed').at(-1)?.ts ?? null;
+export const armedLine = (run: Run): RunLine | null =>
+	run.lines.filter(l => l.step === null && l.ev === 'armed').at(-1) ?? null;
+
+export const armedAt = (run: Run): number | null => armedLine(run)?.ts ?? null;
 
 /** What the last arm covered, or null while nothing has authorized this flow (B11 §1). */
-export const armedHash = (run: Run): string | null =>
-	run.lines.filter(l => l.step === null && l.ev === 'armed').at(-1)?.hash ?? null;
+export const armedHash = (run: Run): string | null => armedLine(run)?.hash ?? null;
 
 /** The flow's own last word — the arm, the pause that stopped it, the HALT. Steps have their own. */
 export const flowLast = (run: Run): RunLine | null =>
@@ -472,7 +509,7 @@ export function appendRun(name: string, lines: readonly NewRunLine[], nowSeconds
 	const text = lines.map(l => JSON.stringify({
 		ts: nowSeconds, ev: l.ev,
 		step: l.step ?? null, sid: l.sid ?? null, workspace: l.workspace ?? null,
-		why: l.why ?? null, hash: l.hash ?? null, stamp: l.stamp ?? null,
+		why: l.why ?? null, hash: l.hash ?? null, stamp: l.stamp ?? null, steps: l.steps ?? null,
 	})).join('\n') + '\n';
 	mkdirSync(dirname(file), { recursive: true });
 	appendFileSync(file, text);

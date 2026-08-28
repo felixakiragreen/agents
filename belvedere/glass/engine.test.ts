@@ -126,6 +126,7 @@ function world(over: Partial<World> = {}): World {
 		stamped: over.stamped ?? new Map([...sessions.values()].filter(s => s.stamp).map(s => [s.stamp!, s])),
 		rows, rowIds: over.rowIds ?? new Set([...rows.values()].map(r => r.id)),
 		busy: over.busy ?? new Set<string>(),
+		buildingPath: '/Users/felix/code/agents/belvedere', join: { kind: 'none' },
 		...over,
 	};
 }
@@ -287,13 +288,17 @@ describe('landed means (interim law, keel §5.1)', () => {
 		expect(p.fires).toEqual([]);
 	});
 
-	test('a session gone WITHOUT a Stop is malformed — paused, never advanced past', () => {
+	// **Amended at B12** (three tests, same reason): B11 asserted that a gate-classified landing pauses
+	// and does NOTHING else, because until B12 pausing was the whole behaviour. It is not any more —
+	// the reactive gate staffs a judge for exactly these three codes. What each test protected is
+	// unchanged and still checked: **the step itself pauses, and no declared step fires behind it.**
+	test('a session gone WITHOUT a Stop is malformed — paused, and the gate staffs a judge', () => {
 		const f = flowOf();
 		const vanished = session({ sid: 'x', state: 'gone', last: beat({ sid: 'x', ev: 'PreToolUse' }) });
 		const p = plan(f, armed(f, fired), world({ sessions: new Map([['x', vanished]]) }));
-		expect(evs(p)).toEqual(['paused:a']);
+		expect(evs(p)).toEqual(['paused:a', 'extended:a.judge']);
 		expect(whyOf(p, 'paused', 'a')).toContain('not Stop');
-		expect(ids(p)).toEqual([]);
+		expect(ids(p)).toEqual(['a.judge']);
 	});
 
 	test('the board: LANDED clean lands it, and the row outranks a still-live session', () => {
@@ -305,13 +310,13 @@ describe('landed means (interim law, keel §5.1)', () => {
 		expect(whyOf(p, 'landed', 'a')).toContain('board row parses LANDED clean');
 	});
 
-	test('a LANDED row raising an unruled escalation PAUSES — the judge is B12’s', () => {
+	test('a LANDED row raising an unruled escalation PAUSES — and B12’s judge is what fires', () => {
 		const f = flowOf();
 		const rows = new Map([['a', row({ id: 'A', state: 'LANDED', annotation: 'E1 — the register policy needs a ruling' })]]);
 		const p = plan(f, armed(f, fired), world({ rows }));
-		expect(evs(p)).toEqual(['paused:a']);
+		expect(evs(p)).toEqual(['paused:a', 'extended:a.judge']);
 		expect(whyOf(p, 'paused', 'a')).toContain('E1');
-		expect(ids(p)).toEqual([]);
+		expect(ids(p)).toEqual(['a.judge']);
 	});
 
 	test('…and a ruled one does not', () => {
@@ -325,7 +330,7 @@ describe('landed means (interim law, keel §5.1)', () => {
 			const f = flowOf();
 			const rows = new Map([['a', row({ id: 'A', state })]]);
 			const p = plan(f, armed(f, fired), world({ rows }));
-			expect(evs(p)).toEqual([`paused:a`]);
+			expect(evs(p)).toEqual([`paused:a`, 'extended:a.judge']);
 			expect(whyOf(p, 'paused', 'a')).toContain(state);
 		}
 	});
