@@ -212,6 +212,35 @@ afterwards means a sensor is lying. It matches `argv[0]`'s basename and drops th
 harness's own `bg-*` helpers — B5 E1's `[c]laude` grep counted five shell snapshots as
 sessions. Cost: **36 ms** per page, a spawn rather than a walk (B8 F3's bar is the work).
 
+**cmux is truth for live identity** (B18, D16 — [`identity.ts`](identity.ts),
+[`colors.ts`](colors.ts)). The census answers *what is alive*; it cannot answer *what Felix
+calls it*, because `CMUX_WORKSPACE_ID` is stamped at hook time and never moves. So one
+socket read — `cmux workspace list --json`, held, at most 2 s old — joins on that `ws` and
+gives every session the name and colour cmux is wearing **now**; the rig's stamp stays as
+the **birth name**, beside it where they differ, and neither is ever derived from the other.
+`POST /hands/rename` and `POST /hands/recolor` write the other way (D18 class 2, display
+state only), targeting by `sid` and resolving it to a **uuid** — a `workspace:N` ref that
+does not resolve is delivered by cmux to the *focused* workspace, so a ref from a stale page
+would rename whatever Felix is looking at (P6 F2). A read that fails keeps the last good
+copy, marks it `stale` and says why; it never falls back to the birth name and calls it live.
+
+**The colour map is felikai's, and the socket takes it verbatim.** Measured against a live
+socket ([`lab/b18/colors.ts`](../lab/b18/colors.ts)): cmux accepts its sixteen names
+case-insensitively, refuses `cyan`/`pink`/`grey`/`yellow` — four words the rig's own
+`presets.tsv` spends — and accepts **any `#RRGGBB`**. So `colors.ts` maps the rig's ANSI
+slot names through **Felix's felikai↔ANSI table** to felikai's own 600-level hexes: the rig's
+`cyan` (Builder) is felikai **blue**, its `blue` (Digger) is felikai **orange**. B3 F1's
+refused-colour fire deaths are closed at the cause, and the deck's swatch row offers those
+intents and nothing else, so the page cannot compose a colour cmux will refuse.
+
+**The jump, and why it used to do nothing.** `/hands/focus` reads `cmux tree` first: a
+surface the desktop no longer carries is a refusal, not a jump into a workspace that may not
+hold it. Then `focus-panel --panel <uuid> --workspace <uuid>` — **`--panel` resolves inside
+one workspace, so the old call omitting `--workspace` answered `not_found`** — then
+`focus-window`, and then `open -a <the bundle cmux itself names>`: **nothing on the socket
+brings the application forward.** Measured with the deck in a browser: `OK` from cmux, and
+frontmost still `Arc` through both socket calls (B18's findings).
+
 Env: `GLASS_CITY` (default `~/code`), `CENSUS_DIR` (B1's own knob), `USAGE_DIR` (the rig's
 caches — **rendered, never fetched**), `BELVEDERE_ENV` (the
 credential), `GLASS_PORT` (4400) — all resolved **per call** in `paths.ts`, never frozen at
@@ -229,3 +258,10 @@ walk's own cost rides the canon inbox ([B2 §E1](../plans/b2-glass-spine.md#find
 the fold: `readdirSync({withFileTypes})`, 2.5×). The shelf's own scan — 723 transcripts,
 35 MB of head windows — is **46 ms warm** and does not need a worker: three `/` loads
 fired inside one shelf scan came back in 0.045 s · 0.068 s · 0.035 s (B5 DoD).
+The deck's poll carries one more cost since B18: the identity read is **~161 ms of p50**
+(`/deck/state` p50 67 ms with the socket read off, 228 ms with it on, N=10/12 live) — a
+spawn, not a walk, so it yields Bun's thread and nothing queues behind it, and it is
+**awaited rather than served warm** so a rename made in cmux is on the deck on the very next
+poll (measured: 1 poll, 3 058 ms of a 3 000 ms period). p95 **234 ms** against the 500 ms
+bar. If that ceiling ever matters, the named-not-built fix is a self-arming 1 s refresh
+while a deck is polling, serving warm — it trades the wait for a spawn per second.
