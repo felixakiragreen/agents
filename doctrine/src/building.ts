@@ -117,14 +117,16 @@ function worktreeRepresentatives(files: FoundFile[]): FoundFile[] {
 
 function walk(root: string, out: FoundFile[], seen: Set<string>, depth = 0): void {
 	if (depth > LIMITS.depth) return;
-	let entries: string[];
-	try { entries = readdirSync(root); } catch { return; }
+	// withFileTypes spares one statSync per entry — 2.5× on the full-city walk (B2 §E1, item 15)
+	let entries: import('fs').Dirent[];
+	try { entries = readdirSync(root, { withFileTypes: true }); } catch { return; }
 	const inPlans = /(?:^|\/)(plans|spikes)$/.test(root);
-	for (const name of entries) {
+	for (const d of entries) {
+		const name = d.name;
 		const p = join(root, name);
-		let st;
-		try { st = statSync(p); } catch { continue; }
-		if (st.isDirectory()) {
+		// a symlink still costs its stat — following one was the pre-fold behavior, kept
+		const isDir = d.isDirectory() || (d.isSymbolicLink() && (() => { try { return statSync(p).isDirectory(); } catch { return false; } })());
+		if (isDir) {
 			if (SKIP_DIRS.has(name)) continue;
 			if (name.startsWith('.') && name !== '.claude') continue;
 			if (basename(root) === '.claude' && name !== 'worktrees') continue;

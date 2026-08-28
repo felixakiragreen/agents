@@ -5,19 +5,25 @@
 //   doctrine parse --json <building>                      one building, P3 §5's shapes
 //   doctrine migrate [--write] <building>                 re-emit in the current grammar
 
-import { existsSync } from 'fs';
+import { existsSync, mkdtempSync, rmSync } from 'fs';
+import { tmpdir } from 'os';
+import { join, relative, resolve } from 'path';
+import { execSync } from 'child_process';
 import { parse } from './src/building';
-import { lint, render } from './src/lint';
+import { guardRegressions, lint, render } from './src/lint';
 import { diff, migrate, roundTrip, write } from './src/migrate';
 
 const USAGE = `doctrine — the reference reader for the work doctrine (canon/work/DOCTRINE.md)
 
-  doctrine lint [--live] [--verbose] [--json] <path…>
+  doctrine lint [--live] [--verbose] [--json] [--guard <git-ref>] <path…>
       Walk every building under <path…> and report each failure class with file:line and
       the verbatim offending excerpt. Exits 1 if anything failed.
-      --live      only the surfaces read today: boards, ledger tails, open work docs' kickoffs
-      --verbose   every excerpt, not the first three per class
-      --json      the whole report as JSON
+      --live         only the surfaces read today: boards, ledger tails, open work docs' kickoffs
+      --verbose      every excerpt, not the first three per class
+      --json         the whole report as JSON
+      --guard <ref>  also lint the same paths at <ref> (one git repo) and fail loudly on any
+                     DECREASE in the entity totals — the silence family's mechanical net.
+                     Intentional deletions override by running without the flag, visibly.
 
   doctrine parse --json <building>
       Emit one building's parsed shapes (Building, BoardRow, LedgerEntry, Baton,
@@ -29,8 +35,12 @@ const USAGE = `doctrine — the reference reader for the work doctrine (canon/wo
 
 const argv = process.argv.slice(2);
 const flag = (f: string) => argv.includes(f);
-const paths = argv.filter(a => !a.startsWith('-')).slice(1);
-const cmd = argv.find(a => !a.startsWith('-')) ?? '';
+const guardAt = argv.indexOf('--guard');
+const guardRef = guardAt >= 0 ? argv[guardAt + 1] ?? null : null;
+if (guardAt >= 0 && !guardRef) { console.error('doctrine lint: --guard needs a git ref.'); process.exit(2); }
+const positional = argv.filter((a, i) => !a.startsWith('-') && i !== guardAt + 1);
+const paths = positional.slice(1);
+const cmd = positional[0] ?? '';
 
 function die(msg: string): never { console.error(msg); process.exit(2); }
 
@@ -42,6 +52,28 @@ if (cmd === 'lint') {
 	const report = lint(paths, { live: flag('--live') });
 	if (flag('--json')) console.log(JSON.stringify({ totals: report.totals, fails: report.fails }, null, 2));
 	else console.log(render(report, { verbose: flag('--verbose') }));
+
+	if (guardRef) {
+		// one repo, materialized read-only via `git archive` — no index, no worktree bookkeeping
+		const roots = new Set(paths.map(p =>
+			execSync('git rev-parse --show-toplevel', { cwd: resolve(p), encoding: 'utf8' }).trim()));
+		if (roots.size !== 1) die(`doctrine lint --guard: the paths span ${roots.size} git repos — guard one repo per run.`);
+		const root = [...roots][0]!;
+		const tmp = mkdtempSync(join(tmpdir(), 'doctrine-guard-'));
+		try {
+			execSync(`git archive ${guardRef} | tar -x -C ${JSON.stringify(tmp)}`, { cwd: root, shell: '/bin/sh' });
+			const refPaths = paths.map(p => join(tmp, relative(root, resolve(p)))).filter(existsSync);
+			const ref = lint(refPaths, { live: flag('--live') });
+			const lost = guardRegressions(ref.totals, report.totals);
+			if (lost.length) {
+				console.error(`\n!! GUARD (${guardRef}): entity counts DECREASED — silent damage until proven deliberate:`);
+				for (const l of lost) console.error(`   ${l}`);
+				console.error('   An intentional deletion overrides by running without --guard, visibly.');
+				process.exit(1);
+			}
+			console.log(`\nguard ok — no entity total decreased vs ${guardRef}`);
+		} finally { rmSync(tmp, { recursive: true, force: true }); }
+	}
 	process.exit(report.fails.length ? 1 : 0);
 }
 
