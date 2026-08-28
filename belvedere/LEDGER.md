@@ -1201,3 +1201,51 @@ Decided: nothing escalated — no contract, seam or fence moved; the gestures ar
 existing wire. Venue: two probes, both on their own ports against temp cities; the live
 half reads only and wrote nothing anywhere. Next: **B10 — the Works**
 ([plans/b10-flow-dag.md](plans/b10-flow-dag.md)), the Dispatcher's to fire.
+
+---
+
+**2026-08-27 · Builder · opus-high (B10)** — **The Works: the batch note became data, and
+the building's whole work is one drawing.** A flow is
+`belvedere/flows/<name>.flow.json` — committed truth, mantle work, never the glass's — and
+`glass/flow.ts` is the **only** module that touches those bytes, so canon row 17's ruling
+swaps the serialization in one file. `flows/flow-batch-1.flow.json` is the chapter's own
+DAG and it is real: 5 steps `p5 → b10 → b11 → b12 → g2`, ranked `0,1,2,3,4`, and the `g2`
+step's kickoff is **quoted, not copied** — `{doc, fence: 5}` resolves to the README's own
+G2 fence, **byte-identical** (`sha256 96ef06ad3ec95630592b752bb1484d86f8484f4da5430f5f48977ad41c3bf434`,
+362 B, extracted independently by `awk` and a third way in the suite). Every refusal is a
+**named value, never a throw**, asserted on a mutated copy of the real file — duplicate id ·
+unknown dep · cycle · unresolvable kickoff (missing doc AND ordinal past the end) · a name
+over six words · unknown account/mantle/tier/judgeTier/venue · malformed · unreadable. The
+drawing obeys D14: **time flows down** — dependency depth is a rank running downward, ranks
+`[0 → 1 → 2]` in DOM order, the two depth-1 lanes measured **side by side** (`b1 left 410.5,
+b2 left 804, both top 397.86`), **4 inline-SVG paths for 4 dependencies** each placed
+against a box the browser actually laid out, and the **NOW line cut between past and plan**
+at `y=364.36` with the building's live sessions blinking on it; the board's landed rows and
+the ledger's arc sit above, the undeclared work below, **one renderer**. Rings come from
+run-state + census: `fired` with a **beating** sid renders lit, a dead sid renders *fired,
+not beating* — both measured live in Chrome — and where the engine's log has said nothing
+the **board** speaks and the ring is drawn **dashed**, because a landed ring taken off a
+board row is not evidence this engine ever fired it. **Nothing arms and nothing fires**: the
+Felix-card carries 0 buttons, 0 links, 0 fire attributes; `hands/fire` is 0× in the DOM, in
+`works.client.ts` and in `/deck.js`; a plan node's actions **name** B11 and B17 instead of
+half-working, and the only wire the pane reaches is `/hands/focus` on an in-flight node. P5's
+clause is a **check, not a field**: a `haiku` step is drawn blocked with P5's own sentence on
+it. The bill is on the wall beside the plan — tier on every node, usage `personal ·
+thg-fgreen · thg-doorbell` in the footer. **455 tests green in one process**, type gate exit
+0, zero new dependencies, `<select>` 0, `/deck/state?b=` **p95 281 ms** armed over the live
+register (the Works' own share **0.7 ms p50**), the tenant redrawing in **1.4 ms**;
+B13/B14/B15/B20's probes re-run whole, **ALL GREEN**. Findings: **F2 a `{doc, fence}`
+kickoff is POSITIONAL and this landing nearly re-pointed `b10`'s own** — out-of-range fails
+loudly, in-range-but-wrong does not; the ask is a `sha` or a heading anchor, named not built,
+and it **binds B11's arm** · F1 the keel's now-line transposes §5's columns into downward
+ranks · F3 the first SVG puts the XML namespace into the bundle, so B9's `http(s)://` grep
+must exclude it **by name** · F4 the Works parses nothing of its own and `ringOf`'s `from` is
+what keeps that honest · F5 a building's name is doctrine's slug against the real `~/code` ·
+F6 `g2` collapses the keel's sitting-plus-card into one step · F7 the trust precheck stays at
+arm (15 `git` spawns per poll otherwise) · F8 the seam gained `swap.to`.
+Decided: nothing escalated — no contract, fence or DoD moved; `/deck/state` gained one field
+under the existing `?b=`, and the glass still writes nothing outside the fence's list.
+Venue: `master`, two probes on their own ports against temp cities; the live half reads only,
+with `BELVEDERE_ENV` pointed at a path that does not exist so no hand could arm.
+Next: **B17 — the composer + live usage** ([plans/b17-composer-usage.md](plans/b17-composer-usage.md)),
+the Dispatcher's to fire.
