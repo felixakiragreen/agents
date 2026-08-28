@@ -961,3 +961,63 @@ process drives Felix's real desktop — B8 F1's lesson, one door further along. 
 does exactly that and asserts the honest refusal as its guard.
 
 (Relayed from `master`, B18 LANDED 2026-08-27 — Builder)
+
+## → relay — B20 (the decoder) to B10, B17, B16, B19, B21 and the Architect: no escalation, four findings that bind
+
+Evidence: [b20-decoder.md](b20-decoder.md) §DoD and §Findings, commits `761e849` … `46bda65`
+on `master`.
+
+1. **F3 — the decoder's seam is `words()` in [`deck-dom.ts`](../glass/deck-dom.ts), and every
+   tenant after this one inherits it by construction. Two rules to keep it true.** Corpus text
+   reaches DOM through `words(host, text, ctx)` or `drawSpans(host, spans, open, ctx)`, and the
+   `ctx` is `{in, depth, seen}` — the document the words were written in, the tooltip layer they
+   will live in, and the code words already open above them. **(a) Pass the *object's own*
+   document when you render a resolved object's body** (`{...ctx, in: d.doc}`) — the first
+   implementation passed the anchor's document instead and a `§5` cited by a decision resolved
+   against the *board* that mentioned the decision; the probe caught it, and the fix is one
+   spread. **(b) The depth cap is enforced where the spans are MADE, not where they are
+   hovered**: `words()` draws nothing at `depth >= 3`, so the deepest tooltip's body is plain
+   text and there is no fourth layer to refuse — a hover-time refusal would have left controls
+   drawn and dead. B13's single `#tip` is now a stack of layers (layer 0 is still the shell's
+   own element); **B18's rename/recolor controls live inside it and still render** — checked in
+   `lab/b20/probe.ts` rather than by re-running B18's desktop-driving probe. And **B21: a click
+   on a code word is captured and stopped** (F6), so a `.dw` inside a rendered reference decodes
+   rather than opening the file — put a grep hit's jump on the row, never on the word.
+
+2. **F4 — `Building.decisionQueue` is the QUEUE, not the decisions.** `assemble()` and
+   `register.ts` `content()` both keep `parseDecisions(...).queue`, so every ratified entry —
+   canon's D63 included — is simply absent from a parsed `Building`. Anything resolving,
+   counting or linking a D-id off `Building` silently sees only what is still waiting on a pen.
+   `decoder.ts` re-parses `files.decisions` for the whole list (same parser, D65 intact); it
+   costs one file read per hover, which is free, and it is the difference between a decoder that
+   works and one that resolves almost nothing.
+
+3. **F2 — half the corpus's landing records encapsulate to a DATE, so `encap()` belongs on a
+   work cell and never on an annotation.** A status cell reads `LANDED 2026-08-27 — cmux is
+   truth; nothing escalated…`; `encap()`'s first seam is the spaced dash, so the derived name is
+   **`2026-08-27`** — a true name by B9 F1's rule and a useless one. Measured live: the tooltip
+   body for B18 read exactly `"2026-08-27"` before the fix, which is now `clip(annotation)`.
+   **For B10 and B17**, both of which will want a short label for a row's state: derive from the
+   work cell, and take the annotation's *head*, not its *name*. It is also a second lint signal
+   in B9 F1's neighbourhood — a derived name that is a bare date means the text had none to give.
+
+4. **F1/F7 — two things the corpus does not carry, named rather than guessed.** `FC-n` and
+   `GA-n` are ids the doctrine writes (P3's fold candidates, GA sittings) and gives **no
+   artifact**: the one parser keeps rows, ledger entries, decisions, issues and kickoffs, and
+   none of them is an `FC`. They are detected and the tooltip says honestly that nothing can
+   resolve them without guessing — finding them by grep would be a new reference grammar, which
+   is a canon question (B20 §out-of-scope). **Fifth filing of the same *field* ask** after B3
+   F4/F5, B9 F1, B14 F2 and B15 F1. Separately, **the glass now has to know which building is
+   canon and knows by convention**: `canonRoot()` is `<city>/agents` in `paths.ts`, and `canon`
+   is a literal keyword in the reference grammar the order blessed. True today, discovered by
+   nothing — the register finds buildings and no `Building` says "this one is the canon."
+
+Also for B16 and B21, not blocking: **the poll is untouched.** Resolution is lazy, client-cached
+and on its own route (`GET /deck/decode?t=&in=&w=`, 2–5 ms cold), so `/deck/state` is
+byte-for-byte the shape B18 left it and B18 F4's ~266 ms of headroom is still B17's to spend.
+And for the City: **F5 — the Context pane rendered no corpus prose at all**, so a building row's
+tooltip now names *what* wants him (`B20 — The decoder · D2 — Venue`) instead of counting it
+(`2 gate, 1 countersign`) — the encapsulation law applied to a badge; the badge still carries
+the number.
+
+(Relayed from `master`, B20 LANDED 2026-08-27 — Builder)
