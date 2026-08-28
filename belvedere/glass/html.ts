@@ -245,6 +245,16 @@ export const short = (p: string) => {
 	return p.startsWith(root + '/') ? p.slice(root.length + 1) : p;
 };
 
+/**
+ * The same path the way the corpus writes it — `~/code/agents`. `short` is *city*-relative and is
+ * what a document reference wants; a **venue** is a place a session runs, which may sit outside the
+ * city entirely, so it renders home-relative and stays absolute where that says nothing.
+ */
+export const tilde = (p: string) => {
+	const home = homedir();
+	return p === home ? '~' : p.startsWith(home + '/') ? '~' + p.slice(home.length) : p;
+};
+
 export function page(title: string, crumbs: string, body: string, footer: string): string {
 	return `<!doctype html>
 <html lang="en"><head>

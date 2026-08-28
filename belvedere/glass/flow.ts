@@ -16,9 +16,10 @@
  * that draws wrong is a DAG that arms wrong (D10: ambiguity never renders as fireable structure).
  */
 
-import { readFileSync, readdirSync, statSync } from 'fs';
+import { createHash } from 'crypto';
+import { appendFileSync, mkdirSync, readFileSync, readdirSync, statSync } from 'fs';
 import { homedir } from 'os';
-import { isAbsolute, join } from 'path';
+import { dirname, isAbsolute, join } from 'path';
 import { isMantle, isTier, MANTLES, MODELS, TIERS, type Mantle } from '../../doctrine';
 import { fileWindow } from './census';
 import type { Ring } from './deck-model';
@@ -33,7 +34,11 @@ export const LIMITS = {
 	words: 6,           // Felix's encapsulation law, enforced at the boundary rather than derived
 	doc: 4 << 20,       // a kickoff's source document
 	run: 2 << 20,       // the tail of a run log
+	timeout: 10_080,    // a step's ceiling in minutes — seven days, not a guess: everything has a limit
 } as const;
+
+/** A step with no declared limit still has one (B11 §4). Four hours is a long sitting, not a stall. */
+export const DEFAULT_TIMEOUT_MINUTES = 240;
 
 // ---------- the shapes ----------
 
@@ -71,6 +76,12 @@ export type Step = {
 	venue: Venue;
 	depends: string[];
 	gate: Gate;
+	/**
+	 * The step's own limit (directive 3.1), in minutes from its fire. Past it, a step that has not
+	 * landed is **paused and surfaced** — never advanced past, and never killed: stopping live work
+	 * is Felix's or the session's own (B11 §4/§6).
+	 */
+	timeoutMinutes: number;
 	/** Longest path from a root — the rank this step sits on when the DAG is drawn. */
 	depth: number;
 };
@@ -84,6 +95,16 @@ export type Flow = {
 	created: string;
 	concurrency: number;
 	judgeTier: string;
+	/**
+	 * **What was armed** (B11 §1). Armed flows are immutable, so the arm records this and the engine
+	 * refuses to start anything new once it moves — one click on *re-arm* covers the amendment (D11).
+	 *
+	 * It is sha256 over the flow file's own bytes **and every resolved kickoff**, in step order. The
+	 * spec asks for the file; B10 F2 is why the kickoffs are in it too: a `{doc, fence}` kickoff is a
+	 * POSITIONAL reference, so an edit to the *order* re-points it with the flow file untouched, and
+	 * an arm that covered only the file would authorize bytes nobody re-read.
+	 */
+	hash: string;
 	steps: Step[];
 };
 
@@ -123,6 +144,15 @@ export function fenceOf(text: string, ordinal: number): string | null {
 export const docPath = (doc: string): string =>
 	doc.startsWith('~/') ? join(homedir(), doc.slice(2)) : isAbsolute(doc) ? doc : join(cityRoot(), doc);
 
+/**
+ * A venue's path, resolved **at the parse boundary** (directive 2.2). A flow file writes `~/code/agents`
+ * because that is how the city writes paths; a `Venue` carries the real one, because everything
+ * downstream of here — the trust precheck, the worktree hand, the fire's `cwd` — takes a path and not
+ * a string that might still need expanding. Rendering puts the `~` back (`html.ts` §tilde).
+ */
+export const venuePath = (p: string): string =>
+	p.startsWith('~/') ? join(homedir(), p.slice(2)) : p;
+
 // ---------- the parse boundary ----------
 
 type Raw = Record<string, unknown>;
@@ -148,13 +178,13 @@ function venue(raw: unknown, where: string): Venue {
 	const kind = str(raw as Raw, 'kind');
 	if (kind === 'master') {
 		const cwd = str(raw as Raw, 'cwd');
-		return cwd === null ? refuse('unknown-venue', `${where}: a master venue needs a cwd`) : { kind, cwd };
+		return cwd === null ? refuse('unknown-venue', `${where}: a master venue needs a cwd`) : { kind, cwd: venuePath(cwd) };
 	}
 	if (kind === 'worktree') {
 		const repo = str(raw as Raw, 'repo'), branch = str(raw as Raw, 'branch');
 		return repo === null || branch === null
 			? refuse('unknown-venue', `${where}: a worktree venue needs a repo and a branch`)
-			: { kind, repo, branch };
+			: { kind, repo: venuePath(repo), branch };
 	}
 	return refuse('unknown-venue', `${where}: venue kind "${kind ?? '—'}" is neither master nor worktree`);
 }
@@ -224,7 +254,7 @@ function ranked(steps: { id: string; depends: string[] }[]): Map<string, number>
 	return depth;
 }
 
-function toFlow(name: string, file: string, raw: unknown, rig: Rig, read: (p: string) => string | null): Flow {
+function toFlow(name: string, file: string, text: string, raw: unknown, rig: Rig, read: (p: string) => string | null): Flow {
 	if (!isRaw(raw)) refuse('malformed', `${file}: the flow file is not a JSON object`);
 	const o = raw as Raw;
 
@@ -270,10 +300,15 @@ function toFlow(name: string, file: string, raw: unknown, rig: Rig, read: (p: st
 		if (!Array.isArray(depends) || depends.some(d => typeof d !== 'string'))
 			refuse('field', `${where}: depends must be a list of step ids`);
 
+		const timeout = s['timeoutMinutes'] === undefined ? DEFAULT_TIMEOUT_MINUTES : s['timeoutMinutes'];
+		if (typeof timeout !== 'number' || !Number.isFinite(timeout) || timeout <= 0 || timeout > LIMITS.timeout)
+			refuse('field', `${where}: timeoutMinutes must be a number in (0, ${LIMITS.timeout}]`);
+
 		return {
 			id: id!, name: stepName!.trim(), kickoff: kickoff(s['kickoff'], where, read),
 			account: account!, mantle, tier: t, venue: venue(s['venue'], where),
-			depends: depends as string[], gate: gate(s['gate'], where), depth: 0,
+			depends: depends as string[], gate: gate(s['gate'], where),
+			timeoutMinutes: timeout as number, depth: 0,
 		};
 	});
 
@@ -281,11 +316,14 @@ function toFlow(name: string, file: string, raw: unknown, rig: Rig, read: (p: st
 		if (!seen.has(d)) refuse('unknown-dep', `${file} step ${s.id}: depends on "${d}", which is not a step here`);
 
 	const depth = ranked(parsed);
+	const steps = parsed.map(s => ({ ...s, depth: depth.get(s.id) ?? 0 }))
+		.sort((a, b) => a.depth - b.depth || a.id.localeCompare(b.id));
 	return {
 		name, file, building: building!, scope: scope!, created: created!,
-		concurrency, judgeTier,
-		steps: parsed.map(s => ({ ...s, depth: depth.get(s.id) ?? 0 }))
-			.sort((a, b) => a.depth - b.depth || a.id.localeCompare(b.id)),
+		concurrency, judgeTier, steps,
+		// The file's own bytes plus every resolved kickoff, in step order (§Flow.hash). NUL separates
+		// them because it cannot occur in either: no concatenation ambiguity, no length prefixes.
+		hash: createHash('sha256').update([text, ...steps.map(s => s.kickoff.text)].join('\0')).digest('hex'),
 	};
 }
 
@@ -305,7 +343,7 @@ export function readFlow(name: string, rig: Rig = readRig(), read: (p: string) =
 	try { raw = JSON.parse(text); }
 	catch (e) { return { ok: false, fail: { name, file, code: 'malformed', error: e instanceof Error ? e.message : String(e) } }; }
 
-	try { return { ok: true, flow: toFlow(name, file, raw, rig, read) }; }
+	try { return { ok: true, flow: toFlow(name, file, text, raw, rig, read) }; }
 	catch (e) {
 		return e instanceof Refusal
 			? { ok: false, fail: { name, file, code: e.code, error: e.message } }
@@ -344,7 +382,19 @@ export type RunLine = {
 	sid: string | null;
 	workspace: string | null;
 	why: string | null;
+	/** On an `armed` line: **what was armed** (`Flow.hash`). Null everywhere else. */
+	hash: string | null;
+	/**
+	 * On a `fired` line: the name-stamp the engine minted for that session. A fire returns a cmux
+	 * workspace ref and no session id — claude mints that itself — so the stamp is the join key until
+	 * the census reads it off the transcript, and a second `fired` line then carries the `sid`
+	 * (B11 §3; `engine.ts` §the join).
+	 */
+	stamp: string | null;
 };
+
+/** A line as the engine hands it over: the clock is the log's, never the caller's. */
+export type NewRunLine = Omit<Partial<RunLine>, 'ev' | 'ts'> & { ev: RunEvent };
 
 export type Run = { file: string; present: boolean; lines: RunLine[]; malformed: number };
 
@@ -365,7 +415,10 @@ function toRunLine(raw: unknown): RunLine | null {
 	if (!isRaw(raw)) return null;
 	const ts = raw['ts'], ev = raw['ev'];
 	if (typeof ts !== 'number' || !Number.isFinite(ts) || !isRunEvent(ev)) return null;
-	return { ts, ev, step: str(raw, 'step'), sid: str(raw, 'sid'), workspace: str(raw, 'workspace'), why: str(raw, 'why') };
+	return {
+		ts, ev, step: str(raw, 'step'), sid: str(raw, 'sid'), workspace: str(raw, 'workspace'),
+		why: str(raw, 'why'), hash: str(raw, 'hash'), stamp: str(raw, 'stamp'),
+	};
 }
 
 /** One flow's run log, read from its bounded tail. Unreadable lines are counted, never guessed at. */
@@ -396,6 +449,35 @@ export function stateOf(run: Run, step: string): { ring: Ring; last: RunLine | n
 /** Flow-level: an `armed` line naming no step is the flow's own authorization (D11's one click). */
 export const armedAt = (run: Run): number | null =>
 	run.lines.filter(l => l.step === null && l.ev === 'armed').at(-1)?.ts ?? null;
+
+/** What the last arm covered, or null while nothing has authorized this flow (B11 §1). */
+export const armedHash = (run: Run): string | null =>
+	run.lines.filter(l => l.step === null && l.ev === 'armed').at(-1)?.hash ?? null;
+
+/** The flow's own last word — the arm, the pause that stopped it, the HALT. Steps have their own. */
+export const flowLast = (run: Run): RunLine | null =>
+	run.lines.filter(l => l.step === null).at(-1) ?? null;
+
+/**
+ * The engine's one write, and the only one in the city that touches these bytes — the read side is
+ * `readRun` above, so **one module owns the format both ways**. Append-only, one line per thing that
+ * happened, in the D6 telemetry neighborhood (gitignored, B10 F9). The clock is stamped here so no
+ * caller can write a line into the past.
+ *
+ * This is telemetry, not truth: the board stays the only truth about work (B10 §4).
+ */
+export function appendRun(name: string, lines: readonly NewRunLine[], nowSeconds = Date.now() / 1000): number {
+	if (lines.length === 0) return 0;
+	const file = flowRun(name);
+	const text = lines.map(l => JSON.stringify({
+		ts: nowSeconds, ev: l.ev,
+		step: l.step ?? null, sid: l.sid ?? null, workspace: l.workspace ?? null,
+		why: l.why ?? null, hash: l.hash ?? null, stamp: l.stamp ?? null,
+	})).join('\n') + '\n';
+	mkdirSync(dirname(file), { recursive: true });
+	appendFileSync(file, text);
+	return lines.length;
+}
 
 // ---------- the permission clause (P5 F5), as a check rather than a field ----------
 

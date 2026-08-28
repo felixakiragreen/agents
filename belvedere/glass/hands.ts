@@ -529,6 +529,25 @@ async function attemptRecolor(req: Recolor, password: string): Promise<Outcome<{
 export const halt = (req: Halt): Outcome<{ path: string; at: string }> =>
 	audited('halt', { ...req }, attemptHalt(req));
 
+/**
+ * The flag, read — **the engine is its first consumer** (B11 §5, keel §5). It lives beside `halt()`
+ * because one module owning a file both ways is why the two can never disagree about its shape:
+ * `<iso> <requester>\n`, last writer wins, and an unparseable flag still HALTS (a flag that exists
+ * is a stop; refusing to read it is not an excuse to keep firing).
+ */
+export type Halted = { at: string; by: string; text: string };
+
+export function readHalt(): Halted | null {
+	let text: string;
+	try { text = readFileSync(haltFlag(), 'utf8'); }
+	catch { return null; }
+	const line = text.split('\n')[0] ?? '';
+	const cut = line.indexOf(' ');
+	return cut < 0
+		? { at: line, by: '', text: line }
+		: { at: line.slice(0, cut), by: line.slice(cut + 1), text: line };
+}
+
 function attemptHalt(req: Halt): Outcome<{ path: string; at: string }> {
 	const at = new Date().toISOString();
 	try {

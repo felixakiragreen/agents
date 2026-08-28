@@ -12,15 +12,20 @@
 
 import { cmuxColor } from './colors';
 import type { Works, WorksEdge, WorksFail, WorksFlow, WorksNode, WorksUsage } from './deck-model';
-import { blocksOf, armedAt, readFlows, readRun, stateOf, type Flow, type Step } from './flow';
+import { blocksOf, armedAt, armedHash, flowLast, readFlows, readRun, stateOf, type Flow, type Step } from './flow';
 import { BUCKETS, pacing } from './gauges';
-import { short } from './html';
+import { handsState, readHalt } from './hands';
+import { short, tilde } from './html';
 import { readRig, type Rig } from './rig';
 import { usageNow } from './usage';
 
-/** The venue as one phrase — the law of space: a node has room for a line, not a record. */
+/**
+ * The venue as one phrase — the law of space: a node has room for a line, not a record. It renders
+ * **home**-relative rather than city-relative (`tilde`, not `short`): a venue is a place a session
+ * runs and may sit outside the city entirely, and `~/code/agents` is how the corpus writes it.
+ */
 const venueOf = (s: Step): string =>
-	s.venue.kind === 'master' ? `master ${short(s.venue.cwd)}` : `worktree ${short(s.venue.repo)}:${s.venue.branch}`;
+	s.venue.kind === 'master' ? `master ${tilde(s.venue.cwd)}` : `worktree ${tilde(s.venue.repo)}:${s.venue.branch}`;
 
 const fromOf = (s: Step): string | null =>
 	s.kickoff.doc === null ? null : `${short(s.kickoff.doc)} #${s.kickoff.fence}`;
@@ -47,6 +52,12 @@ function node(s: Step, run: ReturnType<typeof readRun>, rig: Rig): WorksNode {
 			sid: last?.sid ?? null, workspace: last?.workspace ?? null, why: last?.why ?? null,
 		},
 		blocks: blocksOf(s),
+		timeoutMinutes: s.timeoutMinutes,
+		// The engine parks his lane on the card and waits; a `resumed` after it is his pass, so the
+		// affordance follows the log rather than being remembered anywhere. A step that has already
+		// fired is past its card — a later pause there is a timeout, not a gate.
+		awaitingPass: s.gate.kind === 'felix' && last?.ev === 'paused'
+			&& !run.lines.some(l => l.step === s.id && l.ev === 'fired'),
 	};
 }
 
@@ -54,13 +65,16 @@ function node(s: Step, run: ReturnType<typeof readRun>, rig: Rig): WorksNode {
 export function worksFlow(flow: Flow, rig: Rig): WorksFlow {
 	const run = readRun(flow.name);
 	const edges: WorksEdge[] = flow.steps.flatMap(s => s.depends.map(from => ({ from, to: s.id })));
+	const last = flowLast(run);
 	return {
 		name: flow.name, file: short(flow.file), building: flow.building, scope: flow.scope,
 		created: flow.created, concurrency: flow.concurrency, judgeTier: flow.judgeTier,
 		armedAt: armedAt(run),
+		hash: flow.hash, armedHash: armedHash(run),
 		nodes: flow.steps.map(s => node(s, run, rig)),
 		edges,
 		run: { file: short(run.file), present: run.present, lines: run.lines.length, malformed: run.malformed },
+		last: last === null ? null : { ev: last.ev, at: last.ts, why: last.why },
 	};
 }
 
@@ -103,5 +117,5 @@ export function worksOf(building: string | null): Works | null {
 		if (!r.ok) fails.push({ ...r.fail, file: short(r.fail.file) });
 		else if (r.flow.building === building) flows.push(worksFlow(r.flow, rig));
 	}
-	return { building, flows, fails, usage: worksUsage(rig) };
+	return { building, flows, fails, usage: worksUsage(rig), halt: readHalt(), hands: handsState() };
 }

@@ -11,10 +11,10 @@
 
 import { expect, test, describe, afterAll, beforeEach } from 'bun:test';
 import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'fs';
-import { tmpdir } from 'os';
+import { homedir, tmpdir } from 'os';
 import { join } from 'path';
 import { lit, ringOf, type WorksNode } from './deck-model';
-import { armedAt, blocksOf, fenceOf, readFlow, readFlows, readRun, stateOf, type Flow } from './flow';
+import { armedAt, blocksOf, DEFAULT_TIMEOUT_MINUTES, fenceOf, readFlow, readFlows, readRun, stateOf, type Flow } from './flow';
 import { worksFlow, worksOf, worksUsage } from './works';
 import { readRig } from './rig';
 
@@ -194,10 +194,15 @@ describe('the refusals — a flow that will not parse renders its failure and fi
 		expect(failOf(mutated('venue2', c => { steps(c)[0]!['venue'] = { kind: 'worktree', repo: 'agents' }; })).code).toBe('unknown-venue');
 	});
 
-	test('a worktree venue is legal and carries its branch', () => {
+	// B11 widened this: a venue's path is RESOLVED at the parse boundary, so `~/` never leaves this
+	// module (directive 2.2). The trust precheck, the worktree hand and the fire's cwd all take a
+	// path, and a string that might still need expanding is exactly the untrusted value the boundary
+	// exists to kill. The rendering puts the `~` back (`html.ts` §tilde) — the venue phrase asserted
+	// further down is still `worktree ~/code/agents:…`, so nothing Felix reads has changed.
+	test('a worktree venue is legal, carries its branch, and its path is resolved', () => {
 		const r = mutated('wt', c => { steps(c)[0]!['venue'] = { kind: 'worktree', repo: '~/code/agents', branch: 'bv/b11-engine' }; });
 		expect(r.ok).toBe(true);
-		expect(r.ok && r.flow.steps[0]!.venue).toEqual({ kind: 'worktree', repo: '~/code/agents', branch: 'bv/b11-engine' });
+		expect(r.ok && r.flow.steps[0]!.venue).toEqual({ kind: 'worktree', repo: join(homedir(), 'code/agents'), branch: 'bv/b11-engine' });
 	});
 
 	test('bytes that are not a flow at all', () => {
@@ -291,7 +296,7 @@ const node = (over: Partial<WorksNode> = {}): WorksNode => ({
 	account: 'personal', venue: 'master ~/code/agents', depends: [], depth: 0, gate: 'none', card: null,
 	kickoff: 'You are a Builder…', from: null,
 	run: { ring: 'declared', ev: null, at: null, sid: null, workspace: null, why: null },
-	blocks: [], ...over,
+	blocks: [], timeoutMinutes: DEFAULT_TIMEOUT_MINUTES, awaitingPass: false, ...over,
 });
 
 describe('ringOf — the engine’s log outranks the board, and the drawing says which spoke', () => {

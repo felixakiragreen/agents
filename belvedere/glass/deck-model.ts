@@ -308,6 +308,14 @@ export type WorksNode = {
 	run: { ring: Ring; ev: string | null; at: number | null; sid: string | null; workspace: string | null; why: string | null };
 	/** P5 F5's clause, evaluated: why this step could not be armed as declared. Empty is arm-able. */
 	blocks: string[];
+	/** The step's own limit, in minutes from its fire — past it the engine pauses, never kills (B11 §4). */
+	timeoutMinutes: number;
+	/**
+	 * The engine has reached his card and parked the lane on it (B11 §5). **His pass is the only
+	 * thing that opens it** — the gesture is `POST /flow/<name>/pass`, credential-gated, and nothing
+	 * on the card reaches a hand that fires.
+	 */
+	awaitingPass: boolean;
 };
 
 export const RINGS = ['declared', 'fired', 'landed', 'paused', 'refused'] as const;
@@ -348,9 +356,19 @@ export type WorksFlow = {
 	judgeTier: string;
 	/** When the flow itself was armed, per its run log — null while nothing has authorized it. */
 	armedAt: number | null;
+	/**
+	 * **What is on disk** and **what was armed** (B11 §1): sha256 over the flow file's bytes plus
+	 * every resolved kickoff. Armed flows are immutable, so a page whose two differ shows the delta
+	 * and offers re-arm — and the arm gesture posts `hash` back, so nobody ever authorizes bytes
+	 * that moved while they were reading them (B10 F2).
+	 */
+	hash: string;
+	armedHash: string | null;
 	nodes: WorksNode[];
 	edges: WorksEdge[];
 	run: { file: string; present: boolean; lines: number; malformed: number };
+	/** The flow's own last word — the arm, or the pause that stopped its advance. */
+	last: { ev: string; at: number; why: string | null } | null;
 };
 
 /** A flow that will not parse renders its failure and files nothing (parser-as-lint, README §1). */
@@ -373,6 +391,13 @@ export type Works = {
 	flows: WorksFlow[];
 	fails: WorksFail[];
 	usage: WorksUsage[];
+	/**
+	 * The engine's two standing conditions, so the arm card can be honest before it is pressed
+	 * (B11 §§1, 5): the HALT flag — nothing fires while it exists, and the drawing says so — and
+	 * whether the hands are armed at all, because an arm on a cold glass answers 503.
+	 */
+	halt: { at: string; by: string; text: string } | null;
+	hands: { armed: boolean; note: string };
 };
 
 // ---------- the composer: Action at rest (B17, keel §3) ----------

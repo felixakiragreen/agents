@@ -600,3 +600,38 @@ body.deck {
 .deck .usage .delta.headroom { color: var(--green-400); }
 .deck .usage .delta.burning { color: var(--orange-300); }
 .deck .usage .fetched { margin-left: auto; font-size: 9.5px; color: var(--grey-600); }
+
+/* --- the arm card (B11): the whole of what one click authorizes, on one card ---
+   The arm button wears felikai's own accent because it is the one control on this deck that
+   commits the city to spending: it must not look like the state buttons beside it. */
+.deck .armcard { margin-top: 6px; }
+.deck .armcard .ws-row-h .pill {
+	font-size: 8.5px; letter-spacing: .1em; text-transform: uppercase;
+	border: 1px solid var(--grey-750); border-radius: 3px; padding: 0 4px; color: var(--grey-500);
+}
+.deck .armsteps { margin-top: 4px; border-left: 1px solid var(--grey-800); padding-left: 6px; }
+.deck .armstep {
+	display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px;
+	margin-top: 3px; font-size: 10.5px;
+}
+.deck .armstep .nid { color: var(--grey-350); font-weight: 700; }
+.deck .armstep .nname { color: var(--grey-150); }
+.deck .armstep .ntier, .deck .armstep .nacct { color: var(--grey-500); font-size: 10px; }
+.deck .armstep .nvenue { color: var(--grey-600); font-size: 9.5px; }
+.deck .armstep .quiet { margin-left: auto; font-size: 9.5px; color: var(--grey-650); }
+.deck .armstep .pill {
+	font-size: 8.5px; letter-spacing: .1em; text-transform: uppercase;
+	border: 1px solid var(--purple-600); border-radius: 3px; padding: 0 4px; color: var(--purple-300);
+}
+.deck .armstep.bad { border-left: 2px solid var(--orange-600); margin-left: -7px; padding-left: 5px; }
+.deck .armstep .bad, .deck .usage .bad { color: var(--orange-200); font-size: 10px; }
+.deck .node-blocked .pill.tone-red {
+	font-size: 8.5px; letter-spacing: .1em; border: 1px solid var(--red-500);
+	border-radius: 3px; padding: 0 4px; color: var(--red-300);
+}
+.deck .st.arm {
+	margin-top: 8px; border-color: var(--felix); color: var(--felix);
+	background: color-mix(in srgb, var(--felix) 10%, transparent);
+}
+.deck .st.arm:hover:not(:disabled) { background: color-mix(in srgb, var(--felix) 22%, transparent); }
+.deck .st.arm:disabled { opacity: .45; cursor: not-allowed; border-color: var(--grey-750); color: var(--grey-600); background: none; }

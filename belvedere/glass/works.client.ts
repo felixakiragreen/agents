@@ -15,12 +15,12 @@
 
 import {
 	lit, ringOf,
-	type DeckSession, type DeckSnapshot, type PaneState, type WorkshopRow,
+	type DeckSession, type DeckSnapshot, type PaneState, type UsageWire, type WorkshopRow,
 	type Works, type WorksFlow, type WorksNode,
 } from './deck-model';
 import { moveIn, selection, swap, viewer, type FocusView } from './deck-view';
 import {
-	button, dots, drawProse, el, paint, plain, reading, stamp, words, type DecodeCtx,
+	ago, button, dots, drawProse, el, paint, plain, reading, receipt, say, stamp, words, type DecodeCtx,
 } from './deck-dom';
 
 // ---------- what the tenant is holding ----------
@@ -33,6 +33,14 @@ let states: [PaneState, PaneState] = ['minimal', 'minimal'];
 let showing: string | null = null;
 let picked: string | null = null;
 let watching: ResizeObserver | null = null;
+/**
+ * The bill at arm time, **live** (B11's re-seat: never a stale log). B17 put the fetch behind
+ * `usageNow`/`refreshUsage`, and its law is *fetch on a gesture, read on a render* — so this is
+ * filled when the arm card comes up and at most once a minute after, and never on the deck's poll.
+ */
+let usage: UsageWire[] | null = null;
+let usageAt = 0;
+const USAGE_MS = 60_000;
 
 const repaint = (): void => draw();
 
@@ -403,9 +411,176 @@ function drawFocus(host: HTMLElement, state: PaneState): void {
 
 // ---------- Action follows Focus: against the Works, Action dispatches (keel §3) ----------
 
+/**
+ * The bill, fetched — **on a gesture, never on the poll** (B17 F5). The arm card coming up is that
+ * gesture: an arm view that hides the bill is how a sovereign DoS's himself (the founding line), and
+ * a bill three hours old is a hidden bill wearing a number.
+ */
+async function fetchUsage(force = false): Promise<void> {
+	if (!force && Date.now() - usageAt < USAGE_MS) return;
+	usageAt = Date.now();
+	try { usage = await (await fetch('/deck/usage', { headers: { accept: 'application/json' } })).json() as UsageWire[]; }
+	catch (e) { say('bill', `usage fetch failed — ${e instanceof Error ? e.message : String(e)}`); return; }
+	repaint();
+}
+
+/** One POST, one shape — the deck's own (`deck.client.ts` §the two wires a click may reach). */
+async function post(path: string, body: unknown): Promise<[number, { ok: boolean; error?: string; result?: Record<string, unknown> }]> {
+	const r = await fetch(path, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
+	return [r.status, await r.json() as { ok: boolean; error?: string }];
+}
+
+/**
+ * **The arm** (D11): one click, and the review of this drawing IS the authorization.
+ *
+ * It posts the `hash` the page is showing, so an arm can never authorize bytes that moved while he
+ * was reading them — the server refuses a stale hash by name (B10 F2's hazard, closed at the wire).
+ * Everything that could refuse refuses here and says which step: a `haiku` model, a venue no account
+ * has trusted, cold hands. Never a silent mid-flow stall (P5 F5 iv).
+ */
+async function arm(flow: WorksFlow): Promise<void> {
+	say('arm', 'arming…');
+	try {
+		const [code, r] = await post(`/flow/${encodeURIComponent(flow.name)}/arm`, { hash: flow.hash });
+		say('arm', r.ok ? `armed ${String(r.result?.['steps'] ?? '')} steps · ${String(r.result?.['hash'] ?? '').slice(0, 12)}…` : `${code} ${r.error}`);
+	}
+	catch (e) { say('arm', String(e)); }
+}
+
+/** His pass on a card. The one thing that opens one, and it opens nothing else (B11 §5). */
+async function pass(flow: WorksFlow, step: string): Promise<void> {
+	const key = `pass:${step}`;
+	say(key, 'passing…');
+	try {
+		const [code, r] = await post(`/flow/${encodeURIComponent(flow.name)}/pass`, { step });
+		say(key, r.ok ? `passed — the lane resumes on the next tick` : `${code} ${r.error}`);
+	}
+	catch (e) { say(key, String(e)); }
+}
+
+const out = (key: string): HTMLElement => {
+	const e = el('span', 'out', receipt(key));
+	e.dataset['outFor'] = key;
+	return e;
+};
+
+/** The bill at arm time: three windows per account, each figure wearing its source and its age. */
+function drawLiveBill(host: HTMLElement): void {
+	const box = el('div', 'usage');
+	box.append(el('span', 'label', 'the bill — live, fetched by the deck itself'));
+	for (const u of usage ?? []) {
+		const line = el('div', `uline s-${u.source}`);
+		line.append(el('span', 'acct', u.account));
+		for (const c of u.cells) {
+			const cell = el('span', c.pct === null ? 'cell empty' : 'cell');
+			cell.append(el('span', 'bucket', c.bucket), el('b', 'pct', c.pct === null ? '—' : `${c.pct}%`));
+			if (c.delta !== null) cell.append(el('b', `delta ${c.delta < 0 ? 'burning' : 'headroom'}`, `${c.delta >= 0 ? '+' : ''}${c.delta}`));
+			line.append(cell);
+		}
+		line.append(el('span', 'fetched', u.ageSeconds === null ? `${u.source} · never` : `${u.source} · ${ago(Date.now() / 1000 - u.ageSeconds)} old`));
+		if (u.error) line.append(el('span', 'bad', u.error));
+		box.append(line);
+	}
+	if (usage === null) box.append(el('p', 'quiet prose', 'fetching the three accounts…'));
+	const again = button('st wide', 'refresh the bill', 'fetch all three accounts again');
+	again.dataset['bill'] = 'refresh';
+	box.append(again, out('bill'));
+	host.append(box);
+}
+
+/**
+ * The arm card — the whole of what one click authorizes, on one card: what the engine would fire,
+ * where, at whose expense, and what stands between it and the first spawn.
+ */
+function drawArm(host: HTMLElement, w: Works, flow: WorksFlow): void {
+	const card = el('div', 'armcard');
+
+	if (w.halt) {
+		const h = el('div', 'node-blocked');
+		h.append(el('span', 'pill tone-red', 'HALT'));
+		h.append(el('span', 'prose', `${w.halt.text} — nothing fires while the flag exists. Clear it and the lane resumes.`));
+		card.append(h);
+	}
+
+	const armed = flow.armedHash !== null;
+	const amended = armed && flow.armedHash !== flow.hash;
+	const head = el('div', 'ws-row-h');
+	head.append(el('span', 'pill', armed ? (amended ? 'amended' : 'armed') : 'not armed'));
+	head.append(el('span', 'rname', flow.name.replace(/^flow-/, '')));
+	if (flow.armedAt !== null) head.append(stamp(flow.armedAt));
+	card.append(head);
+
+	const facts = el('div', 'facts');
+	for (const [k, v] of [
+		['on disk', `${flow.hash.slice(0, 16)}… — the flow file’s bytes and every resolved kickoff`],
+		['armed', flow.armedHash === null ? 'nothing yet' : `${flow.armedHash.slice(0, 16)}…${amended ? ' — and the plan has moved since' : ' — the plan matches'}`],
+		['scope', `${flow.scope} · concurrency ${flow.concurrency} · judge ${flow.judgeTier}`],
+		['engine', flow.last === null ? 'nothing in the run log yet' : `${flow.last.ev}${flow.last.why ? ` — ${flow.last.why}` : ''}`],
+	] as const) {
+		const line = el('div', 'kv');
+		line.append(el('span', 'label', k), el('span', 'prose', v));
+		facts.append(line);
+	}
+	card.append(facts);
+
+	// What the arm covers, re-rendered from the same payload the drawing uses: a plan nobody re-read
+	// is a plan nobody reviewed, and the review IS the authorization.
+	card.append(el('span', 'label', `${flow.nodes.length} steps this arm authorizes`));
+	const list = el('div', 'armsteps');
+	for (const n of flow.nodes) {
+		const line = el('div', `armstep${n.blocks.length ? ' bad' : ''}`);
+		line.dataset['armStep'] = n.id;
+		line.append(el('span', 'nid', n.id.toUpperCase()), el('span', 'nname', n.name));
+		line.append(el('span', 'ntier', n.tier), el('span', 'nacct', n.account), el('span', 'nvenue', n.venue));
+		line.append(el('span', 'quiet', `${n.kickoff.length} B${n.from ? ` · ${n.from}` : ' · inline'}`));
+		if (n.gate !== 'none') line.append(el('span', 'pill', `${n.gate} gate`));
+		for (const b of n.blocks) line.append(el('span', 'bad', b));
+		list.append(line);
+	}
+	card.append(list);
+
+	drawLiveBill(card);
+
+	const go = button('st wide arm', amended ? 're-arm' : armed ? 're-arm' : 'arm this flow',
+		w.hands.armed
+			? 'one click authorizes every step above; the engine fires them as their dependencies land'
+			: `the hands are cold — ${w.hands.note}`);
+	go.dataset['arm'] = flow.name;
+	go.disabled = !w.hands.armed;
+	card.append(go, out('arm'));
+	if (!w.hands.armed) card.append(el('p', 'quiet prose', `Hands disabled: ${w.hands.note}. The plan still reads; the arm answers 503.`));
+
+	host.append(card);
+}
+
+/**
+ * Why the engine will not start a step the board has already spoken about — the same three states
+ * `engine.ts` holds on, said where Felix is looking. It reads the row the drawing already joined
+ * (B10 F4): nothing is re-parsed and nothing is inferred.
+ */
+const held = (n: WorksNode, row: WorkshopRow | null): string | null => {
+	if (n.run.ev !== null || row === null) return null;
+	if (row.state === 'KILLED' || row.state === 'BLOCKED')
+		return `The board says ${row.state}. The engine never advances past a state it did not expect — this step stays where it is until a sitting moves it.`;
+	if (row.state === 'IN FLIGHT')
+		return 'The board says IN FLIGHT and the engine never fired it: somebody is already on this step, so the engine will not fire over them.';
+	return null;
+};
+
 /** The node actions, per state (keel §6). What exists is wired; what does not, says so. */
-function drawNodeActions(host: HTMLElement, n: WorksNode, row: WorkshopRow | null, r: string, live: Set<string>): void {
+function drawNodeActions(host: HTMLElement, n: WorksNode, row: WorkshopRow | null, r: string, live: Set<string>, flow: WorksFlow, hands: boolean): void {
 	const acts = el('div', 'qacts');
+
+	if (n.awaitingPass) {
+		// His card, and the ONE control that may sit on it: a pass is a `/flow/…/pass` gesture, not a
+		// fire — nothing on a Felix-card reaches the hand that spawns (B3's structural bar, B6's
+		// precedent for a gesture button on his card).
+		const go = button('st wide arm', 'pass this card', hands ? 'the lane resumes and the step behind this card fires' : 'the hands are cold');
+		go.dataset['pass'] = n.id;
+		go.dataset['passFlow'] = flow.name;
+		go.disabled = !hands;
+		acts.append(go, out(`pass:${n.id}`));
+	}
 
 	if (r === 'fired' || lit(n, 'fired', live)) {
 		const session = (snap?.census.sessions ?? []).find(s => s.sid === n.run.sid) ?? null;
@@ -418,8 +593,11 @@ function drawNodeActions(host: HTMLElement, n: WorksNode, row: WorkshopRow | nul
 		acts.append(out);
 		acts.append(el('span', 'slot', 'hotswap to the Chat — B16'));
 	}
-	else if (r === 'landed') acts.append(el('span', 'slot', 'a follow-up fire — B11'));
-	else acts.append(el('span', 'slot', 'dispatch — B11 arms this step'), el('span', 'slot', 'customize — the composer moves into Action at B17'));
+	else if (r === 'landed') acts.append(el('span', 'slot', 'a follow-up fire — the composer, one pane over'));
+	else if (!n.awaitingPass) acts.append(el('span', 'quiet prose', held(n, row) ?? (
+		flow.armedHash === null
+			? 'Declared, not armed. The arm is one click on the flow’s own card — click away from this node to reach it.'
+			: 'Armed. The engine fires this the moment its dependencies land, its checkout is free and HALT is absent.')));
 
 	host.append(acts);
 
@@ -446,9 +624,8 @@ function drawAction(host: HTMLElement, state: PaneState): void {
 	const all = rows(snap);
 	const node = picked === null ? null : flow.nodes.find(n => n.id === picked) ?? null;
 	if (!node) {
-		host.append(el('p', 'quiet prose', `${flow.name} — ${flow.nodes.length} steps, ${flow.edges.length} dependencies. Click a node to see its bill, its kickoff and what can be done with it.`));
-		host.append(el('p', 'quiet prose', 'Nothing on this deck fires (D10): the arm is B11’s, and until it lands every step here is a thing to read.'));
-		if (w) drawBill(host, w, flow);
+		host.append(el('p', 'quiet prose', `${flow.name} — ${flow.nodes.length} steps, ${flow.edges.length} dependencies. Click a node to see its kickoff and what can be done with it.`));
+		if (w) drawArm(host, w, flow);
 		return;
 	}
 
@@ -500,7 +677,7 @@ function drawAction(host: HTMLElement, state: PaneState): void {
 		host.append(card);
 	}
 
-	drawNodeActions(host, node, row, r, liveSids(snap));
+	drawNodeActions(host, node, row, r, liveSids(snap), flow, w?.hands.armed ?? false);
 
 	// The kickoff is **bytes to read** — the first user turn this step would open with, quoted from
 	// the order that blessed it. Rendered, never wired (D10): the arm is B11's and nothing here can
@@ -520,8 +697,11 @@ function draw(): void {
 		snap?.workshop?.boards, snap?.workshop?.tail, mine(snap),
 	]);
 	paint('works:focus', focusHost, sig, h => drawFocus(h, focusState));
-	paint('works:action', actionHost, JSON.stringify([selection.building, actionState, picked, w]),
+	paint('works:action', actionHost, JSON.stringify([selection.building, actionState, picked, w, usage]),
 		h => drawAction(h, actionState));
+	// The arm card is the gesture that asks for a live bill (B17 F5): a render reads, a gesture
+	// fetches, and the card coming up is what makes this a gesture rather than a clock.
+	if (actionState !== 'minimal' && picked === null && flowOf(w) !== null) void fetchUsage();
 }
 
 /** A click picks a node or a flow; a code word inside one is the shell's (B20 F6 stops it first). */
@@ -544,6 +724,28 @@ function wire(host: HTMLElement): void {
 	watching.observe(host);
 }
 
+/**
+ * Action's own three wires, and the whole of what this tenant can reach: the arm, his pass, and a
+ * re-fetch of the bill. **`hands/fire` appears nowhere in this file** — the engine fires server-side,
+ * off the run log, and the deck's one spawning wire stays the composer's (B17 F1's sound check: the
+ * question is which SOURCE contains it).
+ */
+function wireAction(host: HTMLElement): void {
+	host.addEventListener('click', e => {
+		const target = e.target as Element | null;
+		const flow = flowOf(snap?.works ?? null);
+
+		const bill = target?.closest<HTMLElement>('[data-bill]');
+		if (bill) { void fetchUsage(true); return; }
+
+		const go = target?.closest<HTMLElement>('[data-arm]');
+		if (go && flow) { void arm(flow); return; }
+
+		const card = target?.closest<HTMLElement>('[data-pass]');
+		if (card && flow) { void pass(flow, card.dataset['pass'] ?? ''); return; }
+	});
+}
+
 export const works: FocusView = {
 	name: 'works',
 	title: 'the Works',
@@ -554,6 +756,7 @@ export const works: FocusView = {
 		focusHost = focus;
 		actionHost = action;
 		wire(focus);
+		wireAction(action);
 	},
 	unmount() {
 		watching?.disconnect();
