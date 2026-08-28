@@ -1487,3 +1487,75 @@ deliberately **not** re-run: its two failures are already filed at its own landi
 it spends a session against the batch's ≤2 rule to re-measure something already recorded.
 
 (Relayed from `master`, B21 LANDED 2026-08-28 — Builder)
+
+## → relay — B12 (the reactive gate) to G2 and the Architect: one escalation, four findings that bind
+
+Evidence: [b12-flow-reactive.md](b12-flow-reactive.md) §DoD and §Findings, commits `1ed38fc` …
+`a675ffa` on `master`.
+
+1. **E1 — `trust.ts` reads an auto-created project entry as a refusal, so a plain-directory venue
+   goes COLD the moment a session runs in it, and the arm then refuses a venue that demonstrably
+   works.** Found live, twice, by this row's own DoD: a scope-arm join was refused with *"personal
+   has never trusted …/nb/gate … refused at …"* **2.1 s after a session had successfully started in
+   that very directory**. Claude writes a project entry for every cwd it opens, and one that
+   inherited an ancestor's blanket trust gets `hasTrustDialogAccepted: **false**` — because no dialog
+   was ever *accepted* there, not because anything was refused. Across the three live accounts the
+   `false` entries are: **`~/code/b7-founding-probe`** — which is B7 F1's own positive control,
+   *"reached its first user turn and beat the census ten times"* — this row's two scratch venues,
+   and one **repository**, where `project.repo` already answers cold. So on a plain directory `false`
+   carries no refusal information at all. **The fix named, not taken: fall through to the ancestor
+   walk on `false` rather than short-circuit** — right in every measured cell. Not taken because
+   `trust.ts` is B7's law and P5 F5 (iii) blessed it *"sufficient as-is"*. **Costs nothing in
+   production today** (every real venue is a repo Felix accepted); costs the first flow whose venue
+   is a plain directory its second arm, with a sentence that is factually wrong.
+
+2. **F2 — a session that finishes ends on `SessionEnd`, never on `Stop`, so B11's census landing
+   sensor lands nothing and its malformed branch fires on every normally-closed sitting.** Over the
+   live census: **61 gone sessions, 61 last-event `SessionEnd`, 0 last-event `Stop`**. `Stop` fires
+   when the turn ends; the session then sits idle with a live pid; closing its workspace appends
+   `SessionEnd`. So `Stop`-as-last-and-gone is the SIGKILL case, not the ordinary one. B11 never felt
+   it because every step in its smoke was a **board row** and the board answers first — B12 feels it
+   because an inserted judge has no row. Built accordingly: **a judge is landed by the ROW it was
+   staffed for, never by its own session**; the census is asked only whether the sitting is *over*
+   (`idle` or `gone` — P1's idle sensor), and only to decide when to card Felix. A consequence worth
+   having: the lane resumes the moment the row is true, while the judge is still alive. **What it
+   binds:** anything reading `verdictOf`'s census branch as a landing sensor is reading a branch that
+   almost never fires, and keel §6's `holds` ask now has a second half — *how does a step with no
+   board row land?*
+
+3. **F1 — the order's own classifier gates 120 of the city's 390 landed rows, including `b10` and
+   `b11` of this very flow, so it ships as the misclassification log it asks for rather than as the
+   classifier.** B12 §1 names `/\bE\d+\s*[—-]/`, `/escalat/i`, `/BLOCKED/` and calls false positives
+   "the cheap direction". Measured: **`escalationsIn` gates 0 · those three gate 120 · `/escalat/i`
+   alone gates 113**, and the rows it takes include two whose annotations read *"nothing escalated"*.
+   §1 was cut before B11 landed; what B11 built for this question is `attention.ts`'s detector
+   (B14 F2's, 0 false positives over 458 rows) and the relay said *"B12 turns that pause into a judge
+   fire"*. So the classifier is **`verdictOf`'s pause as a `LandingCode`**, never a string match, and
+   `SPEC_PATTERNS` survives in `judge.ts` as the named interim constant with the measurement on it.
+   **The real fix is neither regex — it is `holds` (keel §6, canon's).**
+
+4. **F3 — a fixture city INSIDE `~/code` is slugged relatively and one outside is slugged
+   absolutely, and a flow that names the wrong one loses its board silently.** B10 F5's rule, second
+   face. `GLASS_CITY=/private/tmp/x` → the register calls the building `/private/tmp/x/nb/gate`;
+   `GLASS_CITY=~/code/b12slug` → `b12slug/nb/gate`. A probe venue must live under `~/code` (that is
+   where the trust entry a fire needs lives), so its flow files must write the **slug** — with the
+   absolute path, `buildings.find(b => b.building === flow.building)` is `undefined`, `world.rows` is
+   **empty**, and every landing is judged by the census instead of the board, which under F2 means
+   *malformed*. No error, no lint. **Binds every later flow fixture.**
+
+Also for the Architect, not blocking: **D12 was a flag to flip, as B11 said** — `ARM_SCOPE` is one
+module constant and scope-arm is one branch in the readiness loop. What it enforces is not D12's
+prose ("building + chapter") but **what the click already covered**: the frame unmoved, nothing
+edited or removed, and every addition's venue and account already in the arm, plus `refuseStep` —
+*the same list the arm applies*, extracted so there is one of it. And **the arm now records what it
+armed**: `RunLine.steps` carries `<id>:<Step.hash>` per step plus a frame mark under `*`, because
+`Flow.hash` says the plan moved and the delta reader needs which parts. An `armed` line from before
+that field reads back **null**, and null is never "only additions" — it pauses for his click.
+
+And one for anyone measuring the engine: **a step decided this pass held its concurrency slot and
+its checkout until the next tick** (F4) — `inFlight` reads the log, which does not carry the line the
+pass is about to write — and at `concurrency: 1` that starved the judge the same pass had staffed.
+Fixed with a `settled` set; **`timeout` is deliberately not in it**, because that session is alive
+and still spending and the engine kills nothing.
+
+(Relayed from `master`, B12 LANDED 2026-08-28 — Builder)
