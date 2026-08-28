@@ -1494,3 +1494,77 @@ Venue: `master`; the probe on its own port against a **copy** of the fixture cit
 desk, so no DoD run wrote into a tracked fixture or into his real drawer; the one live-path
 note removed after its git-status evidence was taken.
 Next: **B21 — the Grep** ([plans/b21-grep.md](plans/b21-grep.md)), the Dispatcher's to fire.
+
+---
+
+**2026-08-28 · Builder · opus-high (B21)** — **The Grep.** *"What was that session where I
+was talking about 'bob summons'?"* is now one keystroke, one query and one click, and the
+Chat is open at that turn.
+Changed: `glass/grep.ts` (three corpora, two engines, every bound), `grep.client.ts` (the
+query's state and the drawer's results — not a tenant, because the drawer is the shell's),
+`grep.test.ts`, the wire shapes in `deck-model.ts`, `chat.ts`'s reader (a third `Where` case
+and `ChatView.anchor`), `chat.client.ts` (the aimed window and `chatAt`), `desk.client.ts`
+(`deskTo`), the shell (`deck.ts`'s header box and the drawer's second content,
+`deck.client.ts`'s two keystrokes and three jumps), `deck.css`, `shelf.ts` (`transcriptsOf`
+exported — B5's discovery reused, never re-derived), `server.ts` (`GET /deck/grep`), and
+[`lab/b21/probe.ts`](plans/../lab/b21/probe.ts).
+DoD (all evidence in [B21](plans/b21-grep.md), **16 of 16 PASS in a real Chrome against the
+REAL corpus** — 736 transcripts across three accounts, 308 doctrine documents, the desk):
+**the commissioning query live** — `bob summons` → *15 hits · 280 ms · rg*, **11 session
+hits across all three accounts**, grouped sessions/docs/desk in the one drawer; the click
+lands on the turn the matching line belongs to, **proven against the coordinate and not
+against the DOM's opinion of it** (`the matching line begins at byte 450896; the marked turn
+is [data-key="392696"] and the next turn opens at EOF`), timestamped, scrolled into the box,
+and wearing a `[↓ latest]` because an aimed window and the live tail are two places in the
+file. **A doc hit** opened `plans/b21-grep.md:9` with exactly **one line marked in the whole
+document**; **a desk hit** opened the note in the editor, byte-identical to the file the
+desk wrote. **Every bound induced live**: an over-cap query renders `capped at 50 — there
+are more` on two groups, and one arm proved the other two at once — the glass relaunched
+with `rg` unreachable falls back to `grep`, which over 1.7 GB is **8.3 s against ripgrep's
+0.18 s**, so it **outlives the 3 s clock by construction**: `sessions timedOut=true with 0
+honest hits and NO error`, the degradation banner on the page in the glass's own words, and
+**three `/deck/state` polls fired inside that 3.2 s search came back in 85.8 · 42.2 ·
+42.1 ms** — the worker law intact, because an engine is a spawn. **Warm p95 131.9 ms**
+(N=20, 200 ms apart, five terms; bar 1000 ms). **Case-smart asserted** on a term minted at
+run time: lower → 1 hit, upper → 0, mixed → 1, and the rule printed on the page. **606 tests
+green in one process**, type gate exit 0, zero new dependencies, `grep.client.ts` carries
+`hands/fire` **0×**, and the page still never scrolls with a full results drawer (**0 px**).
+**All eight predecessor probes re-run whole — B13 · B14 · B15 · B20 · B10 · B11 · B16 ·
+B19, ALL GREEN.**
+Findings: **F1 — a probe that searches the REAL corpus finds itself.** A fixed marker
+literal in the probe's own source is in the corpus before the probe runs (the transcripts of
+the session writing it), so the upper-case control answered **three hits** against a note
+that never held it; the marker is minted at run time now. **Binds B12 and every later probe
+whose corpus is the city** — B16 F3's family, one grammar along · **F2 a legend sample
+carrying the row's own class is a fifth result**: `#host-drawer .hit` answered twelve rows
+where eleven existed and the account count came back as four, one of them empty. A legend of
+a *clickable* vocabulary must not answer the selector the click is bound to · **F3 a
+keydown's target is not always an Element** — `document` has no `closest`, so a
+document-level shortcut written against `e.target.closest(...)` throws inside its own
+listener and takes the shortcut out with no symptom · **F4 the turn a raw-JSONL hit belongs
+to is the right turn and may not SHOW the term**: four of the first five hits landed in
+records the Chat encapsulates to one line (a tool call's input, B16 §2), the fifth rendered
+the phrase whole — §5's miss class, second face, named and deliberately not patched · F5 the
+`grep` fallback is not *slower*, it is **over budget by construction** (40×), which is why
+the banner and the per-group timeout both had to exist — and it is the cheapest genuine slow
+arm in the building · **F6 `--max-columns` is ignored under `rg --json`**, so the line bound
+is the reader's: streamed lines, a length bar with a resync, a cap that kills the process,
+and an exit code read only when nothing else stopped it first · F7 subagent transcripts are
+outside the corpus **by name** — one directory deeper, and not a session the Chat can open,
+so a hit in one would jump nowhere; the blindness is real and its fix is a jump target, not
+a wider glob · **F8 the anchored window is a third case, not a nullable `before`** —
+`turnsOf`'s tail slice would have dropped exactly the hit's turn, silently.
+Decided: nothing escalated — no contract, fence or DoD moved. **The fence gains no write
+class**: a search is a read, it reaches no socket, and it sits in front of the arming switch
+for the reason the inbox and the desk do (B6 F3, fourth venue). **No index** — `rg` over the
+real corpus is 41–132 ms warm, and the premature-optimisation law says measure first. Two
+environment knobs join `paths.ts`'s family, and both exist because the two failures that
+matter cannot be induced by asking nicely: `GREP_TIMEOUT_MS` (the wall clock) and `GREP_RG`
+(the engine's name).
+Venue: `master`; the probe on its own port with the census, the audit log, the HALT flag,
+the flows and the desk all in a temp root and the hands cold — the register and the
+transcripts are read, and nothing in this row can move his desktop. `lab/b17/probe.ts` was
+**not** re-run: its two failures are filed at its own landing commit (B11 F8) and it leaves
+a live workspace open when it throws (B16's addendum).
+Next: **B12 — the reactive gate + dynamic extension**
+([plans/b12-flow-reactive.md](plans/b12-flow-reactive.md)), the Dispatcher's to fire.
