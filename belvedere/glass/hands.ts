@@ -438,10 +438,12 @@ export function findSurface(raw: unknown, surface: string): Placement | null {
  *  2. **The census's `ws` is a hook's memory.** The surface's *current* workspace is the tree's to
  *     say, so the tree is read first and a surface it does not carry is a refusal, not a jump into
  *     a workspace that may no longer hold it (D10: an ambiguous target never sends).
- *  3. **Focusing a panel does not bring cmux forward.** `focus-panel` selects the workspace inside
- *     cmux and returns `OK`; with the deck in a browser, the frontmost application never changed —
- *     an `ok` receipt over a screen that did not move, which is exactly what Felix reported.
- *     `focus-window` is the second call, and it is what makes the jump visible.
+ *  3. **Nothing on the socket brings cmux forward.** `focus-panel` selects the workspace inside cmux
+ *     and returns `OK`; `focus-window`, whose own help says *"Focus (bring to front) the specified
+ *     window"*, means the window inside the app. Measured with the deck in a browser: frontmost was
+ *     `Arc` before, after `focus-panel`, and after `focus-window` — an `ok` receipt over a screen
+ *     that never moved, which is exactly what Felix reported. The application half is the OS's, so
+ *     the last step is `open -a <the bundle cmux itself names>`; measured `Arc` → `cmux`.
  */
 export const focus = async (req: Focus, password: string): Promise<Outcome<Placement & { surface: string }>> =>
 	audited('focus', { ...req }, await attemptFocus(req, password));
@@ -462,12 +464,32 @@ async function attemptFocus(req: Focus, password: string): Promise<Outcome<Place
 	const jumped = await cmux(password, LIMITS.commandMs, 'focus-panel', '--panel', sf, '--workspace', placed.workspace);
 	if (!jumped.ok) return jumped;
 
-	// The panel is selected; the app may still be behind a browser. A jump that Felix cannot see is
-	// the bug, so a window that will not come forward is reported, never swallowed.
+	// The panel is selected; the app may still be behind a browser. A jump Felix cannot see is the
+	// bug, so a window that will not come forward is reported, never swallowed.
 	const front = await cmux(password, LIMITS.commandMs, 'focus-window', '--window', placed.window);
-	if (!front.ok) return fail(`${sf} is selected but cmux did not come forward: ${front.error}`);
+	if (!front.ok) return fail(`${sf} is selected but cmux's window did not come forward: ${front.error}`);
+
+	const shown = await activate(password);
+	if (!shown.ok) return fail(`${sf} is selected but cmux is still behind whatever you are looking at: ${shown.error}`);
 
 	return { ok: true, result: { surface: sf, ...placed } };
+}
+
+/**
+ * Bring the application itself forward — the half of the jump the socket does not have. cmux names
+ * its own bundle (`identify --json` → `app_bundle_path`), so the glass never carries a hard-coded
+ * path to somebody's Applications folder; `open -a` is a system binary and a spawn, the same posture
+ * `gauges.ts` already takes with `ps`, and it activates a running app rather than launching one.
+ */
+async function activate(password: string): Promise<Outcome<string>> {
+	const who = await cmux(password, LIMITS.commandMs, 'identify', '--json');
+	if (!who.ok) return who;
+	let bundle: unknown;
+	try { bundle = (JSON.parse(who.result) as Record<string, unknown>)['app_bundle_path']; }
+	catch (e) { return fail(`cmux identify answered no JSON: ${(e as Error).message}`); }
+	if (typeof bundle !== 'string' || !isAbsolute(bundle)) return fail(`cmux names no app bundle to bring forward`);
+	const opened = await run(['open', '-a', bundle], {}, LIMITS.commandMs);
+	return opened.ok ? { ok: true, result: bundle } : opened;
 }
 
 // ---------- write-through: cmux is truth, so the deck writes to cmux (D16, D18 class 2) ----------
