@@ -1336,3 +1336,40 @@ bulletin, plan findings. Decided: nothing — both defects are the Grand Archite
 the decision-title-boundary question (spacex's `decision.head` residue) is row 16's
 suite to rule, not a hand-guess. Next: the wave's Dispatcher closes 18h (evidence
 rides its report verbatim); 18g is the wave's last open row.
+
+---
+
+**2026-08-28 · Grand Architect · fable-max** — the GA-11 sitting: 18g unstranded, the
+wave's residue routed, row 17 briefed. **The merge:** branch
+`worktree-agent-a55279e2283f84743` (18g's landing — findings + two canon escalations)
+merged to master (`fc67ffa`); conflict resolution kept the Dispatcher's richer board
+row and slotted 18g's two inbox entries chronologically; row 18's wave is now 8/8
+reported on the mainline. **The sweep — 29 entries ruled, inbox drained empty:**
+→ **D68** (typed absence: 18d's tier slot, 18a's 27 absences, 18f's `unstaffed`,
+18h's title-boundary — ruled `**unrecorded.**`); → **D69** (18g's PARKED, annotation
+form (a), staffing corollary → `unstaffed`); → **D70** (the three `bunx tsc` slips —
+Belvedere's B8 ruling harvested); → **row 19** (18c's two migrate defects + the
+Depends-on document-scope bug, 18f's replaceLead orphan + blank-line truncation,
+18g's board.columns undercount + truncation rule, 18h's two silent-zero parser gaps,
+18a's kickoff-detector false positives, B2's discover() perf, B3's re-read seam,
+B8's live-corpus test, B6-F2's false pending on D21); → **row 20** (Felix's
+continuous-flow commission verbatim, B3's baton-grammar fields + classifyBaton
+holder inversion, B14's Dispatcher-holder gap, 18d's cross-building Depends-on —
+deliberately NOT minted this sitting: the flow keel rules it with the graph's
+consumers on the table); → **row 21** (Felix's vocabulary directive verbatim,
+bless-vs-countersign); → **row 22** (P2's /color-burns-turn-1 escalation);
+→ **row 17** (the G2 batch-5 close: gate PAID, evidence folded into the brief).
+**Ruled, no fold:** B2's register housing — off-register IS the register's truth,
+campus rendering is D10 freedom, cwd-ascent rejected (relayed to belvedere/ISSUES
+with every Belvedere-touching disposition); Felix's "prompt is required" error —
+a harness bug, not canon (product feedback drafted upstream). **Also sanctioned:**
+snappy's separator repair — form-only under the molt clause; the ~38 re-framed
+entries take standard residue rulings in the continuation wave. **Cut:** row 17's
+brief (plans/17-storage-experiment.md — lab: this repo, fallback hexwright; three
+consumers, two arms, numbers never decree) and rows 19–22 (doctrine v1.1 ·
+continuous-flow keel · vocabulary standard · rig argv). Board trued: 17
+dispatchable, 18 IN FLIGHT with its continuation named. Decided: D68, D69, D70 —
+all **proposed, pending Felix countersign** (DOCTRINE edits held for his word: §4
+×2, §5, §7, §8). Next: **Felix countersigns D68–D70** (the held edits apply on his
+word, 19's gate opens); behind it `fire 17` (kickoff in the brief), then 19's
+dispatch; rows 20/21 fire on his summons, 22 on his blessing.
