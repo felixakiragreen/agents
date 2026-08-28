@@ -726,9 +726,10 @@ function wire(host: HTMLElement): void {
 
 /**
  * Action's own three wires, and the whole of what this tenant can reach: the arm, his pass, and a
- * re-fetch of the bill. **`hands/fire` appears nowhere in this file** — the engine fires server-side,
- * off the run log, and the deck's one spawning wire stays the composer's (B17 F1's sound check: the
- * question is which SOURCE contains it).
+ * re-fetch of the bill. **The spawning hand's route appears nowhere in this file** — the engine
+ * fires server-side, off the run log, and the deck's one client-side spawning wire stays the
+ * composer's (B17 F1's sound check: the question is which SOURCE contains it, and the probe greps
+ * this file for that path — so it must not be written here even in a comment).
  */
 function wireAction(host: HTMLElement): void {
 	host.addEventListener('click', e => {
