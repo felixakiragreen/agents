@@ -711,3 +711,70 @@ body.deck {
 .deck .desk-plan .summons-out { max-height: 34vh; overflow: auto; }
 .deck .desk-foot { margin-top: 10px; border-top: 1px solid var(--grey-850); padding-top: 6px; }
 .deck .desk-foot .prose { font-family: var(--mono); font-size: 10px; color: var(--grey-550); }
+
+/* --- the Grep (B21): one box in the header, its results in the one drawer ---
+   The box is a header control, so it is one line and never grows; the results are a drawer, so they
+   are rows and each row is one hit — the encapsulation law where the corpus is largest. */
+
+.deck .grep-box {
+	display: flex; align-items: center; gap: 6px;
+	padding: 1px 7px; border: 1px solid var(--grey-800); border-radius: 3px;
+	background: var(--grey-900);
+}
+.deck .grep-box:focus-within { border-color: var(--felix); }
+.deck .grep-key {
+	font-family: var(--mono); font-size: 9.5px; color: var(--grey-600);
+	border: 1px solid var(--grey-750); border-radius: 2px; padding: 0 3px;
+}
+.deck .grep-in {
+	width: 20vw; min-width: 120px; max-width: 300px;
+	background: none; border: none; outline: none;
+	font-family: var(--mono); font-size: 11px; color: var(--grey-150);
+}
+.deck .grep-in::placeholder { color: var(--grey-650); }
+.deck .grep-in::-webkit-search-cancel-button { display: none; }
+
+.deck .hits { margin-top: 10px; }
+.deck .hits-h { display: flex; align-items: baseline; gap: 7px; }
+.deck .hits-name {
+	font-family: var(--wide); font-size: 10px; font-weight: 900; letter-spacing: .18em;
+	text-transform: uppercase; color: var(--grey-400);
+}
+.deck .hits-h .num { font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--felix); }
+.deck .hits > .quiet { font-size: 9.5px; color: var(--grey-600); margin: 2px 0 0; }
+
+.deck .hit-list { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 5px; }
+.deck .hit {
+	border: 1px solid var(--grey-800); border-left: 2px solid var(--grey-650);
+	border-radius: 3px; padding: 5px 7px; background: var(--grey-900); cursor: pointer;
+}
+.deck .hit:hover { border-color: var(--grey-700); background: var(--grey-850); }
+/* One colour per corpus, and the legend says which is which (the colour-legend law, README §3). */
+.deck .hit-sessions { border-left-color: var(--felix); }
+.deck .hit-docs { border-left-color: var(--blue-500); }
+.deck .hit-desk { border-left-color: var(--yellow-600); }
+.deck .hit-h { display: flex; align-items: baseline; gap: 7px; }
+.deck .hit-h .name {
+	font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--grey-200);
+	overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.deck .hit-h .where {
+	font-family: var(--mono); font-size: 9.5px; color: var(--grey-600);
+	overflow: hidden; text-overflow: ellipsis; white-space: nowrap; direction: rtl;
+}
+.deck .hit-h .ago { margin-left: auto; font-size: 9.5px; color: var(--grey-600); flex: none; }
+.deck .hit-line {
+	margin: 3px 0 0; font-size: 11px; line-height: 1.45; color: var(--grey-350);
+	max-height: 3.9em; overflow: hidden;
+}
+.deck .hit-mark { background: var(--yellow-700); color: var(--grey-100); border-radius: 2px; padding: 0 1px; }
+.deck .legend-deck .hit-mark { padding: 0 5px; }
+.deck .legend-deck .hit { padding: 0 6px; cursor: default; }
+.deck .degraded { color: var(--orange-300); }
+
+/* The jump landed here (B21): the turn a grep hit points at, marked in the one Chat view. */
+.deck .ct-aim { border-left-color: var(--yellow-600); background: var(--grey-900); }
+.deck .ct-aim-note {
+	display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+	margin-bottom: 6px; padding-bottom: 5px; border-bottom: 1px solid var(--grey-850);
+}

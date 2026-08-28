@@ -44,6 +44,15 @@ let from = 0;
 let loading = false;
 
 /**
+ * **The jump target** (B21): the byte offset a grep hit aimed at, and the turn the server says it
+ * landed in. While it is set the view is that window and **not** the live tail — a hit in a
+ * three-week-old conversation followed by today's last forty turns would draw a continuity that is
+ * not there. `[↓ latest]` clears it and the poll's tail comes back.
+ */
+let aim: { at: number; key: number | null } | null = null;
+let scrolled = false;
+
+/**
  * His words, per target. The map is what survives a hotswap inside one page; the file behind
  * `POST /chat/draft` is what survives everything else. `dirty` is who owns the box right now: until
  * he types, the server's copy is the truth; from his first keystroke the box is his and nothing
@@ -64,9 +73,17 @@ function retarget(sid: string | null): void {
 	if (sid === selection.session) return;
 	selection.session = sid;
 	selection.awaiting = null;
+	toLatest();
+}
+
+/** Back to the tail: the poll's own window, stuck to the bottom, nothing held in front of it. */
+function toLatest(): void {
 	earlier = [];
 	from = 0;
 	loading = false;
+	aim = null;
+	scrolled = false;
+	stick = true;
 	repaint();
 }
 
@@ -107,8 +124,10 @@ function drawBlock(host: HTMLElement, b: ChatBlock, doc: string): void {
 }
 
 function drawTurn(host: HTMLElement, t: ChatTurn, name: string, doc: string): void {
-	const art = el('article', `ct ct-${t.role}`);
+	const hit = aim !== null && aim.key === t.key;
+	const art = el('article', `ct ct-${t.role}${hit ? ' ct-aim' : ''}`);
 	art.dataset['key'] = String(t.key);
+	if (hit) art.dataset['aim'] = String(aim!.at);
 	const head = el('div', 'ct-h');
 	head.append(el('span', 'who', WHO(t, name)));
 	if (t.at !== null) head.append(stamp(t.at));
@@ -118,8 +137,13 @@ function drawTurn(host: HTMLElement, t: ChatTurn, name: string, doc: string): vo
 	host.append(art);
 }
 
-/** The tail the poll carries, with every earlier window already held in front of it. */
+/**
+ * The tail the poll carries, with every earlier window already held in front of it — **or, while a
+ * jump is standing, only the held windows**, because the aimed window and the live tail are two
+ * places in the file and stitching them would draw a conversation that never happened.
+ */
 const allTurns = (v: ChatView): ChatTurn[] => {
+	if (aim) return earlier.slice(-LIMITS.held);
 	const seen = new Set(v.turns.map(t => t.key));
 	return [...earlier.filter(t => !seen.has(t.key)), ...v.turns].slice(-LIMITS.held);
 };
@@ -144,12 +168,24 @@ function drawTranscript(host: HTMLElement): void {
 
 	const turns = allTurns(v);
 	if (!turns.length) {
-		host.append(el('p', 'quiet prose', 'This transcript holds no turn the deck can read — a session that never spoke, or a window of pure tool traffic.'));
+		host.append(el('p', 'quiet prose', loading
+			? 'reading the window around your hit…'
+			: 'This transcript holds no turn the deck can read — a session that never spoke, or a window of pure tool traffic.'));
 		return;
 	}
 
 	const box = el('div', 'ct-turns');
 	box.id = 'chat-turns';
+	// A standing jump says so, and says how to leave: this window is somewhere in the file's past, and
+	// the deck must not let it be mistaken for what the session is saying now.
+	if (aim) {
+		const line = el('div', 'ct-aim-note');
+		line.append(el('span', 'label', aim.key === null ? 'jumped — the turn is outside this window' : 'jumped to your search hit'));
+		const back = button('st wide', '↓ latest', 'back to the live tail of this transcript');
+		back.dataset['chatLatest'] = 'yes';
+		line.append(back);
+		box.append(line);
+	}
 	if (from > 0 || v.from > 0) {
 		const more = button('st wide', loading ? 'loading…' : '↑ earlier', 'scroll up, or press: the window before this one');
 		more.dataset['chatEarlier'] = 'yes';
@@ -158,6 +194,28 @@ function drawTranscript(host: HTMLElement): void {
 	else box.append(el('p', 'quiet', 'the beginning of this transcript'));
 	for (const turn of turns) drawTurn(box, turn, t.name, v.doc);
 	host.append(box);
+}
+
+// ---------- the jump: one window, around a byte offset (B21) ----------
+
+/**
+ * The window a grep hit points at. It rides `/deck/chat` — the same gesture route the scroll-up
+ * uses — because a jump is a thing Felix clicked once, not something the poll should carry (B19 F4).
+ */
+async function loadAround(sid: string, at: number): Promise<void> {
+	loading = true;
+	repaint();
+	try {
+		const r = await fetch(`/deck/chat?sid=${encodeURIComponent(sid)}&at=${at}`,
+			{ headers: { accept: 'application/json' } });
+		const win = await r.json() as ChatView;
+		earlier = win.turns;
+		from = win.from;
+		aim = { at, key: win.anchor };
+		scrolled = false;
+	}
+	catch (e) { say(`chat:${sid}`, String(e)); aim = null; }
+	finally { loading = false; repaint(); }
 }
 
 // ---------- earlier windows: a gesture, never a second timer ----------
@@ -317,7 +375,7 @@ function draw(): void {
 
 	const turns = v ? allTurns(v) : [];
 	paint('chat:focus', focusHost, JSON.stringify([
-		selection.session, selection.awaiting, focusState, loading, from, v?.error, v?.target,
+		selection.session, selection.awaiting, focusState, loading, from, v?.error, v?.target, aim,
 		turns.map(t => [t.key, t.blocks.length, t.folded]),
 	]), h => {
 		if (focusState === 'minimal') {
@@ -329,7 +387,12 @@ function draw(): void {
 	});
 
 	const box = document.getElementById('chat-turns');
-	if (box && stick) box.scrollTop = box.scrollHeight;
+	// The jump's own scroll happens once per aim: after that the pane is his to read, and a repaint
+	// three seconds later must not yank him back to the hit.
+	const target = box && aim && !scrolled && aim.key !== null
+		? box.querySelector<HTMLElement>(`[data-key="${CSS.escape(String(aim.key))}"]`) : null;
+	if (target) { target.scrollIntoView({ block: 'center' }); scrolled = true; }
+	else if (box && stick && !aim) box.scrollTop = box.scrollHeight;
 
 	// Action is the one surface here Felix TYPES into, so it is painted by a signature that
 	// deliberately excludes his own text (B14 F4): the box is rebuilt when the target, the pane state
@@ -375,7 +438,9 @@ export const chat: FocusView = {
 			void send(sid, held(sid, view()));
 		});
 		focus.addEventListener('click', e => {
-			if ((e.target as Element | null)?.closest('[data-chat-earlier]')) void loadEarlier();
+			const t = e.target as Element | null;
+			if (t?.closest('[data-chat-earlier]')) return void loadEarlier();
+			if (t?.closest('[data-chat-latest]')) toLatest();
 		});
 	},
 	unmount() { focusHost = null; actionHost = null; },
@@ -394,6 +459,21 @@ moveIn(chat);
  */
 export function chatTo(sid: string): void {
 	retarget(sid);
+	swap.to?.('chat');
+}
+
+/**
+ * The Grep's session jump (B21): the same one view, opened **at the matching turn**. The offset is
+ * the matching line's own byte offset, which is the coordinate a turn is keyed by — so the server
+ * answers the window around it and names the turn, and this scrolls to it and marks it.
+ *
+ * A hit in the session already open re-aims rather than doing nothing: `retarget` short-circuits on
+ * the same sid, so the aim is set here, after it, either way.
+ */
+export function chatAt(sid: string, at: number | null): void {
+	retarget(sid);
+	if (at === null) toLatest();
+	else { aim = { at, key: null }; earlier = []; from = 0; scrolled = false; stick = false; void loadAround(sid, at); }
 	swap.to?.('chat');
 }
 

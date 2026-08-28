@@ -11,7 +11,7 @@ import { readFileSync, statSync } from 'fs';
 import { sep } from 'path';
 import { cityRows, needsYou, waitingOf } from './attention';
 import { readCensus, isLive, type Session } from './census';
-import { chatView } from './chat';
+import { chatView, TAIL } from './chat';
 import { readCredential } from './hands';
 import { ATTENTION, columns, RESTING, type Attention, type DeckSession, type DeckSnapshot } from './deck-model';
 import { auditorCount } from './gauges';
@@ -128,7 +128,7 @@ export async function deckState(open: string | null = null, talking: string | nu
 	// three, and re-reading the census inside would double the most expensive read on the path.
 	const cred = readCredential();
 	const chat = talking === null ? null
-		: chatView(talking, null, cred.ok, cred.ok ? 'armed' : cred.error, { rig: readRig(), census, buildings });
+		: chatView(talking, TAIL, cred.ok, cred.ok ? 'armed' : cred.error, { rig: readRig(), census, buildings });
 
 	return {
 		at: Date.now() / 1000,
@@ -219,6 +219,12 @@ export function deckPage(): string {
 	<span class="mark"><a href="/">BELVEDERE</a></span>
 	<nav class="ways"><a href="/">rail</a> <a href="/city">city</a> <a href="/shelf">shelf</a> <a href="/summon">summon</a></nav>
 	<span class="spacer"></span>
+	<label class="grep-box" for="grep-q" data-tip="grep the city — / or ⌘K"
+		data-tip-more="Transcripts across all three accounts, every doctrine document the register knows, and the desk. Sessions are searched as raw JSONL, so plain words and phrases match verbatim and a phrase whose quotes or newlines are escaped in the file may not. Enter searches, Escape clears.">
+		<span class="grep-key">/</span>
+		<input id="grep-q" class="grep-in" type="search" autocomplete="off" spellcheck="false"
+			placeholder="grep the city" aria-label="search transcripts, docs and the desk">
+	</label>
 	<span id="pulse" class="pulse" data-tip="the poll: one composed read of census and register, every 3 s">···</span>
 	<button id="drawer-toggle" class="st wide" type="button"
 		data-tip="the needs-you queue" data-tip-more="Sessions blocked on you, live Felix-gates, pending countersigns, unruled escalations — ranked, and answerable in place. Pin it and it is the morning coffee view.">needs
@@ -229,8 +235,8 @@ ${pane('context', 'city', RESTING.context)}
 ${pane('focus', 'focus', RESTING.focus)}
 ${pane('action', 'action', RESTING.action)}
 <aside id="drawer" class="drawer" data-state="${RESTING.drawer}">
-	<header class="pane-head"><span class="pane-name">needs you</span>
-		<span class="states"><button class="st wide" type="button" id="drawer-pin" data-tip="pin: the drawer stops overlaying and takes a track of its own">pin</button><button class="st" type="button" id="drawer-shut" data-tip="shut the drawer">×</button></span>
+	<header class="pane-head"><span class="pane-name" id="drawer-name">needs you</span>
+		<span class="states"><button class="st wide" type="button" id="drawer-queue" hidden data-tip="back to the needs-you queue">needs you</button><button class="st wide" type="button" id="drawer-pin" data-tip="pin: the drawer stops overlaying and takes a track of its own">pin</button><button class="st" type="button" id="drawer-shut" data-tip="shut the drawer">×</button></span>
 	</header>
 	<div class="pane-body" id="host-drawer"></div>
 </aside>

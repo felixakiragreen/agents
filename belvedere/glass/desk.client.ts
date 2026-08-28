@@ -395,3 +395,20 @@ export const desk: FocusView = {
 };
 
 moveIn(desk);
+
+/**
+ * The Grep's desk jump (B21): the note itself, open in the editor. Same shape as the Chat's
+ * hotswap — the shell calls this rather than every surface knowing how to bring a tenant forward.
+ *
+ * The remembered slug is set **before** the swap, because `mount()` runs again on every swap-in and
+ * ends by re-opening what it remembers (B19 F2): setting it first makes the mount's own restore open
+ * the right note, and the explicit `openNote` below is only for the case where the desk was already
+ * standing and no mount will run.
+ */
+export function deskTo(name: string): void {
+	const standing = focusHost !== null;
+	slug = name;
+	remember(OPEN_KEY, name);
+	swap.to?.('desk');
+	if (standing && open?.slug !== name) void openNote(name);
+}

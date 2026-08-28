@@ -45,6 +45,12 @@ import { colourOf } from './summon';
 export const LIMITS = {
 	window: 192 << 10, turns: 40, acts: 40, head: 90, draftBytes: 64 << 10,
 	appended: 4 << 20, verifyMs: 45_000, pollMs: 700, callMs: 20_000,
+	/**
+	 * How far past a jump target the window reaches (B21). The anchored turn is *centred* in the
+	 * turns that come back, so this only has to put the target comfortably inside the window's bytes —
+	 * and leaving room after it is what lets the reader see what the session said next.
+	 */
+	anchorTail: 48 << 10,
 } as const;
 
 /** Session ids and nothing else: this string becomes a filename under `desk/drafts/`. */
@@ -233,7 +239,25 @@ function turn(key: number, role: 'user' | 'assistant', when: number | null, item
  * Sidechains are a subagent's own conversation and are excluded: this is one view of one session,
  * and a spawned agent's transcript is its own target to hotswap to.
  */
-export function turnsOf(w: Window, baseDir: string): ChatTurn[] {
+/**
+ * Which turns of a window survive its limit: the **last** `LIMITS.turns` normally, and the ones
+ * *around* a jump target where B21 handed one over.
+ *
+ * A grep hit is a byte offset into the file, and a turn's key is the byte offset of the record that
+ * opened it — so the turn a hit belongs to is the last one whose key does not exceed it. Slicing the
+ * tail would silently drop exactly that turn whenever the window holds more than forty after it,
+ * which is the class of failure where the jump *looks* like it worked.
+ */
+export function around(all: ChatTurn[], target: number | null): ChatTurn[] {
+	if (target === null) return all.slice(-LIMITS.turns);
+	let i = -1;
+	for (const [n, t] of all.entries()) if (t.key <= target) i = n;
+	if (i < 0) return all.slice(0, LIMITS.turns);
+	const start = Math.max(0, Math.min(i - (LIMITS.turns >> 1), all.length - LIMITS.turns));
+	return all.slice(start, start + LIMITS.turns);
+}
+
+export function turnsOf(w: Window, baseDir: string, target: number | null = null): ChatTurn[] {
 	const out: ChatTurn[] = [];
 	let items: Item[] = [];
 	let key = 0, when: number | null = null;
@@ -269,7 +293,7 @@ export function turnsOf(w: Window, baseDir: string): ChatTurn[] {
 	}
 	close();
 	// Everything has a limit: the window is bytes, this is what the browser is asked to lay out.
-	return out.slice(-LIMITS.turns);
+	return around(out, target);
 }
 
 // ---------- the drafts: one file per target under `desk/drafts/` (D17, D18 class 3) ----------
@@ -298,9 +322,37 @@ export function writeDraft(sid: string, text: string): Outcome<{ path: string; b
 // ---------- the view ----------
 
 const noView = (sid: string, error: string): ChatView => ({
-	sid, target: null, error, turns: [], from: 0, bytes: 0, doc: cityRoot(), draft: '',
+	sid, target: null, error, turns: [], from: 0, bytes: 0, anchor: null, doc: cityRoot(), draft: '',
 	send: { can: false, mode: null, why: error },
 });
+
+/**
+ * Which window of a transcript to read — the poll's tail, the one *before* a window already held
+ * (the scroll-up), or the one **around** a byte offset (B21's jump).
+ *
+ * Three named cases rather than a nullable number and a flag, because "read backwards from here" and
+ * "read around here" are two different questions and a parameter that means either is the ambiguity
+ * class this building spends its time refusing (B16 F1's own reasoning, one door along).
+ */
+export type Where =
+	| { kind: 'tail' }
+	| { kind: 'before'; byte: number }
+	| { kind: 'around'; byte: number };
+
+export const TAIL: Where = { kind: 'tail' };
+
+/** Where the window ends, per case. `around` leaves room after the target so the reader sees on. */
+const endOf = (where: Where, size: number): number | null =>
+	where.kind === 'tail' ? null
+	: where.kind === 'before' ? where.byte
+	: Math.min(size, Math.max(0, where.byte) + LIMITS.anchorTail);
+
+/** The key of the turn a byte offset falls in — the turn the client scrolls to and marks. */
+const anchorOf = (turns: ChatTurn[], target: number): number | null => {
+	let key: number | null = null;
+	for (const t of turns) if (t.key <= target) key = t.key;
+	return key;
+};
 
 /**
  * Whether this deck may send, and how — decided **here**, where the census, the credential and the
@@ -330,10 +382,10 @@ export type World = { rig: Rig; census: CensusRead; buildings: Building[] };
 export const readWorld = (): World => ({ rig: readRig(), census: readCensus(), buildings: city().buildings });
 
 /**
- * One target, read. `before` pages backwards: pass back the `from` of the window you already hold
- * and this answers the window that ends where that one began.
+ * One target, read. `where` is the poll's tail, the window before one already held (the scroll-up),
+ * or the window around a jump target (B21 — the anchored turn comes back in `anchor`).
  */
-export function chatView(sid: string, before: number | null, armed: boolean, note: string, world: World = readWorld()): ChatView {
+export function chatView(sid: string, where: Where, armed: boolean, note: string, world: World = readWorld()): ChatView {
 	if (!SID.test(sid)) return noView(sid, `not a session id: "${sid}"`);
 	const { rig, census, buildings } = world;
 	const t = locate(sid, rig, census, buildings);
@@ -341,25 +393,41 @@ export function chatView(sid: string, before: number | null, armed: boolean, not
 
 	const { configDir: _drop, ...target } = t;
 	const doc = buildings.find(b => b.building === t.building)?.path ?? t.cwd ?? cityRoot();
-	const w = t.transcript === null ? null : windowOf(t.transcript, before, LIMITS.window);
+	const bytes = t.transcript === null ? 0 : statSync(t.transcript).size;
+	const w = t.transcript === null ? null : windowOf(t.transcript, endOf(where, bytes), LIMITS.window);
+	const at = where.kind === 'around' ? where.byte : null;
+	const turns = w === null ? [] : turnsOf(w, t.cwd ?? doc, at);
 	return {
 		sid, target, error: null,
-		turns: w === null ? [] : turnsOf(w, t.cwd ?? doc),
+		turns,
 		from: w?.from ?? 0,
-		bytes: t.transcript === null ? 0 : (statSync(t.transcript).size),
+		bytes,
+		// Null where the jump target fell outside the turns this window could carry — the client says
+		// so rather than marking the nearest turn and calling it the hit (D10's family).
+		anchor: at === null ? null : anchorOf(turns, at),
 		doc, draft: readDraft(sid),
 		send: sendable(t, armed, note),
 	};
 }
 
-/** `GET /deck/chat?sid=&before=` — an earlier window, on a scroll rather than on the clock. */
+/**
+ * `GET /deck/chat?sid=&before=` — an earlier window, on a scroll rather than on the clock — and
+ * `?sid=&at=`, the window around a grep hit's byte offset (B21's jump). `at` wins where both arrive:
+ * a jump is a thing Felix just clicked.
+ */
 export function chatQuery(q: URLSearchParams): ChatView {
 	const sid = q.get('sid') ?? '';
-	const raw = q.get('before');
-	const before = raw === null ? null : Number(raw);
+	const byte = (name: string): number | null => {
+		const raw = q.get(name);
+		const n = raw === null ? NaN : Number(raw);
+		return Number.isFinite(n) && n >= 0 ? n : null;
+	};
+	const at = byte('at'), before = byte('before');
+	const where: Where = at !== null ? { kind: 'around', byte: at }
+		: before !== null && before > 0 ? { kind: 'before', byte: before }
+		: TAIL;
 	const cred = readCredential();
-	return chatView(sid, Number.isFinite(before) && before !== null && before > 0 ? before : null,
-		cred.ok, cred.ok ? 'armed' : cred.error);
+	return chatView(sid, where, cred.ok, cred.ok ? 'armed' : cred.error);
 }
 
 // ---------- the send: P6's transport law, consumed verbatim ----------

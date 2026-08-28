@@ -37,10 +37,15 @@ import './workshop.client';
 import './works.client';
 // The Chat (B16) signs its lease on import too; `chatTo` is the one function it exposes, because
 // "one chat view in the whole deck" is only true if every session row on the deck reaches it here.
-import { chat, chatTo } from './chat.client';
+import { chat, chatAt, chatTo } from './chat.client';
+// The Grep (B21) is not a tenant: it is what the one drawer draws when Felix has asked it something,
+// so its state and its rendering live in their own module and its three jumps are wired below.
+import {
+	clearGrep, drawResults, grepAnswer, grepRunning, grepSignature, jumpFrom, runGrep, wireGrep,
+} from './grep.client';
 // The desk (B19) signs its lease the same way, and is imported last so the tenant bar reads in the
 // identity sentence's own order: dataviz, command, comms, then the place he writes.
-import './desk.client';
+import { deskTo } from './desk.client';
 
 // ---------- what the deck is holding ----------
 
@@ -63,6 +68,16 @@ const drawer = need('drawer');
 const scrim = need('scrim');
 const pulse = need('pulse');
 const needsCount = need('needs');
+const drawerName = need('drawer-name');
+const drawerQueue = need('drawer-queue');
+const grepInput = need<HTMLInputElement>('grep-q');
+
+/**
+ * What the one drawer is showing (keel §3: there is one drawer, and it is pinnable). Its default is
+ * the needs-you queue (D15); a search puts the results in it and `needs you` puts the queue back.
+ * One overlay, two contents — not a second drawer, because a second drawer is a second thing to shut.
+ */
+let drawerShows: 'queue' | 'grep' = 'queue';
 
 const paneOf = (p: Pane) => need(`pane-${p}`);
 const hostOf = (p: Pane | 'drawer') => need(`host-${p}`);
@@ -445,6 +460,14 @@ function drawQueue(host: HTMLElement): void {
 
 function drawDrawer(): void {
 	const host = hostOf('drawer');
+	drawerName.textContent = drawerShows === 'grep' ? 'results' : 'needs you';
+	drawerQueue.hidden = drawerShows !== 'grep';
+	if (drawerShows === 'grep') {
+		paint('drawer', host, `grep ${layout.drawer} ${grepSignature()}`, h => drawResults(h, snapshot));
+		needsCount.textContent = snapshot ? String(snapshot.queue.length) : '·';
+		needsCount.dataset['needs'] = snapshot ? String(snapshot.queue.length) : '';
+		return;
+	}
 	const sig = snapshot === null ? 'cold' : JSON.stringify([layout.drawer, snapshot.queue]);
 	// Everything has a limit (directive 3.1): held state belongs to items that still exist, so an
 	// item answered and gone takes its draft, its disclosure and its receipt with it.
@@ -507,6 +530,71 @@ need('drawer-pin').addEventListener('click', () =>
 	setDrawer(layout.drawer === 'pinned' ? 'open' : 'pinned'));
 need('drawer-shut').addEventListener('click', () => setDrawer('shut'));
 scrim.addEventListener('click', () => setDrawer('shut'));
+
+// ---------- the Grep (B21): one box in the header, its results in the one drawer ----------
+
+/**
+ * The three jumps, registered once. Each lands in a surface that already exists — the Chat at the
+ * turn, the Workshop's viewer at the line, the desk's editor at the note — so a result is never a
+ * dead end and the Grep grows no viewer of its own.
+ */
+wireGrep({
+	session: (sid, anchor) => {
+		chatAt(sid, anchor);
+		remember(SESSION_KEY, selection.session);
+		openFocus();
+	},
+	doc: (building, path, line) => jumpTo(building, path, line),
+	note: slug => { deskTo(slug); openFocus(); },
+}, () => drawDrawer());
+
+/** A jump into a pane closed to one word would land nowhere (the law of space: minimal is a rail). */
+function openFocus(): void {
+	if (layout.focus === 'minimal') { layout.focus = 'typical'; apply(); }
+	else redraw();
+}
+
+function showResults(): void {
+	drawerShows = 'grep';
+	if (layout.drawer === 'shut') setDrawer('open');
+	else drawDrawer();
+}
+
+function search(): void {
+	const term = grepInput.value;
+	showResults();
+	void runGrep(term);
+}
+
+drawerQueue.addEventListener('click', () => { drawerShows = 'queue'; drawDrawer(); });
+
+grepInput.addEventListener('keydown', e => {
+	if (e.key === 'Enter') { e.preventDefault(); search(); return; }
+	if (e.key !== 'Escape') return;
+	// Escape empties the box and gives the drawer back to the queue: one key, the whole way out.
+	e.preventDefault();
+	grepInput.value = '';
+	clearGrep();
+	drawerShows = 'queue';
+	grepInput.blur();
+	drawDrawer();
+});
+
+/** A results drawer reopened by the toggle is still the results, so the box and the drawer agree. */
+grepInput.addEventListener('focus', () => { if (grepAnswer() || grepRunning()) showResults(); });
+
+/**
+ * `/` and ⌘K both, pre-chewed (spec §3). `/` is only a shortcut where he is not already typing — a
+ * slash inside the desk's editor or the Chat's draft is a slash.
+ */
+document.addEventListener('keydown', e => {
+	const inField = (e.target as Element | null)?.closest('input, textarea, [contenteditable]') !== null;
+	const chord = (e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k';
+	if (!chord && (e.key !== '/' || inField || e.metaKey || e.ctrlKey || e.altKey)) return;
+	e.preventDefault();
+	grepInput.focus();
+	grepInput.select();
+});
 
 // ---------- the tooltip primitive ----------
 //
@@ -631,12 +719,15 @@ async function fillDecode(host: HTMLElement, box: HTMLElement, ctx: DecodeCtx, e
 	placeTip(box, host);
 }
 
-function jumpTo(building: string, path: string, line: number | null): void {
+function jumpTo(building: string | null, path: string, line: number | null): void {
 	// The ontology is City → Building → Agent, so a jump moves the selection too: opening a row's
 	// board in the viewer while the Workshop still shows another building would be two panes
-	// disagreeing about where Felix is.
-	selection.building = building;
-	remember(BUILDING_KEY, building);
+	// disagreeing about where Felix is. A **null** building is a document the register houses in no
+	// building (B21): the viewer opens it and the selection is left where it was, rather than cleared.
+	if (building !== null) {
+		selection.building = building;
+		remember(BUILDING_KEY, building);
+	}
 	popTo(0);
 	// A jump into a pane closed to one word would land nowhere: the law of space says minimal is a
 	// rail, so opening a document in it means opening the pane too.
@@ -913,6 +1004,12 @@ app.addEventListener('click', e => {
 
 	const ges = target.closest<HTMLElement>('[data-gesture]');
 	if (ges) { void gesture(ges); return; }
+
+	// A grep hit's jump sits on the ROW, never on the word (B20 F6): a click on a code word inside a
+	// result is captured and stopped by the decoder, so it decodes rather than jumping — which is the
+	// word Felix aimed at either way.
+	const hit = target.closest<HTMLElement>('[data-grep-key]');
+	if (hit) { jumpFrom(hit.dataset['grepKey'] ?? ''); return; }
 
 	const to = target.closest<HTMLElement>('[data-jump-sid]');
 	if (to) { void jump(to); return; }

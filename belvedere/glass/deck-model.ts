@@ -475,6 +475,12 @@ export type ChatView = {
 	/** Byte offset this window begins at — `> 0` means earlier windows exist and load on scroll-up. */
 	from: number;
 	bytes: number;
+	/**
+	 * The **key of the turn a jump landed in** (B21), or null — either because nothing was aimed at,
+	 * or because the target fell outside the turns this window could carry. Null is honest: the client
+	 * says the hit is out of view rather than marking the nearest turn and calling it the one.
+	 */
+	anchor: number | null;
 	/** The document this transcript's code words decode against (B20 §2) — the building, or the cwd. */
 	doc: string;
 	/** His draft for THIS target, off `desk/drafts/` — it outlives a reload, a hotswap and a kill. */

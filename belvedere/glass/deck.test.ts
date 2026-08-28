@@ -131,7 +131,17 @@ describe('the shell — three panes, always, and nothing off this origin', () =>
 	test('the queue\'s total is in the bar, so it is visible at rest with the drawer shut (B14 §4)', () => {
 		expect(shell).toContain('id="needs"');
 		expect(shell).toContain('data-needs="0"');
-		expect(shell).toContain('<span class="pane-name">needs you</span>');
+		// The drawer names itself, and at rest that name is the queue's. B21 gave the element an id
+		// because the one drawer now has two contents (the queue, and a search's results) and the
+		// name has to move with them — so the assertion narrows to the invariant it was protecting.
+		expect(shell).toContain('id="drawer-name">needs you</span>');
+	});
+
+	test('the Grep\'s box is in the header, named and reachable by keystroke (B21 §3)', () => {
+		expect(shell).toContain('id="grep-q"');
+		expect(shell).toContain('/ or ⌘K');
+		// The one drawer, two contents: the way back to the queue is in its own head, not a second drawer.
+		expect(shell).toContain('id="drawer-queue"');
 	});
 
 	test('nothing in the shell can fire — no fire wiring, no summons, no stamp (D10)', () => {
