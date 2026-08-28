@@ -1,0 +1,15 @@
+{
+	"q1": ["17"],
+	"q2": { "mantle": "Digger", "tier": "fable-high" },
+	"q3": ["row ids that must be LANDED first", "Felix-gate: <text>"],
+	"q4": { "holder": "Felix", "action": "countersigns D68–D70" },
+	"q5": { "row18DependsOn": ["16"], "dependentsOf16": ["17", "18"] },
+	"q6": { "date": "2026-08-22", "assertions": 170 },
+	"q7": ["D68", "D69", "D70"],
+	"q8": { "meaning": "a typed absence, not a guess — written by migration where a pre-doctrine source never held a required field; asserts ignorance rather than knowledge", "whoReplaces": "requires cited evidence and a visible commit, made by a session — never the converter" },
+	"q9": { "state": "OPEN", "reason": "its Felix-gate (blessing) is unmet — Felix deferred it 2026-08-08 and it stays deferred indefinitely; nothing dispatches until his word" },
+	"q10": { "mantle": "Dispatcher", "tier": "sonnet-medium", "tends": "an 8-row wave of scoped Architects (the great re-cut, rows 18a–18h)" },
+	"w1": "**2026-08-28 · Digger · fable-high (17)** — C2 battery run, answers filed. Decided: nothing. Next: fire 19.",
+	"w2": "| 23 | the tier ledger | 21 | Architect · fable-high | OPEN — cut 2026-08-28 |",
+	"w3": "| 22 | [summon rig — the argv summons](plans/22-summon-argv.md): the summons composes into the prompt slot, colour goes venue-native (P2 §S3/§T4: paste splits at the first blank line — the 359-fire gap) | Felix-gate: blessing | Builder · opus-high | IN FLIGHT — dispatched 2026-08-28 |"
+}

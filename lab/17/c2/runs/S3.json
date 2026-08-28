@@ -1,0 +1,55 @@
+{
+	"q1": ["13", "17"],
+	"q2": { "mantle": "Digger", "tier": "fable-high" },
+	"q3": ["row ids", "Felix-gate: <text>"],
+	"q4": { "holder": "Felix", "action": "countersigns D68–D70" },
+	"q5": { "row18DependsOn": ["16"], "dependentsOf16": ["17", "18"] },
+	"q6": { "date": "2026-08-22", "assertions": 170 },
+	"q7": ["D68", "D69", "D70"],
+	"q8": {
+		"meaning": "a typed absence that asserts ignorance — written when a pre-doctrine source never held a required field (a decider, a tier, a Decided:/Next: clause, etc.); it is never a guess at what the missing value might have been",
+		"whoReplaces": "replacing it takes cited evidence and a visible commit, made by a session — never invented by the migrate/doctrine converter itself"
+	},
+	"q9": {
+		"state": "OPEN",
+		"reason": "its Felix-gate ('blessing') is unpaid — Felix deferred it 2026-08-08 and the gate stands unmet, so nothing dispatches until his word; it now also rebases behind rows 13 and 14"
+	},
+	"q10": {
+		"mantle": "Dispatcher",
+		"tier": "sonnet-medium",
+		"tends": "an 8-row wave of scoped Architects (the great re-cut, rows 18a–18h)"
+	},
+	"w1": {
+		"date": "2026-08-28",
+		"mantle": "Digger",
+		"tier": "fable-high",
+		"row": "17",
+		"body": "C2 battery run, answers filed. Decided: nothing. Next: fire 19."
+	},
+	"w2": {
+		"id": "23",
+		"work": "the tier ledger",
+		"workDoc": null,
+		"dependsOn": ["21"],
+		"gates": [],
+		"mantle": "Architect",
+		"tier": "fable-high",
+		"felixGate": false,
+		"rider": null,
+		"state": "OPEN",
+		"annotation": "cut 2026-08-28"
+	},
+	"w3": {
+		"id": "22",
+		"work": "summon rig — the argv summons: the summons composes into the prompt slot, colour goes venue-native (P2 §S3/§T4: paste splits at the first blank line — the 359-fire gap)",
+		"workDoc": "plans/22-summon-argv.md",
+		"dependsOn": [],
+		"gates": ["blessing"],
+		"mantle": "Builder",
+		"tier": "opus-high",
+		"felixGate": false,
+		"rider": null,
+		"state": "IN FLIGHT",
+		"annotation": "dispatched 2026-08-28"
+	}
+}

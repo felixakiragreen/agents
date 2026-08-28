@@ -1,0 +1,51 @@
+{
+	"note": "usage as reported by the Agent tool's task notifications, 2026-08-28; tier preset verbatim per D47",
+	"M1": {
+		"tier": "sonnet-high",
+		"tokens": 140615,
+		"toolUses": 10,
+		"ms": 82730
+	},
+	"M2": {
+		"tier": "sonnet-high",
+		"tokens": 140207,
+		"toolUses": 10,
+		"ms": 76117
+	},
+	"M3": {
+		"tier": "sonnet-high",
+		"tokens": 140391,
+		"toolUses": 10,
+		"ms": 76555
+	},
+	"S1": {
+		"tier": "sonnet-high",
+		"tokens": 136984,
+		"toolUses": 13,
+		"ms": 149557
+	},
+	"S2": {
+		"tier": "sonnet-high",
+		"tokens": 104517,
+		"toolUses": 17,
+		"ms": 256116
+	},
+	"S3": {
+		"tier": "sonnet-high",
+		"tokens": 139382,
+		"toolUses": 12,
+		"ms": 188140
+	},
+	"M4": {
+		"tier": "opus-medium",
+		"tokens": 71546,
+		"toolUses": 11,
+		"ms": 75517
+	},
+	"S4": {
+		"tier": "opus-medium",
+		"tokens": 50861,
+		"toolUses": 9,
+		"ms": 82605
+	}
+}

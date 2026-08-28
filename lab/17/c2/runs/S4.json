@@ -1,0 +1,58 @@
+{
+	"q1": ["17"],
+	"q2": { "mantle": "Digger", "tier": "fable-high" },
+	"q3": ["row ids", "Felix-gate: <text>"],
+	"q4": {
+		"holder": "Felix",
+		"action": "countersign D68–D70 — the held DOCTRINE edits apply on his word and row 19's gate opens"
+	},
+	"q5": { "row18DependsOn": ["16"], "dependentsOf16": ["17", "18"] },
+	"q6": { "date": "2026-08-22", "assertions": 170 },
+	"q7": ["D68", "D69", "D70"],
+	"q8": {
+		"meaning": "A typed absence, never a guess: the literal token written where a pre-doctrine source never held a required field (a decider, a tier, a mantle, a decision title, a Decided:/Next: clause, a staffing sub-slot). It asserts ignorance — the record simply lacks — as opposed to tokens that assert knowledge (unstaffed, bare session). Lint reads it as conforming and grep finds it forever.",
+		"whoReplaces": "A session, never the converter — and only with cited evidence plus a visible commit (D63's amendment, upheld by D68)."
+	},
+	"q9": {
+		"state": "OPEN",
+		"reason": "Its Felix-gate ('blessing') is unpaid — Felix deferred the row on 2026-08-08 and nothing dispatches until his word; it is now deferred indefinitely (13-F1's guard moved to row 14). Its row-dependency 10 is LANDED, so the gate is the sole blocker."
+	},
+	"q10": {
+		"mantle": "Dispatcher",
+		"tier": "sonnet-medium",
+		"tends": "an 8-row wave of scoped Architects"
+	},
+	"w1": {
+		"date": "2026-08-28",
+		"mantle": "Digger",
+		"tier": "fable-high",
+		"row": "17",
+		"body": "C2 battery run, answers filed. Decided: nothing. Next: `fire 19`."
+	},
+	"w2": {
+		"id": "23",
+		"work": "the tier ledger",
+		"workDoc": null,
+		"dependsOn": ["21"],
+		"gates": [],
+		"mantle": "Architect",
+		"tier": "fable-high",
+		"felixGate": false,
+		"rider": null,
+		"state": "OPEN",
+		"annotation": "cut 2026-08-28"
+	},
+	"w3": {
+		"id": "22",
+		"work": "summon rig — the argv summons: the summons composes into the prompt slot, colour goes venue-native (P2 §S3/§T4: paste splits at the first blank line — the 359-fire gap)",
+		"workDoc": "plans/22-summon-argv.md",
+		"dependsOn": [],
+		"gates": ["blessing"],
+		"mantle": "Builder",
+		"tier": "opus-high",
+		"felixGate": false,
+		"rider": null,
+		"state": "IN FLIGHT",
+		"annotation": "cut 2026-08-28 (GA-11); three forks await his blessing in the stub; dispatched 2026-08-28"
+	}
+}

@@ -1,0 +1,21 @@
+{
+	"q1": ["17"],
+	"q2": { "mantle": "Digger", "tier": "fable-high" },
+	"q3": ["row ids that must be LANDED first", "Felix-gate: <text>"],
+	"q4": { "holder": "Felix", "action": "countersign D68–D70" },
+	"q5": { "row18DependsOn": ["16"], "dependentsOf16": ["17", "18"] },
+	"q6": { "date": "2026-08-22", "assertions": 170 },
+	"q7": ["D68", "D69", "D70"],
+	"q8": {
+		"meaning": "a typed absence asserting ignorance — a required slot a pre-doctrine source simply never held (a decider, a tier, a Decided:/Next: clause, a decision title, etc.); it asserts ignorance, never a guess, and is distinct from tokens like `unstaffed`/`bare session` that assert knowledge of a deliberate absence",
+		"whoReplaces": "replacing it takes cited evidence and a visible commit, made by a session — never by the migration converter itself"
+	},
+	"q9": {
+		"state": "OPEN",
+		"reason": "row 11 depends on row 10 (LANDED) and a named Felix-gate (blessing); Felix deferred the row on 2026-08-08 and the blessing gate stands unmet, so nothing dispatches until his word"
+	},
+	"q10": { "mantle": "Dispatcher", "tier": "sonnet-medium", "tends": "an 8-row wave of scoped Architects (row 18, the great re-cut)" },
+	"w1": "**2026-08-28 · Digger · fable-high (17)** — C2 battery run, answers filed. Decided: nothing. Next: fire 19.",
+	"w2": "| 23 | the tier ledger | 21 | Architect · fable-high | OPEN — cut 2026-08-28 |",
+	"w3": "| 22 | [summon rig — the argv summons](plans/22-summon-argv.md): the summons composes into the prompt slot, colour goes venue-native (P2 §S3/§T4: paste splits at the first blank line — the 359-fire gap) | Felix-gate: blessing | Builder · opus-high | IN FLIGHT — dispatched 2026-08-28 |"
+}

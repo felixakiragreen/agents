@@ -207,6 +207,58 @@ measures the true delta):
   can corrupt meaning — M: 3 confirmed in the wild (blank-line, missing `---`,
   D21-class regex false-pend); S: 1 (duplicate key, not yet sighted in the wild).
 
+### C2 — cold start (2026-08-28)
+
+**No arm dominates on correctness; arm S never cost more tokens; write conformance is
+a perfect wash. The failures that did occur each trace to a nameable mechanism, not to
+serialization noise.** Battery: 10 reads + 3 writes (`lab/17/c2/battery.md`), dispatched
+fresh sessions, tier preset verbatim (D47), sonnet-high ×3 per arm + the sanctioned
+opus-medium confirmation rep ×1 per arm; graded mechanically (`bun lab/17/c2/grade.ts`;
+raw answers in `lab/17/c2/runs/`, usage in `runs-meta.json`).
+
+| rep · tier | M reads | M writes | M tokens · wall | S reads | S writes | S tokens · wall |
+|---|---|---|---|---|---|---|
+| 1 · sonnet-high | 10/10 | 3/3 | 140,615 · 83s | 9/10 | 3/3 | 136,984 · 150s |
+| 2 · sonnet-high | 10/10 | 3/3 | 140,207 · 76s | 10/10 | 3/3 | 104,517 · 256s |
+| 3 · sonnet-high | 10/10 | 3/3 | 140,391 · 77s | 9/10 | 3/3 | 139,382 · 188s |
+| 4 · opus-medium | 7/10 | 3/3 | 71,546 · 76s | 10/10 | 3/3 | 50,861 · 83s |
+
+- **The only S misses are one cell, systematic:** q1 (dispatchable rows), where S1/S3
+  answered `["13","17"]` — **the stale-lead wart amplified**: MAP rows 13/14's status
+  cells still LEAD with `OPEN` while their landings live only in annotation prose
+  ("→ **LANDED 2026-08-22**"). The typed `state` field carries the stale token at full
+  strength; 2 of 3 sonnet reps trusted it over the prose. Every M rep, reading prose
+  first, got human truth. **The wart is a live corpus defect** (parked for rows 18/19:
+  a lint rule "state token contradicts a LANDED verdict in the annotation" would catch
+  it in both arms) — S is more faithful to what is written, including what is written
+  wrong.
+- **The only M read-misses are the opus-medium rep** (q1 `[]`, q4 holder "the row-17
+  Digger… already in flight", q7 `[]`). q1/q4 are **contaminated, named per §6.7**:
+  this experiment runs inside its own lab building, and M4 read this very work doc's
+  freshly-appended findings and concluded row 17 was in flight — defensible against
+  live truth, wrong against the board the grader reads. The condition: **arm M was
+  measured against a moving corpus (findings appending mid-experiment); arm S against
+  a frozen twin.** q7 `[]` stands as a genuine miss — the GA-11 ledger tail names
+  "Felix countersigns D68–D70" in the M corpus verbatim, and the sonnet M reps all
+  found it. Neither trap fired for S4 (opus read both field and annotation: q1
+  `["17"]`, q7 exact).
+- **Correctness verdict: inconclusive at affordable n, per the kill criterion** —
+  after the confirmation rep, within-arm variance (M swings 30/30 → 7/10 by tier;
+  S 28/30 → 10/10) exceeds the between-arm difference (≤2 points either direction).
+  What IS concluded: both arms are highly readable to fresh sessions; every observed
+  failure is a corpus defect surfaced differently (stale lead → S; prose-synthesis
+  burden + self-reference → M), and **the D21 false-pend trap fired for nobody** in
+  either arm (q7's D21 excluded 8/8).
+- **Tokens: S ≤ M in all four pairings** — −2.6%/−25.4%/−0.7% at sonnet-high (mean
+  127.0K vs 140.4K), **−28.9% at opus-medium** (50.9K vs 71.5K). Direction consistent,
+  magnitude variable (S σ≈16K vs M σ≈0.2K at sonnet-high). Wall time inverts: S took
+  1.9–3.4× longer at sonnet-high (12–17 tool calls navigating JSON vs M's flat 10) —
+  cheaper to read, slower to walk.
+- **Writes: 24/24 first-try-conforming across both arms** (every w1/w2/w3, all 8 runs,
+  graded by the same doctrine parser — M directly, S after the render serializer).
+  On a post-18a clean corpus with the grammar in reach, conformance does not
+  discriminate the arms at all.
+
 ### C3 — the glass (2026-08-28)
 
 **Of the case file's nine field asks, seven are plain fields in arm S with zero

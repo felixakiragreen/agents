@@ -1,0 +1,51 @@
+{
+	"q1": ["17"],
+	"q2": { "mantle": "Digger", "tier": "fable-high" },
+	"q3": ["row ids", "Felix-gate: <text>"],
+	"q4": { "holder": "Felix", "action": "countersign D68–D70" },
+	"q5": { "row18DependsOn": ["16"], "dependentsOf16": ["17", "18"] },
+	"q6": { "date": "2026-08-22", "assertions": 170 },
+	"q7": ["D68", "D69", "D70"],
+	"q8": {
+		"meaning": "a typed absence: when a pre-doctrine source never held a required field (a decider, a tier, a Decided:/Next: clause), migration writes the literal token `unrecorded` rather than guessing",
+		"whoReplaces": "a session, never the converter — replacing it takes cited evidence and a visible commit"
+	},
+	"q9": {
+		"state": "OPEN",
+		"reason": "its row-dependency (10) is LANDED, but its gate is an unpaid Felix-gate — 'blessing' — deferred indefinitely by Felix on 2026-08-08; nothing dispatches until his word"
+	},
+	"q10": { "mantle": "Dispatcher", "tier": "sonnet-medium", "tends": "an 8-row wave of scoped Architects" },
+	"w1": {
+		"date": "2026-08-28",
+		"mantle": "Digger",
+		"tier": "fable-high",
+		"row": "17",
+		"body": "C2 battery run, answers filed. Decided: nothing. Next: fire 19."
+	},
+	"w2": {
+		"id": "23",
+		"work": "the tier ledger",
+		"workDoc": null,
+		"dependsOn": ["21"],
+		"gates": [],
+		"mantle": "Architect",
+		"tier": "fable-high",
+		"felixGate": false,
+		"rider": null,
+		"state": "OPEN",
+		"annotation": "cut 2026-08-28"
+	},
+	"w3": {
+		"id": "22",
+		"work": "summon rig — the argv summons: the summons composes into the prompt slot, colour goes venue-native (P2 §S3/§T4: paste splits at the first blank line — the 359-fire gap)",
+		"workDoc": "plans/22-summon-argv.md",
+		"dependsOn": [],
+		"gates": ["blessing"],
+		"mantle": "Builder",
+		"tier": "opus-high",
+		"felixGate": false,
+		"rider": null,
+		"state": "IN FLIGHT",
+		"annotation": "dispatched 2026-08-28"
+	}
+}
