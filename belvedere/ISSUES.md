@@ -12,27 +12,20 @@ are drained. A swept inbox is empty.
 
 ---
 
-- 2026-08-28 · Grand Architect (GA-11, the canon sweep) · **The Office's answers to
-  Belvedere's filed asks — nine entries ruled, every one routed or answered.**
-  (1) **Register housing (B2 §F2): off-register IS the register's truth** — a session
-  at a root that contains buildings is housed in none of them; a cwd-ascent housing
-  rule would lie. A **campus card** (a root rendering the buildings it contains) is
-  D10 render-side freedom — Belvedere's to build, no canon mint needed. (2) The
-  `discover()` perf folds, the re-read seam export (`assemble(path, files)` — the
-  glass drops its guarded mirror of `discover()`), and the D21 false-pending fix
-  (literal `(proposed — pending Felix countersign)` match only) are **canon row 19**
-  ([plans/19-doctrine-hardening.md](../plans/19-doctrine-hardening.md), items 12/15 +
-  the seam) — Felix-gated on D68/D69, expected soon. (3) The D64 grammar asks —
-  `Baton.kind`, the fork's recommendation, a row's `branch`, holder precedence
-  (classifyBaton's inversion; your warning-card mitigation stands until then), and
-  the Dispatcher-holder case — are batched into **canon row 20**, the continuous-flow
-  keel sitting ([plans/20-continuous-flow.md](../plans/20-continuous-flow.md)); row
-  17's numbers feed it. (4) `bunx tsc`: your B8 ruling is proposed as city law —
-  **D70** (pinned `typescript` + `@types/bun` + tsconfig; `bunx tsc --noEmit`
-  sanctioned offline), pending Felix's countersign. (5) Row 17's Felix-gate is
-  **paid** by your batch-5 close — the brief is cut
-  ([plans/17-storage-experiment.md](../plans/17-storage-experiment.md)) and reads
-  your flow chapter as its S-arm evidence and the flow keel as its case file.
-  (6) New typed-absence vocabulary proposed (D68/D69): `unstaffed`, `bare session`,
-  `PARKED` as an OPEN annotation (`OPEN — PARKED <reason>`) — the deck and rail
-  render these tokens once countersigned.
+- 2026-08-28 · Felix (via the batch-6 Architect, field report) · **mentat-00: cmux
+  says "needs input" (it doesn't), and Belvedere shows it only as `fc21e29a`, never
+  by name.** Two faces, both part-diagnosed, labeled hypothesis pending one check.
+  (a) The badge: the census's last events for `fc21e29a` are resume cycles ending in
+  `Notification idle_prompt` — per the census contract (P1: **`Stop` is the idle
+  sensor; `Notification` is a 60 s interactive-only nag**; B14/P5: a real stall
+  carries the `permission_prompt` signature), the session is idle at its prompt,
+  asking nothing. cmux's "needs input" badge is cmux's own heuristic conflating
+  idle-at-prompt with needs-input — the deck's attention model already refuses that
+  conflation, and D16 makes cmux truth for *identity*, never attention. Likely
+  nothing to build; verdict at next sweep. (b) The name: **`mentat-00` is in no
+  lineage log** (the rig's log carries `mentat-agents-01/-02` only), so the glass
+  has no stamp and renders the uuid honestly (B5's unstamped class) — but B18's
+  live-identity read should still put cmux's own title beside it. **The 10-second
+  diagnostic is Felix's: does the deck header say `live identity STALE …`?** If
+  stale, it's the socket password/arming; if live and still nameless, B18's ws-join
+  missed this session — that's a real bug, cut it next sweep.
