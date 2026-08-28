@@ -32,6 +32,7 @@ import { buildingOf } from './pages';
 import { cityRoot, draftsDir, projectsDir } from './paths';
 import { city } from './register';
 import { accountLabel, mantleOf, readRig, type Rig } from './rig';
+// (`CensusRead` and `Building` are the two halves of `World` below.)
 import { sanitizeSummons } from './sanitize';
 import { colourOf } from './summon';
 
@@ -320,14 +321,22 @@ export function sendable(t: Located, armed: boolean, note: string): ChatSend {
 }
 
 /**
+ * What a view needs to know about the world. It is a **parameter** because the deck's poll has
+ * already read all three by the time it composes the Chat, and re-reading the census there would
+ * double the most expensive read on the poll path for nothing (B14 F8's own accounting).
+ */
+export type World = { rig: Rig; census: CensusRead; buildings: Building[] };
+
+export const readWorld = (): World => ({ rig: readRig(), census: readCensus(), buildings: city().buildings });
+
+/**
  * One target, read. `before` pages backwards: pass back the `from` of the window you already hold
  * and this answers the window that ends where that one began.
  */
-export function chatView(sid: string, before: number | null, armed: boolean, note: string): ChatView {
+export function chatView(sid: string, before: number | null, armed: boolean, note: string, world: World = readWorld()): ChatView {
 	if (!SID.test(sid)) return noView(sid, `not a session id: "${sid}"`);
-	const rig = readRig();
-	const { buildings } = city();
-	const t = locate(sid, rig, readCensus(), buildings);
+	const { rig, census, buildings } = world;
+	const t = locate(sid, rig, census, buildings);
 	if (!t) return noView(sid, `no session ${sid} — neither the census nor the three transcript trees know it`);
 
 	const { configDir: _drop, ...target } = t;

@@ -20,6 +20,7 @@ import { byWorkspace, identity, type LiveWorkspace } from './identity';
 import { buildingOf } from './pages';
 import { cityRoot } from './paths';
 import { age, city } from './register';
+import { readRig } from './rig';
 import { worksOf } from './works';
 import { workshopOf } from './workshop';
 
@@ -123,8 +124,11 @@ export async function deckState(open: string | null = null, talking: string | nu
 	// The Chat asks the same way and for the same reason (B16): a transcript window is bytes nobody
 	// else on the deck is reading, so it rides `?s=` and is composed only when a session is named.
 	// The credential is read here rather than inside, so the send's honest state is one read per poll.
+	// The census, the register's buildings and the rig are handed in: this poll has already read all
+	// three, and re-reading the census inside would double the most expensive read on the path.
 	const cred = readCredential();
-	const chat = talking === null ? null : chatView(talking, null, cred.ok, cred.ok ? 'armed' : cred.error);
+	const chat = talking === null ? null
+		: chatView(talking, null, cred.ok, cred.ok ? 'armed' : cred.error, { rig: readRig(), census, buildings });
 
 	return {
 		at: Date.now() / 1000,
