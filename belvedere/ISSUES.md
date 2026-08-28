@@ -76,3 +76,45 @@ are drained. A swept inbox is empty.
   "open in the composer", copy-is-reading, D10 intact; session-holder ⇒ the
   rail's Dispatch semantics, D10's collision rules inherited); the Works'
   landed terminal node could also surface "this landing handed a baton."
+
+---
+
+- 2026-08-28 · Felix (via the G2 Architect, deck field report) · **"We
+  instantiated `architect-belvedere-04` from `agents/belvedere` — the Works.
+  But the agent shows up in `agents`, a completely different place."**
+  Mechanism figured out, not yet fixed: **the census houses a session by its
+  cwd and nothing else** (B5 F1's `buildingOf`), and the flow declared its
+  venue as `~/code/agents` — the repo root — so the session lands in the
+  `agents` building even though the flow file names `building:
+  agents/belvedere`, the run log records the fire, and the stamp itself says
+  belvedere. "The building the work is FOR" and "the directory the session
+  sits IN" are two facts, and the join only knows the second — true for every
+  D2 subproject whose sessions work at the repo root. Fix shapes: short-term,
+  a belvedere flow step declares venue `~/code/agents/belvedere` where the
+  work allows (git edits parent paths fine from a subdir); real fix, the
+  fired-for building rides the fire — census join reads sid → flow building
+  (outranks cwd for engine-fired sessions; hand-fired keep cwd). Same class
+  as the workspace-placement entry: **the fire knows things the census
+  forgets.** Pairs with the repo-vs-campaign design input.
+
+---
+
+- 2026-08-28 · Felix (via the G2 Architect, deck field report) · **"Scrolling
+  is broken in the Chat — it won't let me scroll down, it keeps snapping to
+  the top instantly. I left and tried a different one, now it's snapping to
+  the bottom."** Unified hypothesis, code-anchored, unreproduced: **the
+  transcript box's scroll position is not state the repaint preserves.** The
+  only restore is the stick branch (`chat.client.ts:395` — `stick && !aim ⇒
+  scrollTop = scrollHeight`); a poll repaint that rebuilds the box otherwise
+  lands at `scrollTop 0`, which is inside `nearTop`, which triggers
+  `loadEarlier` (`:423`) — and a prepend has no scroll compensation, so the
+  view keeps showing older content: the ladder climbs to the top until the
+  pages run out. That is face one (snap to top, "instantly" on every poll /
+  prepend). Face two is the same law from the other side: `stick` held true
+  (module state, surviving swaps — B19 F2's family) snaps every repaint to
+  the bottom against his upward scroll. `loadEarlier` is properly guarded
+  (`loading`), so the listener leak does not multiply loads — this one is
+  the repaint law, not candidate 6. Fix shapes: scroll position joins the
+  state a repaint preserves (B15 F5's receipt law applied to geometry);
+  prepends compensate by anchor delta; `stick`/`aim` reset on target swap.
+  Repro recipe: open a long transcript, scroll to the middle, wait one poll.
