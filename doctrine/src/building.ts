@@ -15,7 +15,7 @@ import { readFileSync, readdirSync, statSync } from 'fs';
 import { basename, dirname, join, relative, resolve, sep } from 'path';
 import { homedir } from 'os';
 import {
-	batonFails, classifyBaton, parseBoards, parseDecisions, parseIssues, parseKickoffs, parseLedger,
+	batonFails, boardIds, classifyBaton, parseBoards, parseDecisions, parseIssues, parseKickoffs, parseLedger,
 	isBoardHeader, tables,
 	type Baton, type BoardRow, type Decision, type Issue, type Kickoff, type LedgerEntry,
 } from './parse';
@@ -42,7 +42,9 @@ export type Building = {
 	path: string;
 	board: Board[];                   // n boards per doc, n docs per building — both are corpus facts
 	ledgerTail: LedgerEntry | null;
+	ledgerEntries: number;            // entity count — the guard's gauge (item 18)
 	baton: Baton | null;
+	decisions: number;                // entity count — the guard's gauge (item 18)
 	decisionQueue: Decision[];
 	issues: Issue[];
 	kickoffs: (Kickoff & { doc: string })[];
@@ -193,58 +195,100 @@ function classifyFile(p: string): FoundFile['kind'] {
 const CODE = join(homedir(), 'code');
 export const slug = (p: string) => p.startsWith(CODE + sep) ? relative(CODE, p) : p;
 
+/** A master doc's own `## Ledger` (or `## 7. Ledger`) section — DOCTRINE §3 subprojects (item 10). */
+function ledgerSection(md: string): { text: string; offset: number } | null {
+	const lines = md.split('\n');
+	for (let i = 0; i < lines.length; i++) {
+		const m = lines[i]!.match(/^(#{1,6})\s+(?:\d+\.\s+)?Ledger\s*$/i);
+		if (!m) continue;
+		let j = i + 1;
+		for (; j < lines.length; j++) {
+			const h = lines[j]!.match(/^(#{1,6})\s/);
+			if (h && h[1]!.length <= m[1]!.length) break;
+		}
+		return { text: lines.slice(i + 1, j).join('\n'), offset: i + 1 };
+	}
+	return null;
+}
+
 function assemble(path: string, files: FoundFile[]): Building {
+	const pick = (k: FoundFile['kind']) => files.filter(f => f.kind === k).map(f => f.path).sort();
+	const boards = pick('board');
+	const master = boards.find(f => MASTER_DOCS.includes(basename(f)));
+	return parseFiles({
+		building: slug(path), path,
+		files: {
+			boards,
+			// The register's fallbacks are symmetric (item 10): a §3 subproject's decisions AND
+			// ledger live inline in the master doc until they earn a file — silence was the bug.
+			ledger: pick('ledger')[0] ?? (master && ledgerSection(read(master)) ? master : null),
+			decisions: pick('decisions')[0] ?? master ?? null,
+			issues: pick('issues')[0] ?? null,
+			workDocs: [...pick('workdoc'), ...boards.filter(f => /(?:^|\/)(plans|spikes)\//.test(f))].sort(),
+		},
+	});
+}
+
+/**
+ * The re-read half — one building, parsed from its file list. THE seam the glass imports
+ * (B3's ask): `discover()` chooses the files, this parses them, nobody hand-mirrors either.
+ */
+export function parseFiles(e: { building: string; path: string; files: Building['files'] }): Building {
 	const fails: Fail[] = [];
 	const stamp = (fs: Fail[], file: string) => { for (const f of fs) f.file = file; return fs; };
-	const pick = (k: FoundFile['kind']) => files.filter(f => f.kind === k).map(f => f.path).sort();
 
-	const boardFiles = pick('board');
+	// Depends-on resolves against the BUILDING's row ids, not the document's (D63e, item 7).
+	const knownIds = new Set<string>();
+	for (const f of e.files.boards) for (const id of boardIds(read(f))) knownIds.add(id);
+
 	const board: Board[] = [];
-	for (const f of boardFiles) {
-		const r = parseBoards(read(f));
+	for (const f of e.files.boards) {
+		const r = parseBoards(read(f), knownIds);
 		fails.push(...stamp(r.fails, f));
 		for (const b of r.boards) board.push({ heading: b.heading, file: f, line: b.line, rows: b.rows });
 	}
 
-	const ledgerFile = pick('ledger')[0] ?? null;
-	let ledgerTail: LedgerEntry | null = null, baton: Baton | null = null;
-	if (ledgerFile) {
-		const r = parseLedger(read(ledgerFile));
-		fails.push(...stamp(r.fails, ledgerFile));
+	let ledgerTail: LedgerEntry | null = null, ledgerEntries = 0, baton: Baton | null = null;
+	if (e.files.ledger) {
+		// An inline ledger is the section, at its offset — a LEDGER.md is the whole file.
+		const inline = basename(e.files.ledger) === 'LEDGER.md' ? null : ledgerSection(read(e.files.ledger));
+		const r = parseLedger(inline ? inline.text : read(e.files.ledger));
+		if (inline) {
+			for (const f of r.fails) f.line += inline.offset;
+			for (const en of r.entries) en.line += inline.offset;
+		}
+		fails.push(...stamp(r.fails, e.files.ledger));
 		ledgerTail = r.tail;
+		ledgerEntries = r.entries.length;
 		baton = classifyBaton(r.tail);
-		fails.push(...stamp(batonFails(baton, r.tail?.line ?? 0), ledgerFile));
+		fails.push(...stamp(batonFails(baton, r.tail?.line ?? 0), e.files.ledger));
 	}
 
-	// §3's split rule: decisions live in DECISIONS.md once they earn a file, in the master doc until then.
-	const decisionsFile = pick('decisions')[0] ?? boardFiles.find(f => MASTER_DOCS.includes(basename(f))) ?? null;
-	let decisionQueue: Decision[] = [];
-	if (decisionsFile) {
-		const r = parseDecisions(read(decisionsFile));
-		fails.push(...stamp(r.fails, decisionsFile));
+	let decisionQueue: Decision[] = [], decisions = 0;
+	if (e.files.decisions) {
+		const r = parseDecisions(read(e.files.decisions));
+		fails.push(...stamp(r.fails, e.files.decisions));
 		decisionQueue = r.queue;
+		decisions = r.decisions.length;
 	}
 
-	const issuesFile = pick('issues')[0] ?? null;
 	let issues: Issue[] = [];
-	if (issuesFile) {
-		const r = parseIssues(read(issuesFile));
-		fails.push(...stamp(r.fails, issuesFile));
+	if (e.files.issues) {
+		const r = parseIssues(read(e.files.issues));
+		fails.push(...stamp(r.fails, e.files.issues));
 		issues = r.issues;
 	}
 
-	const workDocs = [...pick('workdoc'), ...boardFiles.filter(f => /(?:^|\/)(plans|spikes)\//.test(f))].sort();
 	const kickoffs: (Kickoff & { doc: string })[] = [];
-	for (const f of workDocs) {
+	for (const f of e.files.workDocs) {
 		const r = parseKickoffs(read(f));
 		fails.push(...stamp(r.fails, f));
 		for (const k of r.kickoffs) kickoffs.push({ ...k, doc: f });
 	}
 
 	return {
-		building: slug(path), path, board, ledgerTail, baton, decisionQueue, issues, kickoffs,
-		files: { boards: boardFiles, ledger: ledgerFile, decisions: decisionsFile, issues: issuesFile, workDocs },
-		fails,
+		building: e.building, path: e.path, board, ledgerTail, ledgerEntries, baton,
+		decisions, decisionQueue, issues, kickoffs, files: e.files, fails,
 	};
 }
 

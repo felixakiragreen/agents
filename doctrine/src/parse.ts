@@ -6,7 +6,7 @@
 // verbatim excerpt — never a parser branch. The shapes below are P3 §5's, normative per D65.
 
 import {
-	FELIX_GATE, MANTLES, PENDING, RETIRED, STATES, VERDICTS,
+	FELIX_GATE, MANTLES, PARKED, PENDING, RETIRED, STATES, UNRECORDED, UNSTAFFED, VERDICTS,
 	delink, fail, isMantle, isState, isTier, leadingToken, linkTarget, strip, topSplit, trailingParen,
 	type Fail, type State,
 } from './grammar';
@@ -22,6 +22,7 @@ export type BoardRow = {
 	mantle: string | null;
 	tier: string | null;
 	felixGate: boolean;           // D63a — the row is Felix's; the glass never auto-fires it
+	unstaffed: boolean;           // D63 as amended — a recorded absence: deliberately no staffing
 	rider: string | null;         // D63d — annotation for eyes, ignored by dispatch
 	state: State | null;
 	annotation: string;           // everything after the state token
@@ -59,33 +60,48 @@ function parseStaffing(cell: string, id: string, line: number) {
 	const fails: Fail[] = [];
 	const s = strip(delink(cell));
 	const { head, inner } = trailingParen(s);
-	const out = { mantle: null as string | null, tier: null as string | null, felixGate: false, rider: inner };
+	const out = { mantle: null as string | null, tier: null as string | null, felixGate: false, unstaffed: false, rider: inner };
 
 	if (head === FELIX_GATE) { out.felixGate = true; return { ...out, fails }; }
+	// D63 as amended — whole-Staffing typed absences: `unstaffed` (knowledge), `unrecorded` (ignorance).
+	if (head === UNSTAFFED) { out.unstaffed = true; return { ...out, fails }; }
+	if (head === UNRECORDED) { out.mantle = UNRECORDED; out.tier = UNRECORDED; return { ...out, fails }; }
 
 	const segs = topSplit(head, ['·']);
 	if (segs.length !== 2) {
-		fails.push(fail('board', 'board.staffing', `staffing is not "<Mantle> · <tier>" or "${FELIX_GATE}"`, `${id}: ${JSON.stringify(cell)}`, line));
+		fails.push(fail('board', 'board.staffing', `staffing is not "<Mantle> · <tier>", "${FELIX_GATE}", "${UNSTAFFED}" or "${UNRECORDED}"`, `${id}: ${JSON.stringify(cell)}`, line));
 		return { ...out, fails };
 	}
 	const [m, t] = segs as [string, string];
-	if (isMantle(m)) out.mantle = m;
+	if (isMantle(m) || m === UNRECORDED) out.mantle = m;
 	else fails.push(fail('board', 'board.mantle', 'unknown mantle', `${id}: ${JSON.stringify(m)}`, line));
-	if (isTier(t)) out.tier = t;
+	if (isTier(t) || t === UNRECORDED) out.tier = t;
 	else fails.push(fail('board', 'board.tier', 'unknown tier', `${id}: ${JSON.stringify(t)}`, line));
 	return { ...out, fails };
 }
 
-/** §4's lifecycle: the state leads; PENDING and the verdicts ride the annotation (D63b, D63c). */
+/**
+ * The this-row-landed idiom (row 17 C2): a landing narrated in the annotation — bold-opened
+ * or arrow-led, ISO-dated — while the state token still says the row is workable. A landing
+ * ATTRIBUTED to another row ("13 LANDED 2026-08-22") is that row's history and passes.
+ */
+const STALE_LEAD = /(?:→\s*\*{0,2}|\*\*)\s*(?:LANDED|KILLED)\s+\d{4}-\d{2}-\d{2}/;
+
+/** §4's lifecycle: the state leads; PENDING/PARKED and the verdicts ride the annotation (D63b, D63c, D69). */
 function parseStatus(cell: string, id: string, line: number) {
 	const fails: Fail[] = [];
 	const st = strip(cell);
 	const lead = leadingToken(st);
-	if (isState(lead)) return { state: lead as State, annotation: st.slice(lead.length).replace(/^[\s—–-]+/, ''), fails };
+	if (isState(lead)) {
+		if ((lead === 'OPEN' || lead === 'IN FLIGHT') && STALE_LEAD.test(cell))
+			fails.push(fail('board', 'board.stale-lead', `the ${lead} lead is outrun by its own annotation's landing (row 17 C2) — the state leads with the truth, history rides the annotation`, `${id}: ${JSON.stringify(st.slice(0, 160))}`, line));
+		return { state: lead as State, annotation: st.slice(lead.length).replace(/^[\s—–-]+/, ''), fails };
+	}
 
 	const excerpt = `${id}: ${JSON.stringify(st.slice(0, 160))}`;
 	if (RETIRED[lead]) fails.push(fail('board', 'board.retired', `"${lead}" is a retired synonym (§4) — use ${RETIRED[lead]}`, excerpt, line));
 	else if (lead === PENDING) fails.push(fail('board', 'board.pending-leads', 'PENDING never leads (D63c) — write "OPEN — PENDING <precondition>"', excerpt, line));
+	else if (lead === PARKED) fails.push(fail('board', 'board.parked-leads', 'PARKED never leads (D69) — write "OPEN — PARKED <reason>"', excerpt, line));
 	else if ((VERDICTS as readonly string[]).includes(lead)) fails.push(fail('board', 'board.verdict-leads', `a verdict rides the annotation (D63b) — write "LANDED — ${lead} …"`, excerpt, line));
 	else fails.push(fail('board', 'board.state', 'status does not open with a lifecycle state', excerpt, line));
 	return { state: null, annotation: st, fails };
@@ -105,31 +121,61 @@ function parseDependsOn(cell: string, id: string, line: number, knownIds: Set<st
 		// Non-conforming, but still recover any row id it names: a null is a render decision,
 		// not an error (P3 §5) — the glass draws the graph while the lint files the defect.
 		dependsOn.push(...seg.split(/[\s+,]+/).filter(x => knownIds.has(x)));
-		fails.push(fail('board', 'board.depends', `depends-on segment is neither a row id on this board nor "${FELIX_GATE}: <text>"`, `${id}: ${JSON.stringify(seg.slice(0, 160))}`, line));
+		fails.push(fail('board', 'board.depends', `depends-on segment is neither a row id in this building nor "${FELIX_GATE}: <text>" (D63e)`, `${id}: ${JSON.stringify(seg.slice(0, 160))}`, line));
 	}
 	return { dependsOn, gates, fails };
 }
 
-export function parseBoards(md: string): { boards: Board[]; fails: Fail[]; staffingTables: number } {
+/** The five canonical names present but re-ordered — parseable positionally (item 8). */
+function columnOrder(header: string[]): number[] | null {
+	if (header.length !== 5) return null;
+	const names = header.map(h => strip(h).toLowerCase());
+	const order = BOARD_COLUMNS.map(want => names.indexOf(want));
+	return order.every(i => i >= 0) ? order : null;
+}
+
+/** The row ids a document's board tables declare — the union feeds building-wide Depends-on (D63e). */
+export function boardIds(md: string): Set<string> {
+	const ids = new Set<string>();
+	for (const t of tables(md)) {
+		const order = isBoardHeader(t.header) ? [0, 1, 2, 3, 4] : columnOrder(t.header);
+		if (order) for (const r of t.rows) if (r.cells.length === 5) ids.add(strip(delink(r.cells[order[0]!]!)));
+	}
+	return ids;
+}
+
+export function parseBoards(md: string, buildingIds?: Set<string>): { boards: Board[]; fails: Fail[]; staffingTables: number } {
 	const fails: Fail[] = [];
 	const all = tables(md);
-	const canonical = all.filter(t => isBoardHeader(t.header));
-	const staffingTables = all.filter(t => !isBoardHeader(t.header) && t.header.some(h => /^staffing$/i.test(strip(h)))).length;
+	const parseable = all
+		.map(t => ({ t, order: isBoardHeader(t.header) ? [0, 1, 2, 3, 4] : columnOrder(t.header) }))
+		.filter((x): x is { t: Table; order: number[] } => x.order !== null);
+	const refused = all.filter(t => !parseable.some(p => p.t === t) && t.header.some(h => /^staffing$/i.test(strip(h))));
+	const staffingTables = refused.length + parseable.filter(p => p.order.some((v, k) => v !== k)).length;
 
-	// Pass 1: the row ids this doc declares — Depends-on is validated against them, because
-	// resolving to a real row is the one thing that column exists for (§4).
-	const knownIds = new Set<string>();
-	for (const t of canonical) for (const r of t.rows) if (r.cells.length === 5) knownIds.add(strip(delink(r.cells[0]!)));
+	// Depends-on resolves against the BUILDING's row ids (D63e said "row ids", never "on this
+	// board"); a lone document is its own building.
+	const knownIds = buildingIds ?? boardIds(md);
+
+	// A permuted header is a defect the rows must not hide behind: 1 failure once hid 97 (18g).
+	for (const { t, order } of parseable) {
+		if (order.some((v, k) => v !== k))
+			fails.push(fail('board', 'board.columns', `the five canonical columns are present but re-ordered — parsed positionally; re-cut to: ${BOARD_COLUMNS.join(' | ')}`, '| ' + t.header.join(' | ') + ' |', t.line));
+	}
+	// A refused table's rows are invisible — say how many, never report a near-clean building (18g).
+	for (const t of refused)
+		fails.push(fail('board', 'board.columns', `non-canonical columns refuse ${t.rows.length} row(s) unparsed — any table that staffs sessions is a board (D45): ${BOARD_COLUMNS.join(' | ')}`, '| ' + t.header.join(' | ') + ' |', t.line));
 
 	const boards: Board[] = [];
-	for (const t of canonical) {
+	for (const { t, order } of parseable) {
 		const rows: BoardRow[] = [];
-		for (const { cells: r, line } of t.rows) {
-			if (r.length !== 5) {
-				const bad = r.find(c => /`[^`]*\|/.test(c)) ?? r.slice(5).join(' | ');
-				fails.push(fail('board', 'board.pipe', `row splits into ${r.length} cells (unescaped | inside a cell — the row is already truncated in any GFM renderer)`, `${strip(delink(r[0] ?? ''))}: …${String(bad).slice(0, 120)}`, line));
+		for (const { cells, line } of t.rows) {
+			if (cells.length !== 5) {
+				const bad = cells.find(c => /`[^`]*\|/.test(c)) ?? cells.slice(5).join(' | ');
+				fails.push(fail('board', 'board.pipe', `row splits into ${cells.length} cells (unescaped | inside a cell — the row is already truncated in any GFM renderer)`, `${strip(delink(cells[0] ?? ''))}: …${String(bad).slice(0, 120)}`, line));
 				continue;
 			}
+			const r = order.map(i => cells[i]!);
 			const [idC, workC, depC, staffC, statC] = r as [string, string, string, string, string];
 			const id = strip(delink(idC));
 			if (!id) fails.push(fail('board', 'board.id', 'empty ID cell', ('| ' + r.join(' | ') + ' |').slice(0, 300), line));
@@ -142,14 +188,41 @@ export function parseBoards(md: string): { boards: Board[]; fails: Fail[]; staff
 			rows.push({
 				id, work: strip(delink(workC)), workDoc: linkTarget(workC),
 				dependsOn: dep.dependsOn, gates: dep.gates,
-				mantle: staff.mantle, tier: staff.tier, felixGate: staff.felixGate, rider: staff.rider,
-				state: stat.state, annotation: stat.annotation, line,
+				mantle: staff.mantle, tier: staff.tier, felixGate: staff.felixGate, unstaffed: staff.unstaffed,
+				rider: staff.rider, state: stat.state, annotation: stat.annotation, line,
 			});
 		}
 		boards.push({ heading: t.heading, line: t.line, rows });
 	}
-	if (staffingTables) fails.push(fail('board', 'board.columns', `${staffingTables} staffing table(s) with non-canonical columns — any table that staffs sessions is a board (D45): ${BOARD_COLUMNS.join(' | ')}`, all.filter(t => !isBoardHeader(t.header)).map(t => '| ' + t.header.join(' | ') + ' |').slice(0, 3).join('\n'), 0));
+	fails.push(...truncations(md, all, parseable.map(p => p.t)));
 	return { boards, fails, staffingTables };
+}
+
+/**
+ * A |-row after a blank line after a table is a TRUNCATED table, not a new one — the blank
+ * line hid six whiteboardy rows, two ch2 rows and seven cornerizer rows from every parser in
+ * the city while the lint read the remainder as clean (item 9; three sightings in one wave).
+ */
+function truncations(md: string, all: Table[], boards: Table[]): Fail[] {
+	const fails: Fail[] = [];
+	const lines = md.split('\n');
+	const owned = new Set<number>();                     // 1-based lines any parsed table occupies
+	for (const t of all) {
+		owned.add(t.line);
+		owned.add(t.line + 1);
+		for (const r of t.rows) owned.add(r.line);
+	}
+	for (const t of boards) {
+		const end = t.rows.at(-1)?.line ?? t.line + 1;   // last occupied line of this table
+		let i = end;                                     // 0-based index of the line after it
+		while (i < lines.length && !lines[i]!.trim()) i++;
+		if (i === end || i >= lines.length) continue;    // no blank gap, or end of file
+		if (!/^\s*\|/.test(lines[i]!) || owned.has(i + 1)) continue;
+		let n = 0;
+		for (let j = i; j < lines.length && /^\s*\|/.test(lines[j]!) && !owned.has(j + 1); j++) n++;
+		fails.push(fail('board', 'board.truncated', `a blank line truncates the table at line ${t.line} — ${n} |-row(s) after it are invisible to every parser (item 9)`, lines[i]!.slice(0, 160), i + 1));
+	}
+	return fails;
 }
 
 // ---------- §7 the ledger ----------
@@ -183,8 +256,25 @@ export function parseLedger(md: string): { entries: LedgerEntry[]; tail: LedgerE
 	const bs = blocks(md);
 	const entries: LedgerEntry[] = [];
 
+	// The D63f head grammar at line start — item 16's discriminator for a swallowed entry.
+	const HEAD = /^\*\*\d{4}-\d{2}-\d{2}\s*·[^\n]*?\*\*\s*[—–-]/;
+
 	for (const b of bs) {
 		if (/^#/.test(b.text.trim())) continue; // the file header block
+
+		// A merged entry makes the lint QUIETER, not louder (row 17 C1): a non-first line that
+		// opens in the head grammar is a swallowed entry missing its `---`, never body prose.
+		const blines = b.text.split('\n');
+		let fence = false, seenHead = false;
+		for (let i = 0; i < blines.length; i++) {
+			const l = blines[i]!;
+			if (/^\s*```/.test(l)) { fence = !fence; continue; }
+			if (fence || !l.trim()) continue;
+			if (HEAD.test(l) && seenHead)
+				fails.push(fail('ledger', 'ledger.merged', 'a head mid-block — two entries share one block: the `---` separator above this line is missing (item 16)', l.slice(0, 160), b.line + i));
+			if (l.trim()) seenHead = true;
+		}
+
 		const flat = b.text.trim().replace(/\n+/g, ' ').replace(/\s+/g, ' ');
 		const m = flat.match(/^\*\*([^*]+?)\*\*\s*[—–-]\s*(.*)$/);
 		if (!m) {
@@ -205,10 +295,10 @@ export function parseLedger(md: string): { entries: LedgerEntry[]; tail: LedgerE
 		const mantle = segs.length === 3 ? segs[1]! : trailingParen(segs[1]!).head;
 		const tierSeg = segs.length === 3 ? last.head : null;
 
-		if (!isMantle(mantle)) fails.push(fail('ledger', 'ledger.mantle', 'unknown mantle', JSON.stringify(mantle), b.line));
+		if (!isMantle(mantle) && mantle !== UNRECORDED) fails.push(fail('ledger', 'ledger.mantle', 'unknown mantle', JSON.stringify(mantle), b.line));
 		let tier: string | null = null;
 		if (tierSeg === null) fails.push(fail('ledger', 'ledger.tier', 'the head carries no tier slot (D63f)', flat.slice(0, 160), b.line));
-		else if (isTier(tierSeg)) tier = tierSeg;
+		else if (isTier(tierSeg) || tierSeg === UNRECORDED) tier = tierSeg;
 		else fails.push(fail('ledger', 'ledger.tier', 'unknown tier', JSON.stringify(tierSeg), b.line));
 		if (row !== null && /[\s,]/.test(row)) fails.push(fail('ledger', 'ledger.row', 'the parenthetical holds more than a row id (D63f)', JSON.stringify(row), b.line));
 
@@ -244,6 +334,10 @@ export function parseKickoffs(md: string): { kickoffs: Kickoff[]; fails: Fail[];
 		i = j;
 		const first = body.split('\n').find(l => l.trim());
 		if (!first || !/^You are /.test(first.trim())) continue; // not a summons fence
+		// A summons names a mantle right after the article; a fence that names none there — a
+		// Personal-Log letter, a role-play template — is not a kickoff candidate (item 13).
+		const named = first.trim().match(/^You are (?:an?|the)\s+(.+)$/);
+		if (!named || !MANTLES.some(x => named[1]!.toLowerCase().startsWith(x.toLowerCase()))) continue;
 		fences++;
 		const m = first.trim().match(SUMMONS_LINE);
 		if (!m) {
@@ -303,17 +397,19 @@ export function parseDecisions(md: string): { decisions: Decision[]; queue: Deci
 	const lines = md.split('\n');
 	const decisions: Decision[] = [];
 	let candidates = 0;
+	// A project's decision ids carry its own prefix — RP-1, A1, D63 (item 11); the id is verbatim.
+	const CANDIDATE = /^\s*[-*]\s*\*\*[A-Za-z]{1,8}-?\d/;
 	for (let i = 0; i < lines.length; i++) {
-		if (!/^\s*[-*]\s*\*\*D\d/.test(lines[i]!)) continue;
+		if (!CANDIDATE.test(lines[i]!)) continue;
 		candidates++;
 		const at = i + 1;
 		let text = lines[i]!.trim(), j = i + 1;
-		for (; j < lines.length && lines[j]!.trim() && !/^\s*[-*]\s*\*\*D\d/.test(lines[j]!) && !/^#{1,6} /.test(lines[j]!); j++) text += ' ' + lines[j]!.trim();
+		for (; j < lines.length && lines[j]!.trim() && !CANDIDATE.test(lines[j]!) && !/^#{1,6} /.test(lines[j]!); j++) text += ' ' + lines[j]!.trim();
 		i = j - 1;
 
-		const head = text.match(/^\s*[-*]\s*\*\*D(\d+)\*\*\s*\(/);
+		const head = text.match(/^\s*[-*]\s*\*\*([A-Za-z]{1,8}-?\d+[a-z]?)\*\*\s*\(/);
 		if (!head) {
-			fails.push(fail('decisions', 'decision.head', 'entry does not open "- **D<n>** (" (§8)', text.slice(0, 240), at));
+			fails.push(fail('decisions', 'decision.head', 'entry does not open "- **<id>** (" (§8)', text.slice(0, 240), at));
 			continue;
 		}
 		// The attribution runs to the MATCHING ')' — "Architect (02) · ✓ Felix" nests (P3 §0).
@@ -326,16 +422,18 @@ export function parseDecisions(md: string): { decisions: Decision[]; queue: Deci
 		}
 		const rest = text.slice(k).replace(/^\s*:\s*/, '');
 		const tm = rest.match(/^\*\*(.+?)\.?\*\*\s*(.*)$/);
-		if (!tm) fails.push(fail('decisions', 'decision.title', 'the title is not a bold-delimited label "**<title>.**" (D63i) — the entry opens straight into prose', `D${head[1]}: ${rest.slice(0, 200)}`, at));
+		if (!tm) fails.push(fail('decisions', 'decision.title', 'the title is not a bold-delimited label "**<title>.**" (D63i) — the entry opens straight into prose', `${head[1]}: ${rest.slice(0, 200)}`, at));
 		const pm = paren.match(/^(\d{4}-\d{2}-\d{2}),\s*(.+)$/s);
-		if (!pm) fails.push(fail('decisions', 'decision.attribution', 'attribution is not "(<ISO date>, <decider>)" (§8)', `D${head[1]}: ${JSON.stringify(paren.slice(0, 160))}`, at));
+		if (!pm) fails.push(fail('decisions', 'decision.attribution', 'attribution is not "(<ISO date>, <decider>)" (§8)', `${head[1]}: ${JSON.stringify(paren.slice(0, 160))}`, at));
 
 		decisions.push({
-			id: `D${head[1]}`, date: pm ? pm[1]! : '',
+			id: head[1]!, date: pm ? pm[1]! : '',
 			decider: (pm ? pm[2]! : paren).replace(/\s*·?\s*✓\s*Felix\s*$/, '').trim(),
 			title: tm ? tm[1]! : rest.split('.')[0]!, body: tm ? tm[2]! : rest,
 			ratified: /✓\s*Felix/.test(paren),
-			pending: /proposed\s*[—–-]\s*pending Felix countersign/i.test(text),
+			// The marker lives in the ATTRIBUTION; a body that merely quotes the phrase — D21, the
+			// entry that DEFINES it — never counts (item 12).
+			pending: /proposed[\s,]*(?:[—–-]\s*)?pending Felix countersign/i.test(paren),
 			line: at,
 		});
 	}

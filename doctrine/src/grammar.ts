@@ -18,8 +18,12 @@ export const VERDICTS = ['PASSED', 'MERGED', 'BLESSED'] as const;
 export const RETIRED: Readonly<Record<string, string>> = {
 	DONE: 'LANDED', CLOSED: 'LANDED', WIP: 'IN FLIGHT', TODO: 'OPEN', AUTHORED: 'LANDED',
 };
-/** D63c — an annotation that may never lead the Status cell. */
+/** D63c — an annotation that may never lead the Status cell; D69 adds PARKED to the genre. */
 export const PENDING = 'PENDING';
+export const PARKED = 'PARKED';
+/** D63 as amended — the typed absences: `unrecorded` asserts ignorance, `unstaffed` asserts knowledge. */
+export const UNRECORDED = 'unrecorded';
+export const UNSTAFFED = 'unstaffed';
 
 export type Mantle = typeof MANTLES[number];
 export type State = typeof STATES[number];
