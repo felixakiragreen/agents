@@ -18,7 +18,7 @@ import {
 	type WorkshopBoard, type WorkshopDetail, type WorkshopRow,
 } from './deck-model';
 import { moveIn, selection, type FocusView } from './deck-view';
-import { button, dot, dots, drawProse, drawSpans, el, paint, plain, receipt, remember, remembered, stamp } from './deck-dom';
+import { button, dot, dots, drawProse, drawSpans, el, named, paint, plain, receipt, remember, remembered, stamp, tipSession } from './deck-dom';
 
 /** Everything has a limit: a tooltip carrying a whole landing record is a tooltip nobody can read. */
 const TIP_CAP = 400;
@@ -145,16 +145,16 @@ function sectionHead(name: Section, count: string, ref: DocRef | null): HTMLElem
 }
 
 /** Live sessions, first by his ruling. The dot vocabulary is B14's, imported rather than restyled. */
-function drawSessions(host: HTMLElement, ss: DeckSession[]): void {
+function drawSessions(host: HTMLElement, ss: DeckSession[], stale: boolean): void {
 	if (!ss.length) { host.append(el('p', 'quiet prose', 'Nothing alive in this building — every count on this deck is a floor (the census horizon).')); return; }
 	const list = el('ul', 'ws-sessions');
 	for (const s of ss) {
 		const li = el('li', 'ws-session');
 		li.dataset['sid'] = s.sid;
-		li.dataset['tip'] = s.stamp ?? s.sid.slice(0, 8);
-		li.dataset['tipMore'] = `${s.cwd ?? 'no cwd on record'} · ${s.ws ? `cmux workspace ${s.ws}` : 'no cmux pane — hooks are venue-blind'}`
-			+ ` · pid ${s.pid ?? 'unrecorded'} · last ${s.event}${s.tool ? ` ${s.tool}` : ''}`;
-		li.append(dot(s), el('span', 'who', s.stamp ?? s.sid.slice(0, 8)));
+		// The name, the tooltip's depth and B18's rename/recolor controls are one function shared with
+		// the City: two panes drawing a session must not disagree about what it is called (D16).
+		tipSession(li, s);
+		li.append(dot(s), named(s, stale));
 		// A tier is `<model> · <effort>` and only half of it is on any artifact the glass can read:
 		// the census carries no model field, and effort is on none at all (findings F1).
 		li.append(el('span', 'tier', s.model ?? '—'));
@@ -292,7 +292,7 @@ const COUNTS: Readonly<Record<Section, (d: WorkshopDetail, ss: DeckSession[]) =>
 };
 
 const BODIES: Readonly<Record<Section, (host: HTMLElement, d: WorkshopDetail, ss: DeckSession[]) => void>> = {
-	sessions: (h, _d, ss) => drawSessions(h, ss),
+	sessions: (h, _d, ss) => drawSessions(h, ss, snap !== null && snap.identity.error !== null),
 	board: (h, d) => drawBoard(h, d.boards),
 	ledger: (h, d) => drawTail(h, d),
 	decisions: (h, d) => drawDecisions(h, d),
@@ -408,7 +408,7 @@ function draw(): void {
 	paint('workshop:focus', focusHost, JSON.stringify([
 		selection.building, focusState, order, [...shut],
 		viewing && [viewing.path, viewing.line, viewing.lines.length, viewing.error],
-		snap?.workshop, ss,
+		snap?.workshop, ss, snap?.identity.error,
 	]), h => drawFocus(h, focusState));
 	paint('workshop:action', actionHost, JSON.stringify([
 		selection.building, actionState, snap?.workshop?.building, snap?.workshop?.issues.length, ss.length,

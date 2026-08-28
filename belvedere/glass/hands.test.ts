@@ -281,3 +281,67 @@ describe('the worktree hand', () => {
 		rmSync(dir, { recursive: true });
 	});
 });
+
+// ---------- B18: the write-through hands, and the jump's target resolution ----------
+
+describe('the write-through parse boundary (D18 class 2)', () => {
+	const SID = '0199622a-1111-4222-8333-444455556666';
+
+	test('a rename is a session id and one line of title, collapsed', () => {
+		expect(hands.parseRename({ sid: SID, title: '  the   kitten \n' }))
+			.toEqual({ ok: true, result: { sid: SID, title: 'the kitten' } });
+	});
+
+	test('a title made of whitespace is refused — a workspace with no name is one he cannot find', () => {
+		const out = hands.parseRename({ sid: SID, title: '   ' });
+		expect(out.ok).toBe(false);
+		expect(out.ok ? '' : out.error).toContain('title is empty');
+	});
+
+	test('everything has a limit: a title over 64 characters is refused, naming the rule', () => {
+		const out = hands.parseRename({ sid: SID, title: 'x'.repeat(65) });
+		expect(out.ok).toBe(false);
+		expect(out.ok ? '' : out.error).toContain('64');
+	});
+
+	test('a workspace ref is not a session id — the target is the census key or nothing (P6 F2)', () => {
+		// A ref that does not resolve is delivered to the FOCUSED workspace by cmux, so a hand that
+		// accepted one could rename whatever Felix is looking at. Only a `sid` gets in here.
+		for (const sid of ['workspace:24', '', 'not a uuid'])
+			expect(hands.parseRename({ sid, title: 'x' }).ok).toBe(false);
+	});
+
+	test('a recolor takes a cmux name or a hex, and refuses anything else at the door', () => {
+		expect(hands.parseRecolor({ sid: SID, color: '#3f9608' }))
+			.toEqual({ ok: true, result: { sid: SID, color: '#3f9608' } });
+		expect(hands.parseRecolor({ sid: SID, color: 'Aqua' }).ok).toBe(true);
+		// `cyan` is shaped like a colour name and cmux refuses it (B3 F1): the boundary lets it
+		// through and cmux's own words come back on the card. `#zzz` is not even a shape.
+		expect(hands.parseRecolor({ sid: SID, color: 'cyan' }).ok).toBe(true);
+		expect(hands.parseRecolor({ sid: SID, color: '#zzzzzz' }).ok).toBe(false);
+		expect(hands.parseRecolor({ sid: SID, color: '' }).ok).toBe(false);
+	});
+});
+
+describe('findSurface — where a panel actually sits now', () => {
+	// `cmux tree --all --json --id-format both`, cut down to the shape the jump reads.
+	const tree = {
+		windows: [{
+			id: 'WIN-1',
+			workspaces: [
+				{ id: 'WS-A', panes: [{ surfaces: [{ id: 'SF-1' }] }] },
+				{ id: 'WS-B', panes: [{ surfaces: [{ id: 'SF-2' }, { id: 'SF-3' }] }] },
+			],
+		}],
+	};
+
+	test('a surface resolves to the workspace AND the window it is in — both are needed to be seen', () => {
+		expect(hands.findSurface(tree, 'SF-3')).toEqual({ workspace: 'WS-B', window: 'WIN-1' });
+	});
+
+	test('a surface the desktop no longer carries is null — the jump refuses rather than guessing', () => {
+		expect(hands.findSurface(tree, 'SF-GONE')).toBeNull();
+		expect(hands.findSurface(null, 'SF-1')).toBeNull();
+		expect(hands.findSurface({ windows: 'nonsense' }, 'SF-1')).toBeNull();
+	});
+});

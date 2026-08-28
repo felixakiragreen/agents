@@ -327,3 +327,35 @@ body.deck {
 .deck .dl[data-mark='yes'] { background: var(--grey-900); box-shadow: inset 2px 0 0 var(--felix); }
 .deck .dl[data-mark='yes'] .ln { color: var(--felix); }
 .deck .dl[data-mark='yes'] .lt { color: var(--grey-100); }
+
+/* --- live identity (B18): cmux's name, the rig's birth name, the colour cmux is wearing --- */
+
+.deck .named { display: inline-flex; align-items: baseline; gap: 5px; min-width: 0; overflow: hidden; }
+.deck .swatch {
+	align-self: center; flex: none; width: 8px; height: 8px; border-radius: 2px;
+	border: 1px solid var(--grey-750);
+}
+/* The birth name is a footnote to the live one, never a second name of equal weight (D16). */
+.deck .birth { font-size: 9.5px; color: var(--grey-600); letter-spacing: .04em; }
+.deck .birth::before { content: '·'; margin-right: 4px; color: var(--grey-700); }
+.deck .stale, .deck .stale-note {
+	font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--orange-300);
+}
+.deck .legend-swatch { background: var(--blue-600); }
+
+/* The write-through controls, inside the expanded tooltip: rename inline, recolor from the map. */
+.deck .tip-controls { margin-top: 7px; border-top: 1px solid var(--grey-800); padding-top: 6px; }
+.deck .tip-rename { display: flex; gap: 5px; }
+.deck .tip-input {
+	flex: 1; min-width: 0; padding: 2px 5px;
+	background: var(--grey-950); border: 1px solid var(--grey-700); border-radius: 3px;
+	font: inherit; font-size: 11px; color: var(--grey-150);
+}
+.deck .tip-input:focus { outline: none; border-color: var(--felix); }
+.deck .tip-swatches { display: flex; gap: 4px; margin-top: 6px; }
+.deck .swatch-btn {
+	width: 16px; height: 16px; padding: 0; border-radius: 3px; cursor: pointer;
+	border: 1px solid var(--grey-750);
+}
+.deck .swatch-btn:hover { border-color: var(--grey-300); }
+.deck .tip-controls .out { display: block; margin-top: 6px; }

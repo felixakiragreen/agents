@@ -127,6 +127,12 @@ export type Halt = { requester: string };
  * the live census to the workspace that session is running in: a hand that took a workspace ref
  * from the browser would let a stale page rename whatever now holds that number, which is the
  * ambiguity D10 forbids.
+ *
+ * **And the resolved target is a UUID, which is load-bearing** (P6 F2): a `workspace:N` ref that
+ * does not resolve is not an error to cmux — it delivers to the *focused* workspace instead, so a
+ * stale ref renames whatever Felix is looking at. `CMUX_WORKSPACE_ID` is a uuid, a uuid that no
+ * longer exists answers `not_found`, and every socket target this row writes — these two hands and
+ * the jump's panel, workspace and window — is one.
  */
 export type Rename = { sid: string; title: string };
 export type Recolor = { sid: string; color: string };

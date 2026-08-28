@@ -8,9 +8,11 @@
 // and the queue *mean* lives in `attention.ts`, server-side, where the files are — this file draws
 // what it is handed and computes no urgency of its own.
 //
-// **Nothing here can fire.** The two wires a click may reach are `POST /inbox` (his word, one file
-// append) and `POST /hands/focus` (his eyes, a jump). There is no `/hands/fire` in this file, and
-// B14's DoD greps the served bundle to keep it that way (D10).
+// **Nothing here can fire.** The wires a click may reach are `POST /inbox` (his word, one file
+// append), `POST /hands/focus` (his eyes, a jump) and B18's two write-throughs, `POST /hands/rename`
+// and `POST /hands/recolor` (cmux display state, D18 class 2 — a name and a colour, never a session).
+// There is no `/hands/fire` in this file, and every DoD from B14 on greps the served bundle to keep
+// it that way (D10).
 
 import {
 	ATTENTION, bump, columns, PANES, RESTING, toLayout,
@@ -18,7 +20,7 @@ import {
 	type Layout, type Pane, type PaneState, type QueueItem,
 } from './deck-model';
 import { moveIn, selection, tenant, tenants, type FocusView } from './deck-view';
-import { ago, dot, dots, el, liveName, named, need, paint, receipt, receipts, remember, remembered, say, stamp, tick, tipSession } from './deck-dom';
+import { ago, dot, dots, el, named, need, paint, receipt, receipts, remember, remembered, say, stamp, tick, tipSession } from './deck-dom';
 import { SWATCHES } from './colors';
 // The Workshop signs its lease on import (B15). It is imported for that effect and for nothing
 // else: a tenant reaches the deck through `deck-view.ts` and never through this file.
@@ -156,7 +158,7 @@ function sessionLines(ss: DeckSession[], stale: boolean): HTMLElement {
 	return box;
 }
 
-const LEGEND: [string, string][] = [
+const LEGEND: [string, string, string?][] = [
 	['dot s-working', 'working'],
 	['dot s-idle', 'idle'],
 	['dot s-unknown', 'unknown — no pid to ask'],
@@ -166,14 +168,18 @@ const LEGEND: [string, string][] = [
 	['badge b-gate', 'Felix-gate on a live row'],
 	['badge b-countersign', 'decision waiting on your pen'],
 	['badge b-escalation', 'escalation raised, nothing says it was ruled'],
+	// B18's three: cmux owns the first two, and the third says the socket stopped answering.
+	['swatch legend-swatch', 'the colour cmux is wearing — the swatch row recolours it', ' '],
+	['birth', 'the rig\'s birth name, shown where cmux calls it something else', 'born'],
+	['stale', 'the identity read failed — this name is the last copy that answered', 'stale'],
 ];
 
 function legend(): HTMLElement {
 	const box = el('div', 'legend-deck');
 	box.append(el('span', 'label', 'legend'));
-	for (const [cls, text] of LEGEND) {
+	for (const [cls, text, sample] of LEGEND) {
 		const key = el('span', 'lkey');
-		key.append(el('span', cls, cls.startsWith('badge') ? 'n' : ''), el('span', '', text));
+		key.append(el('span', cls, sample ?? (cls.startsWith('badge') ? 'n' : '')), el('span', '', text));
 		box.append(key);
 	}
 	return box;
@@ -265,7 +271,7 @@ function drawContext(): void {
 		layout.context, selection.building, snapshot.register.buildings, snapshot.auditor.visible,
 		snapshot.register.refreshing, snapshot.register.error,
 		snapshot.census.present, snapshot.census.beats, snapshot.census.malformed, snapshot.census.since,
-		snapshot.census.sessions,
+		snapshot.census.sessions, snapshot.identity.error, snapshot.identity.workspaces,
 	]);
 	paint('context', host, sig, drawCity);
 }
@@ -503,10 +509,57 @@ function showTip(host: HTMLElement, expanded: boolean): void {
 		}
 	}
 	else if (more) tip.append(el('div', 'tip-hint', 'hold for more'));
+	if (expanded && host.dataset['tipSid']) tip.append(tipControls(host.dataset['tipSid'], host.dataset['tipName'] ?? ''));
 	tip.dataset['expanded'] = expanded ? 'yes' : 'no';
 	tip.hidden = false;
 	tipHost = host;
 	placeTip(host);
+}
+
+/**
+ * The write-through controls, in the session's own expanded tooltip (B18 §2, D18 class 2): rename
+ * inline, recolor from a swatch row of felikai's intents — the only values the map offers, so the
+ * page cannot compose a colour cmux refuses (B3 F1 closed at the cause). Both are hands and both go
+ * cold with the credential; the receipt says which, in cmux's own words.
+ *
+ * The controls exist only where the session has a cmux workspace to write to (`tipSession` sets the
+ * dataset), so there is no button here that is guaranteed to 409.
+ */
+function tipControls(sid: string, current: string): HTMLElement {
+	const box = el('div', 'tip-controls');
+
+	const row = el('div', 'tip-rename');
+	const input = el('input', 'tip-input') as HTMLInputElement;
+	input.type = 'text';
+	input.value = current;
+	input.maxLength = 64;
+	input.placeholder = 'name this workspace';
+	input.spellcheck = false;
+	const go = el('button', 'st wide', 'rename') as HTMLButtonElement;
+	go.type = 'button';
+	go.addEventListener('click', () => void writeThrough('rename', sid, { sid, title: input.value }));
+	input.addEventListener('keydown', e => {
+		if (e.key !== 'Enter') return;
+		e.preventDefault();
+		void writeThrough('rename', sid, { sid, title: input.value });
+	});
+	row.append(input, go);
+
+	const swatches = el('div', 'tip-swatches');
+	for (const { intent, hex } of SWATCHES) {
+		const b = el('button', 'swatch-btn') as HTMLButtonElement;
+		b.type = 'button';
+		b.style.background = hex;
+		b.title = `${intent} · ${hex}`;
+		b.dataset['intent'] = intent;
+		b.addEventListener('click', () => void writeThrough('recolor', sid, { sid, color: hex }));
+		swatches.append(b);
+	}
+
+	const out = el('span', 'out', receipt(`id:${sid}`));
+	out.dataset['outFor'] = `id:${sid}`;
+	box.append(row, swatches, out);
+	return box;
 }
 
 function hideTip(): void {
@@ -567,6 +620,24 @@ async function gesture(btn: HTMLElement): Promise<void> {
 		// A countersign changes what the FILES say, and the card's three states are read off them:
 		// the next poll re-derives it, so nothing here rewrites the card by hand.
 		if (btn.dataset['reload']) void poll();
+	}
+	catch (e) { say(key, String(e)); }
+}
+
+/**
+ * His word on what a thing is called, written through to cmux (D16/D18 class 2). The receipt is
+ * what **cmux** answered — the title it took, the hex it resolved — never the value that was asked
+ * for, because the whole point of the write-through is that cmux is the truth afterwards. A refusal
+ * arrives in cmux's own words and stays on the card until the next gesture.
+ */
+async function writeThrough(hand: 'rename' | 'recolor', sid: string, body: Record<string, unknown>): Promise<void> {
+	const key = `id:${sid}`;
+	say(key, `${hand.slice(0, -1)}ing…`);
+	try {
+		const [code, r] = await post(`/hands/${hand}`, body);
+		if (!r.ok) return say(key, `${code} ${r.error}`);
+		say(key, `cmux: ${String(r.result?.['title'] ?? r.result?.['color'] ?? 'ok')}`);
+		void poll();          // the name on the card is the socket's, so it comes back from the socket
 	}
 	catch (e) { say(key, String(e)); }
 }
