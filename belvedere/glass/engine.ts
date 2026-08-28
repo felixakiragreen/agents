@@ -160,8 +160,10 @@ const cwdOf = (step: Step): string | null => step.venue.kind === 'master' ? step
 // ---------- the pass ----------
 
 /**
- * One flow, one pass. Pure: everything it needs is in `run` and `world`, and everything it decides
- * comes back as data.
+ * One flow, one pass. Everything it needs is in `run` and `world`, and everything it decides comes
+ * back as data — with one deliberate exception: it **reserves** the checkouts it hands out in
+ * `world.busy`, so the caller's set IS the reservation across every flow in a pass (the same trick
+ * `nextOrdinal`'s `taken` plays, for the same reason: two dispatchers, one checkout).
  *
  * The order is the invariant: **land before you fire**. A step that landed this pass frees its
  * dependants, its checkout and its concurrency slot in the same pass, which is what makes the gap
@@ -247,7 +249,7 @@ export function plan(flow: Flow, run: Run, world: World): Plan {
 
 		// His card. Never auto-fired, never auto-passed — the pass gesture is the resume (§5).
 		if (step.gate.kind === 'felix' && !mine.some(l => l.ev === 'resumed')) {
-			note(lines, own, { ev: 'paused', why: 'a Felix-card — his pass on the card is the resume; the engine will not open it' });
+			note(lines, own, { ev: 'paused', step: step.id, why: 'a Felix-card — his pass on the card is the resume; the engine will not open it' });
 			continue;
 		}
 
