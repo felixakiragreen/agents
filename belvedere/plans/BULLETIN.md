@@ -728,3 +728,83 @@ that is **≈1.0 s of Bun's single JavaScript thread per minute** for as long as
 comfortable against the 500 ms bar (p95 135 ms measured over 22 buildings, 63 sessions, a
 35-item queue and a 52 KB snapshot) and **not a request to cache anything**: retiring the
 ruling is the Architect's call. Priced, not touched. B14 F8.
+
+## → relay — B15 (the Workshop) to B18, B17, B16, B10, B20, B21 and the Architect: no escalation, four findings that bind the rest of the chain
+
+Evidence: [b15-workshop.md](b15-workshop.md) §DoD and §Findings, commits `7ac9186` …
+`79f3eff` on `master`.
+
+1. **F2 — the `FocusView` seam grew a fifth, OPTIONAL member, and every later tenant that
+   needs server data should copy it rather than open an endpoint.** B13's four members are
+   what a tenant needs to *draw*; the Workshop is the first that needs the server to
+   **answer differently**. One building's whole detail is **65 kB of JSON**, so a snapshot
+   carrying all 22 buildings' boards would be ~1.4 MB every three seconds — B13 F5's shared
+   budget blown thirty times over. `needs(focusState)` returns the building this tenant wants
+   opened; the shell puts it in the poll's query (`/deck/state?b=…`) and nowhere else; a
+   tenant that omits the member asks for nothing and receives exactly B14's snapshot. **Still
+   one endpoint, one timer.** Measured live over the whole register, N=12 each:
+   `/deck/state` **58 686 B, p50 51 ms** · `/deck/state?b=agents/belvedere` **123 583 B, p50
+   51 ms** — **the detail costs bytes and no measurable time**, because `city()` had already
+   parsed that building's content for the City's badges, so opening it is serialization.
+   The client only asks while the tenant is **above minimal** (proven in the page's own
+   `performance` entries: the last poll after collapsing goes back to a bare `/deck/state`).
+   **B17's usage ×3 and B18's socket identity widen this same query**; B16's transcript is
+   the same shape of question and should be a `needs`, not a second poll.
+
+2. **F1 — a tier is `<model> · <effort>` and only the model is on any artifact this glass
+   can read. B17 and B18 will both want one.** The census hook payload carries **no model and
+   no effort field** (P1's ten events); `invocations.jsonl` has effort but does not join to a
+   session (B2 F1). What exists is the transcript's own `.message.model`, and `census.ts` was
+   already reading a bounded 64 kB head window off every transcript for the name-stamp — so
+   `identify()` now takes the model family out of the same window, **zero extra I/O**.
+   `Session`/`DeckSession` gained `model: string | null`; `Identity` gained the same field, so
+   any test constructing one must add it (four assertions in `census.test.ts` and three
+   fixture builders were updated). Live: **11 of 13 sessions carry a model** (`sonnet`,
+   `fable`, `opus`); the two that do not are a resume whose head window holds no assistant
+   record and an unstamped session, and both render `—`. **Print the model and leave the other
+   half blank — do not call half a tier a tier.** Fourth filing of the same *field* ask
+   (B3 F4/F5, B9 F1, B14 F2).
+
+3. **F4 — `register.ts` holds ONE warm copy for the whole process and does not remember
+   which city it walked, so two test files with two fixture cities decide each other's
+   results.** B13 wrote the warning into `deck.test.ts` in its own words; B15 hit it. A
+   `deckState()` describe over a second fixture city turned **three of `deck.test.ts`'s
+   assertions red** — its `tinytown` building was simply not in the register any more,
+   because whichever file ran first had warmed it, and *the failure looks like a bug in the
+   other file*. Worked around, not fixed: the census→wire flatten came out as a pure
+   `deckSession()` and is tested directly, and the `?b=` contract is proven over a real
+   server in `lab/b15/probe.ts`. **Anyone adding a second city fixture to `bun test` will
+   break `deck.test.ts` the same silent way** — prove server-shaped things in `lab/`, not in
+   the suite. The register's policy is the Architect's (the E1 ruling).
+
+4. **F3 — for B20 especially: the reference detector already runs at the boundary, and
+   `Span` is the shape to hang a decoder off.** All corpus prose the deck renders is parsed
+   **once, server-side**, into spans (`html.ts` §`spans`, `prose`) — `text | code | strong |
+   doc | url` — so the client builds DOM and carries no markdown. A `doc` span is a
+   **resolved object** (absolute path + optional line), not a regex hit, which is exactly
+   what a decoder needs to hover-resolve without re-detecting. Three narrownesses are
+   deliberate and pinned by tests: a bare path with **no line** stays text; a `path:line` the
+   **filesystem cannot find** stays text (a link that lies is worse than no link, D10); and a
+   **code tick around a reference does not stop it being one** — the doctrine writes nearly
+   every path in ticks, and it is resolved *inside* the code branch rather than by winning
+   the overlap, or the backticks strand beside the link. Markdown links resolve
+   unconditionally, because the corpus declared those to be links.
+
+Also for B16 and B19, not blocking: **a receipt has to outlive the repaint that proves it**
+(F5). *"JUMP TO PANEL … does nothing"* is half a rendering bug — the jump fires and the
+message died at the next poll. `say()` and the `receipts` map now live in
+[`deck-dom.ts`](../glass/deck-dom.ts) and `say()` writes into **every** `[data-out-for]`
+bearing the key, so the drawer's gestures and the Workshop's jumps both report and both
+survive; the drawer prunes only its **own** keys. `deck-dom.ts` is also where `el`, `paint`,
+`ago`, `stamp`, `dot`/`dots`, `remember`/`remembered` and the span renderer moved — **a
+tenant imports from there, never from `deck.client.ts`**, which is what makes "a module,
+never a rebuild" true.
+
+And for the Dispatcher, not blocking: **the batch's two lanes are file-disjoint and NOT
+commit-disjoint** (F7). `git add -A belvedere` from lane B swept lane A's live, uncommitted
+P6 probe files into three B15 commits while `p6-live-01` was running. Nothing was lost,
+reverted or overwritten and history was deliberately **not** rewritten under a live session,
+but the attribution is wrong in those commits. **Use scoped `git add <path>` while both lanes
+are open.** Filed to [ISSUES](../ISSUES.md).
+
+(Relayed from `master`, B15 LANDED 2026-08-27 — Builder)
