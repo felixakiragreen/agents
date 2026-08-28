@@ -161,9 +161,11 @@ describe('the gesture boundary', () => {
 		expect(parseFiling({ building: at, kind: 'countersign', decision: 'D11' }).ok).toBe(true);
 	});
 
-	test('an unknown kind names the four that exist', () => {
+	// Five since B19: `report` is the desk's route in, a title plus its evidence (D63h's block form).
+	// The list is in the message because a refusal that does not say what IS legal is half a refusal.
+	test('an unknown kind names the five that exist', () => {
 		const out = parseFiling({ building: at, kind: 'delete', row: 'B7' });
-		expect(out.ok ? '' : out.error).toContain('note, defer, before or countersign');
+		expect(out.ok ? '' : out.error).toContain('note, report, defer, before or countersign');
 	});
 });
 

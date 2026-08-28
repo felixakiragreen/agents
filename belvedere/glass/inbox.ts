@@ -32,7 +32,7 @@ import { compose, type Composed } from './summon';
 import type { Rig } from './rig';
 
 /** Everything has a limit (directive 3.1). A gesture is one line; a body is one gesture. */
-const LIMITS = { noteBytes: 4 << 10, requestBytes: 32 << 10, siblings: 40 } as const;
+const LIMITS = { noteBytes: 4 << 10, evidenceBytes: 64 << 10, requestBytes: 128 << 10, siblings: 40 } as const;
 
 /** D63h's `<who>`, and the fence's own words for it (README §2 write #3). */
 export const WHO = 'Felix (via Belvedere)';
@@ -43,14 +43,27 @@ export type Gesture =
 	| { kind: 'note'; text: string }
 	| { kind: 'defer'; row: string }
 	| { kind: 'before'; row: string; other: string }
-	| { kind: 'countersign'; decision: string };
+	| { kind: 'countersign'; decision: string }
+	/**
+	 * **A field report, with its evidence** (B19, D63h's block form). The desk's route into an inbox:
+	 * a note is a title and a body, and D63h says an entry needing evidence *becomes* a
+	 * `---`-separated block opening with the entry line. So the title is the `<what>` — the
+	 * encapsulation law arriving in the corpus — and the body rides below it as list continuation.
+	 * An empty body is a bare bullet and is exactly a `note`; the two kinds stay apart because they
+	 * answer different questions (one line said in passing vs. a written thing sent somewhere).
+	 */
+	| { kind: 'report'; title: string; body: string };
 
 /** D63h's `<what>` — the gesture in the sovereign's own shorthand, one line, ruled by a human. */
 export const gestureText = (g: Gesture): string =>
 	g.kind === 'note' ? g.text
 	: g.kind === 'defer' ? `defer ${g.row}`
 	: g.kind === 'before' ? `${g.row} before ${g.other}`
+	: g.kind === 'report' ? g.title
 	: `countersign ${g.decision}: ✓`;
+
+/** The evidence half of an entry, or `''`. Only a `report` has one. */
+export const gestureBody = (g: Gesture): string => (g.kind === 'report' ? g.body : '');
 
 /** The city writes LOCAL dates; `toISOString()` is UTC and would file tonight's note tomorrow. */
 export function today(now = new Date()): string {
@@ -110,13 +123,21 @@ export function parseFiling(raw: unknown): Outcome<Filing> {
 		if (row === other) return fail(`"${row} before ${other}" says nothing — a row cannot precede itself`);
 		return { ok: true, result: { path, gesture: { kind, row, other } } };
 	}
+	if (kind === 'report') {
+		const title = oneLine(field(r, 'title'));
+		const body = field(r, 'body').replace(/\r\n?/g, '\n').replace(/[ \t]+$/gm, '').replace(/\n+$/, '');
+		if (title === '') return fail('the report has no title — D63h\'s entry line cannot be empty');
+		if (Buffer.byteLength(title) > LIMITS.noteBytes) return fail(`the report's title exceeds ${LIMITS.noteBytes} bytes`);
+		if (Buffer.byteLength(body) > LIMITS.evidenceBytes) return fail(`the report's evidence exceeds ${LIMITS.evidenceBytes} bytes`);
+		return { ok: true, result: { path, gesture: { kind, title, body } } };
+	}
 	if (kind === 'countersign') {
 		const decision = field(r, 'decision');
 		return DECISION.test(decision)
 			? { ok: true, result: { path, gesture: { kind, decision } } }
 			: fail(`decision must be a D-id — got "${decision}"`);
 	}
-	return fail(`kind must be note, defer, before or countersign — got "${kind}"`);
+	return fail(`kind must be note, report, defer, before or countersign — got "${kind}"`);
 }
 
 // ---------- the write ----------
@@ -132,10 +153,46 @@ export const inboxFile = (buildingPath: string) => join(buildingPath, 'ISSUES.md
  * city's own multi-entry inboxes look. A tail block that is empty (the header template ends with
  * `---`, and a swept inbox drains to it) takes the bullet directly.
  */
-export function addition(existing: string, line: string): string {
+export function addition(existing: string, line: string, body = ''): string {
 	const tail = existing.split(/^---[ \t]*$/m).at(-1) ?? '';
 	const pad = existing === '' || existing.endsWith('\n\n') ? '' : existing.endsWith('\n') ? '\n' : '\n\n';
-	return `${pad}${tail.trim() === '' ? '' : '---\n\n'}${line}\n`;
+	return `${pad}${tail.trim() === '' ? '' : '---\n\n'}${line}\n${evidence(body)}`;
+}
+
+/**
+ * A report's evidence, as markdown list continuation under its own entry line (D63h's block form).
+ *
+ * Two spaces, and blank lines left bare. The indent is not decoration: `blocks()` in the one parser
+ * splits an inbox on `^---\s*$`, so an indented `---` inside a body **cannot** cut the block in half
+ * and strand the evidence in a block with no entry line (which is the one thing `parseIssues` lints).
+ * Felix's own notes are markdown and rules in them are ordinary; the indent is what makes routing one
+ * safe rather than something he has to remember not to write.
+ */
+export const evidence = (body: string): string =>
+	body === '' ? '' : `\n${body.split('\n').map(l => (l === '' ? '' : `  ${l}`)).join('\n')}\n`;
+
+/**
+ * The exact bytes ONE gesture appends. **The preview and the write are this one function** — the
+ * desk shows Felix what will land before he signs off (spec §3, the countersign law), and a preview
+ * composed by a second copy of this reasoning is a preview that can lie.
+ */
+export const entryBytes = (existing: string, g: Gesture, date = today()): string =>
+	addition(existing, entryLine(g, date), gestureBody(g));
+
+/**
+ * The bytes an append composes *against*: the inbox as it stands, or the D53 header a mint is about
+ * to lay down. Read-only, and shared with the preview (B19) — a preview that guessed the header for
+ * a building whose inbox does not exist yet would show the wrong first bytes on exactly the gesture
+ * adoption-on-first-need exists for.
+ */
+export function inboxExisting(buildingPath: string): Outcome<{ path: string; existing: string; minting: boolean }> {
+	const path = inboxFile(buildingPath);
+	if (existsSync(path)) {
+		try { return { ok: true, result: { path, existing: readFileSync(path, 'utf8'), minting: false } }; }
+		catch (e) { return fail(`cannot read ${path}: ${(e as Error).message}`); }
+	}
+	try { return { ok: true, result: { path, existing: readFileSync(ISSUES_TEMPLATE, 'utf8'), minting: true } }; }
+	catch (e) { return fail(`no inbox here, and the D53 header template is unreadable (${ISSUES_TEMPLATE}): ${(e as Error).message}`); }
 }
 
 export type Filed = { path: string; line: string; minted: boolean; bytes: number };
@@ -149,19 +206,16 @@ export function fileGesture(f: Filing, date = today()): Outcome<Filed> {
 	const path = inboxFile(f.path);
 	const line = entryLine(f.gesture, date);
 
-	let existing: string, minted = false;
-	if (existsSync(path)) {
-		try { existing = readFileSync(path, 'utf8'); }
-		catch (e) { return fail(`cannot read ${path}: ${(e as Error).message}`); }
-	} else {
-		try { existing = readFileSync(ISSUES_TEMPLATE, 'utf8'); }
-		catch (e) { return fail(`no inbox here, and the D53 header template is unreadable (${ISSUES_TEMPLATE}): ${(e as Error).message}`); }
+	const stands = inboxExisting(f.path);
+	if (!stands.ok) return stands;
+	const { existing, minting } = stands.result;
+	if (minting) {
 		try { writeFileSync(path, existing, { flag: 'wx' }); }
 		catch (e) { return fail(`cannot mint ${path}: ${(e as Error).message}`); }
-		minted = true;
 	}
+	const minted = minting;
 
-	const add = addition(existing, line);
+	const add = entryBytes(existing, f.gesture, date);
 	try { appendFileSync(path, add); }
 	catch (e) { return fail(`cannot append to ${path}: ${(e as Error).message}`); }
 	return { ok: true, result: { path, line, minted, bytes: Buffer.byteLength(add) } };

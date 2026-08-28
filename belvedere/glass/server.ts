@@ -11,6 +11,7 @@ import { join } from 'path';
 import { chatQuery, chatRoute } from './chat';
 import { summonRoute } from './composer';
 import { deckPage, deckState, readDoc } from './deck';
+import { deskRoute } from './desk';
 import { composeRoute } from './deck-composer';
 import { decodeQuery } from './decoder';
 import { flowRoute, kick, startEngine } from './engine';
@@ -157,6 +158,10 @@ const server = Bun.serve({
 			// on purpose: `send` is a socket write and goes cold with the credential; `draft` is a
 			// file write under `desk/` and must never go cold with it (B6 F3's law).
 			if (url.pathname.startsWith('/chat/')) return await chatRoute(req, url.pathname.slice('/chat/'.length));
+			// The desk (B19, D18 class 3): files under `desk/` and nowhere else. It sits in FRONT of the
+			// arming switch for the same reason the inbox does, and its reads share the door because the
+			// drawer is one thing. Nothing on this path reaches a socket, and nothing here commits.
+			if (url.pathname.startsWith('/desk/')) return await deskRoute(req, url.pathname.slice('/desk/'.length));
 			// The fence's third write, and the one with no credential gate: a note is a file write,
 			// not a socket call, so cold hands must never cost Felix the ability to say something.
 			if (url.pathname === '/inbox') return await inboxRoute(req);
