@@ -45,6 +45,8 @@ export function inline(md: string, baseDir: string): string {
  * reference stays plain text rather than becoming a link that lies (D10's family: never guess).
  */
 const BARE_REF = /(^|[\s(“"'`])((?:~\/|\/)?[\w.@-]+(?:\/[\w.@-]+)*\.(?:md|ts|tsx|css|json|jsonl|sh|zsh|tsv|txt))(?::(\d+))\b/g;
+/** The same rule anchored, for a code tick whose entire content is a reference (see `spans`). */
+const ONLY_REF = new RegExp(`^${BARE_REF.source}$`);
 const MD_LINK = /\[([^\]]*)\]\(([^)\s]+)\)/g;
 const CODE = /`([^`]+)`/g;
 const STRONG = /\*\*([^*]+)\*\*/g;
@@ -80,7 +82,19 @@ export function spans(md: string, baseDir: string, exists: (p: string) => boolea
 			: { kind: 'doc', text, path: resolveRef((target.split('#')[0] ?? ''), baseDir, () => true) ?? target, line: null };
 		return { at: m.index, len: m[0].length, span };
 	});
-	take(CODE, m => ({ at: m.index, len: m[0].length, span: { kind: 'code', text: m[1] ?? '' } }));
+	// A code tick around a reference does not stop it being one — the doctrine writes nearly every
+	// path in ticks (`README.md:191`), and a link that only works unquoted would miss most of the
+	// corpus. Resolved here rather than by letting the bare rule win the overlap, because that would
+	// leave the ticks behind as orphaned text.
+	take(CODE, m => {
+		const inner = m[1] ?? '';
+		const ref = ONLY_REF.exec(` ${inner}`);
+		const path = ref ? resolveRef(ref[2] ?? '', baseDir, exists) : null;
+		return {
+			at: m.index, len: m[0].length,
+			span: path === null ? { kind: 'code', text: inner } : { kind: 'doc', text: inner, path, line: Number(ref![3]) },
+		};
+	});
 	take(STRONG, m => ({ at: m.index, len: m[0].length, span: { kind: 'strong', text: m[1] ?? '' } }));
 	take(BARE_REF, m => {
 		const lead = (m[1] ?? '').length, target = m[2] ?? '';
