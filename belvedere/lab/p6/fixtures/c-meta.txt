@@ -1,0 +1,5 @@
+P6-C metachars: $(echo pwned) `whoami` ${HOME} \n \t \r "quotes" 'single'
+
+unicode: — · ⚡ ◐ é ⬡
+backslash: C:\path\to\file
+end

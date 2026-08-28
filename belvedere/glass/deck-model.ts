@@ -10,6 +10,7 @@
 // information, in as few words as possible."* Priority is the pane's own state, so the state IS
 // the weight — one number per state, three numbers per layout, and the grid does the rest.
 
+import type { State } from '../../doctrine';
 import type { SessionState } from './census';
 import type { Countersigned } from './inbox';
 
@@ -88,6 +89,145 @@ export function toLayout(raw: unknown): Layout | null {
 	return out;
 }
 
+// ---------- the Workshop's sections: order and collapse are the viewer's, and persist ----------
+
+/**
+ * The five sections, in the order Felix ruled (field report: *"I should be able to collapse BOARD,
+ * LEDGER, DECISIONS, ISSUES, etc and reorder them — LIVE SESSIONS should be first"*). This array IS
+ * the default order, and it is the closed set: a remembered order that is not a permutation of it
+ * is not a remembered order.
+ */
+export const SECTIONS = ['sessions', 'board', 'ledger', 'decisions', 'issues'] as const;
+export type Section = (typeof SECTIONS)[number];
+
+/**
+ * A remembered section order, or null. Same law as `toLayout`: localStorage is a per-viewer
+ * convenience and never load-bearing, so anything that is not exactly a permutation of `SECTIONS`
+ * reads as no memory and the Workshop opens at its defaults. A subset would silently hide a
+ * section, which is the one failure mode a reorder must never have.
+ */
+export function toSections(raw: unknown): Section[] | null {
+	if (!Array.isArray(raw) || raw.length !== SECTIONS.length) return null;
+	const seen = new Set<string>();
+	for (const v of raw) {
+		if (typeof v !== 'string' || !SECTIONS.includes(v as Section) || seen.has(v)) return null;
+		seen.add(v);
+	}
+	return raw as Section[];
+}
+
+/** The collapsed set, parsed the same way — unknown names are dropped rather than refused. */
+export function toCollapsed(raw: unknown): Section[] | null {
+	if (!Array.isArray(raw)) return null;
+	return raw.filter((v): v is Section => typeof v === 'string' && SECTIONS.includes(v as Section));
+}
+
+/** Move one section by one place, clamped. The drag handler and the ▲▼ buttons share this. */
+export function moved(order: Section[], name: Section, delta: number): Section[] {
+	const from = order.indexOf(name);
+	const to = from + delta;
+	if (from < 0 || to < 0 || to >= order.length) return order;
+	const out = [...order];
+	out.splice(from, 1);
+	out.splice(to, 0, name);
+	return out;
+}
+
+// ---------- prose, parsed once at the boundary ----------
+
+/**
+ * One run of rendered prose. The client builds DOM rather than HTML (B13's seam note), so the
+ * markdown is resolved **server-side, where the filesystem is**, and arrives as spans it can append.
+ *
+ *  - `doc` — a reference that opens inside the deck's own viewer at `line` (D58's linking law, and
+ *    the field report's *"Links to documents (WHERE: agents/LEDGER.md:385) don't take you to that
+ *    line"*). `path` is absolute and inside the city.
+ *  - `url` — anything with a scheme; it leaves the city and gets a plain `<a>`.
+ */
+export type Span =
+	| { kind: 'text'; text: string }
+	| { kind: 'code'; text: string }
+	| { kind: 'strong'; text: string }
+	| { kind: 'doc'; text: string; path: string; line: number | null }
+	| { kind: 'url'; text: string; href: string };
+
+/**
+ * Encapsulation-first, on the wire: the 1–6 word name the row leads with, and the whole thing as
+ * spans one [expand] away. `encapsulated` false means the text has no name it wrote itself, so the
+ * client renders it whole and draws no control — B9 F1's furniture rule, unchanged.
+ */
+export type Prose = { name: string; encapsulated: boolean; spans: Span[] };
+
+/** Where a thing is written, in the city's own coordinates — and the line the viewer opens at. */
+export type DocRef = { path: string; label: string; line: number };
+
+// ---------- the Workshop: one building, inside (B15) ----------
+
+export type WorkshopRow = {
+	id: string;
+	work: Prose;
+	/** The row's own work doc (D58: boards link their work docs), resolved for the viewer. */
+	workDoc: DocRef | null;
+	dependsOn: string[];
+	gates: string[];
+	staffing: string;
+	felixGate: boolean;
+	rider: string | null;
+	state: State | null;
+	/** The landing record. Empty-named where the row carries no annotation at all. */
+	annotation: Prose;
+	ref: DocRef;
+	/** Parser-as-lint, pinned to the row that produced it (README §1). */
+	lint: string[];
+};
+
+export type WorkshopBoard = { heading: string; ref: DocRef; rows: WorkshopRow[] };
+
+export type WorkshopBaton = {
+	holder: 'session' | 'felix' | 'prose';
+	text: Prose;
+	/** Rendered, never wired: an instrument on this deck is a thing to read (D10). */
+	instruments: { kind: 'summons' | 'row'; text: string }[];
+};
+
+export type WorkshopTail = {
+	date: string; mantle: string; tier: string | null; row: string | null;
+	body: Prose;
+	decided: Prose | null;
+	baton: WorkshopBaton | null;
+	ref: DocRef;
+};
+
+export type WorkshopDecision = {
+	id: string; date: string; decider: string;
+	title: Prose;
+	/** B6's three states, read off files — `folded` outranks `pending` (D10, B6 F2). */
+	state: Countersigned;
+	ref: DocRef;
+};
+
+export type WorkshopIssue = { date: string | null; who: string | null; text: Prose; ref: DocRef };
+
+/**
+ * One building, opened. Sent **only when the deck asks for it** (`/deck/state?b=…`) and only while
+ * the Workshop is standing above minimal — the whole detail of the city's biggest building is 44 kB
+ * of JSON, and a poll that carries every building's board would be a poll nobody could afford
+ * (B13 F5's shared budget, respected by asking rather than by broadcasting).
+ */
+export type WorkshopDetail = {
+	building: string;
+	path: string;
+	label: string;
+	boards: WorkshopBoard[];
+	tail: WorkshopTail | null;
+	decisions: WorkshopDecision[];
+	issues: WorkshopIssue[];
+	/** Failures the board rows did not already carry — a count, with the viewer one click away. */
+	lint: number;
+	files: { boards: DocRef[]; ledger: DocRef | null; decisions: DocRef | null; issues: DocRef | null };
+	badges: Record<Attention, number>;
+};
+
 // ---------- the snapshot: what `GET /deck/state` answers ----------
 
 // ---------- attention: one vocabulary, two places (D15) ----------
@@ -129,6 +269,20 @@ export type DeckSession = {
 	pane: boolean;
 	/** Seconds since the epoch of the last beat — `ago()`'s input, computed client-side. */
 	last: number;
+	/**
+	 * The model the transcript's own records name (`haiku`, `sonnet`, `opus`, `fable`), or null.
+	 *
+	 * **This is half a tier and says so.** The census carries no model or effort field — the hook
+	 * payload has neither — so this is read from the same bounded transcript head window the
+	 * name-stamp already comes from (`census.ts` §identify). Effort is on no artifact this glass can
+	 * reach, so the Workshop prints the model and leaves the rest blank rather than guessing a tier.
+	 */
+	model: string | null;
+	/** The last beat's own coordinates — the tooltip's depth (§4): venue, process, what it was doing. */
+	pid: number | null;
+	ws: string | null;
+	event: string;
+	tool: string | null;
 };
 
 /** One building as the City draws it: where it sits, what is alive in it, what it wants. */
@@ -213,6 +367,12 @@ export type DeckSnapshot = {
 	};
 	/** The needs-you queue, ranked once — the drawer's tenant and the header's count (D15). */
 	queue: QueueItem[];
+	/**
+	 * The building the deck asked for, opened — or null when it asked for none, or asked for one the
+	 * register does not carry. **Asked for, never assumed**: the selection lives in the browser, so
+	 * the deck names it in the query and the server answers about that one building and no other.
+	 */
+	workshop: WorkshopDetail | null;
 	/**
 	 * B5 E1's auditor delta, carried into the deck: what `ps` sees beside what the census tracks.
 	 * `at` is when the count was taken, not when the snapshot was composed — it is deliberately

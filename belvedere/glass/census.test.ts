@@ -152,7 +152,7 @@ test('identity: the name-stamp and the cwd come off the transcript, never off th
 		{ type: 'agent-name', agentName: 'digger-agents-04' },
 		{ type: 'user', cwd: '/Users/felix/code/universal_robots_sdk', message: { role: 'user', content: 'hi' } },
 	]);
-	expect(identify(path)).toEqual({ stamp: 'digger-agents-04', cwd: '/Users/felix/code/universal_robots_sdk' });
+	expect(identify(path)).toEqual({ stamp: 'digger-agents-04', cwd: '/Users/felix/code/universal_robots_sdk', model: null });
 	rmSync(path, { force: true });
 });
 
@@ -165,7 +165,7 @@ test('identity: a transcript with a title but no agent-name is UNSTAMPED, not ti
 		{ type: 'custom-title', customTitle: 'grand-architect' },
 		{ type: 'user', cwd: '/Users/felix/code/agents', message: { role: 'user', content: 'hi' } },
 	]);
-	expect(identify(path)).toEqual({ stamp: null, cwd: '/Users/felix/code/agents' });
+	expect(identify(path)).toEqual({ stamp: null, cwd: '/Users/felix/code/agents', model: null });
 	rmSync(path, { force: true });
 });
 
@@ -174,10 +174,10 @@ test('identity: a renamed session reads its LAST stamp, and a head with no turn 
 		{ type: 'agent-name', agentName: 'builder-agents-01' },
 		{ type: 'agent-name', agentName: 'builder-agents-02' },
 	]);
-	expect(identify(path)).toEqual({ stamp: 'builder-agents-02', cwd: null });
+	expect(identify(path)).toEqual({ stamp: 'builder-agents-02', cwd: null, model: null });
 	rmSync(path, { force: true });
 });
 
 test('identity: an unreadable transcript is unknown on both counts, never a throw', () => {
-	expect(identify('/no/such/transcript.jsonl')).toEqual({ stamp: null, cwd: null });
+	expect(identify('/no/such/transcript.jsonl')).toEqual({ stamp: null, cwd: null, model: null });
 });

@@ -1,0 +1,4 @@
+P6-B tabs: col1	col2	col3
+	leading tab
+trailing tab	
+  two spaces then	tab

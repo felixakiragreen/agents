@@ -18,68 +18,16 @@ import {
 	type Layout, type Pane, type PaneState, type QueueItem,
 } from './deck-model';
 import { moveIn, selection, tenant, tenants, type FocusView } from './deck-view';
-
-// ---------- small hands ----------
-
-const need = <T extends HTMLElement>(id: string): T => {
-	const e = document.getElementById(id);
-	if (!e) throw new Error(`deck: the shell is missing #${id}`);
-	return e as T;
-};
-
-/** One element, built. `text` goes in as text — the deck never assembles HTML from strings. */
-function el(tag: string, cls = '', text = ''): HTMLElement {
-	const e = document.createElement(tag);
-	if (cls) e.className = cls;
-	if (text) e.textContent = text;
-	return e;
-}
-
-const ago = (seconds: number): string => {
-	const d = Math.max(0, Date.now() / 1000 - seconds);
-	if (d < 90) return `${Math.round(d)}s`;
-	if (d < 5400) return `${Math.round(d / 60)}m`;
-	if (d < 172800) return `${Math.round(d / 3600)}h`;
-	return `${Math.round(d / 86400)}d`;
-};
-
-/**
- * An age that keeps ageing. Every "3m" on the deck is a `<span data-at>` and this rewrites them
- * all — which is why a region whose *content* has not changed is never rebuilt (see `paint`): the
- * clock moving is not news, and a rebuild in the middle of Felix typing a note is.
- */
-function tick(root: ParentNode): void {
-	for (const e of root.querySelectorAll<HTMLElement>('[data-at]'))
-		e.textContent = ago(Number(e.dataset['at']));
-}
-
-const stamp = (seconds: number, cls = 'ago'): HTMLElement => {
-	const e = el('span', cls, ago(seconds));
-	e.dataset['at'] = String(seconds);
-	return e;
-};
+import { ago, dot, dots, el, need, paint, receipt, receipts, remember, remembered, say, stamp, tick } from './deck-dom';
+// The Workshop signs its lease on import (B15). It is imported for that effect and for nothing
+// else: a tenant reaches the deck through `deck-view.ts` and never through this file.
+import './workshop.client';
 
 // ---------- what the deck is holding ----------
 
 const LAYOUT_KEY = 'belvedere.deck.layout';
 const FOCUS_KEY = 'belvedere.deck.focus';
 const BUILDING_KEY = 'belvedere.deck.building';
-
-/**
- * localStorage is a per-viewer convenience and never load-bearing (spec §7): every read and every
- * write is wrapped, and a browser that refuses storage gets a deck at rest rather than no deck.
- */
-function remembered<T>(key: string, parse: (raw: unknown) => T | null): T | null {
-	try {
-		const raw = localStorage.getItem(key);
-		return raw === null ? null : parse(JSON.parse(raw));
-	}
-	catch { return null; }
-}
-
-const remember = (key: string, value: unknown): void => {
-	try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* private window: forget it */ }
-};
 
 let layout: Layout = remembered(LAYOUT_KEY, toLayout) ?? { ...RESTING };
 let snapshot: DeckSnapshot | null = null;
@@ -160,41 +108,11 @@ function drawTenantBar(): void {
 	head.insertBefore(bar, head.querySelector('.states'));
 }
 
-// ---------- repainting: content, not clocks ----------
-//
-// A region is rebuilt only when what it *says* has changed. The clock is handled separately
-// (`tick`), because a drawer that rebuilds every three seconds is a drawer that eats the note
-// Felix is halfway through typing — which is precisely the copy-paste hell the deck exists to end.
-
-const painted = new Map<string, string>();
-
-function paint(key: string, host: HTMLElement, signature: string, draw: (host: HTMLElement) => void): void {
-	if (painted.get(key) !== signature) {
-		painted.set(key, signature);
-		host.textContent = '';
-		draw(host);
-	}
-	tick(host);
-}
+// Repainting is content, not clocks: `paint()` lives in `deck-dom.ts` so every tenant shares one
+// gate. A region is rebuilt only when what it *says* has changed — a drawer that rebuilds every
+// three seconds eats the note Felix is halfway through typing (B14 F4).
 
 // ---------- the City (Context's one tenant, keel §3) ----------
-
-/** The dot vocabulary: the fill is liveness, the ring is "this one cannot move without you". */
-function dot(s: DeckSession): HTMLElement {
-	const d = el('span', `dot s-${s.state}${s.waiting ? ` w-${s.waiting}` : ''}`);
-	d.title = `${s.stamp ?? s.sid.slice(0, 8)} · ${s.waiting ?? s.state} · ${ago(s.last)} ago`;
-	return d;
-}
-
-/** Everything has a limit: a building running forty sessions gets a row, not a wall of dots. */
-const DOTS = 12;
-
-function dots(ss: DeckSession[]): HTMLElement {
-	const box = el('span', 'dots');
-	for (const s of ss.slice(0, DOTS)) box.append(dot(s));
-	if (ss.length > DOTS) box.append(el('span', 'num', `+${ss.length - DOTS}`));
-	return box;
-}
 
 const BADGE_WORD: Readonly<Record<Attention, string>> = {
 	waiting: 'blocked on you', gate: 'Felix-gate', countersign: 'countersign', escalation: 'escalation',
@@ -349,7 +267,6 @@ function drawContext(): void {
  */
 const drafts = new Map<string, string>();
 const opened = new Set<string>();
-const outs = new Map<string, string>();
 
 const QUEUE_TONE: Readonly<Record<Attention, string>> = {
 	waiting: 'red', gate: 'purple', countersign: 'yellow', escalation: 'orange',
@@ -397,7 +314,7 @@ function actions(i: QueueItem): HTMLElement {
 		a.href = i.jump;
 		acts.append(a);
 	}
-	const out = el('span', 'out', outs.get(i.key) ?? '');
+	const out = el('span', 'out', receipt(i.key));
 	out.dataset['outFor'] = i.key;
 	acts.append(out);
 	return acts;
@@ -458,8 +375,11 @@ function drawDrawer(): void {
 	// item answered and gone takes its draft, its disclosure and its receipt with it.
 	if (snapshot) {
 		const alive = new Set(snapshot.queue.flatMap(i => [i.key, `note:${i.key}`]));
-		for (const m of [drafts, outs]) for (const k of [...m.keys()]) if (!alive.has(k)) m.delete(k);
+		for (const k of [...drafts.keys()]) if (!alive.has(k)) drafts.delete(k);
 		for (const k of [...opened]) if (!alive.has(k)) opened.delete(k);
+		// Receipts are shared with the Workshop now, so only the queue's OWN keys are the queue's to
+		// drop: a jump reported in another pane is not this pane's to forget.
+		for (const k of [...receipts.keys()]) if (QUEUE_KEY.test(k) && !alive.has(k)) receipts.delete(k);
 	}
 	// The focused note survives its own region's rebuild, caret and all.
 	const active = document.activeElement as HTMLTextAreaElement | null;
@@ -474,10 +394,21 @@ function drawDrawer(): void {
 	needsCount.dataset['needs'] = snapshot ? String(snapshot.queue.length) : '';
 }
 
+/**
+ * One redraw of everything the deck is holding — and, when the standing tenant has started wanting
+ * a *different* answer from the server (a building clicked, a pane opened past minimal, a tenant
+ * swapped in), one immediate poll. Without it a click would sit on last poll's data for up to three
+ * seconds; with it, the next `redraw` sees the same query and asks for nothing.
+ */
+let lastQuery: string | null = null;
+
 function redraw(): void {
 	drawContext();
 	drawDrawer();
 	standing?.draw(snapshot, layout.focus, layout.action);
+	const q = query();
+	if (q !== lastQuery && q !== '') { lastQuery = q; void poll(); }
+	else lastQuery = q;
 }
 
 // ---------- the placeholder tenants (B10 / B15 / B16 evict these) ----------
@@ -508,7 +439,8 @@ function placeholder(name: string, title: string, blurb: string, owed: string): 
 	};
 }
 
-moveIn(placeholder('workshop', 'the Workshop', 'One building inside: its live sessions first, then board, ledger tail, decision queue and ISSUES — B15 moves in here and reads the selection.', 'At rest, Action holds the summon composer (B17).'));
+// The Workshop moved in at B15 and signed first (its module is imported above); these two are the
+// last placeholders, and B10 and B16 evict them the same way.
 moveIn(placeholder('works', 'the Works', 'Every Guild session drawn on one line of time: the past above, NOW where sessions blink, the plan below.', 'Against the Works, Action dispatches (B10, B11).'));
 moveIn(placeholder('chat', 'the Chat', 'One hotswappable conversation: any session, live or dead, reads here.', 'Against the Chat, Action holds the draft and the notes (B16).'));
 
@@ -597,11 +529,7 @@ const post = async (path: string, body: unknown): Promise<[number, { ok: boolean
 	return [r.status, await r.json() as { ok: boolean; error?: string }];
 };
 
-const say = (key: string, text: string): void => {
-	outs.set(key, text);
-	const out = hostOf('drawer').querySelector<HTMLElement>(`[data-out-for="${CSS.escape(key)}"]`);
-	if (out) out.textContent = text;
-};
+const QUEUE_KEY = /^(note:)?(waiting|gate|countersign|escalation):/;
 
 /**
  * His word, filed. One `POST /inbox` — a file append, in front of the credential gate (B6 F3), so
@@ -633,7 +561,10 @@ async function gesture(btn: HTMLElement): Promise<void> {
 
 /** His eyes, moved. `POST /hands/focus` is a hand, so it goes cold with the credential and says so. */
 async function jump(btn: HTMLElement): Promise<void> {
-	const key = btn.closest<HTMLElement>('.qi')?.dataset['key'] ?? '';
+	// The queue names its item; the Workshop's session list names the session. Either way the
+	// receipt lands where the click was, which is the whole of the field report's *"JUMP TO PANEL
+	// … does nothing"*: it did something, and nothing said so.
+	const key = btn.closest<HTMLElement>('.qi')?.dataset['key'] ?? `jump:${btn.dataset['jumpSid']}`;
 	say(key, 'jumping…');
 	try {
 		const [code, r] = await post('/hands/focus', { sid: btn.dataset['jumpSid'] });
@@ -707,9 +638,19 @@ app.addEventListener('input', e => {
 const POLL_MS = 3000;
 let polls = 0;
 
+/**
+ * What the standing tenant wants the server to open, as a query. **One endpoint still** (B13 F5):
+ * the deck names what it has open rather than opening a second poll beside this one, and a tenant
+ * that declares no `needs` asks for nothing.
+ */
+const query = (): string => {
+	const want = standing?.needs?.(layout.focus) ?? null;
+	return want === null ? '' : `?b=${encodeURIComponent(want)}`;
+};
+
 async function poll(): Promise<void> {
 	try {
-		const res = await fetch('/deck/state', { headers: { accept: 'application/json' } });
+		const res = await fetch(`/deck/state${query()}`, { headers: { accept: 'application/json' } });
 		if (!res.ok) throw new Error(`/deck/state answered ${res.status}`);
 		polls++;
 		pulse.dataset['polls'] = String(polls);

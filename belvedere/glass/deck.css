@@ -235,3 +235,95 @@ body.deck {
 	color: var(--grey-600);
 }
 .deck .tip-actions { margin-top: 7px; }
+
+/* --- the Workshop: one building, inside (B15) --- */
+
+.deck .ws-head { display: flex; align-items: baseline; gap: 8px; }
+
+/* A section is a head that never scrolls away from its own body, and a body that is simply absent
+   when it is collapsed — a hidden body still costs the layout its content, and the law of space is
+   about what the deck can fit, not about what it can hide. */
+.deck .sec { margin-top: 10px; border-top: 1px solid var(--grey-850); padding-top: 6px; }
+.deck .sec:first-of-type { border-top: 0; }
+.deck .sec-h {
+	display: flex; align-items: center; gap: 6px;
+	cursor: grab; user-select: none;
+}
+.deck .sec-h:active { cursor: grabbing; }
+.deck .sec-name {
+	font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+	color: var(--grey-450);
+}
+.deck .sec-moves { margin-left: auto; display: flex; gap: 3px; }
+.deck .sec-body { margin-top: 5px; }
+.deck .sec .num { font-size: 10px; }
+
+/* Live sessions, first by his ruling — B14's dot vocabulary, unchanged. */
+.deck .ws-sessions, .deck .ws-rows, .deck .ws-list { list-style: none; margin: 0; padding: 0; }
+.deck .ws-session {
+	display: flex; align-items: center; gap: 7px;
+	padding: 2px 0; font-size: 11px; color: var(--grey-500);
+}
+.deck .ws-session .who { color: var(--grey-200); }
+.deck .ws-session .tier { color: var(--grey-500); font-size: 10px; }
+.deck .ws-session .st-word { letter-spacing: .08em; text-transform: uppercase; font-size: 9px; }
+.deck .ws-session .ago { margin-left: auto; font-variant-numeric: tabular-nums; }
+.deck .ws-session button[disabled] { opacity: .35; cursor: not-allowed; }
+
+.deck .ws-row, .deck .ws-item {
+	border-left: 2px solid var(--grey-750); padding: 3px 0 4px 7px; margin-top: 5px;
+}
+.deck .ws-row.st-in-flight { border-left-color: var(--felix); }
+.deck .ws-row.st-open { border-left-color: var(--blue-400); }
+.deck .ws-row.st-blocked { border-left-color: var(--red-400); }
+.deck .ws-row.st-landed { border-left-color: var(--green-400); }
+.deck .ws-row.st-killed { border-left-color: var(--grey-700); }
+.deck .ws-row.st-unparsed { border-left-color: var(--orange-400); }
+.deck .ws-row-h { display: flex; align-items: baseline; gap: 6px; font-size: 11px; }
+.deck .ws-row-h .rid, .deck .ws-item .rid { color: var(--grey-350); font-weight: 700; }
+.deck .ws-row-h .staff { margin-left: auto; color: var(--grey-600); font-size: 10px; white-space: nowrap; }
+.deck .ws-row-h .rname { color: var(--grey-150); overflow: hidden; text-overflow: ellipsis; }
+.deck .ws-row-h .pill, .deck .ws-item .pill {
+	font-size: 8.5px; letter-spacing: .1em; text-transform: uppercase;
+	border: 1px solid var(--grey-750); border-radius: 3px; padding: 0 4px; color: var(--grey-500);
+}
+.deck .ws-row .gates { font-size: 10px; color: var(--purple-300); margin-top: 3px; }
+.deck .ws-row .lint { font-size: 10px; color: var(--orange-300); margin-top: 3px; }
+.deck .ws-item .when { color: var(--grey-600); font-size: 10px; }
+.deck .ws-item .who { color: var(--grey-400); }
+.deck .ws-tail-h { display: flex; align-items: baseline; gap: 7px; font-size: 11px; }
+.deck .kv { display: flex; gap: 7px; align-items: baseline; margin-top: 5px; font-size: 11px; }
+.deck .summons {
+	margin: 5px 0 0; padding: 6px 8px; white-space: pre-wrap; overflow-x: auto;
+	background: var(--grey-900); border: 1px solid var(--grey-800); border-radius: 3px;
+	font-size: 10px; color: var(--grey-350);
+}
+.deck .encap-box .encap { margin: 3px 0 0; font-size: 11px; color: var(--grey-250); }
+.deck .encap-box .more > summary, .deck .qi .more > summary {
+	font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--grey-600); cursor: pointer;
+}
+
+/* A rendered reference is a control, not decoration: it opens the viewer ON its line (spec §3). */
+.deck .ref {
+	font-family: var(--mono); font-size: inherit;
+	background: none; border: 0; padding: 0; cursor: pointer;
+	color: var(--felix); text-decoration: underline; text-underline-offset: 2px;
+}
+.deck .ref.quiet { color: var(--grey-600); font-size: 9.5px; letter-spacing: .04em; }
+.deck .ref:hover { color: var(--grey-100); }
+.deck .out-link { color: var(--blue-300); }
+
+/* --- the viewer inside Focus: the line, marked, and in view --- */
+
+.deck .doc-h { display: flex; align-items: center; gap: 8px; }
+.deck .doc-name { font-size: 11px; color: var(--grey-300); overflow: hidden; text-overflow: ellipsis; }
+.deck .doc-lines { margin-top: 8px; font-size: 11px; line-height: 1.5; }
+.deck .dl { display: flex; gap: 10px; white-space: pre-wrap; word-break: break-word; }
+.deck .dl .ln {
+	flex: none; width: 4ch; text-align: right; color: var(--grey-700);
+	font-variant-numeric: tabular-nums; user-select: none;
+}
+.deck .dl .lt { color: var(--grey-400); }
+.deck .dl[data-mark='yes'] { background: var(--grey-900); box-shadow: inset 2px 0 0 var(--felix); }
+.deck .dl[data-mark='yes'] .ln { color: var(--felix); }
+.deck .dl[data-mark='yes'] .lt { color: var(--grey-100); }

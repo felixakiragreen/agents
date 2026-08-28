@@ -74,6 +74,7 @@ export type Session = {
 	cwd: string | null;
 	tool: string | null;
 	stamp: string | null;   // the rig's name-stamp, read from the transcript
+	model: string | null;   // the model family off the same head window — half a tier (§identify)
 	transcript: string | null;
 	/** The subagent the last beat was executing inside, if any — the session's own depth. */
 	agent: { id: string; type: string | null } | null;
@@ -207,27 +208,38 @@ function window(path: string, bytes: number, from: 'start' | 'end'): string | nu
  * A session renamed after the window reads as unstamped, and one whose head holds no user turn
  * reads as cwd-less: honest, shown, and cheaper than scanning a multi-megabyte transcript.
  */
-export type Identity = { stamp: string | null; cwd: string | null };
+export type Identity = { stamp: string | null; cwd: string | null; model: string | null };
 
 /** JSON-escaped on the wire; unescaped exactly once, here, or not trusted at all. */
 const unescape = (raw: string): string | null => {
 	try { return JSON.parse(`"${raw}"`) as string; } catch { return null; }
 };
 
+/**
+ * The model family, off the transcript's own assistant records — `claude-haiku-4-5-20251001` is
+ * `haiku`. **Half a tier and no more**: effort is written on no artifact this glass can read, so the
+ * pages that want a tier print the model and leave the rest blank (B15 §sessions). It survives a
+ * resume, which is exactly why it is worth reading — a resumed session keeps its first life's model
+ * (P5 F4), and that is the one thing that decides whether it can hold `auto` permission mode at all.
+ */
+const FAMILY = /"model":"claude-(haiku|sonnet|opus|fable)[\w.-]*"/;
+
 export function identify(transcript: string): Identity {
 	const head = window(transcript, LIMITS.transcript, 'start');
-	if (head === null) return { stamp: null, cwd: null };
+	if (head === null) return { stamp: null, cwd: null, model: null };
 	const names = [...head.matchAll(/"agentName":"((?:[^"\\]|\\.)*)"/g)];
 	const last = names.at(-1)?.[1];
 	const cwd = head.match(/"cwd":"((?:[^"\\]|\\.)*)"/)?.[1];
 	return {
 		stamp: last === undefined ? null : unescape(last),
 		cwd: cwd === undefined ? null : unescape(cwd),
+		model: head.match(FAMILY)?.[1] ?? null,
 	};
 }
 
-const stampOf = (transcript: string | null): string | null =>
-	transcript === null ? null : identify(transcript).stamp;
+const NO_ONE: Identity = { stamp: null, cwd: null, model: null };
+const identityOf = (transcript: string | null): Identity =>
+	transcript === null ? NO_ONE : identify(transcript);
 
 /**
  * A roster beat, projected — with its own timestamp, because it is an **observation, not a
@@ -262,19 +274,25 @@ export function readCensus(nowSeconds = Date.now() / 1000): CensusRead {
 		}
 	}
 
-	const sessions = [...latest.values()].map(last => ({
-		sid: last.sid,
-		state: sessionState(last, isAlive(last.pid), nowSeconds),
-		last,
-		beats: counts.get(last.sid) ?? 0,
-		account: last.acct,
-		cwd: last.cwd,
-		tool: last.tool,
-		stamp: stampOf(last.tp),
-		transcript: last.tp,
-		agent: last.aid === null ? null : { id: last.aid, type: last.at },
-		roster: observed(rosters.get(last.sid)),
-	})).sort((a, b) => b.last.t - a.last.t);
+	// One head window per session, not one per field: `identify` reads 64 kB off disk, so asking it
+	// twice for the same transcript would double the whole census's I/O for one extra string.
+	const sessions = [...latest.values()].map(last => {
+		const who = identityOf(last.tp);
+		return {
+			sid: last.sid,
+			state: sessionState(last, isAlive(last.pid), nowSeconds),
+			last,
+			beats: counts.get(last.sid) ?? 0,
+			account: last.acct,
+			cwd: last.cwd,
+			tool: last.tool,
+			stamp: who.stamp,
+			model: who.model,
+			transcript: last.tp,
+			agent: last.aid === null ? null : { id: last.aid, type: last.at },
+			roster: observed(rosters.get(last.sid)),
+		};
+	}).sort((a, b) => b.last.t - a.last.t);
 
 	return { present: true, sessions, beats, malformed, since };
 }

@@ -137,7 +137,7 @@ describe('WIP — a roster figure is a floor, and says so', () => {
 
 	const session = (over: Partial<Session> & { sid: string }): Session => ({
 		state: 'working', beats: 1, account: '/Users/felix/.claude', cwd: '/Users/felix/code/agents',
-		tool: null, stamp: null, transcript: null, agent: null, roster: { tasks: [], at: NOW, capped: false },
+		tool: null, stamp: null, model: null, transcript: null, agent: null, roster: { tasks: [], at: NOW, capped: false },
 		last: { t: NOW, ev: 'PreToolUse', sid: over.sid, acct: '/Users/felix/.claude', pid: 1, ws: null, sf: null,
 			cwd: '/Users/felix/code/agents', tp: null, tool: null, why: null, aid: null, at: null, bg: [] } as Beat,
 		...over,

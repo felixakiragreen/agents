@@ -7,13 +7,21 @@
 //
 // The v0 pages keep serving untouched (keel §10). Nothing in this file writes.
 
+import { readFileSync, statSync } from 'fs';
+import { sep } from 'path';
 import { cityRows, needsYou, waitingOf } from './attention';
 import { readCensus, isLive } from './census';
-import { columns, RESTING, type DeckSession, type DeckSnapshot } from './deck-model';
+import { ATTENTION, columns, RESTING, type Attention, type DeckSession, type DeckSnapshot } from './deck-model';
 import { auditorCount } from './gauges';
-import { CSS, esc } from './html';
+import { CSS, esc, short } from './html';
 import { buildingOf } from './pages';
+import { cityRoot } from './paths';
 import { age, city } from './register';
+import { workshopOf } from './workshop';
+
+/** A building the City has no row for still gets a shape, never an absent field (badges are counts). */
+const NO_BADGES = (): Record<Attention, number> =>
+	Object.fromEntries(ATTENTION.map(k => [k, 0])) as Record<Attention, number>;
 
 /**
  * The auditor's own staleness bar. `ps -axo command=` costs 36 ms of the request thread (B9 F3),
@@ -45,7 +53,7 @@ function auditor(): { visible: number | null; at: number } {
  * the deck now needs it, because a badge is a fact about a board and a queue item is a fact about
  * a decision, and neither is knowable from a file list.
  */
-export function deckState(): DeckSnapshot {
+export function deckState(open: string | null = null): DeckSnapshot {
 	const census = readCensus();
 	const { reg, buildings } = city();
 	const live = census.sessions.filter(isLive);
@@ -60,9 +68,23 @@ export function deckState(): DeckSnapshot {
 		cwd: s.cwd,
 		pane: s.last.sf !== null,
 		last: s.last.t,
+		model: s.model,
+		pid: s.last.pid,
+		ws: s.last.ws,
+		event: s.last.ev,
+		tool: s.tool,
 	}));
 
 	const queue = needsYou(buildings, live);
+	const rows = cityRows(buildings, live, queue);
+
+	// The Workshop's detail is **asked for, never broadcast**: the whole of the city's biggest
+	// building is 44 kB of JSON, so a snapshot that carried every board would cost the poll thirty
+	// times what it costs (B13 F5's shared budget). The selection lives in the browser, so the deck
+	// names one building in the query and gets that one back — and a name the register does not
+	// carry answers null rather than a guess.
+	const workshop = open === null ? null
+		: workshopOf(buildings, open, rows.find(r => r.building === open)?.badges ?? NO_BADGES());
 
 	return {
 		at: Date.now() / 1000,
@@ -73,11 +95,44 @@ export function deckState(): DeckSnapshot {
 		},
 		register: {
 			at: reg.at, ageSeconds: age(reg), refreshing: reg.refreshing, error: reg.error,
-			buildings: cityRows(buildings, live, queue),
+			buildings: rows,
 		},
 		queue,
+		workshop,
 		auditor: auditor(),
 	};
+}
+
+// ---------- the viewer's bytes: `/deck/doc` ----------
+
+/** Everything has a limit: the file read, and the lines the browser is asked to lay out. */
+export const DOC_LIMITS = { bytes: 2 << 20, lines: 20_000 } as const;
+
+export type DocRead =
+	| { ok: true; path: string; label: string; lines: string[]; bytes: number; truncated: boolean }
+	| { ok: false; error: string };
+
+/**
+ * One document, read for the viewer that lives inside Focus (spec §3). **A read, and only a read**:
+ * the same city fence `/doc` has carried since B2 — nothing outside `GLASS_CITY` is served, so a
+ * `..` in a rendered link cannot walk out of the city.
+ *
+ * Errors are values, not throws: an unresolved link is information the viewer prints, and the field
+ * report's complaint was precisely that a link went nowhere silently.
+ */
+export function readDoc(path: string): DocRead {
+	if (!path.startsWith(cityRoot() + sep)) return { ok: false, error: `outside the city: ${path}` };
+	try {
+		const bytes = statSync(path).size;
+		const text = readFileSync(path, 'utf8');
+		const all = (bytes > DOC_LIMITS.bytes ? text.slice(0, DOC_LIMITS.bytes) : text).split('\n');
+		return {
+			ok: true, path, label: short(path),
+			lines: all.slice(0, DOC_LIMITS.lines), bytes,
+			truncated: bytes > DOC_LIMITS.bytes || all.length > DOC_LIMITS.lines,
+		};
+	}
+	catch (e) { return { ok: false, error: e instanceof Error ? e.message : String(e) }; }
 }
 
 // ---------- the shell ----------

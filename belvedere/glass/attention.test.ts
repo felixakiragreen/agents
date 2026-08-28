@@ -29,7 +29,7 @@ const beat = (over: Partial<Beat> = {}): Beat => ({
 const session = (over: Partial<Session> = {}, last: Partial<Beat> = {}): Session => ({
 	sid: last.sid ?? 'sid-1', state: 'idle', last: beat(last), beats: 1,
 	account: '/Users/felix/.claude', cwd: '/Users/felix/code/agents', tool: null, stamp: 'builder-agents-01',
-	transcript: null, agent: null, roster: null, ...over,
+	model: null, transcript: null, agent: null, roster: null, ...over,
 });
 
 describe('waitingOf — two measured edges, and no third', () => {

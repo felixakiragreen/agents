@@ -9,7 +9,7 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { summonRoute } from './composer';
-import { deckPage, deckState } from './deck';
+import { deckPage, deckState, readDoc } from './deck';
 import { handsRoute } from './hands';
 import { inboxRoute } from './inbox';
 import { HOST, port } from './paths';
@@ -62,7 +62,17 @@ function route(url: URL): Response {
 	if (url.pathname === '/deck') return html(deckPage());
 	if (url.pathname === '/deck.js') return new Response(DECK_JS,
 		{ headers: { 'content-type': 'text/javascript; charset=utf-8' } });
-	if (url.pathname === '/deck/state') return Response.json(deckState(), { headers: { 'cache-control': 'no-store' } });
+	// `?b=<building>` is the Workshop asking for one building's detail (B15). One endpoint still:
+	// the deck polls once and names what it has open, rather than opening a second poll beside this.
+	if (url.pathname === '/deck/state')
+		return Response.json(deckState(url.searchParams.get('b')), { headers: { 'cache-control': 'no-store' } });
+	// The viewer inside Focus. A read, fenced to the city like `/doc`, answering a value either way —
+	// an unresolved link renders its reason rather than nothing (the field report's item 3).
+	if (url.pathname === '/deck/doc') {
+		const p = url.searchParams.get('p');
+		return Response.json(p ? readDoc(p) : { ok: false, error: '/deck/doc needs a ?p=<path>' },
+			{ headers: { 'cache-control': 'no-store' } });
+	}
 
 	if (url.pathname === '/') return html(railPage());       // the morning (B3)
 	if (url.pathname === '/city') return html(cityPage());

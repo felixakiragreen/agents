@@ -2,9 +2,12 @@
 // page shell, and the tone vocabulary that turns a state into a colour. No template engine —
 // the spine is server-rendered strings (no framework, no build step).
 
+import { existsSync } from 'fs';
+import { homedir } from 'os';
 import { isAbsolute, join, dirname } from 'path';
 import type { SessionState } from './census';
 import type { State } from '../../doctrine';
+import type { Prose, Span } from './deck-model';
 import { cityRoot } from './paths';
 
 export const esc = (s: string) =>
@@ -29,6 +32,83 @@ export function inline(md: string, baseDir: string): string {
 		.replace(/`([^`]+)`/g, '<code>$1</code>')
 		.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
 }
+
+// ---------- the same inline markdown, as data (the deck builds DOM, not strings) ----------
+
+/**
+ * A **bare** `path:line` reference in running prose — the field report's own third item, verbatim:
+ * *"Links to documents (WHERE: agents/LEDGER.md:385) don't take you to that line"*.
+ *
+ * Deliberately narrow, and the narrowness is the honesty: **only a path that carries a line number**
+ * (a bare `README.md` in prose is a mention, and D58 says durable docs link their first mention
+ * anyway), only a known text extension, and only when the file **is really there** — an unresolvable
+ * reference stays plain text rather than becoming a link that lies (D10's family: never guess).
+ */
+const BARE_REF = /(^|[\s(“"'`])((?:~\/|\/)?[\w.@-]+(?:\/[\w.@-]+)*\.(?:md|ts|tsx|css|json|jsonl|sh|zsh|tsv|txt))(?::(\d+))\b/g;
+const MD_LINK = /\[([^\]]*)\]\(([^)\s]+)\)/g;
+const CODE = /`([^`]+)`/g;
+const STRONG = /\*\*([^*]+)\*\*/g;
+
+/** Where a `doc` span points, resolved against the document's own directory and the city root. */
+function resolveRef(target: string, baseDir: string, exists: (p: string) => boolean): string | null {
+	const raw = target.startsWith('~/') ? join(homedir(), target.slice(2)) : target;
+	for (const p of isAbsolute(raw) ? [raw] : [join(baseDir, raw), join(cityRoot(), raw)])
+		if (exists(p)) return p;
+	return null;
+}
+
+/**
+ * Inline markdown, parsed into spans once, server-side. The client appends these as DOM nodes, so
+ * nothing it renders was ever an HTML string — which is why the deck's client carries no `esc()`.
+ *
+ * Markdown links keep D58's promise unconditionally: a link the corpus wrote resolves to the
+ * viewer even when the target is missing, because the viewer's honest *"unresolved"* is the
+ * information. Bare `path:line` refs are the opposite — nobody declared those to be links, so they
+ * become one only when the file exists.
+ */
+export function spans(md: string, baseDir: string, exists: (p: string) => boolean = existsSync): Span[] {
+	type Hit = { at: number; len: number; span: Span };
+	const hits: Hit[] = [];
+	const take = (re: RegExp, make: (m: RegExpExecArray) => Hit | null) => {
+		for (const m of md.matchAll(re)) { const h = make(m as RegExpExecArray); if (h) hits.push(h); }
+	};
+
+	take(MD_LINK, m => {
+		const text = m[1] ?? '', target = m[2] ?? '';
+		const span: Span = /^[a-z][a-z0-9+.-]*:/i.test(target)
+			? { kind: 'url', text, href: target }
+			: { kind: 'doc', text, path: resolveRef((target.split('#')[0] ?? ''), baseDir, () => true) ?? target, line: null };
+		return { at: m.index, len: m[0].length, span };
+	});
+	take(CODE, m => ({ at: m.index, len: m[0].length, span: { kind: 'code', text: m[1] ?? '' } }));
+	take(STRONG, m => ({ at: m.index, len: m[0].length, span: { kind: 'strong', text: m[1] ?? '' } }));
+	take(BARE_REF, m => {
+		const lead = (m[1] ?? '').length, target = m[2] ?? '';
+		const path = resolveRef(target, baseDir, exists);
+		return path === null ? null
+			: { at: m.index + lead, len: m[0].length - lead, span: { kind: 'doc', text: `${target}:${m[3]}`, path, line: Number(m[3]) } };
+	});
+
+	// First match wins on overlap: a `path:line` inside a code tick or a link's text is already
+	// carried by the span around it, and two spans over one range would print the text twice.
+	hits.sort((a, b) => a.at - b.at || b.len - a.len);
+	const out: Span[] = [];
+	let at = 0;
+	for (const h of hits) {
+		if (h.at < at) continue;
+		if (h.at > at) out.push({ kind: 'text', text: md.slice(at, h.at) });
+		out.push(h.span);
+		at = h.at + h.len;
+	}
+	if (at < md.length) out.push({ kind: 'text', text: md.slice(at) });
+	return out;
+}
+
+/** Encapsulation-first, as data: the name the text wrote, and the whole thing as spans. */
+export const prose = (text: string, baseDir: string): Prose => {
+	const e = encap(text);
+	return { name: e.name, encapsulated: e.encapsulated, spans: spans(e.full, baseDir) };
+};
 
 // ---------- tones: one colour vocabulary, consumed by generic rules ----------
 

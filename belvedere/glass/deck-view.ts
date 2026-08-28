@@ -29,6 +29,16 @@ export type FocusView = {
 	unmount(): void;
 	/** Every poll and every state change. `snap` is null before the first poll answers. */
 	draw(snap: DeckSnapshot | null, focusState: PaneState, actionState: PaneState): void;
+	/**
+	 * **Optional, and added at B15 — the fifth member.** The building this tenant wants the server to
+	 * open in the next snapshot, or null for none. B13's four members are what a tenant needs to
+	 * *draw*; the Workshop is the first that needs the server to *answer differently*, because one
+	 * building's whole board is 44 kB and broadcasting every building's would cost the poll thirty
+	 * times what it costs (B13 F5). Additive: a tenant that omits this asks for nothing and the
+	 * snapshot is exactly what it was. The shell puts the answer in the poll's query and nowhere
+	 * else — no second endpoint, no second timer.
+	 */
+	needs?(focusState: PaneState): string | null;
 };
 
 /**
