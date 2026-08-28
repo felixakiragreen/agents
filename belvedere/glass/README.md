@@ -8,7 +8,7 @@ rename · recolor), `/inbox` (one D63 line), `/flow/*` (the arm, which only call
 
 ```
 bun belvedere/glass/server.ts        # → http://127.0.0.1:4400
-bun test belvedere/glass             # 585 green in one process (B8 §4, B9, B13, B14, B15, B18, B20, B10, B17, B11, B16, B19)
+bun test belvedere/glass             # 651 green in one process (B8 §4, B9, B13, B14, B15, B18, B20, B10, B17, B11, B16, B19, B21, B12)
 bunx tsc --noEmit                    # from this directory — the type gate, offline (B8 §5);
                                      # it covers the deck's client TS too (B13 F3), never `lab/`
 bun belvedere/lab/b13/probe.ts       # the deck's DoD in real headless Chrome (B13 F1)
@@ -24,6 +24,8 @@ bun belvedere/lab/b11/smoke.ts       # the flow runs itself — TWO live session
 bun belvedere/lab/b16/probe.ts       # the Chat: three hotswaps, the window, the drafts, zero send wiring cold
 bun belvedere/lab/b16/send.ts        # the send, for real — ONE live session, then the same message to it dead
 bun belvedere/lab/b19/probe.ts       # the desk: the drill, the three routes, the confinement (a COPY of the fixture city)
+bun belvedere/lab/b21/probe.ts       # the Grep against the REAL corpus — the commissioning query, three jumps, every bound
+bun belvedere/lab/b12/probe.ts       # the reactive gate + scope-arm — THREE live sessions and both Felix-cards
 ```
 
 | Route | What |

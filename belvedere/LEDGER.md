@@ -1647,3 +1647,62 @@ city's own HALT asserted absent.
 Next: **Felix — arm `flow-close` in the Works.** His arm is G2's Felix-gate, the engine's
 first real act and the deck's close smoke (README §6, batch-5 note); the fallback if the
 engine cannot fire is `/summon` with G2's kickoff, and the failure becomes G2 evidence.
+
+---
+
+**2026-08-28 · Architect · fable-max (G2)** — **The chapter is verified and folded; the
+verdict card is his.** Fourteen landings checked against their contracts, the flow-schema
+evidence filed where the Standards Office will cut row 17's brief, the inbox swept to
+empty, the board trued — and the close smoke's own deviation recorded as the evidence the
+batch note said it would be.
+Changed: canon `ISSUES.md` (+4 entries: **row 17's Felix-gate is payable** — the flow
+serialization, arm law, landing law, permission clause, transport law, and the field asks
+the run evidenced, both arms honest; the `parseDecisions` false-countersign; the
+Dispatcher-holder baton case; the stranded `18g` branch), belvedere `ISSUES.md` (swept to
+empty — six entries ruled), README §5 (the two-lane commit rule), §6 (G2 row trued, the
+batch-5 close block with five cut-ready candidates), `glass/README.md` (651; b21/b12
+probe lines).
+Verified: **commits present ×14, findings filed ×14, statuses current ×14; 651 tests
+green in one process and offline type gate exit 0, both re-run by this sitting's own
+hand**; straight-to-master held (no batch branches; the one unmerged branch found is
+canon row 18's `18g` landing — filed, not touched). **The close smoke deviated and the
+deviation is evidence** (the note's own fallback clause): `flow-close` was never armed —
+no run-state directory, no audit fire at 15:30Z — because the live glass (up since
+08-27 16:58) predates B11's engine; Felix's hand delivered G2's kickoff, tier raised to
+fable-max at fire. The engine's first real act rides the verdict card now: relaunch, arm,
+and g2 lands off this board's own row (B11 §F4) with his card behind it.
+Decided: citations per the verdict law — **B12's raised trust question RULED**: the
+fix accepted as named (fall through on `false`, short-circuit only on `true`; right in
+every measured cell — B12 §E1, P5 §F5(iii), B7 §F1), a Builder's row, cut forward ·
+**the UUID law RATIFIED city-wide** (P6 §F2, B18 §F7) — a ref is legal only inside the
+breath that created it; the `attemptFire` sweep cut forward · the commit-collision pair
+FOLDED into §5 · the Dispatcher-holder case ESCALATED (canon inbox) · the b17-probe
+pair CUT forward (per-(account, bucket) compare + `shut()` in a `finally` — B11 §F8,
+B16's addendum) · the trust residue in `~/.claude.json` is **Felix's drain after the
+fix lands**; `~/code/b7-founding-probe` stays — it is the trust question's own evidence ·
+one new find measured at this sitting: **a suite run appends two scratch-building inbox
+lines to the LIVE hands audit** (240 → 242; B8 §F1's family, one B19 test path) — cut
+forward. The next chapter's shape beyond the five candidates is his direction (deck
+rework from the pass, ⬡, Ava), not a cut.
+Venue: `master`, the shared checkout; reads everywhere, writes to the four docs above
+only; no session fired, no workspace touched, the desktop untouched.
+Next: **Felix — the deck visual pass + the chapter verdict.**
+
+Baton — Felix: relaunch the glass, take the deck look, then arm `flow-close` in the
+Works — your verdict card is behind it.
+
+```
+pkill -f 'bun belvedere/glass/server.ts' && cd ~/code/agents && bun belvedere/glass/server.ts
+open http://127.0.0.1:4400/deck    # the visual pass — close gate 2 (the old server predates five landed rows)
+# then arm flow-close in the Works: g2 lands off the board row (B11 F4), the engine
+# pauses at your verdict card — passing it fires the recording sitting, the engine's
+# first real act. Fallback (the note's clause): /summon the verdict kickoff verbatim
+# from belvedere/flows/flow-close.flow.json.
+```
+
+Behind it: 1) drain the scratch-venue trust entries in `~/.claude/.claude.json` by your
+hand once the trust-flip row lands (keep `b7-founding-probe` until then — it is the
+evidence); 2) the PermissionRequest census subscription — a B1-class ritual, your run
+(B14 §F1); 3) the canon side of the sweep: the `18g` branch and four inbox entries wait
+on the Grand Architect's next summons; 4) the next batch's cut — after your verdict and
+your pass direction.
