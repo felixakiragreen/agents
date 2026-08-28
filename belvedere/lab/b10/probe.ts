@@ -65,9 +65,16 @@ writeFileSync(CENSUS, [
 // The run log B11 will write, written here by hand: the flow armed, two steps fired — one into each
 // of those sessions — and the gate paused on his card. `a1` is deliberately absent, so its ring has
 // to come off the BOARD and say so.
+//
+// **Amended at B11: the `armed` line is gone from this fixture, deliberately.** B10 wrote one to
+// exercise `armedAt`'s rendering, and at B10 that was inert — nothing consumed it. It is not inert
+// any more: the glass this probe stands up now runs an engine, an `armed` line IS the authorization
+// (D11), and the engine would act on this fixture — the first thing it did was pause `b2`, whose
+// session ended without a `Stop`, which is exactly right and destroys what §5 below measures. An
+// unarmed flow is inert, the rings still come straight off the log, and `armedAt` is asserted where
+// it belongs: `glass/flow.test.ts`, over a fixture nothing serves.
 mkdirSync(join(ROOT, 'flows'), { recursive: true });
 writeFileSync(join(ROOT, 'flows', 'probe.run.jsonl'), [
-	{ ts: Date.now() / 1000 - 900, ev: 'armed' },
 	{ ts: Date.now() / 1000 - 800, ev: 'fired', step: 'b1', sid: 'wk-live', workspace: 'workspace:11' },
 	{ ts: Date.now() / 1000 - 700, ev: 'fired', step: 'b2', sid: 'wk-dead', workspace: 'workspace:12' },
 	{ ts: Date.now() / 1000 - 600, ev: 'paused', step: 'c1', why: 'a Felix-card' },
@@ -344,8 +351,14 @@ try {
 		};
 	})()`);
 	const sameBytes = action.kickoff === fence;
+	// **Amended at B11: the two `.slot` placeholders on a declared node are gone**, because what they
+	// said was coming has arrived. B10 wrote *"dispatch — B11 arms this step"* and *"customize — the
+	// composer moves into Action at B17"*; both rows landed, so the honest thing on a declared node is
+	// now a sentence about the arm, and a slot that still promised them would be a lie. What the
+	// assertion was protecting is unchanged and still checked: **`jump === 0`** — a node that is not in
+	// flight offers no control that reaches a hand.
 	ok('clicking a plan node draws its facts and the exact bytes it would open with — quoted from the doc',
-		sameBytes && action.facts.length >= 6 && action.slots.length === 2 && action.jump === 0
+		sameBytes && action.facts.length >= 6 && action.slots.length === 0 && action.jump === 0
 		&& action.from.includes('kickoff · nb/works/README.md #1'),
 		`head "${action.head}" · ${action.facts.length} facts · slots [${action.slots.join(' | ')}] · ${action.jump} jump controls\n`
 		+ `      labels: ${action.from}\n`
