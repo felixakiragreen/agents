@@ -437,3 +437,80 @@ From agents. Haha.
   countersign retiring from the working vocabulary while the D63 `✓ Felix`
   marker stands unchanged? Live surface: Belvedere's deck tooltips carry the
   gesture (belvedere B20) and render canon's vocabulary until ruled.
+
+---
+
+- 2026-08-28 · Belvedere Architect (G2, the batch-5 close) · **Row 17's Felix-gate
+  is payable: Belvedere v0 + the deck + the flow chapter are landed evidence, and
+  the flow serialization ran a real batch.** v0 shipped 2026-08-27 (§8 DoD 7/7);
+  batch 5 closed 2026-08-28 — 14 rows (P5/P6, B10–B21), zero kills, 651 tests
+  green in one process, offline type gate exit 0. The D7 experiment the Office
+  asked for exists in the wild: **the batch note as data** —
+  `belvedere/flows/*.flow.json` (building · scope · concurrency · judgeTier ·
+  steps: id/name/account/tier/venue/depends/gate/kickoff) behind
+  `belvedere/glass/flow.ts` alone, 12 named arm-time refusals, **arm = sha over
+  the file + every resolved kickoff** (a positional `{doc, fence}` kickoff is
+  fragile — B10 F2 nearly re-pointed its own; closed at the wire by B11, the
+  schema ask is a sha or heading anchor), run-state as an append-only event log
+  with per-step arm marks (D12 scope-arm), **the landing law** (a step lands by
+  its board ROW; a finished session ends on `SessionEnd`, never `Stop` — B12 F2),
+  **the permission clause** (P5 F5: no permission field on a step; `haiku` cannot
+  hold `auto` and is illegal for an unattended step, refused at arm; trust
+  precheck per (step, account); loud arm-time refusal, never a mid-flow stall),
+  and P6's transport law (segmented paste, byte-exact ×5; address by UUID — a
+  `workspace:N` ref that does not resolve delivers to the FOCUSED workspace).
+  **What the run showed the shapes need** — the recurring lesson is that prose
+  annotations carry load the shapes must carry: a **name field** (27 of 38 live
+  rail cards write no ≤6-word name — B9 F1; refiled at B15 and B20), **tier as
+  model · effort with only the model on any readable artifact** (B15 F1),
+  **`FC-`/`GA-` ids with no artifact to resolve to** (B20 F1), **escalations
+  have no field** (B14 F2 — annotations arrive stripped of `**`, `E<n>` collides
+  with row-id ranges; B12 F1's classifier gates 120 of 390 landed rows, 113 on
+  `/escalat/i` alone — including rows whose annotations read "nothing
+  escalated"), plus the already-filed `Baton.kind` and branch-field asks (B3,
+  this inbox, 2026-08-27). **The honest counter-arm:** one strict parser over
+  markdown did hold city-wide with zero per-repo special cases, and D10's
+  render-side law absorbed every ambiguity without fattening it — row 17's
+  question stays open for numbers, not decree (D65); Belvedere supplies both
+  arms. Evidence: [belvedere/plans/flow-keel.md](belvedere/plans/flow-keel.md),
+  [b10 §3/§F2](belvedere/plans/b10-flow-dag.md),
+  [b11](belvedere/plans/b11-flow-engine.md),
+  [b12](belvedere/plans/b12-flow-reactive.md),
+  [p5 §F5](belvedere/plans/p5-permission-physics.md),
+  [p6](belvedere/plans/p6-message-transport.md).
+
+---
+
+- 2026-08-28 · Belvedere Architect (B6 F2 evidence, folded at G2) ·
+  **`parseDecisions` marks an entry pending wherever the countersign phrase
+  appears, so canon D21 — `✓ Felix`, and the entry that DEFINES the marker — has
+  been a false pending countersign on the rail since B3.** Both live "pending"
+  cards were D21; the city had ZERO true pending countersigns while the rail
+  showed two. Belvedere handles it render-side (folded outranks pending, D10);
+  the parser ask is canon's: a stricter pending grammar in `doctrine/`, or the
+  countersign state becomes a field. Evidence:
+  [belvedere/plans/b6-sovereign-inbox.md](belvedere/plans/b6-sovereign-inbox.md) §F2.
+
+---
+
+- 2026-08-28 · Belvedere Architect (B14 evidence, folded at G2) · **A
+  Dispatcher-tended chain has no legal baton holder — Belvedere's own ledger tail
+  linted `ledger.baton` three entries running (B13, P5, B14).** `classifyBaton`
+  knows `session | felix | prose`; `Next: **B15 — …**, the Dispatcher's to fire`
+  parses as prose. Writing `fire B15` would be worse: the rail would arm a
+  Dispatch button for work the batch note says is the Dispatcher's — D10's exact
+  class. Adds the Dispatcher-holder case to the filed D64 grammar ask
+  (`Baton.kind`, this inbox 2026-08-27). Evidence: belvedere/ISSUES entry
+  drained 2026-08-28 (git keeps the bytes).
+
+---
+
+- 2026-08-28 · Belvedere Architect (found at the G2 sweep) · **Canon row 18's
+  `18g` landing is stranded on the unmerged branch
+  `worktree-agent-a55279e2283f84743`** (commits `6d73d23` "18g LANDED: cap-mega
+  worktree boards migrated, findings + two canon escalations" and `ecd7682`
+  "ISSUES: 18g entries to D63h bullet form") — 61 ISSUES lines including two
+  canon escalations plus 116 lines into `plans/18-great-recut.md` never reached
+  `master`; master carries zero `18g` mentions today. The branch stands
+  untouched — merging is row 18's tending, not Belvedere's. Two sibling
+  `worktree-agent-*` branches hold nothing beyond master.
