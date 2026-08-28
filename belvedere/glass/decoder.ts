@@ -40,15 +40,15 @@ const no = (label: string, reason: string, candidates: string[] = []): Decoded =
  * A file, a directory and a building's own root all answer the same way, which is why the City's
  * tooltips (which know only a building directory) decode exactly like the Workshop's prose.
  */
-function entryFor(path: string | null): Entry | null {
+function entryFor(entries: Entry[], path: string | null): Entry | null {
 	if (path === null) return null;
 	let best: Entry | null = null;
-	for (const e of register().entries)
+	for (const e of entries)
 		if ((path === e.path || path.startsWith(e.path + sep)) && (!best || e.path.length > best.path.length)) best = e;
 	return best;
 }
 
-const canonEntry = (): Entry | null => register().entries.find(e => e.path === canonRoot()) ?? null;
+const canonEntry = (entries: Entry[]): Entry | null => entries.find(e => e.path === canonRoot()) ?? null;
 
 /**
  * A building named by the word in front of a `row N`. `canon` is the one keyword in the grammar
@@ -57,9 +57,8 @@ const canonEntry = (): Entry | null => register().entries.find(e => e.path === c
  * buildings is ambiguous and says so; a word that names none is not a scope at all, so the
  * reference falls back to its document's own building.
  */
-function wordEntry(word: string): { entry: Entry } | { ambiguous: string[] } | null {
-	if (word === 'canon') { const c = canonEntry(); return c ? { entry: c } : null; }
-	const entries = register().entries;
+function wordEntry(entries: Entry[], word: string): { entry: Entry } | { ambiguous: string[] } | null {
+	if (word === 'canon') { const c = canonEntry(entries); return c ? { entry: c } : null; }
 	const whole = entries.filter(e => e.building === word);
 	if (whole.length === 1) return { entry: whole[0]! };
 	const tail = entries.filter(e => (e.building.split('/').at(-1) ?? '') === word);
@@ -69,17 +68,17 @@ function wordEntry(word: string): { entry: Entry } | { ambiguous: string[] } | n
 }
 
 /** Local first, then canon — deduped, and with an explicit scope word replacing the local half. */
-function candidates(tok: Token, inPath: string | null): { order: Entry[]; scoped: boolean } | Decoded {
+function candidates(entries: Entry[], tok: Token, inPath: string | null): { order: Entry[]; scoped: boolean } | Decoded {
 	if (tok.scope) {
-		const named = wordEntry(tok.scope);
+		const named = wordEntry(entries, tok.scope);
 		if (named && 'ambiguous' in named)
 			return no(tok.text, `"${tok.scope}" names ${named.ambiguous.length} buildings`, named.ambiguous);
 		// A word that names no building is not a scope: `than row 14` is prose, not a reference to
 		// a building called "than". The reference falls back to the document it was written in.
 		if (named) return { order: [named.entry], scoped: true };
 	}
-	const local = entryFor(inPath);
-	const canon = canonEntry();
+	const local = entryFor(entries, inPath);
+	const canon = canonEntry(entries);
 	const order = [local, canon].filter((e): e is Entry => e !== null)
 		.filter((e, i, all) => all.findIndex(x => x.path === e.path) === i);
 	return { order, scoped: false };
@@ -119,14 +118,17 @@ function decodeRow(tok: Token, order: Entry[], scoped: boolean): Decoded {
 		if (!hit) continue;
 		const { board, row } = hit;
 		const name = encap(row.work);
-		const note = encap(row.annotation);
+		// The landing record where there is one, the work cell where there is not. Never the
+		// annotation's *encapsulation*: a landing record's first seam is its date, so the derived name
+		// of half the corpus is `2026-08-27` — a true name and a useless body (B9 F1's own limit).
+		const record = row.annotation.trim();
 		return {
 			ok: true, kind: 'row', id: tok.id, label: tok.text,
 			headline: name.encapsulated ? name.name : clip(row.work),
 			status: `${row.state ?? 'unparsed'} · ${row.felixGate ? 'Felix-gate' : `${row.mantle ?? '?'} · ${row.tier ?? '?'}`}`,
-			body: row.annotation.trim() === ''
-				? `No landing record yet. Depends on ${row.dependsOn.length ? row.dependsOn.join(', ') : 'nothing'}.`
-				: clip(note.encapsulated ? note.name : row.annotation),
+			body: record === ''
+				? `${clip(row.work)} — no landing record yet; depends on ${row.dependsOn.length ? row.dependsOn.join(', ') : 'nothing'}`
+				: clip(record),
 			building: b.building, doc: board.file,
 			where: ref(board.file, row.line),
 			plan: row.workDoc && !/^[a-z][a-z0-9+.-]*:/i.test(row.workDoc)
@@ -186,7 +188,7 @@ function decodeDecision(tok: Token, order: Entry[]): Decoded {
  */
 const HEADING = /^(#{1,6})\s+§?\s*(\d{1,3}(?:\.\d{1,3})?)[.):]?\s+(\S.*?)\s*$/;
 
-function decodeSection(tok: Token, inPath: string | null): Decoded {
+function decodeSection(entries: Entry[], tok: Token, inPath: string | null): Decoded {
 	if (inPath === null) return no(tok.text, 'a § resolves against the document it is written in, and this text names none');
 	let lines: string[];
 	try {
@@ -208,7 +210,7 @@ function decodeSection(tok: Token, inPath: string | null): Decoded {
 			if (rest.trim() !== '') body.push(rest.trim());
 			if (body.length >= LIMITS.lines) break;
 		}
-		const e = entryFor(inPath);
+		const e = entryFor(entries, inPath);
 		return {
 			ok: true, kind: 'section', id: tok.id, label: tok.text,
 			headline: m[3]!, status: `${short(inPath)}:${i + 1}`,
@@ -237,10 +239,10 @@ const decodeFold = (tok: Token): Decoded => no(tok.text,
 
 // ---------- the front door ----------
 
-export function decode(tok: Token, inPath: string | null): Decoded {
+export function decode(tok: Token, inPath: string | null, entries: Entry[] = register().entries): Decoded {
 	if (tok.kind === 'fold' || tok.kind === 'ga') return decodeFold(tok);
-	if (tok.kind === 'section') return decodeSection(tok, inPath);
-	const scope = candidates(tok, inPath);
+	if (tok.kind === 'section') return decodeSection(entries, tok, inPath);
+	const scope = candidates(entries, tok, inPath);
 	if ('ok' in scope) return scope;
 	if (scope.order.length === 0) return no(tok.text, 'nothing in scope: this text sits in no building the register carries');
 	return tok.kind === 'row' ? decodeRow(tok, scope.order, scope.scoped) : decodeDecision(tok, scope.order);
