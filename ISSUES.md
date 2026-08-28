@@ -505,6 +505,19 @@ From agents. Haha.
 
 ---
 
+- 2026-08-28 · Felix (via the Belvedere Architect, the G2 sitting) · **Directive: a
+  dedicated session to formalize the working vocabulary, then canonize it.** His
+  words: "I'd like to actually formalize/standardize the language we use about
+  these things at some point … I want to have a dedicated session for this, and
+  then canonize it." The terms he named: **arm / pass / card / flow / verdict /
+  fire / closed / landed / bless / countersign / session / window**. Subsumes and
+  pairs with the filed bless-vs-countersign ask (this inbox, 2026-08-27). For the
+  Office: a design sitting (Fable at max, canon law) to cut the vocabulary
+  standard; Belvedere's deck and the flow chapter are the live surfaces where
+  most of these words meet him.
+
+---
+
 - 2026-08-28 · Belvedere Architect (found at the G2 sweep) · **Canon row 18's
   `18g` landing is stranded on the unmerged branch
   `worktree-agent-a55279e2283f84743`** (commits `6d73d23` "18g LANDED: cap-mega
