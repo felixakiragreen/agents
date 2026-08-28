@@ -93,13 +93,21 @@ const logged = (path: string, key: string): string[] =>
  * counting alone) is deliberately not offered: a mantle-less fire would arm what the glass could
  * not name, and every glass affordance chooses a mantle.
  */
-export const lineage = (mantle: string | null, buildingPath: string): string | null => {
+export const stampPrefix = (mantle: string | null, theater: string): string | null => {
 	const key = mantleKey(mantle);
 	if (!key) return null;
 	if (key === 'grand-architect') return key;
-	const theater = theaterOf(buildingPath);
 	return theater ? `${key}-${theater}` : null;
 };
+
+/**
+ * The prefix for work done *at* a directory — the v0 composer's question, where the fire directory
+ * and the work are the same place. **The deck asks a different one** (B17): a theater names the
+ * WORK, and belvedere work fired at `~/code/agents` is `…-belvedere-NN`, so the deck resolves the
+ * theater off the chosen building and calls `stampPrefix` directly. One prefix rule, two askers.
+ */
+export const lineage = (mantle: string | null, buildingPath: string): string | null =>
+	stampPrefix(mantle, theaterOf(buildingPath));
 
 /**
  * The next ordinal in a lineage. The rig counts from `invocations.jsonl`'s `name` field; the
@@ -114,23 +122,31 @@ export const lineage = (mantle: string | null, buildingPath: string): string | n
  * reads one disk state and would otherwise stamp both `builder-x-01`. Every stamp minted is
  * added to it, so the caller's set IS the reservation.
  */
-export function nextStamp(
-	mantle: string | null, buildingPath: string,
-	taken = new Set<string>(), known: readonly string[] = [],
-): string | null {
-	const prefix = lineage(mantle, buildingPath);
-	if (!prefix) return null;
-
+export function nextOrdinal(
+	prefix: string, taken = new Set<string>(), known: readonly string[] = [],
+): number {
 	let top = 0;
 	for (const name of [...logged(INVOCATIONS, 'name'), ...logged(auditLog(), 'stamp'), ...known]) {
 		if (!name.startsWith(prefix + '-')) continue;
 		const n = Number(name.slice(prefix.length + 1));
 		if (Number.isInteger(n) && n > top) top = n;
 	}
-	let stamp = `${prefix}-${String(++top).padStart(2, '0')}`;
-	while (taken.has(stamp)) stamp = `${prefix}-${String(++top).padStart(2, '0')}`;
-	taken.add(stamp);
-	return stamp;
+	let n = top;
+	do { n++; } while (taken.has(ordinal(prefix, n)));
+	taken.add(ordinal(prefix, n));
+	return n;
+}
+
+/** The stamp a prefix and an ordinal spell. Two digits is the rig's own width, not a cap. */
+export const ordinal = (prefix: string, n: number): string => `${prefix}-${String(n).padStart(2, '0')}`;
+
+/** The whole stamp for work done at a directory — `lineage` and `nextOrdinal`, in one call. */
+export function nextStamp(
+	mantle: string | null, buildingPath: string,
+	taken = new Set<string>(), known: readonly string[] = [],
+): string | null {
+	const prefix = lineage(mantle, buildingPath);
+	return prefix === null ? null : ordinal(prefix, nextOrdinal(prefix, taken, known));
 }
 
 /** Exactly the body `POST /hands/fire` parses (B4 F1). `account` is the viewer's pick. */

@@ -524,3 +524,79 @@ body.deck {
 	font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--grey-600);
 	border: 1px dashed var(--grey-750); border-radius: 3px; padding: 0 6px;
 }
+
+/* --- the composer: Action at rest (B17, keel §3) ---------------------------------------------
+
+   One column, and it never fights the pane: the knobs wrap, the summons box and the composed
+   bytes scroll inside themselves, and the pane's own `overflow-y` catches the rest. The law of
+   space is not "everything fits" — it is that the page body never scrolls and each surface owns
+   what it holds. */
+
+.deck .c-head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.deck .c-head .stamp-name { font-family: var(--mono); font-size: 11px; color: var(--felix); }
+.deck .c-card { margin-top: 8px; }
+.deck .c-knobs { display: flex; flex-direction: column; gap: 9px; margin-top: 10px; }
+.deck .c-extra { margin-top: 12px; }
+
+/* The pane at minimal is one word and a mark: the head is the whole of it. */
+.deck .pane[data-state='minimal'] .c-card,
+.deck .pane[data-state='minimal'] .c-knobs,
+.deck .pane[data-state='minimal'] .c-extra,
+.deck .pane[data-state='minimal'] .summons-in { display: none; }
+
+.deck .plan-card { border-left: 2px solid var(--grey-750); padding: 4px 0 4px 8px; }
+.deck .plan-card[data-tone='ready'] { border-left-color: var(--green-500); }
+.deck .plan-card[data-tone='warn'] { border-left-color: var(--orange-500); }
+.deck .plan-card[data-tone='blocked'] { border-left-color: var(--purple-500); }
+.deck .plan-h { display: flex; align-items: baseline; flex-wrap: wrap; gap: 7px; }
+.deck .plan-h .stamp-name { font-family: var(--mono); font-size: 11.5px; font-weight: 700; color: var(--grey-100); }
+.deck .plan-card .kv { display: flex; gap: 7px; font-size: 10.5px; margin-top: 3px; word-break: break-word; }
+.deck .plan-card .kv .label { min-width: 8ch; flex: none; }
+.deck .plan-card .warn { margin-top: 5px; }
+.deck .plan-card .warn > summary {
+	font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--orange-300); cursor: pointer;
+}
+.deck .plan-card .warn .prose { margin: 3px 0 0; font-size: 10.5px; color: var(--orange-200); }
+
+/* The bytes the session will read — the one thing on this pane that is quoted, never paraphrased. */
+.deck .summons-out {
+	margin: 8px 0 0; padding: 6px 8px; max-height: 14em; overflow: auto;
+	font-family: var(--mono); font-size: 10.5px; line-height: 1.5; white-space: pre-wrap; word-break: break-word;
+	color: var(--grey-200); background: var(--grey-900); border: 1px solid var(--grey-850); border-radius: 3px;
+}
+.deck textarea.summons-in {
+	width: 100%; margin-top: 9px; padding: 6px 8px; resize: vertical;
+	font-family: var(--prose); font-size: 11.5px; line-height: 1.55;
+	color: var(--grey-150); background: var(--grey-900);
+	border: 1px solid var(--grey-800); border-radius: 3px;
+}
+.deck input.path {
+	width: 100%; padding: 3px 7px;
+	font-family: var(--mono); font-size: 10.5px;
+	color: var(--grey-150); background: var(--grey-900);
+	border: 1px solid var(--grey-800); border-radius: 3px;
+}
+.deck input.path:focus, .deck textarea.summons-in:focus { outline: none; border-color: var(--felix); }
+
+/* The knob chips: toggled buttons, never a dropdown (design law §3). A mantle wears its own hue. */
+.deck .c-knobs .btn { display: inline-flex; align-items: center; gap: 5px; cursor: pointer; }
+.deck .c-knobs .btn[data-on='yes'] {
+	border-color: var(--felix); color: var(--felix); background: color-mix(in srgb, var(--felix) 12%, transparent);
+}
+.deck .c-knobs .btn .sub { margin-left: 4px; font-size: 9px; color: var(--grey-600); }
+.deck .c-knobs .btn[data-on='yes'] .sub { color: color-mix(in srgb, var(--felix) 70%, var(--grey-500)); }
+.deck .c-knobs .btn .swatch { width: 7px; height: 7px; border-radius: 2px; }
+.deck .go[data-armed='no'] { opacity: .45; cursor: not-allowed; }
+
+/* Usage, live — the same table the Works draws, plus the one thing the rig's caches could not say:
+   which clock each figure is on (`usage.ts` §source). */
+.deck .usage { margin-top: 4px; }
+.deck .usage .uline { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; margin-top: 3px; font-size: 10.5px; }
+.deck .usage .uline.s-cache .acct, .deck .usage .uline.s-none .acct { color: var(--grey-650); }
+.deck .usage .acct { min-width: 11ch; color: var(--grey-300); }
+.deck .usage .cell { display: inline-flex; align-items: baseline; gap: 4px; }
+.deck .usage .bucket { font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--grey-550); }
+.deck .usage .pct { font-variant-numeric: tabular-nums; color: var(--grey-150); }
+.deck .usage .delta.headroom { color: var(--green-400); }
+.deck .usage .delta.burning { color: var(--orange-300); }
+.deck .usage .fetched { margin-left: auto; font-size: 9.5px; color: var(--grey-600); }

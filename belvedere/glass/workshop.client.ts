@@ -8,15 +8,21 @@
 // — the third item of the field report, which is the whole reason this pane has a viewer at all.
 //
 // **Nothing here fires.** One wire leaves this file: `POST /hands/focus`, his eyes moving to a
-// panel. The fire hand is unreachable from this pane, and `lab/b15/probe.ts` greps this source and
-// the served bundle for its path to keep it that way (D10) — which is why the path is not spelled
-// out anywhere in this file, comments included.
+// panel. The fire hand is unreachable from this pane, and `lab/b15/probe.ts` greps this source for
+// its path to keep it that way (D10) — which is why the path is not spelled out anywhere in this
+// file, comments included.
+//
+// **Amended at B17:** the Action pane this tenant owns now holds the *composer*, which is the one
+// surface on the deck that may fire (Action follows Focus, keel §3). So the bundle carries that
+// path once, from `composer.client.ts` and from nowhere else — the grep moved from the bundle to
+// the sources, which is strictly stronger: it names WHICH file may reach it (B17 F1).
 
 import {
 	SECTIONS, moved, toCollapsed, toSections,
 	type DeckSession, type DeckSnapshot, type DocRef, type PaneState, type Prose, type Section,
 	type WorkshopBoard, type WorkshopDetail, type WorkshopRow,
 } from './deck-model';
+import { composer } from './composer.client';
 import { moveIn, selection, viewer, type FocusView } from './deck-view';
 import { button, dot, dots, drawProse, drawSpans, el, named, paint, plain, reading, receipt, remember, remembered, stamp, tipSession, words } from './deck-dom';
 
@@ -386,21 +392,6 @@ function drawFocus(host: HTMLElement, state: PaneState): void {
 		host.append(el('p', 'quiet prose', `${order.length - showing.length} more section(s) at expanded.`));
 }
 
-/**
- * Action follows Focus (keel §3). At rest it belongs to the **summon composer**, which is B17's —
- * so what stands here now is the building's own card and an honest note about what moves in. A
- * placeholder that says what it is beats a control that half-works.
- */
-function drawAction(host: HTMLElement, state: PaneState): void {
-	const d = snap?.workshop ?? null;
-	host.append(el('span', 'big', 'act'));
-	if (state === 'minimal') return;
-	if (!d) { host.append(el('p', 'quiet prose', 'Pick a building in the City.')); return; }
-	const ss = mine(snap, d.building);
-	host.append(el('p', 'quiet prose', `${d.building} · ${ss.length} live · ${d.boards.reduce((n, b) => n + b.rows.length, 0)} rows · ${d.issues.length} in the inbox`));
-	host.append(el('p', 'quiet prose', 'The summon composer moves in here at B17 — every knob live-updating the summons, stamped after this building. Sending a message to one of these sessions arrives with the Chat (B16).'));
-}
-
 /** Drag-to-reorder: HTML5 DnD over the same `moved()` the ▲▼ buttons call, so there is one law. */
 function wireDrag(host: HTMLElement): void {
 	let from: Section | null = null;
@@ -430,9 +421,10 @@ function draw(): void {
 		viewing && [viewing.path, viewing.line, viewing.lines.length, viewing.error],
 		snap?.workshop, ss, snap?.identity.error,
 	]), h => drawFocus(h, focusState));
-	paint('workshop:action', actionHost, JSON.stringify([
-		selection.building, actionState, snap?.workshop?.building, snap?.workshop?.issues.length, ss.length,
-	]), h => drawAction(h, actionState));
+	// **Action is the composer's** (B17, keel §3's "at rest, the Summon composer"). It is not painted
+	// by signature the way Focus is: it is the one surface on this deck Felix *types* into, so it
+	// mounts once and updates itself, and a poll landing mid-sentence takes nothing back.
+	composer.draw(actionState);
 }
 
 export const workshop: FocusView = {
@@ -445,8 +437,9 @@ export const workshop: FocusView = {
 		focusHost = focus;
 		actionHost = action;
 		wireDrag(focus);
+		composer.mount(action);
 	},
-	unmount() { focusHost = null; actionHost = null; viewing = null; },
+	unmount() { composer.unmount(); focusHost = null; actionHost = null; viewing = null; },
 	draw(s, focusState, actionState) {
 		snap = s;
 		states = [focusState, actionState];

@@ -10,12 +10,15 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 import { summonRoute } from './composer';
 import { deckPage, deckState, readDoc } from './deck';
+import { composeRoute } from './deck-composer';
 import { decodeQuery } from './decoder';
 import { handsRoute } from './hands';
 import { inboxRoute } from './inbox';
 import { HOST, port } from './paths';
 import { buildingPage, cityPage, docPage, errorPage, notFound } from './pages';
 import { railPage } from './rail';
+import { readRig } from './rig';
+import { refreshUsage, usageWire } from './usage';
 import { shelfPage } from './shelf';
 import { boot, rewalk } from './register';
 
@@ -71,6 +74,12 @@ async function route(url: URL): Promise<Response> {
 	// like everything else here — it is asked on a hover and answers a value, never a throw.
 	if (url.pathname === '/deck/decode')
 		return Response.json(decodeQuery(url.searchParams), { headers: { 'cache-control': 'no-store' } });
+	// The composer's live preview (B17): one knob move, one round trip, one resolved plan. A **read**
+	// — the register, the trust files, the lineage logs and `git`, nothing written — and deliberately
+	// off the poll: it answers a gesture, not a clock. `POST` because a summons does not belong in a
+	// URL, exactly as `/summon` has always argued.
+	if (url.pathname === '/deck/usage')
+		return Response.json(usageWire(await refreshUsage(readRig())), { headers: { 'cache-control': 'no-store' } });
 	// The viewer inside Focus. A read, fenced to the city like `/doc`, answering a value either way —
 	// an unresolved link renders its reason rather than nothing (the field report's item 3).
 	if (url.pathname === '/deck/doc') {
@@ -128,6 +137,9 @@ const server = Bun.serve({
 			// The composer POSTs to itself because a summons does not belong in a URL. It writes
 			// nothing: the fence's write list is the four hands and the inbox, and this is a page.
 			if (url.pathname === '/summon') return html(await summonRoute(req, url));
+			// The deck's composer, same argument, same non-write: `POST` because a summons does not
+			// belong in a URL. It resolves a draft and answers a plan; the fire is still the hands'.
+			if (url.pathname === '/deck/compose') return await composeRoute(req);
 			if (url.pathname === '/rewalk') return await rewalkRoute(url);
 			return await route(url);
 		}

@@ -375,6 +375,112 @@ export type Works = {
 	usage: WorksUsage[];
 };
 
+// ---------- the composer: Action at rest (B17, keel §3) ----------
+
+/**
+ * Every knob, as strings. **Empty always means *unset* and resolves downstream** — an unset tier
+ * axis takes the mantle's preset, an unset theater is derived from the building, an unset increment
+ * is minted from all three lineage sources, an unset cwd is the building's own path. There is no
+ * third state to represent, so there is no third state (B7's law, carried).
+ *
+ * `building` and `cwd` are two knobs because they answer two questions, and the field report caught
+ * exactly what happens when one answers both: a sitting about belvedere, run at `~/code/agents`,
+ * stamped `architect-agents-03` where `architect-belvedere-02` was meant. **The building names the
+ * work; the cwd is only the venue.**
+ */
+export type ComposeDraft = {
+	building: string;
+	cwd: string;
+	account: string;
+	mantle: string;
+	model: string;
+	effort: string;
+	theater: string;
+	increment: string;
+	branch: string;
+	summons: string;
+};
+
+/** Exactly the body `POST /hands/fire` parses (B4 F1) — the plan carries it, the button sends it. */
+export type FireWire = {
+	account: string; stamp: string; cwd: string;
+	model: string; effort: string; color: string; summons: string;
+};
+
+/** Something that will fire and deserves a second look. A warning never disarms (B7's three states). */
+export type ComposeWarning = { name: string; text: string };
+
+/** What a mantle chip offers: the rig's preset tier and felikai's hue for it (B18 F1's table). */
+export type MantleChip = { name: string; key: string; preset: string; color: string | null };
+
+/**
+ * The draft, resolved against disk. **The mechanism, named** (B17 §2): the resolution is
+ * **round-tripped**, not bundled — `plan()` reads the register, the trust files, both lineage logs,
+ * the live census and `git`, none of which exists in a browser. So the client holds knobs and the
+ * server holds the logic, one copy, and what the page shows is what the server composed rather than
+ * a second derivation that could drift from it.
+ *
+ * `fire` is the exact body the button posts, and `summons`/`sha`/`bytes` describe those very bytes:
+ * page-side and transcript-side agreement is a sha comparison, not an argument.
+ */
+export type ComposePlan = {
+	/** As resolved — a template fills knobs, so the client re-seats its controls from this. */
+	draft: ComposeDraft;
+	accounts: string[];
+	mantles: MantleChip[];
+	templates: { key: string; name: string }[];
+	buildings: { building: string; path: string }[];
+	building: { building: string; path: string } | null;
+	cwd: string | null;
+	cwdNote: string;
+	theater: string;
+	theaterNote: string;
+	increment: number | null;
+	stamp: string;
+	tier: string;
+	preset: string;
+	color: string;
+	worktree: { repo: string; branch: string; path: string } | null;
+	worktreeNote: string;
+	/** Read, never answered: Claude's folder-trust dialog is Felix's alone (B7 F1, `trust.ts`). */
+	trust: { warm: boolean; where: string; root: string | null; refused: string | null; repo: boolean; file: string } | null;
+	slots: string[];
+	/** The bytes that will be delivered — sanitized exactly as the hands sanitize them. */
+	summons: string;
+	bytes: number;
+	sha: string;
+	fire: FireWire | null;
+	/** Why nothing composed, or the hands' own parse refusal of what did. Either way: no button. */
+	blocked: string | null;
+	warnings: ComposeWarning[];
+	/** The composer's own bill, live (B17 §4) — beside the account picker, always. */
+	usage: UsageWire[];
+	handsArmed: boolean;
+	handsNote: string;
+	/** How long the resolution took, so a knob that feels slow can be priced rather than guessed at. */
+	ms: number;
+};
+
+// ---------- usage on the wire (B17 §4) ----------
+
+export const USAGE_SOURCES = ['live', 'cache', 'none'] as const;
+export type UsageSource = (typeof USAGE_SOURCES)[number];
+
+export type UsageCell = { bucket: string; pct: number | null; delta: number | null };
+
+/**
+ * One account's quota as the deck draws it. `source` is on the wire because a figure whose
+ * provenance is hidden is a figure nobody can price: `live` is a fetch this glass made, `cache` is
+ * the rig's file — the 391-minute number, now labelled — and `none` is the honest absence of both.
+ */
+export type UsageWire = {
+	account: string;
+	source: UsageSource;
+	ageSeconds: number | null;
+	error: string | null;
+	cells: UsageCell[];
+};
+
 // ---------- the snapshot: what `GET /deck/state` answers ----------
 
 // ---------- attention: one vocabulary, two places (D15) ----------

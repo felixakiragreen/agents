@@ -13,9 +13,10 @@
 import { cmuxColor } from './colors';
 import type { Works, WorksEdge, WorksFail, WorksFlow, WorksNode, WorksUsage } from './deck-model';
 import { blocksOf, armedAt, readFlows, readRun, stateOf, type Flow, type Step } from './flow';
-import { BUCKETS, pacing, readUsage, usageAge } from './gauges';
+import { BUCKETS, pacing } from './gauges';
 import { short } from './html';
 import { readRig, type Rig } from './rig';
+import { usageNow } from './usage';
 
 /** The venue as one phrase — the law of space: a node has room for a line, not a record. */
 const venueOf = (s: Step): string =>
@@ -64,15 +65,19 @@ export function worksFlow(flow: Flow, rig: Rig): WorksFlow {
 }
 
 /**
- * The bill, per account (B10 §5). B5's strip source verbatim — **the rig's caches, rendered, never
- * fetched** (`gauges.ts` §1). B17 puts a live read behind this same shape; until then the age is
- * printed beside every figure, because a quota panel that hides its own staleness is the hidden
- * bill this row exists to show.
+ * The bill, per account (B10 §5). **B17 put the live read behind this shape**, as B10 said it
+ * would: `usageNow` hands over whatever the deck's own fetcher last got — the composer's expand is
+ * what fetches — and falls back to the rig's cache for an account it has not reached, labelled as
+ * that. It never fetches *here*: this runs on the three-second poll, and a token read plus an HTTPS
+ * round trip on a clock is a price nobody agreed to (`usage.ts` §usageNow).
+ *
+ * The age still rides every figure, because a quota panel that hides its own staleness is the
+ * hidden bill this row exists to show.
  */
 export function worksUsage(rig: Rig = readRig(), nowSeconds = Date.now() / 1000): WorksUsage[] {
-	return readUsage(rig).map(u => ({
+	return usageNow(rig).map(u => ({
 		account: u.account,
-		ageSeconds: usageAge(u, nowSeconds),
+		ageSeconds: u.fetchedAt === null ? null : Math.max(0, nowSeconds - u.fetchedAt),
 		cells: BUCKETS.map(bucket => {
 			const q = u.windows[bucket];
 			return { bucket, pct: q?.pct ?? null, delta: q === undefined ? null : pacing(q, nowSeconds) };
