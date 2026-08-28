@@ -113,6 +113,56 @@ export function dot(s: DeckSession): HTMLElement {
 	return d;
 }
 
+// ---------- identity (B18): cmux's name, the rig's birth name, and the colour cmux is wearing ----------
+
+/** What to call a session: cmux's word first (D16), the rig's stamp where cmux has none. */
+export const liveName = (s: DeckSession): string => s.live?.name ?? s.stamp ?? s.sid.slice(0, 8);
+
+/** The birth name, shown only where it differs from the live one — otherwise it is the same word twice. */
+export const birthName = (s: DeckSession): string | null =>
+	s.stamp !== null && s.stamp !== s.live?.name ? s.stamp : null;
+
+/**
+ * The session's name as both panes draw it: the colour cmux is wearing, the live name, and the
+ * birth name beside it when they have drifted apart. One function because the City and the Workshop
+ * must never disagree about what a session is called.
+ */
+export function named(s: DeckSession, stale: boolean): HTMLElement {
+	const box = el('span', 'named');
+	if (s.live?.color) {
+		const sw = el('span', 'swatch');
+		sw.style.background = s.live.color;
+		sw.title = `cmux colour ${s.live.color}`;
+		box.append(sw);
+	}
+	box.append(el('span', 'who', liveName(s)));
+	const birth = birthName(s);
+	if (birth) box.append(el('span', 'birth', birth));
+	// Stale is a property of the READ, not of the name: the last good copy stays on screen and says
+	// how old it is, rather than the deck inventing a name or blanking one it had (D10's family).
+	if (stale && s.live) box.append(el('span', 'stale', 'stale'));
+	return box;
+}
+
+/**
+ * The tooltip a session carries, and the controls the shell wires onto it (B18 §2). The datasets are
+ * set here so the City and the Workshop offer the same depth and the same two hands; the wires
+ * themselves live in `deck.client.ts`, which is the only file that may reach a hand.
+ *
+ * **A session in no cmux workspace gets no controls** — there is nothing to rename — and its tooltip
+ * says so rather than showing buttons that would 409.
+ */
+export function tipSession(host: HTMLElement, s: DeckSession): void {
+	host.dataset['tip'] = liveName(s);
+	host.dataset['tipMore'] = `${birthName(s) ? `born ${birthName(s)} · ` : ''}${s.cwd ?? 'no cwd on record'}`
+		+ ` · ${s.ws ? `cmux workspace ${s.live?.ref ?? s.ws}` : 'no cmux pane — hooks are venue-blind'}`
+		+ ` · pid ${s.pid ?? 'unrecorded'} · last ${s.event}${s.tool ? ` ${s.tool}` : ''}`;
+	if (s.ws) {
+		host.dataset['tipSid'] = s.sid;
+		host.dataset['tipName'] = s.live?.name ?? '';
+	}
+}
+
 /** Everything has a limit: a building running forty sessions gets a row, not a wall of dots. */
 export const DOTS = 12;
 

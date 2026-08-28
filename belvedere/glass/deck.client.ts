@@ -18,7 +18,8 @@ import {
 	type Layout, type Pane, type PaneState, type QueueItem,
 } from './deck-model';
 import { moveIn, selection, tenant, tenants, type FocusView } from './deck-view';
-import { ago, dot, dots, el, need, paint, receipt, receipts, remember, remembered, say, stamp, tick } from './deck-dom';
+import { ago, dot, dots, el, liveName, named, need, paint, receipt, receipts, remember, remembered, say, stamp, tick, tipSession } from './deck-dom';
+import { SWATCHES } from './colors';
 // The Workshop signs its lease on import (B15). It is imported for that effect and for nothing
 // else: a tenant reaches the deck through `deck-view.ts` and never through this file.
 import './workshop.client';
@@ -140,13 +141,16 @@ function buildingRow(b: DeckBuilding, mine: DeckSession[]): HTMLElement {
 	return row;
 }
 
-/** Expanded: the sessions themselves, one line each — stamp, state, age. */
-function sessionLines(ss: DeckSession[]): HTMLElement {
+/**
+ * Expanded: the sessions themselves, one line each — the name cmux gives it, the birth name where
+ * they differ, state, age. The tooltip carries the depth and the rename/recolor controls (B18).
+ */
+function sessionLines(ss: DeckSession[], stale: boolean): HTMLElement {
 	const box = el('ul', 'lines');
 	for (const s of ss) {
 		const line = el('li', 'line');
-		line.append(dot(s), el('span', 'who', s.stamp ?? s.sid.slice(0, 8)),
-			el('span', 'st-word', s.waiting ?? s.state), stamp(s.last));
+		tipSession(line, s);
+		line.append(dot(s), named(s, stale), el('span', 'st-word', s.waiting ?? s.state), stamp(s.last));
 		box.append(line);
 	}
 	return box;
@@ -187,6 +191,7 @@ function legend(): HTMLElement {
 function drawCity(host: HTMLElement): void {
 	if (!snapshot) { host.append(el('p', 'quiet', 'waiting for the first poll…')); return; }
 	const c = snapshot.census;
+	const stale = snapshot.identity.error !== null;
 	const live = c.sessions.filter(s => s.state !== 'gone');
 	const bySid = new Map(live.map(s => [s.sid, s]));
 
@@ -225,7 +230,7 @@ function drawCity(host: HTMLElement): void {
 			for (const b of g.buildings) {
 				const mine = b.sids.map(id => bySid.get(id)).filter((s): s is DeckSession => !!s);
 				list.append(buildingRow(b, mine));
-				if (layout.context === 'expanded' && mine.length) list.append(sessionLines(mine));
+				if (layout.context === 'expanded' && mine.length) list.append(sessionLines(mine, stale));
 			}
 			box.append(list);
 		}
@@ -245,6 +250,13 @@ function drawCity(host: HTMLElement): void {
 		+ ` (taken ${ago(a.at)} ago — the sensor's drift alarm, never a session)`));
 	host.append(el('p', 'quiet prose', `${snapshot.register.buildings.length} buildings · register ${ago(snapshot.register.at / 1000)} old`
 		+ (snapshot.register.refreshing ? ' (re-walking)' : '') + (snapshot.register.error ? ` · ${snapshot.register.error}` : '')));
+	// cmux is truth for live identity (D16), so the deck says when it last heard from it. A read that
+	// failed keeps the last good copy on screen, marked `stale` on every name it gave — never blanked,
+	// never refreshed by guesswork.
+	const id = snapshot.identity;
+	host.append(el('p', `quiet prose${stale ? ' stale-note' : ''}`, stale
+		? `live identity STALE — ${id.error} (last read ${ago(id.at)} ago; names below are that copy)`
+		: `${id.workspaces} cmux workspaces named · identity read ${ago(id.at)} ago — cmux is truth for names and colours`));
 }
 
 function drawContext(): void {

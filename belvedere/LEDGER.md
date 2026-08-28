@@ -1058,3 +1058,50 @@ Builder ruled nothing; F1–F7 are the Architect's at G2, and the seam's fifth m
 shape B17/B18 should copy. Next: **B18 — live identity**
 ([plans/b18-live-identity.md](plans/b18-live-identity.md)), the Dispatcher's to fire on lane
 B's serial chain; it reads the Workshop's session lines, which is where a wrong stamp shows.
+
+---
+
+**2026-08-27 · Digger · opus-high (P6)** — message transport: **B16 sends, and the
+mechanism is not bracketed paste.** [P6](plans/p6-message-transport.md) LANDED, no kill
+fired. The brief's leading candidate was measured and REFUSED: cmux transmits
+`ESC[200~ … ESC[201~` faithfully (and never adds them itself, even with DECSET 2004
+announced), but the TUI puts the marker **text** in the message with every newline as CR
+— `"[200~P6-A blank lines.\r\r…[201~"` — and a later run of the same arm truncated at the
+first CR instead, which is nondeterministic partial delivery, the disqualifying failure
+by name. What works is the **segmented paste**: newline-free segments through
+`set-buffer`+`paste-buffer`, newlines as `send-key alt+enter`, edge whitespace through
+`send`, one `enter` to submit. **Five payloads byte-exact**, sha256 of the sent bytes ≡
+the transcript's user turn, one turn each: blank lines (`a5df8e39…`), `$(echo pwned)`
+unexpanded with literal `\n \t \r` and unicode (`9a4844d2…`), 2/4/8-space indents with
+trailing spaces (`6d10be98…`), a **304 B fenced code block** (`81bf85ca…`), and the
+summons itself (`65490336…`). Both controls fired and seen. **Q2 mid-turn PASS, proven
+from the census** rather than a wall clock — the delivery's `UserPromptSubmit` at +13.3 s
+against the work turn's `Stop` at +15.7 s, the 802-line in-flight answer finished
+`end_turn` untouched, the message answered next in order. **Q3 resume-with-a-turn PASS
+×5** — byte-exact, prior conversation carried, silo held, session id and transcript file
+**reused**. Three transport rewrites P2 could not see, all against a raw sink that
+rewrites nothing ([lab/p6/sink.py](lab/p6/sink.py)): **`paste-buffer` turns every LF into
+CR** (P2 T3's byte-exact verdict is an artifact of its canonical-mode sink, where ICRNL
+turned it back), **`set-buffer` trims its own edge whitespace** (27 B in, 20 B out — the
+one that eats every indent), and **`ctrl+j`, a real 0x0a, is silently dropped by the
+TUI**. Findings: **F2 — a `workspace:N` ref that does not resolve is not an error, it
+delivers to the FOCUSED workspace**, while a UUID 404s loudly; `/hands/fire` returns a
+ref and `Fired` carries no UUID, so B16's send, **B18's rename/recolor write-through**
+and `/hands/focus` all inherit the misdelivery class — address by UUID, always (disclosed:
+proving it sent one character and one Enter into the live `dispatcher-agents-04` pane) ·
+**F3 two message shapes fail silently at the model** and must be refused at compose — a
+literal **TAB** never arrives (the wire carries all five, the transcript has none) and a
+first line beginning with **`/`** executes as a slash command, creating **zero** user
+turns · F4 the transport is 153 ms per cmux round trip and `4n−1` calls deep (289 ms for
+one line, ~6.3 s for fourteen), so a hundred-line send is ~40 s and renders as in-progress,
+never modal; one persistent socket connection is the speed-up, named not built · F5 a
+resumed session keeps its id and transcript, so the census join and the verification read
+need no re-plumbing · F6 a probe cannot be *instructed* into a long turn (sonnet
+backgrounds a `sleep`; an obedient probe answers its standing rule) — the work has to be
+the summons. Five failure faces tabulated, every one detectable before the send; the trust
+dialog swallows keystrokes byte-identically and **Enter would answer it** (never pressed).
+Decided: nothing — the transport law is §T, written to be lifted verbatim by B16 and
+D18's write class 1; F2's UUID law is a `hands.ts` contract question for the Architect.
+Venue restored: every probe workspace closed, the scratch cold repo removed,
+`cmux workspace list` back to Felix's own two. Next: **lane A is finished** — B16 consumes
+§T when lane B's serial chain reaches it; nothing in lane A remains to dispatch.
