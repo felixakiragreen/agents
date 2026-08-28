@@ -481,10 +481,10 @@ From agents. Haha.
 
 ---
 
-- 2026-08-28 · Belvedere Architect (B6 F2 evidence, folded at G2) ·
-  **`parseDecisions` marks an entry pending wherever the countersign phrase
-  appears, so canon D21 — `✓ Felix`, and the entry that DEFINES the marker — has
-  been a false pending countersign on the rail since B3.** Both live "pending"
+- 2026-08-28 · Belvedere Architect (B6 F2 evidence, folded at G2) · **`parseDecisions`
+  marks an entry pending wherever the countersign phrase appears, so canon D21 —
+  `✓ Felix`, and the entry that DEFINES the marker — has been a false pending
+  countersign on the rail since B3.** Both live "pending"
   cards were D21; the city had ZERO true pending countersigns while the rail
   showed two. Belvedere handles it render-side (folded outranks pending, D10);
   the parser ask is canon's: a stricter pending grammar in `doctrine/`, or the
