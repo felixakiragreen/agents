@@ -1,10 +1,8 @@
 # 19 — doctrine v1.1: the wave's residue
 
-**Status:** OPEN — cut 2026-08-28 (GA-11); vocabulary gate PAID same day (D63's
-second amendment + D69 ✓ Felix — the blessing). **Holds behind 17's landing:** this
-row rewrites the parser row 17 is mid-measurement on, and the incumbent never molts
-under a live gauge (DOCTRINE §6.7) · **Depends on:** 17 · **Staffing:** Builder ·
-opus-high
+**Status:** LANDED 2026-08-28 — all 18 items + the seam export built to DoD; one
+escalation standing (bob's 3 inline ledger heads, item 10's new visibility — see
+findings §E) · **Depends on:** 17 · **Staffing:** Builder · opus-high
 
 ## Mission
 
@@ -208,7 +206,183 @@ fixed under 18h's residue precedent, each named in findings.
 
 ## Findings
 
-*(append here — evidence-grade; every fix cites its fixture)*
+**LANDED 2026-08-28.** All 18 items + the seam export. Suite 41 tests / 137 asserts
+green in 31 ms reading nothing outside the repo; **22 of the 41 fail on the pre-fix
+tool** (src at ref `0638be3`, new fixtures, a throwing shim for the not-yet-built
+guard) — every code item covered: 1, 2, 3×2, 4, 5, 6, 7×2, 8×2, 9, 10, 11, 12, 13,
+16, 17×1, 18×3. Items 14 (no test reads outside the repo — by construction) and 15
+(the timing below) are process items.
+
+Commits: `0638be3` (amendment entered) · vocabulary+parsers · totals/guard/perf ·
+glass seam refit · fixtures+suite · candidacy discriminator · home-doc fixes ·
+status.parked · clause dialect gate · b14 fixture + inbox filing.
+
+### A. What each fix looks like in the field
+
+- **1/2 (vocabulary):** agents' 27 `unrecorded`-class failures and bob's 1 → 0;
+  `OPEN — PARKED` conforms; leading PARKED is `board.parked-leads` (cornerizer's 3
+  now correctly classed). `unstaffed` counts as typed — the city reads 99% typed.
+- **3 (## heads):** the 18c fixture migrates to `**2026-08-19 · Builder ·
+  opus-medium (SH3)**` and lints 0; a tier-less head emits `unrecorded`, never a
+  tier-less slot.
+- **4 (bold-run orphan):** `**MERGED (…)** —` → `**LANDED — MERGED (…)** —`; a
+  balanced-`**` assertion now THROWS on any cell rule that orphans a marker.
+- **5 (bare heads):** whiteboardy's dialect — bold, tier hoisted, row id out of the
+  paren, `—` replaces `Changed:`, wrapped heads read whole, absent Decided:/Next: →
+  the literal `unrecorded` (license = the dialect's own shape; conforming-era bold
+  heads qualify only by the `Changed:`/`Blocked:` labels and only pre-D63 dates).
+- **6 (inline attributions):** `- **D1 (2026-08-13, Felix + Architect):**` →
+  `- **D1** (…): **unrecorded.**` — zero titles authored, asserted.
+- **7 (building-wide Depends-on):** `parseFiles` feeds every board the union of the
+  building's row ids; migrate expands en-dash ranges (zero-padding preserved) only
+  where every id resolves.
+- **8 (columns):** renamed → refusal WITH the row count; reordered-canonical →
+  parsed positionally + `board.columns` filed. The cornerizer lie (1 failure over 97)
+  is structurally impossible now.
+- **9 (truncation):** `board.truncated`, and it drew blood at home — belvedere's own
+  board had a blank line before B23 hiding **7 rows** (B22–B27) from every parser.
+- **10 (inline ledgers):** the register's fallbacks are symmetric; rooted's two
+  buildings and bob's three campaigns now PARSE their inline `## Ledger` sections
+  (failures visible, "ledger none" gone). City: 9/14 ledgers, 198 entries counted.
+- **11 (id prefixes):** `RP-1`/`A1` parse (the 18h fixture yields 1 candidate). The
+  broadened candidacy needed a discriminator the spec didn't foresee: **a candidate
+  must carry the attribution shape after its id** (`**D1** (…`, `**D1 (…`, `**D1 ·`)
+  or every bold cross-reference bullet in a master doc is a malformed decision —
+  the corpus produced six false positives (`**T13 ∥ t12c**`, `**x11vnc**`, `**G2
+  fires…**` …) before the tightening. Trade: a bullet with a bolded id and NO
+  attribution anywhere now stays prose (the entity-count guard is the net for that
+  silence class). City decisions: 89 → 232 parsed.
+- **12 (pending marker):** the marker lives in the ATTRIBUTION (comma or dash
+  spelling); a body quoting it — D21, the entry that defines `✓ Felix` — never
+  counts. D21 folded; D68/D70-shaped proposed entries still queue. The city's queue
+  count is honest for the first time since B3.
+- **13 (kickoff candidacy):** a summons names a mantle right after the article;
+  log-tradition's three letter templates (including the one that says "founding
+  Grand Architect of hexwright" mid-sentence) are no longer kickoffs; `You are a
+  Builder.` (tier absent) still fails.
+- **15 (perf):** `discover(~/code)`, warm FS cache, Darwin 24.6.0, this machine,
+  3 runs each: **8697/8827/8835 ms → 4402/3774/3989 ms (~2.2×)** via
+  `readdirSync({withFileTypes})` (symlinks still stat, so a linked dir still walks);
+  the byte-twin worktree skip already read nothing and kept its unique-board
+  exception — **register before ≡ after, 22 buildings, byte-identical list**.
+- **16 (merged entries):** fires 28× city-wide — **every one in snappy**, the
+  predicted ~38-separator hole made loud (runs of glued sessions surface per head),
+  zero false positives elsewhere; fenced quotes and mid-line bold dates exempt.
+- **17 (stale-lead):** the discriminator is bold-opened or arrow-led
+  `LANDED/KILLED <ISO date>` in an OPEN/IN FLIGHT cell; a landing attributed to a
+  row id (`13 LANDED 2026-08-22`, row 11's cell) passes. **Corpus measurement: 2
+  real trips (MAP rows 13/14), 0 false trips across 469 rows.** The fixed shape for
+  the wave: `**LANDED <date> — cut <date>** …` — the state leads with the truth,
+  history rides the annotation.
+- **18 (guard):** `doctrine lint --guard <ref> <path…>` — one repo, `git archive`
+  into scratch, entity totals compared, ANY decrease exits 1. `Totals` gains
+  `ledgerEntries` and `decisions` so the guard covers what the amendment names.
+  Limits, stated: aggregate counts (a same-tick add can mask a delete) and archive
+  omits untracked files (they only raise the current side — no false trips). Live
+  proof: guarding agents against `0638be3` tripped on `kickoffs: 66 → 65` — the
+  row-21 census re-cut (`95aa5ac`, a concurrent session) deliberately replaced its
+  summons fence; the guard flagged a real deletion and the override is running
+  without the flag, exactly as designed.
+- **Seam (B3's ask):** `parseFiles(entry)` exported; `glass/register.ts`'s
+  `content()` is now one line over it — the hand-mirror deleted, `register.test.ts`
+  still pins walk ≡ re-read (4/4 green).
+
+### B. DoD — measured
+
+**1. Suite:**
+```
+bun test → 41 pass, 0 fail, 137 expect() calls [31 ms]
+pre-fix tool (ref 0638be3 + new fixtures): 19 pass, 22 fail
+```
+
+**2. `doctrine lint ~/code/agents` — verbatim:**
+```
+=== FAILURE CLASSES
+
+=== TOTALS
+  2 buildings · 4/4 board docs yielded a board · 4 boards · 67 rows · 67 fully typed (100%)
+  2/2 ledgers parsed a tail (101 entries) · 2 fireable baton(s) · 65 kickoffs in 64 work docs · 88 decisions (queue 3) · 1 inbox entries
+  76 worktree checkout(s) skipped as branch copies · per-repo special cases: 0
+  0 failure(s) in 0 class(es)
+```
+Reaching 0 took the ruled home-doc fixes, and they recovered real state: 60 → 67
+rows (the B23 truncation), 97 → 101 ledger entries (4 separators restored), 9 row
+slots emptied of prose (18h shapes), 2 typed absences, MAP 13/14 trued, B27's
+depends gloss to its annotation.
+
+**3. `doctrine lint ~/code/universal_robots_sdk/bob`:**
+```
+=== FAILURE CLASSES
+     3  ledger.head
+```
+**0 failures of every class the DoD was cut against** (the board.tier `unrecorded`
+gap cleared). The 3 `ledger.head` are item 10's OWN new visibility: bob's three
+campaign READMEs carry inline `## Ledger` sections in the bullet dialect the tool
+could not see when this DoD was written. Escalated (§E) — a doc fix in a target
+building, which this row's fence reserves for the continuation wave.
+
+**4. Dry-run projections — the continuation wave's entry tickets:**
+- **whiteboardy ledger:** `migrate` dry-run, 192 edits, round-trip [] — entries
+  **5 → 127**, ledger fails **104 → 2**; both residuals hang off ONE defect the
+  fence reserves (a `2026-08-22/23` date-RANGE head — which day is a session's
+  ruling, and its unmatched head cascades one `ledger.next`). Boards: per-doc 45 →
+  40 `board.depends` building-wide; of 18c's "28 cross-document failures", 5 were
+  scope-only and DROPPED — the other 23 carry parenthetical glosses (`16
+  (blessed)`) that D63e independently forbids: the id now RESOLVES into the graph
+  while the segment correctly keeps its lint fail for the wave's hand. Unknown ids
+  (X8/W1/R1/B1 — rows on no board) still fail, as they must.
+- **cornerizer PARKED:** 3 `status.parked` edits respell C8/C22/C34 to
+  `OPEN — PARKED …`, board 5 → 2, round-trip []; the residual pair is `staffed
+  when unparked` → `unstaffed`, D63's own birthplace citation — the wave's respell.
+- **spacex decisions:** both files 7 `decision.head` → **0**, decisions 0 → 7 per
+  file, titles authored: **0**, round-trip [].
+- **snappy (bonus ticket):** `ledger.merged` ×28 pinpoints every missing separator
+  by line — the repair sanctioned at GA-11 is now mechanical to verify.
+
+**5. Perf:** §A item 15 — ~8.8 s → ~4.0 s warm (2.2×), register byte-identical.
+
+**Guard trips (amendment DoD), verbatim** — temp repo, damage over a clean ref:
+```
+=== TRIP 1 — the item-9 blank line:
+!! GUARD (HEAD): entity counts DECREASED — silent damage until proven deliberate:
+   rows: 3 at the ref → 2 now
+=== TRIP 2 — the item-16 merged entry:
+!! GUARD (HEAD): entity counts DECREASED — silent damage until proven deliberate:
+   ledgerEntries: 2 at the ref → 1 now
+=== a pure append:
+guard ok — no entity total decreased vs HEAD
+```
+
+### C. City sweep (context, not a DoD gate)
+
+`doctrine lint ~/code`: 310 (wave close) → **346 in 16 classes** — the rise is
+silence converted to failures: snappy's 28 merged entries, five inline ledgers
+parsing (9/14 ledgers, 198 entries), 232 decisions where 89 parsed. agents is 0;
+whiteboardy's 102 `ledger.head` fall to the wave's re-fire (projection above).
+
+### D. Adjacent discoveries — parked, not fixed
+
+- **belvedere flow drift (pre-existing):** `flow-batch-1`'s G2 kickoff ordinal went
+  stale when `a8dd096` added the batch-6 fences above it (`glass/flow.test.ts:91`
+  red at ref `0638be3` too; both flow files point `"fence": 5`, the fence is now
+  ordinal 4) — B10 F2's named drift mode, live. Filed to `belvedere/ISSUES.md`;
+  the flow hash covers resolved kickoffs, so it is that building's Architect's.
+- **b14 fixture realigned** (this row's own seam adoption): the queue fixture wrote
+  the pending marker in the BODY — item 12's exact false-positive shape; moved to
+  the attribution, glass suite 650/651 (the 1 is the flow drift above).
+
+### E. Escalations standing
+
+1. **bob's 3 inline ledger heads** (DoD 3's letter): item 10 made them visible;
+   respelling them is a target-building doc edit this row's out-of-scope reserves
+   for the continuation wave. Three heads, mechanical D63f respell + tier hoist —
+   one word from Felix routes it to the wave (recommended) or licenses the 3-line
+   fix directly.
+2. **whiteboardy's `2026-08-22/23` head** — a date-range in the date slot; which
+   day is a session's ruling (form-only cannot pick). Rides the wave's re-fire.
+3. **decision-candidacy trade** (§A item 11) — noted for the record: id-bolded
+   bullets with no attribution anywhere are prose now; the guard's `decisions`
+   total is the net if a real one ever goes silent.
 
 ---
 

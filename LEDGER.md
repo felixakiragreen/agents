@@ -1418,3 +1418,25 @@ the verdict recommends, the register already moved at the close. Next: `fire 19`
 (kickoff in its order — its gate is paid and its Depends-on 17 is now LANDED); rows
 20/21 on Felix's summons, 22 on his blessing; the 18-continuation wave cut at 19's
 landing.
+
+---
+
+**2026-08-28 · Builder · opus-high (19)** — doctrine v1.1 LANDED: 18 items (15 + row
+17's harvest, Felix's pen at kickoff) + the `parseFiles` seam. Suite 41 green / 22
+fail on the pre-fix tool; `doctrine lint ~/code/agents` 0 (home fixes ruled at
+kickoff recovered 7 board rows + 4 ledger entries); bob 0 of every DoD-era class;
+projections: whiteboardy ledger 104→2 (one date-range head), cornerizer PARKED
+respells clean, spacex 7→0 ×2; walk 8.8→4.0 s, register byte-identical; `--guard`
+live and already caught one real deletion. Stale-lead corpus measure: 2 real, 0
+false / 469 rows. Decided: nothing — one escalation standing (bob's 3 inline ledger
+heads, item 10's new visibility: wave's or Felix's word). Next: Felix fires the
+18-continuation wave cut —
+
+```
+You are an Architect at opus-high.
+Wear ~/code/agents/canon/mantles/architect.md,
+then read ~/code/agents/plans/18-great-recut.md (the re-run contract) and
+~/code/agents/plans/19-doctrine-hardening.md §Findings (the entry tickets),
+and cut the continuation wave: whiteboardy re-fire, snappy separator repair
+(sanctioned GA-11), spacex decision heads, bob's three inline ledger heads.
+```
