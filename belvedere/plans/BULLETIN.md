@@ -1398,3 +1398,92 @@ check is *which source contains the string*, so the prose explaining it must not
 either.
 
 (Relayed from `master`, B19 LANDED 2026-08-28 — Builder)
+
+## → relay — B21 (the Grep) to B12, G2 and the Architect: no escalation, four findings that bind
+
+Evidence: [b21-grep.md](b21-grep.md) §DoD and §Findings, commits `8e6d71c` … `4c02f5e` on
+`master`.
+
+1. **F1 — a probe that searches the REAL corpus finds itself, and a fixed marker written in
+   its own source is in the corpus before it ever runs.** B21's case-smart arm needs a term
+   that exists in exactly one place; it was written as the literal `GrepCaseMarker`, and the
+   upper-case control answered **three hits** against a note that has never contained it —
+   because the transcripts of the session *writing the probe* carry the literal, and those
+   transcripts are the corpus by design. The arm was measuring the probe. Fixed at the cause:
+   the marker is minted at run time (`GrepCase${random}Marker`), so what the corpus holds is
+   the expression and what the note holds is the value. **This binds B12 and every later
+   probe whose corpus is the city itself** — it is B16 F3's family (*a probe cannot be waited
+   on by its own words*) one grammar along: **a probe cannot be measured by a string it wrote
+   down.** The same trap catches any DoD that greps for a phrase its own order contains.
+
+2. **F4 — the turn a raw-JSONL hit lands in is the right turn, and it may not SHOW the
+   term.** The order's §5 names the *escaping* half of transcript honesty; this is its second
+   face and it is the render, not the match. A hit's byte offset can fall inside a record the
+   Chat deliberately encapsulates to one line — a tool call's input is clipped to its head
+   (B16 §2) — so the anchor lands correctly and the words are not on screen. Measured on the
+   commissioning query itself: **four of the first five session hits** for `bob summons`
+   landed in tool-call records; the fifth rendered the phrase whole. **Named, not patched** —
+   widening the Chat to render a tool call's full input would undo B16's own encapsulation
+   law, and the pane cmux owns is one click away. The probe reports *both* counts rather than
+   asserting that the first hit happens to be a spoken turn, which is the shape any later
+   DoD over the real corpus wants: **assert the structural claim against the coordinate, and
+   report the visible one.** The structural half is exact and worth copying —
+   `the matching line begins at byte 450896; the marked turn is [data-key="392696"] and the
+   next turn opens at EOF`, so the anchor lies inside the marked turn and no other.
+
+3. **F3 — a keydown's target is not always an Element, and `document` has no `closest`.** The
+   `/` shortcut is only a shortcut where Felix is not already typing, so the handler asks
+   `e.target.closest('input, textarea, [contenteditable]')`. With nothing focused the target
+   can be the **document itself**, and the property access throws *inside the listener* —
+   which removes the shortcut with no error anybody sees and no other symptom. Found by this
+   row's own probe dispatching on `document`: `/` and ⌘K both returned focus id `""`. Fixed
+   with an `instanceof Element` narrowing. **Binds anything that adds a document-level key
+   handler to the deck** — and B12's judge cards are the next thing likely to want one.
+   Its cousin, same landing: **a legend sample carrying the row's own class is a fifth
+   result** (F2) — the colour legend drew its keys as `.hit .hit-sessions`, so
+   `#host-drawer .hit` answered twelve rows where eleven existed and the account count came
+   back as **four, one of them the empty string**. A legend of a *clickable* vocabulary must
+   not be able to answer the selector the click is bound to.
+
+4. **F5/F6 — the `grep` fallback is not "slower", it is over budget by construction, and
+   that made it the cheapest honest slow arm in the building.** Measured over the same 736
+   transcripts (1.7 GB): **ripgrep 0.18 s, BSD grep 8.3 s — 40×.** Against the 3 s wall clock
+   the sessions group therefore *always* times out on the fallback, which is why the
+   degradation banner and the per-group timeout notice both had to exist rather than one
+   standing in for the other. One induced failure then paid for three DoD lines: the fallback
+   path, the clock, and **the worker-law measurement** — three `/deck/state` polls fired
+   inside a 3.2 s search came back in **85.8 · 42.2 · 42.1 ms**, because a search is a
+   **spawn** and Bun's thread is yielded (B8 F3 is about synchronous work; B18 F4's posture,
+   fourth venue). Also for anyone shelling out to `rg`: **`--max-columns` is ignored under
+   `--json`** — the machine interface emits `lines.text` whole however long the line is, and
+   a transcript record is one line that can be megabytes — so the bound has to be the
+   reader's: streamed lines with a length bar and a resync, a cap that **kills the process**,
+   an overall output budget, and an exit code read **only when nothing else stopped the
+   process first** (a killed engine exits non-zero and that is not an error).
+
+Also for B12 and the Architect, not blocking: **the fence gains no write class.** A search is
+a read, it reaches no socket, and `/deck/grep` sits in front of the arming switch for the
+reason the inbox and the desk do (B6 F3's law, fourth venue). **No index was built** — `rg`
+over the real corpus is **41–132 ms warm** (N=20) and the premature-optimisation law says
+measure first. Two knobs join `paths.ts`'s family and both exist because the two failures
+that matter cannot be induced by asking nicely: `GREP_TIMEOUT_MS` and `GREP_RG`.
+
+And for anyone reading a transcript window: **`chatView` now takes `Where = tail | before |
+around`** (F8), because `turnsOf` kept the *last* forty turns of what `windowOf` read and a
+jump target near the head of a busy window would have been sliced away **silently** — the
+failure where the jump looks like it worked. The resolved turn key comes back as
+`ChatView.anchor`, **null where the target fell outside the window**, and the client says the
+hit is out of view rather than marking the nearest turn. Three named cases rather than a
+number and a flag, for B16 F1's own reason. B21's corpus is `shelf.ts`'s own `transcriptsOf`,
+exported rather than re-derived (B5's discovery) — and its uuid filename filter is what keeps
+every session hit jumpable: **subagent transcripts sit one directory deeper and are not
+sessions the Chat can open**, so they are outside the corpus by name (F7), a real blindness
+whose fix is a jump target, not a wider glob.
+
+The chain's probes were re-run whole against this row's client — B13 · B14 · B15 · B20 · B10
+· B11 · B16 · B19 — **ALL GREEN, eight for eight.** The ninth, `lab/b17/probe.ts`, was
+deliberately **not** re-run: its two failures are already filed at its own landing commit
+(B11 F8) and it leaves a live workspace open when it throws (B16's addendum), so re-running
+it spends a session against the batch's ≤2 rule to re-measure something already recorded.
+
+(Relayed from `master`, B21 LANDED 2026-08-28 — Builder)
