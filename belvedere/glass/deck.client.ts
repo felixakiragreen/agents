@@ -26,8 +26,8 @@ import {
 } from './deck-model';
 import { selection, swap, tenant, tenants, viewer, type FocusView } from './deck-view';
 import {
-	ago, button, chatButton, DEPTH_CAP, dot, dots, el, named, need, paint, reading, receipt, receipts,
-	remember, remembered, say, stamp, tick, tipSession, words, type DecodeCtx,
+	ago, button, chatButton, DEPTH_CAP, dot, dots, el, forget, named, need, paint, reading, receipt,
+	receipts, remember, remembered, say, stamp, tick, tipSession, words, type DecodeCtx,
 } from './deck-dom';
 import { SWATCHES } from './colors';
 // The Workshop signs its lease on import (B15). It is imported for that effect and for nothing
@@ -38,6 +38,9 @@ import './works.client';
 // The Chat (B16) signs its lease on import too; `chatTo` is the one function it exposes, because
 // "one chat view in the whole deck" is only true if every session row on the deck reaches it here.
 import { chat, chatTo } from './chat.client';
+// The desk (B19) signs its lease the same way, and is imported last so the tenant bar reads in the
+// identity sentence's own order: dataviz, command, comms, then the place he writes.
+import './desk.client';
 
 // ---------- what the deck is holding ----------
 
@@ -99,6 +102,11 @@ function focusOn(name: string): void {
 	const focus = hostOf('focus'), action = hostOf('action');
 	focus.textContent = '';
 	action.textContent = '';
+	// Emptying a host falsifies every repaint memo about it, so the memos are retracted here rather
+	// than left to be believed by the next tenant (B19: a tenant swapped away and back with nothing
+	// changed found its own memo standing and drew nothing — a blank pane with no error).
+	forget(focus);
+	forget(action);
 	standing = next;
 	next.mount(focus, action);
 	drawTenantBar();

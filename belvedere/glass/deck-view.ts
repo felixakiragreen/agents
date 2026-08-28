@@ -94,6 +94,17 @@ export const viewer: { open: ((path: string, line: number | null) => void) | nul
  */
 export const swap: { to: ((name: string) => void) | null } = { to: null };
 
+/**
+ * The composer's own door, registered by `composer.client.ts` on import (B19).
+ *
+ * The desk's third route is *"loads the note as the summons body in B17's composer"* — one surface
+ * seeding another. It is a cell here rather than an import for the reason B16 F8 already paid for:
+ * a tenant importing another tenant's module reorders the registry that draws the tenant bar, and
+ * "a tenant asks the shell, it never reaches into another tenant" is what makes replacing a pane a
+ * module rather than a rebuild. A null means the composer is not mounted and the route says so.
+ */
+export const compose: { with: ((summons: string) => void) | null } = { with: null };
+
 const signed = new Map<string, FocusView>();
 
 /** Sign the lease. A second tenant under one name is a bug, not a replacement — it throws. */

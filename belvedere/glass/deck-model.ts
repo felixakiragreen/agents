@@ -517,6 +517,45 @@ export function refusals(text: string): Refusal[] {
 	return out;
 }
 
+// ---------- the desk: one drawer, city-wide (B19, D17 — keel §8) ----------
+
+/** One note as the drawer lists it. The title is the note's own first line, never a field. */
+export type DeskNote = {
+	slug: string;
+	title: string;
+	bytes: number;
+	/** Epoch seconds — the file's mtime, which is the only clock a flat drawer has. */
+	at: number;
+	/** How many places this note has been routed to; the receipt lines themselves ride `DeskRead`. */
+	routed: number;
+};
+
+/** One note, opened: his words with the receipts taken off, and the receipts beside them. */
+export type DeskRead = DeskNote & { text: string; routes: string[] };
+
+/**
+ * The three routes and no fourth (spec §4). Dream-into-a-new-repo stays with the founding ritual —
+ * the desk saves the dream *file*; founding a building is Felix's, and the glass never writes
+ * founding docs.
+ */
+export const DESK_ROUTES = ['issues', 'session', 'composer'] as const;
+export type DeskRouteName = (typeof DESK_ROUTES)[number];
+
+/**
+ * What one route would do, exactly — composed server-side and rendered verbatim, because the
+ * countersign law says the bytes are read before they are signed off. A plan carrying a `refusal`
+ * draws no button at all: what stands there is the reason (D10 as structure, B16's own shape).
+ */
+export type DeskPlan = {
+	to: DeskRouteName;
+	slug: string;
+	where: string;
+	text: string;
+	bytes: number;
+	sha: string;
+	refusal: string | null;
+};
+
 // ---------- the composer: Action at rest (B17, keel §3) ----------
 
 /**

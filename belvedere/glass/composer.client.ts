@@ -24,7 +24,7 @@
  */
 
 import type { ComposeDraft, ComposePlan, PaneState, UsageWire } from './deck-model';
-import { selection, swap } from './deck-view';
+import { compose, selection, swap } from './deck-view';
 import { ago, button, el, receipt, remember, remembered, say } from './deck-dom';
 
 /** Everything has a limit: one re-resolve per settled keystroke run, one usage fetch per minute. */
@@ -469,4 +469,18 @@ export const composer = {
 
 	/** Test seam and nothing else: the module is a singleton, so a suite must be able to reset it. */
 	reset(): void { draft = { ...EMPTY }; plan = null; usage = null; usageAt = 0; },
+};
+
+/**
+ * The desk's third route (B19): a note becomes the summons body, live.
+ *
+ * It goes through `knob()` — the one gesture every control here already uses — so the plan is
+ * disarmed the instant the words change and re-resolves against them, exactly as if he had typed
+ * them. **The template stickiness is cleared**, because these are his words now and nothing may
+ * rewrite them (B17 F3's rule: only until he touches it). The box itself is re-seated by `resolve()`
+ * when the answer lands, since the answer IS the draft.
+ */
+compose.with = (summons: string): void => {
+	knob({ summons, template: '' });
+	if (regions && document.activeElement !== regions.text) regions.text.value = summons;
 };

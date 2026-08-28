@@ -689,3 +689,25 @@ body.deck {
 	border: 1px solid var(--grey-700); border-radius: 3px; padding: 0 4px; color: var(--grey-500);
 }
 .deck .ct-batons .holder-felix .pill { border-color: var(--felix); color: var(--felix); }
+
+/* --- the desk (B19): the drawer in Focus, the writing surface in Action ---
+   The box is the point, so it takes the height the pane will give it and everything else is a
+   line. At minimal the pane is one word and a count, and the editor is not built at all. */
+
+.deck .desk-in {
+	display: block; width: 100%; box-sizing: border-box; margin-top: 8px; padding: 7px 8px;
+	min-height: 18vh; flex: 1 1 auto;
+	background: var(--grey-900); border: 1px solid var(--grey-750); border-radius: 3px;
+	color: var(--grey-150); font-family: var(--prose); font-size: 12px; line-height: 1.55;
+	resize: vertical; overflow-y: auto;
+}
+.deck .desk-in:focus { outline: none; border-color: var(--felix); }
+.deck .pane[data-state='minimal'] .desk-in { display: none; }
+
+.deck .desk-prev { margin-top: 8px; }
+.deck .desk-plan { border-left: 2px solid var(--felix); padding: 4px 0 4px 8px; }
+.deck .desk-plan .who { font-family: var(--mono); font-size: 10px; color: var(--grey-500); word-break: break-all; }
+.deck .desk-plan .reason { margin: 4px 0 0; font-size: 11px; color: var(--orange-200); }
+.deck .desk-plan .summons-out { max-height: 34vh; overflow: auto; }
+.deck .desk-foot { margin-top: 10px; border-top: 1px solid var(--grey-850); padding-top: 6px; }
+.deck .desk-foot .prose { font-family: var(--mono); font-size: 10px; color: var(--grey-550); }

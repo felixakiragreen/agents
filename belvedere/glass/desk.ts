@@ -27,6 +27,7 @@ import { createHash } from 'crypto';
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { readDraft } from './chat';
+import { DESK_ROUTES, type DeskNote, type DeskPlan, type DeskRead, type DeskRouteName } from './deck-model';
 import { fail, field, json, type Outcome } from './hands';
 import { entryBytes, filed, inboxExisting, parseFiling, today } from './inbox';
 import { deskDir } from './paths';
@@ -93,18 +94,6 @@ export function titleOf(body: string): string {
 	const t = first.replace(/^#{1,6}\s+/, '').trim();
 	return t === '' ? '(untitled)' : t.slice(0, LIMITS.titleChars);
 }
-
-export type DeskNote = {
-	slug: string;
-	title: string;
-	bytes: number;
-	/** Epoch seconds — the file's own mtime, which is the only clock a flat drawer has. */
-	at: number;
-	/** How many places this note has been routed to. The lines themselves ride `readNote`. */
-	routed: number;
-};
-
-export type DeskRead = DeskNote & { text: string; routes: string[] };
 
 const readFile = (path: string): string => readFileSync(path, 'utf8').slice(0, LIMITS.noteBytes);
 
@@ -213,22 +202,6 @@ export function stampNote(slug: string, where: string): Outcome<string> {
 }
 
 // ---------- the routes: planned, then fired ----------
-
-export const DESK_ROUTES = ['issues', 'session', 'composer'] as const;
-export type DeskRouteName = (typeof DESK_ROUTES)[number];
-
-export type DeskPlan = {
-	to: DeskRouteName;
-	slug: string;
-	/** Where the bytes land, in the city's own coordinates. */
-	where: string;
-	/** **The exact bytes this route will write.** What he signs off on, before it fires. */
-	text: string;
-	bytes: number;
-	sha: string;
-	/** Why it cannot fire, or null. A plan carrying a refusal draws no button at all (D10). */
-	refusal: string | null;
-};
 
 const plan = (o: Omit<DeskPlan, 'bytes' | 'sha'>): DeskPlan =>
 	({ ...o, bytes: bytesOf(o.text), sha: sha256(o.text).slice(0, 16) });

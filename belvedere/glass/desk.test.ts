@@ -16,8 +16,9 @@ const CITY = join(ROOT, 'city');
 const DESK = join(CITY, 'agents/desk');
 const BUILDING = join(CITY, 'scratch-building');
 
+import { DESK_ROUTES } from './deck-model';
 import {
-	DESK_ROUTES, fileNote, listNotes, mintSlug, noteFile, planRoute, readAsk, readNote,
+	fileNote, listNotes, mintSlug, noteFile, planRoute, readAsk, readNote,
 	receiptStamp, saveNote, split, stampNote, titleOf,
 } from './desk';
 import { entryBytes, evidence, parseFiling, today } from './inbox';

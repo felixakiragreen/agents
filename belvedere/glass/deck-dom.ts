@@ -62,16 +62,30 @@ export const stamp = (seconds: number, cls = 'ago'): HTMLElement => {
 
 // ---------- repainting: content, not clocks ----------
 
-const painted = new Map<string, string>();
+const painted = new Map<string, { signature: string; host: HTMLElement }>();
 
-/** Rebuild a region only when what it *says* changed. Ages tick separately, always (B14 F4). */
+/**
+ * Rebuild a region only when what it *says* changed. Ages tick separately, always (B14 F4).
+ *
+ * **The memo is a claim about a host's contents, so it records the host** (B19). Without that it
+ * outlives what it describes: the shell empties both hosts on a tenant swap, and a tenant swapped
+ * away and back with an unchanged signature would find its memo still standing and draw nothing —
+ * a blank pane, no error, and only for the tenants Felix returns to without changing anything.
+ * `forget(host)` is how the shell retracts the claim when it clears a host.
+ */
 export function paint(key: string, host: HTMLElement, signature: string, draw: (host: HTMLElement) => void): void {
-	if (painted.get(key) !== signature) {
-		painted.set(key, signature);
+	const was = painted.get(key);
+	if (!was || was.signature !== signature || was.host !== host) {
+		painted.set(key, { signature, host });
 		host.textContent = '';
 		draw(host);
 	}
 	tick(host);
+}
+
+/** Drop every memo describing this host. Called wherever a host is emptied by someone else. */
+export function forget(host: HTMLElement): void {
+	for (const [key, was] of painted) if (was.host === host) painted.delete(key);
 }
 
 // ---------- receipts: what a gesture or a jump said, surviving the repaint that follows ----------
