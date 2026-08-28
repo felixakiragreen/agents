@@ -1,0 +1,58 @@
+{
+	"building": "agents/belvedere",
+	"scope": "agents/belvedere · the flow chapter",
+	"created": "2026-08-27",
+	"concurrency": 1,
+	"judgeTier": "fable-high",
+	"steps": [
+		{
+			"id": "p5",
+			"name": "Permission physics",
+			"account": "personal",
+			"tier": "Digger · opus-high",
+			"venue": { "kind": "master", "cwd": "~/code/agents" },
+			"depends": [],
+			"kickoff": { "doc": "agents/belvedere/plans/p5-permission-physics.md", "fence": 10 }
+		},
+		{
+			"id": "b10",
+			"name": "The Works",
+			"account": "personal",
+			"tier": "Builder · opus-high",
+			"venue": { "kind": "master", "cwd": "~/code/agents" },
+			"depends": ["p5"],
+			"kickoff": { "doc": "agents/belvedere/plans/b10-flow-dag.md", "fence": 1 }
+		},
+		{
+			"id": "b11",
+			"name": "Arm and engine",
+			"account": "personal",
+			"tier": "Builder · opus-high",
+			"venue": { "kind": "master", "cwd": "~/code/agents" },
+			"depends": ["b10"],
+			"kickoff": { "doc": "agents/belvedere/plans/b11-flow-engine.md", "fence": 1 }
+		},
+		{
+			"id": "b12",
+			"name": "Reactive gate",
+			"account": "personal",
+			"tier": "Builder · opus-high",
+			"venue": { "kind": "master", "cwd": "~/code/agents" },
+			"depends": ["b11"],
+			"kickoff": { "doc": "agents/belvedere/plans/b12-flow-reactive.md", "fence": 1 }
+		},
+		{
+			"id": "g2",
+			"name": "Batch-5 close sitting",
+			"account": "personal",
+			"tier": "Architect · fable-high",
+			"venue": { "kind": "master", "cwd": "~/code/agents" },
+			"depends": ["b12"],
+			"gate": {
+				"kind": "felix",
+				"card": "Felix's arm in the Works is the Felix-gate — the engine's first real act, and the deck's close smoke. The sitting behind this card is an Architect step; its kickoff is the fence below, quoted from the batch note. Nothing on this card fires."
+			},
+			"kickoff": { "doc": "agents/belvedere/README.md", "fence": 5 }
+		}
+	]
+}

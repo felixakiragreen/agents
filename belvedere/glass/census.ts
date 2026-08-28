@@ -179,8 +179,12 @@ export function toBeat(raw: unknown): Beat | null {
 	};
 }
 
-/** A bounded window of a file: `from: 'end'` for a log's tail, `'start'` for its head. */
-function window(path: string, bytes: number, from: 'start' | 'end'): string | null {
+/**
+ * A bounded window of a file: `from: 'end'` for a log's tail, `'start'` for its head. Exported
+ * since B10, because a flow's run-state is a second append-only log in the same neighborhood and
+ * two readers of "the tail of a jsonl, whole lines only" would drift the same way two parsers do.
+ */
+export function fileWindow(path: string, bytes: number, from: 'start' | 'end'): string | null {
 	let fd: number;
 	try { fd = openSync(path, 'r'); } catch { return null; }
 	try {
@@ -225,7 +229,7 @@ const unescape = (raw: string): string | null => {
 const FAMILY = /"model":"claude-(haiku|sonnet|opus|fable)[\w.-]*"/;
 
 export function identify(transcript: string): Identity {
-	const head = window(transcript, LIMITS.transcript, 'start');
+	const head = fileWindow(transcript, LIMITS.transcript, 'start');
 	if (head === null) return { stamp: null, cwd: null, model: null };
 	const names = [...head.matchAll(/"agentName":"((?:[^"\\]|\\.)*)"/g)];
 	const last = names.at(-1)?.[1];
@@ -251,7 +255,7 @@ const observed = (beat: Beat | undefined): Observed | null =>
 
 /** One read of the whole census: every session it has ever seen, stated as of now. */
 export function readCensus(nowSeconds = Date.now() / 1000): CensusRead {
-	const text = window(censusFile(), LIMITS.tail, 'end');
+	const text = fileWindow(censusFile(), LIMITS.tail, 'end');
 	if (text === null) return { present: false, sessions: [], beats: 0, malformed: 0, since: null };
 
 	const latest = new Map<string, Beat>();

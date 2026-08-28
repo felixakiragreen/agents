@@ -272,6 +272,107 @@ export type WorkshopDetail = {
 	badges: Record<Attention, number>;
 };
 
+// ---------- the Works: the building's whole work, drawn on one line of time (B10) ----------
+
+/**
+ * One declared step, on the wire. The DAG is **drawn, not listed** (D11), so a node carries what a
+ * node must show: its encapsulation, its bill (mantle · tier · account), where it would run, what
+ * gates it, and what the engine has said about it.
+ *
+ * **Nothing in this shape can fire.** There is no summons body wired to a button anywhere on it —
+ * `kickoff` is the bytes to *read*, and the arm is B11's (D10: ambiguity never renders as fireable
+ * structure, and neither does anything else on this deck outside the composer).
+ */
+export type WorksNode = {
+	id: string;
+	name: string;
+	mantle: string;
+	tier: string;
+	account: string;
+	/** The venue as one phrase — `master ~/code/agents`, `worktree agents:bv/b11` (B10 §2). */
+	venue: string;
+	depends: string[];
+	depth: number;
+	gate: 'none' | 'felix' | 'architect';
+	/** The Felix-card's text, where this step is his. Rendered in his idiom; never wired. */
+	card: string | null;
+	kickoff: string;
+	/** Where the kickoff was quoted from — `plans/b11-flow-engine.md #1` — or null when inline. */
+	from: string | null;
+	/**
+	 * What the **engine's own log** says (B10 §4). `ring` is `declared` where it has said nothing,
+	 * which is not the same as the board saying nothing — see `ringOf`.
+	 */
+	run: { ring: Ring; ev: string | null; at: number | null; sid: string | null; workspace: string | null; why: string | null };
+	/** P5 F5's clause, evaluated: why this step could not be armed as declared. Empty is arm-able. */
+	blocks: string[];
+};
+
+export const RINGS = ['declared', 'fired', 'landed', 'paused', 'refused'] as const;
+export type Ring = (typeof RINGS)[number];
+
+/** Board lifecycle → the same five rings, so past and future are drawn in one vocabulary. */
+const RING_OF_STATE: Readonly<Record<string, Ring>> = {
+	LANDED: 'landed', 'IN FLIGHT': 'fired', BLOCKED: 'paused', KILLED: 'refused', OPEN: 'declared',
+};
+
+/**
+ * A node's ring, and **where the claim comes from**.
+ *
+ * The engine's log outranks the board because it is the finer sensor: it knows a step was fired
+ * before any board says IN FLIGHT. Where it is silent the **board** speaks, which is what makes the
+ * Works one drawing of past and future rather than a plan hovering over a history it cannot see —
+ * and `from` carries the difference, because a landed ring taken off a board row is not evidence
+ * that this engine ever fired it (D10's family: never let a rendering claim more than its source).
+ */
+export const ringOf = (n: WorksNode, state: string | null): { ring: Ring; from: 'run' | 'board' | 'none' } =>
+	n.run.ev !== null ? { ring: n.run.ring, from: 'run' }
+	: state !== null && RING_OF_STATE[state] ? { ring: RING_OF_STATE[state]!, from: 'board' }
+	: { ring: 'declared', from: 'none' };
+
+/** Lit: fired, and the session it named is still beating (the census, the sole liveness authority). */
+export const lit = (n: WorksNode, ring: Ring, live: ReadonlySet<string>): boolean =>
+	ring === 'fired' && n.run.sid !== null && live.has(n.run.sid);
+
+export type WorksEdge = { from: string; to: string };
+
+export type WorksFlow = {
+	name: string;
+	file: string;
+	building: string;
+	scope: string;
+	created: string;
+	concurrency: number;
+	judgeTier: string;
+	/** When the flow itself was armed, per its run log — null while nothing has authorized it. */
+	armedAt: number | null;
+	nodes: WorksNode[];
+	edges: WorksEdge[];
+	run: { file: string; present: boolean; lines: number; malformed: number };
+};
+
+/** A flow that will not parse renders its failure and files nothing (parser-as-lint, README §1). */
+export type WorksFail = { name: string; file: string; code: string; error: string };
+
+/** The bill, per account: B5's strip source, rendered where the plan is (B10 §5). */
+export type WorksUsage = {
+	account: string;
+	ageSeconds: number | null;
+	cells: { bucket: string; pct: number | null; delta: number | null }[];
+};
+
+/**
+ * The declared work for one building. **Asked for, never broadcast** — like the Workshop's detail,
+ * it rides the poll's `?b=` and nothing else, and the board rows it draws against are the ones
+ * already on the wire (`workshop`), joined by id rather than parsed a second time.
+ */
+export type Works = {
+	building: string;
+	flows: WorksFlow[];
+	fails: WorksFail[];
+	usage: WorksUsage[];
+};
+
 // ---------- the snapshot: what `GET /deck/state` answers ----------
 
 // ---------- attention: one vocabulary, two places (D15) ----------
@@ -433,6 +534,12 @@ export type DeckSnapshot = {
 	 * the deck names it in the query and the server answers about that one building and no other.
 	 */
 	workshop: WorkshopDetail | null;
+	/**
+	 * The same building's **declared** work (B10) — flows, run-state and the bill — under the same
+	 * `?b=` and the same timer. It carries no board rows of its own: the Works draws the past out of
+	 * `workshop` above and the plan out of this below, which is what makes it one drawing (keel §6).
+	 */
+	works: Works | null;
 	/**
 	 * B5 E1's auditor delta, carried into the deck: what `ps` sees beside what the census tracks.
 	 * `at` is when the count was taken, not when the snapshot was composed — it is deliberately

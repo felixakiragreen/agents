@@ -18,6 +18,7 @@ import { byWorkspace, identity, type LiveWorkspace } from './identity';
 import { buildingOf } from './pages';
 import { cityRoot } from './paths';
 import { age, city } from './register';
+import { worksOf } from './works';
 import { workshopOf } from './workshop';
 
 /** A building the City has no row for still gets a shape, never an absent field (badges are counts). */
@@ -112,6 +113,11 @@ export async function deckState(open: string | null = null): Promise<DeckSnapsho
 	const workshop = open === null ? null
 		: workshopOf(buildings, open, rows.find(r => r.building === open)?.badges ?? NO_BADGES());
 
+	// The Works asks the same question of the same building (B10): what is *declared* here. It rides
+	// the same `?b=` because the two tenants draw the same building — the board above the now-line and
+	// the plan below it — and a second query would be a second timer in all but name (B13 F5).
+	const works = worksOf(open);
+
 	return {
 		at: Date.now() / 1000,
 		census: {
@@ -125,6 +131,7 @@ export async function deckState(open: string | null = null): Promise<DeckSnapsho
 		},
 		queue,
 		workshop,
+		works,
 		auditor: auditor(),
 		identity: { at: who.at, error: who.error, workspaces: who.workspaces.length },
 	};

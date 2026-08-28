@@ -36,6 +36,21 @@ export const haltFlag = () => join(dirname(censusDir()), 'HALT');
 /** The credential, outside the repo and outside every backup the city keeps (B4 §2). */
 export const handsEnv = () => process.env.BELVEDERE_ENV ?? join(home, '.config/belvedere/env');
 
+/**
+ * Declared flows — **committed truth**, a batch note as data (B10 §1). Relative to the canon repo
+ * rather than to `$HOME` for the same reason `canonRoot()` is: a fixture city carries flows of its
+ * own, and a probe must never be able to read the real ones as truth. `$FLOWS_DIR` is this row's
+ * knob, `$CENSUS_DIR`'s twin.
+ */
+export const flowsDir = () => process.env.FLOWS_DIR ?? join(canonRoot(), 'belvedere/flows');
+
+/**
+ * A flow's run-state, in the D6 telemetry neighborhood beside the census — **gitignored, written by
+ * the engine (B11), never by this row**. The board stays the only truth about work; this is the
+ * engine's working memory.
+ */
+export const flowRun = (name: string) => join(censusDir(), 'flows', `${name}.run.jsonl`);
+
 /** The D53 header a building's FIRST gesture mints its inbox from (DOCTRINE §3, adoption-on-first-need). */
 export const ISSUES_TEMPLATE = join(home, 'code/agents/canon/work/templates/issues.md');
 
