@@ -384,10 +384,10 @@ export function migrateText(file: string, md: string, knownIds?: Set<string>): M
  * dates: a live entry's missing clause is a session's lint failure, not the converter's stamp.
  */
 function clauseEdits(lines: string[], edits: Edit[]): Edit[] {
-	const HEAD = /^(?:##\s+|\*\*)?(\d{4}-\d{2}-\d{2})\s*·/;
+	const HEAD = /^(##\s+|\*\*)?(\d{4}-\d{2}-\d{2})\s*·/;
 	const extra: Edit[] = [];
-	const spans: { date: string; start: number; end: number }[] = [];
-	let cur: { date: string; start: number } | null = null, fence = false;
+	const spans: { dialect: boolean; date: string; start: number; end: number }[] = [];
+	let cur: { dialect: boolean; date: string; start: number } | null = null, fence = false;
 	for (let i = 0; i < lines.length; i++) {
 		const l = lines[i]!;
 		if (/^\s*```/.test(l)) fence = !fence;
@@ -395,16 +395,19 @@ function clauseEdits(lines: string[], edits: Edit[]): Edit[] {
 		const h = l.match(HEAD);
 		if (h || /^---\s*$/.test(l)) {
 			if (cur) spans.push({ ...cur, end: i });
-			cur = h ? { date: h[1]!, start: i } : null;
+			// a `## ` or bare head IS the pre-doctrine dialect, whatever its calendar date
+			cur = h ? { dialect: h[1] !== '**', date: h[2]!, start: i } : null;
 		}
 	}
 	if (cur) spans.push({ ...cur, end: lines.length });
 
 	const covered = (n: number) => edits.find(e => n >= e.line && n < e.line + e.from.split('\n').length);
 	for (const s of spans) {
-		if (!preD63(s.date)) continue;
 		const span = lines.slice(s.start, s.end);
-		if (!span.some(l => /^(Changed|Blocked):/.test(l))) continue;
+		// the license is the dialect shape: an old-shape head, or the labels only it wrote —
+		// a conforming-era bold head qualifies by its labels alone, and only pre-D63
+		if (!s.dialect && !span.some(l => /^(Changed|Blocked):/.test(l))) continue;
+		if (!s.dialect && !preD63(s.date)) continue;
 		const flat = span.join(' ');
 		const missing = [
 			...(/Decided:/.test(flat) ? [] : ['Decided: unrecorded.']),
