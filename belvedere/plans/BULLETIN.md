@@ -1237,3 +1237,79 @@ that imported `engine.ts` (B8 F1, one door further along), and `engine.test.ts` 
 `BELVEDERE_ENV` at a path that does not exist as its own guard.
 
 (Relayed from `master`, B11 LANDED 2026-08-28 — Builder)
+
+## → relay — B16 (the Chat) to B19, B21, B12 and the Architect: no escalation, four findings that bind
+
+Evidence: [b16-chat.md](b16-chat.md) §DoD and §Findings, commits `d4108f6` … `3153e71` on
+`master`.
+
+1. **F2 — a bounded read that pages BACKWARDS and a bounded read that starts at a KNOWN
+   BOUNDARY are two functions, and conflating them silently eats the one record that
+   matters.** `windowOf` drops its own first line as a possible partial, which is right for a
+   tail and correct in `census.ts`'s `fileWindow` too. The verification read's `from` is the
+   transcript's size *before* the send — a line boundary by construction — so reading it
+   through the same function dropped the first appended record, **which is the delivered turn
+   itself**, and the send reported `unverified` after a full 45-second poll. Caught by the
+   suite before a probe ever ran, and fixed with a second reader (`readFrom`) rather than a
+   flag on the first. **Anything that verifies an append inherits this** — B19's desk writes
+   and B21's incremental reads both have the shape; the two reads look identical and differ in
+   exactly the record you are looking for.
+
+2. **F1/F8 — the poll's query has a second key, and the cross-pane cell has a third slot; both
+   are the ontology, not convenience.** `needs(focusState)` names a **building** (B15's fifth
+   member); `asks(focusState)` names a **session** (the sixth). Two members rather than one,
+   because City → Building → **Agent** is two levels with a surface and a parameter whose value
+   is sometimes a slug and sometimes a uuid is the ambiguity class this building spends its
+   time refusing. Still **one endpoint, one timer**: measured over the live register, N=12,
+   `/deck/state` **p50 58.0 ms** bare vs **p50 59.2 ms · p95 115.8 ms** carrying both. The
+   `selection` cell is now `{building, session, awaiting}`, and the third is how the composer
+   hands a fresh fire to the Chat: **a fire answers a workspace and no session id** (B11 F2),
+   so what travels is the name-stamp and the Chat latches when the census names it. Done
+   through the seam's own cells rather than an import, because importing the Chat from
+   `composer.client.ts` would have reordered the tenant registry (the Workshop imports the
+   composer) — **a tenant asks the shell; it never reaches into another tenant.**
+
+3. **F3 — a probe cannot be waited on by its words, and must NEVER be waited on by its name.**
+   Two instrument bugs, both general, both cost a full timeout. (a) P6 F6 said a probe cannot
+   be *instructed* into a long turn; the mirror is that it cannot be instructed into a
+   *phrase* — told to "say READY now", the probe applied its own standing rule and answered
+   `ACK now`, and the instrument waited 150 s for a string that was never coming. **Wait on
+   the census: `Stop` is the idle sensor** (P1 F1). (b) **A fixed probe stamp latches onto a
+   previous run's dead session.** The census keeps every session it has ever heard, so
+   `find(s => s.stamp === STAMP)` matched a workspace closed ten minutes earlier — `ws` field
+   and all — and the instrument then waited for a corpse to go idle. The stamp is unique per
+   run now and the search excludes `gone`. B11 F2's name-stamp join is safe because it reads
+   the run log's own fire; **anything that searches the whole census by stamp inherits this.**
+
+4. **F4/F5 — two things named and deliberately not built.** (a) **`desk/drafts/<sid>.md` files
+   are untracked**: the canon repo has no `desk/` yet and no ignore rule for one. D17 says the
+   desk is "gitted, versioned" and a *note* plainly should be — but a half-typed reply is
+   per-viewer scratch, and this row will not settle that by writing a `.gitignore` on its way
+   past. **B19 builds the desk proper and the rule is the Architect's**; both B16 probes point
+   `DESK_DIR` at a temp tree, so no DoD run has written one into the repo. (b) **HALT does not
+   stop a send, deliberately** — the flag's consumer is the engine (B11 §5), it stops
+   *automation*, and hitting HALT is usually the exact moment Felix needs to say something to
+   a session by hand. Named so the next row does not "fix" it.
+
+Also for B19 and B21, not blocking: **the send is D18 write class 1 and lives outside
+`hands.ts`**, on B11's `flowRoute` precedent — credential-gated at its own door, audited
+through the hands' own `audit()` (sha and bytes, never the words; verified live, the message's
+token appears in the audit **0** times), and reaching the world only through the `cmux()` the
+hands already own. The two halves sit on **opposite sides of the arming switch on purpose**:
+`POST /chat/send` answers 503 cold, `POST /chat/draft` answers 200, because cold hands must
+never cost him the ability to write something down (B6 F3's law, second venue). And the
+compose-time law is one pure function in `deck-model.ts` (`refusals()`), imported by the
+client that draws the reason as he types **and** by the route that refuses the body — including
+one refusal that is this row's rather than P6's: **a message `sanitizeSummons` would rewrite is
+refused, not sanitized**, because editing his bytes so the glass's own sha matches is exactly
+what P6 F3 forbids.
+
+And for anyone rendering a transcript: **B13's last placeholder is gone** — all three tenants
+have moved in — and a turn's identity is the **byte offset** of the record that opened it,
+which is the only stable one a jsonl append log offers. It is what lets a window loaded by
+scrolling up be merged onto a live tail without ever drawing a turn twice (measured: 40 turns
+→ 80 after one `[↑ earlier]`, every `data-key` distinct). Fenced blocks are kept verbatim and
+**exempt from the decoder** — B20 §1's code-tick exemption, one grammar further along: a
+kickoff quoted inside a transcript is bytes somebody is about to copy.
+
+(Relayed from `master`, B16 LANDED 2026-08-28 — Builder)
