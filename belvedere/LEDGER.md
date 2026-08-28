@@ -1847,3 +1847,21 @@ Behind it: 1) your further tweaks → ISSUES or the desk, any time before B27 fi
 2) the canon-side sweep waits on the Grand Architect; 3) the trust drain + the
 PermissionRequest ritual + the rework pass ride G3; 4) until B23 lands, the wire is
 the truth and the board pane may lie — curl `/deck/state?b=` when in doubt.
+
+Fifth act, same sitting (his cmux badge report — a substrate question): diagnosed at
+the source, cited. cmux's Claude wrapper maps EVERY `Notification` hook to a
+`needsInput` latch (`~/.cmuxterm/claude-hook-sessions.json`, cmux's own agent-hooks
+docs) — both `permission_prompt` and the 60 s `idle_prompt` nag land identically, and
+the latch clears only on a LATER hook event, which an idle or dead session never
+fires. Measured live: **21 sessions latched needsInput, 17 of them dead pids.** This
+is P1's own finding from the other side (`Notification` is the nag; `Stop` is the
+edge) — cmux made the opposite call. RULED: (1) the unstick is Felix's — a cmux
+quit+relaunch at a clean window (restored terminals sit idle per cmux's restore doc;
+P4: cost is in-flight turns only); the state file is NOT hand-edited (lock protocol,
+live rewrite). (2) The durable fix is upstream — feedback drafted verbatim at
+`desk/cmux-feedback-draft.md`, his send. (3) Substrate verdict HELD: since batch 5
+cmux is load-bearing past D4's adapter seam (B18 identity, P6 transport, B25
+placement, D8 deployment) — an exit is a chapter, not a config change; if upstream
+stonewalls, a P7 attention-physics probe (P4-class, exclusive) is the next cut's
+candidate, named here so parked is tracked. Meanwhile the deck's queue is the badge
+to trust — it reads the true edge by construction (B14).
