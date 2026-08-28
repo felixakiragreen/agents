@@ -820,3 +820,61 @@
   mechanism signs the charter (Felix's minting principle, quartermaster keel-note).
   The blanket ban is declined on the record: it would unstaff the Dispatcher with
   nothing to replace its limbs.
+- **D68** (2026-08-28, Grand Architect (11) — proposed, pending Felix countersign):
+  **The typed-absence vocabulary — ignorance vs knowledge.** D63's `unrecorded`
+  amendment generalizes, and recorded absences get their own tokens. The
+  discriminator: **`unrecorded` asserts ignorance; the other tokens assert
+  knowledge** — write the one you can defend. (1) `unrecorded` is legal in ANY
+  required slot whose record history simply lacks — ledger tier and mantle, board
+  tier, staffing sub-slots, a decider, a decision title (`**unrecorded.**`), a
+  `Decided:`/`Next:` clause: the amendment's list was illustrative ("a required
+  field"), never exhaustive. (2) **`unstaffed`** minted as a whole-Staffing value:
+  the row deliberately carries no staffing — parked rows, killed-before-staffed
+  rows, rows whose go/no-go is Felix's without being gate rows; writing `unrecorded`
+  there would assert ignorance where the board asserted knowledge. Birthplaces:
+  waypoint-stepper rows 18/19/23 (the token verbatim in the field), cornerizer
+  C8/C34's `staffed when unparked`; 18f and 18g drew the identical line
+  independently — two buildings, one missing token. (3) **`bare session`** minted
+  for the ledger-head mantle slot: D26's lawful null mantle is a recorded absence,
+  not a lost record — the 2026-08-07 forensic entry's mantle cell (18a's flagged
+  `unrecorded`) flips to `bare session` at this countersign, and every future bare
+  session that changes repo state writes it. Birthplace: D26's own vocabulary.
+  (4) The linter learns all tokens at row 19; replacing any typed absence still
+  takes cited evidence and a visible commit (D63 stands). Rejected: the stricter
+  alternative (an unstaffed OPEN row is malformed and the Architect owes it a
+  staffing at cut) — waypoint 18/19's own Status says "Felix's call whether it is
+  worth a hook"; forcing a staffing there invents information (Directive §1.7).
+  Edits at countersign: DOCTRINE §4 (Staffing bullet), §7 (head grammar), §8 (the
+  `unrecorded` sentence's slot list).
+- **D69** (2026-08-28, Grand Architect (11) — proposed, pending Felix countersign):
+  **PARKED is an annotation; the parked list is for the un-cut.** `PARKED` joins
+  `PENDING` as a legal OPEN annotation (D63c's genre): `OPEN — PARKED <reason>` —
+  the state leads; a leading PARKED is the same defect as a leading PENDING. The
+  line: **the parked list holds ideas without ids; a cut row parks in place** — a
+  row, once cut, stays a row (ids are stable, D18), and parking is a status fact,
+  never a board removal. PENDING and PARKED differ on purpose: PENDING waits on a
+  named external precondition; PARKED is deliberate shelving — nobody is waiting,
+  and unparking is a fresh decision. A parked row's Staffing is honestly
+  `unstaffed` (D68) where the shelving dissolves its staffing. Rejected: a sixth
+  lifecycle state (the lifecycle stays five words — D63b's own defense), and
+  PARKED-as-KILLED (cornerizer's cells name live preconditions — "earns a build on
+  iron or not at all" is a shelf, not a grave). Birthplaces: the architect
+  charter's own verb ("park what's real but out of scope — parked is tracked, not
+  lost"), DOCTRINE §4's parked list, this board's row 11 (the same act in prose),
+  cornerizer C8/C22/C34 (the field spelling), 18g's recommendation (a). The
+  city-wide respelling rides row 18's continuation; the linter learns the token at
+  row 19. Edit at countersign: DOCTRINE §4 (annotation bullet).
+- **D70** (2026-08-28, Grand Architect (11) — proposed, pending Felix countersign):
+  **The offline type gate — TS rows pin their checker.** Every order whose
+  deliverable is TypeScript names its type gate, and the gate runs offline:
+  `typescript` (plus the runtime's types — `@types/bun` under bun) pinned as dev
+  dependencies with a `tsconfig.json`; `bunx tsc --noEmit` is then a sanctioned,
+  network-free check that D54 riders may name. An unpinned `bunx tsc` resolves
+  from the network mid-build — three D54 slips in three consecutive Belvedere
+  build rows (B1 and B4 self-reported; B3 filed it as the missing tool it is)
+  prove the reflex systemic: every TS Builder reaches for the checker, so the
+  checker must already be in the repo. `bun test` + running code stays the
+  behavior gate; this entry is types only. Birthplace: Belvedere's own B8 ruling
+  (pinned deps + tsconfig + rider language, in daily use since), harvested per
+  the harvest law. Edit at countersign: DOCTRINE §5 (one sentence in the D54
+  paragraph).
