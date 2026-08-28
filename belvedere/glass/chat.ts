@@ -379,10 +379,18 @@ export function parseMessage(raw: unknown): Outcome<Message> {
 	return { ok: true, result: { sid, text } };
 }
 
-/** The one line of a cmux screen that is the TUI's input box. */
+/**
+ * What the TUI's input box currently holds, off a `read-screen` (P6 Q4-F5's precheck).
+ *
+ * The caret is `❯` and it is not always at the start of the line: cmux hands back the pane's whole
+ * screen, borders included, so the read is *everything after the last caret*, minus the box-drawing
+ * run that closes the frame. ASCII `|` is deliberately **not** stripped — a message ending in a pipe
+ * is a message, and reading it as an empty box is how the transport appends to Felix's half-draft.
+ */
 export const boxOf = (screen: string): string => {
-	const line = screen.split('\n').map(l => l.trim()).filter(l => l.startsWith('❯')).at(-1);
-	return line === undefined ? '' : line.slice(1).trim();
+	const line = screen.split('\n').filter(l => l.includes('❯')).at(-1);
+	if (line === undefined) return '';
+	return line.slice(line.lastIndexOf('❯') + 1).replace(/[─-╿\s]+$/u, '').trim();
 };
 
 /**
@@ -428,18 +436,37 @@ export async function deliver(ws: string, text: string, password: string): Promi
 	return { ok: true, result: calls };
 }
 
-/** Every string user turn appended to a transcript after `from`. Bounded, like every read here. */
+/**
+ * The bytes a file has grown by since `from` — which is a **known line boundary** (it was the file's
+ * size before the send), so nothing is trimmed off the head.
+ *
+ * `windowOf` cannot answer this: it reads *backwards* and drops its own first line as a possible
+ * partial, which would silently eat the very turn the verification is looking for. Measured by the
+ * suite before it was ever measured by a probe.
+ */
+function readFrom(path: string, from: number, cap: number): string {
+	let fd: number;
+	try { fd = openSync(path, 'r'); } catch { return ''; }
+	try {
+		const size = statSync(path).size;
+		if (size <= from) return '';
+		const buf = Buffer.alloc(Math.min(size - from, cap));
+		readSync(fd, buf, 0, buf.length, from);
+		return buf.toString('utf8');
+	}
+	catch { return ''; }
+	finally { closeSync(fd); }
+}
+
+/**
+ * Every **string** user turn appended after `from`. A `user` record whose content is an array is a
+ * tool result, and counting one would report a delivery that never happened — which is the single
+ * failure the whole verification read exists to prevent.
+ */
 export function turnsAfter(path: string, from: number): string[] {
-	const size = (() => { try { return statSync(path).size; } catch { return 0; } })();
-	if (size <= from) return [];
-	const w = windowOf(path, null, Math.min(size - from, LIMITS.appended));
-	if (w === null || w.from > from) return [];
 	const out: string[] = [];
-	let off = w.from;
-	for (const line of w.text.split('\n')) {
-		const start = off;
-		off += bytesOf(line) + 1;
-		if (start < from || line.trim() === '') continue;
+	for (const line of readFrom(path, from, LIMITS.appended).split('\n')) {
+		if (line.trim() === '') continue;
 		let r: Rec;
 		try { r = JSON.parse(line) as Rec; } catch { continue; }
 		if (r['type'] !== 'user' || r['isSidechain'] === true || r['isMeta'] === true) continue;
