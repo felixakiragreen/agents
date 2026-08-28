@@ -148,6 +148,15 @@ Merge-priority leads, credited; the obs files carry the evidence:
   inbox; "spike" as the pre-canon ancestor of the Digger row; "gate" ×4 in one
   territory; pure product homonyms drain (drain_dialogs) and card (PolyScope Defaults
   card); live case-split land vs LANDED.
+- **A3** (the ledger, landed at the wrap — 404 obs, 73 formulas): "bless" used against
+  its canon gloss by Felix himself (LEDGER:1384 — D69 countersigned with the word
+  "bless"), live counter-evidence on the bless/countersign boundary this row settles;
+  homonym set — theater (campaign front vs rig name segment, competing with venue /
+  home / project silo), register (DECISIONS vs the linter's building register),
+  lineage (D38 ancestry vs session-name ordinals), fence (scope vs markdown); "ledger"
+  as a VERB (:1159); the ledger is the densest ground for one-line laws living
+  nowhere else ("two holders is zero holders", "law lives where it's loaded", …); two
+  retirements the merge must not resurrect (`bare session` :1383, *genesis* :957).
 - **Nets** (mechanical): the corpus is bilingual — color/colour 509/258 but grey/gray
   231/5, -ize/-ise 673/193, behavior/behaviour 219/174; ISO dates held (3,672; ~64
   month-name stragglers, mostly bob/spacex dialects); imperial extinct (5 quoted
