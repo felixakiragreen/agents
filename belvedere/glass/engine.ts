@@ -21,7 +21,6 @@
  */
 
 import { existsSync } from 'fs';
-import { join } from 'path';
 import type { BoardRow } from '../../doctrine';
 import { isLive, readCensus, type Session } from './census';
 import {
@@ -36,8 +35,8 @@ import {
 import {
 	fail, fire, json, readCredential, readHalt, worktree, type Halted, type Outcome,
 } from './hands';
-import { cityRoot, haltFlag } from './paths';
-import { city } from './register';
+import { haltFlag } from './paths';
+import { buildingPath, city } from './register';
 import { readRig, type Rig } from './rig';
 import { compose, nextOrdinal, ordinal, stampPrefix, theaterOf } from './summon';
 import { readTrust, trustOf, type Trust } from './trust';
@@ -215,24 +214,6 @@ export function plan(flow: Flow, run: Run, world: World): Plan {
 	else if (last !== null && last.ev === 'paused' && (last.why ?? '').startsWith('amended'))
 		note(lines, last, { ev: 'resumed', why: 'the flow matches its arm again' });
 
-	// **The reactive gate's second half, and the one that matters: the verdict is read off the files,
-	// never off the judge's mouth** (§2). A judge that has sat is a judge whose gated row can be
-	// re-classified — clean now, the lane runs on; still not clean, the card is Felix's after all,
-	// and it is drawn on the judge node whose ring this pause sets.
-	for (const judge of steps) {
-		const gatedId = gatedOf(judge.id);
-		if (gatedId === null) continue;
-		const gated = flow.steps.find(s => s.id === gatedId);
-		if (gated === undefined || linesFor(run, judge.id).at(-1)?.ev !== 'landed') continue;
-		if (linesFor(run, gatedId).some(l => l.ev === 'resumed')) continue;      // ruled once, ruled
-
-		const again = verdictOf(gated, firstFire(linesFor(run, gatedId)), world);
-		if (again !== null && again.ev === 'landed')
-			lines.push({ ev: 'resumed', step: gatedId, why: `the judge sitting landed and ${gatedId} reads clean — the lane runs on` });
-		else
-			lines.push({ ev: 'paused', step: judge.id, why: `the judge sitting landed and ${gatedId} still does not read clean (${again?.why ?? 'the row says nothing either way'}) — this one is Felix's` });
-	}
-
 	// Landings first, so a dependant can fire in the same pass its dependency landed.
 	const landed = new Set<string>();
 	/** Steps the board says are not the engine's to start: KILLED, BLOCKED, or already IN FLIGHT. */
@@ -247,6 +228,55 @@ export function plan(flow: Flow, run: Run, world: World): Plan {
 	 * still alive and still spending, and the engine kills nothing (B11 §6).
 	 */
 	const settled = new Set<string>();
+
+	/**
+	 * **The gate's second half, and the one that matters (§2): the verdict is read off the FILES,
+	 * never off the judge's mouth.**
+	 *
+	 * A judge has no board row, so B11's landing law cannot speak for it — and the census cannot
+	 * either: a session whose workspace is closed ends on `SessionEnd`, not on `Stop`, so the
+	 * two-sensor law would read every finished sitting as malformed (F2). What a judge is *for* is the
+	 * row, so the row is what says whether it worked:
+	 *
+	 *  · the gated row reads clean → the judge landed, the lane **resumes**, and it resumes the moment
+	 *    the row is true rather than when the sitting happens to shut down;
+	 *  · the sitting is over (`Stop` or gone — P1's idle sensor) or past its limit, and the row still
+	 *    does not read clean → the card is **Felix's** after all. **A judge is never judged** (§3), so
+	 *    the engine inserts no second one, and that is why this loop, and not `verdictOf`, is the only
+	 *    thing in the engine that ever rules on a judge.
+	 */
+	for (const judge of steps) {
+		const gatedId = gatedOf(judge.id);
+		if (gatedId === null) continue;
+		const gated = flow.steps.find(s => s.id === gatedId);
+		if (gated === undefined) continue;
+		const mine = linesFor(run, judge.id);
+		const own = mine.at(-1) ?? null;
+		if (own === null || own.ev === 'landed' || own.ev === 'paused') continue;   // not started, or already ruled
+		const fired = firstFire(mine);
+		if (fired === null) continue;
+
+		const sid = lastFire(mine)!.sid;
+		const again = verdictOf(gated, firstFire(linesFor(run, gatedId)), world);
+		if (again !== null && again.ev === 'landed') {
+			lines.push({ ev: 'landed', step: judge.id, sid, why: `${gatedId} reads clean now — the sitting did what it was staffed for` });
+			lines.push({ ev: 'resumed', step: gatedId, why: `the judge sitting cleared ${gatedId} — the lane runs on` });
+			settled.add(judge.id);
+			continue;
+		}
+
+		const session = sessionOf(fired, world);
+		const over = session !== null && (session.state === 'idle' || session.state === 'gone');
+		const late = world.now - fired.ts > judge.timeoutMinutes * 60;
+		if (!over && !late) continue;
+		lines.push({
+			ev: 'paused', step: judge.id, sid,
+			why: `the judge sitting ${over ? 'is over' : `passed its ${judge.timeoutMinutes} minute limit`} and ${gatedId} still does not read clean`
+				+ ` (${again?.why ?? 'the row says nothing either way'}) — a judge is never judged, so this one is Felix's`,
+		});
+		settled.add(judge.id);
+	}
+
 	for (const step of steps) {
 		const mine = linesFor(run, step.id);
 		const own = mine.at(-1) ?? null;
@@ -262,6 +292,7 @@ export function plan(flow: Flow, run: Run, world: World): Plan {
 				if (found) lines.push({ ev: 'fired', step: step.id, sid: found.sid, workspace: latest.workspace, stamp: latest.stamp });
 			}
 		}
+		if (isJudge(step.id)) continue;                       // the gate loop above is a judge's only judge
 
 		const verdict = verdictOf(step, fired, world);
 		if (verdict === null) continue;
@@ -275,18 +306,12 @@ export function plan(flow: Flow, run: Run, world: World): Plan {
 		// how it ended — it just stops.
 		if (fired === null) { if (verdict.ev === 'paused') held.add(step.id); continue; }
 		if (verdict.code !== 'timeout') settled.add(step.id);
-
-		// **No recursion** (§3): a judge's own sitting is never judged again, whatever it landed like.
-		const recursing = verdict.ev === 'paused' && classifies(verdict.code) && isJudge(step.id);
-		note(lines, own, {
-			ev: verdict.ev, step: step.id, sid: lastFire(mine)!.sid,
-			why: recursing ? `${verdict.why} — and a judge is never judged (one judge per gated landing, B12 §3): this one is Felix's` : verdict.why,
-		});
+		note(lines, own, { ev: verdict.ev, step: step.id, sid: lastFire(mine)!.sid, why: verdict.why });
 
 		// **The gate** (§2): a landing the engine could not read as clean fires the scoped Architect
 		// sitting into the lane rather than carding the sovereign. One per gated landing — the id is
 		// derived, so a second insertion is unrepresentable and the `extended` line is its own guard.
-		if (verdict.ev !== 'paused' || !classifies(verdict.code) || isJudge(step.id)) continue;
+		if (verdict.ev !== 'paused' || !classifies(verdict.code)) continue;
 		const jid = judgeIdOf(step.id);
 		if (run.lines.some(l => l.ev === 'extended' && l.step === jid)) continue;
 		lines.push({ ev: 'extended', step: jid, why: verdict.why });
@@ -540,13 +565,13 @@ async function pass(): Promise<TickReport> {
 			rows.set(row.id.toLowerCase(), row);
 			rowIds.add(row.id);
 		}
-		const buildingPath = home?.path ?? join(cityRoot(), flow.building);
+		const path = buildingPath(flow.building, buildings);
 
 		const world: World = {
 			now: Date.now() / 1000, halt,
 			sessions: new Map(census.sessions.map(s => [s.sid, s])),
 			stamped: new Map(census.sessions.filter(s => s.stamp !== null).map(s => [s.stamp!, s])),
-			rows, rowIds, busy, buildingPath,
+			rows, rowIds, busy, buildingPath: path,
 			// D12's decision is made here rather than in `plan()` because the in-scope test ends in a
 			// trust precheck, and that spawns `git` (B10 F7's cost, paid on a delta and nowhere else).
 			join: scopeJoin(flow, run, step => refuseStep(step, rig, trusts)),

@@ -695,57 +695,72 @@ describe('the verdict is read off the FILES, never off the judge’s mouth (§2)
 	beforeEach(scratch);
 
 	const RAISED = 'LANDED, and E1 is raised with nothing saying it was ruled (keel §5.1)';
-	const sat = (why = RAISED): NewRunLine[] => [
+	/** The gate has fired: the row is paused, the judge is inserted, and its sitting is running. */
+	const sitting = (why = RAISED): NewRunLine[] => [
 		{ ev: 'fired', step: 'a', sid: 'x', stamp: 'builder-e-01' },
 		{ ev: 'paused', step: 'a', why },
 		{ ev: 'extended', step: 'a.judge', why },
 		{ ev: 'fired', step: 'a.judge', sid: 'j', stamp: 'architect-e-01' },
-		{ ev: 'landed', step: 'a.judge', sid: 'j' },
 	];
+	const working = new Map([['j', session({ sid: 'j', state: 'working' })]]);
+	const over = new Map([['j', session({ sid: 'j', state: 'idle', last: beat({ sid: 'j', ev: 'Stop' }) })]]);
+	const clean = () => new Map([['a', row({ id: 'A', state: 'LANDED', annotation: '2026-08-28 — E1 ruled, row trued' })]]);
+	const dirty = () => new Map([['a', row({ id: 'A', state: 'LANDED', annotation: 'E1 — still nobody has ruled this' })]]);
 
 	test('the row reads clean now → the lane resumes and the next steps fire, with no click', () => {
 		const f = flowOf();
-		const rows = new Map([['a', row({ id: 'A', state: 'LANDED', annotation: '2026-08-28 — E1 ruled, row trued' })]]);
-		const p = plan(f, armed(f, sat()), world({ rows }));
-		expect(evs(p)).toEqual(['resumed:a', 'landed:a']);
-		expect(whyOf(p, 'resumed', 'a')).toContain('the judge sitting landed');
+		// The judge is still ALIVE: the lane resumes on the row being true, not on the sitting shutting
+		// down — the verdict is the files' (§2), and a closed workspace ends on `SessionEnd` anyway (F2).
+		const p = plan(f, armed(f, sitting()), world({ rows: clean(), sessions: working }));
+		expect(evs(p)).toEqual(['landed:a.judge', 'resumed:a', 'landed:a']);
+		expect(whyOf(p, 'landed', 'a.judge')).toContain('did what it was staffed for');
+		expect(whyOf(p, 'resumed', 'a')).toContain('the judge sitting cleared a');
 		expect(ids(p)).toEqual(['b', 'c']);
 	});
 
 	test('…and it resumes once: a second pass over a resumed lane writes nothing new', () => {
 		const f = flowOf();
-		const rows = new Map([['a', row({ id: 'A', state: 'LANDED', annotation: '2026-08-28 — E1 ruled' })]]);
-		const run = armed(f, [...sat(), { ev: 'resumed', step: 'a', why: 'the judge sitting landed and a reads clean — the lane runs on' }, { ev: 'landed', step: 'a' }]);
-		expect(evs(plan(f, run, world({ rows })))).toEqual([]);
+		const run = armed(f, [...sitting(),
+			{ ev: 'landed', step: 'a.judge', sid: 'j', why: 'a reads clean now — the sitting did what it was staffed for' },
+			{ ev: 'resumed', step: 'a', why: 'the judge sitting cleared a — the lane runs on' },
+			{ ev: 'landed', step: 'a', sid: 'x', why: 'the board row parses LANDED clean' },
+		]);
+		expect(evs(plan(f, run, world({ rows: clean(), sessions: working })))).toEqual([]);
 	});
 
-	test('the row is still not clean → his card, on the judge, and nothing fires behind it', () => {
+	test('a sitting still running over a row still dirty decides NOTHING — patience is the default', () => {
 		const f = flowOf();
-		const rows = new Map([['a', row({ id: 'A', state: 'LANDED', annotation: 'E1 — still nobody has ruled this' })]]);
-		const p = plan(f, armed(f, sat()), world({ rows }));
+		expect(plan(f, armed(f, sitting()), world({ rows: dirty(), sessions: working })).lines).toEqual([]);
+	});
+
+	test('the sitting is over and the row is still not clean → his card, on the judge', () => {
+		const f = flowOf();
+		const p = plan(f, armed(f, sitting()), world({ rows: dirty(), sessions: over }));
 		expect(evs(p)).toEqual(['paused:a.judge']);
 		expect(whyOf(p, 'paused', 'a.judge')).toContain("this one is Felix's");
+		expect(whyOf(p, 'paused', 'a.judge')).toContain('a judge is never judged');
 		expect(p.fires).toEqual([]);
 	});
 
 	test('…and that card is written once, not once per tick', () => {
 		const f = flowOf();
-		const rows = new Map([['a', row({ id: 'A', state: 'LANDED', annotation: 'E1 — still nobody has ruled this' })]]);
-		const run = armed(f, [...sat(), { ev: 'paused', step: 'a.judge', why: `the judge sitting landed and a still does not read clean (${RAISED}) — this one is Felix's` }]);
-		expect(plan(f, run, world({ rows })).lines).toEqual([]);
+		const run = armed(f, [...sitting(), { ev: 'paused', step: 'a.judge', sid: 'j', why: 'his' }]);
+		expect(plan(f, run, world({ rows: dirty(), sessions: over })).lines).toEqual([]);
 	});
 
-	test('NO RECURSION: a judge whose own sitting is gate-classified is carded, never judged again (§3)', () => {
+	test('a judge past its own limit cards him too — the engine waits for nothing forever', () => {
 		const f = flowOf();
-		const vanished = session({ sid: 'j', state: 'gone', last: beat({ sid: 'j', ev: 'PreToolUse' }) });
-		const run = armed(f, [
-			{ ev: 'fired', step: 'a', sid: 'x' }, { ev: 'paused', step: 'a', why: RAISED },
-			{ ev: 'extended', step: 'a.judge', why: RAISED },
-			{ ev: 'fired', step: 'a.judge', sid: 'j', stamp: 'architect-e-01' },
-		]);
-		const p = plan(f, run, world({ rows: new Map([['a', row({ id: 'A', state: 'LANDED', annotation: 'E1 — raised' })]]), sessions: new Map([['j', vanished]]) }));
+		const run = armed(f, sitting(), NOW - 60 * 60 * 24);
+		const p = plan(f, run, world({ rows: dirty(), sessions: working }));
 		expect(evs(p)).toEqual(['paused:a.judge']);
-		expect(whyOf(p, 'paused', 'a.judge')).toContain('a judge is never judged');
+		expect(whyOf(p, 'paused', 'a.judge')).toContain('minute limit');
+	});
+
+	test('NO RECURSION: a judge whose own sitting died badly is carded, never judged again (§3)', () => {
+		const f = flowOf();
+		const vanished = new Map([['j', session({ sid: 'j', state: 'gone', last: beat({ sid: 'j', ev: 'SessionEnd' }) })]]);
+		const p = plan(f, armed(f, sitting()), world({ rows: dirty(), sessions: vanished }));
+		expect(evs(p)).toEqual(['paused:a.judge']);
 		expect(evs(p).some(e => e.includes('a.judge.judge'))).toBe(false);
 		expect(p.fires).toEqual([]);
 	});

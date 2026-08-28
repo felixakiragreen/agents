@@ -10,7 +10,6 @@
  * arm is B11's, and the string `hands/fire` appears nowhere in this file or in what it produces.
  */
 
-import { isAbsolute, join } from 'path';
 import type { Building } from '../../doctrine';
 import { cmuxColor } from './colors';
 import type { Works, WorksEdge, WorksFail, WorksFlow, WorksNode, WorksUsage } from './deck-model';
@@ -19,7 +18,7 @@ import { BUCKETS, pacing } from './gauges';
 import { handsState, readHalt } from './hands';
 import { short, tilde } from './html';
 import { gatedOf, isJudge, judgesOf } from './judge';
-import { cityRoot } from './paths';
+import { buildingPath } from './register';
 import { readRig, type Rig } from './rig';
 import { usageNow } from './usage';
 
@@ -140,8 +139,7 @@ export function worksOf(building: string | null, buildings: readonly Building[] 
 	const reads = readFlows(rig);
 	// The register's own path for this building — the same one the engine hands the judge as its
 	// venue. Handed in from the poll's existing read rather than looked up again (B14 F8's budget).
-	const path = buildings.find(b => b.building === building)?.path
-		?? (isAbsolute(building) ? building : join(cityRoot(), building));
+	const path = buildingPath(building, buildings);
 	const flows: WorksFlow[] = [];
 	const fails: WorksFail[] = [];
 	for (const r of reads) {

@@ -18,6 +18,7 @@
 // this row's findings.
 
 import { readFileSync, statSync } from 'fs';
+import { isAbsolute, join } from 'path';
 import {
 	LIMITS, batonFails, classifyBaton, discover, lastWalk,
 	parseBoards, parseDecisions, parseIssues, parseKickoffs, parseLedger,
@@ -189,3 +190,15 @@ export function city(): { reg: Register; buildings: Building[] } {
 	});
 	return { reg, buildings };
 }
+
+/**
+ * Where a building sits on disk. The register is the authority — it walked and found it — and the
+ * fallback is doctrine's own rule (a slug is a path relative to the city root), with one guard for
+ * a fixture city, where a building's name IS its absolute path (B10 F5).
+ *
+ * One function because two callers need the same answer for the same building and must not disagree:
+ * the engine hands it to a judge as its venue, and the Works draws that judge's kickoff from it.
+ */
+export const buildingPath = (building: string, buildings: readonly Building[]): string =>
+	buildings.find(b => b.building === building)?.path
+	?? (isAbsolute(building) ? building : join(cityRoot(), building));
