@@ -118,3 +118,23 @@ are drained. A swept inbox is empty.
   state a repaint preserves (B15 F5's receipt law applied to geometry);
   prepends compensate by anchor delta; `stick`/`aim` reset on target swap.
   Repro recipe: open a long transcript, scroll to the middle, wait one poll.
+
+---
+
+- 2026-08-28 · Felix (via the G2 Architect, his ruling on the disconnect) ·
+  **"I'm going to want to have the city sidebar be completely customizable by
+  me. Reordered, labelled, colored, nested, exactly my way."** A directive,
+  not a tweak: the City is his space and its ARRANGEMENT is his — reorder,
+  rename, recolor, nest (his own groupings, not the filesystem's). Truth
+  stays truth underneath: the census still decides what exists and what is
+  live, attention still outranks recency inside whatever arrangement he
+  makes, and a building he has not arranged still appears (an arrangement
+  hides nothing new). This reframes rather than replaces: candidate 7's
+  split-neighborhood fix still lands (a default view must not lie), and the
+  repo-vs-campaign differentiation becomes vocabulary inside HIS arrangement.
+  One fork for the cut sitting to pre-chew: where the arrangement persists —
+  B15's reorder used per-viewer localStorage, but "exactly my way" deserves
+  durability across browsers and machines: a gitted file (`desk/` is his
+  drawer; the fence's write list would need no new class if the deck writes
+  it as a desk file) vs localStorage. B18's rename/recolor write-through
+  (D18) already covers cmux-side identity; this is the glass-side layer.
