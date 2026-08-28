@@ -249,6 +249,15 @@ describe('scope-arm: growth inside the arm joins, everything else waits for his 
 		expect(j.kind === 'pause' && j.why).toContain('b was edited since the arm');
 	});
 
+	test('…and an edit with NO addition beside it names the step too', () => {
+		// The named refusals run before the "nothing to join" exit. With the two the other way round,
+		// an edit-only delta falls through to B11's generic sentence: he is told the plan moved and
+		// not told where. Measured on a live glass at this row's DoD before it was fixed.
+		const b2 = stepOf({ id: 'b', depends: ['a'], tier: 'opus-high' });
+		const j = scopeJoin(flowOf([a, b2]), armedRun, warm);
+		expect(j.kind === 'pause' && j.why).toContain('b was edited since the arm');
+	});
+
 	test('a removal pauses', () => {
 		const j = scopeJoin(flowOf([a, stepOf({ id: 'c' })]), armedRun, warm);
 		expect(j.kind === 'pause' && j.why).toContain('b was removed since the arm');

@@ -126,7 +126,84 @@ the real board.
 
 ## Findings
 
-*(append here — deviations from spec, discoveries, parked adjacents)*
+**F1 — the order's own classifier gates 120 of the city's 390 landed rows, including `b10` and
+`b11` of this very flow. It ships as the misclassification log it asks for, and the classifier is
+B11's pause.** §1 names three patterns — `/\bE\d+\s*[—-]/`, `/escalat/i`, `/BLOCKED/` — and says
+false positives are "the cheap direction". Measured over the live register at this landing:
+**390 `LANDED` rows · `escalationsIn` gates 0 · those three patterns gate 120**, of which
+`/escalat/i` alone gates **113**. The rows it takes include `agents/belvedere B10` and `B11`, whose
+annotations read *"nothing escalated"* — so on this row's own flow the order's list would have
+staffed two fable-high sittings at two rows that said, in words, there was nothing to rule. That is
+not a cheap direction. §1 was cut at the flow-cut sitting, **before B11 landed**; what B11 then
+built for this exact question is `attention.ts`'s `escalationsIn` (B14 F2's detector, 0 false
+positives over 458 rows), and the Architect's own relay says *"an unruled escalation on a `LANDED`
+row already pauses … B12 turns that pause into a judge fire"*. So the classifier is
+**`verdictOf`'s pause**, expressed as a `LandingCode` rather than a string match, and `SPEC_PATTERNS`
+survives in [`judge.ts`](../glass/judge.ts) as the named interim constant §1 asks for — with the
+measurement on it, pinned in `judge.test.ts` against six verbatim corpus annotations. **The real fix
+is neither regex: it is a machine-readable `holds` on the landing grammar (keel §6, canon's).**
+
+**F2 — a session that finishes ends on `SessionEnd`, never on `Stop`, so B11's census landing
+sensor lands nothing and its malformed branch fires on every normally-closed sitting.** Over the
+live census at this landing: **61 gone sessions, 61 last-event `SessionEnd`, 0 last-event `Stop`** —
+`Stop` fires when the turn ends, the session then sits idle with a live pid, and closing its
+workspace appends `SessionEnd`. So `Stop`-as-last-and-gone is the SIGKILL case (P1's own note), not
+the ordinary one. B11 never felt it because every step in its smoke was a **board row** and the
+board answered first. B12 does feel it, because an inserted judge has no row. Built accordingly:
+**a judge is landed by the row it was staffed for, never by its own session** — the census is asked
+only whether the sitting is *over* (`idle` or `gone`, P1's idle sensor), and that answer is used
+solely to decide when to card Felix. A consequence worth having: the lane resumes the moment the row
+is true, while the judge is still alive, rather than when its workspace happens to close. **What it
+binds:** anything reading `verdictOf`'s census branch as a landing sensor is reading a branch that
+almost never fires, and the keel §6 `holds` ask now has a second half — *how does a step with no
+board row land?*
+
+**F3 — a fixture city inside `~/code` is slugged RELATIVELY and one outside is slugged
+absolutely, and a flow that names the wrong one loses its board with no error.** B10 F5's rule,
+second face. Measured: `GLASS_CITY=/private/tmp/x` → the register calls the building
+`/private/tmp/x/nb/gate`; `GLASS_CITY=~/code/b12slug` → it calls the same shape `b12slug/nb/gate`.
+This row's probe must live under `~/code` (that is where the trust entry a fire needs lives, B7 F1),
+so its flow files write the **slug**. With the absolute path instead, `buildings.find(b =>
+b.building === flow.building)` is `undefined`, `world.rows` comes back **empty**, and every landing
+is then judged by the census instead of the board — which under F2 means *malformed* — silently,
+with no lint anywhere. Caught in a dry rehearsal before a single session was spawned; it would have
+looked like the gate working for the wrong reason. **Binds every later flow fixture.**
+
+**F4 — a step decided this pass kept its concurrency slot and its checkout until the next tick, and
+at `concurrency: 1` that starved the judge the same pass had just staffed.** `inFlight` reads the
+run *log*, which does not yet carry the line `plan()` is about to write, so a step paused at
+12:00:00 was still "in flight" for five more seconds. Harmless in B11 (a landing was already
+excluded by `landed`), fatal here: the gate's whole number is the gap between a landing edge and a
+judge fire. Fixed at the cause with a `settled` set covering every verdict this pass that ends a
+step's run — and **`timeout` is deliberately not in it**: that session is still alive and still
+spending, and the engine kills nothing (B11 §6).
+
+**F5 — the arm now records WHAT it armed, step by step, and "unknown" never auto-joins.**
+`Flow.hash` says *the plan moved*; the delta reader needs *which parts*, and keeping a copy of the
+flow file to diff against would put a second truth in the telemetry. So `Step.hash` is sha256 over
+everything a fire would use (**`depth` excluded** — it is the graph's property, and adding a step
+elsewhere must not read as editing one nobody touched), and an `armed` line carries
+`<id>:<hash>` for every step plus one frame mark under `*`, an id `STEP_ID` can never produce. An
+`armed` line written before this field existed reads back as **null**, and null is never treated as
+"only additions" — it pauses for the click, which is B11's behaviour and the honest one.
+
+**F6 — D12's "building + chapter" is prose; what scope-arm actually enforces is *what the click
+already covered*.** A step declares a venue and an account, not a chapter, so "inside the scope"
+was made checkable as: the flow's **frame** is unmoved (building, scope, concurrency, judge tier),
+nothing existing was **edited or removed**, every addition's **venue and account** are ones the arm
+already covers, and every addition passes `refuseStep` — *the same list the arm applies*, extracted
+so there is one of it. Growth may fill in the plan; it may never reach somewhere new. The ruling is
+a **module constant** (`ARM_SCOPE`), not a flow field, because a flow that could choose its own arm
+scope would be a flow that authorized its own growth.
+
+**F7 — the judge inherits the gated step's checkout, and that is single-writer physics rather than
+convenience.** `plan()` reserves a checkout by its **cwd**, so `~/code/agents` and
+`~/code/agents/belvedere` do not compare equal even though they are one git tree. Sending a judge to
+the building's own path while its lane's steps run at the repo root would put two writers in one
+checkout with the reservation blind to it. A judge therefore takes the gated step's venue where that
+is `master` — which is also, for free, a venue the arm has already trusted — and falls back to the
+building path only for a worktree-venue step, where a sitting that trues a board must not commit on
+a branch nobody merges.
 
 ---
 

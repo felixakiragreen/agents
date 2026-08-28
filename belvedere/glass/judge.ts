@@ -252,10 +252,16 @@ export function scopeJoin(flow: Flow, run: Run, warm: (s: Step) => string | null
 
 	const delta = deltaOf(flow, run);
 	if (delta === null) return { kind: 'pause', why: 'the arm did not record which steps it covered, so an addition cannot be told from an edit — re-arm to authorize this plan' };
-	if (delta.added.length === 0) return { kind: 'none' };
+
+	// The named refusals come before the "nothing to join" exit, or an edit with no addition beside it
+	// falls through to B11's generic sentence and he is told the plan moved without being told where.
 	if (delta.frameMoved) return { kind: 'pause', why: 'the flow\'s own frame moved (building, scope, concurrency or judge tier) — scope-arm covers growth inside the arm, never a new scope' };
 	if (delta.edited.length > 0) return { kind: 'pause', why: `${delta.edited.join(', ')} ${delta.edited.length === 1 ? 'was' : 'were'} edited since the arm — scope-arm joins additions, and an edit is a change to what was authorized` };
 	if (delta.removed.length > 0) return { kind: 'pause', why: `${delta.removed.join(', ')} ${delta.removed.length === 1 ? 'was' : 'were'} removed since the arm — scope-arm joins additions only` };
+	// Nothing this reader can see moved, and yet the hash did — a reformat, or a field the schema
+	// ignores. There is nothing to join, so B11's pause stands: the marks are a partial view of the
+	// file, and "nothing I can see moved" is not "nothing moved".
+	if (delta.added.length === 0) return { kind: 'none' };
 
 	const venues = new Set(flow.steps.filter(s => !delta.added.includes(s)).map(venueKey));
 	const accounts = new Set(flow.steps.filter(s => !delta.added.includes(s)).map(s => s.account));
