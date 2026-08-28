@@ -112,6 +112,26 @@ export async function pasteNaked(ws: string, text: string, name = 'p6ctl') {
 	await cmux(['paste-buffer', '--name', name, '--workspace', ws]);
 }
 
+/**
+ * THE TRANSPORT (candidate c — the segmented paste). `paste-buffer` is byte-exact and
+ * escape-safe for anything WITHOUT a newline, but rewrites every LF to CR on the wire
+ * (`wire.ts`), and no cmux API emits a raw 0x0a as text. So the payload travels as
+ * newline-free segments through the buffer path and the newlines travel as a KEY:
+ * `alt+enter` (wire: ESC CR — `keys.ts`), which the Claude TUI inserts as a newline
+ * instead of submitting. `ctrl+j` (a real 0x0a) is measured and REFUSED by the TUI —
+ * it inserts nothing at all, silently concatenating the lines.
+ */
+export async function deliverSegmented(ws: string, text: string, name = 'p6t') {
+	const lines = text.split('\n');
+	for (let i = 0; i < lines.length; i++) {
+		if (i > 0) await cmux(['send-key', '--workspace', ws, '--', 'alt+enter']);
+		if (lines[i] !== '') {
+			await cmux(['set-buffer', '--name', name, '--', lines[i]!]);
+			await cmux(['paste-buffer', '--name', name, '--workspace', ws]);
+		}
+	}
+}
+
 export const submit = (ws: string) => cmux(['send-key', '--workspace', ws, 'enter']);
 export const screen = (ws: string) => cmux(['read-screen', '--workspace', ws]);
 

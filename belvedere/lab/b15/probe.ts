@@ -358,9 +358,29 @@ try {
 		fromBoard.opened && fromBoard.line === '385',
 		`W3's annotation, expanded: its \`LEDGER.md:385\` opened ${fromBoard.where} at line ${fromBoard.line}`);
 
-	// --- 9. minimal is one word and a mark; the body still never scrolls ---
+	// --- 9. the three states are three densities, and Action follows Focus ---
 
-	await evaluate(`document.querySelector('#host-focus .doc-h button').click()`);
+	await evaluate(`document.querySelector('#host-focus .doc-h button')?.click()`);
+	await evaluate(SET('focus', 'typical'));
+	await evaluate(SET('action', 'typical'));
+	await Bun.sleep(400);
+	const typical = await evaluate<{ sections: string[]; note: string; action: string; overflow: number }>(`({
+		sections: [...document.querySelectorAll('#host-focus .sec')].map(x => x.dataset.sec),
+		note: [...document.querySelectorAll('#host-focus p.quiet')].at(-1).textContent,
+		action: document.getElementById('host-action').textContent,
+		overflow: document.documentElement.scrollHeight - window.innerHeight,
+	})`);
+	ok('typical shows the top of HIS order and says what it is holding back; Action follows Focus',
+		typical.sections.length === 3 && typical.sections.join(',') === 'sessions,board,ledger'
+		&& /2 more section/.test(typical.note) && typical.action.includes('nb/workshop') && typical.overflow === 0,
+		`typical → [${typical.sections.join(' → ')}] and the pane says "${typical.note}"\n`
+		+ `      Action holds: "${typical.action.replace(/\s+/g, ' ').slice(0, 160)}"\n`
+		+ `      scrollHeight − viewport = ${typical.overflow} px`);
+	await evaluate(SET('focus', 'expanded'));
+	await settle();
+
+	// --- 10. minimal is one word and a mark; the body still never scrolls ---
+
 	await evaluate(SET('focus', 'minimal'));
 	await Bun.sleep(400);
 	const minimal = await evaluate<{ name: string; dots: number; sections: number; overflow: number; width: number }>(`({
@@ -376,7 +396,7 @@ try {
 		`focus pane ${minimal.width.toFixed(2)} px wide holds "${minimal.name}" + ${minimal.dots} dots and ${minimal.sections} sections\n`
 		+ `      scrollHeight − viewport = ${minimal.overflow} px`);
 
-	// --- 10. and at minimal the deck asks the server for nothing ---
+	// --- 11. and at minimal the deck asks the server for nothing ---
 
 	await Bun.sleep(POLL_MS + 400);
 	const asked = await evaluate<string[]>(
@@ -385,7 +405,7 @@ try {
 		asked.length > 0 && asked.at(-1) === '/deck/state',
 		`the last ${asked.length} polls: ${asked.join(' · ')}`);
 
-	// --- 11. zero fire wiring, in the DOM and in the bundle ---
+	// --- 12. zero fire wiring, in the DOM and in the bundle ---
 
 	await evaluate(SET('focus', 'expanded'));
 	await settle();

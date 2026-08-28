@@ -1,0 +1,9 @@
+P6-D indentation:
+    four spaces
+  two spaces
+        eight spaces
+no indent
+
+    after a blank line
+trailing spaces here   
+end
