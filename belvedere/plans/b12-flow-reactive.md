@@ -1,6 +1,6 @@
 # B12 — the reactive gate + dynamic extension
 
-**Status:** OPEN · **Depends on:** B11 · **Staffing:** Builder · opus-high ·
+**Status:** LANDED 2026-08-28 · **Depends on:** B11 · **Staffing:** Builder · opus-high ·
 **Blessed:** Architect, flow-cut sitting 2026-08-27 — **D12 (step-arm vs
 scope-arm) is Felix's at the batch blessing** (README §6 batch-5 note); this
 order builds both branches behind one flag and the ruling flips it.
@@ -86,34 +86,114 @@ hand-relayed by Felix — while B8's fully-pre-chewed order escalated zero.
 
 ## Acceptance criteria — the DoD
 
-All measured against a live glass, evidence pasted; probe sessions haiku-low
-in `~/code/agents`, ≤2 concurrent, workspaces closed (D55); probe rows for the
-induced escalation live in a scratch section of a lab fixture doc, never on
-the real board.
+All measured against a live glass, evidence pasted; probe sessions ≤2
+concurrent, workspaces closed (D55); probe rows for the induced escalation
+live in a scratch section of a lab fixture doc, never on the real board.
 
-- [ ] **The reactive gate fires:** an induced escalation-marked landing (a
-  probe flow step whose row annotation writes `E1 —`) → the judge sitting
-  auto-fires (audit line + census beat + first-turn ≡ composed sweep
-  template, sha pasted), `extended` in run-state, the DAG draws the inserted
-  node, the lane is paused meanwhile — **the gap from landing edge to judge
-  fire pasted in seconds, zero human touches**.
-- [ ] **Resume on truth:** the judge (a scripted haiku probe told to true the
-  fixture row to clean LANDED) lands → lane `resumed`, next step fires
-  (measured gap pasted).
-- [ ] **Felix-card on residue:** a second induced run where the judge lands
-  *without* truing → his card renders on the lane, zero fire wiring, nothing
-  fires after (asserted).
-- [ ] **No recursion:** a judge whose sitting is itself gate-classified →
-  Felix-card, no second judge (asserted from run-state).
-- [ ] **Dynamic extension per D12:** with the ruled flag — scope-arm: an
-  in-scope added step auto-joins and fires with no click (measured); an
-  edited step still pauses for re-arm. Step-arm: both pause. (Test the ruled
-  branch live; the other branch under test only.)
-- [ ] **The close flow exists:** `flows/flow-close.flow.json` parses, renders
-  at `/flow/flow-close` with G2's kickoff resolved byte-identical to the
-  README fence (sha pasted), unarmed, the Felix-card inert.
-- [ ] `bun test belvedere/glass` green in one process; `bunx --offline tsc
-  --noEmit` exit 0.
+> **Tier amendment carried into this DoD (Felix, relayed at dispatch):** the
+> two named probe sessions — the induced-escalation flow step and the scripted
+> judge — run at **sonnet·low** rather than haiku-low, P5's own landing being
+> that `--model haiku` cannot hold `auto` permission mode and fails to
+> `default` silently. Everything else in the order stands as written. All three
+> sessions this DoD spawns are sonnet·low.
+>
+> **Venue amendment (this row's):** the fixture city is `~/code/b12-gate-<pid>`
+> rather than a temp root, because a fire needs the trust entry that lives at
+> `~/code` (B7 F1) — and because that directory is **no git repository and has
+> none above it**, a judge sitting told to *"commit in his git style"* cannot
+> reach the real tree. `git status` in `~/code/agents` is compared either side
+> and is the last check in the run.
+>
+>     bun belvedere/lab/b12/probe.ts    13 checks, three live sessions — ALL GREEN
+>
+> Pure reasoning is `glass/judge.test.ts` (29 tests: the id grammar, the
+> classifier, the sitting's derivation, the delta reader, every scope-arm
+> refusal) plus `glass/engine.test.ts`'s twelve new ones over `plan()`.
+
+- [x] **The reactive gate fires.** `s1` (Builder · sonnet-low) edited its own
+  board row to `LANDED 2026-08-28 — E1 — the venue policy needs a ruling before
+  S2`, and the engine staffed the sitting instead of carding him — **zero human
+  touches between the arm click and this**:
+
+      landing edge  2026-08-28T14:55:55.144Z  paused:s1
+                    "LANDED, and E1 is raised with nothing saying it was ruled (keel §5.1)"
+      extended      s1.judge — the same sentence, so the sitting is fired about the reason
+      judge fired   2026-08-28T14:55:55.697Z  workspace:109
+      **gap 0.553 s**          arm → judge fired, end to end: 18.1 s
+
+  Through the same hand, at the flow's own judge tier, in the gated step's own
+  checkout — `audit 14:55:55.697Z stamp architect-gate-03 model sonnet effort
+  low cwd …/b12-gate-96798/nb/gate` — and its **first user turn IS the composed
+  sitting**, byte-exact three ways:
+
+      summons file  …/census/summons/architect-gate-03.summons.txt  sha f2cd39ffee1ed0e1  510 B
+      transcript    ~/.claude/projects/-Users-felix-code-b12-gate-96798-nb-gate/83d9c4fb-….jsonl
+                    first user turn                                 sha f2cd39ffee1ed0e1  510 B
+      the hands' own receipt                                        sha f2cd39ffee1ed0e1
+
+  The DAG drew it as an insertion, wired to the step it was staffed for, with
+  the lane paused behind it: `s1:paused s2:declared s1.judge:fired`,
+  `data-inserted="yes"`, `path.wire[data-from="s1"][data-to="s1.judge"]`
+  present, `s2` ring `declared` and **unfired**.
+- [x] **Resume on truth.** The judge — a real sonnet·low Architect, sent
+  nothing but the composed sitting — read the fixture's board and inbox and
+  trued the row to `E1 ruled 2026-08-28 — …`. The engine read the verdict off
+  the **file**, not off its report:
+
+      judge landed  2026-08-28T14:56:20.146Z  "s1 reads clean now — the sitting did what it was staffed for"
+      resumed       2026-08-28T14:56:20.146Z  "the judge sitting cleared s1 — the lane runs on"
+      s2 fired      2026-08-28T14:56:20.659Z  workspace:110
+      **gap 0.513 s**
+
+- [x] **Felix-card on residue.** A second flow whose judge sat and left the row
+  raised: run-state `paused:r1.judge — "the judge sitting is over and r1 still
+  does not read clean (…) — a judge is never judged, so this one is Felix's"`,
+  and the node rendered in a real Chrome as `felix-card=true · **0 buttons · 0
+  links · hands/fire 0×** in its markup`, his words on it. **Nothing fired
+  after it**: three fires in the whole hands audit, all three accounted for.
+- [x] **No recursion.** A third flow whose judge passed its own limit:
+  `armed → fired:n1 → paused:n1 → extended:n1.judge → fired:n1.judge →
+  paused:n1.judge`, the pause reading *"passed its 1 minute limit … a judge is
+  never judged, so this one is Felix's"*, **exactly one `extended` line** and
+  no step id containing `.judge.judge` anywhere in the log. The limit is
+  structural rather than counted: `gatedOf('x.judge.judge')` is **null**, so a
+  judge's judge has no id to mint.
+- [x] **Dynamic extension per D12 — scope-arm, live.** With the lane halted so
+  the growth is *measured* rather than raced (E1), `s2` was appended to the
+  armed flow file and the engine **re-armed itself**:
+
+      armed #1 covered ["*:c64d0cc92741112e","s1:d5372b37c3429959"]
+      armed #2 covers  ["*:c64d0cc92741112e","s1:d5372b37c3429959","s2:df085f97e2a5ffb6"]
+      why: "scope-arm auto-join (D12): s2 added inside nb/gate · the reactive gate"
+
+  Nothing had fired at that point, and `s2` then fired **with no click ever
+  given to it** — the resume above. An **edit** to a step already armed still
+  stops: `paused — "s1 was edited since the arm — scope-arm joins additions,
+  and an edit is a change to what was authorized"`, no third `armed` line, and
+  the hash still `2d9a6ebb64a5…`. Step-arm rides `judge.test.ts` (`ARM_SCOPE`
+  is a module constant, and `{kind: 'none'}` is B11's base behaviour verbatim).
+- [x] **The close flow exists.** `flows/flow-close.flow.json` parses, renders
+  in the Works for `agents/belvedere`, and is **unarmed** (`armedAt null`):
+
+      g2 kickoff sha 43f72319c270a54c (351 B)  ≡  README fence #5 sha 43f72319c270a54c (351 B)
+      verdict: gate=felix · awaitingPass=false · 2 nodes
+
+  The Felix-card is inert by construction — a card only carries a pass gesture
+  while `awaitingPass`, and an unarmed flow has nothing to pass.
+- [x] **The gates.** `bun test belvedere/glass` → **651 pass / 0 fail in one
+  process** (25 files, 1764 assertions); `bunx --offline tsc --noEmit` → **exit
+  0**; zero new dependencies. Cost, B3's 20-request protocol over the live
+  register with both flows on the wire: `/deck/state?b=agents/belvedere`
+  `n=20 min=85.7 p50=239.9 **p95=289.9** max=289.9 ms`, 137 kB, against the
+  500 ms bar — and the close flow's own share, quoting an 89 kB README for its
+  kickoff on every poll, is **0.13 ms** (`readFlows` for both files: p50
+  0.50 ms). Predecessor probes re-run whole: **B13 · B14 · B15 · B16 · B19 ·
+  B20 · B21 · B10 · B11 (probe · lever · smoke) — ALL GREEN, eleven for
+  eleven**; `lab/b17/probe.ts` deliberately not re-run (its two failures are
+  filed at its own landing commit, B11 F8, and it leaks a live workspace when
+  it throws, B16's addendum). Venue restored: all three workspaces closed, the
+  scratch city removed, the city's own HALT flag absent, `git status` in
+  `~/code/agents` byte-identical either side.
 
 ## Out of scope
 
