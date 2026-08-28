@@ -1432,3 +1432,65 @@ Venue: `master`; two instruments on their own ports against temp desks and temp 
 **one** live session per run, its workspace closed, the resume's workspace closed, venue
 before ≡ venue after (`workspace:24 belvedere · workspace:2 mentat`).
 Next: **B19 — the desk** ([plans/b19-desk.md](plans/b19-desk.md)), the Dispatcher's to fire.
+
+**2026-08-28 · Builder · opus-high (B19)** — **The desk.** D17 is built: there is now a place
+in the deck where Felix writes, and the 17-item field report that commissioned this whole
+chapter would have been written in it. One drawer city-wide — `~/code/agents/desk/`, flat,
+frontmatter-free, **the first line is the title** — and three send routes, each previewed
+before it fires.
+Changed: `glass/desk.ts` (the store, the confinement, the trailer, the three plans, five
+routes), `desk.client.ts` (the deck's **fourth** Focus tenant — the drawer in Focus, the
+writing surface in Action), `desk.test.ts` (30 tests), `glass/inbox.ts` (B6's wire gains
+D63h's **block form**: a `report` gesture, `evidence()`, `entryBytes()`, `inboxExisting()`),
+`deck-model.ts` (the desk's wire shapes), `deck-view.ts` (the seam's fourth shared cell,
+`compose.with`), `composer.client.ts` (registers it), `deck-dom.ts` + `deck.client.ts` (the
+repaint memo now records its host; `forget()`), `deck.css`, `server.ts`, the glass README,
+`desk/.gitignore`, and [`lab/b19/probe.ts`](lab/b19/probe.ts) — 14 assertions in real Chrome,
+green three runs running.
+**The evidence.** Typed into the rendered box → autosaved → `desk/2026-08-28-01.md` **188 B
+byte-identical to the box**, titled off its own first line; then the drill — 241 B typed, the
+glass killed mid-edit, a **fresh process**, a reload, and every byte came back with the same
+note remembered open. **→ inbox** showed **290 B** of append while the target's `ISSUES.md`
+**did not yet exist** (a preview is a read), and the filing landed byte-for-byte: **previewed
+sha ≡ appended sha `c199b9c9701776dd`**, a legal D63h block in a **scratch-adopted** inbox,
+**0 lint** from the one parser, the body's own `---` indented so it could not cut the block,
+and the note carrying `routed 2026-08-28 09:26 → …/probe-fork/ISSUES.md`. **→ session** wrote
+through **B16's own wire** and the shell swapped the Chat in on `builder-b19-probe`; fired
+again over a non-empty box it **refused with no button at all**. **→ composer** had
+`/deck/compose` re-resolve the whole plan against the note. **Confinement is the slug, not a
+path check**: `POST /desk/save ‹../../canon/CLAUDE›` → **409 naming the rule**, nothing
+written, nine spellings pinned in the suite. The live path ran once against the **real**
+desk — `git status` afterwards: **`desk/` and nothing else** — and a live preview against
+belvedere's own `ISSUES.md` left that file **untouched**. **585 tests green in one process**,
+type gate exit 0, zero new dependencies, `/deck/state` **p50 56 ms · p95 60 ms** (the desk
+rides gestures, never the clock), `/desk/notes` and `POST /desk/save` **p50 0.5 ms**, and
+**all seven predecessor probes re-run whole — B13 · B14 · B15 · B20 · B10 · B11 · B16, ALL
+GREEN**.
+Findings: **F1 — the repaint memo outlived the host it described, and a tenant swapped away
+and back drew NOTHING**: `focusOn` empties both hosts, `paint()` kept only `key → signature`,
+so a return trip with unchanged content skipped the draw and left the pane blank with no
+error. Measured in Chrome, not reasoned. Fixed at the cause — the memo records its host and
+`forget(host)` retracts every claim about a cleared one — and it **binds B21 and B12** ·
+F2 a tenant's mount-time async restore races a gesture: **`mount()` is not a fresh start**,
+because the module outlives it · **F3 the evidence indent is load-bearing** — `blocks()`
+splits on `^---$`, so an un-indented rule inside his prose would strand the evidence in a
+block with no entry line, which is the one thing `parseIssues` lints; two spaces make it
+unrepresentable, and refusing his rules would have been the glass telling him how to write ·
+**F4 the desk declares NEITHER seam member** — a tenant asks the poll for what the *world*
+writes, never for what Felix writes · F5 receipts are not body: the trailer is the final
+`---` block only when every line in it is a receipt, and only the **irreversible** route
+stamps · **F6 B16 F4 settled** — `desk/.gitignore`: notes are truth and commit, a half-typed
+reply to one session does not · F7 the preview carries a sha and a moved inbox is refused by
+name — **B11's arm law one door along** · F8 a header comment naming the guard defeated the
+grep it described (B17 F1's check, working).
+Decided: nothing escalated — no contract, fence or DoD moved. The desk is **D18 write class
+3** and grows no transport of its own: the inbox append is B6's `filed()`, the message is
+B16's `writeDraft()`, the composer is reached through the seam's own cell and never by
+importing a tenant. `/desk/*` sits in **front** of the arming switch (B6 F3's law, third
+venue) and the glass still commits nothing. One kind was added to B6's gesture grammar —
+`report`, a title and its evidence — because D63h's block form is what a written thing sent
+somewhere looks like, and a bare `note` cannot carry evidence.
+Venue: `master`; the probe on its own port against a **copy** of the fixture city and a temp
+desk, so no DoD run wrote into a tracked fixture or into his real drawer; the one live-path
+note removed after its git-status evidence was taken.
+Next: **B21 — the Grep** ([plans/b21-grep.md](plans/b21-grep.md)), the Dispatcher's to fire.
