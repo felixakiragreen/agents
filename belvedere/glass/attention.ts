@@ -54,34 +54,56 @@ export const WAITING_NOTE: Readonly<Record<Waiting, string>> = {
  * An escalation raised in a board row's annotation, and whether anything says it was settled.
  *
  * **The narrowness is the honesty.** The city has no escalation *field* — an escalation is prose a
- * Builder wrote into a landing record — so this reads the one shape the corpus actually writes:
- * a bold run opening with an id and a dash, `**E1 — …**`. Measured over every `.md` in `~/code`:
- * that shape appears in **five files**, all of them Belvedere's own, and nowhere is it a false
- * positive; the looser reading ("any `**E<n>`") already collides with B8's `**E1 policy live**`,
- * which is a row *implementing* somebody else's escalation, not raising one.
+ * Builder wrote into a landing record — so this reads the one shape the corpus writes, and reads
+ * it off the text the parser actually hands over. That second half is the trap: the annotation
+ * arrives **stripped** (`grammar.ts`'s `strip()` removes every `**` and backtick from a status
+ * cell), so `**E1 — …**` is `E1 — …` by the time this sees it and a regex written against the
+ * markdown matches nothing at all. Measured, not assumed — the fixture caught it.
  *
- * Settlement is the same kind of prose: the id named again within the same bold run beside a
- * ruling verb. So a row whose escalation was ruled goes quiet, and one whose escalation nobody
- * answered keeps asking. **The real fix is a field, not a regex** — same ask as B3 F4/F5 and B9
- * F1, and it rides this row's findings. Until then a miss costs one queue line, never a misfire:
- * nothing here arms anything.
+ * So one marker regex, run once:
+ *
+ *  - **raise** — `E<n>` followed by a spaced dash: `E1 — the register policy needs a ruling`. The
+ *    dash is what makes it a raise; `E1 policy live` (B8's real annotation, a row *implementing*
+ *    somebody else's escalation) has none and is correctly not one.
+ *  - **settle** — `E<n>` followed by a ruling verb: `E1 ruled 2026-08-27`, `E2 paid`, `E2
+ *    ratified`. Every settled escalation in the live corpus is written exactly this way.
+ *
+ * An `F<n>` marker is a boundary and never an item: a Builder's findings are not escalations.
+ * The raised text runs to the next marker, the next ` · `, or the cap — whichever comes first.
+ *
+ * Two false positives were **measured over all 458 board rows in the live city** and both are
+ * fixed at the cause, generally, with no per-repo branch:
+ *
+ *  1. **`E<n>` is nobody's reserved namespace.** `whiteboardy/docs/m1-editor.md` staffs thirteen
+ *     rows literally named `E1…E13`, so `E4 — …` in one of its annotations is a *row reference*.
+ *     An id that names a row on this building's own boards is therefore never an escalation —
+ *     the same test `parseDependsOn` already applies to a Depends-on segment.
+ *  2. **A range's far end is not the head of a clause.** cornerizer wrote *"all 4 escalations
+ *     ruled at the 2026-08-15 review (D11, E1–E4 — §6 fold, log)"*, where `E4` is the right end
+ *     of `E1–E4`. An id preceded immediately by a dash is a range, not a raise.
+ *
+ * **The real fix is a field, not a regex** — the same ask as B3 F4/F5 and B9 F1, and it rides this
+ * row's findings. Until then a miss costs one queue line and never a misfire: nothing here arms
+ * anything (D10).
  */
-const RAISED = /\*\*(E\d{1,3})\s*[—–-]\s([^*]{1,400})\*\*/g;
-const SETTLED = /\bruled\b|\bratified\b|\baccepted\b|\bpaid\b|\banswered\b|\bwithdrawn\b/i;
+const MARK = /(?<![—–-])\b([EF]\d{1,3})\s+(?:([—–-])\s|(ruled|ratified|accepted|paid|answered|withdrawn)\b)/g;
+const TEXT_CAP = 240;
 
 export type Escalation = { id: string; text: string };
 
-export function escalationsIn(annotation: string): Escalation[] {
-	const raised = [...annotation.matchAll(RAISED)].map(m => ({ id: m[1]!, text: m[2]!.trim() }));
-	if (!raised.length) return [];
-	// A settlement is any OTHER bold run naming the same id beside a ruling verb.
-	const settled = new Set<string>();
-	for (const m of annotation.matchAll(/\*\*([^*]{1,200})\*\*/g)) {
-		const run = m[1]!;
-		if (!SETTLED.test(run)) continue;
-		for (const id of run.matchAll(/\b(E\d{1,3})\b/g)) settled.add(id[1]!);
+export function escalationsIn(annotation: string, rowIds: ReadonlySet<string>): Escalation[] {
+	const marks = [...annotation.matchAll(MARK)]
+		.map(m => ({ at: m.index, end: m.index + m[0].length, id: m[1]!, raise: m[2] !== undefined }));
+	const settled = new Set(marks.filter(m => !m.raise).map(m => m.id));
+
+	const out: Escalation[] = [];
+	for (const [n, m] of marks.entries()) {
+		if (!m.raise || m.id[0] !== 'E' || settled.has(m.id) || rowIds.has(m.id)) continue;
+		const next = marks[n + 1]?.at ?? annotation.length;
+		const rest = annotation.slice(m.end, Math.min(next, m.end + TEXT_CAP));
+		out.push({ id: m.id, text: (rest.split(' · ')[0] ?? rest).trim() });
 	}
-	return raised.filter(e => !settled.has(e.id));
+	return out;
 }
 
 // ---------- encapsulation-first, with an id in front ----------
@@ -149,6 +171,10 @@ export function needsYou(buildings: Building[], sessions: Session[]): QueueItem[
 	}
 
 	for (const b of buildings) {
+		// The building's own row-id namespace: an escalation marker that names one of these is a
+		// row reference (§escalationsIn, false positive 1). Whole building, not one board — a
+		// landing record cites rows across the boards of its own building.
+		const rowIds = new Set(b.board.flatMap(x => x.rows.map(r => r.id)));
 		for (const board of b.board)
 			for (const r of board.rows) {
 				const where = `${base(board.file)}:${r.line}`;
@@ -163,7 +189,7 @@ export function needsYou(buildings: Building[], sessions: Session[]): QueueItem[
 							note: `Row ${r.id} is ${r.state ?? 'unparsed'} and waits on your pen. A note files to this building's inbox; the ruling is the Architect's (D3).`,
 						});
 				}
-				for (const e of escalationsIn(r.annotation))
+				for (const e of escalationsIn(r.annotation, rowIds))
 					out.push({
 						kind: 'escalation', key: `escalation:${b.building}:${r.id}:${e.id}`,
 						building: b.building, path: b.path,
