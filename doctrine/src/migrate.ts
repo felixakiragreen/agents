@@ -113,7 +113,7 @@ const dependsRange: Rule = {
 				const pa = a.match(/^([A-Za-z]*)(\d+)$/), pb = b.match(/^([A-Za-z]*)(\d+)$/);
 				if (!pa || !pb || pa[1] !== pb[1] || +pa[2]! >= +pb[2]!) return whole;
 				const ids: string[] = [];
-				for (let n = +pa[2]!; n <= +pb[2]!; n++) ids.push(`${pa[1]}${n}`);
+				for (let n = +pa[2]!; n <= +pb[2]!; n++) ids.push(`${pa[1]}${String(n).padStart(pa[2]!.length, '0')}`);
 				return ids.every(id => knownIds.has(id)) ? ids.join(' · ') : whole;
 			});
 			return next === t.trim() ? null : next;
