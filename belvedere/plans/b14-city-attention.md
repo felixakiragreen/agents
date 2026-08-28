@@ -380,3 +380,13 @@ B18 all widen the same read rather than opening their own endpoints, by B13's de
 built nothing against it and asks for nothing: caching content would retire the ruling, which
 is the Architect's call and not a Builder's. Named, with numbers, so the call can be made on
 them.
+
+### Residue, named not scrubbed (B7 F6's precedent)
+
+Four `b14-waiting-probe` fires sit in `summon/log/census/hands.jsonl` and one
+`b14-waiting-probe.summons.txt` in `summon/log/census/summons/` — gitignored telemetry, and
+the audit's sha is only checkable while the file it names still exists, so neither is deleted.
+Every workspace they opened is closed (`workspace:45`–`48`, each `OK` from `cmux workspace
+close`), the scratch directory is gone, `~/code/agents/summon/log/HALT` is **absent**, and
+`git status --short` is byte-identical to how this row found it. The stamp is not
+mantle-prefixed, so it enters no lineage counter (B3 F4 / B8 F1's parked class untouched).
