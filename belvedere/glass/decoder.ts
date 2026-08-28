@@ -11,8 +11,10 @@
  * range. A reference that resolves nowhere, or in two places at once, answers **unresolved and
  * names what it looked at** (D10's family: never guess).
  *
- * **Nothing here writes.** The gestures it offers are B6's inbox wire — one line, previewed — and
- * the string `hands/fire` does not appear in this file or in anything it produces.
+ * **Nothing here writes.** The gestures it offers are B6's inbox wire — one line, previewed. The
+ * fire hand is unreachable from a tooltip, and the probe greps this source and the served bundle
+ * for its path to keep it that way (D10) — which is why the path is not spelled out anywhere in
+ * this file, comments included.
  */
 
 import { readFileSync, statSync } from 'fs';

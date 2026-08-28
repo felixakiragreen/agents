@@ -703,7 +703,9 @@ function drawDecoded(box: HTMLElement, d: Decoded, ctx: DecodeCtx, expanded: boo
 	if (!expanded) { box.append(el('div', 'tip-hint', 'hold for the record, the jump and the gestures')); return; }
 
 	const body = el('div', 'tip-more prose');
-	words(body, d.body, ctx);
+	// The object's OWN document is what its words resolve against — a `§7` cited by belvedere's D2
+	// is belvedere's §7, not the §7 of whichever page happened to mention D2 (B20 §2).
+	words(body, d.body, { ...ctx, in: d.doc });
 	box.append(body);
 
 	const acts = el('div', 'tip-actions');
