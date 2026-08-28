@@ -24,7 +24,7 @@ import {
 } from './deck-model';
 import { composer } from './composer.client';
 import { moveIn, selection, viewer, type FocusView } from './deck-view';
-import { button, dot, dots, drawProse, drawSpans, el, named, paint, plain, reading, receipt, remember, remembered, stamp, tipSession, words } from './deck-dom';
+import { button, chatButton, dot, dots, drawProse, drawSpans, el, named, paint, plain, reading, receipt, remember, remembered, stamp, tipSession, words } from './deck-dom';
 
 /** Everything has a limit: a tooltip carrying a whole landing record is a tooltip nobody can read. */
 const TIP_CAP = 400;
@@ -172,7 +172,9 @@ function drawSessions(host: HTMLElement, ss: DeckSession[], stale: boolean): voi
 		// shell's one `/hands/focus` wire reports into this span, and the receipt survives the repaint.
 		const out = el('span', 'out', receipt(`jump:${s.sid}`));
 		out.dataset['outFor'] = `jump:${s.sid}`;
-		li.append(jump, out);
+		// Hotswap entry point #2 (B16 §1): the same shared control the City and the queue draw, so
+		// every session row on the deck reaches the one Chat the same way.
+		li.append(jump, chatButton(s.sid), out);
 		list.append(li);
 	}
 	host.append(list);

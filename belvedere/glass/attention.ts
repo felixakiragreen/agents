@@ -172,7 +172,7 @@ export function needsYou(buildings: Building[], sessions: Session[]): QueueItem[
 				? 'A tool call is sitting on the approval dialog — the session is alive and spending nothing until you answer it. '
 				: 'The session finished its turn and said so (the 60 s nag, P1 F1) — this is the notification cmux gives you. ')
 				+ (s.last.sf
-					? 'Jump puts your eyes on its panel; answering from here arrives with the Chat (B16).'
+					? 'Jump puts your eyes on its panel; chat opens it in the Chat, where an answer is delivered as a real user turn (B16).'
 					: 'It sits in no cmux pane (hooks are venue-blind), so there is no panel to jump to.'),
 		});
 	}

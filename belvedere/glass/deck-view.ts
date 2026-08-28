@@ -39,18 +39,40 @@ export type FocusView = {
 	 * else — no second endpoint, no second timer.
 	 */
 	needs?(focusState: PaneState): string | null;
+	/**
+	 * **Optional, and added at B16 — the sixth member.** The *session* this tenant wants opened in
+	 * the next snapshot, or null for none.
+	 *
+	 * It is a second member rather than a second meaning for `needs` because the two name different
+	 * things in the deck's own ontology — City → Building → **Agent** (keel §3) — and a query
+	 * parameter whose value is sometimes a building slug and sometimes a uuid is the ambiguity class
+	 * this building spends its time refusing. Same law as `needs`: one endpoint, one timer, and a
+	 * tenant that omits it asks for nothing.
+	 */
+	asks?(focusState: PaneState): string | null;
 };
 
 /**
- * The one piece of state that crosses panes: **which building the City is pointing at.**
+ * The state that crosses panes: **what the deck is pointing at**, at the two levels of the ontology
+ * that have a surface — the building, and (since B16) the agent.
  *
  * The ontology is City → Building → Agent (keel §3), so a click in Context has to reach whatever
  * stands in Focus — and a tenant cannot be handed it through `draw()` without every tenant that
- * does not care being made to carry it. One named cell, written by the City and read by the
- * tenant, is the whole mechanism. B15's Workshop reads it here; until it moves in, the placeholder
- * names the selection rather than pretending the click did nothing.
+ * does not care being made to carry it. One named cell per level, written by whoever clicked and
+ * read by the tenant, is the whole mechanism: B15's Workshop reads `building`, B16's Chat reads
+ * `session`, and a session row anywhere on the deck writes the second and swaps the Chat in.
  */
-export const selection: { building: string | null } = { building: null };
+export const selection: {
+	building: string | null;
+	session: string | null;
+	/**
+	 * A name-stamp the deck has just fired and is waiting for the census to name (B16 §1, keel §5:
+	 * *"summoning swaps in the Chat"*). A fire answers a workspace and **no session id** (B11 F2), so
+	 * the stamp is the join, and the Chat latches the moment a beat carries it. Null the rest of the
+	 * time; never a target, only a promise of one.
+	 */
+	awaiting: string | null;
+} = { building: null, session: null, awaiting: null };
 
 /**
  * The deck's one document opener, registered by whichever tenant owns a viewer (the Workshop

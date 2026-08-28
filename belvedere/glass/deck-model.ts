@@ -400,6 +400,123 @@ export type Works = {
 	hands: { armed: boolean; note: string };
 };
 
+// ---------- the Chat: one hotswappable conversation (B16, keel §5) ----------
+
+/**
+ * One run of a turn. A transcript is not prose — it is prose, quoted bytes, and work — so the three
+ * are three shapes rather than one string the client has to re-parse.
+ *
+ *  - `prose` — the agent's or Felix's words, already spanned server-side, so they decode like every
+ *    other rendering of corpus text (B20's seam, spec §2).
+ *  - `fence` — a fenced block, kept **verbatim and exempt from the decoder**: a kickoff quoted in a
+ *    transcript is bytes somebody will copy, and a glass that hung controls inside it would be
+ *    editing what it was asked to show (B20 §1's law, extended from code ticks to fences).
+ *  - `act` — one tool call or one thought, **encapsulated to a single line** (spec §2, dataviz
+ *    first): the tool's name and the one field that says what it touched. The full record is one
+ *    jump away, in the pane cmux already owns.
+ */
+export type ChatBlock =
+	| { kind: 'prose'; spans: Span[] }
+	| { kind: 'fence'; lang: string; text: string }
+	| { kind: 'act'; tool: string; head: string };
+
+/**
+ * One turn. `key` is the **byte offset** of the record that opened it: stable across polls, monotone,
+ * and the only identity a transcript actually offers — so the client can prepend an earlier window
+ * onto a live tail without ever drawing a turn twice.
+ */
+export type ChatTurn = {
+	key: number;
+	role: 'user' | 'assistant';
+	/** Epoch seconds, or null where the record carried no timestamp. */
+	at: number | null;
+	blocks: ChatBlock[];
+	/** Activity folded away under the per-turn cap — a count, never a silent truncation. */
+	folded: number;
+};
+
+/** Who the Chat is pointed at. Carried whole, because a **dead** target is in no snapshot session. */
+export type ChatTarget = {
+	sid: string;
+	/** cmux's word where it has one, the rig's birth name otherwise, the uuid's head as a last resort. */
+	name: string;
+	stamp: string | null;
+	account: string | null;
+	building: string | null;
+	cwd: string | null;
+	model: string | null;
+	/** The census's word, or `dead` for a session it no longer tracks (or never did). */
+	state: SessionState | 'dead';
+	waiting: Waiting | null;
+	/** The cmux workspace **UUID** — never a `workspace:N` ref (P6 F2: a stale ref delivers to whatever Felix is looking at). */
+	ws: string | null;
+	transcript: string | null;
+};
+
+/**
+ * Whether this deck may send at all, decided **server-side** (B17's law: the page shows what the
+ * server composed). `can` false means the client draws no send control whatsoever — D10's
+ * ambiguity-never-arms as structure rather than as a disabled button.
+ */
+export type ChatSend = {
+	can: boolean;
+	/** How the words would travel: into a live pane (P6 §T), or as the turn a resume carries (P6 Q3). */
+	mode: 'live' | 'resume' | null;
+	why: string;
+};
+
+/** The one conversation view's whole payload, under the poll's `?s=` (spec §1). */
+export type ChatView = {
+	sid: string;
+	target: ChatTarget | null;
+	/** Why there is no target. An unknown sid says so rather than rendering an empty room. */
+	error: string | null;
+	turns: ChatTurn[];
+	/** Byte offset this window begins at — `> 0` means earlier windows exist and load on scroll-up. */
+	from: number;
+	bytes: number;
+	/** The document this transcript's code words decode against (B20 §2) — the building, or the cwd. */
+	doc: string;
+	/** His draft for THIS target, off `desk/drafts/` — it outlives a reload, a hotswap and a kill. */
+	draft: string;
+	send: ChatSend;
+};
+
+/**
+ * A message the transport would corrupt or swallow, refused **at compose** (P6's law: refuse before
+ * a single cmux call, never after). One pure function, imported by the client that draws the reason
+ * as he types and by the route that will not act on a body it would mangle — one law, one copy.
+ *
+ *  - **tab** — the TUI swallows every 0x09 and the wire carries them all, so the model receives
+ *    fewer bytes than were sent (P6 T6). Felix's own directives are tabs at width 3, so this fires
+ *    on real content; expanding them is *his* choice to make, never the glass's to make silently.
+ *  - **command** — a first line starting `/` executes as a slash command and creates **zero** user
+ *    turns (P6 T8, measured). `!` (bash) and `#` (memory) are the same family by construction and
+ *    were not separately measured — refused here anyway, because refusing more is safe and a `!`
+ *    that ran as a shell command in his session is not a failure anyone wants measured live.
+ *  - **bytes / lines** — everything has a limit (directive 3.1), and here the limit is a clock: the
+ *    transport spends `4n−1` cmux round trips at 153 ms each (P6 F4), so a hundred lines is ~40 s
+ *    of a visibly filling box.
+ */
+export const MESSAGE_LIMITS = { bytes: 8 << 10, lines: 100 } as const;
+
+export type Refusal = { code: string; text: string };
+
+export function refusals(text: string): Refusal[] {
+	const out: Refusal[] = [];
+	if (text.trim() === '') out.push({ code: 'empty', text: 'nothing to send' });
+	if (text.includes('\t')) out.push({ code: 'tab', text: 'a literal TAB never reaches the model — the TUI swallows it (P6 T6). Expand it yourself, or the bytes he reads are not the bytes you sent.' });
+	const head = text.split('\n')[0] ?? '';
+	const lead = head.trimStart()[0];
+	if (head.startsWith('/') || lead === '!' || lead === '#')
+		out.push({ code: 'command', text: `a first line starting "${head[0]}" is read by the TUI, not by the model — a "/" creates zero user turns (P6 T8), and "!" and "#" are the same family.` });
+	const bytes = new TextEncoder().encode(text).length;
+	if (bytes > MESSAGE_LIMITS.bytes) out.push({ code: 'bytes', text: `${bytes} bytes exceeds the ${MESSAGE_LIMITS.bytes}-byte message limit` });
+	const lines = text.split('\n').length;
+	if (lines > MESSAGE_LIMITS.lines) out.push({ code: 'lines', text: `${lines} lines exceeds ${MESSAGE_LIMITS.lines} — the transport is 4n−1 cmux calls at 153 ms each (P6 F4)` });
+	return out;
+}
+
 // ---------- the composer: Action at rest (B17, keel §3) ----------
 
 /**
@@ -683,6 +800,12 @@ export type DeckSnapshot = {
 	 * `workshop` above and the plan out of this below, which is what makes it one drawing (keel §6).
 	 */
 	works: Works | null;
+	/**
+	 * The one conversation view (B16, keel §5) — the session the deck asked for under `?s=`, or null
+	 * when it asked for none. Same law as the two above: **asked for, never broadcast**, because a
+	 * transcript window is bytes nobody else on the deck is reading.
+	 */
+	chat: ChatView | null;
 	/**
 	 * B5 E1's auditor delta, carried into the deck: what `ps` sees beside what the census tracks.
 	 * `at` is when the count was taken, not when the snapshot was composed — it is deliberately

@@ -635,3 +635,57 @@ body.deck {
 }
 .deck .st.arm:hover:not(:disabled) { background: color-mix(in srgb, var(--felix) 22%, transparent); }
 .deck .st.arm:disabled { opacity: .45; cursor: not-allowed; border-color: var(--grey-750); color: var(--grey-600); background: none; }
+
+/* --- the Chat (B16): the voice ---
+   Two independently scrolling surfaces (keel §5) — the transcript owns its overflow in Focus, the
+   draft owns its own in Action — which is the whole of what retires the note-app copy-paste. Prose
+   is Inter, everything countable and quoted is IosevkaFelix (the design law, §3). */
+.deck .ct-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; }
+.deck .ct-head .big { font-size: 15px; letter-spacing: .1em; }
+.deck .ct-head .tier { font-family: var(--mono); font-size: 9.5px; color: var(--grey-550); }
+.deck .ct-head .who { font-family: var(--mono); font-size: 9.5px; color: var(--grey-600); }
+.deck .ct-turns {
+	margin-top: 6px; overflow-y: auto; overflow-x: hidden;
+	/* The pane's head and the target line are the only chrome above it; the rest is the read. */
+	max-height: calc(100% - 44px);
+}
+.deck .ct { border-left: 2px solid var(--grey-800); padding: 4px 0 4px 7px; margin-top: 7px; }
+.deck .ct-user { border-left-color: var(--felix); }
+.deck .ct-assistant { border-left-color: var(--grey-700); }
+.deck .ct-h { display: flex; align-items: baseline; gap: 6px; }
+.deck .ct-h .who {
+	font-family: var(--wide); font-size: 9px; font-weight: 900; letter-spacing: .18em;
+	text-transform: uppercase; color: var(--grey-500);
+}
+.deck .ct-user .ct-h .who { color: var(--felix); }
+.deck .ct .prose { margin: 4px 0 0; font-size: 11.5px; line-height: 1.5; color: var(--grey-250); }
+.deck .ct-assistant .prose { color: var(--grey-350); }
+.deck .ct .quiet { font-size: 9.5px; color: var(--grey-600); }
+/* Quoted bytes, verbatim and decoder-exempt: it scrolls inside itself rather than widening a pane. */
+.deck .ct-fence {
+	margin: 5px 0 0; padding: 5px 7px; overflow-x: auto;
+	background: var(--grey-900); border: 1px solid var(--grey-800); border-radius: 3px;
+	font-family: var(--mono); font-size: 10px; line-height: 1.45; color: var(--grey-350);
+	white-space: pre; tab-size: 3;
+}
+/* One tool call, one line — the encapsulation law where the traffic is densest. */
+.deck .ct-act { display: flex; align-items: baseline; gap: 6px; margin-top: 2px; font-size: 10px; }
+.deck .ct-act .tool { font-family: var(--mono); font-weight: 700; color: var(--blue-300); }
+.deck .ct-act .head {
+	font-family: var(--mono); color: var(--grey-600);
+	overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.deck .ct-draft {
+	display: block; width: 100%; box-sizing: border-box; margin-top: 6px; padding: 6px 7px;
+	background: var(--grey-900); border: 1px solid var(--grey-750); border-radius: 3px;
+	color: var(--grey-150); font-family: var(--prose); font-size: 11.5px; line-height: 1.5;
+	resize: vertical; overflow-y: auto;
+}
+.deck .ct-draft:focus { outline: none; border-color: var(--felix); }
+.deck .ct-batons { margin-top: 8px; border-top: 1px solid var(--grey-800); padding-top: 6px; }
+.deck .ct-batons .kv { display: flex; align-items: baseline; gap: 6px; margin-top: 3px; font-size: 10.5px; }
+.deck .ct-batons .pill {
+	font-size: 8.5px; letter-spacing: .1em; text-transform: uppercase;
+	border: 1px solid var(--grey-700); border-radius: 3px; padding: 0 4px; color: var(--grey-500);
+}
+.deck .ct-batons .holder-felix .pill { border-color: var(--felix); color: var(--felix); }

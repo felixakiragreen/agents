@@ -24,9 +24,9 @@ import {
 	type Attention, type DeckBuilding, type Decoded, type DeckSession, type DeckSnapshot,
 	type Layout, type Pane, type PaneState, type QueueItem,
 } from './deck-model';
-import { moveIn, selection, swap, tenant, tenants, viewer, type FocusView } from './deck-view';
+import { selection, swap, tenant, tenants, viewer, type FocusView } from './deck-view';
 import {
-	ago, button, DEPTH_CAP, dot, dots, el, named, need, paint, reading, receipt, receipts,
+	ago, button, chatButton, DEPTH_CAP, dot, dots, el, named, need, paint, reading, receipt, receipts,
 	remember, remembered, say, stamp, tick, tipSession, words, type DecodeCtx,
 } from './deck-dom';
 import { SWATCHES } from './colors';
@@ -35,18 +35,23 @@ import { SWATCHES } from './colors';
 import './workshop.client';
 // The Works signs its lease the same way (B10) — imported for the effect, never reached into.
 import './works.client';
+// The Chat (B16) signs its lease on import too; `chatTo` is the one function it exposes, because
+// "one chat view in the whole deck" is only true if every session row on the deck reaches it here.
+import { chat, chatTo } from './chat.client';
 
 // ---------- what the deck is holding ----------
 
 const LAYOUT_KEY = 'belvedere.deck.layout';
 const FOCUS_KEY = 'belvedere.deck.focus';
 const BUILDING_KEY = 'belvedere.deck.building';
+const SESSION_KEY = 'belvedere.deck.session';
 
 let layout: Layout = remembered(LAYOUT_KEY, toLayout) ?? { ...RESTING };
 let snapshot: DeckSnapshot | null = null;
 let standing: FocusView | null = null;
 
 selection.building = remembered(BUILDING_KEY, v => (typeof v === 'string' ? v : null));
+selection.session = remembered(SESSION_KEY, v => (typeof v === 'string' ? v : null));
 
 // ---------- the law of space, applied ----------
 
@@ -179,6 +184,9 @@ function sessionLines(ss: DeckSession[], stale: boolean): HTMLElement {
 		const line = el('li', 'line');
 		tipSession(line, s);
 		line.append(dot(s), named(s, stale), el('span', 'st-word', s.waiting ?? s.state), stamp(s.last));
+		// Hotswap entry point #1 (B16 §1): every session row on the deck reaches the one Chat, and
+		// reaches it through the same shared control (`deck-dom.ts` §chatButton).
+		line.append(chatButton(s.sid));
 		box.append(line);
 	}
 	return box;
@@ -352,6 +360,9 @@ function actions(i: QueueItem): HTMLElement {
 		b.type = 'button';
 		b.dataset['jumpSid'] = i.sid;
 		acts.append(b);
+		// Hotswap entry point #3: the queue's whole complaint was *"I don't see that anywhere in
+		// Belvedere"* — now a blocked session is read and answered without leaving the deck (B16 §1).
+		acts.append(chatButton(i.sid, 'read this session and answer it here'));
 	}
 	if (i.jump) {
 		const a = el('a', 'st wide', 'open') as HTMLAnchorElement;
@@ -421,7 +432,7 @@ function drawQueue(host: HTMLElement): void {
 	for (const i of q) list.append(queueItem(i));
 	host.append(list);
 	host.append(el('p', 'quiet prose',
-		'Nothing here fires anything (D10): a note and a countersign are one append to that building’s inbox, and a jump moves your eyes. Sending a message to a session arrives with the Chat (B16).'));
+		'Nothing here fires anything (D10): a note and a countersign are one append to that building’s inbox, a jump moves your eyes, and chat opens that session in the one Chat view — where a reply is delivered as a real user turn, verified after the fact (B16).'));
 }
 
 function drawDrawer(): void {
@@ -467,37 +478,16 @@ function redraw(): void {
 	else lastQuery = q;
 }
 
-// ---------- the placeholder tenants (B10 / B15 / B16 evict these) ----------
-
-/** One tenant shaped like every real one, so the seam is exercised rather than merely declared. */
-function placeholder(name: string, title: string, blurb: string, owed: string): FocusView {
-	let focus: HTMLElement | null = null, action: HTMLElement | null = null;
-	return {
-		name, title, states: ['minimal', 'typical', 'expanded'],
-		mount(f, a) { focus = f; action = a; },
-		unmount() { focus = null; action = null; },
-		draw(snap, focusState, actionState) {
-			if (!focus || !action) return;
-			focus.textContent = '';
-			focus.append(el('span', 'big', selection.building ?? title.split(' ')[0] ?? title));
-			if (focusState !== 'minimal') {
-				focus.append(el('p', 'quiet prose', selection.building
-					? `The City is pointing at ${selection.building}. ${blurb}`
-					: blurb));
-				focus.append(el('p', 'quiet prose', snap
-					? `${snap.census.live} live · ${snap.register.buildings.length} buildings · ${snap.queue.length} needing you`
-					: 'waiting for the first poll…'));
-			}
-			action.textContent = '';
-			action.append(el('span', 'big', 'act'));
-			if (actionState !== 'minimal') action.append(el('p', 'quiet prose', owed));
-		},
-	};
-}
-
-// The Workshop moved in at B15 and the Works at B10 (both imported above); this is the last
-// placeholder, and B16 evicts it the same way.
-moveIn(placeholder('chat', 'the Chat', 'One hotswappable conversation: any session, live or dead, reads here.', 'Against the Chat, Action holds the draft and the notes (B16).'));
+// ---------- the tenants ----------
+//
+// All three have moved in: the Workshop (B15), the Works (B10) and the Chat (B16), each through
+// `deck-view.ts` and each imported above for that effect alone. **There is no placeholder left** —
+// B13's `placeholder()` and its "B16 evicts this the same way" note are gone with the last tenant
+// they stood in for. The seam is exercised by the real ones now.
+//
+// `chat` is referenced here so the import is a value import rather than a bare side effect: the
+// shell needs `chatTo` for the hotswap wire below, and one named import says so.
+void chat;
 
 // ---------- the drawer ----------
 
@@ -919,6 +909,15 @@ app.addEventListener('click', e => {
 	const to = target.closest<HTMLElement>('[data-jump-sid]');
 	if (to) { void jump(to); return; }
 
+	// The hotswap (B16 §1). One wire for every session row on the deck — the City's lines, the
+	// Workshop's, the queue's — because there is ONE chat view and one way into it.
+	const talk = target.closest<HTMLElement>('[data-chat-sid]');
+	if (talk) {
+		chatTo(talk.dataset['chatSid'] ?? '');
+		remember(SESSION_KEY, selection.session);
+		return;
+	}
+
 	// The City's click: the selection is the deck's one cross-pane fact (keel §3's ontology), so it
 	// is stored, the Workshop is brought forward, and both panes redraw against it.
 	const building = target.closest<HTMLElement>('[data-building]');
@@ -967,8 +966,16 @@ let polls = 0;
  * that declares no `needs` asks for nothing.
  */
 const query = (): string => {
+	const q = new URLSearchParams();
 	const want = standing?.needs?.(layout.focus) ?? null;
-	return want === null ? '' : `?b=${encodeURIComponent(want)}`;
+	if (want !== null) q.set('b', want);
+	// The sixth seam member (B16): the session the standing tenant is pointed at. A second key on the
+	// same query, not a second query — the ontology has two levels with a surface, and the poll names
+	// both of them or neither.
+	const talking = standing?.asks?.(layout.focus) ?? null;
+	if (talking !== null) q.set('s', talking);
+	const s = q.toString();
+	return s === '' ? '' : `?${s}`;
 };
 
 async function poll(): Promise<void> {

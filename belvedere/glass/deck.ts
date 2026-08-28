@@ -11,6 +11,8 @@ import { readFileSync, statSync } from 'fs';
 import { sep } from 'path';
 import { cityRows, needsYou, waitingOf } from './attention';
 import { readCensus, isLive, type Session } from './census';
+import { chatView } from './chat';
+import { readCredential } from './hands';
 import { ATTENTION, columns, RESTING, type Attention, type DeckSession, type DeckSnapshot } from './deck-model';
 import { auditorCount } from './gauges';
 import { CSS, esc, short } from './html';
@@ -88,7 +90,7 @@ const liveOf = (ws: string | null, live: Map<string, LiveWorkspace>): DeckSessio
  * the deck now needs it, because a badge is a fact about a board and a queue item is a fact about
  * a decision, and neither is knowable from a file list.
  */
-export async function deckState(open: string | null = null): Promise<DeckSnapshot> {
+export async function deckState(open: string | null = null, talking: string | null = null): Promise<DeckSnapshot> {
 	const census = readCensus();
 	const { reg, buildings } = city();
 	const live = census.sessions.filter(isLive);
@@ -118,6 +120,12 @@ export async function deckState(open: string | null = null): Promise<DeckSnapsho
 	// the plan below it — and a second query would be a second timer in all but name (B13 F5).
 	const works = worksOf(open);
 
+	// The Chat asks the same way and for the same reason (B16): a transcript window is bytes nobody
+	// else on the deck is reading, so it rides `?s=` and is composed only when a session is named.
+	// The credential is read here rather than inside, so the send's honest state is one read per poll.
+	const cred = readCredential();
+	const chat = talking === null ? null : chatView(talking, null, cred.ok, cred.ok ? 'armed' : cred.error);
+
 	return {
 		at: Date.now() / 1000,
 		census: {
@@ -132,6 +140,7 @@ export async function deckState(open: string | null = null): Promise<DeckSnapsho
 		queue,
 		workshop,
 		works,
+		chat,
 		auditor: auditor(),
 		identity: { at: who.at, error: who.error, workspaces: who.workspaces.length },
 	};

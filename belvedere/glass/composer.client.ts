@@ -24,7 +24,7 @@
  */
 
 import type { ComposeDraft, ComposePlan, PaneState, UsageWire } from './deck-model';
-import { selection } from './deck-view';
+import { selection, swap } from './deck-view';
 import { ago, button, el, receipt, remember, remembered, say } from './deck-dom';
 
 /** Everything has a limit: one re-resolve per settled keystroke run, one usage fetch per minute. */
@@ -148,6 +148,13 @@ async function doFire(): Promise<void> {
 			? `opened ${r.result.workspace} · WAITING on Claude's folder-trust prompt — jump in and answer it; nothing has been read`
 			: `fired ${r.result.workspace} · ${body.stamp} · ${r.result.bytes} B · sha ${r.result.sha}`
 				+ ` · ${same ? 'identical to the previewed bytes' : `DIFFERS from the previewed ${p.sha}`}`);
+		// *"Summoning swaps in the Chat"* (keel §3, B16 §1). A fire answers a workspace and **no
+		// session id** (B11 F2), so what is handed over is the name-stamp — the Chat waits for the
+		// census to name it and latches then, rather than pointing at whatever is newest. Through the
+		// seam's own cells, so this file gains no import and the tenants keep their registration order.
+		selection.session = null;
+		selection.awaiting = body.stamp;
+		swap.to?.('chat');
 		void resolve();                                // the stamp just spent an ordinal; mint the next
 	}
 	catch (e) { say('composer', String(e)); }

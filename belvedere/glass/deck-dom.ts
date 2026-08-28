@@ -164,6 +164,17 @@ export function tipSession(host: HTMLElement, s: DeckSession): void {
 	}
 }
 
+/**
+ * The hotswap control, shared (B16 §1). Every surface that draws a session line offers the same one
+ * word and the same one wire, because "one chat view in the whole deck" is only true if every row
+ * reaches it the same way. The click is the shell's — this builds the control and nothing else.
+ */
+export function chatButton(sid: string, tip = 'read this session, and reply'): HTMLButtonElement {
+	const b = button('st', 'chat', tip);
+	b.dataset['chatSid'] = sid;
+	return b;
+}
+
 /** Everything has a limit: a building running forty sessions gets a row, not a wall of dots. */
 export const DOTS = 12;
 

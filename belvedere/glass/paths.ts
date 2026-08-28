@@ -65,6 +65,16 @@ export const usageDir = () => process.env.USAGE_DIR ?? join(home, 'code/agents/s
 /** Where an account keeps its transcripts. The shelf's whole corpus is these three trees. */
 export const projectsDir = (configDir: string) => join(configDir, 'projects');
 
+/**
+ * The desk — **one drawer, city-wide** (D17), and the glass's only file-write neighborhood outside
+ * the gitignored telemetry (D18 class 3). Relative to the canon repo for the same reason `flowsDir`
+ * is: a fixture city carries a desk of its own, so a probe can never write into the real one.
+ *
+ * B16 mints `desk/drafts/` and nothing else there — the desk proper is B19's row.
+ */
+export const deskDir = () => process.env.DESK_DIR ?? join(canonRoot(), 'desk');
+export const draftsDir = () => join(deskDir(), 'drafts');
+
 /** D3 — localhost only. Real auth arrives with the Ava chapter, before any other bind. */
 export const HOST = '127.0.0.1';
 export const port = () => Number(process.env.GLASS_PORT ?? 4400);

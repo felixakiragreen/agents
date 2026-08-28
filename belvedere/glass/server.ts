@@ -8,6 +8,7 @@
 
 import { readFileSync } from 'fs';
 import { join } from 'path';
+import { chatQuery, chatRoute } from './chat';
 import { summonRoute } from './composer';
 import { deckPage, deckState, readDoc } from './deck';
 import { composeRoute } from './deck-composer';
@@ -70,7 +71,12 @@ async function route(url: URL): Promise<Response> {
 	// `?b=<building>` is the Workshop asking for one building's detail (B15). One endpoint still:
 	// the deck polls once and names what it has open, rather than opening a second poll beside this.
 	if (url.pathname === '/deck/state')
-		return Response.json(await deckState(url.searchParams.get('b')), { headers: { 'cache-control': 'no-store' } });
+		return Response.json(await deckState(url.searchParams.get('b'), url.searchParams.get('s')),
+			{ headers: { 'cache-control': 'no-store' } });
+	// An earlier transcript window (B16), on a scroll rather than on the clock — the viewer's own
+	// pattern (`/deck/doc`): bytes Felix asked for once, never a second recurring read.
+	if (url.pathname === '/deck/chat')
+		return Response.json(chatQuery(url.searchParams), { headers: { 'cache-control': 'no-store' } });
 	// The decoder (B20): one code word, resolved against its own building and then canon. A read
 	// like everything else here — it is asked on a hover and answers a value, never a throw.
 	if (url.pathname === '/deck/decode')
@@ -147,6 +153,10 @@ const server = Bun.serve({
 			// authorizes socket writes. The engine writes nothing but run-state and hands calls, so the
 			// fence's write list is unchanged (README §2).
 			if (url.pathname.startsWith('/flow/')) return await flowRoute(req, url.pathname.slice('/flow/'.length));
+			// The voice (B16, D18 class 1). Its two halves sit on opposite sides of the arming switch
+			// on purpose: `send` is a socket write and goes cold with the credential; `draft` is a
+			// file write under `desk/` and must never go cold with it (B6 F3's law).
+			if (url.pathname.startsWith('/chat/')) return await chatRoute(req, url.pathname.slice('/chat/'.length));
 			// The fence's third write, and the one with no credential gate: a note is a file write,
 			// not a socket call, so cold hands must never cost Felix the ability to say something.
 			if (url.pathname === '/inbox') return await inboxRoute(req);
