@@ -397,8 +397,11 @@ export function parseDecisions(md: string): { decisions: Decision[]; queue: Deci
 	const lines = md.split('\n');
 	const decisions: Decision[] = [];
 	let candidates = 0;
-	// A project's decision ids carry its own prefix — RP-1, A1, D63 (item 11); the id is verbatim.
-	const CANDIDATE = /^\s*[-*]\s*\*\*[A-Za-z]{1,8}-?\d/;
+	// A project's decision ids carry its own prefix — RP-1, A1, D63 (item 11); the id is
+	// verbatim. A candidate must carry the ATTRIBUTION shape after its id — `**D1** (…`,
+	// `**D1 (…` or the pre-doctrine `**D1 · …` — or every bold cross-reference bullet in a
+	// master doc ("**T13 ∥ t12c**, concurrent…") is promoted to a malformed decision.
+	const CANDIDATE = /^\s*[-*]\s*\*\*[A-Za-z]{1,8}-?\d+[a-z]?(\*\*\s*[*_]?\(|\s+\(|\s*·)/;
 	for (let i = 0; i < lines.length; i++) {
 		if (!CANDIDATE.test(lines[i]!)) continue;
 		candidates++;

@@ -38,7 +38,7 @@ const flag = (f: string) => argv.includes(f);
 const guardAt = argv.indexOf('--guard');
 const guardRef = guardAt >= 0 ? argv[guardAt + 1] ?? null : null;
 if (guardAt >= 0 && !guardRef) { console.error('doctrine lint: --guard needs a git ref.'); process.exit(2); }
-const positional = argv.filter((a, i) => !a.startsWith('-') && i !== guardAt + 1);
+const positional = argv.filter((a, i) => !a.startsWith('-') && (guardAt < 0 || i !== guardAt + 1));
 const paths = positional.slice(1);
 const cmd = positional[0] ?? '';
 
