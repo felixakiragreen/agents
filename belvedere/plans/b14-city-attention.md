@@ -98,23 +98,27 @@ ALL GREEN
 $ bun belvedere/lab/b14/live.ts         (Chrome 1600×900, the REAL ~/code register + the LIVE census)
 
 PASS  `/deck/state` p95 under B3's protocol, with the whole live City on it
-      n=20 spaced 2 s · min 52 ms · p50 77 ms · p95 114 ms · max 114 ms (bar 500 ms)
-      snapshot 51783 B — 22 buildings · 61 sessions (13 live) · 35 in the queue
+      n=20 spaced 2 s · min 51 ms · p50 91 ms · p95 135 ms · max 135 ms (bar 500 ms)
+      snapshot 52271 B — 22 buildings · 63 sessions (12 live) · 35 in the queue
+PASS  the page body still never scrolls — all 27 combinations, drawer shut AND pinned, on the LIVE city
+      54 combinations walked against 22 buildings and a 35-item queue;
+      worst (scrollHeight − viewport) = 0px, viewport 900px
 PASS  a real haiku fire stalls on a real permission prompt, and the census sees it (P5 F1/F3, live)
-      fired workspace:46 · sha f74cb30680becead · 136 B summons, at 2026-08-28T00:28:00.307Z
-      stalled at 2026-08-28T00:28:15.480Z — 15.2 s after the fire
-      {"t":1787876895.30651,"ev":"Notification","sid":"1593fd52-dd9b-4b9b-be61-8f03d5f73960",
-       "acct":"/Users/felix/.claude","ws":"55878F38-…","sf":"2FF19E80-…","pid":"63228",
-       "cwd":"/Users/felix/code/agents/belvedere/lab/b14/scratch","tp":"…/1593fd52-….jsonl",
-       "pmt":"d1a7bc9b-…","mode":null,"tool":null,"why":"permission_prompt","bg":[]}
+      fired workspace:48 · sha f74cb30680becead · 136 B summons, at 2026-08-28T00:36:44.621Z
+      stalled at 2026-08-28T00:36:57.996Z — 13.4 s after the fire
+      {"t":1787877417.991118,"ev":"Notification","sid":"5ddb9281-5407-4910-829d-a1e41fd6aa31",
+       "acct":"/Users/felix/.claude","ws":"B551EE79-…","sf":"3958C3AC-…","pid":"70270",
+       "cwd":"/Users/felix/code/agents/belvedere/lab/b14/scratch","tp":"…/5ddb9281-….jsonl",
+       "pmt":"e516c340-…","mode":null,"tool":null,"why":"permission_prompt","bg":[]}
       beats this session wrote: SessionStart:— · UserPromptSubmit:default · PreToolUse:default · Notification:—
 PASS  the live deck shows it: a waiting dot in the City, a badge on its building, an item in the queue
-      on screen at 2026-08-28T00:28:18.319Z — 2.8 s after the census line
-      the City's top row is "agents/belvedere" and it is the one carrying the blocked dot: true
+      on screen at 2026-08-28T00:37:00.411Z — 2.4 s after the census line
+      our dot is on "agents/belvedere", City row 2 of the pane, and every row above it also carries a waiting badge: true
+      the block, top-down: agents → agents/belvedere
       waiting badge "1" · headline "5 blocked on you" · header needs "36"
-      queue item "b14-waiting-probe — blocked on a permission prompt" — agents/belvedere · …/lab/b14/scratch
+      queue item "b14-waiting-probe — blocked on a permission prompt" — agents/belvedere/lab/b14/scratch
 PASS  venue restored — the workspace closed, the scratch dir gone, `git status` unchanged
-      closed workspace:46: OK workspace:46
+      closed workspace:48: OK workspace:48
       git status --short is byte-identical either side: true
 
 ALL GREEN
@@ -123,6 +127,15 @@ ALL GREEN
 The stall's full signature, off the live census — P5 F3's permission stall, reproduced by the
 glass's own hand: `SessionStart` → `UserPromptSubmit mode:default` → **`PreToolUse Write
 mode:default`** → *(no `PostToolUse`)* → `Notification permission_prompt`, 6.1 s later.
+Reproduced N=2 (`workspace:46` and `workspace:48`, 8 minutes apart), on screen in **2.8 s** and
+**2.4 s** of a 3 s poll.
+
+**The ranking assertion is the law, not row zero.** The live city had *two* buildings at the
+waiting rank when this ran — `agents` (its own blocked session) and `agents/belvedere` (ours) —
+and which of the two leads is recency ordering *inside* one rank, exactly as the law says. An
+earlier run asserted "our building is row 0" and failed on that race with the deck behaving
+correctly; the assertion now reads what the law actually claims: **every row above ours also
+carries a waiting badge.**
 
 **What the live city looked like while this ran** (the same snapshot, read out):
 
@@ -200,7 +213,7 @@ and build it to its DoD.
 **LANDED 2026-08-27 — nothing escalated.** The Context pane is the City, the drawer is
 the needs-you queue, and the waiting-input blindness dies in both places off one
 computation ([`glass/attention.ts`](../glass/attention.ts)) — the badges are the queue's
-own items, bucketed, so a badge can never count something the queue does not list. Seven
+own items, bucketed, so a badge can never count something the queue does not list. Eight
 findings, none blocking; the escalation class is honest and currently **empty city-wide**,
 which is itself the measurement.
 
@@ -342,3 +355,28 @@ lists them, labelled `off the register`; the **City is per-building** and struct
 badge them. Nothing is hidden — the item names the condition and offers the jump — but the
 ambient half of D15 is only as complete as the register is. This is B2 F2 arriving in a second
 place, not a new defect, and the fix is the same doctrine question it always was.
+
+### F8 — the E1 ruling's content half now runs twenty times a minute, and it is the poll's biggest single cost
+
+G1's ruling is that **content is never cached** — every board row, ledger tail, decision and
+issue is re-read and re-parsed per request — and it was written for pages Felix opens by hand.
+`/deck/state` is the first thing in the city that asks for it **on a timer**. Measured on the
+live register, N=12 each, off the request thread:
+
+```
+readCensus()  — tail + kill -0 + per-session transcript stamps   median   8.7 ms
+register()    — the held copy (B8 F3's warm path)                median   0.0 ms
+city()        — register + every building's content re-read      median  31.5 ms
+needsYou()    — the whole queue, four classes, 22 buildings      median   8.0 ms
+cityRows()    — the City                                         median   0.2 ms
+                                       22 buildings · 64 sessions (12 live) · 35 queue items
+```
+
+So one poll is ~48 ms and **two thirds of it is the doctrine re-parse**, which at 3 s intervals
+is about **1.0 s of Bun's single JavaScript thread per minute** for as long as a deck is open.
+Today that is comfortable — p95 135 ms against a 500 ms bar — and B8 F3's worker law is intact
+(nothing here walks). But **it is a standing cost the ruling never priced**, and B15, B17 and
+B18 all widen the same read rather than opening their own endpoints, by B13's design. This row
+built nothing against it and asks for nothing: caching content would retire the ruling, which
+is the Architect's call and not a Builder's. Named, with numbers, so the call can be made on
+them.

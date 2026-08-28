@@ -1007,7 +1007,10 @@ both fixed generally, **0 unruled escalations in 458 live rows** · F3 `default`
 read-only Bash through, so `echo` never stalls and a `Write` does · **F4 B13's snapshot
 diff could never short-circuit** (`at` moves every poll), so the deck repaints by region
 signature and a half-typed note now survives · F5 the auditor took B9 F3's named-not-built
-TTL · F6 `lab/` is outside the type gate · F7 an off-register waiting session is in the
-queue and in no badge. Next: **B15 — the Workshop**
+TTL · F6 `lab/` is outside the type gate · F7 an off-register waiting session is in the queue
+and in no badge · **F8 the E1 ruling's content half now runs on a timer** — one poll is ~48 ms
+and 31.5 ms of it is `city()`'s re-parse, ≈1.0 s of Bun's one thread per minute while a deck
+is open; measured and priced, nothing built against it, because retiring the ruling is the
+Architect's call. Next: **B15 — the Workshop**
 ([plans/b15-workshop.md](plans/b15-workshop.md)), the Dispatcher's to fire on lane B's
 serial chain; it reads `selection` at the `FocusView` seam.
