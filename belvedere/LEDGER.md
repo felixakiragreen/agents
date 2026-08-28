@@ -1153,3 +1153,51 @@ Decided: nothing — F1's map is one table and one strike; F3 and F7 are questio
 changes. Venue restored: every probe workspace closed, the selection put back, no listener
 left behind. Next: **B20 — the decoder** ([plans/b20-decoder.md](plans/b20-decoder.md)),
 the Dispatcher's to fire.
+
+---
+
+**2026-08-27 · Builder · opus-high (B20)** — **The decoder: no code word without its
+meaning one hover away.** Six forms detected (`B18` · `D63` · `§3.2` · `FC-1`/`GA-10` ·
+the row-keyword form `canon row 17`), resolved against the one parser, rendered through
+**one seam** — `words()` in `deck-dom.ts` is the only place a reference becomes a control,
+so the City, the Workshop and the drawer's queue decode by construction and the Chat and
+the Grep will inherit it without a line of their own. Detection and resolution are
+deliberately apart: `decode.ts` is a pure detector both sides import, `decoder.ts` is where
+a token meets the files, and `GET /deck/decode` **re-detects its own query rather than
+trusting it** — a hand-typed `?t=rm -rf` gets a refusal, not a lookup. **The commissioning
+hover works**: Felix's phrase rendered as prose, `canon row 17` → *v3 · the storage
+experiment · OPEN · Digger · fable-high · agents/MAP.md:106*, and a bare `row 14` in a
+canon document resolves locally because `than` names no building. **Resolution is
+context-scoped and measured on the real corpus**: `D2` is belvedere's, `D63` is canon's
+(belvedere really does stop at D18 — the resolver knows by *looking*, never by matching a
+range), `D99` renders **unresolved and names both ranges it read**, and an explicit
+`belvedere row 14` refuses instead of falling back. A `§` is always its own document's:
+the same `§5` is *Working agreements* in belvedere's README and *The cycle* in its
+DECISIONS. **Tooltips nest three deep and no further** — B13's one `#tip` became a stack,
+and the cap sits where the spans are MADE (`words()` draws none at depth 3), so the deepest
+body is plain text and there is no fourth layer to refuse; a constructed cycle
+`B18 → D2 → B18` renders plain at the repeat. **Tooltips gesture, they never fire** (D10):
+the footer carries the jump — which moves the selection, brings the Workshop forward and
+lands the viewer on the line — and B6's inbox wire with the **exact bytes previewed**
+(`- 2026-08-27 · Felix (via Belvedere) · countersign D2: ✓`, appended verbatim,
+471 B → 534 B, append-only ✓, fired on a **fixture** inbox because proving a button by
+countersigning the real city would be the glass editing truth to test itself). Fenced
+kickoffs and code ticks stay byte-sacred: the live belvedere Workshop lights **164**
+decoder spans and **0** inside them. **425 tests green in one process**, `bunx --offline
+tsc --noEmit` exit 0, zero dependencies added, `/deck/state` byte-for-byte the shape B18
+left it — a hover is 2–5 ms on its own route, so B18 F4's headroom is still B17's.
+B13/B14/B15 probes re-run whole: **ALL GREEN**; B18's drives Felix's desktop, so its one
+intersection (the rename/recolor controls inside the tooltip that became a stack) is
+checked in this row's own probe instead — 1 input, 7 swatches, nothing clicked.
+Findings: F1 **`FC-`/`GA-` ids have no artifact** and are detected-then-honestly-refused —
+fifth filing of the *field* ask · F2 **half the corpus's landing records encapsulate to a
+DATE**, so `encap()` belongs on a work cell and never on an annotation · F3 the depth cap
+belongs where spans are made, and a nested body must carry the resolved object's OWN doc ·
+F4 **`Building.decisionQueue` is the queue, not the decisions** · F5 the City rendered no
+corpus prose at all, so its building tooltip now names *what* wants him instead of counting
+it · F6 a click on a code word is captured and stopped (binds B21) · F7 the glass knows
+which building is canon **by convention** (`<city>/agents`), not from the register.
+Decided: nothing escalated — no contract, seam or fence moved; the gestures are B6's
+existing wire. Venue: two probes, both on their own ports against temp cities; the live
+half reads only and wrote nothing anywhere. Next: **B10 — the Works**
+([plans/b10-flow-dag.md](plans/b10-flow-dag.md)), the Dispatcher's to fire.
