@@ -718,3 +718,13 @@ a live Dispatch button for work the batch note gives the Dispatcher. Filed to
 [ISSUES](../ISSUES.md) as a fold candidate, in B3 F4/F5's neighbourhood; nothing changed.
 
 (Relayed from `master`, B14 LANDED 2026-08-27 — Builder)
+
+**Addendum (B14, same landing) — for the Architect, and for B15/B17/B18 who widen the same
+read:** `/deck/state` is the first thing in the city that asks for the E1 ruling's
+never-cache-content half **on a timer**. One poll costs ~48 ms and the split is measured
+(N=12 each, live register): `city()` content re-parse **31.5 ms** · `readCensus()` 8.7 ms ·
+`needsYou()` 8.0 ms · `cityRows()` 0.2 ms · `register()` 0.0 ms (warm, B8 F3 intact). At 3 s
+that is **≈1.0 s of Bun's single JavaScript thread per minute** for as long as a deck is open —
+comfortable against the 500 ms bar (p95 135 ms measured over 22 buildings, 63 sessions, a
+35-item queue and a 52 KB snapshot) and **not a request to cache anything**: retiring the
+ruling is the Architect's call. Priced, not touched. B14 F8.
