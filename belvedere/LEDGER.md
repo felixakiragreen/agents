@@ -927,3 +927,39 @@ redraws nothing. **F6** a failed client bundle **stops the server**, deliberatel
 shell around a bundle that is not there is this server's own definition of a lie.
 Next: **B14 — the Context pane** ([plans/b14-city-attention.md](plans/b14-city-attention.md)),
 the Dispatcher's to fire on lane B's serial chain.
+
+**2026-08-27 · Digger · opus-high (P5)** — permission physics: **the model IS the
+permission posture.** S5 was never trust and never cmux. `--model haiku` cannot enter
+`auto` mode on any account and the fallback to `default` is **silent** — an explicit
+`--permission-mode auto` in argv is dropped with no error (`ps` shows the flag on the
+process; the census shows `default`); `auto` is an LLM classifier (`claude auto-mode
+config` prints 67 294 B of allow/soft_deny/hard_deny rules) that a haiku session does
+not get. Bisected in one venue, one account, one summons: haiku·low **default**,
+haiku·high **default**, opus·low `auto`, sonnet·medium `auto` — effort is not the
+driver, and the same haiku fire reads `default` on all three silos. The live census had
+been saying so for a day: all 14 `default` beats in 4 188 belonged to glass-fired haiku
+sessions; every fable/opus fire was `auto`. Changed: findings + the permission clause in
+[plans/p5-permission-physics.md](plans/p5-permission-physics.md), `lab/p5/` (four
+scripts: `fire.ts`, `lever.ts`, `resume.ts`, `work-summons.ts`), board row P5, the
+batch-5 lane-A probe-tier rule. **Q2 matrix 6/6** — three accounts × {trusted root,
+worktree}, **11 tool calls each including three Writes, a Read, an Edit and a real
+`git commit`, zero permission prompts, zero human touches**, at sonnet·low. **Two
+stalls, and they are not the same animal**: the permission stall has beats, a
+transcript, `mode:default`, and a `Notification` carrying `why=permission_prompt`
+(reproduced N=2 in a *fully trusted* root); the trust stall has **zero census beats, no
+transcript and a live pid** (a fresh `git init`, 120 s, cwd untouched). `acceptEdits`
+is a partial lever measured to die at `git add` — seven of eleven steps. `--resume`
+inherits the model and the posture, and a resumed haiku printed `auto` at
+`UserPromptSubmit` before stalling at `PreToolUse`: **posture is read off `PreToolUse`
+beats, never off `SessionStart`/`UserPromptSubmit`.** Decided: **no kill fired** — the
+engine chapter stands as cut; the brief's expectation of *one* precheck is corrected to
+**two**. The clause (F5) for B10/B11: no permission field on a step; `haiku` illegal for
+an unattended step and **refused at arm, loudly**; `glass/trust.ts` precheck per (step,
+account), sufficient as-is; two census-side runtime alarms behind the step timeout.
+Levers ruled out and named, not attempted: `bypassPermissions`/`dontAsk` (posture
+floor), pre-seeding `<config-dir>/.claude.json` trust (the fence — `trust.ts`'s own law
+is that the glass never answers that dialog; a D3 write-class question if ever wanted).
+Venue: 20 fires / 18 sessions, ≤2 concurrent, every workspace closed — `cmux workspace
+list` reads exactly what it read at the open; no cmux restart, no settings written.
+Next: **P6 — message transport** ([plans/p6-message-transport.md](plans/p6-message-transport.md)),
+the Dispatcher's to fire on lane A.
