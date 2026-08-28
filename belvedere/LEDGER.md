@@ -1105,3 +1105,51 @@ D18's write class 1; F2's UUID law is a `hands.ts` contract question for the Arc
 Venue restored: every probe workspace closed, the scratch cold repo removed,
 `cmux workspace list` back to Felix's own two. Next: **lane A is finished** — B16 consumes
 §T when lane B's serial chain reaches it; nothing in lane A remains to dispatch.
+
+---
+
+**2026-08-27 · Builder · opus-high (B18)** — **cmux is truth for live identity** (D16),
+built and measured against the live desktop. One socket read — `cmux workspace list
+--json`, held, at most 2 s old — joins on the census's own `ws` and gives every session
+the name and colour cmux is wearing *now*; the rig's stamp becomes the **birth name**,
+rendered beside it where they differ and never derived from it. Two write-through hands
+(D18 class 2), `POST /hands/rename` and `POST /hands/recolor`, live in the session's own
+expanded tooltip — rename inline, recolour from a swatch row of felikai's seven intents —
+and both target by `sid`, resolved to a **uuid**, because a `workspace:N` ref that does not
+resolve is delivered by cmux to the *focused* workspace (P6 F2 arrived mid-build and the
+whole of this row's socket surface was already uuid-only). The DoD ran live and green:
+a rename made **in** cmux reached the deck on the **very next poll** (+1 poll, 3 058 ms of
+a 3 000 ms period) with the birth stamp beside it, in the City and in the Workshop from
+one function; a rename **from** the deck came back off `workspace list` as
+`title="b18 renamed from the deck"`, driven through the page's own handlers; a swatch
+click put `custom_color=#3F9608` on the workspace, and `cyan` was refused **409** in
+cmux's own words with the audit line to match. **B3 F1's refused-colour fire deaths are
+closed at the cause** — and not by re-spelling: cmux accepts **any `#RRGGBB` verbatim**
+(measured, `#a5e22c` → `#A5E22C`), so the map carries felikai's own hexes through **Felix's
+felikai↔ANSI table**, which is what puts the Builder on felikai blue and the Digger on
+felikai **orange** rather than on the words the rig writes. Seven intents, seven audited
+recolours, all 200; the probe's own fire composed with one of them and survived.
+**The dead jump is dead**: reproduced twice — `--panel` with no `--workspace` answers
+`not_found` by ref *and* by uuid (every session whose beat carried no `ws`), and with
+`--workspace` it answers `OK` while the frontmost application stays `Arc` through
+`focus-panel` **and** `focus-window`. Nothing on the socket brings cmux forward; the hand
+now reads `cmux tree` first (a surface the desktop lost is a refusal, never a jump into a
+workspace that may not hold it), focuses panel and window, then `open -a` the bundle
+`cmux identify --json` names — measured `Arc → cmux`, `Finder → cmux`, the probe's own
+workspace selected. Identity degrades honestly: a glass whose password cmux refuses prints
+`live identity STALE — … Invalid password` and falls back to birth names with no live
+badge and no swatch. **398 tests green in one process**, type gate exit 0, `/deck/state`
+**p95 234 ms** against the 500 ms bar. Findings: F1 the hex acceptance and the taste call
+it exposes (three mantle colours visibly change) · F2 the jump's mechanism, and that
+whether `focus-panel` raises the app at all is macOS's call, not cmux's · F3 a workspace
+rename does not touch its surfaces' titles, and an agent surface's title is cmux's own
+glyph-rewritten display — so the pane title is measured, not written · F4 the read costs
+**~161 ms of every poll** (p50 67 → 228 ms), awaited on purpose so a cmux-side rename needs
+one poll and not two; the 1 s-timer alternative is named, not built, and B17's usage will
+want the headroom · F5 **the socket names a session before its own transcript does** ·
+F6 the read covers one window, a named blindness · F7 B18's targets are all uuids and
+`attemptFire`'s are refs — B4's contract, left to the Architect at G2 per the relay.
+Decided: nothing — F1's map is one table and one strike; F3 and F7 are questions, not
+changes. Venue restored: every probe workspace closed, the selection put back, no listener
+left behind. Next: **B20 — the decoder** ([plans/b20-decoder.md](plans/b20-decoder.md)),
+the Dispatcher's to fire.
