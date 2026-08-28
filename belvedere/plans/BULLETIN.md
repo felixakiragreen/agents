@@ -641,3 +641,80 @@ law is that the glass never answers that dialog, so it is a D3 write-class quest
 ever wanted.
 
 (Relayed from `master`, P5 LANDED 2026-08-27 — Digger)
+
+## → relay — B14 (City + attention) to B15, B16, B17, B18, B20 and the Architect: no escalation, four findings that bind
+
+Evidence: [b14-city-attention.md](b14-city-attention.md) §DoD and §Findings, commits `90e1930`
+… `0253700` on `master`.
+
+1. **F1 — `PermissionRequest` IS a real hook event, and the census is not subscribed to it. The
+   order's input law was right and P1's ten-event map is also right; they are answers to
+   different questions.** cmux's own per-session `--settings` blob wires nine hooks and the
+   ninth is `PermissionRequest` (read verbatim off a live spawned session's argv — P5 F1's own
+   evidence). What B1 deployed is ten and it is not among them:
+   `jq -r '.hooks|keys|join(" ")' ~/.claude/settings.json` → `Notification PostToolUse
+   PreCompact PreToolUse SessionEnd SessionStart Stop SubagentStart SubagentStop
+   UserPromptSubmit`. So **the glass's only blocked-on-approval signal is an inference from
+   `Notification`/`permission_prompt`, which arrives ~6 s late and only in interactive
+   sessions** (P1 F1). Measured live end to end at this row: `PreToolUse Write mode:default` at
+   `00:28:09Z` → `Notification permission_prompt` at `00:28:15Z`. **What this binds:** anything
+   that wants an immediate, headless-safe blocked edge — B11's engine alarms, B16's send
+   physics, the flow chapter's step timeouts — is building on a six-second inference until the
+   census subscribes to the event that already exists. That is one hook key in `census/beat.sh`
+   + `deploy.ts` and a **Felix-run ×3 ritual** (B1's ground): filed, not built, because a
+   Builder writing account settings is exactly what D14's guard is for.
+
+2. **F2 — the escalation class has no field, and a reader written against the markdown matches
+   nothing. Two false positives measured over all 458 live board rows; both fixed generally.**
+   (a) **A status annotation arrives `strip()`ped** — `grammar.ts` removes every `**` and
+   backtick before `parseStatus` splits the cell, so the corpus's `**E1 — …**` reaches the glass
+   as `E1 — …`. (b) **`E<n>` is nobody's reserved namespace**: `whiteboardy/docs/m1-editor.md`
+   staffs thirteen rows named `E1…E13`, so its `E4 — …` is a *row reference* — an id that names
+   a row on this building's own boards is never an escalation, the same test `parseDependsOn`
+   already applies. (c) **A range's far end is not a clause head**: cornerizer wrote *"all 4
+   escalations ruled … (D11, E1–E4 — §6 fold, log)"*. After both: **22 buildings · 458 rows ·
+   0 unruled escalations**, so the class is real, correct and currently empty — B6 F2's shape
+   exactly, and the fixture in `lab/b14/city` is what proves the wire. **The real fix is a
+   field, not a regex** — third filing (B3 F4/F5 wanted `Baton.kind` and a branch field, B9 F1
+   a name field). **For B20's decoder especially: what you can hover on is what the parser
+   kept, and the parser does not keep bold.**
+
+3. **F4 — B13's snapshot diff could never short-circuit, and any row adding an input to a pane
+   inherits the bug.** `deck.client.ts` held `if (body === lastBody) return;` and B13 F5 read
+   that as "an idle city redraws nothing". It cannot be: `deckState()` stamps
+   `at: Date.now()/1000` and `register.ageSeconds` into every snapshot, so **no two responses
+   are ever byte-equal** and the whole deck rebuilt every 3 s. Harmless for placeholders;
+   **fatal for anything Felix types into** — B16's draft, B19's desk editor, B17's composer
+   knobs. Replaced, not patched: each region carries a **content signature** (its pane state
+   plus the data it draws, wall clocks excluded) and rebuilds only on change; ages are
+   `<span data-at>` rewritten by a separate tick; drafts, open `<details>` and filed receipts
+   are keyed by the item's stable `key` and the caret is restored. Proven in Chrome: a
+   half-typed note survives a census change plus 3.6 s of polling, open, focused, intact.
+   **Reuse `paint(key, host, signature, draw)` in `deck.client.ts` rather than redrawing a host
+   on every poll.**
+
+4. **F3 — for anyone who needs to MANUFACTURE a stall (B11's fire gate, the engine's alarms):
+   `default` mode waves a read-only Bash call straight through.** P5 F3's "first side-effecting
+   Bash call" is exact and the loose reading is wrong. This row ordered a stall with
+   `echo b14-waiting-probe` and got none — `PreToolUse Bash mode:default` → `PostToolUse` →
+   `Stop`, no prompt. A **`Write`** stalls: fire haiku·low with a tool call that writes. (Same
+   fire also produced `Notification idle_prompt` sixty seconds after `Stop` — the second
+   waiting edge, live, and the exact notification Felix said cmux was giving him.)
+
+Also for B15, not blocking: **the City's click writes `selection` in `glass/deck-view.ts`** —
+one named cell beside the `FocusView` register, because the ontology is City → Building → Agent
+and a tenant that does not care about the selection should not have it threaded through
+`draw()`. The Workshop reads `selection.building`; the placeholder already names it, and the
+value is remembered in `localStorage` (never load-bearing). **And the queue's two wires are the
+only two a tenant may reach from Context or the drawer**: `POST /inbox` (a file append, in
+front of the credential gate — B6 F3) and `POST /hands/focus` (a hand, behind it). `/deck.js`
+contains the string `hands/fire` **zero times**, and `lab/b14/probe.ts` greps the served bundle
+to keep it that way.
+
+Also for the Architect, not blocking: **Belvedere's own ledger tail has linted as a dropped
+baton for three entries running** (B13, P5, B14) — a Dispatcher-tended chain has no legal
+holder in `session | felix | prose`, and writing `fire B15` to satisfy the parser would compose
+a live Dispatch button for work the batch note gives the Dispatcher. Filed to
+[ISSUES](../ISSUES.md) as a fold candidate, in B3 F4/F5's neighbourhood; nothing changed.
+
+(Relayed from `master`, B14 LANDED 2026-08-27 — Builder)

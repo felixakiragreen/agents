@@ -963,3 +963,51 @@ Venue: 20 fires / 18 sessions, ≤2 concurrent, every workspace closed — `cmux
 list` reads exactly what it read at the open; no cmux restart, no settings written.
 Next: **P6 — message transport** ([plans/p6-message-transport.md](plans/p6-message-transport.md)),
 the Dispatcher's to fire on lane A.
+
+---
+
+**2026-08-27 · Builder · opus-high (B14)** — the City and the needs-you queue: **the
+waiting-input blindness is dead, in both places the keel named.** Changed:
+[`glass/attention.ts`](glass/attention.ts) (new — the four classes, the waiting edge, the
+escalation reader, the queue and the City's ranking), `glass/deck-model.ts` (the snapshot
+widened, not a second endpoint), `glass/deck.ts` (`city()` for content + a 30 s auditor
+TTL + the header's count), `glass/deck.client.ts` (the City in Context, the queue in the
+drawer, region repaint, the two wires), `glass/deck-view.ts` (`selection` — the City's
+click, the deck's one cross-pane fact), `glass/deck.css`, `glass/attention.test.ts` (new,
+20 tests), `glass/deck.test.ts`, [`lab/b14/`](lab/b14/) (a fixture city + two browser
+probes), board row B14, this ledger. **One computation, two renderings** — the City's
+badges are the queue's own items bucketed, so a badge can never count what the queue does
+not list and the two surfaces cannot disagree about what is urgent. Ranking is v0's,
+ported not reinvented (`attentionOf`/`freshness`), plus **exactly one new rank**: a
+session that cannot move without him outranks even the work that is running. Decided:
+**the waiting edge has two arms and no third** — `permission_prompt` (blocked) and
+`idle_prompt` (the 60 s nag, which is *the* notification Felix said cmux was giving him),
+both measured live; a bare `Stop` is idle, not waiting, or the queue lists every finished
+session and he stops opening it. **DoD, all of it green.** The live proof: a real
+haiku·low session fired **through the glass's own hands** into a scratch subdir of
+`~/code/agents` stalled on a real permission prompt — `PreToolUse Write mode:default`,
+no `PostToolUse`, then `Notification permission_prompt` 6.1 s later, 15.2 s after the
+fire — and was **on the deck 2.8 s after the census line**: `agents/belvedere` at the top
+of the City, blocked dot, waiting badge, queue item `b14-waiting-probe — blocked on a
+permission prompt`, header `36`. Workspace closed, scratch removed, `git status`
+byte-identical either side. Fixture proof: a gate badge sorts above a building **24 hours
+newer**, and a permission beat reached City *and* queue in **2 736 ms** of a 3 000 ms
+poll. **Zero fire wiring** three ways — shell, live DOM, and the served bundle
+(`hands/fire` 0× in `/deck.js`). A countersign answered in place: one append,
+byte-identical 570-byte prefix, and the card re-derived itself `pending → recorded` off
+the bytes. **`/deck/state` p95 114 ms** over the whole live register (22 buildings, 61
+sessions, 35 queue items, 51 783 B — bar 500 ms), **344 tests in one process**, type gate
+exit 0, and **B13's entire DoD re-run green** against the rewritten client. Seven
+findings, nothing escalated: **F1 `PermissionRequest` is a real hook event the census is
+not subscribed to** — cmux's own injected `--settings` wires it, B1's ten do not, so the
+glass infers from a six-second-late `Notification`; subscribing is a B1-class Felix-run
+ritual, filed not built · **F2 escalations have no field**: annotations arrive stripped of
+`**`, and `E<n>` collides with whiteboardy's row-id namespace and with `E1–E4` ranges —
+both fixed generally, **0 unruled escalations in 458 live rows** · F3 `default` waves a
+read-only Bash through, so `echo` never stalls and a `Write` does · **F4 B13's snapshot
+diff could never short-circuit** (`at` moves every poll), so the deck repaints by region
+signature and a half-typed note now survives · F5 the auditor took B9 F3's named-not-built
+TTL · F6 `lab/` is outside the type gate · F7 an off-register waiting session is in the
+queue and in no badge. Next: **B15 — the Workshop**
+([plans/b15-workshop.md](plans/b15-workshop.md)), the Dispatcher's to fire on lane B's
+serial chain; it reads `selection` at the `FocusView` seam.

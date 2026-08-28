@@ -11,3 +11,5 @@ go to the canon repo's inbox) — then deleted; entries are committed before the
 are drained. A swept inbox is empty.
 
 ---
+
+- 2026-08-27 · Builder (B14) · **A Dispatcher-tended chain has no legal baton holder, and Belvedere's own ledger tail has linted as a dropped baton for three entries running (B13, P5, B14).** `classifyBaton` knows `session | felix | prose`; a lane whose next row is fired by a *Dispatcher* is none of those, so `Next: **B15 — the Workshop** (…), the Dispatcher's to fire` parses as prose and `batonFails` files `ledger.baton`. Writing `fire B15` instead would make it worse, not better: the rail would compose a live Dispatch button for work the batch note says is the Dispatcher's, which is exactly the class D10 exists to prevent. Fold candidate for the canon baton grammar (B3 F4/F5's neighbourhood — the ask for `Baton.kind` is already filed); the glass changed nothing.
