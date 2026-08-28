@@ -157,6 +157,17 @@ Merge-priority leads, credited; the obs files carry the evidence:
   as a VERB (:1159); the ledger is the densest ground for one-line laws living
   nowhere else ("two holders is zero holders", "law lives where it's loaded", …); two
   retirements the merge must not resurrect (`bare session` :1383, *genesis* :957).
+- **A2** (root records, landed at the wrap — 517 obs, 106 formulas): canon collides
+  with itself — rider ×3 (dispatch appendix / attached condition D50 / Staffing
+  parenthetical D63d), register ×3 (change-order register / metaphor register D51 /
+  the linter's building set), venue (board's doc D45 vs disposable VM D55), harness
+  (runtime vs test suite), teardown (VM delete vs dismantling one's own proposal),
+  arm (enforcement row vs battery branch); **CLOSED survives its own retirement at
+  campaign altitude** (D18 retires it, MAP §8/§9 say "Canon v1 CLOSED" — the
+  five-word lifecycle has no campaign-level vocabulary: a concept gap); the-city is a
+  wholesale minting site (~20 city-register terms) while self-declaring
+  reference-never-law; three productive affix families run corpus-wide: `Felix-`
+  (gate/run/action/fork/tended), `-shaped`, `-tended`.
 - **Nets** (mechanical): the corpus is bilingual — color/colour 509/258 but grey/gray
   231/5, -ize/-ise 673/193, behavior/behaviour 219/174; ISO dates held (3,672; ~64
   month-name stragglers, mostly bob/spacex dialects); imperial extinct (5 quoted
