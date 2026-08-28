@@ -396,3 +396,131 @@ body.deck {
 }
 .deck .swatch-btn:hover { border-color: var(--grey-300); }
 .deck .tip-controls .out { display: block; margin-top: 6px; }
+
+/* --- the Works: the building's whole work on one line of time (B10, keel §6) --- */
+
+/* Time flows DOWN. The graph is a column of ranks; a rank is one dependency depth and its parallel
+   lanes sit side by side inside it. The wires are an SVG layer *behind* the nodes, placed against
+   the boxes the browser laid out — never against numbers computed from the model. */
+.deck .graph { position: relative; margin-top: 8px; }
+.deck .wires { position: absolute; left: 0; top: 0; pointer-events: none; z-index: 0; overflow: visible; }
+.deck .wire { fill: none; stroke: var(--grey-700); stroke-width: 1.2; }
+
+.deck .rank {
+	position: relative; z-index: 1;
+	display: flex; flex-wrap: wrap; gap: 8px;
+	margin: 10px 0;
+}
+
+.deck .node {
+	flex: 1 1 200px; min-width: 0; max-width: 420px;
+	border: 1px solid var(--grey-800); border-left: 2px solid var(--grey-700);
+	border-radius: 3px; padding: 5px 7px; background: var(--grey-900); cursor: pointer;
+}
+/* The left edge carries the ring, so a node reads at a glance from the pane's own margin. */
+.deck .node.ring-fired { border-left-color: var(--felix); }
+.deck .node.ring-landed { border-left-color: var(--green-400); }
+.deck .node.ring-paused { border-left-color: var(--yellow-400); }
+.deck .node.ring-refused { border-left-color: var(--grey-700); }
+.deck .node.ring-declared { border-left-color: var(--blue-400); }
+.deck .node:hover { border-color: var(--grey-650); }
+.deck .node.on { box-shadow: inset 0 0 0 1px var(--felix); }
+.deck .node.ring-landed { opacity: .62; }                  /* the past is dimmed, and only dimmed */
+.deck .node.ring-refused { opacity: .5; }
+.deck .node-h { display: flex; align-items: baseline; gap: 6px; }
+.deck .node .nid { font-family: var(--mono); font-weight: 700; color: var(--grey-350); }
+.deck .node .nname { color: var(--grey-100); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.deck .node-bill {
+	display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px; margin-top: 3px;
+	font-size: 10px; color: var(--grey-550);
+}
+.deck .node-bill .ntier { color: var(--grey-400); }
+.deck .node-bill .nvenue { color: var(--grey-600); }
+
+/* The ring IS the state (B10 §5): fill for what the engine said, and a halo for "beating now". */
+.deck .nring {
+	margin-left: auto; flex: none;
+	width: 9px; height: 9px; border-radius: 50%;
+	border: 1.5px solid var(--grey-600); background: transparent;
+}
+.deck .nring.r-fired { border-color: var(--felix); background: var(--felix); }
+.deck .nring.r-landed { border-color: var(--green-400); background: var(--green-400); }
+.deck .nring.r-paused { border-color: var(--yellow-400); background: var(--yellow-600); }
+.deck .nring.r-refused { border-color: var(--grey-600); background: var(--grey-700); }
+.deck .nring.lit { animation: deckpulse 1.1s ease-in-out infinite; box-shadow: 0 0 10px var(--felix); }
+/* A dashed ring is the board's word rather than the engine's — the drawing never claims more than
+   its source (`ringOf`'s `from`). */
+.deck .nring[data-from='board'], .deck .nring.from-board { border-style: dashed; background: transparent; }
+.deck .ring-row { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; margin-top: 6px; }
+.deck .ring-row .nring { margin-left: 0; }
+
+/* His card, in his idiom: it renders, and there is nothing on it to press (D10). */
+.deck .node.felix-card { border-color: var(--purple-600); background: var(--grey-900); }
+.deck .his-card { margin-top: 4px; font-size: 10.5px; color: var(--purple-200); }
+.deck .his-gate { margin-top: 4px; font-size: 10px; color: var(--grey-500); }
+.deck .node-blocked {
+	margin-top: 4px; padding: 3px 5px; font-size: 10px; color: var(--orange-200);
+	border-left: 2px solid var(--orange-600); background: var(--grey-950);
+}
+
+/* NOW: the line the live sessions blink on (D14). */
+.deck .nowline {
+	position: relative; z-index: 1;
+	display: flex; align-items: center; gap: 8px;
+	margin: 12px 0; padding: 3px 0;
+	border-top: 1px solid var(--felix);
+}
+.deck .now-word {
+	font-family: var(--wide); font-size: 10px; font-weight: 900; letter-spacing: .24em;
+	text-transform: uppercase; color: var(--felix);
+}
+.deck .now-count { margin-left: auto; font-size: 10px; color: var(--grey-600); }
+
+/* The arc above and the unplanned rows below: marks, not nodes — one line each. */
+.deck .past, .deck .ahead { margin-top: 8px; }
+.deck .mark {
+	display: flex; align-items: baseline; gap: 6px;
+	padding: 1px 0 1px 7px; margin-top: 2px; font-size: 10.5px;
+	border-left: 2px solid var(--grey-800); color: var(--grey-500);
+}
+.deck .past .mark { opacity: .7; }
+.deck .mark.st-landed { border-left-color: var(--green-700); }
+.deck .mark.st-open { border-left-color: var(--blue-600); }
+.deck .mark.st-in-flight { border-left-color: var(--felix); }
+.deck .mark.st-blocked { border-left-color: var(--red-600); }
+.deck .mark .mname { color: var(--grey-300); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.deck .mark .pill { margin-left: auto; }
+.deck .arc {
+	display: flex; align-items: baseline; gap: 7px; margin-top: 8px;
+	font-size: 10.5px; color: var(--grey-500);
+}
+.deck .arc-when { font-variant-numeric: tabular-nums; color: var(--grey-450); }
+.deck .arc-what { color: var(--grey-300); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* The bill on the wall where the plan is — a one-click dispatcher that hides it DoSes the sovereign. */
+.deck .bill { margin-top: 12px; border-top: 1px solid var(--grey-850); padding-top: 8px; }
+.deck .bill .uline { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; margin-top: 3px; font-size: 10.5px; }
+.deck .bill .uline.stale .acct, .deck .bill .uline.stale .bucket { color: var(--grey-650); }
+.deck .bill .acct { min-width: 11ch; color: var(--grey-300); }
+.deck .bill .cell { display: inline-flex; align-items: baseline; gap: 4px; }
+.deck .bill .bucket { font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--grey-550); }
+.deck .bill .pct { font-variant-numeric: tabular-nums; color: var(--grey-150); }
+.deck .bill .delta.headroom { color: var(--green-400); }
+.deck .bill .delta.burning { color: var(--orange-300); }
+.deck .bill .fetched { margin-left: auto; font-size: 9.5px; color: var(--grey-600); }
+
+.deck .flow-pick { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.deck .flow-fail {
+	margin-top: 8px; padding: 5px 7px; border-left: 2px solid var(--orange-500); background: var(--grey-900);
+}
+.deck .flow-fail .ffile { margin-left: 6px; font-family: var(--mono); font-size: 10px; color: var(--grey-500); }
+.deck .flow-fail .prose { margin: 4px 0 0; font-size: 10.5px; color: var(--orange-200); }
+
+/* Action, against the Works: the node's facts, its actions, and the bytes it would open with. */
+.deck .facts { margin-top: 6px; }
+.deck .facts .kv { font-size: 10.5px; }
+.deck .facts .label { min-width: 8ch; }
+.deck .slot {
+	font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--grey-600);
+	border: 1px dashed var(--grey-750); border-radius: 3px; padding: 0 6px;
+}

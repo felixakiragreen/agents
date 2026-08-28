@@ -10,11 +10,12 @@
  * arm is B11's, and the string `hands/fire` appears nowhere in this file or in what it produces.
  */
 
+import { cmuxColor } from './colors';
 import type { Works, WorksEdge, WorksFail, WorksFlow, WorksNode, WorksUsage } from './deck-model';
 import { blocksOf, armedAt, readFlows, readRun, stateOf, type Flow, type Step } from './flow';
 import { BUCKETS, pacing, readUsage, usageAge } from './gauges';
 import { short } from './html';
-import { readRig } from './rig';
+import { readRig, type Rig } from './rig';
 
 /** The venue as one phrase — the law of space: a node has room for a line, not a record. */
 const venueOf = (s: Step): string =>
@@ -23,10 +24,19 @@ const venueOf = (s: Step): string =>
 const fromOf = (s: Step): string | null =>
 	s.kickoff.doc === null ? null : `${short(s.kickoff.doc)} #${s.kickoff.fence}`;
 
-function node(s: Step, run: ReturnType<typeof readRun>): WorksNode {
+/**
+ * The mantle's hue: the rig's table (`presets.tsv`) through felikai's (B18 F1) — **never a colour
+ * word invented here**, and null where the rig staffs no such mantle, because a node wearing a
+ * guessed colour is a node lying about who is holding it.
+ */
+const colorOf = (mantle: string, rig: Rig): string | null =>
+	cmuxColor(rig.colours.get(mantle.toLowerCase().replace(/\s+/g, '-')) ?? '');
+
+function node(s: Step, run: ReturnType<typeof readRun>, rig: Rig): WorksNode {
 	const { ring, last } = stateOf(run, s.id);
 	return {
-		id: s.id, name: s.name, mantle: s.mantle, tier: s.tier, account: s.account,
+		id: s.id, name: s.name, mantle: s.mantle, color: colorOf(s.mantle, rig),
+		tier: s.tier, account: s.account,
 		venue: venueOf(s), depends: s.depends, depth: s.depth,
 		gate: s.gate.kind, card: s.gate.kind === 'felix' ? s.gate.card : null,
 		kickoff: s.kickoff.text, from: fromOf(s),
@@ -40,14 +50,14 @@ function node(s: Step, run: ReturnType<typeof readRun>): WorksNode {
 }
 
 /** One flow, with its run log read once and every node drawn from it. */
-export function worksFlow(flow: Flow): WorksFlow {
+export function worksFlow(flow: Flow, rig: Rig): WorksFlow {
 	const run = readRun(flow.name);
 	const edges: WorksEdge[] = flow.steps.flatMap(s => s.depends.map(from => ({ from, to: s.id })));
 	return {
 		name: flow.name, file: short(flow.file), building: flow.building, scope: flow.scope,
 		created: flow.created, concurrency: flow.concurrency, judgeTier: flow.judgeTier,
 		armedAt: armedAt(run),
-		nodes: flow.steps.map(s => node(s, run)),
+		nodes: flow.steps.map(s => node(s, run, rig)),
 		edges,
 		run: { file: short(run.file), present: run.present, lines: run.lines.length, malformed: run.malformed },
 	};
@@ -59,8 +69,8 @@ export function worksFlow(flow: Flow): WorksFlow {
  * printed beside every figure, because a quota panel that hides its own staleness is the hidden
  * bill this row exists to show.
  */
-export function worksUsage(nowSeconds = Date.now() / 1000): WorksUsage[] {
-	return readUsage(readRig()).map(u => ({
+export function worksUsage(rig: Rig = readRig(), nowSeconds = Date.now() / 1000): WorksUsage[] {
+	return readUsage(rig).map(u => ({
 		account: u.account,
 		ageSeconds: usageAge(u, nowSeconds),
 		cells: BUCKETS.map(bucket => {
@@ -80,12 +90,13 @@ export function worksUsage(nowSeconds = Date.now() / 1000): WorksUsage[] {
  */
 export function worksOf(building: string | null): Works | null {
 	if (building === null) return null;
-	const reads = readFlows();
+	const rig = readRig();
+	const reads = readFlows(rig);
 	const flows: WorksFlow[] = [];
 	const fails: WorksFail[] = [];
 	for (const r of reads) {
 		if (!r.ok) fails.push({ ...r.fail, file: short(r.fail.file) });
-		else if (r.flow.building === building) flows.push(worksFlow(r.flow));
+		else if (r.flow.building === building) flows.push(worksFlow(r.flow, rig));
 	}
-	return { building, flows, fails, usage: worksUsage() };
+	return { building, flows, fails, usage: worksUsage(rig) };
 }

@@ -62,6 +62,16 @@ export const selection: { building: string | null } = { building: null };
  */
 export const viewer: { open: ((path: string, line: number | null) => void) | null } = { open: null };
 
+/**
+ * The shell's own swap, registered at boot — so one tenant can hand Focus to another (B10).
+ *
+ * It sits here for the same reason `viewer` does: the Works draws a landed node's *landing record*,
+ * whose references open in the one viewer, which belongs to the Workshop. Reaching across through
+ * this cell keeps the seam one-directional — a tenant asks the shell to swap, it never reaches into
+ * another tenant — and a null here simply means no swap is possible, never a broken control.
+ */
+export const swap: { to: ((name: string) => void) | null } = { to: null };
+
 const signed = new Map<string, FocusView>();
 
 /** Sign the lease. A second tenant under one name is a bug, not a replacement — it throws. */

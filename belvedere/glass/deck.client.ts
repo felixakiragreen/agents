@@ -19,7 +19,7 @@ import {
 	type Attention, type DeckBuilding, type Decoded, type DeckSession, type DeckSnapshot,
 	type Layout, type Pane, type PaneState, type QueueItem,
 } from './deck-model';
-import { moveIn, selection, tenant, tenants, viewer, type FocusView } from './deck-view';
+import { moveIn, selection, swap, tenant, tenants, viewer, type FocusView } from './deck-view';
 import {
 	ago, button, DEPTH_CAP, dot, dots, el, named, need, paint, reading, receipt, receipts,
 	remember, remembered, say, stamp, tick, tipSession, words, type DecodeCtx,
@@ -28,6 +28,8 @@ import { SWATCHES } from './colors';
 // The Workshop signs its lease on import (B15). It is imported for that effect and for nothing
 // else: a tenant reaches the deck through `deck-view.ts` and never through this file.
 import './workshop.client';
+// The Works signs its lease the same way (B10) — imported for the effect, never reached into.
+import './works.client';
 
 // ---------- what the deck is holding ----------
 
@@ -93,6 +95,13 @@ function focusOn(name: string): void {
 	remember(FOCUS_KEY, name);
 	redraw();
 }
+
+/**
+ * The seam's swap cell, registered once (B10): a tenant that needs another tenant's surface — the
+ * Works handing a landing record's reference to the Workshop's viewer — asks the shell here rather
+ * than reaching across. One direction, one registry.
+ */
+swap.to = focusOn;
 
 /** The swap control, in the Focus pane's head: one button per signed tenant, never a dropdown. */
 function drawTenantBar(): void {
@@ -481,9 +490,8 @@ function placeholder(name: string, title: string, blurb: string, owed: string): 
 	};
 }
 
-// The Workshop moved in at B15 and signed first (its module is imported above); these two are the
-// last placeholders, and B10 and B16 evict them the same way.
-moveIn(placeholder('works', 'the Works', 'Every Guild session drawn on one line of time: the past above, NOW where sessions blink, the plan below.', 'Against the Works, Action dispatches (B10, B11).'));
+// The Workshop moved in at B15 and the Works at B10 (both imported above); this is the last
+// placeholder, and B16 evicts it the same way.
 moveIn(placeholder('chat', 'the Chat', 'One hotswappable conversation: any session, live or dead, reads here.', 'Against the Chat, Action holds the draft and the notes (B16).'));
 
 // ---------- the drawer ----------

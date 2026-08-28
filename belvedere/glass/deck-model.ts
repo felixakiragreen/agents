@@ -287,6 +287,8 @@ export type WorksNode = {
 	id: string;
 	name: string;
 	mantle: string;
+	/** The mantle's hue, felikai's own (B18 F1's table) — resolved server-side, where the rig's is. */
+	color: string | null;
 	tier: string;
 	account: string;
 	/** The venue as one phrase — `master ~/code/agents`, `worktree agents:bv/b11` (B10 §2). */
