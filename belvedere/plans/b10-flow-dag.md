@@ -1,6 +1,6 @@
 # B10 — the flow file + the drawn DAG (the Works)
 
-**Status:** OPEN · **Depends on:** P5; B14 · **Staffing:** Builder · opus-high ·
+**Status:** LANDED 2026-08-27 · **Depends on:** P5; B14 · **Staffing:** Builder · opus-high ·
 **Blessed:** Architect, flow-cut sitting 2026-08-27 — batch-4 blessing forks are
 Felix's (README §6 batch-4 note); his rearranging design input, if handed at
 blessing, lands here as a dated spec amendment before dispatch.
@@ -109,25 +109,76 @@ same drawing** (D11). Nothing arms and nothing fires in this row — B11's.
 
 ## Acceptance criteria — the DoD
 
-- [ ] `flow.ts` parses the fixture; each §3 refusal fires on a mutated copy —
-  named error asserted, one test per refusal.
-- [ ] `/flow/flow-batch-1` renders: 5 nodes with encapsulation labels, mantle
-  colours, tier text; edges present (SVG path count = dependency count);
-  depth columns correct (assert via DOM order); the Felix-card carries zero
-  fire wiring under B3's structural grep; legend present; `<select>` count 0;
-  zero `http(s)://` in the served page.
-- [ ] Census lighting: a test run-state marking one step `fired` with a live
-  sid (the suite's own session or a census fixture) renders that node's ring
-  *live*; a dead sid renders it *fired, not beating* — both asserted.
-- [ ] Kickoff resolution: the g2 node's resolved kickoff is byte-identical to
-  the README batch-4 note's G2 fence (sha256 both sides, pasted).
-- [ ] The bill: every node shows its tier; the footer shows usage ×3 accounts
-  (assert strings present).
-- [ ] `GET /flow/<unknown>` and a deliberately broken flow file render honest
-  failures (200-with-failure or 404 — pick one, assert it).
-- [ ] `bun test belvedere/glass` green in one process; `bunx --offline tsc
-  --noEmit` exit 0; `/flow/flow-batch-1` p95 < 500 ms under B3's 20-request
-  protocol (evidence pasted).
+*(Every "page renders" criterion re-reads as "the Works tenant renders in the
+deck", per the re-seat block. The browser half is
+[`lab/b10/probe.ts`](../lab/b10/probe.ts) — real headless Chrome over CDP
+against a temp census, a temp run log and a copy of `lab/b10/city`, **15 checks,
+ALL GREEN** — and [`lab/b10/live.ts`](../lab/b10/live.ts) draws the city's own
+flow over the city's own board. Pure functions are `glass/flow.test.ts`.)*
+
+- [x] **`flow.ts` parses the fixture; each §3 refusal fires on a mutated copy.**
+  `flow-batch-1` parses to 5 steps `p5 → b10 → b11 → b12 → g2`, depths `0,1,2,3,4`,
+  staffing `Digger · opus-high / Builder · opus-high ×3 / Architect · fable-high`,
+  `g2` gated `felix`. Every refusal is a **named code** asserted on a mutated copy of
+  the real file — `duplicate-id · unknown-dep · cycle · kickoff (missing doc AND
+  ordinal past the end) · name-too-long · unknown-account · unknown-tier (bad mantle,
+  bad tier, bad judgeTier) · unknown-venue (bad kind, missing branch) · malformed ·
+  field · unreadable` — plus the positive control that a worktree venue is legal.
+  **30 tests in `glass/flow.test.ts`, 113 assertions, green.**
+- [x] **The Works renders** (probe §§1–3, 6, 9, 13): **4 nodes** in the fixture flow
+  (5 in the live one), each led by the name the flow file **wrote**, with its mantle
+  chip in felikai's own hexes (`Digger rgb(158,73,12)` · `Builder rgb(3,98,178)` ·
+  `Architect rgb(63,150,8)` — three distinct), its tier, its account and its venue;
+  **4 `<svg> <path>` elements for 4 dependencies**, every one carrying a `d` measured
+  against a real box (`a1→b1  M 210.0 49.6 C 210.0 72.4 192.8 72.4 192.8 95.1`, …);
+  **depth runs DOWNWARD** (the keel's amendment to the order's columns) —
+  `ranks [0 → 1 → 2]`, nodes `[a1:0, b1:1, b2:1, c1:2]` in DOM order, and the two
+  depth-1 lanes measured **side by side**: `b1 left 410.5, b2 left 804, both top
+  397.86`. The Felix-card renders his text and carries **0 buttons, 0 links, 0 fire
+  attributes, `hands/fire` 0×**; legend present with 10 keys; **`<select>` count 0**;
+  `http(s)://` **0** in `/deck`, `/deck.css` and `/deck/state` — and 0 fetchable in
+  `/deck.js`, whose only two matches are the SVG **namespace name**
+  `http://www.w3.org/2000/svg`, which no browser fetches (F3).
+- [x] **Census lighting** (probe §5): a run log firing `b1` into `wk-live` (beating,
+  our own pid) and `b2` into `wk-dead` (a `SessionEnd` beat) renders
+  `b1: ring=fired from=run lit=yes` and `b2: ring=fired from=run lit=no` — fired, and
+  not beating. `c1` paused by the log reads `paused from=run`. And `a1`, which the log
+  never names, takes its ring **off the board** and says so: `ring=landed from=board`,
+  drawn with a **dashed** ring (`border-style: dashed`, measured).
+- [x] **Kickoff resolution — byte-identical.** The g2 node's resolved kickoff against
+  the README's own G2 fence, extracted independently by `awk` (indented rather than
+  fenced on purpose — a second fence in this document would re-point its own kickoff,
+  F2):
+
+      $ awk '/^ ``` /{n++; next} n==9' belvedere/README.md | shasum -a 256      (spaces added inside the pattern)
+      96ef06ad3ec95630592b752bb1484d86f8484f4da5430f5f48977ad41c3bf434  -   (362 B)
+      $ bun -e '…readFlow("flow-batch-1")… g2.kickoff.text + "\n"'
+      parser sha256 96ef06ad3ec95630592b752bb1484d86f8484f4da5430f5f48977ad41c3bf434 362 B
+
+  (`flow.test.ts` re-extracts the same block a third way — a regex over the whole
+  document rather than a line walk — and asserts equality; the parser holds the fence
+  **without** a trailing newline, `sha256 43f72319…`, 361 B, which is the byte the
+  `awk` pipeline adds.) In the browser the same mechanism is proven end to end: the
+  Action pane's `pre.summons` for the fixture's gated node **=== the fixture doc's
+  fence 1**, 82 B.
+- [x] **The bill** (probe §9): every node shows its tier (asserted on all four), and
+  the footer shows **`personal · thg-fgreen · thg-doorbell`, 9 usage cells**, each
+  `used% ±pacing` with the cache's age beside it.
+- [x] **Honest failures** (probe §11). Re-seated: the tenant renders them, and both
+  cases are asserted. A deliberately broken flow file (`depends: ["ghost"]`) renders
+  **`unknown-dep`** with its file and the parser's own sentence, and **files nothing**;
+  a building nobody declared a flow for renders *"No flow declares …"* with the
+  now-line still drawn — 0 nodes, no guess. (Unknown-flow-by-name is the same value:
+  `readFlow('nothing-here') → unreadable`, `readFlow('../../etc/passwd') → unreadable`,
+  both asserted.)
+- [x] **The gates.** `bun test belvedere/glass` → **455 pass / 0 fail in one process**
+  (18 files, 1201 assertions); `bunx --offline tsc --noEmit` → **exit 0**. Cost, under
+  B3's 20-request protocol (2 s apart), the **live** register with the deck armed:
+  `/deck/state?b=agents/belvedere` **n=20 min=0.197 p50=0.212 p95=0.281 max=0.304 s**
+  — inside the 500 ms bar with the ~161 ms identity read included (B18 F4). With the
+  socket read off (`live.ts`): `min 59.4 · p50 77.5 · **p95 88.8** · max 132 ms`,
+  138 086 B. The Works' own share is **0.7 ms p50** (`worksOf` timed directly, N=12,
+  max 4.7 ms), and the tenant redraws the whole drawing in **1.4 ms**.
 
 ## Out of scope
 
@@ -141,7 +192,85 @@ same drawing** (D11). Nothing arms and nothing fires in this row — B11's.
 
 ## Findings
 
-*(append here — deviations from spec, discoveries, parked adjacents)*
+**F1 — the keel transposes the order's own layout, and the DoD still measures it.**
+§5 says *"columns by dependency depth, parallel lanes side by side"*; the re-seat says
+**time flows down**. Where they conflict the keel wins, so dependency depth is a
+**rank running downward** and parallel lanes sit side by side *inside* a rank — which
+is also the only arrangement in which the now-line can be a horizontal cut through the
+drawing. The DoD's own check survives the transposition unchanged, because it asks for
+**DOM order**, not for pixels: `ranks [0 → 1 → 2]`, `[a1:0, b1:1, b2:1, c1:2]`, plus
+the measured `b1.top === b2.top && b1.left < b2.left`.
+
+**F2 — a `{doc, fence}` kickoff is a POSITIONAL reference, and a later edit to that
+document silently re-points it.** `b10`, `b11` and `b12` quote fence #1 of their own
+work docs; **this very landing nearly moved `b10`'s** — a fenced `awk` line in the DoD
+above would have made the kickoff fence #2 and the flow file would have resolved,
+without error, to a shell snippet. Out-of-range fails loudly (`no fence #99`, tested);
+**in-range-but-wrong does not**, and that is the whole hazard class. Two general fixes,
+neither built (the schema takes no field nobody consumes this batch): a `sha` on the
+kickoff that the parser verifies, or a **heading anchor** instead of an ordinal
+(`{doc, after: "Kickoff (verbatim)"}`). The evidence block above is indented rather
+than fenced precisely to avoid it, and that workaround is not a fix. **This binds B11:
+an arm that resolves a kickoff is arming bytes nobody re-read.**
+
+**F3 — the first SVG in the city puts `http://www.w3.org/2000/svg` into the served
+bundle, and B9's "zero `http(s)://`" grep counts it.** It is an XML **namespace name**,
+never fetched, and `createElementNS` is the only way to build an `<svg>` element from
+script. The probe excludes it **by name** and prints both figures — `/deck.js: 0
+(+2 SVG namespace, never fetched)` — rather than loosening the rule to a pattern that
+would also wave through a CDN. Any later row drawing SVG inherits this: exclude the
+namespace explicitly, never relax the regex.
+
+**F4 — the Works parses nothing of its own: it reads the board off `?b=`'s existing
+payload, and `ringOf`'s `from` is what keeps that honest.** One building's detail is
+already on the wire for the Workshop, and both tenants ask for the same building, so
+the past above the line is the same bytes as the Workshop's board section (+0 B, +0 ms
+— `works` itself is **0.7 ms p50** and ~4 kB). What that buys is the join the keel
+asks for — "the declared-flow DAG below the line joins the building's landed history
+above it, one renderer" — and what it costs is a claim the drawing must not make: a
+node whose ring came from the **board** is not evidence the engine ever fired it. So
+`ringOf` returns `{ring, from}` and the ring is drawn **dashed** when `from === 'board'`,
+with a legend key saying so. The engine's log outranks the board wherever it has
+spoken (it is the finer sensor: it knows `fired` before any board says IN FLIGHT).
+
+**F5 — a building's NAME is doctrine's slug against the REAL `~/code`, so a flow file
+cannot name its own building inside a fixture city.** `slug()` relativises against a
+hardcoded `~/code`; under `GLASS_CITY=/tmp/…` every building's name is its absolute
+path, so `"building": "nb/works"` matches nothing. `lab/b10/probe.ts` retargets its
+**copy** of the fixture flow after `cp -R` (one line, commented) rather than teaching
+`worksOf` a suffix match — a special case in production code to make a fixture work is
+the wrong direction. Anyone writing a flow fixture inherits this.
+
+**F6 — the g2 node collapses the keel's two-node close flow into one, deliberately.**
+The batch note describes *"the G2 sitting + a Felix-card behind it"*, and the DoD asks
+for **five nodes** over `p5 → b10 → b11 → b12 → g2`. One step legally carries both a
+gate and its own kickoff (§2's schema: an architect gate's kickoff *is* the step's
+own), so `g2` is one node — his card, and behind it the sitting whose kickoff is the
+README's own G2 fence. If the Architect wants the card and the sitting as two nodes,
+that is a flow-file edit and no code change.
+
+**F7 — the venue precheck is NOT on the poll, by P5 F5 (iii)'s own reading.**
+`trust.ts`'s `projectOf` **spawns `git`** per (step, account); at 5 steps × 3 accounts
+that is 15 spawns every three seconds for a check whose answer only matters at arm.
+So B10 draws the half of the permission clause that is free — the model **is** the
+posture, so a `haiku` step is drawn blocked with P5's sentence on it, before Felix can
+reach for it — and leaves the trust half to B11, which pays it once. The schema already
+carries what that check needs (account, venue).
+
+**F8 — the seam gained a sixth shared cell, `swap.to`.** A landed node's landing record
+is corpus prose with references in it, and the deck has exactly one viewer, which
+belongs to the Workshop. Rather than the Works growing a second viewer or reaching into
+another tenant, `deck-view.ts` now carries `swap.to` beside `viewer.open` and
+`selection` — the shell registers its own `focusOn` there at boot, and a tenant asks the
+shell to bring another tenant forward. One direction, one registry; a null means no swap
+is possible, never a broken control.
+
+**F9 — the bill is B5's cache source and says so on the page.** `worksUsage` renders
+the rig's `summon/log/usage/*.json` (never fetches — `gauges.ts` §1), which at this
+landing were **3.3 h old** on all three accounts. B17's live read slots in behind the
+same `WorksUsage` shape with no change here. Also for B11: **run-state is already
+gitignored** — `git check-ignore` puts `summon/log/census/flows/*.run.jsonl` under
+`.gitignore:1 summon/log/`, so the engine's log needs no new ignore rule.
 
 ---
 

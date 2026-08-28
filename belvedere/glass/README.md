@@ -6,7 +6,7 @@ are the fence's whole write list (README §2) and nothing else in here writes.
 
 ```
 bun belvedere/glass/server.ts        # → http://127.0.0.1:4400
-bun test belvedere/glass             # 371 green in one process (B8 §4, B9, B13, B14, B15)
+bun test belvedere/glass             # 455 green in one process (B8 §4, B9, B13, B14, B15, B18, B20, B10)
 bunx tsc --noEmit                    # from this directory — the type gate, offline (B8 §5);
                                      # it covers the deck's client TS too (B13 F3), never `lab/`
 bun belvedere/lab/b13/probe.ts       # the deck's DoD in real headless Chrome (B13 F1)
@@ -14,6 +14,8 @@ bun belvedere/lab/b14/probe.ts       # the City + queue, against a fixture city 
 bun belvedere/lab/b14/live.ts        # the same, against the LIVE city — it fires one session
 bun belvedere/lab/b15/probe.ts       # the Workshop: clicks, the reorder, the marked line (a fixture city)
 bun belvedere/lab/b15/live.ts        # the Workshop over the LIVE register — it writes nothing
+bun belvedere/lab/b10/probe.ts       # the Works: ranks, edges, the now-line, the lit ring (a fixture city)
+bun belvedere/lab/b10/live.ts        # the city's own flow over the city's own board — it writes nothing
 ```
 
 | Route | What |
@@ -24,6 +26,7 @@ bun belvedere/lab/b15/live.ts        # the Workshop over the LIVE register — i
 | `/shelf` | **every session all three accounts have ever held** — resume the dead, jump to the living; usage ×3 and WIP above them |
 | `/summon` | **the composer — fire anything**: building or free path · account · mantle · tier · templates · optional worktree; `POST` composes, the button fires |
 | `/deck` | **the deck** — the app: three panes (Context · Focus · Action), the drawer, the tooltip primitive, the `FocusView` seam. `/deck.js` is the bundle, `/deck/state[?b=<building>]` the snapshot, `/deck/doc?p=<path>` the viewer's bytes |
+| `belvedere/flows/*.flow.json` | **the declared plan** — a batch note as data, read by `flow.ts` alone, drawn by the Works; committed truth, never written by the glass |
 | `/deck/decode?t=<ref>&in=<doc>&w=<scope>` | **the decoder** — one code word (`B18`, `D63`, `§5`, `row 17`) resolved into its object: encapsulation, status, where it is written, its gestures |
 | `/doc?p=<path>` | the read-only viewer every rendered link resolves into (D58) |
 | `POST /hands/{fire,worktree,focus,halt}` | the four hands; 503 until `~/.config/belvedere/env` is armed |
@@ -48,9 +51,12 @@ body **never scrolls** — measured at all 27 state combinations, `scrollHeight 
 0 px — and each pane owns its own overflow. **Panes are a replaceable surface**: the
 `FocusView` seam (`deck-view.ts`) is four members — `mount(focusHost, actionHost)`,
 `unmount`, `draw`, plus the states a tenant declares — and Action follows Focus, so one
-tenant owns both hosts and there is no second register. B13 ships three placeholders; the
-Workshop (B15), the Works (B10) and the Chat (B16) evict them through that interface and
-nowhere else. The browser half of its DoD is [`lab/b13/probe.ts`](../lab/b13/probe.ts) —
+tenant owns both hosts and there is no second register. B13 shipped three placeholders; the
+Workshop (B15) and the Works (B10) have evicted theirs through that interface and nowhere
+else, and the Chat (B16) evicts the last one the same way. Two shared cells sit beside the
+register because they cross tenants and must not be duplicated: `viewer.open` (the deck has
+**one** document viewer, the Workshop's) and `swap.to` (the shell's own tenant swap, so the
+Works can hand a landing record's reference to that viewer without reaching into it). The browser half of its DoD is [`lab/b13/probe.ts`](../lab/b13/probe.ts) —
 real headless Chrome over the DevTools protocol, zero dependencies, written to be reused by
 every deck row after it.
 
@@ -82,6 +88,30 @@ SESSIONS should be first"*). Every section collapses, the order is his to drag *
 permutation counts as a memory**, since a remembered subset would silently hide a section. Three
 states are three densities: minimal is the building's last name, its dots and its badges; typical is
 the top three of *his* order and a line saying what it is holding back; expanded is all five.
+
+**The Works draws the building's whole work on one line of time** (B10, keel §6 — `flow.ts` +
+`works.ts` + `works.client.ts`). A **flow** is a declared DAG in
+`belvedere/flows/<name>.flow.json` — the batch note as data (flow-keel §3) — and `flow.ts` is the
+only module that touches those bytes, so the Standards Office's storage ruling (canon row 17) swaps
+the serialization in one file. A kickoff is **quoted, not copied**: `{doc, fence}` resolves a 1-based
+fence ordinal at parse time, and the fixture flow's `g2` step holds the README's own G2 kickoff
+byte-for-byte. Every refusal is a **named value, never a throw** — duplicate id, unknown dep, cycle,
+unresolvable kickoff, a name over six words, an unknown account/tier/venue — and a flow that will not
+parse renders its failure and files nothing (parser-as-lint). **Time flows down** (D14): dependency
+depth is a rank running downward with parallel lanes side by side, edges are inline-SVG paths
+**placed against the boxes the browser actually laid out**, and the **NOW line** is cut in front of
+the first rank still holding unfinished work, with the building's live sessions blinking on it — the
+board's landed rows and the ledger's arc above, the plan below, **one renderer**. A node's ring comes
+from the engine's run log (`summon/log/census/flows/<name>.run.jsonl`, D6 telemetry, written by B11)
+where it has spoken and from the **board** where it has not, and the drawing says which: a
+board-sourced ring is **dashed**. Lit means fired *and* its session is still beating, off the census.
+**Nothing here arms and nothing here fires** — the kickoff is bytes to read, a plan node's actions
+name B11 and B17 honestly rather than half-working, and the only wire the pane can reach is
+`/hands/focus` on an in-flight node. The bill is on the wall beside the plan: tier on every node,
+usage ×3 accounts in the footer (B5's caches, rendered — B17 puts a live read behind the same shape).
+**The permission clause is a check, not a field** (P5 F5): a step's model *is* its posture, so a
+`haiku` step is drawn blocked with P5's sentence on it, while the venue precheck stays at arm because
+`trust.ts` spawns `git` per (step, account).
 
 **A rendered `path:line` lands ON the line.** The field report's third item — *"Links to documents
 (WHERE: `agents/LEDGER.md:385`) don't take you to that line"* — dies at the boundary rather than in
