@@ -57,3 +57,41 @@ are drained. A swept inbox is empty.
   `signal` on every host listener, aborted at `unmount` — or the shell's own
   bind-once delegation. Until it lands, a swapped-around deck can multiply any
   button; the state-layer guards are what held this one.
+
+---
+
+- 2026-08-28 · Felix (via the G2 Architect, deck field report) · **"The 'Act'
+  wasn't updating after I clicked arm, I couldn't find the 'Pass this card' so I
+  just started clicking around, I left and came back and then it properly
+  updated the panel."** Two defects in one incident. **(1) The stall is a real
+  repaint bug, unreproduced — two candidate mechanisms, neither confirmed:** the
+  works region's paint signature does include the snapshot's works payload
+  (`works.client.ts draw()`), so a stale panel means the payload itself stopped
+  moving — either the Works' `needs` clause (`focusState === 'minimal' ? null :
+  selection.building`) dropped `?b=` while his Focus pane sat minimal under an
+  expanded Action (the 1·3·6 law shrinks its neighbors), so the poll stopped
+  carrying works entirely, or a snapshot/memo seam held the old payload. Repro
+  recipe: expand Action, arm, watch 10 s without touching anything. His
+  workaround (swap away and back) forces the remount repaint — B19 F1's
+  `forget(host)` working as built. **(2) "Pass this card" is findable only by
+  clicking the verdict node** — `drawAction` shows the flow summary + arm card
+  at no selection, and a node's actions (the pass button included) only when
+  that node is picked; the arm card's own hint covers the reverse direction
+  ("click away from this node to reach the arm") and nothing says "click the
+  node to open its actions." Fix shapes: the arm receipt names the next gesture;
+  a node awaiting his pass also surfaces it at flow level.
+
+---
+
+- 2026-08-28 · Felix (via the G2 Architect, deck field report) · **"I can see
+  the usage for accounts, but I couldn't see a way to actually select it."**
+  At the Works' arm card the bill renders ×3 accounts but the account is not a
+  knob: each step's account is DECLARED in the flow file, so today the path is
+  edit-the-flow → re-arm — nothing on the page says so, and §3's law ("account
+  usage visible wherever accounts are chosen") taught him the opposite
+  expectation: usage shown ⇒ choosable. Design ask for the rework chapter:
+  either an account knob at arm time (canon's own arbitrage law — any account
+  can host any session — argues for choosing at fire, and the amend/re-arm
+  machinery already carries the state change), or the bill wears a "declared
+  in the flow file" label naming the amend path. The composer keeps its knob
+  either way.
