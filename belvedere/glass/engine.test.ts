@@ -633,3 +633,178 @@ describe('verdictOf — the landing law as a value', () => {
 		expect(verdictOf(a, null, world())).toBeNull();
 	});
 });
+
+// ---------- B12 §2: the reactive gate ----------
+
+describe('the reactive gate — a landing the engine cannot read fires a judge, not a card (§2)', () => {
+	beforeEach(scratch);
+
+	// The engine's own sentence, verbatim: a fixture that shortens it makes every pass look like a
+	// change (`changed()` compares the `why`), which is the log restating itself once every five
+	// seconds — the exact thing `note()` exists to prevent.
+	const WHY = 'LANDED, and E1 is raised with nothing saying it was ruled (keel §5.1)';
+	const raised = () => new Map([['a', row({ id: 'A', state: 'LANDED', annotation: 'E1 — the register policy needs a ruling' })]]);
+	const clean = () => new Map([['a', row({ id: 'A', state: 'LANDED', annotation: '2026-08-28 — done, nothing raised' })]]);
+	const fired: NewRunLine[] = [{ ev: 'fired', step: 'a', sid: 'x', stamp: 'builder-e-01' }];
+
+	test('the gated landing pauses AND staffs the sitting, in the same pass', () => {
+		const f = flowOf();
+		const p = plan(f, armed(f, fired), world({ rows: raised() }));
+		expect(evs(p)).toEqual(['paused:a', 'extended:a.judge']);
+		expect(whyOf(p, 'extended', 'a.judge')).toBe(whyOf(p, 'paused', 'a'));
+		expect(ids(p)).toEqual(['a.judge']);
+	});
+
+	test('what it fires is the scoped Architect sitting, at the flow’s judge tier', () => {
+		const f = flowOf();
+		const j = plan(f, armed(f, fired), world({ rows: raised() })).fires[0]!;
+		expect(j).toEqual(judgeStep(f, f.steps.find(s => s.id === 'a')!, '/Users/felix/code/agents/belvedere',
+			whyOf(plan(f, armed(f, fired), world({ rows: raised() })), 'paused', 'a')));
+		expect(j.mantle).toBe('Architect');
+		expect(j.tier).toBe('fable-high');
+		expect(j.kickoff.text).toContain('row A');
+		expect(j.kickoff.text).toContain('E1');
+	});
+
+	test('the lane stays paused while it runs: nothing behind the gated step fires', () => {
+		const f = flowOf();
+		const run = armed(f, [...fired, { ev: 'paused', step: 'a', why: WHY }, { ev: 'extended', step: 'a.judge', why: WHY }, { ev: 'fired', step: 'a.judge', sid: 'j' }]);
+		const p = plan(f, run, world({ rows: raised(), sessions: new Map([['j', session({ sid: 'j', state: 'working' })]]) }));
+		expect(p.fires).toEqual([]);
+		expect(evs(p)).toEqual([]);
+	});
+
+	test('ONE judge per gated landing — the `extended` line is its own guard (§3)', () => {
+		const f = flowOf();
+		const run = armed(f, [...fired, { ev: 'paused', step: 'a', why: WHY }, { ev: 'extended', step: 'a.judge', why: WHY }]);
+		const p = plan(f, run, world({ rows: raised() }));
+		expect(evs(p).filter(e => e.startsWith('extended'))).toEqual([]);
+		expect(ids(p)).toEqual(['a.judge']);                   // still ready, still one
+	});
+
+	test('a step the engine never fired is held, and staffs no judge — B11 F4’s line, kept', () => {
+		const f = flowOf();
+		const rows = new Map([['a', row({ id: 'A', state: 'KILLED' })]]);
+		const p = plan(f, armed(f), world({ rows }));
+		expect(p.lines).toEqual([]);
+		expect(p.fires).toEqual([]);
+	});
+});
+
+describe('the verdict is read off the FILES, never off the judge’s mouth (§2)', () => {
+	beforeEach(scratch);
+
+	const RAISED = 'LANDED, and E1 is raised with nothing saying it was ruled (keel §5.1)';
+	const sat = (why = RAISED): NewRunLine[] => [
+		{ ev: 'fired', step: 'a', sid: 'x', stamp: 'builder-e-01' },
+		{ ev: 'paused', step: 'a', why },
+		{ ev: 'extended', step: 'a.judge', why },
+		{ ev: 'fired', step: 'a.judge', sid: 'j', stamp: 'architect-e-01' },
+		{ ev: 'landed', step: 'a.judge', sid: 'j' },
+	];
+
+	test('the row reads clean now → the lane resumes and the next steps fire, with no click', () => {
+		const f = flowOf();
+		const rows = new Map([['a', row({ id: 'A', state: 'LANDED', annotation: '2026-08-28 — E1 ruled, row trued' })]]);
+		const p = plan(f, armed(f, sat()), world({ rows }));
+		expect(evs(p)).toEqual(['resumed:a', 'landed:a']);
+		expect(whyOf(p, 'resumed', 'a')).toContain('the judge sitting landed');
+		expect(ids(p)).toEqual(['b', 'c']);
+	});
+
+	test('…and it resumes once: a second pass over a resumed lane writes nothing new', () => {
+		const f = flowOf();
+		const rows = new Map([['a', row({ id: 'A', state: 'LANDED', annotation: '2026-08-28 — E1 ruled' })]]);
+		const run = armed(f, [...sat(), { ev: 'resumed', step: 'a', why: 'the judge sitting landed and a reads clean — the lane runs on' }, { ev: 'landed', step: 'a' }]);
+		expect(evs(plan(f, run, world({ rows })))).toEqual([]);
+	});
+
+	test('the row is still not clean → his card, on the judge, and nothing fires behind it', () => {
+		const f = flowOf();
+		const rows = new Map([['a', row({ id: 'A', state: 'LANDED', annotation: 'E1 — still nobody has ruled this' })]]);
+		const p = plan(f, armed(f, sat()), world({ rows }));
+		expect(evs(p)).toEqual(['paused:a.judge']);
+		expect(whyOf(p, 'paused', 'a.judge')).toContain("this one is Felix's");
+		expect(p.fires).toEqual([]);
+	});
+
+	test('…and that card is written once, not once per tick', () => {
+		const f = flowOf();
+		const rows = new Map([['a', row({ id: 'A', state: 'LANDED', annotation: 'E1 — still nobody has ruled this' })]]);
+		const run = armed(f, [...sat(), { ev: 'paused', step: 'a.judge', why: `the judge sitting landed and a still does not read clean (${RAISED}) — this one is Felix's` }]);
+		expect(plan(f, run, world({ rows })).lines).toEqual([]);
+	});
+
+	test('NO RECURSION: a judge whose own sitting is gate-classified is carded, never judged again (§3)', () => {
+		const f = flowOf();
+		const vanished = session({ sid: 'j', state: 'gone', last: beat({ sid: 'j', ev: 'PreToolUse' }) });
+		const run = armed(f, [
+			{ ev: 'fired', step: 'a', sid: 'x' }, { ev: 'paused', step: 'a', why: RAISED },
+			{ ev: 'extended', step: 'a.judge', why: RAISED },
+			{ ev: 'fired', step: 'a.judge', sid: 'j', stamp: 'architect-e-01' },
+		]);
+		const p = plan(f, run, world({ rows: new Map([['a', row({ id: 'A', state: 'LANDED', annotation: 'E1 — raised' })]]), sessions: new Map([['j', vanished]]) }));
+		expect(evs(p)).toEqual(['paused:a.judge']);
+		expect(whyOf(p, 'paused', 'a.judge')).toContain('a judge is never judged');
+		expect(evs(p).some(e => e.includes('a.judge.judge'))).toBe(false);
+		expect(p.fires).toEqual([]);
+	});
+});
+
+// ---------- B12 §4: dynamic extension, D12 as ruled ----------
+
+describe('scope-arm — an in-scope addition joins the running flow (§4, D12)', () => {
+	beforeEach(scratch);
+
+	/** The same flow with one more step, plus the run log the ORIGINAL arm wrote. */
+	function grown(change: (f: Record<string, unknown>) => void, rest: NewRunLine[] = []) {
+		const before = flowOf();
+		const run = runOf(before, [{ ev: 'armed', hash: before.hash, steps: stepMarks(before) }, ...rest]);
+		const copy = JSON.parse(JSON.stringify(FLOW)) as Record<string, unknown>;
+		change(copy);
+		writeFileSync(join(FLOWS, `${before.name}.flow.json`), JSON.stringify(copy, null, '\t'));
+		const after = readFlow(before.name);
+		if (!after.ok) throw new Error(`${after.fail.code} — ${after.fail.error}`);
+		return { before, after: after.flow, run };
+	}
+
+	// A worktree lane, so the addition can fire beside the root: two master-venue steps on one checkout
+	// are strictly serial whatever authorized them (B11 §3's single-writer physics, untouched here).
+	const ADDED = { id: 'e', name: 'Grown mid-run', account: 'personal', tier: 'Builder · sonnet-low', venue: { kind: 'worktree', repo: '~/code/agents', branch: 'bv/e-grown' }, depends: [], kickoff: 'You are a Builder at sonnet-low. Do e.' };
+
+	test('the flow re-arms itself, in D12’s own words, and the addition fires', () => {
+		const { after, run } = grown(c => { (c['steps'] as unknown[]).push({ ...ADDED }); });
+		const join = scopeJoin(after, run, () => null);
+		const p = plan(after, run, world({ join }));
+		expect(evs(p)).toEqual(['armed']);
+		expect(p.lines[0]!.why).toContain('scope-arm auto-join (D12)');
+		expect(p.lines[0]!.hash).toBe(after.hash);
+		expect(p.lines[0]!.steps).toEqual(stepMarks(after));
+		expect(ids(p)).toEqual(['a', 'e']);                    // both roots, concurrency 2
+	});
+
+	test('an EDIT to a step already armed still pauses, with the step named', () => {
+		const { after, run } = grown(c => { step(c, 'b')['tier'] = 'Builder · opus-high'; (c['steps'] as unknown[]).push({ ...ADDED }); });
+		const p = plan(after, run, world({ join: scopeJoin(after, run, () => null) }));
+		expect(evs(p)).toEqual(['paused']);
+		expect(whyOf(p, 'paused')).toContain('b was edited since the arm');
+		expect(p.fires).toEqual([]);
+	});
+
+	test('step-arm is the other branch: with no join, an amendment pauses exactly as B11 left it', () => {
+		const { after, run } = grown(c => { (c['steps'] as unknown[]).push({ ...ADDED }); });
+		const p = plan(after, run, world({ join: { kind: 'none' } }));
+		expect(evs(p)).toEqual(['paused']);
+		expect(whyOf(p, 'paused')).toContain('amended since the arm');
+		expect(p.fires).toEqual([]);
+	});
+
+	test('an auto-join is recorded, so the next pass is not amended any more', () => {
+		const { after, run } = grown(c => { (c['steps'] as unknown[]).push({ ...ADDED }); });
+		appendRun(after.name, plan(after, run, world({ join: scopeJoin(after, run, () => null) })).lines);
+		const again = readRun(after.name);
+		expect(armedHash(again)).toBe(after.hash);
+		expect(scopeJoin(after, again, () => null).kind).toBe('none');
+		expect(evs(plan(after, again, world()))).toEqual([]);
+	});
+});
