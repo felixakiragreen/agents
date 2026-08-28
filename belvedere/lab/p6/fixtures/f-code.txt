@@ -1,0 +1,14 @@
+P6-F a fenced block with real indentation:
+
+```ts
+export function columns(states: PaneState[]): number[] {
+    const w = states.map(weight);
+    if (w.length === 0) return [];
+    return w.map(x => (x / sum(w)) * 100);   // trailing comment
+}
+```
+
+  two-space bullet
+    four-space continuation
+
+end of F

@@ -125,10 +125,23 @@ export async function deliverSegmented(ws: string, text: string, name = 'p6t') {
 	const lines = text.split('\n');
 	for (let i = 0; i < lines.length; i++) {
 		if (i > 0) await cmux(['send-key', '--workspace', ws, '--', 'alt+enter']);
-		if (lines[i] !== '') {
-			await cmux(['set-buffer', '--name', name, '--', lines[i]!]);
+		const line = lines[i]!;
+		if (line === '') continue;
+		// `set-buffer` TRIMS the buffer's own leading and trailing whitespace (measured,
+		// `wire.ts` on `e-edges.txt`: 27 B in, 20 B out), so indentation may never sit at a
+		// buffer edge. `send` does not trim — and a whitespace run cannot contain the
+		// two-character `\n`/`\t`/`\r` sequences `send` rewrites (P2 T2), so it is safe for
+		// exactly this and nothing else.
+		const lead = line.match(/^\s*/)![0];
+		const rest = line.slice(lead.length);
+		const trail = rest.match(/\s*$/)![0];
+		const core = rest.slice(0, rest.length - trail.length);
+		if (lead) await cmux(['send', '--workspace', ws, '--', lead]);
+		if (core) {
+			await cmux(['set-buffer', '--name', name, '--', core]);
 			await cmux(['paste-buffer', '--name', name, '--workspace', ws]);
 		}
+		if (trail) await cmux(['send', '--workspace', ws, '--', trail]);
 	}
 }
 

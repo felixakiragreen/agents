@@ -34,7 +34,19 @@ for (let i = 0; i < 30; i++) {
 	if (i === 29) throw new Error('sink never announced READY');
 }
 
-if (process.argv.includes('--send')) {
+if (process.argv.includes('--clip')) {
+	// CANDIDATE (d): the real clipboard path — what Felix's own hand uses. `pbcopy` the
+	// bytes, then send the paste chord. Clobbers the system clipboard: saved and restored.
+	const saved = await Bun.$`pbpaste`.text();
+	const wasSelected = (await cmux(['workspace', 'list'])).split('\n').find(l => l.startsWith('*'))!.trim().split(/\s+/)[1]!;
+	await Bun.$`printf %s ${payload} | pbcopy`;
+	await cmux(['workspace', 'select', '--workspace', ws]);
+	await sleep(700);
+	await cmux(['send-key', '--workspace', ws, '--', 'cmd+v']);
+	await sleep(2000);
+	await cmux(['workspace', 'select', '--workspace', wasSelected]);
+	await Bun.$`printf %s ${saved} | pbcopy`;
+} else if (process.argv.includes('--send')) {
 	await cmux(['send', '--workspace', ws, '--', payload]);
 } else {
 	await cmux(['set-buffer', '--name', 'p6wire', '--', payload]);
