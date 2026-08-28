@@ -19,7 +19,7 @@
 //  4. **The audit is the real one.** A `message` line belongs in the city's own record — it carries
 //     the sha and the byte count and never the words (`hands.ts` §audit).
 
-import { mkdtempSync, readFileSync, rmSync, statSync } from 'fs';
+import { mkdtempSync, readdirSync, readFileSync, rmSync, statSync } from 'fs';
 import { createHash } from 'crypto';
 import { homedir, tmpdir } from 'os';
 import { join } from 'path';
@@ -187,6 +187,38 @@ const post = async (path: string, body: unknown): Promise<{ status: number; body
 
 const auditLines = () => readFileSync(AUDIT, 'utf8').split('\n').filter(Boolean);
 
+/**
+ * **This campaign's own** Architect transcript, found the way the shelf finds anything: a bounded
+ * head window per file, never the whole thing. `architect-belvedere-*` and `architect-agents-*` are
+ * the two lineages this campaign has run under (the theater is the building, B17's own subject), and
+ * the winner is the longest of them — the one whose tail window certainly does not hold the file.
+ */
+const CAMPAIGN = /"agentName":"(architect-(?:belvedere|agents)-\d+)"/;
+
+function biggestArchitect(): { sid: string; stamp: string; path: string; bytes: number } {
+	let best: { sid: string; stamp: string; path: string; bytes: number } | null = null;
+	for (const dir of [join(homedir(), '.claude'), join(homedir(), '.claude-thg-doorbell'), join(homedir(), '.claude-thg-automation')]) {
+		const root = join(dir, 'projects');
+		let slugs: string[];
+		try { slugs = readdirSync(root); } catch { continue; }
+		for (const slug of slugs) {
+			let files: string[];
+			try { files = readdirSync(join(root, slug)); } catch { continue; }
+			for (const f of files) {
+				const m = /^([0-9a-f-]{36})\.jsonl$/.exec(f);
+				if (!m) continue;
+				const path = join(root, slug, f);
+				const bytes = statSync(path).size;
+				if (bytes < 400 << 10 || (best && bytes <= best.bytes)) continue;
+				const name = CAMPAIGN.exec(readFileSync(path, 'utf8').slice(0, 32 << 10))?.[1];
+				if (name) best = { sid: m[1]!, stamp: name, path, bytes };
+			}
+		}
+	}
+	if (!best) throw new Error('no Architect transcript from this campaign over 400 kB');
+	return best;
+}
+
 // ---------- the run ----------
 
 try {
@@ -199,6 +231,29 @@ try {
 	await connect();
 	await until('the first poll', async () => yes(await evaluate<boolean>(`!!document.querySelector('#live-count')`)));
 	const auditBefore = auditLines().length;
+
+	// --- 0. this campaign's own Architect transcript, read in the deck ---
+
+	const architect = biggestArchitect();
+	await evaluate(`localStorage.setItem('belvedere.deck.session', ${JSON.stringify(JSON.stringify(architect.sid))});
+		localStorage.setItem('belvedere.deck.focus', '"chat"'); location.replace(${JSON.stringify(DECK)})`)
+		.catch(() => { /* the navigation kills it */ });
+	await Bun.sleep(1200);
+	await connect();
+	await evaluate(`document.querySelector('[data-set-state="typical"][data-pane="focus"]').click()`);
+	const arch = await until('the Architect transcript', async () => {
+		const n = await evaluate<number>(`document.querySelectorAll('#host-focus .ct').length`);
+		return n > 0 ? n : null;
+	});
+	await evaluate(`document.querySelector('[data-chat-earlier]').click()`);
+	const archGrown = await until('an earlier window of it', async () => {
+		const n = await evaluate<number>(`document.querySelectorAll('#host-focus .ct').length`);
+		return n > arch ? n : null;
+	});
+	ok('a REAL Architect transcript from this campaign renders tail-windowed, and pages backwards',
+		arch > 0 && archGrown > arch,
+		`${architect.stamp} · ${(architect.bytes / 1024).toFixed(0)} kB · ${architect.path}\n`
+		+ `      ${arch} turns in the tail window → ${archGrown} after one [↑ earlier]`);
 
 	// --- 1. one probe session, fired through the glass's own hands ---
 
@@ -262,11 +317,18 @@ try {
 		+ `      user turns ${turnsBefore} → ${turnsAfter.length} · the transcript grew ${statSync(transcript).size - bytesBefore} B\n`
 		+ `      the deck said: ${receipt}`);
 
+	// The live target's new turn has to reach the DOM on the POLL — so the clock starts at the record
+	// the harness wrote (the transcript's own timestamp) and stops when the browser is showing it.
 	const acted = await until('the probe acting on it', async () => yes(assistantText(transcript).includes(TOKEN)), 120_000);
-	ok('the probe ACTED on it — its reply quotes the message’s own last word',
-		acted === true,
-		`the transcript's assistant text now carries "${TOKEN}"; the last line reads: `
-		+ JSON.stringify(assistantText(transcript).split('\n').filter(Boolean).at(-1)));
+	const onScreen = await until('the reply on the deck', async () => yes(await evaluate<boolean>(
+		`document.getElementById('host-focus').textContent.includes(${JSON.stringify(TOKEN)})`)), 30_000)
+		&& Date.now();
+	const wrote = records(transcript).filter(r => r.type === 'assistant').map(r => Date.parse((r as { timestamp?: string }).timestamp ?? '')).filter(Number.isFinite).at(-1)!;
+	ok('the probe ACTED on it, and its answer reached the deck within one poll (3 000 ms)',
+		acted === true && onScreen - wrote < 3000,
+		`the transcript's assistant text carries "${TOKEN}"; the last line reads `
+		+ JSON.stringify(assistantText(transcript).split('\n').filter(Boolean).at(-1)) + '\n'
+		+ `      written ${new Date(wrote).toISOString()} → on screen ${new Date(onScreen).toISOString()} = ${onScreen - wrote} ms of a 3 000 ms poll`);
 
 	const box = await evaluate<string>(`document.querySelector('[data-chat-draft]').value`);
 	ok('a delivered message empties the box, and the receipt outlives the repaint that proves it',
