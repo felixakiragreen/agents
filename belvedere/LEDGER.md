@@ -1371,3 +1371,60 @@ Venue: `master`; three probes on their own ports against temp census homes, temp
 and temp fixture cities — three live sessions in total, every workspace closed, the smoke's
 worktree removed and its branch deleted, no HALT left anywhere in the city.
 Next: **B16 — the Chat** ([plans/b16-chat.md](plans/b16-chat.md)), the Dispatcher's to fire.
+
+**2026-08-28 · Builder · opus-high (B16)** — **The voice.** The note-app copy-paste era is
+over: his words leave the deck and arrive in a session as **one real user turn, byte-exact**.
+Changed: `glass/chat.ts` (the read, the send, the drafts, the route), `chat.client.ts` (the
+deck's third and last tenant — the transcript in Focus, the draft in Action, independently
+scrolled), `chat.test.ts`, the wire shapes and the one pure `refusals()` in `deck-model.ts`,
+the seam's **sixth member** `asks()` and a `selection` that now names the ontology's two
+surfaced levels, three hotswap entry points (`deck.client.ts` City lines and queue,
+`workshop.client.ts` sessions) through one shared control in `deck-dom.ts`, the composer's
+post-fire swap, `paths.ts`'s `desk/`, `deck.css`, the routes, and both READMEs; two
+instruments in `lab/b16/`. **The numbers:** typed into the rendered textarea and sent by the
+rendered button, `sha 237dd6f33cc0a49b…` **identical** page-side and in the transcript read
+straight off disk — 174 B with a blank line, 2/4-space indents and a trailing space, user
+turns **1 → 2**, and the probe **acted on it** (`ACK pomegranate-7714`) with its answer on
+the deck **384 ms** after the record was written, inside one 3 000 ms poll. Then the
+workspace was closed under it, the census called it `gone`, and the **same** message shape
+went in again as a **resume that carried the turn** — `sha a8a90c1d…`, **the same transcript
+file and the same session id**, prior conversation intact, silo held (P6 Q3 confirmed from
+the other side). **Nothing is reported delivered without the verification read**: its three
+failure verdicts — no new turn, **more than one**, different bytes — are pinned in the suite
+over real appended bytes, and none is ever retried, because a message may have half-landed.
+Three faces induced live, each detectable **before a single cmux call**: an unknown target, a
+**non-empty input box** (refused quoting `HALF A DRAFT FELIX WAS TYPING` — the transport
+appends, it never replaces), and compose-time refusals for a TAB and a leading `/`. **D10 as
+structure**: cold hands render **zero** `[data-chat-send]` anywhere in the DOM and answer
+503, while `POST /chat/draft` still answers 200 — a file write under `desk/` sits in front of
+the arming switch, because cold hands must never cost him the ability to write something
+down. Three entry points (City · Workshop · needs-you queue) swap three targets into **one**
+view; the draft per target survived a hotswap **and a killed server**; `architect-agents-03`
+(2 265 kB) rendered tail-windowed and paged backwards on its own byte offset; the decoder
+runs on transcript prose with **0** spans inside a fence. **555 tests green in one process**,
+type gate exit 0, zero new dependencies, `/deck/state` **p50 58.0 ms** bare and **p50
+59.2 ms · p95 115.8 ms** carrying `?b=` and `?s=` over the live register. Findings: **F1
+`?s=` is a sixth seam member, not a second meaning for `?b=`** — a parameter that is
+sometimes a slug and sometimes a uuid is the ambiguity class this building refuses ·
+**F2 a bounded read that pages BACKWARDS and one that starts at a known boundary are two
+functions**: `windowOf` drops its own first line, which is exactly the delivered turn, and
+the suite caught it before any probe ran · **F3 a probe cannot be waited on by its words —
+it answered `ACK` where `READY` was asked — and never by its name**: a fixed probe stamp
+latched onto a previous run's dead session, D10's lesson arriving in the instrument ·
+F4 `desk/drafts/` files are untracked and whether a draft is committed is B19's and the
+Architect's, named not built · **F5 HALT does not stop a send, deliberately** — the flag
+stops automation, and hitting it is usually the moment he needs to speak by hand ·
+F6 the refusal list is wider than P6 measured (`!`/`#` by construction) and refuses anything
+sanitizing would rewrite rather than rewriting it · F7 the box precheck is the building's
+only screen-scrape, bounded and named · F8 the composer's post-fire swap travels through
+`selection.awaiting`, because a fire returns no session id (B11 F2).
+Decided: nothing escalated — no contract, fence or DoD moved. The send is **D18 write class
+1** and lives outside `hands.ts` on B11's own precedent: credential-gated at its own door,
+audited through the hands' `audit()` (sha and bytes, never the words — verified: the
+message's own token appears in the audit **0** times), and reaching the world only through
+the `cmux()` the hands already own. P6's transport law was consumed **verbatim**, clause for
+clause, including the two rewrites P2 could not see.
+Venue: `master`; two instruments on their own ports against temp desks and temp flows dirs —
+**one** live session per run, its workspace closed, the resume's workspace closed, venue
+before ≡ venue after (`workspace:24 belvedere · workspace:2 mentat`).
+Next: **B19 — the desk** ([plans/b19-desk.md](plans/b19-desk.md)), the Dispatcher's to fire.
