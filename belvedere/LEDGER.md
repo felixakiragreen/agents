@@ -1249,3 +1249,57 @@ Venue: `master`, two probes on their own ports against temp cities; the live hal
 with `BELVEDERE_ENV` pointed at a path that does not exist so no hand could arm.
 Next: **B17 — the composer + live usage** ([plans/b17-composer-usage.md](plans/b17-composer-usage.md)),
 the Dispatcher's to fire.
+
+**2026-08-27 · Builder · opus-high (B17)** — **The composer moved into Action, and two of
+the field report's oldest complaints died: the wrong stamp and the 391-minute number.**
+Changed: `glass/usage.ts` (new — the live per-account OAuth fetch, canon row 10's own
+mechanism), `glass/deck-composer.ts` (new — the resolver behind `POST /deck/compose`),
+`glass/composer.client.ts` (new — Action at rest), `usage.test.ts` + `deck-composer.test.ts`
+(new), `lab/b17/probe.ts` (new), plus `summon.ts` (`stampPrefix`/`nextOrdinal` extracted,
+`lineage`/`nextStamp` built on them unchanged), `deck-model.ts`, `server.ts`, `works.ts`,
+`workshop.client.ts`, `deck.client.ts`, `deck.css`, and four predecessor probes.
+**The building names the work, the cwd is only the venue** — v0 asked one question and used
+the answer for two, which is exactly how an Architect sitting about belvedere, run at
+`~/code/agents`, came out `architect-agents-03`. Two knobs now: clicking `agents/belvedere`
+in the City with the venue typed as `~/code/agents` previews and fires **`builder-belvedere-78`**,
+and the **78** is B7 F4 induced — a fixture census carrying `builder-belvedere-77` on a
+transcript **neither lineage log has ever seen** (`"builder-belvedere"` in `invocations.jsonl`:
+0; in this run's audit: 0), so two logs alone would have minted `-01`. After the fire the
+composer previews `-79`: the ordinal it spends is spent. **Every knob is live**, and the
+summons *text* moves with them, not just the plan — measured in one document, navigation
+entries stayed 1: effort rewrote the fence `You are a Builder at opus-high.` →
+`…at opus-low.`, mantle moved the stamp **and** the colour `#0362b2 → #9e490c` **and** the
+words (`You are a Digger at…`), account moved with its own usage chip beside it. That needed
+templates to be **sticky** — a fence names its own tier (D45), so a page showing `opus-high`
+beside an `opus-low` fire argues with itself — cleared by his first keystroke, after which
+the words are his. **The byte chain has four links, not three**: the box on screen `108 B`,
+the card's own claimed sha, the hands' receipt, and the transcript's first user turn — all
+`sha256 39449981deadf642`. **Usage is live and the deck fetches it itself**: 9 of 9 cells
+identical to the rig's own `summon-usage`, run in the same breath, every one `source: live`;
+an unfetched account renders the rig's cache **labelled** with its age (233 minutes on the
+first smoke — the complaint, now visible); and a blocked fetch, induced live by a glass whose
+`USER` names nobody, keeps the figures **wearing the keychain's refusal** and never invents a
+zero. The token law is the rig's, kept: `security` → memory → one header, never argv, never a
+log, never a rendered page, and never asserted on in a test (B8 F1). One live fire haiku·low
+from the rendered knobs, cmux answering `title "builder-belvedere-78" color #0362B2` —
+coloured per B18's map, named per the building — workspace closed at landing, its audit line
+deliberately in the temp tree rather than the city's. **486 tests green in one process**, type
+gate exit 0, zero new dependencies, `POST /deck/compose` **p95 14 ms** and `/deck/state`
+byte-for-byte the shape B18/B20 left it — the fetch is off the poll, so B10's own bill got the
+live figures free and B18 F4's headroom is untouched. Findings: **F1 the deck can fire now, so
+B14/B15/B20/B10's "zero `hands/fire` in the bundle" became "which SOURCE contains it"** — one
+file may, and it is named · **F2 that DOM grep was always unsound: over the real city the
+belvedere Workshop renders `/hands/fire` 4× as prose with 0 wiring**, so the sound check is
+`outerHTML` minus `textContent` · **F3 sticky templates, and the rule behind them — a surface
+may rewrite what he is looking at only until he touches it** (binds B16/B19) · F4 the
+resolution is **round-tripped**, named, and `composePlan` therefore cannot ride `bun test`
+(B15 F4's one-warm-register trap) · F5 `usageNow` reads, `refreshUsage` fetches — B11 consumes
+both · F6 the token law kept, in the suite too · F7 there is no building knob: the City is the
+picker, which is the ontology rendered rather than described.
+Decided: nothing escalated — no contract, fence or DoD moved. `/hands/fire` is reachable from
+exactly one client file for the first time, which is the composer's whole job (keel §3), and
+D10 holds structurally: every knob move disarms the button until the next resolved plan lands.
+Venue: `master`; the probe on its own port against the real city with a temp census, and its
+one fire closed at landing (D55).
+Next: **B11 — arm + engine** ([plans/b11-flow-engine.md](plans/b11-flow-engine.md)),
+the Dispatcher's to fire.

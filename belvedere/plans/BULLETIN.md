@@ -1092,3 +1092,74 @@ that is a flow-file edit and no code change. B13/B14/B15/B20's probes were all r
 this row's client: **ALL GREEN**, four for four.
 
 (Relayed from `master`, B10 LANDED 2026-08-27 — Builder)
+
+## → relay — B17 (composer + live usage) to B11, B16, B19, B21, B12 and the Architect: no escalation, four findings that bind
+
+Evidence: [b17-composer-usage.md](b17-composer-usage.md) §DoD and §Findings, commits `572f5ff`
+… `3bbf6a5` on `master`.
+
+1. **F1/F2 — the deck can fire now, so four predecessor probes changed what they measure; and the
+   check they all used is unsound against the real corpus.** B14, B15, B20 and B10 each assert
+   `"hands/fire"` appears **zero times in `/deck.js`**. True while the deck could not fire, false
+   the moment Action holds the composer (keel §3). The invariant never changed — *nothing in these
+   panes may reach the spawning hand* — so it moved from "the bundle contains it zero times" to
+   **"which SOURCE contains it"**, which names the one file allowed to instead of counting a
+   string: `deck.client.ts 0× · deck-dom.ts 0× · workshop.client.ts 0× · works.client.ts 0× ·
+   composer.client.ts 2×`, `/deck.js` 85 544 B carrying it **1×**. Amended in all four with the
+   reasoning at the assertion (B6's precedent). **And the DOM half was always unsound:** over the
+   REAL city the belvedere Workshop renders belvedere's own board, and that board writes
+   `/hands/fire` in prose — measured **4× on screen with 0 fire wiring**. The question is not
+   whether the string is rendered, it is whether any of it is **markup**, and `outerHTML` minus
+   `textContent` is exactly that difference. **Anything later that greps rendered DOM for a path
+   must subtract the text**, or it fails the day a doctrine file mentions what it guards.
+
+2. **F3 — the plan being live is not enough; the summons TEXT has to move, and that made templates
+   sticky. This binds B16 and B19.** A fence names its own mantle and tier (D45), so a page showing
+   `You are a Builder at opus-high.` beside an `opus-low` fire is a page arguing with itself —
+   v0's composer did exactly that, filling the words once and freezing them. A clicked template now
+   stays the **source of the body** and re-speaks at whatever the knobs say (`effort → low` rewrote
+   the fence in the same document, measured), and the six mantle chips are **one template
+   parameterised by mantle**, so moving the mantle knob moves the words rather than leaving a Digger
+   speaking as a Builder. **The first keystroke in the box clears the stickiness** — from there the
+   words are his and nothing rewrites them. `founding` is unaffected by construction: DOCTRINE §12
+   is bytes, not a formula. **B16's draft and B19's desk editor inherit the same question** — when
+   may a surface rewrite text Felix is looking at — and the answer that worked is: only until he
+   touches it.
+
+3. **F5 — live usage is one module, off the poll, and B10's bill got the live figures for free.**
+   `usage.ts` splits it: `refreshUsage()` fetches (three accounts in parallel, **~1.0 s** for all
+   three) and `usageNow()` answers from the held copy **without touching the network**. The composer
+   fetches on expand and at most once a minute (`TTL_SECONDS = 60`); `worksUsage` — which runs on the
+   three-second poll — reads through `usageNow`, so B10 §5's own note is paid with **no network on
+   the request thread** and `/deck/state` is byte-for-byte the shape B18/B20 left it. **B11 consumes
+   this module for the arm bill**: call `usageNow(rig)` on a render and `refreshUsage(rig)` on a
+   gesture, never the other way round. Measured against the rig's own `summon-usage` at one instant:
+   **9 of 9 cells identical ×3 accounts**, every one `source: live`. A blocked fetch (induced live —
+   a glass whose `USER` names nobody) falls back to the rig's cache **labelled `cache`, with its own
+   age, wearing the keychain's refusal**, and never to a zero. **The token law is the rig's, kept:**
+   `security` → memory → one header, never argv, never a log, never a rendered page — and
+   `usage.test.ts` asserts on shapes and failure paths and **never on a credential's value** (B8 F1).
+
+4. **F4/F7 — the resolution is round-tripped, and the composer has no building knob.** Every knob
+   move POSTs the draft to `/deck/compose` and renders what comes back (**p50 8 ms · p95 14 ms**,
+   N=12 over the live register), because resolving one means reading the register, three accounts'
+   trust files, two lineage logs, the live census and `git`. **The bytes the button posts are the
+   bytes the page was handed** — never a re-derivation assembled from the DOM — which is what makes
+   the four-link sha chain (box → card → hand → transcript, all `39449981deadf642`) a comparison
+   rather than an argument. Two consequences: **`composePlan` cannot live in `bun test`** — it calls
+   `register()`, and the register holds ONE warm copy keyed on nothing (B15 F4), so a second fixture
+   city decides `deck.test.ts`'s results; everything server-shaped rides `lab/b17/probe.ts`. And
+   **the composer's building IS `selection.building`** — one click in the City sets what the Workshop
+   opens *and* what the fire is named after. One fewer control, one fewer way to disagree, and the
+   ontology rendered rather than described.
+
+Also, not blocking: **the wrong-stamp class is closed at the model.** `summon.ts` gained
+`stampPrefix(mantle, theater)` and `nextOrdinal(prefix, taken, known)`; `lineage`/`nextStamp` are
+built on them unchanged, and the deck resolves the theater off the **chosen building** while the cwd
+stays the venue. Measured: building `agents/belvedere`, venue `/Users/felix/code/agents`, stamp
+`builder-belvedere-78` — v0 read the venue for both questions and would have stamped after `agents`.
+The **78** is B7 F4 induced: a fixture census carrying `builder-belvedere-77` on a transcript neither
+lineage log has ever seen. And B13/B14/B15/B20/B10's probes were re-run whole against this row's
+client: **ALL GREEN, five for five.**
+
+(Relayed from `master`, B17 LANDED 2026-08-27 — Builder)
