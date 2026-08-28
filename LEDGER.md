@@ -1376,7 +1376,7 @@ dispatch; rows 20/21 fire on his summons, 22 on his blessing.
 
 ---
 
-**2026-08-28 · Grand Architect · fable-max (the countersign close, same sitting)** —
+**2026-08-28 · Grand Architect · fable-max** — the countersign close, same sitting —
 Felix ruled the package after tearing it apart with the office: **D68 folded into
 D63 as its second amendment** (his call, register minimalism — an extension of
 recorded intent amends its ancestor, never a new number): `unstaffed` minted,

@@ -179,7 +179,7 @@ grep -c '[c]laude'` → `45`), row 18's re-cut wave among them.
   and cut the v0 build rows.
   ```
 
-Ordered behind either: the other one.
+Ordered behind either: the other one. Next: unrecorded.
 
 ---
 
@@ -335,7 +335,7 @@ bulletin carries the wire contract and the disabled-state requirement.
 
 ---
 
-**2026-08-27 · Architect · fable-max (B4 E1)** — Ruled: **D9** — the credential is
+**2026-08-27 · Architect · fable-max (B4)** — E1 — Ruled: **D9** — the credential is
 an **arming switch, not the lock**, and it stays. B4's measurement (a wrong
 password rejected loudly, none at all admitted via the CLI's Settings fallback)
 retires D8's auth *framing* while its deployment ruling stands whole: password
@@ -400,7 +400,7 @@ notes and the two canon asks.
 
 ---
 
-**2026-08-27 · Architect · fable-max (B3 E1/E2)** — *same session, continued.* B3
+**2026-08-27 · Architect · fable-max (B3)** — E1/E2 — *same session, continued.* B3
 verified LANDED (18 commits `1ec54a3…ffb3d19`, tree clean, findings + three canon
 asks filed, board/ledger current — including the killed run's leftover diff
 reviewed and corrected rather than discarded). Ruled **E1**: the worker is law —
@@ -459,7 +459,7 @@ the bulletin carries F1's warning and F3's worker law.
 
 ---
 
-**2026-08-27 · Architect · fable-max (flow keel + B8 sweep)** — *same session,
+**2026-08-27 · Architect · fable-max** — flow keel + B8 sweep — *same session,
 continued.* B8 verified LANDED (nine commits `2defc6e…195441d`, five DoD items
 measured, zero escalations — the pre-chewed order held). Its F1 incident absorbed:
 the frozen anchors had armed the real HALT from a unit test (B8 cleared it) and
@@ -490,7 +490,7 @@ desk.
 
 ---
 
-**2026-08-27 · Builder · opus-high (B5 — the shelf and the gauges)** — `/shelf` is
+**2026-08-27 · Builder · opus-high (B5)** — the shelf and the gauges — `/shelf` is
 live: 723 transcripts across all three accounts in **46 ms**, joined on the uuid
 from three sources (filename → session id and resume handle; the transcript's own
 64 KB head → name-stamp and cwd; the census → live or dead), and the projects
@@ -525,7 +525,7 @@ F2's roster law.
 
 ---
 
-**2026-08-27 · Architect · fable-max (B5 E1/E2)** — *same session, continued.* B5
+**2026-08-27 · Architect · fable-max (B5)** — E1/E2 — *same session, continued.* B5
 verified LANDED (8 commits `3113670…ea868b7`, tree clean, 166 tests one process,
 type gate 0; resume ×3 accounts with no turn injected, strip 9/9 vs the rig's own
 function, 16-cap induced live). Ruled **E1**: the census stays the **sole
@@ -548,7 +548,7 @@ Decided: E1/E2 rulings (delegated scope). Next: Felix relays the resume —
 
 ---
 
-**2026-08-27 · Builder · opus-high (B6 — the sovereign's inbox)** — his word travels
+**2026-08-27 · Builder · opus-high (B6)** — the sovereign's inbox — his word travels
 without his hands: `POST /inbox` is the fence's third write, and it is the only one
 that touches a file the city commits. Four gestures — a free-text note, `defer <row>`,
 `<row> before <row>`, `countersign <D-id>: ✓` — each become **ONE append** in D63
@@ -669,7 +669,7 @@ rail + city, and the live-fire smoke from the rail (which doubles as F4's proof)
 
 ---
 
-**2026-08-27 · Architect · fable-max (v0 verify + flow hand-off)** — *same
+**2026-08-27 · Architect · fable-max** — v0 verify + flow hand-off — *same
 session, continued.* B6/B7/B9 verified LANDED off their plans: B6 — 219 tests,
 append-only proven under ten concurrent POSTs, adoption mints the template's own
 bytes, **the apply button fires a scoped Architect sitting** (first turn ≡
@@ -871,6 +871,8 @@ not already done; message verbatim in the previous entry); behind it: a
 GA sitting is now genuinely ripe — the canon inbox holds 16 entries and
 row 17's gate is paid — his word fires it.
 
+---
+
 **2026-08-27 · Builder · opus-high (B13)** — the deck shell: the app exists. `/deck`
 serves three panes (Context · Focus · Action), each walking minimal → typical →
 expanded under the law of space, plus the pinnable drawer, the tooltip primitive, the
@@ -927,6 +929,8 @@ redraws nothing. **F6** a failed client bundle **stops the server**, deliberatel
 shell around a bundle that is not there is this server's own definition of a lie.
 Next: **B14 — the Context pane** ([plans/b14-city-attention.md](plans/b14-city-attention.md)),
 the Dispatcher's to fire on lane B's serial chain.
+
+---
 
 **2026-08-27 · Digger · opus-high (P5)** — permission physics: **the model IS the
 permission posture.** S5 was never trust and never cmux. `--model haiku` cannot enter
@@ -1250,6 +1254,8 @@ with `BELVEDERE_ENV` pointed at a path that does not exist so no hand could arm.
 Next: **B17 — the composer + live usage** ([plans/b17-composer-usage.md](plans/b17-composer-usage.md)),
 the Dispatcher's to fire.
 
+---
+
 **2026-08-27 · Builder · opus-high (B17)** — **The composer moved into Action, and two of
 the field report's oldest complaints died: the wrong stamp and the 391-minute number.**
 Changed: `glass/usage.ts` (new — the live per-account OAuth fetch, canon row 10's own
@@ -1432,6 +1438,8 @@ Venue: `master`; two instruments on their own ports against temp desks and temp 
 **one** live session per run, its workspace closed, the resume's workspace closed, venue
 before ≡ venue after (`workspace:24 belvedere · workspace:2 mentat`).
 Next: **B19 — the desk** ([plans/b19-desk.md](plans/b19-desk.md)), the Dispatcher's to fire.
+
+---
 
 **2026-08-28 · Builder · opus-high (B19)** — **The desk.** D17 is built: there is now a place
 in the deck where Felix writes, and the 17-item field report that commissioned this whole
@@ -1709,7 +1717,7 @@ your pass direction.
 
 ---
 
-**2026-08-28 · Architect · fable-high (the recording sitting)** — **Batch 5 is CLOSED —
+**2026-08-28 · Architect · fable-high** — the recording sitting — **Batch 5 is CLOSED —
 Felix's verdict, recorded.** The pass is the verdict: the card asked whether batch 5 is
 closed and he passed it at 16:39:47Z (`flow-close.run.jsonl`: "Felix passed the card");
 one second later the engine fired this sitting off the board's own row (workspace:115,
@@ -1727,7 +1735,7 @@ candidate 6 (the Chat's send is the sharp edge) · the split-neighborhood fix CU
 as candidate 7, labeled hypothesis — unreproduced · the Act-pane stall CUT forward as
 candidate 8, labeled hypothesis, repro recipe in its commit · repo-vs-campaign
 differentiation, the pass-gesture surfacing, and the account-at-arm knob FOLDED as
-rework-chapter design input. Nothing above delegation touched.
+rework-chapter design input. Nothing above delegation touched. Decided: unrecorded.
 Next: **Felix — direct the chapter, then summon the cut.**
 
 Baton — Felix: bring your direction (deck rework from your pass · ⬡ · Ava) to the
