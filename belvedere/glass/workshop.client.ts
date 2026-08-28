@@ -8,7 +8,9 @@
 // — the third item of the field report, which is the whole reason this pane has a viewer at all.
 //
 // **Nothing here fires.** One wire leaves this file: `POST /hands/focus`, his eyes moving to a
-// panel. The string `hands/fire` does not appear in it, and the probe greps the served bundle.
+// panel. The fire hand is unreachable from this pane, and `lab/b15/probe.ts` greps this source and
+// the served bundle for its path to keep it that way (D10) — which is why the path is not spelled
+// out anywhere in this file, comments included.
 
 import {
 	SECTIONS, moved, toCollapsed, toSections,
