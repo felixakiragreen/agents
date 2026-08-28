@@ -9,6 +9,7 @@ import { expect, test, describe } from 'bun:test';
 import { join } from 'path';
 import { discover } from '../../doctrine';
 import type { Beat, Session } from './census';
+import type { LiveWorkspace } from './identity';
 import { SECTIONS, moved, toCollapsed, toSections, type Section } from './deck-model';
 import { deckSession } from './deck';
 import { prose, spans } from './html';
@@ -213,23 +214,50 @@ describe('deckSession — what a tooltip needs, carried on the wire', () => {
 		transcript: null, agent: null, roster: null, ...over,
 	});
 
+	/** No socket in a unit test: the live map is handed in, which is why `deckSession` takes one. */
+	const NOBODY = new Map<string, LiveWorkspace>();
+	const named = (over: Partial<LiveWorkspace> = {}) => new Map<string, LiveWorkspace>([['W-1', {
+		id: 'W-1', ref: 'workspace:7', title: 'the kitten', color: '#3f9608', cwd: null, selected: false, ...over,
+	}]]);
+
 	test('venue, process and the last act ride along — the §4 tooltip has depth without a second read', () => {
-		const d = deckSession(session(), 'agents');
+		const d = deckSession(session(), 'agents', NOBODY);
 		expect(d).toMatchObject({ pid: 4242, ws: 'W-1', event: 'PreToolUse', tool: 'Write', pane: true, model: 'sonnet' });
 		expect(d.building).toBe('agents');
 	});
 
 	test('a session in no cmux pane has nothing to jump to, and says so rather than offering one', () => {
-		expect(deckSession(session({ last: beat({ sf: null, ws: null }) }), null).pane).toBe(false);
+		expect(deckSession(session({ last: beat({ sf: null, ws: null }) }), null, NOBODY).pane).toBe(false);
 	});
 
 	test('a model nobody wrote down stays null — half a tier is not guessed at (findings F1)', () => {
-		expect(deckSession(session({ model: null }), null).model).toBeNull();
+		expect(deckSession(session({ model: null }), null, NOBODY).model).toBeNull();
 	});
 
 	test('the waiting edge is attention.ts\'s, not re-derived here', () => {
-		expect(deckSession(session({ last: beat({ ev: 'Notification', why: 'permission_prompt' }) }), null).waiting)
+		expect(deckSession(session({ last: beat({ ev: 'Notification', why: 'permission_prompt' }) }), null, NOBODY).waiting)
 			.toBe('blocked');
-		expect(deckSession(session({ last: beat({ ev: 'Stop' }) }), null).waiting).toBeNull();
+		expect(deckSession(session({ last: beat({ ev: 'Stop' }) }), null, NOBODY).waiting).toBeNull();
+	});
+
+	// ---------- B18: the live name is cmux's, the birth name is the rig's, and neither becomes the other
+	test('cmux names the session and the rig stamp stays beside it as the birth name (D16)', () => {
+		const d = deckSession(session(), 'agents', named());
+		expect(d.live).toEqual({ name: 'the kitten', color: '#3f9608', ref: 'workspace:7' });
+		expect(d.stamp).toBe('builder-agents-01');            // renamed in cmux, born in the rig
+	});
+
+	test('a socket that named no workspace leaves live null — the birth name never wears a live badge', () => {
+		expect(deckSession(session(), 'agents', NOBODY).live).toBeNull();
+		expect(deckSession(session(), 'agents', NOBODY).stamp).toBe('builder-agents-01');
+	});
+
+	test('the join is the census ws and nothing else — a session in no workspace has no live identity', () => {
+		expect(deckSession(session({ last: beat({ ws: null }) }), null, named()).live).toBeNull();
+		expect(deckSession(session({ last: beat({ ws: 'W-OTHER' }) }), null, named()).live).toBeNull();
+	});
+
+	test('a workspace wearing no custom colour is null, not a colour the glass picked', () => {
+		expect(deckSession(session(), null, named({ color: null }))!.live!.color).toBeNull();
 	});
 });
