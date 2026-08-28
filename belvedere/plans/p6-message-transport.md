@@ -426,3 +426,11 @@ then read ~/code/agents/belvedere/README.md §§5–6,
 and ~/code/agents/belvedere/plans/p6-message-transport.md,
 and execute the brief.
 ```
+
+**F7 — B15 F7's commit collision fired again, symmetrically, and is disclosed not
+hidden.** `git add -A belvedere` from *this* lane swept lane B's in-flight modules into
+two P6 commits (`4880abe` carries B18's `glass/colors.ts`, `identity.ts`, `hands.ts`;
+`8e015fd` carries `glass/deck-dom.ts`, `deck.client.ts`). Nothing lost, history not
+rewritten under two live sessions; scoped `git add <path>` from that point on. Filed to
+[ISSUES](../ISSUES.md) — it confirms B15's fold candidate rather than adding one: a
+two-lane batch note owes a **commit** rule, not just a file rule.
