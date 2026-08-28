@@ -556,6 +556,89 @@ export type DeskPlan = {
 	refusal: string | null;
 };
 
+// ---------- the Grep: everything the city writes, searched (B21, keel §3 as amended) ----------
+
+/**
+ * The three corpora, in the order the drawer groups them. **This list is closed** — census and audit
+ * telemetry are deliberately outside it (noise, and gitignored truth-less by law, spec §1), and a
+ * fourth kind would be a fourth jump.
+ */
+export const GREP_KINDS = ['sessions', 'docs', 'desk'] as const;
+export type GrepKind = (typeof GREP_KINDS)[number];
+
+/**
+ * Where a hit goes when it is clicked. **Every hit is jumpable** (keel §3: *"fast, bounded, and every
+ * hit instantly jumpable"*), and each of the three lands in a surface that already exists — the Chat
+ * at the turn (B16), the Workshop's viewer at the line (B15), the desk's editor at the note (B19).
+ *
+ * `anchor` is the **byte offset** of the matching line, which is the same coordinate a turn is keyed
+ * by (`ChatTurn.key`) — so "the turn this line belongs to" is the last turn whose key does not exceed
+ * it, and no second identity has to be invented for a jsonl append log.
+ */
+export type GrepJump =
+	| { to: 'session'; sid: string; anchor: number | null }
+	| { to: 'doc'; building: string | null; path: string; line: number }
+	| { to: 'note'; slug: string };
+
+/**
+ * One hit, as the drawer draws it. The line is **clipped around the match** rather than sent whole:
+ * a transcript record is one JSON line and can be a megabyte, and a result row is one line of a
+ * pane (the law of space).
+ */
+export type GrepHit = {
+	kind: GrepKind;
+	/** Stable across queries — the client keys its DOM by this. */
+	key: string;
+	/** Encapsulation-first: the session's name, the doc's label, the note's title. */
+	name: string;
+	/** Where it is, in the city's own coordinates — `belvedere/README.md:191`. */
+	where: string;
+	/** Epoch seconds — the file's mtime, the only clock a corpus of files has. */
+	at: number | null;
+	/** The document this line's code words decode against (B20 §2). */
+	doc: string;
+	/** The clipped line, with `…` where bytes were taken off either end. */
+	text: string;
+	/** Where the term sits inside `text`, in **characters** — what the client marks. */
+	mark: { at: number; len: number } | null;
+	jump: GrepJump;
+};
+
+/** One group's answer, with its own bounds reported: a capped result set SAYS it was capped. */
+export type GrepGroup = {
+	kind: GrepKind;
+	hits: GrepHit[];
+	/** More hits existed than the cap allows — never a silent truncation. */
+	capped: boolean;
+	/** Files searched, files the size bar skipped, and whether the corpus itself hit its own cap. */
+	files: number;
+	skipped: number;
+	filesCapped: boolean;
+	/** The search ran out of time before this group finished. The hits it has are still honest. */
+	timedOut: boolean;
+	error: string | null;
+	ms: number;
+};
+
+/**
+ * What `GET /deck/grep?q=` answers. **A gesture, never a clock** (B19 F4's rule): a query is
+ * something Felix asked once, so it rides its own route and `/deck/state` is untouched.
+ */
+export type GrepAnswer = {
+	query: string;
+	/** `rg` where it is on PATH, `grep` where it is not — and the fallback names its own degradation. */
+	engine: 'rg' | 'grep';
+	degraded: string | null;
+	/** Whether the term was matched case-insensitively (case-smart: lower asks for either). */
+	insensitive: boolean;
+	ms: number;
+	groups: GrepGroup[];
+	/** The transcript-honesty line (spec §5) — named here, not discovered by Felix. */
+	note: string;
+	/** Why nothing was searched at all: a term too short, a term too long. */
+	refusal: string | null;
+};
+
 // ---------- the composer: Action at rest (B17, keel §3) ----------
 
 /**

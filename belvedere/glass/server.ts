@@ -15,6 +15,7 @@ import { deskRoute } from './desk';
 import { composeRoute } from './deck-composer';
 import { decodeQuery } from './decoder';
 import { flowRoute, kick, startEngine } from './engine';
+import { grepQuery } from './grep';
 import { handsRoute } from './hands';
 import { inboxRoute } from './inbox';
 import { HOST, port } from './paths';
@@ -82,6 +83,11 @@ async function route(url: URL): Promise<Response> {
 	// like everything else here — it is asked on a hover and answers a value, never a throw.
 	if (url.pathname === '/deck/decode')
 		return Response.json(decodeQuery(url.searchParams), { headers: { 'cache-control': 'no-store' } });
+	// The Grep (B21). A read, and a **gesture rather than a clock** (B19 F4's rule): a query is
+	// something Felix asked once, so it has its own route and `/deck/state` is untouched by it. The
+	// engine is a spawn, so Bun's thread is yielded and the polls arriving inside it are still served.
+	if (url.pathname === '/deck/grep')
+		return Response.json(await grepQuery(url.searchParams), { headers: { 'cache-control': 'no-store' } });
 	// The composer's live preview (B17): one knob move, one round trip, one resolved plan. A **read**
 	// — the register, the trust files, the lineage logs and `git`, nothing written — and deliberately
 	// off the poll: it answers a gesture, not a clock. `POST` because a summons does not belong in a

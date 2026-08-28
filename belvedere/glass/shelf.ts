@@ -51,8 +51,15 @@ export type Shelved = {
 
 // ---------- the scan ----------
 
-/** Every `<uuid>.jsonl` under one account's projects tree. A missing tree is an account with no sessions. */
-function transcriptsOf(configDir: string): { sid: string; path: string }[] {
+/**
+ * Every `<uuid>.jsonl` under one account's projects tree. A missing tree is an account with no
+ * sessions.
+ *
+ * **Exported for B21**, which searches exactly this corpus and must not re-derive it: a subagent's
+ * transcript lives one directory deeper (`<sid>/subagents/agent-*.jsonl`) and is *not* a session the
+ * Chat can open, so the name filter here is what keeps a search result jumpable (B21 §1).
+ */
+export function transcriptsOf(configDir: string): { sid: string; path: string }[] {
 	const root = projectsDir(configDir);
 	let slugs: string[];
 	try { slugs = readdirSync(root); } catch { return []; }
