@@ -1303,3 +1303,71 @@ Venue: `master`; the probe on its own port against the real city with a temp cen
 one fire closed at landing (D55).
 Next: **B11 — arm + engine** ([plans/b11-flow-engine.md](plans/b11-flow-engine.md)),
 the Dispatcher's to fire.
+
+---
+
+**2026-08-28 · Builder · opus-high (B11)** — **The string runs itself.** D11 is live: one
+click on the Works' arm card authorizes a declared flow, and a tick inside the glass does
+what a Dispatcher does between sessions — fires ready steps **through the existing hands**,
+and pauses at everything a mantle would have to judge. Changed:
+[glass/engine.ts](glass/engine.ts) (new — `plan()` pure, `tick()` thin, `armFlow`,
+`passGate`, `POST /flow/<name>/{arm,pass}`), [glass/flow.ts](glass/flow.ts) (the run log's
+**write** side beside its read side, `Flow.hash`, `Step.timeoutMinutes`, venue paths
+resolved at the boundary), [glass/works.ts](glass/works.ts) + [glass/deck-model.ts]
+(glass/deck-model.ts) (hash, armed hash, the flow's last word, HALT, hands state, a card
+awaiting his pass), [glass/works.client.ts](glass/works.client.ts) (the arm card, the live
+bill, his pass), `hands.ts` (`readHalt` — the flag read where it is written), `html.ts`
+(`tilde`), `server.ts` (the routes, and the engine's clock started **here and only here**),
+`deck.css`, plus [glass/engine.test.ts](glass/engine.test.ts) (44) and three probes in
+[lab/b11/](lab/b11/). **The chapter's number is 0.513 s**: a three-step flow — Builder ·
+sonnet-low on master, Digger · sonnet-low in a **worktree**, then his card — armed by one
+click in real headless Chrome and then left alone. Step 1 fired at `12:00:21.321Z`, the
+first user turn **byte-exact** three ways (summons file ≡ transcript ≡ the hands' receipt,
+`sha 7f91bd90e866f536`, 655 B), the session did real tool work unattended and **edited its
+own board row to LANDED**; the engine read that row at `12:00:38.491Z` and step 2's fire
+audit is `12:00:39.004Z` — **nothing between them but the tick** — arm to step 2 fired,
+18.1 s. The worktree was cut by the same hand *before* the fire and the census's own cwd for
+that session is inside it. Then the **Felix-card stopped the lane**: `paused, why "a
+Felix-card — his pass on the card is the resume"`, **two fires in the entire hands audit**, 0
+buttons and 0 links on the drawn card, and the drawing reading the engine's log
+(`s1:landed/run s2:landed/run s3:paused/run`) rather than the board. Four levers proved on
+**one** live session, because each needs the same step to be provably fireable and the
+control for "nothing fired" is the fire that happens when they are released: **D10** — one
+unreadable line in a run log and nothing advances, not even a landing the census had already
+earned (`paused: "run-state unreadable"`, hands audit empty); **HALT** — set through the
+glass's own hand at a **scratch** flag with the city's real one asserted absent in the same
+breath (`refused`, audit `["halt"]`), and the Works reading the flag back in its own words;
+**amend** — the flow file moved under an armed flow (`armed 8808fe19… · on disk 0c9e8e19…`,
+paused, no fire); **re-arm** — one click covering it, and the step all three had held fires;
+**timeout** — `paused, why "timeout"` with the session **untouched**, `pid 43747, kill -0
+ALIVE`, because the engine has no verb that stops a session. Four arm refusals, each 409
+naming the step and each writing **nothing** to a run log: `haiku` (P5's own sentence, the
+finding built rather than worked around), a venue `personal has never trusted`, an
+unparseable flow, and **a hash the page was showing that the file no longer has**. Cold
+hands answer **503** while the same page still renders the plan. **530 tests green in one
+process**, type gate exit 0, zero new dependencies, `/deck/state?b=` **p95 162.6 ms** with
+the engine ticking under it, and B13/B14/B15/B20/B10's probes re-run whole — **ALL GREEN,
+five for five**. Findings: **F1 an `armed` line in a fixture run log is a live authorization
+now** — B10's own probe armed itself the moment a glass grew an engine, and the first thing
+that engine did was pause a fixture session that ended without a `Stop`; fixed at the
+fixture, and the rule is general · **F2 a fire returns a workspace and no session id**, so
+the name-stamp is the join and `fired` is written twice (take the last; the first one's `ts`
+is the timeout clock) · **F3 the arm hashes the flow file AND every resolved kickoff** —
+B10 F2's positional-fence hazard closed at the wire, at the cost that a reformat re-arms ·
+**F4 the board lands a step the engine never fired and writes nothing when it does** (B10
+F4's dashed ring kept honest), while `IN FLIGHT`/`KILLED`/`BLOCKED` hold it — somebody is
+already on it · F5 an unruled escalation on a landing pauses, per keel §5.1 rather than §4's
+list — that is B12's judge, parked exactly there · F6 `~/` never leaves the parse boundary
+(`tilde()` puts it back for the eye) · F7 a tick over a city with nothing armed touches
+neither census nor register nor socket · **F8 `lab/b17/probe.ts` fails two live-quota
+assertions at its OWN landing commit** — attributed from a detached worktree at `6cd3614`,
+filed to [ISSUES](ISSUES.md), not fixed here.
+Decided: nothing escalated — no contract, fence or DoD moved. The fence gains **no write
+class**: every engine write is a hand call or a run-state append in the D6 telemetry
+neighborhood. Felix's relayed tier amendment applied as given — the two real-work steps ran
+**sonnet·low**, the cheapest tier that holds `auto` (P5), and a haiku step is refused at arm.
+D12 is a flag B12 flips, not a rewrite: `plan()` takes the scope-arm auto-join as one branch.
+Venue: `master`; three probes on their own ports against temp census homes, temp flows dirs
+and temp fixture cities — three live sessions in total, every workspace closed, the smoke's
+worktree removed and its branch deleted, no HALT left anywhere in the city.
+Next: **B16 — the Chat** ([plans/b16-chat.md](plans/b16-chat.md)), the Dispatcher's to fire.
