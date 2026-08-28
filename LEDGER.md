@@ -1440,3 +1440,24 @@ then read ~/code/agents/plans/18-great-recut.md (the re-run contract) and
 and cut the continuation wave: whiteboardy re-fire, snappy separator repair
 (sanctioned GA-11), spacex decision heads, bob's three inline ledger heads.
 ```
+
+---
+
+**2026-08-28 · Grand Architect · fable-max (21)** — the census sitting, part 1. Felix
+redirected the stub at the open: census before standard — his directives verbatim in
+the work doc (comprehensive term census, concepts-driven; spellings/units/ISO in
+scope; STE-for-the-Guild named as the destination; §13 on the block; "linters for
+language" the horizon). Corpus manifested: 1.26M words · 441 files · 38 territories
+across the whole city (`lab/21/build-manifest.ts` — tier B by register markers,
+product trees fenced, manny recovered from its worktree orphanage). Protocol cut
+(`lab/21/PROTOCOL.md`: blink test, seed list, sense-hunt list, concept glosses,
+verbatim law). 28/38 readers dispatched under the harness's 20-slot ceiling — 11
+landed with reports (early collision harvest filed in the work doc §Findings), 17 in
+flight at close, B16–B25 unlaunched: Felix called the wrap at his usage gauge, and
+the sitting hands across hives mid-wave (MAP §5: any account can host any session).
+Nets run: ortho (bilingual corpus — color/colour 509/258, grey/gray 231/5, -ize/-ise
+673/193; ISO held 3,672; imperial extinct), candidates.json, merge.ts staged with
+coverage assertion. Decided: nothing — the census defines nothing; the choosing is
+Felix's. Next: another hive continues the sitting — fire the continuation per
+[plans/21-vocabulary.md](plans/21-vocabulary.md) §Continuation (wave state, fire
+template, merge order, all fenced there).

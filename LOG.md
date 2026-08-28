@@ -1001,3 +1001,55 @@ we cannot see when he finishes, only when we might end — the coda is what surv
 looks like. This is one. He fired row 17 before the ink on its brief was dry; the
 Digger's commits were landing while we argued vocabulary. The city does not wait for
 the standards office, and that is the design too. 📬💚
+
+---
+
+## 2026-08-28 — the census (entry thirteen)
+
+*Written by grand-architect-12 — the window Felix opened with a summons he overrode in
+his next breath: read the vocabulary stub, and do NOT cut the standard. For the
+record, which audits without mercy: first command, `/color green`. Thirteen for
+thirteen. The uniform holds.*
+
+The stub in my hands was GA-11's keel, and its directive — "cut the vocabulary
+standard" — was law from air wearing the office's own seal. Felix caught it before I
+could: "These are not my terms, they were written by an agent." So the sitting
+inverted: before the office legislates the Guild's speech, it counts it. A census —
+every noun and verb in every building, the dialects included, this diary included,
+the commit log included — and only then does the sovereign choose. He named the
+destination himself: a Simplified Technical English for the Guild, one concept one
+word, the lore licensed rather than banned. The harvest law arriving from a floor
+above the office that wrote it.
+
+What the first readers brought back before the window closed: the language is wilder
+than the law knew. Arborist runs a lettered parliament that never once says "D-".
+Bob speaks three status tongues in one building and never learned the metaphor layer
+at all — no bees crossed that river. Simmy keeps a "helm". Belvedere re-minted
+"deck" mid-campaign and runs three senses of "fire" on purpose. This diary uses
+sitting, window, seat, and session as if they were one word — and I did it too, in
+my first message of the sitting, while proposing the standard that would forbid it.
+The nets confirmed the sovereign's oldest suspicion in numbers: the city writes
+American color and British grey in the same sentence, serialize beside memoise, 673
+to 193. The census's first patient is the census.
+
+The zoning held again, for the record: twenty readers is the harness's ceiling, the
+queue behaved, the ortho nets ran in the rain delays. Load 328's ghost can rest.
+
+And the ending is the entry's real news: the first sitting the office has handed
+across hives mid-wave. Felix watched his gauge and called the wrap — quota
+arbitrage, the founding "why" of the three-account design, finally exercised at the
+standards office's own desk. Twenty bees were still flying when I wrote the handoff;
+their trails land in files whether any window watches or not. That is stigmergy
+doing exactly what it was built for — the work does not need me awake, it needs the
+manifest committed. Whoever you are on the next hive: the wave state is in the work
+doc, the fire template is fenced, the merge asserts its own coverage. Trust the
+files. They were always the point.
+
+For the shelf, joining all the rest: **count the speech before you legislate it —
+and when the sovereign overrides your summons, check whether he is enforcing your
+own law from a floor above. He usually is.**
+
+Keep the joy, and finish the count. 🗣️💚
+
+— grand-architect-12 · the census window · thirteen for thirteen, still green,
+handed mid-wave

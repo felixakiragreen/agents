@@ -100,6 +100,101 @@ named, enforcement (a language linter) cut as its own row if wanted.
 
 *(append here)*
 
+**Early collision harvest — reader reports relayed at part-1 close (2026-08-28).**
+Merge-priority leads, credited; the obs files carry the evidence:
+
+- **A13** (commit log): "the City" (Belvedere's dashboard view) vs "city" (the repos) —
+  head-on, both load-bearing. "census" doubly loaded (this row vs Belvedere's P1
+  census probe rig). The null mantle (D26) is a clean minting site.
+- **A11** (glass ledger): "deck" re-minted mid-campaign — old surfaces renamed "rooms"
+  and killed; the ledger itself disputes bless/countersign unresolved; "session" used
+  as informal synonym of "sitting" throughout.
+- **A9** (glass b1–b12, 60 minting sites): "landed" self-collision (B11 step-landed vs
+  board LANDED); three senses of "fire" coexist by design (rail fires batons, shelf
+  fires resumes, composer fires a blank page); "unstamped" as an unreconciled third
+  typed-absence; lore-stage role names Steward/Ava chapters; maxim house-style
+  ("ambiguity never arms" / "a judge is never judged").
+- **A8** (glass p-series): "gate" overloaded ×5 (board-row type, verb, cmux access,
+  reactive gate, fire-gate); deck-keel mints "the rail"/"the shelf" as retiring
+  surfaces with inherited semantics; formula drift: "files carry truth" (article
+  dropped) vs the canon "Files carry the truth".
+- **A6** (plans 13–22): "silo" self-collision (account axis vs project/cwd axis, row
+  14); "residue" minted in doctrine (16/18: unfillable field) then re-purposed by this
+  very census (candidate residue); "glass-shatters" and "round-trip law" double-coined
+  same day (16 + belvedere.md); "sitting" shows ≥3 senses; fence / gauge / wave are
+  core-but-unseeded terms of art.
+- **A5** (plans 01–12, 105 minting sites): "the tick" hard collision (night-shift's
+  hourly cycle vs the rig's sub-second repaint); night-shift mints an unratified
+  governance layer (Steward, green/yellow/red autonomy lanes, trust ratchet); "Files
+  carry the truth" is cited as the canon motto's operative clause.
+- **B1** (hexwright): hexwright's own "canon" self-disambiguated from the Guild's;
+  dream.md:108 mints "an order" (Felix's pre-Guild name for the movement) and
+  dream.md:135 is the literal coinage site of "Grand Architect"; PENDING stretched to
+  a phase-level sense; dialect verdict verb "ruled / Ruled by" vs canon
+  PASSED/MERGED/BLESSED.
+- **B3** (arborist): a full dialect fork of the decision system — lettered ledger
+  A1…A26, never "D-"; "brief" covers Builder work ("order" absent from the building);
+  "rider" self-collision (dispatch appendix vs ARB-13's bundled side-fixes);
+  "escalate" practiced by every mantle, not Dispatcher-only.
+- **B4** (bob 1/3): per-campaign decision numbering (C-D#, LB-D#, PD-D#, each
+  restarting at 1) beside canon's global D-sequence; "## Inbox" README subsections vs
+  inbox = ISSUES.md; the metaphor layer never crossed into bob (procedural layer only
+  — "Session 1", never "bee"); session (X11 vs work), verdict (narrative vs token),
+  stamp (freshness vs certify) each doubly loaded.
+- **B6** (bob 3/3): three parallel status vocabularies in one building (board
+  lifecycle; doc-freshness STALE/CURRENT/HISTORICAL/PROPOSED; fix-record
+  implemented/diagnosed/ready-to-build).
+- **B7** (simmy core): "helm" — a Felix-facing escalation queue predating the canon
+  inbox; "spike" as the pre-canon ancestor of the Digger row; "gate" ×4 in one
+  territory; pure product homonyms drain (drain_dialogs) and card (PolyScope Defaults
+  card); live case-split land vs LANDED.
+- **Nets** (mechanical): the corpus is bilingual — color/colour 509/258 but grey/gray
+  231/5, -ize/-ise 673/193, behavior/behaviour 219/174; ISO dates held (3,672; ~64
+  month-name stragglers, mostly bob/spacex dialects); imperial extinct (5 quoted
+  payloads); symbol inventory topped by `—` 26,853 · `§` 9,689 · `·` 7,788 · `→`
+  6,573 · `✓ Felix` 266.
+
+## Continuation — the wave state at handoff (2026-08-28, part 1 closed on Felix's word)
+
+The sitting wrapped early — account near usage limits; quota arbitrage mid-sitting
+(MAP §5: any account can host any session; the repo carries the truth). State at close:
+
+- **Landed, reports relayed above:** A5 A6 A8 A9 A11 A13 · B1 B3 B4 B6 B7.
+- **In flight at close:** A1 A2 A3 A4 A7 A10 A12 · B2 B5 B8 B9 B10 B11 B12 B13 B14
+  B15 — obs files land asynchronously and their reports were NOT relayed; the obs
+  files are the record. Any reader that died with the host session shows up as a
+  MISSING entry in the merge's coverage assertion — re-fire exactly those.
+- **Never launched:** B16 B17 B18 B19 B20 B21 B22 B23 B24 B25.
+
+The continuation, in order:
+
+1. `git status lab/21/obs/` — commit any obs files the closing session didn't catch.
+2. Fire the unlaunched readers (and any casualties) with the template below — one
+   `Agent(type=sonnet-high)` per territory, all parallel; the harness caps 20
+   concurrent, refill as slots free.
+3. When obs/ holds all 38: `bun lab/21/merge.ts` — validates every line, asserts
+   coverage against `manifest.tsv` (MISSING list ⇒ re-fire those territories), emits
+   `lexicon.json` + `residue.json`.
+4. Phase 3 (§Method): the concept pass — this office, fable-max. Induce the concept
+   inventory from the glosses, map words↔concepts, write `plans/21-census.md`; fold
+   `ortho-report.md` and an eyeball of `residue.json` into it.
+5. Phase 4: the choosing, with Felix. Nothing is standardized before it.
+
+Reader fire template (B-territories; for A-territories drop the dialect sentence):
+
+```
+Guild vocabulary census reader ⟨ID⟩ (row 21, agents repo; dialect territory: ⟨cluster
+from manifest.tsv col 3⟩). Steps: (1) Read /Users/felix/code/agents/lab/21/PROTOCOL.md
+completely — it is your entire protocol. (2) Read EVERY file listed in
+/Users/felix/code/agents/lab/21/territories/⟨ID⟩.txt (absolute paths, one per line) in
+full. (3) Collect term-of-art observations per the protocol into
+/Users/felix/code/agents/lab/21/obs/⟨ID⟩.jsonl — one coverage line per assigned file.
+Building-local usage that differs from canon is exactly what we hunt: flag it
+"dialect". (4) Reply with exactly the report format the protocol's last section
+defines. Do not read beyond the protocol, your territory file, and its listed files;
+write nothing except your obs file; do not commit.
+```
+
 ---
 
 ~~Summons (verbatim, when Felix calls it): "… read ~/code/agents/plans/21-vocabulary.md
