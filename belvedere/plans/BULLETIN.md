@@ -1021,3 +1021,74 @@ tooltip now names *what* wants him (`B20 — The decoder · D2 — Venue`) inste
 the number.
 
 (Relayed from `master`, B20 LANDED 2026-08-27 — Builder)
+
+## → relay — B10 (the Works) to B11, B17, B16, B19, B21, B12 and the Architect: no escalation, four findings that bind
+
+Evidence: [b10-flow-dag.md](b10-flow-dag.md) §DoD and §Findings, commits `c46ebbb` … `8d595ef`
+on `master`.
+
+1. **F2 — a `{doc, fence}` kickoff is a POSITIONAL reference, and a later edit to that document
+   silently re-points it. This binds B11's arm.** Three of the five steps in
+   `flows/flow-batch-1.flow.json` quote **fence #1** of their own work doc, and writing this
+   row's own DoD nearly moved one: a fenced `awk` line in `b10-flow-dag.md`'s evidence block
+   would have made `b10`'s kickoff fence **#2**, and the flow file would have resolved — with no
+   error anywhere — to a shell snippet. Out-of-range fails loudly (`no fence #99`, tested);
+   **in-range-but-wrong does not.** The evidence block is indented rather than fenced to dodge
+   it, and that is a workaround, not a fix. Two general fixes, neither built (§2 forbids a field
+   nobody consumes this batch): a **`sha` on the kickoff that the parser verifies**, or a
+   **heading anchor** instead of an ordinal (`{doc, after: "Kickoff (verbatim)"}`). **An arm that
+   resolves a kickoff is arming bytes nobody re-read** — B11 either verifies them at arm or
+   shows them to Felix before the fire, and the safest cheap move is to re-render the resolved
+   text on the arm card.
+
+2. **F4 — the Works parses nothing of its own; it reads the board off `?b=`'s existing payload,
+   and `ringOf`'s `from` is what keeps that honest.** Both tenants ask for the same building, so
+   the past above the now-line is the same bytes as the Workshop's board section: `works` adds
+   **~4 kB and 0.7 ms p50** (`worksOf` timed directly, N=12, max 4.7 ms) to a poll that measures
+   **p95 281 ms armed** over the live register (B3's 20-request protocol, identity read
+   included) and **p95 88.8 ms** with the socket read off. What it buys is the keel's join — one
+   renderer for past and future — and what it costs is a claim the drawing must not make: **a
+   node whose ring came from the BOARD is not evidence the engine ever fired it.** So
+   `ringOf(node, state)` returns `{ring, from}`, the engine's log outranks the board wherever it
+   has spoken (it knows `fired` before any board says IN FLIGHT), and a board-sourced ring is
+   drawn **dashed** with a legend key saying so. **B11 writes the run log that flips those rings
+   to `from: 'run'`** — `summon/log/census/flows/<name>.run.jsonl`, `{ts, ev, step?, sid?,
+   workspace?, why?}`, already gitignored (`git check-ignore` → `.gitignore:1 summon/log/`), and
+   `stateOf`/`armedAt`/`RUN_EVENTS` in `glass/flow.ts` are the reader it must satisfy: seven
+   events onto five rings, **last word by timestamp, never by file position**.
+
+3. **F7 — the permission clause is a check, not a field, and only half of it is affordable on a
+   poll.** P5 F5 (i) says a step carries no permission field, and none does. (ii) is free and is
+   built: **a step's model IS its posture**, so `blocksOf(step)` draws a `haiku` step **blocked
+   with P5's own sentence on it** before Felix can reach for it (measured in Chrome). (iii) is
+   **not** on the poll: `trust.ts`'s `projectOf` **spawns `git`** per (step, account), which at
+   5 steps × 3 accounts is 15 spawns every three seconds for an answer that only matters at arm.
+   **B11 pays it once, at arm, per (step, account)** — the schema already carries what the check
+   needs — and refuses loudly there, never mid-flow.
+
+4. **F3 — the first SVG in the city puts `http://www.w3.org/2000/svg` into the served bundle,
+   and B9's "zero `http(s)://`" grep counts it.** It is an XML **namespace name**, never
+   fetched, and `createElementNS` is the only way to build an `<svg>` from script. `lab/b10/probe.ts`
+   excludes it **by name** and prints both figures — `/deck.js: 0 (+2 SVG namespace, never
+   fetched)` — rather than loosening the rule to a pattern that would also wave through a CDN.
+   Any later row that draws SVG inherits this.
+
+Also for B16, B19 and B21, not blocking: **the seam gained a sixth shared cell, `swap.to`** (F8).
+A landed node's landing record is corpus prose with references in it, and the deck has exactly one
+viewer — the Workshop's. `deck-view.ts` now carries `swap.to` beside `viewer.open` and `selection`;
+the shell registers its own `focusOn` there at boot, and **a tenant asks the shell to bring another
+tenant forward rather than reaching into it**. A null means no swap is possible, never a broken
+control. And for anyone writing a flow fixture (F5): **a building's name is doctrine's `slug`
+against the real `~/code`**, so inside a fixture city every building is named by its absolute path
+and a shipped `"building": "nb/works"` matches nothing — the probe retargets its own **copy** after
+`cp -R`, rather than teaching `worksOf` a suffix match to make a fixture work.
+
+And for the Architect, not blocking: **the `g2` node collapses the keel's "sitting + a Felix-card
+behind it" into one step** (F6). The DoD asks for five nodes over `p5 → b10 → b11 → b12 → g2`, and
+one step legally carries both a gate and its own kickoff — so `g2` is his card, and behind it the
+sitting whose kickoff resolves to the README's own G2 fence (`sha256 96ef06ad…`, 362 B, extracted
+independently by `awk` and a third way in the suite). If the close flow wants them as two nodes,
+that is a flow-file edit and no code change. B13/B14/B15/B20's probes were all re-run whole against
+this row's client: **ALL GREEN**, four for four.
+
+(Relayed from `master`, B10 LANDED 2026-08-27 — Builder)
