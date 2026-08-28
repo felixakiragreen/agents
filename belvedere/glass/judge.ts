@@ -250,8 +250,12 @@ export type Join =
 export function scopeJoin(flow: Flow, run: Run, warm: (s: Step) => string | null): Join {
 	if (ARM_SCOPE !== 'scope') return { kind: 'none' };
 
+	// An arm that did not record its marks — telemetry written before this field existed — cannot tell
+	// an addition from an edit, so it gets **B11's behaviour verbatim**: the generic amendment pause,
+	// which is also the one that tells him what to do. `none` rather than a refusal of our own,
+	// because D12 is a flag B12 flips and where it cannot reason the base behaviour is the answer.
 	const delta = deltaOf(flow, run);
-	if (delta === null) return { kind: 'pause', why: 'the arm did not record which steps it covered, so an addition cannot be told from an edit — re-arm to authorize this plan' };
+	if (delta === null) return { kind: 'none' };
 
 	// The named refusals come before the "nothing to join" exit, or an edit with no addition beside it
 	// falls through to B11's generic sentence and he is told the plan moved without being told where.

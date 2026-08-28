@@ -287,9 +287,12 @@ describe('scope-arm: growth inside the arm joins, everything else waits for his 
 		expect(j.kind === 'pause' && j.why).toContain('step c cannot join: personal has never trusted');
 	});
 
-	test('an arm that recorded no marks pauses rather than guessing', () => {
+	test('an arm that recorded no marks never joins — it gets B11’s behaviour verbatim', () => {
+		// Telemetry written before `RunLine.steps` existed cannot tell an addition from an edit, so the
+		// answer is the base behaviour rather than a refusal of scope-arm's own: `plan()` writes the
+		// generic amendment pause, which is also the sentence that tells him to re-arm.
 		const legacy = runOf([line({ ev: 'armed', hash: flow.hash })]);
-		const j = scopeJoin(flowOf([a, b, stepOf({ id: 'c' })]), legacy, warm);
-		expect(j.kind === 'pause' && j.why).toContain('did not record which steps it covered');
+		expect(scopeJoin(flowOf([a, b, stepOf({ id: 'c' })]), legacy, warm).kind).toBe('none');
+		expect(deltaOf(flow, legacy)).toBeNull();
 	});
 });
