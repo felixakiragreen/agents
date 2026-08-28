@@ -769,7 +769,10 @@ body.deck {
 }
 .deck .hit-mark { background: var(--yellow-700); color: var(--grey-100); border-radius: 2px; padding: 0 1px; }
 .deck .legend-deck .hit-mark { padding: 0 5px; }
-.deck .legend-deck .hit { padding: 0 6px; cursor: default; }
+.deck .hit-key {
+	display: inline-block; width: 16px; height: 9px;
+	border: 1px solid var(--grey-800); border-left: 3px solid var(--grey-650); border-radius: 2px;
+}
 .deck .degraded { color: var(--orange-300); }
 
 /* The jump landed here (B21): the turn a grep hit points at, marked in the one Chat view. */

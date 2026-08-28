@@ -154,10 +154,15 @@ function bounds(g: GrepGroup): string {
 	return said.join(' · ');
 }
 
+/**
+ * The colour legend the design law asks of every coloured view — and its keys are `hit-key`, not
+ * `hit`: a legend sample carrying the row's own class would answer a `.hit` selector, which is a
+ * fifth result that jumps nowhere (found by this row's own probe, which counted four accounts).
+ */
 const LEGEND: [string, string][] = [
-	['hit hit-sessions', 'a transcript, any account — the click opens the Chat at that turn'],
-	['hit hit-docs', 'a doctrine document the register knows — the click opens the viewer at that line'],
-	['hit hit-desk', 'a note on the desk — the click opens it in the editor'],
+	['hit-key hit-sessions', 'a transcript, any account — the click opens the Chat at that turn'],
+	['hit-key hit-docs', 'a doctrine document the register knows — the click opens the viewer at that line'],
+	['hit-key hit-desk', 'a note on the desk — the click opens it in the editor'],
 	['hit-mark', 'the term, marked where it matched'],
 ];
 

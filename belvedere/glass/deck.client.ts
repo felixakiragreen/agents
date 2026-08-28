@@ -588,7 +588,10 @@ grepInput.addEventListener('focus', () => { if (grepAnswer() || grepRunning()) s
  * slash inside the desk's editor or the Chat's draft is a slash.
  */
 document.addEventListener('keydown', e => {
-	const inField = (e.target as Element | null)?.closest('input, textarea, [contenteditable]') !== null;
+	// A keydown's target is not always an Element — with nothing focused it can be the document
+	// itself, which has no `closest`, and a throw here would take the whole shortcut out silently.
+	const from = e.target instanceof Element ? e.target : null;
+	const inField = from?.closest('input, textarea, [contenteditable]') != null;
 	const chord = (e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k';
 	if (!chord && (e.key !== '/' || inField || e.metaKey || e.ctrlKey || e.altKey)) return;
 	e.preventDefault();
