@@ -22,6 +22,10 @@
 // HALT flag. What it READS is the real census, symlinked in, because the liveness half of the
 // landing law has to be real (B8 F1: a DoD run does not get to write a beat into the city's own).
 //
+// **Do not edit the repo while this runs.** The last check compares `git status` in `~/code/agents`
+// either side, because a judge sitting is an Architect told to commit and it must be provable that
+// it never reached the real tree. A file saved by anyone else in that window fails it, correctly.
+//
 // **B11 F1 acknowledged:** two of the four flow files here are seeded with an `armed` line, which is
 // a live authorization. Both are seeded so that *every* step already carries a fire, and a step
 // fired once is never fired again — so neither can spawn anything, and the hands audit is asserted
@@ -321,7 +325,7 @@ try {
 		String(rearm['why']).includes('scope-arm auto-join (D12)') && String(rearm['why']).includes('s2')
 		&& (rearm['steps'] as string[]).some(m => m.startsWith('s2:'))
 		&& fires().length === 0,
-		`armed #1 covered ${JSON.stringify((at('gate', 'armed')!['steps'] as string[]))}\n`
+		`armed #1 covered ${JSON.stringify(linesOf('gate').filter(l => l['ev'] === 'armed')[0]!['steps'] as string[])}\n`
 		+ `armed #2 covers  ${JSON.stringify(rearm['steps'] as string[])}\n`
 		+ `${JSON.stringify(rearm['why'])}\nand nothing has fired: the lane is halted, so this is growth measured, not raced`);
 

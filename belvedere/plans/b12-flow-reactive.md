@@ -126,6 +126,39 @@ the real board.
 
 ## Findings
 
+**E1 — `trust.ts` reads an auto-created project entry as a refusal, so a plain-directory venue goes
+COLD the moment a session runs in it, and the arm then refuses a venue that demonstrably works.**
+Found live, twice, by this row's own DoD: the scope-arm auto-join was refused with *"personal has
+never trusted /Users/felix/code/b12-gate-91656/nb/gate … refused at …"* **2.1 seconds after a
+session had successfully started in that very directory**. Claude writes a project entry for every
+cwd it opens, and an inherited-trust directory gets `hasTrustDialogAccepted: **false**` — because no
+dialog was ever *accepted* there, not because anything was refused. `trustOf`'s "its own entry wins"
+then turns that into `{warm: false, refused: <path>}`.
+
+The measured cells across the three live accounts:
+
+    /Users/felix/code/b7-founding-probe          false   ← B7 F1's OWN positive control:
+                                                           "reached its first user turn and beat
+                                                            the census ten times"
+    /Users/felix/code/b12-gate-88694/nb/gate     false   ← three sessions ran there, all landed
+    /Users/felix/code/b12-gate-91656/nb/gate     false   ← same, and the arm then refused it
+    /Users/felix/code/agents                     true    ← Felix accepted the dialog here
+    …/universal_robots_sdk/cap-plasma            false   ← a repo, where `project.repo` already says cold
+
+So on a **plain directory** `false` carries no refusal information at all, and the only cell where it
+looks right is one the repo rule already decides. **The fix named, not taken: `hasTrustDialogAccepted:
+false` should fall through to the ancestor walk rather than short-circuit as a refusal** — which
+gives the right answer in every cell above. Not taken because `trust.ts` is B7's law, P5 F5 (iii)
+blessed it *"sufficient as-is"*, and changing what `refused` means changes every arm in the city.
+
+**What it costs today:** nothing in production — every real venue is a repository Felix has accepted
+(`~/code/agents` → `true`), and a worktree step is prechecked against its repo. **What it will cost:**
+the first flow whose venue is a plain directory arms once and never again, and the sentence it is
+refused with is factually wrong. It also makes a fixed-venue probe un-re-runnable, which is why this
+row's fixture city carries the pid. Worked around here by **halting the lane before the growth
+proof**, so the join is measured before any session opens in the venue — instrumentation, not a fix.
+**The Architect's, at G2.**
+
 **F1 — the order's own classifier gates 120 of the city's 390 landed rows, including `b10` and
 `b11` of this very flow. It ships as the misclassification log it asks for, and the classifier is
 B11's pause.** §1 names three patterns — `/\bE\d+\s*[—-]/`, `/escalat/i`, `/BLOCKED/` — and says
@@ -204,6 +237,12 @@ checkout with the reservation blind to it. A judge therefore takes the gated ste
 is `master` — which is also, for free, a venue the arm has already trusted — and falls back to the
 building path only for a worktree-venue step, where a sitting that trues a board must not commit on
 a branch nobody merges.
+
+**F8 — probe residue, named not scrubbed (B7 F6's precedent).** Each DoD run leaves one entry in
+`~/.claude/.claude.json` for its own scratch venue (`/Users/felix/code/b12-gate-<pid>/nb/gate`,
+`hasTrustDialogAccepted: false`) — written by Claude, for a directory that no longer exists. They are
+inert, and a Builder does not edit an account's config file (D14's guard is exactly that). Three
+exist at this landing, from three runs.
 
 ---
 
