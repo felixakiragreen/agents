@@ -1749,7 +1749,7 @@ keep `b7-founding-probe` until then.
 
 ---
 
-**2026-08-28 · Architect · fable-high (the batch-6 cut sitting)** — **Batch 6 is CUT —
+**2026-08-28 · Architect · fable-high** — the batch-6 cut sitting. **Batch 6 is CUT —
 the deck rework, his field reports as the chapter.** Seven inbox entries swept (the
 summons said nine; seven were on file across `731bac6`–`60b0124` — flagged to Felix),
 each ruled: the verdict-card parity face FOLDED into candidate 6's row as its sharpest
@@ -1766,7 +1766,17 @@ amendment at its dispatch).
 Changed: six briefs (`plans/b22`–`b27`), README §6 (seven board rows + the batch-6
 note, both fences in it), ISSUES swept to empty, this entry. Nothing written to the
 canon inbox (the Grand Architect sweeps in parallel; no canon-shaped asks arose).
-Decided (delegated scope, strike-able at blessing): arrangement persists as
+Second act, same sitting (Felix's questions): the GA's answer entry ruled — parked
+candidates recorded in §6 (campus card, seam adoption at canon row 19, D68/D69
+tokens), entry drained; the lint run over this board caught four failures — B4's
+depends cell, B20's unescaped pipe (a GFM-truncating lie), and this entry's own
+header + Decided clause — all four fixed; his mentat-00 report filed to ISSUES as
+labeled hypothesis (evidence: `mentat-00` is in no lineage log — the glass renders
+the uuid honestly per B5; the cmux "needs input" badge is cmux's idle heuristic,
+not the census's — P1: `Stop` is the idle sensor, `Notification` a 60 s nag).
+Blessing landed mid-sitting: ruling 1 (desk-file persistence, gitted) ✓ Felix
+2026-08-28; rulings 2–3 waggled back for his call.
+Decided: (delegated scope, strike-able at blessing) arrangement persists as
 `desk/city-arrangement.json` · building-homed placement, mint-on-ambiguity, glass
 retires only minted-and-empty · account-at-arm label-not-knob · chain order
 B23 → B22 → B26 → B25 → B24 → B27 → G3, strictly serial on master. Nothing above
