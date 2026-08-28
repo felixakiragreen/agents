@@ -1,0 +1,16 @@
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/b4-corpus-green.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/b6-torch-angle-preview.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/b7-v1-green.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/b8-dev-loop.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/b9-test-cell.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/s0-anatomy.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/s1-polyscope-escape.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/s10-urscript-compile-gate.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/s2-urcontrol-standalone.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/s3-arm.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/s4-clean-state.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/s5-hot-swap.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/s6-panel-preview.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/s7-orchestrator.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/s8-fleet-wall.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/s9-boot-wedge.md

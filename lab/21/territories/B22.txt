@@ -1,0 +1,13 @@
+/Users/felix/code/whiteboardy/plans/s3-pi-deploy.md
+/Users/felix/code/whiteboardy/plans/s4-m2-closeout.md
+/Users/felix/code/whiteboardy/plans/s5-smb-backup.md
+/Users/felix/code/whiteboardy/plans/sh1-shell-skeleton.md
+/Users/felix/code/whiteboardy/plans/sh2-native-store.md
+/Users/felix/code/whiteboardy/plans/sh3-bundle-push.md
+/Users/felix/code/whiteboardy/plans/sh4-shell-drills.md
+/Users/felix/code/whiteboardy/plans/sh5-m3-closeout.md
+/Users/felix/code/whiteboardy/plans/sh6-ready-proof.md
+/Users/felix/code/whiteboardy/plans/t1-glass-input-truth.md
+/Users/felix/code/whiteboardy/plans/t2-glass-frame.md
+/Users/felix/code/whiteboardy/plans/t3-accessory-bar-menu.md
+/Users/felix/code/whiteboardy/plans/t4-drag-move.md

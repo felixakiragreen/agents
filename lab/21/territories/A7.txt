@@ -1,0 +1,5 @@
+/Users/felix/code/agents/belvedere/ISSUES.md
+/Users/felix/code/agents/belvedere/README.md
+/Users/felix/code/agents/belvedere/census/README.md
+/Users/felix/code/agents/belvedere/dream.md
+/Users/felix/code/agents/belvedere/glass/README.md

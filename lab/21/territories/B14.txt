@@ -1,0 +1,7 @@
+/Users/felix/code/universal_robots_sdk/cap-mega/docs/README.md
+/Users/felix/code/universal_robots_sdk/cap-mega/docs/advanced-naming-system.md
+/Users/felix/code/universal_robots_sdk/cap-mega/docs/before-v1-release.md
+/Users/felix/code/universal_robots_sdk/cap-mega/docs/complete-program-tree-tests.md
+/Users/felix/code/universal_robots_sdk/cap-mega/docs/documentation-findings.md
+/Users/felix/code/universal_robots_sdk/cap-mega/docs/name-heal.md
+/Users/felix/code/universal_robots_sdk/cap-mega/docs/node-global-parameters.md

@@ -1,0 +1,6 @@
+/Users/felix/code/agents/belvedere/plans/BULLETIN.md
+/Users/felix/code/agents/doctrine/README.md
+/Users/felix/code/agents/guard/README.md
+/Users/felix/code/agents/lab/17/c1-metrics.md
+/Users/felix/code/agents/lab/17/c2/battery.md
+/Users/felix/code/agents/summon/README.md

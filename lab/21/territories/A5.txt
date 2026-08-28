@@ -1,0 +1,17 @@
+/Users/felix/code/agents/plans/01-composition-model.md
+/Users/felix/code/agents/plans/02-work-doctrine.md
+/Users/felix/code/agents/plans/03-global-claude-md.md
+/Users/felix/code/agents/plans/04-sync.md
+/Users/felix/code/agents/plans/05-saturation-harvest.md
+/Users/felix/code/agents/plans/06-hexwright-retrofit.md
+/Users/felix/code/agents/plans/07-simmy-retrofit.md
+/Users/felix/code/agents/plans/08-summon-rig.md
+/Users/felix/code/agents/plans/09-summon-rig-v11.md
+/Users/felix/code/agents/plans/10-summon-rig-v12-usage.md
+/Users/felix/code/agents/plans/11-summon-rig-v13-live-refresh.md
+/Users/felix/code/agents/plans/12-dispatch-guard.md
+/Users/felix/code/agents/plans/BULLETIN.md
+/Users/felix/code/agents/plans/RIDER.md
+/Users/felix/code/agents/plans/log-tradition.md
+/Users/felix/code/agents/plans/night-shift.md
+/Users/felix/code/agents/plans/quartermaster.md

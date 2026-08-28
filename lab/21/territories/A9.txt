@@ -1,0 +1,12 @@
+/Users/felix/code/agents/belvedere/plans/b1-census-deploy.md
+/Users/felix/code/agents/belvedere/plans/b10-flow-dag.md
+/Users/felix/code/agents/belvedere/plans/b11-flow-engine.md
+/Users/felix/code/agents/belvedere/plans/b12-flow-reactive.md
+/Users/felix/code/agents/belvedere/plans/b2-glass-spine.md
+/Users/felix/code/agents/belvedere/plans/b3-baton-rail.md
+/Users/felix/code/agents/belvedere/plans/b4-hands.md
+/Users/felix/code/agents/belvedere/plans/b5-shelf-gauges.md
+/Users/felix/code/agents/belvedere/plans/b6-sovereign-inbox.md
+/Users/felix/code/agents/belvedere/plans/b7-summon-composer.md
+/Users/felix/code/agents/belvedere/plans/b8-glass-hardenings.md
+/Users/felix/code/agents/belvedere/plans/b9-visual-law.md

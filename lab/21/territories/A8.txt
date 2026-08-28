@@ -1,0 +1,9 @@
+/Users/felix/code/agents/belvedere/plans/RIDER.md
+/Users/felix/code/agents/belvedere/plans/deck-keel.md
+/Users/felix/code/agents/belvedere/plans/flow-keel.md
+/Users/felix/code/agents/belvedere/plans/p1-census-join.md
+/Users/felix/code/agents/belvedere/plans/p2-spawn-recipe.md
+/Users/felix/code/agents/belvedere/plans/p3-parse-coverage.md
+/Users/felix/code/agents/belvedere/plans/p4-restore-semantics.md
+/Users/felix/code/agents/belvedere/plans/p5-permission-physics.md
+/Users/felix/code/agents/belvedere/plans/p6-message-transport.md

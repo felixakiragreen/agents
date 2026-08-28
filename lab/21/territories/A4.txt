@@ -1,0 +1,2 @@
+/Users/felix/code/agents/LOG.md
+/Users/felix/code/agents/SAPHO.md

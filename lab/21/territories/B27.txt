@@ -1,0 +1,9 @@
+/Users/felix/code/universal_robots_sdk/cap-mega/.claude/worktrees/user-manual/manny/research/mining/10-welding.md
+/Users/felix/code/universal_robots_sdk/cap-mega/.claude/worktrees/user-manual/manny/research/mining/17-findings.md
+/Users/felix/code/universal_robots_sdk/cap-mega/.claude/worktrees/user-manual/manny/research/mining/20-findings.md
+/Users/felix/code/universal_robots_sdk/cap-mega/.claude/worktrees/user-manual/manny/research/mining/21-findings.md
+/Users/felix/code/universal_robots_sdk/cap-mega/.claude/worktrees/user-manual/manny/research/mining/25-findings.md
+/Users/felix/code/universal_robots_sdk/cap-mega/.claude/worktrees/user-manual/manny/research/mining/27-findings.md
+/Users/felix/code/universal_robots_sdk/cap-mega/.claude/worktrees/user-manual/manny/research/ssot-typst.md
+/Users/felix/code/universal_robots_sdk/cap-mega/.claude/worktrees/user-manual/manny/research/standards-regs.md
+/Users/felix/code/universal_robots_sdk/cap-mega/.claude/worktrees/user-manual/manny/research/walk-log.md

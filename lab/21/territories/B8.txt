@@ -1,0 +1,15 @@
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/BULLETIN.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/RIDER.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/b1-mega-relocatability.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/b10-deploy-no-proof.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/b11-instance-scoped-verify.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/b12-venue-claims.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/b13-maturation-census.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/b14-verify-claims.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/b15-maturation-deadend.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/b16-verdict-honesty.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/b17-jar-identity.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/b18-force-victim-liveness.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/b2-refresh-split.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/b20-compile-gate.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/spikes/b3-activator-guard.md

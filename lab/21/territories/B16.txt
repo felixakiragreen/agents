@@ -1,0 +1,12 @@
+/Users/felix/code/universal_robots_sdk/cap-mega/felix/spacex-dashboard-c2/LEDGER.md
+/Users/felix/code/universal_robots_sdk/cap-mega/felix/spacex-dashboard-c2/README.md
+/Users/felix/code/universal_robots_sdk/cap-mega/felix/spacex-dashboard-c2/dream.md
+/Users/felix/code/universal_robots_sdk/cap-mega/felix/spacex-dashboard-c2/plans/01-temporal-core.md
+/Users/felix/code/universal_robots_sdk/cap-mega/felix/spacex-dashboard-c2/plans/02-timeline-chrome.md
+/Users/felix/code/universal_robots_sdk/cap-mega/felix/spacex-dashboard-c2/plans/RIDER.md
+/Users/felix/code/universal_robots_sdk/cap-mega/felix/spacex-dashboard/LEDGER.md
+/Users/felix/code/universal_robots_sdk/cap-mega/felix/spacex-dashboard/README.md
+/Users/felix/code/universal_robots_sdk/cap-mega/felix/spacex-dashboard/dream.md
+/Users/felix/code/universal_robots_sdk/cap-mega/felix/spacex-dashboard/plans/01-temporal-core.md
+/Users/felix/code/universal_robots_sdk/cap-mega/felix/spacex-dashboard/plans/02-timeline-chrome.md
+/Users/felix/code/universal_robots_sdk/cap-mega/felix/spacex-dashboard/plans/RIDER.md

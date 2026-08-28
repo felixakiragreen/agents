@@ -1,0 +1,10 @@
+/Users/felix/code/universal_robots_sdk/cap-mega/docs/waypoint-stepper/plans/08-section-layout.md
+/Users/felix/code/universal_robots_sdk/cap-mega/docs/waypoint-stepper/plans/09-na-steps.md
+/Users/felix/code/universal_robots_sdk/cap-mega/docs/waypoint-stepper/plans/10-safety-gate.md
+/Users/felix/code/universal_robots_sdk/cap-mega/docs/waypoint-stepper/plans/11-icon-wiring.md
+/Users/felix/code/universal_robots_sdk/cap-mega/docs/waypoint-stepper/plans/15-update-followups.md
+/Users/felix/code/universal_robots_sdk/cap-mega/docs/waypoint-stepper/plans/20-live-tuning.md
+/Users/felix/code/universal_robots_sdk/cap-mega/docs/waypoint-stepper/plans/FG1-bench-day.md
+/Users/felix/code/universal_robots_sdk/cap-mega/docs/waypoint-stepper/plans/RIDER.md
+/Users/felix/code/universal_robots_sdk/cap-mega/docs/waypoint-stepper/plans/X1-dev-golden-rebless.md
+/Users/felix/code/universal_robots_sdk/cap-mega/docs/waypoint-stepper/plans/X2-merge-dev.md

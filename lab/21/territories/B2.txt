@@ -1,0 +1,7 @@
+/Users/felix/code/rooted/archive/repot/01-the-move.md
+/Users/felix/code/rooted/archive/repot/02-web-build.md
+/Users/felix/code/rooted/archive/repot/03-gate.md
+/Users/felix/code/rooted/archive/repot/04-branch-master.md
+/Users/felix/code/rooted/archive/repot/BULLETIN.md
+/Users/felix/code/rooted/archive/repot/README.md
+/Users/felix/code/rooted/archive/repot/RIDER.md

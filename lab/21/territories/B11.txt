@@ -1,0 +1,14 @@
+/Users/felix/code/universal_robots_sdk/cap-mega/snappy/ch2/plans/01-dobby-first-light.md
+/Users/felix/code/universal_robots_sdk/cap-mega/snappy/ch2/plans/02-bench-venue-law.md
+/Users/felix/code/universal_robots_sdk/cap-mega/snappy/ch2/plans/03-click-decomposition.md
+/Users/felix/code/universal_robots_sdk/cap-mega/snappy/ch2/plans/06-edt-hygiene.md
+/Users/felix/code/universal_robots_sdk/cap-mega/snappy/ch2/plans/07-ur-filing.md
+/Users/felix/code/universal_robots_sdk/cap-mega/snappy/ch2/plans/08-restrictedpanel-workaround.md
+/Users/felix/code/universal_robots_sdk/cap-mega/snappy/ch2/plans/09-debug-tax.md
+/Users/felix/code/universal_robots_sdk/cap-mega/snappy/ch2/plans/10-uitimer-fork.md
+/Users/felix/code/universal_robots_sdk/cap-mega/snappy/ch2/plans/11-debug-tax-fixes.md
+/Users/felix/code/universal_robots_sdk/cap-mega/snappy/ch2/plans/12-restrictedpanel-adopt.md
+/Users/felix/code/universal_robots_sdk/cap-mega/snappy/ch2/plans/13-default-on-dev-merge.md
+/Users/felix/code/universal_robots_sdk/cap-mega/snappy/ch2/ur-filing-restrictedpanel.md
+/Users/felix/code/universal_robots_sdk/cap-mega/snappy/initial.md
+/Users/felix/code/universal_robots_sdk/cap-mega/snappy/keel.md

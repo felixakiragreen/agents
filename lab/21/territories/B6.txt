@@ -1,0 +1,6 @@
+/Users/felix/code/universal_robots_sdk/bob/docs/campaigns/theseus/t12a-design-vocabulary.md
+/Users/felix/code/universal_robots_sdk/bob/docs/campaigns/theseus/t12b-page-sweep.md
+/Users/felix/code/universal_robots_sdk/bob/docs/campaigns/theseus/t12c-vocabulary-gaps.md
+/Users/felix/code/universal_robots_sdk/bob/docs/campaigns/theseus/t13-config-contract.md
+/Users/felix/code/universal_robots_sdk/bob/docs/records/fix-license-reissue-loop-2026-07-20.md
+/Users/felix/code/universal_robots_sdk/bob/docs/records/inventory-2026-08.md

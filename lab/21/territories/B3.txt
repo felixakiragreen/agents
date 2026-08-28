@@ -1,0 +1,16 @@
+/Users/felix/code/rooted/archive/arborist/01-laws.md
+/Users/felix/code/rooted/archive/arborist/03-split-contentview.md
+/Users/felix/code/rooted/archive/arborist/04-split-settingsview.md
+/Users/felix/code/rooted/archive/arborist/05-perf-recon.md
+/Users/felix/code/rooted/archive/arborist/07-previews.md
+/Users/felix/code/rooted/archive/arborist/09-release-fix.md
+/Users/felix/code/rooted/archive/arborist/10-pause-covered-home.md
+/Users/felix/code/rooted/archive/arborist/11-device-run.md
+/Users/felix/code/rooted/archive/arborist/13-home-idle-cost.md
+/Users/felix/code/rooted/archive/arborist/14-plasma-framerate.md
+/Users/felix/code/rooted/archive/arborist/16-launch-transient.md
+/Users/felix/code/rooted/archive/arborist/18-fast-prime.md
+/Users/felix/code/rooted/archive/arborist/BULLETIN.md
+/Users/felix/code/rooted/archive/arborist/ISSUES.md
+/Users/felix/code/rooted/archive/arborist/README.md
+/Users/felix/code/rooted/archive/arborist/RIDER.md

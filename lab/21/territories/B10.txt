@@ -1,0 +1,6 @@
+/Users/felix/code/universal_robots_sdk/cap-mega/snappy/IMPACT.md
+/Users/felix/code/universal_robots_sdk/cap-mega/snappy/ISSUES.md
+/Users/felix/code/universal_robots_sdk/cap-mega/snappy/LEDGER.md
+/Users/felix/code/universal_robots_sdk/cap-mega/snappy/LOG.md
+/Users/felix/code/universal_robots_sdk/cap-mega/snappy/README.md
+/Users/felix/code/universal_robots_sdk/cap-mega/snappy/ch2/README.md

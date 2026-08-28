@@ -1,0 +1,4 @@
+/Users/felix/code/whiteboardy/CLAUDE.md
+/Users/felix/code/whiteboardy/DECISIONS.md
+/Users/felix/code/whiteboardy/GENESIS.md
+/Users/felix/code/whiteboardy/ISSUES.md

@@ -1,0 +1,10 @@
+/Users/felix/code/hexwright/CLAUDE.md
+/Users/felix/code/hexwright/DECISIONS.md
+/Users/felix/code/hexwright/GENESIS.md
+/Users/felix/code/hexwright/LEDGER.md
+/Users/felix/code/hexwright/LOG.md
+/Users/felix/code/hexwright/dream.md
+/Users/felix/code/hexwright/plans/core/001-kernel-v0.md
+/Users/felix/code/hexwright/plans/core/002-svg-emitter.md
+/Users/felix/code/hexwright/plans/core/003-weave-generator.md
+/Users/felix/code/hexwright/plans/core/004-greenhouse.md

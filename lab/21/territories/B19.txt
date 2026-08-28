@@ -1,0 +1,9 @@
+/Users/felix/code/whiteboardy/docs/m2-sync.md
+/Users/felix/code/whiteboardy/docs/m3-shells.md
+/Users/felix/code/whiteboardy/docs/touch-native.md
+/Users/felix/code/whiteboardy/docs/v1-cutover.md
+/Users/felix/code/whiteboardy/docs/v1-expansion.md
+/Users/felix/code/whiteboardy/dream.md
+/Users/felix/code/whiteboardy/plans/01-loro-fitness.md
+/Users/felix/code/whiteboardy/plans/02-sync-landscape.md
+/Users/felix/code/whiteboardy/plans/04-editor-feel.md

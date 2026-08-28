@@ -1,0 +1,5 @@
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/DISPATCHER.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/ISSUES.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/LEDGER.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/LOG.md
+/Users/felix/code/universal_robots_sdk/cap-mega/simmy/README.md

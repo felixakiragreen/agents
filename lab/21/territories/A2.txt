@@ -1,0 +1,7 @@
+/Users/felix/code/agents/CLAUDE.md
+/Users/felix/code/agents/DECISIONS.md
+/Users/felix/code/agents/ISSUES.md
+/Users/felix/code/agents/MAP.md
+/Users/felix/code/agents/desk/cmux-feedback-draft.md
+/Users/felix/code/agents/docs/load-map.md
+/Users/felix/code/agents/docs/the-city.md
