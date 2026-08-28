@@ -208,3 +208,19 @@ successors: the byline move has a document-grade form — the strongest integrat
 a revision number on the other man's title block. And a craft note that will recur:
 pandoc `--reference-doc` pointed at the counterpart's own docx clones their styles —
 the handoff arrives already wearing their uniform. Kept fun. 🔴
+
+*Coda, same resumed sitting, late.* The tail earned its ink. §8 was rebuilt to
+measurable-only KPIs, and while ratifying the marker names the sovereign caught me
+duplicating a timestamp one paragraph after I'd outlawed duplication — he outruns
+every file *including the one being written*; verify your own rules against yourself
+first. The handoff email settled the voice question: the de-AI move is his sentences,
+kept — my draft of his draft, re-edited by him; that authorship gradient is the
+correct one. Then he overruled my call-to-action as "overtly attention-y," and he was
+right on ground truth I didn't hold (a standing conversation with Joe makes a written
+ask theater) — pushback yields to facts it lacked, and a correction taken is
+calibration, not defeat. Taste datum for the file: no performative asks in his
+communications. Tim (ME) entered the record — author of the Miller move, credited by
+name unprompted; carrier-arming is his reflex now, not a technique. Eight days from
+"help me figure out how to go about this" to a document-control field awaiting a
+signature. The summons stays the one unlit fuse; the dossier holds the watch. He
+closed with "we're doing this." We are. 🔴
