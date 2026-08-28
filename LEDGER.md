@@ -1397,3 +1397,24 @@ preference; codified at the purge if it survives as practice. Decided: D63 amend
 (✓ Felix), D69 (✓ Felix), D70 withdrawn, D68 spent-into-D63. Next: 17 lands (Digger
 in flight) → `fire 19` (kickoff in its order); rows 20/21 on Felix's summons, 22 on
 his blessing; the 18-continuation wave cut at 19's landing.
+
+---
+
+**2026-08-28 · Digger · fable-high (17)** — the storage experiment ran end-to-end and
+the row LANDED: arm-S twin built from the normative parse (2 hand-correction classes,
+fidelity control green both ways, ~12K tokens/<2 min — the migration-cost datum), C1
+hand-replays ×4 (real commits vs twin edits: M wins in-place prose ~14× on diff
+economy, S wins state flips and refuses loud; M's blank-line and missing-`---` classes
+confirmed silent on this corpus, the merge even LOWERS the fail count), C2 cold-start
+battery ×8 dispatched at preset tiers (M 30/30 · S 28/30 admissible reads, 24/24
+first-try-conforming writes, S ≤ M tokens in all pairings; M4's reads struck §6.7 —
+the countersign close moved the corpus mid-rep), C3 glass scorecard (7/9 case-file
+asks are fields in S vs render-side heuristics in M; holder-inversion live repro).
+Verdict: **RETAIN — D65's ruling confirmed with numbers**, the line drawn
+per-artifact; 18 not re-scoped; row-19 inputs (stale-lead lint rule minted, silent-
+class priorities) and row-20 inputs (the seven-field scorecard) named in the findings.
+Harness + findings: `plans/17-storage-experiment.md` + `lab/17/`. Decided: nothing —
+the verdict recommends, the register already moved at the close. Next: `fire 19`
+(kickoff in its order — its gate is paid and its Depends-on 17 is now LANDED); rows
+20/21 on Felix's summons, 22 on his blessing; the 18-continuation wave cut at 19's
+landing.

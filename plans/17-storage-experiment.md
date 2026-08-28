@@ -1,8 +1,10 @@
 # 17 — v3: the storage experiment
 
-**Status:** OPEN — brief cut 2026-08-28 (GA-11); Felix-gate PAID 2026-08-28 (Belvedere
-v0 + the deck + the flow chapter landed; batch 5 closed — 14 rows, zero kills, 651
-tests green; gate called paid by Felix's own summons of this date) ·
+**Status:** LANDED 2026-08-28 — verdict RETAIN (D65's ruling confirmed with numbers;
+line drawn per-artifact; row 18 not re-scoped; row-19/-20 inputs named in §Verdict);
+harness in `lab/17/` — was: brief cut 2026-08-28 (GA-11); Felix-gate PAID 2026-08-28
+(Belvedere v0 + the deck + the flow chapter landed; batch 5 closed — 14 rows, zero
+kills, 651 tests green; gate called paid by Felix's own summons of this date) ·
 **Depends on:** 16 · **Staffing:** Digger · fable-high
 
 ## Question
@@ -295,6 +297,80 @@ pauses. The remaining two are schema-design questions either arm must send to ro
   zero per-repo special cases; every fix lands city-wide.** Arm S inherits that win
   only if the schema stays one-per-city (a per-repo twin dialect would be the same
   drift the Standards Office exists to kill).
+
+### Verdict (2026-08-28, Digger · fable-high)
+
+**Per consumer:**
+
+| consumer | verdict | the deciding numbers |
+|---|---|---|
+| Felix's hand | **M retained — split by change type, M net** | M wins in-place prose edits ~14× on diff economy (R2b: 307c vs 4,915c for 43 signal chars — JSON strings cannot wrap) and appends on legibility (longest line 85 vs 2,709); S wins state flips (crisp field line, 92% vs 77% signal) and refuses loud where M's two worst classes damage silently (11 rows gone, fails 1→1; a merged ledger entry, fails go DOWN) |
+| cold start | **inconclusive at affordable n — no arm dominates; kill-criterion clause applied** | reads M 37/40 vs S 38/40 overall with every miss a corpus defect surfaced differently; writes 24/24 both arms; tokens S ≤ M in 4/4 pairings (−0.7% to −28.9%); wall time S 1.9–3.4× slower at sonnet-high |
+| the glass | **S wins decisively** | 7/9 case-file asks are plain fields vs render-side regex/pause; holder heuristic inverted on the live tail; 120-of-390 classifier tax; steady-state parser code ~3.7× smaller |
+
+**The line (sub-question 4), drawn per-ARTIFACT, not per-consumer:** an artifact whose
+truth is mostly prose — decisions, ledger bodies, board annotations, briefs — stays
+schema-markdown: that is where Felix's hand actually writes, where M's diff economy
+wins, and where 24/24 first-try conformance shows the grammar costs sessions nothing.
+An artifact whose truth is mostly fields — flows, batons-as-instruments, event logs,
+the census — is data: Belvedere's flows-as-data stands, proven by its own chapter.
+Where the glass needs a field from a prose artifact, **the field enters the D63
+grammar so the one parser types it — never a storage flip**: C2 showed the failure
+modes live in corpus defects and heuristics, not in serialization, and C3's seven
+field asks are exactly the heuristics to retire.
+
+**Recommendation: RETAIN, confirmed with numbers, not decree** — D65's standing ruling
+(*the schema is the standard; serialization is per-consumer; doctrine-markdown is the
+canonical write surface*) survives its trial. The challenger was real: S is cheaper to
+cold-read (every pairing), safer against silent damage (3 wild classes vs 1 unsighted),
+and the glass's clear winner — but the write surface belongs to the hand, and the
+hand's work is prose. The gap S wins on closes from inside the ruling: fields into the
+grammar (row 20), silent classes into the linter (row 19).
+
+**Row-18 re-scope: none — 17 did not win; the continuation wave proceeds as cut.** One
+addition from this row's evidence: **the stale-lead repair** — MAP rows 13/14 still
+lead `OPEN` with their landings buried in annotation prose (2 of 3 S sonnet reps
+mis-answered dispatchability off it; the mechanical parse calls row 13 dispatchable
+today). Fix the two cells in the wave; the guard is row 19's (below). The
+migration-cost question 18 carried is settled: twin conversion of a POST-WAVE building
+is ~12K tokens/<2 min (C0) — conversion cost is dominated by wave repair, not format.
+
+**Row-19 inputs (named):** priority evidence for two already-filed defects — blank-line
+board truncation and the missing-`---` merge are the only damage classes that corrupt
+silently AND the merge DECREASES the fail count (C1 probes); plus one new lint rule
+this row minted: **stale-lead** — a leading state token contradicted by a
+LANDED/KILLED verdict in its own annotation is a failure (would have caught rows
+13/14 in both arms); plus the D21 false-pend fix already routed at GA-11 (C0 carries
+the field-shaped answer: countersign state as data, not regex).
+
+**Row-20 inputs (named):** the C3 scorecard verbatim — seven fields with per-field
+evidence (kind · recommendation · branch · holder/precondition · holds · encapsulation
+· escalation), the holder-inversion live repro (`parse --json` on this repo, 2026-08-28:
+`holder: "session"` under a Next that opens "**Felix countersigns D68–D70**"), the
+tier model·effort split and FC-/GA- registry as open vocabulary (row 21 adjacent), and
+C2's conformance datum: grammar-field additions cost the hand nothing measurable
+(24/24 first-try, both arms, sonnet AND opus).
+
+**Postscript (2026-08-28, ~15:05 — appended before landing):** the countersign-close
+session committed `b5dc9c6` at 15:01:49, DURING the opus-medium confirmation reps:
+D68 folded into D63, D69 ✓ Felix, D70 withdrawn, MAP row 17 flipped IN FLIGHT. M4
+(dispatched ~15:01, 75s run) therefore read the POST-close corpus — and its three
+"wrong" reads are exactly that corpus's truth: q1 `[]` (17 in flight), q4 "the row-17
+Digger… in flight", q7 `[]` (nothing pending). **M4's read scores are struck
+inadmissible per §6.7** (graded against a truth that moved), leaving M with no
+admissible confirmation rep; its token number stands as a gauge only. The correctness
+verdict — inconclusive at affordable n — survives unchanged (admissible: M 30/30
+sonnet; S 28/30 sonnet + 13/13 opus). The deeper datum: **the live corpus is shared
+mutable state — S4's frozen twin gave reproducible answers, M4's live read gave
+current ones, and the grader can only reward one.** Any future C2-style measurement
+freezes BOTH arms or grades against a commit, not a working tree.
+
+**Conditions on every number (§6.7):** single building (the richest, post-18a-clean —
+a whiteboardy-class corpus would shift C0 and C2); n=3+1 per arm, one battery, one
+day, tiers sonnet-high/opus-medium via Agent-tool presets (D47); the M arm was
+measured against a live corpus that grew its own findings mid-experiment (M4's q1/q4
+contaminated, named in C2) while S read a frozen twin; C1 signal metrics are
+word-diff-based on 4 replays, not a survey.
 
 ---
 
