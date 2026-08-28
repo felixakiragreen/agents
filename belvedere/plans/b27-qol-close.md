@@ -43,13 +43,22 @@ dispatch.
    a pointer that scrolls/picks the node — **not a second pass button**. One
    gesture, one place; the card itself remains the only pass surface (D10's
    shape preserved).
-4. **The account at arm, honest (pre-chewed, strike-able).** The arm card
-   labels the account as what it is — declared in the flow file — and shows
-   that account's usage beside it (§3's law: usage visible wherever accounts
-   are chosen ⇒ where none is choosable, say so instead of implying a
-   knob). The knob itself is deferred until a flow actually wants per-arm
-   account choice; if Felix strikes this at blessing, the knob joins this
-   row's spec.
+4. **The account knob (Felix's ruling, 2026-08-28 — he struck the deferral:
+   "I need to be able to choose accounts").** Wherever an account renders
+   choosable — the composer AND the arm card — a toggled button group of the
+   three accounts (no dropdowns, §3), default = the flow-declared / composed
+   account. Choosing re-resolves the plan against that account:
+   `CLAUDE_CONFIG_DIR`, the per-(step, account) trust + posture precheck
+   (P5 F5's `trust.ts` precheck is already keyed exactly this way),
+   refusals loud at arm, never a mid-flow stall; the run log and hands
+   audit record the chosen account.
+   **And the gauges tell the whole truth:** each account button carries all
+   THREE usage windows, labeled — `sess` (5 h) · `week` (7 d) · `fable`
+   (7 d scoped) — the buckets `usage.ts` already parses, plus pacing and
+   the fetch age (B17's law). Today's chip compresses to one unlabeled
+   number (his screenshot, 2026-08-28: "11% +18 · 0S" — which window it is
+   the builder states and labels); a choice made on one unlabeled window is
+   the DoS the WIP-gauges law exists to prevent.
 5. **The tweak list.** Absorb entries that are visual/QoL/usability within
    surfaces that already exist — label, spacing, hover, ordering, wording,
    affordance-findability. **STOP-clause:** a tweak that changes structure,
@@ -71,8 +80,13 @@ dispatch.
   flow level without any node picked; the gesture jumps to the card; the
   card is still the only pass surface (zero new pass wiring elsewhere —
   B17 F1's sound check).
-- [ ] The arm card names the declared account with its live usage chip; no
-  control implies a choice that does not exist.
+- [ ] The account knob: composer and arm card each offer the three accounts
+  as a toggled group; choosing one re-resolves the plan (config dir, trust,
+  posture — refusal induced live for an untrusted (step, account) pair,
+  loud at arm); a live fire lands under the chosen account (audit +
+  transcript account verified); every account button shows `sess` · `week`
+  · `fable` labeled, with pacing and fetch age, matching the rig's own
+  figures at one instant (B5's 9/9-cells bar).
 - [ ] Each absorbed tweak listed in findings with its before/after; each
   escalated tweak named with why.
 - [ ] `flows/flow-close-6.flow.json` parses (the one parser, 0 lint), sits

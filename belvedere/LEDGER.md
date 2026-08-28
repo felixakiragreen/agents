@@ -1804,3 +1804,15 @@ B27 fires (two reports the summons counted are not on file — if they exist, fi
 2) the canon-side sweep — four inbox entries and the stranded `18g` branch wait on the
 Grand Architect; 3) the trust-entry drain and the PermissionRequest ritual ride G3's
 gate with the rework pass.
+
+Third act, same sitting (his rulings + two field reports): rulings settled — desk-file
+persistence ✓ Felix · building-homed placement ✓ Felix · the account-at-arm deferral
+STRUCK by Felix ("I need to be able to choose accounts") — B27 §4 rewritten as the knob
+(compose + arm, per-(step,account) precheck rides P5 F5's own trust.ts). The stale-board
+report diagnosed to the paint: the live `/deck/state?b=` payload carries B22–B27 (curled
+at this sitting, 12–33 mentions each) while his refreshed Workshop board pane never drew
+them — FOLDED into B23 as its fourth face, with the hard-reload anomaly named. The
+usage-chip report FOLDED into B27 §4: the data carries three windows (`sess` 5 h ·
+`week` 7 d · `fable` 7 d scoped, usage.ts), the chip renders one unlabeled — all three
+labeled is now DoD. Naming sprawl (deck/glass/rail/…) noted for a naming sitting at his
+word; a deck-side glossary rides B27's legend sweep if he wants it.

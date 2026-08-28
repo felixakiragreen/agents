@@ -45,6 +45,17 @@ card and nothing happened, and the parity of his swap count decided it.
    honest recipe runs plus one code-audit pass cannot reproduce it, file what
    was tried and leave it **labeled hypothesis** — that is a named branch of
    this row, not a kill and not a rushed guess.
+4. **The stale board (fourth face, measured 2026-08-28).** Felix's Workshop
+   board pane never showed B22–B27 after their commit — through refreshes —
+   while the live server's own `/deck/state?b=agents/belvedere` payload
+   carried every one of them (12–33 mentions each, 155 kB, curled at the cut
+   sitting). **The data reached the wire; the paint refused it.** Hypothesis,
+   two candidate mechanisms: the region-signature repaint (B14 F4) whose
+   signature misses board-content change, or the B15 F2 `needs` detail
+   memoized past its content (B19 F1's family). Reproduce (commit new board
+   rows under an open Workshop), fix at the cause, and check the hard-reload
+   path separately — his reload ALSO showed stale, which no client memo
+   should survive.
 
 ## Acceptance criteria — the DoD
 
@@ -66,6 +77,9 @@ run against the real deck.
 - [ ] **The stall:** a reproduction with its mechanism named and fixed at the
   cause — or the bounded-attempt record (three recipe runs + audit pass),
   the hypothesis still labeled.
+- [ ] **The stale board:** a board row committed while the Workshop is open
+  on that building reaches the pane within one poll; a hard reload always
+  renders current content.
 - [ ] Suite green in one process, offline type gate exit 0, predecessor
   probes re-run green, `/deck/state` p95 within the landed budget, page
   scroll still 0 px.
