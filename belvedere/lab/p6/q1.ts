@@ -1,6 +1,6 @@
 /**
- * P6 Q1 — live-pane delivery. Drives three payloads at a live, idle Claude TUI through
- * the segmented-paste transport, then two CONTROLS the transport is KNOWN to corrupt.
+ * P6 Q1 — live-pane delivery. Drives five payloads at a live, idle Claude TUI through the
+ * segmented transport, then two CONTROLS the transport is KNOWN to corrupt.
  *
  *   bun belvedere/lab/p6/q1.ts               # fires its own probe
  *   bun belvedere/lab/p6/q1.ts workspace:50  # reuses a live one
@@ -11,7 +11,7 @@
 
 import { readFileSync } from 'fs';
 import { join } from 'path';
-import { fire, waitForSession, waitForEvent, waitForTurns, userTurns, deliverSegmented, pasteBracketed, pasteNaked, submit, screen, sha, sleep, ESC } from './lib';
+import { fire, waitForSession, waitForEvent, waitForTurns, userTurns, deliverSegmented, pasteBracketed, pasteNaked, submit, screen, sha, sleep } from './lib';
 
 const CWD = '/Users/felix/code/agents';
 const HERE = import.meta.dir;
@@ -46,60 +46,75 @@ ok('Q1-0 summons is turn 1, byte-exact (P2 §S re-proven)', sha(t1[0]!.text) ===
 
 await waitForEvent(sid, 'Stop', 0);
 
-const arms: [string, string][] = [
-	['Q1-A blank lines', payload('a-blanks.txt')],
-	['Q1-B literal tabs', payload('b-tabs.txt')],
-	['Q1-C metachars, unexpanded $(echo pwned), literal \\n \\t', payload('c-meta.txt')],
-];
-
-let n = userTurns(tp).length;
-for (const [label, text] of arms) {
-	const before = Date.now() / 1000;
+/** Deliver, submit, and hand back exactly the user turns the delivery added. */
+async function send(text: string) {
+	const before = userTurns(tp).length;
+	const t0 = Date.now() / 1000;
 	await deliverSegmented(fired.workspace, text);
 	await sleep(800);
 	const box = await screen(fired.workspace);
 	await submit(fired.workspace);
-	const turns = await waitForTurns(tp, n + 1);
-	const got = turns[turns.length - 1]!.text;
-	const exact = sha(got) === sha(text) && turns.length === n + 1;
-	n = turns.length;
-	ok(label, exact,
-		`sent sha ${sha(text).slice(0, 16)} (${Buffer.byteLength(text)} B) · got sha ${sha(got).slice(0, 16)} (${Buffer.byteLength(got)} B) · +${turns.length - (n - 1) - 1 + 1} turn`);
-	if (!exact) console.log(`  SENT>>>${JSON.stringify(text)}\n  GOT >>>${JSON.stringify(got)}`);
-	console.log(`  box before Enter:\n${box.split('\n').filter(l => l.trim()).slice(-7).map(l => '    | ' + l).join('\n')}`);
-	await waitForEvent(sid, 'Stop', before);
+	const turns = await waitForTurns(tp, before + 1);
+	await waitForEvent(sid, 'Stop', t0);
+	return { added: turns.slice(before), box, ms: Math.round((Date.now() / 1000 - t0) * 1000) };
 }
 
-// ---------- CONTROL 1: the bracketed wrapper. One turn, but the markers land as TEXT
-// and every newline lands as CR (0x0d) — the transport rewrites LF (`wire.ts`).
+for (const [label, file] of [
+	['Q1-A blank lines', 'a-blanks.txt'],
+	['Q1-C metachars, unexpanded $(echo pwned), literal \\n \\t \\r, unicode', 'c-meta.txt'],
+	['Q1-D indentation and trailing spaces', 'd-indent.txt'],
+	['Q1-F a fenced code block, 304 B', 'f-code.txt'],
+] as [string, string][]) {
+	const text = payload(file);
+	const { added, ms } = await send(text);
+	const exact = added.length === 1 && sha(added[0]!.text) === sha(text);
+	ok(label, exact, `sent ${sha(text)} (${Buffer.byteLength(text)} B) · got ${sha(added[0]?.text ?? '')} (${Buffer.byteLength(added[0]?.text ?? '')} B) · ${added.length} turn · ${ms} ms`);
+	if (!exact) console.log(`  SENT>>>${JSON.stringify(text)}\n  GOT >>>${JSON.stringify(added.map(t => t.text))}`);
+}
+
+// ---------- the ONE named limit: a literal TAB never reaches a live TUI ----------
+{
+	const text = payload('b-tabs.txt');
+	const { added } = await send(text);
+	const got = added[0]?.text ?? '';
+	ok('Q1-B literal TAB is SWALLOWED BY THE TUI (named limit, not a transport bug)',
+		added.length === 1 && got !== text && !got.includes('\t') && text.includes('\t'),
+		`sent ${Buffer.byteLength(text)} B with ${(text.match(/\t/g) || []).length} tabs · got ${Buffer.byteLength(got)} B with ${(got.match(/\t/g) || []).length} · the wire carried every 0x09 (wire.ts b-tabs)`);
+	console.log(`  GOT >>>${JSON.stringify(got)}`);
+}
+
+// ---------- CONTROL 1: the bracketed wrapper — markers land as TEXT, LF lands as CR ----------
 {
 	const text = payload('a-blanks.txt');
-	const before = Date.now() / 1000;
+	const before = userTurns(tp).length;
+	const t0 = Date.now() / 1000;
 	await pasteBracketed(fired.workspace, text);
 	await sleep(1500);
 	await submit(fired.workspace);
-	const turns = await waitForTurns(tp, n + 1);
-	const got = turns[turns.length - 1]!.text;
-	n = turns.length;
-	ok('Q1-CTRL-1 bracketed wrapper corrupts (probe can SEE corruption)',
-		sha(got) !== sha(text) && got.includes('[200~') && got.includes('\r'),
-		`got ${Buffer.byteLength(got)} B · markers as text: ${got.includes('[200~')} · CR for LF: ${got.includes('\r')} · LF present: ${got.includes('\n')}`);
-	console.log(`  CTRL-1 received: ${JSON.stringify(got)}`);
-	await waitForEvent(sid, 'Stop', before);
+	const turns = await waitForTurns(tp, before + 1);
+	const added = turns.slice(before);
+	const all = added.map(t => t.text).join('');
+	ok('Q1-CTRL-1 bracketed wrapper corrupts (the probe can SEE corruption)',
+		!added.some(t => sha(t.text) === sha(text)) && all.includes('[200~'),
+		`${added.length} turn(s), none the message · markers as text: ${all.includes('[200~') || all.includes('[201~')} · CR for LF: ${all.includes('\r')}`);
+	console.log(`  CTRL-1 received: ${JSON.stringify(added.map(t => t.text))}`);
+	await waitForEvent(sid, 'Stop', t0);
 }
 
-// ---------- CONTROL 2: the naked paste — P2 T4's mechanism, reproduced on demand.
+// ---------- CONTROL 2: the naked paste — P2 T4's mechanism, reproduced on demand ----------
 {
 	const text = payload('a-blanks.txt');
-	const before = n;
+	const before = userTurns(tp).length;
 	await pasteNaked(fired.workspace, text);
-	await sleep(12_000);
-	const turns = userTurns(tp);
-	const added = turns.slice(before);
-	ok('Q1-CTRL-2 naked paste splits and auto-submits (T4 reproduced)',
-		added.length > 1 && !added.some(t => sha(t.text) === sha(text)),
-		`one message became ${added.length} user turns, none of them the message: ${JSON.stringify(added.map(t => t.text))}`);
-	console.log(`  screen after:\n${(await screen(fired.workspace)).split('\n').filter(l => l.trim()).slice(-6).map(l => '    | ' + l).join('\n')}`);
+	await sleep(15_000);
+	const added = userTurns(tp).slice(before);
+	const box = await screen(fired.workspace);
+	ok('Q1-CTRL-2 naked paste auto-submits and strands the rest (T4 reproduced)',
+		!added.some(t => sha(t.text) === sha(text)),
+		`one message became ${added.length} submitted turn(s), none of them the message, with the remainder left in the input box`);
+	console.log(`  CTRL-2 received: ${JSON.stringify(added.map(t => t.text))}`);
+	console.log(`  box after:\n${box.split('\n').filter(l => l.trim()).slice(-6).map(l => '    | ' + l).join('\n')}`);
+	await submit(fired.workspace);   // flush the stranded remainder so the probe is clean
 }
 
 console.log(`\n---- Q1 summary ----\n${results.join('\n')}`);

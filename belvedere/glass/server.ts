@@ -48,7 +48,7 @@ const FONTS: Readonly<Record<string, string>> = {
 const html = (body: string, status = 200) =>
 	new Response(body, { status, headers: { 'content-type': 'text/html; charset=utf-8' } });
 
-function route(url: URL): Response {
+async function route(url: URL): Promise<Response> {
 	const asset = ASSETS[url.pathname];
 	if (asset) return new Response(readFileSync(join(HERE, asset), 'utf8'), { headers: { 'content-type': 'text/css; charset=utf-8' } });
 
@@ -65,7 +65,7 @@ function route(url: URL): Response {
 	// `?b=<building>` is the Workshop asking for one building's detail (B15). One endpoint still:
 	// the deck polls once and names what it has open, rather than opening a second poll beside this.
 	if (url.pathname === '/deck/state')
-		return Response.json(deckState(url.searchParams.get('b')), { headers: { 'cache-control': 'no-store' } });
+		return Response.json(await deckState(url.searchParams.get('b')), { headers: { 'cache-control': 'no-store' } });
 	// The viewer inside Focus. A read, fenced to the city like `/doc`, answering a value either way —
 	// an unresolved link renders its reason rather than nothing (the field report's item 3).
 	if (url.pathname === '/deck/doc') {
@@ -124,7 +124,7 @@ const server = Bun.serve({
 			// nothing: the fence's write list is the four hands and the inbox, and this is a page.
 			if (url.pathname === '/summon') return html(await summonRoute(req, url));
 			if (url.pathname === '/rewalk') return await rewalkRoute(url);
-			return route(url);
+			return await route(url);
 		}
 		catch (e) { return html(errorPage(e), 500); }
 	},

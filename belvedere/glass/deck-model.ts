@@ -283,6 +283,16 @@ export type DeckSession = {
 	ws: string | null;
 	event: string;
 	tool: string | null;
+	/**
+	 * **What cmux calls this session's workspace right now** (D16: cmux is truth for live identity),
+	 * or null where the socket cannot say — an unarmed glass, a dead socket, a session in no pane.
+	 *
+	 * `stamp` above stays the **birth name**: the rig wrote it at the fire and nothing renames it, so
+	 * a workspace Felix renamed in cmux left every rig-derived label in the glass one revision stale.
+	 * Both are carried and both are shown where they differ; **neither is derived from the other**,
+	 * and a null here renders as "no live identity", never as the birth name wearing a live badge.
+	 */
+	live: { name: string; color: string | null; ref: string } | null;
 };
 
 /** One building as the City draws it: where it sits, what is alive in it, what it wants. */
@@ -379,4 +389,10 @@ export type DeckSnapshot = {
 	 * stale (see `deck.ts`), and a number the page prints as current would be lying about which.
 	 */
 	auditor: { visible: number | null; at: number };
+	/**
+	 * The socket-read identity source (B18, D16): when it last answered, how many workspaces it
+	 * named, and why it could not — `error` non-null means every `live` above is the last good copy
+	 * or nothing at all, and the deck says **stale** rather than showing a name as current.
+	 */
+	identity: { at: number; error: string | null; workspaces: number };
 };

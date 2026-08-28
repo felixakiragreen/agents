@@ -9,6 +9,7 @@
 import { readFileSync, statSync } from 'fs';
 import { basename, join } from 'path';
 import { EFFORTS, MODELS } from '../../doctrine';
+import { cmuxColor, FELIKAI } from './colors';
 import { auditLog, INVOCATIONS } from './paths';
 import type { Rig } from './rig';
 
@@ -29,22 +30,13 @@ export const mantleKey = (mantle: string | null) =>
 	mantle === null ? null : mantle.toLowerCase().replace(/\s+/g, '-');
 
 /**
- * cmux's sixteen named colours (`cmux workspace-action --help`). The rig's palette is not a
- * subset of them: measured at this build row against a live socket, `--color cyan` (the rig's
- * Builder) and `--color pink` (its Dispatcher) both answer `invalid_params: Invalid color`,
- * while `--color Aqua` returns `OK … color=#0E6B8C`. So the two tables meet HERE, at the
- * boundary — and a name neither table knows falls back to one cmux will accept, because
- * `attemptFire` creates the workspace BEFORE it sets the colour: a refused colour costs the
- * whole fire and leaves the workspace behind (hands.ts §fire).
+ * The rig's colour for a mantle, as a value cmux accepts — one map, `colors.ts`, measured against
+ * the live socket (B18 §3, B3 F1 closed at the cause). A mantle the rig gives no colour, or a
+ * colour word the map does not know, wears felikai's grey rather than nothing: `attemptFire`
+ * creates the workspace BEFORE it sets the colour, so a refused colour costs a whole fire.
  */
-const CMUX_COLOURS: Readonly<Record<string, string>> = {
-	green: 'Green', blue: 'Blue', red: 'Red', purple: 'Purple', orange: 'Orange',
-	yellow: 'Amber', cyan: 'Aqua', pink: 'Rose', grey: 'Charcoal', teal: 'Teal',
-};
-
-/** The rig's colour for a mantle, spelled the way cmux spells it. */
 export const colourOf = (rig: Rig, mantle: string | null) =>
-	CMUX_COLOURS[rig.colours.get(mantleKey(mantle) ?? '') ?? ''] ?? 'Charcoal';
+	cmuxColor(rig.colours.get(mantleKey(mantle) ?? '') ?? '') ?? FELIKAI.grey;
 
 /** A theater is argv (`-n <mantle>-<theater>-NN`), so it is a plain lowercase token or nothing. */
 const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');

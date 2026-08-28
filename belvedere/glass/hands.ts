@@ -1,10 +1,12 @@
 /**
- * The hands — the fence's four write powers, and nothing else (README §2, D3).
+ * The hands — the fence's write powers, and nothing else (README §2, D3).
  *
  *   POST /hands/fire      spawn a session, the summons already landed as its first user turn
  *   POST /hands/worktree  a branch checkout under `.claude/worktrees/` (DOCTRINE §10)
  *   POST /hands/focus     jump Felix's eyes to a live session's panel
  *   POST /hands/halt      touch the HALT flag
+ *   POST /hands/rename    cmux display state: what a live session's workspace is called (D18 #2)
+ *   POST /hands/recolor   cmux display state: what colour it wears (D18 #2)
  *
  * Three laws hold this file down:
  *
@@ -24,14 +26,14 @@
 import { appendFileSync, existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'fs';
 import { createHash } from 'crypto';
 import { dirname, isAbsolute, join } from 'path';
-import { readCensus, isLive } from './census';
+import { readCensus, isLive, type Session } from './census';
 import { readRig } from './rig';
 import { sanitizeSummons } from './sanitize';
 import { auditLog, haltFlag, handsEnv, summonsDir } from './paths';
 import { bust } from './register';
 
 /** Everything has a limit (directive 3.1). A hand that hangs is a glass that hangs. */
-const LIMITS = { summonsBytes: 64 << 10, requestBytes: 128 << 10, commandMs: 20_000, requester: 64 } as const;
+const LIMITS = { summonsBytes: 64 << 10, requestBytes: 128 << 10, commandMs: 20_000, requester: 64, title: 64 } as const;
 
 /**
  * The write boundary's own vocabulary — `Outcome`, `fail`, `field` and `json`. The fence has a
@@ -116,6 +118,19 @@ export type Worktree = { repo: string; branch: string };
 export type Focus = { sid: string };
 export type Halt = { requester: string };
 
+/**
+ * The two write-through hands (D18 class 2, D16): cmux is truth for a session's live name and
+ * colour, so the deck's rename and recolor are socket writes to **cmux display state** and nothing
+ * else — no setting changes, no file writes, no effect on the session itself.
+ *
+ * Both target by `sid`, the census's own join key, and nothing else. The target is resolved through
+ * the live census to the workspace that session is running in: a hand that took a workspace ref
+ * from the browser would let a stale page rename whatever now holds that number, which is the
+ * ambiguity D10 forbids.
+ */
+export type Rename = { sid: string; title: string };
+export type Recolor = { sid: string; color: string };
+
 /** An existing directory, absolute — the only kind of place a session or a repo can live. */
 function directory(path: string, what: string): string | null {
 	if (!isAbsolute(path)) return `${what} must be an absolute path`;
@@ -166,6 +181,37 @@ export function parseFocus(raw: unknown): Outcome<Focus> {
 	return UUID.test(sid) ? { ok: true, result: { sid } } : fail(`sid must be a session id — got "${sid}"`);
 }
 
+/**
+ * A workspace title Felix will read in a sidebar: one line, bounded, and non-empty after the
+ * collapse. A name made only of whitespace is a workspace he cannot find, so it is refused rather
+ * than written — cmux would accept it.
+ */
+export function parseRename(raw: unknown): Outcome<Rename> {
+	if (typeof raw !== 'object' || raw === null) return fail('body must be a JSON object');
+	const r = raw as Record<string, unknown>;
+	const sid = field(r, 'sid');
+	if (!UUID.test(sid)) return fail(`sid must be a session id — got "${sid}"`);
+	const title = field(r, 'title').replace(/\s+/g, ' ').trim();
+	if (title === '') return fail('title is empty — a workspace with no name is one you cannot find');
+	if (title.length > LIMITS.title) return fail(`title exceeds ${LIMITS.title} characters`);
+	return { ok: true, result: { sid, title } };
+}
+
+/**
+ * A colour cmux takes: one of its sixteen names, or a `#rrggbb`. The glass's own swatches are
+ * felikai hexes (`colors.ts`), so a value this refuses can only have been hand-written — and a
+ * value cmux refuses comes back as cmux's own words, on the card, in the audit.
+ */
+export function parseRecolor(raw: unknown): Outcome<Recolor> {
+	if (typeof raw !== 'object' || raw === null) return fail('body must be a JSON object');
+	const r = raw as Record<string, unknown>;
+	const sid = field(r, 'sid');
+	if (!UUID.test(sid)) return fail(`sid must be a session id — got "${sid}"`);
+	const color = field(r, 'color');
+	return COLOR.test(color) ? { ok: true, result: { sid, color } }
+		: fail(`color must be a cmux colour name or #rrggbb — got "${color}"`);
+}
+
 export function parseHalt(raw: unknown): Outcome<Halt> {
 	if (typeof raw !== 'object' || raw === null) return fail('body must be a JSON object');
 	// The requester is written to a file Felix reads under pressure: one line, no control bytes.
@@ -178,11 +224,11 @@ export function parseHalt(raw: unknown): Outcome<Halt> {
 /** Single-quote for the shell, closing over embedded quotes. */
 const q = (value: string): string => `'${value.replaceAll("'", "'\\''")}'`;
 
-async function run(cmd: string[], env: Record<string, string>): Promise<Outcome<string>> {
+async function run(cmd: string[], env: Record<string, string>, ms: number): Promise<Outcome<string>> {
 	const p = Bun.spawn(cmd, {
 		env: { ...process.env, ...env },
 		stdout: 'pipe', stderr: 'pipe',
-		timeout: LIMITS.commandMs,
+		timeout: ms,
 	});
 	const [out, err] = await Promise.all([new Response(p.stdout).text(), new Response(p.stderr).text()]);
 	const code = await p.exited;
@@ -190,12 +236,18 @@ async function run(cmd: string[], env: Record<string, string>): Promise<Outcome<
 	return code === 0 ? { ok: true, result: text } : fail(`${cmd[0]} ${cmd[1]} exited ${code}: ${text || '(no output)'}`);
 }
 
-/** The socket. The password rides as child env — the documented fallback for `--password`,
- *  and unlike argv it never appears in anyone's `ps` output (P2 §A3). */
-const cmux = (password: string, ...args: string[]) =>
-	run(['cmux', ...args], { CMUX_QUIET: '1', CMUX_SOCKET_PASSWORD: password });
+/**
+ * The socket, and the city's only door to it — `identity.ts` reads through this rather than forking
+ * a second spawn (B18's order: extend, don't fork). The password rides as child env: the documented
+ * fallback for `--password`, and unlike argv it never appears in anyone's `ps` output (P2 §A3).
+ *
+ * The timeout is the caller's because the callers are not alike: a hand may take the full twenty
+ * seconds, and a read on the deck's poll path may not.
+ */
+export const cmux = (password: string, ms: number, ...args: string[]) =>
+	run(['cmux', ...args], { CMUX_QUIET: '1', CMUX_SOCKET_PASSWORD: password }, ms);
 
-const git = (repo: string, ...args: string[]) => run(['git', '-C', repo, ...args], {});
+const git = (repo: string, ...args: string[]) => run(['git', '-C', repo, ...args], {}, LIMITS.commandMs);
 
 /** `OK workspace:3` → `workspace:3` */
 const parseRef = (out: string): string | null => out.match(/\b((?:workspace|surface):\d+)\b/)?.[1] ?? null;
@@ -259,7 +311,7 @@ async function attemptFire(req: Fire, password: string): Promise<Outcome<Fired>>
 	}
 
 	const command = launchCommand(req, configDir, summonsPath);
-	const created = await cmux(password, 'workspace', 'create',
+	const created = await cmux(password, LIMITS.commandMs, 'workspace', 'create',
 		'--name', workspaceName(req), '--cwd', req.cwd, '--focus', 'false', '--command', command);
 	if (!created.ok) return created;
 	const workspace = parseRef(created.result);
@@ -269,7 +321,7 @@ async function attemptFire(req: Fire, password: string): Promise<Outcome<Fired>>
 
 	// Colour is a cmux property, not a `/color` turn — so the session's first user turn stays
 	// the summons, and the 359-fire paste gap stays closed (P2's find).
-	const colored = await cmux(password, 'workspace-action',
+	const colored = await cmux(password, LIMITS.commandMs, 'workspace-action',
 		'--workspace', workspace, '--action', 'set-color', '--color', req.color);
 	if (!colored.ok) return unwind(password, workspace, `set-color failed: ${colored.error}`);
 
@@ -289,7 +341,7 @@ async function attemptFire(req: Fire, password: string): Promise<Outcome<Fired>>
  * a session burning quota in a window he never opens.
  */
 async function unwind(password: string, workspace: string, why: string): Promise<Outcome<never>> {
-	const closed = await cmux(password, 'workspace', 'close', workspace);
+	const closed = await cmux(password, LIMITS.commandMs, 'workspace', 'close', workspace);
 	audit('fire.unwind', { workspace, why }, closed);
 	return fail(closed.ok
 		? `${why} — ${workspace} closed, nothing left running`
@@ -318,26 +370,127 @@ async function attemptWorktree(req: Worktree): Promise<Outcome<{ path: string; b
 	return added.ok ? { ok: true, result: { path, branch: req.branch } } : added;
 }
 
+/** The census's word on one live session, or the reason there is nothing to act on. */
+function liveSession(sid: string): Outcome<Session> {
+	const census = readCensus();
+	if (!census.present) return fail('census not deployed — the glass cannot see any session');
+	const session = census.sessions.find(s => s.sid === sid);
+	if (!session) return fail(`no session ${sid} in the census`);
+	if (!isLive(session)) return fail(`session ${sid} is ${session.state} — nothing to act on`);
+	return { ok: true, result: session };
+}
+
+/** The workspace a live session runs in, by the census's own `CMUX_WORKSPACE_ID`. */
+function liveWorkspace(sid: string): Outcome<{ session: Session; ws: string }> {
+	const found = liveSession(sid);
+	if (!found.ok) return found;
+	const ws = found.result.last.ws;
+	return ws
+		? { ok: true, result: { session: found.result, ws } }
+		: fail(`session ${sid} is not in a cmux workspace (no CMUX_WORKSPACE_ID) — hooks are venue-blind`);
+}
+
+// ---------- the jump ----------
+
+/** Where a surface actually sits *now* — the tree's word, not a hook's memory of it. */
+export type Placement = { workspace: string; window: string };
+
 /**
- * The jump. A session's panel is its census `sf` (`CMUX_SURFACE_ID`); hooks are venue-blind, so
- * a Ghostty session carries none and cannot be jumped to — which is a fact to report, not a
- * failure to paper over (P1 F1, batch-2 bulletin §1).
+ * `cmux tree --all --json --id-format both`, read for one surface. Pure, so the shape is pinned by
+ * tests rather than by a live desktop.
  */
-export const focus = async (req: Focus, password: string): Promise<Outcome<{ surface: string; workspace: string | null }>> =>
+export function findSurface(raw: unknown, surface: string): Placement | null {
+	const windows = (raw as { windows?: unknown } | null)?.windows;
+	if (!Array.isArray(windows)) return null;
+	for (const w of windows) {
+		const window = (w as Record<string, unknown>)['id'];
+		const workspaces = (w as Record<string, unknown>)['workspaces'];
+		if (typeof window !== 'string' || !Array.isArray(workspaces)) continue;
+		for (const ws of workspaces) {
+			const workspace = (ws as Record<string, unknown>)['id'];
+			const panes = (ws as Record<string, unknown>)['panes'];
+			if (typeof workspace !== 'string' || !Array.isArray(panes)) continue;
+			for (const p of panes) {
+				const surfaces = (p as Record<string, unknown>)['surfaces'];
+				if (!Array.isArray(surfaces)) continue;
+				for (const s of surfaces)
+					if ((s as Record<string, unknown>)['id'] === surface) return { workspace, window };
+			}
+		}
+	}
+	return null;
+}
+
+/**
+ * The jump, and the field report's *"JUMP TO PANEL … does nothing"* closed at the cause. Three
+ * things were wrong with asking cmux to focus a panel and calling it a jump — all measured at this
+ * row against a live socket (`lab/b18/jump.ts`):
+ *
+ *  1. **`--panel` is resolved inside ONE workspace.** With `--workspace` omitted — which is what the
+ *     hand did whenever the census carried no `ws` — a surface in any other workspace answers
+ *     `not_found: Surface not found`, by ref and by uuid alike.
+ *  2. **The census's `ws` is a hook's memory.** The surface's *current* workspace is the tree's to
+ *     say, so the tree is read first and a surface it does not carry is a refusal, not a jump into
+ *     a workspace that may no longer hold it (D10: an ambiguous target never sends).
+ *  3. **Focusing a panel does not bring cmux forward.** `focus-panel` selects the workspace inside
+ *     cmux and returns `OK`; with the deck in a browser, the frontmost application never changed —
+ *     an `ok` receipt over a screen that did not move, which is exactly what Felix reported.
+ *     `focus-window` is the second call, and it is what makes the jump visible.
+ */
+export const focus = async (req: Focus, password: string): Promise<Outcome<Placement & { surface: string }>> =>
 	audited('focus', { ...req }, await attemptFocus(req, password));
 
-async function attemptFocus(req: Focus, password: string): Promise<Outcome<{ surface: string; workspace: string | null }>> {
-	const census = readCensus();
-	if (!census.present) return fail('census not deployed — the glass cannot see any panel');
-	const session = census.sessions.find(s => s.sid === req.sid);
-	if (!session) return fail(`no session ${req.sid} in the census`);
-	if (!isLive(session)) return fail(`session ${req.sid} is ${session.state} — nothing to jump to`);
-	const { sf, ws } = session.last;
+async function attemptFocus(req: Focus, password: string): Promise<Outcome<Placement & { surface: string }>> {
+	const found = liveSession(req.sid);
+	if (!found.ok) return found;
+	const sf = found.result.last.sf;
 	if (!sf) return fail(`session ${req.sid} is not in a cmux pane (no CMUX_SURFACE_ID) — nothing to focus`);
 
-	const args = ['focus-panel', '--panel', sf, ...(ws ? ['--workspace', ws] : [])];
-	const jumped = await cmux(password, ...args);
-	return jumped.ok ? { ok: true, result: { surface: sf, workspace: ws } } : jumped;
+	const tree = await cmux(password, LIMITS.commandMs, 'tree', '--all', '--json', '--id-format', 'both');
+	if (!tree.ok) return tree;
+	let placed: Placement | null;
+	try { placed = findSurface(JSON.parse(tree.result), sf); }
+	catch (e) { return fail(`cmux tree answered no JSON: ${(e as Error).message}`); }
+	if (!placed) return fail(`surface ${sf} is not on the desktop any more — the pane it heartbeated from is gone`);
+
+	const jumped = await cmux(password, LIMITS.commandMs, 'focus-panel', '--panel', sf, '--workspace', placed.workspace);
+	if (!jumped.ok) return jumped;
+
+	// The panel is selected; the app may still be behind a browser. A jump that Felix cannot see is
+	// the bug, so a window that will not come forward is reported, never swallowed.
+	const front = await cmux(password, LIMITS.commandMs, 'focus-window', '--window', placed.window);
+	if (!front.ok) return fail(`${sf} is selected but cmux did not come forward: ${front.error}`);
+
+	return { ok: true, result: { surface: sf, ...placed } };
+}
+
+// ---------- write-through: cmux is truth, so the deck writes to cmux (D16, D18 class 2) ----------
+
+/** Rename the workspace a live session runs in. Display state only — the session is untouched. */
+export const rename = async (req: Rename, password: string): Promise<Outcome<{ workspace: string; title: string }>> =>
+	audited('rename', { ...req }, await attemptRename(req, password));
+
+async function attemptRename(req: Rename, password: string): Promise<Outcome<{ workspace: string; title: string }>> {
+	const target = liveWorkspace(req.sid);
+	if (!target.ok) return target;
+	const done = await cmux(password, LIMITS.commandMs,
+		'workspace-action', '--workspace', target.result.ws, '--action', 'rename', '--title', req.title);
+	return done.ok ? { ok: true, result: { workspace: target.result.ws, title: req.title } } : done;
+}
+
+/** Recolor the same workspace. A colour cmux refuses comes back in cmux's own words (B3 F1). */
+export const recolor = async (req: Recolor, password: string): Promise<Outcome<{ workspace: string; color: string }>> =>
+	audited('recolor', { ...req }, await attemptRecolor(req, password));
+
+async function attemptRecolor(req: Recolor, password: string): Promise<Outcome<{ workspace: string; color: string }>> {
+	const target = liveWorkspace(req.sid);
+	if (!target.ok) return target;
+	const done = await cmux(password, LIMITS.commandMs,
+		'workspace-action', '--workspace', target.result.ws, '--action', 'set-color', '--color', req.color);
+	// `OK action=set_color … color=#0E6B8C` — cmux's resolved value, not the word that was asked for.
+	return done.ok
+		? { ok: true, result: { workspace: target.result.ws, color: done.result.match(/color=(#[0-9A-Fa-f]{6})/)?.[1] ?? req.color } }
+		: done;
 }
 
 /**
@@ -440,7 +593,15 @@ export async function handsRoute(req: Request, action: string): Promise<Response
 			const parsed = parseHalt(body);
 			return parsed.ok ? answer(halt(parsed.result)) : json(parsed, 400);
 		}
+		case 'rename': {
+			const parsed = parseRename(body);
+			return parsed.ok ? answer(await rename(parsed.result, cred.result)) : json(parsed, 400);
+		}
+		case 'recolor': {
+			const parsed = parseRecolor(body);
+			return parsed.ok ? answer(await recolor(parsed.result, cred.result)) : json(parsed, 400);
+		}
 		default:
-			return json({ ok: false, error: `no such hand: ${action} — fire, worktree, focus, halt` }, 404);
+			return json({ ok: false, error: `no such hand: ${action} — fire, worktree, focus, halt, rename, recolor` }, 404);
 	}
 }

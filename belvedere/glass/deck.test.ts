@@ -188,17 +188,23 @@ describe('deckState — one composed read, and the joins it makes', () => {
 	// warm with the fixture city for the rest of the process. That is safe only because no other
 	// test file calls `register()` — deliberately, since its first real call is a nine-second walk
 	// (`register.test.ts` §head). A file that starts calling it must not assume a cold register.
-	const saved = { census: process.env.CENSUS_DIR, city: process.env.GLASS_CITY };
+	// **The suite never reaches the socket.** `deckState` now awaits the live-identity read (B18),
+	// which spawns `cmux` — but only if the glass is armed, and an armed test process would drive
+	// Felix's real desktop from `bun test` (B8 F1's lesson, paid once already). Pointing the
+	// credential at a path that does not exist is both the guard and the honest-degradation proof.
+	const saved = { census: process.env.CENSUS_DIR, city: process.env.GLASS_CITY, env: process.env.BELVEDERE_ENV };
+	process.env.BELVEDERE_ENV = join(ROOT, 'no-credential-here');
 	afterAll(() => {
 		process.env.CENSUS_DIR = saved.census;
 		process.env.GLASS_CITY = saved.city;
+		process.env.BELVEDERE_ENV = saved.env;
 		rmSync(ROOT, { recursive: true, force: true });
 	});
 
-	test('the snapshot is composed from the anchors it was pointed at, and the joins hold', () => {
+	test('the snapshot is composed from the anchors it was pointed at, and the joins hold', async () => {
 		process.env.CENSUS_DIR = CENSUS;
 		process.env.GLASS_CITY = CITY;
-		const snap = deckState();
+		const snap = await deckState();
 
 		// The knob proof: this could only have come from the fixture.
 		expect(snap.register.buildings.map(b => b.path)).toEqual([LIVE]);
@@ -221,10 +227,10 @@ describe('deckState — one composed read, and the joins it makes', () => {
 	});
 
 	// B14 widens the same snapshot rather than opening a second endpoint (`deck-model.ts` §head).
-	test('the snapshot carries the City and the queue, and the badges agree with the items', () => {
+	test('the snapshot carries the City and the queue, and the badges agree with the items', async () => {
 		process.env.CENSUS_DIR = CENSUS;
 		process.env.GLASS_CITY = CITY;
-		const snap = deckState();
+		const snap = await deckState();
 
 		const town = snap.register.buildings[0]!;
 		expect(town.group).toBe('tinytown');
@@ -239,12 +245,12 @@ describe('deckState — one composed read, and the joins it makes', () => {
 		expect(snap.auditor.at).toBeGreaterThan(0);               // `ps` answered, or honestly did not
 	});
 
-	test('a permission prompt reaches the wire as a waiting session, a badge and a queue item', () => {
+	test('a permission prompt reaches the wire as a waiting session, a badge and a queue item', async () => {
 		process.env.CENSUS_DIR = CENSUS;
 		process.env.GLASS_CITY = CITY;
 		writeFileSync(join(CENSUS, 'census.jsonl'),
 			beat({ ev: 'Notification', why: 'permission_prompt', sid: 'ddd', pid: String(process.pid), cwd: LIVE, ws: 'W1', sf: 'S1' }) + '\n');
-		const snap = deckState();
+		const snap = await deckState();
 
 		expect(snap.census.waiting).toBe(1);
 		expect(snap.census.sessions[0]!.waiting).toBe('blocked');
@@ -254,10 +260,10 @@ describe('deckState — one composed read, and the joins it makes', () => {
 		expect(snap.queue[0]!.sid).toBe('ddd');
 	});
 
-	test('no census file is honestly absent, not an empty city', () => {
+	test('no census file is honestly absent, not an empty city', async () => {
 		process.env.CENSUS_DIR = join(ROOT, 'no-such-dir');
 		process.env.GLASS_CITY = CITY;
-		const snap = deckState();
+		const snap = await deckState();
 		expect(snap.census.present).toBe(false);
 		expect(snap.census.live).toBe(0);
 		expect(snap.census.since).toBeNull();

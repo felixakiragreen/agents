@@ -14,6 +14,7 @@ import { readCensus, isLive, type Session } from './census';
 import { ATTENTION, columns, RESTING, type Attention, type DeckSession, type DeckSnapshot } from './deck-model';
 import { auditorCount } from './gauges';
 import { CSS, esc, short } from './html';
+import { byWorkspace, identity, type LiveWorkspace } from './identity';
 import { buildingOf } from './pages';
 import { cityRoot } from './paths';
 import { age, city } from './register';
@@ -50,7 +51,7 @@ function auditor(): { visible: number | null; at: number } {
  * and the surface can only afford a name (keel §2): venue, process, and what the session was last
  * doing. `model` is half a tier and is labelled as such wherever it renders (`census.ts` §identify).
  */
-export const deckSession = (s: Session, building: string | null): DeckSession => ({
+export const deckSession = (s: Session, building: string | null, live: Map<string, LiveWorkspace>): DeckSession => ({
 	sid: s.sid,
 	stamp: s.stamp,
 	state: s.state,
@@ -65,7 +66,15 @@ export const deckSession = (s: Session, building: string | null): DeckSession =>
 	ws: s.last.ws,
 	event: s.last.ev,
 	tool: s.tool,
+	// Joined on the census's own `ws`, and only there: a session whose workspace the socket did not
+	// name gets null, because the alternative is showing a birth name as if cmux had said it.
+	live: liveOf(s.last.ws, live),
 });
+
+const liveOf = (ws: string | null, live: Map<string, LiveWorkspace>): DeckSession['live'] => {
+	const w = ws === null ? undefined : live.get(ws);
+	return w === undefined ? null : { name: w.title, color: w.color, ref: w.ref };
+};
 
 /**
  * One composed read: the census (what is alive), the register's held copy (what the buildings are)
@@ -78,12 +87,19 @@ export const deckSession = (s: Session, building: string | null): DeckSession =>
  * the deck now needs it, because a badge is a fact about a board and a queue item is a fact about
  * a decision, and neither is knowable from a file list.
  */
-export function deckState(open: string | null = null): DeckSnapshot {
+export async function deckState(open: string | null = null): Promise<DeckSnapshot> {
 	const census = readCensus();
 	const { reg, buildings } = city();
 	const live = census.sessions.filter(isLive);
 
-	const sessions = census.sessions.map(s => deckSession(s, buildingOf(s.cwd, buildings)?.building ?? null));
+	// The one awaited read on this path (B18). It is a spawn, not a walk — Bun's thread is yielded,
+	// so requests arriving inside it are served (B8 F3's law is about synchronous work) — and it is
+	// awaited rather than served warm-and-stale so a rename made in cmux is on the deck within one
+	// poll. Priced at this row against the 500 ms bar.
+	const who = await identity();
+	const names = byWorkspace(who);
+
+	const sessions = census.sessions.map(s => deckSession(s, buildingOf(s.cwd, buildings)?.building ?? null, names));
 
 	const queue = needsYou(buildings, live);
 	const rows = cityRows(buildings, live, queue);
@@ -110,6 +126,7 @@ export function deckState(open: string | null = null): DeckSnapshot {
 		queue,
 		workshop,
 		auditor: auditor(),
+		identity: { at: who.at, error: who.error, workspaces: who.workspaces.length },
 	};
 }
 
