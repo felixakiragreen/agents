@@ -8,6 +8,7 @@
 //
 // **Nothing in here fetches, decides urgency, or fires.** It builds DOM out of what it is handed.
 
+import { detect, key as tokenKey } from './decode';
 import type { DeckSession, Prose, Span } from './deck-model';
 
 // ---------- elements ----------
@@ -173,6 +174,58 @@ export function dots(ss: DeckSession[]): HTMLElement {
 	return box;
 }
 
+// ---------- the decoder: every code word carries its meaning one hover away (B20) ----------
+
+/**
+ * Where a run of text is being read from, and how deep in a chain of tooltips.
+ *
+ *  - `in` — the document the words were written in. It is what a reference resolves *against*
+ *    (B20 §2: local first, then canon), so it travels with the text and is never inferred.
+ *  - `depth` — which tooltip layer this text will live in. 0 is the page.
+ *  - `seen` — the code words already open in this chain, so a cycle renders plain (§4).
+ */
+export type DecodeCtx = { in: string | null; depth: number; seen: readonly string[] };
+
+/** The page's own reading of the corpus: depth 0, nothing open above it. */
+export const reading = (inPath: string | null): DecodeCtx => ({ in: inPath, depth: 0, seen: [] });
+
+/**
+ * Everything has a limit (directive 3.1) — and here the limit IS the feature: three tooltips deep
+ * is the cap the order set, and it is enforced where the spans are *made* rather than where they
+ * are hovered. A body rendered at depth 3 carries no decoder spans at all, so there is no fourth
+ * layer to refuse.
+ */
+export const DEPTH_CAP = 3;
+
+/**
+ * Corpus text, with its code words made hoverable. **This is the one seam** (B20 §1): every tenant
+ * that draws text the corpus wrote calls this or `drawSpans`, and nothing decodes per-tenant.
+ *
+ * A span carries only what the resolver needs — the word, its scope word, the document it was
+ * written in, and the chain above it. Resolution is the server's and happens on hover, so a page
+ * with four hundred references costs four hundred `<span>`s and zero lookups.
+ */
+export function words(host: HTMLElement, text: string, ctx: DecodeCtx | null): void {
+	if (ctx === null || ctx.depth >= DEPTH_CAP) { host.append(document.createTextNode(text)); return; }
+	let at = 0;
+	for (const t of detect(text)) {
+		// The cycle guard: a word already open in this chain is not a control, it is a word. Leaving
+		// `at` where it is means its text still arrives — in the next plain run.
+		if (ctx.seen.includes(tokenKey(t))) continue;
+		if (t.at > at) host.append(document.createTextNode(text.slice(at, t.at)));
+		const w = el('span', 'dw', t.text);
+		w.dataset['tip'] = t.text;
+		w.dataset['decode'] = t.text;
+		w.dataset['decodeDepth'] = String(ctx.depth);
+		w.dataset['decodeSeen'] = [...ctx.seen, tokenKey(t)].join(' ');
+		if (ctx.in) w.dataset['decodeIn'] = ctx.in;
+		if (t.scope) w.dataset['decodeWord'] = t.scope;
+		host.append(w);
+		at = t.at + t.len;
+	}
+	if (at < text.length) host.append(document.createTextNode(text.slice(at)));
+}
+
 // ---------- prose: spans in, DOM out ----------
 
 /**
@@ -180,19 +233,30 @@ export function dots(ss: DeckSession[]): HTMLElement {
  * `path:line` references into spans (`html.ts` §spans) precisely so this can be a `switch` — a
  * `doc` span becomes a control that opens the viewer at its line, which is the field report's item
  * 3 arriving as a data shape rather than as a regex in the browser.
+ *
+ * **Code stays literal.** A `code` span is the corpus quoting bytes — a summons, a command, a
+ * field name — and B20 §1 exempts exactly that: a decoder span inside quoted bytes would be the
+ * glass editing what it was asked to show. Bold is prose and decodes; a link's *text* decodes
+ * against the document the link names, which is B20 §2's "the explicitly linked doc" clause.
  */
-export function drawSpans(host: HTMLElement, ss: Span[], open: (path: string, line: number | null) => void): void {
+export function drawSpans(host: HTMLElement, ss: Span[], open: (path: string, line: number | null) => void, ctx: DecodeCtx | null = null): void {
 	for (const s of ss) {
-		if (s.kind === 'text') { host.append(document.createTextNode(s.text)); continue; }
+		if (s.kind === 'text') { words(host, s.text, ctx); continue; }
 		if (s.kind === 'code') { host.append(el('code', '', s.text)); continue; }
-		if (s.kind === 'strong') { host.append(el('strong', '', s.text)); continue; }
+		if (s.kind === 'strong') {
+			const b = el('strong');
+			words(b, s.text, ctx);
+			host.append(b);
+			continue;
+		}
 		if (s.kind === 'url') {
 			const a = el('a', 'out-link', s.text) as HTMLAnchorElement;
 			a.href = s.href;
 			host.append(a);
 			continue;
 		}
-		const b = button('ref', s.text, s.line === null ? s.path : `${s.path}:${s.line}`);
+		const b = button('ref', '', s.line === null ? s.path : `${s.path}:${s.line}`);
+		words(b, s.text, ctx === null ? null : { ...ctx, in: s.path });
 		b.addEventListener('click', ev => { ev.stopPropagation(); open(s.path, s.line); });
 		host.append(b);
 	}
@@ -203,18 +267,20 @@ export function drawSpans(host: HTMLElement, ss: Span[], open: (path: string, li
  * whole of it. A text with no name of its own renders whole and gains no control — an `[expand]`
  * over nothing is furniture (B9 F1's rule, kept).
  */
-export function drawProse(p: Prose, cls: string, open: (path: string, line: number | null) => void): HTMLElement {
+export function drawProse(p: Prose, cls: string, open: (path: string, line: number | null) => void, ctx: DecodeCtx | null = null): HTMLElement {
 	if (!p.encapsulated) {
 		const whole = el('p', cls);
-		drawSpans(whole, p.spans, open);
+		drawSpans(whole, p.spans, open, ctx);
 		return whole;
 	}
 	const box = el('div', 'encap-box');
-	box.append(el('p', 'encap', p.name));
+	const name = el('p', 'encap');
+	words(name, p.name, ctx);
+	box.append(name);
 	const more = el('details', 'more');
 	more.append(el('summary', '', 'expand'));
 	const whole = el('p', cls);
-	drawSpans(whole, p.spans, open);
+	drawSpans(whole, p.spans, open, ctx);
 	more.append(whole);
 	box.append(more);
 	return box;

@@ -16,6 +16,14 @@ const home = homedir();
 /** The city: the register is discovery over this tree (the-city §1, P3's worktree law). */
 export const cityRoot = () => process.env.GLASS_CITY ?? join(home, 'code');
 
+/**
+ * The canon repo — the Guild's own building, and the fallback every reference resolves against
+ * when its own building does not carry the id (B20 §2: local first, then canon). Relative to the
+ * city rather than to `$HOME` so a fixture city can carry a canon of its own; in the real city it
+ * is `~/code/agents`, which is what the hardcoded anchors below already assume.
+ */
+export const canonRoot = () => join(cityRoot(), 'agents');
+
 /** D6's census home — beside `invocations.jsonl`, gitignored. `$CENSUS_DIR` is B1's own knob. */
 export const censusDir = () => process.env.CENSUS_DIR ?? join(home, 'code/agents/summon/log/census');
 export const censusFile = () => join(censusDir(), 'census.jsonl');

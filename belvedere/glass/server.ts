@@ -10,6 +10,7 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 import { summonRoute } from './composer';
 import { deckPage, deckState, readDoc } from './deck';
+import { decodeQuery } from './decoder';
 import { handsRoute } from './hands';
 import { inboxRoute } from './inbox';
 import { HOST, port } from './paths';
@@ -66,6 +67,10 @@ async function route(url: URL): Promise<Response> {
 	// the deck polls once and names what it has open, rather than opening a second poll beside this.
 	if (url.pathname === '/deck/state')
 		return Response.json(await deckState(url.searchParams.get('b')), { headers: { 'cache-control': 'no-store' } });
+	// The decoder (B20): one code word, resolved against its own building and then canon. A read
+	// like everything else here — it is asked on a hover and answers a value, never a throw.
+	if (url.pathname === '/deck/decode')
+		return Response.json(decodeQuery(url.searchParams), { headers: { 'cache-control': 'no-store' } });
 	// The viewer inside Focus. A read, fenced to the city like `/doc`, answering a value either way —
 	// an unresolved link renders its reason rather than nothing (the field report's item 3).
 	if (url.pathname === '/deck/doc') {

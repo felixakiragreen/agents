@@ -52,6 +52,16 @@ export type FocusView = {
  */
 export const selection: { building: string | null } = { building: null };
 
+/**
+ * The deck's one document opener, registered by whichever tenant owns a viewer (the Workshop
+ * today). It sits beside `selection` for the same reason: the decoder's tooltips are the shell's,
+ * they live outside every pane, and their **jump** has to land in the viewer that already exists
+ * rather than growing a second one (B20 §3). A tenant with no viewer leaves it null and the
+ * decoder simply offers no jump — the affordance is the tenant's to provide, never the shell's to
+ * fake.
+ */
+export const viewer: { open: ((path: string, line: number | null) => void) | null } = { open: null };
+
 const signed = new Map<string, FocusView>();
 
 /** Sign the lease. A second tenant under one name is a bug, not a replacement — it throws. */

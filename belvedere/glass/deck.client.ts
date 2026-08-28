@@ -16,11 +16,14 @@
 
 import {
 	ATTENTION, bump, columns, PANES, RESTING, toLayout,
-	type Attention, type DeckBuilding, type DeckSession, type DeckSnapshot,
+	type Attention, type DeckBuilding, type Decoded, type DeckSession, type DeckSnapshot,
 	type Layout, type Pane, type PaneState, type QueueItem,
 } from './deck-model';
-import { moveIn, selection, tenant, tenants, type FocusView } from './deck-view';
-import { ago, dot, dots, el, named, need, paint, receipt, receipts, remember, remembered, say, stamp, tick, tipSession } from './deck-dom';
+import { moveIn, selection, tenant, tenants, viewer, type FocusView } from './deck-view';
+import {
+	ago, button, DEPTH_CAP, dot, dots, el, named, need, paint, reading, receipt, receipts,
+	remember, remembered, say, stamp, tick, tipSession, words, type DecodeCtx,
+} from './deck-dom';
 import { SWATCHES } from './colors';
 // The Workshop signs its lease on import (B15). It is imported for that effect and for nothing
 // else: a tenant reaches the deck through `deck-view.ts` and never through this file.
@@ -132,12 +135,21 @@ function badges(b: DeckBuilding): HTMLElement {
 	return box;
 }
 
-function buildingRow(b: DeckBuilding, mine: DeckSession[]): HTMLElement {
+/** Everything has a limit: a building with thirty open gates gets a tooltip, not a transcript. */
+const TIP_ITEMS = 4;
+
+function buildingRow(b: DeckBuilding, mine: DeckSession[], wants: QueueItem[]): HTMLElement {
 	const row = el('li', 'row' + (b.building === selection.building ? ' on' : ''));
 	row.dataset['building'] = b.building;
 	row.dataset['tip'] = b.building;
+	// **What** wants him, by name, rather than how many: the badge already carries the count, and a
+	// name is the encapsulation law's own answer to "2 Felix-gate". It is corpus prose, so the City's
+	// tooltip decodes exactly like the Workshop's (B20 §5).
+	const named = wants.slice(0, TIP_ITEMS).map(i => i.name);
 	row.dataset['tipMore'] = `${b.path} · ${b.live} live · `
-		+ (ATTENTION.filter(k => b.badges[k]).map(k => `${b.badges[k]} ${BADGE_WORD[k]}`).join(', ') || 'nothing waiting on you');
+		+ (named.join(' · ') || 'nothing waiting on you')
+		+ (wants.length > named.length ? ` · +${wants.length - named.length} more` : '');
+	row.dataset['tipIn'] = b.path;
 	row.dataset['tipGo'] = `/b/${b.building.split('/').map(encodeURIComponent).join('/')}`;
 	row.append(dots(mine), el('span', 'name', b.building), badges(b));
 	return row;
@@ -235,7 +247,7 @@ function drawCity(host: HTMLElement): void {
 			const list = el('ul', 'rows');
 			for (const b of g.buildings) {
 				const mine = b.sids.map(id => bySid.get(id)).filter((s): s is DeckSession => !!s);
-				list.append(buildingRow(b, mine));
+				list.append(buildingRow(b, mine, snapshot.queue.filter(i => i.building === b.building)));
 				if (layout.context === 'expanded' && mine.length) list.append(sessionLines(mine, stale));
 			}
 			box.append(list);
@@ -343,9 +355,15 @@ function queueItem(i: QueueItem): HTMLElement {
 	li.dataset['key'] = i.key;
 	li.dataset['kind'] = i.kind;
 
+	// The queue's words are the corpus's words, so its code words decode against the document each
+	// item was written in (B20 §5: the tenants inherit the seam, they do not each own a detector).
+	const ctx = reading(i.doc);
+
 	const head = el('div', 'qi-h');
 	head.append(el('span', `pill tone-${QUEUE_TONE[i.kind]}`, i.kind === 'waiting' ? 'blocked on you' : i.kind));
-	head.append(el('span', 'qname', i.name));
+	const qname = el('span', 'qname');
+	words(qname, i.name, ctx);
+	head.append(qname);
 	if (i.at !== null) head.append(stamp(i.at, 'ago when'));
 	li.append(head);
 
@@ -359,8 +377,14 @@ function queueItem(i: QueueItem): HTMLElement {
 	// already carry it (B9's furniture rule — a disclosure over nothing is furniture).
 	const more = el('details', 'more');
 	more.append(el('summary', '', 'expand'));
-	if (!i.name.endsWith(i.full)) more.append(el('p', 'prose', i.full));
-	more.append(el('p', 'quiet prose', i.note));
+	if (!i.name.endsWith(i.full)) {
+		const full = el('p', 'prose');
+		words(full, i.full, ctx);
+		more.append(full);
+	}
+	const note = el('p', 'quiet prose');
+	words(note, i.note, ctx);
+	more.append(note);
 	if (i.kind === 'gate' || i.kind === 'escalation') more.append(noteBox(i));
 	if (opened.has(i.key)) (more as HTMLDetailsElement).open = true;
 	more.dataset['openKey'] = i.key;
@@ -476,44 +500,217 @@ scrim.addEventListener('click', () => setDrawer('shut'));
 // ---------- the tooltip primitive ----------
 //
 // Instant on hover, because a tooltip that waits is a tooltip Felix has already moved past. Held
-// or clicked, it expands into `data-tip-more` plus one action (`data-tip-go`) and becomes
-// pointer-interactive so that action can be taken. Escape dismisses, always.
+// or clicked, it expands into `data-tip-more` plus its actions and becomes pointer-interactive so
+// those actions can be taken. Escape dismisses, always.
+//
+// **B20 makes it a stack.** A tooltip's own body passes through the decoder, so a hover inside one
+// opens the next — three layers and no fourth, and the cap is enforced where the spans are *made*
+// (`words()` draws none at depth 3), not where they are hovered: there is no fourth layer to
+// refuse. Layer 0 is the shell's own `#tip`; deeper layers are minted and dropped with the chain.
 
 const TIP_HOLD_MS = 450;
 const tip = need('tip');
-let tipHost: HTMLElement | null = null;
+
+type Layer = { box: HTMLElement; anchor: HTMLElement; ctx: DecodeCtx };
+const layers: Layer[] = [];
 let hold = 0;
 
-function placeTip(host: HTMLElement): void {
-	const r = host.getBoundingClientRect();
-	const t = tip.getBoundingClientRect();
-	const left = Math.min(Math.max(4, r.left), Math.max(4, window.innerWidth - t.width - 4));
-	const below = r.bottom + 6;
-	tip.style.left = `${left}px`;
-	tip.style.top = `${below + t.height > window.innerHeight ? Math.max(4, r.top - t.height - 6) : below}px`;
+const boxAt = (depth: number): HTMLElement => {
+	if (depth === 0) return tip;
+	const box = el('div', 'tip');
+	box.dataset['layer'] = String(depth);
+	document.body.append(box);
+	return box;
+};
+
+/** Unwind the chain to `depth` layers. Layer 0's box belongs to the shell, so it hides rather than dies. */
+function popTo(depth: number): void {
+	while (layers.length > depth) {
+		const l = layers.pop()!;
+		if (l.box === tip) { tip.hidden = true; tip.textContent = ''; tip.dataset['expanded'] = 'no'; }
+		else l.box.remove();
+	}
+	if (depth === 0) clearTimeout(hold);
 }
 
-function showTip(host: HTMLElement, expanded: boolean): void {
+function placeTip(box: HTMLElement, host: HTMLElement): void {
+	const r = host.getBoundingClientRect();
+	const t = box.getBoundingClientRect();
+	const left = Math.min(Math.max(4, r.left), Math.max(4, window.innerWidth - t.width - 4));
+	const below = r.bottom + 6;
+	box.style.left = `${left}px`;
+	box.style.top = `${below + t.height > window.innerHeight ? Math.max(4, r.top - t.height - 6) : below}px`;
+}
+
+/**
+ * What the text *inside* this tooltip decodes against: the document its anchor was written in, one
+ * layer deeper, and every code word already open above it (the cycle guard, B20 §4).
+ */
+const ctxOf = (host: HTMLElement, depth: number): DecodeCtx => ({
+	in: host.dataset['decodeIn'] ?? host.dataset['tipIn'] ?? null,
+	depth: depth + 1,
+	seen: (host.dataset['decodeSeen'] ?? '').split(' ').filter(s => s !== ''),
+});
+
+function showTip(host: HTMLElement, depth: number, expanded: boolean): void {
+	popTo(depth);
+	const box = boxAt(depth);
+	const ctx = ctxOf(host, depth);
 	const more = host.dataset['tipMore'] ?? '';
-	tip.textContent = '';
-	tip.append(el('div', 'tip-line', host.dataset['tip'] ?? ''));
+	box.textContent = '';
+	box.append(el('div', 'tip-line', host.dataset['tip'] ?? ''));
 	if (more && expanded) {
-		tip.append(el('div', 'tip-more prose', more));
+		const body = el('div', 'tip-more prose');
+		words(body, more, ctx);
+		box.append(body);
 		const go = host.dataset['tipGo'];
 		if (go) {
 			const a = el('a', 'st wide', 'open') as HTMLAnchorElement;
 			a.href = go;
 			const acts = el('div', 'tip-actions');
 			acts.append(a);
-			tip.append(acts);
+			box.append(acts);
 		}
 	}
-	else if (more) tip.append(el('div', 'tip-hint', 'hold for more'));
-	if (expanded && host.dataset['tipSid']) tip.append(tipControls(host.dataset['tipSid'], host.dataset['tipName'] ?? ''));
-	tip.dataset['expanded'] = expanded ? 'yes' : 'no';
-	tip.hidden = false;
-	tipHost = host;
-	placeTip(host);
+	else if (more) box.append(el('div', 'tip-hint', 'hold for more'));
+	if (expanded && host.dataset['tipSid']) box.append(tipControls(host.dataset['tipSid'], host.dataset['tipName'] ?? ''));
+	box.dataset['expanded'] = expanded ? 'yes' : 'no';
+	box.hidden = false;
+	layers[depth] = { box, anchor: host, ctx };
+	placeTip(box, host);
+	// A code word's tooltip IS the resolved object, so the word itself is only what stands there
+	// until the resolver answers — one localhost round trip, cached from then on.
+	if (host.dataset['decode']) void fillDecode(host, box, ctx, expanded);
+}
+
+// ---------- the decoder's tooltip (B20 §3): encapsulation, status, jump, gestures ----------
+
+/** Everything has a limit: the cache is a convenience, and a convenience that grows forever is a leak. */
+const DECODED_CAP = 500;
+const decoded = new Map<string, Decoded>();
+
+const decodeKey = (host: HTMLElement): string => {
+	const q = new URLSearchParams({ t: host.dataset['decode'] ?? '' });
+	const where = host.dataset['decodeIn'];
+	if (where) q.set('in', where);
+	const word = host.dataset['decodeWord'];
+	if (word) q.set('w', word);
+	return q.toString();
+};
+
+async function askDecoder(key: string): Promise<Decoded> {
+	const held = decoded.get(key);
+	if (held) return held;
+	const r = await fetch(`/deck/decode?${key}`, { headers: { accept: 'application/json' } });
+	const d = await r.json() as Decoded;
+	if (decoded.size >= DECODED_CAP) decoded.clear();
+	decoded.set(key, d);
+	return d;
+}
+
+async function fillDecode(host: HTMLElement, box: HTMLElement, ctx: DecodeCtx, expanded: boolean): Promise<void> {
+	const key = decodeKey(host);
+	let d: Decoded;
+	try { d = await askDecoder(key); }
+	catch (e) { d = { ok: false, label: host.dataset['decode'] ?? '', reason: String(e), candidates: [] }; }
+	// The pointer may have moved on while the resolver was reading files: a tooltip that has already
+	// been replaced must not be written into.
+	if (!layers.some(l => l.box === box && l.anchor === host)) return;
+	drawDecoded(box, d, ctx, expanded);
+	placeTip(box, host);
+}
+
+function jumpTo(building: string, path: string, line: number | null): void {
+	// The ontology is City → Building → Agent, so a jump moves the selection too: opening a row's
+	// board in the viewer while the Workshop still shows another building would be two panes
+	// disagreeing about where Felix is.
+	selection.building = building;
+	remember(BUILDING_KEY, building);
+	popTo(0);
+	// A jump into a pane closed to one word would land nowhere: the law of space says minimal is a
+	// rail, so opening a document in it means opening the pane too.
+	if (layout.focus === 'minimal') layout.focus = 'typical';
+	focusOn('workshop');
+	viewer.open?.(path, line);
+	apply();
+}
+
+function jumpButton(label: string, building: string, path: string, line: number | null): HTMLButtonElement {
+	const b = button('st wide', label, path);
+	b.addEventListener('click', () => jumpTo(building, path, line));
+	return b;
+}
+
+/**
+ * The object's live gestures — **gestures only, never fires** (B20 §3, D10). Both are B6's inbox
+ * wire, and both show the bytes before the append: the countersign law is that he reads the line
+ * he is signing, so the preview is the entry itself and the note's preview grows as he types.
+ */
+function gestureBox(d: Decoded & { ok: true }): HTMLElement {
+	const box = el('div', 'tip-gestures');
+	const key = `decode:${d.building}:${d.kind}:${d.id}`;
+	for (const g of d.gestures) {
+		if (g.kind === 'countersign') {
+			const act = el('div', 'tip-gesture');
+			act.append(el('p', 'quiet prose', 'one line into this building’s inbox — the glass records the countersign, it never pens the D-entry (D3):'));
+			act.append(el('pre', 'preview', g.preview));
+			const b = button('st wide', `countersign ${g.decision}`, 'file this exact line');
+			b.addEventListener('click', () => void file(key, { building: g.building, kind: 'countersign', decision: g.decision }));
+			act.append(b);
+			box.append(act);
+		}
+		else {
+			const act = el('details', 'tip-gesture qnote');
+			act.append(el('summary', '', 'note'));
+			const area = el('textarea', 'prose') as HTMLTextAreaElement;
+			area.rows = 2;
+			area.spellcheck = true;
+			area.placeholder = 'his word, one line — it lands as written';
+			const preview = el('pre', 'preview', g.prefix);
+			area.addEventListener('input', () => { preview.textContent = g.prefix + area.value; });
+			const b = button('st wide', 'file it', 'append the line above');
+			b.addEventListener('click', () => void file(key, { building: g.building, kind: 'note', text: area.value }));
+			act.append(area, preview, b);
+			box.append(act);
+		}
+	}
+	const out = el('span', 'out', receipt(key));
+	out.dataset['outFor'] = key;
+	box.append(out);
+	return box;
+}
+
+function drawDecoded(box: HTMLElement, d: Decoded, ctx: DecodeCtx, expanded: boolean): void {
+	box.textContent = '';
+	box.dataset['decoded'] = d.ok ? 'yes' : 'no';
+	if (!d.ok) {
+		// Unresolved says so and names what it looked at. A tooltip that guessed would be worse than
+		// no tooltip at all — this is the whole of D10's family in one card.
+		box.append(el('div', 'tip-line', `${d.label} — unresolved`));
+		box.append(el('div', 'tip-more prose', d.reason));
+		if (d.candidates.length) {
+			const c = el('div', 'tip-cands');
+			c.append(el('span', 'label', 'looked at'));
+			for (const x of d.candidates) c.append(el('span', 'cand', x));
+			box.append(c);
+		}
+		return;
+	}
+	const line = el('div', 'tip-line');
+	line.append(el('span', 'dw-id', d.label), el('span', 'dw-name', d.headline));
+	box.append(line);
+	if (d.status) box.append(el('div', 'tip-status', `${d.status} · ${d.building}`));
+	if (!expanded) { box.append(el('div', 'tip-hint', 'hold for the record, the jump and the gestures')); return; }
+
+	const body = el('div', 'tip-more prose');
+	words(body, d.body, ctx);
+	box.append(body);
+
+	const acts = el('div', 'tip-actions');
+	acts.append(jumpButton(`open ${d.where.label}:${d.where.line}`, d.building, d.where.path, d.where.line));
+	if (d.plan) acts.append(jumpButton('the plan', d.building, d.plan.path, null));
+	box.append(acts);
+	if (d.gestures.length) box.append(gestureBox(d));
 }
 
 /**
@@ -562,30 +759,55 @@ function tipControls(sid: string, current: string): HTMLElement {
 	return box;
 }
 
-function hideTip(): void {
-	tip.hidden = true;
-	tip.textContent = '';
-	tipHost = null;
-	clearTimeout(hold);
-}
+/** Which layer a hovered anchor opens: the page opens layer 0, layer *n*'s own body opens *n+1*. */
+const layerFor = (host: Node): number => layers.findIndex(l => l.box.contains(host)) + 1;
+
+const inSomeBox = (n: Node | null): boolean => n !== null && layers.some(l => l.box.contains(n));
 
 document.addEventListener('mouseover', e => {
-	const host = (e.target as Element | null)?.closest<HTMLElement>('[data-tip]') ?? null;
-	if (!host) { if (!tip.contains(e.target as Node) && tip.dataset['expanded'] !== 'yes') hideTip(); return; }
-	if (host === tipHost) return;
+	const target = e.target as Element | null;
+	const host = target?.closest<HTMLElement>('[data-tip]') ?? null;
+	if (!host) {
+		if (!inSomeBox(target) && !layers.some(l => l.box.dataset['expanded'] === 'yes')) popTo(0);
+		return;
+	}
+	const depth = layerFor(host);
+	if (depth >= DEPTH_CAP) return;                    // three tooltips deep and no fourth (§4)
+	if (layers[depth]?.anchor === host) return;
 	clearTimeout(hold);
-	showTip(host, false);
-	if (host.dataset['tipMore']) hold = window.setTimeout(() => { if (tipHost === host) showTip(host, true); }, TIP_HOLD_MS);
+	showTip(host, depth, false);
+	if (host.dataset['tipMore'] || host.dataset['decode'])
+		hold = window.setTimeout(() => { if (layers[depth]?.anchor === host) showTip(host, depth, true); }, TIP_HOLD_MS);
 });
 
 document.addEventListener('mouseout', e => {
+	const top = layers.at(-1);
+	if (!top) return;
 	const to = e.relatedTarget as Node | null;
-	if (!tipHost || (to && (tipHost.contains(to) || tip.contains(to)))) return;
-	if (tip.dataset['expanded'] === 'yes') return;      // an expanded tip is dismissed, not escaped from
-	hideTip();
+	if (to && (top.anchor.contains(to) || inSomeBox(to))) return;
+	if (top.box.dataset['expanded'] === 'yes') return;  // an expanded tip is dismissed, not escaped from
+	popTo(0);
 });
 
-document.addEventListener('keydown', e => { if (e.key === 'Escape') hideTip(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') popTo(0); });
+
+/**
+ * Click a code word and its tooltip expands — the primitive's own contract ("held **or clicked**"),
+ * and the only way to reach the deeper layers with a trackpad. Captured and stopped, so a click on
+ * a code word inside a City row does not also select the building, and one inside a rendered
+ * `path:line` reference decodes the word rather than opening the document: the word is the target
+ * Felix aimed at.
+ */
+document.addEventListener('click', e => {
+	const w = (e.target as Element | null)?.closest<HTMLElement>('[data-decode]');
+	if (!w) return;
+	const depth = layerFor(w);
+	if (depth >= DEPTH_CAP) return;
+	e.stopPropagation();
+	e.preventDefault();
+	clearTimeout(hold);
+	showTip(w, depth, true);
+}, true);
 
 // ---------- the two wires a click may reach ----------
 
@@ -601,27 +823,30 @@ const QUEUE_KEY = /^(note:)?(waiting|gate|countersign|escalation):/;
  * a cold-handed glass never costs him the ability to say something. The filed line is reported
  * verbatim and outlives the next repaint, because what his inbox now says is the whole point.
  */
+async function file(key: string, body: Record<string, unknown>): Promise<boolean> {
+	say(key, 'filing…');
+	try {
+		const [code, r] = await post('/inbox', body);
+		if (!r.ok) { say(key, `${code} ${r.error}`); return false; }
+		say(key, `filed · ${String(r.result?.['line'] ?? '')}`);
+		return true;
+	}
+	catch (e) { say(key, String(e)); return false; }
+}
+
+/** The queue's own gesture buttons: the same one wire, with the drawer's held draft cleaned up after. */
 async function gesture(btn: HTMLElement): Promise<void> {
 	const item = btn.closest<HTMLElement>('.qi');
 	const key = item?.dataset['key'] ?? '';
 	const body = JSON.parse(btn.dataset['gesture'] ?? '{}') as Record<string, unknown>;
-	if (body.kind === 'note') {
-		const area = item?.querySelector<HTMLTextAreaElement>('[data-note-for]');
-		body.text = area?.value ?? '';
-	}
-	say(key, 'filing…');
-	try {
-		const [code, r] = await post('/inbox', body);
-		if (!r.ok) return say(key, `${code} ${r.error}`);
-		say(key, `filed · ${String(r.result?.['line'] ?? '')}`);
-		drafts.delete(key);
-		const area = item?.querySelector<HTMLTextAreaElement>('[data-note-for]');
-		if (area) area.value = '';
-		// A countersign changes what the FILES say, and the card's three states are read off them:
-		// the next poll re-derives it, so nothing here rewrites the card by hand.
-		if (btn.dataset['reload']) void poll();
-	}
-	catch (e) { say(key, String(e)); }
+	const area = item?.querySelector<HTMLTextAreaElement>('[data-note-for]');
+	if (body.kind === 'note') body.text = area?.value ?? '';
+	if (!await file(key, body)) return;
+	drafts.delete(key);
+	if (area) area.value = '';
+	// A countersign changes what the FILES say, and the card's three states are read off them:
+	// the next poll re-derives it, so nothing here rewrites the card by hand.
+	if (btn.dataset['reload']) void poll();
 }
 
 /**

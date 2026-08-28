@@ -234,7 +234,44 @@ body.deck {
 	margin-top: 4px; font-size: 9px; letter-spacing: .12em; text-transform: uppercase;
 	color: var(--grey-600);
 }
-.deck .tip-actions { margin-top: 7px; }
+.deck .tip-actions { margin-top: 7px; display: flex; gap: 6px; flex-wrap: wrap; }
+
+/* --- the decoder (B20): a code word, and the card it opens --- */
+
+/* A code word is marked, not decorated: the corpus is *full* of ids, and underlining four hundred
+   of them would make the prose unreadable. A dotted underbar says "this one means something" and
+   the hover says what. */
+.deck .dw {
+	font-family: var(--mono);
+	border-bottom: 1px dotted var(--grey-600);
+	cursor: help;
+}
+.deck .dw:hover { color: var(--felix); border-bottom-color: var(--felix); }
+.deck .tip[data-layer] { max-width: 320px; }
+.deck .tip .dw-id { font-family: var(--mono); color: var(--felix); margin-right: 6px; }
+.deck .tip .dw-name { color: var(--grey-150); }
+.deck .tip-status {
+	margin-top: 3px; font-family: var(--mono); font-size: 9.5px; letter-spacing: .04em;
+	color: var(--grey-500);
+}
+.deck .tip-cands { margin-top: 6px; display: flex; flex-direction: column; gap: 2px; }
+.deck .tip-cands .cand { font-family: var(--mono); font-size: 9.5px; color: var(--grey-550); }
+.deck .tip-gestures { margin-top: 7px; border-top: 1px solid var(--grey-800); padding-top: 6px; }
+.deck .tip-gesture { margin-top: 4px; }
+.deck .tip-gesture > summary {
+	font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--grey-600); cursor: pointer;
+}
+/* The bytes before the append — the countersign law, on screen (B20 §3). */
+.deck .preview {
+	margin: 4px 0; padding: 4px 6px; white-space: pre-wrap; word-break: break-word;
+	font-family: var(--mono); font-size: 9.5px; color: var(--grey-350);
+	background: var(--grey-950); border-left: 2px solid var(--felix);
+}
+.deck .tip-gesture textarea {
+	width: 100%; box-sizing: border-box; margin-top: 4px;
+	background: var(--grey-950); color: var(--grey-200);
+	border: 1px solid var(--grey-750); border-radius: 3px; padding: 4px;
+}
 
 /* --- the Workshop: one building, inside (B15) --- */
 

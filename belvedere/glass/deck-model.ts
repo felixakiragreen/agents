@@ -12,6 +12,7 @@
 
 import type { State } from '../../doctrine';
 import type { SessionState } from './census';
+import type { RefKind } from './decode';
 import type { Countersigned } from './inbox';
 
 // ---------- the three panes and their three states ----------
@@ -160,6 +161,49 @@ export type Prose = { name: string; encapsulated: boolean; spans: Span[] };
 
 /** Where a thing is written, in the city's own coordinates — and the line the viewer opens at. */
 export type DocRef = { path: string; label: string; line: number };
+
+// ---------- the decoder: a code word, resolved into its object (B20) ----------
+
+/**
+ * What a decoded object lets Felix *do* from its tooltip. **Gestures only, never fires** (B20 §3,
+ * D10's discipline): a tooltip files a line into a building's inbox — B6's wire, in front of the
+ * credential gate — and the composer and the Works are the only surfaces that fire.
+ *
+ * Both carry the bytes that will be appended, because the countersign law is that he sees the line
+ * before it is written: `preview` is the whole entry, `prefix` is everything but his own words.
+ */
+export type DecodeGesture =
+	| { kind: 'countersign'; building: string; decision: string; preview: string }
+	| { kind: 'note'; building: string; prefix: string };
+
+/**
+ * One reference, resolved — or honestly not (B20 §2). **Ambiguity and absence both answer `ok:
+ * false` and name what they looked at**: a tooltip that guesses is worse than a tooltip that says
+ * it cannot tell.
+ *
+ * `doc` is where the *object* is written, and it is what nested references inside `body` resolve
+ * against — so a `§7` cited by belvedere's D2 resolves against belvedere's README and not against
+ * whichever document happened to mention D2.
+ */
+export type Decoded =
+	| {
+		ok: true;
+		kind: RefKind;
+		id: string;
+		/** The reference as the corpus wrote it: `B18`, `row 17`, `§3.2`. */
+		label: string;
+		/** The encapsulation — the row's name, the decision's title, the section's heading. */
+		headline: string;
+		status: string | null;
+		body: string;
+		building: string;
+		doc: string;
+		where: DocRef;
+		/** A row's own work doc (D58), where the board links one. */
+		plan: DocRef | null;
+		gestures: DecodeGesture[];
+	}
+	| { ok: false; label: string; reason: string; candidates: string[] };
 
 // ---------- the Workshop: one building, inside (B15) ----------
 
@@ -339,6 +383,12 @@ export type QueueItem = {
 	at: number | null;
 	/** Where it came from, in the city's own coordinates — `README.md:191`, `row B14`. */
 	where: string;
+	/**
+	 * The document this item's words were written in — the scope its code words decode against
+	 * (B20 §2). A `§5` in a gate's text means that document's §5; a `D2` means that building's D2.
+	 * The building's own directory where the item comes from no single file.
+	 */
+	doc: string;
 	/** A reading link. Reading is never gated; this is an `<a href>` and nothing else. */
 	jump: string | null;
 	/** waiting only — the session `POST /hands/focus` jumps to, or null when it sits in no pane. */

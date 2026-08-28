@@ -17,8 +17,8 @@ import {
 	type DeckSession, type DeckSnapshot, type DocRef, type PaneState, type Prose, type Section,
 	type WorkshopBoard, type WorkshopDetail, type WorkshopRow,
 } from './deck-model';
-import { moveIn, selection, type FocusView } from './deck-view';
-import { button, dot, dots, drawProse, drawSpans, el, named, paint, plain, receipt, remember, remembered, stamp, tipSession } from './deck-dom';
+import { moveIn, selection, viewer, type FocusView } from './deck-view';
+import { button, dot, dots, drawProse, drawSpans, el, named, paint, plain, reading, receipt, remember, remembered, stamp, tipSession, words } from './deck-dom';
 
 /** Everything has a limit: a tooltip carrying a whole landing record is a tooltip nobody can read. */
 const TIP_CAP = 400;
@@ -173,26 +173,40 @@ function drawSessions(host: HTMLElement, ss: DeckSession[], stale: boolean): voi
 }
 
 function drawRow(host: HTMLElement, r: WorkshopRow): void {
+	// Everything in this row was written in this board file, so that is what its code words resolve
+	// against: belvedere's `D2` is belvedere's, canon's `D63` is canon's (B20 §2).
+	const ctx = reading(r.ref.path);
 	const li = el('li', `ws-row st-${r.state ? r.state.replace(' ', '-').toLowerCase() : 'unparsed'}`);
 	li.dataset['row'] = r.id;
 	li.dataset['tip'] = `${r.id} · ${r.state ?? 'unparsed'} · ${r.staffing}`;
-	// §4: the depth on hover is the row's landing record — the longest prose the corpus writes.
+	// §4: the depth on hover is the row's landing record — the longest prose the corpus writes, and
+	// the densest in code words, which is why the tooltip's own body decodes (B20 §4's nesting).
 	li.dataset['tipMore'] = tipOf(r.annotation, 'no status annotation on this row');
+	li.dataset['tipIn'] = r.ref.path;
 
 	const head = el('div', 'ws-row-h');
-	head.append(el('span', 'rid', r.id), el('span', 'pill', r.state ?? 'UNPARSED'));
+	const rid = el('span', 'rid');
+	// The row's own id is a reference like any other: hovering `B18` on the board gives back its
+	// encapsulation, its status and its plan — which is the order's first acceptance criterion.
+	words(rid, r.id, ctx);
+	head.append(rid, el('span', 'pill', r.state ?? 'UNPARSED'));
 	const name = el('span', 'rname', '');
 	if (r.workDoc) {
-		const b = button('ref', r.work.name, `${r.workDoc.path}`);
+		const b = button('ref', '', `${r.workDoc.path}`);
+		words(b, r.work.name, ctx);
 		b.addEventListener('click', ev => { ev.stopPropagation(); void openDoc(r.workDoc!.path, null); });
 		name.append(b);
 	}
-	else name.textContent = r.work.name;
+	else words(name, r.work.name, ctx);
 	head.append(name, el('span', 'staff', r.staffing));
 	li.append(head);
 
-	if (r.gates.length) li.append(el('div', 'gates', r.gates.map(g => `Felix-gate: ${g}`).join(' · ')));
-	if (r.annotation.spans.length) li.append(drawProse(r.annotation, 'prose', openDoc));
+	if (r.gates.length) {
+		const gates = el('div', 'gates');
+		words(gates, r.gates.map(g => `Felix-gate: ${g}`).join(' · '), ctx);
+		li.append(gates);
+	}
+	if (r.annotation.spans.length) li.append(drawProse(r.annotation, 'prose', openDoc, ctx));
 	if (r.lint.length) li.append(el('div', 'lint', r.lint.join(' · ')));
 	const where = button('ref quiet', `${r.ref.label}:${r.ref.line}`, 'open the board at this row');
 	where.addEventListener('click', ev => { ev.stopPropagation(); void openDoc(r.ref.path, r.ref.line); });
@@ -213,6 +227,7 @@ function drawBoard(host: HTMLElement, boards: WorkshopBoard[]): void {
 function drawTail(host: HTMLElement, d: WorkshopDetail): void {
 	const t = d.tail;
 	if (!t) { host.append(el('p', 'quiet prose', 'No LEDGER.md in this building.')); return; }
+	const ctx = reading(t.ref.path);
 	const head = el('div', 'ws-tail-h');
 	head.append(el('span', 'who', `${t.date} · ${t.mantle}`));
 	if (t.tier) head.append(el('code', '', t.tier));
@@ -221,12 +236,12 @@ function drawTail(host: HTMLElement, d: WorkshopDetail): void {
 	where.addEventListener('click', ev => { ev.stopPropagation(); void openDoc(t.ref.path, t.ref.line); });
 	head.append(where);
 	host.append(head);
-	host.append(drawProse(t.body, 'prose', openDoc));
+	host.append(drawProse(t.body, 'prose', openDoc, ctx));
 	if (t.decided) {
 		const line = el('div', 'kv');
 		line.append(el('span', 'label', 'decided'));
 		const v = el('span', 'prose');
-		drawSpans(v, t.decided.spans, openDoc);
+		drawSpans(v, t.decided.spans, openDoc, ctx);
 		line.append(v);
 		host.append(line);
 	}
@@ -235,7 +250,7 @@ function drawTail(host: HTMLElement, d: WorkshopDetail): void {
 	if (t.baton) {
 		const v = el('span', `prose holder-${t.baton.holder}`);
 		v.append(el('span', 'pill', t.baton.holder));
-		drawSpans(v, t.baton.text.spans, openDoc);
+		drawSpans(v, t.baton.text.spans, openDoc, ctx);
 		baton.append(v);
 	}
 	else baton.append(el('span', 'quiet', 'no Next clause'));
@@ -250,15 +265,19 @@ function drawDecisions(host: HTMLElement, d: WorkshopDetail): void {
 	const list = el('ul', 'ws-list');
 	for (const x of d.decisions) {
 		const li = el('li', 'ws-item');
+		const ctx = reading(x.ref.path);
 		li.dataset['decision'] = x.id;
 		li.dataset['tip'] = `${x.id} · ${x.date} · ${x.decider}`;
 		li.dataset['tipMore'] = tipOf(x.title, x.id);
+		li.dataset['tipIn'] = x.ref.path;
 		const head = el('div', 'ws-row-h');
-		head.append(el('span', 'rid', x.id), el('span', 'pill', x.state), el('span', 'who', x.decider));
+		const did = el('span', 'rid');
+		words(did, x.id, ctx);
+		head.append(did, el('span', 'pill', x.state), el('span', 'who', x.decider));
 		const where = button('ref quiet', `${x.ref.label}:${x.ref.line}`, 'open the decision');
 		where.addEventListener('click', ev => { ev.stopPropagation(); void openDoc(x.ref.path, x.ref.line); });
 		head.append(where);
-		li.append(head, drawProse(x.title, 'prose', openDoc));
+		li.append(head, drawProse(x.title, 'prose', openDoc, ctx));
 		list.append(li);
 	}
 	host.append(list);
@@ -272,12 +291,13 @@ function drawIssues(host: HTMLElement, d: WorkshopDetail): void {
 		const li = el('li', 'ws-item');
 		li.dataset['tip'] = `${i.date ?? ''} ${i.who ?? ''}`.trim() || 'an entry with no attribution line';
 		li.dataset['tipMore'] = tipOf(i.text, 'an entry the parser read as empty');
+		li.dataset['tipIn'] = i.ref.path;
 		const head = el('div', 'ws-row-h');
 		head.append(el('span', 'when', i.date ?? '—'), el('span', 'who', i.who ?? '—'));
 		const where = button('ref quiet', `${i.ref.label}:${i.ref.line}`, 'open the inbox at this entry');
 		where.addEventListener('click', ev => { ev.stopPropagation(); void openDoc(i.ref.path, i.ref.line); });
 		head.append(where);
-		li.append(head, drawProse(i.text, 'prose', openDoc));
+		li.append(head, drawProse(i.text, 'prose', openDoc, reading(i.ref.path)));
 		list.append(li);
 	}
 	host.append(list);
@@ -435,3 +455,10 @@ export const workshop: FocusView = {
 };
 
 moveIn(workshop);
+
+/**
+ * The deck's one document opener (B20 §3's jump). Registered at import, not at mount, because a
+ * decoder tooltip may ask for a document while some other tenant is standing — the shell brings
+ * this one forward and then calls it, and there is still exactly one viewer in the building.
+ */
+viewer.open = (path, line) => { void openDoc(path, line); };

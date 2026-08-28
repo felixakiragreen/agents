@@ -162,6 +162,9 @@ export function needsYou(buildings: Building[], sessions: Session[]): QueueItem[
 			...title(who, WAITING_NOTE[w]),
 			at: s.last.t,
 			where: `${s.cwd ? short(s.cwd) : 'no cwd on record'}${s.tool ? ` · ${s.tool}` : ''}`,
+			// A session's words are nobody's document, so its code words decode against its own
+			// building — which is what this item's note cites anyway (`B16`, `P1 F1`).
+			doc: b?.path ?? '',
 			jump: b ? slug(b.building) : null,
 			sid: s.last.sf ? s.sid : null,
 			decision: null, state: null,
@@ -189,7 +192,7 @@ export function needsYou(buildings: Building[], sessions: Session[]): QueueItem[
 							kind: 'gate', key: `gate:${b.building}:${r.id}:${n}`,
 							building: b.building, path: b.path,
 							...title(r.id, text),
-							at: null, where, jump: slug(b.building), sid: null, decision: null, state: null,
+							at: null, where, doc: board.file, jump: slug(b.building), sid: null, decision: null, state: null,
 							note: `Row ${r.id} is ${r.state ?? 'unparsed'} and waits on your pen. A note files to this building's inbox; the ruling is the Architect's (D3).`,
 						});
 				}
@@ -198,7 +201,7 @@ export function needsYou(buildings: Building[], sessions: Session[]): QueueItem[
 						kind: 'escalation', key: `escalation:${b.building}:${r.id}:${e.id}`,
 						building: b.building, path: b.path,
 						...title(`${r.id} ${e.id}`, e.text),
-						at: null, where, jump: slug(b.building), sid: null, decision: null, state: null,
+						at: null, where, doc: board.file, jump: slug(b.building), sid: null, decision: null, state: null,
 						note: 'Raised on a landing and nothing in the row says it was ruled. Read as prose — the corpus has no escalation field (findings F2).',
 					});
 			}
@@ -209,7 +212,7 @@ export function needsYou(buildings: Building[], sessions: Session[]): QueueItem[
 				kind: 'countersign', key: `countersign:${b.building}:${d.id}`,
 				building: b.building, path: b.path,
 				...title(d.id, d.title),
-				at: iso(d.date), where: `${d.date} · ${d.decider}`,
+				at: iso(d.date), where: `${d.date} · ${d.decider}`, doc: b.files.decisions ?? b.path,
 				jump: slug(b.building), sid: null, decision: d.id, state,
 				note: state === 'pending'
 					? 'One line into this building’s inbox. The glass records the countersign; the ✓ reaches the D-entry when the Architect sweeps (D3).'
