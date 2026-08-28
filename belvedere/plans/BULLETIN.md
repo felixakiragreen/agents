@@ -1313,3 +1313,13 @@ scrolling up be merged onto a live tail without ever drawing a turn twice (measu
 kickoff quoted inside a transcript is bytes somebody is about to copy.
 
 (Relayed from `master`, B16 LANDED 2026-08-28 — Builder)
+
+**Addendum (B16, same landing) — for the Dispatcher and whoever takes B11 F8:** the chain's
+probes were re-run whole against this row's client — B13 · B14 · B15 · B20 · B10 · B11
+**ALL GREEN, six for six**. The seventh, `lab/b17/probe.ts`, fails exactly the two assertions
+B11 already filed (`9 of 9 cells`, and the throw behind it), reproduced from B17's own landing
+commit. **One detail B11's filing did not carry: when it throws, it throws *before* its
+teardown and leaves its live workspace open** — `workspace:100 builder-belvedere-78` was still
+running afterwards and was closed by hand. A probe's `shut()` has to run in a `finally` before
+the failure is reported, or a failing DoD run silently costs a live session against the
+batch's ≤2 concurrency rule (D55). Filed to [ISSUES](../ISSUES.md), this date.

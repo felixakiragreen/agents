@@ -1403,7 +1403,9 @@ view; the draft per target survived a hotswap **and a killed server**; `architec
 (2 265 kB) rendered tail-windowed and paged backwards on its own byte offset; the decoder
 runs on transcript prose with **0** spans inside a fence. **555 tests green in one process**,
 type gate exit 0, zero new dependencies, `/deck/state` **p50 58.0 ms** bare and **p50
-59.2 ms · p95 115.8 ms** carrying `?b=` and `?s=` over the live register. Findings: **F1
+59.2 ms · p95 115.8 ms** carrying `?b=` and `?s=` over the live register; the page still never
+scrolls with an 11 107 px transcript in it (body − viewport = **0 px**), and B13/B14/B15/B20/
+B10/B11's probes re-ran whole — **ALL GREEN, six for six**. Findings: **F1
 `?s=` is a sixth seam member, not a second meaning for `?b=`** — a parameter that is
 sometimes a slug and sometimes a uuid is the ambiguity class this building refuses ·
 **F2 a bounded read that pages BACKWARDS and one that starts at a known boundary are two

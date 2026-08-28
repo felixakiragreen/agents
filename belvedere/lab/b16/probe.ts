@@ -272,6 +272,23 @@ try {
 		&& await evaluate<boolean>(`(() => { const k = [...document.querySelectorAll('#host-focus .ct')].map(e => e.dataset.key); return new Set(k).size === k.length; })()`),
 		`${before} turns → ${grown.turns} after one [↑ earlier]; every data-key distinct`);
 
+	// --- 2b. the two scroll independently, and the page still does not (keel §§2, 5) ---
+	//
+	// B13's own probe never measures this tenant: it boots a fresh profile, so the Workshop is what
+	// stands in Focus there. The law of space is the deck's, but a tenant that put a 400-turn
+	// transcript in the page's flow instead of in its own overflow would break it silently.
+
+	const scroll = await evaluate<{ body: number; viewport: number; turns: [number, number]; draft: [number, number] }>(`(() => {
+		const t = document.getElementById('chat-turns');
+		const d = document.querySelector('[data-chat-draft]');
+		return { body: document.body.scrollHeight, viewport: window.innerHeight,
+			turns: [t.scrollHeight, t.clientHeight], draft: [d.scrollHeight, d.clientHeight] };
+	})()`);
+	ok('the transcript and the draft own their own overflow — the page never scrolls (B13 F4 kept)',
+		scroll.body - scroll.viewport === 0 && scroll.turns[0] > scroll.turns[1],
+		`body ${scroll.body} px − viewport ${scroll.viewport} px = ${scroll.body - scroll.viewport} px · `
+		+ `transcript scrolls inside itself ${scroll.turns[0]} / ${scroll.turns[1]} px · draft ${scroll.draft[0]} / ${scroll.draft[1]} px`);
+
 	// --- 3. the draft: per target, and it survives the hotswap that replaced it ---
 
 	const DRAFT_A = 'a draft for A\n\nwith a blank line in it';

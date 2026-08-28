@@ -96,6 +96,8 @@ PASS  the decoder runs on transcript prose and stops at the fence (B20 §1, one 
       40 code words hoverable in the agents' own words · 20 fenced blocks · 0 decoder spans inside them
 PASS  scroll-up loads earlier windows, and no turn is ever drawn twice
       40 turns → 80 after one [↑ earlier]; every data-key distinct
+PASS  the transcript and the draft own their own overflow — the page never scrolls (B13 F4 kept)
+      body 757 px − viewport 757 px = 0 px · transcript scrolls inside itself 11107 / 640 px · draft 150 / 150 px
 
 PASS  a REAL Architect transcript from this campaign renders tail-windowed, and pages backwards
       architect-agents-03 · 2265 kB · /Users/felix/.claude/projects/-Users-felix-code-agents/d28a1397-…jsonl
@@ -299,6 +301,14 @@ would put it mid-line — so the read takes everything after the **last** `❯` 
 strips only the box-drawing run that closes the frame. ASCII `|` is deliberately
 not stripped: a message ending in a pipe is a message, and reading it as an
 empty box is how the transport ends up appending to something he was writing.
+
+**The chain's own probes, re-run whole against this row's client:
+B13 · B14 · B15 · B20 · B10 · B11 — ALL GREEN, six for six.** The seventh,
+`lab/b17/probe.ts`, fails exactly the two assertions B11 F8 already filed
+(`9 of 9 cells`, and the throw behind it), reproduced from B17's own landing
+commit and unrelated to this row — with one detail added to that filing: when it
+throws it does so *before* its teardown and leaves its live workspace open
+(found and closed by hand; [ISSUES](../ISSUES.md), this date).
 
 **F8 — the composer's post-fire swap travels through the seam's cells, not
 through an import.** The keel says summoning swaps in the Chat, but a fire
