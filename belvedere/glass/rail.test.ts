@@ -103,8 +103,10 @@ describe('the fork baton', () => {
 	test('each option composes its own fire body, from its own summons line', () => {
 		const c = baton('probe-fork');
 		const bodies = c.shots.map(s => 'blocked' in s.fire ? null : s.fire.body);
-		expect(bodies[0]).toMatchObject({ model: 'fable', effort: 'high', color: 'Blue' });
-		expect(bodies[1]).toMatchObject({ model: 'opus', effort: 'high', color: 'Aqua' });
+		// Colours are felikai hexes now (B18 §3): the rig's `blue` (Digger) is an ANSI slot name and
+		// Felix's table reads it as felikai **orange**; its `cyan` (Builder) as felikai **blue**.
+		expect(bodies[0]).toMatchObject({ model: 'fable', effort: 'high', color: '#9e490c' });
+		expect(bodies[1]).toMatchObject({ model: 'opus', effort: 'high', color: '#0362b2' });
 		expect(bodies[0]!.stamp).toStartWith('digger-probe-fork-');
 		expect(bodies[1]!.stamp).toStartWith('builder-probe-fork-');
 	});

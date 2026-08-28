@@ -326,7 +326,10 @@ describe('the plan', () => {
 	test('the composed body is exactly what `POST /hands/fire` parses', () => {
 		const p = plan(rig, draft({ where: BELVEDERE, mantle: 'Builder', summons: 'go', account: 'work' }));
 		expect('body' in p.fire && p.fire.body).toMatchObject({
-			account: 'work', cwd: BELVEDERE, model: 'opus', effort: 'high', color: 'Aqua', summons: 'go',
+			// The Builder's colour is `cyan` in `presets.tsv`, which is an ANSI slot name: Felix's
+			// felikai↔ANSI table reads it as felikai **blue**, and cmux takes the theme's own hex
+			// (`colors.ts`, measured). Was `Aqua` under B3 F1's interim name map.
+			account: 'work', cwd: BELVEDERE, model: 'opus', effort: 'high', color: '#0362b2', summons: 'go',
 		});
 		expect(p.refusal).toBe(null);
 	});

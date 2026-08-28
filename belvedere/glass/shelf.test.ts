@@ -197,9 +197,11 @@ describe('the resume payload — nothing invented', () => {
 		expect(resumeBody(row({ stamp: null }), rig).stamp).toBe('');
 	});
 
-	test('the colour is the mantle\'s, spelled the way cmux spells it (B3 F1)', () => {
-		// `presets.tsv` spends `cyan` on Builder and cmux refuses `cyan` outright.
-		expect(resumeBody(row(), rig).color).toBe('Aqua');
-		expect(resumeBody(row({ stamp: null }), rig).color).toBe('Charcoal');
+	test('the colour is the mantle\'s, in a value cmux accepts (B3 F1 → B18 §3)', () => {
+		// `presets.tsv` spends `cyan` on Builder and cmux refuses `cyan` outright. B3 F1 answered
+		// with cmux's nearest name (`Aqua`); B18 answers with felikai's own blue, which the socket
+		// takes verbatim — measured, `lab/b18/colors.ts`. A mantle with no colour still falls back.
+		expect(resumeBody(row(), rig).color).toBe('#0362b2');
+		expect(resumeBody(row({ stamp: null }), rig).color).toBe('#3e3f38');
 	});
 });
