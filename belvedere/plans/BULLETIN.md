@@ -1163,3 +1163,77 @@ lineage log has ever seen. And B13/B14/B15/B20/B10's probes were re-run whole ag
 client: **ALL GREEN, five for five.**
 
 (Relayed from `master`, B17 LANDED 2026-08-27 — Builder)
+
+## → relay — B11 (arm + engine) to B16, B19, B21, B12 and the Architect: no escalation, four findings that bind
+
+Evidence: [b11-flow-engine.md](b11-flow-engine.md) §DoD and §Findings, commits `b214e5e` …
+`2060122` on `master`.
+
+1. **F1 — an `armed` line in a fixture run log is a LIVE AUTHORIZATION now, and the chain's own
+   probes carry them.** B10 wrote `{ev: "armed"}` into `lab/b10/probe.ts`'s fixture to exercise
+   `armedAt`'s rendering; at B10 that was inert because nothing consumed it. It is not inert any
+   more: **every probe in this chain stands up a real glass, and a real glass runs an engine**, so
+   B10's probe armed its own fixture flow the moment B11 landed. The first thing the engine did was
+   pause `b2`, whose fixture session ends with `SessionEnd` and no `Stop` — §4's malformed-landing
+   branch, exactly right — which destroyed the ring B10's §5 measures. **Nothing fired, by luck
+   rather than design**: `a1` was board-landed, `b1` was in flight, and the only step that could
+   have become ready sat behind a Felix-card. The rule this makes is general and binds B16, B19,
+   B21 and B12: **a fixture that writes `armed` is ordering a dispatch.** Fixed in B10's probe by
+   dropping the line, with the reasoning at the line — the rings come straight off the log either
+   way, and `armedAt` is asserted in `glass/flow.test.ts` over a fixture nothing serves. B10's two
+   `.slot` placeholders (*"dispatch — B11 arms this step"*, *"customize — the composer moves into
+   Action at B17"*) were amended in the same pass, because both rows have landed and a slot still
+   promising them is a lie; what that assertion protected — `jump === 0`, a node not in flight
+   offers no control reaching a hand — is unchanged and still checked.
+
+2. **F2 — a fire returns a workspace and NO session id, so the join is the name-stamp and `fired`
+   is written twice.** `POST /hands/fire` answers `{workspace, summonsPath, sha, bytes}`; claude
+   mints its own session id inside the spawned process and nothing hands it back. So the engine's
+   `fired` line records `{workspace, stamp, sid: null}`, and the tick that first finds that stamp in
+   the census appends **one more `fired` line carrying the sid** — same event, finer, never a third
+   time. Measured end to end: `stamp builder-smoke-02 · workspace workspace:86 · sid 55183f7f-…`,
+   **7.2 s** between the two lines. **What binds anyone reading a run log: take the LAST `fired`
+   line for a step** (`stateOf` already does) **and the FIRST one's `ts` for the clock.** The
+   alternative — resolving `workspace:N → uuid` over the socket every tick — was rejected as a spawn
+   per tick for a fact the census already carries, and P6 F2 makes a stale `workspace:N` the
+   misdelivery class anyway.
+
+3. **F4 — the board lands a step the engine never fired, and writes NOTHING when it does.** §4's
+   two landing sensors and §3's "the step unfired" read together decide what happens when a flow is
+   armed over rows that already landed — the normal case for `flows/flow-batch-1.flow.json`, whose
+   `p5` and `b10` landed days ago. A landing test applied only to *fired* steps would have re-fired
+   both. So the board's word lands a step for **readiness** whether or not the engine fired it, and
+   in that case **nothing goes into the run log**: a ring sourced from the board is not evidence the
+   engine ever spoke (B10 F4), and writing one would make `ringOf` claim `from: 'run'`. One state
+   further, same reasoning: a row the engine never fired that says **IN FLIGHT** *holds* the step —
+   somebody is already on it, two readings disagree about whether it needs starting, and firing over
+   a live session is the wrong continuation D10 exists to prevent. `KILLED`/`BLOCKED` hold it too;
+   all three are said on the node in Action, off the row the drawing already joined.
+
+4. **F3 — the arm hashes the flow file AND every resolved kickoff, which is B10 F2 closed at the
+   wire.** The spec asks for sha256 of the flow file. A `{doc, fence}` kickoff is a **positional**
+   reference, so an edit to the *order document* re-points it with the flow file untouched, and an
+   arm covering only the file would authorize bytes nobody re-read. `Flow.hash` is therefore over
+   the file's own bytes plus every resolved kickoff, NUL-separated, computed at the parse boundary —
+   strictly stronger than the letter, pinned by a test that moves only the quoted document, and the
+   arm gesture posts that hash back so a plan that moved while he was reading it is refused by name.
+   The consequence worth naming: **a reformat of a flow file re-arms it**, which is the right side
+   to err on for an object whose whole job is to be immutable once armed.
+
+Also for B12, not blocking: **D12 is a flag to flip, not a rewrite.** `plan()` is pure — flow + run
+log + `World` in, lines and fires out — and scope-arm's auto-join is one branch in the readiness
+loop. **F5**: an unruled escalation on a `LANDED` row already pauses with the id named (keel §5.1's
+law rather than §4's shorter list, using `attention.ts`'s own detector — B14 F2's, 0 false positives
+over 458 live rows), so the reactive gate's input is on disk and named; B12 turns that pause into a
+judge fire. And **the engine kills nothing**: `plan()`'s entire vocabulary is a run line and a fire.
+
+And for anyone adding to the deck: **F7 — a tick over a city with nothing armed touches neither the
+census, nor the register, nor the socket, nor the credential** (the run logs are read first and it
+returns), so the engine costs an idle glass nothing; an armed flow pays ~40 ms once per five
+seconds. Measured with one armed and ticking: `/deck/state?b=…` **p95 162.6 ms** against the 500 ms
+bar, unchanged from B18 F4's identity-read cost. The clock is started by `server.ts` and **only** by
+`server.ts` — a module-scope `setInterval` would drive Felix's real desktop from any test process
+that imported `engine.ts` (B8 F1, one door further along), and `engine.test.ts` points
+`BELVEDERE_ENV` at a path that does not exist as its own guard.
+
+(Relayed from `master`, B11 LANDED 2026-08-28 — Builder)
