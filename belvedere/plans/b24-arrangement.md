@@ -1,0 +1,110 @@
+# B24 — his arrangement
+
+**Status:** OPEN · **Depends on:** — (chain per the batch-6 note) · **Staffing:** Builder · opus-high ·
+**Blessed:** pending (batch-6 blessing)
+
+## Goal
+
+Felix's directive (ISSUES 2026-08-28, his ruling): **"I'm going to want to
+have the city sidebar be completely customizable by me. Reordered, labelled,
+colored, nested, exactly my way."** The City is his space and its ARRANGEMENT
+is his — reorder, rename, recolor, nest into his own groupings, not the
+filesystem's. **Truth stays truth underneath**: the census still decides what
+exists and what is live, attention still outranks recency inside whatever
+arrangement he makes, and a building he has not arranged still appears — an
+arrangement hides nothing new.
+
+## Inputs — read before building
+
+- ISSUES commit `60b0124` (the ruling, verbatim) and `25ff83c` (candidate 7's
+  diagnosis + the repo-vs-campaign ask).
+- B14's `drawCity` (the rewrite that lost B9's group-first invariant),
+  B9's grouping precedent, B15's reorder (per-viewer localStorage — the
+  transitional layer this row supersedes for the City), B19/D17 (`desk/` is
+  his drawer; the fence's write class 7), B18/D18 (cmux-side identity —
+  distinct layer, see spec §5).
+- §3 design laws: encapsulation-first, no dropdowns, the law of space (no
+  scrolling), legends on colored views.
+
+## Spec
+
+1. **The arrangement layer.** One structure over the register: his groups
+   (nestable), his order within and among them, his labels, his colors.
+   Rendering rules: attention monotone **inside** his arrangement (a group's
+   loudness is its loudest member; recency only inside a rank); an
+   unarranged building lands in an unfiled tail he can file from; nothing
+   the census knows can be absent from the view.
+2. **Persistence (pre-chewed ruling, strike-able at blessing): a desk
+   file** — `desk/city-arrangement.json`. His own words ask durability
+   across browsers and machines; localStorage is per-browser by
+   construction (rejected). The fence needs **no new write class** — the
+   deck writes it as a desk file (class 7); commits are never the glass's
+   (sittings and Felix commit, D17). Editing by gesture on the deck writes
+   the file; the file is the state (a kill loses nothing — B8's drill bar).
+3. **The default view must not lie (candidate 7).** The reported
+   split-neighborhood: hypothesis from one code read, unreproduced —
+   `drawCity` orders buildings by loudness and the grouping fractures.
+   **Verify first** against B14's rewrite; if the invariant genuinely broke,
+   restore group-first (cluster by label, then order clusters by loudest
+   member — B9's invariant); if it holds, find what his eyes actually saw
+   and fix that. Either way the verdict is recorded with evidence.
+4. **Repo-vs-campaign becomes vocabulary, not taxonomy.** A campaign is just
+   a group he makes; the glass invents no classification of its own (the
+   G2 design input lands inside his arrangement, free).
+5. **Two identity layers, named apart.** His labels/colors here are
+   glass-side arrangement vocabulary; B18's rename/recolor write-through
+   (D18) is cmux-side session/workspace identity. This row touches only the
+   former; the deck must render which is which without ambiguity (the
+   legend says so).
+6. **Law of space holds.** Nesting introduces no page scroll: deep groups
+   collapse (encapsulation-first — a collapsed group leads with its name and
+   its loudest badge); the editing surface is toggled buttons and drag, no
+   dropdowns.
+
+## Acceptance criteria — the DoD
+
+Browser half on B13's instrument; the live half against the real register.
+
+- [ ] Arrange the live city: reorder two buildings, relabel one, recolor
+  one, nest two under a new group of his naming — all four visible on the
+  next paint, and `desk/city-arrangement.json` on disk is the arrangement
+  (byte-inspectable, human-readable).
+- [ ] Kill the glass, relaunch, load in a **different browser** — the
+  arrangement is identical (the file is the state; nothing rides
+  localStorage).
+- [ ] A building added to the register after arranging appears in the
+  unfiled tail; filing it by gesture persists.
+- [ ] Attention monotone inside the arrangement: a fixture where the quiet
+  group holds the loudest building pins group ordering by loudest member;
+  badges unchanged by any arrangement (truth underneath).
+- [ ] Candidate 7's verdict recorded: reproduced-and-fixed (group-first
+  restored, fixture pinned) or refuted with the real cause named and fixed.
+- [ ] `git status` after the live run: `desk/` and nothing else; zero
+  `<select>`; page scroll 0 px with a 3-deep nest expanded; legend names
+  the two identity layers.
+- [ ] Suite green in one process, offline type gate exit 0, predecessor
+  probes re-run green, `/deck/state` p95 within the landed budget.
+
+## Out of scope
+
+- Arranging anything but the City pane; cmux-side identity (B18's, landed);
+  multi-arrangement profiles; sharing/exporting arrangements; auto-grouping
+  heuristics of any kind.
+
+## Kill criteria
+
+If nesting genuinely cannot satisfy the law of space at his real city's size
+(17+ buildings, his groups), **stop and escalate with the measured geometry**
+— never invent page scroll, never cap his nesting silently.
+
+---
+
+**Kickoff (verbatim):**
+
+```
+You are a Builder at opus-high.
+Wear ~/code/agents/canon/mantles/builder.md,
+then read ~/code/agents/belvedere/README.md §§5–6
+and ~/code/agents/belvedere/plans/b24-arrangement.md,
+and build it to its DoD.
+```
