@@ -1,0 +1,1 @@
+{ "building": "nb/works", "scope": "x", "created": "2026-08-27", "steps": [ { "id": "only", "name": "A lonely step", "account": "personal", "tier": "Builder · opus-high", "venue": { "kind": "master", "cwd": "~/code/agents" }, "depends": ["ghost"], "kickoff": "text" } ] }

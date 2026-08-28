@@ -1,0 +1,46 @@
+{
+	"building": "nb/works",
+	"scope": "nb/works · the fixture chapter",
+	"created": "2026-08-27",
+	"concurrency": 2,
+	"judgeTier": "fable-high",
+	"steps": [
+		{
+			"id": "a1",
+			"name": "The first step",
+			"account": "personal",
+			"tier": "Digger · opus-high",
+			"venue": { "kind": "master", "cwd": "~/code/agents" },
+			"depends": [],
+			"kickoff": "You are a Digger at opus-high. Measure the fixture."
+		},
+		{
+			"id": "b1",
+			"name": "The left lane",
+			"account": "personal",
+			"tier": "Builder · opus-high",
+			"venue": { "kind": "worktree", "repo": "~/code/agents", "branch": "bv/b1-left" },
+			"depends": ["a1"],
+			"kickoff": "You are a Builder at opus-high. Build the left lane."
+		},
+		{
+			"id": "b2",
+			"name": "The right lane",
+			"account": "thg-fgreen",
+			"tier": "Builder · haiku-low",
+			"venue": { "kind": "master", "cwd": "~/code/agents" },
+			"depends": ["a1"],
+			"kickoff": "You are a Builder at haiku-low. Build the right lane."
+		},
+		{
+			"id": "c1",
+			"name": "The close sitting",
+			"account": "personal",
+			"tier": "Architect · fable-high",
+			"venue": { "kind": "master", "cwd": "~/code/agents" },
+			"depends": ["b1", "b2"],
+			"gate": { "kind": "felix", "card": "His arm is the gate: the sitting behind this card fires only when he says so. Nothing on this card fires." },
+			"kickoff": { "doc": "nb/works/README.md", "fence": 1 }
+		}
+	]
+}
