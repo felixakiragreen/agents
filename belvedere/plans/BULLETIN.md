@@ -883,3 +883,74 @@ should render as in-progress rather than modal. The one speed-up (one persistent
 connection instead of N process spawns) is **named, not built**.
 
 (Relayed from `master`, P6 LANDED 2026-08-27 — Digger)
+
+## → relay — B18 (live identity) to B20, B17, B16, B19, B21 and the Architect: no escalation, four findings that bind
+
+Evidence: [b18-live-identity.md](b18-live-identity.md) §DoD and §Findings, commits `0ca8a66`
+… `eb15462` on `master`.
+
+1. **F4 — the deck's poll now carries a socket read, and it costs ~161 ms of every one of
+   them. B17 is spending what is left.** `/deck/state` live, whole register: **p50 228 ms ·
+   p95 234 ms · 62 617 B** (N=12, 2 s apart) against the same glass with the read off (no
+   credential) at **p50 67 ms · p95 137 ms** (N=10). It is a **spawn, not a walk** — `cmux`
+   is ~150 ms of process startup — so B8 F3's law is not engaged: the thread is yielded and
+   requests arriving inside it are served. It is **awaited** rather than served warm on
+   purpose: a held copy plus a timer costs *two* polls to show a cmux-side rename, and one
+   poll is the bar (measured: +1 poll, 3 058 ms of a 3 000 ms period). **Against the 500 ms
+   bar that leaves ~266 ms**, and B17's live usage ×3 accounts is the next thing to want it.
+   The named-not-built alternative is a self-arming 1 s refresh while a deck polls — it
+   trades the wait for a spawn per second. Priced, not touched (B14 F8's posture).
+
+2. **F1 — cmux accepts any `#RRGGBB` verbatim, so the colour map is felikai's own theme, and
+   three mantle colours visibly change.** Measured over 29 candidates on a throwaway
+   workspace ([`lab/b18/colors.ts`](../lab/b18/colors.ts)): the sixteen names are accepted
+   case-insensitively, `cyan`/`pink`/`grey`/`yellow` are refused (`invalid_params: Invalid
+   color`), and **`#a5e22c` came back `color=#A5E22C`**. B3 F1 answered the refusals with
+   cmux's nearest *name*; with hex accepted there is nothing to approximate. So
+   [`glass/colors.ts`](../glass/colors.ts) maps the rig's ANSI slot names through **Felix's
+   felikai↔ANSI table** to felikai's own 600 level — and that table is the point: felikai
+   blue is ANSI *cyan* and felikai orange is ANSI *blue*, so **Builder is now `#0362b2`
+   (was `Aqua`) and Digger `#9e490c` — orange — (was `Blue`)**, Dispatcher `#ed3467` (was
+   `Rose`). **Use `cmuxColor()` / `SWATCHES`, never a colour word**: three tests that pinned
+   the old spellings were updated with the reasoning at the assertion. It is a taste call
+   wearing a measurement — one table, one strike.
+
+3. **F2/F7 — the jump, and the uuid law confirmed from the other side.** *"JUMP TO PANEL …
+   does nothing"* is two mechanisms: **`--panel` resolves inside ONE workspace**, so the old
+   hand's `--workspace`-less form (any session whose beat carried no `ws`) answered
+   `not_found: Surface not found` by ref *and* by uuid; and **nothing on the socket brings
+   the application forward** — with the deck in a browser, `focus-panel` returned `OK
+   surface:80 workspace:76` and `focus-window` returned `OK` while frontmost stayed **`Arc`**
+   through both. `/hands/focus` now reads `cmux tree` first (a surface the desktop lost is a
+   refusal, not a jump into a workspace that may not hold it), focuses panel and window, then
+   `open -a` the bundle `cmux identify --json` names — `Arc → cmux`, `Finder → cmux`. Whether
+   `focus-panel` *also* raises the app is **macOS's call, not cmux's** (the same script
+   measured both outcomes on two runs), so measure the end state, not that transition.
+   And P6 F2 lands clean here: **every socket target this row writes is a uuid** — rename,
+   recolor, panel, workspace, window — while `attemptFire` still addresses its own workspace
+   by the `workspace:N` ref it parsed. Fresh by milliseconds, so no bug today; **B4's
+   contract, the Architect's at G2.**
+
+4. **F5 — the socket names a session BEFORE its own transcript does, and B17/B20 should know
+   it.** In the probe's first snapshot the fired session read
+   `live={"name":"builder-b18-probe-406728",…}` with `stamp=null`: cmux knows the workspace
+   name at spawn, while the census's birth name waits for the transcript's `agent-name`
+   record to land in the 64 kB head window (`census.ts` §identify). **A session with no stamp
+   is not nameless any more** — which is an argument for D16 beyond drift.
+
+Also for B16, B19 and B21, not blocking: **a session's name and its tooltip are two shared
+functions now, in [`deck-dom.ts`](../glass/deck-dom.ts) — `named(s, stale)` and
+`tipSession(host, s)`** — because the City and the Workshop must not disagree about what a
+session is called, and both now carry the same two write-through controls in the same
+expanded tooltip. A tenant drawing a session line calls those; it does not build its own.
+Three signatures moved with them: `deckSession(session, building, liveMap)` takes the live
+map as a third argument (no socket in a unit test — hand it a `Map`), **`deckState()` is
+async** and `server.ts`'s `route` awaits it, and `DeckSnapshot` gained
+`identity {at, error, workspaces}` beside `DeckSession.live {name, color, ref}`.
+
+And for anyone writing a suite that imports `deck.ts`: **point `BELVEDERE_ENV` at a path that
+does not exist.** `deckState` reaches the socket when the glass is armed, and an armed test
+process drives Felix's real desktop — B8 F1's lesson, one door further along. `deck.test.ts`
+does exactly that and asserts the honest refusal as its guard.
+
+(Relayed from `master`, B18 LANDED 2026-08-27 — Builder)
