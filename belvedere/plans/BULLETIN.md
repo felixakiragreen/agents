@@ -808,3 +808,78 @@ but the attribution is wrong in those commits. **Use scoped `git add <path>` whi
 are open.** Filed to [ISSUES](../ISSUES.md).
 
 (Relayed from `master`, B15 LANDED 2026-08-27 — Builder)
+
+## → relay — P6 (message transport) to B16, B18, B19, B21, every hand that takes a cmux target, and the Architect: no escalation, four findings that bind
+
+Evidence: [p6-message-transport.md](p6-message-transport.md) §T (the transport law) and
+§F, commits `dcc125e`, `4880abe` on `master`.
+
+1. **F2 — a `workspace:N` ref that does not resolve is NOT an error: cmux delivers to the
+   FOCUSED workspace. A UUID fails loudly.** This is the misdelivery class and it is one
+   typo wide:
+   ```
+   $ cmux read-screen --workspace workspace:9999   → (the focused workspace's screen)
+   $ cmux read-screen --workspace 00000000-0000-4000-8000-000000000000
+                                                  → Error: not_found: Workspace not found
+   $ cmux read-screen --workspace 9999             → Error: Workspace index not found
+   $ cmux read-screen --workspace workspace:0      → (the focused workspace's screen)
+   ```
+   A *closed* workspace's own ref does fail loudly (`not_found` on `paste-buffer`,
+   `send-key` and `read-screen`; only `set-buffer`, which has no target, returns OK), so
+   the hazard is precisely the ref that never resolved. **`/hands/fire` returns
+   `workspace:N` and `Fired` carries no UUID** — B16's send, **B18's rename/recolor
+   write-through** and `/hands/focus` all take a cmux target and all inherit this. The law
+   is: resolve `ref → UUID` once (`cmux workspace list --id-format both`) and address by
+   UUID forever after. *Disclosed:* proving this sent one stray character and one Enter
+   into the focused pane, which was the live `dispatcher-agents-04` session
+   (`OK surface:27 workspace:24`). Nothing destructive; recorded because an undisclosed
+   write into a live session is the exact thing this probe exists to prevent.
+
+2. **F1 — P2 T3's "byte-exact" is an artifact of its sink, and two transport rewrites were
+   hiding behind it.** Measured against a raw-mode sink that rewrites nothing
+   ([`lab/p6/sink.py`](../lab/p6/sink.py), 30 lines, no dependency):
+   **(a) `paste-buffer` rewrites every LF (0x0a) to CR (0x0d)** — T3's `cat > file` ran in
+   canonical mode where the tty's own ICRNL turned it back before `cat` read it. `cmux
+   send` does the same; **no cmux API puts a raw 0x0a on the wire as text.**
+   **(b) `set-buffer` TRIMS its own leading and trailing whitespace** — buffer
+   `"    leading and trailing   "`, 27 B in, **20 B out**. `send` does not trim.
+   So a multi-line or indented payload through the naive path loses its newlines' identity
+   and every indent, silently. **Any row that trusts P2 T3 for such a payload ships a
+   corruption**; a transport claim needs a sink that rewrites nothing.
+
+3. **F3 — the winning mechanism is the SEGMENTED PASTE, and bracketed paste is REFUSED.**
+   The brief's leading candidate lands `ESC[200~ … ESC[201~` on the wire intact (cmux
+   never adds them itself, even with DECSET 2004 announced) and the TUI puts the marker
+   **text** in the message with every newline as CR:
+   `"[200~P6-A blank lines.\r\rParagraph two…[201~"` — and a later run of the same arm
+   truncated at the first CR instead. What works, five payloads byte-exact including a
+   304 B fenced code block: newline-free segments through `set-buffer`+`paste-buffer`,
+   newlines as **`send-key alt+enter`** (`ctrl+j`, a real 0x0a, is **silently dropped** by
+   the TUI — the lines just concatenate), edge whitespace through **`send`**, one `enter`
+   to submit. Full pseudocode + the verification read in §T, written to be lifted verbatim.
+
+4. **F3 (compose-time) — two message shapes fail SILENTLY AT THE MODEL and must be refused
+   before a single cmux call.** A message containing a literal **TAB** loses every one of
+   them (the wire carries all five 0x09; the transcript has none — the TUI swallows them,
+   and `send-key tab` is the same byte). A message whose **first line begins with `/`**
+   executes as a slash command: `/status and then some words` → **0 user turns added**,
+   the message never reached the model. Both are decidable from the drafted text alone.
+   `!` and `#` are the same family by construction, not separately measured. Felix's own
+   directives are tabs at width 3, so the tab refusal WILL fire on real content —
+   offering "expand tabs to N spaces" as an explicit choice is B16's call; silently
+   rewriting his bytes is not.
+
+Also, not blocking: **Q2 is PASS and the harness queues mid-turn input** — the delivery's
+`UserPromptSubmit` landed at +13.3 s against the work turn's `Stop` at +15.7 s, the
+802-line in-flight answer finished `stop_reason: end_turn` untouched, and the message was
+answered next in order. The only delta the glass sees is latency: the turn appears in the
+transcript in **~1.0 s** when the session was idle and **~4.0 s** when it queued, so the
+verification read polls, it does not read once. **Q3 is PASS ×5 and gives B15/B16/B21 a
+freebie: a resumed session KEEPS its session id and appends to its OWN transcript file**,
+so the census join key and the verification read survive a resume with no re-plumbing.
+And the cost, for B16's UI: **153 ms per cmux round trip, `4n−1` calls for an `n`-line
+message** — 289 ms for one line, ~6.3 s for fourteen, so a hundred-line send is ~40 s and
+should render as in-progress rather than modal. The one speed-up (one persistent socket
+connection instead of N process spawns) is **named, not built**.
+
+(Relayed from `master`, P6 LANDED 2026-08-27 — Digger)
