@@ -144,7 +144,45 @@ try {
 		`n=20 spaced 2 s · min ${p(0).toFixed(0)} ms · p50 ${p(0.5).toFixed(0)} ms · p95 ${p(0.95).toFixed(0)} ms · max ${sorted.at(-1)!.toFixed(0)} ms (bar 500 ms)\n`
 		+ `      snapshot ${bytes} B — ${shape.register.buildings.length} buildings · ${shape.census.sessions.length} sessions (${shape.census.live} live) · ${shape.queue.length} in the queue`);
 
-	// --- 2. fire one haiku session into the scratch dir, through the glass's own hands ---
+	// --- 2. the law of space, against a city that is not a fixture ---
+	//
+	// B13 proved the 27 combinations against two fixture buildings. B14 puts 22 buildings, their
+	// badges, a legend, three footer lines and a 35-item queue into two of the three panes — and
+	// `min-width: 0` plus per-pane `overflow: auto` are the only things standing between that and a
+	// deck whose body scrolls (B13 F4). So the walk is re-run here, on the real thing.
+
+	chrome = Bun.spawn([CHROME,
+		'--headless=new', '--disable-gpu', '--no-sandbox', '--no-first-run', '--no-default-browser-check',
+		'--disable-background-networking', '--disable-sync', '--disable-default-apps',
+		'--window-size=1600,900', `--user-data-dir=${PROFILE}`,
+		`--remote-debugging-port=${CDP_PORT}`, '--remote-allow-origins=*', DECK,
+	], { stdout: 'pipe', stderr: 'pipe' });
+
+	await connect();
+	await until('the first poll', async () => await evaluate<boolean>(`!!document.querySelector('#live-count')`) || null, 30_000);
+
+	const STATES = ['minimal', 'typical', 'expanded'];
+	let worst = -Infinity, walked = 0;
+	for (const drawer of ['shut', 'pinned']) {
+		await evaluate(`document.getElementById('drawer-${drawer === 'pinned' ? 'pin' : 'shut'}').click()`);
+		for (const c of STATES) for (const f of STATES) for (const a of STATES) {
+			for (const [pane, state] of [['context', c], ['focus', f], ['action', a]] as const)
+				await evaluate(`document.querySelector('[data-set-state="${state}"][data-pane="${pane}"]').click()`);
+			await Bun.sleep(200);                                   // the split is a 69 ms transition (B13 F2)
+			const over = await evaluate<number>(`Math.max(
+				document.body.scrollHeight - window.innerHeight,
+				document.documentElement.scrollHeight - window.innerHeight)`);
+			worst = Math.max(worst, over);
+			walked++;
+		}
+	}
+	await evaluate(`document.getElementById('drawer-shut').click()`);
+	ok('the page body still never scrolls — all 27 combinations, drawer shut AND pinned, on the LIVE city',
+		worst <= 0,
+		`${walked} combinations walked against ${shape.register.buildings.length} buildings and a ${shape.queue.length}-item queue;\n`
+		+ `      worst (scrollHeight − viewport) = ${worst}px, viewport 900px`);
+
+	// --- 3. fire one haiku session into the scratch dir, through the glass's own hands ---
 
 	const from = statSync(CENSUS).size;
 	const firedAt = Date.now();
@@ -165,7 +203,7 @@ try {
 	if (!fired.ok) throw new Error(`the fire was refused: ${fire.status} ${fired.error}`);
 	workspace = fired.result!.workspace;
 
-	// --- 3. the stall, on the wire ---
+	// --- 4. the stall, on the wire ---
 
 	const stalled = await until('the session to stall on a permission prompt', async () => {
 		const beats = since(from).filter(b => b.cwd === SCRATCH);
@@ -182,17 +220,8 @@ try {
 		+ `      ${JSON.stringify(stalled.prompt)}\n`
 		+ `      beats this session wrote: ${modes.join(' · ')}`);
 
-	// --- 4. the deck, opened on the live city: the dot and the queue item ---
+	// --- 5. the deck, already open on the live city: the dot and the queue item ---
 
-	chrome = Bun.spawn([CHROME,
-		'--headless=new', '--disable-gpu', '--no-sandbox', '--no-first-run', '--no-default-browser-check',
-		'--disable-background-networking', '--disable-sync', '--disable-default-apps',
-		'--window-size=1600,900', `--user-data-dir=${PROFILE}`,
-		`--remote-debugging-port=${CDP_PORT}`, '--remote-allow-origins=*', DECK,
-	], { stdout: 'pipe', stderr: 'pipe' });
-
-	await connect();
-	await until('the first poll', async () => await evaluate<boolean>(`!!document.querySelector('#live-count')`) || null, 30_000);
 	await evaluate(`document.querySelector('[data-set-state="expanded"][data-pane="context"]').click()`);
 	await Bun.sleep(400);
 

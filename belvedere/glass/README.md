@@ -6,10 +6,12 @@ are the fence's whole write list (README §2) and nothing else in here writes.
 
 ```
 bun belvedere/glass/server.ts        # → http://127.0.0.1:4400
-bun test belvedere/glass             # 320 green in one process (B8 §4, B9, B13)
+bun test belvedere/glass             # 344 green in one process (B8 §4, B9, B13, B14)
 bunx tsc --noEmit                    # from this directory — the type gate, offline (B8 §5);
-                                     # it covers the deck's client TS too (B13 F3)
+                                     # it covers the deck's client TS too (B13 F3), never `lab/`
 bun belvedere/lab/b13/probe.ts       # the deck's DoD in real headless Chrome (B13 F1)
+bun belvedere/lab/b14/probe.ts       # the City + queue, against a fixture city (B14)
+bun belvedere/lab/b14/live.ts        # the same, against the LIVE city — it fires one session
 ```
 
 | Route | What |
@@ -28,8 +30,13 @@ bun belvedere/lab/b13/probe.ts       # the deck's DoD in real headless Chrome (B
 skeleton with the **resting split already in the markup**, `/deck.js` is `deck.client.ts`
 bundled by `Bun.build` at server start (no framework, nothing off this origin; a failed
 build **stops the server** rather than serving a shell around nothing), and `/deck/state` is
-one composed read — census + the register's **held** copy — polled every 3 s, with the whole
-snapshot as the diff so an idle city redraws nothing. **The law of space is arithmetic**
+one composed read — census + the register's **held** copy + every building's content — polled
+every 3 s. **What the answer changes is repainted; what it does not, is not**: each region
+carries a content signature (its pane state plus the data it draws, wall clocks excluded) and
+ages are `<span data-at>` rewritten by a separate tick. B13 diffed the whole snapshot instead,
+which could never match — `at` and `ageSeconds` move every poll — so the deck rebuilt itself
+every three seconds; harmless for placeholders, fatal for a pane Felix types into (B14 F4).
+**The law of space is arithmetic**
 (`deck-model.ts`): a pane's state IS its weight — minimal 1 · typical 3 · expanded 6 — and
 one `columns()` serves both the server's resting render and the client's re-render, so they
 cannot disagree. `min-width: 0` on every grid child is what makes that true: an `Nfr` track
@@ -43,6 +50,25 @@ Workshop (B15), the Works (B10) and the Chat (B16) evict them through that inter
 nowhere else. The browser half of its DoD is [`lab/b13/probe.ts`](../lab/b13/probe.ts) —
 real headless Chrome over the DevTools protocol, zero dependencies, written to be reused by
 every deck row after it.
+
+**Attention lives twice, off one computation** (B14, D15 — `attention.ts`). Four classes and
+no fifth: a **waiting** session, a live **Felix-gate**, a pending **countersign**, an unruled
+**escalation**. `needsYou()` builds the ranked queue and `cityRows()` **buckets those very
+items** into the City's badges, so a badge can never count something the queue does not list.
+The ranking is v0's (`attentionOf`/`freshness`, imported not copied) plus exactly one new
+rank: a session that cannot move without him outranks even the work that is running.
+**Waiting has two measured edges and no third** — `Notification/permission_prompt` (blocked
+on a dialog) and `Notification/idle_prompt` (the 60 s nag, which is the notification cmux
+gives Felix); a bare `Stop` is *idle*, and a queue listing every finished session is a queue
+nobody opens. Note what the census cannot see: **`PermissionRequest` is a real hook event
+that B1's deploy does not subscribe to** (cmux's own injection does), so the blocked edge is
+a six-second-late inference until that changes — B14 F1. Escalations have **no field**: they
+are read out of a stripped annotation by one narrow marker rule, and the two false positives
+the live corpus produced (an `E<n>` that names a row on the same board; the far end of an
+`E1–E4` range) are fixed generally — B14 F2. **Nothing in Context or the drawer can fire**:
+the two wires are `POST /inbox` and `POST /hands/focus`, and `/deck.js` contains the string
+`hands/fire` zero times (D10, grepped by [`lab/b14/probe.ts`](../lab/b14/probe.ts); the live
+half, including a real permission stall, is [`lab/b14/live.ts`](../lab/b14/live.ts)).
 
 **The fence's third write** (B6, `inbox.ts`). A gesture — a free-text note, `defer <row>`,
 `<row> before <row>`, `countersign <D-id>: ✓` — becomes ONE append: `- <YYYY-MM-DD> ·
