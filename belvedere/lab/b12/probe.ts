@@ -60,6 +60,7 @@ const SLUG = `b12-gate-${process.pid}/nb/gate`;
 const BOARD = join(BUILDING, 'README.md');
 const ISSUES = join(BUILDING, 'ISSUES.md');
 const run = (name: string) => join(CENSUS, 'flows', `${name}.run.jsonl`);
+const HALT = join(ROOT, 'HALT');                                // dirname(censusDir()) — `paths.ts` §haltFlag
 
 let failures = 0;
 const ok = (label: string, pass: boolean, detail: string) => {
@@ -225,6 +226,11 @@ const cmux = (...args: string[]) => Bun.spawnSync(['cmux', ...args],
 const gitStatus = () => new TextDecoder().decode(Bun.spawnSync(['git', '-C', AGENTS, 'status', '--porcelain']).stdout);
 const STATUS_BEFORE = gitStatus();
 
+const post = async (path: string, body: unknown) => {
+	const r = await fetch(`${ORIGIN}${path}`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
+	return { status: r.status, body: await r.json() as { ok: boolean; error?: string; result?: Record<string, unknown> } };
+};
+
 // ---------- stand it up ----------
 
 if (await fetch(ORIGIN).then(() => true).catch(() => false)) {
@@ -258,6 +264,7 @@ async function shut(): Promise<void> {
 	console.log('');
 	for (const name of ['gate', 'residue', 'norecurse'])
 		for (const l of linesOf(name)) if (l['ev'] === 'fired' && l['workspace']) close(String(l['workspace']));
+	rmSync(HALT, { force: true });                          // never leave a flag armed (B8 F1)
 	chrome.kill();
 	glass.kill();
 	await Bun.sleep(400);
@@ -284,6 +291,16 @@ try {
 		 || document.querySelectorAll('#host-focus .node').length === 1`), POLL_MS * 4);
 	await settle();
 
+	// **HALT first, and only as instrumentation.** The growth proof must happen before any session
+	// opens in the venue, because a session that runs in a plain directory makes Claude write a
+	// project entry there — and `trust.ts` reads that entry as a refusal (E1, below), so the join
+	// would be refused for a venue that is demonstrably warm. Halted, nothing fires, nothing writes
+	// an entry, and the auto-join is measured rather than raced. The flag is this probe's own scratch
+	// one; the city's is asserted absent in the same breath (B8 F1).
+	const halted = await post('/hands/halt', { requester: 'b12 probe — the growth proof must not race the first fire' });
+	if (halted.status !== 200 || !existsSync(HALT) || existsSync(join(AGENTS, 'summon/log/HALT')))
+		throw new Error(`the scratch HALT did not take, or the city's own flag is armed: ${JSON.stringify(halted)}`);
+
 	const armedAt = Date.now();
 	await evaluate(`document.querySelector('#host-action [data-arm]').click()`);
 	await until('the arm', async () => at('gate', 'armed') !== null, 15_000);
@@ -292,23 +309,29 @@ try {
 		Array.isArray(arm['steps']) && (arm['steps'] as string[]).some(m => m.startsWith('s1:')),
 		JSON.stringify(arm));
 
-	// --- 2. the step fires, and the plan grows under it with no second click (§4, D12) ---
+	// --- 2. the plan grows under the arm with no second click (§4, D12) ---
 
-	await until('s1 to fire', async () => at('gate', 'fired', 's1') !== null, 40_000);
-	const f1 = at('gate', 'fired', 's1')!;
 	writeFileSync(GATE_FLOW, JSON.stringify(gateBody([
 		stepOf('s1', 'The gated step', S1_KICK),
 		stepOf('s2', 'Behind the gate', S2_KICK, ['s1']),
 	]), null, '\t'));
-	await until('the scope-arm auto-join', async () => linesOf('gate').filter(l => l['ev'] === 'armed').length === 2, 20_000);
+	await until('the scope-arm auto-join', async () => linesOf('gate').filter(l => l['ev'] === 'armed').length === 2, 30_000);
 	const rearm = linesOf('gate').filter(l => l['ev'] === 'armed').at(-1)!;
 	ok('**an in-scope addition joins the running flow with no click** — the engine re-arms itself (D12)',
 		String(rearm['why']).includes('scope-arm auto-join (D12)') && String(rearm['why']).includes('s2')
 		&& (rearm['steps'] as string[]).some(m => m.startsWith('s2:'))
-		&& at('gate', 'fired', 's2') === null,
-		`${JSON.stringify(rearm['why'])}\nand s2 has NOT fired: its dependency has not landed`);
+		&& fires().length === 0,
+		`armed #1 covered ${JSON.stringify((at('gate', 'armed')!['steps'] as string[]))}\n`
+		+ `armed #2 covers  ${JSON.stringify(rearm['steps'] as string[])}\n`
+		+ `${JSON.stringify(rearm['why'])}\nand nothing has fired: the lane is halted, so this is growth measured, not raced`);
 
-	// --- 3. the landing raises an escalation, and the gate staffs the sitting ---
+	// --- 3. the halt clears and the string starts ---
+
+	rmSync(HALT, { force: true });
+	await until('s1 to fire', async () => at('gate', 'fired', 's1') !== null, 60_000);
+	const f1 = at('gate', 'fired', 's1')!;
+
+	// --- 4. the landing raises an escalation, and the gate staffs the sitting ---
 
 	await until('s1 to land its row with E1 raised', async () => at('gate', 'paused', 's1') !== null, 420_000);
 	await until('the judge to fire', async () => at('gate', 'fired', 's1.judge') !== null, 60_000);
@@ -343,7 +366,7 @@ try {
 
 	close(String(f1['workspace']));                          // ≤2 concurrent city-wide (D55)
 
-	// --- 4. the drawing: an inserted node on the lane, and the lane paused behind it ---
+	// --- 5. the drawing: an inserted node on the lane, and the lane paused behind it ---
 
 	await until('the drawing to catch up', async () => await evaluate<boolean>(
 		`!!document.querySelector('#host-focus .node[data-node="s1.judge"]')`), POLL_MS * 5);
@@ -361,7 +384,7 @@ try {
 		drawn.inserted === 'yes' && drawn.edge && drawn.s2 === 'declared' && at('gate', 'fired', 's2') === null,
 		`nodes: ${drawn.nodes}\ninserted=${drawn.inserted} · edge s1→s1.judge=${drawn.edge} · s2 ring=${drawn.s2}, unfired`);
 
-	// --- 5. resume on truth: the verdict is read off the files ---
+	// --- 6. resume on truth: the verdict is read off the files ---
 
 	await until('the judge to true the row', async () => at('gate', 'resumed', 's1') !== null, 600_000);
 	await until('s2 to fire', async () => at('gate', 'fired', 's2') !== null, 60_000);
@@ -377,7 +400,7 @@ try {
 		+ `**gap ${((f2['ts'] as number) - (res['ts'] as number)).toFixed(3)} s**`);
 	close(String(fj['workspace']));
 
-	// --- 6. the residue: the judge sat, and what it left is his ---
+	// --- 7. the residue: the judge sat, and what it left is his ---
 
 	await until('the residue card', async () => at('residue', 'paused', 'r1.judge') !== null, POLL_MS * 10);
 	const card = at('residue', 'paused', 'r1.judge')!;
@@ -403,7 +426,7 @@ try {
 		+ `card: felix-card=${his.felix} · ${his.buttons} buttons · ${his.links} links · hands/fire ${his.fire}× in its markup\n`
 		+ `on screen: ${his.text}`);
 
-	// --- 7. no recursion ---
+	// --- 8. no recursion ---
 
 	await until('the no-recursion card', async () => at('norecurse', 'paused', 'n1.judge') !== null, POLL_MS * 10);
 	const nore = linesOf('norecurse');
@@ -415,7 +438,7 @@ try {
 		`run: ${nore.map(l => `${l['ev']}${l['step'] ? `:${l['step']}` : ''}`).join(' → ')}\n`
 		+ `${JSON.stringify(at('norecurse', 'paused', 'n1.judge')!['why'])}`);
 
-	// --- 8. an EDIT still pauses for his click ---
+	// --- 9. an EDIT still pauses for his click ---
 
 	const grownHash = linesOf('gate').filter(l => l['ev'] === 'armed').at(-1)!['hash'];
 	writeFileSync(GATE_FLOW, JSON.stringify(gateBody([
@@ -432,7 +455,7 @@ try {
 		&& linesOf('gate').filter(l => l['ev'] === 'armed').at(-1)!['hash'] === grownHash,
 		`${JSON.stringify(paused['why'])}\nno third arm was recorded: still ${JSON.stringify(String(grownHash).slice(0, 12))}…`);
 
-	// --- 9. the close flow, on disk and unarmed ---
+	// --- 10. the close flow, on disk and unarmed ---
 
 	type Snap = { works: { flows: { name: string; armedAt: number | null; nodes: { id: string; gate: string; card: string | null; kickoff: string; awaitingPass: boolean }[] }[] } | null };
 	const closeSnap = await (await fetch(`${ORIGIN}/deck/state?b=${encodeURIComponent('agents/belvedere')}`)).json() as Snap;
@@ -453,7 +476,7 @@ try {
 		+ `g2 kickoff sha ${g2 ? sha(g2.kickoff) : '(none)'} (${g2?.kickoff.length ?? 0} B) ≡ README fence #5 sha ${sha(fences[4]!)} (${fences[4]!.length} B)\n`
 		+ `verdict: gate=${verdict?.gate} awaitingPass=${verdict?.awaitingPass} — ${String(verdict?.card).slice(0, 90)}…`);
 
-	// --- 10. the bill: exactly the fires this probe intended, and the real repo untouched ---
+	// --- 11. the bill: exactly the fires this probe intended, and the real repo untouched ---
 
 	ok('three fires in the whole hands audit — the two declared steps and the one inserted sitting',
 		fires().length === 3 && fires().every(l => l.ok),
