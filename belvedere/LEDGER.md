@@ -1746,3 +1746,51 @@ Behind it: 1) the canon-side sweep — four inbox entries and the stranded `18g`
 wait on the Grand Architect's next summons; 2) drain the scratch-venue trust entries in
 `~/.claude/.claude.json` by your hand once the trust-flip row (candidate 1) lands —
 keep `b7-founding-probe` until then.
+
+---
+
+**2026-08-28 · Architect · fable-high (the batch-6 cut sitting)** — **Batch 6 is CUT —
+the deck rework, his field reports as the chapter.** Seven inbox entries swept (the
+summons said nine; seven were on file across `731bac6`–`60b0124` — flagged to Felix),
+each ruled: the verdict-card parity face FOLDED into candidate 6's row as its sharpest
+evidence · the Chat's scroll CUT with it (one law — B23, the repaint law) · workspace
+placement + cwd housing CUT as one row (B25, where a fire lands — the fire knows things
+the census forgets, both directions) · batons-invisible CUT (B26, the attention model's
+baton bucket) · his sidebar ruling CUT (B24, his arrangement — persistence fork
+pre-chewed: desk file over localStorage, his own durability words) · the Works' Chat
+slot CUT into B27 with the honest-disabled law. All eight close-block candidates
+absorbed: 1–5 → B22 (hands hygiene + the PermissionRequest runbook), 6 → B23, 7 → B24,
+8 → B23. Mid-sitting word from Felix: the reports were first impressions, more tweaks
+coming — B27 cut last in the chain to absorb the list (STOP-clause bounded, D57
+amendment at its dispatch).
+Changed: six briefs (`plans/b22`–`b27`), README §6 (seven board rows + the batch-6
+note, both fences in it), ISSUES swept to empty, this entry. Nothing written to the
+canon inbox (the Grand Architect sweeps in parallel; no canon-shaped asks arose).
+Decided (delegated scope, strike-able at blessing): arrangement persists as
+`desk/city-arrangement.json` · building-homed placement, mint-on-ambiguity, glass
+retires only minted-and-empty · account-at-arm label-not-knob · chain order
+B23 → B22 → B26 → B25 → B24 → B27 → G3, strictly serial on master. Nothing above
+delegation touched.
+Next: **Felix — bless the batch, file the rest of the tweaks, fire the Dispatcher.**
+
+Baton — Felix: bless batch 6 (three pre-chewed rulings yours to strike — B24 §2 desk-file
+persistence, B25 §1 building-homed placement, B27 §4 label-not-knob), then fire:
+
+```
+You are a Dispatcher at sonnet-medium.
+Wear ~/code/agents/canon/mantles/dispatcher.md,
+then read ~/code/agents/belvedere/README.md §§5–6 (agreements, board, batch-6
+note) and run batch 6: B23 → B22 → B26 → B25 → B24 → B27 strictly serial,
+one in flight, straight to master — kickoffs verbatim from each work doc
+plus the rider at ~/code/agents/belvedere/plans/RIDER.md; hand B27 the
+tweak-list amendment named in the batch note — tend each landing, dispatch
+the next on LANDED, stop after B27: G3 fires by the armed close flow
+(Felix's arm in the Works), never by dispatch. Escalations and the batch
+report come back to Felix.
+```
+
+Behind it: 1) your further tweaks → ISSUES or the desk's →ISSUES route, any time before
+B27 fires (two reports the summons counted are not on file — if they exist, file them);
+2) the canon-side sweep — four inbox entries and the stranded `18g` branch wait on the
+Grand Architect; 3) the trust-entry drain and the PermissionRequest ritual ride G3's
+gate with the rework pass.
