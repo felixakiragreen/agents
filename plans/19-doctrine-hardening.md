@@ -143,6 +143,50 @@ spacex) is NOT this row — that continuation wave is cut when this row lands.
 hand-mirror of `discover()`'s body (B3's ask; the deep-equal pin in
 `register.test.ts` becomes an import).
 
+### Amendment — row 17's harvest: the silence family (entered 2026-08-28, Felix's pen at the row-19 kickoff)
+
+16. **Merged-ledger-entry detector (missing `---`).** Deleting one separator merges
+    two entries and the lint gets QUIETER: 53 → 52 entries, fails 26 → 25 — the
+    swallowed entry took its own tier-fail down with it (row 17 C1, probe with
+    control; snappy's ~38 missing separators are this class at scale). A non-first
+    line of a ledger block that matches the D63f head grammar at line start
+    (`**<ISO date> · …** —`) is a failure, `ledger.merged`, never body prose. Done
+    when: a fixture of two conforming entries minus their separator reports
+    `ledger.merged` (pre-fix tool: reports one clean-ish entry), and a body whose
+    line merely mentions a bold date does not trip it.
+17. **Stale-lead rule.** A status cell may lead with a state its own annotation has
+    outrun: MAP rows 13/14 lead OPEN while narrating `→ **LANDED 2026-08-22/24**`
+    — the mechanical parse called row 13 dispatchable, and 2 of 3 structured-arm
+    C2 reps mis-answered dispatchability off the faithfully-carried stale token
+    (row 17 C2). A leading OPEN/IN FLIGHT whose annotation carries the
+    this-row-landed idiom is a failure, `board.stale-lead`. The discriminator is
+    the item's real work: row 11's annotation ("13 LANDED 2026-08-22, so the
+    rebase is real") mentions ANOTHER row's landing and must pass. Done when: a
+    rows-13/14 fixture fails, a row-11 fixture passes, and the fixed cells' shape
+    (state leads, history in annotation) is stated for the continuation wave to
+    apply.
+18. **The count-regression guard.** Damage can LOWER the fail count (item 16's
+    evidence), so fail deltas are a lying health gauge; entity counts are not.
+    `doctrine lint --guard <git-ref>` (spelling the Builder's) re-lints the same
+    paths at the ref and fails loudly on any decrease in the totals it already
+    prints — boards, rows, ledger entries, tails, decisions, kickoffs — catching
+    the whole silence family, named and unnamed, mechanically. A guard, not a law:
+    intentional deletions override by running without the flag, visibly. Done
+    when: the item-9 blank-line fixture and the item-16 merged-entry fixture both
+    trip the guard against their pre-damage state, and a pure append trips
+    nothing. Per-building pre-commit adoption is NOT this row (row 12's precedent:
+    adoption anywhere is its own row) — this row ships the instrument.
+
+**DoD 1 extension:** items 16–18's fixtures counted with the rest; item 18
+additionally pastes the two guard trips verbatim.
+
+**Collision ruling (Felix, 2026-08-28, at entry):** item 17's rule makes MAP rows
+13/14 fail `board.stale-lead`, colliding with DoD 2's 0 — ruled: **this row fixes
+the home repo's cells** (state leads with the truth, history rides the annotation);
+DoD 2 stays a crisp 0. The same ruling covers the home repo's post-18a drift the
+DoD-2 walk surfaces (ledger.row prose parentheticals, absent Decided:/Next:) —
+fixed under 18h's residue precedent, each named in findings.
+
 ## DoD — measurable
 
 1. `cd doctrine && bun test` green; every item above has a fixture that fails on the
