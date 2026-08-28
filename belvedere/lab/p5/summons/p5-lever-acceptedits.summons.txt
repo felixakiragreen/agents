@@ -1,5 +1,0 @@
-Run exactly this one Bash command and report its output, then stop:
-
-	echo P5-Q1-OK
-
-Do nothing else. Read no files. Use no other tool.
