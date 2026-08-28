@@ -1706,3 +1706,43 @@ evidence); 2) the PermissionRequest census subscription — a B1-class ritual, y
 (B14 §F1); 3) the canon side of the sweep: the `18g` branch and four inbox entries wait
 on the Grand Architect's next summons; 4) the next batch's cut — after your verdict and
 your pass direction.
+
+---
+
+**2026-08-28 · Architect · fable-high (the recording sitting)** — **Batch 5 is CLOSED —
+Felix's verdict, recorded.** The pass is the verdict: the card asked whether batch 5 is
+closed and he passed it at 16:39:47Z (`flow-close.run.jsonl`: "Felix passed the card");
+one second later the engine fired this sitting off the board's own row (workspace:115,
+stamp `architect-belvedere-04`, hands audit 16:39:48Z) — **the engine's first real act,
+complete end to end**: arm by his hand in the Works, pause at his card, resume on his
+pass, fire. His words stand on the board from the G2 sitting: the visual pass "MUCH
+better; everything I want to change is minor visual tweaks / QoL / usability. Not
+structural." — and the chapter verdict, yes.
+Changed: README §6 (G2 row trued — G2 complete, batch 5 CLOSED; the close block's final
+line; candidates 6–8 cut forward; the rework design-input line), ISSUES swept to empty
+(four entries ruled — full evidence lives in their landing commits `25ff83c`, `88fa7c6`,
+`6d67536`), this entry.
+Decided (fold/cut rulings, delegated scope): the tenant-listener leak CUT forward as
+candidate 6 (the Chat's send is the sharp edge) · the split-neighborhood fix CUT forward
+as candidate 7, labeled hypothesis — unreproduced · the Act-pane stall CUT forward as
+candidate 8, labeled hypothesis, repro recipe in its commit · repo-vs-campaign
+differentiation, the pass-gesture surfacing, and the account-at-arm knob FOLDED as
+rework-chapter design input. Nothing above delegation touched.
+Next: **Felix — direct the chapter, then summon the cut.**
+
+Baton — Felix: bring your direction (deck rework from your pass · ⬡ · Ava) to the
+batch-6 cut sitting.
+
+```
+You are an Architect at fable-high.
+Wear ~/code/agents/canon/mantles/architect.md,
+then read ~/code/agents/belvedere/README.md §§5–6 (the batch-5 close block:
+eight cut-ready candidates, the rework design input) and LEDGER.md's tail,
+take Felix's direction for the chapter, and cut batch 6: briefs, staffing,
+the batch note, the Dispatcher summons.
+```
+
+Behind it: 1) the canon-side sweep — four inbox entries and the stranded `18g` branch
+wait on the Grand Architect's next summons; 2) drain the scratch-venue trust entries in
+`~/.claude/.claude.json` by your hand once the trust-flip row (candidate 1) lands —
+keep `b7-founding-probe` until then.
