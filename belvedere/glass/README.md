@@ -6,7 +6,7 @@ are the fence's whole write list (README §2) and nothing else in here writes.
 
 ```
 bun belvedere/glass/server.ts        # → http://127.0.0.1:4400
-bun test belvedere/glass             # 455 green in one process (B8 §4, B9, B13, B14, B15, B18, B20, B10)
+bun test belvedere/glass             # 530 green in one process (B8 §4, B9, B13, B14, B15, B18, B20, B10, B17, B11)
 bunx tsc --noEmit                    # from this directory — the type gate, offline (B8 §5);
                                      # it covers the deck's client TS too (B13 F3), never `lab/`
 bun belvedere/lab/b13/probe.ts       # the deck's DoD in real headless Chrome (B13 F1)
@@ -16,6 +16,9 @@ bun belvedere/lab/b15/probe.ts       # the Workshop: clicks, the reorder, the ma
 bun belvedere/lab/b15/live.ts        # the Workshop over the LIVE register — it writes nothing
 bun belvedere/lab/b10/probe.ts       # the Works: ranks, edges, the now-line, the lit ring (a fixture city)
 bun belvedere/lab/b10/live.ts        # the city's own flow over the city's own board — it writes nothing
+bun belvedere/lab/b11/probe.ts       # the arm's refusals + the arm pressed in Chrome (no fire)
+bun belvedere/lab/b11/lever.ts       # D10 · HALT · amend · re-arm · timeout — ONE live session
+bun belvedere/lab/b11/smoke.ts       # the flow runs itself — TWO live sessions and a Felix-card
 ```
 
 | Route | What |
@@ -30,6 +33,7 @@ bun belvedere/lab/b10/live.ts        # the city's own flow over the city's own b
 | `/deck/decode?t=<ref>&in=<doc>&w=<scope>` | **the decoder** — one code word (`B18`, `D63`, `§5`, `row 17`) resolved into its object: encapsulation, status, where it is written, its gestures |
 | `/doc?p=<path>` | the read-only viewer every rendered link resolves into (D58) |
 | `POST /hands/{fire,worktree,focus,halt}` | the four hands; 503 until `~/.config/belvedere/env` is armed |
+| `POST /flow/<name>/{arm,pass}` | **the arm** (D11) — one click authorizes a declared flow; `pass` is his hand on a Felix-card. Credential-gated like a hand; the engine's every write is a hand call or a run-state append |
 | `POST /inbox` | **the sovereign's inbox** — one gesture, one D63 line appended to a building's `ISSUES.md`; **no credential gate** |
 
 **The deck is an app, not a page** (B13, D13 — Felix: *"this is an app"*). `/deck` serves a
@@ -102,16 +106,49 @@ depth is a rank running downward with parallel lanes side by side, edges are inl
 **placed against the boxes the browser actually laid out**, and the **NOW line** is cut in front of
 the first rank still holding unfinished work, with the building's live sessions blinking on it — the
 board's landed rows and the ledger's arc above, the plan below, **one renderer**. A node's ring comes
-from the engine's run log (`summon/log/census/flows/<name>.run.jsonl`, D6 telemetry, written by B11)
+from the engine's run log (`summon/log/census/flows/<name>.run.jsonl`, D6 telemetry, written by the engine)
 where it has spoken and from the **board** where it has not, and the drawing says which: a
 board-sourced ring is **dashed**. Lit means fired *and* its session is still beating, off the census.
-**Nothing here arms and nothing here fires** — the kickoff is bytes to read, a plan node's actions
-name B11 and B17 honestly rather than half-working, and the only wire the pane can reach is
-`/hands/focus` on an in-flight node. The bill is on the wall beside the plan: tier on every node,
-usage ×3 accounts in the footer (B5's caches, rendered — B17 puts a live read behind the same shape).
-**The permission clause is a check, not a field** (P5 F5): a step's model *is* its posture, so a
-`haiku` step is drawn blocked with P5's sentence on it, while the venue precheck stays at arm because
-`trust.ts` spawns `git` per (step, account).
+The bill is on the wall beside the plan: tier on every node, usage ×3 accounts (B17's live fetch,
+behind the shape B10 left). **The permission clause is a check, not a field** (P5 F5): a step's model
+*is* its posture, so a `haiku` step is drawn blocked with P5's sentence on it, while the venue
+precheck is paid once at arm because `trust.ts` spawns `git` per (step, account).
+
+**The engine runs the string** (B11, D11 — `engine.ts`). One click on the Works' arm card is the
+authorization — *the review of the rendered plan IS the authorization* — and from there a tick inside
+this server does what a Dispatcher does between sessions: it fires ready steps **through the existing
+hands**, and pauses at everything a mantle would have to judge.
+
+- **The arm.** `POST /flow/<name>/arm`, credential-gated, carrying the `hash` the page was showing.
+  Everything that can refuse refuses **here**, loudly, naming the step: a `haiku` model (P5 F5 ii), a
+  venue the step's account has never trusted (`trust.ts`, per (step, account) — the same directory is
+  warm on one silo and cold on another), a flow that will not parse, and a plan that moved while he
+  was reading it. **Armed flows are immutable**: `Flow.hash` covers the file's bytes *and* every
+  resolved kickoff, so an edit to a quoted *order* trips it too (B10 F2) — new fires pause, what is in
+  flight runs on, and one **re-arm** covers the amendment.
+- **The tick.** Every 5 s and after every hands action, single-flight, and **cheap when nothing is
+  armed** — the run logs are read first and the census, the register and the credential are never
+  touched for a city with nothing to run. Started by `server.ts` and only by `server.ts`: a
+  module-scope interval would drive Felix's desktop from any test process that imported the module.
+- **Ready** means every dependency landed, the step unfired, its gate not an unpassed Felix-card,
+  **HALT absent** (checked again immediately before every spawn — the flag's first consumer),
+  concurrency headroom, and the venue free: **master-venue steps are strictly serial per checkout**,
+  city-wide, while worktree lanes run in parallel and are composed by the hand first.
+- **Landed** means the board row parses `LANDED` clean, **or** the census says `Stop` was the last
+  word and the pid is gone (P1's two-sensor law). Everything else **pauses and surfaces**: a session
+  gone without a `Stop`, `KILLED`/`BLOCKED`, an unruled escalation on a landing (keel §5.1 — B12's
+  judge takes it from there), and a step past its `timeoutMinutes`. **The engine kills nothing** — a
+  timeout pauses the flow's advance; stopping live work is Felix's or the session's own.
+- **His card** pauses the lane and renders in his idiom with **zero fire wiring**. The one control on
+  it is `POST /flow/<name>/pass`, credential-gated — never auto-fired, never auto-passed.
+- **Run-state** is the engine's working memory, not truth: `summon/log/census/flows/<name>.run.jsonl`
+  (D6, gitignored), append-only, written **once** per thing that happened — a pass that changes
+  nothing writes nothing. A fire returns a workspace and no session id, so a `fired` line carries the
+  **name-stamp** and a later one carries the `sid` the census read off the transcript (B11 F2): take
+  the **last** `fired` line for a step, and the **first** one's `ts` for the timeout clock.
+
+**The fence gains no write class.** Every engine write is a hand call (same audit, same unwind, same
+arming switch) or a run-state append. It edits no board, no ledger, no decision and no flow file.
 
 **A rendered `path:line` lands ON the line.** The field report's third item — *"Links to documents
 (WHERE: `agents/LEDGER.md:385`) don't take you to that line"* — dies at the boundary rather than in
