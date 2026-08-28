@@ -4,13 +4,20 @@
 // What lives here is exactly what needs a browser: the layout the user is holding, the drawer, the
 // tooltip primitive, the poll, and the wiring between them. The *law* of space lives in
 // `deck-model.ts` so the server's resting render and this file's re-render cannot disagree; the
-// tenants live behind `deck-view.ts` so B14+ move in without touching this file.
+// tenants live behind `deck-view.ts` so B15+ move in without touching this file; and what the City
+// and the queue *mean* lives in `attention.ts`, server-side, where the files are — this file draws
+// what it is handed and computes no urgency of its own.
+//
+// **Nothing here can fire.** The two wires a click may reach are `POST /inbox` (his word, one file
+// append) and `POST /hands/focus` (his eyes, a jump). There is no `/hands/fire` in this file, and
+// B14's DoD greps the served bundle to keep it that way (D10).
 
 import {
-	bump, columns, PANES, RESTING, toLayout,
-	type DeckSnapshot, type Layout, type Pane, type PaneState,
+	ATTENTION, bump, columns, PANES, RESTING, toLayout,
+	type Attention, type DeckBuilding, type DeckSession, type DeckSnapshot,
+	type Layout, type Pane, type PaneState, type QueueItem,
 } from './deck-model';
-import { moveIn, tenant, tenants, type FocusView } from './deck-view';
+import { moveIn, selection, tenant, tenants, type FocusView } from './deck-view';
 
 // ---------- small hands ----------
 
@@ -36,10 +43,27 @@ const ago = (seconds: number): string => {
 	return `${Math.round(d / 86400)}d`;
 };
 
+/**
+ * An age that keeps ageing. Every "3m" on the deck is a `<span data-at>` and this rewrites them
+ * all — which is why a region whose *content* has not changed is never rebuilt (see `paint`): the
+ * clock moving is not news, and a rebuild in the middle of Felix typing a note is.
+ */
+function tick(root: ParentNode): void {
+	for (const e of root.querySelectorAll<HTMLElement>('[data-at]'))
+		e.textContent = ago(Number(e.dataset['at']));
+}
+
+const stamp = (seconds: number, cls = 'ago'): HTMLElement => {
+	const e = el('span', cls, ago(seconds));
+	e.dataset['at'] = String(seconds);
+	return e;
+};
+
 // ---------- what the deck is holding ----------
 
 const LAYOUT_KEY = 'belvedere.deck.layout';
 const FOCUS_KEY = 'belvedere.deck.focus';
+const BUILDING_KEY = 'belvedere.deck.building';
 
 /**
  * localStorage is a per-viewer convenience and never load-bearing (spec §7): every read and every
@@ -61,12 +85,15 @@ let layout: Layout = remembered(LAYOUT_KEY, toLayout) ?? { ...RESTING };
 let snapshot: DeckSnapshot | null = null;
 let standing: FocusView | null = null;
 
+selection.building = remembered(BUILDING_KEY, v => (typeof v === 'string' ? v : null));
+
 // ---------- the law of space, applied ----------
 
 const app = need('app');
 const drawer = need('drawer');
 const scrim = need('scrim');
 const pulse = need('pulse');
+const needsCount = need('needs');
 
 const paneOf = (p: Pane) => need(`pane-${p}`);
 const hostOf = (p: Pane | 'drawer') => need(`host-${p}`);
@@ -133,60 +160,318 @@ function drawTenantBar(): void {
 	head.insertBefore(bar, head.querySelector('.states'));
 }
 
-// ---------- the panes the shell owns: Context, and the drawer ----------
+// ---------- repainting: content, not clocks ----------
+//
+// A region is rebuilt only when what it *says* has changed. The clock is handled separately
+// (`tick`), because a drawer that rebuilds every three seconds is a drawer that eats the note
+// Felix is halfway through typing — which is precisely the copy-paste hell the deck exists to end.
+
+const painted = new Map<string, string>();
+
+function paint(key: string, host: HTMLElement, signature: string, draw: (host: HTMLElement) => void): void {
+	if (painted.get(key) !== signature) {
+		painted.set(key, signature);
+		host.textContent = '';
+		draw(host);
+	}
+	tick(host);
+}
+
+// ---------- the City (Context's one tenant, keel §3) ----------
+
+/** The dot vocabulary: the fill is liveness, the ring is "this one cannot move without you". */
+function dot(s: DeckSession): HTMLElement {
+	const d = el('span', `dot s-${s.state}${s.waiting ? ` w-${s.waiting}` : ''}`);
+	d.title = `${s.stamp ?? s.sid.slice(0, 8)} · ${s.waiting ?? s.state} · ${ago(s.last)} ago`;
+	return d;
+}
+
+/** Everything has a limit: a building running forty sessions gets a row, not a wall of dots. */
+const DOTS = 12;
+
+function dots(ss: DeckSession[]): HTMLElement {
+	const box = el('span', 'dots');
+	for (const s of ss.slice(0, DOTS)) box.append(dot(s));
+	if (ss.length > DOTS) box.append(el('span', 'num', `+${ss.length - DOTS}`));
+	return box;
+}
+
+const BADGE_WORD: Readonly<Record<Attention, string>> = {
+	waiting: 'blocked on you', gate: 'Felix-gate', countersign: 'countersign', escalation: 'escalation',
+};
+
+function badges(b: DeckBuilding): HTMLElement {
+	const box = el('span', 'badges');
+	for (const k of ATTENTION) {
+		if (!b.badges[k]) continue;
+		const pip = el('span', `badge b-${k}`, String(b.badges[k]));
+		pip.title = `${b.badges[k]} × ${BADGE_WORD[k]}`;
+		box.append(pip);
+	}
+	return box;
+}
+
+function buildingRow(b: DeckBuilding, mine: DeckSession[]): HTMLElement {
+	const row = el('li', 'row' + (b.building === selection.building ? ' on' : ''));
+	row.dataset['building'] = b.building;
+	row.dataset['tip'] = b.building;
+	row.dataset['tipMore'] = `${b.path} · ${b.live} live · `
+		+ (ATTENTION.filter(k => b.badges[k]).map(k => `${b.badges[k]} ${BADGE_WORD[k]}`).join(', ') || 'nothing waiting on you');
+	row.dataset['tipGo'] = `/b/${b.building.split('/').map(encodeURIComponent).join('/')}`;
+	row.append(dots(mine), el('span', 'name', b.building), badges(b));
+	return row;
+}
+
+/** Expanded: the sessions themselves, one line each — stamp, state, age. */
+function sessionLines(ss: DeckSession[]): HTMLElement {
+	const box = el('ul', 'lines');
+	for (const s of ss) {
+		const line = el('li', 'line');
+		line.append(dot(s), el('span', 'who', s.stamp ?? s.sid.slice(0, 8)),
+			el('span', 'st-word', s.waiting ?? s.state), stamp(s.last));
+		box.append(line);
+	}
+	return box;
+}
+
+const LEGEND: [string, string][] = [
+	['dot s-working', 'working'],
+	['dot s-idle', 'idle'],
+	['dot s-unknown', 'unknown — no pid to ask'],
+	['dot s-idle w-blocked', 'blocked — a permission prompt is waiting'],
+	['dot s-idle w-nagging', 'waiting for your input — the session said so'],
+	['badge b-waiting', 'blocked on you'],
+	['badge b-gate', 'Felix-gate on a live row'],
+	['badge b-countersign', 'decision waiting on your pen'],
+	['badge b-escalation', 'escalation raised, nothing says it was ruled'],
+];
+
+function legend(): HTMLElement {
+	const box = el('div', 'legend-deck');
+	box.append(el('span', 'label', 'legend'));
+	for (const [cls, text] of LEGEND) {
+		const key = el('span', 'lkey');
+		key.append(el('span', cls, cls.startsWith('badge') ? 'n' : ''), el('span', '', text));
+		box.append(key);
+	}
+	return box;
+}
 
 /**
- * Context is the City and always the City (keel §3) — it is not a tenant, so B14 replaces this
- * function's body rather than signing a lease. What it draws today is the snapshot, honestly: the
- * live count that a census beat moves, and the register's buildings under it.
+ * Context is the City and always the City (keel §3). Three states, exactly as the order writes
+ * them: minimal = neighborhoods and dots, typical = + the buildings and their badges, expanded =
+ * + the sessions themselves.
+ *
+ * **Attention outranks recency across the whole pane** — the server sorted the buildings by rank
+ * and the groups inherit their loudest member's place in that list, so a building that has been
+ * asking for a week still sits above the one somebody touched five minutes ago.
  */
-function drawContext(): void {
-	const host = hostOf('context');
-	host.textContent = '';
+function drawCity(host: HTMLElement): void {
 	if (!snapshot) { host.append(el('p', 'quiet', 'waiting for the first poll…')); return; }
-
 	const c = snapshot.census;
+	const live = c.sessions.filter(s => s.state !== 'gone');
+	const bySid = new Map(live.map(s => [s.sid, s]));
+
 	const count = el('span', 'big');
 	count.id = 'live-count';
 	count.dataset['live'] = String(c.live);
 	count.textContent = String(c.live);
-
 	const head = el('div', 'headline');
 	head.append(count, el('span', 'label', 'live'));
+	if (c.waiting) {
+		const w = el('span', 'big waiting-count', String(c.waiting));
+		w.dataset['waiting'] = String(c.waiting);
+		w.id = 'waiting-count';
+		head.append(w, el('span', 'label', 'blocked on you'));
+	}
 	host.append(head);
 
-	if (layout.context === 'minimal') return;          // one word and a mark, and that is the law
-
-	host.append(el('p', 'quiet prose', c.present
-		? `${c.beats} beats · ${c.malformed} unreadable · horizon ${c.since === null ? 'unknown' : ago(c.since) + ' back'} — every count here is a floor, not a total`
-		: 'no census file: the sensor is not deployed on this machine'));
-
-	const list = el('ul', 'rows');
+	// Groups in the order the sorted building list produces them: a neighborhood is exactly as
+	// loud as its loudest building, which is one sort rather than two that can disagree.
+	const groups: { label: string; buildings: DeckBuilding[] }[] = [];
 	for (const b of snapshot.register.buildings) {
-		const live = c.sessions.filter(s => s.building === b.building && s.state !== 'gone').length;
-		const row = el('li', 'row');
-		row.dataset['building'] = b.building;
-		row.dataset['tip'] = b.building;
-		row.dataset['tipMore'] = `${b.path} · ${live} live session${live === 1 ? '' : 's'}`;
-		row.dataset['tipGo'] = `/b/${encodeURIComponent(b.building)}`;
-		row.append(el('span', 'dot' + (live ? ' on' : '')), el('span', 'name', b.building));
-		if (live) row.append(el('span', 'num', String(live)));
-		list.append(row);
+		const last = groups.at(-1);
+		if (last && last.label === b.label) last.buildings.push(b);
+		else groups.push({ label: b.label, buildings: [b] });
 	}
-	host.append(list);
-	host.append(el('p', 'quiet prose', 'B14 moves the City in here: neighborhoods, attention badges, the color legend.'));
+
+	for (const g of groups) {
+		const box = el('section', 'nb');
+		const lit = g.buildings.flatMap(b => b.sids.map(id => bySid.get(id)).filter((s): s is DeckSession => !!s));
+		const h = el('div', 'nb-h');
+		h.append(el('span', 'nb-name', g.label), dots(lit));
+		box.append(h);
+
+		if (layout.context !== 'minimal') {
+			const list = el('ul', 'rows');
+			for (const b of g.buildings) {
+				const mine = b.sids.map(id => bySid.get(id)).filter((s): s is DeckSession => !!s);
+				list.append(buildingRow(b, mine));
+				if (layout.context === 'expanded' && mine.length) list.append(sessionLines(mine));
+			}
+			box.append(list);
+		}
+		host.append(box);
+	}
+
+	if (layout.context === 'minimal') return;                // one word and a mark, and that is the law
+
+	host.append(legend());
+	const a = snapshot.auditor;
+	host.append(el('p', 'quiet prose', c.present
+		? `${c.beats} beats · ${c.malformed} unreadable · horizon ${c.since === null ? 'unknown' : ago(c.since) + ' back'}`
+			+ ` — every count here is a floor, not a total`
+		: 'no census file: the sensor is not deployed on this machine'));
+	host.append(el('p', 'quiet prose', `${c.live} tracked · `
+		+ (a.visible === null ? 'no process auditor — ps did not answer' : `≈${a.visible} claude processes visible · ${Math.max(0, a.visible - c.live)} beyond the census`)
+		+ ` (taken ${ago(a.at)} ago — the sensor's drift alarm, never a session)`));
+	host.append(el('p', 'quiet prose', `${snapshot.register.buildings.length} buildings · register ${ago(snapshot.register.at / 1000)} old`
+		+ (snapshot.register.refreshing ? ' (re-walking)' : '') + (snapshot.register.error ? ` · ${snapshot.register.error}` : '')));
 }
 
-/** The drawer's content is a slot; B14 installs the needs-you queue. Until then it says so. */
+function drawContext(): void {
+	const host = hostOf('context');
+	const sig = snapshot === null ? 'cold' : JSON.stringify([
+		layout.context, selection.building, snapshot.register.buildings, snapshot.auditor.visible,
+		snapshot.register.refreshing, snapshot.register.error,
+		snapshot.census.present, snapshot.census.beats, snapshot.census.malformed, snapshot.census.since,
+		snapshot.census.sessions,
+	]);
+	paint('context', host, sig, drawCity);
+}
+
+// ---------- the needs-you queue (the drawer's tenant, D15) ----------
+
+/**
+ * What a rebuild must not destroy. The queue is the one place on the deck where Felix *types*, so
+ * an unsent note, an open disclosure and the line a gesture just filed all outlive their DOM.
+ * Keyed by the item's own stable key, so an item that leaves the queue drops its draft with it.
+ */
+const drafts = new Map<string, string>();
+const opened = new Set<string>();
+const outs = new Map<string, string>();
+
+const QUEUE_TONE: Readonly<Record<Attention, string>> = {
+	waiting: 'red', gate: 'purple', countersign: 'yellow', escalation: 'orange',
+};
+
+/** The note box: one append to that building's ISSUES, exactly B6's gesture and nothing more. */
+function noteBox(i: QueueItem): HTMLElement {
+	const box = el('details', 'qnote');
+	box.append(el('summary', '', 'note'));
+	const area = el('textarea', 'prose') as HTMLTextAreaElement;
+	area.rows = 2;
+	area.spellcheck = true;
+	area.placeholder = 'his word, one line — it lands as written';
+	area.dataset['noteFor'] = i.key;
+	area.value = drafts.get(i.key) ?? '';
+	const file = el('button', 'st wide', 'file it') as HTMLButtonElement;
+	file.type = 'button';
+	file.dataset['gesture'] = JSON.stringify({ building: i.path, kind: 'note' });
+	const acts = el('div', 'qacts');
+	acts.append(file);
+	box.append(area, acts);
+	if (opened.has(`note:${i.key}`)) (box as HTMLDetailsElement).open = true;
+	box.dataset['openKey'] = `note:${i.key}`;
+	return box;
+}
+
+function actions(i: QueueItem): HTMLElement {
+	const acts = el('div', 'qacts');
+
+	if (i.kind === 'countersign' && i.state === 'pending' && i.decision) {
+		const b = el('button', 'st wide', `countersign ${i.decision}`) as HTMLButtonElement;
+		b.type = 'button';
+		b.dataset['gesture'] = JSON.stringify({ building: i.path, kind: 'countersign', decision: i.decision });
+		b.dataset['reload'] = 'yes';
+		acts.append(b);
+	}
+	if (i.kind === 'waiting' && i.sid) {
+		const b = el('button', 'st wide', 'jump to pane') as HTMLButtonElement;
+		b.type = 'button';
+		b.dataset['jumpSid'] = i.sid;
+		acts.append(b);
+	}
+	if (i.jump) {
+		const a = el('a', 'st wide', 'open') as HTMLAnchorElement;
+		a.href = i.jump;
+		acts.append(a);
+	}
+	const out = el('span', 'out', outs.get(i.key) ?? '');
+	out.dataset['outFor'] = i.key;
+	acts.append(out);
+	return acts;
+}
+
+function queueItem(i: QueueItem): HTMLElement {
+	const li = el('li', `qi tone-${QUEUE_TONE[i.kind]}`);
+	li.dataset['key'] = i.key;
+	li.dataset['kind'] = i.kind;
+
+	const head = el('div', 'qi-h');
+	head.append(el('span', `pill tone-${QUEUE_TONE[i.kind]}`, i.kind === 'waiting' ? 'blocked on you' : i.kind));
+	head.append(el('span', 'qname', i.name));
+	if (i.at !== null) head.append(stamp(i.at, 'ago when'));
+	li.append(head);
+
+	const where = el('div', 'qwhere');
+	where.append(el('span', 'who', i.building), el('span', '', i.where));
+	li.append(where);
+	li.append(actions(i));
+
+	// [expand] only where it would reveal more than the head already shows (B9's furniture rule).
+	if (i.full !== i.name || i.note) {
+		const more = el('details', 'more');
+		more.append(el('summary', '', 'expand'));
+		if (i.full !== i.name) more.append(el('p', 'prose', i.full));
+		more.append(el('p', 'quiet prose', i.note));
+		if (i.kind === 'gate' || i.kind === 'escalation') more.append(noteBox(i));
+		if (opened.has(i.key)) (more as HTMLDetailsElement).open = true;
+		more.dataset['openKey'] = i.key;
+		li.append(more);
+	}
+	return li;
+}
+
+function drawQueue(host: HTMLElement): void {
+	if (!snapshot) { host.append(el('p', 'quiet', 'waiting for the first poll…')); return; }
+	const q = snapshot.queue;
+	host.append(el('p', 'label', q.length
+		? `${q.length} thing${q.length === 1 ? '' : 's'} need you — attention first, recency inside it`
+		: 'nothing needs you'));
+	if (!q.length) {
+		host.append(el('p', 'quiet prose',
+			'No blocked session, no live Felix-gate, no pending countersign, no unruled escalation anywhere on the register. Every count on this deck is a floor (the census horizon) — the City says how far back it can see.'));
+		return;
+	}
+	const list = el('ul', 'queue');
+	for (const i of q) list.append(queueItem(i));
+	host.append(list);
+	host.append(el('p', 'quiet prose',
+		'Nothing here fires anything (D10): a note and a countersign are one append to that building’s inbox, and a jump moves your eyes. Sending a message to a session arrives with the Chat (B16).'));
+}
+
 function drawDrawer(): void {
 	const host = hostOf('drawer');
-	host.textContent = '';
-	const probe = el('p', 'quiet prose', 'The needs-you queue lands here at B14 — sessions blocked on input, live Felix-gates, pending countersigns, each answerable in place.');
-	probe.id = 'drawer-probe';
-	probe.dataset['tip'] = 'the needs-you queue';
-	probe.dataset['tipMore'] = 'Ranked triage: attention outranks recency, always. Pin the drawer and it is the morning coffee view.';
-	probe.dataset['tipGo'] = '/';
-	host.append(el('p', 'label', 'empty, honestly'), probe);
+	const sig = snapshot === null ? 'cold' : JSON.stringify([layout.drawer, snapshot.queue]);
+	// Everything has a limit (directive 3.1): held state belongs to items that still exist, so an
+	// item answered and gone takes its draft, its disclosure and its receipt with it.
+	if (snapshot) {
+		const alive = new Set(snapshot.queue.flatMap(i => [i.key, `note:${i.key}`]));
+		for (const m of [drafts, outs]) for (const k of [...m.keys()]) if (!alive.has(k)) m.delete(k);
+		for (const k of [...opened]) if (!alive.has(k)) opened.delete(k);
+	}
+	// The focused note survives its own region's rebuild, caret and all.
+	const active = document.activeElement as HTMLTextAreaElement | null;
+	const held = active?.dataset?.['noteFor'] ?? null;
+	const caret = held ? active!.selectionStart : 0;
+	paint('drawer', host, sig, drawQueue);
+	if (held) {
+		const back = host.querySelector<HTMLTextAreaElement>(`[data-note-for="${CSS.escape(held)}"]`);
+		if (back && back !== document.activeElement) { back.focus(); back.setSelectionRange(caret, caret); }
+	}
+	needsCount.textContent = snapshot ? String(snapshot.queue.length) : '·';
+	needsCount.dataset['needs'] = snapshot ? String(snapshot.queue.length) : '';
 }
 
 function redraw(): void {
@@ -207,11 +492,13 @@ function placeholder(name: string, title: string, blurb: string, owed: string): 
 		draw(snap, focusState, actionState) {
 			if (!focus || !action) return;
 			focus.textContent = '';
-			focus.append(el('span', 'big', title.split(' ')[0] ?? title));
+			focus.append(el('span', 'big', selection.building ?? title.split(' ')[0] ?? title));
 			if (focusState !== 'minimal') {
-				focus.append(el('p', 'quiet prose', blurb));
+				focus.append(el('p', 'quiet prose', selection.building
+					? `The City is pointing at ${selection.building}. ${blurb}`
+					: blurb));
 				focus.append(el('p', 'quiet prose', snap
-					? `${snap.census.live} live · ${snap.register.buildings.length} buildings · register ${ago(snap.register.at / 1000)} old`
+					? `${snap.census.live} live · ${snap.register.buildings.length} buildings · ${snap.queue.length} needing you`
 					: 'waiting for the first poll…'));
 			}
 			action.textContent = '';
@@ -221,7 +508,7 @@ function placeholder(name: string, title: string, blurb: string, owed: string): 
 	};
 }
 
-moveIn(placeholder('workshop', 'the Workshop', 'One building inside: its live sessions first, then board, ledger tail, decision queue and ISSUES.', 'At rest, Action holds the summon composer (B17).'));
+moveIn(placeholder('workshop', 'the Workshop', 'One building inside: its live sessions first, then board, ledger tail, decision queue and ISSUES — B15 moves in here and reads the selection.', 'At rest, Action holds the summon composer (B17).'));
 moveIn(placeholder('works', 'the Works', 'Every Guild session drawn on one line of time: the past above, NOW where sessions blink, the plan below.', 'Against the Works, Action dispatches (B10, B11).'));
 moveIn(placeholder('chat', 'the Chat', 'One hotswappable conversation: any session, live or dead, reads here.', 'Against the Chat, Action holds the draft and the notes (B16).'));
 
@@ -266,9 +553,9 @@ function showTip(host: HTMLElement, expanded: boolean): void {
 		if (go) {
 			const a = el('a', 'st wide', 'open') as HTMLAnchorElement;
 			a.href = go;
-			const actions = el('div', 'tip-actions');
-			actions.append(a);
-			tip.append(actions);
+			const acts = el('div', 'tip-actions');
+			acts.append(a);
+			tip.append(acts);
 		}
 	}
 	else if (more) tip.append(el('div', 'tip-hint', 'hold for more'));
@@ -303,6 +590,58 @@ document.addEventListener('mouseout', e => {
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') hideTip(); });
 
+// ---------- the two wires a click may reach ----------
+
+const post = async (path: string, body: unknown): Promise<[number, { ok: boolean; error?: string; result?: Record<string, unknown> }]> => {
+	const r = await fetch(path, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
+	return [r.status, await r.json() as { ok: boolean; error?: string }];
+};
+
+const say = (key: string, text: string): void => {
+	outs.set(key, text);
+	const out = hostOf('drawer').querySelector<HTMLElement>(`[data-out-for="${CSS.escape(key)}"]`);
+	if (out) out.textContent = text;
+};
+
+/**
+ * His word, filed. One `POST /inbox` — a file append, in front of the credential gate (B6 F3), so
+ * a cold-handed glass never costs him the ability to say something. The filed line is reported
+ * verbatim and outlives the next repaint, because what his inbox now says is the whole point.
+ */
+async function gesture(btn: HTMLElement): Promise<void> {
+	const item = btn.closest<HTMLElement>('.qi');
+	const key = item?.dataset['key'] ?? '';
+	const body = JSON.parse(btn.dataset['gesture'] ?? '{}') as Record<string, unknown>;
+	if (body.kind === 'note') {
+		const area = item?.querySelector<HTMLTextAreaElement>('[data-note-for]');
+		body.text = area?.value ?? '';
+	}
+	say(key, 'filing…');
+	try {
+		const [code, r] = await post('/inbox', body);
+		if (!r.ok) return say(key, `${code} ${r.error}`);
+		say(key, `filed · ${String(r.result?.['line'] ?? '')}`);
+		drafts.delete(key);
+		const area = item?.querySelector<HTMLTextAreaElement>('[data-note-for]');
+		if (area) area.value = '';
+		// A countersign changes what the FILES say, and the card's three states are read off them:
+		// the next poll re-derives it, so nothing here rewrites the card by hand.
+		if (btn.dataset['reload']) void poll();
+	}
+	catch (e) { say(key, String(e)); }
+}
+
+/** His eyes, moved. `POST /hands/focus` is a hand, so it goes cold with the credential and says so. */
+async function jump(btn: HTMLElement): Promise<void> {
+	const key = btn.closest<HTMLElement>('.qi')?.dataset['key'] ?? '';
+	say(key, 'jumping…');
+	try {
+		const [code, r] = await post('/hands/focus', { sid: btn.dataset['jumpSid'] });
+		say(key, r.ok ? `focused ${String(r.result?.['surface'] ?? '')}` : `${code} ${r.error}`);
+	}
+	catch (e) { say(key, String(e)); }
+}
+
 // ---------- clicks ----------
 
 app.addEventListener('click', e => {
@@ -320,6 +659,23 @@ app.addEventListener('click', e => {
 	const swap = target.closest<HTMLElement>('[data-focus-on]');
 	if (swap) { focusOn(swap.dataset['focusOn'] ?? ''); return; }
 
+	const ges = target.closest<HTMLElement>('[data-gesture]');
+	if (ges) { void gesture(ges); return; }
+
+	const to = target.closest<HTMLElement>('[data-jump-sid]');
+	if (to) { void jump(to); return; }
+
+	// The City's click: the selection is the deck's one cross-pane fact (keel §3's ontology), so it
+	// is stored, the Workshop is brought forward, and both panes redraw against it.
+	const building = target.closest<HTMLElement>('[data-building]');
+	if (building && layout.context !== 'minimal') {
+		selection.building = building.dataset['building'] ?? null;
+		remember(BUILDING_KEY, selection.building);
+		focusOn('workshop');
+		redraw();
+		return;
+	}
+
 	// Click-to-expand (keel §3), read literally: at minimal a pane is one word and a mark, so
 	// **the whole pane is the expand target** and nothing inside it can be aimed at. The click is
 	// swallowed rather than passed on — acting on a control nobody could read is the bug.
@@ -328,27 +684,38 @@ app.addEventListener('click', e => {
 	if (p && layout[p] === 'minimal') { e.preventDefault(); setState(p, bump(layout[p])); }
 });
 
+// A disclosure and a half-typed note are the reader's state, not the snapshot's: both are held
+// across a repaint so the queue can refresh under his hands without taking anything back.
+app.addEventListener('toggle', e => {
+	const d = e.target as HTMLDetailsElement | null;
+	const key = d?.dataset?.['openKey'];
+	if (!key) return;
+	if (d!.open) opened.add(key); else opened.delete(key);
+}, true);
+
+app.addEventListener('input', e => {
+	const area = e.target as HTMLTextAreaElement | null;
+	const key = area?.dataset?.['noteFor'];
+	if (key) drafts.set(key, area!.value);
+});
+
 // ---------- the poll ----------
 //
-// One composed read every 3 s, and the diff is the whole snapshot: identical bytes means nothing on
-// disk moved, so nothing redraws. No websocket, no SSE — polling has not fought yet (spec §6).
+// One composed read every 3 s. What the answer changes is repainted; what it does not, is not
+// (`paint`) — so an idle city costs one fetch and a clock tick.
 
 const POLL_MS = 3000;
-let lastBody = '';
 let polls = 0;
 
 async function poll(): Promise<void> {
 	try {
 		const res = await fetch('/deck/state', { headers: { accept: 'application/json' } });
 		if (!res.ok) throw new Error(`/deck/state answered ${res.status}`);
-		const body = await res.text();
 		polls++;
 		pulse.dataset['polls'] = String(polls);
 		pulse.dataset['fault'] = 'no';
 		pulse.textContent = `${polls}`;
-		if (body === lastBody) return;
-		lastBody = body;
-		snapshot = JSON.parse(body) as DeckSnapshot;
+		snapshot = await res.json() as DeckSnapshot;
 		redraw();
 	}
 	catch (err) {

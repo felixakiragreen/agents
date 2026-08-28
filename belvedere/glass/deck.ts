@@ -7,43 +7,76 @@
 //
 // The v0 pages keep serving untouched (keel §10). Nothing in this file writes.
 
+import { cityRows, needsYou, waitingOf } from './attention';
 import { readCensus, isLive } from './census';
 import { columns, RESTING, type DeckSession, type DeckSnapshot } from './deck-model';
+import { auditorCount } from './gauges';
 import { CSS, esc } from './html';
 import { buildingOf } from './pages';
-import { age, register } from './register';
+import { age, city } from './register';
 
 /**
- * One composed read: the census (what is alive) and the register's held copy (what the buildings
- * are). **Neither walks the city on this thread** — `register()` returns the warm copy and kicks
+ * The auditor's own staleness bar. `ps -axo command=` costs 36 ms of the request thread (B9 F3),
+ * which is nothing on a page Felix loads by hand and a spawn every three seconds forever on a deck
+ * that polls. B9 F3 named the fix and did not build it because nothing then polled; the deck does,
+ * so it is built here. The second reason is the diff: the process count moves constantly, and a
+ * snapshot that changes every poll is a City that redraws every poll.
+ */
+const AUDITOR_TTL_MS = 30_000;
+let auditedAt = 0;
+let audited: number | null = null;
+
+function auditor(): { visible: number | null; at: number } {
+	if (auditedAt === 0 || Date.now() - auditedAt > AUDITOR_TTL_MS) {
+		audited = auditorCount();
+		auditedAt = Date.now();
+	}
+	return { visible: audited, at: auditedAt / 1000 };
+}
+
+/**
+ * One composed read: the census (what is alive), the register's held copy (what the buildings are)
+ * and every building's content re-read from disk (what they want).
+ *
+ * **Nothing here walks the city on this thread** — `city()` serves off the warm register and kicks
  * its worker if the TTL is up (B8 F3's law: a synchronous walk on Bun's one thread stalls every
- * request that arrives during it). The census read is a bounded tail plus one `kill -0` per
- * session, which is what every v0 page already pays per request.
+ * request that arrives during it). What B14 adds on top of B13's read is the content parse, which
+ * is the same 30-odd milliseconds every v0 page already pays per request (`register.ts` §head) —
+ * the deck now needs it, because a badge is a fact about a board and a queue item is a fact about
+ * a decision, and neither is knowable from a file list.
  */
 export function deckState(): DeckSnapshot {
 	const census = readCensus();
-	const reg = register();
-	const buildings = reg.entries.map(e => ({ building: e.building, path: e.path }));
+	const { reg, buildings } = city();
+	const live = census.sessions.filter(isLive);
 
 	const sessions: DeckSession[] = census.sessions.map(s => ({
 		sid: s.sid,
 		stamp: s.stamp,
 		state: s.state,
+		waiting: waitingOf(s),
 		account: s.account,
 		building: buildingOf(s.cwd, buildings)?.building ?? null,
 		cwd: s.cwd,
+		pane: s.last.sf !== null,
 		last: s.last.t,
 	}));
+
+	const queue = needsYou(buildings, live);
 
 	return {
 		at: Date.now() / 1000,
 		census: {
 			present: census.present, beats: census.beats, malformed: census.malformed,
-			since: census.since, live: census.sessions.filter(isLive).length, sessions,
+			since: census.since, live: live.length,
+			waiting: live.filter(s => waitingOf(s) !== null).length, sessions,
 		},
 		register: {
-			at: reg.at, ageSeconds: age(reg), refreshing: reg.refreshing, error: reg.error, buildings,
+			at: reg.at, ageSeconds: age(reg), refreshing: reg.refreshing, error: reg.error,
+			buildings: cityRows(buildings, live, queue),
 		},
+		queue,
+		auditor: auditor(),
 	};
 }
 
@@ -85,14 +118,16 @@ export function deckPage(): string {
 	<nav class="ways"><a href="/">rail</a> <a href="/city">city</a> <a href="/shelf">shelf</a> <a href="/summon">summon</a></nav>
 	<span class="spacer"></span>
 	<span id="pulse" class="pulse" data-tip="the poll: one composed read of census and register, every 3 s">···</span>
-	<button id="drawer-toggle" class="st wide" type="button" data-tip="the drawer — needs-you queue (B14 moves in)">drawer</button>
+	<button id="drawer-toggle" class="st wide" type="button"
+		data-tip="the needs-you queue" data-tip-more="Sessions blocked on you, live Felix-gates, pending countersigns, unruled escalations — ranked, and answerable in place. Pin it and it is the morning coffee view.">needs
+		<b id="needs" class="needs" data-needs="0">·</b></button>
 </div>
 <div id="app" class="app" style="grid-template-columns:${columns(RESTING)}">
 ${pane('context', 'city', RESTING.context)}
 ${pane('focus', 'focus', RESTING.focus)}
 ${pane('action', 'action', RESTING.action)}
 <aside id="drawer" class="drawer" data-state="${RESTING.drawer}">
-	<header class="pane-head"><span class="pane-name">drawer</span>
+	<header class="pane-head"><span class="pane-name">needs you</span>
 		<span class="states"><button class="st wide" type="button" id="drawer-pin" data-tip="pin: the drawer stops overlaying and takes a track of its own">pin</button><button class="st" type="button" id="drawer-shut" data-tip="shut the drawer">×</button></span>
 	</header>
 	<div class="pane-body" id="host-drawer"></div>

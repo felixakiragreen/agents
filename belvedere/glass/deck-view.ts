@@ -31,6 +31,17 @@ export type FocusView = {
 	draw(snap: DeckSnapshot | null, focusState: PaneState, actionState: PaneState): void;
 };
 
+/**
+ * The one piece of state that crosses panes: **which building the City is pointing at.**
+ *
+ * The ontology is City → Building → Agent (keel §3), so a click in Context has to reach whatever
+ * stands in Focus — and a tenant cannot be handed it through `draw()` without every tenant that
+ * does not care being made to carry it. One named cell, written by the City and read by the
+ * tenant, is the whole mechanism. B15's Workshop reads it here; until it moves in, the placeholder
+ * names the selection rather than pretending the click did nothing.
+ */
+export const selection: { building: string | null } = { building: null };
+
 const signed = new Map<string, FocusView>();
 
 /** Sign the lease. A second tenant under one name is a bug, not a replacement — it throws. */
