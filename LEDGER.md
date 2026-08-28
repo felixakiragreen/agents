@@ -1373,3 +1373,27 @@ all **proposed, pending Felix countersign** (DOCTRINE edits held for his word: �
 ×2, §5, §7, §8). Next: **Felix countersigns D68–D70** (the held edits apply on his
 word, 19's gate opens); behind it `fire 17` (kickoff in the brief), then 19's
 dispatch; rows 20/21 fire on his summons, 22 on his blessing.
+
+---
+
+**2026-08-28 · Grand Architect · fable-max (the countersign close, same sitting)** —
+Felix ruled the package after tearing it apart with the office: **D68 folded into
+D63 as its second amendment** (his call, register minimalism — an extension of
+recorded intent amends its ancestor, never a new number): `unstaffed` minted,
+`unrecorded` legal in any required slot, `bare session` struck (one-cell corpus,
+harvest bar unmet; D26's cell stays `unrecorded`). **D69 ✓ Felix** ("bless" —
+PARKED confirmed as the board token for his "deferred"). **D70 withdrawn** on the
+GA's own teardown (an unpinned `bunx tsc` was already D54's sin; B8 stays project
+physics). Applied: DOCTRINE §4 ×2 + §8 (the three surviving held edits; §7 and §5
+died with their clauses), register disposition notes on D68/D70, row 19's order
+trimmed and its gate marked paid, MAP trued, correction relayed to belvedere/ISSUES.
+**Felix fired 17 within the hour** — lab/17 harness + C1/C3 findings already
+committing (`10294db`…`b989367`); board reads IN FLIGHT. Consequence ruled: **19
+holds behind 17's landing** — it rewrites the parser 17 is mid-measurement on
+(§6.7: the incumbent never molts under a live gauge); 19's Depends-on gains 17.
+**Parked (Felix): the register purge at ~D100** — the constitution consolidated
+when the amendment weight demands it. Register minimalism recorded as his standing
+preference; codified at the purge if it survives as practice. Decided: D63 amended
+(✓ Felix), D69 (✓ Felix), D70 withdrawn, D68 spent-into-D63. Next: 17 lands (Digger
+in flight) → `fire 19` (kickoff in its order); rows 20/21 on Felix's summons, 22 on
+his blessing; the 18-continuation wave cut at 19's landing.

@@ -1,8 +1,10 @@
 # 19 — doctrine v1.1: the wave's residue
 
-**Status:** OPEN — cut 2026-08-28 (GA-11) · **Depends on:** Felix-gate: D68/D69
-countersign (the vocabulary this row teaches) — his countersign is the blessing ·
-**Staffing:** Builder · opus-high
+**Status:** OPEN — cut 2026-08-28 (GA-11); vocabulary gate PAID same day (D63's
+second amendment + D69 ✓ Felix — the blessing). **Holds behind 17's landing:** this
+row rewrites the parser row 17 is mid-measurement on, and the incumbent never molts
+under a live gauge (DOCTRINE §6.7) · **Depends on:** 17 · **Staffing:** Builder ·
+opus-high
 
 ## Mission
 
@@ -18,8 +20,9 @@ spacex) is NOT this row — that continuation wave is cut when this row lands.
   declared-changes + identical-otherwise + byte assertion; the register rule).
 - [Row 18's findings](18-great-recut.md) — the wave's batch report, escalations 1–14,
   and §18c/§18f/§18g/§18h fixtures.
-- [D68/D69](../DECISIONS.md) — the typed-absence vocabulary and the PARKED annotation,
-  verbatim; the tool must accept exactly these tokens, nothing looser.
+- [D63 (as amended 2026-08-28) + D69](../DECISIONS.md) — the typed-absence
+  vocabulary and the PARKED annotation, verbatim; the tool must accept exactly
+  these tokens, nothing looser.
 - Drained inbox fixtures folded below (canon ISSUES entries of 2026-08-26/27/28,
   drained at GA-11 — git keeps the bytes).
 
@@ -27,10 +30,11 @@ spacex) is NOT this row — that continuation wave is cut when this row lands.
 
 **Vocabulary (kills the wave's residual lint):**
 
-1. **Typed-absence tokens (D68).** `unrecorded` legal in any required slot — ledger
-   tier/mantle, board tier, staffing sub-slots, decider, decision title
-   (`**unrecorded.**`), Decided:/Next:. `unstaffed` legal as a whole-Staffing value.
-   `bare session` legal in the ledger mantle slot (D26's null mantle). Done when:
+1. **Typed-absence tokens (D63 as amended).** `unrecorded` legal in any required
+   slot — ledger tier/mantle, board tier, staffing sub-slots, decider, decision
+   title (`**unrecorded.**`), Decided:/Next:. `unstaffed` legal as a
+   whole-Staffing value. (No `bare session` token — proposed and struck at
+   countersign; D26's cell writes `unrecorded`.) Done when:
    `doctrine lint ~/code/agents` shows zero `unrecorded`-class failures and
    `~/code/universal_robots_sdk/bob` lints 0.
 2. **`PARKED` annotation (D69).** `OPEN — PARKED <reason>` conforms exactly as
@@ -69,8 +73,8 @@ spacex) is NOT this row — that continuation wave is cut when this row lands.
    dry-run covers the 96 and the ledger's post-migrate lint (dry-run projection) is 0.
 6. **`decisionHead` second variant.** `- **D1 (2026-08-13, Felix + Architect):** <body>`
    (bold wraps id + attribution, no separate title) → `- **D1** (2026-08-13, Felix +
-   Architect): **unrecorded.** <body>` — the typed absence in the title slot (D68);
-   never author a title. Fixture: spacex-dashboard's 7 entries (both files). Done when:
+   Architect): **unrecorded.** <body>` — the typed absence in the title slot (D63
+   as amended); never author a title. Fixture: spacex-dashboard's 7 entries (both files). Done when:
    the fixture migrates clean and a real title is never synthesized.
 
 **Parse scope + silent-zero bugs (worse than failures — they report clean):**

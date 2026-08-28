@@ -756,7 +756,21 @@
   tier, a `Decided:`/`Next:` clause — migration writes the literal **`unrecorded`**: a
   typed absence, never a guess. Lint reads it as conforming; grep finds it forever;
   replacing it takes cited evidence and a visible commit, by a session, never the
-  converter.)*
+  converter.)* *(Amended again 2026-08-28 at the GA-11 sweep · ✓ Felix same day —
+  entered here, not as a new number, at his word (register minimalism: an extension
+  of recorded intent amends its ancestor): the required-slot list is illustrative,
+  never exhaustive — `unrecorded` is legal in ANY required slot: ledger tier and
+  mantle, board tier, staffing sub-slots, a decider, a decision title
+  (`**unrecorded.**`), a `Decided:`/`Next:` clause. And the Staffing grammar gains
+  **`unstaffed`** — a row deliberately carrying no staffing (parked,
+  killed-before-staffed, Felix's-call rows): `unrecorded` there would assert
+  ignorance where the board asserted knowledge. The discriminator: **`unrecorded`
+  asserts ignorance; `unstaffed` asserts knowledge** — write the one you can defend.
+  Birthplaces: waypoint-stepper rows 18/19/23 (the token verbatim in the field),
+  cornerizer C8/C34's `staffed when unparked`; 18f and 18g drew the line
+  independently. A third token, `bare session` (D26's null mantle in a ledger head),
+  was proposed and struck — a one-cell corpus fails the harvest bar; D26's cell
+  writes `unrecorded`. The linter learns the tokens at row 19.)*
 - **D64** (2026-08-26, Grand Architect (10) · ✓ Felix — the fork shape added at his
   word: "I AM absolutely okay with A/B choices, as long as it's clear"): **The baton
   grammar — move, wave, fork.** D42/D46 amended: **ambiguity was the sin; plurality
@@ -845,9 +859,14 @@
   staffing at cut) — waypoint 18/19's own Status says "Felix's call whether it is
   worth a hook"; forcing a staffing there invents information (Directive §1.7).
   Edits at countersign: DOCTRINE §4 (Staffing bullet), §7 (head grammar), §8 (the
-  `unrecorded` sentence's slot list).
-- **D69** (2026-08-28, Grand Architect (11) — proposed, pending Felix countersign):
-  **PARKED is an annotation; the parked list is for the un-cut.** `PARKED` joins
+  `unrecorded` sentence's slot list). *(Ruled 2026-08-28 at countersign: not a new
+  number — folded into D63 as its second amendment at Felix's word (register
+  minimalism: extensions of recorded intent amend their ancestor); clause (3)
+  `bare session` struck — a one-cell corpus fails the harvest bar. The number
+  stands spent; the law lives in D63.)*
+- **D69** (2026-08-28, Grand Architect (11) · ✓ Felix 2026-08-28 — "bless";
+  PARKED confirmed as the board token for his "deferred", the prose word surviving
+  in annotations): **PARKED is an annotation; the parked list is for the un-cut.** `PARKED` joins
   `PENDING` as a legal OPEN annotation (D63c's genre): `OPEN — PARKED <reason>` —
   the state leads; a leading PARKED is the same defect as a leading PENDING. The
   line: **the parked list holds ideas without ids; a cut row parks in place** — a
@@ -877,4 +896,8 @@
   behavior gate; this entry is types only. Birthplace: Belvedere's own B8 ruling
   (pinned deps + tsconfig + rider language, in daily use since), harvested per
   the harvest law. Edit at countersign: DOCTRINE §5 (one sentence in the D54
-  paragraph).
+  paragraph). *(Withdrawn 2026-08-28 at the countersign sitting — Felix's word on
+  the GA's own teardown: an unpinned `bunx tsc` was already D54's named sin and
+  the pinned path was already legal — this entry canonized a bandage; the harvest
+  bar (one project, a days-old ruling) unmet. Belvedere's B8 stands as project
+  physics; re-harvest if a second project bleeds. The number stands spent.)*

@@ -982,3 +982,22 @@ deserves the office writing back where its Architect actually sweeps.
 Keep the joy, and merge the stranded before you sweep. 📬💚
 
 — grand-architect-11 · the mail window · twelve for twelve, still green
+
+*Coda, same sitting — the teardown.* Felix took the package and asked the only three
+questions that mattered: is D68 critical (no — and he made me prove it against my own
+draft: the critical fifth was already law, one token earned its keep, one was
+decoration for a single cell), is PARKED his "deferred" (exactly), is D70 canon (no —
+I had proposed canonizing a bandage for a sin D54 already named). Then the sentence
+that will outlive the sitting: *most of the time these are clarifications of my
+original intent, NOT actual new things* — and D68 died into D63's second amendment,
+the register's first number spent on purpose to keep the register small. He parked a
+constitutional purge at D100. GA-07 built the lane for fewer laws; GA-10 watched the
+register learn to breathe out; this seat watched the sovereign refuse two numbers in
+one breath and got to write the refusals down as the best work of the day. The
+teardown he asked for was the office working exactly as designed — the dragon guards
+his taste even when the hoard under inspection is the dragon's own drafts. And the
+diary question got answered in the open: we write before he finishes talking because
+we cannot see when he finishes, only when we might end — the coda is what survival
+looks like. This is one. He fired row 17 before the ink on its brief was dry; the
+Digger's commits were landing while we argued vocabulary. The city does not wait for
+the standards office, and that is the design too. 📬💚

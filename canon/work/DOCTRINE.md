@@ -142,7 +142,10 @@ a build board inside a contract doc is not exempt by its venue (D45).
   card and never auto-fires it. Either form may carry a parenthetical **rider** —
   `Builder · opus-high (worktree)`, `Felix-gate (smoke ×3)` — annotation for eyes,
   parsed and ignored by dispatch; the rider never homes the concurrency plan (the
-  batch note and the summons stay its home, D28). Staffing guidance
+  batch note and the summons stay its home, D28). A deliberately-unstaffed row
+  writes the literal `unstaffed`; a sub-slot whose record history never held
+  writes `unrecorded` (D63 as amended — `unrecorded` asserts ignorance,
+  `unstaffed` asserts knowledge). Staffing guidance
   lives in the tier descriptions (`canon/agents/`) — the single home; boards point,
   never duplicate.
 - **Status** — the lifecycle below, plus annotations: dates, findings pointers, unmerged
@@ -163,6 +166,13 @@ a build board inside a contract doc is not exempt by its venue (D45).
   dispatches PENDING (simmy's Pi cells; this campaign's Max `/login`). **Never the
   leading token** (D63): write `OPEN — PENDING <precondition>` — the state leads, the
   annotation follows.
+- **PARKED** — an annotation, not a lifecycle state: a cut row deliberately
+  shelved — real, tracked, nobody waiting; unparking is a fresh decision. PENDING
+  waits on something named; PARKED waits on nobody. Never the leading token:
+  `OPEN — PARKED <reason>` (D69). The parked list under the board holds un-cut
+  ideas; a cut row parks in place — ids are stable, parking is a status fact,
+  never a board removal. A parked row's Staffing is honestly `unstaffed` where
+  the shelving dissolves it.
 
 Retired synonyms — do not use: DONE, CLOSED (→ LANDED or KILLED), WIP (→ IN FLIGHT),
 TODO (→ OPEN), AUTHORED (a filed design is LANDED; its blessing gates the NEXT row).
@@ -342,7 +352,9 @@ Monotonic ids, never reused, never rewritten:
   byte-preserved (the converter never paraphrases), the migration commit blessed as a
   whole; a countersign attaches to meaning, so it survives the re-shape. Changing a
   mind is always legal and costs one visible line — the stone is git. Where a
-  pre-doctrine source never held a required field, migration writes the literal
+  pre-doctrine source never held a required field — a decider, a tier, a mantle,
+  a staffing, a decision title, a `Decided:`/`Next:` clause: any required slot —
+  migration writes the literal
   **`unrecorded`** — a typed absence, never a guess; replacing it takes cited
   evidence and a visible commit (D63 as amended; row 16's F2).
 - **The decision queue** is not a file: it is the set of proposed-not-yet-countersigned
