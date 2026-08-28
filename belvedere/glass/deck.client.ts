@@ -419,17 +419,17 @@ function queueItem(i: QueueItem): HTMLElement {
 	li.append(where);
 	li.append(actions(i));
 
-	// [expand] only where it would reveal more than the head already shows (B9's furniture rule).
-	if (i.full !== i.name || i.note) {
-		const more = el('details', 'more');
-		more.append(el('summary', '', 'expand'));
-		if (i.full !== i.name) more.append(el('p', 'prose', i.full));
-		more.append(el('p', 'quiet prose', i.note));
-		if (i.kind === 'gate' || i.kind === 'escalation') more.append(noteBox(i));
-		if (opened.has(i.key)) (more as HTMLDetailsElement).open = true;
-		more.dataset['openKey'] = i.key;
-		li.append(more);
-	}
+	// Every item's [expand] reveals something the head does not: at minimum the honest note about
+	// what can and cannot be done from here. The full text is added only where the name did not
+	// already carry it (B9's furniture rule — a disclosure over nothing is furniture).
+	const more = el('details', 'more');
+	more.append(el('summary', '', 'expand'));
+	if (!i.name.endsWith(i.full)) more.append(el('p', 'prose', i.full));
+	more.append(el('p', 'quiet prose', i.note));
+	if (i.kind === 'gate' || i.kind === 'escalation') more.append(noteBox(i));
+	if (opened.has(i.key)) (more as HTMLDetailsElement).open = true;
+	more.dataset['openKey'] = i.key;
+	li.append(more);
 	return li;
 }
 

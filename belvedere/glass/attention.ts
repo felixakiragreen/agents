@@ -20,7 +20,7 @@ import type { Building, BoardRow } from '../../doctrine';
 import type { Session } from './census';
 import { isLive } from './census';
 import type { Attention, DeckBuilding, QueueItem, Waiting } from './deck-model';
-import { encap } from './html';
+import { encap, short } from './html';
 import { countersignState } from './inbox';
 import { attentionOf, buildingOf, freshness, groupLabel, groupOf } from './pages';
 
@@ -43,9 +43,10 @@ export function waitingOf(s: Session): Waiting | null {
 	return s.last.why === 'permission_prompt' ? 'blocked' : s.last.why === 'idle_prompt' ? 'nagging' : null;
 }
 
+/** Short enough to BE the name (encapsulation-first): the long form is the item's `note`. */
 export const WAITING_NOTE: Readonly<Record<Waiting, string>> = {
-	blocked: 'a tool call is sitting on the permission dialog',
-	nagging: 'the session says it is waiting for your input',
+	blocked: 'blocked on a permission prompt',
+	nagging: 'waiting for your input',
 };
 
 // ---------- the escalation mark ----------
@@ -119,9 +120,9 @@ const NAME_WORDS = 6;
  */
 function title(id: string | null, text: string): { name: string; full: string } {
 	const e = encap(text);
-	const short = e.encapsulated ? e.name
+	const head = e.encapsulated ? e.name
 		: e.full.split(/\s+/).length <= NAME_WORDS ? e.full : null;
-	const name = id === null ? (short ?? e.full) : short === null ? id : `${id} — ${short}`;
+	const name = id === null ? (head ?? e.full) : head === null ? id : `${id} — ${head}`;
 	return { name, full: e.full };
 }
 
@@ -160,13 +161,16 @@ export function needsYou(buildings: Building[], sessions: Session[]): QueueItem[
 			building: b?.building ?? 'off the register', path: b?.path ?? '',
 			...title(who, WAITING_NOTE[w]),
 			at: s.last.t,
-			where: `${s.cwd ?? 'no cwd on record'}${s.tool ? ` · ${s.tool}` : ''}`,
+			where: `${s.cwd ? short(s.cwd) : 'no cwd on record'}${s.tool ? ` · ${s.tool}` : ''}`,
 			jump: b ? slug(b.building) : null,
 			sid: s.last.sf ? s.sid : null,
 			decision: null, state: null,
-			note: s.last.sf
-				? 'Jump puts your eyes on its panel. Answering from here arrives with the Chat (B16).'
-				: 'Not in a cmux pane (hooks are venue-blind), so there is no panel to jump to.',
+			note: (w === 'blocked'
+				? 'A tool call is sitting on the approval dialog — the session is alive and spending nothing until you answer it. '
+				: 'The session finished its turn and said so (the 60 s nag, P1 F1) — this is the notification cmux gives you. ')
+				+ (s.last.sf
+					? 'Jump puts your eyes on its panel; answering from here arrives with the Chat (B16).'
+					: 'It sits in no cmux pane (hooks are venue-blind), so there is no panel to jump to.'),
 		});
 	}
 
