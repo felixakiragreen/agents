@@ -1372,6 +1372,8 @@ and temp fixture cities — three live sessions in total, every workspace closed
 worktree removed and its branch deleted, no HALT left anywhere in the city.
 Next: **B16 — the Chat** ([plans/b16-chat.md](plans/b16-chat.md)), the Dispatcher's to fire.
 
+---
+
 **2026-08-28 · Builder · opus-high (B16)** — **The voice.** The note-app copy-paste era is
 over: his words leave the deck and arrive in a session as **one real user turn, byte-exact**.
 Changed: `glass/chat.ts` (the read, the send, the drafts, the route), `chat.client.ts` (the
