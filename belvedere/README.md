@@ -466,7 +466,8 @@ a gitted desk file **✓ Felix** · building-homed placement with
 mint-on-ambiguity **✓ Felix** (post-waggle) · account-at-arm deferral
 **STRUCK by Felix** — "I need to be able to choose accounts": the knob is
 ordered, B27 §4 rewritten, with all three usage windows labeled on every
-account button. **G3 fires by the armed close flow**
+account button. **Batch 6 fully BLESSED ✓ Felix 2026-08-28** — nothing
+remains between the Dispatcher summons and the close gates. **G3 fires by the armed close flow**
 (B27 leaves `flows/flow-close-6.flow.json`, unarmed — the engine's proven
 pattern); fallback: Felix fires G3's kickoff from `/summon` and the deviation
 is G3 evidence. His close gates, batched at G3: the PermissionRequest ritual

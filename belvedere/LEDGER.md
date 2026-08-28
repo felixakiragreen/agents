@@ -1816,3 +1816,34 @@ usage-chip report FOLDED into B27 §4: the data carries three windows (`sess` 5 
 `week` 7 d · `fable` 7 d scoped, usage.ts), the chip renders one unlabeled — all three
 labeled is now DoD. Naming sprawl (deck/glass/rail/…) noted for a naming sitting at his
 word; a deck-side glossary rides B27's legend sweep if he wants it.
+
+Fourth act, same sitting: **batch 6 BLESSED ✓ Felix 2026-08-28** (all three rulings
+settled; the note carries the mark). His mentat diagnostic returned: identity NOT
+stale — workspace joined, session honest ("NAGGING" is the deck reading the idle nag
+right where cmux's badge reads it wrong). The gap is the **agent surface's title**
+(where "mentat-00" lives, B18 F3) which the deck never reads, plus hovers printing
+bare `workspace:N` refs where titles exist — RULED: face (a) rejected, nothing to
+build (the deck is already honest, P1 cited); face (b) folded into B27 §7 with B18
+F4's poll budget as its STOP-clause. Inbox drained (entry committed at f637734).
+Next: **the Dispatcher — run batch 6.**
+
+Baton — Felix: fire the Dispatcher (batch 6 is blessed; the fence below, also in the
+batch note and at your `/summon`):
+
+```
+You are a Dispatcher at sonnet-medium.
+Wear ~/code/agents/canon/mantles/dispatcher.md,
+then read ~/code/agents/belvedere/README.md §§5–6 (agreements, board, batch-6
+note) and run batch 6: B23 → B22 → B26 → B25 → B24 → B27 strictly serial,
+one in flight, straight to master — kickoffs verbatim from each work doc
+plus the rider at ~/code/agents/belvedere/plans/RIDER.md; hand B27 the
+tweak-list amendment named in the batch note — tend each landing, dispatch
+the next on LANDED, stop after B27: G3 fires by the armed close flow
+(Felix's arm in the Works), never by dispatch. Escalations and the batch
+report come back to Felix.
+```
+
+Behind it: 1) your further tweaks → ISSUES or the desk, any time before B27 fires;
+2) the canon-side sweep waits on the Grand Architect; 3) the trust drain + the
+PermissionRequest ritual + the rework pass ride G3; 4) until B23 lands, the wire is
+the truth and the board pane may lie — curl `/deck/state?b=` when in doubt.

@@ -67,6 +67,17 @@ dispatch.
 6. **The close flow.** Leave `flows/flow-close-6.flow.json` on disk,
    **unarmed**: G3's kickoff byte-identical to the batch note's fence
    (B12's pattern; B11 F3's hash law makes a drift loud at arm).
+7. **The session's cmux name reaches the deck (the mentat-00 gap, ruled at
+   blessing 2026-08-28).** Diagnosed live: identity NOT stale, workspace
+   joined, yet a hand-named session showed no name — the name sits on the
+   **agent surface's title** (B18 F3: measured, glyph-rewritten), which the
+   deck never reads, and the hover printed the bare `workspace:2` ref where
+   a title exists. Fix both: the live-identity read carries surface titles;
+   renders and hovers name workspaces by title wherever one exists, refs
+   only where none does. A stampless session then shows its cmux name
+   beside its honest birth identity. **STOP-clause applies:** B18 F4 priced
+   the poll's socket read (~161 ms) — if surface titles cost more than the
+   remaining headroom or turn structural, escalate rather than absorb.
 
 ## Acceptance criteria — the DoD
 
@@ -92,6 +103,9 @@ dispatch.
 - [ ] `flows/flow-close-6.flow.json` parses (the one parser, 0 lint), sits
   unarmed, kickoff byte-identical to the batch note's G3 fence (sha both
   sides).
+- [ ] The mentat case: a hand-named, stampless cmux session renders its
+  surface title on the deck; hovers print workspace titles, bare refs only
+  where no title exists; the poll's cost measured against B18 F4's budget.
 - [ ] Suite green in one process, offline type gate exit 0, predecessor
   probes re-run green, `/deck/state` p95 within the landed budget, page
   scroll 0 px.
