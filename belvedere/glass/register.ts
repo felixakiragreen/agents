@@ -11,19 +11,12 @@
 // costs freshness in the one fact that changes weekly (is this directory a building?); it
 // costs nothing in the facts that change hourly.
 //
-// One parser in the city (D65): every parse below is doctrine's own exported parser, run
-// over the file list doctrine's own `discover()` chose. Nothing here re-implements a rule —
-// this is `assemble()`'s re-read half, and `register.test.ts` pins it byte-equal to
-// `discover()`'s output. The canon-inbox ask to give `doctrine/` this seam properly rides
-// this row's findings.
+// One parser in the city (D65): the content read IS doctrine's own `parseFiles` — the seam
+// canon row 19 exported at B3's ask. Nothing here re-implements a rule; `register.test.ts`
+// keeps the deep-equal pin as the guard that the walk half and the re-read half agree.
 
-import { readFileSync, statSync } from 'fs';
 import { isAbsolute, join } from 'path';
-import {
-	LIMITS, batonFails, classifyBaton, discover, lastWalk,
-	parseBoards, parseDecisions, parseIssues, parseKickoffs, parseLedger,
-	type Board, type Building, type Decision, type Fail, type Issue, type Kickoff, type LedgerEntry,
-} from '../../doctrine';
+import { discover, lastWalk, parseFiles, type Building } from '../../doctrine';
 import { cityRoot } from './paths';
 
 /**
@@ -121,56 +114,8 @@ export const age = (r: Register) => Math.max(0, Date.now() - r.at) / 1000;
 
 // ---------- content: re-read per request, always ----------
 
-const read = (p: string) => {
-	const size = statSync(p).size;
-	if (size > LIMITS.bytes) throw new Error(`${p}: ${size} bytes exceeds the ${LIMITS.bytes}-byte limit`);
-	return readFileSync(p, 'utf8');
-};
-
-/** One building, re-read and re-parsed from the register's file list. Mirrors `assemble()`. */
-export function content(e: Entry): Building {
-	const fails: Fail[] = [];
-	const stamp = (fs: Fail[], file: string) => { for (const f of fs) f.file = file; return fs; };
-
-	const board: Board[] = [];
-	for (const f of e.files.boards) {
-		const r = parseBoards(read(f));
-		fails.push(...stamp(r.fails, f));
-		for (const b of r.boards) board.push({ heading: b.heading, file: f, line: b.line, rows: b.rows });
-	}
-
-	let ledgerTail: LedgerEntry | null = null, baton: Building['baton'] = null;
-	if (e.files.ledger) {
-		const r = parseLedger(read(e.files.ledger));
-		fails.push(...stamp(r.fails, e.files.ledger));
-		ledgerTail = r.tail;
-		baton = classifyBaton(r.tail);
-		fails.push(...stamp(batonFails(baton, r.tail?.line ?? 0), e.files.ledger));
-	}
-
-	let decisionQueue: Decision[] = [];
-	if (e.files.decisions) {
-		const r = parseDecisions(read(e.files.decisions));
-		fails.push(...stamp(r.fails, e.files.decisions));
-		decisionQueue = r.queue;
-	}
-
-	let issues: Issue[] = [];
-	if (e.files.issues) {
-		const r = parseIssues(read(e.files.issues));
-		fails.push(...stamp(r.fails, e.files.issues));
-		issues = r.issues;
-	}
-
-	const kickoffs: (Kickoff & { doc: string })[] = [];
-	for (const f of e.files.workDocs) {
-		const r = parseKickoffs(read(f));
-		fails.push(...stamp(r.fails, f));
-		for (const k of r.kickoffs) kickoffs.push({ ...k, doc: f });
-	}
-
-	return { building: e.building, path: e.path, board, ledgerTail, baton, decisionQueue, issues, kickoffs, files: e.files, fails };
-}
+/** One building, re-read and re-parsed from the register's file list — doctrine's own seam. */
+export const content = (e: Entry): Building => parseFiles(e);
 
 /**
  * The whole city, register-warm and content-fresh. A building whose files moved between the
@@ -182,8 +127,8 @@ export function city(): { reg: Register; buildings: Building[] } {
 		try { return content(e); }
 		catch (err) {
 			return {
-				building: e.building, path: e.path, board: [], ledgerTail: null, baton: null,
-				decisionQueue: [], issues: [], kickoffs: [], files: e.files,
+				building: e.building, path: e.path, board: [], ledgerTail: null, ledgerEntries: 0, baton: null,
+				decisions: 0, decisionQueue: [], issues: [], kickoffs: [], files: e.files,
 				fails: [{ artifact: 'board' as const, code: 'register.stale', reason: `unreadable since the register walk: ${(err as Error).message}`, excerpt: e.path, file: e.path, line: 0 }],
 			};
 		}
