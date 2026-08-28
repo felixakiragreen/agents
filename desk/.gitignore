@@ -1,0 +1,6 @@
+# The desk is gitted and versioned (D17) — his notes are truth and they commit.
+#
+# Chat drafts are not. `drafts/<session-id>.md` is a half-typed reply to one session (B16, D18
+# class 3): per-viewer scratch with a lifetime of minutes, named after a uuid nobody will read
+# again. B16 named the question and left it to this row; this is the answer.
+drafts/
