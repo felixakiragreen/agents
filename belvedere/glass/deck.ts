@@ -10,7 +10,7 @@
 import { readFileSync, statSync } from 'fs';
 import { sep } from 'path';
 import { cityRows, needsYou, waitingOf } from './attention';
-import { readCensus, isLive } from './census';
+import { readCensus, isLive, type Session } from './census';
 import { ATTENTION, columns, RESTING, type Attention, type DeckSession, type DeckSnapshot } from './deck-model';
 import { auditorCount } from './gauges';
 import { CSS, esc, short } from './html';
@@ -43,6 +43,31 @@ function auditor(): { visible: number | null; at: number } {
 }
 
 /**
+ * One session, flattened for the wire. The census stays the sole liveness authority (P1 F5) — this
+ * copies what it said and derives nothing but the waiting edge, which `attention.ts` owns.
+ *
+ * The last beat's own coordinates ride along because the Workshop's tooltips want depth on hover
+ * and the surface can only afford a name (keel §2): venue, process, and what the session was last
+ * doing. `model` is half a tier and is labelled as such wherever it renders (`census.ts` §identify).
+ */
+export const deckSession = (s: Session, building: string | null): DeckSession => ({
+	sid: s.sid,
+	stamp: s.stamp,
+	state: s.state,
+	waiting: waitingOf(s),
+	account: s.account,
+	building,
+	cwd: s.cwd,
+	pane: s.last.sf !== null,
+	last: s.last.t,
+	model: s.model,
+	pid: s.last.pid,
+	ws: s.last.ws,
+	event: s.last.ev,
+	tool: s.tool,
+});
+
+/**
  * One composed read: the census (what is alive), the register's held copy (what the buildings are)
  * and every building's content re-read from disk (what they want).
  *
@@ -58,22 +83,7 @@ export function deckState(open: string | null = null): DeckSnapshot {
 	const { reg, buildings } = city();
 	const live = census.sessions.filter(isLive);
 
-	const sessions: DeckSession[] = census.sessions.map(s => ({
-		sid: s.sid,
-		stamp: s.stamp,
-		state: s.state,
-		waiting: waitingOf(s),
-		account: s.account,
-		building: buildingOf(s.cwd, buildings)?.building ?? null,
-		cwd: s.cwd,
-		pane: s.last.sf !== null,
-		last: s.last.t,
-		model: s.model,
-		pid: s.last.pid,
-		ws: s.last.ws,
-		event: s.last.ev,
-		tool: s.tool,
-	}));
+	const sessions = census.sessions.map(s => deckSession(s, buildingOf(s.cwd, buildings)?.building ?? null));
 
 	const queue = needsYou(buildings, live);
 	const rows = cityRows(buildings, live, queue);
