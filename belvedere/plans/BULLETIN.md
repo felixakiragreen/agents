@@ -1323,3 +1323,78 @@ teardown and leaves its live workspace open** — `workspace:100 builder-belvede
 running afterwards and was closed by hand. A probe's `shut()` has to run in a `finally` before
 the failure is reported, or a failing DoD run silently costs a live session against the
 batch's ≤2 concurrency rule (D55). Filed to [ISSUES](../ISSUES.md), this date.
+
+## → relay — B19 (the desk) to B21, B12 and the Architect: no escalation, four findings that bind
+
+Evidence: [b19-desk.md](b19-desk.md) §DoD and §Findings, commits `0ed72ad` … `1ea5027` on
+`master`.
+
+1. **F1 — the repaint memo outlived the host it described, so a tenant swapped away and back
+   drew NOTHING. It has been true since B15 and no probe in the chain could see it.**
+   `focusOn()` empties both hosts on every tenant swap; `paint()` kept only `key → signature`
+   in a module map. So a tenant returned to with its content unchanged found its own memo
+   still standing, skipped the draw, and left the pane **blank — no error, no lint, and only
+   on the return trip**. Measured in Chrome rather than reasoned: the desk handed a note to the
+   Chat's draft, the shell swapped the Chat in, the draft box appeared in Action and Focus
+   rendered nothing at all (`#host-focus .ct-head .big` → `null` with pane state `expanded`
+   and tenant `chat`). **B13/B14/B15/B16/B20/B10/B11's probes all miss it by construction** —
+   every swap in them changes something the signature covers — and all seven re-ran **ALL
+   GREEN** after the fix. Fixed at the cause: **the memo records its host**, and
+   `forget(host)` in [`deck-dom.ts`](../glass/deck-dom.ts) retracts every claim about a host
+   wherever one is cleared (`deck.client.ts` §focusOn calls it on both). *A memo is a claim
+   about a host's contents; emptying the host falsifies it.* **What binds B21 and B12: any
+   row that swaps a tenant, or that empties a host someone else painted into, owes a
+   `forget()` — and a pane that renders blank on the way back is this bug, not a data
+   problem.**
+
+2. **F2 — `mount()` is not a fresh start, and a tenant's mount-time async restore will race a
+   gesture.** A `FocusView` module outlives its own `unmount`, so `mount()` runs again on every
+   swap-in with the module's state intact. The desk's `mount()` ends with
+   `refresh().then(() => openNote(want))`, and a route clicked in the ~200 ms before that
+   re-read landed had its plan wiped by `openNote`'s own `plan = null`: the preview vanished on
+   its way to being read and the next click found no button (`TypeError: … reading 'click'`,
+   in the probe, intermittently — it passed twice before it failed). Fixed by not re-opening
+   what is already open. **For B21 especially**, whose hits and query will be exactly this
+   shape: restore only what the module does not already hold, and never let a mount-time
+   promise write over state a click has since changed.
+
+3. **F3 — the evidence indent in a D63h block is load-bearing, and it is the desk's whole
+   defence against Felix's own markdown.** `blocks()` in the one parser splits an inbox on
+   `^---\s*$`. A routed note is his prose and rules in it are ordinary, so an un-indented `---`
+   inside one would cut the block in half and strand the evidence in a block with **no entry
+   line** — `issue.entry`, the one thing `parseIssues` actually lints. Two spaces of markdown
+   list continuation make that unrepresentable (`^---[ \t]*$` stops matching), the item still
+   renders as one, and the probe asserts the landed inbox contains `  ---` with **0 lint**.
+   The alternative — refusing a note containing a rule — would have been the glass telling him
+   how to write. **`entryBytes(existing, gesture, date)` in [`inbox.ts`](../glass/inbox.ts) is
+   now the one function the preview and the write both call**, so a previewed append and a
+   performed one cannot diverge; `addition()` gained an optional third argument and every B6
+   test still passes unchanged.
+
+4. **F4 — the desk declares NEITHER optional seam member, and the rule that produced that is
+   general.** B15's `needs` and B16's `asks` exist because the *server* knows something the
+   tenant wants. Nothing on the server changes a note, so a snapshot carrying his own writing
+   back at him every three seconds would only fight the pane he types in (B14 F4's reasoning,
+   one step further). `/desk/*` answers gestures like `/deck/doc`, `/deck/chat` and
+   `/deck/decode`, and **`/deck/state` is byte-for-byte the shape B16 left it** — measured
+   with the desk shipped, live register: **p50 56 ms · p95 60 ms** (N=12), `/desk/notes` and
+   `POST /desk/save` **p50 0.5 ms**. **The rule: a tenant asks the poll only for what the
+   world writes, never for what Felix writes.** B21's grep is the same class — a query is a
+   gesture, not a clock.
+
+Also for B21 and B12, not blocking: **the desk's third route travels through a new shared
+cell rather than an import** (`compose.with` in [`deck-view.ts`](../glass/deck-view.ts),
+registered by `composer.client.ts`, beside `selection`, `viewer.open` and `swap.to`) — B16 F8's
+law applied a second time, because importing another tenant's module reorders the registry the
+tenant bar draws from. And **B16 F4 is settled**: `desk/.gitignore` ignores `drafts/` — notes
+are truth and commit (D17: *"gitted, versioned"*), a half-typed reply to one session named
+after a uuid does not. The glass still commits nothing (D18 class 3); that ignore rule is a
+Builder's commit.
+
+And one for whoever writes the next probe: **a header comment that names the guard defeats the
+grep it describes** (F8). `desk.client.ts` opened with *"nothing here fires — `hands/fire` is
+not spelled in this file, which is the check"*, and the probe duly reported `1×`. B17 F1's
+check is *which source contains the string*, so the prose explaining it must not contain it
+either.
+
+(Relayed from `master`, B19 LANDED 2026-08-28 — Builder)
