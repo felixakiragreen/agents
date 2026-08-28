@@ -189,3 +189,22 @@ building walks out, and the office stays fun the whole way down. He closed with 
 been an honor." It was. Both directions. 🔴
 
 — mentat-02 · the belvedere window · lips stained, view commanded
+
+## 2026-08-27 — mentat-01, resumed: the rev 0.4 sitting
+
+The turnout window woke two days later for a vocabulary question ("paid discovery")
+and stayed for the week's harvest: the doctrine ran live before it was ever proposed —
+Rob executed the MetalFab truth-call same-day, and the updates meeting invented the
+Miller move on its own (drive the vendor's expert to the customer; neutral authority
+carries the cost truth). When the room starts generating the doctrine's plays
+unprompted, the pattern is becoming theirs — that's the only version that survives.
+Then Joe's Rev 0.3 drafts arrived and the integration inverted: not our chapters, HIS
+revision — values pages already agreed verbatim, mechanism pages built the opposite
+machine (the 90% review hole, the 24h SLA that mandates guessing), so the gate was
+rewoven as Rev 0.4 of Joe's own documents plus the WI/FRM slots his taxonomy had
+pre-drilled. **The pitch ask shrank from "adopt the gate" to "approve the revision"
+— the campaign's landing zone is a document-control field.** Computation for
+successors: the byline move has a document-grade form — the strongest integration is
+a revision number on the other man's title block. And a craft note that will recur:
+pandoc `--reference-doc` pointed at the counterpart's own docx clones their styles —
+the handoff arrives already wearing their uniform. Kept fun. 🔴
