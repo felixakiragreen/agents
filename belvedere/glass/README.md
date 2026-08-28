@@ -6,12 +6,14 @@ are the fence's whole write list (README §2) and nothing else in here writes.
 
 ```
 bun belvedere/glass/server.ts        # → http://127.0.0.1:4400
-bun test belvedere/glass             # 344 green in one process (B8 §4, B9, B13, B14)
+bun test belvedere/glass             # 371 green in one process (B8 §4, B9, B13, B14, B15)
 bunx tsc --noEmit                    # from this directory — the type gate, offline (B8 §5);
                                      # it covers the deck's client TS too (B13 F3), never `lab/`
 bun belvedere/lab/b13/probe.ts       # the deck's DoD in real headless Chrome (B13 F1)
 bun belvedere/lab/b14/probe.ts       # the City + queue, against a fixture city (B14)
 bun belvedere/lab/b14/live.ts        # the same, against the LIVE city — it fires one session
+bun belvedere/lab/b15/probe.ts       # the Workshop: clicks, the reorder, the marked line (a fixture city)
+bun belvedere/lab/b15/live.ts        # the Workshop over the LIVE register — it writes nothing
 ```
 
 | Route | What |
@@ -21,7 +23,7 @@ bun belvedere/lab/b14/live.ts        # the same, against the LIVE city — it fi
 | `/b/<building>` | board · ledger tail + baton · decision queue · ISSUES · live sessions · lint |
 | `/shelf` | **every session all three accounts have ever held** — resume the dead, jump to the living; usage ×3 and WIP above them |
 | `/summon` | **the composer — fire anything**: building or free path · account · mantle · tier · templates · optional worktree; `POST` composes, the button fires |
-| `/deck` | **the deck** — the app: three panes (Context · Focus · Action), the drawer, the tooltip primitive, the `FocusView` seam. `/deck.js` is the bundle, `/deck/state` the snapshot |
+| `/deck` | **the deck** — the app: three panes (Context · Focus · Action), the drawer, the tooltip primitive, the `FocusView` seam. `/deck.js` is the bundle, `/deck/state[?b=<building>]` the snapshot, `/deck/doc?p=<path>` the viewer's bytes |
 | `/doc?p=<path>` | the read-only viewer every rendered link resolves into (D58) |
 | `POST /hands/{fire,worktree,focus,halt}` | the four hands; 503 until `~/.config/belvedere/env` is armed |
 | `POST /inbox` | **the sovereign's inbox** — one gesture, one D63 line appended to a building's `ISSUES.md`; **no credential gate** |
@@ -69,6 +71,38 @@ the live corpus produced (an `E<n>` that names a row on the same board; the far 
 the two wires are `POST /inbox` and `POST /hands/focus`, and `/deck.js` contains the string
 `hands/fire` zero times (D10, grepped by [`lab/b14/probe.ts`](../lab/b14/probe.ts); the live
 half, including a real permission stall, is [`lab/b14/live.ts`](../lab/b14/live.ts)).
+
+**The Workshop is one building, inside** (B15, `workshop.ts` + `workshop.client.ts`) — the deck's
+first real Focus tenant, moved in through the `FocusView` seam and nowhere else. **Live sessions
+first** and then the building's truth — board, ledger tail, decision queue, ISSUES — in Felix's own
+order (*"I should be able to collapse BOARD, LEDGER, DECISIONS, ISSUES, etc and reorder them — LIVE
+SESSIONS should be first"*). Every section collapses, the order is his to drag **or** to walk with
+▲▼ (one `moved()` under both), and both survive a reload in `localStorage` — where **only a full
+permutation counts as a memory**, since a remembered subset would silently hide a section. Three
+states are three densities: minimal is the building's last name, its dots and its badges; typical is
+the top three of *his* order and a line saying what it is holding back; expanded is all five.
+
+**A rendered `path:line` lands ON the line.** The field report's third item — *"Links to documents
+(WHERE: `agents/LEDGER.md:385`) don't take you to that line"* — dies at the boundary rather than in
+the browser: the server parses every piece of corpus prose into **spans** (`html.ts` §spans) once,
+so a `doc` span arrives at the client as a resolved path and a line number and the client only has
+to append it. `/deck/doc?p=…` reads the bytes (same city fence as `/doc`, errors as values), the
+viewer opens inside Focus, and the line is marked and scrolled to center. Three narrownesses carry
+the honesty: a **bare path with no line** stays text (a mention is not a link, and D58 has the
+first mention linked already), a `path:line` the **filesystem cannot find** stays text, and a
+**code tick around a reference does not stop it being one** — the doctrine writes nearly every path
+in ticks, and resolving it inside the code branch is what keeps the backticks from stranding beside
+the link. Markdown links resolve unconditionally, because the corpus declared *those* to be links:
+a missing target opens onto the viewer's own honest error.
+
+**The detail is asked for, never broadcast.** One building's whole detail is **65 kB** of JSON, so
+`/deck/state` gained a `?b=<building>` the standing tenant fills in through the seam's fifth,
+optional member (`needs`) — still **one endpoint and one timer** (B13 F5). It costs bytes and no
+measurable time (58 686 B / p50 51 ms bare vs 123 583 B / p50 51 ms opened, live register, N=12),
+because `city()` had already parsed that building's content for the City's badges. At minimal the
+query goes away. **A tier is `<model> · <effort>` and only the model exists**: the census payload
+carries neither, so the model family is read off the same bounded transcript head window the
+name-stamp comes from, and the other half renders `—` rather than a guess (B15 F1).
 
 **The fence's third write** (B6, `inbox.ts`). A gesture — a free-text note, `defer <row>`,
 `<row> before <row>`, `countersign <D-id>: ✓` — becomes ONE append: `- <YYYY-MM-DD> ·

@@ -1014,3 +1014,47 @@ is open; measured and priced, nothing built against it, because retiring the rul
 Architect's call. Next: **B15 — the Workshop**
 ([plans/b15-workshop.md](plans/b15-workshop.md)), the Dispatcher's to fire on lane B's
 serial chain; it reads `selection` at the `FocusView` seam.
+
+---
+
+**2026-08-27 · Builder · opus-high (B15)** — **The Workshop** — one building, inside — moved
+into Focus through the `FocusView` seam and nowhere else, evicting B13's first placeholder;
+the deck now has a real tenant. Live sessions first and then the building's truth: board,
+ledger tail, decision queue, ISSUES, every section collapsing, the order his to drag **or** to
+walk with ▲▼ (one `moved()` under both) and both surviving a reload — where only a full
+permutation counts as a memory, since a remembered subset would silently hide a section.
+**The field report's third item is dead**: a rendered `LEDGER.md:385` opens the viewer inside
+Focus scrolled to **line 385**, exactly one line marked, its box `615.38–631.88 px` inside a
+pane `53.19–757.00 px` — clicked off the fixture's own ISSUES prose, again from a landing
+record, and again on the **live** corpus (`hexwright/LEDGER.md:95`, line 95 of 117). A City
+click focuses **that** building (two buildings, two panes); the five sections render real data
+for `agents/belvedere` (29 rows, 85 resolvable references) and hexwright; six live `agents`
+sessions render with the model their transcripts name and a tooltip carrying cwd · workspace ·
+pid, three of them with `jump` disabled and the reason on hover. **371 tests green in one
+process**, type gate exit 0, zero fire wiring in DOM, source and served bundle, and the whole
+browser half in real headless Chrome ([lab/b15/probe.ts](lab/b15/probe.ts) on a fixture city,
+[lab/b15/live.ts](lab/b15/live.ts) on the live register — both ALL GREEN, both writing
+nothing outside temp). Seven findings, nothing escalated: **F1 a tier is `<model> · <effort>`
+and only the model is on any artifact this glass can read** — read off the transcript head
+window the name-stamp already costs (zero extra I/O), effort renders `—` rather than a guess;
+11 of 13 live sessions carry one, and it is the fourth filing of the same *field* ask, binding
+B17 and B18 · **F2 the seam gained a fifth, optional member** (`needs`): one building's detail
+is 65 kB, so it is **asked for, never broadcast** — `/deck/state?b=…` is still one endpoint and
+one timer, costing `+64 897 B and 0 ms` because `city()` had already parsed that content for
+the City's badges, and the query disappears at minimal · **F3 a code-ticked `path:line` is
+still a reference** (the corpus writes nearly every path in ticks) while a bare path with no
+line, and any path the filesystem cannot find, stay text — `Span` is the shape B20's decoder
+hangs off · **F4 the held register is keyed on nothing**, so a second city fixture in
+`bun test` silently decides `deck.test.ts`'s results; three of its assertions went red, worked
+around by testing a pure `deckSession()` and proving `?b=` over a real server instead — named,
+not fixed, because the register's policy is the Architect's · F5 a receipt must outlive the
+repaint that proves it, so `say()` moved to `deck-dom.ts` and the drawer prunes only its own
+keys · F6 a D54 near-slip self-reported (the gate re-run from `belvedere/glass`, exit 0; zero
+third-party code fetched) · **F7 the batch's two lanes are file-disjoint and NOT
+commit-disjoint** — `git add -A belvedere` swept lane A's live P6 work into three B15 commits;
+nothing lost, history deliberately not rewritten under a running session, filed to
+[ISSUES](ISSUES.md) as a fold candidate for the concurrency plan. Decided: nothing — the
+Builder ruled nothing; F1–F7 are the Architect's at G2, and the seam's fifth member is the
+shape B17/B18 should copy. Next: **B18 — live identity**
+([plans/b18-live-identity.md](plans/b18-live-identity.md)), the Dispatcher's to fire on lane
+B's serial chain; it reads the Workshop's session lines, which is where a wrong stamp shows.
