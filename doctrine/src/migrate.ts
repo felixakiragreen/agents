@@ -103,6 +103,12 @@ const statusPending: Rule = {
 	cell: { column: 4, run: t => leadingToken(strip(t)) === 'PENDING' ? replaceLead(t.trim(), 'PENDING', 'OPEN — PENDING') : null },
 };
 
+/** D69 — PARKED conforms exactly as PENDING does, so it molts exactly as PENDING does. */
+const statusParked: Rule = {
+	id: 'status.parked', changes: ['state', 'annotation'],
+	cell: { column: 4, run: t => leadingToken(strip(t)) === 'PARKED' ? replaceLead(t.trim(), 'PARKED', 'OPEN — PARKED') : null },
+};
+
 /** `E1–E9` expands to ids where every one resolves in the building; else it stays a lint fail (item 7). */
 const dependsRange: Rule = {
 	id: 'depends.range', changes: ['dependsOn'],
@@ -282,7 +288,7 @@ const decisionInlineAttribution: Rule = {
 const ledgerUnrecordedClauses: Rule = { id: 'ledger.unrecorded-clauses', changes: ['decided', 'next', 'body'] };
 
 export const RULES: Rule[] = [
-	staffingFelixGate, staffingRiderParens, statusRetired, statusVerdict, statusPending, dependsRange,
+	staffingFelixGate, staffingRiderParens, statusRetired, statusVerdict, statusPending, statusParked, dependsRange,
 	ledgerTierSlot, ledgerHeading, ledgerBareHead, decisionHead, decisionInlineAttribution,
 	ledgerUnrecordedClauses,
 ];

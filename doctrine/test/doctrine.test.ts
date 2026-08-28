@@ -116,6 +116,11 @@ describe('control — conforming fixtures parse with zero failures', () => {
 describe('the silence family — defects that once reported clean', () => {
 	test('leading PARKED is the same defect class as leading PENDING (item 2, D69)', () => {
 		expect(codes(parseBoards(fx('defects', 'parked-leads.md')).fails)).toEqual(['board.parked-leads']);
+		// and it molts exactly as PENDING does — C8's cell in the D69 spelling, state leading
+		const m = migrateText(join(FX, 'defects', 'parked-leads.md'), fx('defects', 'parked-leads.md'));
+		expect(m.after).toContain('| OPEN — PARKED — staffed when unparked; earns a build on iron or not at all |');
+		expect(codes(parseBoards(m.after).fails)).toEqual([]);
+		expect(roundTrip(m)).toEqual([]);
 	});
 
 	test('a stale lead fails; another row\'s landing in the annotation passes (item 17)', () => {
