@@ -128,6 +128,17 @@ describe('the shell — three panes, always, and nothing off this origin', () =>
 		expect(shell).toContain(`data-pane="focus" data-state="${RESTING.focus}"`);
 	});
 
+	test('the queue\'s total is in the bar, so it is visible at rest with the drawer shut (B14 §4)', () => {
+		expect(shell).toContain('id="needs"');
+		expect(shell).toContain('data-needs="0"');
+		expect(shell).toContain('<span class="pane-name">needs you</span>');
+	});
+
+	test('nothing in the shell can fire — no fire wiring, no summons, no stamp (D10)', () => {
+		for (const forbidden of ['/hands/fire', 'data-fire', 'data-apply', 'summons'])
+			expect(shell).not.toContain(forbidden);
+	});
+
 	test('every pane offers all three states as buttons, and the page has no dropdown anywhere', () => {
 		for (const p of PANES) for (const s of PANE_STATES)
 			expect(shell).toContain(`data-set-state="${s}" data-pane="${p}"`);
@@ -207,6 +218,40 @@ describe('deckState — one composed read, and the joins it makes', () => {
 		expect(byId.get('ccc')?.building).toBeNull();             // off the register is null, never mis-housed
 		expect(snap.register.ageSeconds).toBeGreaterThanOrEqual(0);
 		expect(snap.at).toBeGreaterThan(0);
+	});
+
+	// B14 widens the same snapshot rather than opening a second endpoint (`deck-model.ts` §head).
+	test('the snapshot carries the City and the queue, and the badges agree with the items', () => {
+		process.env.CENSUS_DIR = CENSUS;
+		process.env.GLASS_CITY = CITY;
+		const snap = deckState();
+
+		const town = snap.register.buildings[0]!;
+		expect(town.group).toBe('tinytown');
+		expect(town.live).toBe(1);                                // `aaa` works here; `bbb` is gone
+		expect(town.sids).toEqual(['aaa']);
+		expect(Object.keys(town.badges).sort()).toEqual(['countersign', 'escalation', 'gate', 'waiting']);
+		expect(town.attention).toBe(0);                           // live work — v0's own rank, untouched
+		for (const [kind, n] of Object.entries(town.badges))
+			expect(n).toBe(snap.queue.filter(i => i.building === town.building && i.kind === kind).length);
+
+		expect(snap.census.waiting).toBe(0);                      // nothing in this fixture is blocked
+		expect(snap.auditor.at).toBeGreaterThan(0);               // `ps` answered, or honestly did not
+	});
+
+	test('a permission prompt reaches the wire as a waiting session, a badge and a queue item', () => {
+		process.env.CENSUS_DIR = CENSUS;
+		process.env.GLASS_CITY = CITY;
+		writeFileSync(join(CENSUS, 'census.jsonl'),
+			beat({ ev: 'Notification', why: 'permission_prompt', sid: 'ddd', pid: String(process.pid), cwd: LIVE, ws: 'W1', sf: 'S1' }) + '\n');
+		const snap = deckState();
+
+		expect(snap.census.waiting).toBe(1);
+		expect(snap.census.sessions[0]!.waiting).toBe('blocked');
+		expect(snap.register.buildings[0]!.badges.waiting).toBe(1);
+		expect(snap.register.buildings[0]!.attention).toBe(-1);   // above every other rank there is
+		expect(snap.queue[0]!.kind).toBe('waiting');
+		expect(snap.queue[0]!.sid).toBe('ddd');
 	});
 
 	test('no census file is honestly absent, not an empty city', () => {
