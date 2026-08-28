@@ -21,6 +21,7 @@ import { plan, verdictOf, armFlow, passGate, type World } from './engine';
 import {
 	appendRun, armedHash, DEFAULT_TIMEOUT_MINUTES, readFlow, readRun, type Flow, type NewRunLine, type Step,
 } from './flow';
+import { judgeStep, scopeJoin, stepMarks } from './judge';
 
 const CITY = join(import.meta.dir, '../../..');            // the real `~/code`, whatever `$HOME` is
 const ROOT = mkdtempSync(join(tmpdir(), 'b11-engine-'));
@@ -98,8 +99,9 @@ function runOf(flow: Flow, lines: NewRunLine[], ts = NOW - 3600): ReturnType<typ
 	return readRun(flow.name);
 }
 
+/** An armed flow, as `armFlow` really writes one: the hash, **and what each step was** (B12 §4). */
 const armed = (flow: Flow, rest: NewRunLine[] = [], ts = NOW - 3600): ReturnType<typeof readRun> =>
-	runOf(flow, [{ ev: 'armed', hash: flow.hash }, ...rest], ts);
+	runOf(flow, [{ ev: 'armed', hash: flow.hash, steps: stepMarks(flow) }, ...rest], ts);
 
 const beat = (over: Partial<Beat>): Beat => ({
 	t: NOW - 60, ev: 'Stop', sid: 's', acct: '/Users/felix/.claude', pid: 4242,

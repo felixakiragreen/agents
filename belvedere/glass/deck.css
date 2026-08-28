@@ -463,6 +463,14 @@ body.deck {
 	border-left: 2px solid var(--orange-600); background: var(--grey-950);
 }
 
+/* The reactive gate's insertion (B12 §2): a sitting the engine staffed mid-run, in no flow file.
+   Dashed, for the same reason a board-sourced ring is — the drawing says where the claim came from. */
+.deck .node.inserted { border-style: dashed; }
+.deck .pill.tone-ins {
+	font-size: 8.5px; letter-spacing: .1em; text-transform: uppercase;
+	border: 1px dashed var(--purple-600); border-radius: 3px; padding: 0 4px; color: var(--purple-300);
+}
+
 /* NOW: the line the live sessions blink on (D14). */
 .deck .nowline {
 	position: relative; z-index: 1;

@@ -98,8 +98,9 @@ function drawNode(host: HTMLElement, n: WorksNode, all: Map<string, WorkshopRow>
 	const { ring: r, from } = ringOf(n, state);
 	const ctx = ctxOf(row);
 
-	const box = el('div', `node ring-${r}${n.gate === 'felix' ? ' felix-card' : ''}${picked === n.id ? ' on' : ''}`);
+	const box = el('div', `node ring-${r}${n.gate === 'felix' ? ' felix-card' : ''}${n.inserted ? ' inserted' : ''}${picked === n.id ? ' on' : ''}`);
 	box.dataset['node'] = n.id;
+	box.dataset['inserted'] = n.inserted ? 'yes' : 'no';
 	box.dataset['depth'] = String(n.depth);
 	box.dataset['ring'] = r;
 	box.dataset['ringFrom'] = from;
@@ -129,6 +130,9 @@ function drawNode(host: HTMLElement, n: WorksNode, all: Map<string, WorkshopRow>
 	bill.append(el('span', 'ntier', n.tier), el('span', 'nacct', n.account));
 	if (!compact) bill.append(el('span', 'nvenue', n.venue));
 	if (state) bill.append(el('span', 'pill', state));
+	// The plan grew here (B12 §2). Said on the node, because a drawing that shows an inserted sitting
+	// as a declared one is a drawing claiming somebody planned it.
+	if (n.inserted) bill.append(el('span', 'pill tone-ins', 'inserted by the gate'));
 	box.append(bill);
 
 	if (n.gate === 'felix' && n.card) {
@@ -274,6 +278,13 @@ function legend(flow: WorksFlow): HTMLElement {
 	const board = el('span', 'lkey');
 	board.append(el('span', 'nring r-landed from-board'), el('span', '', 'a dashed ring is the BOARD’s word, not the engine’s'));
 	box.append(board);
+	// Drawn only where there is one to explain: a legend key for a vocabulary this flow does not use
+	// is a legend teaching a word nobody said (and B21 F2 — a sample must not answer a node selector).
+	if (flow.nodes.some(n => n.inserted)) {
+		const ins = el('span', 'lkey');
+		ins.append(el('span', 'pill tone-ins', 'inserted'), el('span', '', 'the reactive gate staffed this sitting mid-run — it is in no flow file'));
+		box.append(ins);
+	}
 	return box;
 }
 
@@ -594,6 +605,12 @@ function drawNodeActions(host: HTMLElement, n: WorksNode, row: WorkshopRow | nul
 		acts.append(el('span', 'slot', 'hotswap to the Chat — B16'));
 	}
 	else if (r === 'landed') acts.append(el('span', 'slot', 'a follow-up fire — the composer, one pane over'));
+	// The gate's residue (B12 §2): the judge sat, the row still does not read clean, and the card is
+	// his after all. It has already fired, so there is no pass gesture and nothing here to press —
+	// saying "the engine fires this the moment its dependencies land" would be a lie.
+	else if (n.inserted && n.gate === 'felix') acts.append(el('span', 'quiet prose',
+		'The judge sitting landed and the row it was staffed for still does not read clean, so this one is Felix\'s. '
+		+ 'A judge is never judged, so the engine inserts no second one and nothing behind this card fires.'));
 	else if (!n.awaitingPass) acts.append(el('span', 'quiet prose', held(n, row) ?? (
 		flow.armedHash === null
 			? 'Declared, not armed. The arm is one click on the flow’s own card — click away from this node to reach it.'

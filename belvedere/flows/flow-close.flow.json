@@ -1,0 +1,32 @@
+{
+	"building": "agents/belvedere",
+	"scope": "agents/belvedere · the batch-5 close",
+	"created": "2026-08-28",
+	"concurrency": 1,
+	"judgeTier": "fable-high",
+	"steps": [
+		{
+			"id": "g2",
+			"name": "Batch-5 close sitting",
+			"account": "personal",
+			"tier": "Architect · fable-high",
+			"venue": { "kind": "master", "cwd": "~/code/agents" },
+			"depends": [],
+			"gate": { "kind": "architect" },
+			"kickoff": { "doc": "agents/belvedere/README.md", "fence": 5 }
+		},
+		{
+			"id": "verdict",
+			"name": "The chapter verdict",
+			"account": "personal",
+			"tier": "Architect · fable-high",
+			"venue": { "kind": "master", "cwd": "~/code/agents" },
+			"depends": ["g2"],
+			"gate": {
+				"kind": "felix",
+				"card": "The chapter verdict is Felix's. G2 has verified the landings and folded the findings; what this card asks is whether batch 5 is closed — his word, not a sitting's. Nothing on this card fires; passing it fires the sitting behind it, which only records the verdict he gave."
+			},
+			"kickoff": "You are an Architect at fable-high.\nWear ~/code/agents/canon/mantles/architect.md,\nthen read ~/code/agents/belvedere/README.md §6 and LEDGER.md's tail, and record\nFelix's chapter verdict on batch 5: close the batch note, true the board, hand\nthe next chapter its baton, commit in his git style."
+		}
+	]
+}

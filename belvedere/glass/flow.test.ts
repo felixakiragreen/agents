@@ -103,15 +103,18 @@ describe('flow-batch-1 — the chapter’s own DAG, parsed', () => {
 
 	test('readFlows finds it, and worksOf hands it to the drawing with its edges', () => {
 		expect(readFlows().filter(r => r.ok).length).toBeGreaterThanOrEqual(1);
+		// Two flows declared for this building since B12 left the close flow on disk (§5), so the
+		// assertion names the one it is about rather than counting the directory.
 		const w = worksOf('agents/belvedere')!;
-		expect(w.flows.length).toBe(1);
-		expect(w.flows[0]!.nodes.length).toBe(5);
-		expect(w.flows[0]!.edges).toEqual([
+		expect(w.flows.length).toBeGreaterThanOrEqual(1);
+		const batch1 = w.flows.find(x => x.name === 'flow-batch-1')!;
+		expect(batch1.nodes.length).toBe(5);
+		expect(batch1.edges).toEqual([
 			{ from: 'p5', to: 'b10' }, { from: 'b10', to: 'b11' },
 			{ from: 'b11', to: 'b12' }, { from: 'b12', to: 'g2' },
 		]);
 		// The mantle's hue is the rig's table through felikai's (B18 F1): Builder is felikai blue.
-		expect(w.flows[0]!.nodes.find(n => n.mantle === 'Builder')!.color).toBe('#0362b2');
+		expect(batch1.nodes.find(n => n.mantle === 'Builder')!.color).toBe('#0362b2');
 		// A building nobody declared a flow for gets an empty list, never somebody else's flow.
 		expect(worksOf('agents')!.flows).toEqual([]);
 		expect(worksOf(null)).toBeNull();
