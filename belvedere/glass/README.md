@@ -24,6 +24,7 @@ bun belvedere/lab/b15/live.ts        # the Workshop over the LIVE register — i
 | `/shelf` | **every session all three accounts have ever held** — resume the dead, jump to the living; usage ×3 and WIP above them |
 | `/summon` | **the composer — fire anything**: building or free path · account · mantle · tier · templates · optional worktree; `POST` composes, the button fires |
 | `/deck` | **the deck** — the app: three panes (Context · Focus · Action), the drawer, the tooltip primitive, the `FocusView` seam. `/deck.js` is the bundle, `/deck/state[?b=<building>]` the snapshot, `/deck/doc?p=<path>` the viewer's bytes |
+| `/deck/decode?t=<ref>&in=<doc>&w=<scope>` | **the decoder** — one code word (`B18`, `D63`, `§5`, `row 17`) resolved into its object: encapsulation, status, where it is written, its gestures |
 | `/doc?p=<path>` | the read-only viewer every rendered link resolves into (D58) |
 | `POST /hands/{fire,worktree,focus,halt}` | the four hands; 503 until `~/.config/belvedere/env` is armed |
 | `POST /inbox` | **the sovereign's inbox** — one gesture, one D63 line appended to a building's `ISSUES.md`; **no credential gate** |
@@ -94,6 +95,39 @@ first mention linked already), a `path:line` the **filesystem cannot find** stay
 in ticks, and resolving it inside the code branch is what keeps the backticks from stranding beside
 the link. Markdown links resolve unconditionally, because the corpus declared *those* to be links:
 a missing target opens onto the viewer's own honest error.
+
+**No code word without its meaning one hover away** (B20 — `decode.ts` + `decoder.ts`). Every
+reference the deck renders resolves: row ids (`B18`, `P5`, `G2`), decision ids (`D2`, `D63`),
+section refs (`§5`, `§3.2`), `FC-`/`GA-` ids, and **the row-keyword form** (`canon row 17`,
+`bob row 3`, bare `row 14`) — because the canon board's row ids are bare numerals and only the
+word in front anchors them. **Detection and resolution are deliberately apart**: `decode.ts` is a
+pure detector both sides import, `decoder.ts` is where a token meets the files, and the route
+**re-detects the query rather than trusting it** (parse, don't validate — a hand-typed `?t=rm -rf`
+gets a refusal, not a lookup). **One seam**: `words()` in `deck-dom.ts` is the only place a code
+word becomes a control, so the City, the Workshop and the drawer's queue inherit it by
+construction and a fourth tenant will too — nothing decodes per-tenant.
+
+**Resolution is context-scoped, local first, and never a guess.** A reference resolves against its
+own document's building, then against canon (`canonRoot()` = `<city>/agents`) — belvedere's
+decisions stop at D18, so a `D63` in a belvedere doc is canon's, and the resolver knows it *by
+looking*, never by string-matching a range. A **§ is always its own document's**, which is why the
+same `§5` means "Working agreements" in belvedere's README and "The cycle" in its DECISIONS; a
+reference inside a markdown link's text resolves against **the document that link names**. An
+explicit scope word does **not** fall back — name a building and a miss stays a miss. Nothing
+resolves is answered as **unresolved with the candidates named** (`agents/belvedere — D1–D18 ·
+agents — D1–D67`), which is D10's family in one card. `FC-n` and `GA-n` are detected and honestly
+**not** resolved: they are real ids the corpus writes and the doctrine gives them no field —
+inventing a grep to find them would be a new reference grammar, which is a canon question (B20 F1).
+
+**Tooltips nest, and the cap is structural.** A tooltip's own body passes through the same
+detector, so a hover inside one opens the next: three layers and no fourth, enforced where the
+spans are **made** — a body rendered at depth 3 draws none, so there is no fourth layer to refuse.
+A code word already open in the chain renders as **plain text**, which terminates a cycle
+(`B18 → D2 → B18`) at the repeat. **Tooltips gesture, they never fire** (D10): the footer carries
+the jump (which moves the selection, brings the Workshop forward and opens the viewer on the line)
+and B6's inbox wire — a note on any object, the countersign on a pending decision — with the
+**exact bytes previewed** before the append. Resolution is lazy and client-cached: a hover is one
+localhost round trip (2–5 ms), and `/deck/state` carries no decoder payload at all.
 
 **The detail is asked for, never broadcast.** One building's whole detail is **65 kB** of JSON, so
 `/deck/state` gained a `?b=<building>` the standing tenant fills in through the seam's fifth,
