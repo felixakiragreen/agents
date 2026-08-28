@@ -4,11 +4,11 @@ One bun server rendering the city from the truth layer. **Read-everything,
 write-narrow**: every page route touches nothing on disk, and the writing routes are exactly
 the fence's list (README §2, D18) and no more — `/hands/*` (spawn · worktree · focus · HALT ·
 rename · recolor), `/inbox` (one D63 line), `/flow/*` (the arm, which only calls hands),
-`/chat/send` (his words into a session) and `/chat/draft` (a file under `desk/`).
+`/chat/send` (his words into a session), `/chat/draft` and `/desk/*` (files under `desk/`).
 
 ```
 bun belvedere/glass/server.ts        # → http://127.0.0.1:4400
-bun test belvedere/glass             # 555 green in one process (B8 §4, B9, B13, B14, B15, B18, B20, B10, B17, B11, B16)
+bun test belvedere/glass             # 585 green in one process (B8 §4, B9, B13, B14, B15, B18, B20, B10, B17, B11, B16, B19)
 bunx tsc --noEmit                    # from this directory — the type gate, offline (B8 §5);
                                      # it covers the deck's client TS too (B13 F3), never `lab/`
 bun belvedere/lab/b13/probe.ts       # the deck's DoD in real headless Chrome (B13 F1)
@@ -23,6 +23,7 @@ bun belvedere/lab/b11/lever.ts       # D10 · HALT · amend · re-arm · timeout
 bun belvedere/lab/b11/smoke.ts       # the flow runs itself — TWO live sessions and a Felix-card
 bun belvedere/lab/b16/probe.ts       # the Chat: three hotswaps, the window, the drafts, zero send wiring cold
 bun belvedere/lab/b16/send.ts        # the send, for real — ONE live session, then the same message to it dead
+bun belvedere/lab/b19/probe.ts       # the desk: the drill, the three routes, the confinement (a COPY of the fixture city)
 ```
 
 | Route | What |
@@ -41,6 +42,7 @@ bun belvedere/lab/b16/send.ts        # the send, for real — ONE live session, 
 | `/deck/chat?sid=<session>&before=<byte>` | **the Chat's earlier windows** — one bounded window of a transcript ending where the one you hold begins; the tail rides the poll |
 | `POST /chat/send` | **the voice** (D18 class 1) — his words into a session as one real user turn, P6's segmented paste, verified against the transcript afterwards; credential-gated, audited by sha |
 | `POST /chat/draft` | his draft for one target, saved under `desk/drafts/` (D18 class 3); **no credential gate** |
+| `/desk/{notes,note}` · `POST /desk/{save,preview,file}` | **the desk** (D17) — the drawer, one note, the autosave, what a route would write, and the one route that writes it; **no credential gate**, off the poll |
 | `POST /inbox` | **the sovereign's inbox** — one gesture, one D63 line appended to a building's `ISSUES.md`; **no credential gate** |
 
 **The deck is an app, not a page** (B13, D13 — Felix: *"this is an app"*). `/deck` serves a
@@ -53,6 +55,10 @@ carries a content signature (its pane state plus the data it draws, wall clocks 
 ages are `<span data-at>` rewritten by a separate tick. B13 diffed the whole snapshot instead,
 which could never match — `at` and `ageSeconds` move every poll — so the deck rebuilt itself
 every three seconds; harmless for placeholders, fatal for a pane Felix types into (B14 F4).
+**A memo is a claim about a host's contents, so it records the host** (B19): the shell empties both
+hosts on a tenant swap, and without that a tenant swapped away and back with an unchanged signature
+found its own memo still standing and drew **nothing** — a blank pane, no error, only on the return.
+`forget(host)` retracts the claim wherever a host is cleared.
 **The law of space is arithmetic**
 (`deck-model.ts`): a pane's state IS its weight — minimal 1 · typical 3 · expanded 6 — and
 one `columns()` serves both the server's resting render and the client's re-render, so they
@@ -67,13 +73,14 @@ asks the server to answer *differently*, and they are two rather than one becaus
 has two levels with a surface: `needs(focusState)` names a **building** (B15) and
 `asks(focusState)` names a **session** (B16). The shell puts both in the poll's query — `?b=`
 and `?s=` — and nowhere else: one endpoint, one timer, and a tenant that omits them asks for
-nothing. **B13's three placeholders are all gone**: the Workshop (B15), the Works (B10) and
-the Chat (B16) moved in through that interface and nowhere else. Three shared cells sit beside
-the register because they cross tenants and must not be duplicated: `selection`
+nothing. **B13's three placeholders are all gone**: the Workshop (B15), the Works (B10), the
+Chat (B16) and the desk (B19) moved in through that interface and nowhere else. Four shared cells
+sit beside the register because they cross tenants and must not be duplicated: `selection`
 (`{building, session, awaiting}` — the ontology's own levels, written by whoever clicked),
-`viewer.open` (the deck has **one** document viewer, the Workshop's) and `swap.to` (the
+`viewer.open` (the deck has **one** document viewer, the Workshop's), `swap.to` (the
 shell's own tenant swap, so the Works can hand a landing record's reference to that viewer,
-and the composer can hand a fresh fire to the Chat, without reaching into either). The browser half of its DoD is [`lab/b13/probe.ts`](../lab/b13/probe.ts) —
+and the composer can hand a fresh fire to the Chat, without reaching into either) and
+`compose.with` (the composer's own door, so the desk can seed a summons the same way). The browser half of its DoD is [`lab/b13/probe.ts`](../lab/b13/probe.ts) —
 real headless Chrome over the DevTools protocol, zero dependencies, written to be reused by
 every deck row after it.
 
@@ -198,6 +205,42 @@ fire), the transcript reads in Focus, his reply drafts in Action, and the two sc
   reply outlives a reload, a hotswap and a killed server. `POST /chat/draft` sits deliberately in
   **front** of the arming switch: cold hands must never cost him the ability to write something down.
 
+**The desk is where he writes** (B19, D17/D18 class 3 — `desk.ts` + `desk.client.ts`). One drawer,
+city-wide: `~/code/agents/desk/<slug>.md`, flat, frontmatter-free, **the first line is the title**,
+and `desk/drafts/` beside it holding B16's per-session chat drafts. The deck's fourth Focus tenant —
+**the drawer in Focus, the writing surface in Action** — and one click in the tenant bar away from
+anywhere. Autosave is debounced onto the file, so a reload, a hotswap and a killed server all give
+the words back.
+
+- **The confinement is the slug**, not a check on a path: a note is named in `[a-z0-9-]`, so no path
+  ever arrives from a URL (the font route's own law), and the directory assertion under it is the
+  invariant written where it can be read. A crafted `../../canon/CLAUDE` is refused **409, naming
+  the rule**, before the filesystem is touched.
+- **Receipts are not body.** A routed note gains `routed <date> <hh:mm> → <where>` in a trailing
+  `---` block that the reader takes back off — so the editor shows what he wrote and the file shows
+  where it went. The trailer is the final block **and only when every non-blank line in it is a
+  receipt**, so a note that ends in a rule of his own prose keeps all of it, and the glass invents
+  no marker inside a file he writes by hand.
+- **The desk grows no transport.** Its three routes are other people's wires — B6's inbox append,
+  B16's draft box, B17's composer (reached through the seam's own `compose` cell, never by importing
+  a tenant). What is new here is the **plan**: one function composes the exact bytes and the reason
+  it cannot, so the preview he signs off on and the write are one string (B16's `refusals()` law,
+  second venue). A plan carrying a refusal draws no button at all.
+- **→ inbox is the one irreversible route**, so it is the one that leaves a receipt, and it carries
+  the `sha` the page was showing: an inbox that gained an entry while he was reading would compose
+  different bytes, and a sign-off on bytes nobody re-read is not a sign-off (**B11's arm law, one
+  door along**). A long note becomes **D63h's block form** — the title is the entry line, the body
+  is markdown list continuation under it, **indented, which is load-bearing**: `blocks()` splits an
+  inbox on `^---$`, so an indented rule inside his prose cannot cut the block in half and strand the
+  evidence where `parseIssues` would lint it.
+- **Off the poll, deliberately.** Nothing on the server changes a note, so broadcasting his own
+  writing back at him every three seconds would only fight the pane he is typing in (B14 F4).
+  `/deck/state` is byte-for-byte the shape B16 left it.
+- **No credential gate** (B6 F3's law, third venue), and **commits are never the glass's** (D18
+  class 3): the files sit on disk, and a sitting — or Felix — commits them. `desk/.gitignore`
+  settles B16 F4: notes are truth and commit; a half-typed reply to one session is per-viewer
+  scratch and does not.
+
 **A rendered `path:line` lands ON the line.** The field report's third item — *"Links to documents
 (WHERE: `agents/LEDGER.md:385`) don't take you to that line"* — dies at the boundary rather than in
 the browser: the server parses every piece of corpus prose into **spans** (`html.ts` §spans) once,
@@ -254,9 +297,12 @@ carries neither, so the model family is read off the same bounded transcript hea
 name-stamp comes from, and the other half renders `—` rather than a guess (B15 F1).
 
 **The fence's third write** (B6, `inbox.ts`). A gesture — a free-text note, `defer <row>`,
-`<row> before <row>`, `countersign <D-id>: ✓` — becomes ONE append: `- <YYYY-MM-DD> ·
+`<row> before <row>`, `countersign <D-id>: ✓`, and since B19 a **report** (a title and its
+evidence) — becomes ONE append: `- <YYYY-MM-DD> ·
 Felix (via Belvedere) · <what>`, in **local** date (`toISOString()` is UTC and would file
-tonight's note tomorrow). **Append-only is the whole licence**: the bytes before a gesture
+tonight's note tomorrow); a report's evidence rides under its own entry line as indented list
+continuation, which is D63h's block form, and `entryBytes` is the one function the desk's
+preview and this write both call. **Append-only is the whole licence**: the bytes before a gesture
 are always a prefix of the bytes after, and nothing here rewrites, reorders or deletes.
 A building with no inbox gets one minted from
 [the D53 header](../../canon/work/templates/issues.md), verbatim, on its first gesture
@@ -392,7 +438,7 @@ frontmost still `Arc` through both socket calls (B18's findings).
 
 Env: `GLASS_CITY` (default `~/code`), `CENSUS_DIR` (B1's own knob), `USAGE_DIR` (the rig's
 caches — **rendered, never fetched**), `BELVEDERE_ENV` (the
-credential), `GLASS_PORT` (4400) — all resolved **per call** in `paths.ts`, never frozen at
+credential), `FLOWS_DIR`, `DESK_DIR`, `GLASS_PORT` (4400) — all resolved **per call** in `paths.ts`, never frozen at
 module load: a frozen anchor is hidden state, and it cost eight test failures (B8 §4).
 Theme: [`felikai.css`](felikai.css), copied from `~/code/felix/src/felikai.css` — edit the
 source and re-copy, never fork here.
