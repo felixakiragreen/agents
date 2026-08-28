@@ -225,20 +225,30 @@ try {
 	await evaluate(`document.querySelector('[data-set-state="expanded"][data-pane="context"]').click()`);
 	await Bun.sleep(400);
 
+	// The row is found by THIS probe's own dot — its title carries the name-stamp — because the live
+	// city has several buildings at the waiting rank at once and "row 0" is not the claim. The claim
+	// is the ranking law: **every row above the one holding our dot also carries a waiting badge**,
+	// so the whole block above it is the same rank and recency is ordering inside it, exactly as it
+	// should. (The first live run asserted `row 0` and failed on a race between two rank −1
+	// buildings — the deck was right and the assertion was not.)
 	const seen = await until('the waiting session on the deck', async () => await evaluate<{
-		top: string; dot: string; badge: string | null; item: string; needs: string; where: string; count: string;
+		order: string[]; at: number; dot: string; badge: string | null; aboveAllWaiting: boolean;
+		item: string; needs: string; where: string; count: string;
 	} | null>(`(() => {
 		const rows = [...document.querySelectorAll('#host-context .row[data-building]')];
-		const hit = rows.find(r => r.querySelector('.dot.w-blocked'));
+		const at = rows.findIndex(r => [...r.querySelectorAll('.dot.w-blocked')]
+			.some(d => d.title.startsWith('${STAMP} ')));
 		const q = [...document.querySelectorAll('#host-drawer .qi[data-kind="waiting"]')]
 			.find(e => e.querySelector('.qname').textContent.includes('${STAMP}'));
-		if (!hit || !q) return null;
+		if (at < 0 || !q) return null;
 		return {
-			top: rows[0].dataset.building,
-			dot: hit.dataset.building,
-			badge: hit.querySelector('.badge.b-waiting')?.textContent ?? null,
+			order: rows.slice(0, at + 1).map(r => r.dataset.building),
+			at,
+			dot: rows[at].dataset.building,
+			badge: rows[at].querySelector('.badge.b-waiting')?.textContent ?? null,
+			aboveAllWaiting: rows.slice(0, at).every(r => !!r.querySelector('.badge.b-waiting')),
 			item: q.querySelector('.qname').textContent,
-			where: q.querySelector('.qwhere').textContent,
+			where: q.querySelector('.qwhere').lastElementChild.textContent,
 			needs: document.getElementById('needs').dataset.needs,
 			count: document.getElementById('waiting-count')?.dataset.waiting ?? '0',
 		};
@@ -246,9 +256,10 @@ try {
 	const domAt = Date.now();
 
 	ok('the live deck shows it: a waiting dot in the City, a badge on its building, an item in the queue',
-		seen.dot === seen.top && seen.badge !== null && seen.item.includes(STAMP),
+		seen.dot === 'agents/belvedere' && seen.badge !== null && seen.aboveAllWaiting && seen.item.includes(STAMP),
 		`on screen at ${new Date(domAt).toISOString()} — ${((domAt - stalledAt) / 1000).toFixed(1)} s after the census line\n`
-		+ `      the City's top row is "${seen.top}" and it is the one carrying the blocked dot: ${seen.dot === seen.top}\n`
+		+ `      our dot is on "${seen.dot}", City row ${seen.at + 1} of the pane, and every row above it also carries a waiting badge: ${seen.aboveAllWaiting}\n`
+		+ `      the block, top-down: ${seen.order.join(' → ')}\n`
 		+ `      waiting badge "${seen.badge}" · headline "${seen.count} blocked on you" · header needs "${seen.needs}"\n`
 		+ `      queue item "${seen.item}" — ${seen.where}`);
 }
