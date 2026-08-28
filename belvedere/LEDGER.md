@@ -1568,3 +1568,82 @@ transcripts are read, and nothing in this row can move his desktop. `lab/b17/pro
 a live workspace open when it throws (B16's addendum).
 Next: **B12 — the reactive gate + dynamic extension**
 ([plans/b12-flow-reactive.md](plans/b12-flow-reactive.md)), the Dispatcher's to fire.
+
+---
+
+**2026-08-28 · Builder · opus-high (B12)** — **The string judges itself, and grows while
+it runs.** A step landed with an escalation on its row and the engine did not card the
+sovereign: it staffed the scoped Architect sitting into the lane, half a second later, and
+waited. The sitting ruled the row; the engine read the verdict off the **file**, not off its
+report; the lane resumed and the step behind the gate fired. In the middle of it the flow
+file grew, and the addition joined the running plan without a second click.
+Changed: `glass/judge.ts` (new — the classifier, the judge's derivation, D12's delta reader
+and scope-arm), `judge.test.ts` (new, 29), `engine.ts` (the gate loop, `LandingCode`,
+`refuseStep` extracted, `settled`), `engine.test.ts` (+12), `flow.ts` (`Step.hash`,
+`RunLine.steps`, `armedLine`), `works.ts` (judges drawn, the residue card),
+`works.client.ts` + `deck.css` (the inserted node), `deck-model.ts` (`WorksNode.inserted`),
+`register.ts` (`buildingPath`, one truth for two callers), `deck.ts`,
+[`flows/flow-close.flow.json`](flows/flow-close.flow.json) (new, unarmed) and
+[`lab/b12/probe.ts`](lab/b12/probe.ts).
+DoD (all evidence in [B12](plans/b12-flow-reactive.md), **13 of 13 PASS in a real Chrome
+against three live sonnet·low sessions**): **the gate's number is 0.553 s** — `paused:s1`
+at `14:55:55.144Z` reading *"LANDED, and E1 is raised with nothing saying it was ruled"*,
+`fired:s1.judge` at `14:55:55.697Z`, arm → judge fired **18.1 s**, zero human touches; the
+sitting fired through the same hand at the flow's own judge tier in the gated step's own
+checkout, its **first user turn byte-identical to the composed sitting** (`sha
+f2cd39ffee1ed0e1`, 510 B, summons file ≡ hands receipt ≡ transcript). The DAG drew it
+**inserted** (`data-inserted="yes"`, `path.wire s1→s1.judge`) with `s2` still `declared` and
+unfired. **Resume on truth**: a real sonnet·low Architect, sent nothing but that sitting,
+read the fixture's board and inbox and trued the row to `E1 ruled 2026-08-28 — …`, and
+`landed:s1.judge → resumed:s1 → landed:s1 → fired:s2` came **0.513 s** later. Both roads to
+his card measured live — a sitting **over** with the row still raised, and one past its own
+**limit** — each rendering `felix-card` with **0 buttons, 0 links, 0× `hands/fire`**, one
+`extended` line, and no `.judge.judge` anywhere. **D12 live**: `s2` appended under the arm
+re-armed the flow itself (`scope-arm auto-join (D12)`, marks `s1` → `s1, s2`) and fired with
+no click ever given it, while an **edit** stopped the lane naming the step.
+`flows/flow-close.flow.json` parses, renders, is unarmed, and its G2 kickoff is the README's
+own fence (`sha 43f72319c270a54c`, 351 B). **651 tests green in one process**, type gate
+exit 0, zero new deps, `/deck/state?b=` **p95 289.9 ms** (the close flow's own share of a
+poll: 0.13 ms), eleven predecessor probes re-run **ALL GREEN**.
+Findings: **E1 — `trust.ts` reads an auto-created project entry as a refusal**, so a
+plain-directory venue goes COLD the moment a session runs in it and the arm then refuses a
+venue that demonstrably works; measured twice, live, 2.1 s after a successful start, and
+B7 F1's own positive control `~/code/b7-founding-probe` reads `hasTrustDialogAccepted:
+false` today. Fix named (fall through on `false` rather than short-circuit — right in every
+measured cell), **not taken**: `trust.ts` is B7's law and P5 F5 (iii) blessed it. Costs
+nothing in production, where every venue is a repo Felix accepted · **F2 a session that
+finishes ends on `SessionEnd`, never `Stop`** — 61 of 61 gone sessions in the live census —
+so B11's census landing sensor lands nothing and its malformed branch fires on every normal
+close; B11 never felt it because every step in its smoke was a board row, and a judge has
+none, so **a judge is landed by the row it was staffed for** and the census only says
+whether the sitting is over · **F1 the order's own classifier gates 120 of 390 landed rows**
+(`/escalat/i` alone 113), including `b10` and `b11` of this very flow, whose annotations
+read *"nothing escalated"* — so §1's pattern list ships as the **misclassification log** it
+asks for and `escalationsIn` is the classifier · **F3 a fixture city inside `~/code` is
+slugged relatively and one outside absolutely** (B10 F5's second face) — a flow naming the
+wrong one finds no register entry, gets an empty `world.rows`, and has every landing judged
+by the census instead of the board, silently · F4 a step decided this pass kept its
+concurrency slot and its checkout until the next tick, starving at `concurrency: 1` the
+judge it had just staffed — `settled` fixes it, and `timeout` is deliberately outside it
+because that session is alive and still spending · F5 **the arm now records what it armed**,
+`<id>:<Step.hash>` per step plus a frame mark under `*`, because `Flow.hash` says the plan
+moved and the delta reader needs which parts; an arm with no marks reads back null and null
+never auto-joins · F6 D12's "building + chapter" is prose, so scope-arm enforces **what the
+click already covered** — frame unmoved, nothing edited or removed, every addition's venue
+and account already in the arm, plus `refuseStep`, the arm's own list extracted so there is
+one of it · F7 a judge inherits the gated step's checkout, which is single-writer physics
+rather than convenience · F8 probe residue named, not scrubbed.
+Decided: **one escalation, E1, and it is the Architect's** — nothing else moved. The fence
+gains no write class: a judge is a `hands.fire` and an `extended` line in the census
+neighborhood, and the flow file stays the sitting's to amend (the glass writes no judge into
+it). **D12 was a flag to flip, as B11 said**: `ARM_SCOPE` is one module constant and
+`{kind: 'none'}` is B11's base behaviour verbatim, which is what an arm with no marks gets.
+Venue: `master`; the probe stood up its own glass on its own port with the census, the
+audit, the flows and **the HALT flag** in a temp root, and its fixture city at
+`~/code/b12-gate-<pid>` — a plain directory with no git repository above it, so a sitting
+told to commit could not reach the real tree; `git status` in `~/code/agents` is
+byte-identical either side, all three workspaces closed, the scratch city removed, the
+city's own HALT asserted absent.
+Next: **Felix — arm `flow-close` in the Works.** His arm is G2's Felix-gate, the engine's
+first real act and the deck's close smoke (README §6, batch-5 note); the fallback if the
+engine cannot fire is `/summon` with G2's kickoff, and the failure becomes G2 evidence.
