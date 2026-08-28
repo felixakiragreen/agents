@@ -563,3 +563,81 @@ client carries no `esc()`. B15, B10 and B16 evict the three placeholders through
 interface and nowhere else.
 
 (Relayed from `master`, B13 LANDED 2026-08-27 — Builder)
+
+## → relay — P5 (permission physics) to B10, B11, B16, B17, P6, every DoD smoke and the Dispatcher: no escalation, four findings that bind
+
+Evidence: [p5-permission-physics.md](p5-permission-physics.md) §Findings, commits `787b048`,
+`fb93d63` on `master`.
+
+1. **F1 — `--model haiku` cannot enter `auto` permission mode, on any account, and the
+   fallback to `default` is SILENT. S5 was never trust and never cmux.** The accounts all
+   carry `"permissions":{"defaultMode":"auto"}`; cmux's per-session `--settings` blob is
+   **hooks only, no `permissions` key** (read verbatim off the argv of a live stalled probe,
+   pid 97551); no project settings exist in `~/code/agents`. Bisected in one venue, one
+   account, one summons: **haiku·low `default`, haiku·high `default`, opus·low `auto`,
+   sonnet·medium `auto`** — effort is not the driver — and the same haiku fire reads
+   `default` on all three silos (`00eccd3f`, `867d3ca9`). Two sensors agree: the census's
+   `mode` and the transcript's own `{"type":"permission-mode","permissionMode":…}` record.
+   **An explicit `--permission-mode auto` in argv is dropped with no error** — `ps` shows
+   `… --model haiku --effort low --permission-mode auto -n p5-lever-1 …` while the census
+   shows `default` and the session stalls (`ab4b25be`). The flag itself works: the same
+   instrument with `acceptEdits` yields `acceptEdits` (`b5479d60`). Mechanism: `auto` is an
+   LLM classifier (`claude auto-mode config` prints 67 294 B of allow/soft_deny/hard_deny
+   rules) that a haiku session does not get. **The live census had been saying this for a
+   day** — all 14 `default` beats in 4 188 belong to glass-fired haiku sessions; every
+   fable/opus fire is `auto`. **What this binds: any row whose DoD smoke fires haiku and
+   expects tool work is ordering a stall.** The batch-5 lane-A probe-tier rule is amended in
+   README §6 accordingly; **sonnet·low is the cheapest tier that holds `auto`** (measured, 6/6).
+
+2. **F3 — there are TWO stalls with two different signatures, and the trusted-root one is
+   the one nobody was watching for.** *Permission stall*: beats, a transcript, `mode:default`,
+   a `PreToolUse` with **no** `PostToolUse`, then `Notification` with
+   `why == "permission_prompt"` — reproduced N=2 in a **fully trusted** root
+   (`glass/trust.ts` → `{"warm":true,…}` ×3), zero files written four and a half minutes on,
+   process alive. *Trust stall* (B7 F1's, re-measured): **zero census beats, no transcript
+   directory, live pid** — a fresh `git init` at `~/code/p5-cold-repo`, 120 s, cwd untouched.
+   **A reader that treats "no beats" as the stall signature will call the permission stall
+   healthy, and one that treats `permission_prompt` as the signature will never see a trust
+   stall at all.** `acceptEdits` is a partial lever, measured not assumed: it clears `mkdir`,
+   three Writes, a Read, an Edit and `ls`, then **stalls at `git add`** — seven of eleven
+   steps, no commit (`f843ca0e`). **No step that commits can ride haiku.**
+
+3. **F4 — for B5's shelf, B17, the deck's run-state and anything reading census `mode`: a
+   session's first two beats report the ACCOUNT default, not the session's real mode.** A
+   resume through `/hands/fire` with `model`/`effort` empty (B5 E2's law) inherits the first
+   life's model — a haiku session is haiku forever — and its beats read:
+   `SessionStart(resume)` → `UserPromptSubmit **auto**` → `PreToolUse **default**` →
+   `Notification permission_prompt`, while the transcript's `permission-mode` records say
+   `default` both lives and `.message.model` stays `claude-haiku-4-5-20251001` (`867d3ca9`).
+   **Read posture off a `PreToolUse` beat, never off `SessionStart`/`UserPromptSubmit`** —
+   otherwise a stalled step renders as a healthy one. The sonnet control resumed clean:
+   `auto` throughout, 11 further tool calls, second real commit `0a7fbec`.
+
+4. **F5 — the permission clause, for B10's schema and B11's fire gate, verbatim.**
+   (i) **A flow step carries no permission field** — the accounts already run `auto`,
+   `--permission-mode` cannot raise haiku, and everything above `auto` is barred by the
+   posture floor; the knob's every legal value is redundant or forbidden.
+   (ii) **A step's `model` IS its permission posture: `haiku` is not a legal model for an
+   unattended step** — legal today, measured: `sonnet`, `opus`, `fable`. Refuse **at arm**,
+   naming P5; never at fire, never by silently substituting a model.
+   (iii) **`glass/trust.ts` is the venue precheck and is sufficient as-is** — call it per
+   **(step, account)**, never once per flow (the same cwd is warm on one silo and cold on
+   another); a step whose worktree does not exist yet is prechecked against the repo it will
+   be cut from (a linked worktree inherits — three worktree cells landed).
+   (iv) **Refusal is loud and happens at arm** — a failing step renders blocked with its
+   reason and the flow cannot be armed until it is fixed (D10's family); never a silent
+   mid-flow stall.
+   (v) **Two runtime alarms off the census**, behind the keel §5.4 step timeout: the
+   `permission_prompt` signature above, and *zero beats + no transcript + live pid* as the
+   drift alarm on the precheck itself.
+
+Also, not blocking: **Q2's positive result is 6 of 6** — three accounts × {trusted root,
+worktree}, 11 tool calls each including three Writes, a Read, an Edit and a **real
+`git commit`**, **zero permission prompts, zero human touches**, at sonnet·low. Unattended
+flow is physics-clear; the chapter needed no re-scope. Levers named and ruled out rather
+than tried: `bypassPermissions`/`dontAsk` (posture floor), and **pre-seeding trust by
+writing `<config-dir>/.claude.json`** — barred by the fence, not the floor: `trust.ts`'s own
+law is that the glass never answers that dialog, so it is a D3 write-class question if it is
+ever wanted.
+
+(Relayed from `master`, P5 LANDED 2026-08-27 — Digger)
