@@ -32,3 +32,28 @@ are drained. A swept inbox is empty.
   register question (canon inbox 2026-08-26, B2 F2) and the B15 reorder
   precedent (per-viewer order, persisted). His verdict stands: "growing pains,
   we're on the right track."
+
+---
+
+- 2026-08-28 · G2 Architect (live evidence, Felix's own arm) · **One click on "arm
+  this flow" landed ~15 identical `armed` lines in one second — tenant listeners
+  accumulate across swaps.** Evidence: `flow-close.run.jsonl` opens with 15
+  `armed` events 60–110 ms apart (ts 1787934800.023–.973) from one human click;
+  the engine still paused exactly once at the verdict card (the restate-dedup law
+  held) and identical arms are no-ops to the delta reader, so this flow was
+  unharmed. Mechanism (code-confirmed, unreproduced): every tenant's `mount()`
+  calls `addEventListener` on the SHELL's persistent Focus/Action hosts and no
+  tenant's `unmount()` removes them (`works.client.ts` `wire`/`wireAction` — only
+  the ResizeObserver is disconnected; `chat.client.ts:419–434`;
+  `desk.client.ts:350–357`), while the shell's `focusOn` empties `textContent` —
+  children die, host listeners survive. N swaps into a tenant → N handlers → one
+  gesture → N POSTs. **B19 F1's sibling**: the repaint memo was the state half of
+  the lease law ("mount() is not a fresh start", B19 F2); this is the listener
+  half. Blast radius by endpoint: arm — harmless (identical re-arms are legal by
+  design); pass — safe (`passGate` refuses "already passed"; requests serial);
+  **the Chat's send is the sharp edge** — N handlers would deliver the same words
+  N times, each individually verified rather than refused as a twin; the desk's
+  routes would stamp N receipts. Fix shape: one `AbortController` per mount, its
+  `signal` on every host listener, aborted at `unmount` — or the shell's own
+  bind-once delegation. Until it lands, a swapped-around deck can multiply any
+  button; the state-layer guards are what held this one.
