@@ -1658,3 +1658,34 @@ the C27 cell), D72's blessing, the 44-hit vocabulary backlog call (ride C30 · l
 · wait — inbox tail), C28 on his drafts; ignitable on his word behind those: `ignite
 C29` · `ignite C30` (kickoffs in their charge docs); the inbox holds five entries for
 the next sweep.
+
+---
+
+**2026-08-29 · Grand Architect · fable-max (20)** — the flow cornerstone laid, with a
+research arm at Felix's summons: graph engineering (codejunkie99's skill read verbatim
++ the 2026 discourse) measured against the stub — the Guild is ahead of the field on
+the sovereignty layer (arm-as-authorization, ⬡-cards, verdict-off-files), and four
+guardrails imported with birthplaces: the flow budget, the continue mode, the edge
+test, the qualified cross-building id; rejects documented (diverse verifiers — no
+birthplace; GraphRAG → the D39 substrate pointer, reserved not laid). D73 (the flow
+doctrine: the flow file IS the batch note for engine-tended batches; machines get
+specs, sessions get charters; 17's per-artifact line ratified) and D74 (the flow fold:
+written holder incl. the dispatch · holds: · E-ids · Branch: · encapsulation ·
+`<building>:<id>` · tier split) both blessed in-session. DOCTRINE §§4/5/6/10/11 +
+STANDARD §§2/3 amended; charge 20 LANDED; C31 + C32 + G1 laid; **agents-flow-1
+declared and parse-verified through the engine's own boundary** (6 steps, 3 lanes,
+hash 62556de9…) — the first engine-run canon batch, MAP §5 note. Inbox swept 6/6:
+migrate stale-parse + house dialects + prefixed-D → distilled into C31; lab/08 →
+already laid (C29); the lab-correction question → ruled, §6's append law; the 44-hit
+call → fork 4, ⬡ pre-arm. Belvedere relay filed (budget · continues · flow home ·
+post-C32 adoption · the coda gap). A stray uncommitted hunk in STANDARD §4 (the
+Sovereign's clause lost "never corrected") is not this session's — named in charge 20
+F7, rides this commit unreverted, ⬡ adjudicates. Suite 71 green · `doctrine lint
+~/code/agents` 0 before this entry — the entry's own baton then goes 1 red
+(`ledger.baton`: D74's written-holder form, one charge ahead of its parser — named,
+mortal at C32, whose bar is lint 0 over this very tail; GA-13's precedent) · flow
+PARSE OK. Decided: D73 · D74 (⬡✓ in-session). Next: Baton —
+⬡ → fork — rule fork 4 before the arm: fold the 44 vocabulary hits into C30's scope
+(one edit on your word — recommendation:) · lay them as their own charge · wait; then
+arm agents-flow-1 in the Works. Behind it: C27's visual pass · D72 · C28 on your
+drafts.
