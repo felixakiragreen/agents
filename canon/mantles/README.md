@@ -1,11 +1,24 @@
 # Mantles — the composition law, operationally
 
-> *The Grand Architect keeps the canon, Architects think, Dispatchers tend, Diggers dig,
+> *The Grand Architect keeps the canon, Architects think, the dispatch tends, Diggers dig,
 > Builders build — a hive building a city; files carry the truth.*
 
 Every session is **tier × mantle × context** (MAP §2) — together, **the Guild**
 (D37). This file is its operational law: how tiers are named, how a mantle is worn, how
 sessions are summoned, and which law wins when laws collide.
+
+## The roster (D71)
+
+- **Offices** — singular standing institutions, one holder at a time, a succession:
+  **Grand Architect** (standards and canon), **Mentat** (the Sovereign's thinking
+  partner). Reserved: Imperial and Royal Architect (D39), Hand of the King /
+  Quartermaster, Steward.
+- **Mantles** — plural role charters, many wearers at once: **Architect**, **Builder**,
+  **Digger**, **Fixer** (the null mantle — see below).
+- **The Dispatcher is dead** (D71) — tombstone in [dispatcher.md](dispatcher.md); the
+  flow engine (canon board charge 20) is the successor; **the dispatch** survives as
+  the system noun. Until the engine lands, the batch note names its tender (doctrine
+  §10).
 
 ## The tier grid (`canon/agents/`)
 
@@ -47,16 +60,18 @@ When a mantle is worn via its skill shim (`/architect` …), the shim injects th
 effort (`${CLAUDE_EFFORT}` substitution, verified 2026-08-02), and the guard covers both
 axes.
 
-## The null mantle
+## The null mantle — the Fixer
 
-Session-sized work — fix a bug, add a feature — wears no mantle: a bare session under
-the global CLAUDE.md is the default worker, staffed by tier alone. The boundary test is
-succession and coordination: work that must outlive its session or coordinate several
-sessions gets a board and mantles; work that fits one session with Felix in the room
-gets neither. Tiers are universal — "how much brain" is a question every task has;
-mantles exist only where more than one session must share responsibility. A bare
-session that discovers it's holding campaign-sized work says so and stops — Felix
-summons an Architect.
+Session-sized work — fix a bug, add a feature — needs no summons: **a session with no
+mantle IS a Fixer** (D71; D26's law otherwise intact) — the default worker under the
+global CLAUDE.md, staffed by tier alone. The boundary test is succession and
+coordination: work that must outlive its session or coordinate several sessions gets a
+board and mantles; work that fits one session with Felix in the room gets neither.
+Tiers are universal — "how much brain" is a question every task has; mantles exist only
+where more than one session must share responsibility. A Fixer that discovers it's
+holding campaign-sized work says so and stops — Felix summons an Architect. The Fixer
+has no charter file: the name is the minting; the charters land with Felix's own drafts
+(C28).
 
 ## Summons grammar
 
@@ -64,7 +79,7 @@ Interactive (canonical):
 
 ```
 You are a <Mantle> at <tier>. Wear ~/code/agents/canon/mantles/<mantle>.md, then read
-<context docs> and <execute the brief | build the order | run the board | review the batch>.
+<context docs> and <execute the charge doc | run the board | review the batch>.
 ```
 
 The skill shims (live ×3 since 2026-08-03) let `/<mantle>` replace the "Wear <path>"
@@ -73,33 +88,35 @@ clause for interactive sessions; the rest of the summons is unchanged.
 Dispatched (canonical):
 
 ```
-Agent(type=<tier>, prompt=<the brief/order kickoff, verbatim> + <the project rider>)
+Agent(type=<tier>, prompt=<the charge doc's kickoff, verbatim> + <the project coda>)
 ```
 
 The kickoff's first line is the interactive summons in path form — subagents don't get
-skills. Nobody edits a kickoff beyond appending the rider (Dispatcher charter §2).
+skills. Nobody edits a kickoff beyond appending the coda (doctrine §5).
 
-## The rider template
+## The coda — the canon core
 
-Canon core; ⟨slots⟩ are filled by project doctrine (02's turf). The instantiated rider
-is part of a project's doctrine docs, written once per project, appended verbatim to
-every dispatch.
+The **coda** (the standard §4) is the fixed closing passage of every ignition's
+kickoff. Canon core below; ⟨slots⟩ are filled by project doctrine (02's turf). The
+instantiated coda is a project doctrine doc — `plans/CODA.md`, written once per
+project, appended verbatim to every ignition.
 
 > You are running as a dispatched agent. Follow ⟨working agreements ref⟩. Read
 > ⟨bulletin path⟩ before each major method section; append the moment you discover
 > something that changes another agent's plans — verbatim finding + evidence pointer.
 > If you work in a worktree, read the main bulletin by its absolute path, but append
 > to your own worktree's copy (create it if absent), each entry headed `→ relay`, left
-> uncommitted — the Dispatcher relays flagged entries verbatim; everything else of
+> uncommitted — the tender relays flagged entries verbatim; everything else of
 > yours rides your branch. Third-party code — fetch, vendor, install beyond existing
-> deps, or execute from the network — only where your work doc names it; otherwise
+> deps, or execute from the network — only where your charge doc names it; otherwise
 > STOP and escalate (D54). Your findings file and commits are the deliverable. Your final report is
 > logistics only: status (LANDED / KILLED / BLOCKED), a one-line outcome, and pointers
 > to findings + commits.
 
 Universal core (never varies): the dispatched framing · files-are-the-deliverable ·
-report-is-logistics-only · third-party pre-authorization (D54). Project slots: agreements ref, bulletin path (projects with no
-bulletin drop that sentence), worktree specifics.
+report-is-logistics-only · third-party pre-authorization (D54). Project slots:
+agreements ref, bulletin path (projects with no bulletin drop that sentence), worktree
+specifics.
 
 ## The precedence law
 
@@ -110,8 +127,8 @@ Canonical clause, carried verbatim by every charter:
 > personality, code style, and git conventions always apply.
 
 The collision it resolves: the global *"don't start writing code without asking"* vs a
-Builder executing a blessed order autonomously — the order IS the ask; both rules are
-correct in their own sessions.
+Builder executing a blessed charge autonomously — the charge doc IS the ask; both rules
+are correct in their own sessions.
 
 **Hook for 03** — the global CLAUDE.md must plant this line (verbatim or tighter):
 
@@ -123,24 +140,24 @@ correct in their own sessions.
 
 - **Canonical: read-by-path.** Works today, on every account, interactive and
   dispatched: `Wear ~/code/agents/canon/mantles/<mantle>.md`.
-- **Interactive sugar: skill shims** (`canon/skills/<mantle>/SKILL.md`, five authored
-  files — not generated; sync stays a dumb mirror). Each shim points at the charter
-  path and injects `${CLAUDE_EFFORT}` for the full tier guard, and sets
-  `disable-model-invocation: true` — a mantle is worn by Felix's word, never by a
-  model's own initiative. Evidence for the mechanism: skills ARE discovered per
-  `$CLAUDE_CONFIG_DIR/skills/` and effort substitution works (both verified empirically
-  2026-08-02, this repo's ledger). Deployment is 04's (D3 amended: `skills/` joins the
-  sync set).
+- **Interactive sugar: skill shims** (`canon/skills/<mantle>/SKILL.md`, four authored
+  files — not generated; sync stays a dumb mirror; the dispatcher shim died with its
+  mantle, D71). Each shim points at the charter path and injects `${CLAUDE_EFFORT}`
+  for the full tier guard, and sets `disable-model-invocation: true` — a mantle is
+  worn by Felix's word, never by a model's own initiative. Evidence for the mechanism:
+  skills ARE discovered per `$CLAUDE_CONFIG_DIR/skills/` and effort substitution works
+  (both verified empirically 2026-08-02, this repo's ledger). Deployment is 04's (D3
+  amended: `skills/` joins the sync set).
 - A skill's own `model:`/`effort:` frontmatter is deliberately NOT used: the override
   lasts one turn (documented), and a one-turn tier masquerading as a session tier is
   hidden state — the guard verifies instead.
 
-## Doctrine vocabulary
+## The vocabulary
 
-Board · brief · work order · findings · bulletin · batch report · decision queue ·
-statuses (OPEN / IN FLIGHT / LANDED / KILLED / BLOCKED / PENDING) · the working verbs —
-canonized in the work doctrine (`canon/work/DOCTRINE.md`, landed 2026-08-03): the board
-§4, work docs §5, findings §6, the bulletin §9, batches §10, glossary §13.
+The Guild speaks one standard — `canon/work/STANDARD.md` (D71 ⬡✓): one concept, one
+word; the graveyard names every dead word's successor. The working law lives in the
+doctrine (`canon/work/DOCTRINE.md`): the board §4, the charge doc §5, findings §6, the
+bulletin §9, batches §10.
 
 ## The charter template
 
@@ -148,5 +165,5 @@ Every charter, in order: motto blockquote · mission paragraph · **Staffing** �
 **Tier guard** · **Precedence** (canonical clause) · Owns (where applicable) · the
 mantle's procedure sections · Escalation triggers · Deliverables / End of session ·
 **Forbidden — the single-glance list** · Summons (interactive + dispatched). A charter
-that can't be finished at this quality becomes a bounded work order (D4), never a
-rushed draft.
+that can't be finished at this quality becomes a bounded charge (D4), never a rushed
+draft.
