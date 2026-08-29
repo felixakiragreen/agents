@@ -202,6 +202,16 @@ decider's name either. Both locked by `decisions-standard.md`. **Flagged for the
 Architect:** this is a hazard of the mark's *shape*, not of this implementation — anything
 else that greps for `⬡✓` (the glass, C26's lexicon arm) inherits it.
 
+### Where the always-staffed rule actually lives
+
+The spec files it under `lint.ts`; it landed in `parse.ts` (`parseStaffing`), because that
+is where every other board failure is raised — parser-as-lint, and the rule needs the
+Status cell in the same hand as the Staffing cell. `lint.ts` raises no failures at all; it
+walks, reports and counts (its typed-row count now reads `dissolved` where it read
+`unstaffed`). The observable contract is the spec's: `doctrine lint` hard-fails on an
+unstaffed charge. Same for the plumbing it needed — a cell rule in `migrate.ts` now
+receives its whole row (`CellCtx`), so Staffing can read Status.
+
 ### F2 — three unstaffed charges, left standing on purpose
 
 `~/code/universal_robots_sdk/cap-mega/docs/waypoint-stepper/README.md` rows 18, 19 and 23
