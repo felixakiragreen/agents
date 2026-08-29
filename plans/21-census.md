@@ -558,6 +558,27 @@ Also ruled at exploration: **session beats window** — window demotes to lore.
   Ignite the 18-continuation batch." (zero lookups). The standard's acceptance test
   is born: **a baton must read cold.**
 
+**RULED, round 2 (2026-08-28, Felix):** **fold → distill** (blessed; "Baton — ⬡ →
+Ignite the distillation session." is the benchmark sentence) · **sitting: dead** —
+session covers all · **charge = the unit of work** (blessed; "agents charging in,
+with their charges, ignited by me" — row dies; order-the-genre is now collision-free
+and survives) · **wave → batch** (blessed) · **baton shapes = action / batch / fork**
+(move → action; harmony with the deck's Action pane, where a baton's action renders)
+· **ignite = the dispatch act** (blessed via the benchmark; fire retires from
+dispatch — English reading "fire the Dispatcher" = sack them, attested live in
+belvedere's ledger this week; kill-criteria may still "fire" as plain English) ·
+**⬡ PARKED** — it is Felix's mondokoro (signature mark); ⬢ unassigned, he deliberates.
+
+**The specimen bench (round 1, real corpus lines dissected):** five live sentences
+rewrote cleanly under the standard-so-far; new open slots minted: (1) **ignite's
+legal objects** — a charge, a batch, a session; never a person or mantle (one line of
+grammar); (2) **dispatch survives as noun/system** beside ignite-the-verb — wants a
+ruling; (3) the **fire-now** compound's replacement ("ready now"); (4)
+**register-layer discipline as lint law** — lore words in law surfaces (a "hive" in
+a ledger Next-line, the office's own hand) are manny's smuggler-words rule
+generalized; (5) **strike's second face** — canon-strike (retire text) vs
+strike-down (decide) — same disease as cut, milder.
+
 **Register addendum (Felix's catch): the ecclesiastical/biblical register** — canon,
 doctrine, bless, ritual, rite, decree, anoint. Load-bearing (three of the standard's
 heaviest words); overlaps the court register at the throne. Added to §7's map.
