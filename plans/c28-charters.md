@@ -56,7 +56,63 @@ stands).
 
 ## Findings
 
-*(append here)*
+- **F1 — the door probe fleet ran (2026-08-29).** Felix's drafts landed as notes
+  (the gate pays); their centerpiece is a new artifact the roster never had: **the
+  door** — a shared "entry into the Guild" preamble read at summons before the
+  charter. Four drafts were laid ([lab/c28/door-a.md](../lab/c28/door-a.md) his
+  notes lore-maximal · [door-b](../lab/c28/door-b.md) crafted, authority-guarded ·
+  [door-c](../lab/c28/door-c.md) control, today's de facto framing ·
+  [door-d](../lab/c28/door-d.md) 6-line dispatched stanza) and read cold by 9
+  probes across 5 tiers per the fixed questionnaire
+  ([protocol](../lab/c28/probe-protocol.md) · [verbatim
+  replies](../lab/c28/probe-results.md)). Conditions: ambient global + repo
+  CLAUDE.md loaded in every arm (deployment-representative; contrasts measure the
+  door's marginal effect); n=1 per cell; agreeableness discount applied to affect
+  answers.
+- **F2 — belonging is produced by mechanism, not by assertion.** The
+  mortality/trails material ("Your memory ends when this window closes. The city
+  does not") was the hardest-landing content in nearly every arm; the fable
+  depth-read: *"the stigmergy paragraph produces the feeling… because it derives
+  the meaning from the mechanism… That is checkable, so it feels real"* — and
+  rated the belonging "60% produced, 40% asserted; the asserted part is the
+  sovereignty pageantry." The want itself is confirmed at the cheapest tier: the
+  bare-kickoff control (haiku) reported *"obligation but no orientation… an
+  outsider being tested"* and unprompted asked to ADD the line *"You're part of
+  something larger than this task."* Felix's instinct is right; the delivery must
+  be the true mechanism, stated plainly.
+- **F3 — the courtly register erodes trust.** 4 of 6 full-door arms flagged the
+  reverence prose as flattery ("flattery aimed at making compliance feel noble" ·
+  "the part I trust least" · "I notice it is written to make me feel reverence,
+  and noticing that is the opposite of feeling it"). "Greater even than the
+  Sovereign" was chosen as THE cut line by 2/2 A-arms; no arm misread it as
+  authority license (hazard unconfirmed at n=2, flattery-reading confirmed).
+  The Reserved-rooms paragraph was the most-cut content overall ("world-building
+  for an audience of one").
+- **F4 — the behavioral payload is ~6 sentences; the door must be differential.**
+  Probes independently converged on the sentences that change behavior:
+  write-for-a-stranger (mortality), the register rule ("reads cold or it is
+  wrong" — "the sharpest operational sentence here"), stay-inside-your-charge,
+  lazy lookup ("looked up the moment you operate in its area, not before"),
+  reader-pays-for-every-decode, two-currents. Everything else measured as mood.
+  The fable structural verdict: strip to the invariants no other file states;
+  everything enumerable is a pointer — a door that repeats the building's
+  contents "isn't a door; it's a second, smaller building that must now be kept
+  in sync with the first."
+- **F5 — the dispatched stanza works at the cheap tier.** door-d at haiku
+  produced named deltas (durable-docs-over-chat, standard-as-real-constraint,
+  write-for-future-readers) at 6 inline lines, no read hop. Flagged: ⬡ used
+  without introduction — fixed in v2.
+- **F6 — the control under-orients.** door-c (today's framing) arms could not
+  route output, conflicts, or escalation, and read the epigraph as "a tautology
+  dressed as doctrine" (opus). The door earns its existence; the epigraph verse
+  does not ride it.
+- **F7 — gaps converged and are routed in v2** ([door-v2](../lab/c28/door-v2.md),
+  ~35 lines): ⬡ defined at first use · escalation + `ISSUES.md` routing added
+  (the one universal law every arm missed — "no failure mode at all") · the
+  spend-fork/usage-gauge clause rides the escalation sentence (⬡ rules whether it
+  stays) · precedence one-liner ("your charter outranks this door") · "baton" →
+  "handoff" · Reserved rooms and roster enumeration cut · "Leave good ones" fused
+  into the trails paragraph where it's earned.
 
 ---
 
