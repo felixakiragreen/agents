@@ -113,6 +113,45 @@ stands).
   stays) · precedence one-liner ("your charter outranks this door") · "baton" →
   "handoff" · Reserved rooms and roster enumeration cut · "Leave good ones" fused
   into the trails paragraph where it's earned.
+- **F8 — round 2 ran: v3 beats v2 head-to-head (2026-08-29).** Fleet: v2 and v3
+  at sonnet/opus/fable + stanza-v3 at haiku, same questionnaire
+  ([protocol](../lab/c28/probe-protocol.md) · [replies
+  §Round 2](../lab/c28/probe-results.md)). v3 produced more named behavioral
+  deltas (4 vs 3 at opus) and its hardest-landing lines were the process laws
+  ("A claim without evidence is a draft. A documented kill is a win.") and the
+  loop made personal ("the charge in your hands was laid on trails a session
+  you'll never meet left behind" — fable: "the whole system in one sentence and
+  it is true of the very text I'm reading"). The anti-reverence target measured
+  hit: v3-fable — *"produces genuine orientation and a modest, real pull toward
+  care; it does not demand reverence"*; v2-fable — the feudal costume *"invites
+  exactly the reverence-performance the experiment says it doesn't want."*
+  Felix's read-cold catch validated: no round-2 arm stumbled on the plain-speech
+  authority line that replaced "two currents."
+- **F9 — the exit contract belongs at the door.** v2-fable Q7: *"the door tells
+  me my death matters and then only teaches me how to be born"* — state the
+  termination artifact set (findings filed, statuses true, ledger appended,
+  handoff named) at entry, framing the session's arc as producing it. Applied
+  in v4; doctrine §11 remains the full law.
+- **F10 — stop-and-escalate needs a materiality threshold.** Three arms: without
+  a size criterion the rule *"either paralyzes an honest agent or gets silently
+  ignored by a pragmatic one, and both outcomes corrupt the rule."* v4 defines
+  a true fork: changes the contract (scope, spec, the bar) or turns on what
+  only ⬡ can see; inside the fence, choices are the agent's.
+- **F11 — the unnamed-society line fell to evidence.** Round 2's cut votes,
+  4-for-4 among arms carrying it: "mystique standing in for a mission
+  statement" · "costs me confidence" · "recruiting-poster romance… exactly the
+  performance the same paragraph forbids" · hazard: "actively invites agents to
+  speculate about — or worse, propose — the name." Cut from v4; its home is
+  lore surfaces (MAP §10, the Logs). ⬡ rules — it is his favorite line, and
+  the record should say so plainly.
+- **F12 — residue rulings at v4:** "Two minutes" subtitle claim dropped (broken
+  promise, probe 14) · "Leave good ones" folded into the exit paragraph as
+  mechanism ("You booted from what one left you") · hive/city frame kept (its
+  comprehension work shows in every arm's answer 1; tone is ⬡'s taste) · ⬡/⬡✓
+  kept (introducing the tokens is the door's job; probe 16's friction noted) ·
+  v3-fable's differential purge partially declined: the compliance clause and
+  pointer list stay (each cited as a delta by working arms), the restated-law
+  remainder cut.
 
 ---
 
