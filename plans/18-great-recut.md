@@ -1,6 +1,6 @@
 # 18 — v3: the great re-cut
 
-**Status:** **LANDED 2026-08-29** — reconciled at canon C25's landing, which carried the
+**Status:** LANDED 2026-08-29 — reconciled at canon C25's landing, which carried the
 continuation whole (batch 1 closed 2026-08-26 at 7/8 LANDED, one partial, 18c BLOCKED;
 all four standing sanctions executed at C25 and city lint went 349 → 8) ·
 **Depends on:** 16 · **Staffing:** Dispatcher · sonnet-medium (tended the batch below)

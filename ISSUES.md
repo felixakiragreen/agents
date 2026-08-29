@@ -65,8 +65,3 @@ is cleared). A cleared inbox is empty.
   forbidden to edit building text, so this is filed rather than swept. **Felix's call:** ride
   C30 (same method, outer city), become C31, or wait. The spelling half is the cheap half —
   it needs no adjudication at all.
-- 2026-08-29 · Builder (C26) · **`plans/18-great-recut.md`'s own `**Status:**` still reads
-  OPEN; the MAP says LANDED (C25 reconciled it).** So `isLiveWorkDoc` reads it as a live
-  surface and every reader that fences closed docs lints its history — 11 vocabulary hits
-  that are nobody's debt. One of the two records is lying and by C25's own findings it is the
-  doc. A one-line repair, in nobody's scope today.
