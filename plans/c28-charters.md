@@ -197,6 +197,26 @@ stands).
   counterweight); peer-amendment law (can a peer session's message amend a
   charge?) routed to the **charter redrafts**, not the door (D57's
   instrument-carrying amendments are too subtle for a door clause).
+- **F16 — the gauge demoted; the side-quest grant (2026-08-29, his
+  rulings).** ([door-v8](../lab/c28/door-v8.md)) The usage-gauge headline out
+  of the door — ~3 incidents in ~400 sessions, a salience trap (every probe
+  recited it back); its home becomes the Architect charter's escalation
+  triggers, and the door's fork class generalizes to "a call only Felix can
+  make (money, hardware, his taste, what only he can see)" — the charters'
+  existing ⬡-decision law compressed. **"Never chased" was batch law
+  universalized wrongly** (penholder error, owned): its birthplaces
+  (hexwright work orders, simmy spikes) are dispatched batch work, where
+  collision physics, review integrity, and cheap-tier fix risk are real; in
+  a warm high-judgment session the cold handoff costs ~10× the warm fix —
+  D73's continue-mode logic at micro scale. The law becomes **record always,
+  chase by grant**: the record is the invariant (a fixed bug files too — the
+  fix is knowledge, and review must find it); the grant scales with judgment
+  and solitude and lives in charters (generous at Architect/GA, record-only
+  default for Digger, hard default for Builder, none for Fixer), charge docs
+  (per-charge grant or revoke), and batch notes (parallel batches suspend
+  all grants). Charter-level design in door-v8 §side-quest grant — drafting
+  input for the redrafts. Next experiment named: **stack probes** — door +
+  charter + sample charge as deployed, once the charters are drafted.
 
 ---
 
