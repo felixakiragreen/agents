@@ -24,8 +24,8 @@ dispatch.
   file + resolved kickoffs).
 - **The tweak list at dispatch:** every ISSUES entry and desk note Felix has
   filed as tweak-class by the time this row fires, as scoped by the
-  Architect/Dispatcher amendment that accompanies the kickoff (D57). This
-  brief's §5 bounds what may be absorbed without a new ruling.
+  Architect amendment that accompanies the kickoff (D57). This
+  charge doc's §5 bounds what may be absorbed without a new ruling.
 
 ## Spec
 
@@ -79,7 +79,7 @@ dispatch.
    the poll's socket read (~161 ms) — if surface titles cost more than the
    remaining headroom or turn structural, escalate rather than absorb.
 
-## Acceptance criteria — the DoD
+## Done when:
 
 - [ ] From a fired Works node, the hotswap control lands the Chat on that
   exact sid (live, sid verified); the placeholder is gone from source and
@@ -112,7 +112,7 @@ dispatch.
 
 ## Out of scope
 
-- The ⬡ prettifying pass (parked until Felix unparks it — README §3); any
+- The ⬡ prettifying pass (DEFERRED until Felix un-defers it — README §3); any
   structural change (the STOP-clause routes it out); arming anything.
 
 ## Kill criteria
@@ -129,6 +129,6 @@ You are a Builder at opus-high.
 Wear ~/code/agents/canon/mantles/builder.md,
 then read ~/code/agents/belvedere/README.md §§5–6
 and ~/code/agents/belvedere/plans/b27-qol-close.md
-plus the tweak-list amendment the Dispatcher hands you,
-and build it to its DoD.
+plus the tweak-list amendment the tender hands you,
+and build it to its `Done when:`.
 ```

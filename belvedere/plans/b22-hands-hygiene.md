@@ -19,7 +19,7 @@ false refusals and misdeliveries in the wild.
   is the regression test. (After this lands, Felix drains the scratch-venue
   trust entries by his hand — ledger tail; keep `b7-founding-probe` until
   the regression test pins it.)
-- **Candidate 2 — the UUID sweep.** P6 F2 ratified city-wide at G2: address
+- **Candidate 2 — the UUID sweep.** P6 F2 ruled city-wide at G2: address
   by UUID wherever one exists; a ref is legal only inside the breath that
   created it. `attemptFire`'s post-create addressing still rides refs
   (B18 F7 — B18's socket targets are all uuids, `attemptFire`'s are not).
@@ -52,7 +52,7 @@ false refusals and misdeliveries in the wild.
    (Felix's, D14), and the verification (induce a permission stall, see the
    census beat arrive without the 6 s `Notification` lag B14 measured).
 
-## Acceptance criteria — the DoD
+## Done when:
 
 - [ ] Trust: `b7-founding-probe` composes and arms (no false refusal), the
   regression test red-before/green-after recorded; an actually-untrusted
@@ -90,5 +90,5 @@ You are a Builder at opus-high.
 Wear ~/code/agents/canon/mantles/builder.md,
 then read ~/code/agents/belvedere/README.md §§5–6
 and ~/code/agents/belvedere/plans/b22-hands-hygiene.md,
-and build it to its DoD.
+and build it to its `Done when:`.
 ```

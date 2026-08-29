@@ -47,9 +47,9 @@ sits IN" are two facts; today the join knows only the second.
    rearranged — a panel moved in or out by his hand — is his; never
    auto-retired. The audit records every retire.
 
-## Acceptance criteria — the DoD
+## Done when:
 
-Live checks drive real cmux workspaces; every workspace this DoD mints is
+Live checks drive real cmux workspaces; every workspace this bar mints is
 closed by it (D55), and it never touches a workspace it did not mint.
 
 - [ ] A fire for `agents/belvedere` with a `belvedere`-named workspace
@@ -91,5 +91,5 @@ You are a Builder at opus-high.
 Wear ~/code/agents/canon/mantles/builder.md,
 then read ~/code/agents/belvedere/README.md §§5–6
 and ~/code/agents/belvedere/plans/b25-fire-placement.md,
-and build it to its DoD.
+and build it to its `Done when:`.
 ```

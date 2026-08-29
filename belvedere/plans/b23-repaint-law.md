@@ -49,7 +49,7 @@ card and nothing happened, and the parity of his swap count decided it.
    board pane never showed B22–B27 after their commit — through refreshes —
    while the live server's own `/deck/state?b=agents/belvedere` payload
    carried every one of them (12–33 mentions each, 155 kB, curled at the cut
-   sitting). **The data reached the wire; the paint refused it.** Hypothesis,
+   session). **The data reached the wire; the paint refused it.** Hypothesis,
    two candidate mechanisms: the region-signature repaint (B14 F4) whose
    signature misses board-content change, or the B15 F2 `needs` detail
    memoized past its content (B19 F1's family). Reproduce (commit new board
@@ -57,7 +57,7 @@ card and nothing happened, and the parity of his swap count decided it.
    path separately — his reload ALSO showed stale, which no client memo
    should survive.
 
-## Acceptance criteria — the DoD
+## Done when:
 
 Browser half rides `lab/b13/probe.ts`'s instrument (real headless Chrome,
 zero dependencies fetched), against a fixture city; the leak's live checks
@@ -104,5 +104,5 @@ You are a Builder at opus-high.
 Wear ~/code/agents/canon/mantles/builder.md,
 then read ~/code/agents/belvedere/README.md §§5–6
 and ~/code/agents/belvedere/plans/b23-repaint-law.md,
-and build it to its DoD.
+and build it to its `Done when:`.
 ```

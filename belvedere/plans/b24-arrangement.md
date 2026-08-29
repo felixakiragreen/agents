@@ -39,7 +39,7 @@ arrangement hides nothing new.
    across browsers and machines; localStorage is per-browser by
    construction (rejected). The fence needs **no new write class** — the
    deck writes it as a desk file (class 7); commits are never the glass's
-   (sittings and Felix commit, D17). Editing by gesture on the deck writes
+   (sessions and Felix commit, D17). Editing by gesture on the deck writes
    the file; the file is the state (a kill loses nothing — B8's drill bar).
 3. **The default view must not lie (candidate 7).** The reported
    split-neighborhood: hypothesis from one code read, unreproduced —
@@ -61,7 +61,7 @@ arrangement hides nothing new.
    its loudest badge); the editing surface is toggled buttons and drag, no
    dropdowns.
 
-## Acceptance criteria — the DoD
+## Done when:
 
 Browser half on B13's instrument; the live half against the real register.
 
@@ -106,5 +106,5 @@ You are a Builder at opus-high.
 Wear ~/code/agents/canon/mantles/builder.md,
 then read ~/code/agents/belvedere/README.md §§5–6
 and ~/code/agents/belvedere/plans/b24-arrangement.md,
-and build it to its DoD.
+and build it to its `Done when:`.
 ```

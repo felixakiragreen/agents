@@ -19,7 +19,7 @@ him.
 - ISSUES commit `1031a81` (the report); `glass/attention.ts` (B14 — one
   computation, two renderings: the City's badges ARE the queue's items
   bucketed; this row extends that computation, never adds a second).
-- The doctrine parser's `Baton` shape — `holder`, `kind` (move / wave /
+- The doctrine parser's `Baton` shape — `holder`, `kind` (single / batch /
   fork, canon D64), `instruments[]`.
 - The rail's classification history and its rulings: B3 E2 → D10 ruled
   2026-08-27 — **ambiguity never arms**; a baton whose holder is collided or
@@ -45,9 +45,9 @@ him.
 4. One computation, two renderings, kept: a badge can never count a baton
    the queue does not list.
 
-## Acceptance criteria — the DoD
+## Done when:
 
-Fixture + the real corpus (the recording sitting's own baton — holder Felix —
+Fixture + the real corpus (the recording session's own baton — holder Felix —
 is live evidence while it stands).
 
 - [ ] A live Felix-holder baton appears as a City badge and a queue item;
@@ -86,5 +86,5 @@ You are a Builder at opus-high.
 Wear ~/code/agents/canon/mantles/builder.md,
 then read ~/code/agents/belvedere/README.md §§5–6
 and ~/code/agents/belvedere/plans/b26-baton-attention.md,
-and build it to its DoD.
+and build it to its `Done when:`.
 ```
