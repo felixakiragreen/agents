@@ -50,6 +50,18 @@ v3 × {sonnet-medium, opus-medium, fable-high} · stanza-v3 × haiku-high. Imagi
 roles as round 1 (Digger; Architect for fable; drudge sweep for haiku). Same
 questionnaire verbatim; fable arms carry Q7.
 
+## Round 3 (2026-08-29, after ⬡'s authority surgery)
+
+**Question:** does the door still orient with the authority paragraph
+dissolved — or do probes start asking "who authorizes / who decides" (round
+1's under-orientation signature), meaning one clause returns? Also watched:
+board-token stumbles (⬡-gate) now that the glyph key is cut, and whether the
+Understandings growth clause reads as a license to file or a license to edit.
+
+**Fleet (4, one parallel send):** v6 × {sonnet-medium, opus-medium,
+fable-high} · stanza-v6 × haiku-high. Imagined roles as before; same
+questionnaire verbatim; fable carries Q7.
+
 **Conditions (measurements carry their conditions):** probes are dispatched from
 this repo, so every arm — control included — auto-loads the global CLAUDE.md and
 this repo's CLAUDE.md, both of which already describe the Guild. This matches
