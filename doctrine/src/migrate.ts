@@ -13,7 +13,8 @@
 import { basename } from 'path';
 import { readFileSync, writeFileSync } from 'fs';
 import {
-	FELIX_GATE, RETIRED, UNRECORDED, VERDICTS, isMantle, isTier, leadingToken, strip, topSplit, trailingParen,
+	DEFERRED, FELIX_GATE, HEX_GATE, PARKED, RETIRED, UNRECORDED, UNSTAFFED, VERDICTS,
+	isId, isMantle, isTier, leadingToken, strip, topSplit, trailingParen,
 } from './grammar';
 import { boardIds, isBoardHeader, parseBoards, parseDecisions, parseLedger, tables } from './parse';
 import { parse as parseBuilding, type Building } from './building';
@@ -34,29 +35,55 @@ export type Migration = { file: string; before: string; after: string; edits: Ed
 export type LineCtx = { prev: string | null; ahead: (k: number) => string | null };
 type LineResult = string | { to: string; eat: number } | null;
 
+/** What a cell rule can see beyond its own cell: the building's ids, and its own row. */
+export type CellCtx = { ids: Set<string>; cells: string[] };
+
 /** A rule names the parsed fields it is licensed to alter — the round-trip law reads this. */
 type Rule = {
 	id: string;
 	changes: string[];
 	/** Rewrite one Depends-on/Staffing/Status cell, or return null to decline. */
-	cell?: { column: 2 | 3 | 4; run: (text: string, knownIds: Set<string>) => string | null };
+	cell?: { column: 2 | 3 | 4; run: (text: string, ctx: CellCtx) => string | null };
 	/** Rewrite one whole line (optionally eating following lines), or return null to decline. */
 	line?: { files?: RegExp; run: (text: string, ctx: LineCtx) => LineResult };
 };
 
 // ---------- §4 the board — cell rules ----------
 
-const staffingFelixGate: Rule = {
-	id: 'staffing.felix-gate', changes: ['mantle', 'tier', 'felixGate', 'rider'],
+/** D71 — the gate token respells; `Felix` alone was always the same field, badly typed. */
+const staffingHexGate: Rule = {
+	id: 'staffing.hex-gate', changes: ['mantle', 'tier', 'felixGate', 'rider'],
 	cell: {
 		column: 3,
 		run: t => {
 			const { head, inner } = trailingParen(strip(t));
 			if (head !== 'Felix' && head !== FELIX_GATE) return null;
-			return FELIX_GATE + (inner ? ` (${inner})` : '');
+			return HEX_GATE + (inner ? ` (${inner})` : '');
 		},
 	},
 };
+
+/** The same token in the other column — `⬡-gate: <text>` is Depends-on's second form (D63e). */
+const dependsHexGate: Rule = {
+	id: 'depends.hex-gate', changes: [],
+	cell: { column: 2, run: t => t.includes(FELIX_GATE) ? t.trim().replace(new RegExp(FELIX_GATE, 'g'), HEX_GATE) : null },
+};
+
+/**
+ * D71 — a charge is always staffed, so `unstaffed` has exactly one successor and only one place
+ * to land: `—`, the dissolution a DEFERRED charge is allowed. Everywhere else the dead token
+ * stays on the page as a lint residue — choosing who staffs a live charge is a session's call.
+ */
+const staffingDissolved: Rule = {
+	id: 'staffing.dissolved', changes: ['mantle', 'tier', 'dissolved'],
+	cell: {
+		column: 3,
+		run: (t, ctx) => strip(t) === UNSTAFFED && deferralNoted(ctx.cells[4] ?? '') ? '—' : null,
+	},
+};
+
+/** The Status cell says a charge is shelved in either spelling — the respell rule may not have run. */
+const deferralNoted = (status: string) => new RegExp(`\\b(?:${DEFERRED}|${PARKED})\\b`).test(status);
 
 const staffingRiderParens: Rule = {
 	id: 'staffing.rider-parens', changes: ['tier', 'rider'],
@@ -103,10 +130,16 @@ const statusPending: Rule = {
 	cell: { column: 4, run: t => leadingToken(strip(t)) === 'PENDING' ? replaceLead(t.trim(), 'PENDING', 'OPEN — PENDING') : null },
 };
 
-/** D69 — PARKED conforms exactly as PENDING does, so it molts exactly as PENDING does. */
-const statusParked: Rule = {
-	id: 'status.parked', changes: ['state', 'annotation'],
-	cell: { column: 4, run: t => leadingToken(strip(t)) === 'PARKED' ? replaceLead(t.trim(), 'PARKED', 'OPEN — PARKED') : null },
+/** D71 — PARKED is DEFERRED's history: a whole-word respell wherever it annotates the Status. */
+const statusParkedRespell: Rule = {
+	id: 'status.parked-respell', changes: ['state', 'annotation'],
+	cell: { column: 4, run: t => t.includes(PARKED) ? t.trim().replace(new RegExp(`\\b${PARKED}\\b`, 'g'), DEFERRED) : null },
+};
+
+/** D69/D71 — DEFERRED conforms exactly as PENDING does, so it molts exactly as PENDING does. */
+const statusDeferred: Rule = {
+	id: 'status.deferred', changes: ['state', 'annotation'],
+	cell: { column: 4, run: t => leadingToken(strip(t)) === DEFERRED ? replaceLead(t.trim(), DEFERRED, `OPEN — ${DEFERRED}`) : null },
 };
 
 /** `E1–E9` expands to ids where every one resolves in the building; else it stays a lint fail (item 7). */
@@ -114,7 +147,7 @@ const dependsRange: Rule = {
 	id: 'depends.range', changes: ['dependsOn'],
 	cell: {
 		column: 2,
-		run: (t, knownIds) => {
+		run: (t, { ids: knownIds }) => {
 			const next = t.trim().replace(/([A-Za-z]*\d+[a-z]?)\s*–\s*([A-Za-z]*\d+[a-z]?)/g, (whole, a: string, b: string) => {
 				const pa = a.match(/^([A-Za-z]*)(\d+)$/), pb = b.match(/^([A-Za-z]*)(\d+)$/);
 				if (!pa || !pb || pa[1] !== pb[1] || +pa[2]! >= +pb[2]!) return whole;
@@ -128,8 +161,6 @@ const dependsRange: Rule = {
 };
 
 // ---------- §7 the ledger — line rules ----------
-
-const rowish = (s: string) => /^[A-Za-z0-9][A-Za-z0-9-]*$/.test(s) && /\d/.test(s);
 
 /**
  * A head parenthetical splits into: an optional tier (hoisted to its D63f slot), an optional
@@ -145,9 +176,9 @@ function splitParen(inner: string): { tier: string | null; row: string | null; r
 		if (p === tier) continue;
 		const named = p.match(/^(?:row|gate)\s+(\S+)$/i);
 		if (named && !row) { row = named[1]!; continue; }
-		if (!row && rowish(p)) { row = p; continue; }
+		if (!row && isId(p)) { row = p; continue; }
 		const led = p.match(/^([A-Za-z]*\d+[a-z]?)\s+[—–]\s+(.+)$/);
-		if (led && !row && rowish(led[1]!)) { row = led[1]!; rest.push(led[2]!); continue; }
+		if (led && !row && isId(led[1]!)) { row = led[1]!; rest.push(led[2]!); continue; }
 		rest.push(p);
 	}
 	return { tier, row, rest: rest.join(', ') };
@@ -209,7 +240,7 @@ const ledgerHeading: Rule = {
 			if (inner && !isTier(inner)) return null;   // an unknown parenthetical is judgment, not a guess
 			const title = segs.slice(1).join(' · ');
 			const tm = title.match(/^(\S+)\s+[—–]\s+(.+)$/);
-			const row = tm && rowish(tm[1]!) ? tm[1]! : null;
+			const row = tm && isId(tm[1]!) ? tm[1]! : null;
 			return `---\n\n**${m[1]} · ${mantle} · ${inner ?? UNRECORDED}${row ? ` (${row})` : ''}** — ${row ? tm![2] : title}`;
 		},
 	},
@@ -287,8 +318,11 @@ const decisionInlineAttribution: Rule = {
 /** The clause pass is engine-driven, not line-driven — registered so the round-trip law reads its license. */
 const ledgerUnrecordedClauses: Rule = { id: 'ledger.unrecorded-clauses', changes: ['decided', 'next', 'body'] };
 
+// Order is load-bearing in one place: the PARKED respell runs before the leading-annotation
+// rule, so `| PARKED — x |` reaches `OPEN — DEFERRED — x` in one pass.
 export const RULES: Rule[] = [
-	staffingFelixGate, staffingRiderParens, statusRetired, statusVerdict, statusPending, statusParked, dependsRange,
+	staffingHexGate, dependsHexGate, staffingDissolved, staffingRiderParens,
+	statusRetired, statusVerdict, statusPending, statusParkedRespell, statusDeferred, dependsRange,
 	ledgerTierSlot, ledgerHeading, ledgerBareHead, decisionHead, decisionInlineAttribution,
 	ledgerUnrecordedClauses,
 ];
@@ -337,7 +371,9 @@ export function migrateText(file: string, md: string, knownIds?: Set<string>): M
 				const span = spans[rule.cell.column];
 				if (!span) continue;
 				const cell = text.slice(span.start, span.end);
-				const next = rule.cell.run(cell, ids);
+				// The row is re-read per rule: a cell rule may need a neighbour (Staffing reads Status),
+				// and an earlier rule in this same pass may already have rewritten it.
+				const next = rule.cell.run(cell, { ids, cells: spans.map(s => text.slice(s.start, s.end)) });
 				if (next === null || next === cell.trim()) continue;
 				if (balanced(cell) && !balanced(next)) throw new Error(`${rule.id} orphaned a ** in ${JSON.stringify(next)} — a converter bug, not a doc defect (item 4)`);
 				text = text.slice(0, span.start) + ` ${next} ` + text.slice(span.end);

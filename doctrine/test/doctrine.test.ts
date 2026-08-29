@@ -20,14 +20,14 @@ const codes = (fails: { code: string }[]) => fails.map(f => f.code);
 // ---------- the control: the amended grammar, one fixture per artifact class ----------
 
 describe('control — conforming fixtures parse with zero failures', () => {
-	test('board (§4 + D63 a/b/c/d/e)', () => {
+	test('board (§4 + D63 a/b/c/d/e + D71)', () => {
 		const r = parseBoards(fx('conforming', 'board.md'));
 		expect(codes(r.fails)).toEqual([]);
 		expect(r.boards).toHaveLength(1);
 		expect(r.boards[0]!.rows).toHaveLength(7);
 	});
 
-	test('board — the Felix-gate row is typed, not guessed (D63a)', () => {
+	test('board — the ⬡-gate charge is typed, not guessed (D63a, respelled by D71)', () => {
 		const row = parseBoards(fx('conforming', 'board.md')).boards[0]!.rows.find(r => r.id === '04')!;
 		expect(row.felixGate).toBe(true);
 		expect(row.mantle).toBeNull();
@@ -48,14 +48,38 @@ describe('control — conforming fixtures parse with zero failures', () => {
 		expect(rows.find(r => r.id === '06')!.gates).toEqual(['budget blessing']);
 	});
 
-	test('board — the typed-absence vocabulary conforms (D63 as amended, D69) [items 1, 2]', () => {
+	test('board — the typed-absence vocabulary conforms (D63 as amended, D71) [items 1, 2]', () => {
 		const r = parseBoards(fx('conforming', 'board-absences.md'));
 		expect(codes(r.fails)).toEqual([]);
 		const rows = r.boards[0]!.rows;
-		expect(rows.find(x => x.id === 'C8')!.unstaffed).toBe(true);
-		expect(rows.find(x => x.id === 'C8')!.state).toBe('OPEN');           // OPEN — PARKED conforms
+		expect(rows.find(x => x.id === 'C8')!.dissolved).toBe(true);         // `—` earned by DEFERRED
+		expect(rows.find(x => x.id === 'C8')!.state).toBe('OPEN');           // OPEN — DEFERRED conforms
 		expect(rows.find(x => x.id === 'C9')!.mantle).toBe('unrecorded');
 		expect(rows.find(x => x.id === 'C10')!.tier).toBe('unrecorded');
+	});
+
+	test('board — the standard\'s tongue: ⬡-gate in both columns, C‹n› ids, DEFERRED (D71)', () => {
+		const r = parseBoards(fx('conforming', 'board-standard.md'));
+		expect(codes(r.fails)).toEqual([]);
+		const rows = r.boards[0]!.rows;
+		expect(rows.find(x => x.id === 'C25')!.dependsOn).toEqual(['C24']);
+		expect(rows.find(x => x.id === 'C25')!.gates).toEqual(['the sovereign\'s read of the diff']);
+		// the token is Staffing's and Depends-on's alike, and it carries an annotation
+		expect([rows.find(x => x.id === 'C26')!.felixGate, rows.find(x => x.id === 'C26')!.rider])
+			.toEqual([true, 'his drafts, his pen']);
+		expect(rows.find(x => x.id === 'C26')!.gates).toEqual(['Felix\'s charter drafts']);
+		// the one absence left: a DEFERRED charge whose shelving dissolved its staffing
+		expect([rows.find(x => x.id === 'C27')!.dissolved, rows.find(x => x.id === 'C27')!.state])
+			.toEqual([true, 'OPEN']);
+	});
+
+	test('board — charges are always staffed: the hard failure, and the one absence it allows (D71)', () => {
+		const r = parseBoards(fx('defects', 'unstaffed.md'));
+		expect(codes(r.fails)).toEqual(['board.unstaffed', 'board.unstaffed', 'board.unstaffed']);
+		expect(r.fails.map(f => f.excerpt.split(':')[0])).toEqual(['C1', 'C2', 'C3']);   // C4 earned its `—`
+		expect(r.boards[0]!.rows.find(x => x.id === 'C4')!.dissolved).toBe(true);
+		// and the converter refuses all three: staffing a live charge is a session's call
+		expect(migrateText(join(FX, 'defects', 'unstaffed.md'), fx('defects', 'unstaffed.md')).edits).toEqual([]);
 	});
 
 	test('ledger (§7 + D63f)', () => {
@@ -87,12 +111,40 @@ describe('control — conforming fixtures parse with zero failures', () => {
 		expect(b.instruments).toEqual([{ kind: 'row', row: '03' }, { kind: 'row', row: '04' }]);
 	});
 
+	test('ledger — a charge id in the head, `ignite <charge-ids>` in the baton (D71)', () => {
+		const r = parseLedger(fx('conforming', 'ledger-standard.md'));
+		expect(codes(r.fails)).toEqual([]);
+		expect(r.entries.map(e => e.row)).toEqual(['C23', 'C24']);
+		expect(classifyBaton(r.entries[0]!)!.instruments).toEqual([{ kind: 'row', row: 'C24' }]);
+		expect(classifyBaton(r.tail!)!.instruments).toEqual([{ kind: 'row', row: 'C25' }, { kind: 'row', row: 'C26' }]);
+	});
+
+	test('baton — `ignite` is the verb, `fire` is the history, prose is neither (§3)', () => {
+		const next = (s: string) => classifyBaton({ next: s, block: '' } as never)!;
+		expect(next('ignite C24').instruments).toEqual([{ kind: 'row', row: 'C24' }]);
+		expect(next('fire 16').instruments).toEqual([{ kind: 'row', row: '16' }]);
+		expect(next('Ignite the distillation session — Felix picks the venue.').holder).toBe('felix');
+	});
+
 	test('decisions (§8 + D63i)', () => {
 		const r = parseDecisions(fx('conforming', 'decisions.md'));
 		expect(codes(r.fails)).toEqual([]);
 		expect(r.decisions.map(d => d.title)).toEqual(['The first choice', 'The second choice', 'The third choice']);
 		// A decision Felix made needs no countersign; D3 is proposed, so only D3 queues.
 		expect(r.queue.map(d => d.id)).toEqual(['D3']);
+	});
+
+	test('decisions — ⬡✓ is the mark, ✓ Felix is the history, both parse (D71 §7)', () => {
+		const r = parseDecisions(fx('conforming', 'decisions-standard.md'));
+		expect(codes(r.fails)).toEqual([]);
+		expect(r.decisions.map(d => [d.id, d.decider, d.ratified, d.pending])).toEqual([
+			['D71', 'Grand Architect', true, false],
+			['D72', 'Architect — proposed, pending ⬡✓', false, true],
+		]);
+		expect(r.queue.map(d => d.id)).toEqual(['D72']);
+		// neither mark migrates: the record's respell is DEFERRED by the standard (§7)
+		expect(migrateText(join(FX, 'conforming', 'decisions-standard.md'), fx('conforming', 'decisions-standard.md')).edits).toEqual([]);
+		expect(migrateText(join(FX, 'conforming', 'decisions.md'), fx('conforming', 'decisions.md')).edits).toEqual([]);
 	});
 
 	test('issues (§3 + D63h)', () => {
@@ -114,11 +166,13 @@ describe('control — conforming fixtures parse with zero failures', () => {
 // ---------- row 19: the wave's parse-scope and silent-zero fixtures ----------
 
 describe('the silence family — defects that once reported clean', () => {
-	test('leading PARKED is the same defect class as leading PENDING (item 2, D69)', () => {
-		expect(codes(parseBoards(fx('defects', 'parked-leads.md')).fails)).toEqual(['board.parked-leads']);
-		// and it molts exactly as PENDING does — C8's cell in the D69 spelling, state leading
+	test('leading PARKED is the same defect class as leading PENDING (item 2, D69/D71)', () => {
+		// the dead token still parses, and still fails: an annotation never leads (D63c)
+		expect(codes(parseBoards(fx('defects', 'parked-leads.md')).fails))
+			.toEqual(['board.unstaffed', 'board.parked-leads']);
+		// and it molts as PENDING does, into the standard's word — state leading, staffing dissolved
 		const m = migrateText(join(FX, 'defects', 'parked-leads.md'), fx('defects', 'parked-leads.md'));
-		expect(m.after).toContain('| OPEN — PARKED — staffed when unparked; earns a build on iron or not at all |');
+		expect(m.after).toContain('| — | OPEN — DEFERRED — staffed when unparked; earns a build on iron or not at all |');
 		expect(codes(parseBoards(m.after).fails)).toEqual([]);
 		expect(roundTrip(m)).toEqual([]);
 	});
@@ -315,6 +369,8 @@ describe('migrate — pre-D63 fixtures', () => {
 			const once = migrateText(join(FX, 'pre-d63', n), fx('pre-d63', n));
 			expect(migrateText(once.file, once.after).edits).toEqual([]);
 		}
+		const board = migrateText(join(FX, 'pre-d71', 'board.md'), fx('pre-d71', 'board.md'));
+		expect(migrateText(board.file, board.after).edits).toEqual([]);
 	});
 
 	test('migrate refuses kickoff fences and ISSUES entries, by design', () => {
@@ -323,8 +379,42 @@ describe('migrate — pre-D63 fixtures', () => {
 	});
 
 	test('a conforming document is already home — no edits', () => {
-		for (const n of ['board.md', 'board-absences.md', 'ledger.md', 'decisions.md'])
+		for (const n of ['board.md', 'board-absences.md', 'board-standard.md', 'ledger.md',
+			'ledger-standard.md', 'decisions.md', 'decisions-standard.md'])
 			expect(migrateText(join(FX, 'conforming', n), fx('conforming', n)).edits).toEqual([]);
+	});
+});
+
+// ---------- D71: the standard's molt ----------
+
+describe('migrate — the pre-D71 tokens', () => {
+	const m = () => migrateText(join(FX, 'pre-d71', 'board.md'), fx('pre-d71', 'board.md'));
+
+	test('the dead tokens parse before the molt — history is read, never re-spelled by the reader', () => {
+		const r = parseBoards(fx('pre-d71', 'board.md'));
+		const rows = r.boards[0]!.rows;
+		expect(rows.find(x => x.id === '01')!.felixGate).toBe(true);          // `Felix-gate` staffs forever
+		expect(rows.find(x => x.id === '03')!.gates).toEqual(['budget blessing']);
+		// only the dead staffing fails: `unstaffed` left the legal set on both rows (D71)
+		expect(codes(r.fails)).toEqual(['board.staffing', 'board.unstaffed', 'board.unstaffed']);
+	});
+
+	test('Felix-gate → ⬡-gate in both columns; PARKED → DEFERRED; unstaffed → `—` on the shelved charge', () => {
+		const after = m().after;
+		expect(after).toContain('| ⬡-gate (smoke ×3) |');
+		expect(after).toContain('| 01 | ⬡-gate |');                            // the bare `Felix` was the same field
+		expect(after).toContain('| 01 · ⬡-gate: budget blessing |');
+		expect(after).toContain('| — | OPEN — DEFERRED staffed when unparked');
+		expect(m().edits.map(e => e.rule)).toEqual([
+			'staffing.hex-gate', 'staffing.hex-gate', 'depends.hex-gate',
+			'staffing.dissolved+status.parked-respell',
+		]);
+		expect(roundTrip(m())).toEqual([]);
+	});
+
+	test('a live charge\'s missing staffing is a residue, never a guess — the hard failure stands', () => {
+		expect(codes(parseBoards(m().after).fails)).toEqual(['board.unstaffed']);
+		expect(m().after).toContain('| 05 | the live charge nobody staffed | 01 | unstaffed | OPEN |');
 	});
 });
 
@@ -367,10 +457,12 @@ describe('the register', () => {
 	});
 
 	test('the round-trip law holds across every fixture, dry-run', () => {
-		for (const n of ['conforming/board.md', 'conforming/board-absences.md', 'conforming/ledger.md',
-			'conforming/decisions.md', 'pre-d63/board.md', 'pre-d63/ledger.md', 'pre-d63/decisions.md',
+		for (const n of ['conforming/board.md', 'conforming/board-absences.md', 'conforming/board-standard.md',
+			'conforming/ledger.md', 'conforming/ledger-standard.md', 'conforming/decisions.md',
+			'conforming/decisions-standard.md', 'pre-d63/board.md', 'pre-d63/ledger.md', 'pre-d63/decisions.md',
 			'pre-d63/decisions-inline.md', 'pre-d63/heading/LEDGER.md', 'pre-d63/bare/LEDGER.md',
-			'defects/bold-verdict.md', 'defects/truncated.md', 'defects/merged-LEDGER.md']) {
+			'pre-d71/board.md', 'defects/bold-verdict.md', 'defects/truncated.md', 'defects/merged-LEDGER.md',
+			'defects/parked-leads.md', 'defects/unstaffed.md']) {
 			const p = join(FX, n);
 			expect(roundTrip(migrateText(p, readFileSync(p, 'utf8')))).toEqual([]);
 		}

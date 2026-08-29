@@ -45,7 +45,7 @@ export function lint(roots: string[], opts: { live?: boolean } = {}): LintReport
 		boardDocsWithBoard: buildings.reduce((a, b) => a + new Set(b.board.map(x => x.file)).size, 0),
 		boards: buildings.reduce((a, b) => a + b.board.length, 0),
 		rows: rows.length,
-		typedRows: rows.filter(r => (r.felixGate || r.unstaffed || (r.mantle && r.tier)) && r.state).length,
+		typedRows: rows.filter(r => (r.felixGate || r.dissolved || (r.mantle && r.tier)) && r.state).length,
 		ledgers: buildings.filter(b => b.files.ledger).length,
 		ledgerEntries: buildings.reduce((a, b) => a + b.ledgerEntries, 0),
 		tails: buildings.filter(b => b.ledgerTail).length,
@@ -69,7 +69,7 @@ export function render(r: LintReport, opts: { verbose?: boolean } = {}): string 
 	for (const b of r.buildings) {
 		const fs = b.fails;
 		const rows = b.board.flatMap(x => x.rows);
-		const typed = rows.filter(x => (x.felixGate || x.unstaffed || (x.mantle && x.tier)) && x.state).length;
+		const typed = rows.filter(x => (x.felixGate || x.dissolved || (x.mantle && x.tier)) && x.state).length;
 		out.push(`\n${fs.length ? 'FAIL' : ' ok '}  ${b.building}  —  ${b.board.length} board(s) · ${typed}/${rows.length} rows typed · ` +
 			`ledger ${b.ledgerTail?.date ?? 'none'} · baton ${b.baton ? `${b.baton.holder}${b.baton.instruments.length ? ` ×${b.baton.instruments.length}` : ''}` : 'none'} · ` +
 			`${b.kickoffs.length} kickoff(s) · queue ${b.decisionQueue.length}`);

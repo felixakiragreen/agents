@@ -1,13 +1,14 @@
 // The five artifact parsers — DOCTRINE §4 (board), §7 (ledger), §8 (decisions),
-// §3 (ISSUES), §5 (kickoffs) + §11 (the baton), as amended by D63 and D64.
+// §3 (ISSUES), §5 (kickoffs) + §11 (the baton), as amended by D63, D64 and D71 (the standard).
 // Harvested from the P3 probes (belvedere/lab/p3/parse.ts) and amended where the fold forced it.
 //
 // Parser-as-lint: a field the doctrine names and the doc does not carry is a Fail with the
 // verbatim excerpt — never a parser branch. The shapes below are P3 §5's, normative per D65.
 
 import {
-	FELIX_GATE, MANTLES, PARKED, PENDING, RETIRED, STATES, UNRECORDED, UNSTAFFED, VERDICTS,
-	delink, fail, isMantle, isState, isTier, leadingToken, linkTarget, strip, topSplit, trailingParen,
+	BLESSED_MARK, BLESSED_TAIL, DEFERRED, FELIX_GATE, HEX_GATE, MANTLES, PARKED, PENDING, PROPOSED_MARK,
+	RETIRED, STATES, UNRECORDED, UNSTAFFED, VERDICTS,
+	delink, fail, isId, isMantle, isState, isTier, leadingToken, linkTarget, strip, topSplit, trailingParen,
 	type Fail, type State,
 } from './grammar';
 
@@ -17,12 +18,12 @@ export type BoardRow = {
 	id: string;
 	work: string;                 // link text, de-linked
 	workDoc: string | null;       // the href — the building page's row link
-	dependsOn: string[];          // row ids (D63e)
-	gates: string[];              // `Felix-gate: <text>` segments (D63e)
+	dependsOn: string[];          // charge ids (D63e)
+	gates: string[];              // `⬡-gate: <text>` segments (D63e)
 	mantle: string | null;
 	tier: string | null;
-	felixGate: boolean;           // D63a — the row is Felix's; the glass never auto-fires it
-	unstaffed: boolean;           // D63 as amended — a recorded absence: deliberately no staffing
+	felixGate: boolean;           // D63a/D71 — the charge is Felix's (`⬡-gate`); the glass never auto-ignites it
+	dissolved: boolean;           // D71 — a DEFERRED charge whose shelving dissolved its staffing (`—`)
 	rider: string | null;         // D63d — annotation for eyes, ignored by dispatch
 	state: State | null;
 	annotation: string;           // everything after the state token
@@ -55,21 +56,35 @@ export function tables(md: string): Table[] {
 export const isBoardHeader = (h: string[]) =>
 	h.length === 5 && BOARD_COLUMNS.every((want, k) => strip(h[k] ?? '').toLowerCase() === want);
 
-/** §4's Staffing law as amended: `<Mantle> · <tier>` or the literal `Felix-gate`, either with a `(rider)`. */
-function parseStaffing(cell: string, id: string, line: number) {
+/** A charge is DEFERRED when its Status carries the annotation; PARKED is that word's history. */
+const isDeferred = (status: string) => new RegExp(`\\b(?:${DEFERRED}|${PARKED})\\b`).test(status);
+
+/**
+ * §4's Staffing law as amended (D71): `<Mantle> · <tier>` or the literal `⬡-gate`, either with a
+ * `(rider)`. **Charges are always staffed** — the one absence left is a DEFERRED charge whose
+ * shelving dissolved its staffing, and it writes `—`.
+ */
+function parseStaffing(cell: string, status: string, id: string, line: number) {
 	const fails: Fail[] = [];
 	const s = strip(delink(cell));
 	const { head, inner } = trailingParen(s);
-	const out = { mantle: null as string | null, tier: null as string | null, felixGate: false, unstaffed: false, rider: inner };
+	const out = { mantle: null as string | null, tier: null as string | null, felixGate: false, dissolved: false, rider: inner };
 
-	if (head === FELIX_GATE) { out.felixGate = true; return { ...out, fails }; }
-	// D63 as amended — whole-Staffing typed absences: `unstaffed` (knowledge), `unrecorded` (ignorance).
-	if (head === UNSTAFFED) { out.unstaffed = true; return { ...out, fails }; }
+	if (head === HEX_GATE || head === FELIX_GATE) { out.felixGate = true; return { ...out, fails }; }
+	// D63 as amended — the whole-Staffing typed absence: `unrecorded` asserts ignorance.
 	if (head === UNRECORDED) { out.mantle = UNRECORDED; out.tier = UNRECORDED; return { ...out, fails }; }
+
+	// D71, lint-hard: an unstaffed charge is not permitted, ever. `—` is dissolution, legal only
+	// where the Status says the charge is shelved; `unstaffed` left the legal set with the standard.
+	if (head === '' || head === UNSTAFFED || /^[—–-]$/.test(head)) {
+		if (head !== UNSTAFFED && isDeferred(status)) { out.dissolved = true; return { ...out, fails }; }
+		fails.push(fail('board', 'board.unstaffed', 'charges are always staffed (D71) — staffing is empty, the dead token "unstaffed", or a dissolved "—" on a charge whose Status carries no DEFERRED', `${id}: ${JSON.stringify(cell)}`, line));
+		return { ...out, fails };
+	}
 
 	const segs = topSplit(head, ['·']);
 	if (segs.length !== 2) {
-		fails.push(fail('board', 'board.staffing', `staffing is not "<Mantle> · <tier>", "${FELIX_GATE}", "${UNSTAFFED}" or "${UNRECORDED}"`, `${id}: ${JSON.stringify(cell)}`, line));
+		fails.push(fail('board', 'board.staffing', `staffing is not "<Mantle> · <tier>", "${HEX_GATE}" or "${UNRECORDED}"`, `${id}: ${JSON.stringify(cell)}`, line));
 		return { ...out, fails };
 	}
 	const [m, t] = segs as [string, string];
@@ -87,7 +102,7 @@ function parseStaffing(cell: string, id: string, line: number) {
  */
 const STALE_LEAD = /(?:→\s*\*{0,2}|\*\*)\s*(?:LANDED|KILLED)\s+\d{4}-\d{2}-\d{2}/;
 
-/** §4's lifecycle: the state leads; PENDING/PARKED and the verdicts ride the annotation (D63b, D63c, D69). */
+/** §4's lifecycle: the state leads; PENDING/DEFERRED and the verdicts ride the annotation (D63b, D63c, D71). */
 function parseStatus(cell: string, id: string, line: number) {
 	const fails: Fail[] = [];
 	const st = strip(cell);
@@ -101,13 +116,14 @@ function parseStatus(cell: string, id: string, line: number) {
 	const excerpt = `${id}: ${JSON.stringify(st.slice(0, 160))}`;
 	if (RETIRED[lead]) fails.push(fail('board', 'board.retired', `"${lead}" is a retired synonym (§4) — use ${RETIRED[lead]}`, excerpt, line));
 	else if (lead === PENDING) fails.push(fail('board', 'board.pending-leads', 'PENDING never leads (D63c) — write "OPEN — PENDING <precondition>"', excerpt, line));
-	else if (lead === PARKED) fails.push(fail('board', 'board.parked-leads', 'PARKED never leads (D69) — write "OPEN — PARKED <reason>"', excerpt, line));
+	else if (lead === DEFERRED) fails.push(fail('board', 'board.deferred-leads', 'DEFERRED never leads (D71) — write "OPEN — DEFERRED <reason>"', excerpt, line));
+	else if (lead === PARKED) fails.push(fail('board', 'board.parked-leads', 'PARKED never leads, and it is DEFERRED\'s history (D71) — write "OPEN — DEFERRED <reason>"', excerpt, line));
 	else if ((VERDICTS as readonly string[]).includes(lead)) fails.push(fail('board', 'board.verdict-leads', `a verdict rides the annotation (D63b) — write "LANDED — ${lead} …"`, excerpt, line));
 	else fails.push(fail('board', 'board.state', 'status does not open with a lifecycle state', excerpt, line));
 	return { state: null, annotation: st, fails };
 }
 
-/** §4's Depends-on: exactly two forms — a row id, or `Felix-gate: <text>` (D63e). */
+/** §4's Depends-on: exactly two forms — a charge id, or `⬡-gate: <text>` (D63e, respelled by D71). */
 function parseDependsOn(cell: string, id: string, line: number, knownIds: Set<string>) {
 	const fails: Fail[] = [];
 	const d = strip(delink(cell));
@@ -115,13 +131,13 @@ function parseDependsOn(cell: string, id: string, line: number, knownIds: Set<st
 	if (/^[—–-]$/.test(d) || d === '') return { dependsOn, gates, fails };
 
 	for (const seg of topSplit(d, ['·', ',', ';'])) {
-		const gate = seg.match(/^\**Felix-gate\**\s*:\s*(.+)$/);
+		const gate = seg.match(/^\**(?:⬡-gate|Felix-gate)\**\s*:\s*(.+)$/);
 		if (gate) { gates.push(gate[1]!.trim()); continue; }
 		if (knownIds.has(seg)) { dependsOn.push(seg); continue; }
 		// Non-conforming, but still recover any row id it names: a null is a render decision,
 		// not an error (P3 §5) — the glass draws the graph while the lint files the defect.
 		dependsOn.push(...seg.split(/[\s+,]+/).filter(x => knownIds.has(x)));
-		fails.push(fail('board', 'board.depends', `depends-on segment is neither a row id in this building nor "${FELIX_GATE}: <text>" (D63e)`, `${id}: ${JSON.stringify(seg.slice(0, 160))}`, line));
+		fails.push(fail('board', 'board.depends', `depends-on segment is neither a charge id in this building nor "${HEX_GATE}: <text>" (D63e)`, `${id}: ${JSON.stringify(seg.slice(0, 160))}`, line));
 	}
 	return { dependsOn, gates, fails };
 }
@@ -180,7 +196,7 @@ export function parseBoards(md: string, buildingIds?: Set<string>): { boards: Bo
 			const id = strip(delink(idC));
 			if (!id) fails.push(fail('board', 'board.id', 'empty ID cell', ('| ' + r.join(' | ') + ' |').slice(0, 300), line));
 
-			const staff = parseStaffing(staffC, id, line);
+			const staff = parseStaffing(staffC, statC, id, line);
 			const stat = parseStatus(statC, id, line);
 			const dep = parseDependsOn(depC, id, line, knownIds);
 			fails.push(...staff.fails, ...stat.fails, ...dep.fails);
@@ -188,7 +204,7 @@ export function parseBoards(md: string, buildingIds?: Set<string>): { boards: Bo
 			rows.push({
 				id, work: strip(delink(workC)), workDoc: linkTarget(workC),
 				dependsOn: dep.dependsOn, gates: dep.gates,
-				mantle: staff.mantle, tier: staff.tier, felixGate: staff.felixGate, unstaffed: staff.unstaffed,
+				mantle: staff.mantle, tier: staff.tier, felixGate: staff.felixGate, dissolved: staff.dissolved,
 				rider: staff.rider, state: stat.state, annotation: stat.annotation, line,
 			});
 		}
@@ -369,11 +385,11 @@ export function classifyBaton(entry: LedgerEntry | null): Baton | null {
 
 	// (a) the summons fenced verbatim in the entry (D63g)
 	for (const k of parseKickoffs(entry.block).kickoffs) instruments.push({ kind: 'summons', text: k.text, mantle: k.mantle, tier: k.tier });
-	// (b) the row-reference the rail resolves to the work doc's fence (D63g)
-	// `fire 16` is an instrument; `fire the Grand Architect` is prose. Every row id in the city
-	// carries a digit, and mistaking a word for one indicts the parser (P3 §0).
-	for (const m of entry.next.matchAll(/\bfire\s+([A-Za-z0-9-]+(?:\s*[,+]\s*[A-Za-z0-9-]+)*)/g))
-		for (const id of topSplit(m[1]!, [',', '+'])) if (/\d/.test(id)) instruments.push({ kind: 'row', row: id });
+	// (b) the charge-reference the rail resolves to the charge doc's fence (D63g)
+	// `ignite C24` is an instrument; `ignite the distillation session` is prose (`fire 16` is the
+	// same instrument in history's verb — the standard §3 killed the dispatch sense, not the record).
+	for (const m of entry.next.matchAll(/\b(?:ignite|fire)\s+([A-Za-z0-9-]+(?:\s*[,+]\s*[A-Za-z0-9-]+)*)/g))
+		for (const id of topSplit(m[1]!, [',', '+'])) if (isId(id)) instruments.push({ kind: 'row', row: id });
 
 	if (instruments.length) return { holder: 'session', text: entry.next, instruments };
 	if (/\bFelix\b/.test(entry.next)) return { holder: 'felix', text: entry.next, instruments };
@@ -431,12 +447,16 @@ export function parseDecisions(md: string): { decisions: Decision[]; queue: Deci
 
 		decisions.push({
 			id: head[1]!, date: pm ? pm[1]! : '',
-			decider: (pm ? pm[2]! : paren).replace(/\s*·?\s*✓\s*Felix\s*$/, '').trim(),
+			decider: (pm ? pm[2]! : paren).replace(BLESSED_TAIL, '').trim(),
 			title: tm ? tm[1]! : rest.split('.')[0]!, body: tm ? tm[2]! : rest,
-			ratified: /✓\s*Felix/.test(paren),
+			// D71 §7 — `⬡✓` is the mark; `✓ Felix` is the history the record still carries. The
+			// respell put the mark inside the WAITING form too ("proposed, pending ⬡✓"), where the
+			// old spelling could not reach: a blessing awaited is not a blessing given, so the
+			// proposed mark vetoes. Without the veto every dispatched entry falls out of the queue.
+			ratified: BLESSED_MARK.test(paren) && !PROPOSED_MARK.test(paren),
 			// The marker lives in the ATTRIBUTION; a body that merely quotes the phrase — D21, the
 			// entry that DEFINES it — never counts (item 12).
-			pending: /proposed[\s,]*(?:[—–-]\s*)?pending Felix countersign/i.test(paren),
+			pending: PROPOSED_MARK.test(paren),
 			line: at,
 		});
 	}

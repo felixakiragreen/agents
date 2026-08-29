@@ -1,7 +1,8 @@
 // The doctrine's vocabulary and its text primitives.
-// Law: canon/work/DOCTRINE.md §§3, 4, 5, 7, 8, 11 as amended by D63 (the schema fold)
-// and D64 (the baton grammar). One parser in the city: a mantle, a tier, a state or a
-// verdict is named HERE and nowhere else — two spellings of one word is how a format drifts.
+// Law: canon/work/DOCTRINE.md §§3, 4, 5, 7, 8, 11 as amended by D63 (the schema fold),
+// D64 (the baton grammar) and D71 (the standard: canon/work/STANDARD.md). One parser in the
+// city: a mantle, a tier, a state, a verdict, an id or a dead word is named HERE and nowhere
+// else — two spellings of one word is how a format drifts.
 
 export const MANTLES = ['Grand Architect', 'Architect', 'Dispatcher', 'Digger', 'Builder', 'Mentat'] as const;
 export const MODELS = ['fable', 'opus', 'sonnet', 'haiku'] as const;
@@ -10,20 +11,47 @@ export const STATES = ['OPEN', 'IN FLIGHT', 'LANDED', 'KILLED', 'BLOCKED'] as co
 
 export const TIERS: readonly string[] = MODELS.flatMap(m => EFFORTS.map(e => `${m}-${e}`));
 
-/** D63a — the literal token that makes a Felix-gate a typed field, not a regex over prose. */
-export const FELIX_GATE = 'Felix-gate';
+/** D63a/D71 — the literal token that makes a ⬡-gate a typed field, not a regex over prose. */
+export const HEX_GATE = '⬡-gate';
 /** D63b — a verdict rides the annotation; the lifecycle stays five words. */
 export const VERDICTS = ['PASSED', 'MERGED', 'BLESSED'] as const;
 /** §4's retired synonyms, each with the state `doctrine migrate` re-emits it as. */
 export const RETIRED: Readonly<Record<string, string>> = {
 	DONE: 'LANDED', CLOSED: 'LANDED', WIP: 'IN FLIGHT', TODO: 'OPEN', AUTHORED: 'LANDED',
 };
-/** D63c — an annotation that may never lead the Status cell; D69 adds PARKED to the genre. */
+/** D63c — an annotation that may never lead the Status cell; D69 laid the second, D71 named it. */
 export const PENDING = 'PENDING';
-export const PARKED = 'PARKED';
-/** D63 as amended — the typed absences: `unrecorded` asserts ignorance, `unstaffed` asserts knowledge. */
+export const DEFERRED = 'DEFERRED';
+/** D63 as amended — the typed absence: `unrecorded` asserts ignorance where a record never held. */
 export const UNRECORDED = 'unrecorded';
-export const UNSTAFFED = 'unstaffed';
+
+/**
+ * The standard's graveyard (STANDARD.md §9). Each of these is a live address in the city's
+ * history, so the parser reads it forever; `doctrine migrate` re-emits it as its successor and
+ * nothing in the city writes one again. A dead word that still parses is not a legal word:
+ * `unstaffed` left the legal set entirely (D71 — charges are always staffed).
+ */
+export const FELIX_GATE = 'Felix-gate';   // → ⬡-gate
+export const PARKED = 'PARKED';           // → DEFERRED
+export const UNSTAFFED = 'unstaffed';     // → `—`, and only where the Status carries DEFERRED
+
+/**
+ * D71 · D18 — ids are strings. A charge is `C‹n›` from the standard's deploy; historical ids
+ * (bare numbers, per-campaign prefixes) stay addresses forever; nothing renumbers, nothing is
+ * reused. Every id in the city carries a digit — reading a word as one indicts the parser (P3 §0).
+ */
+export const isId = (s: string) => /^[A-Za-z0-9][A-Za-z0-9-]*$/.test(s) && /\d/.test(s);
+
+/** §7 — the blessing mark. `✓ Felix` is the historical spelling: read forever, never emitted. */
+export const BLESSED_MARK = /⬡\s*✓|✓\s*Felix/;
+/**
+ * The mark rides the END of an attribution, behind §8's `·` — `(2026-08-29, Grand Architect ·
+ * ⬡✓ 2026-08-29)`. The separator is required: without it "proposed, pending ⬡✓" reads as a
+ * blessing already given, and the decider loses half its name to the strip.
+ */
+export const BLESSED_TAIL = /\s*·\s*(?:⬡\s*✓|✓\s*Felix)(?:\s*\d{4}-\d{2}-\d{2})?\s*$/;
+/** §8 — a dispatched session marks its entry proposed, in either spelling. */
+export const PROPOSED_MARK = /proposed[\s,]*(?:[—–-]\s*)?pending\s+(?:⬡\s*✓|Felix countersign)/i;
 
 export type Mantle = typeof MANTLES[number];
 export type State = typeof STATES[number];
