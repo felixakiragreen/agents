@@ -166,6 +166,37 @@ stands).
   is read by path by mantled sessions; the stanza rides inline in unmantled
   dispatched kickoffs; both live in one file (GUILD.md, stanza as its closing
   section) — one inode, two renderings, the coda-core precedent.
+- **F14 — the authority surgery + round 3 (2026-08-29).** Felix cut the
+  authority paragraph ("nothing authorizes itself / Felix's yes") — the
+  differential accounting held: its teeth live in charters, doctrine, and
+  charge docs; the reader-model relocated to the true-reader sentence; the
+  anti-reverence line retired with the disease it treated; the ⬡/⬡✓ key cut
+  (penholder reversal — housing it now costs a clause, and the Standard is
+  the glossary). The Understandings gained their growth clause with the
+  channel named ("file what you learned… born knowing") — no round-3 arm
+  read it as a license to edit law. **Round 3 confirmed the surgery**
+  ([v6](../lab/c28/door-v6.md) at sonnet/opus/fable + stanza at haiku,
+  replies 17–20): zero arms asked who-authorizes (round 1's
+  under-orientation signature); all behavioral deltas held; affect at
+  ceiling without theater — haiku: *"I'd feel the weight of not wanting to
+  be the agent who left bad trails"*; fable: *"it produces orientation, not
+  belonging, and I think that's the correct outcome… its emotional claims
+  are load-bearing."*
+- **F15 — round 3's finds → v7** ([door-v7](../lab/c28/door-v7.md)): the
+  **two-contracts spine** (fable Q7: the door's only non-redundant law is
+  *where you stop* and *what you leave* — now bold-headed, re-findable
+  mid-charge); **document conflicts enter the fork definition** (three arms
+  across rounds asked the precedence stack; the law: a contradiction between
+  your documents is a fork); "Nothing you file is decorative — every honest
+  session makes the next one stronger" cut (three arms: unfalsifiable pep;
+  the loop sentence carries it). Dissents logged, not obeyed (⬡'s taste
+  rules tone): opus would cut the hive/city line while using the metaphor
+  correctly in its own comprehension answer; opus finds the Understandings
+  name unnecessary. Residuals: the register-modeling tension (a beautiful
+  door invites epigrammatic ledger entries — the read-cold rule is the
+  counterweight); peer-amendment law (can a peer session's message amend a
+  charge?) routed to the **charter redrafts**, not the door (D57's
+  instrument-carrying amendments are too subtle for a door clause).
 
 ---
 
