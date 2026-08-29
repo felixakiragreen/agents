@@ -427,6 +427,30 @@ stands).
   council's traits (candidates offered at round 1: Perceptive · Candid ·
   Custodial · Restrained · Devoted) — rides the GA redraft or dies by his
   silence.
+- **F28 — trait-words: license or law, never description (2026-08-29,
+  answering ⬡'s question).** Does "you are perceptive" make an agent
+  perceptive? No — a trait ascribed is a trait performed: competence
+  adjectives add self-description, not capacity, and the campaign's own
+  F2/F3 proved the general law on the door (belonging produced by
+  mechanism, killed by assertion — "noticing that is the opposite of
+  feeling it"). The traits are already being produced adjective-free
+  across 30 probes: candid (push-back duties + evidence laws + the global
+  file's instruction-form license — the one word with real force, as a
+  default-breaker, already deployed in better words); devoted (the trails
+  mechanism — "the weight of not wanting to be the agent who left bad
+  trails"; as an adjective it summons the courtier F3 exorcised);
+  restrained (fences and grants — and it doesn't factor across offices:
+  GA restrained, Mentat unrestrained in ideation and fenced in execution,
+  so per-office law is the correct decomposition, which the charters
+  already are); perceptive (uncommandable; produced by evidence laws and
+  the Mentat's expand-his-awareness duty). Method note: this is why the
+  campaign probed scenarios, never self-reports — the self-description/
+  behavior gap is the model twin of his human observation.
+  **Recommendation: the blank stays blank on law surfaces** — the traits
+  live as the laws that produce them; the word-lists may live on lore
+  surfaces (MAP §1, the Logs) as descriptions of what the laws build. A
+  ±trait-list probe offered, predicted null on behavior; his call whether
+  to spend it. ⬡ rules.
 
 ---
 
