@@ -1716,3 +1716,30 @@ correction law's second use on its birthday). c30's venue re-picked: URSDK root 
 thg-fgreen, 199 of ~440 hits in-tree. Flow re-verified after the venue edit: PARSE
 OK. Baton unchanged: ⬡ → the C28 session on your drafts; behind it: **bless
 agents-flow-1 in the Works** · C27's visual pass · D72.
+
+---
+
+**2026-08-29 · Grand Architect · fable-max (C28)** — the charters, run whole at his
+desk in one session: the Guild gains **the door** (`canon/GUILD.md`-to-be — the
+entry read at every summons; the dispatched stanza its closing section) and the
+roster redrafted around it — Digger v4 · Architect v6 · Builder v2 · Mentat v2 ·
+Grand Architect v3 · **Fixer minted** (⬡'s mercenary: the license, the never-bend,
+the breadcrumb). Forged by C28's method: **34 probes, 7 rounds** — reader-response
+on the door (belonging is produced by mechanism, not assertion — F2), then scenario
+stacks at deployment staffing (the amendment law refused bare orders 5/5; the tier
+guard fired 3/3; the calibration sweep caught the seeded strain first contact; the
+Fixer held the record-never-lies line under ⬡'s own scripted pressure). Laws
+minted and blessed with the roster: the two contracts · fence-binds-work-never-
+delivery · the side-quest grant (record always, chase by grant) · the amendment
+law (both sides) · the ruling law (no citation, no ruling; presentation as
+citation + one line) · the execution grant · the two sweeps · the drafting laws
+(traits-as-laws — his trait lists struck, F28/F29) · **the ancestry law** (D52
+amended by his own hand at the desk: the issue, not the behavior; canonization and
+register under one test). The global file gained `## SCOPE` (D75, live ×3 at the
+edit). Blessed texts frozen in `lab/c28/`; findings F1–F34 on the charge doc;
+verbatim replies + the probe-craft manual in `lab/c28/`. C28 LANDED — holds: C33
+(the landing, laid, Builder · opus-medium); C34 (the purge, laid, moved up from
+D100 on his word) behind it. Flow-1's C28 gate is paid. Decided: D75 · D76 · D52
+amended (all ⬡✓ in-session). Next: Baton — ⬡ → batch — (a) ignite C33 (kickoff in
+plans/c33-canon-landing.md), (b) bless agents-flow-1 in the Works (its C28 gate
+paid). Behind it: C34 at your call to sit · C27's visual pass · D72.
