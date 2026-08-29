@@ -5,7 +5,8 @@ one format WILL drift. Belvedere imports this library; nothing re-implements it.
 
 Tooling, not canon-law — a peer of [`sync/`](../sync). The law it reads lives in
 [`canon/work/DOCTRINE.md`](../canon/work/DOCTRINE.md) §§3, 4, 5, 7, 8, 11, as amended by
-**D63** (the schema fold) and **D64** (the baton grammar). The parsed shapes are P3 §5's,
+**D63** (the schema fold), **D64** (the baton grammar) and **D71** — the Guild's standard,
+[`canon/work/STANDARD.md`](../canon/work/STANDARD.md). The parsed shapes are P3 §5's,
 normative per D65 ([belvedere/plans/p3-parse-coverage.md](../belvedere/plans/p3-parse-coverage.md)).
 
 ```
@@ -24,9 +25,26 @@ const b = parse('~/code/agents/belvedere');   // → Building: board[] · ledger
                                               //   · decisionQueue · issues · kickoffs · fails
 ```
 
-`src/grammar.ts` names every mantle, tier, state and verdict **once** · `src/parse.ts` the
+`src/grammar.ts` names every mantle, tier, state, verdict and dead word **once** · `src/parse.ts` the
 five artifact parsers · `src/building.ts` discovery + `parse()` · `src/lint.ts` the walk and
 the report · `src/migrate.ts` the form-only converter · `cli.ts` the arm.
+
+## The standard's tokens (D71)
+
+The reader speaks the standard and reads its history. Every dead word stays parseable
+forever — the city's records are full of them — and `migrate` re-emits each as its successor;
+nothing writes one again.
+
+| Token | Dead spelling, still read |
+|---|---|
+| `⬡-gate` — Staffing's gate charge, Depends-on's named gate | `Felix-gate` (and a bare `Felix`) |
+| `DEFERRED` — the annotation that never leads | `PARKED` |
+| `ignite <charge-ids>` — the baton's instrument | `fire <row-ids>` |
+| `⬡✓` — the blessing mark | `✓ Felix` (its record migration is deferred: neither mark migrates) |
+
+**Charges are always staffed** (D71, lint-hard): an empty Staffing cell, the dead token
+`unstaffed`, or a dissolved `—` on a charge whose Status carries no `DEFERRED` is a failure,
+never a typed absence. `unrecorded` still answers for a record that never held.
 
 ## Parser-as-lint
 
@@ -69,4 +87,7 @@ Deliberate refusals, because the alternative is a converter inventing meaning:
 - **ISSUES entries** — the inbox drains empty by law (D53); the non-conforming inboxes hold
   struck history awaiting their Architects' sweeps.
 - **judgment targets** — a `CHARTERED` status, a missing decider, a session title stuck in a
-  ledger's bold run. Those stay lint failures with a human's name on them.
+  ledger's bold run, and **who staffs a live charge**: `unstaffed` becomes `—` only where the
+  Status already says the charge is DEFERRED. Those stay lint failures with a human's name on them.
+- **the record's marks** — `✓ Felix` stays `✓ Felix`; the history respell is deferred by the
+  standard (§7), so neither blessing mark migrates.
