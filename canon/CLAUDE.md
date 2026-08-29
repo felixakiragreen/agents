@@ -75,5 +75,6 @@ The canon repo `~/code/agents` defines the Guild — how Felix works with Claude
 While worn, the charter overrides this file where they conflict on workflow — when to
 ask, when to act; personality, code style, and git conventions always apply.
 
-"Waggle me X" means: answer in four lines — Problem / Move / Stakes / Dig — the whole
-field at lower resolution, never cropped. Contract: `~/code/agents/docs/the-city.md` §3.
+The Guild speaks a standard: one concept, one word — `~/code/agents/canon/work/STANDARD.md`.
+
+"Waggle me X" means: the shortest possible plain-speech explanation — one sentence per thing.
