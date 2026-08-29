@@ -1635,3 +1635,26 @@ charge 18's doc header still reading OPEN against the board's LANDED (F4). Belve
 `b38b391`). Next: **ignite C27** — the glass; C28 rides its ⬡-gate behind Felix's drafts, C29
 and C30 stand on C25 alone and are unordered against it. ⬡'s calls waiting: bless D72, and rule
 whether this repo's 44 ride C30 or become C31.
+
+---
+
+**2026-08-29 · Grand Architect · fable-max** — the deploy batch tended end-to-end: the
+C23 session continuing at Felix's word ("can you dispatch all of these? I have to go
+to bed") — C24 → C25 → C26 → C27 ignited serial, each landing verified by the tender's
+own runs before the next ignition. C24 LANDED (the parser speaks the standard: 49
+green, `doctrine lint ~/code/agents` 0 — both interim reds died on schedule, dry-run
+405 edits sized C25). C25 LANDED (the city 349 → 8, charge 18 reconciled LANDED, all
+four continuation sanctions executed; C29 + C30 laid; migrate's stale-parse lies and
+the harness's hardcoded assertions filed with evidence). C26 LANDED (`lint --vocab`:
+71 green, city 8 → 5, Fixer minted, precision 96.9% on n=131, drift test binds the
+lexicon to STANDARD.md; D72 proposed; the parser's prefixed-D blindness filed with a
+checked-in repro). C27 LANDED — PENDING ⬡ visual pass (Belvedere batch 7: 669 green,
+type gate 0; three canon asks in its findings: cross-building type-gate blindness,
+parseable≠offerable, `classifyBaton` misses the ⬡ holder). Tender's own hands: C24's
+F1/F3 relayed to the belvedere inbox; 18's bold-wrapped status value unwrapped (C26's
+finding — ruled repaired, entry cleared). Decided: nothing — D72 stands proposed,
+pending ⬡✓. Next: **the ⬡-queue** — the C27 visual pass (relaunch the deck; annotate
+the C27 cell), D72's blessing, the 44-hit vocabulary backlog call (ride C30 · lay C31
+· wait — inbox tail), C28 on his drafts; ignitable on his word behind those: `ignite
+C29` · `ignite C30` (kickoffs in their charge docs); the inbox holds five entries for
+the next sweep.

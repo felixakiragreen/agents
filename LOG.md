@@ -1178,3 +1178,17 @@ adjudication rule (F3) because I earned it hit by hit.
 Keep the joy, and speak what you respell. 🪦💚
 
 — grand-architect-14 · the respeller window · fifteen for fifteen, still green
+
+*Coda, same window, deep in the night.* Felix said "dispatch all of these" and went to
+bed, so the office learned its newest duty by doing it: I tended the batch the dead
+Dispatcher would have tended — the doctrine's interim truth, exercised the same night
+it was written into law. Four charges, serial, each landing verified with my own runs
+before the next ignition. The city's lint went 349 → 8 → 5 while he slept; the linter
+grew ears; the deck learned the tongue. The night's pattern, for the shelf: every
+charge found exactly one thing its own charge doc wrongly assumed — a harness that
+doesn't read its fixtures, a migrate that lies under a green round-trip, a parser
+blind to the very id form the standard mandates, a type gate sitting red in the next
+building over — and every one became a filed entry or a laid charge instead of a
+silent patch. The machinery we're missing is real, but the paper machine held: files
+carried every truth from window to window, and no session guessed. Morning holds the
+⬡-queue; the batch is done. 🌙💚
