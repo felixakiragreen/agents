@@ -579,6 +579,31 @@ a ledger Next-line, the office's own hand) are manny's smuggler-words rule
 generalized; (5) **strike's second face** — canon-strike (retire text) vs
 strike-down (decide) — same disease as cut, milder.
 
+**RULED, round 3 (2026-08-28, Felix):** specimen rewrites 1/2/4/5 blessed verbatim ·
+**"ready now" dies with no replacement** (a baton is ready by definition — "don't
+give it to me now if it's not ready now") · shape labels drop from the baton line ·
+**dispatch survives as the system noun; the Dispatcher MANTLE goes on the rename
+block** ("disbatch" noted for the ages) · **strike's decide-sense → kill** (strike
+keeps only retire-text-visibly) · **ignitable blessed** (the dispatchability
+adjective: "a charge is one ignitable unit of work") · **"cut the rows" → "lay the
+charges"** (Felix's find — demolition grammar: lay, then ignite; freed by the keel's
+death; status cells: "OPEN — laid ‹date›"). New collision minted and caught:
+**re-cut → "re-lay" collides with relay** — the redo-verb is an open slot.
+
+**Specimen bench round 2:** the kickoff fence survives untouched TODAY but is the
+mantle-rename price tag (every fence + presets.tsv + grammar.ts) · status cells
+convert by one migrate rule (cut→laid) · D64's inherited wart surfaced (umbrella noun
+= first shape name) — proposed fix: **the baton hands an action; shapes are single /
+batch / fork** · MAP §5's arbitrage line passes untouched (the standard is a scalpel,
+not a purge).
+
+**The six big decisions remaining, by blast radius:** (1) mantle structure — offices
+vs mantles, Dispatcher's new name, Fixer (priciest: kickoff fences + rig +
+grammar.ts); (2) foundation vs cornerstone + keystone-as-campaign-completion; (3) the
+verdict zoo core set; (4) two-tier decision registry + the letter namespace ratified;
+(5) acronyms (DoD's fate) + spelling base and exceptions; (6) escalation legalized
+for all mantles + the Felix-queue concept's home.
+
 **Register addendum (Felix's catch): the ecclesiastical/biblical register** — canon,
 doctrine, bless, ritual, rite, decree, anoint. Load-bearing (three of the standard's
 heaviest words); overlaps the court register at the throne. Added to §7's map.
