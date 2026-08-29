@@ -1873,3 +1873,24 @@ placement, D8 deployment) — an exit is a chapter, not a config change; if upst
 stonewalls, a P7 attention-physics probe (P4-class, exclusive) is the next cut's
 candidate, named here so parked is tracked. Meanwhile the deck's queue is the badge
 to trust — it reads the true edge by construction (B14).
+
+---
+
+**2026-08-29 · Architect · opus-high** — canon C25 — Belvedere's docs speak the standard.
+The canon's respell sweep reached this campaign: `doctrine migrate --write` took the two
+`Felix-gate` cells on the G2/G3 charges to `⬡-gate`; `plans/RIDER.md` → **`plans/CODA.md`**
+(`git mv`, lineage held) and re-headed as the coda, with every live pointer in README
+retargeted; README §§1–5 and §8 respelled — the deck (not the glass), charges (not rows),
+sessions (not sittings), blessings (not countersigns), `Done when:` (not Definition of
+done), keystone set (not CLOSED), the cornerstone (not the keel); §6's batch notes took
+the mechanical set (`dispatch-tended`, `the coda applies`, `⬡-gate`, `one charge in
+flight`); ISSUES's header respelled; the six OPEN charge docs B22–B27 took `Done when:`,
+`session`, `the tender`, and D71's baton shape names (`single / batch / fork`). Lint stays
+**0**. Decided: (Architect scope) **batch 6's Dispatcher summons is struck, dated, and
+replaced** — the mantle is dead (D71) and the flow engine (canon charge 20) is unbuilt, so
+by doctrine §10's interim truth this batch's tender is Felix or an Architect session he
+summons; the instrument itself is unchanged but for the mantle it names. Closed batches'
+fenced summonses stay verbatim: they record what was actually dispatched, and a paraphrase
+is a defect. Next: unchanged — **B23** is still the head of batch 6, its kickoff verbatim
+in [plans/b23-repaint-law.md](plans/b23-repaint-law.md), and the tender is Felix's to
+appoint.

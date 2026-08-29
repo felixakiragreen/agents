@@ -44,11 +44,21 @@ smuggler-words rules (M13), food `lab/21/lexicon.json`, venue `doctrine lint`.
    surfaces (standard §5/§8).
 6. **Venue:** an arm of `doctrine lint` (flag or default — the session's call, named
    in the findings), CLI + tests.
+7. **Amended 2026-08-29 (C25, Architect) — mint `Fixer` in `grammar.ts`'s `MANTLES`.**
+   D71 §5 minted the Fixer as a mantle and C24's token work missed it, so the parser
+   rejects a legally-staffed session: `ledger.mantle — unknown mantle "Fixer"`, three
+   live failures in `rooted/archive/arborist` (sessions the record spells "Claude
+   (opus-5, no mantle — Felix-directed)" and "null mantle (opus-5)", typed **Fixer ·
+   unrecorded** by C25 because D71 rules that a session with no mantle IS a Fixer).
+   One token, its fixture, and the three failures die. `Dispatcher` **stays** in the
+   list — the parser reads the city's history forever (README's own law).
 
 ## Done when:
 
 - Suite green with fixtures per arm (dead word · spelling · prefix · formula if it
-  survives its kill criterion).
+  survives its kill criterion), plus a `Fixer` head fixture (item 7).
+- `doctrine lint ~/code` shows **3 fewer** `ledger.mantle` failures than C25 left it
+  (8 → 5), and no new class.
 - The drift test binds the code's data to STANDARD.md — edit the standard, the test
   goes red; proven once inside the suite.
 - A city run post-C25 pasted: counts per class, fences honored, spot-audit ≥ 90%

@@ -292,8 +292,10 @@ replaces.
   distilled into C28, 2026-08-29); nothing molts before them.
 - **The deploy batch** — the seven steps, in order: ~~bless~~ ⬡✓ → ~~the law book
   (DOCTRINE + the global file's waggle line — live wires)~~ landed 2026-08-29 (C23) →
-  the parser (grammar.ts tokens, migrate rules, tests) → the respell sweep (working
-  trees city-wide) → the language linter (lexicon + graveyard + the pinned 24 + the
-  prefix table) → the glass → the charters on Felix's drafts. **Laid 2026-08-29 as
-  C23–C28 (MAP §5, GA-13).**
+  ~~the parser (grammar.ts tokens, migrate rules, tests)~~ landed 2026-08-29 (C24) →
+  ~~the respell sweep (working trees city-wide)~~ landed 2026-08-29 (C25 — city lint
+  349 → 8; the outer city's master-doc **prose** rides C30) → the language linter
+  (lexicon + graveyard + the pinned 24 + the prefix table) → the glass → the charters
+  on Felix's drafts. **Laid 2026-08-29 as C23–C28 (MAP §5, GA-13); C29 and C30 laid
+  behind C25.**
 - **The history respell** — DEFERRED, Felix's word: when it bugs him enough.

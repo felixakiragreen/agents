@@ -1559,3 +1559,36 @@ else grepping `⬡✓` inherits the hazard (C26's lexicon arm, C27's glass). F2:
 contract, C27's one-line molt, out of scope here. Next: **ignite C25** — kickoff in
 [plans/c25-respell-sweep.md](plans/c25-respell-sweep.md), sized by C24's per-building
 counts; behind it, serial: C26 → C27; C28 on Felix's drafts.
+
+---
+
+**2026-08-29 · Architect · opus-high (C25)** — the city's live surfaces speak the standard.
+`doctrine lint ~/code` **349 → 8**, and the eight that stand are two escalated classes with
+named owners, not doc defects. Changed, per building: **agents** — migrate tokens, MAP
+§1–§10 prose with the §3 roster re-cut to D71 (offices, mantles, the Fixer, the Dispatcher
+tombstoned), CLAUDE.md, ISSUES header, `docs/load-map.md`, `doctrine/README.md`, the OPEN
+charges 11/20/22, and the `d dispatcher` preset retired from the live rig; **belvedere** —
+`RIDER.md` → `CODA.md` (lineage held), README §§1–5/§8 + batch notes, ISSUES, the six OPEN
+charge docs, and batch 6's dead-mantle summons struck for doctrine §10's interim tender;
+**whiteboardy** 137 → 5 (migrate clean at last — the ledger 5 → 127 entries — 28 depends
+cells ruled, the house clause dialect repaired); **snappy** 112 → 0 (the GA-11 sanction
+executed: 29 separators restored, 48 heads normalized, 41 clauses hoisted); **rooted**
+52 → 3 and **bob** 3 → 0 (both inline ledgers hoisted to D63f entries); **cap-mega**
+mainline + both worktrees + both spacex repos → 0; every CLAUDE.md in the city respelled;
+**hexwright** GENESIS's roster re-cut. Charge **18 reconciled LANDED** — its continuation
+landed whole here, all four sanctions executed. Decided: (Architect scope, seven rulings
+recorded in C25-F4 for the next sweep to inherit) a gloss on a real charge id loses the
+gloss to a `Depends-on note:` and keeps the id; a Felix precondition becomes `⬡-gate:` with
+its attribution checked; a date-range head takes the **start** date (this settles charge
+19's escalation E2); a joint-session head resolves to one mantle · tier; a model where a
+tier belongs is `unrecorded`, never a fill; a live `unstaffed` charge becomes `⬡-gate` or
+`OPEN — DEFERRED` + `—`; a cross-building dependency leaves the column for a note. Three
+field reports filed — **`doctrine migrate` wrote 61 false `unrecorded` clause-fills on
+whiteboardy off a stale parse while the round-trip law printed `ok`** (F1, repaired by
+hand, the tool unfixed), the three ledger house dialects the parser rejects (F2), and
+13-F1's guard deriving the fixture but not the script (F3). C26 amended: mint `Fixer` in
+`grammar.ts` — D71 minted the mantle and C24 missed it, which is three of the eight
+standing failures. Next: **ignite C26** — kickoff in
+[plans/c26-language-linter.md](plans/c26-language-linter.md); behind it C27, then C28 on
+Felix's drafts; C29 (the summon harness) and C30 (the master-doc prose) stand on C25 alone
+and are unordered against them.
