@@ -14,10 +14,18 @@ not drafting. **Not one word of a blessed text changes in transit.**
 Each lab file carries a delta-note header above a `---` separator; **what
 lands is everything below the separator, verbatim.**
 
-1. `lab/c28/door-v8.md` → `canon/GUILD.md` — the door section AND the
-   dispatched-stanza section land together in one file, the stanza as its
-   closing section under its own heading (F13's ruling: one inode, two
-   renderings). Drop the "What changed" list.
+1. `lab/c28/door-v8.md` → `canon/GUILD.md` — **amended 2026-08-29 at the
+   Builder's escalation (GA ruling; both sub-forks were spec defects, not
+   blessed content):** exactly two sections land — the door proper
+   (`# The Guild`, body byte-identical) and the stanza, its heading
+   stripped of the lab parenthetical to bare `## The dispatched stanza`
+   (the parenthetical was transit metadata — self-referential inside
+   GUILD.md, citing a lab file no canon reader sees; the body lands
+   byte-identical). The trailing section (`## The side-quest grant — …
+   drafting input for the redrafts`) **drops**: it is the lab-scaffolding
+   slot every door draft carried (v6/v7: the delta lists), already
+   consumed by the six charters' own Side-quests sections — the original
+   drop-clause named the slot by a stale name.
 2. `lab/c28/digger-v4.md` → `canon/mantles/digger.md` (overwrites).
 3. `lab/c28/architect-v6.md` → `canon/mantles/architect.md` (overwrites).
 4. `lab/c28/builder-v2.md` → `canon/mantles/builder.md` (overwrites).
@@ -53,7 +61,9 @@ lands is everything below the separator, verbatim.**
 
 - The eight canon files present, each byte-identical to its lab source
   below the separator (diff evidence pasted per file — a claim without
-  evidence is a draft).
+  evidence is a draft) — GUILD.md's narrower bar per amended item 1: door
+  body and stanza body byte-identical, stanza heading bare, third section
+  absent.
 - `doctrine lint ~/code/agents` → 0 (output pasted).
 - `sync/check` run; if the new shims are not live ×3, that step is
   Felix-run by design (D14) — report it PENDING his `sync/deploy`, never

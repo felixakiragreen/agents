@@ -1743,3 +1743,13 @@ D100 on his word) behind it. Flow-1's C28 gate is paid. Decided: D75 · D76 · D
 amended (all ⬡✓ in-session). Next: Baton — ⬡ → batch — (a) ignite C33 (kickoff in
 plans/c33-canon-landing.md), (b) bless agents-flow-1 in the Works (its C28 gate
 paid). Behind it: C34 at your call to sit · C27's visual pass · D72.
+
+*Addendum, same session (the C33 escalation, 2026-08-29):* the landing Builder
+held on item 1 — the spec's blanket verbatim rule vs its enumeration, two
+sub-forks — and escalated instead of editing a blessed text: the amendment law's
+first production exercise, on the charter's first real charge. Ruled (GA, spec
+defects not blessed content): the trailing drafting-input section drops (lab
+scaffolding, consumed by the charters); the stanza heading lands bare, its lab
+parenthetical stripped, body byte-identical; the bar re-phrased to match.
+Charge doc amended and committed before this reply — the instruments travel
+with the message, per the office's own law.
