@@ -524,6 +524,44 @@ is — positional, not conceptual.
 
 Also ruled at exploration: **session beats window** — window demotes to lore.
 
+## 15. Rulings & live boards (running record of the choosing)
+
+**RULED (2026-08-28, Felix, in-sitting):**
+- **bless = the yes from Felix** — assent to a thing, an option in a fork, the sign
+  (⬡✓). One spoken yes-word; record tokens stay typed.
+- **rule/ruled stays** — the decision verb, either direction (bless can only say yes;
+  no's and withdrawals need a verb). Office concurred.
+- **session = a context window with an agent** (merges process + vessel). **Window
+  demotes to lore.** seat & office as census-written.
+- **rider, helm, glass (the words): dead. gate: stays.** `--bless` goldens → `--gild`.
+- **The keel is dead; nautical closes** — landed / in flight stay (they were aviation
+  all along); founding act moves to the city register: **cornerstone vs foundation**
+  head-to-head under deliberation (§14.2).
+
+**LEANING (his words, not yet ruled):**
+- fire → **ignite** (office: fire also means dismiss-from-employment — the loaded
+  gun; spark = short variant). wave → **batch** (D64 baton shapes become
+  move / batch / fork). cut-the-noun dissolved (the redesigned baton needed no noun).
+- unit-of-work: **order** ("received one's orders") vs **charge** (ignite a charge —
+  ordnance-coherent; caution: broad civilian polysemy) vs job (bulletproof).
+  command/instructions: dead on shell-command collision. Landmine noted: "fire the
+  order" is kitchen slang; "ignite the charge" is pun-perfect.
+- **fold → distill** (fold failed the sovereign-decode test; canon's own definition
+  of fold IS "distill"). "fold sitting" ≠ "bless session" — it is the distillation
+  session (Architect work, not assent).
+- **sitting**: fork open — (a) dies into session (singular-meaning answer) or
+  (b) survives narrowly as the Felix-present decision occasion.
+- **⬡ family**: ⬡ = Felix / awaiting his hand · ⬢ = sealed (filled at the yes);
+  collision: ⬡ currently marks parked somewhere in-corpus (low entrenchment, moves).
+- The decode benchmark, verbatim: "Baton — Felix: fire the 18-continuation wave
+  cut:" (four jargon tokens, seven words, sovereign stopped cold) → "Baton — ⬡ →
+  Ignite the 18-continuation batch." (zero lookups). The standard's acceptance test
+  is born: **a baton must read cold.**
+
+**Register addendum (Felix's catch): the ecclesiastical/biblical register** — canon,
+doctrine, bless, ritual, rite, decree, anoint. Load-bearing (three of the standard's
+heaviest words); overlaps the court register at the throne. Added to §7's map.
+
 ## 13. The choosing protocol
 
 Recommended walk, one sitting, ~35 rulings in eight clusters — each cluster one
