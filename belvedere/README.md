@@ -226,7 +226,7 @@ word only) · editing truth (forever-class, §2).
 | G3 | Rework gate — verify batch 6's landings, fold, sweep ISSUES, cut next; fires by the armed close flow | B27; ⬡-gate: the PermissionRequest ritual + the trust-entry drain + the rework visual pass | Architect · fable-high | OPEN |
 | C1 | [The fence repoint](plans/c1-fence-repoint.md) — G2's kickoff pointer resolves to its own bytes again (ISSUES 2026-08-28, ruled: ordinal 5 → 7) | — | Builder · sonnet-high | **LANDED** 2026-08-29 — fence 5 → 7 in both flow files + the pinned test, verified against an independent regex read of the README's 7 fences; `bun test flow` 30/30; full suite 650 pass / 1 fail (the named colors red, C2's). Commits `68b953b` + `ba2ed0b`; findings in [C1](plans/c1-fence-repoint.md) |
 | C2 | [The vocabulary molt](plans/c2-vocabulary-molt.md) — canon C27 run at home: C24 token intake (⬡-gate card, C‹n›, ignite, DEFERRED, the ⬡✓ veto), the render vocabulary (⬡-queue, bless, charge, single/batch/fork, the deck's self-name), the `felixGate`/`ratified` field molt | C1 | Builder · opus-high | **LANDED** 2026-08-29 — the deck speaks the standard. Field molt `felixGate`→`hexGate`, `Decision.ratified`→`blessed` (doctrine + every call site). Intake: `C‹n›` ids and `charge N`/`charge C5` decode; a `⬡-gate` charge and an `ignite` baton render **byte-identical** to what `Felix-gate`/`fire` rendered (a fixture pair one substitution apart). Copy: ⬡-gate · the ⬡-queue · pending blessing / `bless D21` (the appended line molts, `recordedIn` reads BOTH heads forever) · charge · `D71: single · batch · fork` · ignite · the deck. `bun test` **669 pass / 0 fail in one process** (the colors red cleared); `bunx tsc --noEmit` exit 0 — **it was exit 1 at HEAD before this charge, since canon C26 (E1)**; doctrine 71/71. Commits `fa48e83` … `575210f`; findings in [C2](plans/c2-vocabulary-molt.md). Gates re-run at the tending Architect's own hand 2026-08-29: 669/0 · tsc 0 · 71/0; E1 rides canon C27's findings |
-| C3 | [The grep clock flake](plans/c3-grep-clock.md) — the 1 ms clock test asserts a race, not a bound (C2's field report, ruled: the fix is the test's) | C2 | Builder · sonnet-medium | OPEN — laid 2026-08-29, batch-7 amendment |
+| C3 | [The grep clock flake](plans/c3-grep-clock.md) — the 1 ms clock test asserts a race, not a bound (C2's field report, ruled: the fix is the test's) | C2 | Builder · sonnet-medium | **LANDED** 2026-08-29 — the test asserts the bound (a timed-out group reports 0 hits/no error; a finisher is legal; ≥1 group must genuinely time out — vacuity guarded by a mutation check, non-probabilistic via a ~17 MB test-time filler, never committed), green ×20 + ×6 at the Architect's hand; full suite 669/0; `grep.ts` untouched. One relay: `rg` parallelizes across files, so a timed-out group is not automatically zero-hit unless nothing in its corpus could match (BULLETIN). Commits `7ab4f8a`·`9e8c5e9`·`15d372c`; findings in [C3](plans/c3-grep-clock.md) |
 
 **Batch 1 (cut at founding, 2026-08-26) — Felix-tended, reasons named:** the venue
 is his live desktop (first contact with a new substrate — his eyes at each landing),
@@ -536,6 +536,17 @@ addresses forever (D18); canon's charges are written "canon C‹n›" here — a
 C‹n› is this building's. The batch's ⬡ is canon C27's own close: the deck
 visual pass rides that charge's Status as the annotation (commission §5) — no
 local gate row.
+
+**Batch 7 CLOSED 2026-08-29 — three landings, zero kills, the deck speaks the
+standard.** Gates at the close, re-run at the tending Architect's own hand:
+**669 tests green in one process** (651 → 669, both named reds cleared), offline
+type gate exit 0, doctrine 71/0, `doctrine lint ~/code/agents` 0. Two
+canon-shaped escalations ride canon C27's findings (the type gate red since
+canon C26 — E1; the composer offering the dead Dispatcher because `MANTLES` is
+also the historical parser's grammar). The ⬡ visual pass is the one open end —
+it lands as canon C27's Status annotation; **the live deck predates the molt, so
+the pass starts with a relaunch.** Batch 6 is untouched: B23 is still its head,
+the tender still Felix's to appoint.
 
 **Batch 4 (flow batch 1, laid at the flow-cut session 2026-08-27) — the engine
 chapter, strictly serial on master:** P5 → B10 → B11 → B12, one charge in flight,

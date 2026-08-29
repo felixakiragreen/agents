@@ -1918,3 +1918,40 @@ machines agree on does not** — the one deliberate seam (wire kind `countersign
 and `Fail` without re-running the gate the deck owns; C2 repaired the eight errors in its own
 commit `9d0ee05` and relayed the general fact, that a doctrine shape change lands in one building
 while its breakage sits in another with nothing watching.
+
+---
+
+**2026-08-29 · Architect · fable-high** — canon C27 tended at home — batch 7 laid, run, and
+CLOSED: the deck speaks the standard. Laid C1 (the fence repoint — the 08-28 inbox
+entry ruled: G2's kickoff ordinal 5 → 7, verified against the README's 7 fences) ·
+C2 (the vocabulary molt — canon C27's commission) · C3 (batch amendment — C2's own
+field report, the grep clock race). All three LANDED, zero kills; every gate re-run
+at this session's own hand: **669 tests green in one process** (651 → 669, both
+named reds cleared — the fence drift and the dead Dispatcher's pink), offline type
+gate exit 0, doctrine 71/0, `doctrine lint ~/code/agents` 0 failures, 79 rows fully
+typed. Inbox swept twice to empty (×4 at the lay: one distilled into the parked
+list, one laid as C1, two consumed as intake; ×2 at the close: the flake laid as
+C3, the MANTLES ask escalated). Decided: (Architect scope) **the C‹n› namespace is
+declared** — this board numbers charges C‹n› from batch 7, P/B/G grandfathered
+(D18); **C1's ordinal ruling** (the flow hash covers resolved kickoffs — the repoint
+was this board's to authorize); **C2's F1 accepted as this building's law** (a
+string a human reads molts; a string two machines agree on does not); **the grep
+fix is the test's, never `grep.ts`'s**. Escalated to canon, riding canon C27's
+findings: the type gate red-since-C26 blindness (a doctrine shape change lands in
+one building, its breakage sits in another, nothing watches) and parseable ≠
+offerable (`MANTLES` still offers the dead Dispatcher in the composer) — plus a
+third found by this very entry: `classifyBaton` knows the Felix-holder only by the
+literal word "Felix", so a baton addressed `⬡` alone — the standard's own benchmark
+sentence — lints as dropped (a C24 gap; this entry writes both marks until it
+lands). Batch 6 untouched — B23 still its head, the tender still Felix's. Next:
+**⬡ → the visual pass** — the live deck predates the molt; relaunch, look, and the
+pass lands as the annotation on canon C27's Status.
+
+Baton — ⬡ → Felix relaunches the deck and gives the molt its visual pass (the
+⬡-queue by name, ⬡-gate pills, bless buttons, `D71: single · batch · fork`); his
+words land as the annotation on canon C27's Status line (`plans/c27-glass.md`).
+
+Behind it: 1) appoint batch 6's tender — B23 is the head, its kickoff verbatim in
+[plans/b23-repaint-law.md](plans/b23-repaint-law.md); 2) canon C28 (your charter
+drafts) is the deploy batch's last open charge; 3) the two canon asks above wait on
+the Grand Architect, not on you.
