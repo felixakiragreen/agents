@@ -927,3 +927,23 @@
   reader. Birthplaces: the census corpus and its collision atlas; manny's M-rules
   (the linter's ancestor); the live decode benchmark ("Baton — ⬡ → Ignite the
   distillation session.").
+- **D72** (2026-08-29, Builder (C26) — proposed, pending ⬡✓): **The vocabulary arm's
+  enforcement contract.** `doctrine lint --vocab` polices speech the way the parser polices
+  form (D71 §8's enforcement clause, ancestor manny's M13), and four rulings make it livable.
+  **(a) A flag, not a default** — the form arms gate the exit code, the vocabulary arm reports
+  a backlog; and §7's prefix findings are `warn`, reported and never enforced, never moving
+  the exit code. **(b) A mention is spelled in ticks or quotes** — the arm cannot tell use
+  from mention (C23-F3), so the doc says which: `` `unstaffed` `` and *"the Dispatcher is
+  dead"* are invisible to it, and that, not a per-file exemption, is the cure for tombstone
+  prose. **(c) A LANDED or KILLED charge is history whole** — its Work cell as well as its
+  Status annotation, because a finished charge's title is the address its ledger cites;
+  `canon/` is fenced for the same reason, a law book must name the dead to bury them.
+  **(d) Eight of §9's thirty-two rows are unenforceable and are dropped in writing, with
+  their reasons in `doctrine/src/lexicon.ts`** — `chain`, `fold`, `wave`, `move`, `window`,
+  `strike`, `pass`, the four-slot waggle — and three more are narrowed on measured evidence
+  (`row` to a reference, `true` to `trued`/`truing`, `fire` to its bare form: 8/8 Guild-sense
+  against `fires` 0/5 and `firing` 1/8). A pattern that cannot be written without false
+  positives is dropped, never weakened. Precision 96.9% on n=131 across two audits. Files:
+  `doctrine/src/lexicon.ts` (the mirror of §§7–9), `doctrine/src/vocabulary.ts` (the fence and
+  the arms), `doctrine/test/vocabulary.test.ts` (the drift alarm, which proves itself against
+  mutated copies of the standard). Supersedes nothing; binds every later sweep.
