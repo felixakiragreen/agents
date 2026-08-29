@@ -1592,3 +1592,46 @@ standing failures. Next: **ignite C26** — kickoff in
 [plans/c26-language-linter.md](plans/c26-language-linter.md); behind it C27, then C28 on
 Felix's drafts; C29 (the summon harness) and C30 (the master-doc prose) stand on C25 alone
 and are unordered against them.
+
+---
+
+**2026-08-29 · Builder · opus-high (C26)** — the linter learned to hear the standard.
+`doctrine lint --vocab` grows four arms over §§7–9: the graveyard (a dead word, its successor
+named), the spelling lexicon (American, `grey` inverting its own pair, `-ize` with it), the
+pinned twenty-four (most of a formula's spine, none of its wording) and the id namespace (a
+bare `D‹n›` outside the canon, a letter serving two kinds — both `warn`, reported and never
+enforced). A flag, off by default: the form arms are a doc's honesty, the vocabulary arm is the
+city's backlog. `src/lexicon.ts` mirrors STANDARD.md and `test/vocabulary.test.ts` is the alarm
+on the mirror — it re-runs every binding against **mutated** copies of the standard's text and
+asserts each one now fails, so a green alarm that could never ring is not one. The fence is
+structural, not a list of exceptions: history and voice are masked out of the text before a
+pattern runs, and two rulings are new — a LANDED or KILLED charge is history **whole** (its
+title is the address its ledger cites), and `canon/` is fenced because a law book must name the
+dead to bury them. Item 7 done: `Fixer` minted in `MANTLES`, one token, and `ledger.mantle`
+3 → 0. Changed: `doctrine/src/{lexicon,vocabulary}.ts` (new), `grammar.ts` (Fixer · `severity` ·
+`prose`), `building.ts` (`files.prose`), `lint.ts`, `cli.ts`, `index.ts`, `README.md`,
+`fixtures/vocab/**`, `fixtures/conforming/ledger-fixer.md`, `test/vocabulary.test.ts`; MAP,
+ISSUES ×4, DECISIONS (D72 proposed), STANDARD's deploy list. Suite 49 → **71 green**;
+`doctrine lint ~/code` **8 → 5** with the class gone and no new one; `~/code/agents` stays
+**0**; the city's speech measured at **1,903 dead words · 81 spellings · 9 prefix warnings**,
+precision **96.9% on n = 131**, fences hand-checked, and **not one byte of the city moved**.
+Decided: (Builder scope, proposed as **D72** pending ⬡✓) the vocabulary arm is a flag and its
+prefix findings are warnings; **a mention is spelled in ticks or quotes** — the arm cannot tell
+use from mention (C23-F3) so the doc says which, and that is the cure for tombstone prose, not
+a per-file exemption; a finished charge is history whole and `canon/` is fenced; **eight of
+§9's thirty-two rows are unenforceable and are dropped in writing** (`chain`, `fold`, `wave`,
+`move`, `window`, `strike`, `pass`, the four-slot waggle) with three more narrowed on measured
+evidence (`fire` keeps its bare form alone: 8/8 Guild-sense against `fires` 0/5, `firing` 1/8).
+A documented kill is a win, eight times. The formula arm survived its kill criterion on a
+technicality worth saying out loud — 0 hits city-wide, so 0 false positives, but the formulas
+were pinned yesterday: it is an alarm for future drift, not a backlog finder. Four field
+reports filed — **`parseDecisions` cannot read `‹prefix›-D‹n›`, the id form §7 mandates: bob
+declares 53 such decisions and the reader reports 0** (F1, a silent zero, C24's parser, not
+touched here); the census's -ise stoplist overstating -ise by ~41 (F2, corrected in the
+lexicon); **this repo's own 44** — 13 in MAP, 31 in six OPEN charge docs, 9 of them spelling
+that no charge has ever swept — filed, not swept, because C26 may not edit building text (F3);
+charge 18's doc header still reading OPEN against the board's LANDED (F4). Belvedere unmoved
+(649/2 before and after; both reds are C25's preset retirement, verified against `doctrine/` at
+`b38b391`). Next: **ignite C27** — the glass; C28 rides its ⬡-gate behind Felix's drafts, C29
+and C30 stand on C25 alone and are unordered against it. ⬡'s calls waiting: bless D72, and rule
+whether this repo's 44 ride C30 or become C31.
