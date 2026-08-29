@@ -60,7 +60,7 @@ afterAll(() => {
 
 const entry = (): Entry => ({
 	building: 'nb', path: join(CITY, 'nb'),
-	files: { boards: [BOARD], ledger: null, decisions: null, issues: null, workDocs: [] },
+	files: { boards: [BOARD], ledger: null, decisions: null, issues: null, workDocs: [], prose: [] },
 });
 
 const world = (): GrepWorld => ({

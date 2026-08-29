@@ -12,8 +12,8 @@ import type { Building } from '../../doctrine';
 const building = (over: Partial<Building> = {}): Building => ({
 	building: 'agents', path: '/Users/felix/code/agents',
 	board: [], decisionQueue: [], issues: [], kickoffs: [], fails: [],
-	files: { boards: [], ledger: null, decisions: null, issues: null, workDocs: [] },
-	ledgerTail: null, baton: null,
+	files: { boards: [], ledger: null, decisions: null, issues: null, workDocs: [], prose: [] },
+	ledgerTail: null, baton: null, ledgerEntries: 0, decisions: 0,
 	...over,
 });
 

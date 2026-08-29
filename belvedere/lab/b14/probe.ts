@@ -241,7 +241,7 @@ try {
 	ok('a pending countersign is answered in place — one append, byte-identical prefix',
 		inboxAfter.startsWith(inboxBefore)
 		&& inboxAfter.slice(inboxBefore.length).trim().startsWith('- ')
-		&& inboxAfter.slice(inboxBefore.length).includes('countersign D99: ✓'),
+		&& inboxAfter.slice(inboxBefore.length).includes('bless D99: ✓'),
 		`BEFORE ${inboxBefore.length} B sha256 ${sha(inboxBefore)} · AFTER ${inboxAfter.length} B sha256 ${sha(inboxAfter)}\n`
 		+ `      AFTER's first ${inboxBefore.length} bytes are byte-identical to BEFORE: ${inboxAfter.slice(0, inboxBefore.length) === inboxBefore}\n`
 		+ `      appended: ${JSON.stringify(inboxAfter.slice(inboxBefore.length))}\n`

@@ -171,11 +171,11 @@ test('copy-summons carries the kickoff byte-for-byte', () => {
 
 const synthetic = (holder: Baton['holder'], instruments: Instrument[]): Building => ({
 	building: 'scratch', path: '/tmp/scratch', board: [], decisionQueue: [], issues: [], kickoffs: [],
-	files: { boards: [], ledger: '/tmp/scratch/LEDGER.md', decisions: null, issues: null, workDocs: [] },
+	files: { boards: [], ledger: '/tmp/scratch/LEDGER.md', decisions: null, issues: null, workDocs: [], prose: [] },
 	fails: [],
 	ledgerTail: { date: '2026-08-27', mantle: 'Architect', tier: 'fable-high', row: null,
 		body: 'b', decided: 'd', next: 'n', line: 1, block: 'b' },
-	baton: { holder, text: 'Felix rules the frame.', instruments },
+	baton: { holder, text: 'Felix rules the frame.', instruments }, ledgerEntries: 1, decisions: 0,
 });
 
 const FIRE_WIRING = [/data-fire/, /data-worktree/, /data-copy/, /\/hands\//, /data-account/];

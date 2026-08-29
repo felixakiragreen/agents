@@ -129,7 +129,7 @@ export function city(): { reg: Register; buildings: Building[] } {
 			return {
 				building: e.building, path: e.path, board: [], ledgerTail: null, ledgerEntries: 0, baton: null,
 				decisions: 0, decisionQueue: [], issues: [], kickoffs: [], files: e.files,
-				fails: [{ artifact: 'board' as const, code: 'register.stale', reason: `unreadable since the register walk: ${(err as Error).message}`, excerpt: e.path, file: e.path, line: 0 }],
+				fails: [{ artifact: 'board' as const, severity: 'fail' as const, code: 'register.stale', reason: `unreadable since the register walk: ${(err as Error).message}`, excerpt: e.path, file: e.path, line: 0 }],
 			};
 		}
 	});

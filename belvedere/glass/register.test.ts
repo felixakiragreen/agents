@@ -42,7 +42,7 @@ describe('content() is assemble()', () => {
 
 	test('a building whose files vanished after the walk throws, and city() catches it', () => {
 		const gone: Entry = { building: 'gone', path: '/tmp/gone-b3', files: {
-			boards: ['/tmp/gone-b3/README.md'], ledger: null, decisions: null, issues: null, workDocs: [] } };
+			boards: ['/tmp/gone-b3/README.md'], ledger: null, decisions: null, issues: null, workDocs: [], prose: [] } };
 		expect(() => content(gone)).toThrow();
 	});
 });

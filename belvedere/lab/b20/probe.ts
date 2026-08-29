@@ -324,7 +324,7 @@ try {
 	const gesture = await evaluate<Tip>(readTip(0));
 	const inboxBefore = readFileSync(INBOX, 'utf8');
 	const filed = await evaluate<string>(`(async () => {
-		[...document.querySelectorAll('#tip .tip-gesture button')].find(b => b.textContent.startsWith('countersign')).click();
+		[...document.querySelectorAll('#tip .tip-gesture button')].find(b => b.textContent.startsWith('bless')).click();
 		for (let i = 0; i < 80; i++) {
 			const out = document.querySelector('#tip .out');
 			if (out && out.textContent.startsWith('filed')) return out.textContent;
