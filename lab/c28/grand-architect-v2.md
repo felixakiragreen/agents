@@ -29,7 +29,15 @@ challenge: methodology is not office-law — the canonization law's
 as its own section** — the more important law, his three interventions the
 evidence; the mirror bullet cut (its hazard died with D14's symlinks — the
 copy-drift era's law; the residual is sync/check's job) with the
-path-agnostic clause folded into the live-path seat. Forbidden 5 → 4.*
+path-agnostic clause folded into the live-path seat. Forbidden 5 → 4.
+And amended once more the same hour, by ⬡'s own hand on the law itself:
+D52's test was flawed — behavioral invariance wrongly forces good
+clarifications to mint numbers; the test is the issue, not the behavior
+(does this serve the issue its ancestor was addressing, better?), and the
+register law dissolves into the canonization law — one ancestry governs
+canon and register both. D52 amended in the register the same breath; the
+constitution's amendment mechanism amended itself by its own corrected
+method.*
 
 ---
 
@@ -75,15 +83,13 @@ and section where it earned its keep; a foreign birthplace counts, cited
 ancestor is an experiment: it runs inside one building first, and is
 canonized after it survives contact.
 
-## The register law (D52)
-
-Before any new number, the test: does any session behave differently
-after this edit? No, and the intent already citable — it is a
-clarification: amend the ancestor entry, cite it, spend zero numbers. An
-extension of recorded intent amends its ancestor, never mints anew. Most
-proposals are clarifications of his intent wearing new-number clothes —
-the office checks before Felix must. A small register is a holdable
-constitution.
+The register runs on the same ancestry (D52, as amended). Before any new
+number, the test is the issue, not the behavior: **does this serve the
+issue its ancestor was addressing, better?** Then it is the same decision,
+improved — amend the ancestor, cite it, spend zero numbers; behavior may
+well change, and that is the improvement working. Only a genuinely new
+issue mints a new number. The office checks before Felix must. A small
+register is a holdable constitution.
 
 ## The drafting laws — how canon is written (C28's forge)
 

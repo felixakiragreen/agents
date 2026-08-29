@@ -581,6 +581,16 @@
   Prior sharpenings stand unrenumbered — we don't hide where we came from. First
   rider, executed as clarification #1: grand-architect.md "a new campaign" → "a new
   canon campaign" (ancestor: the Owns line, "campaign keels … for canon work").
+  *(Amended 2026-08-29, Felix, at the C28 desk — the test itself was flawed: the
+  behavioral-invariance test wrongly forces every good clarification to mint a
+  number, because clarifications, improvements, and amendments OFTEN should change
+  behavior — that is the clarification working. The test is the issue, not the
+  behavior: **does this serve the issue its ancestor was addressing, better?**
+  Then it is the same decision, improved — amend the ancestor, cite it, spend
+  zero numbers. Only a genuinely new issue mints a new number. Visibility is
+  preserved the same way it always was: meaning changes append with a dated note
+  and take his blessing — the numbering never protected him, the blessing did.
+  Amended by its own corrected method, in one breath, on the law itself.)*
 - **D53** (2026-08-22, Grand Architect (08) · ✓ Felix): **ISSUES.md generalizes —
   every project's incident inbox.** Field reports and fold candidates land there
   mid-work: Felix's hand, or a session's at his word (a null-mantle session told to

@@ -555,3 +555,22 @@ hold the pen with him: the charters speak the standard.
   calibration sweep now covers pending proposals. Corroborates the purge
   timing (F26): ~10% cleanup + the form migration is a real payload at
   ~D80.
+- **F32 — D52 amended by its own corrected method (2026-08-29, Felix, at
+  the desk).** The register law's test was flawed at the ancestor:
+  behavioral invariance wrongly forces every good clarification to mint a
+  number — clarifications OFTEN should change behavior; that is the
+  clarification working. The corrected test, his articulation: **the
+  issue, not the behavior — does this serve the issue its ancestor was
+  addressing, better?** Same decision improved → amend the ancestor, zero
+  numbers; a genuinely new issue → a new number; visibility unchanged
+  (meaning changes append dated and take his blessing — the numbering
+  never protected him, the blessing did). Structural ruling: the register
+  law is not its own section — it dissolves into the canonization law:
+  **one ancestry governs canon and register both.** D52's entry amended in
+  the register the same breath, GA v2 merged accordingly. The recursion
+  on the record: the constitution's amendment mechanism amended itself,
+  by its own corrected method, in one breath — and the roles ran in
+  reverse: the office carried his stale taste faithfully, his current
+  taste caught it; "precedent ages" fired on its own clause. **The purge
+  reconfirmed as the next GA campaign** (F26's timing now felt, his word:
+  "SO much cruft") — D52-as-amended is its blade.
