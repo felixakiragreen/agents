@@ -1,6 +1,6 @@
 # C35 — the master-doc purge
 
-**Status:** OPEN — laid 2026-08-29 · **Depends on:** C34 · **Staffing:** Grand
+**Status:** LANDED 2026-08-29 · **Depends on:** C34 · **Staffing:** Grand
 Architect · fable-max (⬡ at the desk)
 
 ## Mission
@@ -32,7 +32,39 @@ and the doctrine. Other buildings.
 
 ## Findings
 
-*(append here)*
+- **F1 — the cut (2026-08-29).** MAP.md 350 → 217 lines, 46,588 → 21,299 bytes at
+  898ddf2; `doctrine lint ~/code/agents` 0 before and after, 84/84 rows typed. Died:
+  eight spent batch notes (batch 2 · v2 · 08 · 12 · v1.3 · v3 · the GA-11 session
+  note · the deploy batch with its three amendment paragraphs — the ledger holds
+  them), 27 LANDED cells compressed to status + date + findings link, §8/§9's
+  keystone checklists to one line each, §1's origin archaeology, every dead D-number
+  outside protected text. Survived verbatim: the seven OPEN/IN FLIGHT contracts
+  (11 · 15 · 22 · C29–C32 · G1), the agents-flow-1 batch note, the peer-messaging
+  DEFERRED, the parked annotations (13-F7 · 14-F5), the branch name
+  `bv/c29-summon-harness`.
+- **F2 — the desk rulings (⬡, this session).** Row 10's "full panel visual pass
+  PENDING Felix" struck — the pass demonstrably ran: row 11 was laid 2026-08-08 from
+  what it exposed. Row 14's smoke ⬡✓ 2026-08-29 at the desk. Row 08's F3 — the
+  slash-summons colour-carrying agent definitions, DEFERRED 2026-08-06 — killed:
+  superseded by C34 F3's ruling (the rig won the interactive path; a third summons
+  path is redundancy carrying no information). C34's remainder cleared with
+  evidence: the three account `skills` symlinks are gone (`ls` → no such file, ×3 —
+  ⬡'s hand); clearing written on the row.
+- **F3 — stale claims the re-read caught (the §1–§4/§6/§7/§10 arm).** Five, each
+  reconciled: §1 claimed the global file syncs "only by hand-sync and discipline"
+  (live ×3 since 2026-08-03); §7 claimed "no bulletin — batches here are sequential"
+  (the 18 wave ran one — `plans/BULLETIN.md`, archival where it lies — and
+  agents-flow-1 is parallel); §2's interactive summoning said "open a session, speak
+  the summons" (the rig fires it, account-routed, name-stamped); the flow-1 note
+  predicted "exactly one lint red (`ledger.baton`)" (lint reads 0 at this session's
+  baseline — retired with the date); flow-1's pre-⬡ order was spent (fork 4 ruled,
+  C28 landed — collapsed to "conditions paid").
+- **F4 — a deviation, named.** The manifest presented to ⬡ said Depends cells were
+  untouched; three paid ⬡-gate cells (17 · 19 · C28) in fact shed their spent
+  evidence parentheticals. The gates stay marked paid with dates, the graph is
+  unchanged, and the trimmed text is the exact class C33-F1 proved mis-parses
+  (`,`/`·` inside gate prose). The blessing covered the cut whole; the discrepancy
+  between manifest and diff is recorded here.
 
 ---
 
