@@ -312,6 +312,26 @@ stands).
   proposed rulings per blessing batch; (c) the D100 register purge as the
   standing periodic recalibration — already deferred to his call. His
   ruling; the charter carries (a)'s presentation duty either way.
+- **F22 — his rulings on round 5 (2026-08-29).** ([architect
+  v5](../lab/c28/architect-v5.md)) **The scope clause blessed and live**
+  (D75): `## SCOPE` in the global file — lifetime splits the directives;
+  deployed ×3 at the edit, the wire confirmed. **The forbidden philosophy
+  ruled:** lead with example, not exclusion — every forbidden earns its
+  seat with an explicit reason (Digger named the model). The Architect's
+  code ban interrogated: its purposes were separation of judge and builder
+  (survives as one bullet — "Merging work this session built — the judge
+  never wrote the branch"), economics (staffing laws carry it), and the
+  contract trail (the side-quest and charge-doc laws carry it); the blanket
+  ban dissolves — the execution grant and the grants define legality
+  affirmatively; forbidden 11 → 7 (cut: the activity ban, mantle-switching
+  — the summons paragraph carries it, the malformed-staffing bullet — the
+  charge doc law + lint carry it, the rushed-draft bullet — the charge doc
+  law's own sentence). **Calibration (F21) ruled:** (a) YES — the ruling
+  law gains the presentation duty (a proposed ruling presents as its
+  citation + one line of what it extends); (b) NO — no cap on proposed
+  rulings per batch; (c) potential — the D100 register purge gains its
+  second purpose when laid: taste recalibration, re-reading the register
+  against current-Felix, not just consolidation.
 
 ---
 
