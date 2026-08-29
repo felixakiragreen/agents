@@ -254,7 +254,7 @@ export const recordedIn = (issues: Issue[], id: string) =>
  * are separate files on purpose.
  */
 export const countersignState = (d: Decision, issues: Issue[]): Countersigned =>
-	d.ratified ? 'folded' : recordedIn(issues, d.id) ? 'recorded' : 'pending';
+	d.blessed ? 'folded' : recordedIn(issues, d.id) ? 'recorded' : 'pending';
 
 // ---------- the apply button's summons ----------
 

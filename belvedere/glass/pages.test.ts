@@ -19,7 +19,7 @@ const building = (over: Partial<Building> = {}): Building => ({
 
 const row = (over: Partial<Building['board'][number]['rows'][number]> = {}) => ({
 	id: 'B1', work: 'a row', workDoc: null, dependsOn: [], gates: [], mantle: null, tier: null,
-	rider: null, felixGate: false, state: 'OPEN' as const, annotation: '', line: 1, raw: '', cells: [],
+	rider: null, hexGate: false, state: 'OPEN' as const, annotation: '', line: 1, raw: '', cells: [],
 	...over,
 });
 
@@ -55,12 +55,12 @@ describe('attentionOf — what a building wants, before how fresh it is', () => 
 	});
 
 	test("a Felix-gate, a pending countersign, a BLOCKED row and his baton all rank as his pen", () => {
-		expect(attentionOf(building({ board: [board([row({ felixGate: true })])] }), 0)).toBe(1);
+		expect(attentionOf(building({ board: [board([row({ hexGate: true })])] }), 0)).toBe(1);
 		expect(attentionOf(building({ board: [board([row({ gates: ['visual pass'] })])] }), 0)).toBe(1);
 		expect(attentionOf(building({ board: [board([row({ state: 'BLOCKED' })])] }), 0)).toBe(1);
 		expect(attentionOf(building({ baton: { holder: 'felix', text: 'his', instruments: [] } }), 0)).toBe(1);
 		expect(attentionOf(building({ decisionQueue: [{ id: 'D1', date: '2026-08-27', decider: 'Architect',
-			title: 't', body: 't', pending: true, ratified: false, line: 1 }] }), 0)).toBe(1);
+			title: 't', body: 't', pending: true, blessed: false, line: 1 }] }), 0)).toBe(1);
 	});
 
 	test('a session baton or an IN FLIGHT row is in play — below his pen, above the quiet', () => {

@@ -111,7 +111,7 @@ const cityLegend = (rig: Rig) => legend([
 export const attentionOf = (b: Building, live: number): number => {
 	if (live > 0) return 0;                                              // work is happening here now
 	const rows = b.board.flatMap(x => x.rows);
-	if (b.baton?.holder === 'felix' || rows.some(r => r.felixGate || r.gates.length)
+	if (b.baton?.holder === 'felix' || rows.some(r => r.hexGate || r.gates.length)
 		|| b.decisionQueue.some(d => d.pending) || rows.some(r => r.state === 'BLOCKED')) return 1;   // his pen
 	if (b.baton !== null || rows.some(r => r.state === 'IN FLIGHT')) return 2;                        // in play
 	if (b.issues.length || b.fails.length) return 3;                                                  // filed, unswept
@@ -280,7 +280,7 @@ function boardRow(r: BoardRow, board: Board, b: Building, used: Set<Fail>, ids: 
 	const work = (r.workDoc ? `<a href="${esc(docHref(r.workDoc, base))}">${esc(w.name)}</a>` : esc(w.name))
 		+ (w.encapsulated ? expand(`<p class="prose">${inline(r.work, base)}</p>`) : '');
 	const deps = [...r.dependsOn.map(d => `<code>${esc(d)}</code>`), ...r.gates.map(g => pill('Felix-gate', 'purple', g))].join(' ') || '—';
-	const staff = r.felixGate ? pill('Felix-gate', 'purple')
+	const staff = r.hexGate ? pill('Felix-gate', 'purple')
 		: `${r.mantle ? esc(r.mantle) : '<span class="bad">?</span>'} · ${r.tier ? `<code>${esc(r.tier)}</code>` : '<span class="bad">?</span>'}`;
 	const status = pill(r.state ?? 'UNPARSED', stateTone(r.state))
 		+ (r.annotation.trim() ? encapHtml(r.annotation, base, 'prose') : '');

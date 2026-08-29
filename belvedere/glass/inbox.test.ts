@@ -314,7 +314,7 @@ describe('no credential gate', () => {
 
 const decision = (over: Partial<Decision> = {}): Decision => ({
 	id: 'D11', date: '2026-08-27', decider: 'Architect', title: 'a ruling', body: '',
-	ratified: false, pending: true, line: 1, ...over,
+	blessed: false, pending: true, line: 1, ...over,
 });
 
 const issue = (text: string): Issue => ({ date: '2026-08-27', who: WHO, text, line: 1 });
@@ -327,10 +327,10 @@ describe('pending → recorded → folded', () => {
 		expect(countersignState(decision(), [issue('countersign D11: ✓')])).toBe('recorded'));
 
 	test('folded: the sweep stamped the ✓ into the decision', () =>
-		expect(countersignState(decision({ ratified: true }), [issue('countersign D11: ✓')])).toBe('folded'));
+		expect(countersignState(decision({ blessed: true }), [issue('countersign D11: ✓')])).toBe('folded'));
 
 	test('the fold wins over the entry — a swept decision is folded even before the drain', () =>
-		expect(countersignState(decision({ ratified: true }), [])).toBe('folded'));
+		expect(countersignState(decision({ blessed: true }), [])).toBe('folded'));
 
 	test('D11 is not D110, and a note merely mentioning a countersign is not one', () => {
 		expect(recordedIn([issue('countersign D110: ✓')], 'D11')).toBe(false);

@@ -117,7 +117,7 @@ const session = (over: Partial<Session> & { sid: string }): Session => ({
 
 const row = (over: Partial<BoardRow> & { id: string }): BoardRow => ({
 	work: 'A row', workDoc: null, dependsOn: [], gates: [], mantle: 'Builder', tier: 'sonnet-low',
-	felixGate: false, rider: null, state: 'OPEN', annotation: '', line: 1, ...over,
+	hexGate: false, rider: null, state: 'OPEN', annotation: '', line: 1, ...over,
 });
 
 function world(over: Partial<World> = {}): World {

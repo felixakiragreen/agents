@@ -127,7 +127,7 @@ function decodeRow(tok: Token, order: Entry[], scoped: boolean): Decoded {
 		return {
 			ok: true, kind: 'row', id: tok.id, label: tok.text,
 			headline: name.encapsulated ? name.name : clip(row.work),
-			status: `${row.state ?? 'unparsed'} · ${row.felixGate ? 'Felix-gate' : `${row.mantle ?? '?'} · ${row.tier ?? '?'}`}`,
+			status: `${row.state ?? 'unparsed'} · ${row.hexGate ? 'Felix-gate' : `${row.mantle ?? '?'} · ${row.tier ?? '?'}`}`,
 			body: record === ''
 				? `${clip(row.work)} — no landing record yet; depends on ${row.dependsOn.length ? row.dependsOn.join(', ') : 'nothing'}`
 				: clip(record),

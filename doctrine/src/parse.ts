@@ -22,7 +22,7 @@ export type BoardRow = {
 	gates: string[];              // `⬡-gate: <text>` segments (D63e)
 	mantle: string | null;
 	tier: string | null;
-	felixGate: boolean;           // D63a/D71 — the charge is Felix's (`⬡-gate`); the glass never auto-ignites it
+	hexGate: boolean;           // D63a/D71 — the charge is Felix's (`⬡-gate`); the glass never auto-ignites it
 	dissolved: boolean;           // D71 — a DEFERRED charge whose shelving dissolved its staffing (`—`)
 	rider: string | null;         // D63d — annotation for eyes, ignored by dispatch
 	state: State | null;
@@ -68,9 +68,9 @@ function parseStaffing(cell: string, status: string, id: string, line: number) {
 	const fails: Fail[] = [];
 	const s = strip(delink(cell));
 	const { head, inner } = trailingParen(s);
-	const out = { mantle: null as string | null, tier: null as string | null, felixGate: false, dissolved: false, rider: inner };
+	const out = { mantle: null as string | null, tier: null as string | null, hexGate: false, dissolved: false, rider: inner };
 
-	if (head === HEX_GATE || head === FELIX_GATE) { out.felixGate = true; return { ...out, fails }; }
+	if (head === HEX_GATE || head === FELIX_GATE) { out.hexGate = true; return { ...out, fails }; }
 	// D63 as amended — the whole-Staffing typed absence: `unrecorded` asserts ignorance.
 	if (head === UNRECORDED) { out.mantle = UNRECORDED; out.tier = UNRECORDED; return { ...out, fails }; }
 
@@ -204,7 +204,7 @@ export function parseBoards(md: string, buildingIds?: Set<string>): { boards: Bo
 			rows.push({
 				id, work: strip(delink(workC)), workDoc: linkTarget(workC),
 				dependsOn: dep.dependsOn, gates: dep.gates,
-				mantle: staff.mantle, tier: staff.tier, felixGate: staff.felixGate, dissolved: staff.dissolved,
+				mantle: staff.mantle, tier: staff.tier, hexGate: staff.hexGate, dissolved: staff.dissolved,
 				rider: staff.rider, state: stat.state, annotation: stat.annotation, line,
 			});
 		}
@@ -405,7 +405,7 @@ export function batonFails(baton: Baton | null, line: number): Fail[] {
 
 export type Decision = {
 	id: string; date: string; decider: string; title: string; body: string;
-	ratified: boolean; pending: boolean; line: number;
+	blessed: boolean; pending: boolean; line: number;
 };
 
 export function parseDecisions(md: string): { decisions: Decision[]; queue: Decision[]; fails: Fail[]; candidates: number } {
@@ -453,7 +453,7 @@ export function parseDecisions(md: string): { decisions: Decision[]; queue: Deci
 			// respell put the mark inside the WAITING form too ("proposed, pending ⬡✓"), where the
 			// old spelling could not reach: a blessing awaited is not a blessing given, so the
 			// proposed mark vetoes. Without the veto every dispatched entry falls out of the queue.
-			ratified: BLESSED_MARK.test(paren) && !PROPOSED_MARK.test(paren),
+			blessed: BLESSED_MARK.test(paren) && !PROPOSED_MARK.test(paren),
 			// The marker lives in the ATTRIBUTION; a body that merely quotes the phrase — D21, the
 			// entry that DEFINES it — never counts (item 12).
 			pending: PROPOSED_MARK.test(paren),
@@ -461,7 +461,7 @@ export function parseDecisions(md: string): { decisions: Decision[]; queue: Deci
 		});
 	}
 	// A decision Felix made needs no countersign; the queue is what waits on his pen (P3 §5).
-	const queue = decisions.filter(d => d.pending || (!d.ratified && !/^Felix\b/.test(d.decider)));
+	const queue = decisions.filter(d => d.pending || (!d.blessed && !/^Felix\b/.test(d.decider)));
 	return { decisions, queue, fails, candidates };
 }
 

@@ -227,8 +227,8 @@ describe("a Felix-holder baton is his card", () => {
 	const queued = (over: Partial<Decision>): Building => ({
 		...synthetic('prose', []),
 		decisionQueue: [{ id: 'D11', date: '2026-08-27', decider: 'Architect', title: 'a ruling', body: '',
-			ratified: false, pending: true, line: 1, ...over }],
-		issues: over.ratified ? [] : [{ date: '2026-08-27', who: 'Felix (via Belvedere)', text: 'countersign D11: ✓', line: 2 }],
+			blessed: false, pending: true, line: 1, ...over }],
+		issues: over.blessed ? [] : [{ date: '2026-08-27', who: 'Felix (via Belvedere)', text: 'countersign D11: ✓', line: 2 }],
 		baton: null, ledgerTail: null,
 	});
 	const card = (b: Building) => cardHtml(cards([b], rig, ACCOUNTS[0]!).find(c => c.kind === 'countersign')!, true, ACCOUNTS);
@@ -247,8 +247,8 @@ describe("a Felix-holder baton is his card", () => {
 		expect(html).not.toContain('kind&quot;:&quot;countersign');
 	});
 
-	test('a decision the parser queues but the entry already ratified headlines folded, not pending', () => {
-		const html = card(queued({ ratified: true }));
+	test('a decision the parser queues but the entry already blessed headlines folded, not pending', () => {
+		const html = card(queued({ blessed: true }));
 		expect(html).toContain('folded — ✓ in the decision');
 		expect(html).not.toContain('pending countersign');
 		expect(html).not.toContain('kind&quot;:&quot;countersign');

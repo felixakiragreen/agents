@@ -192,7 +192,7 @@ export function cards(buildings: Building[], rig: Rig, account: string): Card[] 
 		for (const board of b.board)
 			for (const r of board.rows) {
 				if (!liveRow(r)) continue;
-				if (r.felixGate) out.push({ kind: 'gate', building: b.building, path: b.path, row: r, gate: '', file: board.file });
+				if (r.hexGate) out.push({ kind: 'gate', building: b.building, path: b.path, row: r, gate: '', file: board.file });
 				for (const g of r.gates) out.push({ kind: 'gate', building: b.building, path: b.path, row: r, gate: g, file: board.file });
 			}
 		// B6: the card's state is read off two files — the decision's ✓ and the building's own inbox.

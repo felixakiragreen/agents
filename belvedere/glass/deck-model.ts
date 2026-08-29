@@ -215,7 +215,7 @@ export type WorkshopRow = {
 	dependsOn: string[];
 	gates: string[];
 	staffing: string;
-	felixGate: boolean;
+	hexGate: boolean;
 	rider: string | null;
 	state: State | null;
 	/** The landing record. Empty-named where the row carries no annotation at all. */

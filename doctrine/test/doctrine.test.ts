@@ -29,7 +29,7 @@ describe('control — conforming fixtures parse with zero failures', () => {
 
 	test('board — the ⬡-gate charge is typed, not guessed (D63a, respelled by D71)', () => {
 		const row = parseBoards(fx('conforming', 'board.md')).boards[0]!.rows.find(r => r.id === '04')!;
-		expect(row.felixGate).toBe(true);
+		expect(row.hexGate).toBe(true);
 		expect(row.mantle).toBeNull();
 		expect(row.rider).toBe('smoke ×3');
 		expect(row.state).toBe('LANDED');
@@ -65,7 +65,7 @@ describe('control — conforming fixtures parse with zero failures', () => {
 		expect(rows.find(x => x.id === 'C25')!.dependsOn).toEqual(['C24']);
 		expect(rows.find(x => x.id === 'C25')!.gates).toEqual(['the sovereign\'s read of the diff']);
 		// the token is Staffing's and Depends-on's alike, and it carries an annotation
-		expect([rows.find(x => x.id === 'C26')!.felixGate, rows.find(x => x.id === 'C26')!.rider])
+		expect([rows.find(x => x.id === 'C26')!.hexGate, rows.find(x => x.id === 'C26')!.rider])
 			.toEqual([true, 'his drafts, his pen']);
 		expect(rows.find(x => x.id === 'C26')!.gates).toEqual(['Felix\'s charter drafts']);
 		// the one absence left: a DEFERRED charge whose shelving dissolved its staffing
@@ -137,7 +137,7 @@ describe('control — conforming fixtures parse with zero failures', () => {
 	test('decisions — ⬡✓ is the mark, ✓ Felix is the history, both parse (D71 §7)', () => {
 		const r = parseDecisions(fx('conforming', 'decisions-standard.md'));
 		expect(codes(r.fails)).toEqual([]);
-		expect(r.decisions.map(d => [d.id, d.decider, d.ratified, d.pending])).toEqual([
+		expect(r.decisions.map(d => [d.id, d.decider, d.blessed, d.pending])).toEqual([
 			['D71', 'Grand Architect', true, false],
 			['D72', 'Architect — proposed, pending ⬡✓', false, true],
 		]);
@@ -195,7 +195,7 @@ describe('the silence family — defects that once reported clean', () => {
 		const r = parseBoards(fx('defects', 'columns-reordered.md'));
 		expect(codes(r.fails)).toEqual(['board.columns']);
 		const rows = r.boards[0]!.rows;
-		expect(rows.map(x => [x.id, x.mantle ?? (x.felixGate ? 'Felix-gate' : null), x.dependsOn])).toEqual([
+		expect(rows.map(x => [x.id, x.mantle ?? (x.hexGate ? 'Felix-gate' : null), x.dependsOn])).toEqual([
 			['M1', 'Builder', []], ['M2', 'Felix-gate', ['M1']],
 		]);
 	});
@@ -393,7 +393,7 @@ describe('migrate — the pre-D71 tokens', () => {
 	test('the dead tokens parse before the molt — history is read, never re-spelled by the reader', () => {
 		const r = parseBoards(fx('pre-d71', 'board.md'));
 		const rows = r.boards[0]!.rows;
-		expect(rows.find(x => x.id === '01')!.felixGate).toBe(true);          // `Felix-gate` staffs forever
+		expect(rows.find(x => x.id === '01')!.hexGate).toBe(true);          // `Felix-gate` staffs forever
 		expect(rows.find(x => x.id === '03')!.gates).toEqual(['budget blessing']);
 		// only the dead staffing fails: `unstaffed` left the legal set on both rows (D71)
 		expect(codes(r.fails)).toEqual(['board.staffing', 'board.unstaffed', 'board.unstaffed']);

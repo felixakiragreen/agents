@@ -186,7 +186,7 @@ export function needsYou(buildings: Building[], sessions: Session[]): QueueItem[
 			for (const r of board.rows) {
 				const where = `${base(board.file)}:${r.line}`;
 				if (liveRow(r)) {
-					const gates = r.felixGate ? [r.work, ...r.gates] : r.gates;
+					const gates = r.hexGate ? [r.work, ...r.gates] : r.gates;
 					for (const [n, text] of gates.entries())
 						out.push({
 							kind: 'gate', key: `gate:${b.building}:${r.id}:${n}`,

@@ -52,7 +52,7 @@ type Rule = {
 
 /** D71 — the gate token respells; `Felix` alone was always the same field, badly typed. */
 const staffingHexGate: Rule = {
-	id: 'staffing.hex-gate', changes: ['mantle', 'tier', 'felixGate', 'rider'],
+	id: 'staffing.hex-gate', changes: ['mantle', 'tier', 'hexGate', 'rider'],
 	cell: {
 		column: 3,
 		run: t => {
@@ -291,7 +291,7 @@ const ledgerBareHead: Rule = {
 // ---------- §8 decisions — line rule ----------
 
 const decisionHead: Rule = {
-	id: 'decision.pre-doctrine-head', changes: ['id', 'date', 'decider', 'title', 'body', 'ratified', 'pending'],
+	id: 'decision.pre-doctrine-head', changes: ['id', 'date', 'decider', 'title', 'body', 'blessed', 'pending'],
 	line: {
 		run: t => {
 			const m = t.match(/^(\s*[-*]\s*)\*\*([A-Za-z]{1,8}-?\d+[a-z]?)\s*·\s*(\d{4}-\d{2}-\d{2})\s*·\s*(.+?)\*\*(.*)$/);
@@ -306,7 +306,7 @@ const decisionHead: Rule = {
  * absence, NEVER an authored title: choosing where a title ends is editorial (18h's refusal).
  */
 const decisionInlineAttribution: Rule = {
-	id: 'decision.inline-attribution', changes: ['title', 'body', 'date', 'decider', 'ratified', 'pending'],
+	id: 'decision.inline-attribution', changes: ['title', 'body', 'date', 'decider', 'blessed', 'pending'],
 	line: {
 		run: t => {
 			const m = t.match(/^(\s*[-*]\s*)\*\*([A-Za-z]{1,8}-?\d+[a-z]?)\s+\((\d{4}-\d{2}-\d{2}),\s*([^)]*)\):\*\*\s*(.*)$/);
