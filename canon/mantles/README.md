@@ -10,11 +10,14 @@ sessions are summoned, and which law wins when laws collide.
 ## The roster (D71)
 
 - **Offices** — singular standing institutions, one holder at a time, a succession:
-  **Grand Architect** (standards and canon), **Mentat** (the Sovereign's thinking
-  partner). Reserved: Imperial and Royal Architect (D39), Hand of the King /
+  **[Grand Architect](grand-architect.md)** (standards and canon),
+  **[Mentat](mentat.md)** (the Sovereign's thinking partner) — each charter titled as
+  an office. Reserved: Imperial and Royal Architect (D39), Hand of the King /
   Quartermaster, Steward.
-- **Mantles** — plural role charters, many wearers at once: **Architect**, **Builder**,
-  **Digger**, **Fixer** (the null mantle — see below).
+- **Mantles** — plural role charters, many wearers at once:
+  **[Architect](architect.md)**, **[Builder](builder.md)**, **[Digger](digger.md)**,
+  **[Fixer](fixer.md)** (the null mantle — see below). Every seat carries a charter
+  file; the Fixer's was minted at C28.
 - **The Dispatcher is dead** (D71) — tombstone in [dispatcher.md](dispatcher.md); the
   flow engine (canon board charge 20) is the successor; **the dispatch** survives as
   the system noun. Until the engine lands, the batch note names its tender (doctrine
@@ -69,21 +72,25 @@ coordination: work that must outlive its session or coordinate several sessions 
 board and mantles; work that fits one session with Felix in the room gets neither.
 Tiers are universal — "how much brain" is a question every task has; mantles exist only
 where more than one session must share responsibility. A Fixer that discovers it's
-holding campaign-sized work says so and stops — Felix summons an Architect. The Fixer
-has no charter file: the name is the minting; the charters land with Felix's own drafts
-(C28).
+holding campaign-sized work says so and stops — Felix summons an Architect. The charter
+is [fixer.md](fixer.md), minted at C28: it binds when Felix points at it; a bare session
+is a Fixer under the global file alone.
 
 ## Summons grammar
 
 Interactive (canonical):
 
 ```
-You are a <Mantle> at <tier>. Wear ~/code/agents/canon/mantles/<mantle>.md, then read
-<context docs> and <execute the charge doc | run the board | review the batch>.
+You are a <Mantle> at <tier>.
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/<mantle>.md,
+then read <context docs> and <execute the charge doc | run the board | review the batch>.
 ```
 
-The skill shims (live ×3 since 2026-08-03) let `/<mantle>` replace the "Wear <path>"
-clause for interactive sessions; the rest of the summons is unchanged.
+The door comes first and every summons carries it: the charter outranks it, and reading
+the charter first is reading a role with no world around it. The skill shims (live ×3
+since 2026-08-03) let `/<mantle>` replace the "wear <path>" clause for interactive
+sessions; the door read and the rest of the summons are unchanged.
 
 Dispatched (canonical):
 
@@ -92,7 +99,10 @@ Agent(type=<tier>, prompt=<the charge doc's kickoff, verbatim> + <the project co
 ```
 
 The kickoff's first line is the interactive summons in path form — subagents don't get
-skills. Nobody edits a kickoff beyond appending the coda (doctrine §5).
+skills, so a mantled dispatch carries the door read by path. An unmantled cheap-tier
+kickoff carries no path read at all: it carries the stanza inline, copied from
+GUILD.md's closing section. Nobody edits a kickoff beyond appending the coda
+(doctrine §5).
 
 ## The coda — the canon core
 
@@ -161,9 +171,19 @@ bulletin §9, batches §10.
 
 ## The charter template
 
-Every charter, in order: motto blockquote · mission paragraph · **Staffing** ·
-**Tier guard** · **Precedence** (canonical clause) · Owns (where applicable) · the
-mantle's procedure sections · Escalation triggers · Deliverables / End of session ·
-**Forbidden — the single-glance list** · Summons (interactive + dispatched). A charter
-that can't be finished at this quality becomes a bounded charge (D4), never a rushed
-draft.
+Every charter, in order (the C28 pattern): mission paragraph · **Staffing** ·
+**The summons** (the shared paragraph, carried verbatim — a lint surface) · the role's
+own law sections · Side-quests (where the grant is not the genre default) · Escalation
+triggers / the contract's edges · End of session · **Forbidden — the single-glance
+list** (minimal, every seat carrying its reason) · Summons (interactive with the door +
+dispatched). **No epigraph** — the door owns identity.
+
+The shared summons paragraph is one core and two sanctioned variants: the core ("worn by
+explicit summons only … always apply.") is carried word-for-word by all five charters
+that have one; the three mantles with charge docs append "The charge doc binds inside the
+charter and the door."; the Builder alone appends the precedence-bites sentences — its
+reason to exist. The Fixer carries none — **The license** stands in its place. Wrapping
+is not normalized between the two families, so the lint is word-level, not byte-level.
+
+A charter that can't be finished at this quality becomes a bounded charge (D4), never a
+rushed draft.
