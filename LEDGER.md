@@ -1811,3 +1811,27 @@ as an amendment. Next: **the baton is Felix's** — C34, the register purge, is 
 row in front, and its `⬡-gate: his call to sit` is his to pay; when he sits, the summons
 is fenced at the foot of `plans/c34-register-purge.md` and already enters by the door.
 Behind it: F3's wrap ruling wants a line in whatever sweep touches the charters next.
+
+---
+
+**2026-08-29 · Grand Architect · fable-max (C34)** — the purge: the decision register
+consolidated whole — D1–D76 killed, every law verified living in its canon home (~97%
+were already distilled), D72 blessed and distilled into STANDARD §8, DECISIONS.md
+1,051 → 19 lines, D77 minted as the record. The four homeless clauses distilled:
+DOCTRINE §3 gains the serialization law, §8 re-cut whole (the ancestry test · meaning
+changes rewrite the entry at his blessing, the ledger names it, git holds the old ·
+the purge clause: a gap in the numbering is a killed entry), the mantles README gains
+the tier maxim, the register header the Directives governance. The skills shims
+purged on his question and the office's ruling — unused, the rig won: six shims
+deleted (the fixer/mentat mints one day old), sync set = CLAUDE.md + agents/, scripts
+re-cut, sync/check green 3×2; three dangling account symlinks await his rm.
+Auto-loaded files stripped of dead numbers (repo CLAUDE.md, ISSUES.md); the README
+precedence section trued and Delivery re-cut — both C33 F4 flags cleared; STANDARD
+§What remains pruned to its two live lines; templates/decisions.md re-cut. History
+untouched — closed docs keep their D-numbers; git resolves them. Suite 71 green ·
+doctrine lint ~/code/agents 0 · C35 laid (the master-doc purge — MAP is the next
+frontier). Decided: D77 (⬡✓ at the desk; D72 ⬡✓ same breath). Next: the baton is
+Felix's — remove the three dangling skills symlinks: `rm ~/.claude/skills
+~/.claude-thg-fgreen/skills ~/.claude-thg-doorbell/skills`; behind it: ignite C35
+(summons fenced in plans/c35-map-purge.md) · C27's visual pass · bless agents-flow-1
+in the Works.

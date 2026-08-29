@@ -80,8 +80,7 @@ Until the engine lands, a batch note names its tender (doctrine §10).
 |---|---|---|
 | `canon/CLAUDE.md` | `~/.claude*/CLAUDE.md` | the global file — landed 2026-08-03 (03); **live ×3 since 2026-08-03** (Felix's deploy = D24's blessing; `check` re-verified green 3×3 2026-08-06) |
 | `canon/agents/*.md` | `~/.claude*/agents/` | capability tiers — **live ×3 since 2026-08-03** (D14 symlinks) |
-| `canon/mantles/*.md` | read by path | canonical delivery (D12) — summons name the charter path |
-| `canon/skills/<mantle>/SKILL.md` | `~/.claude*/skills/` | interactive sugar: `/architect` … — **live ×3 since 2026-08-03** |
+| `canon/mantles/*.md` | read by path | canonical delivery — summons name the charter path |
 | `canon/work/` | not deployed | doctrine + templates, referenced by projects — landed 2026-08-03 (02) |
 
 Mechanism: **symlink, confirmed** (04's dig — F2, F7, F8, F10): one inode of truth, one
@@ -131,7 +130,8 @@ run it when something feels off; green + still broken ⇒ auth, not sync). `depl
 | C32 | [the flow grammar](plans/c32-flow-grammar.md) — D74 built: written holder · holds · E-ids · Branch · encapsulation · qualified Depends-on · tier split | C31 | Builder · opus-high | OPEN — laid 2026-08-29 (GA-15); ⬡-gate paid at the lay (D73/D74 ⬡✓ in-session); lane 1 of agents-flow-1 |
 | G1 | [flow-1's close gate](plans/g1-flow-close.md) — verify the four landings, merge c29's branch, distill, hand the verdict card | C29; C30; C31; C32 | Architect · fable-high | OPEN — laid 2026-08-29 (GA-15); the close of agents-flow-1 |
 | C33 | [the canon landing](plans/c33-canon-landing.md) — the D76-blessed roster lands: GUILD.md + six charters (fixer minted), the fixer/mentat shims (live sync), README roster + grammar + template, DOCTRINE §12's kickoff | C28 | Builder · opus-medium | **LANDED 2026-08-29** — built at opus-high (Felix's summons) → [Done when evidence](plans/c33-canon-landing.md). The door lands as `canon/GUILD.md` (door + dispatched stanza, one inode); six charters byte-identical below their separators, **`fixer.md` minted**; the `fixer` + `mentat` shims **live ×3 at the write** — `skills` is a directory symlink, so D14's Felix-run deploy does not arise; README's roster, summons grammar and charter template re-cut; DOCTRINE §12's founding kickoff enters by the door. `doctrine lint ~/code/agents` **0**. **Item 1 amended mid-flight** (66afd79, instrumented D57) on the Builder's escalation: both sub-forks were spec defects, not blessed content — the trailing lab-scaffolding section drops, the stanza heading lands bare. **F1** — C28's own Depends-on cell carried a comma the D63e parser splits on; lint was **1 on a clean tree before this charge**, granted and fixed in the room (f1c8615), 1 → 0; the class is general (any `⬡-gate:` text with a `,` or `·` mis-parses silently). **F2** — item 9's "no charter file" clause lived in the null-mantle section, not the roster; killed where it lived, a fourth section touched against the three-section fence, flagged. **F3** — the shared summons paragraph is **word**-identical, not byte-identical: two wrap families (mantles vs offices), so a byte-level lint off item 9's phrasing reds on day one; **a ruling is owed** — normalize the wrap or write the lint word-level. **F4** — `## The precedence law` now quotes a clause no charter carries, and `grand-architect/SKILL.md` still says "mantle" for an office; both left standing (no ruling, fence held), both C34-adjacent |
-| C34 | [the register purge](plans/c34-register-purge.md) — the constitution consolidated at ~D76 (moved up from the D100 deferral, his word): the cut (F31's census) · the form migration (molt clause) · the taste recalibration (the calibration sweep over the whole register) | C33 · ⬡-gate: his call to sit | Grand Architect · fable-max | OPEN — laid 2026-08-29 (GA-16); D52-as-amended is the blade |
+| C34 | [the register purge](plans/c34-register-purge.md) — the constitution consolidated: D1–D76 killed whole, the homeless clauses distilled, the skills shims purged | C33 · ⬡-gate: his call to sit | Grand Architect · fable-max | **LANDED 2026-08-29** — the register 1,051 → 19 lines: every law verified living in its canon home, D72 blessed and distilled (STANDARD §8), D77 minted as the record; DOCTRINE §3 gains the serialization law, §8 re-cut (ancestry test · rewrite-at-blessing · the purge clause); skills purged — the rig won, sync set = `CLAUDE.md` + `agents/` (three dangling account symlinks await ⬡'s `rm`) → [findings](plans/c34-register-purge.md) |
+| C35 | [the master-doc purge](plans/c35-map-purge.md) — MAP re-cut with C34's blade: LANDED charges compress to status + findings link, spent batch notes die, dead numbers strip; live holds survive verbatim | C34 | Grand Architect · fable-max | OPEN — laid 2026-08-29 (GA-17) |
 
 Statuses per the doctrine (`canon/work/DOCTRINE.md` §4): OPEN → IN FLIGHT → LANDED /
 KILLED. Any account can host any session — the repo carries the truth; account choice is
@@ -258,11 +258,6 @@ day, today it runs at the desk); flow-1's blessing follows C28.
 **Interim physics, named:** the GA-15 ledger baton speaks D74's written-holder form
 one charge ahead of the parser — exactly one lint red (`ledger.baton`), mortal at
 C32's landing (its bar is lint 0 over this tail).
-
-**DEFERRED (2026-08-28, Felix): the register purge** — at ~D100 the constitution is
-consolidated and rewritten, his words: "A constitution with too many amendments at
-some points needs rewriting. (We're not there yet, but I'll want to do once we hit
-100)" — a Grand Architect session, laid at his call; pointer: the GA-11 ledger entry.
 
 **DEFERRED:** the peer-messaging experiment (SendMessage taps between live sessions —
 gate-delivery pokes, cross-account bulletin pokes; pointers-not-payloads,
