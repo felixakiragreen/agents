@@ -251,9 +251,15 @@ replaces.
   carry law; restating law in the list is redundancy carrying no information.
 - **Spelling — ruled: American, with the exception list: grey** (greys, greyed). The
   lexicon enforces word-by-word; -ize with it.
-- **Enforcement**: the language linter is its own charge, to be laid — ancestor:
-  manny's smuggler-words rules (M13); food: `lab/21/lexicon.json`; venue: `doctrine
-  lint`'s vocabulary arm.
+- **Enforcement — the vocabulary arm's contract** (`doctrine lint --vocab`,
+  ⬡✓ 2026-08-29): a flag, never the exit-code default — the form arms gate, the
+  vocabulary arm reports; §7's prefix findings warn only. A mention is spelled in
+  ticks or quotes — the arm cannot tell use from mention, and that, not a per-file
+  exemption, is the cure for tombstone prose. A LANDED or KILLED charge is history
+  whole — its Work cell as well as its annotation; `canon/` is fenced: a law book
+  must name the dead to bury them. A pattern that cannot be written without false
+  positives is dropped in writing, never weakened — the drop reasons live in
+  `doctrine/src/lexicon.ts`, the mirror the drift alarm binds to §§7–9.
 
 ## 9. The graveyard — dead words and their successors
 
@@ -296,16 +302,4 @@ replaces.
 ## What remains
 
 - **⬢** — deferred; Felix will know when it's time.
-- **The charters** — await Felix's own office/mantle drafts (the inbox entry
-  distilled into C28, 2026-08-29); nothing molts before them.
-- **The deploy batch** — the seven steps, in order: ~~bless~~ ⬡✓ → ~~the law book
-  (DOCTRINE + the global file's waggle line — live wires)~~ landed 2026-08-29 (C23) →
-  ~~the parser (grammar.ts tokens, migrate rules, tests)~~ landed 2026-08-29 (C24) →
-  ~~the respell sweep (working trees city-wide)~~ landed 2026-08-29 (C25 — city lint
-  349 → 8; the outer city's master-doc **prose** rides C30) → ~~the language linter
-  (lexicon + graveyard + the pinned 24 + the prefix table)~~ landed 2026-08-29 (C26 —
-  `doctrine lint --vocab`; city lint 8 → 5, the city's speech measured at 1,903 dead
-  words + 81 spellings, reported and never edited) → the glass → the charters
-  on Felix's drafts. **Laid 2026-08-29 as C23–C28 (MAP §5, GA-13); C29 and C30 laid
-  behind C25.**
 - **The history respell** — DEFERRED, Felix's word: when it bugs him enough.

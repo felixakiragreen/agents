@@ -1,12 +1,13 @@
 # agents — The Canon Repo
 
 The operating system for how Felix works with Claude across three accounts and every
-repo — **the Guild** (D37): mantles, capability tiers, work doctrine, global CLAUDE.md —
+repo — **the Guild**: mantles, capability tiers, work doctrine, global CLAUDE.md —
 canonized here, mirrored into `~/.claude*` config dirs.
 
 **Read `MAP.md` before any work** — it is the master architecture and holds the
-campaign board. Blessed decisions live in `DECISIONS.md`; the tail of `LEDGER.md` tells
-you where we are; field reports land in `ISSUES.md` (D49) — file and move on.
+campaign board. `DECISIONS.md` is the decision register — the queue, plus rulings not
+yet distilled into their homes; the tail of `LEDGER.md` tells you where we are; field
+reports land in `ISSUES.md` — file and move on.
 
 Subproject: `belvedere/` — the Sovereign's deck; its own board and docs live with it
 (`belvedere/README.md`).
@@ -16,16 +17,17 @@ Subproject: `belvedere/` — the Sovereign's deck; its own board and docs live w
 - Declare your office or mantle: Grand Architect · Mentat (offices) · Architect ·
   Builder · Digger · Fixer (mantles). The Guild speaks the standard —
   `canon/work/STANDARD.md`.
-- Work doctrine: `canon/work/DOCTRINE.md` — boards, work docs, findings, ledger law;
+- Work doctrine: `canon/work/DOCTRINE.md` — boards, charge docs, findings, ledger law;
   this repo conforms (MAP §7).
-- Design sessions (01–03) run Fable at max effort; charge docs name everything else.
+- Foundational design sessions run Fable at max effort; charge docs name everything else.
 - Deployment: `./sync/deploy` symlinks the sync set into all three config dirs,
   `./sync/check` is the drift alarm — `deploy` is **Felix-run** (an agent tripping the
-  permission guard on a live config file is the design, D14). The whole sync set —
-  `canon/CLAUDE.md`, `canon/agents/`, `canon/skills/` — is **live ×3 since 2026-08-03**:
-  edits reach the accounts instantly (only sessions started afterward see them), so
-  editing those paths IS deploying — unsigned canon never touches them.
-- Canon changes require Felix's sign-off (a D-entry).
+  permission guard on a live config file is the design). The whole sync set —
+  `canon/CLAUDE.md`, `canon/agents/` — is **live ×3 since 2026-08-03**: edits reach
+  the accounts instantly (only sessions started afterward see them), so editing those
+  paths IS deploying — unsigned canon never touches them.
+- Canon changes require Felix's blessing; only a new issue mints a D-entry
+  (the ancestry test, DOCTRINE §8).
 - End every session: append `LEDGER.md` (date · mantle · changed · decided · next),
   commit in Felix's git style. Suggest a break at every clean boundary and hand the next
   session its summons verbatim.

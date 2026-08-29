@@ -44,11 +44,13 @@ full cross product, pre-minted: **4 models (fable, opus, sonnet, haiku) × 5 eff
   boards point; they never duplicate. The rule of thumb the descriptions encode:
   **Fable where a wrong conclusion is expensive; Opus where a wrong step is cheap;
   Sonnet for the mechanical; Haiku for drudgework.**
-- **Fast mode is unused (D9, Felix's ruling):** `/fast` exists — session-level,
+- **Fast mode is unused (Felix's ruling):** `/fast` exists — session-level,
   Opus-only, documented — but the ruling is patience over premium: no board annotates
   it, no summons invokes it. The `-fast` suffix stays reserved and unminted.
 - Tiers never carry `tools:` restrictions — conduct limits are charter law (mantles),
   not engine configuration.
+- **Never escalate tier to compensate for incomplete orders** — a failed batch wants
+  better orders, not a smarter engine (snappy, load 328).
 
 ## Wearing a mantle
 
@@ -88,9 +90,7 @@ then read <context docs> and <execute the charge doc | run the board | review th
 ```
 
 The door comes first and every summons carries it: the charter outranks it, and reading
-the charter first is reading a role with no world around it. The skill shims (live ×3
-since 2026-08-03) let `/<mantle>` replace the "wear <path>" clause for interactive
-sessions; the door read and the rest of the summons are unchanged.
+the charter first is reading a role with no world around it.
 
 Dispatched (canonical):
 
@@ -98,10 +98,9 @@ Dispatched (canonical):
 Agent(type=<tier>, prompt=<the charge doc's kickoff, verbatim> + <the project coda>)
 ```
 
-The kickoff's first line is the interactive summons in path form — subagents don't get
-skills, so a mantled dispatch carries the door read by path. An unmantled cheap-tier
-kickoff carries no path read at all: it carries the stanza inline, copied from
-GUILD.md's closing section. Nobody edits a kickoff beyond appending the coda
+The kickoff's first line is the interactive summons in path form. An unmantled
+cheap-tier kickoff carries no path read at all: it carries the stanza inline, copied
+from GUILD.md's closing section. Nobody edits a kickoff beyond appending the coda
 (doctrine §5).
 
 ## The coda — the canon core
@@ -130,37 +129,22 @@ specifics.
 
 ## The precedence law
 
-Canonical clause, carried verbatim by every charter:
-
-> **Precedence:** worn by explicit summons only. While worn, this charter overrides the
-> global CLAUDE.md where they conflict on workflow — when to ask, when to act;
-> personality, code style, and git conventions always apply.
+Every charter carries it in its shared summons paragraph (word-identical core, two
+wrap families — the lint is word-level): worn by explicit summons only; while worn,
+the charter overrides the global CLAUDE.md where they conflict on workflow — when to
+ask, when to act; personality, code style, and git conventions always apply. The
+global CLAUDE.md carries the mirror clause.
 
 The collision it resolves: the global *"don't start writing code without asking"* vs a
 Builder executing a blessed charge autonomously — the charge doc IS the ask; both rules
 are correct in their own sessions.
 
-**Hook for 03** — the global CLAUDE.md must plant this line (verbatim or tighter):
-
-> A session explicitly summoned under a mantle (`~/code/agents/canon/mantles/`) follows
-> its charter where it conflicts with these directives on workflow; personality and
-> style always apply.
-
 ## Delivery
 
-- **Canonical: read-by-path.** Works today, on every account, interactive and
-  dispatched: `Wear ~/code/agents/canon/mantles/<mantle>.md`.
-- **Interactive sugar: skill shims** (`canon/skills/<mantle>/SKILL.md`, four authored
-  files — not generated; sync stays a dumb mirror; the dispatcher shim died with its
-  mantle, D71). Each shim points at the charter path and injects `${CLAUDE_EFFORT}`
-  for the full tier guard, and sets `disable-model-invocation: true` — a mantle is
-  worn by Felix's word, never by a model's own initiative. Evidence for the mechanism:
-  skills ARE discovered per `$CLAUDE_CONFIG_DIR/skills/` and effort substitution works
-  (both verified empirically 2026-08-02, this repo's ledger). Deployment is 04's (D3
-  amended: `skills/` joins the sync set).
-- A skill's own `model:`/`effort:` frontmatter is deliberately NOT used: the override
-  lasts one turn (documented), and a one-turn tier masquerading as a session tier is
-  hidden state — the guard verifies instead.
+**Read-by-path, canonical** — works on every account, interactive and dispatched:
+`wear ~/code/agents/canon/mantles/<mantle>.md`. Interactive sugar is the summon rig
+(`summon/`): presets fire the full summons, account-routed and name-stamped. There
+are no skill shims — purged 2026-08-29, unused: the rig won.
 
 ## The vocabulary
 

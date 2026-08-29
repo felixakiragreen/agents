@@ -88,6 +88,9 @@ before.**
   minute's hunt. Anchors only onto real headings: a bold list item resolves no anchor —
   the file link is the value. Boards link their charge docs (this repo's board, since
   founding).
+- **Serialization law (charge 17's verdict):** prose artifacts are schema-markdown;
+  field artifacts are data (flows); a field a machine consumer needs enters the
+  doctrine grammar — never a storage flip.
 - **CLAUDE.md law:** target ≤ ~60 lines (hexwright's budget). What this is (2–3 lines),
   hard laws (project physics only — Felix's global directives already load), session
   protocol, pointers. State digests rot: point at the board and ledger, don't restate
@@ -348,36 +351,37 @@ doc captures, the ledger starts.
 
 ## 8. Decisions
 
-`DECISIONS.md` — one entry per blessed choice: the choice, the why, evidence pointers.
-Monotonic ids, never reused, never rewritten:
+`DECISIONS.md` — the decision register: proposals awaiting blessing, and blessed
+rulings not yet distilled into their canon homes. Law lives where it binds — the
+master doc, the doctrine, the charters, the auto-loaded files; the register is the
+queue and the staging ground, never the archive: git is.
 
 ```
 - **D<n>** (<date>, <decider> [· ⬡✓ <date>]): **<title>.** <body>
 ```
 
-- **The title is a label (D63):** the bold delimits the whole title and nothing else —
+- **The title is a label:** the bold delimits the whole title and nothing else —
   a card headline, never a mid-sentence phrase with the bold on its load-bearing word.
+- **The ancestry test — before any number:** does this serve the issue an ancestor
+  was addressing, better? Then amend the ancestor — the entry, or the canon home
+  that carries it — and mint nothing; only a genuinely new issue mints. Ids are
+  monotonic, never reused.
 - **Attribution is honest:** the decider named is whoever actually decided. A decision
   that is really Felix's — money, hardware, external commitments, taste — carries his
-  name and waits for him (architect charter).
-- **Dispatched and delegated sessions** mark entries **"(proposed — pending ⬡✓)"**;
-  the blessing converts the mark to `⬡✓ <date>`, amendments recorded in place
-  ("amended at the blessing: …" — this repo's D9). Historical `✓ Felix` and "pending
-  Felix countersign" marks stand — the record migration is DEFERRED (Felix's word);
-  the parser reads both.
-- **Amendment law — form vs meaning (D63, the molt clause):** meaning changes append,
-  never rewrite in place — "(amended <date>: …)" inside the entry, or a superseding
-  entry that names what it supersedes: citations and blessings hang off entries, and
-  sessions load working trees, not git archaeology. **Form migrates freely** — history
-  included: a format migration re-emits entries in the current grammar, meaning
-  byte-preserved (the converter never paraphrases), the migration commit blessed as a
-  whole; a blessing attaches to meaning, so it survives the re-shape. Changing a
-  mind is always legal and costs one visible line — the stone is git. Where a
-  pre-doctrine source never held a required field — a decider, a tier, a mantle,
-  a staffing, a decision title, a `Decided:`/`Next:` clause: any required slot —
-  migration writes the literal **`unrecorded`** — a typed absence, never a guess;
-  replacing it takes cited evidence and a visible commit (D63 as amended; charge 16's
-  F2).
+  name and waits for him (architect charter). Dispatched and delegated sessions mark
+  entries **"(proposed — pending ⬡✓)"**; the blessing converts the mark to
+  `⬡✓ <date>` (historical `✓ Felix` marks parse).
+- **Meaning changes take his blessing** and rewrite the entry to its current truth —
+  the ledger line names the change, git holds the old bytes; no in-entry scar owed.
+  **Form migrates freely** (the molt clause): a format migration re-emits entries in
+  the current grammar, meaning byte-preserved (the converter never paraphrases), the
+  migration commit blessed as a whole. Where a pre-doctrine source never held a
+  required field — any required slot — migration writes the literal **`unrecorded`**:
+  a typed absence, never a guess; replacing it takes cited evidence and a visible
+  commit.
+- **The purge:** at a blessed purge, an entry whose law is fully distilled into its
+  canon home is killed whole — deleted, never tombstoned; a gap in the numbering is
+  a killed entry, and git holds every byte.
 - **The decision queue** is not a file: it is the set of proposed-not-yet-blessed
   entries plus open escalations. The tending session surfaces it to Felix at every
   boundary — batch reports list it, ledger entries name it in Next.
