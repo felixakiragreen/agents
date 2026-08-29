@@ -44,7 +44,18 @@ Everything else. The positional-fence fragility (B10 F2) stays named-not-built.
 
 ## Findings
 
-*(append here)*
+LANDED 2026-08-29 — Builder, sonnet-high. Verified independently before editing: a
+regex sweep of README.md's fenced blocks (`^```[^\n]*\n([\s\S]*?)^```` `, gm) found 7
+blocks; block 7 starts `You are an Architect at fable-high.` and ends `close batch 5.`
+— matches the spec's ordinal exactly. Both flow files' `fence` moved 5→7; `flow.test.ts`
+moved with it (`blocks.length` floor 5→7, `blocks[4]`→`blocks[6]`, `fence` expectation
+5→7). Nothing else in the flow files touched — diff is three one-line changes.
+
+DoD evidence:
+- `bun test flow`: 30 pass / 0 fail.
+- Full suite: 650 pass / 1 fail — the 1 is `colors.test.ts`'s named preset failure
+  (C2's, unrelated).
+- Commit `68b953b`, explicit paths (three files only).
 
 ---
 
