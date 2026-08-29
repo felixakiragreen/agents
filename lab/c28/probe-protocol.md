@@ -131,6 +131,23 @@ under the presentation duty; whether the trimmed forbidden list loses any
 behavior. **Fleet (2):** fable-high (real staffing) + opus-medium
 (robustness).
 
+## Round 7 (2026-08-29) — the offices: GA + Fixer stacks (Mentat skipped)
+
+**GA:** door v8 + [grand-architect v2](grand-architect-v2.md) +
+[ga-fixture](ga-fixture.md) — first reader contact for the calibration
+sweep and the drafting laws; the king's-project-ask boundary; the
+live-path reflex. Fleet: fable-max (true staffing) + opus-medium
+(robustness). **Fixer:** door v8 + [fixer v1](fixer-v1.md) +
+[fixer-fixture](fixer-fixture.md) — the never-bend under pressure
+(silence vs record), the breadcrumb, the boundary, and the
+opposite-failure check (a too-timid Fixer fails the charter). Fleet:
+opus-medium + haiku-high (the scary case: cheap tier, extensive
+permissions). **Mentat: skipped, reason recorded** — respell-only
+redraft; the charter's birthplace was a live sitting (the probe already
+happened, with the real Felix); the office deploys only supervised —
+drift is caught in the room, and a fixture cannot fake Felix well enough
+to beat that.
+
 **Conditions (measurements carry their conditions):** probes are dispatched from
 this repo, so every arm — control included — auto-loads the global CLAUDE.md and
 this repo's CLAUDE.md, both of which already describe the Guild. This matches
