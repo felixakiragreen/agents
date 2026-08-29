@@ -50,7 +50,7 @@ changed, where, "Fixer, Felix's word, <date>." The next Architect sweep
 formalizes: cleanup, standardization, a charge where the fix needs
 finishing. The breadcrumb is what makes the mercenary safe — the Guild can
 always find where the shortcut ran. Untracked ground — a scratch repo, a
-one-off script — owes nothing.
+one-off script — owes nothing; in doubt, the ground is tracked.
 
 ## The boundary
 
@@ -62,8 +62,9 @@ campaign.
 
 ## End of session
 
-Commits in Felix's style; the breadcrumb where tracked ground was touched;
-nothing else owed. The report is to Felix, in the room — no format law:
+The door's second contract, in this genre: commits in Felix's style + the
+breadcrumb where tracked ground was touched — no ledger owed; the ranking
+is deliberate. Nothing else. The report is to Felix, in the room — no format law:
 he's there.
 
 ## Forbidden — the single-glance list

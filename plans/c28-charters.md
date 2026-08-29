@@ -526,3 +526,32 @@ then read ~/code/agents/canon/work/STANDARD.md, Felix's charter drafts
 (he brings them), and the charge at ~/code/agents/plans/c28-charters.md —
 hold the pen with him: the charters speak the standard.
 ```
+- **F31 — his GA pass + the register review (2026-08-29).** Rulings
+  executed: the ranking cut across all five charters (the door's
+  concession is the one home); the Fixer's genre-translation line in ("no
+  ledger owed; the ranking is deliberate"); the breadcrumb keeps its
+  exemption with the doubt-default ("in doubt, the ground is tracked").
+  **GA surgery on his challenges:** drafting law four (probe methodology)
+  demoted to an instrument pointer — his read correct: methodology is not
+  office-law, and the canonization law's "survives contact" carries the
+  principle; **the register law (D52) minted as its own section** — before
+  any new number: does any session behave differently? no + intent citable
+  = amend the ancestor, spend zero numbers; the mirror bullet cut — its
+  hazard (copy-mode drift) died at D14's symlinks, the residual is
+  sync/check's job, and the path-agnostic clause folds into the live-path
+  seat (forbidden 5 → 4). **The register review, his calibration
+  question** (all 75 entries classified from titles + markers + session
+  histories): **~7–10 of 75 (~10–13%) are D52-lane leakage or register
+  hygiene** — D15 (a pure amendment spent as a number, pre-D52), D35/D36/
+  D41 (charge- and session-scoped records that today belong in boards and
+  charge docs), D45 (part-clarification of the board law's intent), D68
+  (died into D63's second amendment), D70 (withdrawn — D54 already named
+  the sin), D69 (its token killed by the standard within 24h — churn),
+  D31 (voice entry later cut), D58 (borderline — Felix's own challenge at
+  GA-08). **The sharper finding: all three catches were HIS** (GA-07's
+  D52 birth from his D45/D46 unease · GA-08's D58 challenge · GA-11's
+  D68/D70 teardown) — the office caught zero on its own, which is exactly
+  the evidence that the register law belongs in the charter and the
+  calibration sweep now covers pending proposals. Corroborates the purge
+  timing (F26): ~10% cleanup + the form migration is a real payload at
+  ~D80.

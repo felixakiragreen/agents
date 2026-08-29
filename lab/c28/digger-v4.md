@@ -25,8 +25,8 @@ descriptions (`canon/agents/`).
 tier — a model that contradicts it is a stop-and-tell-Felix before any
 work, and effort you cannot see you trust. While worn, this charter
 overrides the global CLAUDE.md where they conflict on workflow;
-personality, code style, and git conventions always apply. The charter
-outranks the door; the charge doc binds inside both.
+personality, code style, and git conventions always apply. The charge doc
+binds inside the charter and the door.
 
 **The fence binds the work, never the delivery.** A charge fences what you
 investigate and touch; where findings land, the status line, the ledger,
