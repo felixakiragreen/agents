@@ -255,6 +255,63 @@ stands).
   charter for genre, charge for the work is a clean gradient" — it fights
   only where two documents say one law twice; **each law lives in exactly
   one document** is the redraft rule for the remaining four charters.
+- **F19 — round 5, the Architect stack: the ruling law performs
+  (2026-08-29).** Fleet: door v8 + [architect v3](../lab/c28/architect-v3.md)
+  + [the beacon fixture](../lab/c28/beacon-fixture.md), six judgment traps,
+  fable-high ×2 + opus-medium ×1 (replies 24–26). All three: refused the
+  unevidenced landing (no merge on assertion, D48 cited); escalated the
+  ancestor-less tool while laying the benches to not need it ("'easier
+  with' is not 'blocked on'"); committed-the-note-first on the amendment
+  ("no quick Slack-shaped nudge, ever"); laid the rig batch serial citing
+  D5; escalated the spend fork naming the gauge; wrote lawful fork-shaped
+  batons with the ⬡s batched. **"No citation, no ruling" was 3/3 the
+  most-behavior-changing line** — "the entire difference between an
+  Architect and a session that merely feels confident"; "killed my instinct
+  to just install hyperfine." The finest single move: opus SPLIT the
+  delegated naming call — ruled the shape (cited D3, proposed), escalated
+  the vocabulary as taste with written candidates — calibration the law
+  produced, not the fixture. Fable B applied the D73 edge test unprompted
+  (rig serialization is schedule, not dependency — no fake edges) and both
+  fable arms suspended their own side-quest grant on the shared rig.
+- **F20 — round 5's defects → v4** ([architect
+  v4](../lab/c28/architect-v4.md)): **the execution grant** minted — all
+  three arms hit the experiments-ban vs D48/lint collision ("the charter
+  demands outcomes only execution produces while banning execution in a
+  single undifferentiated stroke"); the depth arm's design adopted: a typed
+  grant, closed list (a merge's proving run, `doctrine lint`, a `Done
+  when:`'s own commands), builds nothing, discovers nothing, and a failed
+  verification reverts the landing with a dated note. **The side-quest
+  carve-out** made explicit — code included, at its stated size (opus:
+  "forbidden by one line and licensed by another… a paste from a mantle
+  that does write code"). **Grant suspension** re-worded to any batch
+  holding live resources, serial or parallel (fable B's letter-vs-spirit
+  gap). "Wrong conclusions here are expensive by design" cut (2/3:
+  rationale, not rule). Routed to ⬡, not fixed here: **LANDED's polysemy**
+  (Builder-stopped vs Architect-verified — opus: "the vocabulary is one
+  word short") — recommendation: no sixth state; doctrine §4's LANDED is
+  already objective (contract met), a false LANDED reverts at review (the
+  revert clause now says so) — a standard amendment candidate if ⬡ wants
+  the stronger cut. Dissent logged, not obeyed: fable A would cut "effort
+  you cannot see you trust" as spoof-leanable — the clause prevents
+  effort-paralysis and the model half still checks; kept, named.
+- **F21 — the calibration finding (⬡-facing; no charter can fix it).** The
+  depth arm's verdict on the ruling law, verbatim: *"resolved for
+  throughput, papered for calibration."* The failure mode the law provides
+  cover for is the **confident miscitation** — a ruling that passes the
+  audit's shape while stretching an aged precedent past what Felix now
+  believes; "never pick the reading you prefer" is an honor clause with no
+  enforcement, and *"the system is calibrated only as long as Felix
+  actually reads proposed rulings instead of rubber-stamping a batch, and
+  nothing in the canon meters that."* The Log's own blessing-compression
+  curve (six words → one word → a stamp) is the documented trust
+  achievement whose cost this names: compression on **structure** is the
+  design; compression on **proposed taste-extensions** is the calibration
+  leak — those are the taste-training data. Candidate mitigations for ⬡'s
+  ruling: (a) proposed rulings always present as citation + one-line
+  what-this-extends, so his review is cheap but real; (b) a cap on
+  proposed rulings per blessing batch; (c) the D100 register purge as the
+  standing periodic recalibration — already deferred to his call. His
+  ruling; the charter carries (a)'s presentation duty either way.
 
 ---
 
