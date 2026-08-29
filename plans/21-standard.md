@@ -34,8 +34,10 @@ replaces.
   Dispatcher-only reading (charter fix rides this standard).
 - **the Felix-queue** · concept · things only Felix can unblock; its glass home is
   the needs-you queue; its standard noun is ⬡. · *instead of:* helm (dead).
-- **Felix-gate** · noun, typed token · a gate that is really Felix's; the hyphen is
-  law (drift "Felix gate" is a lint catch).
+- **⬡-gate** · noun, typed token · a gate that is really Felix's; the mark is the
+  name, the hyphen joins it (`:`/`·`/`|` all carry other jobs; `|` breaks tables). ·
+  *instead of:* Felix-gate, felix-gate, FELIX-GATE. The **⬡-queue** follows the same
+  form — things only Felix can unblock.
 - **gate** · noun family · a judgment barrier: a **gate row** (dispatchable review),
   a **‹kind› gate** (machine barrier: type gate, boot gate, health gate), a
   Felix-gate. Bare "gate" only in board contexts.
@@ -103,12 +105,29 @@ replaces.
 - **kill** · verb · end or reject deliberately, with the reasoning recorded — work,
   proposals, rulings ("three pre-chewed rulings yours to kill"). A documented kill is
   a win. · *instead of:* strike (decide sense), cut (remove sense).
-- **strike** · verb · retire text visibly with a dated note — only this, ever.
+- **strike** · verb · retire text visibly with a dated note — only this, ever. Kill
+  ends work and the thing leaves the stage; strike retires text and the corpse stays
+  visible on purpose.
+  > *Sovereign's clause: Felix may say either word for either act — the reader
+  > determines whether the thing wants killing or striking and applies the right one.
+  > The standard governs the Guild's output; the Sovereign's input is translated,
+  > never corrected.*
 - **mint** · verb · bring a canonical artifact into existence (a tier, a token, a
   standard entry).
-- **true**, **park**, **drain**, **sweep**, **harvest** (promote a proven pattern
-  into canon — the only sense), **molt** (form migrates freely; meaning appends),
-  **pre-chew**, **promote**, **supersede**, **tombstone**, **retire** · unchanged.
+- **reconcile** · verb · bring a record back to match reality ("reconcile the
+  board"). · *instead of:* true (as a verb).
+- **defer / DEFERRED** · verb, annotation · set aside deliberately — tracked, nobody
+  waiting; un-deferring is a fresh decision. PENDING still waits on something named;
+  DEFERRED waits on nobody. · *instead of:* park, PARKED, the parked list (→ the
+  deferred list).
+- **clear** · verb · empty an inbox after ruling every entry ("a cleared inbox is
+  empty"). · *instead of:* drain.
+- **canonize** · verb · promote a proven pattern into canon, birthplace cited. ·
+  *instead of:* harvest.
+- **sweep** · verb · the periodic pass over an inbox or venue set, every item ruled ·
+  kept.
+- **molt** (form migrates freely; meaning appends), **pre-chew**, **promote**,
+  **supersede**, **tombstone**, **retire** · unchanged.
 - **ledger**, **findings** (the one landing-report header — *instead of:* Outcome,
   Landing note), **board**, **batch note**, **bulletin**, **dream**, **inbox**
   (ISSUES.md), **lab**, **stub** · unchanged.
@@ -196,6 +215,14 @@ replaces.
 | Dead | Successor |
 |---|---|
 | row (unit) | charge |
+| ratify | bless + the record |
+| chain (term) | a serial batch |
+| true (verb) | reconcile |
+| park / PARKED | defer / DEFERRED |
+| drain | clear |
+| harvest | canonize |
+| Felix-gate / helm-queue forms | ⬡-gate · ⬡-queue |
+| refire | reignite |
 | brief · order (doc names) | the charge doc |
 | cut (all senses) | lay (create) · kill (remove) |
 | fold | distill |
