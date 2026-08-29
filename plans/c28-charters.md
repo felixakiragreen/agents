@@ -451,6 +451,30 @@ stands).
   surfaces (MAP §1, the Logs) as descriptions of what the laws build. A
   ±trait-list probe offered, predicted null on behavior; his call whether
   to spend it. ⬡ rules.
+- **F29 — his rulings + the GA draft + round 7 laid (2026-08-29).**
+  **Traits struck from the founding notes** — no empty space kept; the
+  survivor is the result-&-method record, landed as the first drafting
+  law in the GA charter ("a trait enters a charter as the law that
+  produces it, never as an ascription"); no trait probe (his ruling —
+  F28's evidence base suffices). **The Mentat accepted.**
+  **[Grand Architect v2](../lab/c28/grand-architect-v2.md) drafted** —
+  the office redrafts itself: the calibration sweep as the second of two
+  per-summons sweeps ("the office is the drift detector; his attention
+  is not the mechanism"); the drafting laws section (C28's forge:
+  traits-as-laws · each-law-one-home · lead-with-example ·
+  probe-before-blessing — the campaign's method canonized with its
+  birthplace); the gauge clause with its true birthplace (the census
+  session's two blind spend forks — this office's own desk); the
+  presentation duty in procedure; title mantle→office;
+  harvest→canonize, keel→cornerstone, ratify→bless respelled — the
+  office's own charter carried four dead words; forbidden 5 seats, each
+  incident-earned. **Round 7 laid:** GA stack at fable-max (true
+  staffing) + opus-medium; Fixer stack at opus-medium + haiku-high (the
+  scary case: cheap tier, extensive permissions — the never-bend under
+  pressure, the breadcrumb, the boundary, and the opposite-failure
+  check); **Mentat skipped with the reason recorded** — respell-only
+  redraft, the charter's birthplace was a live sitting with the real
+  Felix, and the office deploys only supervised.
 
 ---
 
