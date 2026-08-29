@@ -947,3 +947,57 @@
   `doctrine/src/lexicon.ts` (the mirror of §§7–9), `doctrine/src/vocabulary.ts` (the fence and
   the arms), `doctrine/test/vocabulary.test.ts` (the drift alarm, which proves itself against
   mutated copies of the standard). Supersedes nothing; binds every later sweep.
+- **D73** (2026-08-29, Grand Architect (15) · ⬡✓ Felix 2026-08-29 — blessed in-session):
+  **The flow doctrine — the batch note's successor.** A **flow** is a batch as data: the
+  declared DAG the dispatch runs (Belvedere D11/D12 ratified canon-side; the engine's
+  birthplaces: B10–B12, landed with live smokes 2026-08-27/28). For engine-tended batches
+  **the flow file IS the batch note** — the board's note points at it; prose batch notes
+  remain the Felix-tended exception (D61's default re-pointed: the default tender is the
+  dispatch, operative at agents-flow-1's landing; until then the batch note names its
+  tender). The engine's canon law: **D10 wholesale** — ambiguity never arms and never
+  advances; only declared or scope-grown steps ignite (D12); **every flow carries a
+  budget** — a ceiling on engine ignitions per arm; at the ceiling the engine pauses and
+  a re-arm extends (the zoning law's lineage, D29/load-328; external ancestor cited:
+  graph-engineering's spawn-cap guardrail, read 2026-08-29); **a step may continue a
+  session** rather than ignite fresh when the lay says so — continue when the next act
+  consumes this act's judgment, go fresh when the altitude changes (GA-10's coda, now
+  law; B5's resume-by-stamp is the built hand); **the edge test** — Depends-on carries an
+  edge only where a charge reads its dependency's result; ordering preference is
+  schedule, and schedule rides the batch note or the flow (graph-engineering's fake-edge
+  rule, confirming D63e); **a gate session with no row of its own lands by the row it was
+  staffed for, never by its own session** (B12 F2); the batch report is the flow's
+  rendered close plus the close gate's distillation; **flow files are the building's
+  truth** and live with its `plans/` — interim, while Belvedere is the only reader:
+  `belvedere/flows/` naming the building; the Steward gate unchanged (D5 — unparked by
+  Felix's word only). The Dispatcher tombstone's operational law — verbatim relay, the
+  report shape, the escalation stops, the announce duty (run-state + the Works render
+  it) — binds the engine's spec: **no mantle; machines get specs, sessions get
+  charters.** Serialization per charge 17's verdict, ratified: prose artifacts stay
+  schema-markdown, field artifacts are data, and a field the glass needs **enters the
+  D63 grammar — never a storage flip.** Edits: DOCTRINE §10; STANDARD §2 (flow, hold),
+  §3 (the dispatch as holder). Birthplaces: the flow keel + B10/B11/B12 evidence;
+  charge 17 §Verdict; GA-10's coda; codejunkie99/graph-engineering (the two imported
+  guardrails + the edge test's wording — the first external ancestor cited into canon,
+  scorecard in charge 20's findings).
+- **D74** (2026-08-29, Grand Architect (15) · ⬡✓ Felix 2026-08-29 — blessed in-session;
+  the qualified id chosen at the fork): **The flow fold — the grammar.** Seven fields
+  and their tokens enter the D63 grammar, per 17's line (a field the glass needs is
+  typed by the one parser): **(a) the holder is written** — `Baton — <holder> → <action>`,
+  holder ∈ ⬡ · a named session · **the dispatch** (a legal holder: the tender-holder
+  case closes — a batch the machinery tends says so, and no button arms); the
+  instrument-first classifier retires where the form is present; shapes: single
+  implicit, `batch —` / `fork —` written, a fork carries a `recommendation:` slot;
+  **(b) holds** — `LANDED <date> — holds: <list>`: the named remainders that pause
+  dependent charges; absent = clean; clearing is written on the row (keel §5.1's
+  "LANDED lies by omission" answered); **(c) escalations are ids** — born
+  `E‹n› — <what>`, dead `E‹n› ruled <date>`; regex classifiers retire (the 120-of-390
+  tax); **(d) a worktree charge carries `**Branch:**`** in its charge-doc header (prose
+  reading measured 0/62 sound, b3 F5); **(e) the Work cell opens with the
+  encapsulation** — the ≤6-word linked name (27 of 38 rail cards had none); **(f)
+  Depends-on gains its third form** — the qualified cross-building id `<building>:<id>`,
+  register-resolved at lint (one city, one graph, namespaced nodes; gate-charge-per-
+  crossing and strictly-local rejected at the fork); **(g) tier parses into
+  model · effort** — writing unchanged. Migrate rules per the molt clause; **lint binds
+  tails and new writing; history respells form-only.** Builder work: C32. Evidence:
+  17 §C3 (7/9 asks are heuristics; the holder inverted live on this repo's own tail;
+  27-of-38 nameless cards), b3 §§E2/F4/F5, B12 §§F1/F2, 18d's cross-building filing.

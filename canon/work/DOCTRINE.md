@@ -137,12 +137,17 @@ a build board inside a contract doc is not exempt by its venue (D45).
   Charges number **C‹n›** from the standard's deploy; historical ids are grandfathered
   as addresses forever, and every campaign declares its letter prefix at founding — the
   namespace law is the standard's (`STANDARD.md` §7).
-- **Work** — one line: the question or the mission.
-- **Depends on** — exactly two forms (D63): charge ids that must be LANDED first, and
-  `⬡-gate: <text>` for a named gate (a blessing, a ruling); "—" when none.
-  Anything else is not a dependency: a physical precondition becomes a gate charge
-  (D44), a scheduling note rides the batch note (D28) or the Status annotation. This
-  column exists to compute the dependency graph; prose breaks it.
+- **Work** — one line: the question or the mission. It opens with the
+  **encapsulation** — the ≤6-word linked name (D74); qualifiers follow after `—`.
+- **Depends on** — exactly three forms (D63; D74): charge ids that must be LANDED
+  first, the qualified cross-building id `<building>:<id>` (register-resolved at lint;
+  a real crossing, used sparingly), and `⬡-gate: <text>` for a named gate (a blessing,
+  a ruling); "—" when none. Anything else is not a dependency: a physical precondition
+  becomes a gate charge (D44), a scheduling note rides the batch note (D28) or the
+  Status annotation. This column exists to compute the dependency graph; prose breaks
+  it. **The edge test (D73):** an edge exists only where the charge reads its
+  dependency's result — ordering preference is schedule, and schedule rides the batch
+  note or the flow.
 - **Staffing** — mantle · tier, both verbatim (`Digger · opus-high`), **or the literal
   token `⬡-gate`** for a gate charge that is really Felix's (D63) — Belvedere renders
   his card and never auto-ignites it. Either form may carry a parenthetical
@@ -155,7 +160,10 @@ a build board inside a contract doc is not exempt by its venue (D45).
   amended). Staffing guidance lives in the tier descriptions (`canon/agents/`) — the
   single home; boards point, never duplicate.
 - **Status** — the lifecycle below, plus annotations: dates, findings pointers, unmerged
-  branch names.
+  branch names. A landing's unresolved remainders are typed (D74):
+  `LANDED <date> — holds: <list>` — each hold an `E‹n›` or a `⬡ <text>`; unresolved
+  holds pause dependent charges, and clearing is written on the row. Escalations are
+  ids: born `E‹n› — <what>`, dead `E‹n› ruled <date>`.
 
 **The lifecycle:** `OPEN → IN FLIGHT → LANDED / KILLED`
 
@@ -236,6 +244,7 @@ The skeleton:
 # <ID> — <title>
 **Status:** OPEN — laid <date> · **Depends on:** … · **Staffing:** <mantle · tier>
    (· **Parallel-safe with:** <charges> — when laid into a parallel batch)
+   (· **Branch:** <name> — when the charge runs in a worktree, D74)
 ## Mission | Question(s)
 ## Inputs — read before working      ← incl. what's known: "do not re-derive"
 <the genre core — below>
@@ -276,7 +285,9 @@ expensive one).
 
 Findings are the evidence record: what was learned, with proof. They append under the
 charge doc's `## Findings` while the charge runs, and are never edited after it closes —
-the distillation (below) carries truth forward; findings remain its provenance.
+the distillation (below) carries truth forward; findings remain its provenance. A number
+a later charge disproves gains a **dated correction note, appended** — the record
+corrects, never rewrites (ruled 2026-08-29, the C26 -ise correction).
 
 1. **Evidence-grade, every claim:** the command and output (or file§ pointer) that
    proved it rides with the claim. **A claim without evidence is a draft** (simmy §8 —
@@ -426,14 +437,33 @@ tender creates `plans/BULLETIN.md` (next to the charge docs — simmy's lived at
   cornerizer batch 8, amended mid-flight 2026-08-16). Every batch has a tender, and
   the default is machine tending, serial batches included (D43/D61's intent — their
   Dispatcher wording is superseded by D71). **The interim truth, plainly:** the
-  Dispatcher mantle is dead (D71) and the flow engine — charge 20 on the canon board,
-  the new dispatcher — is unbuilt; until it lands, the batch note names the tender:
-  Felix, or an Architect session. Felix-tended stays the exception with its reason
+  Dispatcher mantle is dead (D71) and its successor — the flow engine, charge 20's
+  cornerstone made law at D73 — is built and smoke-proven (Belvedere B10–B12) but has
+  not yet tended a real batch; until agents-flow-1 lands, the batch note names the
+  tender: Felix, an Architect session, or the dispatch (a declared flow). Felix-tended stays the exception with its reason
   named in the batch note (his own eyes gate each landing — a visual pass, a live
   smoke); batch size is never the reason. The lay composes the longest
   machine-runnable arc — building charges and dispatched review gates in one serial
   batch — and the batch returns to Felix only at escalations and named ⬡-gates,
   resuming on his word where it paused (D61).
+- **The flow (D73).** A flow is a batch as data — the declared DAG the dispatch runs
+  (the engine: Belvedere B10–B12; the arm contract and scope-arm growth are its D11
+  and D12, ratified canon-side). For engine-tended batches **the flow file is the
+  batch note** — the board's note points at it (`flow: <name>` + the tender line);
+  prose batch notes remain the Felix-tended exception. The engine's law: D10
+  wholesale — ambiguity never arms and never advances; only declared or scope-grown
+  steps ignite; **every flow carries a budget** — a ceiling on engine ignitions per
+  arm; at the ceiling the engine pauses and one re-arm extends; **a step may continue
+  a session** rather than ignite fresh when the lay says so — continue when the next
+  act consumes this act's judgment, go fresh when the altitude changes; **a gate
+  session with no row of its own lands by the row it was staffed for**, never by its
+  own session. **The edge test** binds the lay (§4): a Depends-on edge exists only
+  where a charge reads its dependency's result — everything else is schedule, and
+  schedule rides the note or the flow. The batch report is the flow's rendered close
+  plus the close gate's distillation. Flow files are the building's truth and live
+  with its `plans/` (interim, while Belvedere is the only reader: `belvedere/flows/`,
+  naming the building). The Steward — the same engine unattended — stays gated on
+  Felix's word alone (D5).
 - **The coda** (the standard §4) is instantiated ONCE per project, as `plans/CODA.md`,
   from the canon core (`canon/mantles/README.md`), filling the three slots:
   working-agreements ref (a master doc §), bulletin path (drop the sentence when
@@ -474,14 +504,17 @@ Every session, any mantle:
   escalations and the decision queue first, then exactly one action — ready by
   definition — addressed to one holder, any further work explicitly ordered behind
   it. **A baton must read cold** (the standard's acceptance test), and it takes one
-  shape — `Baton — <one holder> → <action>` — the action in one of three shapes
-  (D64): **single** (one instrument — the summons fenced verbatim, an
-  `ignite <charge-id>` reference, or the named ⬡-action: a blessing, a smoke, a
-  ruling); **batch** (n parallel instruments, legal iff the holder could ignite all
-  of them now without choosing between them — D44's batching, given its shape);
-  **fork** (the choice IS the action: few exclusive options, every option
-  instrumented — choosing A ignites *this* — with a recommendation named, or
-  explicitly marked taste). A menu of nexts with no ordering, or a kickoff produced
+  shape — `Baton — <one holder> → <action>` — **the holder is written** (D74): `⬡`,
+  a named session, or **the dispatch** (a batch the machinery tends says so — no
+  hand is waited on, the flow runs); the parser reads the written holder, never
+  infers it. The action takes one of three shapes (D64): **single** (one
+  instrument — the summons fenced verbatim, an `ignite <charge-id>` reference, or
+  the named ⬡-action: a blessing, a smoke, a ruling); **batch** (`batch —` marked:
+  n parallel instruments, legal iff the holder could ignite all of them now without
+  choosing between them — D44's batching, given its shape); **fork** (`fork —`
+  marked: the choice IS the action — few exclusive options, every option
+  instrumented — choosing A ignites *this* — and a `recommendation:` named, or the
+  call explicitly marked taste). A menu of nexts with no ordering, or a kickoff produced
   only on request, is a malformed close. **Ambiguity, never plurality, is the sin**
   (D64, amending D46): an uninstrumented option, a menu with no recommendation, two
   holders, or a decision smuggled in prose is a dropped baton.

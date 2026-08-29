@@ -58,6 +58,11 @@ replaces.
 - **batch** · noun · any graph of charges — sequential, parallel, any shape — meant
   to run between ⬡-gates; the batch note carries the shape and concurrency. ·
   *instead of:* wave, chain (a serial batch is a description, not a term).
+- **flow** · noun · a batch as data — the declared DAG the dispatch runs; for
+  engine-tended batches the flow file is the batch note (D73). Nothing dies — new
+  machinery.
+- **hold** · noun · a named remainder on a landing that pauses dependent charges —
+  `LANDED — holds: ‹list›`; absent = clean; clearing is written on the charge (D74).
 - **campaign** · noun · all the batches of charges toward one keystone. The
   hierarchy: **charge < batch < campaign** — no mid-level (chapter/milestone retire
   to prose).
@@ -91,7 +96,8 @@ replaces.
 - **dispatch** · noun · the machinery that turns a laid charge into a running
   session. Survives as the system noun only; the act is ignite. The **Dispatcher
   mantle is absent from the ruled roster** — its hole belongs to row 20 (the flow
-  engine's shadow).
+  engine's shadow). Also a legal baton holder (D74): `Baton — the dispatch →
+  ‹action›` — a batch the machinery tends, no hand waited on.
 - **baton** · noun · the handoff a session ends with, addressed to one holder. It
   hands an **action**; the shapes are **single / batch / fork**. · *instead of:*
   move (both the umbrella and the shape — the old law's self-reference dissolves).
@@ -113,8 +119,7 @@ replaces.
   visible on purpose.
   > *Sovereign's clause: Felix may say either word for either act — the reader
   > determines whether the thing wants killing or striking and applies the right one.
-  > The standard governs the Guild's output; the Sovereign's input is translated,
-  > never corrected.*
+  > The standard governs the Guild's output; the Sovereign's input is translated.*
 - **mint** · verb · bring a canonical artifact into existence (a tier, a token, a
   standard entry).
 - **reconcile** · verb · bring a record back to match reality ("reconcile the
