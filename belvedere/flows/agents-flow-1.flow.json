@@ -1,0 +1,69 @@
+{
+	"building": "agents",
+	"scope": "agents · the flow-cornerstone batch",
+	"created": "2026-08-29",
+	"concurrency": 3,
+	"judgeTier": "fable-high",
+	"steps": [
+		{
+			"id": "c31",
+			"name": "Doctrine defects",
+			"account": "thg-fgreen",
+			"tier": "Builder · opus-high",
+			"venue": { "kind": "master", "cwd": "~/code/agents" },
+			"depends": [],
+			"kickoff": { "doc": "agents/plans/c31-doctrine-defects.md", "fence": 1 }
+		},
+		{
+			"id": "c32",
+			"name": "The flow grammar",
+			"account": "thg-fgreen",
+			"tier": "Builder · opus-high",
+			"venue": { "kind": "master", "cwd": "~/code/agents" },
+			"depends": ["c31"],
+			"kickoff": { "doc": "agents/plans/c32-flow-grammar.md", "fence": 1 }
+		},
+		{
+			"id": "c29",
+			"name": "The summon harness",
+			"account": "thg-doorbell",
+			"tier": "Builder · opus-high",
+			"venue": { "kind": "worktree", "repo": "~/code/agents", "branch": "bv/c29-summon-harness" },
+			"depends": [],
+			"kickoff": { "doc": "agents/plans/c29-summon-harness.md", "fence": 1 }
+		},
+		{
+			"id": "c30",
+			"name": "Master-doc prose sweep",
+			"account": "personal",
+			"tier": "Architect · opus-high",
+			"venue": { "kind": "master", "cwd": "~/code/universal_robots_sdk/cap-mega" },
+			"depends": [],
+			"timeoutMinutes": 60,
+			"kickoff": { "doc": "agents/plans/c30-master-doc-prose.md", "fence": 1 }
+		},
+		{
+			"id": "g1",
+			"name": "Flow-1 close gate",
+			"account": "personal",
+			"tier": "Architect · fable-high",
+			"venue": { "kind": "master", "cwd": "~/code/agents" },
+			"depends": ["c29", "c30", "c31", "c32"],
+			"gate": { "kind": "architect" },
+			"kickoff": { "doc": "agents/plans/g1-flow-close.md", "fence": 1 }
+		},
+		{
+			"id": "verdict",
+			"name": "The batch verdict",
+			"account": "personal",
+			"tier": "Architect · fable-high",
+			"venue": { "kind": "master", "cwd": "~/code/agents" },
+			"depends": ["g1"],
+			"gate": {
+				"kind": "felix",
+				"card": "Flow-1 is the Guild's first engine-run batch. G1 has verified the landings and merged the worktree; this card asks your verdict on the batch — and on the vehicle itself: does the flow doctrine hold the road? Passing fires the recording session; nothing else fires."
+			},
+			"kickoff": "You are an Architect at fable-high.\nWear ~/code/agents/canon/mantles/architect.md,\nthen read ~/code/agents/MAP.md §5 (the agents-flow-1 note) and LEDGER.md's tail,\nand record Felix's verdict on agents-flow-1: close the batch note, reconcile the\nboard, hand the next baton, commit in his git style."
+		}
+	]
+}

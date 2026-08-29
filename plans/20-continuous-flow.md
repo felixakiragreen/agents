@@ -1,8 +1,8 @@
 # 20 — the continuous flow: the cornerstone session
 
-**Status:** OPEN — mandate recorded 2026-08-28 (GA-11); the session ignites on Felix's
-summons · **Depends on:** 17 · ⬡-gate: his call to sit · **Staffing:** Grand
-Architect · fable-max
+**Status:** LANDED 2026-08-29 — the cornerstone laid at GA-15, D73 + D74 ⬡✓
+in-session; design + findings below the stub · **Depends on:** 17 · ⬡-gate: his call
+to sit — paid 2026-08-29, this summons · **Staffing:** Grand Architect · fable-max
 
 *A cornerstone stub, not a design — this file preserves the commission and the case
 file so the session starts loaded. The session itself lays the law.*
@@ -72,6 +72,101 @@ the Dispatcher was a band-aid.)
 [charge 17's findings](17-storage-experiment.md) · D61/D63/D64/D65 ·
 [b3](../belvedere/plans/b3-baton-rail.md), [b10–b12](../belvedere/plans/b10-flow-dag.md)
 · dispatcher.md (the tombstoned charter, for what it recorded).
+
+---
+
+## The cornerstone — laid 2026-08-29 (GA-15)
+
+The summons added a research arm: **graph engineering**
+(codejunkie99/graph-engineering + the 2026 discourse), measured against this stub,
+best ideas incorporated with birthplaces, the rest rejected in writing. The stub's
+five items, each ruled:
+
+1. **The flow doctrine** → **D73.** The flow file IS the batch note for engine-tended
+   batches; the default tender is the dispatch (operative at agents-flow-1's landing);
+   D10 wholesale; **the budget ceiling** (import); **the continue mode** (GA-10's coda
+   made law; B5's resume is the hand); **the edge test** (import); the batch report is
+   the flow's rendered close; flow home = the building's `plans/` (interim:
+   `belvedere/flows/` naming the building); the Steward gate unchanged (D5).
+   DOCTRINE §10 carries it.
+2. **The Dispatcher mantle's fate** → ruled ahead of this session (D71); what remained
+   was the engine's law: **no mantle — machines get specs, sessions get charters**
+   (D73). The tombstone's operational law binds the engine's spec via the Belvedere
+   relay.
+3. **The D64 grammar asks** → **D74:** the written holder — `Baton — <holder> →
+   <action>`, holder ∈ ⬡ · a named session · **the dispatch** (the tender-holder case
+   closes); `batch —`/`fork —` markers + the `recommendation:` slot; `holds:`;
+   escalation ids (born `E‹n› —`, dead `E‹n› ruled`); `**Branch:**`; the
+   encapsulation; the tier split. Builder: C32.
+4. **Cross-building Depends-on** → **D74f:** the qualified id `<building>:<id>`,
+   register-resolved at lint — one city, one graph, namespaced nodes (his fork,
+   blessed; gate-charge-per-crossing and strictly-local rejected).
+5. **Charge 17's verdict, distilled** → ratified in D73: prose artifacts stay
+   schema-markdown, field artifacts are data, and a field the glass needs **enters
+   the D63 grammar — never a storage flip.**
+
+The batch: **C31 → C32 ∥ C29 ∥ C30 → G1 → ⬡-verdict**, declared as
+**`agents-flow-1`** — the Guild's first engine-run batch (the vehicle blessed
+in-session). The note is MAP §5's; the flow file is the batch note (D73).
+
+## Findings
+
+**F1 — the scorecard: the Guild is ahead of the field on the sovereignty layer.**
+Graph engineering's task-graph half maps onto existing law almost everywhere — the
+drawn-plan-as-authorization (D11) is stronger than their "the drawing is the plan";
+verifier separation is structural here (gates are charges; the verdict is read off
+files, B12) where theirs is advice; their placement rule for human gates is D44 with
+fewer teeth; their "routing lives in written steps" is D11 + D12 + D10. Their stop
+rule (the DeepMind × MIT study the skill cites: coordinated teams ~+80% on
+parallelizable work, every multi-agent config −39–70% on sequential full-picture
+work, error amplification 17.2× uncoordinated vs 4.4× with one merge owner) is the
+zoning law's external confirmation — one charge = one session, one owner of the sum.
+The knowledge-graph half (schema before extraction, fusion, provenance, per-stage
+quality gates) is convergent with D65/D71/the findings law/the drift alarms — nothing
+to import.
+
+**F2 — the four imports, each with a birthplace:** the **budget** (their spawn cap ×
+the zoning law D29 — scope-arm growth was unbounded in count); the **continue mode**
+(their stop rule × GA-10's coda × B5's resume-by-stamp — the flow schema could not
+say "same session continues"); the **edge test** (their fake-edge rule × D63e — a
+named test at lay time, so the engine never inherits habitual over-serialization);
+the **qualified id** (their entity-resolution lens × 18d's filing).
+
+**F3 — the rejects, documented:** *diverse-verifier diamonds* (multiple verifiers,
+different questions) — no Guild birthplace; runs as a project experiment first if
+ever, canon after it survives contact. *The 9-stage KG pipeline as machinery* — the
+city's docs + `doctrine/` + the standard already are that pipeline's product.
+*GraphRAG / graph-as-memory* → F4.
+
+**F4 — the substrate pointer (D39's horizon; reserved, not laid).** A typed city
+graph — charges, decisions, sessions, findings as nodes; depends-on / supersedes /
+cites / distills-into as edges — is the KG-shaped candidate for the Royal Architect's
+missing house. Recorded for that campaign's cornerstone, whenever Felix calls it.
+Nothing laid; the thrones stay empty.
+
+**F5 — the coda gap.** The engine composes fence-only summonses (B3/B11 evidence:
+first user turn = the fence, byte-exact) while §10 says ignition = kickoff + the
+project coda. Relayed to Belvedere (ask #5); the new fences (C31/C32/G1) carry the
+coda's load-bearing line inline until then.
+
+**F6 — trust cells measured before the lay (D10 — never guess).** whiteboardy has NO
+project entry in personal's `~/.claude.json`, so a c30 venue there refuses at arm
+(B12 E1's bite, foreseen); `agents` and the URSDK tree read `accepted=true` on all
+three accounts (`jq` over the three config dirs, 2026-08-29). c30's venue is
+therefore cap-mega, and its three out-of-tree targets are flow-1's **named physics
+probe** — P5's next cell (out-of-project writes under `auto`): a stall pauses at the
+60-minute timeout, visibly in the Works; the fallback is one rig summons.
+
+**F7 — a stray hunk, not this session's.** Between this session's read and its edit,
+STANDARD §4's Sovereign's clause lost "never corrected" (working-tree diff,
+uncommitted, author unknown — sixteen peer sessions idle at the check). Named here
+and in the ledger; the hunk rides this session's commit unreverted — reversing an
+unknown hand's meaning-edit would be the greater sin. ⬡ adjudicates.
+
+**Sources:** [codejunkie99/graph-engineering](https://github.com/codejunkie99/graph-engineering)
+(SKILL.md + references/task-graphs.md, read verbatim via the GitHub API) ·
+puppyone.ai, truefoundry.com, v12labs.io graph-engineering surveys (2026) · the
+DeepMind × MIT citation is carried as the skill cites it, unverified independently.
 
 ---
 

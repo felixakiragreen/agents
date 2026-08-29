@@ -1,6 +1,7 @@
 # C29 — the summon harness, after the dispatcher preset
 
-**Status:** OPEN — laid 2026-08-29 · **Depends on:** — · **Staffing:** Builder · opus-high
+**Status:** OPEN — laid 2026-08-29 · **Depends on:** — · **Staffing:** Builder · opus-high ·
+**Branch:** `bv/c29-summon-harness` (D74 — joined agents-flow-1 as a worktree lane, GA-15; G1 merges)
 
 ## Mission
 
