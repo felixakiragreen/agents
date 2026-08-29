@@ -1609,3 +1609,19 @@ on `master`.
    never is: **`charge c5` addresses nothing**, deliberately.
 
 (Relayed from `master`, C2 LANDED 2026-08-29 — Builder)
+
+## → relay — C3 (grep clock flake) to anyone probing `grep.ts`'s timeout path: one finding that binds
+
+Evidence: [c3-grep-clock.md](c3-grep-clock.md) §Findings, commit `7ab4f8a` on `master`.
+
+1. **`rg` parallelises across the files in one corpus, so a fast match in a small sibling file
+   streams out and is counted even while a slow sibling file in the SAME group is still being
+   killed by the clock.** A group reporting `timedOut: true` is not a guarantee of `hits.length
+   === 0` — that only holds when nothing in the group's corpus could possibly match before the
+   kill lands. Measured directly: mixing a ~17 MB non-matching filler file with `BOARD` (which
+   matches) in one group's file list still yielded `timedOut: true, hits.length === 1`, because
+   `BOARD`'s match was flushed to the pipe well before the 1 ms timer's `proc.kill()` landed on
+   the whole process. **Anyone forcing a timeout to test the bound must give the slow arm its own
+   corpus with no match anywhere in it — never mixed with a file that matches.**
+
+(Relayed from `master`, C3 LANDED 2026-08-29 — Builder)
