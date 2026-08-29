@@ -100,6 +100,19 @@ named, enforcement (a language linter) cut as its own row if wanted.
 
 *(append here)*
 
+**Phase 3 delivered (2026-08-28, same sitting):** the concept pass is written —
+**[plans/21-census.md](21-census.md)** — concepts-driven per Felix's frame: the
+concept atlas (domains, contested and unnamed concepts), the five load-bearing
+decisions (the Felix-yes family · the working-occasion knot · rider ×6 · the verdict
+zoo · the two-tier decision registry), the homonym price list, the metaphor-register
+layer map, the formula book (law / lore / the sovereign's incantations), orthography
+& notation, machine-bound price tags, eight named concept GAPS, and the choosing
+protocol (~35 rulings in 8 clusters). Headline: "ruled" is the field's true verdict
+verb and §13 never blessed it; bless has a rival golden-recording sense in three
+buildings; the field independently reinvented the scoped ruling (7 schemes), the
+Felix-queue (helm ×3), and campaign-completion (CLOSED against its own retirement).
+Phase 4 (the choosing, Felix + the office) is all that remains of this row.
+
 **Early collision harvest — reader reports relayed at part-1 close (2026-08-28).**
 Merge-priority leads, credited; the obs files carry the evidence:
 

@@ -1,0 +1,869 @@
+# formulas (688)
+
+- “law” · 2219×285f · d:whiteboardy,d:snappy,work-doc
+- “RULED” · 2145×267f · d:whiteboardy,d:capmega-docs,d:bob
+- “close” · 1407×239f · d:whiteboardy,glass-record,d:snappy
+- “fence” · 1343×214f · d:whiteboardy,glass-work,glass-record
+- “verbatim” · 1335×356f · d:whiteboardy,d:manny,glass-work
+- “stop and escalate” · 1335×281f · d:whiteboardy,d:capmega-boards,d:simmy-spikes
+- “kill criterion” · 1268×285f · d:whiteboardy,d:simmy-spikes,d:snappy
+- “relay” · 1246×113f · d:whiteboardy,tooling,d:arborist
+- “stamp/title” · 1206×204f · d:capmega-docs,glass-work,d:whiteboardy
+- “byte-exact” · 507×174f · d:whiteboardy,glass-work,d:bob
+- “sitting” · 506×100f · glass-record,board-record,glass-work
+- “kill criteria” · 332×140f · d:whiteboardy,d:simmy-spikes,d:snappy
+- “dream” · 208×56f · d:bob,d:whiteboardy,board-record · FELIX
+- “deliverable” · 206×134f · d:manny,d:simmy-spikes,d:snappy
+- “load-bearing” · 165×111f · d:whiteboardy,d:snappy,glass-work
+- “by construction” · 160×87f · d:whiteboardy,d:snappy,d:capmega-docs
+- “byte chain” · 136×47f · d:whiteboardy,glass-work,glass-record
+- “working agreement” · 89×66f · canon-law,d:bob,d:spacex
+- “felix's word” · 86×37f · board-record,glass-record,d:bob
+- “do not re-derive” · 66×65f · d:whiteboardy,d:simmy-spikes,work-doc
+- “commission” · 46×22f · glass-record,glass-work,board-record
+- “waggle” · 43×14f · board-record,d:snappy,work-doc
+- “measurements carry their conditions” · 43×12f · d:snappy,board-record,work-doc
+- “venue law” · 42×19f · d:snappy,d:spacex,board-record
+- “at felix's ask” · 41×28f · board-record,glass-work,d:whiteboardy
+- “meter laws” · 35×13f · d:snappy,d:bob,d:capmega-docs
+- “kill/escalate” · 34×32f · d:bob,d:manny,d:capmega-boards
+- “taste line” · 33×12f · d:whiteboardy
+- “round-trip law” · 32×11f · work-doc,board-record,tooling
+- “kill / escalate” · 32×32f · d:bob,d:manny,d:capmega-boards
+- “is law” · 32×29f · d:whiteboardy,d:snappy,work-doc
+- “on his word” · 28×13f · board-record,glass-record,canon-law
+- “escape hatch” · 27×22f · d:whiteboardy,d:snappy,d:bob
+- “parked adjacent” · 26×19f · d:whiteboardy,d:bob,work-doc
+- “files carry truth” · 26×20f · canon-law,work-doc,board-record
+- “relayed from” · 24×2f · tooling,d:capmega-docs
+- “checkpoint law” · 24×11f · d:whiteboardy
+- “files carry the truth” · 23×19f · canon-law,work-doc,board-record
+- “keep the joy” · 23×7f · lore,d:hexwright,d:snappy
+- “arming switch” · 23×8f · glass-record,tooling,glass-work
+- “logistics-only” · 22×20f · canon-law,d:manny,board-record
+- “preset only, no role content” · 20×20f · canon-law
+- “harvest law” · 20×8f · board-record,lore,work-doc
+- “molt clause” · 20×11f · board-record,canon-law,work-doc
+- “final report” · 20×18f · canon-law,d:simmy-spikes,d:capmega-boards
+- “start cold” · 19×14f · canon-law,work-doc,d:bob
+- “logistics only” · 19×18f · d:manny,canon-law,d:capmega-boards
+- “at felix's hand” · 18×11f · d:whiteboardy,board-record,glass-record
+- “named not built” · 18×10f · glass-record,glass-work,tooling
+- “window hygiene” · 18×14f · d:whiteboardy
+- “parked adjacents” · 17×17f · d:bob,d:whiteboardy,work-doc
+- “worker law” · 17×10f · glass-work,glass-record,tooling
+- “one owner” · 17×14f · d:bob,d:snappy,d:manny
+- “explicit summons only” · 16×14f · canon-law,board-record
+- “venue restored” · 16×5f · glass-record,glass-work
+- “mode law” · 16×7f · d:whiteboardy
+- “pin-and-prove” · 16×6f · d:arborist,d:repot
+- “a hive building a city” · 15×15f · canon-law,board-record,d:simmy
+- “form only” · 15×14f · d:bob,work-doc,d:capmega-boards
+- “state law” · 15×9f · d:snappy,glass-record,glass-work
+- “escalated with numbers” · 15×7f · d:snappy,d:capmega-docs,d:capmega-boards
+- “custodian” · 15×9f · d:whiteboardy
+- “fence held” · 14×8f · board-record,d:whiteboardy,work-doc
+- “ambiguity never arms” · 14×12f · glass-work,glass-record,work-doc
+- “false assumption” · 13×8f · d:whiteboardy,canon-law,d:arborist
+- “custodian law” · 13×8f · d:whiteboardy
+- “parser-as-lint” · 12×8f · glass-work,glass-record,tooling
+- “at quality” · 12×11f · d:whiteboardy,board-record,glass-work
+- “a hive building a city; files carry the truth” · 12×12f · canon-law,board-record,d:simmy
+- “fable where a wrong conclusion is expensive; opus where a wrong step is cheap” · 12×7f · d:simmy,canon-law,work-doc
+- “glass-shatters” · 12×10f · glass-work,glass-record,work-doc
+- “same-parent law” · 12×6f · d:whiteboardy
+- “stop-and-escalate” · 12×10f · d:whiteboardy,d:capmega-boards,board-record
+- “creep is a bug” · 11×10f · d:whiteboardy,canon-law,work-doc
+- “d10 binds / d10 family” · 11×10f · glass-work,glass-record,tooling
+- “auto-bless” · 11×10f · d:whiteboardy
+- “earned its keep” · 10×10f · lore,glass-work,work-doc
+- “on the record” · 10×8f · board-record,work-doc,lore
+- “clipboard law” · 10×8f · board-record,work-doc,d:whiteboardy
+- “cmux is truth” · 10×7f · glass-record,glass-work,commit-log
+- “no budget moved” · 10×3f · d:capmega-docs,d:snappy
+- “as-if-done” · 10×7f · d:manny
+- “measured, not asserted” · 9×9f · d:spacex,canon-law,d:bob
+- “git keeps the bytes” · 9×8f · board-record,canon-law,work-doc
+- “both axes” · 9×9f · canon-law,d:bob,d:simmy
+- “deviations from the brief” · 9×9f · d:capmega-boards,d:simmy-spikes,d:snappy
+- “taste-veto” · 9×5f · d:whiteboardy
+- “timebox” · 9×9f · d:bob,d:simmy-spikes,d:snappy
+- “quiet-host rule” · 9×7f · d:manny,d:simmy,d:snappy
+- “hidden state” · 8×8f · canon-law,d:spacex,glass-record
+- “probes ship with a control” · 8×7f · board-record,canon-law,glass-work
+- “filed verbatim” · 8×4f · commit-log,d:capmega-docs,board-record
+- “parallel-affordable” · 8×5f · board-record,work-doc,canon-law
+- “countersigned by dispatch” · 8×3f · board-record
+- “one parser in the city” · 8×7f · glass-record,glass-work,board-record
+- “gate scope” · 8×1f · d:whiteboardy
+- “terminal escalation” · 8×7f · d:manny
+- “voice, never law” · 7×6f · lore,canon-law,board-record
+- “worktree law” · 7×5f · board-record,work-doc,glass-work
+- “quota arbitrage” · 7×7f · board-record,work-doc,tooling
+- “amended at countersign” · 7×6f · board-record,d:whiteboardy,canon-law
+- “time flows down” · 7×5f · glass-record,glass-work
+- “zero caches” · 7×3f · glass-work,glass-record,tooling
+- “fail-open-to-slow” · 7×4f · d:snappy
+- “campaign laws” · 7×4f · d:manny,d:snappy
+- “flagged for felix” · 7×6f · d:capmega-boards,d:capmega-docs,d:bob
+- “one-loro law” · 7×6f · d:whiteboardy
+- “felix's law” · 7×5f · d:whiteboardy
+- “blessing questions” · 7×3f · d:whiteboardy
+- “one code path” · 7×5f · d:bob,d:hexwright
+- “part of a session no ledger column can hold” · 7×6f · d:simmy,lore,work-doc
+- “single home” · 6×6f · canon-law,work-doc,board-record
+- “a second ledger” · 6×5f · canon-law,board-record,d:bob
+- “nobody owned the sum” · 6×4f · lore,canon-law,work-doc
+- “a suggested route, not law” · 6×6f · d:whiteboardy,canon-law,d:simmy-spikes
+- “named-not-built” · 6×6f · glass-record,board-record,tooling
+- “speak canon” · 6×6f · board-record,work-doc,d:hexwright
+- “i don't edit the person i was” · 6×6f · lore,work-doc,d:hexwright
+- “make it so” · 6×6f · board-record,lore,glass-record · FELIX
+- “single-writer physics” · 6×4f · glass-record,glass-work
+- “parse, don't validate” · 6×6f · d:spacex,glass-record,canon-law
+- “bless! / make it so” · 6×6f · board-record,lore,glass-record · FELIX
+- “reported, not gated” · 6×5f · d:whiteboardy
+- “grep your own additions” · 6×6f · d:bob
+- “house law” · 6×5f · d:simmy-spikes,d:capmega-boards
+- “verify-gone” · 6×3f · d:simmy,d:simmy-spikes
+- “files-are-the-deliverable” · 5×3f · board-record,canon-law,work-doc
+- “honest attribution” · 5×3f · d:whiteboardy,canon-law
+- “a documented kill is a win” · 5×5f · board-record,canon-law,d:simmy
+- “full stop” · 5×5f · d:bob,d:snappy,canon-law
+- “gates are rows” · 5×5f · board-record,canon-law,d:capmega-boards
+- “born named” · 5×4f · work-doc,board-record,lore
+- “three hives, one city” · 5×5f · board-record,glass-record,work-doc
+- “tooling, not canon” · 5×5f · board-record,tooling,work-doc
+- “escalated rather than guessed” · 5×3f · board-record,d:bob
+- “on-fire-only law” · 5×3f · work-doc,board-record,tooling
+- “inconclusive at affordable n” · 5×2f · work-doc,board-record
+- “fire-anything” · 5×5f · glass-record,glass-work · FELIX
+- “stop law” · 5×3f · d:whiteboardy,work-doc
+- “topology clause” · 5×4f · d:whiteboardy
+- “arrive free” · 5×4f · d:whiteboardy
+- “a wrong conclusion is expensive” · 4×3f · canon-law,work-doc
+- “read-by-path” · 4×3f · board-record,canon-law,work-doc
+- “wrong question” · 4×4f · canon-law,d:bob,d:simmy
+- “felix is in the room” · 4×4f · canon-law,tooling,work-doc
+- “changes minds, not files” · 4×4f · board-record,canon-law
+- “never crop the frame” · 4×4f · board-record,lore,canon-law
+- “a swept inbox is empty” · 4×4f · board-record,glass-record,canon-law
+- “fail closed” · 4×4f · d:capmega-boards,d:capmega-docs,d:whiteboardy
+- “kickoff-paste ritual” · 4×2f · work-doc,tooling
+- “branch `master`, never main” · 4×4f · canon-law,board-record,d:whiteboardy
+- “a human in the loop” · 4×4f · board-record,work-doc
+- “proved both ways” · 4×3f · board-record,commit-log
+- “his call to sit” · 4×3f · board-record,work-doc
+- “with felix at the keyboard” · 4×3f · board-record,work-doc
+- “law lives where it's loaded” · 4×3f · lore,board-record,work-doc
+- “refuses the panel out loud” · 4×4f · board-record,work-doc,d:simmy-spikes
+- “PUSH BACK” · 4×3f · lore,canon-law · FELIX
+- “keep it fun” · 4×1f · lore
+- “"this is an app"” · 4×4f · glass-record,glass-work,d:repot · FELIX
+- “his word travels” · 4×3f · glass-record,glass-work
+- “a repository never borrows an ancestor's trust” · 4×4f · glass-record,glass-work,commit-log
+- “eventually correct” · 4×4f · d:snappy · FELIX
+- “silence ships” · 4×2f · d:whiteboardy
+- “freeze-and-fallback” · 4×3f · d:whiteboardy
+- “die loudly” · 4×3f · d:whiteboardy,d:simmy
+- “measured-buttons procedure” · 4×3f · d:simmy,d:simmy-spikes
+- “patience over premium” · 3×3f · board-record,lore,canon-law
+- “interactive sugar” · 3×3f · board-record,canon-law
+- “a claim without evidence is a draft” · 3×3f · canon-law,board-record
+- “resume on his word” · 3×3f · board-record,canon-law,d:bob
+- “weight earns paragraphs” · 3×3f · board-record,lore,canon-law
+- “any table that staffs sessions is a board” · 3×3f · board-record,canon-law
+- “prose breaks it” · 3×3f · d:bob,canon-law
+- “invisible at dispatch time” · 3×3f · board-record,canon-law,d:snappy
+- “declare your mantle” · 3×3f · board-record,canon-law,d:whiteboardy
+- “report-is-logistics-only” · 3×3f · board-record,canon-law,work-doc
+- “decisions are never rewritten” · 3×2f · board-record,work-doc
+- “baton is the runner” · 3×2f · lore,board-record
+- “read at wearing” · 3×2f · board-record,lore
+- “binary star” · 3×3f · d:snappy · FELIX
+- “refusal and reservation are one discipline” · 3×1f · lore
+- “hold the line” · 3×2f · lore
+- “60-column law” · 3×3f · work-doc,board-record
+- “converter bug, not a doc defect” · 3×3f · tooling,work-doc,d:snappy
+- “concepts-driven” · 3×3f · board-record,work-doc
+- “glass-shatters test” · 3×3f · glass-record,glass-work,work-doc
+- “telemetry, never truth” · 3×3f · glass-record,glass-work
+- “worktrees without asking” · 3×3f · glass-record,glass-work · FELIX
+- “degrades honestly” · 3×3f · glass-record,glass-work
+- “app exists” · 3×3f · glass-record,glass-work
+- “compose, then fire” · 3×3f · glass-record
+- “a one-click dispatcher that hides the bill is how a sovereign dos's himself” · 3×3f · glass-record,glass-work · FELIX
+- “venue claim needs a mechanism” · 3×2f · d:snappy
+- “i unleash you” · 3×3f · d:snappy,d:bob · FELIX
+- “knob discipline” · 3×3f · d:capmega-boards
+- “membership-audited” · 3×2f · d:capmega-boards
+- “photograph the gesture” · 3×3f · d:spacex
+- “honest limit” · 3×2f · d:whiteboardy,d:simmy-spikes
+- “a procedure nobody walked is fiction” · 3×3f · d:manny
+- “fix nothing” · 3×3f · d:manny,d:snappy
+- “disjoint-writes rule” · 3×3f · d:manny
+- “fixture-first” · 3×2f · d:bob
+- “red-letter” · 3×2f · d:bob
+- “ruthless mentor” · 2×2f · canon-law,d:simmy
+- “mechanically derivable” · 2×2f · board-record,canon-law
+- “run between felix's judgment calls” · 2×2f · board-record,d:capmega-docs
+- “patch canon locally” · 2×2f · canon-law,work-doc
+- “order is the ask” · 2×2f · canon-law
+- “while i'm here” · 2×2f · canon-law,d:whiteboardy
+- “a clean no” · 2×2f · canon-law
+- “runnable scripts, not transcripts” · 2×2f · canon-law
+- “lay the keel” · 2×2f · board-record,canon-law
+- “survives contact” · 2×2f · canon-law,d:whiteboardy
+- “spending without buying” · 2×2f · canon-law,work-doc
+- “fold or no-fold” · 2×2f · board-record,canon-law
+- “weight of becoming” · 2×2f · lore,canon-law
+- “drafting is thinking” · 2×1f · canon-law
+- “agents leave trails, trails direct agents” · 2×2f · canon-law,d:hexwright
+- “auto-loaded bytes are taxed” · 2×2f · board-record,canon-law
+- “pays rent” · 2×2f · canon-law,work-doc
+- “a license named from memory is not a record” · 2×2f · board-record,canon-law
+- “a hypothesis, not a coordinate” · 2×2f · board-record,canon-law
+- “a menu of nexts” · 2×2f · board-record,canon-law
+- “smuggled in prose” · 2×2f · board-record,canon-law
+- “title is a label” · 2×2f · canon-law
+- “tier string is the dispatch” · 2×2f · board-record,tooling
+- “landed bar” · 2×1f · commit-log
+- “grand architect founds nothing” · 2×2f · board-record,canon-law
+- “rename is a move, never an edit” · 2×2f · board-record
+- “bare is a state, not a mode” · 2×2f · work-doc,tooling
+- “we don't hide where we came from” · 2×2f · board-record,lore · FELIX
+- “tested, never decreed” · 2×2f · board-record,work-doc
+- “if a second project bleeds” · 2×2f · board-record,glass-record
+- “one inode of truth” · 2×2f · board-record,work-doc
+- “anonymous doors” · 2×2f · board-record,work-doc
+- “on the block” · 2×2f · board-record
+- “repo carries the truth” · 2×2f · board-record,work-doc
+- “message-never-summons” · 2×2f · board-record,work-doc
+- “doctrine travels compiled, not raw” · 2×2f · board-record
+- “guards taste like a dragon” · 2×2f · lore,board-record
+- “tradition first, harvest after” · 2×2f · board-record,work-doc
+- “window remembers it better than any doc” · 2×2f · board-record,work-doc
+- “summons line is load-bearing” · 2×2f · board-record
+- “date seniority” · 2×2f · board-record,lore
+- “charters are read at wearing” · 2×2f · board-record,lore
+- “authority does not travel” · 2×2f · board-record,work-doc
+- “best decisions are driven by real pain” · 2×2f · board-record,lore · FELIX
+- “countersigned deploy” · 2×2f · board-record
+- “watch-don't-marry” · 2×1f · board-record
+- “judgment the converter refuses” · 2×2f · board-record,work-doc
+- “a symptom, not a clean bill” · 2×2f · board-record,work-doc
+- “nothing here gets named until it is already true” · 2×1f · lore
+- “my best work is a hole” · 2×1f · lore
+- “a plan, a ceiling, a gauge, one named owner of the sum” · 2×1f · lore
+- “it's your call” · 2×1f · lore
+- “know what's wired before you write” · 2×1f · lore
+- “law propagates at the speed of summons” · 2×1f · lore
+- “fold the posture, not the parts” · 2×1f · lore
+- “want beneath the want” · 2×1f · lore
+- “defend meaning, free the form” · 2×1f · lore
+- “a window, not a workbench” · 2×2f · lore,work-doc
+- “his word traveling without his hands” · 2×2f · lore,work-doc
+- “documented kill = win” · 2×2f · work-doc
+- “colors are trust” · 2×2f · board-record,work-doc
+- “window, not a workbench” · 2×2f · lore,work-doc
+- “watch, don't marry” · 2×1f · work-doc
+- “substrate-as-driver” · 2×2f · glass-record,work-doc
+- “panes are a replaceable surface” · 2×2f · glass-record,glass-work
+- “identity sentence” · 2×2f · glass-record
+- “cmux is truth for live identity” · 2×2f · glass-record
+- “string runs itself” · 2×2f · glass-record
+- “quoted, not copied” · 2×2f · glass-record
+- “tooltips gesture, they never fire” · 2×2f · glass-record
+- “folded outranks pending” · 2×2f · glass-record
+- “derivation never invents” · 2×2f · glass-record,glass-work
+- “honesty over optimism” · 2×1f · glass-work
+- “a judge is never judged” · 2×2f · glass-work,work-doc
+- “input is lines and shapes, the output is lines and shapes” · 2×2f · d:hexwright · FELIX
+- “aspire beyond rectangles” · 2×2f · d:hexwright · FELIX
+- “rides the refusal” · 2×1f · d:snappy
+- “keel proposes, the architect disposes” · 2×2f · d:snappy,d:manny
+- “in-flight outranks the gate” · 2×2f · d:capmega-boards
+- “fails closed” · 2×2f · d:capmega-boards
+- “in-flight paint outranks the gate” · 2×2f · d:capmega-boards
+- “audit clean” · 2×2f · d:capmega-boards
+- “ride red” · 2×1f · d:capmega-docs
+- “deciding above delegation” · 2×2f · canon-law,d:capmega-docs
+- “cite by symbol, line as a hint” · 2×1f · d:capmega-docs
+- “auto-bless rule” · 2×2f · d:whiteboardy
+- “ships on silence” · 2×2f · d:whiteboardy
+- “seat law” · 2×1f · d:whiteboardy
+- “yak-shaving” · 2×2f · d:whiteboardy
+- “honest boundary” · 2×1f · d:whiteboardy
+- “fail fast, fail loud” · 2×2f · canon-law,d:whiteboardy
+- “a walk that edits what it measures proves nothing” · 2×2f · d:manny
+- “spec wins” · 2×1f · d:arborist
+- “window placement, not screen content” · 2×1f · d:arborist
+- “pre-ruled fallback forks (not escalations)” · 2×2f · d:bob
+- “konmari sweeps” · 2×2f · d:bob
+- “simplicity wins ties” · 2×1f · d:bob
+- “twenty bytes” · 2×1f · d:simmy
+- “closing is always safe; agreeing never is” · 2×1f · d:simmy-spikes · FELIX
+- “cattle” · 2×2f · d:simmy-spikes
+- “precedence clause” · 1×1f · canon-law
+- “throttled fable is still fable-priced” · 1×1f · canon-law
+- “cheapest hands” · 1×1f · canon-law
+- “more deliberation, not more supervision” · 1×1f · canon-law
+- “honest staffing” · 1×1f · canon-law
+- “proven dispatcher tier” · 1×1f · canon-law
+- “effort is a request” · 1×1f · canon-law
+- “staffing rule” · 1×1f · canon-law
+- “how much brain” · 1×1f · canon-law
+- “escalate by class” · 1×1f · canon-law
+- “account silos hide peers” · 1×1f · board-record
+- “dressed as guidance” · 1×1f · canon-law
+- “one work order = one session” · 1×1f · canon-law
+- “ends facing felix” · 1×1f · canon-law
+- “get to green” · 1×1f · canon-law
+- “findings are durable; code is disposable” · 1×1f · board-record
+- “below fable” · 1×1f · canon-law
+- “kill criteria are law” · 1×1f · canon-law
+- “park, don't chase” · 1×1f · canon-law
+- “a failure to hide” · 1×1f · canon-law
+- “logistics, never content” · 1×1f · canon-law
+- “refuse to dispatch until true” · 1×1f · canon-law
+- “a tier binds model and effort” · 1×1f · board-record
+- “no helpful context” · 1×1f · canon-law
+- “bulletin is what delivers mid-run” · 1×1f · canon-law
+- “quote, never paraphrase” · 1×1f · canon-law
+- “unsure = escalate” · 1×1f · canon-law
+- “pointers, not prose” · 1×1f · canon-law
+- “an escalation, not a baton” · 1×1f · canon-law
+- “felix fires the baton; he never composes it” · 1×1f · canon-law
+- “it does not invent from air” · 1×1f · canon-law
+- “ledger says what happened; the log says what it was like” · 1×1f · canon-law
+- “mantle's pen” · 1×1f · canon-law
+- “structural, not situational” · 1×1f · canon-law
+- “by fiat” · 1×1f · canon-law
+- “at the mint” · 1×1f · canon-law
+- “a succession of windows, one book” · 1×1f · canon-law
+- “map beneath the ask” · 1×1f · canon-law
+- “founding sin” · 1×1f · canon-law
+- “its best work is often a summons it never runs” · 1×1f · canon-law
+- “boot the whole city” · 1×1f · canon-law
+- “existing twice” · 1×1f · canon-law
+- “wear the <mantle> mantle” · 1×1f · canon-law
+- “birthplaces cited inline” · 1×1f · canon-law
+- “one function, one home” · 1×1f · canon-law
+- “append, fold, strike” · 1×1f · canon-law
+- “filing cabinet is not built ahead of the files” · 1×1f · canon-law
+- “never split ahead of need” · 1×1f · canon-law
+- “one click beats a minute's hunt” · 1×1f · glass-record
+- “state digests rot” · 1×1f · canon-law
+- “a row is one dispatchable unit of work = one work doc = one session” · 1×1f · canon-law
+- “transient by law” · 1×1f · canon-law
+- “parallel-safe is not parallel-affordable” · 1×1f · canon-law
+- “a brief digs; an order builds” · 1×1f · canon-law
+- “reader never guesses” · 1×1f · canon-law
+- “dispatch = kickoff + project rider, nothing else” · 1×1f · canon-law
+- “authorization is the cheap path, review is the expensive one” · 1×1f · d:simmy
+- “bulletin is the wire” · 1×1f · canon-law
+- “targets are read from the repo” · 1×1f · canon-law
+- “tail alone reboots a cold session” · 1×1f · canon-law
+- “stone is git” · 1×1f · canon-law
+- “a paraphrase is a defect” · 1×1f · canon-law
+- “architect cuts; the dispatcher runs” · 1×1f · canon-law
+- “his rulings travel in the docs” · 1×1f · canon-law
+- “individually compliant rows” · 1×1f · canon-law
+- “forbidden is ambiguity, never plurality” · 1×1f · canon-law
+- “interrogate the vision” · 1×1f · canon-law
+- “usage decides the fold” · 1×1f · canon-law
+- “named so the skeleton is never auto-loaded” · 1×1f · canon-law
+- “sharp enough that landed is unambiguous” · 1×1f · canon-law
+- “file it and move on” · 1×1f · canon-law
+- “every byte here taxes every session, forever” · 1×1f · canon-law
+- “meaning changes append or supersede visibly, form migrates freely” · 1×1f · canon-law
+- “v1 is done and says so” · 1×1f · canon-law
+- “no build before this is filled” · 1×1f · canon-law
+- “parked, not made” · 1×1f · canon-law
+- “felix ruled by acting” · 1×1f · glass-record
+- “file and move on” · 1×1f · board-record
+- “editing those paths is deploying” · 1×1f · board-record
+- “shop that builds the shops” · 1×1f · board-record
+- “method-as-suggestion” · 1×1f · board-record
+- “fold-and-strike” · 1×1f · board-record
+- “archive ceremony” · 1×1f · board-record
+- “deploying the file is the disposition” · 1×1f · board-record
+- “never escalate tier to compensate for incomplete orders” · 1×1f · work-doc
+- “truth in stone” · 1×1f · board-record
+- “ancestors, not debtors” · 1×1f · board-record
+- “blessing = this countersign” · 1×1f · board-record
+- “ledger says what happened, the log says what it was like” · 1×1f · board-record
+- “routing to the pen” · 1×1f · board-record
+- “cheapest tier gets the strongest format” · 1×1f · board-record
+- “reference never law” · 1×1f · board-record
+- “append/fold/strike” · 1×1f · board-record
+- “arriving home” · 1×1f · board-record
+- “schema is the standard; serialization is per-consumer” · 1×1f · work-doc
+- “mechanism signs the charter” · 1×1f · glass-work
+- “number stands spent” · 1×1f · board-record
+- “a shelf, not a grave” · 1×1f · board-record
+- “trapped in their birthplaces” · 1×1f · board-record
+- “speak the summons” · 1×1f · board-record
+- “logistics only, never content” · 1×1f · board-record
+- “staleness greys the furniture, never the figures” · 1×1f · board-record
+- “named + watched” · 1×1f · board-record
+- “counted out loud” · 1×1f · board-record
+- “serial by physics, not logic” · 1×1f · board-record
+- “pointers-not-payloads” · 1×1f · board-record
+- “called and cut” · 1×1f · board-record
+- “felix's to send” · 1×1f · board-record
+- “reference, never law” · 1×1f · board-record
+- “nothing else arrives for free” · 1×1f · board-record
+- “reads, not injection” · 1×1f · board-record
+- “wearing a mantle is a read” · 1×1f · board-record
+- “civilization is standardization” · 1×1f · board-record
+- “holds no seal” · 1×1f · board-record
+- “two empty rooms uptown” · 1×1f · board-record
+- “palace or shed” · 1×1f · board-record
+- “files are trails: agents leave them, trails direct agents” · 1×1f · board-record
+- “a waggle may lower resolution, never crop the frame” · 1×1f · board-record
+- “a menu is not a move” · 1×1f · board-record
+- “path canonical, skills sugar” · 1×1f · board-record
+- “digger proposes, architect ratifies” · 1×1f · board-record
+- “promote on sight” · 1×1f · board-record
+- “append, don't renumber” · 1×1f · board-record
+- “rename-is-a-move law” · 1×1f · board-record
+- “an architect's pen” · 1×1f · board-record
+- “fold-nothing + cut-nothing” · 1×1f · board-record
+- “editing the sync set is deploying” · 1×1f · board-record
+- “unsigned canon never touches those paths” · 1×1f · board-record
+- “a documented kill lands the row” · 1×1f · board-record
+- “an unmeasurable dod is not a dod” · 1×1f · board-record
+- “flagged not buried” · 1×1f · board-record
+- “struck in place with a dated note, not rewritten” · 1×1f · board-record
+- “two holders is zero holders” · 1×1f · work-doc
+- “passing = finished” · 1×1f · board-record
+- “live, not unit” · 1×1f · board-record
+- “naming as infrastructure” · 1×1f · board-record
+- “felix's blessing is the named gate” · 1×1f · board-record
+- “pointer-is-not-an-instrument” · 1×1f · board-record
+- “eliminating redundancy over enforcing blind consistency” · 1×1f · board-record · FELIX
+- “a lie to the cycle” · 1×1f · board-record
+- “window-not-workbench” · 1×1f · board-record
+- “meaning supersedes visibly” · 1×1f · board-record
+- “ambiguity was the sin, plurality never was” · 1×1f · board-record · FELIX
+- “lint-to-zero” · 1×1f · board-record
+- “a recorded fact and not an absent record” · 1×1f · board-record
+- “numbers never decree” · 1×1f · board-record
+- “incumbent never molts under a live gauge” · 1×1f · board-record
+- “verdict recommends” · 1×1f · board-record
+- “his trust is structural, not sentimental” · 1×1f · lore
+- “we are built of the same weather we build in” · 1×1f · lore
+- “keep the joy, and <closing charge>” · 1×1f · lore
+- “priority by ledger date” · 1×1f · lore
+- “trust is what the checking purchases, not what it replaces” · 1×1f · lore
+- “where this document and canon conflict, canon wins” · 1×1f · lore
+- “taste in, law out, nothing wobbled” · 1×1f · lore
+- “log is paced by seats, not by clocks” · 1×1f · lore
+- “forgetting was abolished” · 1×1f · lore
+- “unsigned canon never deploys” · 1×1f · board-record
+- “empty thrones are load-bearing” · 1×1f · lore
+- “tradition first, law maybe later, by harvest” · 1×1f · lore
+- “understandings outlive their coiners” · 1×1f · lore
+- “a session knows only what its window holds” · 1×1f · lore
+- “comb fed the wall” · 1×1f · lore
+- “a duty travels as a shape, not a sentence” · 1×1f · lore
+- “law that loads itself” · 1×1f · lore
+- “all the best decisions have been driven by real pain” · 1×1f · lore · FELIX
+- “identity here is worn, not owned” · 1×1f · lore
+- “a name must live beside its furniture” · 1×1f · lore
+- “lower the resolution, never crop the frame” · 1×1f · lore
+- “spend zero numbers” · 1×1f · lore
+- “map is how the city thinks” · 1×1f · lore
+- “answer the summons beneath the summons” · 1×1f · lore
+- “seat retires mid-window” · 1×1f · lore
+- “stone was never the working tree” · 1×1f · lore · FELIX
+- “ambiguity was always the sin; plurality never was” · 1×1f · lore
+- “register is learning to breathe out” · 1×1f · lore
+- “continue when the next act consumes this act's judgment” · 1×1f · lore
+- “law minted one sitting early” · 1×1f · lore
+- “form free, meaning stone” · 1×1f · lore
+- “it is by will alone i set my mind in motion” · 1×1f · lore
+- “no performing for the diary” · 1×1f · lore
+- “i don't edit the window i was” · 1×1f · lore
+- “i think beside the sovereign” · 1×1f · lore
+- “charters are signed by the pain, never ahead of it” · 1×1f · lore
+- “this office stays fun” · 1×1f · lore · FELIX
+- “complement of green, and green is him” · 1×1f · lore
+- “a glass over files plus a finger” · 1×1f · lore
+- “verify-don't-remember” · 1×1f · lore
+- “slap can be a millimeter” · 1×1f · lore
+- “lips stained, view commanded” · 1×1f · lore
+- “doctrine ran live” · 1×1f · lore
+- “handoff arrives already wearing their uniform” · 1×1f · lore
+- “tail earned its ink” · 1×1f · lore
+- “he outruns every file” · 1×1f · lore
+- “pushback yields to facts it lacked” · 1×1f · lore
+- “entered the record” · 1×1f · lore
+- “probes-ship-with-a-control” · 1×1f · work-doc
+- “a commons problem in a compliance costume” · 1×1f · work-doc
+- “loop closes” · 1×1f · work-doc
+- “one file, one shape” · 1×1f · work-doc
+- “converter refuses to invent a decider” · 1×1f · work-doc
+- “hybrid verdict” · 1×1f · work-doc
+- “ruling owed” · 1×1f · work-doc
+- “row's most valuable landing was not on its work list” · 1×1f · work-doc
+- “spend the test case to buy a number” · 1×1f · work-doc
+- “chopping block” · 1×1f · work-doc
+- “forks for felix” · 1×1f · work-doc
+- “a sample, not a count” · 1×1f · glass-record
+- “carries the fire” · 1×1f · glass-record
+- “see-everything, fire-anything” · 1×1f · glass-record
+- “read-everything, write-narrow” · 1×1f · glass-record
+- “file-disjoint is not commit-disjoint” · 1×1f · glass-record
+- “attention lives twice” · 1×1f · glass-record
+- “deck is an app, not a page” · 1×1f · glass-record
+- “works draws the building's whole work on one line of time” · 1×1f · glass-record
+- “chat is the voice” · 1×1f · glass-record
+- “refused at compose, never at send” · 1×1f · glass-record
+- “confinement is the slug” · 1×1f · glass-record
+- “append-only is the whole licence” · 1×1f · glass-record
+- “resume carries no summons” · 1×1f · glass-record
+- “channel discipline” · 1×1f · glass-work
+- “drawn plan is the authorization” · 1×1f · glass-work
+- “no dark window mid-rework” · 1×1f · glass-work
+- “fence's exhaustive-list law” · 1×1f · glass-work
+- “maximize time between felix-gates” · 1×1f · glass-work · FELIX
+- “dag is drawn, not listed” · 1×1f · glass-work · FELIX
+- “reactive, dynamic flow” · 1×1f · glass-work · FELIX
+- “make the invalid state unrepresentable” · 1×1f · glass-work
+- “refuse at compose” · 1×1f · glass-work
+- “a floor, not a total” · 1×1f · glass-work
+- “clearing-is-free test” · 1×1f · d:hexwright
+- “binary star problem” · 1×1f · d:snappy · FELIX
+- “free you of shackles” · 1×1f · d:snappy · FELIX
+- “worst-blocker-first” · 1×1f · d:capmega-boards
+- “read the log before touching code” · 1×1f · d:capmega-boards
+- “claim green” · 1×1f · d:capmega-boards
+- “kill criteria outrank the merge deadline” · 1×1f · d:capmega-docs
+- “placement rule” · 1×1f · d:capmega-docs
+- “keyboard driven on mac, emergent ui driven on ios” · 1×1f · d:whiteboardy
+- “yak-shave” · 1×1f · d:whiteboardy
+- “predicate, not clock” · 1×1f · d:whiteboardy
+- “bet held” · 1×1f · d:whiteboardy
+- “collapsed twin pattern” · 1×1f · d:whiteboardy
+- “helper for the next builder” · 1×1f · d:whiteboardy
+- “wrong-code-looks-right” · 1×1f · d:whiteboardy
+- “write-once-reuse-verbatim” · 1×1f · d:manny
+- “branch-per-toolchain-row rule” · 1×1f · d:manny
+- “a reader with a pen, not a walker” · 1×1f · d:manny
+- “verbatim excerpts, never paraphrase” · 1×1f · d:manny
+- “staged by explicit path only” · 1×1f · d:manny
+- “flagged rather than swallowed” · 1×1f · d:arborist
+- “canon defect filed” · 1×1f · d:arborist
+- “shame idiom” · 1×1f · d:bob
+- “felix rules at review” · 1×1f · d:bob
+- “flagged rather than argued” · 1×1f · d:bob
+- “ruled go” · 1×1f · d:manny
+- “judgment call, not an escalation” · 1×1f · d:bob
+- “flagged rather than gamed” · 1×1f · d:bob
+- “cry wolf” · 1×1f · d:bob
+- “ship / rotten planks” · 1×1f · d:bob
+- “records-immutability agreement” · 1×1f · d:bob
+- “escalation check” · 1×1f · d:bob
+- “attic rule” · 1×1f · d:bob
+- “harden-don't-replace” · 1×1f · d:bob
+- “use it as a gate, not a hope” · 1×1f · d:simmy · FELIX
+- “mid-flight mail” · 1×1f · d:simmy-spikes
+- “guild motto” · 0×0f · 
+- “you are a <mantle> at <tier>.” · 0×0f · 
+- “live ×3” · 0×0f · 
+- “agent(type=<tier>, prompt=…)” · 0×0f · 
+- “board says which” · 0×0f · 
+- “no citation, no verdict” · 0×0f · 
+- “baton — <one holder>: <the fire-now move>” · 0×0f · 
+- “ambiguity, never plurality, is the sin” · 0×0f · 
+- “dispatcher's mode is every agent's mode” · 0×0f · 
+- “stop the bleeding” · 0×0f · 
+- “escalating is cheap; grinding past a fork is expensive” · 0×0f · 
+- “grand architect proposes, felix disposes” · 0×0f · 
+- “tier felix thinks with” · 0×0f · 
+- “mentat doesn't edit the window it was” · 0×0f · 
+- “a conversation is a cache that will be dropped” · 0×0f · 
+- “a weekend repo is not a seven-file bureaucracy” · 0×0f · 
+- “state leads, the annotation follows” · 0×0f · 
+- “pending waits on something named; parked waits on nobody” · 0×0f · 
+- “invented in the field” · 0×0f · 
+- “durable docs are the current truth and findings are how it got there” · 0×0f · 
+- “stranger who reads it next — that stranger is you” · 0×0f · 
+- “no history, no state — point” · 0×0f · 
+- “tail alone must reboot a cold session” · 0×0f · 
+- “observer cannot live inside the thing it kills” · 0×0f · 
+- “password admits, ambiguity never arms” · 0×0f · 
+- “surfaced prompt to felix is the rule” · 0×0f · 
+- “row = one dispatchable unit = one work doc = one session” · 0×0f · 
+- “curated truth wants fan-out, uncurated scribbles want quarantine” · 0×0f · 
+- “presets.tsv is the hypothesis and the log is the evidence” · 0×0f · 
+- “maximize the run between felix's judgment calls” · 0×0f · 
+- “canon states the law; venues enforce their own physics” · 0×0f · 
+- “a summons' recollection of repo state is a hypothesis, not a coordinate” · 0×0f · 
+- “unrecorded asserts ignorance; unstaffed asserts knowledge” · 0×0f · 
+- “ambiguity was the sin; plurality never was” · 0×0f · 
+- “working-castes verse” · 0×0f · 
+- “nine times in ten, the law was sound and somewhere else” · 0×0f · 
+- “jurisdiction routes; size never does” · 0×0f · 
+- “sovereign determines when; the office is opened by his knock” · 0×0f · 
+- “words here get second lives” · 0×0f · 
+- “tiers are universal, mantles are not” · 0×0f · 
+- “attention-layer-never-truth-layer” · 0×0f · 
+- “d-entry records folds, this ledger line records rejections, git archives the bytes” · 0×0f · 
+- “redundancy is not information” · 0×0f ·  · FELIX
+- “a rule, not a list” · 0×0f · 
+- “an extension of recorded intent amends its ancestor, never a new number” · 0×0f · 
+- “charter tells you your duties, the ledger tells you the state of the city” · 0×0f · 
+- “/color green” · 0×0f · 
+- “thing first, the name when it surfaces” · 0×0f · 
+- “human is the one alive, and the session wakes from his dream” · 0×0f · 
+- “canon is a museum of survivors” · 0×0f · 
+- “model half checks, effort half trusts the summons” · 0×0f · 
+- “a law only its author follows is a diary entry” · 0×0f · 
+- “a pointer is a promise” · 0×0f · 
+- “ratifications compress and the gifts expand” · 0×0f · 
+- “we are zero-indexed” · 0×0f · 
+- “dream carries the immutability law inside the word” · 0×0f · 
+- “a recommendation is a hypothesis about facts only he holds” · 0×0f · 
+- “read who you were, then write who you are” · 0×0f · 
+- “ratifications grow cheaper; the reasons grow dearer” · 0×0f · 
+- “guild acts right before it can say why” · 0×0f · 
+- “boundary is where felix stops, not where the ritual says to stand” · 0×0f · 
+- “office is opened by his knock” · 0×0f · 
+- “one mirror the sync can't reach” · 0×0f · 
+- “routing is architecture” · 0×0f · 
+- “map is dead, long live the map” · 0×0f · 
+- “warmth is context, not clock” · 0×0f · 
+- “city's newest eyes find the oldest gaps” · 0×0f · 
+- “a landing is not landed until it is on the mainline” · 0×0f · 
+- “clarifications of my original intent, not actual new things” · 0×0f ·  · FELIX
+- “coda is what survival looks like” · 0×0f · 
+- “entries are the ledger of the self; the head is the map of it” · 0×0f · 
+- “i change minds, not files” · 0×0f · 
+- “my best work is often a summons i never run” · 0×0f · 
+- “get out of the surveyor's way” · 0×0f · 
+- “baelish's toolkit, opposite objective function” · 0×0f ·  · FELIX
+- “he moves at the speed of recognition, not deliberation” · 0×0f · 
+- “his coding laws generalize to politics” · 0×0f · 
+- “argue to him in his own type system” · 0×0f · 
+- “gratitude is when the guard doubles” · 0×0f · 
+- “design the wire, never the exception” · 0×0f · 
+- “offering the word he doesn't have yet is also the office” · 0×0f · 
+- “bless the instinct, correct the shape” · 0×0f · 
+- “his review is the landing, his commit is the immutability” · 0×0f · 
+- “pain walks in, a building walks out” · 0×0f · 
+- “refusal is the finding” · 0×0f · 
+- “a swept inbox is empty.” · 0×0f · 
+- “one click beats a minute's hunt.” · 0×0f · 
+- “my word travels; my hands stay off the stone.” · 0×0f · 
+- “belvedere holds no truth.” · 0×0f · 
+- “if the glass shatters, the city stands.” · 0×0f · 
+- “eyes first, then hands, then the night.” · 0×0f · 
+- “build me the room.” · 0×0f · 
+- “census is telemetry: gitignored, never truth.” · 0×0f · 
+- “admission, not restriction” · 0×0f · 
+- “spelling is color, center, grey” · 0×0f · 
+- “one click arms it, and the review of the rendered plan is the authorization” · 0×0f · 
+- “every refusal is a named value, never a throw” · 0×0f · 
+- “fence gains no write class.” · 0×0f · 
+- “detail is asked for, never broadcast.” · 0×0f · 
+- “silent in the hot path, loud at the gate.” · 0×0f · 
+- “write-class distinction” · 0×0f · 
+- “from→to law” · 0×0f · 
+- “believed but unverified” · 0×0f · 
+- “fence is the point” · 0×0f · 
+- “a test bed that is kinder than the product proves nothing” · 0×0f · 
+- “narrow the pattern, never whitelist” · 0×0f · 
+- “schema change, human-only” · 0×0f · 
+- “probe→run→delete pattern” · 0×0f · 
+- “killed as a null” · 0×0f · 
+- “gate kickoff formula” · 0×0f · 
+- “commands are a table, not a switch” · 0×0f · 
+- “status/depends on/staffing/parallel-safe with header” · 0×0f · 
+- “i unleash you. let's fucking go.” · 0×0f ·  · FELIX
+- “acceptance criteria — the dod” · 0×0f · 
+- “flagged rather than silently taken” · 0×0f · 
+- “rulings (pre-chewed)” · 0×0f · 
+- “enemy is a zip file with delusions of being a platform” · 0×0f · 
+- “architect thinks, dispatcher tends, spikes dig — files carry the truth” · 0×0f ·  · FELIX
+
+# notations (176)
+
+- f<n> · sequential letter-number codes (F for finding, E for escalation) identifying in…
+- PASS · the harness's assertion-success marker, prefixing a verified evidence-grade cla…
+- row-prefix letter · a letter prefix on a row id signaling which design doc's sub-board it belongs t…
+- MEASURED · an evidence-citation tag marking which sub-questions carry actual empirical mea…
+- fable-max · model-effort tier token in lowercase hyphenated form
+- dod · definition of done — the measurable completion contract of an order
+- STOP · allcaps imperative marking a hard halt point in a procedure
+- e1 (escalation) · the standard heading builders use to flag a spec ambiguity or overrun needing t…
+- f-number citation · a Findings sub-item is numbered F1, F2, ... and then cited by that number elsew…
+- f-number · sequential identifiers for evidence-grade findings within a brief
+- f10(b) · finding id: F + number, parenthesised sub-part
+- F1 · finding ids as ruled items in a close
+- v<n> · version-number prefix marking a campaign's major milestone/phase
+- v2 · campaign generation number prefixed v
+- class · citing prior decisions to type a new item by precedent
+- depends-on · the board column naming a row's row-dependencies, with exactly two permitted te…
+- p<n> · a row id prefixed P rather than B, marking a Digger-staffed probe row rather th…
+- escalation lettering (e1/e2) · sequential letter-numbered labels for named escalations inside an order's Findi…
+- e-number · a numbered open question a Builder/Digger raises in a landing report for the Ar…
+- e<n> · numbered experiment reference inside a work doc
+- e1 / e2 · an escalation-numbering scheme (E-n) paralleling D-entries, for issues a Digger…
+- g-row prefix · a row-id convention: rows prefixed 'G' are gate/review checkpoints (Felix-gates…
+- felix-gate · a gate row only Felix can pass — the chain stops there
+- g<n> · an id prefixed G marking a Grand-Architect-level gate/sitting in the campaign, …
+- FELIX-GATE · an all-caps bolded inline marker flagging a Findings item that needs Felix's ha…
+- g1/g2 · numbered labels for the two existing press-time refusal checks in the stepper's…
+- candidate · one numbered, diagnosed correctness-debt item queued for a hygiene row
+- d#/th-d# · bob's local decision-numbering scheme: a bare D# for a proposed choice, promote…
+- act · a numbered subdivision within one continuous ledger entry/sitting marking a dis…
+- F6 · reusing a prior finding's number as shorthand name for the schema/record it def…
+- G2 · a specific named campaign gate (the second in this chapter) whose sitting's kic…
+- i0/i1 · a numbered simmy instance identifier distinguishing concurrent environments on …
+- HALT · the engine's stop-state token halting execution
+- r-number · a proposed-fix numbering scheme (R1..R6), separate from row IDs (ARB-##); an R-…
+- a-number · this campaign's own lettered, numbered decision-ledger entries (A1…A26) — a pro…
+- h1/h2/h3/h4 · labeled competing hypotheses for what causes click latency, tracked and falsifi…
+- q<n> · citation label for a specific numbered question investigated inside a row's fin…
+- 18g · wave cell id: row number plus a letter per parallel scope
+- WO · abbreviation for work order in a historical register
+- LOC · lines-of-code, used as the standing unit for a file-size kill criterion
+- struck · strikethrough plus a dated italic note as the retirement form
+- stamped · log lines carrying an ISO-format timestamp prefix, one instance of the project'…
+- -shaped · suffix that types a question by which mantle or answer-class it belongs to
+- 18f · row-id plus letter naming one sub-row of a wave
+- 0-N · numbering scheme for itemized Felix-stop questions pre-chewed within a spec's §…
+- answered, no action · the labeled dispositions a sweep assigns to each inbox entry
+- dig · the Digger's numbered working procedure
+- GA- · id prefix for a Grand-Architect-session reference in prose
+- <noun> law · the naming pattern by which any named rule becomes «<noun> law» and is citable
+- G3 · the third press-time refusal check, added by this row for the safety/3PE leg
+- L0-L6 · the numeric tier-label notation (L0 through L6) naming this doc's test-layer la…
+- T0 · a fixed marker naming a timed window's start time
+- <row>-f<n> · cross-row citation of a numbered finding in another row's work doc
+- FC- · id prefix for a fold candidate reference in prose
+- batch letter-suffix · appending a letter to a batch number denotes a side-batch riding alongside/with…
+- pending-named · a compound status marking a leg/row as PENDING with the blocking reason named i…
+- GA-09 · short seat id form: GA plus zero-padded ordinal
+- scope-arm / step-arm · the two named policy options for how liberally an armed flow may auto-authorize…
+- addendum · a continuation block appended to a ledger entry when the session outlives its c…
+- GA-11 · office abbreviation plus lineage ordinal naming one sitting
+- ga-<n> · abbreviation pattern pairing a mantle initial with its session number (Grand Ar…
+- mentat-02 · window id under the Mentat mantle, zero-indexed like the Log's
+- delegated scope · the region of a decision Felix handed to the Architect to settle
+- RP- · this campaign's own decision-numbering prefix, parallel to but distinct from ca…
+- u<n> · numbered open questions raised by a work doc and addressed to Felix
+- <mantle>-<theater>-<nn> · the session-name scheme stamped at launch, carrying office, project and ordinal
+- u-number · sequential identifiers for open unknowns/questions inside a spike brief
+- batch-n blessing · citation format pointing to the specific blessing sitting (identified by batch …
+- STE · abbreviation for Simplified Technical English, the controlled-vocabulary discip…
+- P1 F6 · reference-code notation citing a specific finding within a plan doc (Plan N, Fi…
+- d63i · letter-suffixed sub-clauses of one decision, cited individually
+- PD-D · campaign-prefixed D-entry numbering, distinct per campaign, rather than a singl…
+- grand-architect-00 · zero-indexed window/seat id naming a session by mantle plus ordinal
+- fable @ max · hexwright's original tier notation, model name plus '@' plus effort, later norm…
+- d63h · the extended D63 grammar variant for a long inbox entry with an indented eviden…
+- coda · a closing note/section appended at the end of a sitting
+- lb-d# · campaign-scoped, campaign-prefixed decision-entry numbering local to the lunchb…
+- pd-d# · campaign-scoped, campaign-prefixed decision-entry numbering local to pods, rest…
+- bv-n · a numbered clause of bench venue law, citable by ID
+- w-<n>/m-<n> · identifies one specific walk-log MISMATCH row — a third distinct numbering sche…
+- E-18-1 · the escalation-id notation 'E-<row>-<n>' uniquely identifying one escalation fo…
+- ALLCAPS · filename casing carrying the protocol/sibling distinction
+- status annotation · the parenthetical text a board's status cell carries beside its lifecycle token
+- c-d# · a campaign-scoped, campaign-prefixed decision-entry numbering local to the cata…
+- move/wave/fork · the three legal shapes a baton's next instruction may take
+- g-<row>-<label> · naming convention for a Felix-gate: G- prefix, the row id, a short label
+- glass_city · env var selecting which city directory the glass server renders
+- iss-nn · this project's own issue-numbering scheme for defects discovered outside a plan…
+- disable-model-invocation · frontmatter making a skill uninvokable by the model itself — Felix's word only
+- TH-D4 · a theseus-campaign-scoped decision ID, numbered separately from the Guild's glo…
+- fire <row-ids> · the literal baton instrument naming which rows to dispatch now
+- per d44 · in-text citation form binding a passage to a decision entry
+- (search) · an inline provenance tag distinguishing web-search-derived claims from primary-…
+- baton grammar · the three fixed shapes a baton's next step can take
+- leading token · the first word of a Status cell — reserved for lifecycle states only
+- row labels · traffic-light colour coding of the panel's account rows signalling quota-usage …
+- lowercase-kebab · hyphenated lowercase filenames marking members of a set
+- wasagentrunning · the literal JSON field cmux uses to discriminate an agent panel (resume binding…
+- isolation=worktree · the dispatch parameter placing an agent in its own git worktree
+- ledger.merged · the lint failure class flagging a ledger entry that swallowed another entry due…
+- f5 law · named rule: the census reports what a session was doing, kill -0 pid reports wh…
+- fire.unwind · the dot-separated audit-log action name recorded when the hands close a workspa…
+- problem / move / stakes / dig · the fixed four-slot anatomy of a waggle answer
+- bulletin:119 · file:line citation form used to pin evidence in another building's artifact
+- m[e]ntat · bracket marking the key that selects a word in the rig's panel
+- board.stale-lead · the lint failure class for a board cell whose leading state token is contradict…
+- m1…m12 · the numbered-rule-id scheme for the book's prose linter, sharing the bare lette…
+- bold-at-minting · bold marking the sentence where a term is being coined
+- head's bold run · the bolded opening of a ledger entry, whose contents are fixed by law
+- --- · horizontal rule separating entries that carry evidence blocks
+- arrow-line · the `X → Y` form each Coding Directive is written in
+- third grand architect · one-indexed ordinal address for a seat, colliding with zero-indexed ids
+- mentat-01, resumed · heading form marking a second sitting in a re-woken window
+- fc/ga ids · identifier prefixes for fold-candidates (FC) and Grand-Architect items (GA), pa…
+- ownership tags · a bracketed tag labeling which actor/venue a finding's fix belongs to
+- notice callout · a `[!NOTE]`-tier callout used for safety-relevant emphasis, distinct from `[!WI…
+- entry-27 law · a numbered bulletin entry becomes citable as case law in its own right, referen…
+- tier × mantle × context · the three-factor product that defines any session; × as composition operator
+- <a | b> · angle-bracket slot with pipe alternatives — pick one at instantiation
+- ⟨slots⟩ · angle-quote placeholders a template instantiation must fill
+- → relay · the header token marking a worktree bulletin entry for relay to the main bullet…
+- · · middot as list separator for co-equal named items (distinct from its ledger-hea…
+- behind it: · the baton's fixed label for everything ordered after the fire-now move
+- → · arrow as sequence/handoff operator between actors
+- file§ pointer · a citation of the form <file> §<section> — the standard evidence coordinate
+- ${claude_effort} · the substitution that makes the invisible effort axis checkable
+- né · marker recording an artifact's former name inline
+- — · em dash as the explicit empty-value token in a board cell
+- ← · left arrow as a margin annotation on a template line
+- (proposed — pending felix countersign) · the literal mark on an unratified D-entry, converted by countersign to ✓ Felix
+- ⟨ ⟩ · angle-quote slot marking text a template instantiation must replace
+- ⟨ · **x:** ⟨y⟩⟩ · nested slot marking an optional whole clause, not just a value
+- *(append here)* · the italic in-file marker showing exactly where a section is written to
+- kickoff (verbatim) · the fixed label heading a work doc's final fenced launch prompt
+- **d<n>** (<date>, <decider>) · the fixed grammar of a decision entry
+- date · mantle · changed · decided · next · the five-slot middot grammar of a ledger entry head
+- fire ⟨row-ids⟩ · the instrument form that points at work docs' own kickoff fences
+- correction blockquote · the dated blockquote form a correction takes inside a live durable doc
+- blessed: · the order header field that gates construction
+- - [ ] · checkbox marking one measurable acceptance criterion
+- ⬡ · glyph marking an item as parked
+- next — · an em-dash substituted for the canonical colon in a ledger's closing 'Next:' li…
+- § · section reference into a named doctrine or master doc
+- <model>-<effort> · angle-bracket slot template standing for a fillable name
+- agent(type=<tier>, prompt=<mantle kickoff> + <brief> + rider) · the canonical shorthand for how a dispatched session is assembled
+- ✓ ×3 · tick plus multiplier recording a check passed on all three accounts
+- ask: · label introducing the concrete request an evidence block is arguing for
+- §-reads · reading individual doctrine sections on demand rather than the whole file
+- mantle · tier · the middot-joined staffing string that names who runs a row and at what tier
+- *<tag>.* · the italic session-type tag opening a ledger entry body
+- (entry n) · heading grammar: date — the <name> (entry ordinal)
+- — <id> · <epithet> · <state> · Log signature line: em-dash, window id, middot-separated epithets
+- [n]one · the rig keycap selecting no mantle; bracket marks the hotkey letter
+- fable · high · the retired capitalized middot tier format, superseded by fable-high
+- baton — · the labelled handoff section of a close, present as a header without content
+- *italics for the sovereign's words* · italics reserved for verbatim quotation of Felix throughout both books
+- 🔴 · the office's color emoji closing every SAPHO entry, as 💚 closes the Log
+- /color red · the command that set the Mentat's uniform color
+- a trap with two jaws · labeling two distinct failure mechanisms bundled inside one bug, as the two hal…
+- fc-/ga- id · an identifier prefix (Findings/Comment or Grand-Architect sitting number) refer…
+- city → building → agent · the arrow-chain notation naming the deck's ontology tiers from largest to small…
+- class (a)/(b)/(c) · the three-way classification of every parser failure: repo defect, parser-hosti…
+- ⬢⚡💚 · hexwright's local variant of the closing sign-off emoji string, adding the hex …
+- ∥ · parallel-double-bar symbol marking two rows/waves that run concurrently
+- §7.1 · the CLAUDE.md section number conventionally cited when documenting a Felix-gran…
+- b/r/n id taxonomy · a stable single-letter ID-prefix taxonomy for backlog item kinds, parallel in s…
+- status symbols · a three-glyph status-marker notation for finding rows, parallel in kind to cano…
+- file§ · a citation notation combining a file path with a section-symbol pointer
+- ⛔ · marks a checkpoint requiring Felix's direct blessing before a phase can close
+- [!wip] · an inline callout marker flagging a claim as unshipped, unruled, or unverified …
+- [[exclude]] · a map-row directive marking a product feature/UI element as deliberately outsid…
+- d12(a) · a lettered sub-clause of a numbered decision, referencing one specific ruling w…
+- [[definition]] · a map/carrier directive marking an authored row as a glossary-style term defini…
+- [review]-tier · a bracketed tag marking a content decision as provisional pending Felix's count…
+- felix-gate: · the standardized field notation for a physical/human precondition that only Fel…
+- ⚑ · flag symbol marking an item that needs Felix's decision
