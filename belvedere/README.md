@@ -224,6 +224,8 @@ word only) · editing truth (forever-class, §2).
 | B24 | [His arrangement](plans/b24-arrangement.md) — the City fully his: reorder, relabel, recolor, nest; persists as `desk/city-arrangement.json`; truth underneath (census decides existence, attention outranks recency inside); candidate 7's verdict (group-first) recorded either way | B25 | Builder · opus-high | OPEN |
 | B27 | [QoL sweep + close flow](plans/b27-qol-close.md) — the Works' Chat hotswap wired, the honest-disabled law city-wide, the pass gesture findable at flow level, the account knob at compose+arm with all three usage windows labeled (his ruling 2026-08-28), the tweak list absorbed (STOP-clause bounded), `flow-close-6` left unarmed | B24 | Builder · opus-high | OPEN — last: sweeps all batch-6 surfaces |
 | G3 | Rework gate — verify batch 6's landings, fold, sweep ISSUES, cut next; fires by the armed close flow | B27; ⬡-gate: the PermissionRequest ritual + the trust-entry drain + the rework visual pass | Architect · fable-high | OPEN |
+| C1 | [The fence repoint](plans/c1-fence-repoint.md) — G2's kickoff pointer resolves to its own bytes again (ISSUES 2026-08-28, ruled: ordinal 5 → 7) | — | Builder · sonnet-high | OPEN — laid 2026-08-29 |
+| C2 | [The vocabulary molt](plans/c2-vocabulary-molt.md) — canon C27 run at home: C24 token intake (⬡-gate card, C‹n›, ignite, DEFERRED, the ⬡✓ veto), the render vocabulary (⬡-queue, bless, charge, single/batch/fork, the deck's self-name), the `felixGate`/`ratified` field molt | C1 | Builder · opus-high | OPEN — laid 2026-08-29 |
 
 **Batch 1 (cut at founding, 2026-08-26) — Felix-tended, reasons named:** the venue
 is his live desktop (first contact with a new substrate — his eyes at each landing),
@@ -510,10 +512,27 @@ the buildings it contains — off-register IS the register's truth, B2 F2
 answered; D10 render-side freedom, no canon mint needed) · **seam adoption**
 when canon row 19 lands (the glass drops its guarded `discover()` mirror for
 the `assemble(path, files)` export; the D21 false-pending render-side
-mitigation retires with the parser fix) · **typed-absence tokens** (D68/D69:
-`unstaffed`, `bare session`, `OPEN — PARKED <reason>`) rendered once Felix
-blessings · the D64 baton-grammar asks are batched into canon row 20 — B26
+mitigation retires with the parser fix) · ~~typed-absence tokens (D68/D69)~~
+*(superseded 2026-08-29 — the GA-11 correction placed them as D63's second
+amendment + D69, and D71 then killed `unstaffed` and PARKED: what stands is
+`unrecorded` and DEFERRED, and their render lands with C2, the molt)* · the D64
+baton-grammar asks are batched into canon row 20 — B26
 builds on today's shapes and its warning-card mitigation stands until then.
+
+**Batch 7 (the molt batch — canon C27 run at home, laid 2026-08-29 by the
+canon-C27 Architect session):** **C1 → C2**, strictly serial on master, one
+charge in flight (single-writer physics, no worktrees; the §5 two-lane commit
+rule stands regardless). Tended in-session by the laying Architect — the
+Dispatcher mantle is dead (D71) and the flow engine (canon charge 20) is
+unbuilt; doctrine §10's interim truth. Neither charge spawns a session or
+touches cmux — pure code and tests, desktop untouched. **It runs before batch 6
+ignites**: batch 6 is blessed and un-ignited, both batches write `glass/*.ts`,
+and B23 waits until this batch lands. **Namespace declared (standard §2/§7):
+from this batch the board numbers charges C‹n›**; P/B/G ids are grandfathered
+addresses forever (D18); canon's charges are written "canon C‹n›" here — a bare
+C‹n› is this building's. The batch's ⬡ is canon C27's own close: the deck
+visual pass rides that charge's Status as the annotation (commission §5) — no
+local gate row.
 
 **Batch 4 (flow batch 1, laid at the flow-cut session 2026-08-27) — the engine
 chapter, strictly serial on master:** P5 → B10 → B11 → B12, one charge in flight,
