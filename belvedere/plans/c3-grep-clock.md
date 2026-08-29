@@ -1,6 +1,6 @@
 # C3 — the grep clock flake
 
-**Status:** OPEN — laid 2026-08-29 (batch-7 amendment) · **Depends on:** C2 · **Staffing:** Builder · sonnet-medium
+**Status:** LANDED 2026-08-29 · **Depends on:** C2 · **Staffing:** Builder · sonnet-medium
 
 ## Mission
 
@@ -35,7 +35,21 @@ the Architect 2026-08-29). Everything else.
 
 ## Findings
 
-*(append here)*
+Fixed in `grep.test.ts` only (`grep.ts` untouched, per out-of-scope): the docs group's corpus
+now carries one file, ~17 MB of non-matching filler (under the 20 MB size bar), so a 1 ms clock
+cannot finish scanning it — measured 7-19 ms a run on the machine that raced, 20x the budget.
+The test asserts the bound (`timedOut ⟹ 0 hits, no error`) over every group, and separately that
+at least one group actually timed out (the vacuity guard). `bun test grep` green ×20 consecutive,
+full suite (`bun test`) 669 pass / 0 fail in one process, `bunx tsc --noEmit` clean.
+
+**One finding that binds anyone else writing a timeout probe against these three corpora: `rg`
+parallelises across the files in one corpus, so a fast match in a small sibling file streams out
+and is counted even while a slow sibling file in the *same* group is still being killed by the
+clock.** An earlier draft of this fix put the slow filler file alongside `BOARD` (which matches)
+in the same group's file list — the group still reported `timedOut: true` but `hits.length === 1`,
+because `BOARD`'s match was flushed to the pipe (and read) well before the 1 ms timer's `proc.kill()`
+landed on the whole process. The fix is to give the slow arm its own corpus with no match anywhere
+in it, never mixed with a file that matches. Commit `7ab4f8a` on `master`.
 
 ---
 
