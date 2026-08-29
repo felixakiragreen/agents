@@ -133,8 +133,10 @@ replaces.
 - **ledger**, **findings** (the one landing-report header — *instead of:* Outcome,
   Landing note), **board**, **batch note**, **bulletin**, **dream**, **inbox**
   (ISSUES.md), **lab**, **stub** · unchanged.
-- **rider is dead in all six senses.** The dispatch appendix file keeps its job under
-  a new name at deploy time (⬡ names it: appendix?); board-cell parentheticals are
+- **rider is dead in all six senses.** The dispatch appendix becomes **the coda**
+  (Felix's find, office-endorsed — ⬡✓ pending): the fixed closing passage of every
+  ignition's kickoff, `CODA.md`. Offices write codas in their Logs; mantles receive
+  them in their summonses — one concept, two venues. Board-cell parentheticals are
   **annotations**; attached conditions are **conditions**; bundled side-work and
   follow-up findings are charges — laid small.
 
@@ -166,11 +168,11 @@ replaces.
 - **probe, drill, smoke, canary, control, gauge, budget, admissible / inadmissible,
   conditions, denominator** (the total a suite claims to run against — harvested),
   **golden** · unchanged. Recording a golden is **--gild** · *instead of:* --bless.
-- **Typed absence — there is only `unrecorded`.** If a charge is unstaffed, it is a
-  **Fixer** charge; if a session is truly outside the Guild, it is not recorded in
-  the Guild. `unstaffed` dies (one day old; the standard supersedes). A DEFERRED
-  charge whose staffing dissolved writes `—` — the empty-cell token, with the
-  annotation explaining why.
+- **Typed absence — there is only `unrecorded`.** **Charges are always staffed** —
+  an unstaffed charge is not permitted, ever (lint-hard). A *session* with no mantle
+  **is a Fixer**; a session truly outside the Guild is simply not recorded in the
+  Guild. `unstaffed` dies (one day old; the standard supersedes); a DEFERRED charge
+  keeps the staffing it had.
 
 ## 7. Punctuation and notation
 
@@ -230,11 +232,17 @@ replaces.
   16. The tail alone reboots a cold session.
   17. Targets are read from the repo.
   18. Parallel-safe is not parallel-affordable.
-  19. Never split ahead of need.
+  19. Split when it hurts, not before.
   20. Auto-loaded bytes are taxed.
   21. Creep is a bug.
   22. Think in any terms; communicate in the standard.
-  23. The Sovereign's input is translated, never corrected.
+  23. ⬡ — reworded at Felix's correction (translation is about words; his ideas want
+      the fight): (a) "Fix his words silently; fight his ideas openly." · (b)
+      "Translate the Sovereign's vocabulary; challenge his substance." · (c) "His
+      words are translated; his errors are named."
+  Proposed additions (⬡, Felix prunes): "One concept, one word." · "Lay, then
+  ignite." · "Charges are always staffed." · "Ids are addresses; addresses never
+  move." · "Every register is named."
 - **Spelling — ruled: American, with the exception list: grey** (greys, greyed). The
   lexicon enforces word-by-word; -ize with it.
 - **Enforcement**: the language linter is its own charge, to be laid — ancestor:
