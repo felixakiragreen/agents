@@ -27,8 +27,8 @@ replaces.
   unified, grammar typed.
 - **rule** · verb · decide a question, either direction — bless can only say yes;
   no's, withdrawals, and choices need **ruled** / **ruling**.
-- **ratify** · ⬡ · fate open: dies into bless + the record, or stays as the
-  D-entry-specific act.
+- ~~ratify~~ · killed 2026-08-28 — bless + the record carry it (a decision is laid,
+  then blessed; DECISIONS.md holds blessed decisions).
 - **escalate** · verb · any mantle raises a question above its authority. Architects
   absorb most escalations; Architects escalate to Felix. · *instead of:* the
   Dispatcher-only reading (charter fix rides this standard).
@@ -52,9 +52,16 @@ replaces.
   ignite them. Status annotations write **laid ‹date›**. Un-ignited charges are
   *replaced* or *updated*; additions are *more charges laid* — nothing re-lays. ·
   *instead of:* cut (create sense; cut is dead in all senses).
-- **batch** · noun · charges laid to run together; the batch note carries order and
-  concurrency. · *instead of:* wave.
-- **campaign** · noun · a bounded arc of charges with its own Done when. Kept.
+- **batch** · noun · any graph of charges — sequential, parallel, any shape — meant
+  to run between ⬡-gates; the batch note carries the shape and concurrency. ·
+  *instead of:* wave, chain (a serial batch is a description, not a term).
+- **campaign** · noun · all the batches of charges toward one keystone. The
+  hierarchy: **charge < batch < campaign** — no mid-level (chapter/milestone retire
+  to prose).
+- **C‹n›** · id · charges are numbered C on the board (C5 = charge 5) from this
+  standard's deploy. Historical ids are grandfathered as addresses forever (D18: ids
+  stable, never reused; nothing renumbers). Campaigns whose letters collide (C-cells,
+  C-D#) re-declare per the namespace law.
 - **cornerstone** · noun · the founding document; **lay the cornerstone** = found. ·
   *instead of:* keel, keel-note, GENESIS (already dead). **Foundation is RESERVED** —
   named, unminted, waiting for its Terminus.
