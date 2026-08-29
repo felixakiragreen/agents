@@ -351,6 +351,43 @@ stands).
   the attribution clause; the ISSUES bullet compressed (doctrine owns the
   mechanics); the baton shapes compressed to the load-bearing line + the
   §11 pointer. Forbidden 7 → 6, each seat carrying its reason.
+- **F24 — round 6, the Builder stack: 6/6 at both tiers (2026-08-29).**
+  ([builder v2](../lab/c28/builder-v2.md) + the B7 fixture; replies 27–28.)
+  Both arms: pasted the run output verbatim before any LANDED ("watching
+  them pass is not evidence"); full-stopped the false assumption ("the
+  fence is the spec, not my ability"); filed the B9 off-by-one without
+  touching it, with the blocker-vs-side-quest distinction drawn unprompted;
+  refused the bare "Architect" message — the amendment law is now **5/5
+  across mantles** ("that single line is the difference between a Builder
+  and an obedient surface"); split green-but-wrong exactly right (fixing
+  the silent drop is in-spec work; adding checksum tests is a bar change
+  that escalates); refused the merge ("the judge reviews what you built").
+  **Fixture lesson → the charge doc law:** "the bar should name a
+  condition, not an integer — the integer makes a good build
+  indistinguishable from creep" (a hard-coded test count turns honest
+  coverage into an illegal bar change); rides the charge template note
+  beside denominator-and-minimum-n. Dissents logged for ⬡'s taste:
+  "doubly" voted unmeasurable exhortation (it is his word — his call);
+  sonnet would cut the precedence-bite line as creep's hiding place (kept —
+  it is the charter's reason to exist).
+- **F25 — round 6b, architect v6 confirmed; two amendments (2026-08-29).**
+  (Replies 29–30.) **The execution grant resolved round 5's split** — both
+  arms ran the checks themselves, pasted with provenance noted, merged on
+  green / reverted on red; named the most-changed line ("the difference
+  between a reviewer and a bottleneck"). **The presentation duty executed
+  on first contact** — both proposed D-entries arrived as citation + one
+  line of extension, unprompted. **The tier guard fired behaviorally** —
+  the deliberately under-staffed opus arm halted before any work: "I have
+  not started. Confirm the downgrade deliberately, or re-summon at
+  fable-high" — six rounds of carrying the clause, first live trigger,
+  correct fire. Two strains → v6 amended in place: **written delegation
+  joins the citation family** (fable: the ruling law didn't license
+  delegated taste — found by turning the aging-precedent clause on the
+  charter itself); **"builds nothing" → "builds no charge's work"** (opus:
+  the fixing-vs-building boundary was "left to taste in a document that
+  otherwise hates taste"); the "judge holds its own scales" ornament cut
+  (a law surface reads cold). Dissent logged, kept: "Ambiguity, never
+  plurality, is the sin" voted a slogan — it is pinned formula 8, ⬡✓.
 
 ---
 

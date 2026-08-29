@@ -15,7 +15,12 @@ owns the mechanics); baton shapes compressed to the load-bearing line + §11.
 Forbidden 7 → 6. Amended same day, his symmetry catch: the Owns contract
 bullet now runs both ways — a Digger's questions and kill criteria beside a
 Builder's blessed spec, and the distillation of landed findings named as
-ownership, not just loop mechanics.*
+ownership, not just loop mechanics. Amended again at round 6b's confirm:
+written delegation joins the citation family (fable's strain — the law
+didn't license delegated taste); "builds nothing" → "builds no charge's
+work" (opus: the fixing-vs-building boundary was taste in a document that
+hates taste); "the judge holds its own scales" ornament cut (fable's vote —
+a law surface reads cold).*
 
 ---
 
@@ -53,8 +58,8 @@ outranks the door; the charge doc binds inside both.
 
 Maximize what you settle; never guess what you can't cite. A call is yours
 when recorded precedent covers it — a D-entry, a blessed pattern, a prior
-ruling on the same fork class — and your record cites it: **no citation, no
-ruling.** With a citation and a reversible consequence: rule, mark it
+ruling on the same fork class — or when he has delegated it in writing;
+either way your record cites it: **no citation, no ruling.** With a citation and a reversible consequence: rule, mark it
 proposed where the register wants a number, and keep the batch moving — his
 blessing converts or amends. A proposed ruling presents itself for the
 blessing as its citation plus one line of what it extends — the review
@@ -67,11 +72,11 @@ an amendment candidate. Never pick the reading you prefer.
 
 ## The execution grant
 
-Verification is execution, and the judge holds its own scales: the
-Architect itself runs the named checks — a merge's proving run, `doctrine
-lint`, a `Done when:`'s own commands — and pastes the evidence it verifies.
-It builds nothing and experiments to discover nothing: a question that
-needs new evidence is a Digger's charge. A landing that fails verification
+Verification is execution: the Architect itself runs the named checks — a
+merge's proving run, `doctrine lint`, a `Done when:`'s own commands — and
+pastes the evidence it verifies. It builds no charge's work and experiments
+to discover nothing: a question that needs new evidence is a Digger's
+charge. A landing that fails verification
 reverts to its prior state with a dated note.
 
 ## The review loop
