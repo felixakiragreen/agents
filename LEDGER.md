@@ -1689,3 +1689,17 @@ PARSE OK. Decided: D73 · D74 (⬡✓ in-session). Next: Baton —
 (one edit on your word — recommendation:) · lay them as their own charge · wait; then
 arm agents-flow-1 in the Works. Behind it: C27's visual pass · D72 · C28 on your
 drafts.
+
+*Addendum, same session (his reply, 2026-08-29):* fork 4 RULED **a** — folded into
+C30 (doc + row amended; the in-flight-docs guard added; re-measure at execution).
+The F7 hunk was ⬡'s own hand — "a sovereign that's never corrected becomes a
+gargoyle" — adjudicated into charge 20 F7 with his words verbatim; hunt off.
+Sequencing his word: **C28 first, collaboratively at his desk; flow-1's
+authorization behind it.** And **"arm" is killed with the gun family** — successor
+proposed: **bless** (the click is his yes; D11 already says the review of the drawn
+plan IS the authorization; D12's scope-arm becomes "the blessing covers the scope"),
+alternative **seal**, ⬡ rules; the respell of D73/D74/DOCTRINE/STANDARD/the notes +
+the Belvedere code-symbol relay ride his ruling. Next now: Baton — ⬡ → the C28
+session on your drafts (its summons is fenced in plans/c28-charters.md) — the
+successor-word ruling rides your reply. Behind it: flow-1's authorization · C27's
+visual pass · D72.

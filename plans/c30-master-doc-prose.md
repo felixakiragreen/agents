@@ -23,6 +23,17 @@ a rushed tail on C25.
 | rooted/archive/arborist | `README.md` | 99 |
 | bob/theseus | `docs/campaigns/theseus/README.md` | 41 |
 | cap-mega/simmy | `README.md` | 40 |
+| **agents** (this repo — fork 4, ⬡ **a**, 2026-08-29) | MAP.md prose + OPEN charge docs | 44 at C26's measure — re-measure at execution |
+
+**The sixth target — this repo (fork 4, ruled a: ⬡ 2026-08-29).** `doctrine lint
+--vocab ~/code/agents` measured 44 hits at C26 (13 in MAP.md prose, 31 in six OPEN
+charge docs, 9 of them pure spelling needing zero adjudication); charges landing
+since shrink the live set (20 and C27 are history-whole now, D72c), so **re-measure
+at execution and sweep what is live** — same fence, same method. Two guards:
+(1) a charge doc whose charge is IN FLIGHT — or in agents-flow-1's own batch — is
+another session's desk: file its hits to this repo's inbox, never edit it;
+(2) MAP's notes for live batches are live instruments — C25's precedent governs
+(touch only a dead-mantle instrument, dated).
 
 Behind them, smaller: `bob/pods` · `bob/lunchbox` · `bob/catalog` ·
 `rooted/archive/repot` · `belvedere/plans/{flow,deck}-keel.md` · cap-mega's

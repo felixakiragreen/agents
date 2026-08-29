@@ -124,9 +124,9 @@ run it when something feels off; green + still broken ⇒ auth, not sync). `depl
 | C25 | [the respell sweep](plans/c25-respell-sweep.md) — live surfaces city-wide (migrate + the graveyard); absorbs the 18-continuation (whiteboardy re-fire · snappy separators · spacex heads · bob heads — sanctions on record); history, voice, and charters fenced | C24 | Architect · opus-high | **LANDED 2026-08-29** — ignited 2026-08-29 (GA-14 tends) → [findings](plans/c25-respell-sweep.md). `doctrine lint ~/code` **349 → 8** (475/475 charges typed, 14/14 ledger tails, 203 → 440 entries); every CLAUDE.md in the city, this repo whole, and Belvedere's docs respelled; `RIDER.md` → `CODA.md`; the `d dispatcher` preset retired. **F1** — `migrate` wrote 61 false `unrecorded` clause-fills on whiteboardy off a stale parse and the round-trip law said `ok`; repaired by hand, tool filed. **F2** — three ledger house dialects the parser rejects, ~130 clauses repaired by hand, candidate migrate rules. **F3** — 13-F1's guard derives the fixture, not the script: the preset retirement took `lab/08/run` 1 → 15, the retirement stands and the repair is **C29**. **F4** — seven rulings the next sweep inherits. The outer city's five big master docs are prose-unswept and laid as **C30** (~450 adjudicated hits) |
 | C26 | [the language linter](plans/c26-language-linter.md) — the vocabulary arm: graveyard + American/grey lexicon + prefix table + the pinned 24; ancestor manny M13, food lab/21/lexicon.json | C24 | Builder · opus-high | **LANDED 2026-08-29** — ignited 2026-08-29 (GA-14 tends) → [Done when evidence](plans/c26-language-linter.md). `doctrine lint --vocab` is the venue (a flag, off by default); 49 → **71 tests**; `doctrine lint ~/code` **8 → 5** — `ledger.mantle` 3 → 0 on one token (`Fixer` minted, item 7), no new class; `~/code/agents` stays **0**. The drift alarm binds `src/lexicon.ts` to STANDARD.md §§7–9 and proves itself against mutated copies. City backlog measured: **1,903 dead words · 81 spellings · 9 prefix warnings**, precision **96.9%** on n=131, fences honored, **not one byte of the city moved**. **D72 proposed** — the enforcement contract (flag not default · a mention is ticked or quoted · a finished charge is history whole · 8 of §9's 32 rows dropped in writing, 3 narrowed on measurement). **F1** — `parseDecisions` cannot read `‹prefix›-D‹n›`, the form §7 mandates: bob declares 53 such decisions and the reader reports **0**. **F2** — the census's -ise stoplist overstates -ise by ~41. **F3** — this repo's own 44 (13 MAP · 31 OPEN charge docs · 9 of them spelling, which no charge has ever swept) filed, not swept: ⬡'s call whether it rides C30. **F4** — charge 18's doc header still reads OPEN |
 | C27 | [the glass](plans/c27-glass.md) — Belvedere speaks the standard (deck copy, tokens, baton verbs; the ⬡-queue by name); runs on the Belvedere board, this charge is the pointer | C24 | Architect · fable-high | **LANDED 2026-08-29 — PENDING ⬡ visual pass** (relaunch the deck; the pass rides this cell as its annotation) — batch 7 on the Belvedere board (C1 fence repoint · C2 vocabulary molt · C3 grep-clock): 669 tests green, type gate 0, doctrine 71/0; three canon asks filed → [findings](plans/c27-glass.md) |
-| C28 | [the charters](plans/c28-charters.md) — offices + mantles redrafted on Felix's own drafts; Fixer named, shims re-minted; the spend-fork information-needs clause rides as drafting input | C23 · ⬡-gate: Felix's office/mantle charter drafts | Grand Architect · fable-max | OPEN — laid 2026-08-29 |
+| C28 | [the charters](plans/c28-charters.md) — offices + mantles redrafted on Felix's own drafts; Fixer named, shims re-minted; the spend-fork information-needs clause rides as drafting input | C23 · ⬡-gate: Felix's office/mantle charter drafts | Grand Architect · fable-max | OPEN — laid 2026-08-29 — collaborative at his desk, many revisions expected (his word 2026-08-29); **precedes flow-1's authorization**: C28 first, then the batch runs |
 | C29 | [the summon harness](plans/c29-summon-harness.md) — `lab/08/run` follows `presets.tsv` after the `d dispatcher` retirement; 13-F1's guard gains its removal arm | C25 | Builder · opus-high | OPEN — laid 2026-08-29 (C25-F3: the harness names the dead preset in three assertions and two column-sensitive wrap checks; 1 → 15 red at the retirement) |
-| C30 | [the master-doc prose sweep](plans/c30-master-doc-prose.md) — the outer city's five big master docs speak the standard in prose (whiteboardy GENESIS 140 · snappy 118 · arborist 99 · theseus 41 · simmy 40, ~450 adjudicated hits) | C25 | Architect · opus-high | OPEN — laid 2026-08-29; C23-F3's use-vs-mention rule is the method, C25's fence and F4 rulings bind; lane of agents-flow-1 |
+| C30 | [the master-doc prose sweep](plans/c30-master-doc-prose.md) — the outer city's five big master docs speak the standard in prose (whiteboardy GENESIS 140 · snappy 118 · arborist 99 · theseus 41 · simmy 40, ~450 adjudicated hits) | C25 | Architect · opus-high | OPEN — laid 2026-08-29; C23-F3's use-vs-mention rule is the method, C25's fence and F4 rulings bind; lane of agents-flow-1; scope grown 2026-08-29 (fork 4 ⬡ a): + this repo's live vocabulary hits, guards in the doc |
 | C31 | [doctrine v1.2 — the defects](plans/c31-doctrine-defects.md) — migrate's stale-parse lie · house-dialect rules · the prefixed-D blind spot | — | Builder · opus-high | OPEN — laid 2026-08-29 (GA-15); lane 1 of agents-flow-1 |
 | C32 | [the flow grammar](plans/c32-flow-grammar.md) — D74 built: written holder · holds · E-ids · Branch · encapsulation · qualified Depends-on · tier split | C31 | Builder · opus-high | OPEN — laid 2026-08-29 (GA-15); ⬡-gate paid at the lay (D73/D74 ⬡✓ in-session); lane 1 of agents-flow-1 |
 | G1 | [flow-1's close gate](plans/g1-flow-close.md) — verify the four landings, merge c29's branch, distill, hand the verdict card | C29; C30; C31; C32 | Architect · fable-high | OPEN — laid 2026-08-29 (GA-15); the close of agents-flow-1 |
@@ -234,7 +234,9 @@ holds five entries awaiting rulings; D72 sits proposed. C28 stands on his drafts
 the Guild's first engine-run batch (D73; the vehicle blessed in-session).** The flow
 file is the batch note: `belvedere/flows/agents-flow-1.flow.json` (D73's interim
 home — Belvedere is the only reader today); this note is the pointer. Tender: **the
-dispatch** — Felix arms it in the Works; the arm review is the authorization (D11).
+dispatch** — Felix authorizes it in the Works with one click; the review of the drawn
+plan IS the authorization (D11; the click's verb is before ⬡ — "arm" died 2026-08-29
+with the gun family, successor proposed: bless).
 Shape: C31 → C32 serial on the agents master checkout (shared `doctrine/` files);
 C29 parallel in a worktree (`bv/c29-summon-harness` — G1 merges); C30 parallel at
 the cap-mega checkout — **named physics probe:** three of C30's five targets sit
@@ -244,12 +246,14 @@ evidence (P5's next cell), and the fallback is one rig summons. Trust cells meas
 at the lay (charge 20 F6): whiteboardy unentered on personal → venue cap-mega;
 agents + URSDK accepted ×3. Budget: the schema carries no budget field yet (D73's
 law; the field is the Belvedere relay's first ask) — this flow's bound is its 6
-declared steps + scope-arm growth, concurrency 3. **Pre-arm ⬡, in order:** fork 4 —
-C30's scope and this repo's 44 vocabulary hits (C26-F3): fold into C30
-(recommended) · own charge · wait — C30 fires at arm, so the ruling lands first;
-then the arm itself. **Interim physics, named:** the GA-15 ledger baton speaks
-D74's written-holder form one charge ahead of the parser — exactly one lint red
-(`ledger.baton`), mortal at C32's landing (its bar is lint 0 over this tail).
+declared steps + scope-arm growth, concurrency 3. **Pre-⬡, in order (ruled 2026-08-29,
+same day):** fork 4 RULED **a** — the 44 vocabulary hits fold into C30's scope (its
+doc's §sixth-target carries the guards); then **C28 first, collaboratively at his
+desk** (his word — many revisions expected; Belvedere's chat hosts this genre one
+day, today it runs at the desk); flow-1's authorization click follows C28.
+**Interim physics, named:** the GA-15 ledger baton speaks D74's written-holder form
+one charge ahead of the parser — exactly one lint red (`ledger.baton`), mortal at
+C32's landing (its bar is lint 0 over this tail).
 
 **DEFERRED (2026-08-28, Felix): the register purge** — at ~D100 the constitution is
 consolidated and rewritten, his words: "A constitution with too many amendments at

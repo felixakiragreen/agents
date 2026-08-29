@@ -163,6 +163,13 @@ uncommitted, author unknown — sixteen peer sessions idle at the check). Named 
 and in the ledger; the hunk rides this session's commit unreverted — reversing an
 unknown hand's meaning-edit would be the greater sin. ⬡ adjudicates.
 
+*Adjudicated 2026-08-29, same day (dated note per §6's correction law):* the hand was
+⬡'s own — the trim deliberate, the meaning his, verbatim: **"I absolutely want agents
+to correct me. I am extremely fallible. A sovereign that's never corrected becomes a
+gargoyle."** The clause now ends at "translated" so it cannot be read as a
+never-challenge rule; formula 24's second half — challenge his substance — was always
+the law, and the sovereign just enforced it on his own standard. Hunt off.
+
 **Sources:** [codejunkie99/graph-engineering](https://github.com/codejunkie99/graph-engineering)
 (SKILL.md + references/task-graphs.md, read verbatim via the GitHub API) ·
 puppyone.ai, truefoundry.com, v12labs.io graph-engineering surveys (2026) · the
