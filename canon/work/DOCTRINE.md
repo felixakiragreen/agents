@@ -531,7 +531,8 @@ A new project boots onto the doctrine in one founding session:
 
    ```
    You are an Architect at fable-max.
-   Wear ~/code/agents/canon/mantles/architect.md,
+   Enter by the door — read ~/code/agents/canon/GUILD.md,
+   wear ~/code/agents/canon/mantles/architect.md,
    then read ~/code/agents/canon/work/DOCTRINE.md
    and <dream.md | Felix's telling>, and lay the cornerstone.
    ```
