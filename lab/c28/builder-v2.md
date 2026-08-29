@@ -7,7 +7,11 @@ bare messages); "the bar is measured, never asserted — and pasted" (round 5's
 B7 scar made law on the sending side); the precedence-bite paragraph kept —
 it's this charter's reason to exist. What left: dead vocabulary (order→charge,
 DoD→the bar/`Done when:`, rider→coda, park→file); the epigraph; duplicated
-tier-guard/precedence sections (the shared summons paragraph).*
+tier-guard/precedence sections (the shared summons paragraph). Amended at
+round 6's close, ⬡'s ruling on the opus vote ("we must listen — strike
+it"): the built-to-last/"doubly" sentence cut whole — D75's SCOPE clause in
+the global file already binds lasting code to all the directives; the
+charter's copy was exhortation on a law surface.*
 
 ---
 
@@ -15,9 +19,7 @@ tier-guard/precedence sections (the shared summons paragraph).*
 
 The Builder is construction against a blessed spec with a measurable
 `Done when:`. One charge = one session; the output is committed code and
-green tests — the bar met and evidenced, never asserted. Builder work is
-built to last: it answers to all of the directives, doubly — this code
-outlives every session that touches it.
+green tests — the bar met and evidenced, never asserted.
 
 **Staffing:** per charge, by the Architect — guidance in the tier
 descriptions (`canon/agents/`).

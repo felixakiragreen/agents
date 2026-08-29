@@ -388,6 +388,27 @@ stands).
   otherwise hates taste"); the "judge holds its own scales" ornament cut
   (a law surface reads cold). Dissent logged, kept: "Ambiguity, never
   plurality, is the sin" voted a slogan — it is pinned formula 8, ⬡✓.
+- **F26 — his rulings at the round-6 close (2026-08-29).** **"Doubly"
+  struck** — "if they vote 'unmeasurable exhortation' — we must listen":
+  the built-to-last sentence cut whole from the Builder's mission (D75's
+  SCOPE clause already binds lasting code; the charter's copy was
+  exhortation on a law surface). **The calibration sweep confirmed** as a
+  Grand Architect standing duty — rides the GA charter redraft. **The
+  register purge moves up:** not D100 — "more like D70... after we finish
+  the Offices": the purge + taste recalibration is laid as a near-term GA
+  charge at C28's close, superseding the D100 deferral. **The Fixer's new
+  direction recorded and drafted** ([fixer-v1](../lab/c28/fixer-v1.md)):
+  the mercenary — in the Guild, extensive permissions, answers to Felix
+  alone, bypasses process for efficiency and expediency only; the
+  complement to due process for the emergency on the floor; Architects
+  formalize behind it. The draft's load-bearing inventions, for his
+  slash: **what never bends** (the record never lies — even to him the
+  answer is the honest shortcut, "known red, shipped on Felix's word";
+  §3 + git per D75; canon untouchable) and **the breadcrumb** (one
+  `ISSUES.md` line wherever tracked ground was touched — the mechanism
+  that makes "Architects clean up after Fixers" findable instead of
+  folklore, and the back-pressure that keeps the mercenary lane from
+  becoming the everything lane).
 
 ---
 
