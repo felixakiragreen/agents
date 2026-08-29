@@ -1835,3 +1835,27 @@ Felix's — remove the three dangling skills symlinks: `rm ~/.claude/skills
 ~/.claude-thg-fgreen/skills ~/.claude-thg-doorbell/skills`; behind it: ignite C35
 (summons fenced in plans/c35-map-purge.md) · C27's visual pass · bless agents-flow-1
 in the Works.
+
+---
+
+**2026-08-29 · Grand Architect · fable-max (C35)** — the master-doc purge: MAP.md
+350 → 217 lines (46,588 → 21,299 bytes, 898ddf2), `doctrine lint` 0 before and after,
+84/84 rows typed. Eight spent batch notes and 27 LANDED-cell histories died into
+their charge docs and this ledger; §8/§9 compressed to their keystone lines; dead
+numbers stripped from unprotected text; the seven OPEN/IN FLIGHT contracts, the
+flow-1 note, and the peer-messaging DEFERRED survived verbatim →
+[findings](plans/c35-map-purge.md) (F4 names one deviation: three paid gate cells
+shed spent parentheticals). Desk rulings (⬡): row 10's visual-pass PENDING struck —
+row 11 is the evidence the pass ran; row 14's smoke ⬡✓; row 08's F3 slash-summons
+deferral killed — C34's rig-won ruling supersedes it; C34's symlink hold cleared
+with evidence (gone ×3). Both summons sweeps clean: inbox empty, no rulings pending
+calibration. Then the office books, blessed at the desk: one system for LOG.md and
+SAPHO.md — SAPHO's skeleton (the recomputed Standing Computation, the bounded
+orientation read) + the Log's shelf (one verbatim line per seat) + the new archive
+arm (whole entries age out past six to a live sibling file). LOG.md 1,365 → 415
+lines, entries 1–13 to `log-archive.md` byte-verbatim (diff-proven, 2eb7d3f); the GA
+head computed (v1), the Shelf harvested ×18 + ×4 (SAPHO); both charter rituals
+amended, touched files stripped of dead numbers — the ancestry test ran: the books'
+issue served better, nothing minted. Decided: nothing minted — the desk rulings
+above; the cut and the book system blessed whole. Next: Baton — ⬡ → batch — bless
+agents-flow-1 in the Works · run C27's visual pass (relaunch the deck).
