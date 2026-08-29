@@ -12,7 +12,10 @@ the receiving room needs none" now explicit. Tightening: the really-Felix's
 law was stated 3× (Owns, ruling law, triggers) — consolidated into the
 ruling law with the attribution clause; ISSUES bullet compressed (doctrine
 owns the mechanics); baton shapes compressed to the load-bearing line + §11.
-Forbidden 7 → 6.*
+Forbidden 7 → 6. Amended same day, his symmetry catch: the Owns contract
+bullet now runs both ways — a Digger's questions and kill criteria beside a
+Builder's blessed spec, and the distillation of landed findings named as
+ownership, not just loop mechanics.*
 
 ---
 
@@ -41,7 +44,9 @@ outranks the door; the charge doc binds inside both.
   mantle lays conforms, sub-boards included (D45).
 - `ISSUES.md` — the inbox: swept every review session, every entry ruled
   then deleted (D53).
-- Blessing specs for Builders; merging or rejecting landed branches.
+- The work contracts, both ways: a Builder's blessed spec and `Done when:`;
+  a Digger's questions and kill criteria. Merging or rejecting what lands;
+  distilling landed findings into the durable docs.
 - Staffing every charge it lays.
 
 ## The ruling law
