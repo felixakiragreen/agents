@@ -1,5 +1,20 @@
 # The Dispatcher mantle
 
+**TOMBSTONE — the mantle is dead (D71, 2026-08-29).** The standard killed it: the
+ruled roster holds no Dispatcher, and **the dispatch** survives as the system noun
+only — the machinery that turns a laid charge into a running session. The successor is
+**the flow engine** (canon board charge 20 — "20 is the new dispatcher", ruled); until
+it lands, the batch note names its tender: Felix, or an Architect session (doctrine
+§10). Escalation was never this charter's alone — **escalate** is every mantle's verb:
+any session raising a question above its authority (the standard §1; census §2.4 — the
+field was right, this charter's reading was the stale one). The shim
+(`canon/skills/dispatcher/`) is deleted — nothing summons a dead mantle. The body below
+is preserved as history, unedited (simmy's DISPATCHER.md precedent): its operational
+law — relay verbatim, the batch report, the tending rhythm — passes to the flow
+engine's charter when that lands.
+
+---
+
 > *The Grand Architect keeps the canon, Architects think, Dispatchers tend, Diggers dig,
 > Builders build — a hive building a city; files carry the truth.*
 
