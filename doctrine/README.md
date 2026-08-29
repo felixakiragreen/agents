@@ -10,7 +10,7 @@ Tooling, not canon-law — a peer of [`sync/`](../sync). The law it reads lives 
 normative per D65 ([belvedere/plans/p3-parse-coverage.md](../belvedere/plans/p3-parse-coverage.md)).
 
 ```
-bun doctrine/cli.ts lint [--live] [--verbose] [--json] <path…>
+bun doctrine/cli.ts lint [--live] [--vocab] [--verbose] [--json] <path…>
 bun doctrine/cli.ts parse --json <building>
 bun doctrine/cli.ts migrate [--write] <building>
 bun test                                   # from doctrine/ — the §6.2 control + the round-trip law
@@ -27,7 +27,8 @@ const b = parse('~/code/agents/belvedere');   // → Building: board[] · ledger
 
 `src/grammar.ts` names every mantle, tier, state, verdict and dead word **once** · `src/parse.ts` the
 five artifact parsers · `src/building.ts` discovery + `parse()` · `src/lint.ts` the walk and
-the report · `src/migrate.ts` the form-only converter · `cli.ts` the arm.
+the report · `src/migrate.ts` the form-only converter · `src/lexicon.ts` the standard's §§7–9 as
+data · `src/vocabulary.ts` the speech arm and its fence · `cli.ts` the arm.
 
 ## The standard's tokens (D71)
 
@@ -56,6 +57,45 @@ defect.
 `--live` narrows the report to what a session or the deck reads *today*: boards, the ledger
 tail, and the kickoffs of work docs whose own `**Status:**` is still OPEN / IN FLIGHT /
 BLOCKED.
+
+## `--vocab` — the speech arm (C26)
+
+Format drift is caught by the parser; `--vocab` points the same alarm at **speech**. Off by
+default: the form arms are a doc's honesty and gate the exit code, while the vocabulary arm
+reports the city's respell backlog. Ancestor: manny's **M13** (`campaign-id`, hard error) at
+`manny/plans/29-campaign-id-lint.md` — its two laws are this arm's, *narrow the pattern, never
+whitelist a file* and *one code per arm, the excerpt differentiates*.
+
+| Arm | Law | Code |
+|---|---|---|
+| the graveyard | §9's table — a dead word, its successor named in the excerpt | `vocab.dead-word` |
+| the spelling lexicon | §8 — American, exception list `{grey, greys, greyed}`, `-ize` with it | `vocab.spelling` |
+| the pinned formulas | §8's twenty-four — most of a formula's spine, none of its wording | `vocab.formula` |
+| the id namespace | §7 — a bare `D‹n›` outside the canon, a letter serving two kinds | `vocab.prefix` (**warn**) |
+
+A **warning** is reported and never enforced — §7's own word — and never moves the exit code.
+
+**The fence is structural, not a list of exceptions.** History and voice are masked out of the
+text before a pattern runs, so a dead word inside them is not *allowed*, it is not there:
+fenced code and summonses · blockquotes · inline code · `~~struck~~` text · link targets and
+one-word link texts · double-quoted spans · `Findings` / `Ledger` / `Decisions` sections · a
+board's Depends-on, Staffing and Status columns · **a LANDED or KILLED row whole** (a finished
+charge's title is the address its ledger cites) · closed charge docs · `LOG.md`, `SAPHO.md`,
+`dream.md` · `canon/` itself, which must name the dead to bury them.
+
+**A mention is spelled in ticks or quotes.** The arm cannot tell use from mention (C23-F3), so
+the doc says which: `` `unstaffed` `` and *"the Dispatcher is dead"* are already fenced, and
+that is the cure for a tombstone sentence — not a per-file exemption.
+
+**Eight of §9's thirty-two rows are dropped, in writing, each with its reason** (`src/lexicon.ts`):
+`chain` · `fold` · `wave` · `move` · `window` · `strike` · `pass` · the four-slot waggle. A
+pattern that cannot be written without false positives is dropped, never weakened — and `fire`
+keeps only its bare form, measured at 8/8 Guild-sense against `fires` 0/5 and `firing` 1/8 in a
+city where clauses, listeners and kill criteria all fire.
+
+`src/lexicon.ts` is a **mirror** of §§7–9; `test/vocabulary.test.ts` is the alarm on the mirror.
+Edit the standard and the suite goes red — and the alarm proves itself, running each binding a
+second time against a mutated copy of the standard's text and asserting that it fails.
 
 ## The register — how a building is found
 
