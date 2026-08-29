@@ -44,7 +44,7 @@ it; probes ship with a control)*
 
 ```
 You are a ⟨Mantle⟩ at ⟨tier⟩.
-Wear ~/code/agents/canon/mantles/⟨mantle⟩.md,
-then read ⟨master doc / sections⟩ and ⟨this charge doc's path⟩,
-and execute the charge doc.
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/⟨mantle⟩.md,
+then read ⟨master doc / sections⟩ and execute the charge at ⟨this charge doc's path⟩.
 ```

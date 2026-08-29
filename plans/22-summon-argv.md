@@ -56,6 +56,7 @@ above):**
 
 ```
 You are a Builder at opus-high.
-Wear ~/code/agents/canon/mantles/builder.md,
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/builder.md,
 then execute the charge at ~/code/agents/plans/22-summon-argv.md.
 ```

@@ -96,8 +96,9 @@ findings). `doctrine/` code. The `--gild` rename (relayed to cap-mega).
 
 ```
 You are an Architect at opus-high.
-Wear ~/code/agents/canon/mantles/architect.md,
-then read ~/code/agents/canon/work/STANDARD.md (blessed law, D71)
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/architect.md,
+then read ~/code/agents/canon/work/STANDARD.md
 and execute the charge at ~/code/agents/plans/c30-master-doc-prose.md —
 the city's master docs speak the standard in prose too.
 ```

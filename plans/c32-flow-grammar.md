@@ -12,8 +12,9 @@ parser, and the holder of every baton is read, never inferred.
 
 ## Inputs — read before working (do not re-derive)
 
-- [DECISIONS.md](../DECISIONS.md) **D74** — the contract, verbatim; D73 for the flow
-  context; D63 as amended (the grammar this extends).
+- The contract: the Spec below restates D74 whole, one token per clause (the
+  register was purged at C34 — git holds the original entries); the living law is
+  DOCTRINE §10 (the flow) and §§4/8 (the grammar this extends).
 - [plans/17-storage-experiment.md](17-storage-experiment.md) §C3 — the scorecard: 7/9
   asks are render-side heuristics today; the live holder-inversion repro (this repo's
   own tail read `holder: "session"` under a Next opening "**Felix countersigns
@@ -89,9 +90,8 @@ it; probes ship with a control)*
 
 ```
 You are a Builder at opus-high.
-Wear ~/code/agents/canon/mantles/builder.md,
-then read ~/code/agents/DECISIONS.md (D73/D74)
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/builder.md,
+then read ~/code/agents/canon/work/DOCTRINE.md §§4, 8, 10–11
 and execute the charge at ~/code/agents/plans/c32-flow-grammar.md.
-Any D-entry you lay lands marked "(proposed — pending ⬡✓)"; your files and
-commits are the deliverable.
 ```

@@ -1,8 +1,11 @@
-# Bulletin — row 18 wave
+# Bulletin — the parallel wire
 
 Protocol: every agent reads this before each major method section, and appends the
-moment a discovery changes another row's plans — not at landing time. Verbatim excerpts
-only, no paraphrase (dispatcher charter). Exists only while this parallel batch runs.
+moment a discovery changes another charge's plans — not at landing time. Verbatim
+excerpts only, no paraphrase (STANDARD §8). One wire per project; batch sections
+dated; entries stand where the campaign left them.
+
+## The row 18 wave (closed — entries below stand as filed)
 
 ## 2026-08-26 · 18a → 18c/18e/18f/18g/18h (all remaining rows)
 **`doctrine/` has zero knowledge of `unrecorded`** (`grep -rn unrecorded doctrine/` → no
@@ -79,3 +82,5 @@ Evidence: `~/code/universal_robots_sdk/cap-mega/simmy/LEDGER.md:27`; `doctrine l
 ~/code/universal_robots_sdk/cap-mega/simmy` → `1 failure(s) in 1 class(es)`; the citation
 that resolved the rest is simmy's pre-canon role table, `DISPATCHER.md` §1 at
 `2f19a02a4` ("Architect | Fable · high", "Builders … typically Opus · med").
+
+## agents-flow-1 — the wire opens 2026-08-29

@@ -4,10 +4,11 @@
 
 ## Mission
 
-Three measured defects in `doctrine/` die, each with a fixture that proves it and a
-guard that keeps it dead. Every one arrived through the inbox with a repro (swept at
+Four measured defects in `doctrine/` die, each with a fixture that proves it and a
+guard that keeps it dead. Three arrived through the inbox with a repro (swept at
 GA-15 — git keeps the bytes; the evidence is restated whole below, so this doc stands
-alone).
+alone); the fourth arrived from agents-flow-1's stopped first ignition, laid at the
+desk the same evening (2026-08-29).
 
 ## Inputs — read before working (do not re-derive)
 
@@ -46,10 +47,22 @@ alone).
    count-regression guard watches, so paste before/after city totals and name the
    expected moves (bob 0 → 53 among them). Repro checked in:
    `doctrine/fixtures/vocab/DECISIONS.md`'s `VX-D2`.
+4. **The stale-kickoff blind spot.** The parser counts kickoffs but never reads
+   them: seven un-ignited charges in this repo carried pre-door fences (laid hours
+   before C33 landed the door), c32's carried a pointer into the purged register,
+   and the flow engine fired them verbatim — agents-flow-1's first ignition ran
+   without the door and ⬡ stopped it (2026-08-29). Add the kickoff arm: in an OPEN
+   or IN FLIGHT charge doc, the fenced kickoff must open with the summons grammar —
+   the summons line (`You are a|the ‹Mantle|Office› at ‹tier›.`), then the door line
+   (`Enter by the door — read …GUILD.md`), then the wear line — fail on drift: the
+   single-glance test (DOCTRINE §5), mechanized. LANDED and KILLED docs are history,
+   exempt; an inline-stanza kickoff (unmantled cheap tier, README grammar) passes on
+   the stanza's opening line instead. Fixture: tonight's seven, both states (git
+   holds the pre-repair bytes at 7a1da16).
 
 ## Done when:
 
-- `cd doctrine && bun test` green, count named (≥ the current 71), the three defects
+- `cd doctrine && bun test` green, count named (≥ the current 71), the four defects
   each red-under-pre-C31 / green-here (the guard's both-ways proof, 13-F1's pattern).
 - `doctrine lint ~/code/agents` → **0**.
 - City dry-run counts pasted (`doctrine lint ~/code` before/after — movement explained,
@@ -73,9 +86,8 @@ it; probes ship with a control)*
 
 ```
 You are a Builder at opus-high.
-Wear ~/code/agents/canon/mantles/builder.md,
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/builder.md,
 then read ~/code/agents/MAP.md §7
 and execute the charge at ~/code/agents/plans/c31-doctrine-defects.md.
-Any D-entry you lay lands marked "(proposed — pending ⬡✓)"; your files and
-commits are the deliverable.
 ```

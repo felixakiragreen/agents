@@ -208,7 +208,8 @@ proposes may itself change the answer, since precmd runs outside zle.
 
 ```
 You are a Builder at opus-high.
-Wear ~/code/agents/canon/mantles/builder.md,
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/builder.md,
 then read ~/code/agents/MAP.md §5 and ~/code/agents/plans/11-summon-rig-v13-live-refresh.md,
 and build it to its `Done when:`.
 ```

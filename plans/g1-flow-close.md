@@ -44,8 +44,8 @@ whole truth on it.
 
 ```
 You are an Architect at fable-high.
-Wear ~/code/agents/canon/mantles/architect.md,
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/architect.md,
 then read ~/code/agents/MAP.md §5 (the agents-flow-1 note)
 and execute the gate at ~/code/agents/plans/g1-flow-close.md.
-Any D-entry you lay lands marked "(proposed — pending ⬡✓)".
 ```
