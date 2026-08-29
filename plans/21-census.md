@@ -461,6 +461,69 @@ dies** · nautical/flight register: the one he most wants to kill (price: LANDED
 IN FLIGHT / keel are machine-parsed lifecycle — doctrine-migrate-scale) ·
 chapter/milestone under debate.
 
+## 14. The exploration boards (live, with Felix — his goal: one word, one meaning)
+
+### 14.1 The yes-word (his lean: back to bless; goldens rename `--bless` → `--gild`)
+
+| Candidate | For | Against | Verdict |
+|---|---|---|---|
+| **bless** | incumbent · his word · court register · noun-able (the blessing) | golden collision (cleared by --gild) · auto-bless compound | podium |
+| **sign** | the ✓ IS a signature · countersign minus the counter- · "sign-off" attested | plain · product sign/signage noise (low) | podium |
+| **seal** | "holds no seal" already canon-adjacent · names the ✓ token as a noun (the seal) | heavier than bless | podium / token-name |
+| rule | field's verb ×8,000 | choice-shaped, not assent-shaped | keep for forks only |
+| sanction | attested | approve AND punish — auto-antonym | dead |
+| ratify · grant · approve · decree · greenlight · anoint | various | cold / corporate / too much / green-collision | bench |
+
+*Counsel:* **bless = assent to a thing · rule = decide between things**; countersign
+dies as a verb, survives as the record token's name (the seal / ✓ Felix). `--gild`
+ships regardless — better than the industry's own word.
+
+### 14.2 The founding act (his lean: cornerstone over keel; landed / in flight stay)
+
+Finding: keel (shipbuilding) never matched landed/in flight (aviation) — dropping
+keel while keeping the flight states is a correction, not a compromise. The city
+register offers the full ceremony, all real-world rites:
+
+| Word | Referent | Notes |
+|---|---|---|
+| **break ground** | campaign work begins | "we broke ground on v3"; groundbreaking-as-adjective noise is low in context |
+| **cornerstone** | the founding doc / plan | real cornerstones carry engraved founding dates — exactly what the doc is; zero corpus collisions |
+| **set the keystone** | campaign completion (gap §11.1!) | the last stone that makes the arch stand; whiteboardy's keystone-tests are a small, contextual collision |
+| **foundation** (Felix's late entry) | most functionally true (the doc is what the campaign stands on) · D38 lineage literally includes *Foundation* · "foundational sessions" already canon speech | dead-metaphor business English · foundation-model collision (the one future-guaranteed tech sense) · 4 syllables | head-to-head with cornerstone — taste |
+| first stone · blueprint · charter · commission | founding variants | two words / spec-collision / mantle-collision / dream-collision |
+
+*Counsel:* cornerstone + keystone as a pair — founding and finishing in one register.
+Price: prose-only. "Genesis" stays dead.
+
+### 14.3 Replacing cut (his pain: create-vs-remove ambiguity on every use)
+
+| Candidate | For | Against |
+|---|---|---|
+| **open** (rows, batches) | act and OPEN state unify — "opened three rows"; in board context can only mean create; zero new vocabulary | generic outside board context (harmless) |
+| **mint** (canonical artifacts) | already law for tiers/tokens/standards; direction-proof | UR-variable product noise (contextual) |
+| author | the doctrine's own "author into existence" made verb; unambiguous direction | formal; haunted by retired AUTHORED token |
+| draft · lodge · cast · stake · plot · raise · commission | various registers | not-final / filing-not-creating / throw-noise / waggle-Stakes / chart-noise / escalate-noise / sovereign's act |
+| table | — | BrE propose vs AmE shelve — the worst word for a bilingual corpus | 
+| strike · cleave | — | auto-antonyms; cleave listed for comedy only |
+
+*Counsel:* **open + mint**, cut dies entirely, kill/strike keep removal. Zero new
+words, two existing ones widen slightly.
+
+### 14.4 Replacing row (his lean: exploring; "order" floated)
+
+The case against row: it names where the thing is written (a table row), not what it
+is — positional, not conceptual.
+
+| Candidate | For | Against |
+|---|---|---|
+| **job** | one job = one doc = one session; universal scheduler semantics; zero collisions; STE-perfect | zero poetry |
+| **order** | work-order heritage (hexwright, bob); the board becomes **the order book** | order-as-sequence saturates doctrine prose ("moves ordered behind it") — singular-meaning test strains; genre "order" must rename (cleanest: **the dig and the build**) |
+| **commission** | city-coherent (guilds take commissions) | heavy; the-city uses it for Felix's founding act |
+| ticket | the-city already maps "a job ticket" | corporate stink |
+| task · mission · charge · stone · lot · shift · piece | various | harness Task noise / epic-inflation / legal noise / stone-is-git collision / obscure / session-shaped / weak |
+
+Also ruled at exploration: **session beats window** — window demotes to lore.
+
 ## 13. The choosing protocol
 
 Recommended walk, one sitting, ~35 rulings in eight clusters — each cluster one
