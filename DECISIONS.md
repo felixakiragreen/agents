@@ -903,7 +903,7 @@
   physics; re-harvest if a second project bleeds. The number stands spent.)*
 - **D71** (2026-08-29, Grand Architect (12) · ⬡✓ Felix 2026-08-29 — "I bless the
   standard"): **The Guild's Standard — one concept, one word.**
-  [plans/21-standard.md](plans/21-standard.md) is law: the working vocabulary chosen
+  [canon/work/STANDARD.md](canon/work/STANDARD.md) is law: the working vocabulary chosen
   by Felix across nine live rounds on the 21 census (1.26M words · 38 readers ·
   coverage 441/441 · 3,066 terms). The spine: bless (the yes) · rule (the decision,
   either way) · charge / lay / ignite / ignitable · batch (any graph between
