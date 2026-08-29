@@ -1025,3 +1025,26 @@
   being dug in the most elegant way." The Builder charter carries the mirror
   emphasis (built to last — doubly bound) at its redraft. Deployed live ×3 at the
   edit (the sync set); birthplace: C28 F17's stack probes + the digger v4 audit.
+- **D76** (2026-08-29, Felix · ⬡✓ in-session — "I bless all of these"): **The C28
+  roster — the door and the charters, blessed whole.** The Guild gains the door —
+  `canon/GUILD.md`, the entry read at every summons before the charter, with the
+  dispatched stanza as its closing section — and the seven role documents redrafted
+  around it: Digger (v4), Architect (v6), Builder (v2), Mentat (v2), Grand
+  Architect (v3), and the Fixer minted from the null mantle as ⬡'s mercenary
+  (extensive permissions, answers to him alone, the record never lies, the
+  breadcrumb). Forged by C28's method: 34 probes across 7 rounds — reader-response,
+  then scenario stacks at deployment staffing — every law probe-tested before this
+  blessing; the evidence is the charge doc's F1–F33 and the verbatim replies
+  (`lab/c28/probe-results.md`). The laws minted en route and blessed with the
+  roster: the two contracts (where you stop · what you leave) · the fence binds the
+  work, never the delivery · the side-quest grant (record always, chase by grant,
+  scaled to judgment) · the amendment law (instruments both sides; Felix in the
+  room needs none) · the ruling law (no citation, no ruling; delegation joins the
+  citation family; presentation as citation + one line) · the execution grant ·
+  the two sweeps (inbox + calibration — the office is the drift detector) · the
+  drafting laws (traits-as-laws · one-law-one-home · lead-with-example) · the
+  ancestry law unifying canonization and register (D52 as amended this day:
+  the issue, not the behavior). Blessed texts frozen in `lab/c28/`; the landing is
+  C33's (transcription, not drafting); the shims ride it; sources: his notes at
+  the desk + the round-4 census preview. The trait lists struck from the founding
+  notes (F28/F29): a trait enters a charter as the law that produces it.
