@@ -5,18 +5,20 @@ repo — **the Guild** (D37): mantles, capability tiers, work doctrine, global C
 canonized here, mirrored into `~/.claude*` config dirs.
 
 **Read `MAP.md` before any work** — it is the master architecture and holds the
-campaign board. Ratified choices live in `DECISIONS.md`; the tail of `LEDGER.md` tells
+campaign board. Blessed decisions live in `DECISIONS.md`; the tail of `LEDGER.md` tells
 you where we are; field reports land in `ISSUES.md` (D49) — file and move on.
 
-Subproject: `belvedere/` — the sovereign's glass; its own board and docs live with it
+Subproject: `belvedere/` — the Sovereign's deck; its own board and docs live with it
 (`belvedere/README.md`).
 
 ## Session protocol
 
-- Declare your mantle: Grand Architect · Architect · Dispatcher · Digger · Builder.
+- Declare your office or mantle: Grand Architect · Mentat (offices) · Architect ·
+  Builder · Digger · Fixer (mantles). The Guild speaks the standard —
+  `canon/work/STANDARD.md`.
 - Work doctrine: `canon/work/DOCTRINE.md` — boards, work docs, findings, ledger law;
   this repo conforms (MAP §7).
-- Design sessions (01–03) run Fable at max effort; briefs name everything else.
+- Design sessions (01–03) run Fable at max effort; charge docs name everything else.
 - Deployment: `./sync/deploy` symlinks the sync set into all three config dirs,
   `./sync/check` is the drift alarm — `deploy` is **Felix-run** (an agent tripping the
   permission guard on a live config file is the design, D14). The whole sync set —

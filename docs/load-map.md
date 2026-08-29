@@ -1,9 +1,9 @@
 # The Load Map
 
 What is actually in a session's head — the auto-loaded layer the harness gives
-everyone, and the summons-loaded layer each mantle reads. Landed 2026-08-15 (sitting
-07) from an answer given to Felix in the field (sitting-06 era, 2026-08-09), trued at
-landing. Reference, never law: where this page and a charter disagree, the charter
+everyone, and the summons-loaded layer each mantle reads. Landed 2026-08-15 (session
+07) from an answer given to Felix in the field (session-06 era, 2026-08-09), reconciled
+at landing. Reference, never law: where this page and a charter disagree, the charter
 wins and this page gets fixed. Companion to `the-city.md` — that page says who
 everyone is; this one says what's in their heads.
 
@@ -29,25 +29,25 @@ summons and work doc name.
 
 | Session | Loads | Doctrine? |
 |---|---|---|
-| Grand Architect | charter + MAP + LEDGER + DECISIONS + LOG + ISSUES (the D49 sweep), then birthplaces per the harvest law | Yes — owns it |
+| Grand Architect | charter + MAP + LEDGER + DECISIONS + LOG + ISSUES (the D49 sweep), then birthplaces per the canonization law | Yes — owns it |
 | Mentat | charter + `SAPHO.md` (the Standing Computation + recent entries), then whatever the thought needs — no standing city boot | No |
 | Architect (founding) | charter + DOCTRINE + `dream.md` | Yes — the summons names it |
-| Architect (sitting) | charter + master doc/board + ledger tail + landed findings + the inbox (the D53 sweep) | §-reads as the work demands — the charter points at §4 |
-| Dispatcher | charter + the board + batch note + kickoffs (relayed verbatim) + rider + bulletin | No |
-| Digger / Builder | charter + their one work doc + rider + the doc's Inputs list | No |
-| Bare session | the two CLAUDE.mds only | No — no charter either |
+| Architect (review) | charter + master doc/board + ledger tail + landed findings + the inbox (the D53 sweep) | §-reads as the work demands — the charter points at §4 |
+| The tender (the dispatch) | the board + batch note + kickoffs (relayed verbatim) + coda + bulletin | No |
+| Digger / Builder | charter + their one charge doc + coda + the doc's Inputs list | No |
+| Fixer | the two CLAUDE.mds only | No — no charter either |
 
 ## 3. Why that is the design and not a gap
 
 **The doctrine travels compiled, not raw.** A Digger doesn't read the findings law —
-it reads a brief whose `## Findings` section, kill criteria, and rider ARE the
-findings law, pre-chewed into orders. The Dispatcher doesn't read §10 — it reads a
+it reads a charge doc whose `## Findings` section, kill criteria, and coda ARE the
+findings law, pre-chewed into a charge. The tender doesn't read §10 — it reads a
 board and a batch note that §10 shaped. The Architect reads the doctrine and emits
 conforming artifacts; the cheap tiers execute the artifacts. **Context tax follows
 the judgment gradient:** the sessions holding the most judgment carry the most law;
-the sessions holding orders carry orders. The doctrine even excludes itself from
-§11's cold-start sequence — ~380 lines of law in every Digger's window would tax the
-two-minute start for rules the brief already embodies. ("Auto-loaded bytes are
+the sessions holding a charge carry the charge. The doctrine even excludes itself from
+§11's cold-start sequence — ~380 lines of law in every Digger's context would tax the
+two-minute start for rules the charge doc already embodies. ("Auto-loaded bytes are
 taxed" is a DOCTRINE §1 principle, and DOCTRINE obeys it about itself.)
 
 ## 4. The enforcement corollary

@@ -1,8 +1,9 @@
 # 21 — the working vocabulary: the census, then the standard
 
-**Status:** IN FLIGHT 2026-08-28 — the sitting is live (GA, interactive, Felix in the
-room); census wave dispatched · **Depends on:** Felix-gate: his call to sit — paid
-2026-08-28 · **Staffing:** Grand Architect · fable-max
+**Status:** LANDED 2026-08-29 — the standard is blessed (D71 ⬡✓); the census ran, the
+nine choosing rounds ran, [STANDARD.md](../canon/work/STANDARD.md) is law ·
+**Depends on:** ⬡-gate: his call to sit — paid 2026-08-28 · **Staffing:** Grand
+Architect · fable-max
 
 ## The directive — Felix's words, verbatim
 

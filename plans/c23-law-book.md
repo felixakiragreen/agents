@@ -1,6 +1,6 @@
 # C23 — the law book
 
-**Status:** OPEN — laid 2026-08-29 · **Depends on:** — · **Staffing:** Grand Architect · fable-max
+**Status:** LANDED 2026-08-29 · **Depends on:** — · **Staffing:** Grand Architect · fable-max
 
 ## Mission
 
