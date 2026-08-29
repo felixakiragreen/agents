@@ -166,8 +166,11 @@ replaces.
 - **probe, drill, smoke, canary, control, gauge, budget, admissible / inadmissible,
   conditions, denominator** (the total a suite claims to run against — harvested),
   **golden** · unchanged. Recording a golden is **--gild** · *instead of:* --bless.
-- **Typed absences**: `unrecorded` (asserts ignorance) · `unstaffed` (asserts
-  knowledge) — the registry of legal tokens lives here; the un-X pattern ⬡.
+- **Typed absence — there is only `unrecorded`.** If a charge is unstaffed, it is a
+  **Fixer** charge; if a session is truly outside the Guild, it is not recorded in
+  the Guild. `unstaffed` dies (one day old; the standard supersedes). A DEFERRED
+  charge whose staffing dissolved writes `—` — the empty-cell token, with the
+  annotation explaining why.
 
 ## 7. Punctuation and notation
 
@@ -191,7 +194,7 @@ replaces.
 
 - **building** · noun · one repo — one structure in the city; ruled into daily
   speech beside campaign. Boards outside their own building are named ("the snappy
-  board") — bare "board" only at home (⬡ confirm).
+  board") — bare "board" only at home. Ruled.
 - **waggle** · verb · "waggle me X" → the shortest possible plain-speech explanation,
   one sentence per thing — that's all it ever wanted to be. · *instead of:* the
   four-slot Problem/Move/Stakes/Dig anatomy (killed; D51's contract molts).
@@ -207,15 +210,33 @@ replaces.
   flavor) belong to voice surfaces; law surfaces — boards, ledgers, batons, status
   cells — speak the law layer only. There are sessions where color and creativity
   are rewarded; those are not these.
-- **Formulas are pinned strings**: the canonized maxims carry one exact wording each
-  ("Files carry the truth", "A documented kill is a win", "Gates are rows",
-  "Measurements carry their conditions", "Probes ship with a control", "Ambiguity,
-  never plurality, is the sin", "A paraphrase is a defect", "The state leads, the
-  annotation follows", "Passing = finished", "One function, one home", "Append,
-  distill, strike", "The mantle says whether a charge digs or builds", "A baton must
-  read cold") — paraphrase drift is a lint catch. Full pinned list ⬡ at blessing.
-- **Spelling** · ⬡ — the base (the corpus leans AmE with a grey-class BrE island)
-  and the exception list await Felix; the lexicon then enforces word-by-word.
+- **Formulas are pinned strings** — one exact wording each; paraphrase drift is a
+  lint catch. The pinned list (Felix prunes at blessing):
+  1. Files carry the truth.
+  2. A documented kill is a win.
+  3. Gates are charges.
+  4. Measurements carry their conditions.
+  5. Probes ship with a control.
+  6. Ambiguity, never plurality, is the sin.
+  7. A paraphrase is a defect.
+  8. The state leads, the annotation follows.
+  9. Passing = finished.
+  10. One function, one home.
+  11. Append, distill, strike.
+  12. The mantle says whether a charge digs or builds.
+  13. A baton must read cold.
+  14. Stop and escalate.
+  15. A claim without evidence is a draft.
+  16. The tail alone reboots a cold session.
+  17. Targets are read from the repo.
+  18. Parallel-safe is not parallel-affordable.
+  19. Never split ahead of need.
+  20. Auto-loaded bytes are taxed.
+  21. Creep is a bug.
+  22. Think in any terms; communicate in the standard.
+  23. The Sovereign's input is translated, never corrected.
+- **Spelling — ruled: American, with the exception list: grey** (greys, greyed). The
+  lexicon enforces word-by-word; -ize with it.
 - **Enforcement**: the language linter is its own charge, to be laid — ancestor:
   manny's smuggler-words rules (M13); food: `lab/21/lexicon.json`; venue: `doctrine
   lint`'s vocabulary arm.
@@ -252,7 +273,9 @@ replaces.
 | strike (decide sense) | kill |
 | pass (Guild-minted senses) | bless (the gesture) · visual pass survives |
 | --bless (goldens) | --gild |
-| Dispatcher (mantle) | ⬡ — row 20's hole |
+| Dispatcher (mantle) | the flow engine — 20 is the new dispatcher (ruled) |
+| unstaffed | Fixer (staffing) · `—` (dissolved staffing on DEFERRED charges) |
+| the four-slot waggle | one plain sentence per thing |
 | bare "register" | a named register |
 
 ## ⬡ Open slots
