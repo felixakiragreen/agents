@@ -955,9 +955,10 @@
   remain the Felix-tended exception (D61's default re-pointed: the default tender is the
   dispatch, operative at agents-flow-1's landing; until then the batch note names its
   tender). The engine's canon law: **D10 wholesale** — ambiguity never arms and never
-  advances; only declared or scope-grown steps ignite (D12); **every flow carries a
-  budget** — a ceiling on engine ignitions per arm; at the ceiling the engine pauses and
-  a re-arm extends (the zoning law's lineage, D29/load-328; external ancestor cited:
+  advances; only declared or scope-grown steps ignite — the blessing covers the scope
+  (D12); **every flow carries a
+  budget** — a ceiling on engine ignitions per blessing; at the ceiling the engine pauses and
+  a re-blessing extends (the zoning law's lineage, D29/load-328; external ancestor cited:
   graph-engineering's spawn-cap guardrail, read 2026-08-29); **a step may continue a
   session** rather than ignite fresh when the lay says so — continue when the next act
   consumes this act's judgment, go fresh when the altitude changes (GA-10's coda, now
@@ -978,13 +979,15 @@
   §3 (the dispatch as holder). Birthplaces: the flow keel + B10/B11/B12 evidence;
   charge 17 §Verdict; GA-10's coda; codejunkie99/graph-engineering (the two imported
   guardrails + the edge test's wording — the first external ancestor cited into canon,
-  scorecard in charge 20's findings).
+  scorecard in charge 20's findings). *(Respelled same day at the ⬡ ruling "Bless
+  bless": arm → bless throughout — form molt, meaning intact; the graveyard row is
+  the standard's 33rd.)*
 - **D74** (2026-08-29, Grand Architect (15) · ⬡✓ Felix 2026-08-29 — blessed in-session;
   the qualified id chosen at the fork): **The flow fold — the grammar.** Seven fields
   and their tokens enter the D63 grammar, per 17's line (a field the glass needs is
   typed by the one parser): **(a) the holder is written** — `Baton — <holder> → <action>`,
   holder ∈ ⬡ · a named session · **the dispatch** (a legal holder: the tender-holder
-  case closes — a batch the machinery tends says so, and no button arms); the
+  case closes — a batch the machinery tends says so, and no button is wired); the
   instrument-first classifier retires where the form is present; shapes: single
   implicit, `batch —` / `fork —` written, a fork carries a `recommendation:` slot;
   **(b) holds** — `LANDED <date> — holds: <list>`: the named remainders that pause

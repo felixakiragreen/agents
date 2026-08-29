@@ -67,8 +67,8 @@ describe('the drift alarm — the lexicon is STANDARD.md, mirrored', () => {
 			if (g.forms) expect(g.forms.flags).toContain('g');            // the arm re-uses lastIndex
 			else expect(g.dropped.length).toBeGreaterThan(80);            // a reason, not a shrug
 		}
-		// The kill is documented, not silent: the standard's 32 rows, and how many are enforced.
-		expect(GRAVEYARD).toHaveLength(32);
+		// The kill is documented, not silent: the standard's 33 rows, and how many are enforced.
+		expect(GRAVEYARD).toHaveLength(33);
 		expect(GRAVEYARD.filter(g => g.forms)).toHaveLength(24);
 	});
 

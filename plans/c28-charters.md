@@ -1,7 +1,7 @@
 # C28 — the charters
 
 **Status:** OPEN — laid 2026-08-29 — collaborative at his desk, many revisions
-expected; **precedes flow-1's authorization** (his word 2026-08-29; one day
+expected; **precedes flow-1's blessing** (his word 2026-08-29; one day
 Belvedere's chat hosts this genre — today it runs at the desk) · **Depends on:**
 C23 · ⬡-gate: Felix's office/mantle charter drafts · **Staffing:** Grand Architect · fable-max
 

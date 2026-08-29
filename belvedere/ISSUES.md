@@ -30,3 +30,15 @@ the inbox is cleared. A cleared inbox is empty.
   DOCTRINE §10 says ignition = kickoff + the project coda (`plans/CODA.md` where one
   exists): append it at fire. (6) Standing reminders, already yours: B12 E1
   (trust false-refusal on plain directories), B17's probe reds.
+- 2026-08-29 · Grand Architect (GA-15) · **arm → bless (⬡ ruled — "Bless bless") +
+  two trust facts.** (1) The Guild's word for the one-click flow authorization is
+  **bless** (STANDARD §1 + §9 row 33; D73 respelled): sovereign-facing copy — the
+  Works' button above all — must read **Bless**; run-state event names (`armed`,
+  `armedAt`), the arming switch, and D10's own title are tool vocabulary — your
+  Architect's call whether they follow. (2) The trust split-brain, measured:
+  personal's legacy `~/.claude.json` is not what `readTrust` reads
+  (`~/.claude/.claude.json`) — correct behavior, but a human measuring trust by the
+  legacy file gets wrong answers (canon charge 20 F6's dated correction holds the
+  evidence). (3) A trust refusal at blessing time is a ⬡-card candidate — his word:
+  "you can just ask me to do that" — one session opened by his hand warms the cell;
+  card it, never guess.

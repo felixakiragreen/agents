@@ -23,9 +23,11 @@ replaces.
 ## 1. The yes and the decisions
 
 - **bless** · verb · the yes from Felix: assent to a thing, an option in a fork, the
-  sign. Noun: **blessing**. · *instead of:* countersign (as a verb), approve,
-  greenlight. The record token **`✓ Felix`** is unchanged and machine-parsed — speech
-  unified, grammar typed.
+  sign. Noun: **blessing**. Blessing a flow's drawn plan authorizes the dispatch to
+  run it (D11/D73) — a re-blessing covers an edit; the blessing covers the scope
+  (D12). · *instead of:* countersign (as a verb), approve, greenlight, arm (a flow —
+  killed 2026-08-29, the gun family's last word). The record token **`✓ Felix`** is
+  unchanged and machine-parsed — speech unified, grammar typed.
 - **rule** · verb · decide a question, either direction — bless can only say yes;
   no's, withdrawals, and choices need **ruled** / **ruling**.
 - ~~ratify~~ · killed 2026-08-28 — bless + the record carry it (a decision is laid,
@@ -289,6 +291,7 @@ replaces.
 | unstaffed | Fixer (staffing) · `—` (dissolved staffing on DEFERRED charges) |
 | the four-slot waggle | one plain sentence per thing |
 | bare "register" | a named register |
+| arm (a flow) | bless (D11 — the review is the authorization) |
 
 ## What remains
 

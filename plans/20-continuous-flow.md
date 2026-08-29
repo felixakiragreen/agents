@@ -157,6 +157,19 @@ therefore cap-mega, and its three out-of-tree targets are flow-1's **named physi
 probe** — P5's next cell (out-of-project writes under `auto`): a stall pauses at the
 60-minute timeout, visibly in the Works; the fallback is one rig summons.
 
+*Corrected 2026-08-29, same day (dated note per §6's correction law):* ⬡ launched a
+session in whiteboardy from all three accounts — no dialog appeared, and the cells now
+read `true` ×3; the engine's own precheck confirms (`trustOf` → `warm: true` ×3,
+measured). Two facts replace the original conclusion. **(1) The split-brain:**
+personal's legacy `~/.claude.json` — the file F6 measured — is not the file the engine
+reads (`~/.claude/.claude.json`): URSDK reads `warm: false` on personal despite the
+legacy `true`, so every future trust check measures the config-dir file, per account.
+**(2) The venue re-picks:** URSDK root on thg-fgreen (precheck-warm; 199 of ~440 hits
+in-tree — snappy 118 · theseus 41 · simmy 40) supersedes cap-mega; the out-of-tree
+probe now covers whiteboardy, arborist, and this repo. And his line, kept: a trust
+dialog is a one-minute ⬡-action — *"you can just ask me to do that"* — relayed to
+Belvedere as the ⬡-card pattern for trust refusals at blessing time.
+
 **F7 — a stray hunk, not this session's.** Between this session's read and its edit,
 STANDARD §4's Sovereign's clause lost "never corrected" (working-tree diff,
 uncommitted, author unknown — sixteen peer sessions idle at the check). Named here

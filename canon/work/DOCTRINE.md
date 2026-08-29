@@ -451,9 +451,10 @@ tender creates `plans/BULLETIN.md` (next to the charge docs — simmy's lived at
   and D12, ratified canon-side). For engine-tended batches **the flow file is the
   batch note** — the board's note points at it (`flow: <name>` + the tender line);
   prose batch notes remain the Felix-tended exception. The engine's law: D10
-  wholesale — ambiguity never arms and never advances; only declared or scope-grown
-  steps ignite; **every flow carries a budget** — a ceiling on engine ignitions per
-  arm; at the ceiling the engine pauses and one re-arm extends; **a step may continue
+  wholesale — ambiguity never authorizes and never advances; only declared or
+  scope-grown steps ignite — **the blessing covers the scope** (D12); **every flow
+  carries a budget** — a ceiling on engine ignitions per blessing; at the ceiling the
+  engine pauses and one re-blessing extends; **a step may continue
   a session** rather than ignite fresh when the lay says so — continue when the next
   act consumes this act's judgment, go fresh when the altitude changes; **a gate
   session with no row of its own lands by the row it was staffed for**, never by its

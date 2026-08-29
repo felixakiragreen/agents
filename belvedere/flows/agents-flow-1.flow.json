@@ -35,9 +35,9 @@
 		{
 			"id": "c30",
 			"name": "Master-doc prose sweep",
-			"account": "personal",
+			"account": "thg-fgreen",
 			"tier": "Architect · opus-high",
-			"venue": { "kind": "master", "cwd": "~/code/universal_robots_sdk/cap-mega" },
+			"venue": { "kind": "master", "cwd": "~/code/universal_robots_sdk" },
 			"depends": [],
 			"timeoutMinutes": 60,
 			"kickoff": { "doc": "agents/plans/c30-master-doc-prose.md", "fence": 1 }

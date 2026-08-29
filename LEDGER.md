@@ -1703,3 +1703,16 @@ the Belvedere code-symbol relay ride his ruling. Next now: Baton — ⬡ → the
 session on your drafts (its summons is fenced in plans/c28-charters.md) — the
 successor-word ruling rides your reply. Behind it: flow-1's authorization · C27's
 visual pass · D72.
+
+*Addendum 2, same session:* **arm → bless, ⬡ ruled ("Bless bless")** — STANDARD §1
+extended + §9 gains row 33 (the lexicon mirror moved with it, dropped-in-writing:
+arm's polysemy is unlintable — the drift alarm's own mechanism), D73/D74/DOCTRINE
+§10/MAP/C28 respelled same-day (form molt, meaning intact), Belvedere relay #2 filed
+(the Works' button copy reads **Bless**; tool-vocab renames their call). Trust
+re-measured after his three whiteboardy launches: **warm ×3 by the engine's own
+precheck**, and **the split-brain found** — personal's legacy `~/.claude.json` ≠
+`~/.claude/.claude.json`; the engine reads the latter (F6's dated correction — the
+correction law's second use on its birthday). c30's venue re-picked: URSDK root on
+thg-fgreen, 199 of ~440 hits in-tree. Flow re-verified after the venue edit: PARSE
+OK. Baton unchanged: ⬡ → the C28 session on your drafts; behind it: **bless
+agents-flow-1 in the Works** · C27's visual pass · D72.
