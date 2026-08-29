@@ -1,13 +1,13 @@
 # The City & the Hive
 
-> *The Grand Architect keeps the canon, Architects think, Dispatchers tend, Diggers dig,
+> *The Grand Architect keeps the canon, Architects think, the dispatch tends, Diggers dig,
 > Builders build — a hive building a city; files carry the truth.*
 
-The Guild's framing glossary — the two registers its language runs on, written down
-the day the sovereign asked for the map (2026-08-15, sitting 07; D51). This page
-explains the system; it never overrides it. Law lives in the charters and the
-doctrine — where this page and a charter disagree, the charter wins and this page
-gets fixed.
+The Guild's framing glossary — the two metaphor registers its language runs on, written
+down the day the sovereign asked for the map (2026-08-15, session 07; D51). This page
+explains the system; it never overrides it. Law lives in the charters, the doctrine,
+and the standard — where this page and a charter disagree, the charter wins and this
+page gets fixed.
 
 ## 1. The city
 
@@ -19,7 +19,7 @@ hives' work looks like one city and not three.
 | The city | The Guild |
 |---|---|
 | The city | every repo on every account — three hives, one city |
-| The building code | canon: charters, tiers, doctrine, the global CLAUDE.md |
+| The building code | canon: charters, tiers, doctrine, the standard, the global CLAUDE.md |
 | The standards office | the Grand Architect — one office, a succession of holders |
 | **The sovereign** | **Felix** — commissions every work, signs every change order, holds the treasury and guards taste like a dragon |
 | The sovereign's counsel | the Mentat (D62) — thinks beside the throne, holds no seal |
@@ -27,17 +27,17 @@ hives' work looks like one city and not three.
 | Architect of record | that project's Architect |
 | The commission letter | `dream.md` — the client's own words, framed, never edited |
 | The master plan | the master doc — `MAP.md` / `README.md` (D60) |
-| A programme of works | a campaign — a bounded arc of rows with its own DoD |
-| The works schedule | the board; a row = one job = one crew's shift (a session) |
-| A job ticket | a work doc — a brief (survey) or an order (construction) |
-| Survey crew · build crew · foreman | Digger · Builder · Dispatcher — the foreman coordinates, never designs |
+| A programme of works | a campaign — all the batches of charges toward one keystone |
+| The works schedule | the board; a charge = one job = one crew's shift (a session) |
+| A job ticket | the charge doc — survey or construction; the mantle says which |
+| Survey crew · build crew | Digger · Builder — the foreman's office stands empty: the Dispatcher is dead (D71), and the flow engine (charge 20) will hold the clipboard |
 | The site diary | `LEDGER.md` — real sites keep one daily; it is legally significant there too |
 | The change-order register | `DECISIONS.md` — no change order executes without the owner's signature |
 | The site noticeboard | the bulletin — up only while crews overlap |
 | Inspection reports | findings — evidence-grade, filed under the job that produced them |
 | Scaffolding | `lab/` — comes down when the works close |
-| Working without a permit | the null mantle (D26) — session-sized, the sovereign's own two hands |
-| The reserved groundbreaking | the substrate (D39) — the metro: city infrastructure, keeled by the standards office at the sovereign's call |
+| Working without a permit | the Fixer (D26/D71) — session-sized, the sovereign's own two hands |
+| The reserved groundbreaking | the substrate (D39) — the metro: city infrastructure, its cornerstone laid by the standards office at the sovereign's call |
 | Two empty rooms uptown | the Royal and Imperial thrones (D39) — kept empty until the city can give them eyes |
 
 Two of these rows the building trade already practices for real — the site diary and
@@ -54,19 +54,19 @@ Who to summon, in six clauses:
    record** (founding Architect · fable-max, doctrine §12). Jurisdiction routes; size
    never does.
 3. **Works on a standing building** — outlives a shift, or coordinates several crews
-   → **that building's own Architect** cuts it on the works schedule.
+   → **that building's own Architect** lays it on the works schedule.
 4. **A repair with the toolbox in your hand** — session-sized, sovereign present →
-   **no permit needed** (null mantle, D26).
+   **no permit needed** (the Fixer, D26/D71).
 5. The standing exception: **the metro** (the substrate) is the standards office's
    groundbreaking, at the sovereign's call, when it comes (D39).
 6. **Thinking beside the sovereign** — cross-project, no works, no permit → **the
    Mentat** (D62): changes minds, not files; a thought that becomes work is handed to
    clauses 1–4.
 
-And the keystone, recorded because the sovereign once forgot his own address: the
-standards office never commissions. **The sovereign determines when; the office is
-opened by his knock.** Pain reports to the throne, not to the standards office — the
-best decisions are driven by real pain, and the pain is his to feel.
+And the keystone of the routing law, recorded because the sovereign once forgot his
+own address: the standards office never commissions. **The sovereign determines when;
+the office is opened by his knock.** Pain reports to the throne, not to the standards
+office — the best decisions are driven by real pain, and the pain is his to feel.
 
 ## 3. The hive
 
@@ -80,36 +80,21 @@ strangers who never meet can build one city.
 | A hive | one Claude account (of three) |
 | A bee | a session — mortal, mid-thought, replaceable |
 | Comb | account memory — a cache, never the truth (D27) |
-| Trails | the docs — board, briefs, findings, ledger |
-| The waggle | the decision-density signal (below) |
+| Trails | the docs — board, charge docs, findings, ledger |
+| The waggle | the plain-speech signal (below) |
 
 ### The waggle
 
 A scout compresses a distant field — direction, distance, quality — into a tiny
 repeatable signal, so the hive can decide cheaply whether to fly out and verify.
-Ratified as Guild vocabulary by the sovereign, 2026-08-15 (D51): **a decision-density
-signal for a sovereign protecting his throughput.**
 
-The contract: **a waggle may lower resolution, never crop the frame.** The whole
-field at a glance — a waggle with a wing missing is not a waggle, it is a leading
-question. Four lines, fixed anatomy, then silence:
-
-- **Problem** — one breath.
-- **Move** — the proposed act (one; a menu is not a move).
-- **Stakes** — cost, risk, what happens if we don't.
-- **Dig** — where the full depth lives, if it smells. May fall silent when the depth
-  is this conversation — absence means *here* (D51, amended at first use).
+The contract (D71, remaking D51): **"waggle me X" → the shortest possible plain-speech
+explanation — one sentence per thing.** That is all it ever wanted to be. The four-slot
+anatomy (Problem / Move / Stakes / Dig) is dead — killed at the choosing, 2026-08-29;
+digging past a waggle stays native to the mechanism — scouts dance, the hive flies out
+and checks.
 
 How to ask, any mantle, any repo: *"waggle me X."* The invocation line lives in the
-global CLAUDE.md (2026-08-15, by D37's one-clause precedent), so every session on
-every account knows the word; this page holds the full contract. Digging past a
-waggle is native to the mechanism — scouts dance, the hive flies out and checks.
-
-Status: on request everywhere; **not yet a default duty.** The sovereign's own
-ruling: usage first — if the asks keep coming, the predictable fold is that
-sovereign-facing surfaces (escalations, batch reports, the decision queue) arrive
-waggled by default while trivial exchanges stay plain, folded into the charters by a
-future sweep the way everything real enters the law: tradition first, harvest after.
-Lineage, for the record: sitting 02 coined `waggle-dance.md` as a joke and grieved it
-as "scheduled to die in a conversation"; sitting 07 found it true. Words here get
-second lives.
+global CLAUDE.md; this page holds the lineage: session 02 coined `waggle-dance.md` as a
+joke and grieved it as "scheduled to die in a conversation"; session 07 found it true;
+the choosing gave it its final, smallest form. Words here get second lives — and third.
