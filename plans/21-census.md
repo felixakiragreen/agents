@@ -411,6 +411,56 @@ in this census is prose-priced.
 building-local color and one-off coinages. The standard should stay silent on them —
 STE governs the shared tongue, not every word ever spoken.
 
+## 13a. The id-prefix namespace (Felix's ask, first-impressions pass)
+
+Raw registry: `lab/21/prefix-acro-report.md`. 46 letter-prefixes in live use. The
+canon-wide kinds: **D** (decisions, 4,448 raw — but scoped eight ways, §6) · **F**
+(findings — also arborist proposals) · **E** (escalations — also whiteboardy editor
+rows e13, experiment ids) · **G** (gates) · **GA-** (sittings — collides with GA the
+office abbreviation) · **FC-** (fold candidates) · **FG** (Felix-gates, cap-mega
+dialect). Per-building row ids: B (belvedere) · P (probes) · S/SH (spikes, shells) ·
+ARB- · REP- · RP- · WO- · BV- · X/Q/N/A/R/O/H/W/L/I/U/V/Z/K/Y/J (assorted, some
+one-campaign). **The M pile-up**: milestones (M0…, two buildings) + manny lint rules
+(M1…M13) + walk-log mismatches (M-17) + spacex M-rows — four schemes, one letter,
+zero disambiguation. Separator grammar is split: bare `D37` (canon) vs dashed
+`ARB-07`/`GA-09`/`PD-D9` (compounds and campaigns).
+
+*Counsel:* publish ONE table: canon-wide kinds get reserved bare letters (D, F, E,
+G + GA-/FC- compounds); every campaign declares its row-prefix at founding (the
+founding ritual gains a line); compounds always dash; bare letters never reused
+across kinds within one building; the linter holds the table. This is cheap law with
+high collision yield — the M pile-up alone justifies it.
+
+## 13b. Acronyms (Felix's ask: "are we including acronyms in this?")
+
+Raw inventory: `lab/21/prefix-acro-report.md` (391 at ≥8 uses; filenames like README
+are extraction noise). The load-bearing Guild-internal ones: **DoD** (1,352 — the one
+that sent Felix to a search engine), **WO**, **LOC**, **STE**, **GA**, **THG**, plus
+engineering-universal (API, UI, VM, CPU, DAG, CRDT, JVM, DOM…) and product-domain
+(UR, URCap, URSim, MO/SO/DO — bob's production orders, EDT).
+
+*Counsel:* STE's own answer is an **approved-abbreviations list**: (1) Guild-minted
+acronyms are standard entries — concept, expansion, where legal (DoD's fate is a
+choosing call: keep-with-glossary vs spell out "definition of done"); (2)
+engineering-universal acronyms are legal unglossed; (3) everything else spells out at
+first use per doc. The lexicon carries the allowlist; the linter enforces it.
+
+## 13c. The sovereign's first-impressions pass (2026-08-28, non-final, his words summarized)
+
+Recorded so the record outlives the window — **"NOTHING is settled"**: acronyms need
+a ruling (DoD bit him) · letter-prefixes need exact uniform usage · row might fall
+(order candidate — collides with order-the-genre, see cascade) · cut/kill: his
+addendum matches standing law (kill = remove exists; cut = create may stand) ·
+mantle may split into **singular offices** (GA, Mentat) vs **mantles** (plural
+wearers) with **Fixer** as a possible formalized null-mantle · bless/countersign
+split challenged — no good reason found for two spoken yes-words (office concurs:
+the object carries the information; record tokens stay typed) · bless itself at risk
+(golden collisions) · the 5-way occasion split "will not fly" (collapse coming) ·
+**rider dies** · **gate stays** · **helm (the word) dies** · **glass (the word)
+dies** · nautical/flight register: the one he most wants to kill (price: LANDED /
+IN FLIGHT / keel are machine-parsed lifecycle — doctrine-migrate-scale) ·
+chapter/milestone under debate.
+
 ## 13. The choosing protocol
 
 Recommended walk, one sitting, ~35 rulings in eight clusters — each cluster one

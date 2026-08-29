@@ -1,0 +1,442 @@
+# id-prefix registry (raw extraction)
+
+- **D** · 4448 · d:whiteboardy,board-record,d:snappy · e.g. D37 D49 D14 D1
+- **B** · 3483 · glass-record,glass-work,tooling · e.g. B14 B16 B12 B13
+- **F** · 3405 · glass-work,d:bob,d:whiteboardy · e.g. F2 F10 F7 F8
+- **E** · 2134 · d:whiteboardy,d:manny,glass-record · e.g. E1 E2 E4 E13
+- **T** · 1182 · d:whiteboardy,d:bob,d:snappy · e.g. T2a T4 T3 T1
+- **M** · 1140 · d:whiteboardy,d:manny,d:spacex · e.g. M2 M1 M4 M0
+- **S** · 1093 · d:whiteboardy,d:simmy-spikes,d:simmy · e.g. S8 S3 S5 S1
+- **G** · 720 · d:capmega-docs,d:capmega-boards,glass-record · e.g. G16 G2 G1 G3
+- **P** · 719 · glass-record,glass-work,d:whiteboardy · e.g. P3 P1 P4 P2
+- **C** · 672 · d:whiteboardy,d:manny,work-doc · e.g. C15 C8 C34 C22
+- **ARB** · 593 · d:arborist,work-doc,d:repot · e.g. ARB-07 ARB-02 ARB-16 ARB-05
+- **SH** · 581 · d:whiteboardy,work-doc,glass-work · e.g. SH4 SH5 SH6 SH1
+- **Q** · 566 · d:whiteboardy,glass-work,d:capmega-docs · e.g. Q1 Q5 Q2 Q3
+- **X** · 533 · d:whiteboardy,d:bob,d:capmega-boards · e.g. X8 X1 X7 X5
+- **N** · 481 · d:capmega-docs,d:snappy,d:bob · e.g. N12 N13 N16 N17
+- **A** · 456 · d:arborist,d:spacex,d:bob · e.g. A8 A3 A1 A2
+- **R** · 246 · d:arborist,d:whiteboardy,d:capmega-docs · e.g. R1 R2 R2b R3
+- **PD-D** · 214 · d:bob · e.g. PD-D9 PD-D2 PD-D5 PD-D3
+- **O** · 180 · d:bob,work-doc · e.g. O2 O3 O1 O6
+- **H** · 180 · d:snappy,d:bob,d:repot · e.g. H1 H2 H3 H4
+- **UR** · 177 · d:simmy-spikes,d:bob,d:simmy · e.g. UR20s UR20 UR12e UR10e
+- **FG** · 174 · d:capmega-boards,glass-work,work-doc · e.g. FG1 FG2 FG3
+- **REP** · 122 · d:repot,work-doc,d:arborist · e.g. REP-05 REP-01 REP-02 REP-03
+- **TH-D** · 105 · d:bob,glass-work · e.g. TH-D11 TH-D4 TH-D10 TH-D13
+- **W** · 102 · d:manny,d:whiteboardy,d:snappy · e.g. W1 W2 W3 W4
+- **WO** · 100 · d:hexwright,work-doc,glass-work · e.g. WO-001 WO-002 WO-003 WO-004
+- **LB-D** · 87 · d:bob · e.g. LB-D10 LB-D9 LB-D1 LB-D2
+- **L** · 70 · d:capmega-docs,d:hexwright,d:bob · e.g. L1 L665 L4 L3
+- **GA** · 70 · board-record,work-doc,d:snappy · e.g. GA-09 GA-11 GA-08 GA-10
+- **BV** · 61 · d:snappy · e.g. BV-1 BV-20 BV-10 BV-16
+- **I** · 58 · d:capmega-docs,d:snappy,d:bob · e.g. I21 I22 I24 I25
+- **FC** · 52 · glass-work,glass-record,board-record · e.g. FC-1 FC-9 FC-7 FC-2
+- **U** · 28 · work-doc,board-record,commit-log · e.g. U1 U2 U5
+- **RP** · 28 · d:repot,work-doc,d:arborist · e.g. RP-1 RP-6 RP-3 RP-4
+- **V** · 23 · d:bob,d:manny,d:capmega-docs · e.g. V8 V1 V5 V-1
+- **Z** · 18 · d:manny,d:bob,d:simmy · e.g. Z6 Z7 Z3 Z17
+- **K** · 17 · d:bob,d:snappy · e.g. K38 K9 K25 K1
+- **UTF** · 12 · d:capmega-docs,d:simmy,d:snappy · e.g. UTF-8
+- **C-D** · 12 · d:bob · e.g. C-D2 C-D1 C-D3 C-D5
+- **Y** · 12 · d:bob · e.g. Y5 Y16 Y25 Y36
+- **J** · 9 · d:bob · e.g. J26 J27 J4 J6
+- **ARM** · 8 · d:whiteboardy · e.g. ARM64
+- **ISS** · 7 · d:arborist,d:repot · e.g. ISS-01 ISS-02
+- **HDMI** · 7 · d:bob · e.g. HDMI-1
+- **SHA** · 7 · d:whiteboardy,d:simmy-spikes · e.g. SHA-1 SHA-256
+- **AI** · 6 · d:bob · e.g. AI42 AI4 AI8 AI13
+
+# acronym inventory (raw extraction, ≥8 uses)
+
+- **DoD** · 1352 · d:whiteboardy,d:simmy-spikes,d:bob
+- **README** · 1098 · d:bob,glass-work,d:simmy-spikes
+- **ARB** · 581 · d:arborist,work-doc,d:repot
+- **CLAUDE** · 567 · work-doc,d:snappy,board-record
+- **ISSUES** · 444 · glass-work,glass-record,d:snappy
+- **EDT** · 370 · d:snappy,d:capmega-docs,d:capmega-boards
+- **MO** · 319 · d:bob
+- **UI** · 310 · d:whiteboardy,d:snappy,d:manny
+- **UR** · 289 · d:simmy-spikes,d:manny,d:snappy
+- **MB** · 254 · d:whiteboardy,d:arborist,d:simmy-spikes
+- **JVM** · 249 · d:snappy,d:simmy-spikes,d:simmy
+- **IS** · 232 · d:whiteboardy,d:simmy-spikes,d:snappy
+- **DOM** · 226 · d:whiteboardy,glass-work,glass-record
+- **CPU** · 217 · d:arborist,d:simmy-spikes,d:bob
+- **PD** · 215 · d:bob,work-doc
+- **THG** · 195 · d:bob,d:manny,d:capmega-docs
+- **URCap** · 190 · d:snappy,d:simmy-spikes,d:simmy
+- **LEDGER** · 188 · work-doc,glass-work,d:whiteboardy
+- **ON** · 172 · d:snappy,d:whiteboardy,d:bob
+- **API** · 156 · d:bob,d:whiteboardy,d:snappy
+- **TV** · 143 · d:bob,d:spacex
+- **VM** · 139 · d:snappy,d:simmy-spikes,d:simmy
+- **LAN** · 139 · d:whiteboardy,d:bob,work-doc
+- **GA** · 136 · board-record,work-doc,glass-record
+- **URSim** · 136 · d:capmega-boards,d:capmega-docs,d:manny
+- **POST** · 136 · glass-work,glass-record,d:whiteboardy
+- **MOs** · 132 · d:bob
+- **HEAD** · 130 · d:bob,d:arborist,d:manny
+- **GB** · 128 · d:whiteboardy,d:simmy-spikes,d:repot
+- **URL** · 126 · d:whiteboardy,d:bob,d:simmy-spikes
+- **ID** · 125 · d:whiteboardy,d:bob,d:capmega-docs
+- **REP** · 122 · d:repot,work-doc,d:arborist
+- **LOC** · 120 · d:whiteboardy,d:bob
+- **WO** · 117 · d:hexwright,work-doc,glass-work
+- **JSON** · 116 · d:bob,work-doc,glass-work
+- **CSS** · 111 · d:bob,d:whiteboardy,d:spacex
+- **TH** · 105 · d:bob,glass-work
+- **OFF** · 104 · d:snappy,d:whiteboardy,d:capmega-docs
+- **RIDER** · 103 · d:manny,d:spacex,work-doc
+- **BOTH** · 98 · d:whiteboardy,d:capmega-boards,d:snappy
+- **LIVE** · 98 · d:spacex,d:whiteboardy,glass-record
+- **SD** · 96 · d:whiteboardy,d:bob
+- **DRILL** · 91 · d:whiteboardy
+- **LB** · 90 · d:bob,d:capmega-boards,work-doc
+- **VNC** · 87 · d:bob,d:simmy,d:simmy-spikes
+- **EMPTY** · 86 · d:capmega-boards,d:whiteboardy,d:snappy
+- **IME** · 84 · d:whiteboardy
+- **CLI** · 83 · d:bob,glass-work,work-doc
+- **TS** · 82 · d:whiteboardy,board-record,glass-record
+- **OS** · 80 · d:whiteboardy,d:bob,d:arborist
+- **ONLY** · 80 · d:whiteboardy,d:manny,d:snappy
+- **PO** · 79 · d:bob
+- **XCTest** · 77 · d:whiteboardy,d:arborist
+- **MET** · 75 · d:simmy-spikes,d:whiteboardy,d:simmy
+- **AGENTS** · 71 · d:bob,d:arborist,board-record
+- **RTDE** · 71 · d:simmy-spikes,d:snappy,d:capmega-boards
+- **KB** · 70 · d:whiteboardy,d:bob,glass-work
+- **REAL** · 69 · d:whiteboardy,d:snappy,glass-record
+- **FIRST** · 69 · d:whiteboardy,d:snappy,d:simmy-spikes
+- **SMB** · 67 · d:bob,d:whiteboardy,board-record
+- **FC** · 66 · glass-work,glass-record,board-record
+- **GPU** · 66 · d:arborist,d:bob,d:simmy-spikes
+- **SO** · 66 · d:bob,d:simmy,d:whiteboardy
+- **INFO** · 66 · d:snappy,d:simmy-spikes,d:bob
+- **HOME** · 62 · d:bob,d:simmy-spikes,glass-work
+- **BV** · 62 · d:snappy
+- **SSoT** · 60 · d:manny,d:capmega-docs,d:simmy-spikes
+- **EXIT** · 60 · d:arborist,d:simmy-spikes,d:whiteboardy
+- **HTML** · 59 · d:manny,d:snappy,glass-work
+- **SVG** · 58 · d:hexwright,glass-record,glass-work
+- **CEC** · 58 · d:bob
+- **PR** · 57 · d:snappy,d:capmega-docs,d:simmy-spikes
+- **USER** · 56 · d:simmy-spikes,glass-record,glass-work
+- **HTTP** · 55 · d:whiteboardy,glass-work,d:bob
+- **ASCII** · 55 · d:capmega-docs,d:whiteboardy,d:capmega-boards
+- **RAM** · 55 · d:simmy-spikes,d:simmy,d:snappy
+- **WASM** · 54 · d:whiteboardy
+- **PATH** · 52 · d:bob,glass-work,d:simmy-spikes
+- **FG** · 52 · d:capmega-docs,work-doc,d:capmega-boards
+- **MANUAL** · 52 · d:capmega-docs,d:snappy,d:simmy-spikes
+- **JS** · 51 · d:whiteboardy,d:spacex,board-record
+- **BEFORE** · 51 · d:whiteboardy,glass-work,d:simmy-spikes
+- **AFTER** · 51 · d:whiteboardy,d:snappy,d:simmy-spikes
+- **USB** · 51 · d:arborist,d:whiteboardy,d:bob
+- **NN** · 49 · d:bob,work-doc,tooling
+- **BUILD** · 49 · d:arborist,d:capmega-boards,d:snappy
+- **PDF** · 49 · d:manny
+- **GET** · 48 · glass-work,d:whiteboardy,d:bob
+- **JSONL** · 47 · d:bob,glass-work,board-record
+- **DAG** · 46 · glass-work,glass-record,commit-log
+- **PARTS** · 45 · d:bob
+- **UUID** · 43 · glass-work,glass-record,d:whiteboardy
+- **CDP** · 43 · d:whiteboardy,d:bob,glass-work
+- **RPM** · 43 · d:capmega-boards,d:capmega-docs,d:manny
+- **IDB** · 43 · d:whiteboardy
+- **RUN** · 42 · d:simmy-spikes,d:simmy,d:whiteboardy
+- **ZERO** · 42 · d:snappy,d:whiteboardy,d:simmy-spikes
+- **NEVER** · 42 · d:whiteboardy,d:snappy,d:spacex
+- **IP** · 42 · d:whiteboardy,d:simmy-spikes,d:bob
+- **SAME** · 41 · d:whiteboardy,d:snappy,glass-work
+- **SSD** · 41 · d:whiteboardy
+- **MIG** · 40 · d:manny,d:bob,d:simmy-spikes
+- **GLOBAL** · 40 · d:capmega-docs,d:simmy-spikes,d:bob
+- **EDIT** · 40 · d:spacex,d:snappy,d:capmega-docs
+- **ERROR** · 39 · d:manny,d:snappy,d:simmy-spikes
+- **TBD** · 39 · d:bob,d:snappy,d:manny
+- **GC** · 39 · d:simmy-spikes,d:snappy,d:simmy
+- **RFB** · 38 · d:simmy-spikes,d:bob,d:simmy
+- **VF** · 38 · d:simmy-spikes,d:simmy
+- **FQDN** · 38 · d:whiteboardy
+- **III** · 38 · d:manny
+- **GUI** · 37 · d:simmy-spikes,d:simmy,work-doc
+- **CI** · 37 · d:manny,d:bob,d:capmega-docs
+- **UX** · 37 · d:whiteboardy,d:snappy,work-doc
+- **VI** · 36 · d:manny
+- **DEBUG** · 35 · d:arborist,d:whiteboardy
+- **CG** · 35 · d:simmy-spikes,d:simmy,d:capmega-boards
+- **TUI** · 34 · glass-work,glass-record,tooling
+- **MM** · 34 · d:spacex,d:bob,glass-work
+- **TTL** · 34 · glass-record,glass-work,d:snappy
+- **OUT** · 34 · d:bob,d:whiteboardy,d:simmy-spikes
+- **CA** · 34 · d:bob,d:arborist
+- **WARN** · 34 · d:snappy,d:simmy-spikes,d:bob
+- **AWT** · 34 · d:simmy-spikes,d:snappy,d:simmy
+- **URGUI** · 34 · d:simmy-spikes,d:simmy
+- **EPH** · 34 · d:whiteboardy
+- **AST** · 34 · d:manny
+- **OWN** · 33 · d:whiteboardy,d:simmy-spikes,glass-work
+- **CRDT** · 33 · d:whiteboardy
+- **IV** · 33 · d:manny
+- **RP** · 32 · d:repot,work-doc,d:arborist
+- **MERGE** · 32 · d:simmy,d:snappy,d:whiteboardy
+- **HDMI** · 32 · d:bob
+- **RPC** · 32 · d:capmega-boards,d:snappy,d:bob
+- **TIG** · 32 · d:bob,d:manny,d:capmega-docs
+- **FAILED** · 31 · d:whiteboardy,d:simmy-spikes,d:arborist
+- **IR** · 31 · d:hexwright,d:bob
+- **URCaps** · 31 · d:snappy,d:manny,d:bob
+- **TO** · 30 · d:whiteboardy,d:manny,tooling
+- **JDK** · 30 · d:simmy-spikes,d:simmy
+- **ANY** · 29 · d:whiteboardy,d:simmy-spikes,glass-work
+- **CR** · 29 · glass-work,glass-record,tooling
+- **SHA** · 29 · d:whiteboardy,d:simmy-spikes,d:snappy
+- **ANSI** · 28 · glass-work,tooling,d:manny
+- **FRESH** · 28 · d:simmy-spikes,d:simmy,d:capmega-docs
+- **SSH** · 28 · d:bob,d:snappy,d:simmy
+- **START** · 28 · d:whiteboardy,d:capmega-docs,d:capmega-boards
+- **CLEAN** · 28 · d:snappy,d:simmy,d:simmy-spikes
+- **YYYY** · 27 · d:spacex,glass-work,d:bob
+- **DD** · 27 · d:spacex,glass-work,glass-record
+- **ISO** · 27 · d:manny,work-doc,d:whiteboardy
+- **CMT** · 27 · d:bob
+- **ESC** · 26 · glass-work,d:spacex,work-doc
+- **CUSTOM** · 26 · d:capmega-boards,d:bob,d:manny
+- **FIRED** · 26 · d:whiteboardy,d:snappy
+- **STE** · 25 · d:manny,board-record,work-doc
+- **AT** · 25 · d:whiteboardy,d:capmega-boards,d:snappy
+- **ROW** · 25 · d:whiteboardy,d:spacex,tooling
+- **PNGs** · 25 · d:capmega-boards,d:simmy-spikes,d:arborist
+- **UP** · 25 · d:whiteboardy,d:simmy-spikes,d:bob
+- **CRIU** · 25 · d:simmy-spikes,d:simmy
+- **CAN** · 24 · d:capmega-boards,d:whiteboardy,glass-record
+- **BEAM** · 24 · d:bob
+- **SN** · 24 · d:bob
+- **AUG** · 24 · d:spacex,d:bob
+- **FROM** · 24 · d:whiteboardy,d:bob,d:simmy-spikes
+- **JTree** · 24 · d:snappy,d:capmega-docs,d:simmy
+- **ARE** · 23 · d:whiteboardy,board-record,glass-record
+- **DO** · 23 · d:bob,d:whiteboardy,work-doc
+- **PNG** · 23 · d:hexwright,d:simmy-spikes,d:bob
+- **JUL** · 23 · d:spacex,d:bob
+- **KVO** · 23 · d:whiteboardy
+- **RTT** · 23 · d:whiteboardy
+- **ROOT** · 22 · d:simmy-spikes,d:whiteboardy,glass-record
+- **TAB** · 22 · glass-work,glass-record,d:whiteboardy
+- **PID** · 22 · d:bob,d:simmy-spikes,d:simmy
+- **PRE** · 22 · d:spacex,glass-work,d:whiteboardy
+- **END** · 22 · d:whiteboardy,d:bob,d:simmy-spikes
+- **US** · 22 · d:whiteboardy,d:bob,d:manny
+- **CME** · 22 · d:capmega-docs,d:snappy
+- **WRITE** · 22 · d:manny,d:whiteboardy
+- **MAIN** · 21 · d:snappy,d:manny,board-record
+- **NEXT** · 21 · d:whiteboardy,d:simmy-spikes,d:snappy
+- **DNS** · 21 · d:repot,d:whiteboardy,d:bob
+- **JIT** · 21 · d:snappy,d:capmega-docs,d:whiteboardy
+- **RULING** · 21 · d:capmega-docs,d:whiteboardy,d:snappy
+- **RTF** · 21 · d:whiteboardy
+- **DANGER** · 21 · d:manny
+- **NOTICE** · 21 · d:manny
+- **OAuth** · 20 · work-doc,board-record,glass-work
+- **ACK** · 20 · d:snappy,glass-record,glass-work
+- **MiB** · 20 · d:simmy-spikes,d:snappy,d:simmy
+- **WH** · 20 · d:bob
+- **OP** · 20 · d:bob
+- **RT** · 20 · d:simmy-spikes,d:capmega-boards,d:snappy
+- **SAPHO** · 19 · commit-log,board-record,canon-law
+- **TEXT** · 19 · d:whiteboardy,d:simmy-spikes,glass-record
+- **TEST** · 19 · d:arborist,d:repot,work-doc
+- **UIKit** · 19 · d:arborist,d:whiteboardy
+- **FIXED** · 19 · d:simmy-spikes,d:whiteboardy,d:bob
+- **DAMAGE** · 19 · d:bob
+- **FLAKY** · 19 · d:simmy,d:simmy-spikes,d:capmega-boards
+- **JVMs** · 19 · d:snappy,d:simmy,d:simmy-spikes
+- **OSGi** · 19 · d:simmy-spikes,d:simmy
+- **NOTE** · 19 · d:manny,d:capmega-docs,d:whiteboardy
+- **FROZEN** · 19 · d:spacex,d:whiteboardy
+- **DRAFT** · 18 · d:bob,glass-work,glass-record
+- **LAST** · 18 · d:whiteboardy,d:simmy-spikes,d:manny
+- **NM** · 18 · d:bob
+- **BOM** · 18 · d:bob
+- **PASSES** · 18 · d:whiteboardy,d:snappy,d:capmega-docs
+- **KiB** · 18 · d:manny,d:whiteboardy
+- **TCC** · 17 · d:bob
+- **ORDER** · 17 · d:bob,d:whiteboardy,d:capmega-docs
+- **NORMAL** · 17 · d:capmega-boards,d:whiteboardy,d:simmy-spikes
+- **DFS** · 17 · d:whiteboardy,d:snappy,d:capmega-docs
+- **MUST** · 17 · d:manny,d:whiteboardy,d:snappy
+- **LINKED** · 17 · d:capmega-docs,d:capmega-boards,d:snappy
+- **CJK** · 17 · d:whiteboardy
+- **VII** · 17 · d:manny
+- **INTO** · 16 · d:whiteboardy,d:capmega-docs,work-doc
+- **STATE** · 16 · d:simmy-spikes,glass-work,d:whiteboardy
+- **AASA** · 16 · d:repot
+- **LATE** · 16 · d:bob
+- **TLS** · 16 · d:whiteboardy,d:bob
+- **DR** · 16 · d:bob
+- **VV** · 16 · d:whiteboardy
+- **NEED** · 15 · d:bob,board-record,work-doc
+- **TRUE** · 15 · d:manny,d:snappy,d:whiteboardy
+- **DRIFT** · 15 · glass-work,work-doc,d:manny
+- **THIS** · 15 · d:snappy,d:bob,d:capmega-docs
+- **ONCE** · 15 · d:whiteboardy,d:simmy-spikes,canon-law
+- **SPIKE** · 15 · work-doc,d:snappy
+- **READ** · 15 · d:whiteboardy,d:manny,d:arborist
+- **META** · 15 · d:simmy,d:simmy-spikes
+- **INF** · 15 · d:simmy,d:simmy-spikes
+- **OUR** · 15 · d:snappy,d:simmy-spikes,d:simmy
+- **GiB** · 15 · d:simmy-spikes,d:snappy,d:whiteboardy
+- **LEASED** · 15 · d:simmy-spikes,d:simmy
+- **MISS** · 15 · d:snappy,d:simmy-spikes
+- **MEETS** · 15 · d:snappy
+- **JSC** · 15 · d:whiteboardy
+- **PWD** · 14 · work-doc,board-record,tooling
+- **THIRD** · 14 · d:whiteboardy,d:snappy,canon-law
+- **PM** · 14 · d:repot
+- **AUTO** · 14 · d:bob,d:manny
+- **PII** · 14 · d:bob
+- **JLabel** · 14 · d:capmega-boards,d:snappy,d:simmy-spikes
+- **LOCAL** · 14 · d:whiteboardy,d:simmy-spikes
+- **BETA** · 14 · d:spacex,d:capmega-boards
+- **ABB** · 14 · d:capmega-docs,d:manny
+- **II** · 14 · d:manny
+- **AI** · 13 · board-record,glass-record,d:bob
+- **EVERY** · 13 · d:whiteboardy,d:simmy-spikes,d:snappy
+- **UTC** · 13 · d:whiteboardy,d:bob,glass-record
+- **GONE** · 13 · d:whiteboardy,d:simmy,glass-work
+- **THAT** · 13 · d:whiteboardy,d:simmy-spikes,glass-work
+- **NAMED** · 13 · d:whiteboardy,d:snappy,glass-work
+- **SECOND** · 13 · d:whiteboardy,d:spacex,canon-law
+- **DATA** · 13 · d:whiteboardy,d:bob
+- **CDHash** · 13 · d:bob
+- **GHz** · 13 · d:snappy,d:whiteboardy,d:simmy
+- **REJECT** · 13 · d:simmy-spikes,d:simmy
+- **RSS** · 13 · d:simmy-spikes,d:snappy,d:whiteboardy
+- **WS** · 13 · d:simmy-spikes,d:whiteboardy
+- **WRAP** · 13 · d:spacex,d:whiteboardy
+- **CANON** · 12 · board-record,work-doc,canon-law
+- **DATE** · 12 · d:bob,glass-record,d:spacex
+- **WHAT** · 12 · d:simmy-spikes,d:manny,d:bob
+- **UTF** · 12 · d:capmega-docs,d:simmy,d:snappy
+- **GCode** · 12 · d:hexwright,d:simmy-spikes,d:snappy
+- **WRONG** · 12 · d:whiteboardy,d:snappy,d:simmy-spikes
+- **DTP** · 12 · d:bob
+- **DB** · 12 · d:whiteboardy,d:manny,d:bob
+- **IPG** · 12 · d:bob,d:capmega-docs,d:manny
+- **JPanel** · 12 · d:snappy,d:simmy,d:simmy-spikes
+- **LOUD** · 12 · d:whiteboardy,d:simmy-spikes,d:simmy
+- **MEET** · 12 · d:snappy
+- **AIR** · 12 · d:capmega-boards
+- **LEAK** · 12 · d:whiteboardy
+- **LF** · 11 · glass-work,glass-record,tooling
+- **HALF** · 11 · d:whiteboardy,glass-work,glass-record
+- **WAS** · 11 · d:whiteboardy,glass-work,glass-record
+- **EOF** · 11 · glass-record,d:simmy-spikes,d:whiteboardy
+- **OR** · 11 · d:bob,d:capmega-boards,d:spacex
+- **TYPE** · 11 · d:simmy-spikes,d:capmega-docs,work-doc
+- **DOES** · 11 · d:whiteboardy,d:arborist,d:bob
+- **BTM** · 11 · d:bob
+- **MFLT** · 11 · d:bob
+- **DLT** · 11 · d:bob
+- **CLEAR** · 11 · d:snappy,d:whiteboardy,d:bob
+- **JSONs** · 11 · d:bob,d:simmy,d:simmy-spikes
+- **MODAL** · 11 · d:simmy,d:simmy-spikes,d:capmega-boards
+- **NATIVE** · 11 · d:whiteboardy,d:simmy-spikes,d:capmega-boards
+- **CANNOT** · 11 · d:capmega-boards,d:simmy-spikes,d:whiteboardy
+- **WHOLE** · 11 · d:simmy-spikes,d:whiteboardy,d:snappy
+- **HIGH** · 11 · d:capmega-docs,d:snappy,d:simmy-spikes
+- **DID** · 11 · d:whiteboardy,d:simmy-spikes,d:snappy
+- **FLAT** · 11 · d:snappy,d:whiteboardy,d:capmega-docs
+- **TOML** · 11 · d:manny,d:capmega-docs
+- **SH** · 11 · d:whiteboardy
+- **NSApp** · 11 · d:whiteboardy
+- **MINE** · 11 · d:manny
+- **YAML** · 10 · board-record,work-doc,lore
+- **WILL** · 10 · work-doc,tooling,d:whiteboardy
+- **IDs** · 10 · d:whiteboardy,d:repot,glass-work
+- **THEN** · 10 · d:whiteboardy,d:simmy-spikes,d:spacex
+- **DOWN** · 10 · d:whiteboardy,work-doc,d:bob
+- **EXCEPT** · 10 · d:whiteboardy,work-doc,d:snappy
+- **TTF** · 10 · d:hexwright
+- **PURE** · 10 · d:repot,d:whiteboardy
+- **FAILS** · 10 · d:capmega-docs,d:snappy,d:repot
+- **MARK** · 10 · d:arborist
+- **TODAY** · 10 · d:bob,d:whiteboardy
+- **ETA** · 10 · d:bob,d:simmy-spikes
+- **VIEW** · 10 · d:bob,d:whiteboardy
+- **BY** · 10 · d:whiteboardy,d:bob,d:simmy-spikes
+- **DELETE** · 10 · d:whiteboardy,d:simmy-spikes,d:simmy
+- **FINAL** · 10 · d:whiteboardy,d:simmy-spikes
+- **BUILT** · 10 · d:whiteboardy,d:snappy,d:manny
+- **SITU** · 10 · d:capmega-boards
+- **ENTRY** · 10 · d:manny,d:whiteboardy,d:capmega-boards
+- **PAST** · 10 · d:spacex
+- **APP** · 10 · d:whiteboardy
+- **SPAN** · 10 · d:whiteboardy
+- **ATS** · 10 · d:whiteboardy
+- **TSV** · 9 · work-doc,board-record,d:arborist
+- **XML** · 9 · glass-record,d:snappy,tooling
+- **SOURCE** · 9 · d:whiteboardy,glass-record,tooling
+- **THREE** · 9 · d:whiteboardy,d:snappy,glass-record
+- **WORK** · 9 · d:whiteboardy,glass-work,d:bob
+- **SQLite** · 9 · d:whiteboardy,work-doc
+- **SDK** · 9 · d:whiteboardy,d:manny,work-doc
+- **SYSTEM** · 9 · d:bob,d:whiteboardy
+- **CSV** · 9 · d:capmega-docs,d:capmega-boards,d:bob
+- **SET** · 9 · d:whiteboardy,d:bob
+- **SEP** · 9 · d:spacex,d:bob
+- **OOM** · 9 · d:bob,d:whiteboardy,d:simmy-spikes
+- **XX** · 9 · d:simmy,d:snappy,d:capmega-boards
+- **MEDIUM** · 9 · d:capmega-boards,d:snappy,d:simmy
+- **ACT** · 9 · d:snappy,d:simmy
+- **TCP** · 9 · d:capmega-docs,d:simmy,d:simmy-spikes
+- **JNI** · 9 · d:simmy-spikes,d:simmy
+- **NPE** · 9 · d:capmega-docs,d:simmy-spikes,d:simmy
+- **TWICE** · 9 · d:snappy,d:simmy-spikes,d:whiteboardy
+- **CHILD** · 9 · d:whiteboardy,d:snappy,d:simmy-spikes
+- **CLOSE** · 9 · d:whiteboardy,d:snappy,d:simmy-spikes
+- **HAVE** · 9 · d:manny,d:snappy
+- **WAIVED** · 9 · d:whiteboardy,d:capmega-docs,d:spacex
+- **TIP** · 9 · d:manny,d:capmega-docs
+- **PWA** · 9 · d:whiteboardy
+- **EPS** · 9 · d:whiteboardy
+- **STEPS** · 9 · d:whiteboardy
+- **KINDS** · 9 · d:whiteboardy
+- **DERP** · 9 · d:whiteboardy
+- **BOARD** · 8 · work-doc,board-record,glass-record
+- **MOVE** · 8 · d:capmega-boards,d:whiteboardy,board-record
+- **MAY** · 8 · d:arborist,d:manny,board-record
+- **MIT** · 8 · d:whiteboardy,d:bob,d:simmy
+- **WAKE** · 8 · d:bob,board-record,work-doc
+- **SIGHUP** · 8 · glass-work,glass-record
+- **OFL** · 8 · glass-record,d:whiteboardy,glass-work
+- **RRGGBB** · 8 · glass-work,glass-record,tooling
+- **FILES** · 8 · d:bob,d:whiteboardy,glass-record
+- **QUEUE** · 8 · d:bob,d:snappy,glass-record
+- **NUL** · 8 · d:capmega-docs,d:whiteboardy,tooling
+- **DOC** · 8 · d:whiteboardy,glass-work
+- **ALSO** · 8 · d:simmy-spikes,d:whiteboardy,glass-work
+- **WHY** · 8 · d:manny,d:simmy-spikes,glass-work
+- **WITH** · 8 · d:whiteboardy,glass-work,work-doc
+- **PODS** · 8 · d:bob,work-doc
+- **RGB** · 8 · d:hexwright,d:whiteboardy
+- **FNV** · 8 · d:whiteboardy,d:hexwright
+- **ISS** · 8 · d:arborist,d:repot
+- **DENY** · 8 · d:bob
+- **LISTEN** · 8 · d:simmy-spikes,d:whiteboardy,d:bob
+- **URLs** · 8 · d:whiteboardy,d:manny,d:bob
+- **EPRI** · 8 · d:bob
+- **WHEN** · 8 · d:manny,d:bob
+- **JDWP** · 8 · d:simmy,d:simmy-spikes
+- **DNAT** · 8 · d:simmy-spikes,d:simmy
+- **CELL** · 8 · d:simmy-spikes,d:simmy
+- **FAILs** · 8 · d:simmy,d:simmy-spikes,d:whiteboardy
+- **OWNER** · 8 · d:simmy-spikes,d:simmy
+- **IO** · 8 · d:simmy-spikes,d:capmega-docs,d:whiteboardy
+- **DIED** · 8 · d:simmy-spikes
+- **LOAD** · 8 · d:snappy,d:whiteboardy
+- **FANUC** · 8 · d:manny,d:capmega-docs
+- **KIND** · 8 · d:whiteboardy,d:capmega-docs
+- **UN** · 8 · d:whiteboardy
+- **UNIT** · 8 · d:whiteboardy
