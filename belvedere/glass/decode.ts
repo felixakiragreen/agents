@@ -9,10 +9,14 @@
 // and the corpus lives on the server behind the one parser (D65). A token here is a claim that
 // something *looks like* an id — nothing more.
 //
-// **New id classes are canon questions, not regexes** (B20 §out-of-scope). The six forms below are
-// the grammar the order blessed; a seventh arrives through the Standards Office or not at all.
+// **New id classes are canon questions, not regexes** (B20 §out-of-scope). The forms below are the
+// grammar the Standards Office blessed; another arrives through that office or not at all — the
+// `C‹n›` id and the `charge` keyword arrived exactly that way (D71).
 
-/** The five namespaces the corpus writes ids in. `row` covers both `B18` and `canon row 17`. */
+/**
+ * The five namespaces the corpus writes ids in. `row` covers every charge address: the bare
+ * `B18`/`C23`, and the keyword forms `canon row 17` and `charge C5`.
+ */
 export type RefKind = 'row' | 'decision' | 'section' | 'fold' | 'ga';
 
 export type Token = {
@@ -21,7 +25,7 @@ export type Token = {
 	/** The text the span covers — exactly what the reader sees highlighted. */
 	text: string;
 	kind: RefKind;
-	/** The id in its own namespace: `B18`, `D63`, `5`, `3.2`, `17`, `FC-1`. */
+	/** The id in its own namespace: `B18`, `C23`, `D63`, `5`, `3.2`, `17`, `FC-1`. */
 	id: string;
 	/**
 	 * The word written immediately before a `row N` — `canon`, a building name, or something that is
@@ -35,7 +39,7 @@ export type Token = {
 /** Everything has a limit (directive 3.1): one paragraph is not allowed to mint a thousand spans. */
 export const CAP = 64;
 
-const ROW = /\b([PBG]\d{1,3})\b/g;                   // B18, P5, G2
+const ROW = /\b([PBGC]\d{1,3})\b/g;                  // B18, P5, G2, C23
 const DECISION = /\b(D\d{1,4})\b/g;                  // D2, D63
 const SECTION = /§(\d{1,3}(?:\.\d{1,3})?)/g;         // §5, §3.2 — and the second § of `§§5–6`
 const FOLD = /\b(FC|GA)-(\d{1,3})\b/g;               // FC-1, GA-10
@@ -46,6 +50,13 @@ const FOLD = /\b(FC|GA)-(\d{1,3})\b/g;               // FC-1, GA-10
  * which names no building, and falls back to the containing document's own board.
  */
 const ROW_WORD = /\brow\s+(\d{1,3})\b/gi;
+/**
+ * The same form in the standard's tongue (D71: row (unit) → charge). Both id spellings are written
+ * — `charge 17` addresses a grandfathered numeral, `charge C5` the C‹n› id this standard mints —
+ * and the resolver matches an id string either way. The keyword is written both ways and the id
+ * never is (the `row`-form's own law), so the `C` is uppercase-only rather than `/i`.
+ */
+const CHARGE_WORD = /\b[Cc]harge\s+(C?\d{1,3})\b/g;
 const LEAD = /([A-Za-z][A-Za-z0-9_.-]*)\s+$/;
 
 /**
@@ -66,7 +77,7 @@ export function detect(text: string): Token[] {
 		hits.push({ at: at(m), len: m[0].length, text: m[0], kind: 'section', id: m[1]!, scope: null });
 	for (const m of text.matchAll(FOLD))
 		hits.push({ at: at(m), len: m[0].length, text: m[0], kind: m[1] === 'FC' ? 'fold' : 'ga', id: `${m[1]}-${m[2]}`, scope: null });
-	for (const m of text.matchAll(ROW_WORD)) {
+	for (const re of [ROW_WORD, CHARGE_WORD]) for (const m of text.matchAll(re)) {
 		const lead = LEAD.exec(text.slice(0, at(m)));
 		hits.push({ at: at(m), len: m[0].length, text: m[0], kind: 'row', id: m[1]!, scope: lead ? lead[1]!.toLowerCase() : null });
 	}

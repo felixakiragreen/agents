@@ -31,6 +31,36 @@ describe('the six forms', () => {
 	});
 });
 
+// ---------- the standard's own address (D71) ----------
+
+describe('a charge is addressed in the standard as well as the graveyard', () => {
+	test('the bare C‹n› id is a row id like B18 and P5', () => {
+		expect(found('C23 laid the law book; C28 waits on his drafts')).toEqual(['row:C23', 'row:C28']);
+		expect(covered('C23 laid the law book')).toEqual(['C23']);
+	});
+
+	test('the keyword form takes both id spellings, and covers only the reference', () => {
+		expect(found('charge C5 is the one')).toEqual(['row:C5']);
+		expect(found('charge 17 is the storage experiment')).toEqual(['row:17']);
+		expect(covered('canon charge C5 is the one')).toEqual(['charge C5']);
+	});
+
+	test('the word in front is scope here too — the resolver decides, the detector never guesses', () => {
+		expect(found('canon charge C5')).toEqual(['row:C5@canon']);
+		expect(found('bob charge 3')).toEqual(['row:3@bob']);
+	});
+
+	test('`Charge` is written both ways; the id is not, so `charge c5` addresses nothing', () => {
+		expect(found('Charge C5')).toEqual(['row:C5']);
+		expect(found('charge c5')).toEqual([]);
+	});
+
+	test('the C is an id prefix, not a letter in a word: a lowercase branch is still prose', () => {
+		expect(found('spacex-dashboard-c2 and cap-mega')).toEqual([]);
+		expect(found('FC-1 is a fold candidate, never a charge')).toEqual(['fold:FC-1']);
+	});
+});
+
 describe('what is NOT a reference', () => {
 	test('a lowercase branch, a hex colour and a p95 are left alone', () => {
 		expect(found('bv/b3-smoke landed at p95 48 ms wearing #a5e22c')).toEqual([]);
