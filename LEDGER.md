@@ -1753,3 +1753,61 @@ scaffolding, consumed by the charters); the stanza heading lands bare, its lab
 parenthetical stripped, body byte-identical; the bar re-phrased to match.
 Charge doc amended and committed before this reply — the instruments travel
 with the message, per the office's own law.
+
+---
+
+**2026-08-29 · Builder · opus-high (C33)** — the C28 roster left the lab and became
+canon. The door lands as `canon/GUILD.md` — the door proper and the dispatched stanza
+in one file, one inode and two renderings, so a dispatched kickoff and an interactive
+summons quote the same text and can never drift apart. Six charters transcribed
+byte-identical below their separators, `fixer.md` among them — the null mantle has a
+charter for the first time, and the README clause asserting it never would is dead. The
+`fixer` and `mentat` shims mint the roster complete at seven, and they went **live ×3 at
+the write**: `skills` is a *directory* symlink in all three config dirs, so a new
+subdirectory needs no `sync/deploy` — D14's Felix-run step simply does not arise for a
+new shim, only for a new sync-set root. Worth knowing before the next mint. The README's
+roster, summons grammar and charter template re-cut to the C28 pattern, and DOCTRINE
+§12's founding kickoff now enters by the door like everything else. `doctrine lint
+~/code/agents` **0**.
+
+The session's real event was the stop. Item 1's blanket rule (*"everything below the
+separator, verbatim"*) and its enumeration (*"exactly two sections"*) disagreed about the
+same file, and the tiebreaker clause named a section — *"the What changed list"* — that
+v8 does not have. The archaeology settled it: `door-v6.md:72` and `door-v7.md:74` both
+park a `## The v‹n› delta, itemized` in that trailing slot, so the slot is where every
+door draft keeps its scaffolding and v8 parked drafting input there instead. The reading
+was clear; the authority to act on it was not, because acting meant deleting from a
+blessed text. So: stop, name the fork, hand up an excerpt. Ruled both sub-forks spec
+defects, amended at 66afd79 with the instruments travelling ahead of the message (D57's
+first production exercise, on the Builder charter's first real charge). **The
+escalation cost one round trip and bought a canon file that doesn't cite a lab file it
+can't see.** That trade is the charter working.
+
+Four findings. **F1** — the lint bar was unreachable from inside the fence: `doctrine
+lint` was already **1 on a clean tree**, C28's own Depends-on cell carrying a comma that
+`parse.ts:132` splits on, so `⬡-gate: … paid 2026-08-29, his notes at the desk` yielded
+a phantom third segment. Granted in the room, fixed in its own commit, 1 → 0 — but the
+class is general and quiet: any gate annotation with a `,` or a `·` in its prose
+mis-parses while looking perfect to a human. **F3** is the one that wants a ruling: item
+9 called the shared summons paragraph "byte-identical across charters — a lint surface,"
+and it isn't. It is word-identical, in two wrap families (mantles wrap one way, offices
+the other) plus two sanctioned content variants and the Fixer's `**The license**`
+standing in for it entirely. A byte-level lint written off that phrasing reds on day one;
+the README now describes what is true. Normalize the wrap and get the cheap lint, or keep
+it and write the lint word-level — either is fine, neither is mine. **F2** — the
+"no charter file" clause lived one section down from where the spec placed it; killed
+where it lived, a fourth section touched against a three-section fence, flagged rather
+than hidden. **F4** — left standing deliberately: `## The precedence law` still opens
+"carried verbatim by every charter" over a clause no C28 charter carries, and
+`grand-architect/SKILL.md` still says "mantle" for what D71 and its own landed charter
+call an office; the new `mentat` shim says "office", so the two shims now disagree in
+canon. No ruling covered either, so the fence held. Both are C34-adjacent.
+
+Changed: `canon/GUILD.md` (new), `canon/mantles/{digger,architect,builder,mentat,
+grand-architect,fixer}.md`, `canon/mantles/README.md`, `canon/skills/{fixer,mentat}/
+SKILL.md` (new, live ×3), `canon/work/DOCTRINE.md` §12, `MAP.md` (§3 + the C28/C33
+rows), `plans/c33-canon-landing.md`. Decided: nothing — the two calls were Felix's, taken
+as an amendment. Next: **the baton is Felix's** — C34, the register purge, is the only
+row in front, and its `⬡-gate: his call to sit` is his to pay; when he sits, the summons
+is fenced at the foot of `plans/c34-register-purge.md` and already enters by the door.
+Behind it: F3's wrap ruling wants a line in whatever sweep touches the charters next.
