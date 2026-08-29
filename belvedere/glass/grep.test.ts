@@ -211,13 +211,34 @@ describe('one query, three groups', () => {
 	});
 
 	test('the clock is a bound like any other: it fires, and the group says so', async () => {
+		// The old version asserted every group timed out against a fixture too small to promise
+		// it — on an idle machine a tiny corpus can finish inside 1 ms, so the assertion raced the
+		// clock and lost about once in six whole-suite runs (measured, C2's field report). The bound
+		// is the rule, not the race: a group that DID finish inside the clock is legal, one that did
+		// not says so honestly (0 hits, no error) — and at least one group has to actually prove the
+		// timeout path fires, or the assertion is vacuous. Here the docs corpus carries an extra file
+		// with no match in it at all, sized (~17 MB, under the 20 MB file-size bar) so the engine must
+		// read the whole thing before it can conclude there is nothing to report: measured at 7-19 ms
+		// a run, twenty times the 1 ms clock, on the very machine that raced. It stands ALONE in its
+		// group's corpus — `rg` parallelises across multiple files, so a fast tiny match sitting
+		// beside it (BOARD) streams out before the slow file's own kill lands, which is a real result
+		// and not the thing this probe is measuring.
+		const SLOW = join(CITY, 'nb', 'SLOW.md');
+		writeFileSync(SLOW, 'filler line, no match anywhere in this file\n'.repeat(400_000));
+		const slow: GrepWorld = { ...world(), entries: [{
+			...entry(), files: { ...entry().files, boards: [SLOW] },
+		}] };
+
 		process.env['GREP_TIMEOUT_MS'] = '1';
-		const a = await ask('bob summons');
+		const a = await grepQuery(new URLSearchParams({ q: 'bob summons' }), slow);
 		delete process.env['GREP_TIMEOUT_MS'];
-		// Every group was cut off by the same clock, and none of them reports an error for it: a
-		// timeout is a bound, not a failure, and the hits it did find are still honest.
-		expect(a.groups.every(g => g.timedOut)).toBe(true);
-		expect(a.groups.every(g => g.error === null)).toBe(true);
+
+		for (const g of a.groups) {
+			if (!g.timedOut) continue;
+			expect(g.hits.length).toBe(0);
+			expect(g.error).toBeNull();
+		}
+		expect(a.groups.some(g => g.timedOut)).toBe(true);
 	});
 
 	test('with no rg on PATH the fallback runs and NAMES its degradation (spec §2)', async () => {
