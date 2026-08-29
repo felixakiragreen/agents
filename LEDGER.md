@@ -1531,3 +1531,31 @@ note amended, c23 F2). Decided: nothing new-numbered — the charge executes D71
 Next: **ignite C24** — kickoff in [plans/c24-parser.md](plans/c24-parser.md); behind
 it, serial: C25 → C26 → C27; C28 on his drafts; charges 20 and 22 stand on his summons
 and blessing as before.
+
+---
+
+**2026-08-29 · Builder · opus-high (C24)** — the parser learned the standard. `grammar.ts`
+mints `⬡-gate`, `DEFERRED`, the blessing marks and the id grammar (`isId`, one home for
+what a charge id looks like) and gathers the graveyard — `Felix-gate`, `PARKED`,
+`unstaffed` — as read-forever, never-emitted; `parse.ts` types ⬡-gate in both columns,
+takes `ignite` beside historical `fire`, reads `⬡✓` beside `✓ Felix`, and enforces
+**charges are always staffed** (`board.unstaffed`, hard) with the one absence left, a
+DEFERRED charge's dissolved `—`; `migrate.ts` gains four respell rules
+(`staffing.hex-gate` · `depends.hex-gate` · `status.parked-respell` · `status.deferred`)
+plus `staffing.dissolved`, which refuses to staff a live charge. Evidence: 49 tests green
+(41 before), `doctrine lint ~/code/agents` **0** — both named interim reds dead, C28's
+⬡-cell and GA-13's own `ignite` baton; city dry-run **405 edits across 30 files in 22
+buildings, round-trip violations 0**, the D71 respell 138 of them (C25's sizing, per
+building in the charge doc); the guard bites — the new-token corpus goes red in exactly
+five predicted places under the pre-C24 tool and green here, and that tool silently
+queued a blessed decision. Belvedere measured unmoved (650/1 before and after; a worktree
+run says 13 and lies — `glass/paths.ts` reads the mainline). Decided: nothing
+new-numbered — the charge executes D71. **F1 flagged for the Architect:** `proposed —
+pending ⬡✓` contains the blessing mark, a collision `✓ Felix` could not have; the
+proposed mark now vetoes and §8's `·` is required before a trailing mark, but anything
+else grepping `⬡✓` inherits the hazard (C26's lexicon arm, C27's glass). F2: three live
+`unstaffed` charges in waypoint-stepper stand as residues for C25. F3:
+`BoardRow.felixGate` / `Decision.ratified` keep their dead words — the glass's imported
+contract, C27's one-line molt, out of scope here. Next: **ignite C25** — kickoff in
+[plans/c25-respell-sweep.md](plans/c25-respell-sweep.md), sized by C24's per-building
+counts; behind it, serial: C26 → C27; C28 on Felix's drafts.
