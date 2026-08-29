@@ -65,7 +65,7 @@ export type World = {
 	rowIds: ReadonlySet<string>;
 	/** Master checkouts already held by a live engine-fired step — single-writer physics (B11 §3). */
 	busy: Set<string>;
-	/** Where this flow's building sits on disk — the judge sitting's venue and the docs it is sent to read. */
+	/** Where this flow's building sits on disk — the judge session's venue and the docs it is sent to read. */
 	buildingPath: string;
 	/**
 	 * D12's verdict on a flow whose file has moved since the arm (B12 §4). Decided by the caller
@@ -129,11 +129,11 @@ export function verdictOf(step: Step, fired: RunLine | null, world: World): Verd
 		// Somebody is already on it. Two readings disagree about whether this step needs starting, and
 		// an engine that fires over a live session is the wrong continuation D10 exists to prevent.
 		if (row.state === 'IN FLIGHT' && fired === null)
-			return { ev: 'paused', code: 'in-flight', why: 'the board says IN FLIGHT and the engine never fired it — somebody is already on this step' };
+			return { ev: 'paused', code: 'in-flight', why: 'the board says IN FLIGHT and the engine never ignited it — somebody is already on this step' };
 		if (row.state === 'LANDED') {
 			const raised = escalationsIn(row.annotation, world.rowIds);
 			return raised.length === 0
-				? { ev: 'landed', code: 'clean', why: 'the board row parses LANDED clean' }
+				? { ev: 'landed', code: 'clean', why: 'the board charge parses LANDED clean' }
 				: { ev: 'paused', code: 'escalated', why: `LANDED, and ${raised.map(e => e.id).join(', ')} is raised with nothing saying it was ruled (keel §5.1)` };
 		}
 	}
@@ -145,7 +145,7 @@ export function verdictOf(step: Step, fired: RunLine | null, world: World): Verd
 			: { ev: 'paused', code: 'no-stop', why: `the session is gone and its last event was ${session.last.ev}, not Stop` };
 
 	if (fired !== null && world.now - fired.ts > step.timeoutMinutes * 60)
-		return { ev: 'paused', code: 'timeout', why: `timeout — ${step.timeoutMinutes} minutes since the fire and nothing says it landed` };
+		return { ev: 'paused', code: 'timeout', why: `timeout — ${step.timeoutMinutes} minutes since the ignition and nothing says it landed` };
 
 	return null;
 }
@@ -259,8 +259,8 @@ export function plan(flow: Flow, run: Run, world: World): Plan {
 		const sid = lastFire(mine)!.sid;
 		const again = verdictOf(gated, firstFire(linesFor(run, gatedId)), world);
 		if (again !== null && again.ev === 'landed') {
-			lines.push({ ev: 'landed', step: judge.id, sid, why: `${gatedId} reads clean now — the sitting did what it was staffed for` });
-			lines.push({ ev: 'resumed', step: gatedId, why: `the judge sitting cleared ${gatedId} — the lane runs on` });
+			lines.push({ ev: 'landed', step: judge.id, sid, why: `${gatedId} reads clean now — the session did what it was staffed for` });
+			lines.push({ ev: 'resumed', step: gatedId, why: `the judge session cleared ${gatedId} — the lane runs on` });
 			settled.add(judge.id);
 			continue;
 		}
@@ -271,8 +271,8 @@ export function plan(flow: Flow, run: Run, world: World): Plan {
 		if (!over && !late) continue;
 		lines.push({
 			ev: 'paused', step: judge.id, sid,
-			why: `the judge sitting ${over ? 'is over' : `passed its ${judge.timeoutMinutes} minute limit`} and ${gatedId} still does not read clean`
-				+ ` (${again?.why ?? 'the row says nothing either way'}) — a judge is never judged, so this one is Felix's`,
+			why: `the judge session ${over ? 'is over' : `passed its ${judge.timeoutMinutes} minute limit`} and ${gatedId} still does not read clean`
+				+ ` (${again?.why ?? 'the charge says nothing either way'}) — a judge is never judged, so this one is Felix's`,
 		});
 		settled.add(judge.id);
 	}
@@ -403,7 +403,7 @@ function refuseStep(step: Step, rig: Rig, trusts: Map<string, Trust>): string | 
 	return verdict.warm ? null
 		: `${step.account} has never trusted ${target}`
 			+ ` (project ${verdict.project.path}${verdict.project.repo ? ', a repository' : ''}${verdict.refused ? `, refused at ${verdict.refused}` : ''})`
-			+ ` — a fire there stalls on the folder-trust dialog with no transcript and no beat, and the glass never answers that dialog (B7 F1)`;
+			+ ` — an ignition there stalls on the folder-trust dialog with no transcript and no beat, and the deck never answers that dialog (B7 F1)`;
 }
 
 /**

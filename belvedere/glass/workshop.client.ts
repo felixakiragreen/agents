@@ -161,7 +161,7 @@ function drawSessions(host: HTMLElement, ss: DeckSession[], stale: boolean): voi
 		// the City: two panes drawing a session must not disagree about what it is called (D16).
 		tipSession(li, s);
 		li.append(dot(s), named(s, stale));
-		// A tier is `<model> · <effort>` and only half of it is on any artifact the glass can read:
+		// A tier is `<model> · <effort>` and only half of it is on any artifact the deck can read:
 		// the census carries no model field, and effort is on none at all (findings F1).
 		li.append(el('span', 'tier', s.model ?? '—'));
 		li.append(el('span', 'st-word', s.waiting ?? s.state), stamp(s.last));
@@ -189,7 +189,7 @@ function drawRow(host: HTMLElement, r: WorkshopRow): void {
 	li.dataset['tip'] = `${r.id} · ${r.state ?? 'unparsed'} · ${r.staffing}`;
 	// §4: the depth on hover is the row's landing record — the longest prose the corpus writes, and
 	// the densest in code words, which is why the tooltip's own body decodes (B20 §4's nesting).
-	li.dataset['tipMore'] = tipOf(r.annotation, 'no status annotation on this row');
+	li.dataset['tipMore'] = tipOf(r.annotation, 'no status annotation on this charge');
 	li.dataset['tipIn'] = r.ref.path;
 
 	const head = el('div', 'ws-row-h');
@@ -211,12 +211,12 @@ function drawRow(host: HTMLElement, r: WorkshopRow): void {
 
 	if (r.gates.length) {
 		const gates = el('div', 'gates');
-		words(gates, r.gates.map(g => `Felix-gate: ${g}`).join(' · '), ctx);
+		words(gates, r.gates.map(g => `⬡-gate: ${g}`).join(' · '), ctx);
 		li.append(gates);
 	}
 	if (r.annotation.spans.length) li.append(drawProse(r.annotation, 'prose', openDoc, ctx));
 	if (r.lint.length) li.append(el('div', 'lint', r.lint.join(' · ')));
-	const where = button('ref quiet', `${r.ref.label}:${r.ref.line}`, 'open the board at this row');
+	const where = button('ref quiet', `${r.ref.label}:${r.ref.line}`, 'open the board at this charge');
 	where.addEventListener('click', ev => { ev.stopPropagation(); void openDoc(r.ref.path, r.ref.line); });
 	li.append(where);
 	host.append(li);
@@ -265,7 +265,7 @@ function drawTail(host: HTMLElement, d: WorkshopDetail): void {
 	host.append(baton);
 	// Read, never wired: an instrument on this deck is text (D10). Firing lives in the composer.
 	for (const i of t.baton?.instruments ?? [])
-		host.append(el('pre', 'summons', i.kind === 'summons' ? i.text : `fire row ${i.text}`));
+		host.append(el('pre', 'summons', i.kind === 'summons' ? i.text : `ignite charge ${i.text}`));
 }
 
 function drawDecisions(host: HTMLElement, d: WorkshopDetail): void {

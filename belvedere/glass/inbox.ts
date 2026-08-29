@@ -60,7 +60,9 @@ export const gestureText = (g: Gesture): string =>
 	: g.kind === 'defer' ? `defer ${g.row}`
 	: g.kind === 'before' ? `${g.row} before ${g.other}`
 	: g.kind === 'report' ? g.title
-	: `countersign ${g.decision}: ✓`;
+	// The written word is the standard's (D71: countersign → bless); the WIRE word is ours at both
+	// ends and stays `countersign`, so no CSS class, payload or stored key moves for a copy molt.
+	: `bless ${g.decision}: ✓`;
 
 /** The evidence half of an entry, or `''`. Only a `report` has one. */
 export const gestureBody = (g: Gesture): string => (g.kind === 'report' ? g.body : '');
@@ -117,10 +119,10 @@ export function parseFiling(raw: unknown): Outcome<Filing> {
 	}
 	if (kind === 'defer' || kind === 'before') {
 		const row = field(r, 'row'), other = field(r, 'other');
-		if (!ROW.test(row)) return fail(`row must be a board row id — got "${row}"`);
+		if (!ROW.test(row)) return fail(`row must be a charge id on a board — got "${row}"`);
 		if (kind === 'defer') return { ok: true, result: { path, gesture: { kind, row } } };
-		if (!ROW.test(other)) return fail(`other must be a board row id — got "${other}"`);
-		if (row === other) return fail(`"${row} before ${other}" says nothing — a row cannot precede itself`);
+		if (!ROW.test(other)) return fail(`other must be a charge id on a board — got "${other}"`);
+		if (row === other) return fail(`"${row} before ${other}" says nothing — a charge cannot precede itself`);
 		return { ok: true, result: { path, gesture: { kind, row, other } } };
 	}
 	if (kind === 'report') {
@@ -239,14 +241,21 @@ export function filed(f: Filing): Outcome<Filed> {
 
 export type Countersigned = 'pending' | 'recorded' | 'folded';
 
-/** Does this inbox already carry the countersign for `id`? Matched as text, never as a regex. */
+/**
+ * Does this inbox already carry the blessing for `id`? Matched as text, never as a regex.
+ *
+ * **Both heads, forever.** The gesture writes `bless D21: ✓` from D71 on; every line the city
+ * already carries opens `countersign D21: ✓`, and an inbox is append-only history. Reading only
+ * the new head would re-offer a button for a blessing Felix already gave.
+ */
+const HEADS = ['bless ', 'countersign '];
+
 export const recordedIn = (issues: Issue[], id: string) =>
-	issues.some(i => {
-		const head = 'countersign ';
+	issues.some(i => HEADS.some(head => {
 		if (!i.text.startsWith(head)) return false;
 		const rest = i.text.slice(head.length).trimStart();
 		return rest === id || rest.startsWith(`${id}:`) || rest.startsWith(`${id} `);
-	});
+	}));
 
 /**
  * pending → recorded → folded, all three read off files (B6's amendment). **Folded is the sweep's
@@ -270,7 +279,7 @@ sweep the inbox: rule each entry, true the board, attribute Felix's entries
 to Felix, commit in his git style.`;
 };
 
-/** The scoped sitting, composed exactly as `POST /hands/fire` parses it (B4 F1). */
+/** The scoped session, composed exactly as `POST /hands/fire` parses it (B4 F1). */
 export const sweepFire = (rig: Rig, buildingPath: string, account: string): Composed =>
 	compose(rig, {
 		summons: sweepSummons(buildingPath), mantle: 'Architect', tier: 'fable-high',
@@ -293,7 +302,7 @@ const out = () => `<div class="acts"><span class="out" data-out></span></div>`;
 export const noteBox = (buildingPath: string, name = 'note to this inbox') =>
 	`<details class="gesture"><summary>${esc(name)}</summary>
 		<p class="prose note">One append to <code>${esc(tilde(inboxFile(buildingPath)))}</code>, signed <b>${esc(WHO)}</b>.
-		The glass never edits what is already there; this building's Architect rules it at the next sweep.</p>
+		The deck never edits what is already there; this building's Architect rules it at the next sweep.</p>
 		<textarea class="prose" data-note rows="3" spellcheck="true"
 			placeholder="his word, one line — it lands as written"></textarea>
 		<div class="acts"><button class="ges" data-gesture="${payload(buildingPath, { kind: 'note' })}">file it</button>
@@ -310,14 +319,14 @@ export function rowGestures(buildingPath: string, id: string, siblings: string[]
 	const before = shown.map(s =>
 		`<button class="ges" data-gesture="${payload(buildingPath, { kind: 'before', row: id, other: s })}">before ${esc(s)}</button>`).join('');
 	const withheld = rest.length > shown.length
-		? `<p class="prose note">${rest.length - shown.length} further rows are not offered here.</p>` : '';
+		? `<p class="prose note">${rest.length - shown.length} further charges are not offered here.</p>` : '';
 	return `<details class="gesture"><summary>defer / reorder</summary>
 		<div class="btns"><button class="ges" data-gesture="${payload(buildingPath, { kind: 'defer', row: id })}">defer ${esc(id)}</button>${before}</div>
 		${withheld}${out()}</details>`;
 }
 
 const COUNTERSIGN: Record<Countersigned, { text: string; tone: Parameters<typeof pill>[1]; note: string }> = {
-	pending: { text: 'pending countersign', tone: 'yellow', note: '' },
+	pending: { text: 'pending blessing', tone: 'yellow', note: '' },
 	recorded: { text: 'recorded — awaiting fold', tone: 'blue',
 		note: 'His word is in the inbox; the ✓ reaches the decision when this building\'s Architect sweeps.' },
 	folded: { text: 'folded — ✓ in the decision', tone: 'green',
@@ -329,26 +338,26 @@ export const countersignPill = (state: Countersigned) =>
 	pill(COUNTERSIGN[state].text, COUNTERSIGN[state].tone);
 
 /**
- * The countersign gesture, and the two states that offer no button. **Recorded is not signed**:
+ * The blessing gesture, and the two states that offer no button. **Recorded is not signed**:
  * the entry is in the inbox and the ✓ reaches the D-entry when the Architect sweeps, so the card
- * says so rather than letting a click look like a ratification.
+ * says so rather than letting a click look like a blessing given.
  *
  * **Folded outranks pending, and that is D10 doing its job.** `parseDecisions` marks an entry
  * pending whenever the phrase appears anywhere in it — including in the entry that *defines* the
- * ritual (canon D21, which is `✓ Felix` and has sat on the rail as a pending countersign since B3).
+ * ritual (canon D21, which is `✓ Felix` and has sat on the rail as a pending blessing since B3).
  * Two readings, one of them a false positive, so the card renders safe: no button, both readings
- * named. The parse stays the parser's (D65); the ask rides this row's findings.
+ * named. The parse stays the parser's (D65); the ask rides this charge's findings.
  */
 export function countersignAct(buildingPath: string, d: Decision, state: Countersigned): string {
 	if (state === 'pending') return `<div class="gesture flat">
-		<p class="prose note">One line into <code>${esc(tilde(inboxFile(buildingPath)))}</code> — the glass records the countersign, it never pens the D-entry (D3).</p>
-		<div class="acts"><button class="ges" data-gesture="${payload(buildingPath, { kind: 'countersign', decision: d.id })}">countersign ${esc(d.id)}</button>
+		<p class="prose note">One line into <code>${esc(tilde(inboxFile(buildingPath)))}</code> — the deck records the blessing, it never pens the D-entry (D3).</p>
+		<div class="acts"><button class="ges" data-gesture="${payload(buildingPath, { kind: 'countersign', decision: d.id })}">bless ${esc(d.id)}</button>
 		<span class="out" data-out></span></div></div>`;
 	return `<div class="gesture flat"><p class="prose note">${esc(COUNTERSIGN[state].note)}</p></div>`;
 }
 
 /**
- * The apply button: the scoped Architect sitting, one per account (a toggled group, never a
+ * The apply button: the scoped Architect session, one per account (a toggled group, never a
  * dropdown — design law §3). One composed body, one name-stamp: only one of these will ever be
  * clicked, and minting three stamps to render three labels would spend two of them on nothing.
  */
@@ -363,7 +372,7 @@ export function applyAct(rig: Rig, buildingPath: string, accounts: string[], arm
 	const buttons = accounts.map(a =>
 		`<button class="ges apply" data-apply="${esc(JSON.stringify({ ...composed.body, account: a }))}"${cold}>sweep as ${esc(a)}</button>`).join('');
 	return `<div class="gesture flat">
-		<p class="prose note">${entries} entr${entries === 1 ? 'y' : 'ies'} waiting. The sitting reads this building's master doc and its inbox, rules each entry, and commits — Felix's word applied with the Architect's name on the ruling.</p>
+		<p class="prose note">${entries} entr${entries === 1 ? 'y' : 'ies'} waiting. The session reads this building's master doc and its inbox, rules each entry, and commits — Felix's word applied with the Architect's name on the ruling.</p>
 		<div class="btns">${buttons}</div>
 		<div class="acts">${label('as')}<span class="out" data-out>${esc(`${composed.body.stamp} · ${composed.body.model}-${composed.body.effort}`)}</span></div>
 		<details class="more"><summary>the summons</summary><pre class="summons">${esc(composed.body.summons)}</pre></details></div>`;
@@ -386,7 +395,7 @@ document.addEventListener('click', async ev => {
 			out.textContent = 'firing…';
 			const r = await fetch('/hands/fire', { method: 'POST', headers: { 'content-type': 'application/json' }, body: btn.dataset.apply });
 			const body = await r.json();
-			out.textContent = body.ok ? 'fired ' + body.result.workspace + ' · sha ' + body.result.sha : r.status + ' ' + body.error;
+			out.textContent = body.ok ? 'ignited ' + body.result.workspace + ' · sha ' + body.result.sha : r.status + ' ' + body.error;
 			if (!body.ok) btn.disabled = false;
 			return;
 		}

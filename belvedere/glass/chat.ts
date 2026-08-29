@@ -452,7 +452,7 @@ export function parseMessage(raw: unknown): Outcome<Message> {
 	const bad = refusals(text);
 	if (bad.length) return fail(`refused at compose — ${bad.map(b => `${b.code}: ${b.text}`).join(' · ')}`);
 	if (sanitizeSummons(text) !== text)
-		return fail('refused at compose — control: the message carries bytes the transport rewrites (a CR, or a control character). The glass will not silently edit what you typed.');
+		return fail('refused at compose — control: the message carries bytes the transport rewrites (a CR, or a control character). The deck will not silently edit what you typed.');
 	return { ok: true, result: { sid, text } };
 }
 

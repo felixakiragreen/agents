@@ -152,7 +152,7 @@ function drawTranscript(host: HTMLElement): void {
 	const v = view();
 	if (!selection.session) {
 		host.append(el('span', 'big', 'chat'));
-		host.append(el('p', 'quiet prose', 'Pick a session anywhere on the deck — the City expanded, a Workshop’s live sessions, the needs-you queue — and it reads here. One view, any session, live or dead.'));
+		host.append(el('p', 'quiet prose', 'Pick a session anywhere on the deck — the City expanded, a Workshop’s live sessions, the ⬡-queue — and it reads here. One view, any session, live or dead.'));
 		return;
 	}
 	if (!v) { host.append(el('p', 'quiet prose', 'reading the transcript…')); return; }

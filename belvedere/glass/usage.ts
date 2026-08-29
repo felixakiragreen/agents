@@ -1,7 +1,7 @@
 /**
  * **Usage, live** (B17 §4) — the deck fetches the quota itself instead of rendering a log.
  *
- * v0 rendered the rig's caches and said so (`gauges.ts` §1: *"the glass never fetches"*). That was
+ * v0 rendered the rig's caches and said so (`gauges.ts` §1: *"the deck never fetches"*). That was
  * the right call while the glass had no reason to hold a token — and it is exactly what the field
  * report caught: a **391-minute-old** number sitting beside the account picker it is supposed to
  * inform. A stale session figure inverts the very decision the strip exists to inform, so the deck
@@ -159,7 +159,7 @@ async function fetchOne(configDir: string, account: string): Promise<LiveUsage> 
 	const windows = parseUsage(body);
 	// A body that parsed to nothing is a failed fetch, not a cache full of nothing (the rig's rule).
 	if (Object.keys(windows).length === 0)
-		return { account, source: 'none', fetchedAt: null, windows: {}, error: 'the usage response carried no window this glass knows' };
+		return { account, source: 'none', fetchedAt: null, windows: {}, error: 'the usage response carried no window this deck knows' };
 	return { account, source: 'live', fetchedAt: Date.now() / 1000, windows, error: null };
 }
 

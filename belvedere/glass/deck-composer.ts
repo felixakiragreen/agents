@@ -300,11 +300,11 @@ function warningsOf(o: {
 				? `${o.trust.where} is a repository this account has never trusted, and a repository never borrows an ancestor's trust`
 				: `nothing at or above ${o.trust.where} is trusted for this account`}`
 			+ ` — the session will open and sit on Claude's folder-trust dialog with no first user turn.`
-			+ ` Trust is per account and lives on the project root; the glass reads ${o.trust.file} and never answers that dialog.` });
+			+ ` Trust is per account and lives on the project root; the deck reads ${o.trust.file} and never answers that dialog.` });
 	if (o.slots.length)
 		out.push({ name: 'unfilled slots', text: `the summons still carries ${o.slots.join(' ')} — the session will read them as written.` });
 	if (o.worktreeNote)
-		out.push({ name: 'no worktree', text: `${o.worktreeNote}. The fire will land in the venue itself.` });
+		out.push({ name: 'no worktree', text: `${o.worktreeNote}. The session will land in the venue itself.` });
 	// P5 F1, measured: `--model haiku` cannot enter `auto` permission mode on any account and the
 	// fallback to `default` is silent, so the first Write stalls on a prompt nobody is watching.
 	if (o.model === 'haiku')
@@ -314,6 +314,6 @@ function warningsOf(o: {
 	// wherever it is true rather than being silently resolved one way or the other.
 	if (o.building && o.cwd && o.cwd !== o.building.path)
 		out.push({ name: 'venue ≠ building', text:
-			`this fires in ${o.cwd} and is stamped after ${o.building.building}. That is the point — the building names the work, the cwd is only where it runs — but check it is the pair you meant.` });
+			`this ignites in ${o.cwd} and is stamped after ${o.building.building}. That is the point — the building names the work, the cwd is only where it runs — but check it is the pair you meant.` });
 	return out;
 }

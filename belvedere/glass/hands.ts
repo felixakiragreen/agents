@@ -379,7 +379,7 @@ async function attemptWorktree(req: Worktree): Promise<Outcome<{ path: string; b
 /** The census's word on one live session, or the reason there is nothing to act on. */
 function liveSession(sid: string): Outcome<Session> {
 	const census = readCensus();
-	if (!census.present) return fail('census not deployed — the glass cannot see any session');
+	if (!census.present) return fail('census not deployed — the deck cannot see any session');
 	const session = census.sessions.find(s => s.sid === sid);
 	if (!session) return fail(`no session ${sid} in the census`);
 	if (!isLive(session)) return fail(`session ${sid} is ${session.state} — nothing to act on`);

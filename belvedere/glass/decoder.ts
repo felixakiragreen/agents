@@ -112,9 +112,9 @@ function decodeRow(tok: Token, order: Entry[], scoped: boolean): Decoded {
 	for (const e of order) {
 		const b = content(e);
 		const hits = rowOf(b, tok.id);
-		looked.push(`${b.building} — ${b.board.reduce((n, x) => n + x.rows.length, 0)} rows`);
+		looked.push(`${b.building} — ${b.board.reduce((n, x) => n + x.rows.length, 0)} charges`);
 		if (hits.length > 1)
-			return no(tok.text, `${b.building} carries ${hits.length} rows called ${tok.id}`,
+			return no(tok.text, `${b.building} carries ${hits.length} charges called ${tok.id}`,
 				hits.map(h => `${short(h.board.file)}:${h.row.line}`));
 		const hit = hits[0];
 		if (!hit) continue;
@@ -127,7 +127,7 @@ function decodeRow(tok: Token, order: Entry[], scoped: boolean): Decoded {
 		return {
 			ok: true, kind: 'row', id: tok.id, label: tok.text,
 			headline: name.encapsulated ? name.name : clip(row.work),
-			status: `${row.state ?? 'unparsed'} · ${row.hexGate ? 'Felix-gate' : `${row.mantle ?? '?'} · ${row.tier ?? '?'}`}`,
+			status: `${row.state ?? 'unparsed'} · ${row.hexGate ? '⬡-gate' : `${row.mantle ?? '?'} · ${row.tier ?? '?'}`}`,
 			body: record === ''
 				? `${clip(row.work)} — no landing record yet; depends on ${row.dependsOn.length ? row.dependsOn.join(', ') : 'nothing'}`
 				: clip(record),
@@ -140,14 +140,14 @@ function decodeRow(tok: Token, order: Entry[], scoped: boolean): Decoded {
 		};
 	}
 	return no(tok.text, scoped
-		? `no row ${tok.id} on ${order[0]?.building ?? 'that building'}'s boards`
-		: `no board in scope carries a row ${tok.id}`, looked);
+		? `no charge ${tok.id} on ${order[0]?.building ?? 'that building'}'s boards`
+		: `no board in scope carries a charge ${tok.id}`, looked);
 }
 
 /**
  * Decisions come from a second parse of the decisions file rather than from `Building`, because
  * `Building.decisionQueue` is the *queue* — the entries still waiting on a pen — and a decoder
- * that could only resolve unratified decisions would fail on almost every id the corpus writes.
+ * that could only resolve unblessed decisions would fail on almost every id the corpus writes.
  * Same parser, whole list (D65).
  */
 const decisionsOf = (e: Entry): Decision[] =>
@@ -227,7 +227,7 @@ function decodeSection(entries: Entry[], tok: Token, inPath: string | null): Dec
 
 /**
  * `FC-n` and `GA-n` are detected and deliberately **not** resolved. They are real ids the corpus
- * writes (P3's fold candidates, the Grand Architect's sittings) and the doctrine gives them no
+ * writes (P3's fold candidates, the Grand Architect's sessions) and the doctrine gives them no
  * field and no artifact: the parser keeps rows, ledger entries, decisions and issues, and none of
  * them is an `FC`. Inventing a grep to find them would be a new reference grammar, which is a
  * canon question and this row's out-of-scope list (B20 §out-of-scope). So the tooltip says what it
@@ -235,9 +235,9 @@ function decodeSection(entries: Entry[], tok: Token, inPath: string | null): Dec
  * B15 F1).
  */
 const decodeFold = (tok: Token): Decoded => no(tok.text,
-	`${tok.kind === 'fold' ? 'a fold candidate' : 'a Grand Architect sitting'} is prose, not a parsed artifact —`
+	`${tok.kind === 'fold' ? 'a fold candidate' : 'a Grand Architect session'} is prose, not a parsed artifact —`
 	+ ' the doctrine carries no field for it, so nothing can resolve it without guessing',
-	['rows, ledger entries, decisions and issues are what the one parser keeps']);
+	['charges, ledger entries, decisions and issues are what the one parser keeps']);
 
 // ---------- the front door ----------
 

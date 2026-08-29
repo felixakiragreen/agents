@@ -184,4 +184,4 @@ const server = Bun.serve({
 	},
 });
 
-console.log(`belvedere · the glass · http://${server.hostname}:${server.port}`);
+console.log(`belvedere · the deck · http://${server.hostname}:${server.port}`);

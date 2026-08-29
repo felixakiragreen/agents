@@ -74,7 +74,7 @@ const grepInput = need<HTMLInputElement>('grep-q');
 
 /**
  * What the one drawer is showing (keel §3: there is one drawer, and it is pinnable). Its default is
- * the needs-you queue (D15); a search puts the results in it and `needs you` puts the queue back.
+ * the ⬡-queue (D15); a search puts the results in it and `⬡-queue` puts the queue back.
  * One overlay, two contents — not a second drawer, because a second drawer is a second thing to shut.
  */
 let drawerShows: 'queue' | 'grep' = 'queue';
@@ -163,7 +163,7 @@ function drawTenantBar(): void {
 // ---------- the City (Context's one tenant, keel §3) ----------
 
 const BADGE_WORD: Readonly<Record<Attention, string>> = {
-	waiting: 'blocked on you', gate: 'Felix-gate', countersign: 'countersign', escalation: 'escalation',
+	waiting: 'blocked on you', gate: '⬡-gate', countersign: 'blessing', escalation: 'escalation',
 };
 
 function badges(b: DeckBuilding): HTMLElement {
@@ -185,7 +185,7 @@ function buildingRow(b: DeckBuilding, mine: DeckSession[], wants: QueueItem[]): 
 	row.dataset['building'] = b.building;
 	row.dataset['tip'] = b.building;
 	// **What** wants him, by name, rather than how many: the badge already carries the count, and a
-	// name is the encapsulation law's own answer to "2 Felix-gate". It is corpus prose, so the City's
+	// name is the encapsulation law's own answer to "2 ⬡-gate". It is corpus prose, so the City's
 	// tooltip decodes exactly like the Workshop's (B20 §5).
 	const named = wants.slice(0, TIP_ITEMS).map(i => i.name);
 	row.dataset['tipMore'] = `${b.path} · ${b.live} live · `
@@ -222,7 +222,7 @@ const LEGEND: [string, string, string?][] = [
 	['dot s-idle w-blocked', 'blocked — a permission prompt is waiting'],
 	['dot s-idle w-nagging', 'waiting for your input — the session said so'],
 	['badge b-waiting', 'blocked on you'],
-	['badge b-gate', 'Felix-gate on a live row'],
+	['badge b-gate', '⬡-gate on a live charge'],
 	['badge b-countersign', 'decision waiting on your pen'],
 	['badge b-escalation', 'escalation raised, nothing says it was ruled'],
 	// B18's three: cmux owns the first two, and the third says the socket stopped answering.
@@ -333,7 +333,7 @@ function drawContext(): void {
 	paint('context', host, sig, drawCity);
 }
 
-// ---------- the needs-you queue (the drawer's tenant, D15) ----------
+// ---------- the ⬡-queue (the drawer's tenant, D15) ----------
 
 /**
  * What a rebuild must not destroy. The queue is the one place on the deck where Felix *types*, so
@@ -372,7 +372,7 @@ function actions(i: QueueItem): HTMLElement {
 	const acts = el('div', 'qacts');
 
 	if (i.kind === 'countersign' && i.state === 'pending' && i.decision) {
-		const b = el('button', 'st wide', `countersign ${i.decision}`) as HTMLButtonElement;
+		const b = el('button', 'st wide', `bless ${i.decision}`) as HTMLButtonElement;
 		b.type = 'button';
 		b.dataset['gesture'] = JSON.stringify({ building: i.path, kind: 'countersign', decision: i.decision });
 		b.dataset['reload'] = 'yes';
@@ -448,19 +448,19 @@ function drawQueue(host: HTMLElement): void {
 		: 'nothing needs you'));
 	if (!q.length) {
 		host.append(el('p', 'quiet prose',
-			'No blocked session, no live Felix-gate, no pending countersign, no unruled escalation anywhere on the register. Every count on this deck is a floor (the census horizon) — the City says how far back it can see.'));
+			'No blocked session, no live ⬡-gate, no pending blessing, no unruled escalation anywhere on the register. Every count on this deck is a floor (the census horizon) — the City says how far back it can see.'));
 		return;
 	}
 	const list = el('ul', 'queue');
 	for (const i of q) list.append(queueItem(i));
 	host.append(list);
 	host.append(el('p', 'quiet prose',
-		'Nothing here fires anything (D10): a note and a countersign are one append to that building’s inbox, a jump moves your eyes, and chat opens that session in the one Chat view — where a reply is delivered as a real user turn, verified after the fact (B16).'));
+		'Nothing here ignites anything (D10): a note and a blessing are one append to that building’s inbox, a jump moves your eyes, and chat opens that session in the one Chat view — where a reply is delivered as a real user turn, verified after the fact (B16).'));
 }
 
 function drawDrawer(): void {
 	const host = hostOf('drawer');
-	drawerName.textContent = drawerShows === 'grep' ? 'results' : 'needs you';
+	drawerName.textContent = drawerShows === 'grep' ? 'results' : '⬡-queue';
 	drawerQueue.hidden = drawerShows !== 'grep';
 	if (drawerShows === 'grep') {
 		paint('drawer', host, `grep ${layout.drawer} ${grepSignature()}`, h => drawResults(h, snapshot));
@@ -757,9 +757,9 @@ function gestureBox(d: Decoded & { ok: true }): HTMLElement {
 	for (const g of d.gestures) {
 		if (g.kind === 'countersign') {
 			const act = el('div', 'tip-gesture');
-			act.append(el('p', 'quiet prose', 'one line into this building’s inbox — the glass records the countersign, it never pens the D-entry (D3):'));
+			act.append(el('p', 'quiet prose', 'one line into this building’s inbox — the deck records the blessing, it never pens the D-entry (D3):'));
 			act.append(el('pre', 'preview', g.preview));
-			const b = button('st wide', `countersign ${g.decision}`, 'file this exact line');
+			const b = button('st wide', `bless ${g.decision}`, 'file this exact line');
 			b.addEventListener('click', () => void file(key, { building: g.building, kind: 'countersign', decision: g.decision }));
 			act.append(b);
 			box.append(act);

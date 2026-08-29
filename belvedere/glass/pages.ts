@@ -98,7 +98,7 @@ export const groupLabel = (name: string) =>
 
 /** The City View's colours, all three vocabularies: the pulse pills, the rings, the mantle hues. */
 const cityLegend = (rig: Rig) => legend([
-	`${pill('n in flight', 'felix')}${pill('n open', 'blue')}${pill('n blocked', 'red')}${pill('n landed', 'green')}${pill('n lint', 'orange')} board rows, by state`,
+	`${pill('n in flight', 'felix')}${pill('n open', 'blue')}${pill('n blocked', 'red')}${pill('n landed', 'green')}${pill('n lint', 'orange')} board charges, by state`,
 	...LIVENESS_KEYS,
 	...mantleKeys(rig.colours),
 ]);
@@ -153,12 +153,12 @@ export function cityPage(): string {
 	const tally = { working: 0, 'needs-input': 0, idle: 0, unknown: 0 } as Record<string, number>;
 	for (const s of census.sessions.filter(isLive)) tally[s.state] = (tally[s.state] ?? 0) + 1;
 
-	// The hands' own state, said out loud on the home page: a glass that cannot write should
+	// The hands' own state, said out loud on the home page: a deck that cannot write should
 	// never look like one that can (B4 §2).
 	const hands = handsState();
 	const banner = hands.armed ? '' : `<section class="panel"><h2>Hands disabled</h2>
-		<p class="prose note">The fence's four write powers are off — fire, worktree, focus and halt all answer 503.
-		Everything below is unaffected: the glass reads the city either way.
+		<p class="prose note">The fence's four write powers are off — ignite, worktree, focus and halt all answer 503.
+		Everything below is unaffected: the deck reads the city either way.
 		<br><span class="bad">${esc(hands.note)}</span></p></section>`;
 
 	const strip = `<section class="strip">
@@ -185,7 +185,7 @@ export function cityPage(): string {
 		return `<a class="card tone-${live.length ? 'felix' : 'grey'}" href="/b/${b.building.split('/').map(encodeURIComponent).join('/')}">
 			<div class="card-h"><span class="name">${esc(b.building)}</span><span class="count">${live.length || ''}</span></div>
 			<div class="windows">${live.map(s => window_(s, rig)).join('') || '<span class="dark">dark</span>'}</div>
-			<div class="pulse">${pulse || label('no rows')}</div>
+			<div class="pulse">${pulse || label('no charges')}</div>
 		</a>`;
 	};
 
@@ -279,8 +279,8 @@ function boardRow(r: BoardRow, board: Board, b: Building, used: Set<Fail>, ids: 
 	const w = encap(r.work);
 	const work = (r.workDoc ? `<a href="${esc(docHref(r.workDoc, base))}">${esc(w.name)}</a>` : esc(w.name))
 		+ (w.encapsulated ? expand(`<p class="prose">${inline(r.work, base)}</p>`) : '');
-	const deps = [...r.dependsOn.map(d => `<code>${esc(d)}</code>`), ...r.gates.map(g => pill('Felix-gate', 'purple', g))].join(' ') || '—';
-	const staff = r.hexGate ? pill('Felix-gate', 'purple')
+	const deps = [...r.dependsOn.map(d => `<code>${esc(d)}</code>`), ...r.gates.map(g => pill('⬡-gate', 'purple', g))].join(' ') || '—';
+	const staff = r.hexGate ? pill('⬡-gate', 'purple')
 		: `${r.mantle ? esc(r.mantle) : '<span class="bad">?</span>'} · ${r.tier ? `<code>${esc(r.tier)}</code>` : '<span class="bad">?</span>'}`;
 	const status = pill(r.state ?? 'UNPARSED', stateTone(r.state))
 		+ (r.annotation.trim() ? encapHtml(r.annotation, base, 'prose') : '');
@@ -311,7 +311,7 @@ function ledgerPanel(b: Building): string {
 	const tone = bt?.holder === 'session' ? 'green' : bt?.holder === 'felix' ? 'purple' : 'orange';
 	const instruments = bt?.instruments.map(i => i.kind === 'summons'
 		? `<pre class="summons">${esc(i.text)}</pre>`
-		: `<div class="inst">fire row <code>${esc(i.row)}</code></div>`).join('') ?? '';
+		: `<div class="inst">ignite charge <code>${esc(i.row)}</code></div>`).join('') ?? '';
 	return `<section class="panel"><h2>Ledger tail</h2>
 		<p class="note"><a href="${esc(docHref(b.files.ledger!, '/'))}">${esc(short(b.files.ledger!))}</a>:${e.line}</p>
 		<div class="entry-h">${esc(e.date)} · ${esc(e.mantle)}${e.tier ? ` · <code>${esc(e.tier)}</code>` : ''}${e.row ? ` (${esc(e.row)})` : ''}</div>
@@ -324,7 +324,7 @@ function ledgerPanel(b: Building): string {
 function queuePanel(b: Building): string {
 	const base = baseOf(b.files.decisions);
 	const items = b.decisionQueue.map(d => `<li><code>${esc(d.id)}</code> ${esc(d.date)} · ${esc(d.decider)}
-		${d.pending ? pill('pending countersign', 'yellow') : pill('unsigned', 'orange')}
+		${d.pending ? pill('pending blessing', 'yellow') : pill('unsigned', 'orange')}
 		${encapHtml(d.title, base, 'prose')}</li>`).join('');
 	return `<section class="panel"><h2>Decision queue</h2>
 		${b.files.decisions ? `<p class="note"><a href="${esc(docHref(b.files.decisions, '/'))}">${esc(short(b.files.decisions))}</a></p>` : ''}
@@ -364,7 +364,7 @@ function issuesPanel(b: Building, rig: Rig, accounts: string[], armed: boolean):
 function lintPanel(b: Building, used: Set<Fail>): string {
 	const rest = b.fails.filter(f => !used.has(f));
 	if (!rest.length) return `<section class="panel"><h2>Lint</h2><p class="prose note">${b.fails.length
-		? `All ${b.fails.length} failure(s) are pinned to their board rows above.`
+		? `All ${b.fails.length} failure(s) are pinned to their board charges above.`
 		: 'Clean — every field the doctrine names, this building carries.'}</p></section>`;
 	const rows = rest.map(f => `<tr><td>${pill(f.artifact, 'orange')}</td><td><code>${esc(f.code)}</code></td>
 		<td>${esc(f.reason)}</td><td><a href="${esc(docHref(f.file, '/'))}">${esc(short(f.file))}</a>:${f.line}</td>
@@ -411,6 +411,6 @@ export const notFound = (what: string) => page('Belvedere — 404', '<a href="/"
 	`<section class="panel"><h2>Not on the register</h2><p class="prose note">${esc(what)}</p></section>`, '404');
 
 export const errorPage = (e: unknown) => page('Belvedere — error', '<a href="/">city</a>',
-	`<section class="panel"><h2>The glass cracked, the city stands</h2>
+	`<section class="panel"><h2>The deck cracked, the city stands</h2>
 	<pre class="doc">${esc(e instanceof Error ? (e.stack ?? e.message) : String(e))}</pre></section>`,
 	'the server is still up — nothing on disk was touched');

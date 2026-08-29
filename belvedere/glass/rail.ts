@@ -1,6 +1,6 @@
 // The baton rail — the home page. "My mornings should start at a rail of batons, not a wall
 // of terminals" (dream). One column: every ledger-tail baton in the city, every named
-// Felix-gate still live on a board, every decision waiting on his countersign.
+// ⬡-gate still live on a board, every decision waiting on his blessing.
 //
 // Two laws shape every card:
 //
@@ -14,7 +14,7 @@
 //     summons with no known tier, a fork whose recommendation matches no option: each says so
 //     on the card and offers no button. A greyed reason beats a guessed fire.
 //
-// D64's move / wave / fork is rendered as one / n / choice buttons. `doctrine/`'s parsed
+// D64's shapes, named by D71 — single / batch / fork — render as one / n / choice buttons. `doctrine/`'s parsed
 // `Baton` carries `instruments[]` but no `kind`, so the shape is read render-side here by a
 // thin splitter over the baton's own prose (B3 §3's instruction) — and the canon-inbox ask
 // for the missing field rides this row's findings. Nothing below re-implements a parse.
@@ -34,17 +34,22 @@ import { compose, type Composed } from './summon';
 
 const WORK_DOC_BYTES = 2 << 20;
 
-// ---------- D64's shape, read render-side ----------
+// ---------- the baton's shape (D64, named by D71), read render-side ----------
 
-export type Shape = 'move' | 'wave' | 'fork' | 'plural';
+// D71 renamed two of the three: a move is a **single**, a wave is a **batch**. `plural` is not one
+// of the three — it is the defect the parser reports when a baton hands several instruments and
+// names no shape — so it keeps its name.
+export type Shape = 'single' | 'batch' | 'fork' | 'plural';
 
-// A fork is the choice ITSELF; a wave is n things fired together. Both are prose today, so
-// both are matched as prose — and plurality with neither marker is reported, never guessed.
+// A fork is the choice ITSELF; a batch is n things ignited together. Both are prose today, so
+// both are matched as prose — and plurality with neither marker is reported, never guessed. The
+// corpus still writes `wave`, so the batch matcher keeps reading it: the deck's words molt, the
+// corpus's words are read as it wrote them.
 const FORK = /\bfork\b|\bexclusive\b|\bchoos|\bchoice\b|\beither\b|\boption [a-z]\b/i;
-const WAVE = /\bwave\b|\bparallel\b|\bboth\b|\ball (?:two|three|four|five)\b/i;
+const BATCH = /\bbatch\b|\bwave\b|\bparallel\b|\bboth\b|\ball (?:two|three|four|five)\b/i;
 
 export const shapeOf = (text: string, instruments: number): Shape =>
-	instruments <= 1 ? 'move' : FORK.test(text) ? 'fork' : WAVE.test(text) ? 'wave' : 'plural';
+	instruments <= 1 ? 'single' : FORK.test(text) ? 'fork' : BATCH.test(text) ? 'batch' : 'plural';
 
 /** What names an option in prose: a row id, or the mantle and tier its summons opens with. */
 const keysOf = (i: Instrument): string[] =>
@@ -113,16 +118,16 @@ const findRow = (b: Building, id: string): { row: BoardRow; file: string } | nul
  */
 function resolveRow(b: Building, id: string): { summons: string; source: string; mantle: string | null; tier: string | null; worktree: { repo: string; branch: string } | null } | { blocked: string } {
 	const hit = findRow(b, id);
-	if (!hit) return { blocked: `no row "${id}" on any board in ${b.building}` };
-	if (!hit.row.workDoc) return { blocked: `row ${id} names no work doc — nothing to read a kickoff from` };
+	if (!hit) return { blocked: `no charge "${id}" on any board in ${b.building}` };
+	if (!hit.row.workDoc) return { blocked: `charge ${id} names no work doc — nothing to read a kickoff from` };
 
 	const doc = resolve(dirname(hit.file), hit.row.workDoc.split('#')[0]!);
 	let text: string;
 	try { text = readDoc(doc); }
-	catch (e) { return { blocked: `row ${id}'s work doc is unreadable: ${(e as Error).message}` }; }
+	catch (e) { return { blocked: `charge ${id}'s work doc is unreadable: ${(e as Error).message}` }; }
 
 	const k = parseKickoffs(text).kickoffs.at(-1);
-	if (!k) return { blocked: `row ${id}'s work doc carries no kickoff fence: ${short(doc)}` };
+	if (!k) return { blocked: `charge ${id}'s work doc carries no kickoff fence: ${short(doc)}` };
 
 	const branch = branchFor(text);
 	return {
@@ -139,8 +144,8 @@ function shot(rig: Rig, b: Building, i: Instrument, ledgerLine: number, account:
 			fire: compose(rig, { summons: i.text, mantle: i.mantle, tier: i.tier, cwd: b.path, account, taken }) };
 	}
 	const r = resolveRow(b, i.row);
-	if ('blocked' in r) return { ...base, label: `row ${i.row}`, source: short(b.files.ledger ?? b.path), summons: '', fire: r };
-	return { ...base, label: `row ${i.row} — ${r.mantle ?? 'unknown mantle'} · ${r.tier ?? 'unknown tier'}`,
+	if ('blocked' in r) return { ...base, label: `charge ${i.row}`, source: short(b.files.ledger ?? b.path), summons: '', fire: r };
+	return { ...base, label: `charge ${i.row} — ${r.mantle ?? 'unknown mantle'} · ${r.tier ?? 'unknown tier'}`,
 		source: r.source, summons: r.summons, worktree: r.worktree,
 		fire: compose(rig, { summons: r.summons, mantle: r.mantle, tier: r.tier, cwd: b.path, account, taken }) };
 }
@@ -206,8 +211,8 @@ export function cards(buildings: Building[], rig: Rig, account: string): Card[] 
 		? (c.wired && c.shots.length ? 0 : c.baton.holder === 'prose' ? 3 : 2)
 		: c.kind === 'countersign' ? 1 : 2;
 	// **Attention first, recency within** (design law): the rank is attention and it decides across
-	// groups; the date only ever orders inside one. A card the doctrine gives no date — a Felix-gate
-	// is a board row, not an entry — keeps its rank and falls to the named order, never to the top.
+	// groups; the date only ever orders inside one. A card the doctrine gives no date — a ⬡-gate
+	// is a board charge, not an entry — keeps its rank and falls to the named order, never to the top.
 	return out.sort((a, c) =>
 		rank(a) - rank(c) || dateOf(c).localeCompare(dateOf(a)) || a.building.localeCompare(c.building));
 }
@@ -217,7 +222,7 @@ const dateOf = (c: Card) => c.kind === 'baton' ? c.entry.date : c.kind === 'coun
 
 // ---------- render ----------
 
-const SHAPE_TONE: Record<Shape, Tone> = { move: 'green', wave: 'cyan', fork: 'yellow', plural: 'orange' };
+const SHAPE_TONE: Record<Shape, Tone> = { single: 'green', batch: 'cyan', fork: 'yellow', plural: 'orange' };
 const HOLDER: Record<Baton['holder'], string> = { session: 'baton', felix: "Felix's baton", prose: 'dropped baton' };
 
 /**
@@ -290,7 +295,7 @@ function batonCard(c: Card & { kind: 'baton' }, armed: boolean, accounts: string
 	const tone: Tone = c.baton.holder === 'prose' ? 'orange' : c.wired ? 'green' : 'purple';
 	const shape = c.baton.instruments.length > 1 || c.baton.holder === 'session'
 		? pill(c.shape === 'plural' ? `${c.baton.instruments.length} instruments — shape unstated` : c.shape,
-			SHAPE_TONE[c.shape], 'D64: move · wave · fork') : '';
+			SHAPE_TONE[c.shape], 'D71: single · batch · fork') : '';
 	const forkNote = c.shape === 'fork' && c.recommendation < 0
 		? `<p class="note bad">A fork with no readable recommendation — D64 forbids a menu with no recommendation.</p>` : '';
 	const dropped = c.baton.holder === 'prose'
@@ -314,8 +319,8 @@ function batonCard(c: Card & { kind: 'baton' }, armed: boolean, accounts: string
 
 const gateCard = (c: Card & { kind: 'gate' }, foot: string) =>
 	`<article class="rail tone-purple" data-kind="gate" data-holder="felix">
-		<div class="rail-h">${buildingLink(c.building)} ${pill('Felix-gate', 'purple')} ${pill(c.row.state ?? 'UNPARSED', stateTone(c.row.state))}
-			<span class="when">row ${esc(c.row.id)}</span></div>
+		<div class="rail-h">${buildingLink(c.building)} ${pill('⬡-gate', 'purple')} ${pill(c.row.state ?? 'UNPARSED', stateTone(c.row.state))}
+			<span class="when">charge ${esc(c.row.id)}</span></div>
 		${encapHtml(c.gate || c.row.work, dirname(c.file), 'rail-text')}
 		${c.gate ? `<p class="prose note">${esc(encap(c.row.work).name)}</p>` : ''}${foot}</article>`;
 
@@ -383,11 +388,11 @@ document.addEventListener('click', async ev => {
 			const [code, r] = await post('worktree', JSON.parse(btn.dataset.worktree));
 			if (!r.ok) { out.textContent = code + ' ' + r.error; btn.disabled = false; return; }
 			body.cwd = r.result.path;
-			out.textContent = 'worktree ' + r.result.path + ' · firing…';
-		} else out.textContent = 'firing…';
+			out.textContent = 'worktree ' + r.result.path + ' · igniting…';
+		} else out.textContent = 'igniting…';
 		const [code, r] = await post('fire', body);
 		out.textContent = r.ok
-			? 'fired ' + r.result.workspace + ' · ' + body.stamp + ' · sha ' + r.result.sha + ' · ' + r.result.bytes + ' B'
+			? 'ignited ' + r.result.workspace + ' · ' + body.stamp + ' · sha ' + r.result.sha + ' · ' + r.result.bytes + ' B'
 			: code + ' ' + r.error;
 		if (!r.ok) btn.disabled = false;   // the stamp is spent only on a fire that landed
 	} catch (e) { out.textContent = String(e); btn.disabled = false; }
@@ -400,9 +405,9 @@ document.addEventListener('click', async ev => {
  * View's vocabulary appearing here in miniature.
  */
 const railLegend = (rig: Rig) => legend([
-	`${pill('baton', 'green')} fireable — the parser and the clause agree it is a session's`,
+	`${pill('baton', 'green')} ignitable — the parser and the clause agree it is a session's`,
 	`${pill("Felix's baton", 'purple')} his — a gate, a collision (D10), or a clause that names him`,
-	`${pill('pending countersign', 'yellow')} a decision waiting on his pen`,
+	`${pill('pending blessing', 'yellow')} a decision waiting on his pen`,
 	`${pill('dropped baton', 'orange')} the Next clause carries no instrument at all`,
 	...LIVENESS_KEYS,
 	...mantleKeys(rig.colours),
@@ -428,9 +433,9 @@ export function railPage(): string {
 
 	const counts = `<section class="strip">
 		<div class="stat"><span class="label">batons</span><b>${n.baton}</b></div>
-		<div class="stat"><span class="label">fireable</span><b class="t-working">${n.fireable}</b></div>
-		<div class="stat"><span class="label">Felix-gates</span><b class="t-needs-input">${n.gate}</b></div>
-		<div class="stat"><span class="label">countersigns</span><b class="t-unknown">${n.countersign}</b></div>
+		<div class="stat"><span class="label">ignitable</span><b class="t-working">${n.fireable}</b></div>
+		<div class="stat"><span class="label">⬡-gates</span><b class="t-needs-input">${n.gate}</b></div>
+		<div class="stat"><span class="label">blessings</span><b class="t-unknown">${n.countersign}</b></div>
 		<div class="stat"><span class="label">buildings</span><b>${buildings.length}</b></div>
 		<div class="stat"><span class="label">live sessions</span><b>${census.sessions.filter(isLive).length}</b></div>
 		<div class="stat"><span class="label">hands</span><b class="small">${hands.armed ? pill('armed', 'green') : pill('disabled', 'orange')}</b></div>

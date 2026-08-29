@@ -129,14 +129,14 @@ async function doFire(): Promise<void> {
 	// The body the page is showing, not one rebuilt from it. The only field that moves is the cwd,
 	// and only because the worktree does not exist until the hand makes it (B7's proven order).
 	const body = { ...p.fire };
-	say('composer', 'firing…');
+	say('composer', 'igniting…');
 	try {
 		if (p.worktree) {
 			const cut = await post<{ ok: boolean; error?: string; result?: { path: string } }>(
 				'/hands/worktree', { repo: p.worktree.repo, branch: p.worktree.branch });
 			if (!cut.ok || !cut.result) return say('composer', `worktree refused — ${cut.error ?? 'no path'}`);
 			body.cwd = cut.result.path;
-			say('composer', `worktree ${cut.result.path} · firing…`);
+			say('composer', `worktree ${cut.result.path} · igniting…`);
 		}
 		const r = await post<{ ok: boolean; error?: string; result?: { workspace: string; sha: string | null; bytes: number } }>(
 			'/hands/fire', body);
@@ -146,7 +146,7 @@ async function doFire(): Promise<void> {
 		// dialog, so it must never read as a session that started (B7's amendment).
 		say('composer', p.trust && !p.trust.warm
 			? `opened ${r.result.workspace} · WAITING on Claude's folder-trust prompt — jump in and answer it; nothing has been read`
-			: `fired ${r.result.workspace} · ${body.stamp} · ${r.result.bytes} B · sha ${r.result.sha}`
+			: `ignited ${r.result.workspace} · ${body.stamp} · ${r.result.bytes} B · sha ${r.result.sha}`
 				+ ` · ${same ? 'identical to the previewed bytes' : `DIFFERS from the previewed ${p.sha}`}`);
 		// *"Summoning swaps in the Chat"* (keel §3, B16 §1). A fire answers a workspace and **no
 		// session id** (B11 F2), so what is handed over is the name-stamp — the Chat waits for the
@@ -307,7 +307,7 @@ function planCard(): HTMLElement {
 function acts(): HTMLElement {
 	const box = el('div', 'acts');
 	const p = plan;
-	const go = button('go', 'fire', 'spawn the session this plan describes') as HTMLButtonElement;
+	const go = button('go', 'ignite', 'spawn the session this plan describes') as HTMLButtonElement;
 	// D10, structurally: no plan, a refusal, or cold hands and there is nothing to press. The button
 	// is disabled rather than absent so the affordance's *state* is readable at a glance.
 	go.disabled = !p?.fire || !p.handsArmed;
@@ -328,7 +328,7 @@ function acts(): HTMLElement {
 
 const LEGEND: [string, string][] = [
 	['tone-green', 'ready — composed, and the hands\' own parse boundary accepts it'],
-	['tone-orange', 'warning — it will fire, and something on it deserves a second look'],
+	['tone-orange', 'warning — it will ignite, and something on it deserves a second look'],
 	['tone-purple', 'blocked — nothing to arm; the reason is on the card'],
 	['tone-grey', 'a chip\'s second line is its own number — the account\'s session window, the mantle\'s preset tier'],
 ];
@@ -367,7 +367,7 @@ function drawKnobs(box: HTMLElement): void {
 		textKnob('increment', draft.increment, String(p?.increment ?? ''), v => knob({ increment: v }, DEBOUNCE_MS))));
 	box.append(group('cwd', 'venue — where it runs; empty is the building itself',
 		textKnob('cwd', draft.cwd, p?.building?.path ?? '~/code/…', v => knob({ cwd: v }, DEBOUNCE_MS))));
-	box.append(group('branch', 'worktree branch — empty fires in the venue itself',
+	box.append(group('branch', 'worktree branch — empty ignites in the venue itself',
 		textKnob('branch', draft.branch, 'bv/b17-something', v => knob({ branch: v }, DEBOUNCE_MS))));
 
 	box.append(group('template', 'template — fills the summons, and sets the mantle and tier it speaks as',

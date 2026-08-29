@@ -228,7 +228,7 @@ function drawActs(host: HTMLElement): void {
 		composer: 'the summons body, live',
 	};
 	for (const to of ['issues', 'session', 'composer'] as DeskRouteName[]) {
-		const b = button('st wide', ROUTE_WORD[to], `${where[to]} — previewed before it fires`);
+		const b = button('st wide', ROUTE_WORD[to], `${where[to]} — previewed before it ignites`);
 		b.dataset['deskRoute'] = to;
 		b.dataset['on'] = plan?.to === to ? 'yes' : 'no';
 		host.append(b);
@@ -279,7 +279,7 @@ function drawFoot(host: HTMLElement): void {
 	}
 	host.append(el('p', 'quiet prose',
 		'Every save is a plain file under desk/ and nowhere else — no path comes from a URL. '
-		+ 'Commits are never the glass’s (D18 class 3): the files sit on disk and a sitting, or Felix, commits them.'));
+		+ 'Commits are never the deck’s (D18 class 3): the files sit on disk and a session, or Felix, commits them.'));
 }
 
 // ---------- the tenant ----------

@@ -235,7 +235,7 @@ export function usageStrip(usages: Usage[], nowSeconds: number): string {
 
 	return `<section class="panel gauge">
 		<h2>Usage — the quota table</h2>
-		<p class="prose note">Rendered from the rig's own caches; the glass never fetches. Each cell is
+		<p class="prose note">Rendered from the rig's own caches; the deck never fetches. Each cell is
 			<code>used% ±pacing</code> — the pacing delta is <code>elapsed% − used%</code>, so
 			<b class="delta headroom">+31</b> is headroom and <b class="delta burning">-13</b> means the
 			window dries up early. A cache over ${STALE_SECONDS / 60} minutes old greys its furniture; the

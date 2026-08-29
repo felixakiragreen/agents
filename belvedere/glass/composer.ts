@@ -272,7 +272,7 @@ function accountSub(u: Usage | undefined, nowSeconds: number): string {
 const LEGEND = `<section class="legend">
 	${label('legend')}
 	<span class="key"><span class="pill tone-green">ready</span> composed, and the hands' own parse boundary accepts it</span>
-	<span class="key"><span class="pill tone-orange">warning</span> it will fire — and something on it deserves a second look</span>
+	<span class="key"><span class="pill tone-orange">warning</span> it will ignite — and something on it deserves a second look</span>
 	<span class="key"><span class="pill tone-purple">blocked</span> nothing to arm: the reason is on the card</span>
 	<span class="key">a chip's second line is its own number — the account's session window, the mantle's preset tier</span>
 </section>`;
@@ -306,7 +306,7 @@ export function planCard(p: Plan, armed: boolean): string {
 	if (p.slots.length)
 		warnings.push(`<b>unfilled slots</b> — the summons still carries ${p.slots.map(s => `<code>${esc(s)}</code>`).join(' ')}.
 			The session will read them as written.`);
-	if (p.cut && 'blocked' in p.cut) warnings.push(`<b>no worktree</b> — ${esc(p.cut.blocked)}. The fire will land in the target itself.`);
+	if (p.cut && 'blocked' in p.cut) warnings.push(`<b>no worktree</b> — ${esc(p.cut.blocked)}. The session will land in the target itself.`);
 
 	const tone: Tone = warnings.length ? 'orange' : 'green';
 	const wt = p.cut && 'path' in p.cut ? p.cut : null;
@@ -333,7 +333,7 @@ export function planCard(p: Plan, armed: boolean): string {
 		${facts}${notes}
 		<pre class="summons" data-summons>${esc(body.summons)}</pre>
 		<div class="acts">
-			<button type="button" class="go" data-fire="${esc(JSON.stringify(body))}"${wtAttr}${coldAttr}${disabled}>fire</button>
+			<button type="button" class="go" data-fire="${esc(JSON.stringify(body))}"${wtAttr}${coldAttr}${disabled}>ignite</button>
 			<button type="button" class="alt" data-copy>copy summons</button>
 			<span class="out" data-out>${esc(`${Buffer.byteLength(body.summons)} B`)}</span>
 		</div>
@@ -367,7 +367,7 @@ export function form(p: Plan, rig: Rig, entries: Entry[], usages: Usage[], nowSe
 
 	const stamp = group('name-stamp — minted from the lineage, editable',
 		`<input class="path" type="text" name="stamp" value="${esc(p.stamp)}" spellcheck="false" placeholder="&lt;mantle&gt;-&lt;theater&gt;-NN">`);
-	const branch = group('worktree branch — empty fires in the target itself',
+	const branch = group('worktree branch — empty ignites in the target itself',
 		`<input class="path" type="text" name="branch" value="${esc(d.branch)}" spellcheck="false" placeholder="bv/b9-something">`);
 
 	return `<form class="composer" method="post" action="/summon">
@@ -379,7 +379,7 @@ export function form(p: Plan, rig: Rig, entries: Entry[], usages: Usage[], nowSe
 			placeholder="the first user turn, byte for byte">${esc(d.summons)}</textarea>
 		<div class="filters">${stamp}${branch}</div>
 		<div class="acts"><button class="go" type="submit" name="compose" value="1">compose</button>
-			<span class="out">nothing is written until <b>fire</b>; composing only reads.</span></div>
+			<span class="out">nothing is written until <b>ignite</b>; composing only reads.</span></div>
 	</form>`;
 }
 
@@ -407,15 +407,15 @@ document.addEventListener('click', async ev => {
 			const [code, r] = await post('worktree', JSON.parse(btn.dataset.worktree));
 			if (!r.ok) { out.textContent = code + ' ' + r.error; btn.disabled = false; return; }
 			body.cwd = r.result.path;
-			out.textContent = 'worktree ' + r.result.path + ' · firing…';
-		} else out.textContent = 'firing…';
+			out.textContent = 'worktree ' + r.result.path + ' · igniting…';
+		} else out.textContent = 'igniting…';
 		const [code, r] = await post('fire', body);
 		if (!r.ok) { out.textContent = code + ' ' + r.error; btn.disabled = false; return; }
 		// A stalled fire is a stalled fire: a cold directory opens a workspace and stops at the
 		// trust dialog, so it must never read as a session that started (B7 §amendment).
 		out.textContent = btn.dataset.cold
 			? 'opened ' + r.result.workspace + ' · WAITING on Claude\\'s trust prompt — jump in and answer it; nothing has been read'
-			: 'fired ' + r.result.workspace + ' · ' + body.stamp + ' · sha ' + r.result.sha + ' · ' + r.result.bytes + ' B';
+			: 'ignited ' + r.result.workspace + ' · ' + body.stamp + ' · sha ' + r.result.sha + ' · ' + r.result.bytes + ' B';
 	} catch (e) { out.textContent = String(e); btn.disabled = false; }
 });
 </script>`;

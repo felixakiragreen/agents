@@ -227,7 +227,7 @@ export function deckPage(): string {
 	</label>
 	<span id="pulse" class="pulse" data-tip="the poll: one composed read of census and register, every 3 s">···</span>
 	<button id="drawer-toggle" class="st wide" type="button"
-		data-tip="the needs-you queue" data-tip-more="Sessions blocked on you, live Felix-gates, pending countersigns, unruled escalations — ranked, and answerable in place. Pin it and it is the morning coffee view.">needs
+		data-tip="the ⬡-queue — what only you can unblock" data-tip-more="Sessions blocked on you, live ⬡-gates, pending blessings, unruled escalations — ranked, and answerable in place. Pin it and it is the morning coffee view.">⬡
 		<b id="needs" class="needs" data-needs="0">·</b></button>
 </div>
 <div id="app" class="app" style="grid-template-columns:${columns(RESTING)}">
@@ -235,8 +235,8 @@ ${pane('context', 'city', RESTING.context)}
 ${pane('focus', 'focus', RESTING.focus)}
 ${pane('action', 'action', RESTING.action)}
 <aside id="drawer" class="drawer" data-state="${RESTING.drawer}">
-	<header class="pane-head"><span class="pane-name" id="drawer-name">needs you</span>
-		<span class="states"><button class="st wide" type="button" id="drawer-queue" hidden data-tip="back to the needs-you queue">needs you</button><button class="st wide" type="button" id="drawer-pin" data-tip="pin: the drawer stops overlaying and takes a track of its own">pin</button><button class="st" type="button" id="drawer-shut" data-tip="shut the drawer">×</button></span>
+	<header class="pane-head"><span class="pane-name" id="drawer-name">⬡-queue</span>
+		<span class="states"><button class="st wide" type="button" id="drawer-queue" hidden data-tip="back to the ⬡-queue">⬡-queue</button><button class="st wide" type="button" id="drawer-pin" data-tip="pin: the drawer stops overlaying and takes a track of its own">pin</button><button class="st" type="button" id="drawer-shut" data-tip="shut the drawer">×</button></span>
 	</header>
 	<div class="pane-body" id="host-drawer"></div>
 </aside>

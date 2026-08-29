@@ -220,7 +220,7 @@ const parseGrep = (line: string): Raw | null => {
 export const rgAvailable = (): boolean => Bun.which(rgName()) !== null;
 
 export const DEGRADED =
-	'ripgrep is not on this glass\'s PATH — searching with grep instead: slower over the transcripts, '
+	'ripgrep is not on this deck\'s PATH — searching with grep instead: slower over the transcripts, '
 	+ 'and a session hit\'s turn anchor is computed by re-reading the file rather than read off the match.';
 
 async function search(files: readonly Candidate[], term: string, cap: number): Promise<Run> {

@@ -33,7 +33,7 @@ const proseOf = (text: string, base: string): Prose => (text.trim() ? prose(text
  * could not type stays a `?` here rather than being quietly filled in.
  */
 const staffingOf = (r: BoardRow): string =>
-	r.hexGate ? 'Felix-gate' : `${r.mantle ?? '?'} · ${r.tier ?? '?'}`;
+	r.hexGate ? '⬡-gate' : `${r.mantle ?? '?'} · ${r.tier ?? '?'}`;
 
 function row(r: BoardRow, board: Board, base: string, fails: Fail[]): WorkshopRow {
 	return {

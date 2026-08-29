@@ -193,7 +193,7 @@ export function needsYou(buildings: Building[], sessions: Session[]): QueueItem[
 							building: b.building, path: b.path,
 							...title(r.id, text),
 							at: null, where, doc: board.file, jump: slug(b.building), sid: null, decision: null, state: null,
-							note: `Row ${r.id} is ${r.state ?? 'unparsed'} and waits on your pen. A note files to this building's inbox; the ruling is the Architect's (D3).`,
+							note: `Charge ${r.id} is ${r.state ?? 'unparsed'} and waits on your pen. A note files to this building's inbox; the ruling is the Architect's (D3).`,
 						});
 				}
 				for (const e of escalationsIn(r.annotation, rowIds))
@@ -202,7 +202,7 @@ export function needsYou(buildings: Building[], sessions: Session[]): QueueItem[
 						building: b.building, path: b.path,
 						...title(`${r.id} ${e.id}`, e.text),
 						at: null, where, doc: board.file, jump: slug(b.building), sid: null, decision: null, state: null,
-						note: 'Raised on a landing and nothing in the row says it was ruled. Read as prose — the corpus has no escalation field (findings F2).',
+						note: 'Raised on a landing and nothing in the charge says it was ruled. Read as prose — the corpus has no escalation field (findings F2).',
 					});
 			}
 
@@ -215,7 +215,7 @@ export function needsYou(buildings: Building[], sessions: Session[]): QueueItem[
 				at: iso(d.date), where: `${d.date} · ${d.decider}`, doc: b.files.decisions ?? b.path,
 				jump: slug(b.building), sid: null, decision: d.id, state,
 				note: state === 'pending'
-					? 'One line into this building’s inbox. The glass records the countersign; the ✓ reaches the D-entry when the Architect sweeps (D3).'
+					? 'One line into this building’s inbox. The deck records the blessing; the ✓ reaches the D-entry when the Architect sweeps (D3).'
 					: state === 'recorded'
 						? 'Your word is already in the inbox; the ✓ lands at the next sweep.'
 						: 'The decision already carries its ✓ — the parser queues it anyway (B6 F2). Nothing is owed.',

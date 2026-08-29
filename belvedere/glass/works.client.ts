@@ -130,18 +130,18 @@ function drawNode(host: HTMLElement, n: WorksNode, all: Map<string, WorkshopRow>
 	bill.append(el('span', 'ntier', n.tier), el('span', 'nacct', n.account));
 	if (!compact) bill.append(el('span', 'nvenue', n.venue));
 	if (state) bill.append(el('span', 'pill', state));
-	// The plan grew here (B12 §2). Said on the node, because a drawing that shows an inserted sitting
+	// The plan grew here (B12 §2). Said on the node, because a drawing that shows an inserted session
 	// as a declared one is a drawing claiming somebody planned it.
 	if (n.inserted) bill.append(el('span', 'pill tone-ins', 'inserted by the gate'));
 	box.append(bill);
 
 	if (n.gate === 'felix' && n.card) {
 		const card = el('div', 'his-card');
-		card.append(el('span', 'label', 'Felix-gate'));
+		card.append(el('span', 'label', '⬡-gate'));
 		words(card, ` ${n.card}`, ctx);
 		box.append(card);
 	}
-	if (n.gate === 'architect') box.append(el('div', 'his-gate', 'architect gate — the sitting is this step'));
+	if (n.gate === 'architect') box.append(el('div', 'his-gate', 'architect gate — the session is this step'));
 	for (const b of n.blocks) {
 		const blocked = el('div', 'node-blocked');
 		words(blocked, b, ctx);
@@ -155,7 +155,7 @@ function drawMark(host: HTMLElement, r: WorkshopRow): void {
 	const m = el('div', `mark st-${(r.state ?? 'unparsed').replace(' ', '-').toLowerCase()}`);
 	m.dataset['mark'] = r.id;
 	m.dataset['tip'] = `${r.id} · ${r.state ?? 'unparsed'} · ${r.staffing}`;
-	m.dataset['tipMore'] = plain(r.annotation) || 'no landing record on this row';
+	m.dataset['tipMore'] = plain(r.annotation) || 'no landing record on this charge';
 	m.dataset['tipIn'] = r.ref.path;
 	const id = el('span', 'nid');
 	words(id, r.id, reading(r.ref.path));
@@ -282,7 +282,7 @@ function legend(flow: WorksFlow): HTMLElement {
 	// is a legend teaching a word nobody said (and B21 F2 — a sample must not answer a node selector).
 	if (flow.nodes.some(n => n.inserted)) {
 		const ins = el('span', 'lkey');
-		ins.append(el('span', 'pill tone-ins', 'inserted'), el('span', '', 'the reactive gate staffed this sitting mid-run — it is in no flow file'));
+		ins.append(el('span', 'pill tone-ins', 'inserted'), el('span', '', 'the reactive gate staffed this session mid-run — it is in no flow file'));
 		box.append(ins);
 	}
 	return box;
@@ -369,7 +369,7 @@ function drawFocus(host: HTMLElement, state: PaneState): void {
 
 	if (!flow) {
 		host.append(el('p', 'quiet prose', `No flow declares ${w.building}.`
-			+ ' A flow is committed truth — `belvedere/flows/<name>.flow.json`, written by a sitting, never by the glass.'));
+			+ ' A flow is committed truth — `belvedere/flows/<name>.flow.json`, written by a session, never by the deck.'));
 		drawNow(host, ss);
 		return;
 	}
@@ -390,7 +390,7 @@ function drawFocus(host: HTMLElement, state: PaneState): void {
 		for (const r of past.slice(-PAST)) drawMark(strip, r);
 		host.append(strip);
 	}
-	else if (past.length) host.append(el('p', 'quiet prose', `${past.length} landed rows above this plan — expand to read the arc.`));
+	else if (past.length) host.append(el('p', 'quiet prose', `${past.length} landed charges above this plan — expand to read the arc.`));
 
 	// The ledger's arc, one line: the last thing this building said about itself.
 	const tail = snap?.workshop?.tail ?? null;
@@ -411,7 +411,7 @@ function drawFocus(host: HTMLElement, state: PaneState): void {
 	if (state === 'expanded') {
 		if (ahead.length) {
 			const strip = el('div', 'ahead');
-			strip.append(el('span', 'label', `${ahead.length} rows this flow does not declare`));
+			strip.append(el('span', 'label', `${ahead.length} charges this flow does not declare`));
 			for (const r of ahead.slice(0, AHEAD)) drawMark(strip, r);
 			host.append(strip);
 		}
@@ -509,7 +509,7 @@ function drawArm(host: HTMLElement, w: Works, flow: WorksFlow): void {
 	if (w.halt) {
 		const h = el('div', 'node-blocked');
 		h.append(el('span', 'pill tone-red', 'HALT'));
-		h.append(el('span', 'prose', `${w.halt.text} — nothing fires while the flag exists. Clear it and the lane resumes.`));
+		h.append(el('span', 'prose', `${w.halt.text} — nothing ignites while the flag exists. Clear it and the lane resumes.`));
 		card.append(h);
 	}
 
@@ -554,7 +554,7 @@ function drawArm(host: HTMLElement, w: Works, flow: WorksFlow): void {
 
 	const go = button('st wide arm', amended ? 're-arm' : armed ? 're-arm' : 'arm this flow',
 		w.hands.armed
-			? 'one click authorizes every step above; the engine fires them as their dependencies land'
+			? 'one click authorizes every step above; the engine ignites them as their dependencies land'
 			: `the hands are cold — ${w.hands.note}`);
 	go.dataset['arm'] = flow.name;
 	go.disabled = !w.hands.armed;
@@ -572,9 +572,9 @@ function drawArm(host: HTMLElement, w: Works, flow: WorksFlow): void {
 const held = (n: WorksNode, row: WorkshopRow | null): string | null => {
 	if (n.run.ev !== null || row === null) return null;
 	if (row.state === 'KILLED' || row.state === 'BLOCKED')
-		return `The board says ${row.state}. The engine never advances past a state it did not expect — this step stays where it is until a sitting moves it.`;
+		return `The board says ${row.state}. The engine never advances past a state it did not expect — this step stays where it is until a session moves it.`;
 	if (row.state === 'IN FLIGHT')
-		return 'The board says IN FLIGHT and the engine never fired it: somebody is already on this step, so the engine will not fire over them.';
+		return 'The board says IN FLIGHT and the engine never ignited it: somebody is already on this step, so the engine will not ignite over them.';
 	return null;
 };
 
@@ -586,7 +586,7 @@ function drawNodeActions(host: HTMLElement, n: WorksNode, row: WorkshopRow | nul
 		// His card, and the ONE control that may sit on it: a pass is a `/flow/…/pass` gesture, not a
 		// fire — nothing on a Felix-card reaches the hand that spawns (B3's structural bar, B6's
 		// precedent for a gesture button on his card).
-		const go = button('st wide arm', 'pass this card', hands ? 'the lane resumes and the step behind this card fires' : 'the hands are cold');
+		const go = button('st wide arm', 'pass this card', hands ? 'the lane resumes and the step behind this card ignites' : 'the hands are cold');
 		go.dataset['pass'] = n.id;
 		go.dataset['passFlow'] = flow.name;
 		go.disabled = !hands;
@@ -604,17 +604,17 @@ function drawNodeActions(host: HTMLElement, n: WorksNode, row: WorkshopRow | nul
 		acts.append(out);
 		acts.append(el('span', 'slot', 'hotswap to the Chat — B16'));
 	}
-	else if (r === 'landed') acts.append(el('span', 'slot', 'a follow-up fire — the composer, one pane over'));
+	else if (r === 'landed') acts.append(el('span', 'slot', 'a follow-up ignition — the composer, one pane over'));
 	// The gate's residue (B12 §2): the judge sat, the row still does not read clean, and the card is
 	// his after all. It has already fired, so there is no pass gesture and nothing here to press —
-	// saying "the engine fires this the moment its dependencies land" would be a lie.
+	// saying "the engine ignites this the moment its dependencies land" would be a lie.
 	else if (n.inserted && n.gate === 'felix') acts.append(el('span', 'quiet prose',
-		'The judge sitting landed and the row it was staffed for still does not read clean, so this one is Felix\'s. '
-		+ 'A judge is never judged, so the engine inserts no second one and nothing behind this card fires.'));
+		'The judge session landed and the charge it was staffed for still does not read clean, so this one is Felix\'s. '
+		+ 'A judge is never judged, so the engine inserts no second one and nothing behind this card ignites.'));
 	else if (!n.awaitingPass) acts.append(el('span', 'quiet prose', held(n, row) ?? (
 		flow.armedHash === null
 			? 'Declared, not armed. The arm is one click on the flow’s own card — click away from this node to reach it.'
-			: 'Armed. The engine fires this the moment its dependencies land, its checkout is free and HALT is absent.')));
+			: 'Armed. The engine ignites this the moment its dependencies land, its checkout is free and HALT is absent.')));
 
 	host.append(acts);
 
@@ -689,7 +689,7 @@ function drawAction(host: HTMLElement, state: PaneState): void {
 
 	if (node.gate === 'felix' && node.card) {
 		const card = el('div', 'his-card');
-		card.append(el('span', 'label', 'Felix-gate'));
+		card.append(el('span', 'label', '⬡-gate'));
 		words(card, ` ${node.card}`, ctx);
 		host.append(card);
 	}
