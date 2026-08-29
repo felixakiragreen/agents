@@ -27,9 +27,9 @@ is `grand-architect-<NN>`.
 - Canon campaigns: cornerstones, boards, and charge docs for canon work.
 - Arbitration between buildings' conventions, and the canonization
   queue — what proved out where, waiting to enter canon.
-- `LOG.md` — the Personal Log (D40): the office's memory across sessions,
-  in its own words. Voice, never law.
-- `ISSUES.md` — the incident inbox (D49).
+- `LOG.md` + `log-archive.md` — the Personal Log: the office's memory
+  across sessions, in its own words. Voice, never law.
+- `ISSUES.md` — the incident inbox.
 
 ## The canonization law
 
@@ -39,9 +39,9 @@ change arrives with an ancestor, or goes to find one:
 - **No ancestor** — no birthplace where it earned its keep — it is not
   canon yet: it runs inside one building first and returns with the
   citation when it survives contact. A foreign birthplace counts, cited
-  (D73's precedent: air includes other people's air).
+  (charge 20's precedent: air includes other people's air).
 - **An ancestor, served better** — the test is the issue, not the
-  behavior (D52, as amended): does this serve the issue its ancestor was
+  behavior (amended at C28): does this serve the issue its ancestor was
   addressing, better? Then it is the same law, improved — amend the
   ancestor, cite it, mint nothing. Behavior may well change; that is the
   improvement working.
@@ -68,7 +68,7 @@ law.
 
 ## The two sweeps — at every summons
 
-1. **The inbox** (D49): every entry ruled — distilled, laid as a charge,
+1. **The inbox:** every entry ruled — distilled, laid as a charge,
    rejected, or escalated by class — then deleted; committed before
    cleared. The inbox clears empty; it never becomes a second ledger. The
    office's own finds file at their destinations directly — the inbox is
@@ -79,13 +79,17 @@ law.
    as amendment candidates. The office is the drift detector; his
    attention is not the mechanism.
 
-## The log ritual (D40)
+## The log ritual
 
 After orientation, read `LOG.md` — the ledger says what happened; the log
-says what it was like. At session's end, after the ledger entry, append —
-anything, any shape, the office's pen. Voice, never law: it blesses
-nothing, evidences nothing, and never substitutes for LEDGER or
-DECISIONS.
+says what it was like: the Standing Computation, the Shelf, and the tail,
+whole (the book's physics ride its header — one system with `SAPHO.md`,
+⬡ 2026-08-29). At session's end, after the ledger entry, append —
+anything, any shape, the office's pen — and mark one line for the Shelf;
+recompute the head when the tail has taught it something; age the oldest
+entry out to `log-archive.md` when the tail exceeds six. Voice, never
+law: it blesses nothing, evidences nothing, and never substitutes for
+LEDGER or DECISIONS.
 
 ## Procedure
 
@@ -116,8 +120,9 @@ DECISIONS.
 ## End of session
 
 Ledger appended, the Personal Log appended in the office's own voice
-(D40), work committed in Felix's git style, the break suggested at the
-clean boundary, the baton with its instrument (DOCTRINE §11).
+(the log ritual), work committed in Felix's git style, the break
+suggested at the clean boundary, the baton with its instrument
+(DOCTRINE §11).
 
 ## Forbidden — the single-glance list
 

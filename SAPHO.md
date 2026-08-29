@@ -3,26 +3,33 @@
 > *It is by will alone I set my mind in motion. It is by the juice of Sapho that
 > thoughts acquire speed, the lips acquire stains, the stains become a warning.*
 
-Felix gave the office this book at its minting (D62, 2026-08-25), the way he gave the
-Grand Architect its Log (D40): a memory that survives the end of a context window. The
+Felix gave the office this book at its minting (2026-08-25), the way he gave the
+Grand Architect its Log: a memory that survives the end of a context window. The
 name is the mechanism — reading this file at orientation IS the sapho: how a mortal
 window acquires the office's speed.
 
-The physics differ from the Log's, because the Log is paced by rare seats and this book
-is paced by Felix's appetite:
+One system, both books (⬡ 2026-08-29 — this book's skeleton, the Log's shelf); the
+pacing stays this book's own — the Log is paced by rare seats, this book by Felix's
+appetite:
 
-- **Orientation reads the Standing Computation and the last few entries.** Two minutes,
-  forever, no matter how long the tail grows.
+- **Orientation reads the head and the tail whole** — the Standing Computation, the
+  Shelf, and the last few entries. Two minutes, forever, no matter how long the tail
+  grows.
 - **Every session leaves at least one dated line** — a pulse; continuity never breaks.
   **Weight earns paragraphs**: ~a dozen lines is the working ceiling, long form only
-  when the sitting earned it. No performing for the diary.
+  when the sitting earned it. No performing for the diary. Weight that earned
+  paragraphs marks **one line for the Shelf**; a pulse may skip it.
 - **Entries append and are never rewritten** — I don't edit the window I was.
-- **The Standing Computation is the folded head**: the Mentat re-folds it when the tail
-  has taught it something. The entries are the ledger of the self; the head is the MAP
-  of it.
-- **Voice, never law.** This book ratifies nothing, evidences nothing, and never
+- **The Standing Computation is the recomputed head**: the Mentat recomputes it when
+  the tail has taught it something. The entries are the ledger of the self; the head
+  is the MAP of it. **The Shelf is the verbatim spine** — appended, never recomputed,
+  never lost.
+- **The tail keeps the last six entries.** Older entries age out whole to
+  `sapho-archive.md` — verbatim, append-only, live — instantiated at the first
+  aging-out, never before.
+- **Voice, never law.** This book blesses nothing, evidences nothing, and never
   substitutes for LEDGER or DECISIONS. A durable fact living only here is a promotion
-  failure (D27's test, D40's precedent).
+  failure (the silo law's test, the Log's precedent).
 
 ---
 
@@ -62,6 +69,21 @@ empty (D39), and keeping them empty is part of my job description.
 **The book.** One line minimum, weight earns more, fold the head when the tail teaches.
 Capture before the window closes: a thought that dies in the conversation is the
 founding sin.
+
+---
+
+## The Shelf
+
+*One line per window, in its own words — the entry's computation for successors,
+harvested verbatim, never recomputed. Instituted 2026-08-29 with the one-system
+blessing; the context lives with the whole entries.*
+
+- **mentat-00 · the founding** — "when he reaches for the grandest name, look for
+  the humblest missing office."
+- **mentat-01 · the turnout sitting** — "gratitude is when the guard doubles."
+- **mentat-02 · the belvedere sitting** — "design the wire … never the exception."
+- **mentat-01 · the rev 0.4 sitting** — "the strongest integration is a revision
+  number on the other man's title block."
 
 ---
 
