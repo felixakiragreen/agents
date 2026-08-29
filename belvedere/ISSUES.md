@@ -23,3 +23,10 @@ are drained. A swept inbox is empty.
   canon row 17's landing** (it rewrites the parser 17 is mid-measurement on) —
   the parser fixes you filed fire the moment 17 lands.
 - 2026-08-28 · the row-19 Builder (canon) · flow-batch-1's G2 kickoff ordinal is stale — B10 F2's named drift mode, live: `a8dd096` added the two batch-6 fences above it, so README fence 5 is now the batch-6 Dispatcher fence and the G2 Architect fence is ordinal 4. `glass/flow.test.ts:91` red since (pre-dates row 19; verified at ref `0638be3`). `flows/flow-batch-1.flow.json` and `flows/flow-close.flow.json` both point `"fence": 5` — one-ordinal fix, but the flow hash covers resolved kickoffs, so it is this building's Architect's to rule, not a passerby's.
+- 2026-08-29 · Grand Architect (GA-13, canon) · **The Guild's Standard is blessed**
+  (D71 ⬡✓ — `plans/21-standard.md`, moving to `canon/work/STANDARD.md` at canon
+  charge C23): new deck copy and new docs speak it from now — ignite · charge ·
+  batch · DEFERRED · the ⬡-queue · `Done when:`. The full glass molt arrives as
+  canon **C27** (commission in `plans/c27-glass.md`), fired after the parser charge
+  (C24) lands; no local action needed before that kickoff, beyond minting no new
+  dead words.

@@ -1473,3 +1473,37 @@ bless the standard"). The usage-gauge asymmetry and the charter gate are in the
 inbox. Decided: **D71**. Next: the deploy batch (seven steps, the standard §What
 remains — law book → parser → sweep → linter → glass), laid by the next Grand
 Architect session; Felix's own mantle drafts gate the charters.
+
+---
+
+**2026-08-29 · Grand Architect · fable-max** — the deploy batch laid (GA-13). The
+standard read as blessed law (D71 ⬡✓); its seven steps become charges **C23–C28** on
+the MAP — the board's first C-ids: [C23 the law book](plans/c23-law-book.md) (Grand
+Architect · fable-max — canon speaks the standard: DOCTRINE respelled + §13
+superseded, the standard promoted to `canon/work/STANDARD.md`, the global waggle line
+(live wire), templates → charge.md, rider → coda, dispatcher tombstoned + its shim
+deleted; two in-session ⬡-forks pre-chewed: the global pointer line, the epigraph
+patch); [C24 the parser](plans/c24-parser.md) (Builder · opus-high — ⬡-gate ·
+DEFERRED · C‹n› · ⬡✓ · ignite; migrate respell rules; charges-always-staffed
+lint-hard; city dry-run counts for C25's sizing); [C25 the respell
+sweep](plans/c25-respell-sweep.md) (Architect · opus-high — live surfaces city-wide;
+absorbs the 18-continuation: whiteboardy re-fire, snappy separators (GA-11's
+sanction), spacex heads, and **bob's three inline ledger heads sanctioned this
+session, same terms — form-only under the molt clause**; history, voice, and charters
+fenced; `--gild` relayed to cap-mega, not edited); [C26 the language
+linter](plans/c26-language-linter.md) (Builder · opus-high — graveyard +
+American/grey lexicon + prefix table + the pinned 24; ancestor manny M13, food
+lab/21/lexicon.json); [C27 the glass](plans/c27-glass.md) (Architect · fable-high —
+runs on the Belvedere board, the canon charge is the pointer; heads-up filed to
+belvedere/ISSUES); [C28 the charters](plans/c28-charters.md) (Grand Architect ·
+fable-max — ⬡-gate: Felix's drafts). Batch note on the MAP: C23→C27 strictly serial
+(the blessed order), Felix-tended — the Dispatcher is dead (D71) and the flow engine
+(charge 20) unbuilt; C28 outside the serial batch. Interim red named and measured:
+baseline lint 0, post-lay exactly one hit — C28's ⬡-gate cell, unknown to the parser
+until C24. Inbox swept 2/2, cleared: the charter-gate entry and the usage-gauge entry
+both distilled into C28 (the roster + the spend-fork information-needs drafting
+input, his words verbatim). Decided: nothing new-numbered — the batch executes D71;
+bob's inline-heads repair sanctioned under the molt clause. Next: **ignite C23** —
+kickoff in [plans/c23-law-book.md](plans/c23-law-book.md); behind it, serial: C24 →
+C25 → C26 → C27; C28 on his drafts; charges 20 and 22 stand on his summons and
+blessing as before.

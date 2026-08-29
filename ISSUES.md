@@ -8,17 +8,3 @@ no-fold, then deleted — the D-entry records a fold, the sweep's ledger line re
 rejection, and git keeps the bytes (entries are committed before they are drained).
 A swept inbox is empty.
 
-- 2026-08-29 · Felix (via the 21 standard session) · The office and mantle charters
-  await Felix's own drafts (Office = Grand Architect, Mentat; Mantle = Architect,
-  Builder, Digger, Fixer; Dispatcher dead — the flow engine, 20, is the new
-  dispatcher). Nothing molts until his drafts land; a future Grand Architect session
-  holds the pen with him. His notes preview exists (recorded in the 21 census §15,
-  round 4).
-
-- 2026-08-28 · Felix (filed by the 21 census sitting) · Sessions cannot see `/usage` —
-  the sitting wrapped at his "approaching 90%" warning, then un-wrapped at his "30%"
-  reading: a spend fork was decided twice on gauge data only he holds. His word: "I
-  need to be aware… that there is information you need from me in order to make an
-  informed decision." Fold candidate: sessions surface named information-needs at
-  spend forks (a charter line, or the rig/panel copy), and the sovereign feeds the
-  gauge reading in-message.
