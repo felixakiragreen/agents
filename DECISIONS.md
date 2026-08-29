@@ -1004,3 +1004,14 @@
   tails and new writing; history respells form-only.** Builder work: C32. Evidence:
   17 §C3 (7/9 asks are heuristics; the holder inverted live on this repo's own tail;
   27-of-38 nameless cards), b3 §§E2/F4/F5, B12 §§F1/F2, 18d's cross-building filing.
+- **D75** (2026-08-29, Felix · ⬡✓ in-session — "add the Scope clause to global"):
+  **The directives' scope splits on lifetime.** The global file gains `## SCOPE`:
+  code built to last answers to all of the directives; code built to die — a
+  Digger's scratch, a lab script — answers to §3 (Safety) and the git conventions
+  alone; correctness never optional, polish on dying code is waste. Resolves the
+  latent contradiction between "personality, code style… always apply" (the
+  precedence clause) and the Digger charter's "polishing disposable code" ban —
+  Felix's catch at the C28 desk: "we care about the result of the Dig, not the dig
+  being dug in the most elegant way." The Builder charter carries the mirror
+  emphasis (built to last — doubly bound) at its redraft. Deployed live ×3 at the
+  edit (the sync set); birthplace: C28 F17's stack probes + the digger v4 audit.

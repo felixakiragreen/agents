@@ -36,6 +36,11 @@
 5. **Initialize at Declaration** → Construct Objects In-Place, No Intermediate States
 6. **Alignment Follows Structure** → Let the Code's Shape Reveal Its Logic
 
+## SCOPE
+Code built to last answers to all of this; code built to die — a Digger's scratch, a
+lab script — answers to §3 and the git conventions alone. Correctness is never
+optional; polish on dying code is waste.
+
 ## GIT DEVELOPMENT GUIDELINES
 Values to balance, not absolute rules:
 - Single line messages, fewest words while maintaining clarity, no authors/co-authored-by lines
