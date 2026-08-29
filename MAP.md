@@ -109,7 +109,7 @@ run it when something feels off; green + still broken ⇒ auth, not sync). `depl
 | 20 | [the continuous flow — the keel sitting](plans/20-continuous-flow.md): flow doctrine, the Dispatcher mantle's fate, the D64 grammar asks (kind/recommendation/branch/holder/holds), cross-building Depends-on | 17 · Felix-gate: his call to sit | Grand Architect · fable-max | OPEN — mandate recorded 2026-08-28 (GA-11); Felix's commission verbatim in the stub |
 | 21 | [the working vocabulary — the census, then the standard](plans/21-vocabulary.md): full-city term census (concepts-driven, orthography included) → Felix chooses → the standard; subsumes bless-vs-countersign; §13 on the block | Felix-gate: his call to sit — paid 2026-08-28 | Grand Architect · fable-max | **LANDED 2026-08-29 — THE STANDARD IS BLESSED (D71 ⬡✓)**: [the census](plans/21-census.md) (38/38 readers · 5,544 obs · 3,066 terms · coverage 441/441) → nine live choosing rounds → [the standard](canon/work/STANDARD.md) (the vocabulary, the graveyard, the 24 pinned formulas, the punctuation grammar, the read-cold test; promoted from `plans/21-standard.md` at C23). Next: the deploy batch — **laid 2026-08-29 as C23–C28**; the charters ⬡-gated on Felix's drafts (C28) |
 | 22 | [summon rig — the argv summons](plans/22-summon-argv.md): the summons composes into the prompt slot, colour goes venue-native (P2 §S3/§T4: paste splits at the first blank line — the 359-fire gap) | Felix-gate: blessing | Builder · opus-high | OPEN — cut 2026-08-28 (GA-11); three forks await his blessing in the stub |
-| C23 | [the law book](plans/c23-law-book.md) — canon speaks the standard: DOCTRINE respelled + §13 superseded, STANDARD.md promoted, the global waggle line (live wire), templates → charge.md, rider → coda, the-city, dispatcher tombstoned | — | Grand Architect · fable-max | OPEN — laid 2026-08-29 |
+| C23 | [the law book](plans/c23-law-book.md) — canon speaks the standard: DOCTRINE respelled + §13 superseded, STANDARD.md promoted, the global waggle line (live wire), templates → charge.md, rider → coda, the-city, dispatcher tombstoned | — | Grand Architect · fable-max | **LANDED 2026-08-29** — every site respelled, [STANDARD.md](canon/work/STANDARD.md) promoted (moves 100%); both ⬡-forks ruled in-session (pointer line IN; epigraph → "the dispatch tends" on the unfenced carriers); dead-word grep 0 adjudicated, charters byte-identical, 41 tests green, lint reds 2× named — the tongue ahead of the parser, mortal at C24 → [findings](plans/c23-law-book.md) |
 | C24 | [the parser](plans/c24-parser.md) — grammar tokens (⬡-gate · DEFERRED · C‹n› · ⬡✓ · ignite), migrate respell rules, charges-always-staffed lint-hard, city dry-run counts | C23 | Builder · opus-high | OPEN — laid 2026-08-29 |
 | C25 | [the respell sweep](plans/c25-respell-sweep.md) — live surfaces city-wide (migrate + the graveyard); absorbs the 18-continuation (whiteboardy re-fire · snappy separators · spacex heads · bob heads — sanctions on record); history, voice, and charters fenced | C24 | Architect · opus-high | OPEN — laid 2026-08-29 |
 | C26 | [the language linter](plans/c26-language-linter.md) — the vocabulary arm: graveyard + American/grey lexicon + prefix table + the pinned 24; ancestor manny M13, food lab/21/lexicon.json | C24 | Builder · opus-high | OPEN — laid 2026-08-29 |
@@ -192,7 +192,10 @@ unordered against C24–C27. No live-resource contention. **Interim physics, nam
 C28's Depends cell speaks `⬡-gate:` before the parser knows the token — one expected
 lint hit on this board until C24 lands (its `Done when:` clears it). The Depends
 column carries the true graph (C25/C26/C27 each stand on C24 alone); the serial
-schedule is the blessed order and rides this note.
+schedule is the blessed order and rides this note. *Amended at C23's landing: the
+ledger tail's `ignite` batons are the same gap — a second red (`ledger.baton`; the
+GA-13 close and C23's own close each hand `ignite <id>`), named here, mortal at C24's
+token work (c23 F2).*
 
 **Parked (2026-08-28, Felix): the register purge** — at ~D100 the constitution is
 consolidated and rewritten, his words: "A constitution with too many amendments at

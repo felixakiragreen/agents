@@ -1507,3 +1507,27 @@ bob's inline-heads repair sanctioned under the molt clause. Next: **ignite C23**
 kickoff in [plans/c23-law-book.md](plans/c23-law-book.md); behind it, serial: C24 →
 C25 → C26 → C27; C28 on his drafts; charges 20 and 22 stand on his summons and
 blessing as before.
+
+---
+
+**2026-08-29 · Grand Architect · fable-max (C23)** — the law book LANDED: the canon
+speaks the standard. [STANDARD.md](canon/work/STANDARD.md) promoted from plans/ (100%
+lineage; live links retargeted: the MAP 21-cell, D71, the 21 ledger entry); DOCTRINE
+respelled whole — §13 is a pointer at the standard; charges / ⬡-gates / DEFERRED /
+the coda; charges-always-staffed; the interim tender truth stated plainly (the
+Dispatcher is dead, the flow engine unbuilt — batch notes name Felix or an Architect
+session); all 24 pinned formulas carried exact. The global file's waggle line remade +
+the standard pointer line added (live wire ×3); mantles README respelled (the roster:
+offices and mantles, the Fixer minted, the coda core); dispatcher.md tombstoned and its
+shim deleted from the live sync set; templates merged to charge.md (order.md deleted;
+map/ledger/decisions/issues/claude-md tokens respelled); the-city respelled (the
+foreman line reconciled to the dead mantle; the waggle one-sentence); RIDER → CODA.
+Evidence: moves 100%, dead-word grep 0 adjudicated (rule in F3 for C26), charters
+byte-identical ×5 + banner-only tombstone, 41 tests green, lint two named reds (C28's
+⬡-cell + `ledger.baton` — both the tongue-ahead-of-parser genus, mortal at C24; batch
+note amended, c23 F2). Decided: nothing new-numbered — the charge executes D71; two
+⬡-forks ruled by Felix in-session: the pointer line IN, the epigraph patched (a) —
+"the dispatch tends" on the four unfenced carriers, the charters fenced until C28.
+Next: **ignite C24** — kickoff in [plans/c24-parser.md](plans/c24-parser.md); behind
+it, serial: C25 → C26 → C27; C28 on his drafts; charges 20 and 22 stand on his summons
+and blessing as before.

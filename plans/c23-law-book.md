@@ -122,7 +122,47 @@ closed charge docs, D-entry bodies (the history respell is DEFERRED, Felix's wor
 
 ## Findings
 
-*(append here)*
+*(appended at landing, 2026-08-29 — Grand Architect · fable-max)*
+
+- **Done when, the evidence:** three `git mv` moves at 100% similarity (commit
+  4393b1e); dead-word grep 0 after adjudication (one true hit fixed: the-city
+  "rows" → "entries"); charters byte-identical against 8cb7ae6 (`git diff` empty ×5),
+  dispatcher.md +15/−0 — banner only; `cd doctrine && bun test` 41 pass / 0 fail;
+  `doctrine lint ~/code/agents` — no new class from this landing (two standing reds,
+  both the tongue-ahead-of-parser genus, F2). Both ⬡-forks ruled in-session (F1).
+- **F1 — the ⬡-forks, ruled by Felix at the keyboard:** the global pointer line IN
+  ("The Guild speaks a standard: one concept, one word — `canon/work/STANDARD.md`");
+  the epigraph patched now, option (a): "Dispatchers tend" → "the dispatch tends" on
+  the four unfenced carriers (MAP, DOCTRINE, the-city, the mantles README) — the six
+  charters keep the old verse under the ⬡-fence until C28's full recast.
+- **F2 — a second parser-gap red, pre-existing:** `ledger.baton` at the GA-13 tail —
+  its `Next: **ignite C23**` was appended after its own lint run, so its "baseline 1
+  hit" count predates its own closing entry. Same genus as the named C28 cell: the
+  blessed token ahead of the parser. This session's close hands `ignite C24`, so the
+  red stands — named on the batch note now, mortal at C24 (`ignite` is in its token
+  list). An unnamed red is drift; a named one is a schedule.
+- **F3 — the grep adjudication rule, for C26's vocabulary arm:** mentions of the dead
+  survive in the tombstone genre (the retired-synonyms line, graveyard pointers, "the
+  Dispatcher mantle is dead"); quoted/backticked historical tokens survive as quotes
+  (`fire`, "pending Felix countersign", `Open`/`Harvested`); universal-engineering
+  senses are not the dead senses (a measurement window, tests pass, a change order);
+  named registers are legal ("the change-order register"). The linter needs this
+  use-vs-mention line drawn mechanically.
+- **F4 — the pending-mark respelled:** DOCTRINE §8 and the coda now prescribe
+  "(proposed — pending ⬡✓)"; historical "pending Felix countersign" marks stand (the
+  record migration is DEFERRED, Felix's word). C24 parses both — ⬡✓ already in its
+  token list.
+- **F5 — fossils in the blessed standard, flagged not edited:** STANDARD.md §1 says
+  "gate row" and §7 reserves "G (gate rows)" — drafting that predates the row→charge
+  round; formula 5 ("Gates are charges.") is the ruling. Meaning is stone and the
+  standard's body is Felix's — a one-word molt for a future sitting or the deferred
+  history respell.
+- **F6 — §12 carried no literal "keel":** the item landed as the founding-summons
+  verb — "and lay the cornerstone." (the standard's own equation: lay the cornerstone
+  = found). architect.md carries no founding verb to drift against (checked).
+- **F7 — MAP §7's coda pointer:** retargeted `plans/RIDER.md` → `plans/CODA.md` with
+  the move — a moved file's live pointer is the move's own hygiene (D33), not a C25
+  sweep item; MAP prose otherwise untouched.
 
 ---
 
