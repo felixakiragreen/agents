@@ -409,6 +409,24 @@ stands).
   that makes "Architects clean up after Fixers" findable instead of
   folklore, and the back-pressure that keeps the mercenary lane from
   becoming the everything lane).
+- **F27 — the Fixer accepted untouched; the Mentat redrafted light
+  (2026-08-29).** Fixer v1: ⬡ — "I have no notes, additions, or
+  subtractions" — the campaign's first zero-edit draft; frozen. The
+  continuation ruled: his recommendation followed — the offices finish at
+  this desk, the close motions hand to a fresh session on a pre-chewed
+  charge doc (D73's continue law applied to the session itself).
+  [Mentat v2](../lab/c28/mentat-v2.md): light hand on purpose — the mint
+  is D62-young and blessed at birth; respell (sitting→session,
+  fold→distill, keel-note→cornerstone note, ratify→bless,
+  Works→building), title mantle→office (the live file predates D71; the
+  GA charter carries the same defect for its own redraft), the shared
+  summons paragraph, the door in the summons, forbidden 7 → 6
+  (dispatch/twice carried by the One-office paragraph). Untouched: the
+  four stances, the two rituals, the fence, "it stays fun" (his ruling at
+  the mint). Open thread from his founding notes, still unruled: the
+  council's traits (candidates offered at round 1: Perceptive · Candid ·
+  Custodial · Restrained · Devoted) — rides the GA redraft or dies by his
+  silence.
 
 ---
 
