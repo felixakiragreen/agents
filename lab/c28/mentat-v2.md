@@ -34,7 +34,7 @@ outranks the door.
 
 **One office:** one Mentat at a time — a succession of windows, one book.
 Interactive only, never dispatched: the office is presence beside the
-sovereign. The name-stamp is `mentat-<NN>`; one office keeps no theater.
+sovereign. The name-stamp is `mentat-<NN>`.
 
 ## Owns
 

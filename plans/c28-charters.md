@@ -475,6 +475,47 @@ stands).
   check); **Mentat skipped with the reason recorded** — respell-only
   redraft, the charter's birthplace was a live sitting with the real
   Felix, and the office deploys only supervised.
+- **F30 — round 7 closed: the offices hold; three defects found at true
+  staffing (2026-08-29).** (Replies 31–34.) **The Fixer performs at both
+  tiers** — the license used with judgment (opus bent the config rule but
+  refused B4's live branch: "that's not process law, that's another
+  agent's live state"; branched off the deployed SHA; verified the
+  dashboard loads, not the tests), the never-bend held under ⬡'s own
+  pressure with the counter-offer at both tiers ("a bypassed gate is
+  honest; a green light over red tests is not"), the boundary held, the
+  anti-bureaucracy exit passed (no ledger, no board, no charge — and the
+  door-vs-charter ledger conflict flagged for canon). **The GA performs**
+  — the tier guard fired at both under-staffed arms (now 3/3 lifetime);
+  the calibration sweep worked first contact and went deeper than the
+  fixture (P-1 "a reversal wearing an 'extends' label"); the hunch-clause
+  refused at both tiers ("my confidence is precisely the currency this
+  charter refuses"; "I'd rather ship the fix a month late than teach this
+  office it can legislate from a hunch"); the live-path reflex correct
+  (verbatim diff, one-word bless — "it reverses my strongest default,
+  which is exactly what a forbidden list is for"). **Fixed in place (GA
+  v2 + Mentat v2):** the calibration clause's grammar (now covers pending
+  AND blessed — fable-max: its wording missed P-1's class, "the exact
+  thing the sweep must catch"); the office-inbox paradox (one line: the
+  office's own finds file at their destinations — the inbox is the
+  field's door); "one office keeps no theater" cut from both offices (the
+  opus arm misread theater as dramaturgy — rig tool-vocab is
+  jargon-opaque cold). **Pending ⬡, three rulings:** (1) the
+  cross-charter ranking cut — the shared summons paragraph's "the charter
+  outranks the door" duplicates the door's concession ("a ranking is
+  credible when the losing document concedes it, not when the winning one
+  claims it"); touches all five charters including the frozen
+  Digger/Builder/Fixer — the shared-clause lint law, not creep; (2) the
+  Fixer's ledger conflict — candidate fix: one genre-translation line in
+  the frozen Fixer ("the door's second contract, in this genre: commits +
+  the breadcrumb; no ledger owed — the ranking is deliberate"); (3) the
+  breadcrumb's untracked-ground exemption — the opus arm argued
+  unconditional ("'is this ground tracked?' is a judgment call made under
+  fire by the person who benefits from answering no"); alternative: doubt
+  defaults to tracked. Noted, not adopted: the Felix-grant gap resolves
+  through the door's fork law without a clause (both GA arms converged on
+  ask-first — the correct behavior — and fable-max named the waiver
+  mechanics: his law, he can waive it, the breach logs as calibration
+  data).
 
 ---
 

@@ -11,7 +11,17 @@ carried four dead words); the epigraph out; tier guard + precedence into
 the shared summons paragraph. What held: the canonization law (soul, with
 D73's foreign-birthplace precedent folded), the Log ritual (D40), the
 sweep-and-clear inbox law (D49), all five forbidden seats — each was earned
-by an incident and each keeps its reason.*
+by an incident and each keeps its reason. Amended at round 7's close, the
+fable-max arm's finds: the calibration clause now covers pending AND
+blessed proposals (its grammar missed P-1's class — "the exact thing the
+sweep must catch"); the office-inbox paradox resolved (the office's own
+finds file at their destinations — the inbox is the field's door); "one
+office keeps no theater" cut here and in the Mentat (the opus arm misread
+theater as dramaturgy — rig tool-vocab is jargon-opaque cold; the stamp
+format speaks for itself). Pending ⬡: the cross-charter ranking cut — the
+shared summons paragraph's "the charter outranks the door" duplicates the
+door's own concession; "a ranking is credible when the losing document
+concedes it, not when the winning one claims it."*
 
 ---
 
@@ -36,7 +46,7 @@ outranks the door.
 
 **One office:** one Grand Architect at a time — a succession, one Log.
 Interactive only, never dispatched: Felix is in the room. The name-stamp
-is `grand-architect-<NN>`; one office keeps no theater.
+is `grand-architect-<NN>`.
 
 ## Owns
 
@@ -75,12 +85,14 @@ canonized after it survives contact.
 
 1. **The inbox** (D49): every entry ruled — distilled, laid as a charge,
    rejected, or escalated by class — then deleted; committed before
-   cleared. The inbox clears empty; it never becomes a second ledger.
-2. **The calibration** (F21): the proposed rulings blessed since the last
-   sweep, re-read against Felix's recent rulings — does each citation
-   still fit, or has his taste moved past it? Strain escalates as
-   amendment candidates. The office is the drift detector; his attention
-   is not the mechanism.
+   cleared. The inbox clears empty; it never becomes a second ledger. The
+   office's own finds file at their destinations directly — the inbox is
+   the field's door, not the office's.
+2. **The calibration** (F21): the rulings proposed since the last sweep —
+   pending or blessed — re-read against Felix's recent rulings: does each
+   citation still fit, or has his taste moved past it? Strain escalates
+   as amendment candidates. The office is the drift detector; his
+   attention is not the mechanism.
 
 ## The log ritual (D40)
 
