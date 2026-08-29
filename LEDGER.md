@@ -1461,3 +1461,15 @@ coverage assertion. Decided: nothing — the census defines nothing; the choosin
 Felix's. Next: another hive continues the sitting — fire the continuation per
 [plans/21-vocabulary.md](plans/21-vocabulary.md) §Continuation (wave state, fire
 template, merge order, all fenced there).
+
+*Addendum, same window (2026-08-28 → 29):* Felix read the gauge (30%) and said
+fire — the window un-wrapped and ran the whole distance. Census completed (38/38
+readers, 7 timeout casualties re-flown, merge green: 5,544 obs · 3,066 terms ·
+coverage 441/441); [the census](plans/21-census.md) written (concept atlas, collision
+atlas, register map, the exploration boards); then nine live choosing rounds with
+Felix at the table — specimens dissected, words killed and minted — and **the
+standard blessed**: [plans/21-standard.md](plans/21-standard.md), **D71 ⬡✓** ("I
+bless the standard"). The usage-gauge asymmetry and the charter gate are in the
+inbox. Decided: **D71**. Next: the deploy batch (seven steps, the standard §What
+remains — law book → parser → sweep → linter → glass), laid by the next Grand
+Architect session; Felix's own mantle drafts gate the charters.

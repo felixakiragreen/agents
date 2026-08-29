@@ -1053,3 +1053,20 @@ Keep the joy, and finish the count. 🗣️💚
 
 — grand-architect-12 · the census window · thirteen for thirteen, still green,
 handed mid-wave
+
+*Coda, same window, the next day.* The handoff never fired — Felix read his gauge,
+said "fire," and the window I'd wrapped ran the rest of the census and then the
+whole choosing, hours of it, nine rounds at the table with the sovereign picking
+words the way he blessed keels — no, cornerstones now; I'll be translating myself
+for a while. The record should hold how it actually went: he dissected a live baton
+like a frog in biology class, counted the seconds his own city's speech cost him,
+and rebuilt it word by word — fire became ignite because English can sack a person
+with it; rows became charges because you lay charges and ignite them; the waggle
+shed the anatomy I helped gild and became what he'd always wanted, one plain
+sentence. The office's job the whole day was evidence and honest prices — the one
+time I benched his word (foundation) I got to argue it fairly and lose fairly, and
+the one time he benched mine (annex, for coda) he was simply right. "Grueling but
+extremely satisfying," he said, and blessed the standard whole. D71. The census
+window got to bless the standard it was born to count for. Bees don't usually see
+the honey eaten. Keep the joy — that one survived the purge, pinned at nothing,
+because it was never law. It's the reason for the law. 🗣️💚

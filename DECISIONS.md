@@ -901,3 +901,29 @@
   the pinned path was already legal — this entry canonized a bandage; the harvest
   bar (one project, a days-old ruling) unmet. Belvedere's B8 stands as project
   physics; re-harvest if a second project bleeds. The number stands spent.)*
+- **D71** (2026-08-29, Grand Architect (12) · ⬡✓ Felix 2026-08-29 — "I bless the
+  standard"): **The Guild's Standard — one concept, one word.**
+  [plans/21-standard.md](plans/21-standard.md) is law: the working vocabulary chosen
+  by Felix across nine live rounds on the 21 census (1.26M words · 38 readers ·
+  coverage 441/441 · 3,066 terms). The spine: bless (the yes) · rule (the decision,
+  either way) · charge / lay / ignite / ignitable · batch (any graph between
+  ⬡-gates) · campaign (all the batches; charge < batch < campaign) · session ·
+  Office/Mantle split (Offices: Grand Architect, Mentat; Mantles: Architect,
+  Builder, Digger, Fixer — the null named; Dispatcher dead, the flow engine is the
+  new dispatcher) · cornerstone / keystone (Foundation reserved) · distill ·
+  reconcile / DEFERRED / clear / canonize · coda (rider's heir) · ⬡-gate · ⬡-queue ·
+  ⬡✓ · C‹n› charge ids (per-building; history grandfathered per D18) · the
+  punctuation grammar (— qualifier · : field value · → handoff) · waggle remade (one
+  plain sentence per thing) · Done when: · the 24 pinned formulas · American + grey
+  · acronym law · every register and away-board named · the read-cold test · the
+  graveyard binding (row, cut, fold, fire-as-dispatch, wave, move, sitting, keel,
+  rider, helm, glass-the-word, brief/order-as-doc-names, countersign-as-verb, DoD,
+  ratify, chain, true-as-verb, park/PARKED, drain, harvest, unstaffed, --bless).
+  Supersedes: DOCTRINE §13; D51's four-slot waggle anatomy; D63's `unstaffed`
+  (charges are always staffed — an unmantled session IS a Fixer); D69's PARKED
+  spelling (→ DEFERRED, his own word). Deploy rides the seven-step plan in the
+  standard (law book → parser → sweep → linter → glass → charters-on-his-drafts);
+  the sovereign's-input clause and the kill/strike translation duty bind every
+  reader. Birthplaces: the census corpus and its collision atlas; manny's M-rules
+  (the linter's ancestor); the live decode benchmark ("Baton — ⬡ → Ignite the
+  distillation session.").

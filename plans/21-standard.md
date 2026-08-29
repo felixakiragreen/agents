@@ -1,8 +1,9 @@
-# The Guild's Standard — DRAFT 1
+# The Guild's Standard
 
-**Status:** DRAFT — laid 2026-08-28 by the 21 census session; every ruling below is
-Felix's, given in-session; slots marked ⬡ await his word. On blessing, this document
-replaces DOCTRINE §13 and takes its canon home; a D-entry rides.
+**Status:** BLESSED ⬡✓ 2026-08-29 (D71 — "I bless the standard") — laid 2026-08-28
+by the 21 census session, chosen with Felix across nine live rounds. This document
+supersedes DOCTRINE §13; the deploy batch carries it into the law book, the parser,
+the city, and the glass.
 
 ## Preamble
 
@@ -134,7 +135,7 @@ replaces.
   Landing note), **board**, **batch note**, **bulletin**, **dream**, **inbox**
   (ISSUES.md), **lab**, **stub** · unchanged.
 - **rider is dead in all six senses.** The dispatch appendix becomes **the coda**
-  (Felix's find, office-endorsed — ⬡✓ pending): the fixed closing passage of every
+  (Felix's find, blessed with the standard): the fixed closing passage of every
   ignition's kickoff, `CODA.md`. Offices write codas in their Logs; mantles receive
   them in their summonses — one concept, two venues. Board-cell parentheticals are
   **annotations**; attached conditions are **conditions**; bundled side-work and
@@ -213,36 +214,34 @@ replaces.
   cells — speak the law layer only. There are sessions where color and creativity
   are rewarded; those are not these.
 - **Formulas are pinned strings** — one exact wording each; paraphrase drift is a
-  lint catch. The pinned list (Felix prunes at blessing):
-  1. Files carry the truth.
-  2. A documented kill is a win.
-  3. Gates are charges.
-  4. Measurements carry their conditions.
-  5. Probes ship with a control.
-  6. Ambiguity, never plurality, is the sin.
-  7. A paraphrase is a defect.
-  8. The state leads, the annotation follows.
-  9. Passing = finished.
-  10. One function, one home.
-  11. Append, distill, strike.
-  12. The mantle says whether a charge digs or builds.
-  13. A baton must read cold.
-  14. Stop and escalate.
-  15. A claim without evidence is a draft.
-  16. The tail alone reboots a cold session.
-  17. Targets are read from the repo.
-  18. Parallel-safe is not parallel-affordable.
-  19. Split when it hurts, not before.
-  20. Auto-loaded bytes are taxed.
-  21. Creep is a bug.
-  22. Think in any terms; communicate in the standard.
-  23. ⬡ — reworded at Felix's correction (translation is about words; his ideas want
-      the fight): (a) "Fix his words silently; fight his ideas openly." · (b)
-      "Translate the Sovereign's vocabulary; challenge his substance." · (c) "His
-      words are translated; his errors are named."
-  Proposed additions (⬡, Felix prunes): "One concept, one word." · "Lay, then
-  ignite." · "Charges are always staffed." · "Ids are addresses; addresses never
-  move." · "Every register is named."
+  lint catch. The pinned twenty-four (blessed ⬡✓ 2026-08-29):
+  1. One concept, one word.
+  2. Files carry the truth.
+  3. Lay, then ignite.
+  4. A documented kill is a win.
+  5. Gates are charges.
+  6. Measurements carry their conditions.
+  7. Probes ship with a control.
+  8. Ambiguity, never plurality, is the sin.
+  9. A paraphrase is a defect.
+  10. The state leads, the annotation follows.
+  11. Passing = finished.
+  12. One function, one home.
+  13. Append, distill, strike.
+  14. A baton must read cold.
+  15. Stop and escalate.
+  16. A claim without evidence is a draft.
+  17. The tail alone reboots a cold session.
+  18. Targets are read from the repo.
+  19. Parallel-safe is not parallel-affordable.
+  20. Split when it hurts, not before.
+  21. Auto-loaded bytes are taxed.
+  22. Creep is a bug.
+  23. Think in any terms; communicate in the standard.
+  24. Translate the Sovereign's vocabulary; challenge his substance.
+  Procedural rules stay entries, not formulas ("Charges are always staffed", "The
+  mantle says whether a charge digs or builds") — the list carries speech, entries
+  carry law; restating law in the list is redundancy carrying no information.
 - **Spelling — ruled: American, with the exception list: grey** (greys, greyed). The
   lexicon enforces word-by-word; -ize with it.
 - **Enforcement**: the language linter is its own charge, to be laid — ancestor:
@@ -286,10 +285,14 @@ replaces.
 | the four-slot waggle | one plain sentence per thing |
 | bare "register" | a named register |
 
-## ⬡ Open slots
+## What remains
 
-ratify's fate · the Felix-queue noun · the dispatch appendix's new name · the ⬢
-sigil · the typed-absence pattern registry · the full pinned-formula list · the
-spelling base + exceptions · the Dispatcher-shaped hole (row 20) · the deploy plan
-(which surfaces molt when: DOCTRINE, charters, grammar.ts, the glass, `doctrine
-migrate` rules for laid/charge/ignite across history).
+- **⬢** — deferred; Felix will know when it's time.
+- **The charters** — await Felix's own office/mantle drafts (inbox entry filed);
+  nothing molts before them.
+- **The deploy batch** — the seven steps, in order: ~~bless~~ ⬡✓ → the law book
+  (DOCTRINE + the global file's waggle line — live wires) → the parser (grammar.ts
+  tokens, migrate rules, tests) → the respell sweep (working trees city-wide) → the
+  language linter (lexicon + graveyard + the pinned 24 + the prefix table) → the
+  glass → the charters on Felix's drafts.
+- **The history respell** — DEFERRED, Felix's word: when it bugs him enough.
