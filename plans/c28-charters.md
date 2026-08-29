@@ -574,3 +574,18 @@ hold the pen with him: the charters speak the standard.
   taste caught it; "precedent ages" fired on its own clause. **The purge
   reconfirmed as the next GA campaign** (F26's timing now felt, his word:
   "SO much cruft") — D52-as-amended is its blade.
+- **F33 — GA v3 cut: the ancestry law unified (2026-08-29, his catch).**
+  The v2 in-place patching had outgrown the small-amendment convention —
+  the rework deserved a clean version. [grand-architect-v3](../lab/c28/grand-architect-v3.md):
+  the canonization law completely reworked — D52-as-amended is not a
+  rider on the law, it IS the law: **one three-branch ancestry test** (no
+  ancestor → experiment in one building; ancestor served better → amend,
+  mint nothing — behavior changing is the improvement working; a new
+  issue → only then a new law or number), governing canon text and the
+  decision register alike — "one ancestry governs both books." Procedure
+  2 updated to match ("D-entries or amendments — the canonization law
+  says which"). All prior pass amendments consolidated: drafting law four
+  → instrument pointer; forbidden 4 (mirror bullet dead at D14, folded
+  into the live-path seat); ranking cut; theater cut; calibration sweep
+  over pending+blessed; the office-inbox line. v3 is the blessing
+  candidate.
