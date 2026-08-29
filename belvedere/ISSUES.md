@@ -30,3 +30,9 @@ are drained. A swept inbox is empty.
   canon **C27** (commission in `plans/c27-glass.md`), fired after the parser charge
   (C24) lands; no local action needed before that kickoff, beyond minting no new
   dead words.
+- 2026-08-29 · GA-14 (tending the deploy batch) · C27 intake heads-up: read canon
+  `plans/c24-parser.md` §Findings before wiring — F1: the proposed mark "(proposed —
+  pending ⬡✓)" *contains* the blessing mark; a naive `⬡✓` grep counts dispatched
+  decisions as blessed (the parser vetoes it; renderers must too). F3:
+  `BoardRow.felixGate` / `Decision.ratified` field names kept as the glass's imported
+  contract — the one-line molt is C27's.
