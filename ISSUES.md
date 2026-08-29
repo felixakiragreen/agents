@@ -9,3 +9,12 @@ records a rejection, and git keeps the bytes (entries are committed before the i
 is cleared). A cleared inbox is empty.
 
 ---
+
+- 2026-08-29 · grand-architect-18 · doctrine lint's building register counts
+  flow-minted worktrees as buildings: `.claude/worktrees/bv/c29-summon-harness` at
+  the same commit as master still doubles every total (2 buildings → 4, 84 rows →
+  168; any future red would double too). The charge-16 rule says a worktree
+  checkout is skipped unless its branch put a board where the mainline has none —
+  the implementation evidently keys on the `worktree-agent-*` shape, so `bv/*`
+  branches slip it. Repro: current tree, `doctrine lint ~/code/agents`. Candidate
+  home: C31 gains a fifth item, or the flow venue work — the next sweep rules it.
