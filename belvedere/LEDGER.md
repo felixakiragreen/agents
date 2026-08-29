@@ -1894,3 +1894,27 @@ fenced summonses stay verbatim: they record what was actually dispatched, and a 
 is a defect. Next: unchanged — **B23** is still the head of batch 6, its kickoff verbatim
 in [plans/b23-repaint-law.md](plans/b23-repaint-law.md), and the tender is Felix's to
 appoint.
+
+---
+
+**2026-08-29 · Builder · opus-high (C2)** — the vocabulary molt landed: the deck speaks the
+standard. The C24 F3 field molt swept both buildings (`BoardRow.felixGate` → `hexGate`,
+`Decision.ratified` → `blessed`, doctrine plus every glass call site and the round-trip law's
+declared-changes strings). Grammar intake gained a test each: `decode.ts` detects `C‹n›` ids and
+`charge N` / `charge C5` (uppercase id only — `charge c5` is prose, deliberately), and
+`standard.test.ts` proves a `⬡-gate` charge and an `ignite` baton render **byte-identical** to
+what `Felix-gate` and `fire` rendered, against a fixture pair one substitution apart by
+construction; the ⬡✓ veto is guarded by a source grep — no file in `glass/` contains the mark.
+The render vocabulary: ⬡-gate · the ⬡-queue (pane name, both buttons, the bar's `⬡`) ·
+`pending blessing` and the `bless D21` button, whose appended line molts while `recordedIn`
+reads **both** heads forever · charge for row · `D71: single · batch · fork` (the reader still
+matches the corpus's `wave`) · ignite for fire in dispatch copy · the deck for the glass. Wire
+kinds, CSS classes, run-log tokens and `/hands/fire` stand. `bun test` **669 pass / 0 fail in one
+process** — C1's named colors red cleared with C25's retired preset; doctrine 71/71; lint 0.
+Decided: **the wire is ours at both ends, so a string a human reads molts and a string two
+machines agree on does not** — the one deliberate seam (wire kind `countersign`, written line
+`bless`) is commented where it sits. Next: **⬡ → Felix hands E1 to this board's Architect**: `bunx tsc --noEmit` was
+**exit 1 at HEAD before this charge**, red since canon C26 widened `doctrine/`'s `Building.files`
+and `Fail` without re-running the gate the deck owns; C2 repaired the eight errors in its own
+commit `9d0ee05` and relayed the general fact, that a doctrine shape change lands in one building
+while its breakage sits in another with nothing watching.

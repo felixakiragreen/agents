@@ -1559,3 +1559,53 @@ Fixed with a `settled` set; **`timeout` is deliberately not in it**, because tha
 and still spending and the engine kills nothing.
 
 (Relayed from `master`, B12 LANDED 2026-08-28 — Builder)
+
+## → relay — C2 (the vocabulary molt) to the Architect and to every charge behind it: one escalation, and the deck's new words
+
+Evidence: [c2-vocabulary-molt.md](c2-vocabulary-molt.md) §Findings, commits `fa48e83` …
+on `master`.
+
+1. **E1 — the type gate has been RED at HEAD since canon C26, and no charge noticed. B8 F4's
+   guarantee has lapsed.** `bunx tsc --noEmit` from `belvedere/glass` exits 1 with **six errors
+   at commit `b6c3b35`, before this charge touched anything** — measured by stashing the whole
+   working tree and re-running. The cause is `ceed38f` (canon C26, the vocabulary arm), which
+   widened two doctrine shapes the deck consumes and never re-ran the gate the deck owns:
+   `Building.files` gained `prose: string[]` (four test fixtures construct that literal —
+   `grep.test.ts`:63, `pages.test.ts`:15, `rail.test.ts`:174, `register.test.ts`:44) and `Fail`
+   gained `severity` (`register.ts`:136's stale-entry stub). The sixth is older —
+   `engine.test.ts`:118 spreads a `Partial<BoardRow>` over a literal missing `dissolved`, C24's
+   own field. **None of the six is a type error the suite can see: `bun test` was 650 pass / 1
+   fail through all of it.** C2's Done-when names an exit-0 gate, so this charge repaired the six
+   mechanically in its own commit, separate from every vocabulary edit — but the general fact is
+   the Architect's: **the gate is offline and nobody runs it unless their own charge names it**,
+   and a doctrine shape change lands in `doctrine/` while its breakage sits in `belvedere/`.
+   Any charge that widens a `doctrine/` export inherits this.
+
+2. **The deck's rendered words moved. A charge that pins a rendered string is pinning a new one.**
+   The molt, in full: `Felix-gate` → **`⬡-gate`** (pill, staffing cell, stat label, badge word,
+   tooltips) · the needs-you queue → **the ⬡-queue** (`deck.ts`'s pane name, both drawer buttons,
+   the bar toggle now reads `⬡`, `drawer-name` is `⬡-queue`) · `pending countersign` → **`pending
+   blessing`**, the `countersign D21` button → **`bless D21`** · `row <id>` → **`charge <id>`** in
+   every deck-authored sentence (`no charge "X"`, `charge R1 — Builder · opus-high`, the gate
+   card's `charge <id>`) · the baton shapes **`single` / `batch`** (`Shape` is
+   `'single'|'batch'|'fork'|'plural'`, the pill's tooltip is `D71: single · batch · fork`) ·
+   `fire` → **`ignite`** in dispatch-sense copy (the composer's button is `ignite`, receipts read
+   `ignited <workspace>`, the rail's stat is `ignitable`) · **the deck** for the glass in ≈15
+   strings. **The `Countersigned` type, the `'countersign'` wire kind, `Attention`'s member, the
+   `b-countersign` CSS class and the run-log tokens (`fired`/`armed`, `RINGS`) did NOT move** —
+   the wire is ours at both ends and renaming a persisted grammar orphans history.
+
+3. **The appended inbox line molted and the reader now takes BOTH heads, forever.** The gesture
+   writes `- <date> · Felix (via Belvedere) · bless D21: ✓`; `recordedIn` (`glass/inbox.ts`)
+   matches `bless ` *and* `countersign `, because an inbox is append-only history and reading only
+   the new head would put the button back on a decision Felix has already blessed. Pinned by
+   `inbox.test.ts` §"BOTH heads are read, forever". **Anything else that reads inbox entries by
+   their head has the same obligation.**
+
+4. **`decode.ts` now detects `C‹n›` ids and the `charge` keyword.** `ROW` is `/\b([PBGC]\d{1,3})\b/`
+   and `CHARGE_WORD` is `/\b[Cc]harge\s+(C?\d{1,3})\b/` — so `C23`, `charge 17`, `charge C5` and
+   `canon charge C5` all resolve as row references, with the same scope rule and the same
+   resolver. `row 17` still parses forever (corpus). The keyword is written both ways, the id
+   never is: **`charge c5` addresses nothing**, deliberately.
+
+(Relayed from `master`, C2 LANDED 2026-08-29 — Builder)

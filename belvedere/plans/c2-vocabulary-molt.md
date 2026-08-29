@@ -1,6 +1,6 @@
 # C2 — the vocabulary molt
 
-**Status:** OPEN — laid 2026-08-29 · **Depends on:** C1 · **Staffing:** Builder · opus-high
+**Status:** LANDED 2026-08-29 · **Depends on:** C1 · **Staffing:** Builder · opus-high
 
 ## Mission
 
@@ -126,7 +126,153 @@ Each item lands with a test; fixtures may extend the existing suite's.
 
 ## Findings
 
-*(append here)*
+**LANDED 2026-08-29.** The deck speaks the standard. Commits: `fa48e83` (the field molt) ·
+`21e0f89` (grammar intake) · `4ed58d1` (the render vocabulary) · `75b75a3` (the tests) ·
+`9d0ee05` (the type gate, E1) · `575210f` (two field reports).
+
+### Done when — measured
+
+**1. `cd belvedere/glass && bun test` — ALL green in one process.**
+
+```
+$ cd belvedere/glass && bun test
+ 669 pass
+ 0 fail
+ 1804 expect() calls
+Ran 669 tests across 26 files. [2.36s]
+```
+
+651 → 669 tests (+18: the eleven of `standard.test.ts`, five in `decode.test.ts`, the
+both-heads test, and one narrowed colours case). **The colors red C1 named is cleared** —
+`presets.tsv` no longer carries `dispatcher` (C25 retired it, D71: the mantle is dead), so the
+assertion that pinned its pink is gone and the case below it now proves the law that governs a
+retired mantle: `colourOf(rig, 'dispatcher')` is grey, exactly as `no-such-mantle` is.
+
+**2. `bunx tsc --noEmit` — exit 0.** See **E1**: it was exit 1 *before this charge began*.
+
+**3. `cd doctrine && bun test` green**, and its own lint still reads clean:
+
+```
+$ cd doctrine && bun test
+ 71 pass · 0 fail · 277 expect() calls
+$ ./cli.ts lint ~/code/agents | tail -4
+  2 buildings · 4/4 board docs yielded a board · 4 boards · 77 rows · 77 fully typed (100%)
+  0 failure(s) in 0 class(es)
+```
+
+**4. Grep evidence — deck-authored strings, non-test sources, dead words:**
+
+```
+$ grep -rnE "(['\"`])[^'\"`]*\b(Felix-gate|countersign|countersigns|needs you|needs-you|the glass|this glass)\b" \
+    $(ls *.ts | grep -v '\.test\.ts$') *.css | <comments and wire identifiers excluded>
+deck-model.ts:779:export const ATTENTION = ['waiting', 'gate', 'countersign', 'escalation'] as const;
+deck-model.ts:816:  * … Effort is on no artifact this glass can          ← comment
+identity.ts:98:  // … the credential is the glass's arming            ← comment
+inbox.ts:63:  // The written word is the standard's (D71: …)         ← comment, this charge's own
+rail.ts:438:  <span class="label">blessings</span>…${n.countersign}  ← label molted; `n.countersign` is a local
+```
+
+**Zero rendered strings carry a dead word.** What remains is the wire union `ATTENTION`, three
+comments, and one local variable behind a molted label. Exempt and named: the corpus-shaped
+fixtures in `decoder.test.ts` (`proposed — pending Felix countersign`) and `standard.test.ts`
+(the whole graveyard half of the pair) write dead words **on purpose** — they are the historical
+grammar under test.
+
+### E1 — the type gate was RED at HEAD, and had been since canon C26
+
+`bunx tsc --noEmit` exits **1 at `b6c3b35`**, with the whole working tree stashed — six errors,
+none of them C2's. `ceed38f` (canon C26) widened two `doctrine/` exports the deck consumes and
+never re-ran the gate the deck owns: `Building.files` gained `prose: string[]` (four glass test
+fixtures build that literal) and `Fail` gained `severity` (`register.ts`:136's stale-entry stub).
+The sixth predates it — `engine.test.ts`:118 spreads a `Partial<BoardRow>` over a literal missing
+C24's `dissolved`. Repairing those surfaced two more the errors had masked (`Building` also wants
+`ledgerEntries` and `decisions`), so the true count was eight.
+
+**None of the eight is visible to `bun test`** — the suite was 650 pass / 1 fail through all of
+it. C2's bar names an exit-0 gate, so the repair landed, in its **own commit** (`9d0ee05`), with
+no vocabulary edit in it. **The general fact is the Architect's:** the gate is offline and nobody
+runs it unless their own charge names it, and a doctrine shape change lands in one building while
+its breakage sits in another. Relayed to the bulletin.
+
+### F1 — what did NOT molt, and why: the wire is ours at both ends
+
+The charge left the internal identifiers to the Builder. The ruling, applied uniformly: **a
+string a human reads molts; a string two machines agree on does not.** So `Countersigned`, the
+wire `kind: 'countersign'`, `ATTENTION`'s member, the CSS class `b-countersign`, the
+`data-kind="countersign"` attribute and the payload JSON all stand, while every pill, button,
+tooltip, legend and sentence moved. One seam is deliberate and commented at `inbox.ts`:63 — the
+gesture whose wire kind is `countersign` writes the line `bless D21: ✓`.
+
+Two more kept by the same rule, both named by the standard itself (§3, tool vocabulary): the
+**run-log tokens** (`RINGS`/`RUN_EVENTS` carry `fired`, `armed`, and the Works' legend explains
+`fired` by its own name while speaking standard around it) and the **API routes**
+(`/hands/fire`). `hands.ts`'s own error copy also stays in `fire` vocabulary: it is the contract
+of the endpoint it names, and molting `summons is empty — the fire IS the summons` would leave
+the message describing a route by a word the route does not use.
+
+### F2 — the `plural` shape is not a fourth name, it is the defect
+
+D71 names three shapes and `Shape` carries four. `single`/`batch`/`fork` are the law;
+**`plural` is what the rail reports when a baton hands several instruments and names no shape at
+all** — a defect the parser found, not a shape anyone wrote. It keeps its name, and the pill's
+tooltip cites the three: `D71: single · batch · fork`.
+
+One reader change rides with it, and it is the one law in miniature: `WAVE` became `BATCH` and
+**still matches `wave`**. The corpus is full of the dead word and always will be; the deck's own
+words molt, the corpus's words are read as it wrote them. Pinned: *"the corpus's own `wave` is
+still read as a batch"* (`rail.test.ts`).
+
+### F3 — the grammar-intake fixture is a PAIR, one substitution apart by construction
+
+`standard.test.ts` writes the same four documents twice, the second time through a `molt()` of
+five exact pairs (`Felix-gate`→`⬡-gate`, `fire C3`→`ignite C3`, `PARKED`→`DEFERRED`,
+`✓ Felix`→`⬡✓`, `pending Felix countersign`→`pending ⬡✓`). Two buildings, `graveyard` and
+`standard`, and the assertion is **byte-identical rendered HTML** once the building's own name is
+blanked. A test that hand-wrote both halves would prove two documents agree; this one proves the
+*words* do — anything else that differed would have to be the token.
+
+The one place the pair legitimately diverges is the baton's own clause, and that divergence is
+the law being obeyed: the ledger wrote `ignite C3` and the card renders `ignite C3`, verbatim,
+never translated back. So the identity claim blanks the instrument and asserts everything it
+drives — the shot, the resolved kickoff, the payload, the wiring — is the same bytes.
+
+**The veto's render-side guard is a source grep, not an assertion about one case:** no file in
+`glass/` contains the string `⬡✓` at all. C24 F1 flagged the hazard as belonging to the mark's
+*shape*, so the deck's protection is that it never re-reads the mark — resolution is the parser's
+field. That test fails the moment anyone adds a glass-side grep for it.
+
+### F4 — `charge c5` addresses nothing, deliberately
+
+`decode.ts` gained `[PBGC]` on the bare-id detector and `CHARGE_WORD = /\b[Cc]harge\s+(C?\d{1,3})\b/`.
+No `/i` flag: the detector's existing law is that **the keyword is written both ways and the id
+never is** (`Row 12` resolves, `b18 and d2 are prose`), so a lowercase `c5` is prose here too. It
+would otherwise mint a token whose id could never match a board row, and a reference that
+silently resolves to nothing is worse than one that was never detected. `row 17` parses forever.
+
+### F5 — deferred, named because they itch
+
+- **The spelling sweep** (colour→color etc.) stays DEFERRED per the out-of-scope list. New and
+  molted strings follow the deck-era triple; existing ones were left where the molt did not
+  already touch the line. `colour` survives in `colors.ts`/`summon.ts` identifiers and comments.
+- **Comments were molted only where they name a rendered string this charge changed** — the
+  rail's own header, the shape section, the two that quoted `"2 Felix-gate"` and *"the glass
+  never fetches"*. Every other comment keeps its dead words; a wholesale respell is out of scope
+  and would be a far larger diff than the molt itself.
+- **`sitting` survives as plain English** where it is the verb, not the noun: *"a tool call is
+  sitting on the approval dialog"*, *"a partial message is sitting in the pane's box"*. Only the
+  Guild-noun sense molted.
+- **`doctrine`'s `MANTLES` still carries `Dispatcher`**, so the composer still offers it as a
+  choice. The list is also the parser's grammar for historical ledgers, so it cannot simply drop
+  — filed to `belvedere/ISSUES.md` as a canon question (a *parseable* mantle and an *offerable*
+  mantle may be two lists).
+- **`glass/README.md` and `deck.css`'s comments** were not swept; the charge named source files.
+
+### Two field reports filed (`belvedere/ISSUES.md`, `575210f`)
+
+The `MANTLES` question above, and a load-flaky test that is not this charge's: `grep.test.ts`'s
+1 ms clock case asserts **every** group timed out, which is a race — one failure in ~6 whole-suite
+runs, **zero in 40 isolated runs** (20 at C2's tree, 20 at HEAD `9d0ee05`). C2 touched one copy
+string in `grep.ts` and added `prose: []` to its fixture; neither is in the timing path.
 
 ---
 
