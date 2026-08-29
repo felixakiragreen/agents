@@ -85,9 +85,9 @@ describe('flow-batch-1 — the chapter’s own DAG, parsed', () => {
 		// line-walk `fenceOf` does, so the two readings agree about which bytes the fence is.
 		const readme = readFileSync(join(import.meta.dir, '../README.md'), 'utf8');
 		const blocks = [...readme.matchAll(/^```[^\n]*\n([\s\S]*?)^```/gm)].map(m => m[1]!.replace(/\n$/, ''));
-		expect(blocks.length).toBeGreaterThanOrEqual(5);
-		expect(g2.kickoff.text).toBe(blocks[4]!);
-		expect(g2.kickoff.fence).toBe(5);
+		expect(blocks.length).toBeGreaterThanOrEqual(7);
+		expect(g2.kickoff.text).toBe(blocks[6]!);
+		expect(g2.kickoff.fence).toBe(7);
 		expect(g2.kickoff.text).toContain('You are an Architect at fable-high.');
 		expect(g2.kickoff.text.endsWith('close batch 5.')).toBe(true);
 	});

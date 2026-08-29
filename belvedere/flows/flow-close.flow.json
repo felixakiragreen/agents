@@ -13,7 +13,7 @@
 			"venue": { "kind": "master", "cwd": "~/code/agents" },
 			"depends": [],
 			"gate": { "kind": "architect" },
-			"kickoff": { "doc": "agents/belvedere/README.md", "fence": 5 }
+			"kickoff": { "doc": "agents/belvedere/README.md", "fence": 7 }
 		},
 		{
 			"id": "verdict",

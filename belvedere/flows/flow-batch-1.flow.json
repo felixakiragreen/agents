@@ -52,7 +52,7 @@
 				"kind": "felix",
 				"card": "Felix's arm in the Works is the Felix-gate — the engine's first real act, and the deck's close smoke. The sitting behind this card is an Architect step; its kickoff is the fence below, quoted from the batch note. Nothing on this card fires."
 			},
-			"kickoff": { "doc": "agents/belvedere/README.md", "fence": 5 }
+			"kickoff": { "doc": "agents/belvedere/README.md", "fence": 7 }
 		}
 	]
 }
