@@ -65,7 +65,7 @@ describe('the entry line', () => {
 		['a note lands verbatim', { kind: 'note', text: 'the rail understates WIP by 6×' }, 'the rail understates WIP by 6×'],
 		['defer names the row', { kind: 'defer', row: 'B7' }, 'defer B7'],
 		['reorder is the spec\'s own sentence', { kind: 'before', row: '14', other: '13' }, '14 before 13'],
-		['countersign carries the ✓', { kind: 'countersign', decision: 'D11' }, 'countersign D11: ✓'],
+		['the blessing carries the ✓, in the standard\'s word', { kind: 'countersign', decision: 'D11' }, 'bless D11: ✓'],
 	];
 	for (const [name, gesture, want] of CASES) test(name, () => expect(gestureText(gesture)).toBe(want));
 
@@ -332,10 +332,23 @@ describe('pending → recorded → folded', () => {
 	test('the fold wins over the entry — a swept decision is folded even before the drain', () =>
 		expect(countersignState(decision({ blessed: true }), [])).toBe('folded'));
 
-	test('D11 is not D110, and a note merely mentioning a countersign is not one', () => {
-		expect(recordedIn([issue('countersign D110: ✓')], 'D11')).toBe(false);
-		expect(recordedIn([issue('we should countersign D11 today')], 'D11')).toBe(false);
-		expect(recordedIn([issue('countersign D11')], 'D11')).toBe(true);
+	test('D11 is not D110, and a note merely mentioning a blessing is not one', () => {
+		expect(recordedIn([issue('bless D110: ✓')], 'D11')).toBe(false);
+		expect(recordedIn([issue('we should bless D11 today')], 'D11')).toBe(false);
+		expect(recordedIn([issue('bless D11')], 'D11')).toBe(true);
+	});
+
+	/**
+	 * D71 molted the head the gesture writes; an inbox is append-only history, so every line the
+	 * city already carries opens `countersign `. Reading only the new head would put the button
+	 * back on a decision Felix already blessed — a second ask for a word he has given.
+	 */
+	test('BOTH heads are read, forever — the standard\'s and the history\'s', () => {
+		for (const head of ['bless', 'countersign']) {
+			expect(recordedIn([issue(`${head} D11: ✓`)], 'D11')).toBe(true);
+			expect(recordedIn([issue(`${head} D110: ✓`)], 'D11')).toBe(false);
+			expect(recordedIn([issue(`we should ${head} D11 today`)], 'D11')).toBe(false);
+		}
 	});
 
 	test('the state a gesture produces is the state the card then reads', () => {

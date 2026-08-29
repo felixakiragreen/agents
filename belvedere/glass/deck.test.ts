@@ -134,7 +134,7 @@ describe('the shell — three panes, always, and nothing off this origin', () =>
 		// The drawer names itself, and at rest that name is the queue's. B21 gave the element an id
 		// because the one drawer now has two contents (the queue, and a search's results) and the
 		// name has to move with them — so the assertion narrows to the invariant it was protecting.
-		expect(shell).toContain('id="drawer-name">needs you</span>');
+		expect(shell).toContain('id="drawer-name">⬡-queue</span>');
 	});
 
 	test('the Grep\'s box is in the header, named and reachable by keystroke (B21 §3)', () => {

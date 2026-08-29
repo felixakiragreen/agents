@@ -47,13 +47,16 @@ describe('the rig\'s mantles, coloured', () => {
 			const c = colourOf(rig, mantle);
 			expect(c).toMatch(/^#[0-9a-f]{6}$/);
 		}
-		// `presets.tsv` spends `cyan` on Builder and `pink` on Dispatcher; cmux refuses both words.
+		// `presets.tsv` spends `cyan` on Builder, a word cmux refuses; the map answers a hex.
 		expect(colourOf(rig, 'builder')).toBe(FELIKAI.blue);
-		expect(colourOf(rig, 'dispatcher')).toBe(FELIKAI.pink);
 		expect(colourOf(rig, 'digger')).toBe(FELIKAI.orange);
 	});
 
-	test('a mantle the rig does not name wears grey rather than costing a whole fire', () => {
+	// C25 retired the `dispatcher` preset row — D71: the mantle is dead — so the assertion that
+	// pinned its pink went with it. Nothing is unguarded: a retired mantle is a mantle the rig no
+	// longer names, and the next case below is exactly the law that governs one.
+	test('a mantle the rig does not name wears grey rather than costing a whole ignition', () => {
+		expect(colourOf(rig, 'dispatcher')).toBe(FELIKAI.grey);
 		expect(colourOf(rig, 'no-such-mantle')).toBe(FELIKAI.grey);
 		expect(colourOf(rig, null)).toBe(FELIKAI.grey);
 	});

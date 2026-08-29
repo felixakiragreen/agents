@@ -41,14 +41,16 @@ const unesc = (s: string) =>
 
 describe('the shape splitter', () => {
 	const CASES: [name: string, text: string, instruments: number, want: ReturnType<typeof shapeOf>][] = [
-		['one instrument is a move whatever the prose says', 'fire the wave in parallel', 1, 'move'],
-		['no instrument is still a move — there is nothing to choose between', 'nothing owed', 0, 'move'],
+		['one instrument is a single whatever the prose says', 'ignite the batch in parallel', 1, 'single'],
+		['no instrument is still a single — there is nothing to choose between', 'nothing owed', 0, 'single'],
 		['"either … or" marks a fork', 'either measure first or fix first', 2, 'fork'],
 		['"choose" marks a fork', 'choose one of the two below', 2, 'fork'],
 		['"option A" marks a fork', 'option A fires the Digger, option B the Builder', 2, 'fork'],
-		['"in parallel" marks a wave', 'fire B1 and B2 in parallel', 2, 'wave'],
-		['"both" marks a wave', 'fire both rows', 2, 'wave'],
-		['a fork beats a wave when both words appear', 'either fire both, or wait', 2, 'fork'],
+		['"in parallel" marks a batch', 'ignite B1 and B2 in parallel', 2, 'batch'],
+		['"both" marks a batch', 'ignite both charges', 2, 'batch'],
+		// The corpus still writes `wave` and always will; the reader keeps it (D71's own molt law).
+		['the corpus\'s own `wave` is still read as a batch', 'fire the wave', 2, 'batch'],
+		['a fork beats a batch when both words appear', 'either ignite both, or wait', 2, 'fork'],
 		['plurality with no marker is reported, never guessed', 'fire 3, fire 4', 2, 'plural'],
 	];
 	for (const [name, text, n, want] of CASES) test(name, () => expect(shapeOf(text, n)).toBe(want));
@@ -115,7 +117,7 @@ describe('the fork baton', () => {
 describe('the row reference', () => {
 	test('`fire R1` resolves to the work doc kickoff fence, cited by file and line', () => {
 		const s = baton('probe-row').shots[0]!;
-		expect(s.label).toBe('row R1 — Builder · opus-high');
+		expect(s.label).toBe('charge R1 — Builder · opus-high');
 		expect(s.source).toMatch(/r1-scratch\.md:\d+$/);
 		expect(s.summons).toBe('You are a Builder at opus-high.\n'
 			+ 'Wear ~/code/agents/canon/mantles/builder.md,\n'
@@ -236,7 +238,7 @@ describe("a Felix-holder baton is his card", () => {
 	test('a pending countersign card offers the button, and nothing that fires', () => {
 		const b: Building = { ...queued({}), issues: [] };
 		const html = card(b);
-		expect(html).toContain('pending countersign');
+		expect(html).toContain('pending blessing');
 		expect(html).toContain('data-gesture="{&quot;building&quot;:&quot;/tmp/scratch&quot;,&quot;kind&quot;:&quot;countersign&quot;,&quot;decision&quot;:&quot;D11&quot;}"');
 		unwired(html);
 	});
@@ -250,7 +252,7 @@ describe("a Felix-holder baton is his card", () => {
 	test('a decision the parser queues but the entry already blessed headlines folded, not pending', () => {
 		const html = card(queued({ blessed: true }));
 		expect(html).toContain('folded — ✓ in the decision');
-		expect(html).not.toContain('pending countersign');
+		expect(html).not.toContain('pending blessing');
 		expect(html).not.toContain('kind&quot;:&quot;countersign');
 	});
 
@@ -349,7 +351,7 @@ describe('the rail resolves; it never invents', () => {
 		const b: Building = { ...synthetic('session', [{ kind: 'row', row: 'Z9' }]), building: 'scratch' };
 		const [card] = cards([b], rig, ACCOUNTS[0]!);
 		const shot = (card as Card & { kind: 'baton' }).shots[0]!;
-		expect(shot.fire).toEqual({ blocked: 'no row "Z9" on any board in scratch' });
+		expect(shot.fire).toEqual({ blocked: 'no charge "Z9" on any board in scratch' });
 		unwired(cardHtml(card!, true, ACCOUNTS));
 	});
 

@@ -208,14 +208,14 @@ describe('cityRows — attention outranks recency, and the badges ARE the queue'
 
 const at2 = (rows: DeckBuilding[], suffix: string) => rows.find(r => r.building.endsWith(suffix))!;
 
-// ---------- the countersign, answered in place ----------
+// ---------- the blessing, answered in place ----------
 //
 // The wire the drawer's button reaches, exercised end to end against a real file: the queue says
 // `pending`, one gesture appends one line, and the queue re-derives itself to `recorded` off the
-// bytes that landed. The live city has ZERO true pending countersigns (B6 F2), which is exactly
+// bytes that landed. The live city has ZERO true pending blessings (B6 F2), which is exactly
 // why this fixture exists.
 
-test('a countersign answered in place is one append, and the item re-reads itself as recorded', () => {
+test('a blessing answered in place is one append, and the item re-reads itself as recorded', () => {
 	const inbox = join(LOUD, 'ISSUES.md');
 	const before = readFileSync(inbox, 'utf8');
 
@@ -227,7 +227,7 @@ test('a countersign answered in place is one append, and the item re-reads itsel
 
 	const after = readFileSync(inbox, 'utf8');
 	expect(after.startsWith(before)).toBe(true);                          // append-only, byte for byte
-	expect(after.slice(before.length).trim()).toBe('- 2026-08-27 · Felix (via Belvedere) · countersign D99: ✓');
+	expect(after.slice(before.length).trim()).toBe('- 2026-08-27 · Felix (via Belvedere) · bless D99: ✓');
 
 	const again = needsYou(walk(), []).find(i => i.kind === 'countersign')!;
 	expect(again.state).toBe('recorded');

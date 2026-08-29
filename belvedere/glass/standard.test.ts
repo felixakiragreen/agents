@@ -176,7 +176,7 @@ describe('an `ignite` baton is the fireable card `fire` was', () => {
 describe('`proposed — pending ⬡✓` renders PENDING, never blessed', () => {
 	test('the waiting form keeps its card and its button', () => {
 		const html = cardOf('standard', 'countersign');
-		expect(html).toContain('pending countersign');
+		expect(html).toContain('pending blessing');
 		expect(html).not.toContain('folded');
 		expect(html).toContain('kind&quot;:&quot;countersign');
 	});

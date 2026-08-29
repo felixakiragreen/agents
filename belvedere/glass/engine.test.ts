@@ -309,7 +309,7 @@ describe('landed means (interim law, keel §5.1)', () => {
 		const rows = new Map([['a', row({ id: 'A', state: 'LANDED', annotation: '2026-08-28 — done' })]]);
 		const p = plan(f, armed(f, fired), world({ sessions: new Map([['x', live]]), rows }));
 		expect(evs(p)).toContain('landed:a');
-		expect(whyOf(p, 'landed', 'a')).toContain('board row parses LANDED clean');
+		expect(whyOf(p, 'landed', 'a')).toContain('board charge parses LANDED clean');
 	});
 
 	test('a LANDED row raising an unruled escalation PAUSES — and B12’s judge is what fires', () => {
@@ -714,7 +714,7 @@ describe('the verdict is read off the FILES, never off the judge’s mouth (§2)
 		const p = plan(f, armed(f, sitting()), world({ rows: clean(), sessions: working }));
 		expect(evs(p)).toEqual(['landed:a.judge', 'resumed:a', 'landed:a']);
 		expect(whyOf(p, 'landed', 'a.judge')).toContain('did what it was staffed for');
-		expect(whyOf(p, 'resumed', 'a')).toContain('the judge sitting cleared a');
+		expect(whyOf(p, 'resumed', 'a')).toContain('the judge session cleared a');
 		expect(ids(p)).toEqual(['b', 'c']);
 	});
 

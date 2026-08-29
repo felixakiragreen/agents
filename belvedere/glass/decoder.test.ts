@@ -108,7 +108,7 @@ describe('rows', () => {
 
 	test('a Felix-gate row says so in its status rather than naming a mantle it has none of', () => {
 		const d = at('G2', SHOP_BOARD);
-		expect(d.ok && d.status).toBe('OPEN · Felix-gate');
+		expect(d.ok && d.status).toBe('OPEN · ⬡-gate');
 	});
 
 	test('`canon row 17` crosses to the canon board; the keyword is what anchors a bare numeral', () => {
@@ -136,7 +136,7 @@ describe('rows', () => {
 		const d = at('row 17', SHOP_BOARD, 'shop');
 		expect(d.ok).toBe(false);
 		if (d.ok) return;
-		expect(d.reason).toContain('no row 17');
+		expect(d.reason).toContain('no charge 17');
 	});
 });
 
@@ -164,7 +164,7 @@ describe('decisions', () => {
 		if (!d.ok) return;
 		const g = d.gestures.find(x => x.kind === 'countersign');
 		expect(g).toBeDefined();
-		expect(g && g.kind === 'countersign' && g.preview).toMatch(/^- \d{4}-\d{2}-\d{2} · Felix \(via Belvedere\) · countersign D2: ✓$/);
+		expect(g && g.kind === 'countersign' && g.preview).toMatch(/^- \d{4}-\d{2}-\d{2} · Felix \(via Belvedere\) · bless D2: ✓$/);
 		expect(g && g.kind === 'countersign' && g.building).toBe(SHOP);
 	});
 
