@@ -4,7 +4,10 @@
 // city: a mantle, a tier, a state, a verdict, an id or a dead word is named HERE and nowhere
 // else — two spellings of one word is how a format drifts.
 
-export const MANTLES = ['Grand Architect', 'Architect', 'Dispatcher', 'Digger', 'Builder', 'Mentat'] as const;
+// `Dispatcher` stays: the parser reads the city's history forever, and the mantle staffed
+// real sessions. `Fixer` is D71 §5's minting — a session with no mantle IS a Fixer, so the
+// word types every bare-session entry the record left unnamed (C25's three, C26 item 7).
+export const MANTLES = ['Grand Architect', 'Architect', 'Dispatcher', 'Digger', 'Builder', 'Mentat', 'Fixer'] as const;
 export const MODELS = ['fable', 'opus', 'sonnet', 'haiku'] as const;
 export const EFFORTS = ['low', 'medium', 'high', 'xhigh', 'max'] as const;
 export const STATES = ['OPEN', 'IN FLIGHT', 'LANDED', 'KILLED', 'BLOCKED'] as const;
@@ -55,7 +58,13 @@ export const PROPOSED_MARK = /proposed[\s,]*(?:[—–-]\s*)?pending\s+(?:⬡\s*
 
 export type Mantle = typeof MANTLES[number];
 export type State = typeof STATES[number];
-export type Artifact = 'board' | 'ledger' | 'decisions' | 'issues' | 'kickoff';
+export type Artifact = 'board' | 'ledger' | 'decisions' | 'issues' | 'kickoff' | 'prose';
+/**
+ * A form defect is a failure — the doc is lying. A `warn` is the vocabulary arm's one softer
+ * verdict, and it exists because the standard asks for exactly one (§7's id namespace: a bare
+ * `D‹n›` outside the canon register "is a lint warning"). Warnings never move the exit code.
+ */
+export type Severity = 'fail' | 'warn';
 
 export const isMantle = (s: string): s is Mantle => (MANTLES as readonly string[]).includes(s);
 export const isTier = (s: string) => TIERS.includes(s);
@@ -69,10 +78,11 @@ export type Fail = {
 	excerpt: string;
 	file: string;
 	line: number;
+	severity: Severity;
 };
 
-export const fail = (artifact: Artifact, code: string, reason: string, excerpt: string, line: number): Fail =>
-	({ artifact, code, reason, excerpt, file: '', line });
+export const fail = (artifact: Artifact, code: string, reason: string, excerpt: string, line: number, severity: Severity = 'fail'): Fail =>
+	({ artifact, code, reason, excerpt, file: '', line, severity });
 
 // ---------- text primitives (harvested verbatim from the P3 probes) ----------
 

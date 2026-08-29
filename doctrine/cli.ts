@@ -15,10 +15,14 @@ import { diff, migrate, roundTrip, write } from './src/migrate';
 
 const USAGE = `doctrine — the reference reader for the work doctrine (canon/work/DOCTRINE.md)
 
-  doctrine lint [--live] [--verbose] [--json] [--guard <git-ref>] <path…>
+  doctrine lint [--live] [--vocab] [--verbose] [--json] [--guard <git-ref>] <path…>
       Walk every building under <path…> and report each failure class with file:line and
       the verbatim offending excerpt. Exits 1 if anything failed.
       --live         only the surfaces read today: boards, ledger tails, open work docs' kickoffs
+      --vocab        also lint SPEECH on law surfaces (C26): the standard's graveyard (§9), its
+                     spelling lexicon and pinned formulas (§8), its id namespace (§7). History
+                     and voice are fenced by construction. Off by default — the form arms are
+                     the doc's honesty; the vocabulary arm is the city's respell backlog.
       --verbose      every excerpt, not the first three per class
       --json         the whole report as JSON
       --guard <ref>  also lint the same paths at <ref> (one git repo) and fail loudly on any
@@ -49,7 +53,7 @@ if (!cmd || flag('--help') || flag('-h')) { console.log(USAGE); process.exit(cmd
 if (cmd === 'lint') {
 	if (!paths.length) die('doctrine lint: give me at least one path to walk.');
 	for (const p of paths) if (!existsSync(p)) die(`doctrine lint: ${p} does not exist.`);
-	const report = lint(paths, { live: flag('--live') });
+	const report = lint(paths, { live: flag('--live'), vocab: flag('--vocab') });
 	if (flag('--json')) console.log(JSON.stringify({ totals: report.totals, fails: report.fails }, null, 2));
 	else console.log(render(report, { verbose: flag('--verbose') }));
 
@@ -63,7 +67,7 @@ if (cmd === 'lint') {
 		try {
 			execSync(`git archive ${guardRef} | tar -x -C ${JSON.stringify(tmp)}`, { cwd: root, shell: '/bin/sh' });
 			const refPaths = paths.map(p => join(tmp, relative(root, resolve(p)))).filter(existsSync);
-			const ref = lint(refPaths, { live: flag('--live') });
+			const ref = lint(refPaths, { live: flag('--live'), vocab: flag('--vocab') });
 			const lost = guardRegressions(ref.totals, report.totals);
 			if (lost.length) {
 				console.error(`\n!! GUARD (${guardRef}): entity counts DECREASED — silent damage until proven deliberate:`);
@@ -74,7 +78,8 @@ if (cmd === 'lint') {
 			console.log(`\nguard ok — no entity total decreased vs ${guardRef}`);
 		} finally { rmSync(tmp, { recursive: true, force: true }); }
 	}
-	process.exit(report.fails.length ? 1 : 0);
+	// Warnings are reported, never enforced (§7's own word) — only failures move the exit code.
+	process.exit(report.fails.some(f => f.severity === 'fail') ? 1 : 0);
 }
 
 if (cmd === 'parse') {

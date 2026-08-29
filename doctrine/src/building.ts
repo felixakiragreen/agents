@@ -29,6 +29,10 @@ export const LIMITS = { files: 40_000, bytes: 8 << 20, depth: 24 } as const;
 // three stay lintable when named as an explicit root — the skip is on descent only.
 const SKIP_DIRS = new Set(['node_modules', 'dist', 'build', 'target', 'vendor', 'coverage', '.venv', '__pycache__', '.next', '.cache', 'lab', 'fixtures', 'templates']);
 const MASTER_DOCS = ['MAP.md', 'GENESIS.md', 'README.md'];
+// C25's live list holds surfaces that staff nobody and so are no artifact: a building's master
+// doc and its CLAUDE.md. They carry no board to parse, but they are law surfaces, so the
+// vocabulary arm reads them — and only at a building's own anchor, never every README in a repo.
+const PROSE_DOCS = [...MASTER_DOCS, 'CLAUDE.md'];
 const WORKTREES = join('.claude', 'worktrees');
 
 export type Board = { heading: string; file: string; line: number; rows: BoardRow[] };
@@ -48,7 +52,7 @@ export type Building = {
 	decisionQueue: Decision[];
 	issues: Issue[];
 	kickoffs: (Kickoff & { doc: string })[];
-	files: { boards: string[]; ledger: string | null; decisions: string | null; issues: string | null; workDocs: string[] };
+	files: { boards: string[]; ledger: string | null; decisions: string | null; issues: string | null; workDocs: string[]; prose: string[] };
 	fails: Fail[];
 };
 
@@ -67,7 +71,7 @@ export const staffsSessions = (md: string) =>
 	/^\s*\|.*\bStaffing\b.*\|\s*$/m.test(md)
 	&& tables(md).some(t => isBoardHeader(t.header) || t.header.some(h => /^staffing$/i.test(strip(h))));
 
-type FoundFile = { path: string; dir: string; kind: 'ledger' | 'decisions' | 'issues' | 'board' | 'workdoc' };
+type FoundFile = { path: string; dir: string; kind: 'ledger' | 'decisions' | 'issues' | 'board' | 'workdoc' | 'prose' };
 
 /** `<repo>/.claude/worktrees/<branch>/<rest>` — the branch checkout's coordinates, or null. */
 function worktreePath(p: string): { repo: string; rest: string } | null {
@@ -143,6 +147,7 @@ function walk(root: string, out: FoundFile[], seen: Set<string>, depth = 0): voi
 			: name === 'ISSUES.md' ? 'issues'
 			: staffsSessions(read(p)) ? 'board'
 			: inPlans ? 'workdoc'
+			: PROSE_DOCS.includes(name) ? 'prose'
 			: null;
 		if (kind) out.push({ path: p, dir: root, kind });
 	}
@@ -227,6 +232,9 @@ function assemble(path: string, files: FoundFile[]): Building {
 			decisions: pick('decisions')[0] ?? master ?? null,
 			issues: pick('issues')[0] ?? null,
 			workDocs: [...pick('workdoc'), ...boards.filter(f => /(?:^|\/)(plans|spikes)\//.test(f))].sort(),
+			// A building's own master doc and CLAUDE.md, and only its own: the anchor's directory,
+			// never a nested package's README.
+			prose: pick('prose').filter(f => dirname(f) === path),
 		},
 	});
 }
