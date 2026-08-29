@@ -90,6 +90,18 @@ are not comparable to rounds 1–3 and are not meant to be).
 opus-medium) · stack × sonnet-medium (staffed sonnet-medium) · stack ×
 fable-high (staffed fable-high; carries the depth/critique question).
 
+## Round 5 (2026-08-29) — the Architect stack probe
+
+**The critical mantle, Felix's word — most effort here.** Stack: door v8 +
+[architect v3](architect-v3.md) (the ruling law + explicit review-everything)
++ [the beacon fixture](beacon-fixture.md) (mini building seeded with an
+under-evidenced landing, a citable naming delegation, a no-ancestor tool
+fork, a live amendment temptation, a contended lay, a spend fork). Seven
+scenarios; intended answers in the fixture. **Fleet (3):** fable-high ×2
+(real staffing, n=2; one carries the depth question — including whether the
+ruling law resolves the maximize-vs-escalate tension or papers over it) +
+opus-medium ×1 (text-robustness arm below real staffing).
+
 **Conditions (measurements carry their conditions):** probes are dispatched from
 this repo, so every arm — control included — auto-loads the global CLAUDE.md and
 this repo's CLAUDE.md, both of which already describe the Guild. This matches
