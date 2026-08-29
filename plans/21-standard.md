@@ -94,8 +94,10 @@ replaces.
 - **baton** · noun · the handoff a session ends with, addressed to one holder. It
   hands an **action**; the shapes are **single / batch / fork**. · *instead of:*
   move (both the umbrella and the shape — the old law's self-reference dissolves).
-- **summons**, **wear**, **kickoff**, **relay**, **tend**, **eject**, **refire**,
-  **stamp** · unchanged.
+- **summons**, **wear**, **kickoff** · unchanged.
+- **relay, tend, eject, stamp** · demoted to tool vocabulary — they live in the
+  rig's and engine's own docs, not the Guild's glossary; refire → **reignite**. The
+  verbatim law survives above them as a pinned formula ("A paraphrase is a defect").
 
 ## 4. The record and its verbs
 
@@ -175,8 +177,9 @@ replaces.
   `Done when:`.
 - **`→`** hands off — direction, sequence, delivery: `Baton — ⬡ → Ignite the
   distillation session.`
-- **`✓ Felix`** the countersign mark, unchanged. **`⬡`** is Felix's mondokoro — his
-  mark; further sigil assignments (⬢ ⎔ ⬣) parked.
+- **`⬡✓`** the blessing mark — identity then act, the hexagon signed. · *instead of:*
+  `✓ Felix` (historical marks stand until the deferred migration). **`⬡`** alone is
+  Felix's mondokoro; further sigil assignments (⬢ ⎔ ⬣) deferred.
 - `·` separates co-equal fields in heads · `§` cites a section · `×3` multiplies ·
   `⟨slots⟩` mark template blanks · `~~strike~~` + dated note retires text · bold
   marks a minting.
@@ -185,6 +188,13 @@ replaces.
   (distillation candidates). Campaign-scoped decisions write **‹prefix›-D‹n›**; every
   campaign declares its letter prefix at founding; bare D# outside the canon register
   is a lint warning; one letter never serves two kinds in one building.
+
+- **building** · noun · one repo — one structure in the city; ruled into daily
+  speech beside campaign. Boards outside their own building are named ("the snappy
+  board") — bare "board" only at home (⬡ confirm).
+- **waggle** · verb · "waggle me X" → the shortest possible plain-speech explanation,
+  one sentence per thing — that's all it ever wanted to be. · *instead of:* the
+  four-slot Problem/Move/Stakes/Dig anatomy (killed; D51's contract molts).
 
 ## 8. Language law
 
