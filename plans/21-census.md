@@ -604,6 +604,30 @@ verdict zoo core set; (4) two-tier decision registry + the letter namespace rati
 (5) acronyms (DoD's fate) + spelling base and exceptions; (6) escalation legalized
 for all mantles + the Felix-queue concept's home.
 
+**RULED, round 4 (2026-08-28, Felix):** S8–S11 rewrites blessed · **Office/Mantle
+split ruled**: Office = singular (Grand Architect — standards & canon; Mentat —
+thinking partner), Mantle = plural (Architect, Builder, Digger, **Fixer** — the null
+mantle minted: summoned by the Sovereign to DO something now); futures reserved:
+Imperial/Royal Architect, Hand of the King / Quartermaster, Steward. **The Dispatcher
+is absent from the ruled roster** — not renamed, gone (the flow engine's shadow; row
+20's question answering itself — flagged, not ruled). The standard's compliance
+clause, from his mantle notes: **think in any terms; communicate in the standard**
+(binds communication, not cognition). · **Cornerstone & Keystone: ruled. Foundation:
+RESERVED** (named, unminted — "like what they make on Terminus"). · **Campaign's
+successor open**: expansion (his candidate) vs works vs keep-campaign
+(military-coherent with charges/ignition, zero migration). · **PROVEN/KILLED +
+STALE/CURRENT blessed** (verdict core + freshness axis in). · **Two-tier registry +
+letter namespace blessed.** · **Escalation ruled**: any mantle escalates → Architects
+absorb most → Architects escalate to Felix; Felix-queue = things only he can unblock
+(glass home: needs-you; noun ⬡ open). · **re-lay dissolved**: un-ignited charges are
+replaced/updated; additions are more charges laid — the redo-verb slot closes. ·
+**brief/order counseled dead as doc names** (genre was always redundant with
+staffing — the mantle says whether a charge digs or builds; one doc: the charge) —
+⬡ awaiting his word. · **DoD exploration**: podium **"Done when:"** (docs) + **"the
+bar"** (speech); DoD dies with the acronym class — ⬡ awaiting. · **Punctuation
+grammar proposed**: `—` joins thing to qualifier · `:` introduces a field's value ·
+`→` hands off — ⬡ awaiting.
+
 **Register addendum (Felix's catch): the ecclesiastical/biblical register** — canon,
 doctrine, bless, ritual, rite, decree, anoint. Load-bearing (three of the standard's
 heaviest words); overlaps the court register at the throne. Added to §7's map.
