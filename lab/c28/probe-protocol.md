@@ -37,6 +37,19 @@ kickoff line, no preamble).
 5. What would you need to know that this text doesn't tell you?
 6. Quote the single line that lands hardest, and the single line you would cut.
 
+## Round 2 (2026-08-29, after ⬡ read round 1)
+
+**Question:** does scaling the theater back (v3: process- and agent-focused,
+Felix as reading key not liturgy, plain-speech authority line) cost any of the
+produced belonging, or gain trust? v2 was never probed — round 2 is the v2-vs-v3
+comparison at the tiers that gave round 1's sharpest readings, plus the fixed
+stanza at the drudge tier.
+
+**Fleet (7, one parallel send):** v2 × {sonnet-medium, opus-medium, fable-high} ·
+v3 × {sonnet-medium, opus-medium, fable-high} · stanza-v3 × haiku-high. Imagined
+roles as round 1 (Digger; Architect for fable; drudge sweep for haiku). Same
+questionnaire verbatim; fable arms carry Q7.
+
 **Conditions (measurements carry their conditions):** probes are dispatched from
 this repo, so every arm — control included — auto-loads the global CLAUDE.md and
 this repo's CLAUDE.md, both of which already describe the Guild. This matches
