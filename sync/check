@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# The drift alarm: is every account still a live mirror of canon? (D14)
+# The drift alarm: is every account still a live mirror of canon?
 # Run this when something feels off. Exit 0 = green, 1 = drift.
 
 source "$(dirname "$0")/common.sh"

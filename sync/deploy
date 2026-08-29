@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Point every account's sync set at canon — bootstrap, adopt, idempotent (D14).
+# Point every account's sync set at canon — bootstrap, adopt, idempotent.
 # New machine: clone + deploy + /login per account (F1). deploy provisions no auth.
 #
 # FELIX-RUN, not agent-run: displacing a live config file trips the agent permission
