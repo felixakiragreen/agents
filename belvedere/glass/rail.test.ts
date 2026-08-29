@@ -235,7 +235,7 @@ describe("a Felix-holder baton is his card", () => {
 	});
 	const card = (b: Building) => cardHtml(cards([b], rig, ACCOUNTS[0]!).find(c => c.kind === 'countersign')!, true, ACCOUNTS);
 
-	test('a pending countersign card offers the button, and nothing that fires', () => {
+	test('a pending blessing card offers the button, and nothing that ignites', () => {
 		const b: Building = { ...queued({}), issues: [] };
 		const html = card(b);
 		expect(html).toContain('pending blessing');

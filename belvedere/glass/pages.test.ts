@@ -54,7 +54,7 @@ describe('attentionOf — what a building wants, before how fresh it is', () => 
 		expect(attentionOf(building(), 3)).toBe(0);
 	});
 
-	test("a Felix-gate, a pending countersign, a BLOCKED row and his baton all rank as his pen", () => {
+	test("a ⬡-gate, a pending blessing, a BLOCKED charge and his baton all rank as his pen", () => {
 		expect(attentionOf(building({ board: [board([row({ hexGate: true })])] }), 0)).toBe(1);
 		expect(attentionOf(building({ board: [board([row({ gates: ['visual pass'] })])] }), 0)).toBe(1);
 		expect(attentionOf(building({ board: [board([row({ state: 'BLOCKED' })])] }), 0)).toBe(1);

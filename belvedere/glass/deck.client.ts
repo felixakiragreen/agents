@@ -445,7 +445,7 @@ function drawQueue(host: HTMLElement): void {
 	const q = snapshot.queue;
 	host.append(el('p', 'label', q.length
 		? `${q.length} thing${q.length === 1 ? '' : 's'} need you — attention first, recency inside it`
-		: 'nothing needs you'));
+		: 'the ⬡-queue is empty'));
 	if (!q.length) {
 		host.append(el('p', 'quiet prose',
 			'No blocked session, no live ⬡-gate, no pending blessing, no unruled escalation anywhere on the register. Every count on this deck is a floor (the census horizon) — the City says how far back it can see.'));
