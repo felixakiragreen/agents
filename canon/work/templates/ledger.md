@@ -5,6 +5,6 @@ reboot a cold session.
 
 ---
 
-**⟨date⟩ · ⟨mantle⟩ · ⟨tier⟩ (⟨row⟩)** — ⟨what changed: outcomes + pointers⟩. Decided:
+**⟨date⟩ · ⟨mantle⟩ · ⟨tier⟩ (⟨charge⟩)** — ⟨what changed: outcomes + pointers⟩. Decided:
 ⟨D-ids, or "nothing"⟩. Next: ⟨the handoff — the summons fenced when it lives nowhere
-else, or `fire ⟨row-ids⟩` when the work docs carry the fences (D63)⟩.
+else, or `ignite ⟨charge-ids⟩` when the charge docs carry the fences (D63)⟩.

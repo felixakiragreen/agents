@@ -20,15 +20,16 @@ dated amendment notes, never silent rewrites:⟩
 
 | ID | Work | Depends on | Staffing | Status |
 |---|---|---|---|---|
-| 01 | ⟨question or mission, one line⟩ | — | ⟨mantle · tier⟩ | OPEN |
+| C1 | ⟨question or mission, one line⟩ | — | ⟨mantle · tier⟩ | OPEN — laid ⟨date⟩ |
 
 Statuses: OPEN → IN FLIGHT → LANDED / KILLED; BLOCKED transient, PENDING annotates
-external waits — law in `~/code/agents/canon/work/DOCTRINE.md` §4.
+external waits, DEFERRED annotates deliberate shelving — law in
+`~/code/agents/canon/work/DOCTRINE.md` §4.
 
-**Batch ⟨n⟩ (cut ⟨date⟩):** ⟨rows; parallel or sequential; who tends; concurrency plan
-when rows share live resources — ceiling, waves, gauge⟩.
+**Batch ⟨n⟩ (laid ⟨date⟩):** ⟨charges; the shape; who tends; concurrency plan when
+charges share live resources — ceiling, shape, gauge⟩.
 
-**Parked (tracked, not lost):**
+**Deferred (tracked, not lost):**
 
 - ⟨item + pointer⟩
 
@@ -37,6 +38,6 @@ when rows share live resources — ceiling, waves, gauge⟩.
 - ⟨Venues; shared and live resources and their rules; scratch-code home (`lab/<id>/`);
   branch rules; heavy artifacts that stay out of git.⟩
 
-## 5. Definition of done — v1
+## 5. Done when — v1
 
 1. ⟨Measurable, checkable statements. When all are true, v1 is done and says so.⟩
