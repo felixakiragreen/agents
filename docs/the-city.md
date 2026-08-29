@@ -40,7 +40,7 @@ hives' work looks like one city and not three.
 | The reserved groundbreaking | the substrate (D39) — the metro: city infrastructure, its cornerstone laid by the standards office at the sovereign's call |
 | Two empty rooms uptown | the Royal and Imperial thrones (D39) — kept empty until the city can give them eyes |
 
-Two of these rows the building trade already practices for real — the site diary and
+Two of these entries the building trade already practices for real — the site diary and
 the change-order register — which is how you know the frame is load-bearing and not
 wallpaper.
 

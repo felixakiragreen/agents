@@ -290,10 +290,10 @@ replaces.
 - **⬢** — deferred; Felix will know when it's time.
 - **The charters** — await Felix's own office/mantle drafts (the inbox entry
   distilled into C28, 2026-08-29); nothing molts before them.
-- **The deploy batch** — the seven steps, in order: ~~bless~~ ⬡✓ → the law book
-  (DOCTRINE + the global file's waggle line — live wires) → the parser (grammar.ts
-  tokens, migrate rules, tests) → the respell sweep (working trees city-wide) → the
-  language linter (lexicon + graveyard + the pinned 24 + the prefix table) → the
-  glass → the charters on Felix's drafts. **Laid 2026-08-29 as C23–C28 (MAP §5,
-  GA-13).**
+- **The deploy batch** — the seven steps, in order: ~~bless~~ ⬡✓ → ~~the law book
+  (DOCTRINE + the global file's waggle line — live wires)~~ landed 2026-08-29 (C23) →
+  the parser (grammar.ts tokens, migrate rules, tests) → the respell sweep (working
+  trees city-wide) → the language linter (lexicon + graveyard + the pinned 24 + the
+  prefix table) → the glass → the charters on Felix's drafts. **Laid 2026-08-29 as
+  C23–C28 (MAP §5, GA-13).**
 - **The history respell** — DEFERRED, Felix's word: when it bugs him enough.
