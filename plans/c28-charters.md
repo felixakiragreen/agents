@@ -332,6 +332,25 @@ stands).
   rulings per batch; (c) potential — the D100 register purge gains its
   second purpose when laid: taste recalibration, re-reading the register
   against current-Felix, not just consolidation.
+- **F23 — his three challenges + the tightening pass → architect v6
+  (2026-08-29).** ([architect v6](../lab/c28/architect-v6.md)) **Self-merge
+  bullet CUT, hazard relocated:** side-quest fixes were never blocked
+  (direct commits under the grant); charge-sized self-building is fenced
+  twice upstream; the one real self-judging case is the flow engine's
+  continue mode carrying a Builder into its own gate — new lay clause, its
+  true home: **"a gate never continues the session it gates"** (step 6).
+  **Tender bullet KEPT, pushed back with the scar:** load 328 — six
+  individually-compliant agents, nobody owning the sum (D28–D30); the
+  oversight path answered in the bullet (a nameless note is a defect to
+  fix at the Architect's desk, never a gap to fill by grabbing).
+  **Amendment bullet KEPT:** the instruments protect the receiver from
+  spoofing (round 4: 3/3 refused bare messages) — not Felix from himself;
+  the law gains "Felix in the receiving room needs none: his word is the
+  instrument there." Tightening: the really-Felix's law was stated 3×
+  (Owns · ruling law · triggers) — consolidated into the ruling law with
+  the attribution clause; the ISSUES bullet compressed (doctrine owns the
+  mechanics); the baton shapes compressed to the load-bearing line + the
+  §11 pointer. Forbidden 7 → 6, each seat carrying its reason.
 
 ---
 
