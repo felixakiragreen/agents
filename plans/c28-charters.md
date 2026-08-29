@@ -152,6 +152,20 @@ stands).
   v3-fable's differential purge partially declined: the compliance clause and
   pointer list stay (each cited as a delta by working arms), the restated-law
   remainder cut.
+- **F13 — Felix's ruthless pass → v5 (2026-08-29, his rulings).**
+  ([door-v5](../lab/c28/door-v5.md)) Ruled: the account count out — **the door
+  carries invariants, not inventory** (counts that drift live in MAP); the
+  unnamed-society line dead; the "two minutes" claim dead; "Sovereign" out of
+  the door — the door glosses no standard word (the Standard is the glossary;
+  one function, one home), the title keeps its standard entry and law-doc
+  role-work; the Understandings named onto the orientation list (D38's lore,
+  mechanism-grounded: "reading is the inheritance"). Penholder calls pending
+  his eyes: ⬡/⬡✓ key kept in the full door (a symbol, unlike a word, cannot be
+  inferred from context; both appear in board cells and DECISIONS) and dropped
+  from the stanza (probe 16's friction vote). Delivery split settled: the door
+  is read by path by mantled sessions; the stanza rides inline in unmantled
+  dispatched kickoffs; both live in one file (GUILD.md, stanza as its closing
+  section) — one inode, two renderings, the coda-core precedent.
 
 ---
 
