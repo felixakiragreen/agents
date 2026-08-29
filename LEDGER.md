@@ -1856,6 +1856,28 @@ arm (whole entries age out past six to a live sibling file). LOG.md 1,365 → 41
 lines, entries 1–13 to `log-archive.md` byte-verbatim (diff-proven, 2eb7d3f); the GA
 head computed (v1), the Shelf harvested ×18 + ×4 (SAPHO); both charter rituals
 amended, touched files stripped of dead numbers — the ancestry test ran: the books'
-issue served better, nothing minted. Decided: nothing minted — the desk rulings
-above; the cut and the book system blessed whole. Next: Baton — ⬡ → batch — bless
-agents-flow-1 in the Works · run C27's visual pass (relaunch the deck).
+issue served better, nothing minted. *Continued, same session — the flow-1 false
+start:* ⬡ blessed the flow; the engine fired pre-door fences (every flow-1 kickoff
+predated C33 by hours; c32's pointed into the purged register) and ⬡ stopped it.
+Repaired at 479347f: seven un-ignited kickoffs re-cut to the door grammar (flow-1's
+five + 22 + 11), c32's Inputs re-pointed at DOCTRINE, the charge template's kickoff
+slot fixed (pre-door — every future charge would have repeated tonight),
+`plans/CODA.md` re-instantiated (worktree + bulletin sentences return; flow-1 is
+parallel), the bulletin re-opened, C31 grown to four items (the kickoff lint arm).
+The engine's own gap confirmed with evidence — no coda concept, `glass/engine.ts:503`
+fires the kickoff bytes alone against DOCTRINE §5's ignition = kickoff + coda — and
+filed with three more asks at `belvedere/ISSUES.md`; the stale engine worktree
+(`bv/c29-summon-harness`, carrying pre-repair fences) fast-forwarded to master.
+SAPHO's head respelled on ⬡'s word (7a1da16). Decided: nothing minted — the desk
+rulings above; the cut, the book system, and the repair blessed whole. Next:
+Baton — ⬡ → summon the Belvedere Architect (fence below) — the engine's coda gap
+gates the flow-1 re-bless; ordered behind it: ⬡ re-blesses agents-flow-1 in the
+Works · C27's visual pass rides the same deck visit.
+
+```
+You are an Architect at fable-high.
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/architect.md,
+then read ~/code/agents/belvedere/README.md and sweep belvedere/ISSUES.md —
+the flow-1 entry first: the engine's coda gap gates the flow-1 re-bless.
+```
