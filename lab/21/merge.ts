@@ -26,6 +26,7 @@ for (const f of readers) {
 		try {
 			const o = JSON.parse(line);
 			if (o.coverage) cov.push({ ...o, reader });
+			else if (o.term === 'coverage' && o.file) cov.push({ coverage: o.file, observations: o.observations ?? 0, reader });
 			else if (o.term && o.quote != null) obs.push({ ...o, reader });
 			else badLines.push(`${reader}:${i + 1} — neither obs nor coverage: ${line.slice(0, 80)}`);
 		} catch { badLines.push(`${reader}:${i + 1} — invalid JSON: ${line.slice(0, 80)}`); }
@@ -40,7 +41,11 @@ const missing = [...assigned].filter(p => !covered.has(p));
 const strays = [...covered].filter(p => !assigned.has(p));
 
 // ---------- lexicon ----------
-const keyOf = (t: string) => (/^[A-Z0-9 ✓×§·—-]+$/.test(t.trim()) ? t.trim() : t.trim().toLowerCase());
+const keyOf = (t: string) => {
+	const s = t.trim();
+	if (/^[A-Z0-9 ✓×§·—-]+$/.test(s)) return s;
+	return s.toLowerCase().replace(/^the /, '');
+};
 type Entry = {
 	term: string; kinds: string[]; forms: string[];
 	senses: { gloss: string; kind: string; file: string; line: number; quote: string; reader: string; flags: string[] }[];

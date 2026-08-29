@@ -200,7 +200,17 @@ The continuation, in order:
    `ortho-report.md` and an eyeball of `residue.json` into it.
 5. Phase 4: the choosing, with Felix. Nothing is standardized before it.
 
-Reader fire template (B-territories; for A-territories drop the dialect sentence):
+**Extraction complete (2026-08-28, same sitting, resumed on Felix's "fire" at his 30%
+gauge reading):** all 38 territories landed — 7 timeout casualties, every one re-flown
+to a clean landing. Merge green: **5,544 observations · 3,066 distinct terms · 441/441
+files covered · 0 bad lines** · 294 collision-flagged · 1,144 minting sites · 905
+dialect · 234 lore · 52 felix-coined. `lexicon.json` + `residue.json` committed.
+Steps 1–3 above are done; Phase 3 (the concept pass) is next. Concordance counts on
+multi-form entries are raw evidence, not verdicts — generic forms inflate some
+(e.g. "row" includes product senses); the concept pass curates.
+
+Reader fire template (retained for the record; B-territories — for A-territories drop
+the dialect sentence):
 
 ```
 Guild vocabulary census reader ⟨ID⟩ (row 21, agents repo; dialect territory: ⟨cluster
