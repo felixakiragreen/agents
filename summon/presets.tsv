@@ -1,4 +1,6 @@
 #key	mantle	model	effort	color
+# color is the REAL colour — what `/color` fires; the panel swatch renders it through
+# the S0 ANSI slot map in summon.zsh (blue⇢cyan · orange⇢blue · purple⇢magenta).
 g	grand-architect	fable	max	green
 a	architect	fable	high	green
 A	architect	fable	max	green
@@ -7,6 +9,7 @@ A	architect	fable	max	green
 # Trued 2026-08-07 from the log: builder launches run opus-high (five bare opus-high
 # fires, briefs 08/09 both staffed Builder · opus-high). Digger stays ejected-for
 # until the log argues otherwise.
-b	builder	opus	high	cyan
-D	digger	opus	high	blue
+b	builder	opus	high	blue
+D	digger	opus	high	orange
 e	mentat	fable	max	red
+F	fixer	opus	high	yellow

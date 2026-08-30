@@ -70,16 +70,16 @@ expect "SHIM"
 mark 9
 
 # T9 — 3 keys: a fresh preset on the sticky account
-send "\ad\r"
+send "\aF\r"
 expect "SHIM"
 mark 10
 
-# T10 — 3 keys: h is [h]igh, unambiguously — the model stays sonnet
-send "\ah\r"
+# T10 — 3 keys: m is [m]edium — the model stays opus
+send "\am\r"
 expect "SHIM"
 mark 11
 
-# T11 — 3 keys: k is hai[k]u — the effort stays high
+# T11 — 3 keys: k is hai[k]u — the effort stays medium
 send "\ak\r"
 expect "SHIM"
 mark 12

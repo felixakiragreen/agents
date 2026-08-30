@@ -47,14 +47,19 @@ typeset -ga _summon_efforts=(l:low m:medium h:high x:xhigh M:max)
 # These are zle highlight styles, not escapes: zle renders a control character visibly, so
 # an ANSI escape in a panel string reaches the screen as a literal `^[[90m` (F1). `fg=8`
 # is bright black — zle's `fg=90` would mean palette index 90, a purple — and zle emits it
-# as `\e[90m`, so the wire bytes are exactly what D36 specified.
+# via terminfo as `\e[90m` or `\e[38;5;8m`, both the bright-black slot D36 specified.
 typeset -g _summon_grey='fg=8' _summon_bold='bold'
 # `usage` is grey, not a colour of its own: the other four labels name key namespaces, and
 # grey is already the panel's word for "nothing here is selectable" (v1.2)
-typeset -gA _summon_label_color=(mantle fg=green model fg=yellow effort fg=208 account fg=red
+typeset -gA _summon_label_color=(mantle fg=green model fg=yellow effort fg=blue account fg=red
 	usage fg=8)
-typeset -gA _summon_swatch=(green fg=green pink fg=213 red fg=red blue fg=blue
-	yellow fg=yellow magenta fg=magenta cyan fg=cyan orange fg=208 grey fg=8 gray fg=8)
+# presets.tsv speaks REAL colours and `/color` gets the word verbatim; only this map knows
+# ANSI. It is Felix's S0 slot table: ANSI-16 names no purple or orange, so his terminal
+# repaints three slots — cyan wears blue, blue wears orange, magenta wears purple — and the
+# swatch renders through those slots so it shows the colour the word means. A word not here
+# renders in the default foreground.
+typeset -gA _summon_swatch=(red fg=red orange fg=blue yellow fg=yellow green fg=green
+	blue fg=cyan purple fg=magenta grey fg=8)
 
 # the selection: four sticky fields, and everything _summon_resolve derives from them
 typeset -g _summon_mantle_key _summon_model _summon_effort _summon_account_key

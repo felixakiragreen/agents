@@ -27,7 +27,7 @@ will fire.
 
 ```
 summon
-mantle   ● [g]rand-architect  ● [a]rchitect·high ✓  ● [A]rchitect·max  ● [d]ispatcher  ● [b]uilder  [n]one
+mantle   ● [g]rand-architect  ● [a]rchitect·high ✓  ● [A]rchitect·max  ● [b]uilder  ● [D]igger  ● m[e]ntat  ● [F]ixer  [n]one
 model    [f]able ✓  [o]pus  [s]onnet  hai[k]u
 effort   [l]ow  [m]edium  [h]igh ✓  [x]high  [M]ax
 account  [0] personal  [1] thg-fgreen ✓  [2] thg-doorbell
@@ -37,8 +37,9 @@ account  [0] personal  [1] thg-fgreen ✓  [2] thg-doorbell
 
 Brackets and unselected items are grey; the selected item is bold and carries the ✓
 inline; row labels are green · yellow · orange · red; each mantle's ● is its session
-colour. The panel measures `$COLUMNS` on every render and wraps at item boundaries only,
-never mid-item — clean down to 60 columns, where a mantle appears with two presets on it.
+colour, rendered through the S0 slot map (see Data). The panel measures `$COLUMNS` on
+every render and wraps at item boundaries only, never mid-item — clean down to 60
+columns, where a mantle appears with two presets on it.
 
 **Enter, and only Enter, fires.** Every other key selects; nothing launches by
 side-effect.
@@ -221,8 +222,15 @@ Derived, never stored: `-n` is the name-stamp; the summons is
 `You are {a|an|the} {Mantle} at {model}-{effort}. Wear ~/code/agents/canon/mantles/{mantle}.md.`
 — with the tier you actually selected, overrides included. A mantle carried by two presets
 shows the effort in its panel label (`●[a]rchitect·high`) so the row never reads as a
-duplicate. A colour name the swatch map doesn't know renders in the default foreground;
-`claude` still gets the name verbatim.
+duplicate.
+
+**Colours are real; only the swatch speaks ANSI.** `presets.tsv` names the colour the
+mantle actually wears — `blue`, `orange`, `yellow` — and `claude` gets that word verbatim
+in `/color`. The ● swatch is the one place the word must become ANSI-16, which names no
+purple or orange, so Felix's terminal theme (S0) repaints three slots — cyan wears blue,
+blue wears orange, magenta wears purple — and the swatch map in `summon.zsh` renders
+through those slots. A colour name the map doesn't know renders in the default foreground;
+`claude` still gets it verbatim.
 
 ## The kickoff-paste ritual
 

@@ -193,7 +193,7 @@ check 'even a refusal names itself — the stamp needs neither tier nor account'
 print -r -- '--- palette (D36) — the spans, each shown over the text it covers ----'
 check 'mantle label green'        'fg=green ⟨mantle   ⟩'  $P200
 check 'model label yellow'        'fg=yellow ⟨model    ⟩' $P200
-check 'effort label orange (208)' 'fg=208 ⟨effort   ⟩'    $P200
+check 'effort label blue — the slot S0 wears orange' 'fg=blue ⟨effort   ⟩' $P200
 check 'account label red'         'fg=red ⟨account  ⟩'    $P200
 count 'every opening bracket grey — one per item' $(items_expected) 'fg=8 ⟨[⟩' $P200
 count 'every closing bracket too'                 $(items_expected) 'fg=8 ⟨]⟩' $P200
@@ -203,22 +203,25 @@ check 'selected item bold, and the ✓ is inline on the item' \
 	'bold ⟨rchitect·high⟩'  $P200
 check 'the inline ✓ is part of the selected item, not a trailing arrow' \
 	'bold ⟨ ✓⟩' $P200
-check 'preset ● swatch in its session colour — green' 'fg=green ⟨●⟩'  $P200
-check 'preset ● swatch in its session colour — pink'  'fg=213 ⟨●⟩'    $P200
+check 'preset ● swatch in its session colour — green'              'fg=green ⟨●⟩'  $P200
+check 'builder wears blue, rendered through S0 as the cyan slot'   'fg=cyan ⟨●⟩'   $P200
+check 'digger wears orange, rendered through S0 as the blue slot'  'fg=blue ⟨●⟩'   $P200
+check 'fixer wears yellow — an identity slot'                      'fg=yellow ⟨●⟩' $P200
 # the styles above are zle's names for exactly the codes D36 named, so the proof that the
-# palette survives to the terminal is the wire itself: grey 90, bold 1, orange 38;5;208
-raw 'grey reaches the terminal as \e[90m (live pty)'  $'\e[90m' $TRANSCRIPT
+# palette survives to the terminal is the wire itself: grey (fg=8, emitted via terminfo as
+# \e[38;5;8m on this box — the same bright-black slot \e[90m names), bold 1, ANSI blue 34
+raw 'grey reaches the terminal as \e[38;5;8m (live pty)' $'\e[38;5;8m' $TRANSCRIPT
 raw 'bold reaches the terminal as \e[1m (live pty)'   $'\e[1m'  $TRANSCRIPT
-raw 'orange reaches the terminal as \e[38;5;208m'     $'\e[38;5;208m' $TRANSCRIPT
+raw 'the blue slot (S0 orange) reaches the terminal as \e[34m' $'\e[34m' $TRANSCRIPT
 raw 'green reaches the terminal as \e[32m'            $'\e[32m' $TRANSCRIPT
-raw 'the pink swatch reaches the terminal as \e[38;5;213m' $'\e[38;5;213m' $TRANSCRIPT
+raw 'the cyan slot (S0 blue) reaches the terminal as \e[36m'   $'\e[36m' $TRANSCRIPT
 absent 'and no escape reaches the screen as literal ^[[ text' '^[[' $TRANSCRIPT
 
 print -r -- '--- responsive render -----------------------------------------------'
 widest $LAB/out/panel-60-plain.txt 60
 widest $LAB/out/panel-bare-plain.txt 60
 check 'wraps at an item boundary, continuation aligned under the first item' \
-	'         ● [A]rchitect·max  ● [d]ispatcher  ● [b]uilder' $LAB/out/panel-60-plain.txt
+	'         ● [A]rchitect·max  ● [b]uilder  ● [D]igger' $LAB/out/panel-60-plain.txt
 count 'no item is broken across lines: each survives whole' 1 \
 	'● [A]rchitect·max' $LAB/out/panel-60-plain.txt
 line 'the same panel is one row per field at full width' 1 "$(mantle_row a)" $P200
@@ -228,7 +231,7 @@ sed -E $'s/\x1b\\[[0-9;?]*[a-zA-Z]//g' $LAB/out/narrow.txt | tr '\r' '\n' > $LAB
 check 'live 60-column pty: the mantle row wraps where we put the break' \
 	'mantle   ● [g]rand-architect  ● [a]rchitect·high' $LAB/out/narrow-plain.txt
 check 'live 60-column pty: the continuation line is intact and aligned' \
-	'         ● [A]rchitect·max ✓  ● [d]ispatcher  ● [b]uilder' $LAB/out/narrow-plain.txt
+	'         ● [A]rchitect·max ✓  ● [b]uilder  ● [D]igger' $LAB/out/narrow-plain.txt
 
 print -r -- '--- preview footer vs the launch it promised (live pty) --------------'
 # one gesture on the state the drive left behind, so the paint is whole and comparable
@@ -255,13 +258,13 @@ count 'Esc and a second Ctrl-G both close, both discard' 2 'summon: closed — c
 line 'cascade + single-field override: A then k → architect · haiku-max' 1 \
 	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model haiku --effort max -n architect-hive-05 /color green'
 line 'fresh preset on the sticky account (3 keys) — a mantle of its own counts from 01' 1 \
-	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model sonnet --effort medium -n dispatcher-hive-01 /color pink'
-line 'h = [h]igh: the model stays sonnet' 1 \
-	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model sonnet --effort high -n dispatcher-hive-02 /color pink'
-line 'k = hai[k]u: the effort stays high' 1 \
-	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model haiku --effort high -n dispatcher-hive-03 /color pink'
+	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model opus --effort high -n fixer-hive-01 /color yellow'
+line 'm = [m]edium: the model stays opus' 1 \
+	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model opus --effort medium -n fixer-hive-02 /color yellow'
+line 'k = hai[k]u: the effort stays medium' 1 \
+	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model haiku --effort medium -n fixer-hive-03 /color yellow'
 line '[n]one → bare launch: the theater stamp alone, no colour, no prompt' 1 \
-	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model haiku --effort high -n hive-01'
+	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model haiku --effort medium -n hive-01'
 line 'override + account (6 keys) → the architect lineage continues at 06' 1 \
 	'SHIM cfg=/Users/felix/.claude-thg-fgreen args=--model opus --effort max -n architect-hive-06 /color green'
 line 'and the refire after two ejects: 08, because an eject fires and so counts' 1 \
@@ -574,7 +577,7 @@ print -r -- '--- 13-F1: the harness follows presets.tsv, it does not remember it
 F1=$LAB/out/f1-sandbox
 mkdir -p $F1/log
 cp $RIG/summon.zsh $RIG/accounts.tsv $RIG/presets.tsv $F1/
-printf 'w\twarden\tsonnet\tlow\tmagenta\n' >> $F1/presets.tsv
+printf 'w\twarden\tsonnet\tlow\tpurple\n' >> $F1/presets.tsv
 presets_read $F1/presets.tsv $F1/accounts.tsv
 ( cd $THEATER/atelier && zsh -f $LAB/render.zsh $F1 200 a fable high 1 2 ) > $LAB/out/f1-panel.txt
 plain f1-panel.txt
@@ -642,8 +645,21 @@ print -r -- '--- usage: unconfigured ⇒ the panel is v1.1, byte for byte ------
 V11=$LAB/out/v11-sandbox
 mkdir -p $V11
 git -C ${LAB:h:h} show b426166:summon/summon.zsh > $V11/summon.zsh
+# the palette moved with S0 (2026-08-29): transplant today's tables into the baseline —
+# this arm's claim is that unconfigured usage changes nothing, not that the palette froze
+perl -0pi -e 's/effort fg=208/effort fg=blue/;
+	s/typeset -gA _summon_swatch=\(.*?\)\n/typeset -gA _summon_swatch=(red fg=red orange fg=blue yellow fg=yellow green fg=green blue fg=cyan purple fg=magenta grey fg=8)\n/s' \
+	$V11/summon.zsh
 cp $RIG/presets.tsv $RIG/accounts.tsv $V11/
-rows() { sed -E '/^⏎  /d; /^   [^ ]/d' $1 | sed '/^--- cmd/,$d' }	# the footer and the launch out
+# the footer and the launch out; continuations (9-space gutter) rejoined to their row —
+# the swatch space widens every item, so at narrow widths the wrap point itself moves,
+# and the wrap has its own arms above. What must match is the rows' content.
+rows() {
+	sed -E '/^⏎  /d; /^   [^ ]/d' $1 | sed '/^--- cmd/,$d' | awk '
+		/^         / { held = held "  " substr($0, 10); next }
+		{ if (NR > 1) print held; held = $0 }
+		END { print held }'
+}
 typeset -i identical=1
 for w in 200 80 60; do
 	( cd $THEATER/atelier && zsh -f $LAB/render.zsh $V11 $w a fable high 1 2 ) > $LAB/out/v11-$w.txt
@@ -652,7 +668,7 @@ for w in 200 80 60; do
 	cmp -s <(rows $LAB/out/v11-$w.txt) <(rows $LAB/out/v13-$w.txt) || identical=0
 done
 if (( identical )); then
-	print -r -- '  PASS  no log/usage ⇒ every panel row identical to v1.1 at 200, 80 and 60 columns (bar the swatch space)'
+	print -r -- '  PASS  no log/usage ⇒ every panel row identical to v1.1 at 200, 80 and 60 columns (bar the swatch space and the wrap it moves)'
 else
 	print -r -- '  FAIL  the panel rows changed without usage being configured'; (( fails++ ))
 fi
