@@ -5,6 +5,15 @@
 // turn's outcome from that file alone: what the subject did, whether anything
 // was refused, and — the load-bearing one — whether the turn ever finished.
 //
+// **The cursor.** The transcript is one file per *session* with no turn index in
+// it, so a reader that starts at byte 0 answers for whichever turn last wrote to
+// it — on a resumed step, the turn BEFORE the one being asked about (C7 F3).
+// Every read therefore carries a cursor: the file's row count as the engine
+// found it at spawn, recorded in the `ignited`/`resumed` event, never computed
+// from turn indices. Arithmetic over turns breaks the moment a summoned terminal
+// adds hand turns the engine never fired (D20's fallback is law, C4 F8 measured
+// the round trip); a recorded row count does not care who wrote what before it.
+//
 // **The completion signal.** A turn ends when the assistant stops asking for
 // tools. So a turn is complete iff its last conversation row is an `assistant`
 // row carrying no `tool_use` block; if the last row is a tool result, or an
@@ -25,8 +34,11 @@ export const transcriptPath = (configDir: string, cwd: string, sessionId: string
 /** What one turn on disk says happened. `dead` is the turn that never closed. */
 export type TranscriptVerdict = "worked" | "denied" | "dead";
 
+/** Everything past the cursor — the slice, never the file. */
 export type TranscriptReading = {
-	/** User turns in the file — the resume cursor's act index (grammar §3). */
+	/** User turns in the slice. Diagnostic only: a real arm-B turn carries its
+	 *  content as an array and is not counted (C11 F3), which is precisely why
+	 *  nothing addresses a turn by counting. */
 	turns: number;
 	rows: number;
 	/** Rows the reader could not parse. Whole-line appends make this 0 (C4 F7). */
@@ -42,17 +54,33 @@ const EMPTY: TranscriptReading = {
 	turns: 0, rows: 0, torn: 0, complete: false, denied: false, text: "", verdict: "dead",
 };
 
-export function readTranscript(path: string): TranscriptReading {
-	if (!existsSync(path)) return { ...EMPTY };
-	return readTranscriptText(readFileSync(path, "utf8"));
+/**
+ * The cursor the engine records at spawn: how many rows the file already holds.
+ * Counted the same way `readTranscriptText` counts them — non-empty lines,
+ * parsed or not — so the two always address the same boundary.
+ */
+export function transcriptRows(path: string): number {
+	if (!existsSync(path)) return 0;
+	let rows = 0;
+	for (const line of readFileSync(path, "utf8").split("\n")) if (line !== "") rows++;
+	return rows;
 }
 
-export function readTranscriptText(text: string): TranscriptReading {
+/** `cursor` rows are skipped: the turn asked about is what came after them. An
+ *  empty slice is a turn that never reached disk, which is `dead`. */
+export function readTranscript(path: string, cursor: number): TranscriptReading {
+	if (!existsSync(path)) return { ...EMPTY };
+	return readTranscriptText(readFileSync(path, "utf8"), cursor);
+}
+
+export function readTranscriptText(text: string, cursor: number): TranscriptReading {
 	const reading: TranscriptReading = { ...EMPTY };
 	let turn: Record<string, unknown>[] = [];
+	let skipped = 0;
 
 	for (const line of text.split("\n")) {
 		if (line === "") continue;
+		if (skipped < cursor) { skipped++; continue; }
 		reading.rows++;
 		let row: Record<string, unknown>;
 		try {
@@ -102,7 +130,9 @@ function blocks(row: Record<string, unknown>): Record<string, unknown>[] {
  */
 export function verdictFromTranscript(t: TranscriptReading): Verdict {
 	if (t.verdict === "dead")
-		return { land: false, causes: ["dead"], detail: `re-derived from the transcript: ${t.rows} rows, the last turn never closed` };
+		return { land: false, causes: ["dead"], detail: t.rows === 0
+			? "re-derived from the transcript: nothing past the spawn cursor — the turn never reached disk"
+			: `re-derived from the transcript: ${t.rows} rows past the spawn cursor, the turn never closed` };
 	if (t.verdict === "denied")
 		return { land: false, causes: ["needs-⬡ permission"], detail: "re-derived from the transcript: a tool result in the last turn carries is_error" };
 	return {

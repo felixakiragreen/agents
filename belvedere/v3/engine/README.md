@@ -62,11 +62,14 @@ parseable report never lands.
 4. **Posture legality per (model, posture)** at bless ([posture.ts](posture.ts)):
    `auto` | `acceptEdits` | `bypassPermissions`, and (haiku, `auto`) refuses —
    loud, never a silent fallback.
-5. **Restart re-derivation is stream-file-first.** A step the log says is
-   running that this process never spawned: watch the pid (the step's own
-   `timeout_ms`, re-armed), then read its stream file — complete iff it carries
-   a `result` row (parse rule 1). Only a **torn** stream falls to
-   [transcript.ts](transcript.ts)'s poorer worked / denied / dead.
+5. **Restart re-derivation is stream-file-first, and turn-addressed.** A step
+   the log says is running that this process never spawned: watch the pid (the
+   step's own `timeout_ms`, re-armed), then read its stream file — complete iff
+   it carries a `result` row (parse rule 1). Only a **torn** stream falls to
+   [transcript.ts](transcript.ts)'s poorer worked / denied / dead, and it falls
+   there **past the turn cursor** — the transcript's row count as the engine
+   found it at spawn, carried by the `ignited`/`resumed` event (C7 F3, fixed at
+   C11). An empty slice is a turn that never reached disk: `dead`.
 6. **Timeouts are per step** (`timeout_ms`, default 120 s): SIGTERM ⇒ dead ⇒
    paused ‹timeout›. **No auto-retry** — a dead step pauses for a ruling.
 7. **Budget is a ceiling** (D73). Ignitions and resumes both cost a turn.
@@ -78,6 +81,15 @@ parseable report never lands.
 **A pause names every cause it sensed, not one.** A subject granted the wrong
 posture *and* refused a tool is two findings, and reporting one hides the other;
 `causes[]` is ordered by severity and the first is what a board row shows.
+
+**The cursor's one bound: the transcript is assumed append-only.** A row count
+addresses a turn only while nothing rewrites what is behind it. Compaction
+(`PreCompact`, long sessions only — C4 F4) would rewrite the file and strand
+every recorded cursor; it is outside C8's envelope, and the first sighting is a
+finding, not a silent re-slice. Hand turns are *not* a problem and are the reason
+the cursor is recorded rather than computed: a summoned terminal (D20) appends
+turns the engine never fired, so any arithmetic over turn indices addresses the
+wrong turn while a recorded row count still addresses the right one.
 
 ## The API
 

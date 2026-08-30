@@ -51,7 +51,7 @@ test("bar 1 — a resume that dies at the door re-derives as dead, not as the tu
 	expect(resumed?.kind).toBe("resumed");
 	expect(readFileSync(`${runDir}/streams/t.t1.jsonl`, "utf8")).toBe("");
 	const sessionId = resumed?.kind === "resumed" ? resumed.sessionId : "";
-	expect(readTranscript(transcriptPath(`${runDir}/config`, `${runDir}/work`, sessionId)).verdict).toBe("worked");
+	expect(readTranscript(transcriptPath(`${runDir}/config`, `${runDir}/work`, sessionId), 0).verdict).toBe("worked");
 
 	// The restart answers for the turn the engine fired, and that turn is dead.
 	const state = await reopen(name, flowPath).run();

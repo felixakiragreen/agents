@@ -125,7 +125,7 @@ test("bar 8 — the transcript-only outcome equals the streamed outcome", async 
 		if (isRefusal(spawned)) throw new Error(spawned.refusal);
 
 		const reading = await spawned.settled;
-		const onDisk = readTranscript(transcriptPath(venue.configDir, venue.workDir, sessionId));
+		const onDisk = readTranscript(transcriptPath(venue.configDir, venue.workDir, sessionId), 0);
 		expect(onDisk.torn).toBe(0);
 		expect([c.scenario, streamVerdict(reading)]).toEqual([c.scenario, c.expect]);
 		expect([c.scenario, onDisk.verdict]).toEqual([c.scenario, c.expect]);

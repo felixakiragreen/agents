@@ -17,7 +17,9 @@ import type { Cause, Report } from "./sense.ts";
 
 export type StepState =
 	| { at: "pending" }
-	| { at: "running"; sessionId: string; pid: number; since: number }
+	/** `cursor`: the transcript's row count at spawn. The log carries it so a
+	 *  restarted engine re-derives THIS turn, not the last one to write (C11). */
+	| { at: "running"; sessionId: string; pid: number; cursor: number; since: number }
 	/** The turn is read and recorded; its verdict is not yet a transition. The
 	 *  window a crash falls into between the two appends — and the reason the
 	 *  reading rides the event: a restart resolves it without re-reading. */
@@ -66,7 +68,7 @@ export function fold(entries: readonly Entry[]): RunState {
 			case "resumed":
 				state.turns++;
 				state.spent[e.step] = (state.spent[e.step] ?? 0) + 1;
-				set(e.step, { at: "running", sessionId: e.sessionId, pid: e.pid, since: e.seq });
+				set(e.step, { at: "running", sessionId: e.sessionId, pid: e.pid, cursor: e.cursor, since: e.seq });
 				break;
 			case "turn-ended":
 				set(e.step, { at: "ended", sessionId: e.sessionId, sensed: e.sensed });

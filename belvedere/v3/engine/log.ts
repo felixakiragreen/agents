@@ -13,7 +13,9 @@ import type { Cause, Reading, Report } from "./sense.ts";
 import type { TranscriptReading } from "./transcript.ts";
 
 /** Which evidence a turn was read from. The stream carries the report and the
- *  granted posture; the transcript carries neither, and says so (grammar §6). */
+ *  granted posture; the transcript carries neither, and says so (grammar §6).
+ *  A `transcript` reading is always the slice past the turn's own spawn cursor
+ *  (C11) — never the whole file, which answers for the last turn to write. */
 export type Sensed =
 	| { source: "stream"; reading: Reading }
 	| { source: "transcript"; reading: TranscriptReading };
@@ -28,9 +30,9 @@ export type Ruling =
 export type Event =
 	| { kind: "blessed"; flow: Flow; scope: string[]; budget: number }
 	| { kind: "re-blessed"; scope: string[]; budget: number }
-	| { kind: "ignited"; step: string; sessionId: string; pid: number; venue: string;
+	| { kind: "ignited"; step: string; sessionId: string; pid: number; venue: string; cursor: number;
 		model: string; effort: string; posture: Posture; subject: string }
-	| { kind: "resumed"; step: string; sessionId: string; pid: number; turn: string }
+	| { kind: "resumed"; step: string; sessionId: string; pid: number; cursor: number; turn: string }
 	| { kind: "turn-ended"; step: string; sessionId: string | null; sensed: Sensed }
 	| { kind: "landed"; step: string; report: Report | null }
 	| { kind: "paused"; step: string; causes: Cause[]; detail: string }

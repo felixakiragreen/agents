@@ -13,9 +13,9 @@ import { existsSync, mkdirSync, readFileSync } from "node:fs";
 import { DEFAULT_TIMEOUT_MS, parseFlow, stepById, type Fired, type Flow, type Posture, type Step } from "./flow.ts";
 import { openLog, type Log, type Ruling, type Sensed } from "./log.ts";
 import { postureLegal } from "./posture.ts";
-import { fold, ready, running, terminal, unresolved, type RunState } from "./replay.ts";
+import { fold, ready, running, terminal, unresolved, type RunState, type StepState } from "./replay.ts";
 import { senseFile, verdict, type Cause, type Reading, type Verdict } from "./sense.ts";
-import { readTranscript, transcriptPath, verdictFromTranscript } from "./transcript.ts";
+import { readTranscript, transcriptPath, transcriptRows, verdictFromTranscript } from "./transcript.ts";
 import { ignite as spawnSubject, streamPath, type Venue } from "./spawn.ts";
 import { precheckVenue as defaultPrecheck, type VenuePrecheck } from "./venue.ts";
 import { crashPoint } from "./crash.ts";
@@ -117,6 +117,12 @@ function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
 		const trust = precheck(FAKE_ACCOUNT, venue.workDir);
 		if (!trust.trusted) { pause(step.id, ["venue"], `venue trust refused: ${trust.reason}`); return; }
 
+		// The turn cursor, read before the subject exists: everything already in
+		// the transcript belongs to somebody else's turn — an earlier one of this
+		// step's, or a hand turn a summoned terminal added (D20). Recorded, never
+		// computed, and read here because in a moment it stops being true.
+		const cursor = transcriptRows(transcriptPath(venue.configDir, venue.workDir, sessionId));
+
 		// The turns already spent name this one's stream file, and the log
 		// carries them — so a restart addresses the same file without being told.
 		const spawned = spawnSubject({
@@ -127,9 +133,9 @@ function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
 		if (isRefusal(spawned)) { pause(step.id, ["dead"], spawned.refusal); return; }
 
 		log.append(resume === null
-			? { kind: "ignited", step: step.id, sessionId, pid: spawned.pid, venue: venue.workDir,
+			? { kind: "ignited", step: step.id, sessionId, pid: spawned.pid, venue: venue.workDir, cursor,
 				model: step.model, effort: step.effort, posture: step.posture, subject: step.subject.fake.scenario }
-			: { kind: "resumed", step: step.id, sessionId, pid: spawned.pid, turn: resume });
+			: { kind: "resumed", step: step.id, sessionId, pid: spawned.pid, cursor, turn: resume });
 		crashPoint(`after-ignite:${step.id}`);
 
 		// The map entry is dropped by `.finally`, never from inside the work: an
@@ -154,7 +160,7 @@ function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
 	 * bounded by the same law that bounds a live turn (law 6). A subject that
 	 * outlives it is SIGTERMed and read as the timeout it is.
 	 */
-	function adopt(stepId: string, sessionId: string, pid: number, turn: number): void {
+	function adopt(stepId: string, at: Extract<StepState, { at: "running" }>, turn: number): void {
 		inFlight.set(stepId, waitThenRead().finally(() => { inFlight.delete(stepId); }));
 
 		async function waitThenRead(): Promise<void> {
@@ -162,11 +168,11 @@ function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
 			const timeoutMs = step !== undefined && step.kind !== "card" ? step.timeoutMs : DEFAULT_TIMEOUT_MS;
 			const asked = step !== undefined && step.kind !== "card" ? step.posture : "auto";
 			const deadline = Date.now() + timeoutMs;
-			while (alive(pid) && Date.now() < deadline) await Bun.sleep(ADOPT_POLL_MS);
+			while (alive(at.pid) && Date.now() < deadline) await Bun.sleep(ADOPT_POLL_MS);
 
-			const timedOut = alive(pid);
-			if (timedOut) { try { process.kill(pid, "SIGTERM"); } catch { /* it went on its own */ } }
-			settle(stepId, sessionId, fromDisk(stepId, sessionId, turn, asked, timedOut));
+			const timedOut = alive(at.pid);
+			if (timedOut) { try { process.kill(at.pid, "SIGTERM"); } catch { /* it went on its own */ } }
+			settle(stepId, at.sessionId, fromDisk(stepId, at, turn, asked, timedOut));
 		}
 	}
 
@@ -178,12 +184,17 @@ function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
 	 * The one exception is a turn **this** engine timed out: it has first-hand
 	 * knowledge law 6 names, and a stream torn by its own SIGTERM is read as the
 	 * timeout it is rather than laundered through the transcript.
+	 *
+	 * The transcript is read past the cursor the log recorded at spawn, so it
+	 * answers for the turn that was fired and not for whichever turn last wrote
+	 * to the file (C7 F3). An empty slice is a turn that never reached disk.
 	 */
-	function fromDisk(stepId: string, sessionId: string, turn: number, asked: Posture, timedOut: boolean): Sensed {
+	function fromDisk(stepId: string, at: Extract<StepState, { at: "running" }>, turn: number, asked: Posture, timedOut: boolean): Sensed {
 		const reading = senseFile(streamPath(options.runDir, stepId, turn), asked);
 		reading.timedOut = timedOut;
 		if (!reading.dead || timedOut) return { source: "stream", reading };
-		return { source: "transcript", reading: readTranscript(transcriptPath(venue.configDir, venue.workDir, sessionId)) };
+		const path = transcriptPath(venue.configDir, venue.workDir, at.sessionId);
+		return { source: "transcript", reading: readTranscript(path, at.cursor) };
 	}
 
 	async function tick(): Promise<RunState> {
@@ -200,7 +211,7 @@ function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
 		for (const id of running(now))
 			if (!inFlight.has(id)) {
 				const at = now.steps[id];
-				if (at?.at === "running") adopt(id, at.sessionId, at.pid, (now.spent[id] ?? 1) - 1);
+				if (at?.at === "running") adopt(id, at, (now.spent[id] ?? 1) - 1);
 			}
 
 		// A card never ignites: when its edges land it pauses, and stays paused

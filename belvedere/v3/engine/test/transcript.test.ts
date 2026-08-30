@@ -20,7 +20,7 @@ test("grammar §2 — the transcript path is the config dir, the slugged cwd, th
 });
 
 test("a real C4 transcript parses whole: attachments, a denial, one closed turn", () => {
-	const reading = readTranscript(REAL);
+	const reading = readTranscript(REAL, 0);
 	expect(reading.rows).toBe(20);
 	expect(reading.torn).toBe(0);
 	expect(reading.turns).toBe(1);
@@ -39,15 +39,15 @@ test("the completion rule — a turn is closed only when the assistant stopped a
 	const toolResult = { type: "user", message: { content: [{ type: "tool_result", tool_use_id: "toolu_1", content: "ok" }] } };
 	const said = { type: "assistant", message: { content: [{ type: "text", text: "done" }] } };
 
-	expect(readTranscriptText(rows(user, toolUse, toolResult, said)).verdict).toBe("worked");
-	expect(readTranscriptText(rows(user, toolUse, toolResult)).verdict).toBe("dead");
-	expect(readTranscriptText(rows(user, toolUse)).verdict).toBe("dead");
+	expect(readTranscriptText(rows(user, toolUse, toolResult, said), 0).verdict).toBe("worked");
+	expect(readTranscriptText(rows(user, toolUse, toolResult), 0).verdict).toBe("dead");
+	expect(readTranscriptText(rows(user, toolUse), 0).verdict).toBe("dead");
 	// The second turn is the one that is read: an earlier turn cannot close a later one.
-	expect(readTranscriptText(rows(user, said, user, toolUse)).turns).toBe(2);
-	expect(readTranscriptText(rows(user, said, user, toolUse)).verdict).toBe("dead");
+	expect(readTranscriptText(rows(user, said, user, toolUse), 0).turns).toBe(2);
+	expect(readTranscriptText(rows(user, said, user, toolUse), 0).verdict).toBe("dead");
 });
 
 test("a missing transcript is dead, not an exception", () => {
-	expect(readTranscript(`${HERE}/test/fixtures/there-is-no-such-file.jsonl`))
+	expect(readTranscript(`${HERE}/test/fixtures/there-is-no-such-file.jsonl`, 0))
 		.toEqual({ turns: 0, rows: 0, torn: 0, complete: false, denied: false, text: "", verdict: "dead" });
 });
