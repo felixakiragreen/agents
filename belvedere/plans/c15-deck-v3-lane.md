@@ -42,6 +42,17 @@ never driving them (the fork is pre-ruled below).
   `INTENT_OF` inversion (root inbox 2026-08-29, the presets-speak-real-colours
   entry: the rig now writes real colour words; the deck's map must read them,
   not the pre-C25 slot words).
+- [C19](c19-fixture-city.md), findings included — the fixture city this
+  charge's shots ride: `--fixture` (or `export const fixture = true` in the
+  probe), the `count`/`scroll` verbs. **F1 binds**: a fixture city under
+  `~/code` 500s every building page — `seed.ts` already copies out of the
+  city; use it as-is. **F3 folds into this charge** (ruled at the batch-2
+  review): `boardRow` renders D71's dissolved staffing (`—`, `dissolved:
+  true`, zero lint) as `? · ?` in the failure colour — one ternary in
+  `glass/pages.ts`, trued here.
+- [C18](c18-gates.md) — `bun v3/gates.ts --fast --glass` is this charge's own
+  gate form (the deck's suite + type gate beside v3's); the landing pastes its
+  block ALL GREEN. Never hand-run `bunx tsc` in a v3 tree (C18 F1).
 - The intake, distilled at the 2026-08-30 sweep (campaign note, README §6):
   no deck surface lands anything on an exit code — the engine's verdict is the
   only landing signal (C4's posture matrix, `permission_denials[]`); step
@@ -77,9 +88,11 @@ never driving them (the fork is pre-ruled below).
    lay (B26/B27's re-cut against the v3 world). If a surface cannot survive
    without driving, render it honestly disabled with the reason (the
    honest-disabled law), never wire it.
-4. **The three reds true.** The flow-batch-1 test dies with v2; the fork-baton
-   test and the `INTENT_OF` inversion are fixed at cause (the presets entry is
-   the spec for the colour words). `bun test glass/` ends 0 fail.
+4. **The three reds true, plus one render.** The flow-batch-1 test dies with
+   v2; the fork-baton test and the `INTENT_OF` inversion are fixed at cause
+   (the presets entry is the spec for the colour words). `bun test glass/`
+   ends 0 fail. And C19 F3's ternary: a dissolved-staffing row renders its
+   own word (DEFERRED's `—`), never `? · ?`.
 5. **The inbox knob (C17 F2).** `glass/paths.ts` gains an env knob for the
    sovereign-inbox write root — `DESK_DIR`'s sibling, read per call, default
    the real city (name per `paths.ts` convention, the Builder's). The camera's
@@ -117,9 +130,9 @@ escalates.
 - [ ] The inbox knob: a twin with the knob set has its "file it" land in
   scratch, the real city byte-identical before/after (`git status` +
   sha) — probe evidence pasted; C17 F2 recorded closed.
-- [ ] `bunx tsc --noEmit` (the offline gate) exit 0 in `glass/` and in
-  `camera/` if probes were added; zero new dependencies (`git diff` on every
-  `package.json` empty).
+- [ ] `bun v3/gates.ts --fast --glass` — ALL GREEN, block pasted (the deck's
+  suite and type gate beside v3's); `camera/`'s own gate 0 if probes were
+  added; zero new dependencies (`git diff` on every `package.json` empty).
 - [ ] Zero real `claude` invocations — **budget 0**; fake runs and landed run
   dirs suffice. Any real spend is a ⬡-fork (D21).
 
