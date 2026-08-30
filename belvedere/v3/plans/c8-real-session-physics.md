@@ -45,6 +45,15 @@ on real events.
 - C7 F1 — at layer 0 depth rode the harness's rulings; **real subjects land on
   their own** — a real flow that lands nothing is a signal, not a shape.
 - C11's findings — the cursor and the seam; read before igniting anything.
+  Two bind here directly: **C11 F1** — the real-transcript corpus is the live
+  account dirs (mortal: nothing in the repo pins it), *not* `lab/c4/captures/`
+  (those 43 dirs are streams); plan around the account dirs, and expect a
+  cleared one to have taken history with it. **C11 F2** — the transcript
+  fallback reads a tool that merely *failed* as ‹needs-⬡ permission›, measured
+  on real bytes: a torn-stream re-derivation can ask Felix for a permission
+  nobody refused. When a pause's `source` is the transcript fallback, check
+  the stream's `permission_denials[]` where it exists and record any false
+  ask as its own measured event — it is a finding, not noise.
 - The fence ([../README.md](../README.md)): subjects killed at landing or the
   standing set named; resume ids filed in findings; work dirs in scratch, dead
   at landing.
