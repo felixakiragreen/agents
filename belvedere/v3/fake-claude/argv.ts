@@ -21,8 +21,12 @@ const MODEL_IDS: Record<string, string> = {
 const VALUED = new Set([
 	"-p", "--print", "--session-id", "--resume", "--output-format", "--input-format",
 	"--permission-mode", "--model", "--json-schema",
+	// Accepted and inert (C5 F3, ruled 2026-08-29): every C4 subject carried
+	// --effort; --tools armed C4's own instruments. The fake records nothing —
+	// tools[] is the scenario's to say, effort shapes no fake behavior.
+	"--effort", "--tools",
 ]);
-const BARE = new Set(["--verbose", "--include-hook-events"]);
+const BARE = new Set(["--verbose", "--include-hook-events", "--replay-user-messages"]);
 
 export type Argv = {
 	/** The first turn's text. Null in stdin mode, where turns arrive on stdin. */

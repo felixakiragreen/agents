@@ -37,8 +37,13 @@ test("-p alone is stdin mode", () => {
 });
 
 test("an unknown flag refuses loudly", () => {
-	expect(why(["-p", "x", "--effort", "low", ...BASE])).toContain("unknown flag");
+	expect(why(["-p", "x", "--bogus", "low", ...BASE])).toContain("unknown flag");
 	expect(why(["-p", "x", "--dangerously-skip-permissions", ...BASE])).toContain("unknown flag");
+});
+
+test("the C5 F3 flags are accepted and inert (ruled 2026-08-29)", () => {
+	const a = ok(["-p", "x", "--effort", "low", "--tools", "", "--replay-user-messages", ...BASE]);
+	expect(a.prompt).toBe("x");
 });
 
 test("the dialect's own preconditions refuse", () => {

@@ -19,7 +19,9 @@ bun v3/fake-claude/cli.ts <claude-argv>
 argv is real claude's, exactly the subset the engine uses — `-p <prompt>` ·
 `--session-id <uuid>` · `--resume <sid>` · `--output-format stream-json` ·
 `--verbose` · `--include-hook-events` · `--permission-mode <m>` ·
-`--model <m>` · `--json-schema <schema>` · `--input-format stream-json`.
+`--model <m>` · `--json-schema <schema>` · `--input-format stream-json` ·
+accepted-and-inert (C5 F3, ruled 2026-08-29): `--effort <v>` · `--tools <list>` ·
+`--replay-user-messages`.
 **Anything else refuses loudly (exit 2).** `--output-format stream-json`,
 `--verbose` and `-p` are required; the fake is headless-only.
 

@@ -68,7 +68,7 @@ const out: Sink = {
 const session: Session = { argv, scenario, sessionId, cwd, seed };
 
 const outcome = argv.inputFormat === "argv"
-	? await runAct(session, firstAct, { text: argv.prompt!, queued: 0 }, out, tx)
+	? await runAct(session, firstAct, { text: argv.prompt!, queued: 0, first: true }, out, tx)
 	: await driveStdin(session, firstAct, out, tx);
 
 if (isRefusal(outcome)) die(outcome.refusal);

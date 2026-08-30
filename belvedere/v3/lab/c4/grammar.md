@@ -35,7 +35,7 @@ Enable with `-p --output-format stream-json --verbose`. Add
 | `type` | `subtype` | Carries | When |
 |---|---|---|---|
 | `system` | `init` | `session_id` `model` `permissionMode` `cwd` `tools[]` `agents[]` `slash_commands[]` `mcp_servers` `apiKeySource` `claude_code_version` `output_style` | **once per turn**, after the first hooks |
-| `system` | `hook_started` / `hook_response` | `hook_event` `hook_name` `hook_id` `exit_code` `outcome` `stdout` `stderr` | around every hook, with `--include-hook-events` |
+| `system` | `hook_started` / `hook_response` | `hook_event` `hook_name` `hook_id` `exit_code` `outcome` `stdout` `stderr` | around every hook, with `--include-hook-events` — **except `SessionStart` (`:startup`/`:resume`), which leaks unconditionally at every process start** *(C5 F2, ruled 2026-08-29: nine flagless captures carry it; a parser must expect it unflagged)* |
 | `system` | `thinking_tokens` | `estimated_tokens` `estimated_tokens_delta` | many per turn; noise |
 | `system` | `permission_denied` | `tool_name` `tool_use_id` `message` | **a tool call was refused** — §4 |
 | `system` | `background_tasks_changed` / `task_started` / `task_progress` / `task_updated` / `task_notification` | task bookkeeping | subagent work |
@@ -97,7 +97,14 @@ stdin produced **2 `result`s for 4 messages**, and turns 1–3 were merged into 
 (`captures/q2-b-personal`). Paced — write turn N+1 only after `result` N —
 gives 4 results, 4 user rows, `queued_turn_count: 0`
 (`captures/q2-b-paced-personal`). **If C6 picks arm B it must pace on `result`;
-`queued_turn_count > 0` in a result means turns were merged.**
+~~`queued_turn_count > 0` in a result means turns were merged~~.**
+
+> **Correction, 2026-08-29 (C5 F1, verified at the Architect's review):
+> `queued_turn_count` does NOT signal merged turns — the unpaced merged run's own
+> results both report `queued_turn_count: 0`** (`captures/q2-b-personal`, jq'd at
+> review). The only sound detector is arithmetic: **fewer `result`s than messages
+> sent.** The fake ships both shapes: `armb-merge-trap` (the measured shape) and
+> `armb-merge-trap-queued` (this section's former assumption).
 
 The ~2.3 s/turn arm A pays is cold process start. That is the price of
 cornerstone §3.2's "between turns a session is bytes, not a process".
@@ -308,4 +315,6 @@ model still *attempts* MCP tools and takes `No such tool available` errors.
 7. **Declare a `--json-schema`** for the step report, or needs-⬡(question) is
    invisible.
 8. **Precheck venue trust at ignite**, or the summon-to-terminal fallback is lost.
-9. If arm B: **pace on `result`**, and treat `queued_turn_count > 0` as merged turns.
+9. If arm B: **pace on `result`**, and detect merged turns by **arithmetic —
+   fewer `result`s than messages sent** *(corrected 2026-08-29, C5 F1:
+   ~~`queued_turn_count > 0`~~ never fires — the merged run's own results report 0)*.

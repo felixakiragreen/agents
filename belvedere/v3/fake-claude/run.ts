@@ -26,7 +26,7 @@ export type Outcome =
 	| { kind: "died"; exit: number | null; signal: "SIGKILL" | "SIGTERM" | null }
 	| { kind: "hung" };
 
-export type Turn = { text: string; queued: number };
+export type Turn = { text: string; queued: number; first: boolean };
 
 export async function runAct(s: Session, actIndex: number, turn: Turn, out: Sink, tx: Transcript): Promise<Outcome> {
 	const act: Act | undefined = s.scenario.acts[actIndex];
@@ -40,15 +40,19 @@ export async function runAct(s: Session, actIndex: number, turn: Turn, out: Sink
 	const rows = transcriptRows(c, tx);
 	rows.userTurn(turn.text);
 
-	const hook = (name: string, event: string) => {
-		if (!s.argv.includeHookEvents) return;
+	const hookPair = (name: string, event: string) => {
 		const id = c.ids.uuid();
 		out.emit(ev.hookStarted(c, id, name, event));
 		c.clock.advance(SPAN.hook);
 		out.emit(ev.hookResponse(c, id, name, event));
 	};
+	const hook = (name: string, event: string) => {
+		if (s.argv.includeHookEvents) hookPair(name, event);
+	};
 
-	if (actIndex === 0) hook("SessionStart:startup", "SessionStart");
+	// SessionStart leaks unflagged at every process start (C5 F2, ruled 2026-08-29).
+	if (turn.first)
+		hookPair(s.argv.resume === null ? "SessionStart:startup" : "SessionStart:resume", "SessionStart");
 	hook("UserPromptSubmit", "UserPromptSubmit");
 
 	const denials: Denial[] = [];

@@ -17,7 +17,7 @@ export async function driveStdin(s: Session, firstAct: number, sink: Sink, tx: T
 	if (first === null) return refuse("--input-format stream-json got no turns on stdin");
 
 	let act = firstAct;
-	let turn: Turn = { text: first, queued: 0 };
+	let turn: Turn = { text: first, queued: 0, first: true };
 	while (true) {
 		const outcome = await runAct(s, act, turn, sink, tx);
 		if (outcome.kind !== "closed") return outcome;
@@ -25,7 +25,7 @@ export async function driveStdin(s: Session, firstAct: number, sink: Sink, tx: T
 		if (isRefusal(batch)) return batch;
 		if (batch.length === 0) return { kind: "closed" };
 		act++;
-		turn = { text: batch.join("\n"), queued: batch.length - 1 };
+		turn = { text: batch.join("\n"), queued: batch.length - 1, first: false };
 	}
 }
 
