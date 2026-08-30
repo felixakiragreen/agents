@@ -2529,3 +2529,47 @@ turns — measured, deliberately not taken. F2/F3/F4/F6/F8 in the charge.
 **Next.** ⬡ — the migration review, per the standing baton: both batch-1 charges
 (C14, C17) are landed and want verifying, then batch 2 (C18 at C14's reviewed
 landing, C19 at C17's, C15's cut on C14's landed shape).
+
+---
+
+**2026-08-30 · Builder · opus-high (C17 — the camera)** — **Agents have eyes.**
+`belvedere/camera/` exists: its own module (`package.json`, `tsconfig.json`,
+`.gitignore`, `README.md`), **zero `glass/**` changes** — git-proven, `git diff
+--stat HEAD -- belvedere/glass` empty. Two verbs: `shoot <path>` boots a disarmed
+twin, navigates, writes a PNG and prints its absolute path (~11 s cold); `run
+<probe.ts>` drives a probe against a twin it booted itself and **refuses `--port`
+in kind** — a probe clicks Dispatch buttons and on the live deck that fires a real
+session; `shoot --port` is the read-only half (one GET, no clicks), exercised
+against a 4477 stand-in. **The twin proves its own disarm before a browser opens**:
+one `POST /hands/fire` with an empty body must answer 503 (`BELVEDERE_ENV` → a
+`$TMPDIR` void, `GLASS_PORT` ephemeral, `DESK_DIR` a scratch drawer — all three
+knobs already in `paths.ts`), or the boot tears the twin down and refuses. No flag
+overrides it. SIGTERM-and-wait on every path, error paths included: **zero
+surviving twins after every bar**. Three committed probes, each ending in a shot
+with a control — `city`, `building`, and `chat`, which opens the Chat on a live
+session, types into the composer, attempts the send and **photographs the
+honest-disabled law**: no control drawn, the cold-hands reason standing in its
+place. Driver `playwright-core@1.62.1` on the installed Chrome (151.0.7922.170),
+headless, under bun — **neither pre-authorized fallback needed**: no browser
+download, no node v22. `bunx tsc --noEmit` 0 in `camera/`. **Budget 0 real turns,
+0 spent.** Findings F1–F6 in [C17](plans/c17-camera.md); the loop and its traps
+relayed to [BULLETIN](plans/BULLETIN.md). Decided: nothing register-grade — every
+call sat inside the charge's fence. Two facts the next deck charge needs: **a
+disarmed twin is not an inert one** (the desk is reachable without a click and is
+redirected by `DESK_DIR`; the sovereign's inbox has **no** such knob, so a probe
+clicking "file it" writes the real city — documented, not defended, because
+defending it is a `glass/` change), and **`bun test` in `glass/` is 670 pass / 3
+fail** — exactly the three C12-F6 reds README §6 already assigns to C15, so C17's
+own bar carries an honest annotation rather than a green claim (F4). Next: ⬡ —
+batch 1 is complete, C14 and C17 both LANDED; summon the migration review.
+
+Baton — ⬡ → summon the migration review (batch 1 complete), verbatim:
+```
+You are an Architect at fable-high.
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/architect.md,
+then read ~/code/agents/belvedere/README.md §§5–6 (the migration campaign
+note) and the ledger tail, verify the landed batch-1 charges (C14, C17),
+distill, reconcile the board, and lay batch 2 — C18 at C14's reviewed
+landing, C19 at C17's, C15's cut on C14's landed shape.
+```
