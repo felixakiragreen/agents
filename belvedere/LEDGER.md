@@ -2289,3 +2289,7 @@ Then **rule F3** (name ‹needs-⬡ question› / ‹blocked› from disk, or ke
 literal reading) and **F2** (the fake's *stream* is now unfaithful where its
 transcript stopped being). C9 is unblocked: the capability row G4 would have
 convened on is no longer falsified.
+Next: the batch-7 tender reviews C13 — done same day: all gates re-run green at
+its hand, F1 accepted (the deterministic pair guards the class; sixth cut family
+to the v3 board's deferred list), F3 deferred to C10's lay; batch 8 (C9 + C10)
+is the next lay — the root ledger's baton of this date carries the fork.
