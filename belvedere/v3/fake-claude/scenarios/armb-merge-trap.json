@@ -1,0 +1,20 @@
+{
+	"name": "armb-merge-trap",
+	"note": "Arm B's trap, at the shape C4 MEASURED (captures/q2-b-personal): four messages written unpaced produce TWO results — turns 1-3 merged into one user row, bytes all present, turn boundaries destroyed — and queued_turn_count is 0 in both. The count is pinned to 0 here deliberately: grammar §10.9 offers queued_turn_count > 0 as the merge signal, and the capture it rests on reports 0. The only sound detector is arithmetic: fewer results than messages sent. See the C5 findings.",
+	"acts": [
+		{ "steps": [ { "do": "init" }, { "do": "text", "text": "OK" } ], "result": { "queued_turn_count": 0 } },
+		{ "steps": [ { "do": "init" }, { "do": "text", "text": "OK" } ], "result": { "queued_turn_count": 0 } },
+		{ "steps": [ { "do": "init" }, { "do": "text", "text": "OK" } ], "result": { "queued_turn_count": 0 } },
+		{ "steps": [ { "do": "init" }, { "do": "text", "text": "OK" } ], "result": { "queued_turn_count": 0 } }
+	],
+	"golden": {
+		"mode": "stdin", "paced": false, "seed": 1, "expectExit": 0,
+		"flags": ["--model", "haiku", "--permission-mode", "acceptEdits"],
+		"turns": [
+			"You are a byte-echo probe. For every message I send, reply with exactly the word OK and nothing else.",
+			"TURN1 alpha",
+			"TURN2 alpha",
+			"TURN3 alpha"
+		]
+	}
+}

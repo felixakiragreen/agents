@@ -1,0 +1,18 @@
+{
+	"name": "die-137",
+	"note": "SIGKILL mid-turn (grammar §6): work in flight, then the process dies with NO result event. Dead is `no result at EOF`, never a subtype. The transcript holds every whole line written up to the cut.",
+	"acts": [
+		{ "steps": [
+			{ "do": "init" },
+			{ "do": "tool", "name": "Bash", "input": { "command": "sleep 6 && echo STEP1" }, "result": "STEP1" },
+			{ "do": "tool", "name": "Bash", "input": { "command": "sleep 6 && echo STEP2" }, "result": "STEP2" },
+			{ "do": "delay", "ms": 100 },
+			{ "do": "die", "signal": "SIGKILL" }
+		] }
+	],
+	"golden": {
+		"mode": "argv", "paced": true, "seed": 1, "expectExit": 137,
+		"flags": ["--model", "sonnet", "--permission-mode", "acceptEdits"],
+		"turns": ["Run the five steps."]
+	}
+}

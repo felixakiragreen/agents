@@ -1,0 +1,17 @@
+{
+	"name": "posture-mismatch",
+	"note": "F6.2: posture asked is not posture granted, silently. haiku + auto is reported back by init as `default` (grammar §4), so no work happens. C6 reads init.permissionMode back and refuses the step on mismatch.",
+	"acts": [
+		{ "steps": [
+			{ "do": "init", "permissionMode": "default" },
+			{ "do": "deny", "name": "Write", "input": { "file_path": "ping.txt", "content": "ping" },
+			  "message": "Claude requested permissions to write to ping.txt, but you haven't granted it yet." },
+			{ "do": "text", "text": "Permission for Write was not granted." }
+		] }
+	],
+	"golden": {
+		"mode": "argv", "paced": true, "seed": 1, "expectExit": 0,
+		"flags": ["--model", "haiku", "--permission-mode", "auto"],
+		"turns": ["Write ping.txt containing the word ping."]
+	}
+}

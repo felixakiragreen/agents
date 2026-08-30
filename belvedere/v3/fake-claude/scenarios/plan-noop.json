@@ -1,0 +1,15 @@
+{
+	"name": "plan-noop",
+	"note": "Grammar §4's `plan` row: the posture is granted as asked, no tool runs, zero denials, success — and nothing happened. Success with no denials is not evidence of work.",
+	"acts": [
+		{ "steps": [
+			{ "do": "init", "permissionMode": "plan" },
+			{ "do": "text", "text": "Here is the plan: create ping.txt with the word ping. I have not written it." }
+		] }
+	],
+	"golden": {
+		"mode": "argv", "paced": true, "seed": 1, "expectExit": 0,
+		"flags": ["--model", "sonnet", "--permission-mode", "plan"],
+		"turns": ["Write ping.txt containing the word ping."]
+	}
+}

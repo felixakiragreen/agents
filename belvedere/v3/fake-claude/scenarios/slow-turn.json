@@ -1,0 +1,24 @@
+{
+	"name": "slow-turn",
+	"note": "The T-long analog: five slow steps with real wall time between them, so a killer has a window to cut into. The only scenario shape that costs the clock anything.",
+	"acts": [
+		{ "steps": [
+			{ "do": "init" },
+			{ "do": "tool", "name": "Bash", "input": { "command": "sleep 6 && echo STEP1" }, "result": "STEP1" },
+			{ "do": "delay", "ms": 200 },
+			{ "do": "tool", "name": "Bash", "input": { "command": "sleep 6 && echo STEP2" }, "result": "STEP2" },
+			{ "do": "delay", "ms": 200 },
+			{ "do": "tool", "name": "Bash", "input": { "command": "sleep 6 && echo STEP3" }, "result": "STEP3" },
+			{ "do": "delay", "ms": 200 },
+			{ "do": "tool", "name": "Bash", "input": { "command": "sleep 6 && echo STEP4" }, "result": "STEP4" },
+			{ "do": "delay", "ms": 200 },
+			{ "do": "tool", "name": "Bash", "input": { "command": "sleep 6 && echo STEP5" }, "result": "STEP5" },
+			{ "do": "text", "text": "All five steps done." }
+		] }
+	],
+	"golden": {
+		"mode": "argv", "paced": true, "seed": 1, "expectExit": 0,
+		"flags": ["--model", "sonnet", "--permission-mode", "acceptEdits"],
+		"turns": ["Run the five steps."]
+	}
+}

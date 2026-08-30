@@ -1,0 +1,16 @@
+{
+	"name": "hang",
+	"note": "The turn that never boundaries: text, then silence, with the process alive and stdout open. No result, no EOF — the engine's read loop must carry its own clock or it waits forever.",
+	"acts": [
+		{ "steps": [
+			{ "do": "init" },
+			{ "do": "text", "text": "Working on it." },
+			{ "do": "hang" }
+		] }
+	],
+	"golden": {
+		"mode": "argv", "paced": true, "seed": 1, "expectExit": null,
+		"flags": ["--model", "sonnet", "--permission-mode", "acceptEdits"],
+		"turns": ["Take your time."]
+	}
+}

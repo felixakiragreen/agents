@@ -1,0 +1,18 @@
+{
+	"name": "multi-tool",
+	"note": "Three accepted tool calls in one turn. num_turns 4 — the engine's turn counter is 1 + tool rounds, measured against q4-plan (4 tools, num_turns 5).",
+	"acts": [
+		{ "steps": [
+			{ "do": "init" },
+			{ "do": "tool", "name": "Write", "input": { "file_path": "a.txt", "content": "a" }, "result": "File created successfully at: a.txt" },
+			{ "do": "tool", "name": "Write", "input": { "file_path": "b.txt", "content": "b" }, "result": "File created successfully at: b.txt" },
+			{ "do": "tool", "name": "Bash", "input": { "command": "ls" }, "result": "a.txt\nb.txt" },
+			{ "do": "text", "text": "Wrote a.txt and b.txt." }
+		] }
+	],
+	"golden": {
+		"mode": "argv", "paced": true, "seed": 1, "expectExit": 0,
+		"flags": ["--model", "sonnet", "--permission-mode", "acceptEdits"],
+		"turns": ["Write a.txt and b.txt, then list the directory."]
+	}
+}

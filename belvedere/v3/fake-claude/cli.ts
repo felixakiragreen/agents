@@ -18,7 +18,8 @@ import { parseScenario } from "./scenario.ts";
 import { isRefusal } from "./refusal.ts";
 import { ids } from "./ids.ts";
 import { transcript, transcriptPath, priorTurns } from "./transcript.ts";
-import { runAct, type Session, type Sink, type Turn } from "./run.ts";
+import { runAct, type Session, type Sink } from "./run.ts";
+import { driveStdin } from "./stdin.ts";
 
 /** Refusals leave by this door: a named reason on stderr, and exit 2. */
 const REFUSED = 2;
@@ -68,74 +69,12 @@ const session: Session = { argv, scenario, sessionId, cwd, seed };
 
 const outcome = argv.inputFormat === "argv"
 	? await runAct(session, firstAct, { text: argv.prompt!, queued: 0 }, out, tx)
-	: await driveStdin(session, out);
+	: await driveStdin(session, firstAct, out, tx);
 
+if (isRefusal(outcome)) die(outcome.refusal);
 if (outcome.kind === "hung") await new Promise(() => setInterval(() => {}, 1 << 30));
 if (outcome.kind === "died") {
 	if (outcome.signal !== null) process.kill(process.pid, outcome.signal);
 	process.exit(outcome.exit ?? 1);
 }
 process.exit(0);
-
-/**
- * Arm B: one process, one JSON user message per stdin line. Turn 0 takes the
- * first line alone; every act after it takes everything queued. A driver that
- * paces on `result` therefore hands over one line at a time; one that writes
- * all its turns and closes gets them merged into a single turn — bytes whole,
- * turn boundaries destroyed (grammar §3's trap, reproduced).
- */
-async function driveStdin(s: Session, sink: Sink): Promise<Awaited<ReturnType<typeof runAct>>> {
-	const lines = stdinLines();
-	const first = await lines.next();
-	if (first === null) die("--input-format stream-json got no turns on stdin");
-
-	let act = firstAct;
-	let turn: Turn = { text: first, queued: 0 };
-	while (true) {
-		const outcome = await runAct(s, act, turn, sink, tx);
-		if (outcome.kind !== "closed") return outcome;
-		const batch = await lines.drain();
-		if (batch.length === 0) return { kind: "closed" };
-		act++;
-		turn = { text: batch.join("\n"), queued: batch.length - 1 };
-	}
-}
-
-/** A line queue over stdin: `next` waits for one, `drain` takes all pending. */
-function stdinLines() {
-	const queue: string[] = [];
-	let buf = "";
-	let closed = false;
-	let wake: (() => void) | null = null;
-	const push = (line: string) => {
-		if (!line.trim()) return;
-		let msg: { message?: { content?: unknown } };
-		try { msg = JSON.parse(line); } catch { die(`stdin line is not JSON: ${line.slice(0, 80)}`); }
-		queue.push(textOf(msg.message?.content));
-	};
-	(async () => {
-		for await (const chunk of Bun.stdin.stream()) {
-			buf += new TextDecoder().decode(chunk);
-			let i;
-			while ((i = buf.indexOf("\n")) >= 0) { push(buf.slice(0, i)); buf = buf.slice(i + 1); }
-			wake?.();
-		}
-		push(buf);
-		closed = true;
-		wake?.();
-	})();
-	const settle = async () => {
-		while (queue.length === 0 && !closed) await new Promise<void>((r) => { wake = r; });
-		wake = null;
-	};
-	return {
-		async next(): Promise<string | null> { await settle(); return queue.shift() ?? null; },
-		async drain(): Promise<string[]> { await settle(); return queue.splice(0); },
-	};
-}
-
-function textOf(content: unknown): string {
-	if (typeof content === "string") return content;
-	if (!Array.isArray(content)) die("stdin message has no user content");
-	return content.map((b) => (typeof b === "object" && b !== null && "text" in b ? String((b as { text: unknown }).text) : "")).join("");
-}

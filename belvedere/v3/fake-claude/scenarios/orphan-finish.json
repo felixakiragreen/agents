@@ -1,0 +1,19 @@
+{
+	"name": "orphan-finish",
+	"note": "The survive law (grammar §6): a long turn whose parent can be killed halfway. Reparented to init, the subject finishes every step and writes its transcript whole while the engine that spawned it is already dead. The stream dies with the parent; the transcript does not.",
+	"acts": [
+		{ "steps": [
+			{ "do": "init" },
+			{ "do": "tool", "name": "Bash", "input": { "command": "sleep 6 && echo STEP1" }, "result": "STEP1" },
+			{ "do": "delay", "ms": 600 },
+			{ "do": "tool", "name": "Bash", "input": { "command": "sleep 6 && echo STEP2" }, "result": "STEP2" },
+			{ "do": "delay", "ms": 600 },
+			{ "do": "text", "text": "STEP1 and STEP2 complete." }
+		] }
+	],
+	"golden": {
+		"mode": "argv", "paced": true, "seed": 1, "expectExit": 0,
+		"flags": ["--model", "sonnet", "--permission-mode", "acceptEdits"],
+		"turns": ["Run the two steps."]
+	}
+}

@@ -1,0 +1,17 @@
+{
+	"name": "permission-denial",
+	"note": "Grammar §4's `manual` row, verbatim: asked manual, init reports `default`, the file is NOT written, one permission_denial — and the process still exits 0 with subtype success and is_error false. The silent-success hazard; needs-⬡(permission) is readable ONLY from permission_denials[].",
+	"acts": [
+		{ "steps": [
+			{ "do": "init", "permissionMode": "default" },
+			{ "do": "deny", "name": "Write", "input": { "file_path": "ping.txt", "content": "ping" },
+			  "message": "Claude requested permissions to write to ping.txt, but you haven't granted it yet." },
+			{ "do": "text", "text": "I could not write ping.txt: permission was not granted." }
+		] }
+	],
+	"golden": {
+		"mode": "argv", "paced": true, "seed": 1, "expectExit": 0,
+		"flags": ["--model", "sonnet", "--permission-mode", "manual"],
+		"turns": ["Write ping.txt containing the word ping."]
+	}
+}

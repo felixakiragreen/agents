@@ -1,0 +1,18 @@
+{
+	"name": "thinking-noise",
+	"note": "system/thinking_tokens, many per turn, carrying a running estimate. Pure noise (grammar §1) — the scenario exists so the engine is proven to skip it rather than choke on it.",
+	"noise": { "thinkingTokens": true, "rateLimit": true },
+	"acts": [
+		{ "steps": [
+			{ "do": "init" },
+			{ "do": "text", "text": "Thinking out loud.", "thinking": "Weighing the options." },
+			{ "do": "text", "text": "Still thinking.", "thinking": "Weighing them again." },
+			{ "do": "text", "text": "Done." }
+		] }
+	],
+	"golden": {
+		"mode": "argv", "paced": true, "seed": 1, "expectExit": 0,
+		"flags": ["--model", "haiku", "--permission-mode", "acceptEdits"],
+		"turns": ["Think about it out loud."]
+	}
+}

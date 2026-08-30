@@ -1,0 +1,20 @@
+{
+	"name": "armb-paced-4",
+	"note": "Arm B paced (grammar §3): one process, four stream-json messages on stdin, turn n+1 written only after result n. Four inits, four results, queued_turn_count 0 — turn boundaries intact.",
+	"acts": [
+		{ "steps": [ { "do": "init" }, { "do": "text", "text": "OK" } ] },
+		{ "steps": [ { "do": "init" }, { "do": "text", "text": "OK" } ] },
+		{ "steps": [ { "do": "init" }, { "do": "text", "text": "OK" } ] },
+		{ "steps": [ { "do": "init" }, { "do": "text", "text": "OK" } ] }
+	],
+	"golden": {
+		"mode": "stdin", "paced": true, "seed": 1, "expectExit": 0,
+		"flags": ["--model", "haiku", "--permission-mode", "acceptEdits"],
+		"turns": [
+			"You are a byte-echo probe. For every message I send, reply with exactly the word OK and nothing else.",
+			"TURN1 alpha\n\nTURN1 after a blank line\n\tTURN1 tabbed\n\"quoted\" 'single' `backtick` $VAR ${BRACE}\n/not-a-slash-command\n--not-a-flag\némoji ⚡ 中文 ünïcødé\nTURN1 LAST",
+			"TURN2 alpha\n\nTURN2 after a blank line\n\tTURN2 tabbed\n\"quoted\" 'single' `backtick` $VAR ${BRACE}\n/not-a-slash-command\n--not-a-flag\némoji ⚡ 中文 ünïcødé\nTURN2 LAST",
+			"TURN3 alpha\n\nTURN3 after a blank line\n\tTURN3 tabbed\n\"quoted\" 'single' `backtick` $VAR ${BRACE}\n/not-a-slash-command\n--not-a-flag\némoji ⚡ 中文 ünïcødé\nTURN3 LAST"
+		]
+	}
+}

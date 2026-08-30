@@ -1,0 +1,22 @@
+{
+	"name": "subagent-double-result",
+	"note": "F1: one invocation, two results. A subagent's completion re-invokes the parent, so a second init opens mid-stream and both results land at the end (captures/q1-sub-personal). C6 must read to EOF and take the LAST result.",
+	"acts": [
+		{
+			"steps": [
+				{ "do": "init" },
+				{ "do": "text", "text": "Counting the files.", "thinking": "Delegate the count." },
+				{ "do": "tool", "name": "Task", "input": { "subagent_type": "Explore", "description": "Count files" }, "result": "0" },
+				{ "do": "init" },
+				{ "do": "text", "text": "0 files." },
+				{ "do": "result", "override": { "num_turns": 2 } }
+			],
+			"result": { "num_turns": 2 }
+		}
+	],
+	"golden": {
+		"mode": "argv", "paced": true, "seed": 1, "expectExit": 0,
+		"flags": ["--model", "haiku", "--permission-mode", "acceptEdits"],
+		"turns": ["Use a subagent to count the files here."]
+	}
+}

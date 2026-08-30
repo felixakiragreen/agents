@@ -1,0 +1,17 @@
+{
+	"name": "die-exit-1",
+	"note": "The other death: a result DOES arrive, carrying subtype error_during_execution and is_error true, and then the process exits 1. is_error is the only field that separates this from success.",
+	"acts": [
+		{ "steps": [
+			{ "do": "init" },
+			{ "do": "text", "text": "Starting." },
+			{ "do": "result", "override": { "subtype": "error_during_execution", "is_error": true, "stop_reason": null, "terminal_reason": "error", "result": "Execution failed." } },
+			{ "do": "die", "exit": 1 }
+		] }
+	],
+	"golden": {
+		"mode": "argv", "paced": true, "seed": 1, "expectExit": 1,
+		"flags": ["--model", "sonnet", "--permission-mode", "acceptEdits"],
+		"turns": ["Do the thing that fails."]
+	}
+}

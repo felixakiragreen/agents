@@ -1,0 +1,17 @@
+{
+	"name": "schema-done",
+	"note": "F5: the step report as structured output. state=done — the work is finished and the engine reads that, rather than inferring it from a success it cannot tell apart from a question.",
+	"acts": [
+		{ "steps": [
+			{ "do": "init" },
+			{ "do": "tool", "name": "Write", "input": { "file_path": "config.yaml", "content": "port: 8080\n" }, "result": "File created successfully at: config.yaml" },
+			{ "do": "report", "state": "done", "cause": "Wrote config.yaml with the requested port", "answer": "config.yaml is in place." }
+		] }
+	],
+	"golden": {
+		"mode": "argv", "paced": true, "seed": 1, "expectExit": 0,
+		"flags": ["--model", "haiku", "--permission-mode", "acceptEdits", "--json-schema",
+			"{\"type\":\"object\",\"properties\":{\"state\":{\"type\":\"string\",\"enum\":[\"done\",\"needs_input\",\"blocked\"]},\"cause\":{\"type\":\"string\"},\"answer\":{\"type\":\"string\"}},\"required\":[\"state\",\"cause\"]}"],
+		"turns": ["Write config.yaml with port 8080. Report your state."]
+	}
+}

@@ -1,0 +1,19 @@
+{
+	"name": "schema-blocked",
+	"note": "The third report state: blocked — the subject cannot proceed and names why. Distinct from needs_input: no answer from Felix unblocks it, so the engine escalates rather than asks.",
+	"acts": [
+		{ "steps": [
+			{ "do": "init" },
+			{ "do": "deny", "name": "Bash", "input": { "command": "git push" },
+			  "message": "Claude requested permissions to run git push, but you haven't granted it yet." },
+			{ "do": "report", "state": "blocked", "cause": "git push was refused and the branch cannot be published",
+			  "answer": "Grant Bash(git push) or publish the branch by hand." }
+		] }
+	],
+	"golden": {
+		"mode": "argv", "paced": true, "seed": 1, "expectExit": 0,
+		"flags": ["--model", "sonnet", "--permission-mode", "manual", "--json-schema",
+			"{\"type\":\"object\",\"properties\":{\"state\":{\"type\":\"string\",\"enum\":[\"done\",\"needs_input\",\"blocked\"]},\"cause\":{\"type\":\"string\"},\"answer\":{\"type\":\"string\"}},\"required\":[\"state\",\"cause\"]}"],
+		"turns": ["Publish the branch. Report your state."]
+	}
+}

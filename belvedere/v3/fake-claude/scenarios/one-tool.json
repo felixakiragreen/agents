@@ -1,0 +1,16 @@
+{
+	"name": "one-tool",
+	"note": "One accepted tool call and a summary. num_turns 2, zero denials — the shape of work that actually happened (grammar §4, acceptEdits row).",
+	"acts": [
+		{ "steps": [
+			{ "do": "init" },
+			{ "do": "tool", "name": "Write", "input": { "file_path": "ping.txt", "content": "ping" }, "result": "File created successfully at: ping.txt" },
+			{ "do": "text", "text": "Wrote ping.txt." }
+		] }
+	],
+	"golden": {
+		"mode": "argv", "paced": true, "seed": 1, "expectExit": 0,
+		"flags": ["--model", "sonnet", "--permission-mode", "acceptEdits"],
+		"turns": ["Write ping.txt containing the word ping."]
+	}
+}

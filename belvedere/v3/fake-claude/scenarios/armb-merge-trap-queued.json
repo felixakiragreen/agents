@@ -1,0 +1,20 @@
+{
+	"name": "armb-merge-trap-queued",
+	"note": "The same merge, at the shape grammar §10.9 ASSUMES: the second result carries queued_turn_count 2, naming the turns it swallowed. No C4 capture shows real claude doing this; the scenario exists so a detector written to rule 9 has something to fire on. Pair it with armb-merge-trap, which is the measured shape.",
+	"acts": [
+		{ "steps": [ { "do": "init" }, { "do": "text", "text": "OK" } ] },
+		{ "steps": [ { "do": "init" }, { "do": "text", "text": "OK" } ] },
+		{ "steps": [ { "do": "init" }, { "do": "text", "text": "OK" } ] },
+		{ "steps": [ { "do": "init" }, { "do": "text", "text": "OK" } ] }
+	],
+	"golden": {
+		"mode": "stdin", "paced": false, "seed": 1, "expectExit": 0,
+		"flags": ["--model", "haiku", "--permission-mode", "acceptEdits"],
+		"turns": [
+			"You are a byte-echo probe. For every message I send, reply with exactly the word OK and nothing else.",
+			"TURN1 alpha",
+			"TURN2 alpha",
+			"TURN3 alpha"
+		]
+	}
+}
