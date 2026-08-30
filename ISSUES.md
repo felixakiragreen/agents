@@ -85,3 +85,11 @@ is cleared). A cleared inbox is empty.
   `fire` would fork the deck's copy from its code, and renaming `the glass` is the
   building's own identity. **Filed to Belvedere's inbox too**; its Architect owns it, and
   it is the natural successor charge to C27.
+
+- 2026-08-29 · belvedere Architect · the C31 kickoff arm flags SPENT fences:
+  `belvedere/plans/c1-fence-repoint.md:63` (C1 LANDED, batch 7 closed) reds
+  `kickoff.door` on master. The kickoff law forbids editing an ignited kickoff, so
+  the red is unfixable doc-side without new law — either the arm exempts spent
+  charges (C25's live/spent rule, the vocab arm's own precedent) or canon rules
+  that door repairs reach history. Same calibration family as the bv/* counting
+  entry above. Belvedere's red stands until ruled.
