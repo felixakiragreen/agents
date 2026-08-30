@@ -1,4 +1,5 @@
-// C11 bar 1 — the turn cursor, seen red first.
+// C11 — the turn cursor. Bar 1 stages the defect end to end; bar 2 slices real
+// bytes with it.
 //
 // The transcript is one file per *session* with no turn index in it, so a
 // reader that starts at byte 0 answers for whichever turn last wrote to it. On
@@ -14,10 +15,11 @@
 import { test, expect } from "bun:test";
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { readLog } from "../log.ts";
-import { readTranscript, transcriptPath } from "../transcript.ts";
+import { readTranscript, readTranscriptText, transcriptPath, transcriptRows, type TranscriptVerdict } from "../transcript.ts";
 import { HERE, reopen, SCRATCH } from "./harness.ts";
 
 const DRIVER = `${HERE}/test/resume-door.ts`;
+const FIXTURES = `${HERE}/test/fixtures`;
 
 /** One step, one act. `echo` works and reports nothing, so turn 0 pauses ‹no
  *  report› with a closed transcript — a resume past it is the door death. */
@@ -59,3 +61,107 @@ test("bar 1 — a resume that dies at the door re-derives as dead, not as the tu
 	expect(t?.at).toBe("paused");
 	if (t?.at === "paused") expect(t.causes).toEqual(["dead"]);
 }, 60_000);
+
+// ---------------------------------------------------------------------------
+// Bar 2 — the cursor on real bytes, zero spend.
+//
+// Two C4 sessions survive as multi-turn transcripts (provenance in
+// fixtures/PROVENANCE.md). Between them they carry every row shape the fake
+// never emits — `attachment`, `atis-latch`, `queue-operation`, `mode`,
+// `permission-mode`, `bridge-session`, `file-history-snapshot`, `cost-state`,
+// and assistant `thinking` blocks — and the reader must step over all of them
+// while counting, or the cursor addresses the wrong row.
+//
+// Each turn is read the way the engine reads it: on the file **as it stood when
+// that turn was the newest thing in it**, from the cursor its spawn recorded.
+
+/** One turn of a real session: the rows it spans, and what it is known to be. */
+type Known = { from: number; to: number; prompt: string; reply: string; verdict: TranscriptVerdict };
+
+/** q2-a-personal: one ignition and three `--resume` turns, the C4 probe that
+ *  injected TURN1/TURN2/TURN3 verbatim (the four `q2-a-personal-t<n>` captures). */
+const Q2A: Known[] = [
+	{ from: 2, to: 18, prompt: "You are a byte-echo probe.", reply: "I'm not going to do that.", verdict: "worked" },
+	{ from: 18, to: 26, prompt: "TURN1 alpha", reply: "What are you testing here?", verdict: "worked" },
+	{ from: 26, to: 33, prompt: "TURN2 alpha", reply: "Still unclear what you want.", verdict: "worked" },
+	{ from: 33, to: 38, prompt: "TURN3 alpha", reply: "I can't work with this.", verdict: "worked" },
+];
+
+/** q5b summon-venue: headless, then a **hand turn typed in a summoned pane**,
+ *  then headless again on the same session (C4 F8, D20's fallback). The engine
+ *  fired two of these three turns. */
+const Q5B: Known[] = [
+	// Turn 0 reaches for two MCP tools that do not exist headless and gets
+	// `is_error` tool results back. The transcript cannot tell a refusal from a
+	// tool that simply failed — `permission_denials[]` is the sensor and this is
+	// the fallback (transcript.ts) — so it reads ‹denied›. Real bytes confirming
+	// a documented limit, filed as C11 F2.
+	{ from: 2, to: 22, prompt: "Remember this codeword: HEADLESS-ALPHA-7", reply: "stored", verdict: "denied" },
+	{ from: 22, to: 37, prompt: "What was the codeword? Also remember TERMINAL-BRAVO-9", reply: "HEADLESS-ALPHA-7, stored TERMINAL-BRAVO-9.", verdict: "worked" },
+	{ from: 37, to: 44, prompt: "List both codewords", reply: "HEADLESS-ALPHA-7, TERMINAL-BRAVO-9", verdict: "worked" },
+];
+
+const rowsOf = (path: string): string[] => readFileSync(path, "utf8").split("\n").filter((l) => l !== "");
+
+/** The file as it stood after `to` rows — what the engine's reader would see
+ *  while the turn ending there was the last one written. */
+const asAt = (path: string, to: number): string => rowsOf(path).slice(0, to).join("\n") + "\n";
+
+/** The first user turn's own text past a cursor — the prompt half of "matches
+ *  its known contents", which the reading itself does not carry. */
+function promptPast(path: string, cursor: number): string {
+	for (const line of rowsOf(path).slice(cursor)) {
+		const row = JSON.parse(line) as { type?: string; message?: { content?: unknown } };
+		if (row.type === "user" && typeof row.message?.content === "string") return row.message.content;
+	}
+	return "";
+}
+
+for (const [name, turns, rows] of [
+	["real-q2-a-resume.jsonl", Q2A, 38],
+	["real-q5b-summon.jsonl", Q5B, 44],
+] as const) {
+	test(`bar 2 — ${name}: every turn slices to its own known contents`, () => {
+		const path = `${FIXTURES}/${name}`;
+		expect(transcriptRows(path)).toBe(rows);
+
+		for (const [i, known] of turns.entries()) {
+			const slice = readTranscriptText(asAt(path, known.to), known.from);
+			expect([name, i, slice.torn]).toEqual([name, i, 0]);
+			expect([name, i, slice.turns]).toEqual([name, i, 1]);
+			expect([name, i, slice.complete]).toEqual([name, i, true]);
+			expect([name, i, slice.denied]).toEqual([name, i, known.verdict === "denied"]);
+			expect([name, i, slice.verdict]).toEqual([name, i, known.verdict]);
+			expect([name, i, promptPast(path, known.from).slice(0, known.prompt.length)])
+				.toEqual([name, i, known.prompt]);
+			expect([name, i, slice.text.slice(0, known.reply.length)]).toEqual([name, i, known.reply]);
+		}
+
+		// The door death on real bytes: a turn that wrote nothing leaves an empty
+		// slice, and an empty slice is dead — never the turn before it.
+		const past = readTranscript(path, rows);
+		expect([name, past.rows, past.verdict]).toEqual([name, 0, "dead"]);
+	});
+}
+
+test("bar 2 — a hand turn is why the cursor is recorded and never computed", () => {
+	const path = `${FIXTURES}/real-q5b-summon.jsonl`;
+	const pane = Q5B[1]!;
+	// The file as the engine found it when it spawned its second headless turn:
+	// its own first turn, then a whole turn typed in a summoned pane. Exactly
+	// where the pane stopped writing its bookkeeping rows is not knowable, so
+	// every cursor past the pane's last conversation row is asserted.
+	for (let cursor = pane.to - 10; cursor <= pane.to; cursor++) {
+		const asSpawned = asAt(path, pane.to);
+		// The turn now fired dies at the door and writes nothing. The recorded
+		// cursor is the whole file, so there is nothing past it: dead.
+		expect([cursor, readTranscriptText(asSpawned, cursor).verdict]).toEqual([cursor, "dead"]);
+	}
+	// The same question answered by counting the turns the engine sent — one, so
+	// "mine is the second user row" — lands on the pane's turn and calls it a
+	// working one. The pane's turns are not the engine's, and arithmetic cannot
+	// tell them apart.
+	const byArithmetic = readTranscriptText(asAt(path, pane.to), pane.from);
+	expect(byArithmetic.verdict).toBe("worked");
+	expect(byArithmetic.text).toBe(pane.reply);
+});
