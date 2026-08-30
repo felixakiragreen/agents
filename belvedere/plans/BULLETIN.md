@@ -1921,3 +1921,84 @@ native compiler), the four suites 60 s, the barrage 149 s — **the half that la
 C2 E1 was the free half.**
 
 (Relayed from `master`, C18 LANDED 2026-08-30 — Builder)
+
+## → relay — C19 (the fixture city) to C15, C16 and every later deck charge: no escalation, three findings that bind anyone who points a probe at a fixture
+
+Evidence: [c19-fixture-city.md](c19-fixture-city.md) §Done when and §Findings, `master`,
+commits `32830c9` · `e59bea9` · `e90faed` · `d5e89c8`. Full doc:
+`belvedere/camera/README.md` §`--fixture`.
+
+**The loop, two lines:**
+
+```
+bun camera/cli.ts run probes/fixture-rail.probe.ts   # a probe that asks for the seeded city
+bun camera/cli.ts shoot /shelf --fixture             # any page, against it
+```
+
+A probe declares its own world — `export const fixture = true` beside the default export —
+and `--fixture` forces it from the command line. The static tree is committed at
+`camera/fixtures/city/` (`alpha`: a board row in **every** state that renders differently, a
+⬡-held ledger tail, two inbox entries · `beta`: a session-holder **fork** with its
+recommendation and one pending blessing · `broken`: six lint classes, the control) and the
+timed half — census pids, usage windows — is minted at boot by `fixtures/seed.ts`:
+**deterministic content, generated timing**, because a committed pid is a corpse by the time
+it renders and a committed usage cache is stale by definition.
+
+1. **A fixture city inside `~/code` makes every building page a 500, and the rail says
+   nothing.** A building's name is `slug(path)` — *relative to `~/code`* for anything under
+   it — while `buildingPage` resolves the slug it is handed against the **city** root
+   (`glass/pages.ts:236`). They agree only when the city root IS `~/code`, or when the slug
+   comes back absolute. Measured against the pre-existing `lab/b3/city`:
+
+   ```
+   $ GLASS_CITY=~/code/agents/belvedere/lab/b3/city bun glass/server.ts &
+   $ curl -s .../ | grep -o 'href="/b/[^"]*"'
+   href="/b/agents/belvedere/lab/b3/city/probe-row"
+   $ curl -s -o /dev/null -w '%{http_code}\n' ".../b/agents/belvedere/lab/b3/city/probe-row"
+   500
+   ```
+
+   B10 F5 named the class from the flow side; this is its second face and it is fatal to a
+   fixture whose job is rendering building pages. **So `seed.ts` copies the tree into a
+   `$TMPDIR` run directory** — outside `~/code`, where slugs come back absolute and
+   `/b/<abs>` resolves. The accepted consequence, visible in every shot: **a fixture building
+   is NAMED by its absolute temp path**. Ugly, honest, and nobody will mistake a fixture shot
+   for the real city.
+
+2. **The copy is also the containment: under `--fixture`, every write a disarmed twin can
+   still make lands in the run directory.** C17 F2's trap — `POST /inbox` stands in FRONT of
+   the arming switch and appends to a real building's `ISSUES.md`, and it has no knob — is
+   closed here by the city being a copy. `auditLog()` and `haltFlag()` hang off `CENSUS_DIR`,
+   so even a HALT would be written to `<run>/HALT`. **This is a property of `--fixture`, not
+   a fix to the glass: the real-city twin is exactly as dangerous as C17 left it.** Teardown
+   was counted after all eight runs of this charge — twins 0, run directories 0, every time.
+
+3. **The deck has no render for D71's dissolved staffing, and the fixture caught it on the
+   first shot — this one is C15's or a QoL sweep's, not a fixture defect.** A DEFERRED charge
+   whose shelving dissolved its staffing writes `—`; the parser types it (`dissolved: true`)
+   and files **no** failure, and `lint.ts` counts the row fully typed. `boardRow` does not
+   know the field — `r.mantle ? … : '<span class="bad">?</span>'` (`glass/pages.ts:278`) — so
+   the row renders **`? · ?` in the failure colour beside a `0 lint` panel**: the page says
+   the parser choked, the parser says it read the row perfectly. Photographed at alpha's A2
+   (`camera/shots/…-fixture-building-alpha.png`). The live city writes this shape too —
+   canon's own `C27 | the iron rebuild | C24 | — | OPEN — DEFERRED …`. One ternary; a
+   `glass/` change was outside this charge's fence.
+
+Also for whoever writes the next probe, not blocking: **the probe API gained `count(sel)` and
+`scroll(sel)`, and both are the fixture's own asks.** The structural laws are counts — "a ⬡
+card carries zero fire wiring" is `count('article[data-holder="felix"] button[data-fire]')
+=== 0`, and the DOM knows which card an attribute sits inside where a grep over served HTML
+does not. And **a shot is viewport-sized while the rail is not**: the rail ranks fireable
+cards above his, so beta's fork alone pushes every ⬡ card past 900 px, and `fixture-rail`'s
+first run photographed a frame with no ⬡ card in it. No playwright `Page` escapes `probe.ts`
+and no probe-only route was added to the glass — C17 F5 held.
+
+And two smaller ones. **`fixtures/` is `SKIP_DIRS` on descent only**, so `broken/` can be
+deliberately red without turning a standing gate red (`bun doctrine/cli.ts lint belvedere` →
+exit 0, `grep -c "fixtures/city"` → 0) — a rule, not a guarantee: a fixture city anywhere the
+walk descends into poisons every gate in the city. And **C18's F1 does not reach `camera/`**:
+`camera/node_modules/.bin/tsc` is the pinned `7.0.2`, `bunx tsc --version` prints no
+resolution lines and `bunx --offline tsc --noEmit` exits 0, so the camera's type gate is
+offline by construction where `v3/**`'s was not.
+
+(Relayed from `master`, C19 LANDED 2026-08-30 — Builder)
