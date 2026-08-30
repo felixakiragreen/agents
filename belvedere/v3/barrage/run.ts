@@ -13,7 +13,7 @@
 
 import { mkdirSync, rmSync } from "node:fs";
 import { runChild, outcomeOf } from "./child.ts";
-import { crashRun, type CrashRun } from "./crash.ts";
+import { crashRun, familyOf, type CrashRun } from "./crash.ts";
 import { checkMutant, passed, searchSeed, MUTANT_ROWS, type MutantResult } from "./mutants.ts";
 import { judge, type Red } from "./oracle.ts";
 import { fileRed } from "./reds.ts";
@@ -110,7 +110,7 @@ await pool(Array.from({ length: CRASHES }, (_, i) => CRASH_BASE + i), WORKERS, a
 const crashReds = crashes.filter((c) => c.reds.length > 0);
 reds += crashReds.length;
 const families = new Map<string, number>();
-for (const c of crashes) families.set(c.point.split(":")[0] ?? "?", (families.get(c.point.split(":")[0] ?? "?") ?? 0) + 1);
+for (const c of crashes) families.set(familyOf(c.point), (families.get(familyOf(c.point)) ?? 0) + 1);
 say(`  cut families: ${[...families].map(([f, n]) => `${f} ${n}`).join(" · ")}`);
 say(`  sizes ${Math.min(...crashes.map((c) => c.size))}–${Math.max(...crashes.map((c) => c.size))} steps · ${crashes.filter((c) => c.cut).length}/${CRASHES} cuts fired`);
 say(`crash drill: ${crashes.length - crashReds.length}/${CRASHES} converged, zero double-ignitions${crashReds.length === 0 ? "" : ` · red seeds ${crashReds.map((c) => c.seed).join(", ")}`}`);

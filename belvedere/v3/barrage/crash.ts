@@ -54,6 +54,8 @@ export function cutPointsFrom(entries: readonly Entry[]): string[] {
 	return [...new Set(points)];
 }
 
+export const familyOf = (point: string): string => point.split(":")[0] ?? "";
+
 /**
  * One seeded cut: run it clean, pick a point the clean run proves reachable,
  * kill the engine there, restart it on the same log, and demand the same end.
@@ -77,7 +79,15 @@ export async function crashRun(seed: number, root: string, capMs: number): Promi
 			reds: [...plain.reds, { invariant: 7, name: "replay", step: "", detail: "the clean run offered no reachable cut point" }],
 			uncrashed: plain.verdicts, restarted: {}, size, wallMs: Date.now() - started };
 
-	const point = stream(seed, "cut").pick(points);
+	// The family is drawn first, then a point inside it. Drawn flat, the five
+	// families are not equally likely — an ignition offers three points and a
+	// card offers one — so `before-card` would go almost unexercised across a
+	// whole drill, which is the one family a fifty-cut proof cannot afford to
+	// skip.
+	const rng = stream(seed, "cut");
+	const families = [...new Set(points.map(familyOf))].sort();
+	const family = rng.pick(families);
+	const point = rng.pick(points.filter((p) => familyOf(p) === family));
 	const killed = await runChild(seed, cutDir, capMs, { [CRASH_AT]: point });
 	const cut = killed.signal === "SIGKILL";
 
