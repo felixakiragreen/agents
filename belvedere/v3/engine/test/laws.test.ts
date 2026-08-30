@@ -118,7 +118,8 @@ test("bar 8 — the transcript-only outcome equals the streamed outcome", async 
 		const sessionId = crypto.randomUUID();
 		const spawned = ignite({
 			step: { kind: "task", id: c.scenario, depends: [], model: "sonnet", effort: "low",
-				posture: "auto", timeoutMs: 20_000, subject: { fake: { scenario: c.scenario, seed: 3 } } },
+				posture: "auto", timeoutMs: 20_000, prompt: `lost-stream/${c.scenario}`,
+				subject: { fake: { scenario: c.scenario, seed: 3 } } },
 			venue, sessionId, resume: false, prompt: `lost-stream/${c.scenario}`,
 			stream: `${runDir}/streams/${c.scenario}.t0.jsonl`,
 		});
@@ -154,7 +155,7 @@ test("the real seam refuses in kind, and never resolves `claude` from PATH", () 
 		process.env.HOME = "";
 		const refused = ignite({
 			step: { kind: "task", id: "real", depends: [], model: "sonnet", effort: "low",
-				posture: "auto", timeoutMs: 1_000, subject: { real: {} } },
+				posture: "auto", timeoutMs: 1_000, prompt: "never sent", subject: { real: {} } },
 			venue: { workDir: SCRATCH, configDir: `${SCRATCH}/no-such-config` },
 			sessionId: "00000000-0000-0000-0000-000000000000", resume: false,
 			prompt: "never sent", stream: `${SCRATCH}/never-written.jsonl`,

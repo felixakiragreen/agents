@@ -42,6 +42,15 @@ export type Fired = {
 	kind: "task" | "gate";
 	id: string;
 	depends: string[];
+	/**
+	 * The step's own words — the first user turn of its subject, byte-exact
+	 * (P2's law: the summons travels as argv). A fake subject ignores it and
+	 * takes its script from the scenario, so until C8 nothing needed one and the
+	 * default was all there was: `<flow id>/<step id>`, which is an address, not
+	 * an instruction. A real subject can do nothing with an address, so a step
+	 * that means to say something says it here.
+	 */
+	prompt: string;
 	subject: Subject;
 	model: string;
 	effort: string;
@@ -78,7 +87,7 @@ export function parseFlow(text: string, source: string): Flow | Refusal {
 	const steps: Step[] = [];
 	const seen = new Set<string>();
 	for (const [i, s] of f.steps.entries()) {
-		const step = parseStep(s, `${source} step ${i}`);
+		const step = parseStep(s, `${source} step ${i}`, f.id);
 		if ("refusal" in step) return step;
 		if (seen.has(step.id)) return refuse(`${source}: two steps share the id ${JSON.stringify(step.id)}`);
 		seen.add(step.id);
@@ -95,7 +104,7 @@ export function parseFlow(text: string, source: string): Flow | Refusal {
 	return { id: f.id, name: f.name, budget: f.budget, steps };
 }
 
-function parseStep(raw: unknown, where: string): Step | Refusal {
+function parseStep(raw: unknown, where: string, flowId: string): Step | Refusal {
 	if (typeof raw !== "object" || raw === null) return refuse(`${where}: not an object`);
 	const s = raw as Record<string, unknown>;
 	if (typeof s.id !== "string" || s.id === "") return refuse(`${where}: id must be a non-empty string`);
@@ -122,9 +131,12 @@ function parseStep(raw: unknown, where: string): Step | Refusal {
 		return refuse(`${where}: posture must be one of ${POSTURES.join(" | ")} (got ${JSON.stringify(s.posture)})`);
 	if (s.timeout_ms !== undefined && (typeof s.timeout_ms !== "number" || s.timeout_ms <= 0))
 		return refuse(`${where}: timeout_ms must be a positive number of milliseconds`);
+	if (s.prompt !== undefined && (typeof s.prompt !== "string" || s.prompt === ""))
+		return refuse(`${where}: prompt must be a non-empty string — a step that declares one means to say something`);
 
 	return {
 		kind: s.kind, id: s.id, depends, subject,
+		prompt: typeof s.prompt === "string" ? s.prompt : `${flowId}/${s.id}`,
 		model: s.model, effort: s.effort, posture: s.posture as Posture,
 		timeoutMs: typeof s.timeout_ms === "number" ? s.timeout_ms : DEFAULT_TIMEOUT_MS,
 	};
