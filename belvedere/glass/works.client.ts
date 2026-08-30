@@ -112,7 +112,11 @@ function drawNode(host: HTMLElement, n: WorksStep, all: Map<string, WorkshopRow>
 	box.dataset['depth'] = String(n.depth);
 	box.dataset['ring'] = r;
 	box.dataset['ringFrom'] = from;
-	box.dataset['at'] = n.at;
+	// **`data-at` is the deck's clock, not a free attribute.** `tick()` rewrites the textContent of
+	// every `[data-at]` in the document every second (`deck-dom.ts` §an age that keeps ageing), so a
+	// node stamping its fold state there had its whole body replaced by `ago(NaN)` — `NaNd`, on every
+	// node, one second after the first paint. The step's state is `data-step-at`.
+	box.dataset['stepAt'] = n.at;
 	box.dataset['lit'] = lit(n, r, live) ? 'yes' : 'no';
 	box.dataset['tip'] = `${n.id} · ${n.verdict}`;
 	box.dataset['tipMore'] = `${billOf(n)}`
@@ -659,7 +663,9 @@ function draw(): void {
 		snap?.workshop?.boards, snap?.workshop?.tail, mine(snap),
 	]);
 	paint('works:focus', focusHost, sig, h => drawFocus(h, focusState));
-	paint('works:action', actionHost, JSON.stringify([selection.building, actionState, picked, w, usage]),
+	// `showing` belongs in BOTH signatures: Action draws the run the picker chose, so a signature
+	// that forgot it left the Act pane on the previous run while Focus drew the new one.
+	paint('works:action', actionHost, JSON.stringify([selection.building, actionState, showing, picked, w, usage]),
 		h => drawAction(h, actionState));
 	// The run card is the gesture that asks for a live bill (B17 F5): a render reads, a gesture
 	// fetches, and the card coming up is what makes this a gesture rather than a clock.

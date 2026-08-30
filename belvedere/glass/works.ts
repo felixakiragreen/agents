@@ -144,7 +144,7 @@ const touched = (dir: string): number => {
  * The newest run dirs under the telemetry root, newest first. The walk is the console's own
  * (`findRunDirs`, dotted names included — C12 F1's trap lives in it and is already handled).
  */
-export const recentRuns = (root = runsRoot(), limit = LIMITS.read): { dirs: string[]; total: number } => {
+export const recentRuns = (root: string = runsRoot(), limit: number = LIMITS.read): { dirs: string[]; total: number } => {
 	if (!existsSync(root)) return { dirs: [], total: 0 };
 	const all = findRunDirs(root).sort((a, b) => touched(b) - touched(a));
 	return { dirs: all.slice(0, limit), total: all.length };
