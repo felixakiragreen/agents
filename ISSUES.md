@@ -111,3 +111,13 @@ is cleared). A cleared inbox is empty.
   a per-charge pre-authorization shape — allowlist entries riding the charge, or
   a named `!` protocol in the kickoff — so a sanctioned action stops costing a
   human round-trip per file.
+  Evidence 2026-08-30, Felix's word at the batch-6 dispatch, verbatim: "We'll
+  need to figure out how to handle these whole classifier problems in Belv in
+  the future. This is extremely tedious-- too many false positives. They're
+  just trying to do basic git and cd and bash commands." Two classes now in
+  the same entry: classifier false positives on benign commands (pure tax),
+  and the genuinely-guarded class (`~/.claude*` reads, fixture adds) needing a
+  sanctioned per-charge bypass shape. Note: repo `settings.local.json` carried
+  `Bash(git *)` / `Bash(cd *)` allow rules (2026-08-30 10:33) and blocks were
+  still observed — syntax-vs-classifier question dispatched to the guide, its
+  answer lands in the v3 review session's report of this date.
