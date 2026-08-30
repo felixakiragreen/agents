@@ -44,11 +44,19 @@ export const VOID_ENV = join(tmpdir(), 'belvedere-camera-void', 'there-is-no-cre
  * to write something down (`server.ts`, the `/inbox` comment). Typing into the Chat's reply box
  * debounce-saves a draft (`chat.client.ts:save`), so without this the camera would leave notes in
  * Felix's real desk. `$DESK_DIR` is `paths.ts`'s own knob; no glass change is involved.
- *
- * The inbox has no such knob and still reaches a real `ISSUES.md` — a probe must not click "file
- * it". That is documented, not defended: see `README.md` §the twin.
  */
 export const SCRATCH_DESK = join(tmpdir(), 'belvedere-camera-desk');
+
+/**
+ * The twin's own inbox tree — **C17 F2, closed**. `POST /inbox` stands in FRONT of the arming
+ * switch by law (B6 F3), so a probe clicking "file it" wrote into a real building's `ISSUES.md`
+ * and the camera could only document the hazard. `$INBOX_DIR` is `paths.ts`'s knob for it
+ * (C15 §5): a building keeps its city-relative path under this root, so the gesture lands here and
+ * the real city is never opened. Turned on EVERY twin, fixture or not — the real-city twin is the
+ * one that needed it, and the fixture twin points it at its own copied city so both worlds contain
+ * the write in the tree they already tear down.
+ */
+export const SCRATCH_INBOX = join(tmpdir(), 'belvedere-camera-inbox');
 
 export type Twin = {
 	readonly port: number;
@@ -125,8 +133,9 @@ export async function bootTwin(opts: { fixture?: boolean } = {}): Promise<Outcom
 			...process.env,
 			BELVEDERE_ENV: VOID_ENV, GLASS_PORT: String(port),
 			DESK_DIR: seeded ? seeded.desk : SCRATCH_DESK,
+			INBOX_DIR: seeded ? seeded.city : SCRATCH_INBOX,
 			// A fixture run's every anchor lands inside the run directory — the city included, so
-			// even the inbox's un-gated append (C17 F2) is contained and dies with the teardown.
+			// the inbox's un-gated append is contained twice over and dies with the teardown.
 			...(seeded ? { GLASS_CITY: seeded.city, CENSUS_DIR: seeded.census, USAGE_DIR: seeded.usage } : {}),
 		},
 		stdout: 'pipe', stderr: 'pipe',

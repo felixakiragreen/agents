@@ -12,7 +12,7 @@
 // tree would be this suite's second frozen-anchor bug. Every write is asserted to have landed
 // under the temp root — B8 F1's law: pointing a knob at temp is not proof that temp was used.
 
-import { expect, test, describe, beforeAll, afterAll } from 'bun:test';
+import { expect, test, describe, afterEach, beforeAll, afterAll } from 'bun:test';
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync, existsSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
@@ -394,5 +394,51 @@ describe('the note box', () => {
 		expect(html).toContain('data-gesture=');
 		expect(html).toContain('/Users/felix/code/agents/belvedere');
 		for (const pattern of [/data-fire/, /data-worktree/, /\/hands\//]) expect(html).not.toMatch(pattern);
+	});
+});
+
+// ---------- the write root: the fence stays on the city, the write moves (C15 §5, C17 F2) ----------
+
+describe('the write root is a knob', () => {
+	const at = building('knobbed', '# Issues\n\nheader\n\n---\n');
+	const scratch = join(ROOT, 'scratch-drawer');
+
+	afterEach(() => { delete process.env.INBOX_DIR; });
+
+	test('unset, the entry lands in the building itself — the real deck pays nothing', () => {
+		expect(inboxFile(at)).toBe(join(at, 'ISSUES.md'));
+	});
+
+	test('set, the building keeps its city-relative path under the new root', () => {
+		process.env.INBOX_DIR = scratch;
+		expect(inboxFile(at)).toBe(join(scratch, 'knobbed', 'ISSUES.md'));
+	});
+
+	test('a gesture with the knob set writes to scratch and leaves the real inbox byte-identical', () => {
+		const before = read(at);
+		process.env.INBOX_DIR = scratch;
+		const out = filed(note(at, 'a probe clicked file it'));
+		expect(out.ok).toBe(true);
+		expect(out.ok && out.result.path.startsWith(scratch)).toBe(true);
+		expect(out.ok && out.result.minted).toBe(true);      // the scratch tree had no inbox yet
+		// The written bytes are the same bytes, in the other tree — the knob moves the file, never
+		// the grammar: the parser types the scratch copy exactly as it would type the real one.
+		const landed = readFileSync(join(scratch, 'knobbed', 'ISSUES.md'), 'utf8');
+		expect(landed).toContain(`- ${today()} · ${WHO} · a probe clicked file it`);
+		expect(parseIssues(landed).fails).toHaveLength(0);
+		// And the real one has not moved a byte. B8 F1's law: pointing a knob at temp is not proof
+		// that temp was used — the control is the target the write was pointed AWAY from.
+		delete process.env.INBOX_DIR;
+		expect(read(at)).toBe(before);
+	});
+
+	test('the fence still measures against the city, not against the root', () => {
+		process.env.INBOX_DIR = scratch;
+		expect(parseFiling({ building: at, kind: 'note', text: 'x' }).ok).toBe(true);
+		const out = parseFiling({ building: scratch, kind: 'note', text: 'x' });
+		// The scratch drawer is inside the temp city here, so the refusal that matters is the one a
+		// real probe would meet: a path outside the city is refused however the write root is set.
+		expect(parseFiling({ building: tmpdir(), kind: 'note', text: 'x' }).ok).toBe(false);
+		expect(out.ok || (out.error.includes('does not exist') || out.error.includes('not a directory'))).toBe(true);
 	});
 });

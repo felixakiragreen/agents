@@ -81,11 +81,12 @@ render path, so no fixtures and no seeded census.
 
 > **Disarmed is not inert.** Two write classes stand in FRONT of the arming switch,
 > because cold hands must never cost Felix the ability to write something down: the desk
-> (D18 class 3) and the **sovereign's inbox**. `DESK_DIR` redirects the first — measured:
-> typing into the Chat debounce-writes `drafts/<sid>.md` 600 ms later. The inbox has no
-> such knob and still appends to a real `ISSUES.md`, so a probe against the REAL city must
-> not click "file it". Documented, not defended — and closed under `--fixture`, where the
-> city itself is a copy inside the run directory.
+> (D18 class 3) and the **sovereign's inbox**. Both are redirected now — `DESK_DIR` for the
+> first (measured: typing into the Chat debounce-writes `drafts/<sid>.md` 600 ms later) and
+> `INBOX_DIR` for the second, on **every** twin (C15 §5 closed C17 F2: the knob did not
+> exist when this camera landed, so a probe clicking "file it" wrote into a real building's
+> `ISSUES.md`). A real-city twin files into `$TMPDIR/belvedere-camera-inbox/<building>/`;
+> a `--fixture` twin files into its own copied city, contained twice over.
 
 ## `--fixture` — the seeded city
 
@@ -98,7 +99,7 @@ card state is **rendered on demand** instead of waited for:
 | `GLASS_CITY` | a copy of `fixtures/city/` — `alpha` (a row in every state, a ⬡-held baton, two inbox entries), `beta` (a session-holder **fork** and one pending blessing), `broken` (six lint failures, the control) |
 | `CENSUS_DIR` | seeded beats: four live sessions on **the camera's own pid**, two dead — one by `SessionEnd`, one whose last line says `Stop` and whose pid is a corpse |
 | `USAGE_DIR` | three caches: near-cap and burning · headroom · an hour stale |
-| `DESK_DIR` | inside the run directory, like everything else |
+| `DESK_DIR`, `INBOX_DIR` | inside the run directory, like everything else |
 
 The static tree is committed and lint-checked in place —
 `bun doctrine/cli.ts lint camera/fixtures/city/alpha` is green, `…/broken` is red, and the
@@ -110,7 +111,7 @@ Everything lands in one `$TMPDIR` run directory, printed on stderr, removed with
 The tree is copied there rather than served from the repo for two reasons, both measured:
 a city root inside `~/code` gives buildings slugs relative to `~/code` while `/b/<slug>`
 resolves against the CITY root, so every building link 500s (B10 F5's second face); and a
-copy is what makes the un-gated inbox write harmless.
+copy contains the un-gated inbox write a second time, under the knob that already moved it.
 
 ## No pixel goldens, ever
 
