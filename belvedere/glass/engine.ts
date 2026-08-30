@@ -20,7 +20,8 @@
  * step; stopping live work is Felix's or the session's own.
  */
 
-import { existsSync } from 'fs';
+import { existsSync, readFileSync, statSync } from 'fs';
+import { join } from 'path';
 import type { BoardRow } from '../../doctrine';
 import { isLive, readCensus, type Session } from './census';
 import {
@@ -43,7 +44,7 @@ import { readTrust, trustOf, type Trust } from './trust';
 
 /** Everything has a limit (directive 3.1): the tick's period, and how much it will do in one pass. */
 export const TICK_MS = 5_000;
-const LIMITS = { firesPerPass: 4 } as const;
+const LIMITS = { firesPerPass: 4, codaBytes: 1 << 20 } as const;
 
 // ---------- the world the engine reasons over ----------
 
@@ -476,10 +477,46 @@ export type TickReport = { flows: number; lines: number; fires: number; skipped:
 const stampsOf = (sessions: Session[]): string[] =>
 	sessions.map(s => s.stamp).filter((s): s is string => s !== null);
 
+// ---------- the coda: ignition = kickoff + the project coda, nothing else (DOCTRINE §5/§10) ----------
+
+/** The first `>` quote block of a markdown text, verbatim — or null where the text carries none. */
+export function quoteBlock(text: string): string | null {
+	const lines = text.split('\n');
+	const start = lines.findIndex(l => l.startsWith('>'));
+	if (start === -1) return null;
+	let end = start;
+	while (end < lines.length && lines[end]!.startsWith('>')) end++;
+	return lines.slice(start, end).join('\n');
+}
+
+/**
+ * The building's coda — the fixed closing passage of every ignition (DOCTRINE §10), instantiated
+ * once per project as `plans/CODA.md` and appended verbatim at fire; nobody edits a kickoff beyond
+ * appending it. The quote block IS the coda: the file's heading and provenance prose brief a
+ * reader, never a session. A building with no CODA.md fires its kickoff alone (§10 — "where one
+ * exists"); a CODA.md whose quote block cannot be read **refuses the fire** — a mis-briefed
+ * session is exactly the incident this function exists to end (ISSUES 2026-08-29).
+ */
+export function codaOf(buildingPath: string): Outcome<string | null> {
+	const file = join(buildingPath, 'plans', 'CODA.md');
+	if (!existsSync(file)) return { ok: true, result: null };
+	let text: string;
+	try {
+		if (statSync(file).size > LIMITS.codaBytes) return fail(`${file} is past the ${LIMITS.codaBytes} B limit`);
+		text = readFileSync(file, 'utf8');
+	}
+	catch (e) { return fail(`cannot read ${file}: ${e instanceof Error ? e.message : String(e)}`); }
+	const block = quoteBlock(text);
+	return block === null
+		? fail(`${file} carries no quote block — the coda IS the quote block (DOCTRINE §10)`)
+		: { ok: true, result: block };
+}
+
 /**
  * A step's fire, composed and sent through the hands. Nothing new: `compose()` mints the body
  * `POST /hands/fire` parses and `fire()` is the same hand the composer presses, with the same audit,
- * the same unwind and the same arming switch.
+ * the same unwind and the same arming switch. The first user turn is the kickoff **plus the
+ * building's coda** (`codaOf` above) — ignition = kickoff + the project coda, nothing else.
  *
  * The stamp's theater follows the **building**, never the cwd (B17): belvedere work fired at
  * `~/code/agents` is `builder-belvedere-NN`, and a worktree venue would otherwise name the lineage
@@ -488,6 +525,10 @@ const stampsOf = (sessions: Session[]): string[] =>
 async function fireStep(flow: Flow, step: Step, rig: Rig, known: readonly string[], password: string, buildingPath: string): Promise<NewRunLine> {
 	// HALT, immediately before the spawn — its first consumer, and the last thing checked (§3).
 	if (existsSync(haltFlag())) return { ev: 'refused', step: step.id, why: 'HALT — set between the plan and the spawn' };
+
+	// The coda, before the venue: a fire this refuses cuts no worktree it will never use.
+	const coda = codaOf(buildingPath);
+	if (!coda.ok) return { ev: 'refused', step: step.id, why: `coda refused — ${coda.error}` };
 
 	let cwd: string;
 	if (step.venue.kind === 'master') cwd = step.venue.cwd;
@@ -500,7 +541,8 @@ async function fireStep(flow: Flow, step: Step, rig: Rig, known: readonly string
 	const prefix = stampPrefix(step.mantle, theaterOf(buildingPath));
 	const stamp = prefix === null ? null : ordinal(prefix, nextOrdinal(prefix, new Set(), known));
 	const composed = compose(rig, {
-		summons: step.kickoff.text, mantle: step.mantle, tier: step.tier,
+		summons: coda.result === null ? step.kickoff.text : `${step.kickoff.text}\n\n${coda.result}`,
+		mantle: step.mantle, tier: step.tier,
 		cwd, account: step.account, known, ...(stamp === null ? {} : { stamp }),
 	});
 	if ('blocked' in composed) return { ev: 'refused', step: step.id, why: composed.blocked };

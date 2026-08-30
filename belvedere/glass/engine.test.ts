@@ -17,7 +17,7 @@ import { tmpdir } from 'os';
 import { join } from 'path';
 import type { BoardRow } from '../../doctrine';
 import type { Beat, Session } from './census';
-import { plan, verdictOf, armFlow, passGate, type World } from './engine';
+import { codaOf, plan, quoteBlock, verdictOf, armFlow, passGate, type World } from './engine';
 import {
 	appendRun, armedHash, DEFAULT_TIMEOUT_MINUTES, readFlow, readRun, type Flow, type NewRunLine, type Step,
 } from './flow';
@@ -821,5 +821,38 @@ describe('scope-arm — an in-scope addition joins the running flow (§4, D12)',
 		expect(armedHash(again)).toBe(after.hash);
 		expect(scopeJoin(after, again, () => null).kind).toBe('none');
 		expect(evs(plan(after, again, world()))).toEqual([]);
+	});
+});
+
+describe('the coda — ignition = kickoff + the project coda, nothing else (DOCTRINE §5/§10)', () => {
+	const building = (coda: string | null): string => {
+		const root = join(ROOT, `coda-${Math.random().toString(36).slice(2)}`);
+		mkdirSync(join(root, 'plans'), { recursive: true });
+		if (coda !== null) writeFileSync(join(root, 'plans', 'CODA.md'), coda);
+		return root;
+	};
+
+	test('quoteBlock lifts the first `>` block verbatim, heading and prose left behind', () => {
+		expect(quoteBlock('# The coda\n\nProse about it.\n\n> You are running as a dispatched agent.\n> Follow the agreements.\n\nTrailing prose.'))
+			.toBe('> You are running as a dispatched agent.\n> Follow the agreements.');
+		expect(quoteBlock('no quote here')).toBeNull();
+	});
+
+	test('a building with no CODA.md fires its kickoff alone — null, never a refusal (§10 "where one exists")', () => {
+		const got = codaOf(building(null));
+		expect(got.ok).toBe(true);
+		if (got.ok) expect(got.result).toBeNull();
+	});
+
+	test('the coda is the quote block, verbatim', () => {
+		const got = codaOf(building('# The coda — test repo\n\nInstantiated from the core.\n\n> You are running as a dispatched agent. Follow X.\n> Your report is logistics only.\n'));
+		expect(got.ok).toBe(true);
+		if (got.ok) expect(got.result).toBe('> You are running as a dispatched agent. Follow X.\n> Your report is logistics only.');
+	});
+
+	test('a CODA.md with no quote block refuses the fire — a mis-briefed session is the incident', () => {
+		const got = codaOf(building('# The coda\n\nSomebody forgot the block.\n'));
+		expect(got.ok).toBe(false);
+		if (!got.ok) expect(got.error).toContain('no quote block');
 	});
 });
