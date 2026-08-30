@@ -1961,3 +1961,14 @@ condition, a charge — and no `RIDER.md` was renamed, because a rename is a mov
 respell (C23-F7). Next: **ignite G1** when C29, C31 and C32 have landed — it verifies
 this landing among the four, and F8 tells it not to read the city's risen lint count as
 a regression.
+
+**2026-08-29 · Architect · fable-high** — the rig speaks real colours: `presets.tsv`
+now names the colour a mantle actually wears (builder blue, digger orange) and `/color`
+gets that word verbatim; only the panel's ● swatch translates, through Felix's S0 slot
+map (blue⇢cyan · orange⇢blue · purple⇢magenta — ANSI-16 names no purple or orange, so
+his terminal repaints three slots). Fixer joins the panel: `F fixer opus high yellow` —
+opus-high proposed on the hands precedent (builder/digger), one key overrides. Rode
+along: lab/08 trued off the retired dispatcher (C25 left it red), the v1.1 baseline arm
+now compares unwrapped rows with today's palette transplanted, and the grey wire
+assertion follows zle's actual emission (`\e[38;5;8m`, the same bright-black slot as
+`\e[90m`). 202 green, 0 failures. Next: none — the rig is current.
