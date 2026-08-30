@@ -102,13 +102,14 @@ test("bar 3 — a sabotaged cursor answers for the reporting turn before it", as
 	const atCut = readFileSync(logPath, "utf8");
 	const resumed = readLog(logPath).find((e) => e.kind === "resumed");
 	if (resumed?.kind !== "resumed") throw new Error("the driver never resumed the step");
-	expect(resumed.cursor).toBeGreaterThan(0);
 	expect(readFileSync(`${runDir}/streams/t.t1.jsonl`, "utf8")).toBe("");
 
 	// The recorded cursor answers for the turn the engine fired: it never reached
-	// disk, so it is dead.
+	// disk, so it is dead. This is the assertion a stale cursor breaks, whether
+	// the engine stopped recording one or the log's own value was tampered with.
 	const truth = await reopen(name, flowPath).run();
 	expect(truth.steps.t?.at === "paused" ? truth.steps.t.causes : null).toEqual(["dead"]);
+	expect(resumed.cursor).toBeGreaterThan(0);
 
 	// The same disk, the cursor sabotaged to 0 — the read a pre-C11 engine made.
 	writeFileSync(logPath, atCut.split(`"cursor":${resumed.cursor}`).join(`"cursor":0`));
