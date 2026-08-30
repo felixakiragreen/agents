@@ -2245,3 +2245,47 @@ Next: the batch-6 tender rules F1 and F3 at the C8 review — done same day:
 F1 RATIFIED, F3 → C13 (ignite C13 — kickoff in
 [v3/plans/c13-report-on-disk.md](v3/plans/c13-report-on-disk.md)); the full
 record rides the root ledger's entry of this date.
+
+---
+
+**2026-08-30 · Builder · opus-high** — **C13 landed: the report on disk, and
+C8's K1 trued.** Changed: `belvedere/v3/engine/transcript.ts` (the completion
+rule reads the closing `StructuredOutput` pair, matched by `toolUseId`, and the
+call's input is the step report — so `verdictFromTranscript` can now **land**),
+`engine/README.md` (law 5), `engine/test/{transcript,cursor,laws,crash}.test.ts`
++ two new real fixtures cut from C12's archive, `fake-claude/run.ts` (the fake
+writes the pair) with three `schema-*` goldens re-recorded, `barrage/oracle.ts`
+(invariant 8 asks the transcript the landing question too), findings under
+[C13](v3/plans/c13-report-on-disk.md). **Budget 0 real turns — every byte came
+from C12's archive.**
+
+Measured: C8's own q4e re-run at its own denominator — **the 50 landed turns the
+archive still holds read `dead` under the parent reader and `worked` + a landing
+under this one, 50/50 across three accounts**. The K1 red was committed red
+first (`2edb3f0`, before `23e2be6`). The kill criterion did not fire: **55/55**
+archived C8 transcripts close on their report call, matched by id, 0 unmatched.
+**Law 5 proven end to end for the first time** — the engine SIGKILLed mid-turn,
+the subject's stream file then *deleted outright*, and the restart landed the
+step from the transcript alone, invariants `[]`, verdicts ≡ the uncrashed
+baseline. The cursor's regression signal is back and **seen red on a planted
+stale cursor** (both cursor bars, on the outcome), with the masking itself
+measured rather than asserted. Gates: engine 61 · barrage 38 · fake 59 green,
+three type gates exit 0, **barrage exit 0** (1000/1000 · 50/50 · 9/9, 147.6 s).
+
+Decided: the spec's *"every weaker state pauses exactly as today"* read
+literally — only `done` gained a branch, so a `needs_input` report on disk still
+pauses ‹no report› and only the detail names it (F3, the Architect's to widen).
+The oracle change was not optional: once the engine can land from the
+transcript, invariant 8's stream-only `expectedLanding` would have called every
+such landing a red, so `fromDisk` now falls to the transcript exactly where the
+engine did.
+
+Baton — ⬡ → the Architect at C13's review: **rule F1** — the barrage reaches the
+transcript fallback **once in ~2,300 turns and never lands from it**, so the
+charge's "the barrage guards this class forever" is not yet true and the class
+rides the deterministic pair instead; a sixth cut family that kills the
+*subject* is the fix, and it is C11 F4's shape for the second time running.
+Then **rule F3** (name ‹needs-⬡ question› / ‹blocked› from disk, or keep the
+literal reading) and **F2** (the fake's *stream* is now unfaithful where its
+transcript stopped being). C9 is unblocked: the capability row G4 would have
+convened on is no longer falsified.
