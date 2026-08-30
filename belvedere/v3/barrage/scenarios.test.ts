@@ -26,7 +26,8 @@ async function measure(scenario: string, timeoutMs: number): Promise<Reading> {
 	mkdirSync(`${runDir}/work`, { recursive: true });
 	const spawned = ignite({
 		step: { kind: "task", id: scenario, depends: [], model: "sonnet", effort: "low",
-			posture: "acceptEdits", timeoutMs, subject: { fake: { scenario, seed: 5 } } },
+			posture: "acceptEdits", timeoutMs, prompt: `classify/${scenario}`,
+			subject: { fake: { scenario, seed: 5 } } },
 		venue: { workDir: `${runDir}/work`, configDir: `${runDir}/config` },
 		sessionId: crypto.randomUUID(), resume: false, prompt: `classify/${scenario}`,
 		stream: `${runDir}/streams/${scenario}.t0.jsonl`,
