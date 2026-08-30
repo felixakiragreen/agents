@@ -41,7 +41,34 @@ other fixture has — `bridge-session`, `file-history-snapshot`, `cost-state`,
 3f14e1e9-d8d0-4d65-b843-17021b4b4727.jsonl
 ```
 
-**One edit, deliberate, in all three real transcripts:** the `session_context`
-attachment row carries Felix's email; every occurrence is placeheld with
-`redacted@example.com` — same length, so byte offsets are unmoved. The row
-shape — the one thing the reader is being tested against — is untouched.
+**`real-c8-q1-smoke.jsonl`** — a C8 subject turn the engine **landed** from the
+stream, 14 rows, one turn, on the `thg-fgreen` account. The C13 corpus: it ends
+`assistant text` → `assistant tool_use:StructuredOutput` → `user tool_result`,
+the shape `--json-schema` gives every engine turn and the shape the pre-C13
+completion rule read as died-mid-work (C8 F3, K1). Its `StructuredOutput` input
+is the step report itself — `{"state":"done","cause":"n/a"}` — which is why the
+fallback can land from disk at all. **Sourced from C12's archive, never from a
+live config dir:**
+
+```
+summon/log/archive/.claude-thg-fgreen/-private-tmp-claude-502--Users-felix-\
+code-agents-acc07356-4518-44b7-85e1-cd75f58d25c0-scratchpad-c8-q1-smoke-thg-\
+fgreen/1441a473-b6bf-41d9-a40f-3c436e84dd55.jsonl
+```
+
+**`real-c8-q5-question.jsonl`** — C8's `q5-question` probe, 18 rows, one turn,
+personal account. The negative control for the one above: the same closing pair,
+but the report on disk says `needs_input`, so the turn is **complete and still
+does not land**. Source:
+
+```
+summon/log/archive/.claude/-private-tmp-claude-502--Users-felix-code-agents-\
+acc07356-4518-44b7-85e1-cd75f58d25c0-scratchpad-c8-q5-question-personal/\
+9d9e2d24-a1a6-43c5-9b14-6a95327a4ca2.jsonl
+```
+
+**One edit, deliberate, in every real transcript that carries it** (four of the
+five — `real-c8-q1-smoke.jsonl` has no `session_context` row): that row carries
+Felix's email, and every occurrence is placeheld with `redacted@example.com` —
+same length, so byte offsets are unmoved. The row shape — the one thing the
+reader is being tested against — is untouched.
