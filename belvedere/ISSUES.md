@@ -77,3 +77,4 @@ the inbox is cleared. A cleared inbox is empty.
   have landed. Candidate home: the charge template / coda gains the closing line
   "your last commit trues your row's Status" (canon-shaped — likely escalates to
   the canon inbox at the sweep); c29's own charge doc is the repro.
+- 2026-08-29 · Architect (v3 founding) · `doctrine lint` reds `kickoff.door` ×1 on LANDED [plans/c1-fence-repoint.md](plans/c1-fence-repoint.md):63 ("Wear" opens, no door line) — the sweep rules: are landed kickoffs lintable history, or does the doc get a form fix?
