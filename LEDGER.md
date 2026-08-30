@@ -1972,3 +1972,14 @@ along: lab/08 trued off the retired dispatcher (C25 left it red), the v1.1 basel
 now compares unwrapped rows with today's palette transplanted, and the grey wire
 assertion follows zle's actual emission (`\e[38;5;8m`, the same bright-black slot as
 `\e[90m`). 202 green, 0 failures. Next: none — the rig is current.
+
+**2026-08-29 · Architect · fable-high (cont.)** — the panel regraded: the header and row
+labels run the whole gradient (summon blue · mantle green · model yellow · effort orange ·
+account red · theater pink · usage purple, S0 slots throughout; pink is 256-palette 213,
+no slot to remap); a mantle's label wears its session colour, not just its ●, bold when
+selected; and a `theater` row lists the filed campaigns wherever `.summon-theaters`
+exists — `[t]` and the ✓ ride the selected one, in the panel's own bracket grammar
+(`agen[t]s ✓`). Retired lab/08's v1.1 byte-parity arm: the baseline transplant had
+outgrown the code under test; its surviving claim — no log/usage ⇒ no usage row — stands
+as its own arm. 209 green, 0 failures. Reload law unchanged: a live shell shows the new
+paint only after re-sourcing.
