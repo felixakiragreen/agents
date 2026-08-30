@@ -58,6 +58,15 @@ defect.
 tail, and the kickoffs of work docs whose own `**Status:**` is still OPEN / IN FLIGHT /
 BLOCKED.
 
+**The kickoff arm (C31).** Counting a fence is not reading it. In a work doc whose own
+`**Status:**` is still unfinished the fenced kickoff must open in the summons grammar — the
+summons line (`kickoff.summons`), then C33's door line (`kickoff.door`), then the wear line
+(`kickoff.wear`): DOCTRINE §5's single-glance test, mechanized, because the flow engine fires
+those bytes verbatim. LANDED and KILLED docs are history and are never read. The unmantled
+cheap-tier ignition carries GUILD.md's closing stanza inline instead of a path read
+(`canon/mantles/README.md`) — it names no mantle and wears no charter, so it passes on its
+opening line and is no more a kickoff candidate than a Personal-Log letter is.
+
 ## `--vocab` — the speech arm (C26)
 
 Format drift is caught by the parser; `--vocab` points the same alarm at **speech**. Off by
@@ -120,6 +129,15 @@ required to touch a byte.
 **The round-trip law, asserted:** `parse(migrate(x)) ≡ parse(x)` — a field the parser already
 typed comes back identical; only a field a fired rule declared may change; nothing outside a
 recorded edit moves. A violation aborts the write: that is a converter bug, not a doc defect.
+
+**The clause pass re-reads (C31).** The rules run in two classes: structure and field rules
+first, then the document is re-read and `ledger.unrecorded-clauses` decides its typed absences
+against what the document now says. Reading the pre-migration bytes is how the converter came
+to stamp `Decided: unrecorded.` into 61 whiteboardy entries that carried a real clause — in the
+house dialect a field rule had just repaired — while the round-trip law printed `ok` for every
+one of them. **`round-trip ok` is a statement about declared fields, not about meaning.**
+Where the tool cannot repair a clause's spelling it refuses to fill: a refusal is a lint
+failure with a human's name on it, a fill is a lie.
 
 Deliberate refusals, because the alternative is a converter inventing meaning:
 
