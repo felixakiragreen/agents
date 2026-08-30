@@ -350,16 +350,21 @@ class is `engine/test/cursor.test.ts` bar 1 plus `oracle.test.ts`'s stale-cursor
 plant, both deterministic. Named because "the barrage would catch it" is the
 reasonable assumption and it is false here.
 
-**F5 — C6 F9's harness block bites on the *copy*, not on the commit.** The
-expectation carried in was that `git add` of generated fixtures would be
-refused. It was not: both new transcript fixtures and the two re-recorded
-`demo-run.jsonl` committed unprompted. What was refused was reading out of
+**F5 — the classifier tax, one more data point on the standing entry (no new
+filing wanted).** C6 F9 predicted `git add` of generated fixtures would be
+refused. It was not: both new transcript fixtures and both re-recordings of
+`demo-run.jsonl` committed unprompted. What *was* refused was reading out of
 `~/.claude` into the repo — `cp <account transcript> <fixture>` and
-`sed <account transcript> > <fixture>` both blocked by the auto-mode classifier,
-while `ls` and a `python3` read of the same path were allowed. The block is
-tool-shaped rather than intent-shaped, which makes it unpredictable to plan
-around. **Wants a root `ISSUES.md` filing at review** — the v3 fence forbids it
-from inside a charge (C6 F9's own shape).
+`sed <account transcript> > <fixture>` blocked, while `ls` and a `python3` read
+of the same path were allowed. Two readings, and the honest one is probably the
+first: Felix landed a repo `.claude/settings.json` allowlist including
+`Read(~/.claude*/projects/**)` **during this charge** (root `ISSUES.md`, commits
+`1130fad` / `cb8a9e0`, 10:33–10:40), so the block I met and the adds that went
+through may simply straddle that fix rather than differ in kind. Either way it
+rides the standing root entry of 2026-08-30, which already names both classes
+and asks for the per-charge pre-authorization shape — **nothing new to file**,
+and the ruling it wants is unchanged. Recorded here because the block cost this
+charge one detour and the next Builder should expect the friction to have moved.
 
 ---
 
