@@ -3,7 +3,9 @@
 **Status:** LANDED 2026-08-30 · **Depends on:** C7 · **Staffing:** Builder ·
 opus-high · **Spec blessed:** C7 F3's ruling (2026-08-30) riding the BLESSED
 cornerstone §8 arc; pre-chewed and laid by the board's Architect, 2026-08-30 ·
-**Branch:** none — serial sole lane, straight to `master`, explicit paths
+**Branch:** none — serial sole lane, straight to `master`, explicit paths ·
+**The board still reads IN FLIGHT** — truing it is the tender's at review, as it
+was at C6 and C7; the five gates below are all machine-checked and re-runnable
 
 ## Goal
 
