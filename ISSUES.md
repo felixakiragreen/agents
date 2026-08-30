@@ -234,3 +234,12 @@ is cleared). A cleared inbox is empty.
   Felix's card — D10's parse-and-prose agreement is what currently keeps it
   unwired. The holder grammar is C32's un-built scope, stranded by flow-1's
   abandonment — the C29/C32/G1 re-ruling (entry above) should weigh this with it.
+- 2026-08-30 · belvedere Architect (the migration lay) · **hand ignitions drop the
+  coda — charge 22's composition should carry it.** DOCTRINE §10: ignition =
+  kickoff + the project coda, appended verbatim; the v3 engine does this at fire
+  (proven — a blockless CODA.md refuses), but a terminal paste of a fenced kickoff
+  ships without it unless Felix pastes twice (he doesn't — C14 ignited coda-less
+  today, harmless there because the charge doc is self-contained, but the law
+  leaks by default). Since charge 22 is the argv-summons composition, the rig is
+  the natural place to append `plans/CODA.md` when the target building has one —
+  worth a line when its three forks are blessed.
