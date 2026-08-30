@@ -94,6 +94,35 @@ test("the stream outlives its engine: a mid-turn cut on a step that reported con
 	if (state?.at === "landed") expect(state.report?.state).toBe("done");
 }, 60_000);
 
+// C13 — law 5's redundancy claim, at full strength and end to end.
+//
+// C6 F2 made the stream file outlive its engine, which is why the test above
+// converges. This one takes that file away entirely — the state the campaign
+// says the transcript exists for — and asks for the same answer. Before C13 it
+// could not have been had: the step report rode the stream alone, so the best
+// the transcript could say was ‹no report›, and on real bytes it said ‹dead›
+// (C8 F3). The report is in the transcript's closing `StructuredOutput` call.
+test("the report survives the stream: the file destroyed, the turn lands from the transcript", async () => {
+	const runDir = fresh("crash-report-lost");
+	const cut = await engine(runDir, ["--bless"], "after-ignite:prep");
+	expect(cut.signal).toBe("SIGKILL");
+	rmSync(`${runDir}/streams/prep.t0.jsonl`, { force: true });
+	await engine(runDir, [], null);
+
+	const entries = readLog(`${runDir}/run.jsonl`);
+	const ended = entries.find((e) => e.kind === "turn-ended" && e.step === "prep");
+	expect(ended?.kind === "turn-ended" && ended.sensed.source).toBe("transcript");
+	const state = fold(entries).steps.prep;
+	expect(state?.at).toBe("landed");
+	if (state?.at === "landed") expect(state.report).toEqual({
+		state: "done", cause: "Wrote config.yaml with the requested port", answer: "config.yaml is in place.",
+	});
+	// And the whole run is unmoved: destroying a stream file cost nothing.
+	expect(invariants(`${runDir}/run.jsonl`)).toEqual([]);
+	expect(terminal(fold(entries))).toBe(true);
+	expect(verdicts(fold(entries))).toEqual(await uncrashed());
+}, 60_000);
+
 test("adopt-or-re-derive: the orphan finishes while the engine is dead, and its stream file says so", async () => {
 	const runDir = fresh("crash-adopt");
 	const cut = await engine(runDir, ["--bless"], "after-ignite:orphan");
