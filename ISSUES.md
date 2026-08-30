@@ -18,3 +18,43 @@ is cleared). A cleared inbox is empty.
   the implementation evidently keys on the `worktree-agent-*` shape, so `bv/*`
   branches slip it. Repro: current tree, `doctrine lint ~/code/agents`. Candidate
   home: C31 gains a fifth item, or the flow venue work — the next sweep rules it.
+
+---
+
+- 2026-08-29 · c31-builder · **belvedere's C1 charge doc lies about its own state, and its
+  fence is pre-door.** `belvedere/plans/c1-fence-repoint.md:3` reads `**Status:** OPEN —
+  laid 2026-08-29`; `belvedere/README.md:243` reads `**LANDED** 2026-08-29` for the same
+  charge (commits `68b953b` + `ba2ed0b`, findings pasted in the doc). The doc therefore
+  still advertises itself as ignitable, carrying `Wear ~/code/agents/canon/mantles/builder.md,`
+  at `:63` — a pre-door fence C31's new kickoff arm reports as `kickoff.door`, and the only
+  reason `doctrine lint ~/code/agents` reads 3 instead of 0 (with C29's live `ledger.baton`).
+  Belvedere's batch-6 sweep repaired six fences + G3 + the tender at `389d0a7` and missed
+  this one because the doc reads closed to a human and open to the parser. Either repair is
+  one line and both are belvedere's Architect's; C31's fence forbids editing a building's
+  files. Repro: `bun doctrine/cli.ts lint ~/code/agents`.
+
+---
+
+- 2026-08-29 · c31-builder · **20 live pre-door fences across the city, each its own
+  building's sweep.** C31's kickoff arm's first walk: `bun doctrine/cli.ts lint ~/code` →
+  `20 kickoff.door` — snappy 9 (`plans/12-quick-pair.md`, `19-paste-undo.md`,
+  `20-quiescence-fuzz.md`, +6) · simmy 4 (`spikes/b16-verdict-honesty.md` ×2,
+  `b17-jar-identity.md`, +1) · manny's `user-manual` worktree 3 (`plans/06-linter.md`,
+  `25-residual-walk.md`, `29-campaign-id-lint.md`) · cap-mega `docs/units` 2
+  (`plans/07-venue-maturation.md:106`, `08-fg2-findings.md:309` — both wrapped summonses
+  that will want re-laying, not a one-line insert) · belvedere 1 (above, counted twice).
+  Every one is a live charge doc whose kickoff would fire without the door. Not a defect in
+  this repo; filed so the sweep is scheduled rather than discovered at the next ignition.
+
+---
+
+- 2026-08-29 · c31-builder · **bob's `catalog` campaign is invisible to the register, and it
+  is the one place C31 item 3's widening would have shown.** `docs/campaigns/catalog/README.md`
+  carries `## Decisions`, `## Board`, `## Inbox`, `## Ledger`, but its board header reads
+  `| row | what | deps | staffing | status |` — not the canonical five — so the walk never
+  promotes the directory and its five `C-D‹n›` decisions are never read. Measured directly,
+  bypassing the register: pre-C31 `0 candidates`, C31 `5 candidates · 0 parsed ·
+  decision.colon ×5` (the entries spell `- **C-D1** (2026-08-28, …) — <body>`, an em-dash
+  where §8 wants the colon). Two questions for the sweep, neither C31's: does the register
+  read a renamed-column board, and is `- **ID** — <text>` (bob's other 48 prefixed-D
+  bullets, which carry no attribution at all) a decision shape the reader should learn?
