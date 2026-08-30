@@ -207,3 +207,19 @@ is cleared). A cleared inbox is empty.
   **merged into master and clean** — pure residue unless a session still sits in
   it; D55-class, not this sweep's to remove (found beyond the fence, filed). One
   `git worktree remove` once the GA confirms nothing lives there.
+- 2026-08-30 · belvedere Architect (the migration lay) · **the root LEDGER's five
+  `ledger.merged` reds are not separator omissions — un-merging them exposes worse,
+  so the repair is the GA's, not mechanical.** `doctrine lint ~/code/agents` reads
+  5× `ledger.merged` (heads mid-block at LEDGER.md:1965/1976/1987/2015/2033, the
+  08-29/30 rig + v3 entries; one head literally says "(cont.)"). Measured at this
+  session's hand: inserting the five `---` separators converts the reds to
+  5× `ledger.decided` + 1× `ledger.next` — the fragments were written as
+  continuation chunks without their own clauses, and the merged state masks that.
+  The repair needs judgment on five sessions' recorded history: demote the
+  continuation heads to body text, or write `unrecorded` typed absences (the molt
+  clause's shape — but these entries post-date the doctrine), or reconstruct
+  clauses with a blessing. Insert-then-lint reverted; the masked 5-red state
+  stands. Repro: `for n in 2033 2015 1987 1976 1965; do sed -i '' "${n}i\\
+  ---\\
+  " LEDGER.md; done; bun doctrine/cli.ts lint ~/code/agents`, then `git checkout
+  LEDGER.md`.
