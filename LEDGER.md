@@ -2029,3 +2029,38 @@ uncrashed run of the same seed (determinism makes it free); reds file to
 Builder · opus-high, budget 0 real turns, batch-4 note on the board;
 `doctrine lint`: belvedere/v3 ok. Next: Felix ignites C7 — kickoff at the
 charge's foot; ignition converts the F2 ruling, or he amends first.
+
+**2026-08-30 · Builder · opus-high** — **C7 LANDED**: `belvedere/v3/barrage/` is
+the campaign's proving instrument, and **step 0 built the ruled C6 F2 fix**. The
+one command — `bun barrage/run.ts --runs 1000 --crashes 50` — exits 0 in 148 s:
+**1000/1000 runs green** over 26,279 generated steps with all nine invariants
+checked per run, **50/50 seeded cuts converged** on their own uncrashed runs
+across all five cut families (sizes 2–91, 50/50 cuts actually fired), **9/9
+mutants caught** each naming its own invariant class with every control green.
+Engine + barrage **86 tests green, both type gates exit 0**; the 23-row scenario
+table is *measured* through `ignite()`, not declared. **Zero real `claude`
+invocations — budget 0 held**; three spawn sites exist in the tree and none is
+`claude`. Changed: `engine/spawn.ts` (stdout to a file the subject owns, tailed;
+stderr beside it), `engine/{engine,replay,sense,flow}.ts`, `engine/mutant.ts`
+(new — nine law breaks, one per invariant class, inert without the env var),
+`engine/README.md` law 1 → **(flow file + run log + stream files +
+transcripts)**, the drill flow + `test/crash.test.ts` (seven cut points, each
+converging on `verdicts()` of the uncrashed run), and the whole of
+`barrage/`. **Two findings are the Architect's**: **F4** — the engine spun
+forever on restart because an async body deleted its in-flight entry *before*
+`set` installed it (pre-existing from C6; the drill never hit it because its one
+adopted subject was always still alive at restart). The fuzzer found it on its
+first crash cycle, and it made bars 5–7 unreachable, so I **fixed it in its own
+commit beyond the charge's fence** — ratify or revert. **F3** — the transcript
+fallback is not turn-addressable: one file per *session* with no turn index, so
+a resumed step whose stream is torn re-derives the *previous* turn's outcome;
+filed, not built, the fix is an engine change beyond step 0. Also filed: F1 only
+`schema-done` lands without a ruling (layer-0 depth rides the harness, and that
+inverts at C8) · F2 19 of 23 scenarios script one act · F5 a step id must now be
+a file name (it names its stream files) · F6 three mutants trip a second class,
+the nine are not orthogonal · F8 cut points must be drawn family-first or
+`before-card` goes untested · F9 the harness blocked nothing this session (no
+fixture needed re-recording; the barrage commits no telemetry) — C6 F9's own
+ISSUES filing is still outstanding. Next: Felix reviews C7 and rules F4 and F3;
+**C8 is not yet laid** and wants an Architect's pre-chew — it is the first
+charge that spends real turns, so it needs a budget line before it is ignitable.

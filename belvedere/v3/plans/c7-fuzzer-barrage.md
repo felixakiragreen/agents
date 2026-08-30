@@ -1,6 +1,6 @@
 # C7 — the fuzzer + the barrage
 
-**Status:** OPEN · **Depends on:** C6 · **Staffing:** Builder · opus-high ·
+**Status:** LANDED 2026-08-30 · **Depends on:** C6 · **Staffing:** Builder · opus-high ·
 **Spec blessed:** rides the BLESSED cornerstone §8 arc (⬡✓ 2026-08-29);
 pre-chewed and laid by the board's Architect, 2026-08-30 · **Branch:** none —
 serial sole lane, straight to `master`, explicit paths
@@ -138,22 +138,133 @@ runs the adds by hand (`!`).
 
 ## Done when
 
-1. `bun test` green across engine + barrage, `tsc --noEmit` exit 0 — pasted.
-2. **Step 0 evidenced:** stream files on disk; a mid-turn cut on a
-   report-carrying step converges to **landed** ≡ its uncrashed run;
-   `engine/README.md` law 1 updated in the same commit.
-3. **Determinism:** same seed ⇒ byte-identical flow file and identical run
-   verdict, proven on ≥3 seeds ×2 runs each, under parallel workers.
-4. **The scenario table:** all 23 scenarios classified, cited from the oracle.
-5. **The barrage (campaign bar 1):** one command, ≥1,000 seeded runs, all nine
-   invariants checked per run — green, or every red in `barrage/reds/` with
-   its seed and repro; wall time reported.
-6. **Crash-redo (campaign bar 2):** ≥50 seeded cuts across ≥3 topology sizes;
-   every restart terminal ≡ its uncrashed run, zero double-ignitions.
-7. **Mutation (campaign bar 3):** 9/9 mutants caught, each on its own
-   invariant class; the seam inert without the env var; unmutated barrage
-   green.
-8. **Budget 0 held:** zero real `claude` invocations.
+1. **`bun test` green across engine + barrage, `tsc --noEmit` exit 0.** ✓
+
+```
+$ cd engine && bun test                       $ cd barrage && bun test
+ 49 pass                                       37 pass
+ 0 fail                                        0 fail
+ 266 expect() calls                            14797 expect() calls
+Ran 49 tests across 7 files. [21.78s]         Ran 37 tests across 4 files. [19.76s]
+
+$ ../../glass/node_modules/.bin/tsc --noEmit  # engine  -> exit 0
+$ ../../glass/node_modules/.bin/tsc --noEmit  # barrage -> exit 0
+$ cd fake-claude && bun test                  # untouched, still 59 pass / 0 fail
+```
+
+2. **Step 0 evidenced.** ✓ Stream files on disk at
+   `<runDir>/streams/<stepId>.t<n>.jsonl` (stderr beside them as `.err`), the
+   child owning the fd. `engine/README.md`'s law 1 now reads *(flow file + run
+   log + stream files + transcripts)* — updated in the step-0 commit. The drill
+   ([engine/test/crash.test.ts](../engine/test/crash.test.ts), **10 pass /
+   0 fail**) cuts at **seven** named points and adds the three assertions the
+   ruling bought:
+
+   - `after-ignite:prep` — a mid-turn cut on a step that **reports**:
+     `turn-ended.sensed.source === "stream"` and the step converges to
+     **landed**, `report.state === "done"` — the state the pre-fix engine could
+     never reach after a mid-turn death.
+   - `after-ignite:orphan` — the orphan finishes while the engine is dead and is
+     read from its **stream file**, still pausing ‹no report› (the scenario
+     never reports). C6's assertion that this read `transcript` is replaced, and
+     the drill flow gained a `dead` step so the fallback keeps its own test:
+   - `after-ignite:dead` — `die-137` writes no `result`, so the stream is torn
+     and only then does the transcript answer: `source === "transcript"`,
+     paused ‹dead›. **Only a torn stream falls to the transcript.**
+
+   Every cut also converges on `verdicts()` of the **uncrashed** run of the same
+   flow — the drill's own oracle, adopted from C7's.
+
+3. **Determinism, ≥3 seeds ×2 runs each, under parallel workers.** ✓
+   [barrage/determinism.test.ts](../barrage/determinism.test.ts) runs seeds
+   4 · 12 · 33 twice each, **all six children at once**, and asserts per seed:
+   identical `flow.json` bytes from two separate processes, identical terminal
+   verdicts, and zero reds on both. The run *log* is deliberately not compared —
+   parallel steps finish in whatever order they finish in, and the log records
+   that order as fact.
+
+4. **The scenario table: all 23 classified, measured.** ✓
+   [barrage/scenarios.ts](../barrage/scenarios.ts) declares verdict class,
+   whether a `result` reaches the stream file, what `init` grants back, the
+   timeout the row needs, its draw weight and its act count;
+   [scenarios.test.ts](../barrage/scenarios.test.ts) **spawns every row through
+   the engine's own `ignite()`** and checks all of it (23 row tests + 2
+   table-shape tests). Measured: **18 worked · 3 denied · 1 dead · 1 hang**;
+   `result: false` on exactly `die-137` and `hang` — the two rows the torn-stream
+   fallback exists for. `plan-noop` grants back `plan` and
+   `permission-denial` / `posture-mismatch` grant `default`, so those three
+   always carry ‹posture›.
+
+5. **The barrage — campaign bar 1.** ✓ One command, exit 0.
+
+```
+$ bun barrage/run.ts --runs 1000 --crashes 50
+barrage: 1000 runs from seed 1, 8 workers, 60s per run
+  1000/1000 runs · 0 red · 107.7s
+
+coverage over 1000 flows: 26279 steps (mean 26.3)
+  gate or card    74.3%   (quota ≥20%)
+  hazard subject  78.4%   (quota ≥30%)
+  tight budget    13.1%   ·  blessed in halves  13.7%
+  scenarios      23/23
+barrage: 1000/1000 green
+```
+
+   Sizes 2–100, mean 26.3 — **26,279 generated steps**, every one of the nine
+   invariants checked per run. `reds/` is empty because nothing red.
+
+6. **Crash-redo — campaign bar 2.** ✓
+
+```
+crash drill: 50 seeded cuts, each converging on its own uncrashed run
+  cut families: before-ignite 13 · before-pause 11 · after-ignite 9 · before-card 6 · before-settle 11
+  sizes 2–91 steps · 50/50 cuts fired
+crash drill: 50/50 converged, zero double-ignitions
+```
+
+   All **five** cut families, sizes 2–91 (≥3 sizes), **50/50 cuts actually
+   fired** — the point is drawn from the uncrashed run's own log, so it is
+   always reachable. Each restart: exit 0, `invariants` green, exactly one
+   `blessed`, no step ignited twice, and terminal verdicts **equal to the
+   uncrashed run's, exactly**.
+
+7. **Mutation — campaign bar 3.** ✓ 9/9, each on its own class, each with the
+   same seed green unmutated.
+
+```
+mutation check: nine planted law breaks, one per invariant class
+  caught  double-ignite      invariant 1  seed 2000000 · oracle named 1, 2, 7, 9 · control green
+  caught  edge-jump          invariant 2  seed 2000000 · oracle named 2       · control green
+  caught  gate-lands-itself  invariant 3  seed 2000006 · oracle named 3, 8    · control green
+  caught  scope-jump         invariant 4  seed 2000011 · oracle named 4       · control green
+  caught  mute-pause         invariant 5  seed 2000000 · oracle named 5, 8    · control green
+  caught  orphan-terminal    invariant 6  seed 2000002 · oracle named 6       · control green
+  caught  act-before-append  invariant 7  seed 2000000 · oracle named 7       · control green
+  caught  land-denied        invariant 8  seed 2000002 · oracle named 8       · control green
+  caught  past-ceiling       invariant 9  seed 2000014 · oracle named 9       · control green
+mutation check: 9/9 caught
+
+barrage GREEN · 1000 runs · 50 cuts · 9/9 mutants · wall 147.6s
+$ echo $?
+0
+```
+
+   The seam is inert without the variable: the unmutated barrage above is
+   1000/1000 green, and every mutant's own seed is green as a control. Collateral
+   classes are named honestly in F6.
+
+8. **Budget 0 held — zero real `claude` invocations.** ✓ Three process-spawn
+   sites exist in the whole of engine + barrage, and none of them is `claude`:
+
+```
+$ grep -rn "Bun.spawn" engine/*.ts engine/test/*.ts barrage/*.ts
+engine/spawn.ts:98        Bun.spawn([process.execPath, FAKE_CLI, ...argvFor(i)]   -> fake-claude/cli.ts
+barrage/child.ts:26       Bun.spawn([process.execPath, ONE, ...])                 -> barrage/one.ts
+engine/test/crash.test.ts:36                                                      -> engine/cli.ts
+```
+
+   No reference to `~/.local/bin/claude` or any real binary anywhere in the
+   charge's tree.
 
 ## Kill criteria
 
@@ -173,7 +284,113 @@ and the mutant seam · D12 scope growth · retry policies. **Creep is a bug.**
 
 ## Findings
 
-*(append here)*
+**F1 — one of the twenty-three scenarios lands without a ruling.** `schema-done`
+is the only row whose report says `done`; every other row pauses. So at layer 0
+a generated flow advances almost entirely on **the harness's rulings**, not on
+its subjects — the ruling policy is load-bearing coverage, and a topology's
+depth is exercised because the driver lands paused steps, not because subjects
+finish. Measured in the table (bar 4: 18 worked / 3 denied / 1 dead / 1 hang,
+and only one `report.state === "done"`). Named because the balance inverts at
+C8: real subjects land on their own, and a C8 flow that lands nothing is a
+signal rather than a shape.
+
+**F2 — a `--resume` past a scenario's last act is a subject that dies at the
+door, and 19 of 23 scenarios script one act.** The fake refuses the turn and
+writes **nothing** to the stream:
+
+```
+$ cat streams/s02.t1.err
+error: scenario multi-tool scripts 1 acts; turn 1 has no script
+$ wc -c streams/s02.t1.jsonl
+0
+```
+
+A driver that resumes uniformly makes nearly every resumed turn a death, so the
+*worked* resume path goes unfuzzed. Resolved inside the fence: the table carries
+each row's act count (checked against the scenario file), and the driver resumes
+multi-act rows at 0.35 and single-act rows at 0.1 — both shapes are real, one is
+not worth a third of the rulings. The durable fix is **more multi-act scenarios**,
+and that is C5's instrument to extend, not this charge's (kill criterion 2).
+
+**F3 — the transcript fallback is not turn-addressable. Filed, not built.** The
+transcript is one file per *session* with no turn index in it, so
+`readTranscript` answers for whichever turn last wrote to it. On a **resumed**
+step whose stream is torn, the engine therefore re-derives the *previous* turn's
+outcome: the dead resume above reads back from disk as `worked`. Found by the
+oracle on barrage seed 1. After step 0 the exposure is narrow — the stream file
+is the sensor and the transcript is only the torn-stream fallback — but it is
+real and it is the engine's. The oracle refuses to claim more than *"this did
+not land"* from a torn stream ([barrage/oracle.ts](../barrage/oracle.ts),
+`fromDisk`), which is all the disk can honestly support. The fix — a per-turn
+cursor into the transcript, of the kind the fake already re-derives at
+`--resume` — is an engine change beyond step 0, so it is the Architect's.
+
+**F4 — the engine spun forever on restart, and the fuzzer found it on its first
+crash cycle. Fixed, in its own commit.** `adopt()` read
+`inFlight.set(stepId, waitThenRead())`, and **an async function body runs
+synchronously to its first `await`**. When the adopted pid was already gone the
+`while (alive(pid) …)` loop never awaited, so `waitThenRead` ran to completion —
+`inFlight.delete(stepId)` included — *before* `inFlight.set` executed. The map
+then held a resolved promise forever, `tick`'s `Promise.race([...inFlight])`
+returned instantly, and `run()` spun at 100 % CPU making no progress; bun's own
+child reaping starved and the subjects piled up as zombies:
+
+```
+tick 200   inFlight=s02,s26,s31,s32,s66,s76,s79,s88,s89  running=s26,s66,s76,s79,s88,s89
+tick 1200  inFlight=s02,s26,s31,s32,s66,s76,s79,s88,s89  running=s26,s66,s76,s79,s88,s89
+$ ps -eo pid,ppid,stat | awk '$2==20481 && $3 ~ /Z/' | wc -l
+       5
+```
+
+**Pre-existing from C6**, not introduced by step 0: the drill's five cut points
+never hit it because its one adopted subject (`orphan-finish`, 1.2 s of delays)
+was always still alive at restart, so the loop always awaited at least once.
+The fix is two lines — the entry is dropped by `.finally`, which runs a
+microtask *after* `set` — and it rides its own commit. **This is a fix beyond
+step 0 and the mutant seam and I took it rather than stopping**: bars 5–7 are
+unreachable through a restart that never returns, and an ordering correction is
+not the mid-charge engine rework the kill criteria forbid. Named so the
+Architect can rule it in or out.
+
+**F5 — a step id is now required to be a file name.** Step 0 makes the step id
+name that step's stream files on disk, so `parseFlow` refuses an id outside
+`^[A-Za-z0-9][A-Za-z0-9._-]*$` rather than slugging it: two ids slugging to one
+name would silently share a stream. A contract tightening on the flow file,
+taken under step 0; no existing flow is affected.
+
+**F6 — three mutants trip a second invariant class, and one is
+non-deterministic.** The nine are not orthogonal — a gate is also an edge, a
+pause with no causes is also a status the disk contradicts — so `double-ignite`
+names 1 · 2 · 7 · 9, `gate-lands-itself` names 3 · 8, `mute-pause` names 5 · 8.
+The check requires the mutant's **own** class among the reds, which is the
+honest bar; demanding exactly one class would be demanding an orthogonality the
+law does not have. `double-ignite` is also the one mutant whose *extra* classes
+vary between runs — it spawns two subjects for one step and they settle in
+whatever order they settle — while its own class 1 is named every time.
+
+**F7 — `Options.adoptMs` is gone; law 6's own bound governs.** The charge rules
+that a still-running fired step found at restart re-arms its full `timeout_ms`,
+and a second adoption-specific timeout would be a second answer to the same
+question. A subject that outlives the re-armed timeout is SIGTERMed and read as
+the **timeout** it is — the one case where the engine's first-hand knowledge
+beats the disk, and so the one place a torn stream is not laundered through the
+transcript.
+
+**F8 — the cut point must be drawn family-first, or a whole family goes
+untested.** Drawn flat over the reachable points, `before-card` never appeared
+in fifty cuts: an ignition offers three points and a card offers one. The drill
+now draws the family, then a point inside it — `before-ignite 13 ·
+before-pause 11 · after-ignite 9 · before-card 6 · before-settle 11`. The same
+trap is worth remembering wherever a drill samples "all the places it could
+cut": uniform over points is not uniform over kinds.
+
+**F9 — the harness (C6 F9) blocked nothing this session.** No fixture needed
+re-recording — the durable stream changed no event's shape, so
+`test/fixtures/demo-run.jsonl` stayed valid and green — and the barrage commits
+no generated telemetry. `reds/` is empty because the barrage is green; the
+directory is created on demand by `fileRed`. C6 F9's field report still wants
+filing to root `ISSUES.md` (the fence forbids it from here), and C8 will still
+need Felix's hand for real config-dir reads.
 
 ---
 
