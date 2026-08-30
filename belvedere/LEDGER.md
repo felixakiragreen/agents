@@ -2621,3 +2621,32 @@ arming law, agreements; the migration campaign note) and
 ~/code/agents/belvedere/plans/c17-camera.md (findings included),
 and execute the charge at ~/code/agents/belvedere/plans/c19-fixture-city.md.
 ```
+
+---
+
+**2026-08-30 · Architect · fable-high (cont.)** — batch 2's parallel pair
+landed and reviewed; **C15 dispatched.** Tender amendment committed first
+(`631417c` — the review session dispatches, his word), then C18 ∥ C19 fired as
+dispatched Builders. C18 reviewed at this hand: `bun v3/gates.ts` **ALL GREEN —
+9 gates, wall 209.1 s, exit 0** (C14's and C7's numbers to the test); plants
+proven reverted; `--glass` honestly RED at HEAD (C15's three). C19 reviewed at
+this hand: alpha + beta lint 0, broken exit 1 with 6 classes (the control),
+`fixture-rail` re-run exit 0 and the PNGs Read — beta's composed Dispatch pair
+beside the unwired ⬡ cards, D10 in pixels — zero twins, zero fixture dirs,
+glass byte-identical to HEAD. Rulings: **C18 F1 — the coda's type-check
+sentence trued** (`bunx tsc` in an unpinned tree fetches off npm,
+twice-measured — this review's own C14 pass included; the pinned-path form is
+law, `fdfce9f`); **C18 F2 — built at the review**: the runner grades itself,
+`gates · types` over `v3/tsconfig.json`, proven `--fast` ALL GREEN — 9 gates
+(`056f9e8`, the between-batches side-quest grant); **C19 F1's deviation
+ratified** (a fixture city inside `~/code` 500s every building page — measured,
+B10 F5's second face; the copy-out stands); **C19 F3 folded into C15** (the
+dissolved-staffing `? · ?` ternary). C15's doc gained the batch's findings
+before the fire; board rows current. Decided: nothing register-grade — every
+ruling above cites its finding, the fold and the ratification are this board's
+to make. Next: C15 reports — this session reviews its landing, then lays C16
+at the close.
+
+Baton — session (C15's Builder, running): execute the charge at
+[plans/c15-deck-v3-lane.md](plans/c15-deck-v3-lane.md); the tender reviews on
+its report.
