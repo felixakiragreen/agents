@@ -2,7 +2,7 @@
 
 The building's third campaign: substrate + engine rebuilt from first principles,
 proven by an agent-runnable barrage, judged at one verdict gate. Founding record:
-[cornerstone.md](cornerstone.md) (laid 2026-08-29 — awaiting ⬡ blessing); where it
+[cornerstone.md](cornerstone.md) (BLESSED ⬡✓ 2026-08-29); where it
 and this doc diverge, this doc is current. Parent building:
 [../README.md](../README.md); decisions D19–D21 in its §7 register — **this
 campaign mints no letters**: C‹n›, G‹n›, D‹n› all continue the building's.
@@ -34,7 +34,7 @@ spent (D21); the v2 deck serves daily, untouched, until G4.
 
 | ID | Work | Depends on | Staffing | Status |
 |---|---|---|---|---|
-| C4 | [Headless physics](plans/c4-headless-physics.md) — the event grammar captured; the nine capabilities measured ×3 accounts; kills on the bet itself | ⬡-gate: the cornerstone blessing | Digger · opus-high | OPEN — laid 2026-08-29 |
+| C4 | [Headless physics](plans/c4-headless-physics.md) — the event grammar captured; the nine capabilities measured ×3 accounts; kills on the bet itself | ⬡-gate: the cornerstone blessing | Digger · opus-high | OPEN — ignitable, cornerstone ⬡✓ 2026-08-29 |
 
 **The arc** (cornerstone §8; laid batch by batch, never before its inputs exist):
 C5 the fake claude → C6 the engine core → C7 the fuzzer + the barrage → C8

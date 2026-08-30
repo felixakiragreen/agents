@@ -2019,3 +2019,28 @@ entries and rule the flow-1 findings; a third bless before that ruling hits the 
 amendment pause at c32's close. The three idle flow-1 panes (builder-agents-05/06,
 architect-agents-08) are yours to close; c29's branch (f160ec1) awaits g1's merge
 verdict.
+
+---
+
+**2026-08-29 · Architect · fable-high** — v3 founded at his summons ("first
+principles, not repair"; laid at fable-high by his explicit tier, the founding
+ritual's fable-max noted): the cornerstone laid and **BLESSED ⬡✓ same day** —
+[v3/cornerstone.md](v3/cornerstone.md). The diagnosis: three of his four pains are
+one layer (the Chat = P6's paste physics; the flow's opacity = flow-1's blind
+sensing; stale notifications = cmux duplicating the deck's own attention organ),
+and the fourth IS the layer — the founding's cmux-for-visibility rationale is
+superseded by the deck's own organs; my_checklist re-examined at his word, the
+field-proven ancestor. The bet: headless engine venue (`claude -p`, events never
+pixels) split from a chat-first viewport (summon-to-terminal the fallback); the
+run log event-sourced truth; the fake claude proves the engine before real tokens;
+nine-capability substrate contract + nine flow invariants as the barrage's oracle
+(cornerstone §§4–6). Board: batch 6 (B22–B27) + G3 **DEFERRED** at his word — the
+inbox sweep + flow-1 findings ride with G3 into G4; ISSUES deliberately unswept
+("Skip the ISSUES"); V3 campaign row seated; C4 (headless physics, Digger ·
+opus-high) laid and ignitable — the arc C5–C10 + G4 documented, laid batch by
+batch. Lint 40/40 + 1/1 typed, C4's kickoff parses. Decided: D19, D20, D21 (all
+his, in-session). Next: ignite C4 — kickoff fenced in
+[v3/plans/c4-headless-physics.md](v3/plans/c4-headless-physics.md).
+
+Baton — ⬡ → Ignite C4 (deck `/summon` or by hand; the kickoff rides its charge
+doc, the building coda appends at ignition).

@@ -1,6 +1,6 @@
 # v3 — the proving ground · cornerstone
 
-**Status:** laid 2026-08-29 — awaiting ⬡ blessing · **Architect:** fable-high, his
+**Status:** BLESSED ⬡✓ 2026-08-29, laid the same day · **Architect:** fable-high, his
 summons ("You are an Architect at fable-high… Skip the ISSUES. I'm about to explain
 why.") · **Campaign:** the building's third — v1 the founding organs (P1–B9, the v0
 keystone), v2 the deck + engine era (B10–B21, G2). The living state is
