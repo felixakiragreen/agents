@@ -2403,3 +2403,43 @@ carry in).
 Decided: nothing — findings only. Next: reviewed same day by the batch-8
 tender; G4 is Felix's — the pack at
 [v3/plans/g4-verdict.md](v3/plans/g4-verdict.md), the rulings his.
+
+---
+
+**2026-08-30 · Architect · fable-max** — **the migration campaign laid at D22's
+word; the first sweep executed at the same hand.** The sweep: agents-flow-1's
+remains cleared — both stopped run logs deleted (gitignored census telemetry),
+the `bv/c29-summon-harness` worktree removed with its uncommitted bulletin relay
+preserved byte-true to the root inbox first (the branch stands at `f160ec1`,
+unmerged, holding the lab/08 harness repair — the canon rows C29/C32/G1 and the
+merge are the GA's, filed `f682854`); the three flow-1 diagnoses distilled into
+C15's intake (the campaign note, README §6) and their entries cleared. The inbox
+swept to empty — twelve ruled: the two C5 grammar entries verified
+already-amended in `lab/c4/grammar.md` (§1 hook table, §10.9 correction) and
+deleted; the C4 pair (exit-0 lie, per-posture legality) and the C12 test/rg pair
+distilled into C15's intake and §4's new future-campaigns block (the unified
+archive, moved whole); the C30 vocabulary body ruled to the migration close's
+rework lay with its two ⬡ identity forks (`fire`, `the glass`) queued there;
+flow-1's row-truth finding escalated to the root inbox (coda candidate); C1's
+status line trued (it read OPEN against a LANDED row). The board: batch 6
+(B23/B22/B26/B25/B24/B27) unfrozen behind `⬡-gate: the migration close`, each
+row carrying its D22 fate clause; **G3 KILLED** (vehicle retired with the v2
+engine, sweep duties executed here, gate re-minted as G5); **C14 laid** —
+[plans/c14-engine-seams.md](plans/c14-engine-seams.md), Builder · opus-high,
+budget ≤$1/≤10 real turns — the four unfrozen deferrals in one charge; the
+campaign note carries the arc (C14 → C15 the deck's v3 lane → C16 the Chat
+chapter → G5 the migration close + rework lay) with C15/C16/G5 un-laid by law
+(never before their inputs exist). The v3 deferred list trued: four struck
+"promoted to C14", the sixth cut family holds its third-recurrence trigger.
+Also filed to the root inbox: `.summon-theaters` stray at the repo root; charge
+18's merged-and-clean worktree residue; and the five root-LEDGER `ledger.merged`
+reds measured to be masked missing-clause defects, not separator omissions — the
+insert probe reverted, the repair the GA's. `doctrine lint`: this building
+green — belvedere 42/42 rows typed · queue 0 · inbox 0; the root repo's 5
+pre-existing reds are the filed item. Decided: nothing register-grade — every
+ruling cites D22 or stands proposed in place. Next: ⬡ — ignite C14.
+
+Baton — ⬡ → ignite C14: kickoff fenced in
+[plans/c14-engine-seams.md](plans/c14-engine-seams.md), the coda appends at
+ignition. (C15's cut waits on C14's reviewed landing — the account field's
+final shape is its input.)
