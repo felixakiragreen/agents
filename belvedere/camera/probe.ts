@@ -17,7 +17,7 @@ import { chromium, type Browser, type Page } from 'playwright-core';
 import type { Outcome } from './twin';
 
 /** Everything has a limit (directive 3.1). A probe that hangs is an agent that waits forever. */
-const LIMITS = { actionMs: 10_000, gotoMs: 20_000, settleMs: 4_000 } as const;
+const LIMITS = { actionMs: 10_000, gotoMs: 20_000, settleMs: 4_000, scrollMs: 250 } as const;
 
 /**
  * The deck is a no-scroll surface under the law of space (README §3), so a shot is viewport-sized
@@ -38,6 +38,20 @@ export type Probe = {
 	waitFor(selector: string): Promise<void>;
 	/** What the page says at a selector, trimmed. The probe's own assertions read through this. */
 	text(selector: string): Promise<string>;
+	/**
+	 * How many elements match. The verb the structural laws need: "a ⬡ card carries **zero** fire
+	 * wiring" is a count, and counting it in the page beats grepping the served HTML for
+	 * `data-fire` — the DOM knows which card an attribute is inside and a regex does not.
+	 */
+	count(selector: string): Promise<number>;
+	/**
+	 * Bring an element into the viewport, and wait for the scroll to finish.
+	 *
+	 * A shot is viewport-sized on purpose (§VIEWPORT), and the rail is a column taller than one
+	 * viewport — so a card below the fold is a card no shot proves. This is the only way to aim
+	 * the frame, and it aims it the way Felix's own scroll wheel would.
+	 */
+	scroll(selector: string): Promise<void>;
 	/**
 	 * Seed the deck's own memory before the next load — `localStorage`, JSON-encoded exactly as
 	 * `deck-dom.ts:remember` writes it. The deck restores its selection from these keys at boot
@@ -96,6 +110,11 @@ export async function openEyes(base: (path: string) => string): Promise<Outcome<
 		async type(selector, text) { await page.fill(selector, text); },
 		async waitFor(selector) { await page.waitForSelector(selector, { state: 'visible' }); },
 		async text(selector) { return (await page.textContent(selector) ?? '').trim(); },
+		async count(selector) { return await page.locator(selector).count(); },
+		async scroll(selector) {
+			await page.locator(selector).first().scrollIntoViewIfNeeded();
+			await page.waitForTimeout(LIMITS.scrollMs);   // the deck's own scroll behaviour, settled
+		},
 		async remember(key, value) { await page.evaluate(([k, v]) => localStorage.setItem(k!, v!), [key, JSON.stringify(value)]); },
 		async ask(path, init) {
 			return await page.evaluate(async ([url, method, body]) => {

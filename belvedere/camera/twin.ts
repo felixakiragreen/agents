@@ -17,6 +17,7 @@
 import { existsSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
+import { seedFixture, type Fixture } from './fixtures/seed';
 
 /** Errors are values (directive 3.4): a refusal is returned, and only the CLI decides to exit. */
 export type Outcome<T> = { ok: true; result: T } | { ok: false; error: string };
@@ -53,6 +54,8 @@ export type Twin = {
 	readonly port: number;
 	/** An in-twin URL. Probes never build one by hand, so a probe cannot address another deck. */
 	url(path: string): string;
+	/** The seeded run directory, or null for a twin reading the real city. Evidence, for the CLI. */
+	readonly fixture: string | null;
 	/** SIGTERM, then wait. Idempotent: a probe that closes early does not break the CLI's finally. */
 	close(): Promise<void>;
 };
@@ -97,17 +100,35 @@ async function disarmed(port: number): Promise<Outcome<string>> {
 /**
  * Boot a twin: an ephemeral port, a credential pointed at nothing, and a proof it went cold.
  *
- * The twin reads the real city read-only — that is the deck's normal render path, so there are no
- * fixtures here and no seeded census. What it cannot do is write: every write the fence names is a
+ * **Two worlds, one twin.** By default it reads the real city read-only — the deck's normal render
+ * path, no fixtures and no seeded census (C17). With `fixture`, the deck's own anchors are turned
+ * instead (`GLASS_CITY`, `CENSUS_DIR`, `USAGE_DIR`, `DESK_DIR`) at a per-run directory seeded at
+ * this moment, so a probe can shoot a card state on demand rather than waiting for reality to
+ * produce one. **No `glass/` change is involved in either world** — every knob already exists.
+ *
+ * What the twin cannot do in either world is reach a session: every write the fence names is a
  * hand, and every hand is 503 for as long as this process lives.
  */
-export async function bootTwin(): Promise<Outcome<Twin>> {
+export async function bootTwin(opts: { fixture?: boolean } = {}): Promise<Outcome<Twin>> {
 	if (existsSync(VOID_ENV)) return fail(`${VOID_ENV} exists — the camera's void is not void; refusing to boot a twin that might be armed`);
+
+	let seeded: Fixture | null = null;
+	if (opts.fixture) {
+		try { seeded = seedFixture(); }
+		catch (e) { return fail(`the fixture could not be seeded: ${(e as Error).message}`); }
+	}
 
 	const port = ephemeralPort();
 	const child = Bun.spawn(['bun', 'server.ts'], {
 		cwd: GLASS,
-		env: { ...process.env, BELVEDERE_ENV: VOID_ENV, GLASS_PORT: String(port), DESK_DIR: SCRATCH_DESK },
+		env: {
+			...process.env,
+			BELVEDERE_ENV: VOID_ENV, GLASS_PORT: String(port),
+			DESK_DIR: seeded ? seeded.desk : SCRATCH_DESK,
+			// A fixture run's every anchor lands inside the run directory — the city included, so
+			// even the inbox's un-gated append (C17 F2) is contained and dies with the teardown.
+			...(seeded ? { GLASS_CITY: seeded.city, CENSUS_DIR: seeded.census, USAGE_DIR: seeded.usage } : {}),
+		},
 		stdout: 'pipe', stderr: 'pipe',
 	});
 
@@ -121,6 +142,8 @@ export async function bootTwin(): Promise<Outcome<Twin>> {
 		// A twin that ignores SIGTERM still dies here, and we still wait: "killed" is a fact about
 		// the process table, not about the signal we sent.
 		if (gone === null) { child.kill('SIGKILL'); await child.exited; }
+		// The run directory goes last: the twin holds it open until it is gone.
+		seeded?.close();
 	};
 	const said = async () => `${await new Response(child.stdout).text()}${await new Response(child.stderr).text()}`.trim();
 	const refuse = async (why: string): Promise<Outcome<never>> => { const out = await said(); await close(); return fail(out ? `${why}\n${out}` : why); };
@@ -141,5 +164,9 @@ export async function bootTwin(): Promise<Outcome<Twin>> {
 	const cold = await disarmed(port);
 	if (!cold.ok) { await close(); return fail(cold.error); }
 
-	return { ok: true, result: { port, url: (path: string) => `http://127.0.0.1:${port}${path.startsWith('/') ? path : `/${path}`}`, close } };
+	return { ok: true, result: {
+		port, fixture: seeded?.root ?? null,
+		url: (path: string) => `http://127.0.0.1:${port}${path.startsWith('/') ? path : `/${path}`}`,
+		close,
+	} };
 }

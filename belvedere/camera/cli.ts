@@ -28,11 +28,19 @@ const USAGE = `camera — an agent's eyes on the deck
 
   bun camera/cli.ts run <probe.ts>
       run a probe script against a twin the camera boots (never a foreign port)
+
+  --fixture   (shoot without --port, and run) boot the twin against the seeded fixture
+              city instead of the real one: deterministic card states, per-run temp dirs,
+              torn down with the twin. A probe may ask for it itself with
+              \`export const fixture = true\`.
 `;
 
 // Annotated rather than inferred so TypeScript reads it as never-returning: every `die` below is a
 // narrowing, and the code after one is code the CLI has already proved is reachable.
 const die: (why: string, code?: 1 | 2) => never = (why, code = 1) => { console.error(why); process.exit(code); };
+
+/** The flags that stand alone. Everything else is `--name value`, and a missing value is an error. */
+const BOOLEAN: ReadonlySet<string> = new Set(['fixture']);
 
 /** Flags are `--name value`; anything else is positional. Explicit, and it refuses what it cannot read. */
 function argv(args: readonly string[]): { rest: string[]; flags: Record<string, string> } {
@@ -41,12 +49,23 @@ function argv(args: readonly string[]): { rest: string[]; flags: Record<string, 
 	for (let i = 0; i < args.length; i++) {
 		const a = args[i]!;
 		if (!a.startsWith('--')) { rest.push(a); continue; }
+		const name = a.slice(2);
+		if (BOOLEAN.has(name)) { flags[name] = 'yes'; continue; }
 		const value = args[++i];
 		if (value === undefined) die(`${a} needs a value\n\n${USAGE}`, 2);
-		flags[a.slice(2)] = value!;
+		flags[name] = value!;
 	}
 	return { rest, flags };
 }
+
+/**
+ * The seeded world is worth one line of evidence: a probe's teardown bar is "the run directory is
+ * gone", and an agent cannot check a path it was never told. It goes to stderr, because stdout's
+ * contract is the shot's own path and nothing else.
+ */
+const announce = (twin: { fixture: string | null }) => {
+	if (twin.fixture !== null) console.error(`fixture     ${twin.fixture}`);
+};
 
 function foreignPort(raw: string): number {
 	const n = Number(raw);
@@ -68,8 +87,12 @@ async function shoot(path: string, flags: Record<string, string>): Promise<void>
 		if (typeof answered === 'string') die(`no deck answering on 127.0.0.1:${foreign} — \`shoot --port\` shoots one that is already running (${answered})`);
 	}
 
-	const twin = foreign === null ? await bootTwin() : null;
+	if (foreign !== null && flags['fixture'] !== undefined)
+		die('--fixture boots a twin against a seeded city; --port shoots a deck that is already running. Pick one.', 2);
+
+	const twin = foreign === null ? await bootTwin({ fixture: flags['fixture'] !== undefined }) : null;
 	if (twin && !twin.ok) die(twin.error);
+	if (twin?.ok) announce(twin.result);
 	const base = twin?.ok ? twin.result.url : (p: string) => `http://127.0.0.1:${foreign}${p.startsWith('/') ? p : `/${p}`}`;
 
 	try {
@@ -100,13 +123,19 @@ async function run(script: string, flags: Record<string, string>): Promise<void>
 	const file = (await Promise.all(tried.map(async f => ((await Bun.file(f).exists()) ? f : null)))).find(f => f !== null);
 	if (file === undefined) die(`no probe at ${tried.join(' or ')}`, 2);
 
-	const mod = (await import(file)) as { default?: unknown };
+	const mod = (await import(file)) as { default?: unknown; fixture?: unknown };
 	if (typeof mod.default !== 'function')
 		die(`${file} has no default export — a probe is \`export default async (p: Probe) => { … }\``, 2);
 	const probeFn = mod.default as (p: Probe) => Promise<void>;
 
-	const twin = await bootTwin();
+	// A probe declares the world it needs, because the world is part of what it asserts: a probe
+	// written against the fixture city is a lie against the real one. `--fixture` still forces it,
+	// so a probe can be re-pointed from the command line without editing it.
+	const fixture = flags['fixture'] !== undefined || mod.fixture === true;
+
+	const twin = await bootTwin({ fixture });
 	if (!twin.ok) die(twin.error);
+	announce(twin.result);
 	try {
 		const eyes = await openEyes(twin.result.url);
 		if (!eyes.ok) die(eyes.error);
