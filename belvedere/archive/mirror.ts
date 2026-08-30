@@ -239,6 +239,9 @@ export function run(): Run {
 
 if (import.meta.main) {
 	const r = run();
+	// The launchd log is append-only and unattended, so every run stamps itself: a log whose
+	// last line has no date cannot tell you whether the tick is alive.
+	console.log(`--- ${new Date().toISOString()}`);
 	for (const a of r.accounts) {
 		console.log(`${a.name.padEnd(24)} found ${String(a.found).padStart(5)}  copied ${String(a.copied).padStart(5)}  ${(a.bytes / 1e6).toFixed(1)} MB`);
 	}

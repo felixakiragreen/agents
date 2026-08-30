@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  The transcript mirror's hourly tick. Install (Felix's hand — an agent may not write a live
+  LaunchAgents dir):
+
+    ln -sf ~/code/agents/belvedere/archive/com.felix.belvedere-archive.plist \
+           ~/Library/LaunchAgents/com.felix.belvedere-archive.plist
+    launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.felix.belvedere-archive.plist
+    launchctl kickstart -p gui/$(id -u)/com.felix.belvedere-archive
+
+  A run costs ~2 s warm over 1.6 GB, so the interval is generous by an order of magnitude.
+  RunAtLoad is off deliberately: the tick is a backstop, not a boot task, and a login should
+  not pay for it.
+-->
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>com.felix.belvedere-archive</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/opt/homebrew/bin/bun</string>
+		<string>/Users/felix/code/agents/belvedere/archive/mirror.ts</string>
+	</array>
+	<key>StartInterval</key>
+	<integer>3600</integer>
+	<key>RunAtLoad</key>
+	<false/>
+	<key>ProcessType</key>
+	<string>Background</string>
+	<key>LowPriorityIO</key>
+	<true/>
+	<key>StandardOutPath</key>
+	<string>/Users/felix/code/agents/summon/log/archive/mirror.log</string>
+	<key>StandardErrorPath</key>
+	<string>/Users/felix/code/agents/summon/log/archive/mirror.log</string>
+</dict>
+</plist>
