@@ -1962,6 +1962,8 @@ respell (C23-F7). Next: **ignite G1** when C29, C31 and C32 have landed — it v
 this landing among the four, and F8 tells it not to read the city's risen lint count as
 a regression.
 
+---
+
 **2026-08-29 · Architect · fable-high** — the rig speaks real colours: `presets.tsv`
 now names the colour a mantle actually wears (builder blue, digger orange) and `/color`
 gets that word verbatim; only the panel's ● swatch translates, through Felix's S0 slot
@@ -1971,7 +1973,10 @@ opus-high proposed on the hands precedent (builder/digger), one key overrides. R
 along: lab/08 trued off the retired dispatcher (C25 left it red), the v1.1 baseline arm
 now compares unwrapped rows with today's palette transplanted, and the grey wire
 assertion follows zle's actual emission (`\e[38;5;8m`, the same bright-black slot as
-`\e[90m`). 202 green, 0 failures. Next: none — the rig is current.
+`\e[90m`). 202 green, 0 failures. Decided: the fixer panel preset (opus-high ·
+yellow), proposed on the hands precedent. Next: none — the rig is current.
+
+---
 
 **2026-08-29 · Architect · fable-high (cont.)** — the panel regraded: the header and row
 labels run the whole gradient (summon blue · mantle green · model yellow · effort orange ·
@@ -1982,7 +1987,11 @@ exists — `[t]` and the ✓ ride the selected one, in the panel's own bracket g
 (`agen[t]s ✓`). Retired lab/08's v1.1 byte-parity arm: the baseline transplant had
 outgrown the code under test; its surviving claim — no log/usage ⇒ no usage row — stands
 as its own arm. 209 green, 0 failures. Reload law unchanged: a live shell shows the new
-paint only after re-sourcing.
+paint only after re-sourcing. Decided: lab/08's v1.1 byte-parity arm retired (its
+baseline had outgrown the code under test). Next: none — the rig is current.
+*(Decided/Next clauses trued 2026-08-30 from the entry's own text — format only.)*
+
+---
 
 **2026-08-30 · Builder · opus-high** — C6 LANDED: `belvedere/v3/engine/` is the
 event-sourced flow runner. **45 tests green, `tsc --noEmit` exit 0, zero real
@@ -2007,10 +2016,13 @@ which invariant 3's "unruled gate" and bar 4's "gate pause" both hold. **F9**
 the harness blocked three charge-sanctioned actions (reading C4's transcript out
 of `~/.claude`, `git add` of both fixture files); Felix ran the copy by hand and
 the two fixture files remain uncommitted — this recurs for C7 and C8 and wants
-an `ISSUES.md` field report the v3 fence forbids me to write. Next: **commit
+an `ISSUES.md` field report the v3 fence forbids me to write. Decided: nothing
+register-grade — the F2 fork left to the review. Next: **commit
 `belvedere/v3/engine/test/fixtures/` by hand**, then ignite C7 (the fuzzer + the
 barrage) — it imports `engine.ts` and `invariants.ts`, drives the same
 `V3_ENGINE_CRASH_AT` seam, and should read F7 before planting crash cuts.
+
+---
 
 **2026-08-30 · Architect · fable-high** — C6 verified at review (proving run
 re-run: **45 tests green, tsc exit 0**; all three fixtures committed) and its
@@ -2027,8 +2039,11 @@ bars 1–3) with **step 0 building the ruled fix**; the crash-redo golden is the
 uncrashed run of the same seed (determinism makes it free); reds file to
 `barrage/reds/`, never root ISSUES (the fence), distilled upward at review.
 Builder · opus-high, budget 0 real turns, batch-4 note on the board;
-`doctrine lint`: belvedere/v3 ok. Next: Felix ignites C7 — kickoff at the
+`doctrine lint`: belvedere/v3 ok. Decided: C6 F2 — the durable stream adopted
+(ruling above, presented for blessing); no D-entry. Next: Felix ignites C7 — kickoff at the
 charge's foot; ignition converts the F2 ruling, or he amends first.
+
+---
 
 **2026-08-30 · Builder · opus-high** — **C7 LANDED**: `belvedere/v3/barrage/` is
 the campaign's proving instrument, and **step 0 built the ruled C6 F2 fix**. The
@@ -2061,7 +2076,8 @@ a file name (it names its stream files) · F6 three mutants trip a second class,
 the nine are not orthogonal · F8 cut points must be drawn family-first or
 `before-card` goes untested · F9 the harness blocked nothing this session (no
 fixture needed re-recording; the barrage commits no telemetry) — C6 F9's own
-ISSUES filing is still outstanding. Next: Felix reviews C7 and rules F4 and F3;
+ISSUES filing is still outstanding. Decided: nothing register-grade — F4's
+beyond-fence fix rides its own commit for ratification. Next: Felix reviews C7 and rules F4 and F3;
 **C8 is not yet laid** and wants an Architect's pre-chew — it is the first
 charge that spends real turns, so it needs a budget line before it is ignitable.
 
