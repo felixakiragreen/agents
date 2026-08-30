@@ -6,8 +6,8 @@
 // climbs over the building holding a Felix-gate, which is a rail that hides the ask.
 
 import { expect, test, describe } from 'bun:test';
-import { attentionOf, groupLabel, groupOf, OUTSIDE } from './pages';
-import type { Building } from '../../doctrine';
+import { attentionOf, groupLabel, groupOf, OUTSIDE, staffing } from './pages';
+import type { BoardRow, Building } from '../../doctrine';
 
 const building = (over: Partial<Building> = {}): Building => ({
 	building: 'agents', path: '/Users/felix/code/agents',
@@ -19,7 +19,7 @@ const building = (over: Partial<Building> = {}): Building => ({
 
 const row = (over: Partial<Building['board'][number]['rows'][number]> = {}) => ({
 	id: 'B1', work: 'a row', workDoc: null, dependsOn: [], gates: [], mantle: null, tier: null,
-	rider: null, hexGate: false, state: 'OPEN' as const, annotation: '', line: 1, raw: '', cells: [],
+	rider: null, hexGate: false, dissolved: false, state: 'OPEN' as const, annotation: '', line: 1, raw: '', cells: [],
 	...over,
 });
 
@@ -72,5 +72,23 @@ describe('attentionOf — what a building wants, before how fresh it is', () => 
 		expect(attentionOf(building({ board: [board([row({ state: 'LANDED' })])] }), 0)).toBe(4);
 		expect(attentionOf(building({ fails: [{ artifact: 'board', code: 'X', reason: 'r', excerpt: 'e',
 			file: 'f', line: 1 }] as Building['fails'] }), 0)).toBe(3);
+	});
+});
+
+describe('staffing — D71\'s three cells, each in its own word (C19 F3)', () => {
+	// A shelved charge writes `OPEN — DEFERRED …`, so the state leads and the shelving rides the
+	// annotation; the dissolution is a field of its own (`dissolved`) and this reads that field.
+	test('a dissolved staffing writes the board\'s own word, never the unreadable mark', () => {
+		const cell = staffing(row({ state: 'OPEN', dissolved: true }) as BoardRow);
+		expect(cell).toContain('—');
+		expect(cell).not.toContain('bad');
+	});
+
+	test('`?` stays reserved for a cell nobody could read', () => {
+		expect(staffing(row() as BoardRow)).toContain('<span class="bad">?</span>');
+	});
+
+	test('a ⬡-gate is neither', () => {
+		expect(staffing(row({ hexGate: true }) as BoardRow)).toContain('⬡-gate');
 	});
 });

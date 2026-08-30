@@ -271,6 +271,20 @@ function failNote(fs: Fail[], used: Set<Fail>): string {
 		`<b>${esc(f.code)}</b> ${esc(f.reason)} <code>${esc(f.excerpt)}</code>`).join('<br>')}</div>` : '';
 }
 
+/**
+ * D71's staffings, each in its own word.
+ *
+ * **A dissolved staffing is not a missing one** (C19 F3). A DEFERRED charge whose shelving
+ * dissolved its staffing writes `—`; the parser types it (`dissolved`), files no failure and
+ * counts the row fully typed — so the old two-way ternary drew `? · ?` in the failure colour
+ * beside a panel reading `0 lint`, the page claiming the parser choked on a row the parser read
+ * perfectly. `?` is now reserved for what it always meant: a cell nobody could read.
+ */
+export const staffing = (r: BoardRow): string =>
+	r.hexGate ? pill('⬡-gate', 'purple')
+	: r.dissolved ? '<span class="rider">— · dissolved</span>'
+	: `${r.mantle ? esc(r.mantle) : '<span class="bad">?</span>'} · ${r.tier ? `<code>${esc(r.tier)}</code>` : '<span class="bad">?</span>'}`;
+
 function boardRow(r: BoardRow, board: Board, b: Building, used: Set<Fail>, ids: string[]): string {
 	const base = baseOf(board.file);
 	// Encapsulation-first (design law): the row leads with the work's own name and the annotation's
@@ -280,8 +294,7 @@ function boardRow(r: BoardRow, board: Board, b: Building, used: Set<Fail>, ids: 
 	const work = (r.workDoc ? `<a href="${esc(docHref(r.workDoc, base))}">${esc(w.name)}</a>` : esc(w.name))
 		+ (w.encapsulated ? expand(`<p class="prose">${inline(r.work, base)}</p>`) : '');
 	const deps = [...r.dependsOn.map(d => `<code>${esc(d)}</code>`), ...r.gates.map(g => pill('⬡-gate', 'purple', g))].join(' ') || '—';
-	const staff = r.hexGate ? pill('⬡-gate', 'purple')
-		: `${r.mantle ? esc(r.mantle) : '<span class="bad">?</span>'} · ${r.tier ? `<code>${esc(r.tier)}</code>` : '<span class="bad">?</span>'}`;
+	const staff = staffing(r);
 	const status = pill(r.state ?? 'UNPARSED', stateTone(r.state))
 		+ (r.annotation.trim() ? encapHtml(r.annotation, base, 'prose') : '');
 	const note = failNote(failsAt(b, board.file, r.line), used);
