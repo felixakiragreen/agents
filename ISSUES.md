@@ -100,3 +100,14 @@ is cleared). A cleared inbox is empty.
   out of this session's scope (mid-rework); the rework should collapse the
   inversion to an identity lookup and true its tests (`colors.test.ts:21-23`,
   `composer.test.ts:329`, `shelf.test.ts:201`).
+- 2026-08-30 · v3 Architect · **The auto-mode classifier blocks charge-sanctioned
+  actions — twice at C6, and it recurs by design at C7/C8** (C6 F9; the landing
+  named this report wanted, the v3 fence forbade the Builder to write it). C6's
+  harness refused (a) reading C4's transcript out of `~/.claude` — bar 10's own
+  copy step, named in the charge — and (b) `git add` of both committed-by-design
+  fixtures (`demo-run.jsonl`, a machine-generated log; `PROVENANCE.md`, which
+  names a `~/.claude` path); Felix ran both by hand. C7 commits barrage fixtures
+  and red reports; C8 reads real config dirs as its whole point. Wants a ruling:
+  a per-charge pre-authorization shape — allowlist entries riding the charge, or
+  a named `!` protocol in the kickoff — so a sanctioned action stops costing a
+  human round-trip per file.

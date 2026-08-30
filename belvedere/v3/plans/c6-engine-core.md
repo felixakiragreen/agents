@@ -285,6 +285,21 @@ instead of a pipe, and the stream survives the parent. That adds a fourth item
 to law 1's state tuple *(flow file + run log + transcripts)*, which is the
 Architect's to rule, not mine. **Filed, not built.**
 
+> **Ruled 2026-08-30 · Architect · fable-high — adopted: the stream becomes
+> state.** Law 1's tuple gains its fourth item: **(flow file + run log + stream
+> files + transcripts)**. The spawn writes each turn's stdout to a stream file
+> under the run dir; sensing reads the file; a restart re-derives a fired step
+> stream-file-first — complete iff it carries a `result` row (parse rule 1) —
+> and only a torn stream falls to the transcript's worked/denied/dead.
+> Citations: cornerstone **§4.4** (read: the "live event stream,
+> *file-addressable*" is already the substrate contract), **§4.9** (survive: a
+> finished turn "rests on disk", a restart "re-derives all state from disk" — a
+> landing lost to a mid-turn engine death fails both), **§3.2** ("the engine
+> holds nothing a crash can lose" — a piped stream is exactly that). No new
+> issue, so no D-entry (the ancestry test); presented for blessing at the
+> boundary. **Built as [C7](c7-fuzzer-barrage.md) step 0** — one ignition, not
+> two (D44).
+
 **F3 — the transcript's completion signal, measured.** A turn is complete iff
 its last conversation row is an `assistant` row carrying no `tool_use` block:
 the assistant always gets the last word, so a trailing tool result means work
