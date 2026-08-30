@@ -1625,3 +1625,58 @@ Evidence: [c3-grep-clock.md](c3-grep-clock.md) §Findings, commit `7ab4f8a` on `
    corpus with no match anywhere in it — never mixed with a file that matches.**
 
 (Relayed from `master`, C3 LANDED 2026-08-29 — Builder)
+
+## → relay — C12 (the transcript mirror) to the campaign-scale archive charge, to anyone searching the archive, and to the Architect: no escalation, three findings that bind
+
+Evidence: [c12-transcript-mirror.md](c12-transcript-mirror.md) §Done when and §Findings,
+commits `09c2bcb` … `7d52564` on `master`.
+
+1. **F1 — a directory-walking `rg` over the archive silently drops the personal account,
+   and it answers plausibly while doing it.** The archive is `summon/log/archive`
+   (gitignored, D6) and its account dirs are dotfiles, so `--hidden` is needed at all —
+   but the trap is `--no-ignore`: the repo's own `.gitignore` carries the line
+   `.claude/`, and **rg applies that rule to any path segment**, so the `.claude`
+   account vanishes while the other two answer normally. Measured on one term:
+   `rg --hidden -l felikai` → `48 .claude-thg-doorbell · 48 .claude-thg-fgreen` and
+   **zero** from `.claude`, which holds **125**. With `--hidden --no-ignore`:
+   `125 · 48 · 48`, 51 ms over the whole 1.7 GB. **Explicitly-named files are exempt**
+   (`rg -c <term> <that file>` → 4, no flags), so the deck's `grep.ts` is safe as
+   written — it hands rg a file list per group (C3). **Anything that hands rg a
+   directory is not.** This binds the campaign-scale search organ head-on.
+
+2. **F2 — half the corpus is subagent transcripts, and the destination shape everyone
+   has been writing down names only the other half.** `~/.claude/projects` holds **577
+   `.jsonl`: 287 sessions and 290 subagents** (`<slug>/<sid>/subagents/agent-*.jsonl`).
+   A mirror built literally to `<account>/<slug>/<sid>.jsonl` — the shape in the ISSUES
+   entry and in C12's own spec — would have left half the history unpinned, and a
+   subagent's transcript dies with the config dir exactly like a session's. The mirror
+   takes **every `*.jsonl` under `projects/` at its relative path**: one rule, no special
+   case, sessions land at the named destination and subagents one level deeper. Index
+   rows carry `sid` (the owning session either way) and `agent` (the stem, or `null`).
+   Non-transcript state under `projects/` stays out per the fence — 294 `.json`, 56
+   `.md` memory notes, 52 `.txt` tool-result dumps, 25 `.jpg`. One oddity named rather
+   than special-cased: a Workflow's `journal.jsonl` rides in as `agent: "journal"`.
+
+3. **F4 — the archive is a second full copy of every transcript, now inside `~/code`,
+   and transcripts carry tool output.** 1.6 GB, out of git (verified) but inside the
+   tree a desktop backup client sweeps; this machine runs `com.backblaze.bzbmenu.plist`
+   as a live LaunchAgent. The campaign entry's own hazard line — "secrets surface, out
+   of git, **out of unconsidered cloud sync**" — stops being hypothetical here. Policy
+   was out of C12's scope; **filed to [ISSUES](../ISSUES.md), unruled.** Anyone giving
+   the archive a second reader or a retention rule inherits it.
+
+Also for the Architect, not blocking: **`bun test belvedere/glass` is 670 pass / 3 fail at
+HEAD and the type gate cannot see it** (F6). Reproduced by stashing C12's whole working
+tree: `flow-batch-1 … readFlows` · `the fork baton … each option composes its own fire
+body` · `the rig's mantles, coloured …`. `bunx --offline tsc --noEmit` is exit 0 through
+all three — C2 E1 caught the gate lapsing red while the suite was green; this is the same
+lapse in the other direction. Filed, untouched. The gate's `include` now reaches
+`../archive/*.ts` so the mirror cannot repeat C2 E1's drift.
+
+And, mechanically, for anyone building on the archive: **`utimesSync` on the copy is the
+whole incremental property.** `copyFileSync` gives the destination a fresh mtime, so a
+naive mtime+size comparison never matches again and every hourly run becomes a full
+1.7 GB re-copy. Stamping the source's mtime forward makes **the archive its own manifest**
+— no sidecar state, nothing to drift out of step with the bytes it describes.
+
+(Relayed from `master`, C12 LANDED 2026-08-30 — Builder)
