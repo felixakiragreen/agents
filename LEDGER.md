@@ -2166,3 +2166,26 @@ wear ~/code/agents/canon/mantles/architect.md,
 then read ~/code/agents/belvedere/v3/README.md, the ledger tail,
 and lay batch 8 — C9 scale and C10 the console demo.
 ```
+
+---
+
+**2026-08-30 · Architect · fable-high** — batch 8 laid at his word. **C9 scale**
+([v3/plans/c9-scale.md](belvedere/v3/plans/c9-scale.md), Digger · opus-medium —
+bound up from the cornerstone's sonnet-high: timed numbers on the live desktop
+want condition discipline): fake ×100 through the engine, the real ladder
+5→10→25 (the 25-burst sanctioned by the lay, C4 Q8's ceiling raised for that
+arm alone), the G4 cost table; **budget ≤$8 / ≤120 turns, dollars lead**
+(C8 F9). **C10 the console demo**
+([v3/plans/c10-console-demo.md](belvedere/v3/plans/c10-console-demo.md),
+Builder · opus-medium per the cornerstone): five verbs over the engine's
+exports, scriptable, plus step 0 — C13 F3's fallback vocabulary, promoted off
+the deferred list; **budget ≤$3 / ≤30 turns**. Serial C9 → C10 — schedule, not
+dependency: step 0 edits the engine C9 measures. Concurrency plan in the batch
+note (load-gated timed arms, rate-limit stop rule). After batch 8, G4 convenes
+on bars 1–6. Decided: nothing register-grade. Next: his dispatch word — the
+review session tends serial — or ignite by hand.
+
+Baton — ⬡ → ignite C9 (kickoff fenced in
+[v3/plans/c9-scale.md](belvedere/v3/plans/c9-scale.md); the coda appends at
+ignition; or say the word and the review session dispatches the batch,
+C10 following on C9's reviewed landing).
