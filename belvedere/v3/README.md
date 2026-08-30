@@ -34,7 +34,7 @@ spent (D21); the v2 deck serves daily, untouched, until G4.
 
 | ID | Work | Depends on | Staffing | Status |
 |---|---|---|---|---|
-| C4 | [Headless physics](plans/c4-headless-physics.md) — the event grammar captured; the nine capabilities measured ×3 accounts; kills on the bet itself | ⬡-gate: the cornerstone blessing | Digger · opus-high | OPEN — ignitable, cornerstone ⬡✓ 2026-08-29 |
+| C4 | [Headless physics](plans/c4-headless-physics.md) — the event grammar captured; the nine capabilities measured ×3 accounts; kills on the bet itself | ⬡-gate: the cornerstone blessing | Digger · opus-high | **LANDED** 2026-08-29 — K1 NO, K2 NO; 9/9 capabilities met (needs-⬡(question) needs `--json-schema`); grammar at [lab/c4/grammar.md](lab/c4/grammar.md) |
 
 **The arc** (cornerstone §8; laid batch by batch, never before its inputs exist):
 C5 the fake claude → C6 the engine core → C7 the fuzzer + the barrage → C8

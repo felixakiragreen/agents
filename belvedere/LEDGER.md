@@ -2044,3 +2044,37 @@ his, in-session). Next: ignite C4 — kickoff fenced in
 
 Baton — ⬡ → Ignite C4 (deck `/summon` or by hand; the kickoff rides its charge
 doc, the building coda appends at ignition).
+
+**2026-08-29 · Digger (opus-high) · C4 headless physics — LANDED.** Changed:
+`v3/lab/c4/` (the clean-room launcher `lib.ts`, nine probe scripts, 43 capture
+dirs, **`grammar.md`** — the deliverable C5 speaks and C6 trusts), C4's Findings
+(F0–F12 + the nine-capability scorecard), the v3 board row, two ISSUES entries.
+**Both kill criteria fired NO.** K1: the adversarial payload (blank lines, tabs,
+backticks, `$VAR`, `/not-a-slash-command`, unicode) survived **24/24 turns
+byte-exact** — 2 arms × 3 accounts × 4 turns; P6's send wall does not exist
+headless. K2: hooks fire in print mode, **8 of ten reaching the census**,
+venue-blind, joined on `session_id` (`Notification` and `PreCompact` structurally
+absent, not broken). Nine capabilities: **all met**, with one gap named —
+needs-⬡(*question*) is byte-identical to idle at the event level and must be made
+structural (`--json-schema`, measured working). The dangerous finding: **headless
+never stalls on permission, it auto-denies and reports `exit 0` / `success` /
+`is_error:false` with zero work done** — the truth signal is
+`result.permission_denials[]`. Also: the engine may choose the session id
+(`--session-id`, 10/10 under concurrency) and needs persist nothing else; a
+SIGKILLed parent's orphan **finishes and writes a complete transcript** (the
+stream dies with its reader, the transcript on disk does not); summon-to-terminal
+round-trips losslessly but is **gated on venue trust** (`-p` skips the trust
+dialog, a TUI resume does not — precheck at ignite or D20's fallback is missing
+when wanted); 10 simultaneous subjects cost the wall time of one, census 10/10.
+Instrument law worth keeping: `claude` on `PATH` inside a cmux pane is a **cmux
+shim** and ~40 vars leak — every subject spawned from an eight-variable clean
+environment against the real binary, or v3 measures the layer it is retiring.
+Decided: nothing new — no letters minted. Spend: **~65 subject turns of the ≤100
+ceiling**, $1.69 (**~3¢/turn**, ~50× the charge's "the bill is cents" — recorded
+for G4's bar-5 extrapolation, not a fork; the binding ceiling held). Venue clean:
+subject cwds deleted, zero orphan processes, tmux socket `c4` gone. Next: C5 — the
+fake claude, against `v3/lab/c4/grammar.md`.
+
+Baton — ⬡ → Felix: C4's evidence is in; **lay C5 (the fake claude)** against the
+captured grammar, or convene early on any of C4's three surprises (silent-success
+permissions, the question-sensing gap, the summon trust gate).

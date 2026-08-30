@@ -78,3 +78,17 @@ the inbox is cleared. A cleared inbox is empty.
   "your last commit trues your row's Status" (canon-shaped — likely escalates to
   the canon inbox at the sweep); c29's own charge doc is the repro.
 - 2026-08-29 · Architect (v3 founding) · `doctrine lint` reds `kickoff.door` ×1 on LANDED [plans/c1-fence-repoint.md](plans/c1-fence-repoint.md):63 ("Wear" opens, no door line) — the sweep rules: are landed kickoffs lintable history, or does the doc get a form fix?
+- 2026-08-29 · Digger (C4 headless physics) · **P5 F5.2's "haiku is not a legal
+  model for an unattended step" is too broad — the rule is per (model, posture),
+  not per model.** Measured headless: haiku cannot hold `auto` (silent fallback to
+  `default`, then auto-denial), but holds `acceptEdits` and `bypassPermissions` and
+  does the work — `belvedere/v3/lab/c4/captures/q4-{auto,acceptEdits,bypassPermissions}-haiku-personal`.
+  B10's schema / B11's fire gate would refuse a legal configuration as written.
+  Filed not applied: the v2 engine is outside C4's fence and frozen until G4;
+  C6 inherits the corrected rule via [v3/plans/c4-headless-physics.md](v3/plans/c4-headless-physics.md) F6.
+- 2026-08-29 · Digger (C4 headless physics) · **`exit 0` + `result.subtype:"success"`
+  + `is_error:false` does not mean a headless step did its work** — under `default`,
+  `manual` or `dontAsk` a permission-needing call is **auto-denied**, not stalled, and
+  the turn still reports success. The truth signal is `result.permission_denials[]`.
+  Any v2 or v3 code that lands a step on exit code is wrong by construction.
+  Evidence: `belvedere/v3/lab/c4/grammar.md` §4 (ten-row posture matrix, all exit 0).
