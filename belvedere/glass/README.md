@@ -3,29 +3,27 @@
 One bun server rendering the city from the truth layer. **Read-everything,
 write-narrow**: every page route touches nothing on disk, and the writing routes are exactly
 the fence's list (README §2, D18) and no more — `/hands/*` (spawn · worktree · focus · HALT ·
-rename · recolor), `/inbox` (one D63 line), `/flow/*` (the arm, which only calls hands),
-`/chat/send` (his words into a session), `/chat/draft` and `/desk/*` (files under `desk/`).
+rename · recolor), `/inbox` (one D63 line), `/chat/send` (his words into a session), `/chat/draft`
+and `/desk/*` (files under `desk/`).
 
 ```
 bun belvedere/glass/server.ts        # → http://127.0.0.1:4400
-bun test belvedere/glass             # 651 green in one process (B8 §4, B9, B13, B14, B15, B18, B20, B10, B17, B11, B16, B19, B21, B12)
-bunx tsc --noEmit                    # from this directory — the type gate, offline (B8 §5);
+bun test belvedere/glass             # 565 green in one process (B8 §4, B9, B13–B21, C15)
+bun belvedere/v3/gates.ts --glass    # the proving run: every standing gate, one paste-ready block (C18)
+./node_modules/.bin/tsc --noEmit     # from this directory — the type gate, offline BY THE PATH
+                                     # (C18 F1: a bare `bunx tsc` fetches a checker off npm);
                                      # it covers the deck's client TS too (B13 F3), never `lab/`
 bun belvedere/lab/b13/probe.ts       # the deck's DoD in real headless Chrome (B13 F1)
 bun belvedere/lab/b14/probe.ts       # the City + queue, against a fixture city (B14)
 bun belvedere/lab/b14/live.ts        # the same, against the LIVE city — it fires one session
 bun belvedere/lab/b15/probe.ts       # the Workshop: clicks, the reorder, the marked line (a fixture city)
 bun belvedere/lab/b15/live.ts        # the Workshop over the LIVE register — it writes nothing
-bun belvedere/lab/b10/probe.ts       # the Works: ranks, edges, the now-line, the lit ring (a fixture city)
-bun belvedere/lab/b10/live.ts        # the city's own flow over the city's own board — it writes nothing
-bun belvedere/lab/b11/probe.ts       # the arm's refusals + the arm pressed in Chrome (no fire)
-bun belvedere/lab/b11/lever.ts       # D10 · HALT · amend · re-arm · timeout — ONE live session
-bun belvedere/lab/b11/smoke.ts       # the flow runs itself — TWO live sessions and a Felix-card
+bun camera/cli.ts run probes/works-v3.probe.ts    # the Works on a real landed v3 run (C15)
+bun camera/cli.ts run probes/inbox-knob.probe.ts # "file it" clicked; the real city untouched (C15 §5)
 bun belvedere/lab/b16/probe.ts       # the Chat: three hotswaps, the window, the drafts, zero send wiring cold
 bun belvedere/lab/b16/send.ts        # the send, for real — ONE live session, then the same message to it dead
 bun belvedere/lab/b19/probe.ts       # the desk: the drill, the three routes, the confinement (a COPY of the fixture city)
 bun belvedere/lab/b21/probe.ts       # the Grep against the REAL corpus — the commissioning query, three jumps, every bound
-bun belvedere/lab/b12/probe.ts       # the reactive gate + scope-arm — THREE live sessions and both Felix-cards
 ```
 
 | Route | What |
@@ -36,16 +34,15 @@ bun belvedere/lab/b12/probe.ts       # the reactive gate + scope-arm — THREE l
 | `/shelf` | **every session all three accounts have ever held** — resume the dead, jump to the living; usage ×3 and WIP above them |
 | `/summon` | **the composer — fire anything**: building or free path · account · mantle · tier · templates · optional worktree; `POST` composes, the button fires |
 | `/deck` | **the deck** — the app: three panes (Context · Focus · Action), the drawer, the tooltip primitive, the `FocusView` seam. `/deck.js` is the bundle, `/deck/state[?b=<building>][&s=<session>]` the snapshot, `/deck/doc?p=<path>` the viewer's bytes |
-| `belvedere/flows/*.flow.json` | **the declared plan** — a batch note as data, read by `flow.ts` alone, drawn by the Works; committed truth, never written by the glass |
+| `summon/log/v3/**/run.jsonl` | **the v3 engine's runs** — read by the Works through the engine's own exports, written out of process by the engine and never by the glass (`$RUNS_DIR`) |
 | `/deck/decode?t=<ref>&in=<doc>&w=<scope>` | **the decoder** — one code word (`B18`, `D63`, `§5`, `row 17`) resolved into its object: encapsulation, status, where it is written, its gestures |
 | `/doc?p=<path>` | the read-only viewer every rendered link resolves into (D58) |
 | `POST /hands/{fire,worktree,focus,halt}` | the four hands; 503 until `~/.config/belvedere/env` is armed |
-| `POST /flow/<name>/{arm,pass}` | **the arm** (D11) — one click authorizes a declared flow; `pass` is his hand on a Felix-card. Credential-gated like a hand; the engine's every write is a hand call or a run-state append |
 | `/deck/chat?sid=<session>&before=<byte>` | **the Chat's earlier windows** — one bounded window of a transcript ending where the one you hold begins; the tail rides the poll |
 | `POST /chat/send` | **the voice** (D18 class 1) — his words into a session as one real user turn, P6's segmented paste, verified against the transcript afterwards; credential-gated, audited by sha |
 | `POST /chat/draft` | his draft for one target, saved under `desk/drafts/` (D18 class 3); **no credential gate** |
 | `/desk/{notes,note}` · `POST /desk/{save,preview,file}` | **the desk** (D17) — the drawer, one note, the autosave, what a route would write, and the one route that writes it; **no credential gate**, off the poll |
-| `POST /inbox` | **the sovereign's inbox** — one gesture, one D63 line appended to a building's `ISSUES.md`; **no credential gate** |
+| `POST /inbox` | **the sovereign's inbox** — one gesture, one D63 line appended to a building's `ISSUES.md`; **no credential gate**, and `$INBOX_DIR` moves the write root without moving the fence (C15 §5) |
 
 **The deck is an app, not a page** (B13, D13 — Felix: *"this is an app"*). `/deck` serves a
 skeleton with the **resting split already in the markup**, `/deck.js` is `deck.client.ts`
@@ -115,62 +112,46 @@ permutation counts as a memory**, since a remembered subset would silently hide 
 states are three densities: minimal is the building's last name, its dots and its badges; typical is
 the top three of *his* order and a line saying what it is holding back; expanded is all five.
 
-**The Works draws the building's whole work on one line of time** (B10, keel §6 — `flow.ts` +
-`works.ts` + `works.client.ts`). A **flow** is a declared DAG in
-`belvedere/flows/<name>.flow.json` — the batch note as data (flow-keel §3) — and `flow.ts` is the
-only module that touches those bytes, so the Standards Office's storage ruling (canon row 17) swaps
-the serialization in one file. A kickoff is **quoted, not copied**: `{doc, fence}` resolves a 1-based
-fence ordinal at parse time, and the fixture flow's `g2` step holds the README's own G2 kickoff
-byte-for-byte. Every refusal is a **named value, never a throw** — duplicate id, unknown dep, cycle,
-unresolvable kickoff, a name over six words, an unknown account/tier/venue — and a flow that will not
-parse renders its failure and files nothing (parser-as-lint). **Time flows down** (D14): dependency
-depth is a rank running downward with parallel lanes side by side, edges are inline-SVG paths
-**placed against the boxes the browser actually laid out**, and the **NOW line** is cut in front of
-the first rank still holding unfinished work, with the building's live sessions blinking on it — the
-board's landed rows and the ledger's arc above, the plan below, **one renderer**. A node's ring comes
-from the engine's run log (`summon/log/census/flows/<name>.run.jsonl`, D6 telemetry, written by the engine)
-where it has spoken and from the **board** where it has not, and the drawing says which: a
-board-sourced ring is **dashed**. Lit means fired *and* its session is still beating, off the census.
-The bill is on the wall beside the plan: tier on every node, usage ×3 accounts (B17's live fetch,
-behind the shape B10 left). **The permission clause is a check, not a field** (P5 F5): a step's model
-*is* its posture, so a `haiku` step is drawn blocked with P5's sentence on it, while the venue
-precheck is paid once at arm because `trust.ts` spawns `git` per (step, account).
+**The Works draws the building's whole work on one line of time** (B10, keel §6 — `works.ts` +
+`works.client.ts`). **The engine underneath it swapped at C15** (D22 r2): the v2 engine that lived
+in this building — `flow.ts`, `engine.ts`, `judge.ts` and the `flows/*.flow.json` files — is gone
+whole, and what the pane draws now is the **v3 engine's own run logs**, read through the v3
+engine's own exports and nothing else. `runs()`/`readRun()` find and open a run, `fold()` derives
+its state, `verdicts()` names each step's outcome, `postureLegal()` says whether a step could ever
+have ignited: the deck re-implements none of it (D65's one-parser law, same shape), and a genuinely
+missing export is an escalation rather than a copy.
 
-**The engine runs the string** (B11, D11 — `engine.ts`). One click on the Works' arm card is the
-authorization — *the review of the rendered plan IS the authorization* — and from there a tick inside
-this server does what a Dispatcher does between sessions: it fires ready steps **through the existing
-hands**, and pauses at everything a mantle would have to judge.
+**The lane is read-only.** There is no arm, no tick and no pass — this server has no clock at all,
+because the engine runs out of process. Where a surface cannot survive without driving it says so
+in its own words rather than offering a control that answers nothing (the honest-disabled law);
+driving semantics are the rework lay's.
 
-- **The arm.** `POST /flow/<name>/arm`, credential-gated, carrying the `hash` the page was showing.
-  Everything that can refuse refuses **here**, loudly, naming the step: a `haiku` model (P5 F5 ii), a
-  venue the step's account has never trusted (`trust.ts`, per (step, account) — the same directory is
-  warm on one silo and cold on another), a flow that will not parse, and a plan that moved while he
-  was reading it. **Armed flows are immutable**: `Flow.hash` covers the file's bytes *and* every
-  resolved kickoff, so an edit to a quoted *order* trips it too (B10 F2) — new fires pause, what is in
-  flight runs on, and one **re-arm** covers the amendment.
-- **The tick.** Every 5 s and after every hands action, single-flight, and **cheap when nothing is
-  armed** — the run logs are read first and the census, the register and the credential are never
-  touched for a city with nothing to run. Started by `server.ts` and only by `server.ts`: a
-  module-scope interval would drive Felix's desktop from any test process that imported the module.
-- **Ready** means every dependency landed, the step unfired, its gate not an unpassed Felix-card,
-  **HALT absent** (checked again immediately before every spawn — the flag's first consumer),
-  concurrency headroom, and the venue free: **master-venue steps are strictly serial per checkout**,
-  city-wide, while worktree lanes run in parallel and are composed by the hand first.
-- **Landed** means the board row parses `LANDED` clean, **or** the census says `Stop` was the last
-  word and the pid is gone (P1's two-sensor law). Everything else **pauses and surfaces**: a session
-  gone without a `Stop`, `KILLED`/`BLOCKED`, an unruled escalation on a landing (keel §5.1 — B12's
-  judge takes it from there), and a step past its `timeoutMinutes`. **The engine kills nothing** — a
-  timeout pauses the flow's advance; stopping live work is Felix's or the session's own.
-- **His card** pauses the lane and renders in his idiom with **zero fire wiring**. The one control on
-  it is `POST /flow/<name>/pass`, credential-gated — never auto-fired, never auto-passed.
-- **Run-state** is the engine's working memory, not truth: `summon/log/census/flows/<name>.run.jsonl`
-  (D6, gitignored), append-only, written **once** per thing that happened — a pass that changes
-  nothing writes nothing. A fire returns a workspace and no session id, so a `fired` line carries the
-  **name-stamp** and a later one carries the `sid` the census read off the transcript (B11 F2): take
-  the **last** `fired` line for a step, and the **first** one's `ts` for the timeout clock.
+**A kickoff is frozen bytes**, and that is the whole of what replaced v2's `{doc, fence}` pointer:
+v3's `prompt` field carries a step's first user turn verbatim, blessed into the flow and recorded
+in the log's first event, so a run whose order has since moved still renders what its subject was
+given. Nothing on this path resolves a document position — the positional pointer is what collapsed
+at flow-1.
 
-**The fence gains no write class.** Every engine write is a hand call (same audit, same unwind, same
-arming switch) or a run-state append. It edits no board, no ledger, no decision and no flow file.
+**A run houses where its subject ran** — the venue's cwd through the register (`buildingOf`, the
+same join the census makes for a live session), because a run log carries no building field and
+never will: the engine knows a cwd, and only the register knows what a building is (D65). The
+account rides the run per C14's shape — the log's own `configDir` first, a pre-C14 `conditions.json`
+second, and the drawing says which spoke. The read is **bounded and says so**: the newest twelve run
+logs of however many the telemetry tree holds, with the count and the number housed elsewhere
+printed on the pane, because the tree grows by a directory every time the barrage runs. A log the
+reader refuses renders its named refusal and files nothing (parser-as-lint).
+
+**Time flows down** (D14): dependency depth is a rank running downward with parallel lanes side by
+side, edges are inline-SVG paths **placed against the boxes the browser actually laid out**, and the
+**NOW line** is cut in front of the first rank still holding unfinished work, with the building's
+live sessions blinking on it — the board's landed rows and the ledger's arc above, the run below,
+**one renderer**. A node's ring comes from the run log where the engine has spoken and from the
+**board** where it has not (B10 F4, kept whole through the swap), and the drawing says which: a
+board-sourced ring is **dashed**. Lit means running *and* its session is still beating, off the
+census. The bill is on the wall beside the run: model · effort · posture on every node, usage ×3
+accounts (B17's live fetch, behind the shape B10 left). **Legality is per (model, posture)**, never
+per model (C4 F6): a haiku step under `acceptEdits` is legal and under `auto` is drawn blocked, and
+the sentence on it is `postureLegal()`'s own.
 
 **The Chat is the voice** (B16, keel §5 — `chat.ts` + `chat.client.ts`). **One conversation view in
 the whole deck**: any session — live, idle, weeks dead — hotswaps into it from a session row
