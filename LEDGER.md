@@ -2211,7 +2211,7 @@ with pointers, the honest limits (auto's permissiveness, the false ask, the
 cost inversion), spend ~223 turns / ~$9.64 total, and the tender's read —
 evidence supports substrate YES; rulings 2–4 are his taste, unrecommended.
 Memory: the /usage-gauge memory gained C9 F5's in-band mechanism. Decided:
-nothing register-grade. Next: G4 — his hand and his word.
+nothing register-grade. Next: G4 — Felix's hand and Felix's word.
 
 Baton — ⬡ → rule G4: run `bun belvedere/v3/console/rehearsal.ts personal`, drive
 the five verbs by hand, then record the four rulings in

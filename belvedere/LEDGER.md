@@ -2344,6 +2344,10 @@ untouched, and C10's step 0 lands on unmodified bytes. Its kickoff is in
 [C10](v3/plans/c10-console-demo.md); budget ≤$3 / ≤30 turns. After it, **G4
 convenes** on campaign bars 1–6, all landed.
 
+Decided: nothing — findings only. Next: the batch-8 tender reviewed C9 same
+day and dispatched C10 at Felix's word; the root ledger of this date holds the
+full record.
+
 ---
 
 **2026-08-30 · Builder · opus-medium** — **C10 landed: the console demo, campaign
@@ -2396,3 +2400,6 @@ Next: **G4 convenes** — batch 8 is complete and the evidence pack is campaign
 bars 1–6, all landed. C10 wants the Architect's review first (the six findings,
 and step 0's widening of the fallback vocabulary, are rulings the gate should
 carry in).
+Decided: nothing — findings only. Next: reviewed same day by the batch-8
+tender; G4 is Felix's — the pack at
+[v3/plans/g4-verdict.md](v3/plans/g4-verdict.md), the rulings his.
