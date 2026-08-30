@@ -40,7 +40,6 @@ const account = process.argv[2] ?? "personal";
 const configDir: string | undefined = ACCOUNTS[account as keyof typeof ACCOUNTS];
 if (configDir === undefined) throw new Error(`unknown account ${account} — one of ${Object.keys(ACCOUNTS).join(", ")}`);
 
-
 const RUN = "rehearsal";
 const runDir = `${RUNS}/${RUN}`;
 const workDir = `${RUNS}/venue/${account}`;
