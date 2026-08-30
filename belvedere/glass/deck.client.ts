@@ -378,15 +378,18 @@ function actions(i: QueueItem): HTMLElement {
 		b.dataset['reload'] = 'yes';
 		acts.append(b);
 	}
+	// The pane jump and the Chat are two questions since C16, and a paused engine step answers only
+	// the second: it is headless by construction, so there is no panel to put his eyes on.
 	if (i.kind === 'waiting' && i.sid) {
 		const b = el('button', 'st wide', 'jump to pane') as HTMLButtonElement;
 		b.type = 'button';
 		b.dataset['jumpSid'] = i.sid;
 		acts.append(b);
-		// Hotswap entry point #3: the queue's whole complaint was *"I don't see that anywhere in
-		// Belvedere"* — now a blocked session is read and answered without leaving the deck (B16 §1).
-		acts.append(chatButton(i.sid, 'read this session and answer it here'));
 	}
+	// Hotswap entry point #3: the queue's whole complaint was *"I don't see that anywhere in
+	// Belvedere"* — now a blocked session, or a step the engine is holding, is read and answered
+	// without leaving the deck (B16 §1, C16 §3).
+	if (i.chat) acts.append(chatButton(i.chat, 'read this session and answer it here'));
 	if (i.jump) {
 		const a = el('a', 'st wide', 'open') as HTMLAnchorElement;
 		a.href = i.jump;

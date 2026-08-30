@@ -661,12 +661,15 @@ body.deck {
 }
 .deck .ct-mark {
 	flex: 1 1 0; min-height: 1px; padding: 0; border: none; border-radius: 1px;
-	background: var(--grey-800); cursor: pointer;
+	background: var(--grey-650); cursor: pointer;
 }
-.deck .ct-mark-user { background: color-mix(in srgb, var(--felix) 40%, transparent); }
-.deck .ct-mark-assistant { background: var(--grey-750); }
+/* Two speakers, two colours, both visible against the ground: an agent's turn drawn in the
+   background colour reads as a GAP, and a strip of gaps is not a strip (measured on a 42-turn
+   conversation, C16's minimap shot). */
+.deck .ct-mark-user { background: color-mix(in srgb, var(--felix) 45%, transparent); }
+.deck .ct-mark-assistant { background: var(--grey-650); }
 /* Lit: this turn is in the window on screen — the strip's whole job is saying where you are. */
-.deck .ct-mark.on { background: var(--grey-500); }
+.deck .ct-mark.on { background: var(--grey-400); }
 .deck .ct-mark-user.on { background: var(--felix); }
 .deck .ct-mark.aim { background: var(--yellow-600); }
 .deck .ct-mark:hover { outline: 1px solid var(--grey-600); }

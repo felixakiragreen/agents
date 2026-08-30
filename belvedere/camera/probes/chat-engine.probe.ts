@@ -1,4 +1,5 @@
-// The Chat on a **headless engine-born session** (C16 §§1–3), and the cold-hands law on that road.
+// The Chat on a **headless engine-born session** (C16 §§1–3): opened from the ⬡-queue, reading a
+// pause as a conversation, and cold-handed on the engine road.
 //
 // Run: bun camera/cli.ts run probes/chat-engine.probe.ts
 //
@@ -22,29 +23,44 @@ export default async function (p: Probe): Promise<void> {
 	try {
 		// One load first: `localStorage` belongs to an origin, and a page has to exist to have one.
 		await p.goto('/deck');
-		// The deck's own memory, exactly as a click writes it — no probe-only route (C17 F5).
-		await p.remember('belvedere.deck.session', run.sessionId);
+		// The deck's own memory, exactly as a click writes it — no probe-only route (C17 F5). **No
+		// session is named**: the queue is the entry point being measured, so the Chat must be empty
+		// until the click.
 		await p.remember('belvedere.deck.focus', 'chat');
-		await p.remember('belvedere.deck.layout', { context: 'minimal', focus: 'expanded', action: 'typical', drawer: 'shut' });
+		await p.remember('belvedere.deck.layout', { context: 'minimal', focus: 'expanded', action: 'typical', drawer: 'pinned' });
 		await p.goto('/deck');
+
+		// ---- entry point: the ⬡-queue's needs-you item for a paused step ----
+		const key = `paused:${run.name}/${run.step}`;
+		const state = await p.ask(`/deck/state`);
+		const snap = JSON.parse(state.body) as { queue: { key: string; kind: string; sid: string | null; chat: string | null }[] };
+		const item = snap.queue.find(i => i.key === key);
+		if (!item) throw new Error(`the queue carries no item for the paused step (${snap.queue.length} items)`);
+		if (item.chat !== run.sessionId) throw new Error(`the queue item opens on ${item.chat}, not the step's session`);
+		if (item.sid !== null) throw new Error(`a headless step offers a pane jump to ${item.sid} — there is no pane`);
+
+		// Pinned rather than merely open: an overlaying drawer puts its scrim between the pointer and
+		// the button, and a probe fighting a scrim is a probe measuring the wrong thing.
+		const button = `#host-drawer [data-chat-sid="${run.sessionId}"]`;
+		await p.scroll(button);
+		const queueShot = await p.shoot('chat-engine-queue');
+		await p.click(button);
 		await p.waitFor('.ct-step');
 
-		// What the pane says about the step — the address, the pause, and the question itself.
+		// ---- the pause, read as a conversation ----
 		const step = await p.text('.ct-step');
 		if (!step.includes('needs-⬡ question')) throw new Error(`the pane names no pause: "${step}"`);
 		if (!step.includes('release name')) throw new Error(`the pause carries no question: "${step}"`);
 		const head = await p.text('.ct-head');
 		if (!head.includes(`${run.name}/${run.step}`)) throw new Error(`the head does not name the step: "${head}"`);
 
-		// The conversation is really rendered: the subject's own words, off its own transcript.
 		const turns = await p.count('.ct-turns .ct');
 		if (turns < 2) throw new Error(`the transcript rendered ${turns} turns`);
 		const minimap = await p.count('.ct-map .ct-mark');
 		if (minimap !== turns) throw new Error(`${turns} turns and ${minimap} marks — the strip is not the file`);
 		const shot = await p.shoot('chat-engine-paused');
 
-		// Cold hands, on the engine road: no send control exists, the reason stands in its place, and
-		// the route says 503 in the arming law's own words (the honest-disabled law, B16's, second road).
+		// ---- cold hands, on the engine road ----
 		// Typed first, so what stands where the button would be is the COLD-HANDS reason and not the
 		// compose-time refusal an empty box earns — the disarm is what this half is measuring.
 		const box = `textarea[data-chat-draft="${run.sessionId}"]`;
@@ -58,18 +74,12 @@ export default async function (p: Probe): Promise<void> {
 		if (sent.status !== 503) throw new Error(`POST /chat/send answered ${sent.status}, not 503 — THE TWIN IS ARMED:\n${sent.body}`);
 		const cold = await p.shoot('chat-engine-cold');
 
-		// And the needs-you queue carries the pause as its own item, opening this same view.
-		const state = await p.ask(`/deck/state?s=${run.sessionId}`);
-		const snap = JSON.parse(state.body) as { queue: { key: string; kind: string; chat: string | null }[] };
-		const item = snap.queue.find(i => i.key === `paused:${run.name}/${run.step}`);
-		if (!item) throw new Error(`the queue carries no item for the paused step (${snap.queue.length} items)`);
-		if (item.chat !== run.sessionId) throw new Error(`the queue item opens on ${item.chat}, not the step's session`);
-
 		console.log(`run         ${run.name}/${run.step} · session ${run.sessionId}`);
+		console.log(`queue       ${item.kind} ${item.key} → chat ${item.chat} · pane jump ${item.sid}`);
 		console.log(`pane        ${step.replace(/\s+/g, ' ')}`);
 		console.log(`transcript  ${turns} turns · ${minimap} minimap marks`);
 		console.log(`cold hands  ${wired} send controls · POST /chat/send → ${sent.status} · ${sent.body.replace(/\s+/g, ' ').slice(0, 90)}`);
-		console.log(`queue       ${item.kind} ${item.key} → chat ${item.chat}`);
+		console.log(queueShot);
 		console.log(shot);
 		console.log(cold);
 	}

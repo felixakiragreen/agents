@@ -64,7 +64,7 @@ function depths(flow: Flow): Map<string, number> {
 const pausedWhy = (causes: readonly string[], detail: string): string =>
 	detail === '' ? causes.join(', ') : `${causes.join(', ')} — ${detail}`;
 
-function step(s: Step, run: ReturnType<typeof fold>, verdict: string, depth: number): WorksStep {
+function step(s: Step, run: ReturnType<typeof fold>, verdict: string, depth: number, sid: string | null): WorksStep {
 	const at = run.steps[s.id] ?? { at: 'pending' as const };
 	const fired = s.kind === 'card' ? null : s;
 	// P5 F5's clause, evaluated by the engine's own gate: legality is per (model, posture), and the
@@ -77,8 +77,12 @@ function step(s: Step, run: ReturnType<typeof fold>, verdict: string, depth: num
 		depth,
 		verdict,
 		at: at.at,
-		// Three of the six fold states carry a session; the other three never had one.
-		sid: at.at === 'running' || at.at === 'ended' || at.at === 'paused' ? at.sessionId : null,
+		// **The log's word, not the fold's** (C16, findings F3). Three of the six fold states carry a
+		// session and `landed` is not one of them — but the log names every session the run ever made
+		// (C8 F8, and the console's `list` reads it the same way), so a landed step still knows which
+		// conversation it had. Taking the state's word here left the Works unable to open the Chat on
+		// the step whose reply had just landed it.
+		sid,
 		pid: at.at === 'running' ? at.pid : null,
 		why: at.at === 'paused' ? pausedWhy(at.causes, at.detail)
 			: at.at === 'landed' ? at.report?.cause ?? null
@@ -107,7 +111,11 @@ export function worksRun(handle: RunHandle): WorksRun {
 	const flow = state.flow;
 	const spoken = verdicts(state);
 	const rank = flow === null ? new Map<string, number>() : depths(flow);
-	const steps = (flow?.steps ?? []).map(s => step(s, state, spoken[s.id] ?? 'pending', rank.get(s.id) ?? 0));
+	const sessions = new Map<string, string>();
+	for (const e of handle.entries)
+		if (e.kind === 'ignited' || e.kind === 'resumed') sessions.set(e.step, e.sessionId);
+	const steps = (flow?.steps ?? []).map(s =>
+		step(s, state, spoken[s.id] ?? 'pending', rank.get(s.id) ?? 0, sessions.get(s.id) ?? null));
 	const edges: WorksEdge[] = (flow?.steps ?? []).flatMap(s => s.depends.map(from => ({ from, to: s.id })));
 	const last = handle.entries.at(-1) ?? null;
 	return {
