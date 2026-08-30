@@ -1982,6 +1982,7 @@ log rotated aside (`agents-flow-1.run.jsonl.stopped-2026-08-29`), all five stopp
 sessions verified gone (SessionEnd, pids dead), c29 worktree verified clean and
 divergence-free — its removal **refused by the permission guard** (the design),
 handed to Felix. Batch 6 untouched — B23 its head, the tender still Felix's.
+Next: **⬡ → the flow-1 re-bless** — the baton below carries the three gestures.
 
 Baton — ⬡ → Felix re-blesses agents-flow-1, three gestures in order: (1) remove
 the stale c29 venue — `git -C ~/code/agents worktree remove
