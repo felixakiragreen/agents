@@ -8,17 +8,22 @@
 //
 // Invariant 8 is the sharp one. For every turn the log says ended, the oracle
 // re-reads that turn from its own stream file — the file the subject wrote, not
-// the copy the engine saved — and re-derives the verdict from scratch. The
-// engine is allowed to know *more* than the disk (it watched the clock, so it
-// may add ‹timeout›); it is never allowed to know less, and it is never allowed
-// to land what the disk says did not land. That is the check a mutant that
-// launders a denial into a landing dies on.
+// the copy the engine saved — and re-derives the verdict from scratch. Where
+// the stream is torn and the engine fell to the transcript, the oracle re-reads
+// that too, past the spawn cursor the log recorded (C11): the disk names a turn
+// now, so the check reaches the fallback path it used to skip. The engine is
+// allowed to know *more* than the disk (it watched the clock, so it may add
+// ‹timeout›); it is never allowed to know less, and it is never allowed to land
+// what the disk says did not land. That is the check a mutant that launders a
+// denial into a landing dies on.
 
+import { venueFor } from "../engine/engine.ts";
 import { invariants, NINE } from "../engine/invariants.ts";
 import { readLog, type Entry } from "../engine/log.ts";
 import { fold, verdicts, type RunState } from "../engine/replay.ts";
 import { senseFile, verdict, type Cause } from "../engine/sense.ts";
 import { streamPath } from "../engine/spawn.ts";
+import { readTranscript, transcriptPath, verdictFromTranscript } from "../engine/transcript.ts";
 import { stepById, type Fired } from "../engine/flow.ts";
 import type { Outcome } from "./driver.ts";
 
@@ -61,6 +66,10 @@ export function judge(runDir: string, outcome: Outcome | null): Judgement {
 	return { reds, state, verdicts: verdicts(state) };
 }
 
+/** What one spawn recorded about the turn it started: which session wrote the
+ *  transcript, and how many rows of it belonged to somebody else (C11). */
+type Spawn = { sessionId: string; cursor: number };
+
 /**
  * 8 — truth on disk. Every `turn-ended` is re-derived from the subject's own
  * stream file (C6 F2's ruled fix), falling to the transcript only when that
@@ -70,6 +79,11 @@ function truthOnDisk(runDir: string, entries: readonly Entry[], state: RunState)
 	const reds: Red[] = [];
 	const flow = state.flow;
 	if (flow === null) return reds;
+
+	const spawnsOf = new Map<string, Spawn[]>();
+	for (const e of entries)
+		if (e.kind === "ignited" || e.kind === "resumed")
+			spawnsOf.set(e.step, [...(spawnsOf.get(e.step) ?? []), { sessionId: e.sessionId, cursor: e.cursor }]);
 
 	const turnOf = new Map<string, number>();
 	for (const [i, e] of entries.entries()) {
@@ -95,8 +109,19 @@ function truthOnDisk(runDir: string, entries: readonly Entry[], state: RunState)
 			reds.push(red(8, e.step, `the disk says the turn ${onDisk.land ? "landed" : "did not land"}, the log says ${after.kind}`));
 			continue;
 		}
-		if (after.kind === "paused" && onDisk.causes !== null) {
-			const missing = onDisk.causes.filter((c) => !after.causes.includes(c));
+
+		// The stream is torn and the engine fell to the transcript. That fallback
+		// is now re-derivable from the disk alone: the spawn cursor in the log
+		// says which rows are this turn's (C11), so the pause must name what they
+		// say. Before the cursor the question was unaskable — the transcript
+		// answered for whichever turn last wrote to it (C7 F3) — and this branch
+		// is what would catch an engine that went back to reading from row 0.
+		const spawn = spawnsOf.get(e.step)?.[turn];
+		const causes = onDisk.causes ?? (e.sensed.source === "transcript" && spawn !== undefined
+			? fromTranscript(runDir, spawn) : null);
+
+		if (after.kind === "paused" && causes !== null) {
+			const missing = causes.filter((c) => !after.causes.includes(c));
 			if (missing.length > 0)
 				reds.push(red(8, e.step, `the disk names ${missing.join(", ")} and the pause does not — the log knows less than the disk`));
 		}
@@ -104,15 +129,22 @@ function truthOnDisk(runDir: string, entries: readonly Entry[], state: RunState)
 	return reds;
 }
 
+/** The torn stream's fallback, re-derived: the transcript rows past this turn's
+ *  own spawn cursor. It never lands — the step report rides the stream. */
+function fromTranscript(runDir: string, spawn: Spawn): Cause[] {
+	const venue = venueFor(runDir);
+	const reading = readTranscript(transcriptPath(venue.configDir, venue.workDir, spawn.sessionId), spawn.cursor);
+	const v = verdictFromTranscript(reading);
+	return v.land ? [] : v.causes;
+}
+
 /**
  * The verdict for one turn, re-derived from the file the subject wrote.
  *
  * A **complete** stream is re-derived in full and compared cause for cause. A
- * **torn** one yields only `land: false` — `causes: null` — and the reason is
- * a finding, not laziness: the transcript is a per-*session* file with no turn
- * index in it, so on a resumed step it answers for whichever turn last wrote to
- * it, not for the turn being asked about (C7 F2). Anything stronger than
- * "this did not land" would be the oracle inventing evidence.
+ * **torn** one yields only `land: false` — `causes: null` — because the stream
+ * alone cannot say more; where the engine fell to the transcript, the caller
+ * asks `fromTranscript` instead, which now can (C11's cursor).
  */
 function fromDisk(runDir: string, step: Fired, turn: number): { land: boolean; causes: Cause[] | null } {
 	const reading = senseFile(streamPath(runDir, step.id, turn), step.posture);

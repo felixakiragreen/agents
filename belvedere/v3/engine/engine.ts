@@ -32,6 +32,12 @@ export type Options = {
 	precheck?: VenuePrecheck;
 };
 
+/** Everything one run owns sits under its run dir. Exported because the oracle
+ *  addresses the same transcripts from outside (barrage/oracle.ts) — two places
+ *  spelling the layout is one place too many. */
+export const venueFor = (runDir: string): Venue =>
+	({ workDir: `${runDir}/work`, configDir: `${runDir}/config` });
+
 /** How often an adopted subject's pid is looked at while it finishes. */
 const ADOPT_POLL_MS = 25;
 /** The account a fake subject belongs to. Real accounts arrive with C8. */
@@ -60,7 +66,7 @@ export function load(flowPath: string, options: Options): Run | Refusal {
 	const flow = parseFlow(readFileSync(flowPath, "utf8"), flowPath);
 	if (isRefusal(flow)) return flow;
 
-	const venue: Venue = { workDir: `${options.runDir}/work`, configDir: `${options.runDir}/config` };
+	const venue = venueFor(options.runDir);
 	mkdirSync(venue.workDir, { recursive: true });
 	mkdirSync(venue.configDir, { recursive: true });
 	const log = openLog(`${options.runDir}/run.jsonl`);

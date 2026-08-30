@@ -10,6 +10,8 @@ import { runChild, outcomeOf } from "./child.ts";
 import { judge } from "./oracle.ts";
 import { cutPointsFrom } from "./crash.ts";
 import { readLog } from "../engine/log.ts";
+import { venueFor } from "../engine/engine.ts";
+import { readTranscript, transcriptPath, transcriptRows } from "../engine/transcript.ts";
 
 const SCRATCH = "/private/tmp/v3-barrage-test/oracle";
 const SEED = 9;
@@ -68,4 +70,43 @@ test("the driver's own report is checked, not trusted", async () => {
 	expect(judge(dir, lying).reds.some((r) => r.invariant === 7)).toBe(true);
 	const stalled = { ...outcome!, stop: "no-progress" as const };
 	expect(judge(dir, stalled).reds.some((r) => r.invariant === 5)).toBe(true);
+}, 120_000);
+
+test("truth on disk: a torn stream's fallback is checked against that turn's own cursor", async () => {
+	const dir = await goodRun("stale-cursor");
+	const logPath = `${dir}/run.jsonl`;
+	const entries = readLog(logPath);
+
+	// A step that ignited, ended its turn, and paused on something other than
+	// ‹dead› — so a re-derivation that finds nothing on disk contradicts it.
+	const ended = entries.find((e) => e.kind === "turn-ended" && entries.some((x) =>
+		x.kind === "paused" && x.step === e.step && x.seq > e.seq && !x.causes.includes("dead")));
+	expect(ended?.kind).toBe("turn-ended");
+	const step = ended?.kind === "turn-ended" ? ended.step : "";
+	const ignited = entries.find((e) => e.kind === "ignited" && e.step === step);
+	expect(ignited?.kind).toBe("ignited");
+	const sessionId = ignited?.kind === "ignited" ? ignited.sessionId : "";
+
+	// The plant is C7 F3's own defect, written into the log: the stream is torn,
+	// the engine fell to the transcript, and the cursor says the whole file was
+	// already there when this turn spawned — so this turn wrote nothing and is
+	// dead, whatever the pause inherited from the turn before it.
+	const venue = venueFor(dir);
+	const txPath = transcriptPath(venue.configDir, venue.workDir, sessionId);
+	const rows = transcriptRows(txPath);
+	expect(rows).toBeGreaterThan(0);
+	writeFileSync(`${dir}/streams/${step}.t0.jsonl`, "");
+
+	const lines = readFileSync(logPath, "utf8").split("\n").filter((l) => l !== "");
+	const patched = lines.map((line) => {
+		const e = JSON.parse(line) as Record<string, unknown>;
+		if (e.kind === "ignited" && e.step === step) return JSON.stringify({ ...e, cursor: rows });
+		if (e.kind === "turn-ended" && e.step === step)
+			return JSON.stringify({ ...e, sensed: { source: "transcript", reading: readTranscript(txPath, 0) } });
+		return line;
+	});
+	writeFileSync(logPath, patched.join("\n") + "\n");
+
+	const reds = judge(dir, null).reds;
+	expect(reds.some((r) => r.invariant === 8 && r.step === step && r.detail.includes("dead"))).toBe(true);
 }, 120_000);
