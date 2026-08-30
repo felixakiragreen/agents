@@ -275,26 +275,27 @@ camera/shots/2026-08-30T21-17-45-127-inbox-knob-filed.png
   added; zero new dependencies (`git diff` on every `package.json` empty).
 
   Run **whole**, not `--fast`: the runner's own disclaimer says `--fast` is never
-  sufficient for a landing (C18 §2), so the barrage rode too.
+  sufficient for a landing (C18 §2), so the barrage rode too. This block is the run at
+  the landing commit (`0ddcf87`); an earlier whole run mid-charge was green at 213.4 s.
 
 ```
 $ bun v3/gates.ts --glass
 | gate | result | counts | wall | exit |
 |---|---|---|---|---|
-| engine · suite | PASS | 77 pass · 0 fail | 24.6s | 0 |
-| barrage · suite | PASS | 41 pass · 0 fail | 24.1s | 0 |
-| fake-claude · suite | PASS | 60 pass · 0 fail | 10.4s | 0 |
-| console · suite | PASS | 26 pass · 0 fail | 1.5s | 0 |
-| engine · types | PASS | 0 errors | 0.2s | 0 |
+| engine · suite | PASS | 77 pass · 0 fail | 24.4s | 0 |
+| barrage · suite | PASS | 41 pass · 0 fail | 23.9s | 0 |
+| fake-claude · suite | PASS | 60 pass · 0 fail | 10.6s | 0 |
+| console · suite | PASS | 26 pass · 0 fail | 1.6s | 0 |
+| engine · types | PASS | 0 errors | 0.1s | 0 |
 | barrage · types | PASS | 0 errors | 0.1s | 0 |
 | fake-claude · types | PASS | 0 errors | 0.1s | 0 |
 | console · types | PASS | 0 errors | 0.1s | 0 |
 | gates · types | PASS | 0 errors | 0.1s | 0 |
-| glass · suite | PASS | 565 pass · 0 fail | 2.2s | 0 |
-| glass · types | PASS | 0 errors | 0.2s | 0 |
-| barrage | PASS | 1000 runs · 50 cuts · 9/9 mutants | 150.0s | 0 |
+| glass · suite | PASS | 565 pass · 0 fail | 2.3s | 0 |
+| glass · types | PASS | 0 errors | 0.3s | 0 |
+| barrage | PASS | 1000 runs · 50 cuts · 9/9 mutants | 156.3s | 0 |
 
-ALL GREEN — 12 gates, wall 213.4s
+ALL GREEN — 12 gates, wall 219.9s
 exit 0
 
 $ cd belvedere/camera && ./node_modules/.bin/tsc --noEmit ; echo "exit=$?"
