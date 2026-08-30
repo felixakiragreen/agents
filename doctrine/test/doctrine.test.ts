@@ -10,7 +10,7 @@ import {
 	batonFails, classifyBaton, parseBoards, parseDecisions, parseIssues, parseKickoffs, parseLedger,
 } from '../src/parse';
 import { migrateText, roundTrip } from '../src/migrate';
-import { guardRegressions, lint } from '../src/lint';
+import { guardRegressions, isLiveWorkDoc, lint } from '../src/lint';
 import { parse, staffsSessions } from '../src/building';
 
 const FX = join(import.meta.dir, '..', 'fixtures');
@@ -269,6 +269,39 @@ describe('the silence family — defects that once reported clean', () => {
 		expect(inline.after).toBe('- **TH-D11** (2026-08-13, Felix): **unrecorded.** the body.\n');
 		expect(roundTrip(head)).toEqual([]);
 		expect(roundTrip(inline)).toEqual([]);
+	});
+
+	test('the kickoff arm reads the fence it counts — tonight\'s seven, both states (C31 item 4)', () => {
+		const r = lint([join(FX, 'kickoff')]);
+		// exactly the seven pre-door fences, and the one whose door held but whose charter drifted
+		expect(codes(r.fails).sort()).toEqual([...Array(7).fill('kickoff.door'), 'kickoff.wear']);
+		expect(r.fails.filter(f => f.code === 'kickoff.door').every(f => f.file.endsWith('pre-door.md'))).toBe(true);
+		// the repaired seven, the LANDED doc's pre-door fence, and the inline stanza: silent
+		expect(r.fails.filter(f => /\/(?:door|landed)\.md$/.test(f.file))).toEqual([]);
+		// counted as before — the arm reads fences, it does not stop counting them
+		expect(r.totals.kickoffs).toBe(16);
+	});
+
+	test('the arm is the live doc\'s alone; the summons line is still everyone\'s (C31 item 4)', () => {
+		const stale = '```\nYou are a Builder at opus-high.\nWear ~/code/agents/canon/mantles/builder.md,\nthen execute the charge.\n```';
+		expect(codes(parseKickoffs(stale, { live: true }).fails)).toEqual(['kickoff.door']);
+		expect(codes(parseKickoffs(stale).fails)).toEqual([]);          // LANDED / KILLED: history
+		// the §5 skeleton's own Status line is what arms it
+		expect([true, false, false].map((_, i) =>
+			isLiveWorkDoc(['**Status:** OPEN — laid 2026-08-29', '**Status:** LANDED 2026-08-29', 'no header at all'][i]!)))
+			.toEqual([true, false, false]);
+		// a malformed summons line is reported once — the door is not piled on top of it
+		expect(codes(parseKickoffs('```\nYou are a Builder.\nWear the mantle.\n```', { live: true }).fails))
+			.toEqual(['kickoff.summons']);
+		// the path travels: the grammar is checked, the account\'s home is not
+		const other = '```\nYou are a Digger at fable-high.\nEnter by the door — read /Users/x/code/agents/canon/GUILD.md,\nwear /Users/x/code/agents/canon/mantles/digger.md,\nthen dig.\n```';
+		expect(codes(parseKickoffs(other, { live: true }).fails)).toEqual([]);
+	});
+
+	test('the inline stanza is an ignition with no charter to wear, and passes (C31 item 4)', () => {
+		const stanza = '```\nYou are an Agent of the Guild — a hive building a city; files carry the truth.\nSweep the relay queue.\n```';
+		const r = parseKickoffs(stanza, { live: true });
+		expect([r.fails, r.kickoffs, r.fences]).toEqual([[], [], 0]);
 	});
 
 	test('a fence naming no mantle after the article is not a kickoff candidate (item 13)', () => {

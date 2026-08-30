@@ -334,9 +334,39 @@ export function parseLedger(md: string): { entries: LedgerEntry[]; tail: LedgerE
 export type Kickoff = { mantle: string; tier: string | null; text: string; line: number };
 
 const SUMMONS_LINE = /^You are (?:an?|the) ([A-Za-z ]+?) at ([\w.-]+)\.$/;
+/** C33's door, line two of every summons — the path varies by account, the grammar does not. */
+const DOOR_LINE = /^Enter by the door — read \S*GUILD\.md,?$/;
+/** Line three: the charter this session wears. Offices and mantles share the one directory. */
+const WEAR_LINE = /^wear \S*canon\/mantles\/[a-z-]+\.md,?$/;
+/**
+ * The unmantled cheap-tier kickoff carries GUILD.md's closing stanza inline instead of a path
+ * read (mantles/README.md). It names no mantle and wears no charter, so the three-line grammar
+ * does not apply to it — it passes on this line, and is no more a kickoff candidate than a
+ * Personal-Log letter is.
+ */
+const STANZA_LINE = /^You are an Agent of the Guild\b/;
 
-/** Every fenced block whose first line opens the canon summons grammar (D45's single-glance test). */
-export function parseKickoffs(md: string): { kickoffs: Kickoff[]; fails: Fail[]; fences: number } {
+/**
+ * A work doc is live while its own header state is unfinished — the §5 skeleton's Status line.
+ * LANDED and KILLED docs are history: nothing re-ignites them, so nothing lints their fences.
+ */
+export function isLiveWorkDoc(md: string): boolean {
+	const m = md.match(/^\*\*Status:\*\*\s*(.+)$/m);
+	if (!m) return false;
+	const head = m[1]!.replace(/\*\*/g, '').trim().toUpperCase();
+	return head.startsWith('OPEN') || head.startsWith('IN FLIGHT') || head.startsWith('BLOCKED');
+}
+
+/**
+ * Every fenced block whose first line opens the canon summons grammar (D45's single-glance test).
+ *
+ * `live` arms the rest of the grammar (C31 item 4): in a doc still awaiting ignition the fence
+ * must open summons line · door line · wear line, because the flow engine fires it VERBATIM —
+ * seven un-ignited charges in this repo carried pre-door fences and agents-flow-1's first
+ * ignition ran without the door (2026-08-29). The parser counted those kickoffs and never read
+ * them; counting a fence is not reading it.
+ */
+export function parseKickoffs(md: string, opts: { live?: boolean } = {}): { kickoffs: Kickoff[]; fails: Fail[]; fences: number } {
 	const fails: Fail[] = [];
 	const lines = md.split('\n');
 	const kickoffs: Kickoff[] = [];
@@ -348,22 +378,28 @@ export function parseKickoffs(md: string): { kickoffs: Kickoff[]; fails: Fail[];
 		for (; j < lines.length && !/^\s*```\s*$/.test(lines[j]!); j++);
 		const body = lines.slice(start + 1, j).join('\n');
 		i = j;
-		const first = body.split('\n').find(l => l.trim());
-		if (!first || !/^You are /.test(first.trim())) continue; // not a summons fence
+		const spoken = body.split('\n').map(l => l.trim()).filter(Boolean);
+		const first = spoken[0];
+		if (!first || !/^You are /.test(first)) continue;        // not a summons fence
+		if (STANZA_LINE.test(first)) continue;                  // the inline stanza — no mantle, no charter
 		// A summons names a mantle right after the article; a fence that names none there — a
 		// Personal-Log letter, a role-play template — is not a kickoff candidate (item 13).
-		const named = first.trim().match(/^You are (?:an?|the)\s+(.+)$/);
+		const named = first.match(/^You are (?:an?|the)\s+(.+)$/);
 		if (!named || !MANTLES.some(x => named[1]!.toLowerCase().startsWith(x.toLowerCase()))) continue;
 		fences++;
-		const m = first.trim().match(SUMMONS_LINE);
+		const m = first.match(SUMMONS_LINE);
 		if (!m) {
-			fails.push(fail('kickoff', 'kickoff.summons', 'first line is not "You are a <Mantle> at <tier>." (D45)', first.trim().slice(0, 200), start + 1));
+			fails.push(fail('kickoff', 'kickoff.summons', 'first line is not "You are a <Mantle> at <tier>." (D45)', first.slice(0, 200), start + 1));
 			continue;
 		}
 		const mantle = MANTLES.find(x => x.toLowerCase() === m[1]!.toLowerCase()) ?? null;
-		if (!mantle) fails.push(fail('kickoff', 'kickoff.mantle', 'unknown mantle in the summons line', first.trim().slice(0, 200), start + 1));
+		if (!mantle) fails.push(fail('kickoff', 'kickoff.mantle', 'unknown mantle in the summons line', first.slice(0, 200), start + 1));
 		const tier = isTier(m[2]!) ? m[2]! : null;
-		if (!tier) fails.push(fail('kickoff', 'kickoff.tier', 'unknown tier in the summons line', first.trim().slice(0, 200), start + 1));
+		if (!tier) fails.push(fail('kickoff', 'kickoff.tier', 'unknown tier in the summons line', first.slice(0, 200), start + 1));
+		if (opts.live && !DOOR_LINE.test(spoken[1] ?? ''))
+			fails.push(fail('kickoff', 'kickoff.door', 'line two is not the door — "Enter by the door — read <path>/GUILD.md," (C33; mantles/README.md)', (spoken[1] ?? '<the fence ends>').slice(0, 200), start + 2));
+		else if (opts.live && !WEAR_LINE.test(spoken[2] ?? ''))
+			fails.push(fail('kickoff', 'kickoff.wear', 'line three is not the wear line — "wear <path>/canon/mantles/<charter>.md," (mantles/README.md)', (spoken[2] ?? '<the fence ends>').slice(0, 200), start + 3));
 		kickoffs.push({ mantle: mantle ?? m[1]!, tier, text: body, line: start + 1 });
 	}
 	return { kickoffs, fails, fences };

@@ -15,7 +15,8 @@ import { readFileSync, readdirSync, statSync } from 'fs';
 import { basename, dirname, join, relative, resolve, sep } from 'path';
 import { homedir } from 'os';
 import {
-	batonFails, boardIds, classifyBaton, parseBoards, parseDecisions, parseIssues, parseKickoffs, parseLedger,
+	batonFails, boardIds, classifyBaton, isLiveWorkDoc, parseBoards, parseDecisions, parseIssues,
+	parseKickoffs, parseLedger,
 	isBoardHeader, tables,
 	type Baton, type BoardRow, type Decision, type Issue, type Kickoff, type LedgerEntry,
 } from './parse';
@@ -291,7 +292,8 @@ export function parseFiles(e: { building: string; path: string; files: Building[
 
 	const kickoffs: (Kickoff & { doc: string })[] = [];
 	for (const f of e.files.workDocs) {
-		const r = parseKickoffs(read(f));
+		const md = read(f);
+		const r = parseKickoffs(md, { live: isLiveWorkDoc(md) });
 		fails.push(...stamp(r.fails, f));
 		for (const k of r.kickoffs) kickoffs.push({ ...k, doc: f });
 	}

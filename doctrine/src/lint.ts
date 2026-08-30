@@ -5,7 +5,9 @@ import { existsSync, readFileSync } from 'fs';
 import { basename, join, sep } from 'path';
 import { discover, lastWalk, type Building } from './building';
 import { STATES, type Fail } from './grammar';
-import { boardIds, parseDecisions } from './parse';
+import { boardIds, isLiveWorkDoc, parseDecisions } from './parse';
+
+export { isLiveWorkDoc };
 import { prefixFails, vocabularyFails } from './vocabulary';
 
 export type Totals = {
@@ -17,13 +19,6 @@ export type Totals = {
 
 export type LintReport = { buildings: Building[]; fails: Fail[]; totals: Totals };
 
-/** A work doc is live while its own header state is unfinished — the §5 skeleton's Status line. */
-export function isLiveWorkDoc(md: string): boolean {
-	const m = md.match(/^\*\*Status:\*\*\s*(.+)$/m);
-	if (!m) return false;
-	const head = m[1]!.replace(/\*\*/g, '').trim().toUpperCase();
-	return head.startsWith('OPEN') || head.startsWith('IN FLIGHT') || head.startsWith('BLOCKED');
-}
 
 /**
  * `--live` restricts the report to the surfaces a session or the glass reads TODAY:
