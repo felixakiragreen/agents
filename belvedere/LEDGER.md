@@ -1996,3 +1996,25 @@ Behind it: 1) appoint batch 6's tender — B23 the head, its kickoff verbatim in
 [plans/b23-repaint-law.md](plans/b23-repaint-law.md), fence now door-true;
 2) the flow-doctrine C‹n› cut waits on canon C32 (parked list, README §the
 flow-doctrine cut); 3) the ⬡ visual pass on canon C27 still open.
+
+---
+
+**2026-08-29 · Architect · fable-high (same session, the re-bless incident)** — flow-1's
+second run diagnosed at ⬡'s call and **stopped at his word** (run log rotated to
+`agents-flow-1.run.jsonl.stopped-2026-08-29-2124`; unarmed is inert, verified over two
+ticks). What happened: c31's ordinary close pasted fenced evidence into its own charge
+doc, the positional `{doc, fence: 1}` pointer resolved to test output, and the engine
+correctly paused all fires at 20:45:59 ("edited since the arm") — c31/c30 still landed
+by board (20:46/21:04); c29 could never land: worktree lane, row OPEN on master AND its
+branch, census sensor unreachable (pid alive, idle TUI). Three findings filed to ISSUES
+(5c25e20): the positional-fence amendment hazard, the worktree landing circle, the
+unmarked row. Sessions untouched — the engine kills nothing; the three idle panes are
+Felix's. Next: **⬡ → the sweep rules the three findings** (with the C30 vocabulary
+entry) before any third bless of flow-1 — the fence hazard re-fires on every charge
+close until ruled.
+
+Baton — ⬡ → Felix, when ready: summon this board's Architect to sweep the four inbox
+entries and rule the flow-1 findings; a third bless before that ruling hits the same
+amendment pause at c32's close. The three idle flow-1 panes (builder-agents-05/06,
+architect-agents-08) are yours to close; c29's branch (f160ec1) awaits g1's merge
+verdict.
