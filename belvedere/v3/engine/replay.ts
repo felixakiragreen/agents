@@ -12,6 +12,7 @@
 import type { Flow, Step } from "./flow.ts";
 import { stepById } from "./flow.ts";
 import { readLog, type Entry, type Sensed } from "./log.ts";
+import { mutant } from "./mutant.ts";
 import type { Cause, Report } from "./sense.ts";
 
 export type StepState =
@@ -98,12 +99,13 @@ const sessionOf = (state: RunState, id: string): string | null => {
 	return at.at === "running" || at.at === "ended" || at.at === "paused" ? at.sessionId : null;
 };
 
-/** A step may ignite when it is in scope, still pending, and every edge landed. */
+/** A step may ignite when it is in scope, still pending, and every edge landed.
+ *  Two of the nine mutants live on these two lines (`mutant.ts`). */
 export function ready(state: RunState, step: Step): boolean {
 	if (state.halted !== null || state.ceiling) return false;
-	if (!state.scope.includes(step.id)) return false;
+	if (!state.scope.includes(step.id) && !mutant("scope-jump")) return false;
 	if (state.steps[step.id]?.at !== "pending") return false;
-	return step.depends.every((d) => state.steps[d]?.at === "landed");
+	return mutant("edge-jump") || step.depends.every((d) => state.steps[d]?.at === "landed");
 }
 
 export const running = (state: RunState): string[] =>

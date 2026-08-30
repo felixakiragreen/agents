@@ -19,6 +19,7 @@ import { readTranscript, transcriptPath, verdictFromTranscript } from "./transcr
 import { ignite as spawnSubject, streamPath, type Venue } from "./spawn.ts";
 import { precheckVenue as defaultPrecheck, type VenuePrecheck } from "./venue.ts";
 import { crashPoint } from "./crash.ts";
+import { mutant } from "./mutant.ts";
 import { isRefusal, refuse, type Refusal } from "./refusal.ts";
 
 /** What the caller blesses: the steps covered, and the ceiling they run under. */
@@ -77,7 +78,8 @@ function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
 	const inFlight = new Map<string, Promise<void>>();
 
 	const state = (): RunState => fold(log.entries());
-	const pause = (step: string, causes: Cause[], detail: string) => { log.append({ kind: "paused", step, causes, detail }); };
+	const pause = (step: string, causes: Cause[], detail: string) =>
+		{ log.append({ kind: "paused", step, causes: mutant("mute-pause") ? [] : causes, detail }); };
 
 	/**
 	 * One turn's evidence becomes one transition. A gate is the exception that
@@ -98,8 +100,9 @@ function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
 	const resolve = (stepId: string, sensed: Sensed) => {
 		const v: Verdict = sensed.source === "stream" ? verdict(sensed.reading) : verdictFromTranscript(sensed.reading);
 		const isGate = stepById(flow, stepId)?.kind === "gate";
-		if (v.land && !isGate) { log.append({ kind: "landed", step: stepId, report: v.report }); return; }
+		if (v.land && (!isGate || mutant("gate-lands-itself"))) { log.append({ kind: "landed", step: stepId, report: v.report }); return; }
 		if (v.land) { pause(stepId, ["gate"], `report: ${v.report.cause}`); return; }
+		if (mutant("land-denied") && v.causes.includes("needs-⬡ permission")) { log.append({ kind: "landed", step: stepId, report: null }); return; }
 		pause(stepId, isGate ? [...v.causes, "gate"] : v.causes, v.detail);
 	};
 
@@ -206,12 +209,13 @@ function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
 
 		for (const step of flow.steps) {
 			if (step.kind === "card" || !ready(now, step)) continue;
-			if (now.turns >= now.budget) {
+			if (now.turns >= now.budget && !mutant("past-ceiling")) {
 				log.append({ kind: "ceiling", budget: now.budget, turns: now.turns });
 				return state();
 			}
 			crashPoint(`before-ignite:${step.id}`);
 			fire(step, crypto.randomUUID(), null);
+			if (mutant("double-ignite")) fire(step, crypto.randomUUID(), null);
 			now = state();
 		}
 
@@ -248,7 +252,10 @@ function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
 
 		async run() {
 			let now = state();
-			while (!terminal(now)) now = await tick();
+			while (!terminal(now)) {
+				now = await tick();
+				if (mutant("orphan-terminal") && running(now).length > 0) return now;
+			}
 			return now;
 		},
 
@@ -270,9 +277,12 @@ function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
 				return true;
 			}
 
+			const act = () => ruling.do === "land"
+				? log.append({ kind: "landed", step: stepId, report: null })
+				: log.append({ kind: "killed", step: stepId, reason: ruling.note });
+			if (mutant("act-before-append")) { act(); log.append({ kind: "ruled", step: stepId, ruling }); return true; }
 			log.append({ kind: "ruled", step: stepId, ruling });
-			if (ruling.do === "land") log.append({ kind: "landed", step: stepId, report: null });
-			else log.append({ kind: "killed", step: stepId, reason: ruling.note });
+			act();
 			return true;
 		},
 

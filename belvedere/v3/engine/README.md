@@ -108,6 +108,11 @@ Without `--bless` a fresh run does nothing: the engine never blesses itself.
 restart converges **on the uncrashed run's own terminal verdicts**
 (`verdicts()`), with zero double-ignitions. C7 drives the same seam.
 
+`V3_ENGINE_MUTANT=<name>` is its sibling ([mutant.ts](mutant.ts)): nine named
+law breaks, one per invariant class, each a single guarded line at the decision
+site it corrupts and inert without the variable — so the barrage can prove the
+oracle has been seen to fail (cornerstone §6's mutation law).
+
 ## What it does not do
 
 Topology generation, fuzz loops, auto-filing (C7) · real subjects beyond the one
