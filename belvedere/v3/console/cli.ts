@@ -27,9 +27,10 @@ import type { Entry } from "../engine/log.ts";
 import { isRefusal, refuse, type Refusal } from "../engine/refusal.ts";
 import type { RunState, StepState } from "../engine/replay.ts";
 import { streamPath } from "../engine/spawn.ts";
-import type { Posture } from "../engine/flow.ts";
+import { stepById, type Posture } from "../engine/flow.ts";
+import { precheckVenue } from "../engine/venue.ts";
 import { renderStream, renderRow } from "./render.ts";
-import { alive, locate, openRun, runs, TELEMETRY, type RunHandle } from "./runs.ts";
+import { alive, drivable, locate, openRun, runs, TELEMETRY, type RunHandle } from "./runs.ts";
 import { lines, markReturned, markSummoned, openPane, paneName, paneReady, summonCommand, summoned, SOCKET } from "./summon.ts";
 
 const HELP = `console — five verbs over the v3 engine (campaign bar 6)
@@ -222,6 +223,8 @@ async function send(): Promise<void> {
 	if (isRefusal(found)) die(found.refusal);
 	const { handle, at } = found;
 	if (third === undefined) die(`send wants a third argument: an answer, or the word land, or the word kill`);
+	const drives = drivable(handle);
+	if (isRefusal(drives)) die(drives.refusal);
 
 	if (summoned(handle.dir).has(stepId!))
 		die(`step ${stepId} is summoned — it is in a human's hands, and it comes back with \`return\`, not \`send\``);
@@ -267,6 +270,18 @@ async function summon(): Promise<void> {
 	if (sessionId === null) die(`step ${stepId} has no session to summon — it is ${at.at}`);
 	const fact = ignitions(handle.entries).get(stepId!);
 	if (fact === undefined) die(`step ${stepId} was never ignited — there is nothing on disk to resume`);
+	const drives = drivable(handle);
+	if (isRefusal(drives)) die(drives.refusal);
+
+	// The trust read, before the pane exists (C10 F6). A session born in a cwd
+	// the account never accepted is summonable only into the workspace-trust
+	// dialog (C4 F8), and a pane that stops there has already cost a terminal and
+	// a human's attention. Same read the engine ran at ignite — one copy.
+	const step_ = handle.state.flow === null ? undefined : stepById(handle.state.flow, stepId!);
+	if (step_ !== undefined && step_.kind !== "card") {
+		const trust = precheckVenue(handle.venue, step_.subject);
+		if (!trust.trusted) die(`step ${stepId} is unsummonable: ${trust.reason}`);
+	}
 
 	const summons = { step: stepId!, sessionId, model: fact.model, effort: fact.effort, venue: handle.venue };
 	console.log(`${handle.name}/${stepId}  ${describe(at)}  session ${sessionId}`);
@@ -311,6 +326,8 @@ async function back(): Promise<void> {
 	if (isRefusal(found)) die(found.refusal);
 	const { handle, at } = found;
 	if (third === undefined) die(`return wants the turn to resume with: the words the engine sends headless`);
+	const drives = drivable(handle);
+	if (isRefusal(drives)) die(drives.refusal);
 
 	const mark = summoned(handle.dir).get(stepId!);
 	if (mark === undefined) die(`step ${stepId} is not summoned — a step the engine still holds is ruled with \`send\``);
