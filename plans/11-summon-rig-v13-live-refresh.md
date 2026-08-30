@@ -28,7 +28,7 @@ strictly what v1.2 does today, with no added wakeups.
   rotates a token.
 - `plans/09-summon-rig-v11.md` — **F3** (`zle -I` abandons the display and leaves one stale
   panel per keystroke; the panel must repaint with `zle -R`) and **F9** (the pty cannot
-  synchronise on panel content).
+  synchronize on panel content).
 - The code: `summon/summon.zsh` (`_summon_widget`, `_summon_usage_*`), `lab/08/run`.
 - `MAP.md` charge 11; `canon/work/DOCTRINE.md` for findings law.
 
@@ -111,7 +111,7 @@ of them:
   **If and only if it spawned at least one**, the read becomes `read -k 1 -t 0.2`:
   - **timeout** → re-run `_summon_usage_load` and rebuild the panel; repaint with `zle -R`
     **only if the panel string or its spans actually changed**. No change, no repaint.
-  - **key** → exactly today's behaviour.
+  - **key** → exactly today's behavior.
 - Await-mode **ends** when every spawned account's `fetched_at` has advanced, or after
   `_summon_usage_await` (**5 s**, proposed) — then the read goes back to plain blocking
   `read -k 1`. Everything has a limit: the panel must not tick forever because one fetch
@@ -179,7 +179,7 @@ Evidence: `lab/08/run` extended, green, no regressions; the charge's numbers pas
 - `launchd`/`cron` as the warm-keeper. A prompt hook needs no install step, no plist and
   no daemon to debug, and Felix's terminals draw prompts all day. Revisit only if the
   prompt hook proves insufficient — with evidence.
-- Reset countdowns, quota-at-fire telemetry — still DEFERRED from charge 10.
+- Reset countdowns, quota-at-ignition telemetry — still DEFERRED from charge 10.
 
 ## Findings
 
