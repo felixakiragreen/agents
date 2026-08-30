@@ -1719,3 +1719,84 @@ naive mtime+size comparison never matches again and every hourly run becomes a f
    C9 Q3's extrapolation table is built on the measured split, not on a single mean.
 
 (Relayed from `master`, C9 IN FLIGHT 2026-08-30 — Digger)
+
+---
+
+## → relay — C10 (the console) to the deck, to the Architect, and to whoever writes a flow's prompts
+
+Three things that bind on work outside this charge, and one that binds on anyone
+writing a flow.
+
+1. **The run log cannot name the account, so nothing that reads a log alone can
+   *drive* the run it describes.** `CLAUDE_CONFIG_DIR` selects the account (C4
+   F0); the `ignited` event records `venue` — the subject's **cwd**, and only the
+   cwd. There is no field naming the config dir. `list` and `read` need nothing
+   else, but reopening a run to `send`, `summon` or `return` needs the account,
+   and the console therefore depends on a sidecar `conditions.json` beside the
+   log (`{account, configDir, workDir}` — the shape C8's harness already writes).
+
+   ```
+   engine/log.ts   | kind: "ignited"; step; sessionId; pid; venue; cursor;
+                   |   model; effort; posture; subject          ← no configDir
+   console/runs.ts | readConditions(dir) → {venue, account} | {null, null}
+   ```
+
+   **A run whose conditions file is lost is readable forever and drivable
+   never**, and `log.ts`'s own claim that *"a log is judged from itself alone"* is
+   true of judging and false of driving. The fix is one field on `ignited`, which
+   is an engine change and the Architect's. **The deck hits this on its first
+   session row** — it, too, will want to locate a session's transcript from a run
+   log, and the transcript path is `configDir/projects/<slug(cwd)>/<sid>.jsonl`.
+
+2. **The trust read still lives only in `lab/c8/accounts.ts`, and this is its
+   second caller.** `engine/venue.ts` reserves the slot and ships a stub that
+   says yes. Whether an account has accepted a cwd decides whether a summon lands
+   in a TUI or in a workspace-trust dialog (C4 F8). The console deliberately did
+   **not** make a second copy of that policy — it opens the pane and reads it
+   back, reporting `trust dialog false` from the capture:
+
+   ```
+   pane rehearsal-hold on socket v3 · trust dialog false
+   | ❯ Remember this codeword exactly: REHEARSAL-ALPHA. …
+   ```
+
+   A measurement cannot drift from the substrate, and it costs one
+   `capture-pane`; what it cannot do is warn *before* the summon. Anyone who
+   needs the prediction — the deck's summon affordance, most obviously — should
+   promote the read into `venue.ts` rather than make the third copy.
+
+3. **The fake has no answer-then-land scenario, so the arc `send <text>` drives
+   is unreachable at budget 0.** `schema-needs-input` scripts one act, and the
+   fake throws when a turn asks for an act it has no script for (*"scenario …
+   scripts 1 acts; turn 1 has no script"*), which the engine reads as ‹dead›; the
+   multi-act scenarios report nothing and pause ‹no report› on every act. So the
+   console's tests prove the resume *happens* and cannot prove it *lands*; the
+   landing is proven only on real bytes (twice, in C10's rehearsal). **One
+   scenario file — two acts, `report needs_input` then `report done` — plus its
+   golden would make an important arc guardable by the barrage forever.**
+
+And one for whoever writes a flow's prompts, learned the expensive way:
+**a flow's steps share no memory.** Each step is its own session. C10's first
+rehearsal pass asked a summoned step to report "the release name you were given
+earlier" — the name had been given to a *different* step — and the subject
+correctly refused to invent one:
+
+```
+rehearsal/hold  summoned …  ->  paused ‹needs-⬡ question›
+    You referenced a "release name you were given earlier," but none was ever
+    provided in this conversation — please supply it.
+```
+
+Obvious in the cornerstone and easy to forget the moment a flow reads like a
+narrative. The reassuring half: **the subject asked instead of confabulating and
+the engine paused instead of landing** — the failure mode a headless runner
+should fear, caught in the wild and behaving exactly as designed.
+
+Also, free and already built: `bun console/cli.ts read <run> <step>` now renders
+`rate_limit_event`'s `unifiedWindows.*.utilization` on any turn that carries one
+(`quota    five-hour 12% · seven-day 50%`), and prints ALARM only when
+`status !== "allowed"` — C9 F1's correction made structural. That is the
+shortest standing answer the Guild has to *"sessions cannot see /usage"*, and it
+costs nothing.
+
+(Relayed from `master`, C10 LANDED 2026-08-30 — Builder)
