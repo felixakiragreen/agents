@@ -2241,3 +2241,7 @@ two granted engine repairs** (`2fe9d1f`, F1), and **rule F3** — the transcript
 fallback's completion signal is falsified on real bytes and wants its own
 charge; it also took C11's cursor regression signal with it (F7's caveat), so
 the two are one ruling.
+Next: the batch-6 tender rules F1 and F3 at the C8 review — done same day:
+F1 RATIFIED, F3 → C13 (ignite C13 — kickoff in
+[v3/plans/c13-report-on-disk.md](v3/plans/c13-report-on-disk.md)); the full
+record rides the root ledger's entry of this date.

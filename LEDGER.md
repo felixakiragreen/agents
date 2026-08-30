@@ -2067,7 +2067,7 @@ charge that spends real turns, so it needs a budget line before it is ignitable.
 
 ---
 
-**2026-08-30 · Architect · fable-high (the C7 review + the batch-6 lay)** — C7's
+**2026-08-30 · Architect · fable-high (C7)** — the C7 review + the batch-6 lay: C7's
 landing verified at this desk's own hand: engine 49 + barrage 37 tests green,
 both type gates exit 0, `bun barrage/run.ts --runs 1000 --crashes 50` exit 0 —
 1000/1000 runs · 50/50 cuts converged · 9/9 mutants each naming its own class,
@@ -2093,3 +2093,39 @@ ignites when C11's five machine-checked gates paste green (batch note 6, D44).
 Baton — ⬡ → ignite C11 (kickoff fenced in
 [v3/plans/c11-cursor-real-seam.md](belvedere/v3/plans/c11-cursor-real-seam.md);
 the coda appends at ignition). Ordered behind it: C8, on C11's green gates.
+
+---
+
+**2026-08-30 · Architect · fable-high** — the batch-6 tending arc, end to end.
+**C11 LANDED + reviewed** (gates re-run at this hand: engine 54 + barrage 38,
+tsc ×2 exit 0, barrage exit 0; the F3 red seen red on the parent engine; the
+cursor vindicated on the summoned hand turn). **C12 laid at his word ("Let's do
+B"), dispatched, LANDED + reviewed** — 1,608 transcripts / 1.67 GB ×4 accounts
+mirrored, restore drill passed with its control (deleted live transcript,
+resume refused, restored, codeword recalled); launchd install awaits his `!`;
+Backblaze exposure filed ⬡ (belvedere ISSUES). **C8 LANDED + reviewed — K1
+FIRED honestly, the bet stands**: stream sensing holds ×3 accounts; the
+headline is C6 F2 proven at layer 1 (engine SIGKILLed mid-turn, real orphan
+wrote on, restart adopted and landed, 3/3, zero double-ignitions); budget
+63/200 turns, $3.44/$15. Ruled: **C8 F1 RATIFIED** (`2fe9d1f` — barrage re-run
+exit 0 at this hand on the settled tree) · **C8 F3 = K1 → C13** (the
+`StructuredOutput` pair closes a turn AND carries the report — the fallback
+will land from disk, law 5 restored stronger; the fake made faithful; C11's
+cursor signal back) · grammar.md gained §11 (four dated corrections). Also
+this session: the classifier tax — repo `.claude/settings.json` allowlist
+landed by his hand (guide's verdict relayed; evidence on the root inbox
+entry); belvedere ISSUES gained the unified-archive campaign entry (his word,
+re-ruled to C12 + campaign split). Board: batch note 7 laid — **C13 OPEN,
+ignitable now, budget 0; precedes C9** (G4 does not convene on a falsified
+capability row); C9's future budget line leads with dollars (C8 F9), C10's
+posture picker carries C8 F4 (`auto` is not restrictive headless — the
+deck-facing safety fact). Ledger repairs: D63f head on this date's C7 entry;
+the C8 Digger entry's dropped Next trued same day. Standing lint reds are
+history's and other desks' (5 merged heads pre-D63, c1 kickoff.door ×2 filed,
+c29 baton filed). Decided: nothing register-grade — all rulings ride charge
+findings. Next: Felix's word — dispatch C13 from this desk, or ignite by hand.
+
+Baton — ⬡ → ignite C13 (kickoff fenced in
+[belvedere/v3/plans/c13-report-on-disk.md](belvedere/v3/plans/c13-report-on-disk.md);
+the coda appends at ignition; or say the word and the batch-6 tender
+dispatches it).
