@@ -30,3 +30,50 @@ the inbox is cleared. A cleared inbox is empty.
   docs, so it could not take this; it is the natural successor charge to C27, and the
   `fire` and `the glass` questions are ⬡-shaped — they touch code and identity, not
   spelling.
+---
+
+- 2026-08-29 · Architect (the flow-1 diagnosis, ⬡ present) · **Fenced evidence amends
+  the flow — the positional kickoff pointer is fragile against the Guild's own
+  evidence discipline.** c31's Builder closed by pasting fenced `Done when:` output
+  into its own charge doc (agents a11c080: `plans/c31-doctrine-defects.md` went 1
+  fence → 12, and fence #1 is now `bun test` output). The flow quotes c31's kickoff
+  as `{doc, fence: 1}` — positional — so the resolved kickoff bytes silently became
+  test output, the step hash moved, and the engine paused all new fires at 20:45:59
+  ("c31 was edited since the arm"); c32 could never fire, even after every root
+  landed. The pause itself is correct (D10 / B10 F2 — never authorize bytes nobody
+  re-read); the defect is that the ordinary close ritual of every charge amends any
+  flow quoting its doc. Candidate shapes for the ruling: quote the kickoff by the
+  summons grammar (the door line finds it) rather than by ordinal; or the charge
+  template pins the kickoff as the doc's LAST fence and the pointer follows; or the
+  bless snapshots kickoff bytes and evidence-only doc growth joins like scope-arm.
+  Evidence: run log `agents-flow-1.run.jsonl.stopped-2026-08-29-2124` (paused
+  20:45:59, c31 landed 20:46:44, c30 landed 21:04:04), agents a11c080, `flow.ts`
+  §the fence.
+
+---
+
+- 2026-08-29 · Architect (the flow-1 diagnosis, ⬡ present) · **A worktree lane has
+  no live landing sensor — board-by-master plus merge-gated-on-landing is a
+  circle.** c29 (venue `bv/c29-summon-harness`) finished its work (branch at
+  f160ec1) and could never land: the census sensor needs gone-with-Stop and an idle
+  TUI's pid stays alive (its last event was the `Notification` nag); the board
+  sensor reads the register's MASTER checkout, where C29 stays OPEN until a merge —
+  and the merge gate g1 *depends on* c29 landing. A worktree step's only reachable
+  exit is its timeout (240 min → pause-and-surface), i.e. every worktree lane ends
+  as a stall by construction. Needs a ruled sensor: the branch-side row lands the
+  step, or the Builder's row update is master-side by law, or the gate's dependency
+  reads "work done" (commits present) rather than "row LANDED". Interim law is
+  B11 §4 / keel §5.1; DOCTRINE §10 worktree law binds the venue side.
+  Evidence: run log (c29 fired 20:24:04, no landing by 21:24), census sids
+  82b9b4dc/a47e6f95/a3732bea all pid-alive, `git worktree list` f160ec1 vs master
+  94f94f6, MAP.md:120 OPEN both sides.
+
+---
+
+- 2026-08-29 · Architect (the flow-1 diagnosis, ⬡ present) · **c29's Builder marked
+  no row anywhere** — C29 reads OPEN on master AND on its own branch; the work
+  exists (f160ec1) but no status moved. Smaller than the sensor gap above and
+  distinct from it: even with a branch-side sensor ruled in, this session would not
+  have landed. Candidate home: the charge template / coda gains the closing line
+  "your last commit trues your row's Status" (canon-shaped — likely escalates to
+  the canon inbox at the sweep); c29's own charge doc is the repro.
