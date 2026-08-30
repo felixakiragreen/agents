@@ -234,6 +234,38 @@ is cleared). A cleared inbox is empty.
   Felix's card — D10's parse-and-prose agreement is what currently keeps it
   unwired. The holder grammar is C32's un-built scope, stranded by flow-1's
   abandonment — the C29/C32/G1 re-ruling (entry above) should weigh this with it.
+- 2026-08-30 · Felix (via the belvedere migration session) · **master docs want a
+  standing prune/purge mechanism — READMEs, MAPs, the §-register pattern — not
+  one-off purge charges rediscovered per building.** His ask, verbatim: "add
+  something … about auto-pruning/purging/archiving things like READMEs/MAPs/etc."
+  The evidence class, measured same day: belvedere's README hit **988 lines /
+  >25k tokens** (a master doc that fails its own two-minute cold-read law and
+  cannot be loaded in one Read call), LANDED rows carrying ~2,400-char status
+  cells that duplicate findings already filed in charge docs, spent batch notes
+  from tombstoned machinery still standing verbatim, §7 entries fully distilled
+  into §§1–5 and never killed. The canon pair **C34 → C35 is the proven blade**
+  (LANDED rows compress to status + findings link; spent batch notes die;
+  distilled decisions killed whole; live holds survive verbatim) — but it ran as
+  two blessed GA sessions; nothing re-fires it as buildings re-bloat. Candidate
+  shapes for the GA's ruling, cheapest first: (1) **a lint arm** — `doctrine
+  lint` reports prune candidates (master doc over a size bar; a LANDED row's
+  cell over a length bar; a batch note whose every charge is LANDED) — detection
+  only, parser-as-lint, judgment stays with the sweeping Architect; (2)
+  **`doctrine prune --dry-run`** — C35's blade as a tool emitting the compressed
+  diff for a blessing, never self-applying; (3) **doctrine law** — every close
+  gate (G-charge) carries the purge check as a standing duty, the way the inbox
+  sweep rides every Architect session. On "archiving": the register law already
+  rules it — git is the archive, findings files are the record, deleted never
+  tombstoned — so the ruling should say plainly whether any ARCHIVE.md shape is
+  wanted (the belvedere read: no — an archive file is the bloat relocated, plus
+  a hop). Prior art the ruling needs: C25's live/spent rule (any pruner must
+  reliably tell a spent surface from a live one — the vocab arm's closed-charge
+  mask gap, filed 2026-08-29, is the same detector missing). Belvedere's own
+  purge is already scheduled (G5's rework lay, README §6) and can serve as the
+  shape's second proving run after MAP's.
+
+---
+
 - 2026-08-30 · belvedere Architect (the migration lay) · **hand ignitions drop the
   coda — charge 22's composition should carry it.** DOCTRINE §10: ignition =
   kickoff + the project coda, appended verbatim; the v3 engine does this at fire
