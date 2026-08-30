@@ -42,17 +42,18 @@ typeset -g  _summon_error										# why the panel refused to open
 typeset -ga _summon_models=(f:fable o:opus s:sonnet k:haiku)
 typeset -ga _summon_efforts=(l:low m:medium h:high x:xhigh M:max)
 
-# the palette (D36): brackets and unselected items grey, the selected item bold with an
-# inline ✓, one colour per row label, and each preset's session colour as a ● swatch.
+# the palette (D36, regraded 2026-08-29): brackets and unselected items grey, the selected
+# item bold with an inline ✓; a mantle's label wears its session colour, not just its ●.
+# The header and the row labels run the whole gradient — summon blue · mantle green ·
+# model yellow · effort orange · account red · theater pink · usage purple — spelled in S0
+# slots (see _summon_swatch below); pink has no slot and stays 256-palette 213.
 # These are zle highlight styles, not escapes: zle renders a control character visibly, so
 # an ANSI escape in a panel string reaches the screen as a literal `^[[90m` (F1). `fg=8`
 # is bright black — zle's `fg=90` would mean palette index 90, a purple — and zle emits it
 # via terminfo as `\e[90m` or `\e[38;5;8m`, both the bright-black slot D36 specified.
 typeset -g _summon_grey='fg=8' _summon_bold='bold'
-# `usage` is grey, not a colour of its own: the other four labels name key namespaces, and
-# grey is already the panel's word for "nothing here is selectable" (v1.2)
-typeset -gA _summon_label_color=(mantle fg=green model fg=yellow effort fg=blue account fg=red
-	usage fg=8)
+typeset -gA _summon_label_color=(summon fg=cyan mantle fg=green model fg=yellow
+	effort fg=blue account fg=red theater fg=213 usage fg=magenta)
 # presets.tsv speaks REAL colours and `/color` gets the word verbatim; only this map knows
 # ANSI. It is Felix's S0 slot table: ANSI-16 names no purple or orange, so his terminal
 # repaints three slots — cyan wears blue, blue wears orange, magenta wears purple — and the
@@ -617,7 +618,10 @@ _summon_item() {
 	fi
 	[[ -n $sel ]] && style=$_summon_bold
 	[[ -n $swatch ]] && {			# the space is load-bearing: at most fonts the ● crowds the [
-		plain='● ' ; span+=("0 1 ${_summon_swatch[$swatch]:-fg=white}") ; at=2
+		local hue=${_summon_swatch[$swatch]:-fg=white}
+		style=$hue						# the label wears the session colour, not just the ●
+		[[ -n $sel ]] && style=$hue,bold
+		plain='● ' ; span+=("0 1 $hue") ; at=2
 	}
 	# the brackets stay grey even when the item is bold, so no two spans ever overlap
 	(( $#pre )) && { plain+=$pre ; span+=("$at $((at + $#pre)) $style") ; at+=$#pre }
@@ -626,7 +630,7 @@ _summon_item() {
 	span+=("$at $((at + $#key)) $style")							; at+=$#key
 	span+=("$at $((at + 1)) $_summon_grey")							; (( at++ ))
 	(( $#post )) && { plain+=$post ; span+=("$at $((at + $#post)) $style") ; at+=$#post }
-	[[ -n $sel ]] && { plain+=' ✓' ; span+=("$at $((at + 2)) $_summon_bold") }
+	[[ -n $sel ]] && { plain+=' ✓' ; span+=("$at $((at + 2)) $style") }
 	_summon_item_plain+=("$plain")
 	_summon_item_span+=("${(j:|:)span}")
 }
@@ -688,10 +692,10 @@ _summon_panel() {
 	local key pair sel label part
 	local -a p acct seg
 	local -A slug_count
-	local -i base=$3
+	local -i base=$3 ti
 	_summon_panel_value='' _summon_highlight=()
 	_summon_append $'\n' '' $base					# the panel hangs below the prompt line
-	_summon_append summon $_summon_grey $base
+	_summon_append summon $_summon_label_color[summon] $base
 
 	for key in $_summon_preset_keys; do							# two presets, one mantle: the
 		p=(${(ps:\t:)_summon_preset[$key]})						# effort tells them apart
@@ -726,6 +730,18 @@ _summon_panel() {
 		_summon_item $key $acct[2] "$sel"
 	done
 	_summon_row account $base
+
+	if (( $#_summon_theaters )); then	# the campaign row — only where a list is filed; the
+		for (( ti = 1; ti <= $#_summon_theaters; ti++ )); do	# one key, t, rides the ✓ item
+			if (( ti == _summon_theater_i )); then
+				_summon_item t $_summon_theaters[ti] 1
+			else
+				_summon_item_plain+=("$_summon_theaters[ti]")
+				_summon_item_span+=("0 ${#_summon_theaters[ti]} $_summon_grey")
+			fi
+		done
+		_summon_row theater $base
+	fi
 
 	_summon_usage_rows $base			# absent entirely when log/usage/ does not exist
 

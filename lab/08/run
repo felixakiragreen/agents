@@ -191,6 +191,8 @@ check 'even a refusal names itself — the stamp needs neither tier nor account'
 	'⏎  grand-architect-02 · fable-max @ no account' $LAB/out/panel-noacct-plain.txt
 
 print -r -- '--- palette (D36) — the spans, each shown over the text it covers ----'
+check 'the summon header opens the gradient — blue (S0: the cyan slot)' \
+	'fg=cyan ⟨summon⟩' $P200
 check 'mantle label green'        'fg=green ⟨mantle   ⟩'  $P200
 check 'model label yellow'        'fg=yellow ⟨model    ⟩' $P200
 check 'effort label blue — the slot S0 wears orange' 'fg=blue ⟨effort   ⟩' $P200
@@ -198,10 +200,12 @@ check 'account label red'         'fg=red ⟨account  ⟩'    $P200
 count 'every opening bracket grey — one per item' $(items_expected) 'fg=8 ⟨[⟩' $P200
 count 'every closing bracket too'                 $(items_expected) 'fg=8 ⟨]⟩' $P200
 check 'unselected item text grey'  'fg=8 ⟨pus⟩'           $P200
-check 'unselected mantle grey too' 'fg=8 ⟨rand-architect⟩' $P200
-check 'selected item bold, and the ✓ is inline on the item' \
-	'bold ⟨rchitect·high⟩'  $P200
-check 'the inline ✓ is part of the selected item, not a trailing arrow' \
+check 'an unselected mantle label wears its session colour, not grey' \
+	'fg=green ⟨rand-architect⟩' $P200
+check 'the selected mantle wears its colour AND bold, ✓ inline' \
+	'fg=green,bold ⟨rchitect·high⟩'  $P200
+check '...✓ included' 'fg=green,bold ⟨ ✓⟩' $P200
+check 'a selected swatchless item is plain bold, its ✓ inline' \
 	'bold ⟨ ✓⟩' $P200
 check 'preset ● swatch in its session colour — green'              'fg=green ⟨●⟩'  $P200
 check 'builder wears blue, rendered through S0 as the cyan slot'   'fg=cyan ⟨●⟩'   $P200
@@ -389,6 +393,16 @@ tstamp 'three: the cycle wraps back to the first'  architect-bob-05 t3
 check 'and the footer carries the re-stamped name, before anything fires' \
 	'⏎  architect-lunchbox-01 · fable-high @ thg-fgreen · green · keys: 2' $LAB/out/theater-t1.txt
 print -r -- '  ...the lineages counted apart from one log: bob 05, pods 02, lunchbox 01'
+check 'the theater row lists the campaigns, [t] and ✓ riding the selected one' \
+	'theater  [t] bob ✓  lunchbox  pods' $LAB/out/theater-t0.txt
+check 'a t press moves the bracket and the ✓ together' \
+	'theater  bob  [t] lunchbox ✓  pods' $LAB/out/theater-t1.txt
+check 'the theater label is pink — the gradient between account and usage' \
+	'fg=213 ⟨theater  ⟩' $LAB/out/theater-t0.txt
+check 'an unselected theater is grey' 'fg=8 ⟨lunchbox⟩' $LAB/out/theater-t0.txt
+check 'the selected theater is bold' 'bold ⟨ bob⟩' $LAB/out/theater-t0.txt
+count 'no .summon-theaters ⇒ no theater row at all' 0 'theater  ' \
+	$LAB/out/theater-nofile.txt
 trender elsewhere carrier 1
 tstamp 'the theater travels with the file, not the directory name' \
 	architect-lunchbox-01 elsewhere
@@ -637,45 +651,14 @@ print(f"  {'PASS' if not bad else 'FAIL'}  all {seen} ISO-8601 stamps agree with
 sys.exit(1 if bad else 0)
 PY
 
-print -r -- '--- usage: unconfigured ⇒ the panel is v1.1, byte for byte -----------'
-# b426166 is the commit that landed v1.1; the guarantee is that a rig without usage
-# configured does not change by one byte, spans included. Row 13 stamps the session name
-# into the footer and the command, so those two lines are compared on their own below and
-# everything above them must still match to the byte.
-V11=$LAB/out/v11-sandbox
-mkdir -p $V11
-git -C ${LAB:h:h} show b426166:summon/summon.zsh > $V11/summon.zsh
-# the palette moved with S0 (2026-08-29): transplant today's tables into the baseline —
-# this arm's claim is that unconfigured usage changes nothing, not that the palette froze
-perl -0pi -e 's/effort fg=208/effort fg=blue/;
-	s/typeset -gA _summon_swatch=\(.*?\)\n/typeset -gA _summon_swatch=(red fg=red orange fg=blue yellow fg=yellow green fg=green blue fg=cyan purple fg=magenta grey fg=8)\n/s' \
-	$V11/summon.zsh
-cp $RIG/presets.tsv $RIG/accounts.tsv $V11/
-# the footer and the launch out; continuations (9-space gutter) rejoined to their row —
-# the swatch space widens every item, so at narrow widths the wrap point itself moves,
-# and the wrap has its own arms above. What must match is the rows' content.
-rows() {
-	sed -E '/^⏎  /d; /^   [^ ]/d' $1 | sed '/^--- cmd/,$d' | awk '
-		/^         / { held = held "  " substr($0, 10); next }
-		{ if (NR > 1) print held; held = $0 }
-		END { print held }'
-}
-typeset -i identical=1
-for w in 200 80 60; do
-	( cd $THEATER/atelier && zsh -f $LAB/render.zsh $V11 $w a fable high 1 2 ) > $LAB/out/v11-$w.txt
-	( cd $THEATER/atelier && zsh -f $LAB/render.zsh $USANDBOX $w a fable high 1 2 ) \
-		| sed 's/● /●/g' > $LAB/out/v13-$w.txt
-	cmp -s <(rows $LAB/out/v11-$w.txt) <(rows $LAB/out/v13-$w.txt) || identical=0
-done
-if (( identical )); then
-	print -r -- '  PASS  no log/usage ⇒ every panel row identical to v1.1 at 200, 80 and 60 columns (bar the swatch space and the wrap it moves)'
-else
-	print -r -- '  FAIL  the panel rows changed without usage being configured'; (( fails++ ))
-fi
-check 'v1.1 named the mantle in the footer...' \
-	'⏎  architect · fable-high @ thg-fgreen · green · keys: 2' $LAB/out/v11-200.txt
-check '...and row 13 names the session, the one line that parted from it' \
-	'⏎  architect-atelier-01 · fable-high @ thg-fgreen · green · keys: 2' $LAB/out/v13-200.txt
+print -r -- '--- usage: unconfigured ⇒ no usage block at all ------------------------'
+# v1.1 byte-parity (b426166) retired 2026-08-29: the panel legitimately outgrew the
+# baseline — the name-stamp, the swatch space, the S0 palette, coloured mantle labels,
+# the theater row — and the transplant needed to keep the comparison honest had grown
+# past the code under test. The guarantee that mattered survives as its own claim: a
+# rig with no log/usage paints no usage row, at any width.
+count 'no log/usage ⇒ no usage row at 200 columns' 0 'usage' $P200
+count '...nor at 60' 0 'usage' $LAB/out/panel-60-plain.txt
 
 print -r -- '--- usage: the fetcher, under a shimmed Keychain and curl -------------'
 rm -f $LAB/out/shim-security.txt $LAB/out/shim-curl.txt
@@ -767,8 +750,8 @@ count 'and the delta keeps its colour when stale — red is the point' 2 'fg=red
 check 'a stale delta reads green just the same when there is headroom' 'fg=green ⟨+2⟩' $UP
 check 'a stale bucket with no figure to protect greys whole' 'fg=8 ⟨fable —⟩' $UP
 check 'a no-cache line greys whole for the same reason' 'fg=8 ⟨sess —       ⟩' $UP
-check 'the usage label is grey: nothing in this block is selectable' \
-	'fg=8 ⟨usage    ⟩' $UP
+check 'the usage label closes the gradient — purple (S0: the magenta slot)' \
+	'fg=magenta ⟨usage    ⟩' $UP
 count 'the fresh line wears no grey at all, furniture included' 0 \
 	'fg=8 ⟨sess 42%+31  ⟩' $UP
 count 'exactly one window name is greyed per stale line, not per panel' 1 'fg=8 ⟨week⟩' $UP
