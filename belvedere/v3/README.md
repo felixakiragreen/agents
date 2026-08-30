@@ -64,19 +64,34 @@ spent (D21); the v2 deck serves daily, untouched, until G4.
   guarded only by the real rehearsal (C10 F2 — the fake is C5's, so the scenario
   and its golden want their own lay).~~ *Promoted to
   [C14](../plans/c14-engine-seams.md), the migration campaign's batch 1,
-  2026-08-30.*
+  2026-08-30 — **LANDED** the same day: `scenarios/answer-then-land.json` and its
+  golden, two acts, the arc driven end to end by the engine's and the console's
+  own tests at budget 0. It carries one thing the lay did not name: it is the
+  first scenario to write the report's closing pair into the **stream** as well
+  as the transcript (`streamsReport`, C13 F2's fidelity bar) — opt-in, so the 23
+  goldens recorded before it did not move a byte.*
 - ~~**The account on the `ignited` event** — the run log records the subject's cwd
   and never the config dir that selects the account, so nothing that reads a log
   alone can reopen the run to drive it; the console depends on a sidecar
   `conditions.json` for `send`/`summon`/`return` (C10 F5). One field, engine-side,
   and the deck hits it on its first session row.~~ *Promoted to
-  [C14](../plans/c14-engine-seams.md), 2026-08-30.*
+  [C14](../plans/c14-engine-seams.md), 2026-08-30 — **LANDED** the same day:
+  `ignited` carries `configDir`, the console resolves the venue log-first and the
+  sidecar second, and **absence stays legal forever** — a pre-C14 log is
+  readable, replays to the same verdicts, and its driving verbs refuse in kind
+  rather than guess. Nothing backfills.*
 - ~~**The trust read's home** — the only real implementation is
   `lab/c8/accounts.ts`, inside a dig's scratch, while `engine/venue.ts` ships a
   stub with the slot reserved. Second caller now (C10 F6, which measured the pane
   rather than making a second copy); wants promoting before a third.~~ *Promoted
-  to [C14](../plans/c14-engine-seams.md), 2026-08-30.*
-- ~~**The mutant drill sweeps its own subjects** — a mutant run that ends early leaves `hang`-scenario fakes alive (C10 F4 found 22, hours old; swept at the batch-8 close); the mutation check wants a SIGTERM of its spawned pids at exit.~~ *Promoted to [C14](../plans/c14-engine-seams.md), 2026-08-30.*
+  to [C14](../plans/c14-engine-seams.md), 2026-08-30 — **LANDED** the same day in
+  `engine/venue.ts`, with `lab/c8/accounts.ts` left as re-exports. Two shapes
+  moved with it, beyond the lay's words: the precheck is handed the **venue and
+  the subject** rather than an account name — the config dir IS the account, and
+  a fake subject's sandbox is trusted without any file being read — so the
+  engine's `account` option retired as the redundant second source it was; and
+  the console's `summon` runs that same read before it opens a pane.*
+- ~~**The mutant drill sweeps its own subjects** — a mutant run that ends early leaves `hang`-scenario fakes alive (C10 F4 found 22, hours old; swept at the batch-8 close); the mutation check wants a SIGTERM of its spawned pids at exit.~~ *Promoted to [C14](../plans/c14-engine-seams.md), 2026-08-30 — **LANDED** the same day as `barrage/sweep.ts`: the run log is the register (the engine wrote every pid), a `ps` check refuses to kill a pid the kernel has since handed to somebody else, the mutant drill sweeps after each pair of runs, and `bun barrage/run.ts` sweeps on every exit path — a throw and a `^C` included. The crash drill stays exempt between its cut and its restart, because adopting a live orphan is the thing it proves.*
 - **The sixth cut family** — a crash cut that kills the *subject* in the window
   between its transcript's closing pair and its `result` row, so the barrage can
   reach the transcript-fallback landing path it never touches today (C11 F4 +
