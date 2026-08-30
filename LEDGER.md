@@ -1881,3 +1881,44 @@ wear ~/code/agents/canon/mantles/architect.md,
 then read ~/code/agents/belvedere/README.md and sweep belvedere/ISSUES.md —
 the flow-1 entry first: the engine's coda gap gates the flow-1 re-bless.
 ```
+
+---
+
+**2026-08-29 · Builder · opus-high (C31)** — doctrine v1.2, the four defects: `migrate`
+now runs in two rule classes — the structure and field rules fire, `becameLines()`
+materializes what each source line became, and only then does `ledger.unrecorded-clauses`
+decide its typed absences, so the clause pass reads the migrated document instead of the
+stale one (whiteboardy's pre-C25 ledger: **66 false `unrecorded` fills → 4**, every
+survivor verified honest by hand); two house-dialect rules land the colon relocation
+(`Decided (<x>): y` → `Decided: (<x>) y`) and the joiner-to-colon (`Next — y` →
+`Next: y`), both field names, line-start only, byte-preserving; a decision id is spelled
+ONCE as `grammar.ts`'s `DECISION_ID` and now reads §7's `‹prefix›-D‹n›`; and the kickoff
+arm reads the fences it counts — in a live charge doc the summons line, C33's door line
+and the wear line, with LANDED/KILLED exempt and the inline stanza named rather than
+accidentally passing. Suite **71 → 80 pass, 0 fail**; the arm's first city walk names
+**20 live pre-door fences** (snappy 9 · simmy 4 · manny worktree 3 · cap-mega docs/units
+2 · belvedere 1), all filed. Three inbox entries laid: belvedere C1 (its header says OPEN,
+its board row LANDED, its fence pre-door), the 20 fences, bob's `catalog` campaign
+(invisible to the register on renamed board columns — the one place item 3's widening
+would have shown). Decided: built the recommended cure, not the fallback — the round-trip
+accounting held, so clause edits stay anchored in before-space; the presence test widened
+to any clause spelling because the re-read alone left 2 of 66 alive, and a refusal to fill
+is an honest lint failure where a fill is a lie the round-trip law would bless; both
+dialect rules take both field names, since leaving `Decided —` alive would keep the
+identical defect under a different word; item 3's projected `bob 0 → 53` corrected to
+**5** with the arithmetic (48 carry no attribution at all, and all 5 that do sit in a
+campaign the register cannot see) — a dated correction on C26-F1, nothing downstream
+decided on it. `doctrine lint ~/code/agents` reads **3, not the charge's 0**, and neither
+failure is inside C31's fence: C29's live `ledger.baton` (present under the pre-C31 tool
+too) and belvedere C1's pre-door fence, counted twice by the `bv/*` worktree
+double-count already in the inbox. Next: ignite C32 — the flow lane's next serial step on
+this checkout; it inherits `DECISION_ID`, the two-class engine and the moved
+`isLiveWorkDoc` (bulletin, 2026-08-29 · C31 → C32).
+
+```
+You are a Builder at opus-high.
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/builder.md,
+then read ~/code/agents/canon/work/DOCTRINE.md §§4, 8, 10–11
+and execute the charge at ~/code/agents/plans/c32-flow-grammar.md.
+```
