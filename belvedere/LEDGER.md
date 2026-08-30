@@ -2819,3 +2819,40 @@ migration campaign note) and the findings of C14, C15, C16, C17, C18 and C19,
 and run G5 — the migration close: verify the strangle, fold the findings, then
 lay the rework batch and the respell sweep per the campaign note's step 5.
 ```
+
+---
+
+**2026-08-30 · Architect · fable-high (cont.)** — **C16 reviewed; batch 3
+closed; the strangle is whole and G5 is the next act.** C16 verified at this
+hand: `bun v3/gates.ts --glass` **ALL GREEN — 12 gates, wall 212.5 s, exit 0**
+(glass 582 pass / 0 fail, barrage 1000 · 50 · 9/9); the minimap probe re-run
+exit 0 and the PNGs Read — the strip full pane height, 42 marks yours-green /
+agents-grey, the out-of-window jump landing `[data-key="3265"]` on a 4.7 MB
+conversation rendered rich (Inter prose, IosevkaFelix code, decoder spans lit,
+fences dark) — zero twins after; all twelve commits on master; budget honest,
+**4 turns / $0.2471 of ≤15 / ≤$2**. Distilled: **C16 F1 (the venue's two
+spellings) and F5 (the rich-markdown scenario) entered the v3 deferred list
+with their triggers**; F2 — the deck IS the engine for the turn it resumes,
+and a deck killed between a subject's result and the engine's append leaves a
+step `running` until a tick — rides the G5 baton as rework-lay intake (the
+honest fixes, a supervisor or a `tick` verb, are contract choices for that
+lay); review annotation on the row. The migration campaign's build is
+complete: v2 gone, deck on v3, Chat primary, barrage green — six charges and
+their reviews in one day, every landing verified at a tender's hand. Decided:
+nothing register-grade. Next: ⬡ — two acts, in order: **the visual pass** (open
+the deck — the Works on v3, the Chat on a headless run, the minimap; the pass
+is G5's ⬡-gate and it is yours alone), then **convene G5 in a fresh session**
+(the gate never continues the session it gates, and this session tended the
+batch it would be gating) — the summons below, verbatim.
+
+Baton — ⬡ → the visual pass, then convene G5 (the migration close):
+```
+You are an Architect at fable-high.
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/architect.md,
+then read ~/code/agents/belvedere/README.md §§5–6 (the agreements and the
+migration campaign note) and the findings of C14, C15, C16, C17, C18 and C19,
+and run G5 — the migration close: verify the strangle, record his visual-pass
+verdict, fold the findings (C16 F2 is the rework lay's first intake), then
+lay the rework batch and the respell sweep per the campaign note's step 5.
+```

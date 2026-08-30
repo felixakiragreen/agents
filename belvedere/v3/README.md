@@ -100,6 +100,20 @@ spent (D21); the v2 deck serves daily, untouched, until G4.
   `needs_input`/`blocked` from disk instead of ‹no report› (C13 F3, two lines;
   rides C10's lay — the console demo is where the poorer name becomes a UX
   lie).~~ *Promoted to [C10](plans/c10-console-demo.md) step 0, batch 8.*
+- **The venue's two spellings** — a `$TMPDIR` venue crosses a symlink, so the
+  engine names a subject's transcript with the log's spelling while the subject
+  writes under the kernel's resolved one (C16 F1, measured — the Chat's
+  transcript-at-log-path read was the first in the city to hit it); `fire()`'s
+  spawn cursor and `fromDisk`'s transcript fallback share the trap, masked on
+  the happy path by the stream-first read (C6 F2's order). Real runs under
+  `~/code` are unaffected. The fix is the engine's boundary — canonicalize the
+  venue at `load()`/ignite, parse-don't-validate — a small charge; the trigger:
+  any real venue that crosses a symlink, or a barrage transcript-fallback flake.
+- **The rich-markdown scenario** — no fake scenario emits a heading, table or
+  fence, so the Chat's rendering fixture is a committed real capture
+  (C16 F5, `lab/c16/rich.jsonl`); one `rich-markdown.json` plus its golden
+  would retire the capture. The trigger: the capture drifting from the
+  grammar, or a second consumer wanting deterministic rich turns.
 
 **The arc** (cornerstone §8; laid batch by batch, never before its inputs exist):
 C5 the fake claude → C6 the engine core → C7 the fuzzer + the barrage → C11 the
