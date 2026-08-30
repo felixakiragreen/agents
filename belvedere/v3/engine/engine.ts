@@ -257,10 +257,7 @@ function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
 
 		async run() {
 			let now = state();
-			while (!terminal(now)) {
-				now = await tick();
-				if (mutant("orphan-terminal") && running(now).length > 0) return now;
-			}
+			while (!terminal(now)) now = await tick();
 			return now;
 		},
 

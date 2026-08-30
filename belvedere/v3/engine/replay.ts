@@ -115,10 +115,11 @@ export const running = (state: RunState): string[] =>
 export const unresolved = (state: RunState): string[] =>
 	Object.entries(state.steps).filter(([, s]) => s.at === "ended").map(([id]) => id);
 
-/** Terminal: nothing is in flight and nothing more can move without a ruling. */
+/** Terminal: nothing is in flight and nothing more can move without a ruling.
+ *  The third of the nine mutants lives on the in-flight line. */
 export function terminal(state: RunState): boolean {
 	if (state.flow === null) return true;
-	if (running(state).length > 0 || unresolved(state).length > 0) return false;
+	if (!mutant("orphan-terminal") && (running(state).length > 0 || unresolved(state).length > 0)) return false;
 	if (state.halted !== null || state.ceiling) return true;
 	return !state.flow.steps.some((s) => ready(state, s));
 }
