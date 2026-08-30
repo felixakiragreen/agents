@@ -2185,3 +2185,59 @@ write a live `LaunchAgents` dir; `launchctl bootstrap` was classifier-refused,
 correctly). The three commands are listed verbatim at
 [C12](plans/c12-transcript-mirror.md) §Done when 6. Until then the mirror runs
 only when someone runs it.
+
+---
+
+**2026-08-30 · Digger · opus-high** — **C8 landed: real-session physics, the
+campaign's first real spend.** Changed: `belvedere/v3/engine/{engine,flow}.ts` +
+`test/laws.test.ts` (`2fe9d1f`, the granted repair), `belvedere/v3/lab/c8/**`
+(the layer-1 lab: accounts + C4 F8's trust read, the budget meter, ten probes),
+findings under [C8](v3/plans/c8-real-session-physics.md). **Budget: 63 of ≤200
+subject turns, $3.4376 of ≤$15** — no ⬡-fork.
+
+**K1 FIRED, on one line and not the one the bet rests on.** Stream sensing holds
+×3 accounts — every parse rule, 54/54 turns. The **transcript fallback** does
+not: the engine declares `--json-schema` on every step, the step report arrives
+as a `StructuredOutput` **tool call**, and its `tool_result` is then the turn's
+last conversation row — so `transcript.ts`'s completion rule reads **48/48
+landed turns as `dead`** (26/26 personal, 11/11 fgreen, 11/11 doorbell), with
+the two C4-born fixtures green under the same reader the same day. It fails
+**conservative** (pauses ‹dead›, never lands wrongly; invariants stayed 9/9
+through every cut class), so nothing is lost or double-billed — but cornerstone
+law 5's "a turn the engine died in front of can be seen to have worked" is false
+on real bytes, and **the fake is unfaithful in exactly the place that rule
+lives**, which is why the barrage could never have caught it. Line stopped per
+K1; the fix is a new charge.
+
+Landed besides: **bar 4's matrix ×3 accounts with C4 as the control column**, 8
+of the census's ten present (`Notification`/`PreCompact` structurally absent —
+C4 F4 confirmed, not corrected); **9 real-flow runs (3 topologies × 3 accounts)
+at 9/9 invariants, zero reds**, work verified on disk; **three kill classes ≥3
+runs each, every restart converged, zero double-ignitions** — including the
+orphan that finished writing a complete turn to a stream whose reader was
+already dead and was adopted and landed (C6 F2's ruled fix, provable only at
+layer 1); the **summon round trip lossless both ways**, one session id, and
+C11's cursor recording 35 rows where a turn-counting reader would have read 18
+and swallowed the hand turn.
+
+Decided: two engine defects fixed under the charge's grant, both blocking every
+question — `venueFor` hardcoded the config dir (so no real subject could reach
+an authenticated account) and `fire()` sent `<flow>/<step>` as the prompt (an
+address, not an instruction). One commit, not two: they are one repair in one
+file, and splitting would need the partial staging Felix's git rule forbids.
+Full barrage green as regression (1000/1000 · 50/50 · 9/9, exit 0). **Both want
+ratification at review.** Also recorded for the deck: `auto` is **not** a
+restrictive posture headless — a real step under it was granted an
+out-of-workspace write, arbitrary Bash **and** a WebFetch to the public
+internet, and did all three; the ‹needs-⬡ permission› pause cannot be induced at
+the charge's own default posture (`acceptEdits` is what refuses). And a cost
+correction for G4: **~6.4¢/sonnet·low turn, ~2× C4 F11's blended 3.3¢** — at
+that mean 200 turns is $12.74, so **the dollar ceiling binds before the turn
+ceiling** and a future real-session budget line should lead with dollars.
+
+Baton — ⬡ → the Architect at C8's review: **true the board row** (it still reads
+IN FLIGHT, as at C6/C7/C11 — the tender's, by precedent), **ratify or revert the
+two granted engine repairs** (`2fe9d1f`, F1), and **rule F3** — the transcript
+fallback's completion signal is falsified on real bytes and wants its own
+charge; it also took C11's cursor regression signal with it (F7's caveat), so
+the two are one ruling.
