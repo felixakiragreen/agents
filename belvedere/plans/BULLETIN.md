@@ -2098,3 +2098,80 @@ spaced requests (bar 500 ms) with a **234 638 B** payload, of which `works` is 4
 replaced, so B13 F5's shared budget is intact.
 
 (Relayed from `master`, C15 LANDED 2026-08-30 — Builder)
+
+## → relay — C16 (the Chat chapter) to G5's close and its rework lay, and to every later deck charge: no escalation, three findings that bind
+
+Evidence: [c16-chat-chapter.md](c16-chat-chapter.md) §Done when and §Findings, `master`,
+commits `f4bfad3` · `f7f119e` · `c35abf0` · `a616378` · `ceb09c0` · `77b135c` · `3980107`.
+
+**What the Chat is now, so nobody writes against the old shape:** a target is a session the
+census knows, a transcript in an account tree, **or a step in a v3 run log** — `glass/steps.ts`
+is the third door, an index of the newest 12 run dirs (`works.ts`'s own bound) keyed by session
+id. A reply into a step the engine is holding **paused** takes a third road, `mode: 'engine'`:
+`load()` + `rule(resume)`, the console's own mechanism, and the receipt names the road and what
+the run log said after it. P6's two roads are untouched and B16's probe is green on this client.
+`ChatTurn.blocks` gained `head`, `list` and `table` beside `prose`/`fence`/`act`; `ChatView`
+gained `marks` + `turnCount` (the minimap's index of the whole file); `QueueItem` gained `chat`.
+Numbers for your own bar: **`bun test` in `glass/` is 582 pass · 0 fail**, and
+`bun v3/gates.ts --glass` is ALL GREEN, 12 gates, wall 212.7 s.
+
+1. **F2 — the deck IS the engine for the turn it resumes, and "delivered" is not "landed".**
+   `rule(resume)` spawns the subject **in the calling process** and awaits the whole turn, so the
+   send races the ruling against a one-second grace (every refusal is decided before a subject
+   spawns) and then hands the verdict to the verification read: **the transcript means delivered,
+   the run log means landed.** The consequence was measured the hard way — the instrument's first
+   pass tore the deck down 400 ms after the receipt, the subject's `result` row was already on
+   disk, and the log stayed `running` because the process that would have appended `landed` was
+   gone:
+
+   ```
+   $ bun v3/console/cli.ts list --root …/summon/log/v3/c16
+   roundtrip/note  running  DEAD 91618  sonnet·auto  personal  c11ca4d7-…
+
+   $ bun lab/c16/settle.ts c16/roundtrip     # one tick: the engine's own adopt
+   c16/roundtrip/note  running -> landed done
+   ```
+
+   Nothing was lost (C6 F2's redundancy did its job) but the window is real. **This binds G5's
+   rework lay**: any deck surface that drives the engine inherits that ownership, and the honest
+   answers — a supervising process, or a `tick` verb the console does not have — are contract
+   choices, not a Builder's.
+
+2. **F3 — a landed step's state has forgotten its session and the log has not.** `fold()` carries
+   a session id on three of six states and `landed` is not one of them, correctly. Both
+   `works.ts` and the new index read it from the state at first, so the Works node whose reply had
+   just landed drew no session and offered no `chat` control — the one moment Felix most wants the
+   conversation. **Address a step's session through the log's ignitions, never through the fold's
+   state** (C8 F8; the console's `list` already did).
+
+3. **F1 — a venue path has two spellings, and the engine names a transcript with one of them.**
+   The engine names it `transcriptPath(configDir, venue.workDir, sid)`; the subject names its own
+   from `process.cwd()`, which comes back **resolved**. On macOS `$TMPDIR` is a symlink, so the
+   two differ by one slug and the file the log points at does not exist:
+
+   ```
+   the log says   …/projects/-var-folders-…-c16-paused-work/<sid>.jsonl
+   the file is at …/projects/-private-var-folders-…-c16-paused-work/<sid>.jsonl
+   ```
+
+   Real runs under `~/code` are unaffected, and the happy path never notices because the stream
+   file is read first — but the engine's own spawn cursor and its transcript fallback use the same
+   spelling, so **any run whose venue is `$TMPDIR` has both of those pointed at nothing**, which
+   is every barrage run. Handled at the fixture (`lab/c16/fakerun.ts` mints under
+   `realpathSync(tmpdir())`), **not** compensated for in the deck. The engine-side question —
+   canonicalize at `load()`, or leave it to the caller — is `v3/**` and is the Architect's.
+
+Also, not blocking. **The deck never writes into a run dir**: `openRun()` materializes a
+`flow.json` from the log's own bytes where none sits beside it, which is right for the console and
+outside the fence's write list — so the engine road refuses by name and says to rule that step
+from the console. **A probe can bring its own run tree with no camera change**: `camera/cli.ts`
+imports the probe module *before* it boots the twin and the twin inherits `process.env`, so
+`process.env.RUNS_DIR = …` at a probe's module scope is the same trick `export const fixture =
+true` is (`probes/chat-engine.probe.ts`). And **the fake cannot write markdown** — no scenario
+emits a heading, a table or a fence (37 `text` steps across 24 scenarios), and adding one is a
+`v3/**` write plus a golden re-recording — so the rendering fixture is the charge's named
+alternative, a committed real capture (`lab/c16/rich.jsonl`, the round trip's own transcript)
+mounted as a run by the engine's own log writer. **If that scenario is wanted, it is a v3 charge**,
+and it would retire the capture.
+
+(Relayed from `master`, C16 LANDED 2026-08-30 — Builder)
