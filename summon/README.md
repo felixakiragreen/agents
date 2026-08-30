@@ -31,7 +31,7 @@ mantle   ● [g]rand-architect  ● [a]rchitect·high ✓  ● [A]rchitect·max 
 model    [f]able ✓  [o]pus  [s]onnet  hai[k]u
 effort   [l]ow  [m]edium  [h]igh ✓  [x]high  [M]ax
 account  [0] personal  [1] thg-fgreen ✓  [2] thg-doorbell
-theater  agen[t]s ✓  belvedere
+[t]heater agents ✓  belvedere
          [y]ank  [.] eject  [Esc] close  [Enter] invoke
 ⏎  architect-agents-05 · fable-high @ thg-fgreen · green · keys: 2
 ```
@@ -40,7 +40,9 @@ Brackets and unselected items are grey; the selected item is bold and carries th
 inline. The header and the row labels run a gradient — summon blue · mantle green ·
 model yellow · effort orange · account red · theater pink · usage purple — and each
 mantle's ● *and its label* wear its session colour, all through the S0 slot map (see
-Data). The `theater` row appears only where the fire directory files a campaign list.
+Data); the selected mantle's ● and brackets brighten to the foreground. The `theater`
+row appears only where the fire directory files a campaign list, its cycle key riding
+the label itself (`[t]heater`) since a campaign name may carry no t.
 The panel measures `$COLUMNS` on every render and wraps at item boundaries only, never
 mid-item — clean down to 60 columns, where a mantle appears with two presets on it.
 
@@ -131,10 +133,10 @@ bob/.summon-theaters       bob          the default: the first line
 - **`.summon-theaters` in the fire directory** — one theater per line, blank lines ignored,
   the first line the default. Commit it: the campaign list is repo truth. **cwd only**,
   no parent walk. No file, and the theater is the directory's own name exactly as above.
-- **`t` cycles** through the list in filed order, wrapping. The panel's `theater` row shows
-  the whole list — the selected campaign carries the `[t]` bracket and the ✓ — and the
-  footer shows the re-stamped name on the next paint, so what fires is never a surprise.
-  `t` is a reserved key, on the same terms as `+`/`-`.
+- **`t` cycles** through the list in filed order, wrapping. The panel's `[t]heater` row
+  shows the whole list with the ✓ on the selected campaign, and the footer shows the
+  re-stamped name on the next paint, so what fires is never a surprise. `t` is a reserved
+  key, on the same terms as `+`/`-`.
 - **Sticky per directory.** The fired theater is remembered against the fire directory in
   `log/theaters`, under the same on-fire-only law as the four fields: an abort or an Esc
   after cycling persists nothing. The next panel opened there preselects it; a sticky

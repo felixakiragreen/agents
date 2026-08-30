@@ -197,8 +197,12 @@ check 'mantle label green'        'fg=green ⟨mantle   ⟩'  $P200
 check 'model label yellow'        'fg=yellow ⟨model    ⟩' $P200
 check 'effort label blue — the slot S0 wears orange' 'fg=blue ⟨effort   ⟩' $P200
 check 'account label red'         'fg=red ⟨account  ⟩'    $P200
-count 'every opening bracket grey — one per item' $(items_expected) 'fg=8 ⟨[⟩' $P200
-count 'every closing bracket too'                 $(items_expected) 'fg=8 ⟨]⟩' $P200
+# one bracket pair per item, minus the selected mantle's, which brighten to the foreground
+count 'every opening bracket grey — bar the selected mantle' \
+	$(( $(items_expected) - 1 )) 'fg=8 ⟨[⟩' $P200
+count 'every closing bracket too' $(( $(items_expected) - 1 )) 'fg=8 ⟨]⟩' $P200
+check 'the selected mantle brackets brighten to the foreground' 'fg=default ⟨[⟩' $P200
+check '...and its ● with them' 'fg=default ⟨●⟩' $P200
 check 'unselected item text grey'  'fg=8 ⟨pus⟩'           $P200
 check 'an unselected mantle label wears its session colour, not grey' \
 	'fg=green ⟨rand-architect⟩' $P200
@@ -393,15 +397,15 @@ tstamp 'three: the cycle wraps back to the first'  architect-bob-05 t3
 check 'and the footer carries the re-stamped name, before anything fires' \
 	'⏎  architect-lunchbox-01 · fable-high @ thg-fgreen · green · keys: 2' $LAB/out/theater-t1.txt
 print -r -- '  ...the lineages counted apart from one log: bob 05, pods 02, lunchbox 01'
-check 'the theater row lists the campaigns, [t] and ✓ riding the selected one' \
-	'theater  [t] bob ✓  lunchbox  pods' $LAB/out/theater-t0.txt
-check 'a t press moves the bracket and the ✓ together' \
-	'theater  bob  [t] lunchbox ✓  pods' $LAB/out/theater-t1.txt
+check 'the theater row lists the campaigns, the key riding the label' \
+	'[t]heater bob ✓  lunchbox  pods' $LAB/out/theater-t0.txt
+check 'a t press moves the ✓' \
+	'[t]heater bob  lunchbox ✓  pods' $LAB/out/theater-t1.txt
 check 'the theater label is pink — the gradient between account and usage' \
-	'fg=213 ⟨theater  ⟩' $LAB/out/theater-t0.txt
+	'fg=213 ⟨heater⟩' $LAB/out/theater-t0.txt
 check 'an unselected theater is grey' 'fg=8 ⟨lunchbox⟩' $LAB/out/theater-t0.txt
-check 'the selected theater is bold' 'bold ⟨ bob⟩' $LAB/out/theater-t0.txt
-count 'no .summon-theaters ⇒ no theater row at all' 0 'theater  ' \
+check 'the selected theater is bold, ✓ inline' 'bold ⟨bob ✓⟩' $LAB/out/theater-t0.txt
+count 'no .summon-theaters ⇒ no theater row at all' 0 '[t]heater' \
 	$LAB/out/theater-nofile.txt
 trender elsewhere carrier 1
 tstamp 'the theater travels with the file, not the directory name' \
@@ -597,8 +601,8 @@ presets_read $F1/presets.tsv $F1/accounts.tsv
 plain f1-panel.txt
 line 'a preset added to the data file lands in the row the harness derived from it' 1 \
 	"$(mantle_row a)" $LAB/out/f1-panel-plain.txt
-count 'and the bracket count follows the data too — one per item, derived' \
-	$(items_expected) 'fg=8 ⟨[⟩' $LAB/out/f1-panel.txt
+count 'and the bracket count follows the data too — one per item, derived (bar the selected mantle)' \
+	$(( $(items_expected) - 1 )) 'fg=8 ⟨[⟩' $LAB/out/f1-panel.txt
 check '...which is the scratch preset appearing in both' '● [w]arden' $LAB/out/f1-panel-plain.txt
 presets_read $RIG/presets.tsv $RIG/accounts.tsv		# back to the rig's own data
 

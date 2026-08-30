@@ -607,7 +607,7 @@ typeset -ga _summon_highlight							# the matching zle region_highlight spans
 # how the digits and the named keys read: [0] personal.
 _summon_item() {
 	local key=$1 label=$2 sel=$3 swatch=${4:-} plain='' pre post
-	local style=$_summon_grey
+	local style=$_summon_grey bracket=$_summon_grey
 	local -a span=()
 	local -i at=0
 	local cut=${${label:l}%%${(b)${key:l}}*}
@@ -619,16 +619,19 @@ _summon_item() {
 	[[ -n $sel ]] && style=$_summon_bold
 	[[ -n $swatch ]] && {			# the space is load-bearing: at most fonts the ● crowds the [
 		local hue=${_summon_swatch[$swatch]:-fg=white}
+		local dot=$hue
 		style=$hue						# the label wears the session colour, not just the ●
-		[[ -n $sel ]] && style=$hue,bold
-		plain='● ' ; span+=("0 1 $hue") ; at=2
+		# the selected mantle's furniture — ● and brackets — brightens to the foreground,
+		# because colour vs colour+bold alone is too quiet a difference to pick out
+		[[ -n $sel ]] && { style=$hue,bold ; dot=fg=default ; bracket=fg=default }
+		plain='● ' ; span+=("0 1 $dot") ; at=2
 	}
-	# the brackets stay grey even when the item is bold, so no two spans ever overlap
+	# the brackets stay grey even when the item is bold (see the selected-mantle exception)
 	(( $#pre )) && { plain+=$pre ; span+=("$at $((at + $#pre)) $style") ; at+=$#pre }
 	plain+="[$key]"
-	span+=("$at $((at + 1)) $_summon_grey")							; (( at++ ))
+	span+=("$at $((at + 1)) $bracket")								; (( at++ ))
 	span+=("$at $((at + $#key)) $style")							; at+=$#key
-	span+=("$at $((at + 1)) $_summon_grey")							; (( at++ ))
+	span+=("$at $((at + 1)) $bracket")								; (( at++ ))
 	(( $#post )) && { plain+=$post ; span+=("$at $((at + $#post)) $style") ; at+=$#post }
 	[[ -n $sel ]] && { plain+=' ✓' ; span+=("$at $((at + 2)) $style") }
 	_summon_item_plain+=("$plain")
@@ -692,7 +695,7 @@ _summon_panel() {
 	local key pair sel label part
 	local -a p acct seg
 	local -A slug_count
-	local -i base=$3 ti
+	local -i base=$3 ti lab
 	_summon_panel_value='' _summon_highlight=()
 	_summon_append $'\n' '' $base					# the panel hangs below the prompt line
 	_summon_append summon $_summon_label_color[summon] $base
@@ -731,16 +734,24 @@ _summon_panel() {
 	done
 	_summon_row account $base
 
-	if (( $#_summon_theaters )); then	# the campaign row — only where a list is filed; the
-		for (( ti = 1; ti <= $#_summon_theaters; ti++ )); do	# one key, t, rides the ✓ item
+	if (( $#_summon_theaters )); then	# the campaign row — only where a list is filed
+		for (( ti = 1; ti <= $#_summon_theaters; ti++ )); do
 			if (( ti == _summon_theater_i )); then
-				_summon_item t $_summon_theaters[ti] 1
+				_summon_item_plain+=("$_summon_theaters[ti] ✓")
+				_summon_item_span+=("0 $(( ${#_summon_theaters[ti]} + 2 )) $_summon_bold")
 			else
 				_summon_item_plain+=("$_summon_theaters[ti]")
 				_summon_item_span+=("0 ${#_summon_theaters[ti]} $_summon_grey")
 			fi
 		done
-		_summon_row theater $base
+		# the key rides the label — [t]heater — because a campaign name may carry no t. The
+		# label lands one past the newline _summon_wrap opens with; spans are laid on that.
+		lab=$(( base + $#_summon_panel_value + 1 ))
+		_summon_wrap '[t]heater ' '' '  ' $base
+		_summon_highlight+=("P$lab $((lab + 1)) $_summon_grey"
+			"P$((lab + 1)) $((lab + 2)) $_summon_label_color[theater]"
+			"P$((lab + 2)) $((lab + 3)) $_summon_grey"
+			"P$((lab + 3)) $((lab + 9)) $_summon_label_color[theater]")
 	fi
 
 	_summon_usage_rows $base			# absent entirely when log/usage/ does not exist
