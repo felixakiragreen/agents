@@ -2078,3 +2078,26 @@ fake claude, against `v3/lab/c4/grammar.md`.
 Baton — ⬡ → Felix: C4's evidence is in; **lay C5 (the fake claude)** against the
 captured grammar, or convene early on any of C4's three surprises (silent-success
 permissions, the question-sensing gap, the summon trust gate).
+
+---
+
+**2026-08-29 · Architect · fable-high** — the same session, continued: **C4's
+landing verified and merged as it stands** — kills documented with denominators
+(K1 NO 24/24 byte-exact ×3 accounts; K2 NO with the interactive control green),
+budget held (~65/100, the ~3¢/turn correction recorded for G4 bar 5), venue clean,
+board true, four commits, two legal inbox entries (deferred to G4's sweep per
+D19). Distilled: two fence laws into [v3/README.md](v3/README.md) — **clean room**
+(F0: real binary + eight-var env, never the cmux shim) and **contamination** (F12:
+subjects wear the live canon unless isolated, flags recorded). The cornerstone
+stands unamended — C4 confirmed its bet at every point it touched. **C5 laid**
+([v3/plans/c5-fake-claude.md](v3/plans/c5-fake-claude.md), Builder · opus-high,
+straight to master): the dialect pinned from grammar.md (argv surface, env-borne
+scenario selection, sandbox guard that refuses real config dirs), the scenario
+language, ≥20 scenarios named, the validator with its 43/43-captures denominator
+AND a ≥3-corrupted-captures negative control, byte-determinism, p50 ≤ 100 ms,
+budget 0 real turns. Decided: nothing — the lay rides the blessed cornerstone.
+Next: ignite C5.
+
+Baton — ⬡ → Ignite C5 (kickoff fenced in
+[v3/plans/c5-fake-claude.md](v3/plans/c5-fake-claude.md); the coda appends at
+ignition).

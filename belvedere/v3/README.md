@@ -25,6 +25,13 @@ spent (D21); the v2 deck serves daily, untouched, until G4.
   the standing set (D55's analog); resume ids filed in findings; subject work dirs
   live in scratch and die at landing. Every real-session charge carries a **budget
   line**; exceeding it is a ⬡-fork.
+- **Clean room (C4 F0):** every real subject spawns from the real binary
+  (`~/.local/bin/claude`) with `cleanEnv`'s eight variables — never the cmux shim,
+  never inherited env; `HOME` never overridden, `CLAUDE_CONFIG_DIR` selects the
+  account.
+- **Contamination (C4 F12):** a real subject wears the account's live config —
+  canon included, and the sync set is live ×3; a charge needing neutral subjects
+  names its isolation flags and records them.
 - **The v2 engine never runs v3 charges** — independence, plus its unruled
   amendment-hazard finding (ISSUES 2026-08-29).
 - Ignition = kickoff + the building's coda ([../plans/CODA.md](../plans/CODA.md)).
@@ -35,12 +42,17 @@ spent (D21); the v2 deck serves daily, untouched, until G4.
 | ID | Work | Depends on | Staffing | Status |
 |---|---|---|---|---|
 | C4 | [Headless physics](plans/c4-headless-physics.md) — the event grammar captured; the nine capabilities measured ×3 accounts; kills on the bet itself | ⬡-gate: the cornerstone blessing | Digger · opus-high | **LANDED** 2026-08-29 — K1 NO, K2 NO; 9/9 capabilities met (needs-⬡(question) needs `--json-schema`); grammar at [lab/c4/grammar.md](lab/c4/grammar.md) |
+| C5 | [The fake claude](plans/c5-fake-claude.md) — the stand-in binary + scenario library + stream validator, against C4's grammar | C4 | Builder · opus-high | OPEN — laid 2026-08-29, ignitable |
 
 **The arc** (cornerstone §8; laid batch by batch, never before its inputs exist):
 C5 the fake claude → C6 the engine core → C7 the fuzzer + the barrage → C8
 real-session physics · C9 scale · C10 the console demo → G4 the verdict (⬡-gate).
 
-**Batch note — 2026-08-29:** single charge, C4, ignitable on the cornerstone
+**Batch note — 2026-08-29 (batch 2):** single charge, C5, ignitable now (C4
+LANDED); Felix ignites; serial, no flow, no bulletin. No real sessions, no live
+resources — budget 0 subject turns; the fake's own tests spawn only the fake.
+
+**Batch note — 2026-08-29 (batch 1):** single charge, C4, ignitable on the cornerstone
 blessing; Felix ignites (deck `/summon` or by hand); no flow, no bulletin (serial).
 Concurrency: C4's Q8 spawns ≤10 simultaneous subjects, load conditions recorded —
 no other live-resource contention; the cmux desktop is untouched.
