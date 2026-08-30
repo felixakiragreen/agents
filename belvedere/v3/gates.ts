@@ -39,6 +39,8 @@ const glass = argv.includes("--glass");
 const gates: Gate[] = [
 	...TREES.map((t): Gate => ({ name: `${t} · suite`, kind: "suite", cwd: V3 + t, cmd: ["bun", "test"] })),
 	...TREES.map((t): Gate => ({ name: `${t} · types`, kind: "types", cwd: V3 + t, cmd: [TSC, "--noEmit"] })),
+	// the runner grades itself — v3/tsconfig.json covers gates.ts (C18 F2, ruled at the batch-2 review)
+	{ name: "gates · types", kind: "types", cwd: V3, cmd: [TSC, "--noEmit"] },
 ];
 if (glass) gates.push(
 	{ name: "glass · suite", kind: "suite", cwd: GLASS, cmd: ["bun", "test"] },
