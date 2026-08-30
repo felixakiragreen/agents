@@ -30,7 +30,14 @@ export type Ruling =
 export type Event =
 	| { kind: "blessed"; flow: Flow; scope: string[]; budget: number }
 	| { kind: "re-blessed"; scope: string[]; budget: number }
-	| { kind: "ignited"; step: string; sessionId: string; pid: number; venue: string; cursor: number;
+	/**
+	 * `venue` is the subject's cwd; `configDir` is the `CLAUDE_CONFIG_DIR` that
+	 * selected the account — the mechanism itself, so a log alone re-opens the
+	 * run to drive it (C10 F5, ruled at C14). **Absent is legal forever:** a log
+	 * recorded before C14 carries no `configDir`, stays perfectly readable, and
+	 * stays undrivable. Nothing backfills it.
+	 */
+	| { kind: "ignited"; step: string; sessionId: string; pid: number; venue: string; configDir?: string; cursor: number;
 		model: string; effort: string; posture: Posture; subject: string }
 	| { kind: "resumed"; step: string; sessionId: string; pid: number; cursor: number; turn: string }
 	| { kind: "turn-ended"; step: string; sessionId: string | null; sensed: Sensed }

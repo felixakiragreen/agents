@@ -25,7 +25,6 @@ if (runDir === undefined || workDir === undefined || account === undefined)
 const run = load(`${runDir}/flow.json`, {
 	runDir,
 	venue: venueOn(account as Account, workDir),
-	account,
 });
 if (isRefusal(run)) { console.error(run.refusal); process.exit(2); }
 

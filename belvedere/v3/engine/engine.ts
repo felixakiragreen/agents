@@ -39,10 +39,9 @@ export type Options = {
 	 * cursor — follows it without another word.
 	 */
 	venue?: Venue;
-	/** Which account `venue.configDir` selects, for the precheck alone. Layer 0
-	 *  has no accounts; C8 names the real one. */
-	account?: string;
-	/** C4 F8's slot. The layer-0 stub says yes; C8 supplies the real read. */
+	/** C4 F8's trust read, overridable. The default answers a real subject from
+	 *  the account's own record and a fake one from its sandbox (`venue.ts`);
+	 *  a test names its own. */
 	precheck?: VenuePrecheck;
 };
 
@@ -54,8 +53,6 @@ export const venueFor = (runDir: string): Venue =>
 
 /** How often an adopted subject's pid is looked at while it finishes. */
 const ADOPT_POLL_MS = 25;
-/** The account a fake subject belongs to, when no run names one. */
-const FAKE_ACCOUNT = "fake";
 
 export type Run = {
 	flow: Flow;
@@ -94,7 +91,6 @@ export function load(flowPath: string, options: Options): Run | Refusal {
 
 function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
 	const precheck = options.precheck ?? defaultPrecheck;
-	const account = options.account ?? FAKE_ACCOUNT;
 	/** step id -> the turn in flight. A handle, never state. */
 	const inFlight = new Map<string, Promise<void>>();
 
@@ -135,7 +131,7 @@ function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
 
 	/** Ignite one step, or say loudly why it did not. */
 	function fire(step: Fired, sessionId: string, resume: string | null): void {
-		const trust = precheck(account, venue.workDir);
+		const trust = precheck(venue, step.subject);
 		if (!trust.trusted) { pause(step.id, ["venue"], `venue trust refused: ${trust.reason}`); return; }
 
 		// The turn cursor, read before the subject exists: everything already in
@@ -154,7 +150,8 @@ function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
 		if (isRefusal(spawned)) { pause(step.id, ["dead"], spawned.refusal); return; }
 
 		log.append(resume === null
-			? { kind: "ignited", step: step.id, sessionId, pid: spawned.pid, venue: venue.workDir, cursor,
+			? { kind: "ignited", step: step.id, sessionId, pid: spawned.pid, venue: venue.workDir,
+				configDir: venue.configDir, cursor,
 				model: step.model, effort: step.effort, posture: step.posture, subject: subjectName(step.subject) }
 			: { kind: "resumed", step: step.id, sessionId, pid: spawned.pid, cursor, turn: resume });
 		crashPoint(`after-ignite:${step.id}`);

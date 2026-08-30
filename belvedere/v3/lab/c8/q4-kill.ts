@@ -139,7 +139,7 @@ for (let i = 0; i < runs; i++) {
 
 	if (klass === "A") {
 		// The engine stays alive; the subject is shot. Then a ruling resumes it.
-		const run = load(s.flowPath, { runDir: s.runDir, venue: venueOn(account, s.workDir), account });
+		const run = load(s.flowPath, { runDir: s.runDir, venue: venueOn(account, s.workDir) });
 		if (isRefusal(run)) throw new Error(run.refusal);
 		if (isRefusal(run.bless())) throw new Error("bless refused");
 		const driving = run.run();

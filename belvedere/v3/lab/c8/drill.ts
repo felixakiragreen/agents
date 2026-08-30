@@ -91,7 +91,6 @@ export function open(spec: Spec): Drill | Refusal {
 	const run = load(flowPath, {
 		runDir,
 		venue: venueOn(spec.account, workDir),
-		account: spec.account,
 		precheck: spec.summonable === true ? precheckReal : undefined,
 	});
 	if (isRefusal(run)) return run;
