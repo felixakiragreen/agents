@@ -13,6 +13,7 @@
  * left behind. The arm, the pass and the tick died with the retirement — driving is G5's rework lay.
  */
 
+import { existsSync, statSync } from 'fs';
 import type { Building } from '../../doctrine';
 import { fold, verdicts } from '../v3/engine/replay.ts';
 import { subjectName, type Flow, type Step } from '../v3/engine/flow.ts';
@@ -26,8 +27,6 @@ import { buildingOf } from './pages';
 import { runsRoot } from './paths';
 import { readRig, type Rig } from './rig';
 import { usageNow } from './usage';
-
-import { existsSync, statSync } from 'fs';
 
 /**
  * Everything has a limit (directive 3.1). The telemetry tree grows by a run dir every time the
