@@ -2479,3 +2479,53 @@ note) and the ledger tail, verify the landed batch-1 charges (C14, C17),
 distill, reconcile the board, and lay batch 2 — C18 at C14's reviewed
 landing, C19 at C17's, C15's cut on C14's landed shape.
 ```
+
+---
+
+**2026-08-30 · Builder · opus-high** — **C14 the engine seams: LANDED**, the
+migration campaign's batch 1 (with C17 in its own lane). All four of D22's
+unfrozen deferrals, inside the engine's walls, deck untouched.
+
+**Changed.** `ignited` gained `configDir` — the `CLAUDE_CONFIG_DIR` the account
+rides, the mechanism and not a name — so a run log alone re-opens a run to drive
+it; the console resolves the venue **log first, `conditions.json` second,
+sandbox last**, and a pre-C14 real run whose sidecar is gone now *refuses in
+kind* rather than resuming into a config dir that holds no such session
+(`drivable()`), while staying readable forever. **Absence is legal forever and
+nothing backfills** — a frozen `pre-c14-run.jsonl` proves it. The trust read came
+home to `engine/venue.ts` (`ACCOUNTS` · `accountOf` · `configJson` ·
+`trustedDirs` · `trusts` · `precheckReal` · `venueOn`), `lab/c8/accounts.ts` left
+as re-exports; the precheck is now handed the **venue and the subject**, so a
+fake subject is trusted by its arm and no fake test can read a live config dir —
+which retired the engine's redundant `account` option — and `summon` runs the
+same read *before* it opens a pane. `answer-then-land` + golden makes the
+`send <text>` arc guardable at budget 0 and is the first scenario faithful on the
+wire (C13 F2's closing pair in stream *and* transcript, opt-in, 23 older goldens
+byte-identical). `barrage/sweep.ts` ends the orphan class: the run log is the
+register, `ps` guards pid reuse, the mutant drill sweeps its pair and `run.ts`
+sweeps on every exit path.
+
+**Evidence.** Barrage exit 0 — 1000/1000 · 50/50 · 9/9, wall 149.4 s, **26,279
+steps, C7's own number to the step** (the 24th scenario row is weight 0 and moved
+no topology). Engine 77 + barrage 41 + console 26 + fake 60 green; four type
+gates 0. Rehearsal green on `personal`, the account read off the run log with the
+sidecar deliberately silent. **6 real turns, $0.3020, of ≤10 / ≤$1.**
+
+**Decided (Builder's, inside the fence).** The precheck's shape (venue+subject,
+not an account name) and the retirement of `options.account` — one source of
+truth for the account, which is what the whole seam is about. The 24th table row
+at weight 0 rather than a re-pin of nine mutant seeds. The fidelity flag scoped
+to the new scenario rather than flipped for the library.
+
+**Findings — three the next hand wants.** **F1** a committed fixture had been
+unloadable since the `prompt` field landed and no test noticed: a fixture no test
+`load()`s goes stale silently. **F5** the leak is wider than the mutant drill —
+phase 1's capped runs orphan the same way — but the crash drill must **never** be
+swept between its cut and its restart, because adopting a live orphan is the
+thing it proves; the sweep sits at the drill's exit instead. **F7** making the
+report pair the fake's default is one line and 36.8% of every barrage run's
+turns — measured, deliberately not taken. F2/F3/F4/F6/F8 in the charge.
+
+**Next.** ⬡ — the migration review, per the standing baton: both batch-1 charges
+(C14, C17) are landed and want verifying, then batch 2 (C18 at C14's reviewed
+landing, C19 at C17's, C15's cut on C14's landed shape).
