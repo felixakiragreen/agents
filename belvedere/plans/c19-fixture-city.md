@@ -1,6 +1,7 @@
 # C19 — the fixture city
 
-**Status:** OPEN — laid 2026-08-30 · **Depends on:** C17 · **Staffing:**
+**Status:** OPEN — laid 2026-08-30; **ignitable 2026-08-30** (C17's landing
+reviewed; batch 2) · **Depends on:** C17 · **Staffing:**
 Builder · opus-high · **Blessed:** Felix's word 2026-08-30 ("both!"); his
 ignition is the arm (D11)
 

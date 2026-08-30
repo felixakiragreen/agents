@@ -1,7 +1,7 @@
 # C18 — the gates
 
-**Status:** OPEN — laid 2026-08-30 · **Depends on:** — (schedule: ignites at
-C14's reviewed landing — shared `v3/**` tree, contention not dependency) ·
+**Status:** OPEN — laid 2026-08-30; **ignitable 2026-08-30** (C14's landing
+reviewed — the schedule hold is paid; batch 2) ·  **Depends on:** — ·
 **Staffing:** Builder · opus-medium · **Blessed:** Felix's word 2026-08-30
 ("both!"); his ignition is the arm (D11)
 
