@@ -28,6 +28,13 @@ export type Outcome =
 
 export type Turn = { text: string; queued: number; first: boolean };
 
+/** With `--json-schema` declared, real claude delivers the step report as a tool
+ *  call and closes the turn on its result — so the transcript's last two
+ *  conversation rows are this pair, and the report's bytes are the call's input.
+ *  Both names measured off `engine/test/fixtures/real-c8-q1-smoke.jsonl`. */
+const REPORT_TOOL = "StructuredOutput";
+const REPORT_ACK = "Structured output provided successfully";
+
 export async function runAct(s: Session, actIndex: number, turn: Turn, out: Sink, tx: Transcript): Promise<Outcome> {
 	const act: Act | undefined = s.scenario.acts[actIndex];
 	if (act === undefined)
@@ -142,6 +149,17 @@ export async function runAct(s: Session, actIndex: number, turn: Turn, out: Sink
 			}
 			case "report": {
 				report = { state: step.state, cause: step.cause, ...(step.answer === undefined ? {} : { answer: step.answer }) };
+				// The report on disk, and only when the caller asked for one. The
+				// stream carries it in the `result` row either way; the transcript
+				// carries it as the tool call the schema turns it into, which is
+				// what lets a turn whose stream died still be landed (C8 F3, C13).
+				if (s.argv.jsonSchema !== null) {
+					const toolUseId = c.ids.toolUse();
+					c.clock.advance(SPAN.toolUse);
+					rows.assistant(c, c.ids.message(), [{ type: "tool_use", id: toolUseId, name: REPORT_TOOL, input: report }]);
+					c.clock.advance(SPAN.toolResult);
+					rows.toolResult(c, [{ type: "tool_result", tool_use_id: toolUseId, content: REPORT_ACK }]);
+				}
 				break;
 			}
 			case "result": {
