@@ -2,7 +2,24 @@
 
 **`demo-run.jsonl`** — the demo flow's run log, recorded by `bun test/record.ts`
 against the fake claude. Regenerate it whenever `flows/demo.json` or the event
-set changes; the invariant tests cut their corrupted logs from it.
+set changes; the invariant tests cut their corrupted logs from it. Two things a
+re-record moves that are not defects: every session id, pid and timestamp is
+fresh, and the **interleaving of the parallel steps** is whatever that run's
+subjects finished in — the log records the order as fact (`replay.ts`), it does
+not fix it. What must not move is the shape: 39 events, 9 turns, the same ten
+verdicts, invariants 0. Re-recorded at C14, when `ignited` gained `configDir`.
+
+**`pre-c14-run.jsonl`** — the demo run as it stood **before** C14, byte for
+byte: its `ignited` events carry no `configDir`, because the field did not exist
+when it was written. It is older than that in one more way, found by C14's own
+re-record: it predates the step `prompt` field too, so `load()` refuses to
+re-open it (invariant 8, "blessed on a different flow"). That is why the drive
+half of its test strikes `configDir` from the *current* log instead — one
+variable at a time. It is the compatibility corpus for the one promise C14
+makes to every log already on disk — *absence is legal forever* — so it is
+**frozen**: never re-record it, and never backfill it. Its own test
+(`compat.test.ts`) asserts the absence, the verdicts it shares with the current
+fixture, and that a drive verb on it refuses in kind rather than guessing.
 
 **`real-q1-write.jsonl`** — C4's `q1-write-personal` probe transcript, copied
 from the personal config dir (C5 F4 / C6 bar 10: the reader must meet a real

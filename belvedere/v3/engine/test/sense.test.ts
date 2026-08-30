@@ -1,7 +1,8 @@
-// The parser against the whole instrument: every one of C5's 23 committed
-// goldens is read by the sensor, and by C5's own conformance oracle, so the
-// engine's parse rules and the fake's dialect are checked against each other
-// rather than against this test's imagination.
+// The parser against the whole instrument: every committed golden is read by
+// the sensor, and by C5's own conformance oracle, so the engine's parse rules
+// and the fake's dialect are checked against each other rather than against
+// this test's imagination. C5 recorded 23; C14 added `answer-then-land`, whose
+// stream carries the report's closing pair the way real claude does (C13 F2).
 import { test, expect } from "bun:test";
 import { readFileSync, readdirSync } from "node:fs";
 import { validateStream } from "../../fake-claude/validate.ts";
@@ -18,8 +19,8 @@ const read = (name: string, asked: Posture = "auto"): Reading => {
 	return r;
 };
 
-test("the corpus is 23 goldens, and the sensor reads every one without a torn line", () => {
-	expect(names.length).toBe(23);
+test("the corpus is 24 goldens, and the sensor reads every one without a torn line", () => {
+	expect(names.length).toBe(24);
 	for (const name of names) {
 		expect([name, validateStream(readFileSync(`${GOLDENS}/${name}.jsonl`, "utf8")).violations]).toEqual([name, []]);
 		const r = read(name);
