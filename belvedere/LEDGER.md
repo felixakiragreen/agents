@@ -2301,3 +2301,43 @@ wear ~/code/agents/canon/mantles/architect.md,
 then read ~/code/agents/belvedere/v3/README.md, the ledger tail,
 and lay batch 8 — C9 scale and C10 the console demo.
 ```
+
+**2026-08-30 · Digger · opus-medium** — **C9 landed: scale, bar 5 met both
+halves.** Changed: [`v3/lab/c9/`](v3/lab/c9/) — `drill.ts` (a run root per arm,
+load recorded before *and* after, and `holdForLoad()`, the batch note's load-8
+gate made mechanical), `q1-fake-width.ts`, `q2-real-ladder.ts`,
+`q3-cost-table.ts`, `meter.ts` (C9's ceilings over C8's accounting), plus a
+tsconfig so the lab has its own type gate; findings under
+[C9](v3/plans/c9-scale.md); two entries relayed to the bulletin (`2a6af07`).
+**`engine/` untouched** — the batch note's whole reason for running C9 before
+C10, honoured.
+
+Measured: **100 simultaneous fake subjects green through the engine, 12/12
+repeats**, with "simultaneous" measured rather than asserted — `max in flight`
+swept from the log's own `[ignited, turn-ended]` intervals is **100 on every
+repeat** — plus the fake ladder at 10/25/50/100 ×3, all green. **The real
+ladder 5 → 10 → 25 on `personal`, run twice over: 25/25 landed, 25/25
+transcripts, per-subject token fidelity 25/25, zero session collisions, zero
+rate-limit refusals**, invariants 0 and `replay ≡ state` in every run of the
+charge, zero orphan pids from 81 real ignitions. **No substrate ceiling below
+25.** Q3's extrapolation table is in the charge, paste-ready for G4, with the
+extrapolation labelled wherever it leaves the measured rungs. **Budget 81/120
+turns, $3.9689/$8** — neither ceiling approached.
+
+For the Architect, three things worth a ruling. **F1: `rate_limit_event` fires
+on every single turn with `status: "allowed"`** — it is routine telemetry, so
+C9's own K2 ("a second consecutive `rate_limit_event` stops the ladder") would
+have fired at turn 2. The ladder ran under the criterion's intent
+(`status !== "allowed"`, which never fired) and the wording wants re-cutting
+before another charge inherits it. **F2: a one-shot turn costs ~2× a warm one
+and the whole difference is a cold prompt cache** — $0.1355 at width 1 against
+$0.0453 at width 25 — so **width is cheaper per turn than serial**, and any
+estimate multiplying one per-turn figure by a step count is wrong in whichever
+direction the cache falls. **F5: the substrate hands out a free in-band quota
+gauge** (`rate_limit_info.unifiedWindows.{five_hour,seven_day}.utilization`) on
+every turn — the only answer the Guild has to "sessions cannot see /usage", and
+C10's to use if it wants one.
+Next: **C10 is ignitable** — C9 is landed and reviewed-pending, the engine is
+untouched, and C10's step 0 lands on unmodified bytes. Its kickoff is in
+[C10](v3/plans/c10-console-demo.md); budget ≤$3 / ≤30 turns. After it, **G4
+convenes** on campaign bars 1–6, all landed.
