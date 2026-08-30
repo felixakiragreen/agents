@@ -1,0 +1,12 @@
+{
+	"name": "v3-console",
+	"version": "0.1.0",
+	"description": "Five verbs over the engine's exports — list, read, send, summon, return. Campaign bar 6's instrument.",
+	"private": true,
+	"type": "module",
+	"module": "cli.ts",
+	"scripts": {
+		"test": "bun test",
+		"typecheck": "../../glass/node_modules/.bin/tsc --noEmit"
+	}
+}
