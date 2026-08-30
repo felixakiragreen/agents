@@ -1922,3 +1922,42 @@ wear ~/code/agents/canon/mantles/builder.md,
 then read ~/code/agents/canon/work/DOCTRINE.md §§4, 8, 10–11
 and execute the charge at ~/code/agents/plans/c32-flow-grammar.md.
 ```
+
+---
+
+**2026-08-29 · Architect · opus-high (C30)** — the master-doc prose sweep — the city's
+master docs speak the standard in their long-form prose, not just their machine
+surfaces. **636 vocabulary hits adjudicated across 13 files in 6 buildings; 14 survive,
+every one an exemption named in the findings.** Per file, `doctrine lint --vocab`:
+whiteboardy `GENESIS.md` **268 → 6** (the charge's lay measured 140 — C26's arm did not
+exist yet, so the corpus was bigger than the lay knew), snappy **102 → 0**, simmy
+**57 → 2**, arborist **48 → 0**, theseus **29 → 0**, this repo's MAP + OPEN charge docs
+11/22/C30 **11 → 0**, and every tail the charge named: cap-mega's two contract boards
+(units **44 → 0**, waypoint-stepper **32 → 2**) + `docs/README.md`, pods **16 → 1**,
+lunchbox **15 → 2**, repot **10 → 0**, catalog already 0. Each building's ledger carries
+its own entry; the two contract boards have no ledger, so each took a dated **Respell
+note** instead. Six residues filed, none guessed — belvedere's ~156 (to both inboxes),
+C32's and G1's own docs (this repo's guard 1), charge 18's fenced-but-reported 11, two
+cap-mega naming docs at 164, bob's bare `row` and `order`-as-doc-name, whiteboardy's 214
+outside GENESIS. **C30's own edits moved zero form-arm failures**: the city reads 26
+where it read 5, and all 21 are C31's brand-new `kickoff.door` arm (`10f4012`, landed
+mid-flow) plus C29's worktree ledger — files C30 never opened. flow-1's **named physics
+probe is PAID**: out-of-tree writes never prompted, so the one-rig-summons fallback was
+not needed (bulletin, this date). Decided: (Architect scope, all cited, all recorded in
+the findings and the buildings' own ledgers) **F1 — spent vs unspent, not open vs closed,
+decides whether an instrument is live**: a dispatched summons is a record and stays
+byte-identical; an undispatched one naming a dead mantle is a defect, struck and
+retendered per C25 (done at theseus batch 6 and lunchbox 08-27; whiteboardy's twelve
+spent summonses untouched). **F2 — the graveyard's dead column names senses, not
+strings**: a pattern C26 dropped is a detection drop, so the unit-sense bare `row` was
+swept by hand (82 across four buildings) while every domain row stood — but where §9
+offers a *description* and not a successor noun (`chain`), the sweep files rather than
+rewrites. **F4** `wave` → a concurrency **stage** (§2 abolished the mid-level unit and
+`batch` collides with Batch N's id). **F5** `CLOSED` is dead at campaign altitude only,
+and an all-caps status word the lifecycle does not define is worse than a dead one.
+**F6** `harvest` splits — `canonize` promotes a pattern, `sweep` clears an inbox; theseus
+meant sweep eight times out of eight. **F7** `rider` splits three ways — the coda, a
+condition, a charge — and no `RIDER.md` was renamed, because a rename is a move, not a
+respell (C23-F7). Next: **ignite G1** when C29, C31 and C32 have landed — it verifies
+this landing among the four, and F8 tells it not to read the city's risen lint count as
+a regression.
