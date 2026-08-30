@@ -2011,3 +2011,21 @@ an `ISSUES.md` field report the v3 fence forbids me to write. Next: **commit
 `belvedere/v3/engine/test/fixtures/` by hand**, then ignite C7 (the fuzzer + the
 barrage) — it imports `engine.ts` and `invariants.ts`, drives the same
 `V3_ENGINE_CRASH_AT` seam, and should read F7 before planting crash cuts.
+
+**2026-08-30 · Architect · fable-high** — C6 verified at review (proving run
+re-run: **45 tests green, tsc exit 0**; all three fixtures committed) and its
+F2 **ruled: the durable stream adopted** — law 1's tuple gains stream files
+(flow file + run log + **stream files** + transcripts), cited on cornerstone
+§4.4 (read: the stream is file-addressable by contract), §4.9 (survive: a
+finished turn rests on disk, a restart re-derives all state from disk) and
+§3.2 (the engine holds nothing a crash can lose); no new issue, no D-entry —
+ruling text under F2 in the C6 doc, presented for blessing at this boundary.
+F9 filed to the root inbox: the auto-mode classifier vs charge-sanctioned
+actions, recurring by design at C7/C8. **C7 laid** —
+`belvedere/v3/plans/c7-fuzzer-barrage.md`: the fuzzer + the barrage (campaign
+bars 1–3) with **step 0 building the ruled fix**; the crash-redo golden is the
+uncrashed run of the same seed (determinism makes it free); reds file to
+`barrage/reds/`, never root ISSUES (the fence), distilled upward at review.
+Builder · opus-high, budget 0 real turns, batch-4 note on the board;
+`doctrine lint`: belvedere/v3 ok. Next: Felix ignites C7 — kickoff at the
+charge's foot; ignition converts the F2 ruling, or he amends first.
