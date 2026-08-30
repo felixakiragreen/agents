@@ -258,6 +258,8 @@ live; the archive serves the dead, the cleared, and the search index.
 | C12 | [The transcript mirror](plans/c12-transcript-mirror.md) — append-only byte-true mirror of every account's transcripts + launchd interval + restore drill; the mortal-corpus backstop (v3 C11 F1), his word 2026-08-30 ("Let's do B"); the campaign-scale build stays filed in [ISSUES.md](ISSUES.md) | — | Builder · opus-medium | **LANDED** 2026-08-30 — `belvedere/archive/mirror.ts`, **1608 transcripts / 1.67 GB mirrored in 2.5 s cold, 1.1–2.2 s warm**; archived count == source count ×4 accounts, **36/36 hashes identical**, incremental proven on a fixture (copied 20 → 0 → 1 on a touch → 0), append-only proven twice (3 sources deleted → `found 17 · indexed 20`). **The restore drill passed with its control**: the resume REFUSED with the transcript deleted, then recalled `BELVEDERE-LAZARUS-C12` off the archived bytes alone. Cross-account grep **51 ms over 1.7 GB** — but **`--hidden --no-ignore` or the personal account vanishes** (F1). **Budget 2 of ≤5 turns, $0.1295**. ⬡-gate: `launchctl bootstrap` was classifier-refused — the three install commands are listed at the charge's Done-when 6 for Felix's `!`. Three filed to [ISSUES](ISSUES.md): archive exposure inside `~/code` (F4), `bun test belvedere/glass` **670 pass / 3 fail at HEAD** and not C12's (F6), the search trap (F1). Reviewed 2026-08-30 at the tender's hand: mirror re-run copied only live deltas (3·1·0), counts matched ×4 accounts (+1 in personal — the drill's deleted source, append-only's own evidence), glass type gate exit 0 |
 | C14 | [The engine seams](plans/c14-engine-seams.md) — D22's migration opener: the account on `ignited`, the trust read's home (`engine/venue.ts`), the answer-then-land scenario + golden, the mutant drill's subject sweep | — | Builder · opus-high | OPEN — laid 2026-08-30 (the migration campaign, batch 1); budget ≤$1 / ≤10 real turns, either ceiling a ⬡-fork (D21) |
 | C17 | [The camera](plans/c17-camera.md) — agents' eyes and hands on the deck: a disarmed twin per probe (`BELVEDERE_ENV` void ⇒ hands 503, `GLASS_PORT` ephemeral), `playwright-core` on installed Chrome headless, `shoot` + `run` verbs, PNGs the agent Reads; every later deck charge's visual bars ship camera evidence | — | Builder · opus-high (parallel-safe with C14 — disjoint trees, two-lane rule) | OPEN — laid 2026-08-30 (batch 1, amended in at Felix's word — the C14-ignition session); budget 0 real turns |
+| C18 | [The gates](plans/c18-gates.md) — one command, every standing gate: four suites + four type gates + the barrage, ending in the paste-ready evidence block; the runner seen to fail per family | — | Builder · opus-medium | OPEN — laid 2026-08-30 (his word, "both!"); ignites at C14's reviewed landing — shared `v3/**` tree, schedule not dependency; budget 0 real turns |
+| C19 | [The fixture city](plans/c19-fixture-city.md) — deterministic card states for the camera's twin: two conforming fixture buildings + one broken (lint red as control), pid-live/dead census + fresh usage seeded at boot, `--fixture` wiring, four committed probes | C17 | Builder · opus-high | OPEN — laid 2026-08-30 (his word, "both!"); budget 0 real turns |
 
 **Batch 1 (cut at founding, 2026-08-26) — Felix-tended, reasons named:** the venue
 is his live desktop (first contact with a new substrate — his eyes at each landing),
@@ -758,6 +760,15 @@ twin on an ephemeral port and never interacts with the live deck. Tender
 unchanged: Felix ignites by hand. C17 budget: **0 real turns**; third-party
 named in its doc (`playwright-core` pinned, driving installed Chrome — no
 browser download on the happy path).
+
+**The instruments — laid 2026-08-30, his word ("both!"), C14 and C17 already
+burning:** **C18 the gates** (the one-command proving run + paste-ready
+evidence block; ignites at C14's reviewed landing — tree contention, not
+dependency) · **C19 the fixture city** (deterministic card states for the
+camera's twin — ⬡ cards, fork batons, KILLED rows, lint reds, live/dead
+census, lit gauges; C17's true dependent). Both budget 0; kickoffs fenced in
+their docs. Chat-transcript and shelf seeding are explicitly C16's design
+question, not C19's.
 
 ## 7. Decisions
 

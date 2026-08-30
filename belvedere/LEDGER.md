@@ -2455,6 +2455,27 @@ defect-hunting. Decided: nothing register-grade — every ruling cites D22, his
 in-session word, or stands proposed in place. Next: ⬡ — ignite C17 (C14 already
 burning; C15's cut waits on C14's reviewed landing).
 
-Baton — ⬡ → ignite C17: kickoff fenced in
-[plans/c17-camera.md](plans/c17-camera.md), the coda appends at ignition —
-parallel-safe beside the burning C14.
+**Second in-session amendment, his word ("both!"): the instruments laid.**
+**C18 the gates** ([plans/c18-gates.md](plans/c18-gates.md) — one command,
+every standing gate, the paste-ready evidence block, the runner seen to fail
+per family; Builder · opus-medium; ignites at C14's reviewed landing — shared
+`v3/**` tree, schedule not dependency) and **C19 the fixture city**
+([plans/c19-fixture-city.md](plans/c19-fixture-city.md) — deterministic card
+states for the camera's twin: conforming fixture buildings lint-green with a
+broken control, pid-live census seeded at boot, `--fixture` wiring, four
+probes; Builder · opus-high; depends on C17). Both budget 0. C14 and C17 both
+burning at his hand; the coda gap on hand ignitions filed to the root inbox
+(charge 22's composition is its home). Next: ⬡ — at the first landing, summon
+the migration review; it verifies, distills, and lays batch 2 (C18 at C14's
+landing · C19 at C17's · C15's cut on C14's landed shape).
+
+Baton — ⬡ → summon the migration review at the first landing, verbatim:
+```
+You are an Architect at fable-high.
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/architect.md,
+then read ~/code/agents/belvedere/README.md §§5–6 (the migration campaign
+note) and the ledger tail, verify the landed batch-1 charges (C14, C17),
+distill, reconcile the board, and lay batch 2 — C18 at C14's reviewed
+landing, C19 at C17's, C15's cut on C14's landed shape.
+```
