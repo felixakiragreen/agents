@@ -142,3 +142,40 @@ the inbox is cleared. A cleared inbox is empty.
   [C12](plans/c12-transcript-mirror.md); this entry stays as the campaign-scale
   expansion (search surfaces, deck integration, N accounts), built on C12's
   archive when its campaign comes.
+
+---
+
+- 2026-08-30 · C12 (Builder) · **The archive is a second full copy of every
+  transcript, now inside `~/code` — the cloud-sync hazard the campaign entry
+  named is live.** 1.6 GB at `~/code/agents/summon/log/archive`, out of git
+  (verified) but inside the tree a desktop backup client sweeps; this machine
+  runs `com.backblaze.bzbmenu.plist` as a live LaunchAgent. Transcripts capture
+  tool output, so this is the "secrets surface — out of git, out of unconsidered
+  cloud sync" line arriving as a real question. Retention and exposure policy
+  were out of C12's scope; ruling wanted before the archive grows further or
+  gains a second reader. Evidence: [C12](plans/c12-transcript-mirror.md) F4.
+
+---
+
+- 2026-08-30 · C12 (Builder) · **`bun test belvedere/glass` is 670 pass / 3 fail
+  at HEAD and the type gate cannot see it.** Reproduced by stashing C12's whole
+  working tree and re-running: `flow-batch-1 … readFlows finds it, and worksOf
+  hands it to the drawing with its edges` · `the fork baton … each option
+  composes its own fire body, from its own summons line` · `the rig's mantles,
+  coloured … every mantle the rig names gets a colour the socket accepts — B3 F1
+  closed at the cause`. `bunx --offline tsc --noEmit` is exit 0 through all
+  three. C2 E1 caught the gate lapsing red while the suite was green; this is the
+  same lapse in the other direction. Not C12's to fix — its charge names the
+  mirror. Evidence: [C12](plans/c12-transcript-mirror.md) F6.
+
+---
+
+- 2026-08-30 · C12 (Builder) · **Any directory-walking `rg` over the archive
+  silently drops the personal account.** The archive's account dirs are dotfiles
+  under a gitignored path, so `--hidden` is needed at all — and the repo's own
+  `.gitignore` line `.claude/` makes rg skip the `.claude` account by name, so a
+  search answers plausibly from two accounts of three. `--hidden --no-ignore` is
+  the correct invocation; explicitly-named files are exempt (so the deck's
+  `grep.ts`, which passes file lists, is safe as written). Binds the
+  campaign-scale search organ above. Evidence:
+  [C12](plans/c12-transcript-mirror.md) F1.
