@@ -256,6 +256,22 @@ bars and every batch-6 re-cut get deterministic states to shoot.
   0
   ```
 
+  **C18 F1 lands mid-charge and this gate survives it**, because `camera/` carries its own
+  pinned checker where `v3/**` carries none — re-proven three ways after reading the relay:
+
+  ```
+  $ ls -l node_modules/.bin/tsc              ->  ../typescript/bin/tsc
+  $ ./node_modules/.bin/tsc --version            Version 7.0.2   (package.json: "typescript": "7.0.2")
+  $ bunx tsc --version                           Version 7.0.2   (no resolution lines — nothing was fetched)
+  $ bunx --offline tsc --noEmit                  exit: 0
+  $ ./node_modules/.bin/tsc --noEmit             exit: 0
+  $ git status --untracked-files=all --porcelain belvedere/camera | wc -l
+  0
+  ```
+
+  So the pasted `bunx tsc` above IS the repo-pinned one (C17 F3's pinning doing its job), and
+  the coda's offline requirement is met by construction here.
+
   The glass is byte-identical to HEAD: the fixture turns four knobs `paths.ts` already
   carried (`GLASS_CITY`, `CENSUS_DIR`, `USAGE_DIR`, `DESK_DIR`) and adds nothing to the deck.
 
