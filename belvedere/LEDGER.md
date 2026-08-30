@@ -2701,3 +2701,41 @@ Baton — Felix (the C15 tender's own session holds it; this Builder was
 dispatched and reports). Findings F1–F7 and the evidenced bar are in
 [plans/c15-deck-v3-lane.md](plans/c15-deck-v3-lane.md); the relay for C16 and
 G5 is in [plans/BULLETIN.md](plans/BULLETIN.md).
+
+---
+
+**2026-08-30 · Architect · fable-high (cont.)** — **C15 LANDED and reviewed;
+batch 2 CLOSED; C16 cut. The v2 engine is gone from the deck — the city has
+one engine.** C15 reviewed at this hand: `bun v3/gates.ts --glass` **ALL
+GREEN — 12 gates, wall 211.6 s, exit 0** (glass 673 → 565 pass / 0 fail — 123
+tests died with v2, 15 added; barrage 1000 · 50 · 9/9), and the `works-v3`
+probe re-run exit 0 with the PNG Read — the rehearsal's three nodes
+landed-green above the NOW line, frozen kickoff bytes and the READ-ONLY pill
+in Action, zero twins after. Its headline findings: the two colour reds were
+one cause (`INTENT_OF` deleted at cause), and **two bugs only the camera
+could see** — `data-at` is the deck's clock and erased any node stamped with
+it, and a repaint signature omitting the picker's state left Action on the
+previous run (inherited from v2, invisible until v3's many-runs world). The
+inbox knob closes C17 F2, photographed, real city byte-identical. Distilled:
+§5's stale engine-venue agreement re-cut to its one surviving sentence (C15
+F6); `lab/b10–b12` dead letters stand as landing evidence; board rows and the
+arc trued; **C16 cut** on C15's reviewed shape
+([plans/c16-chat-chapter.md](plans/c16-chat-chapter.md)) — the Chat primary
+over the engine's world, headless sessions readable and answerable through
+the engine's own seam, batch-3 note on the board. Decided: nothing
+register-grade — the C16 cut executes D20/D22 r4's standing rulings; its
+budget line follows C8 F9 (dollars leading). Next: ⬡ — ignite C16 (paste the
+kickoff below, or one dispatch word to the tender); at its reviewed landing,
+G5 convenes.
+
+Baton — ⬡ → ignite C16 (batch 3), verbatim:
+```
+You are a Builder at opus-high.
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/builder.md,
+then read ~/code/agents/belvedere/README.md §§2–3 and §§5–6 (the fence, the
+arming law, agreements; the migration campaign note),
+~/code/agents/belvedere/plans/b16-chat.md and
+~/code/agents/belvedere/plans/c15-deck-v3-lane.md (findings included),
+and execute the charge at ~/code/agents/belvedere/plans/c16-chat-chapter.md.
+```
