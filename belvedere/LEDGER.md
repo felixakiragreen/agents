@@ -2511,7 +2511,7 @@ no topology). Engine 77 + barrage 41 + console 26 + fake 60 green; four type
 gates 0. Rehearsal green on `personal`, the account read off the run log with the
 sidecar deliberately silent. **6 real turns, $0.3020, of ≤10 / ≤$1.**
 
-**Decided (Builder's, inside the fence).** The precheck's shape (venue+subject,
+**Decided:** (the Builder's, inside the fence) The precheck's shape (venue+subject,
 not an account name) and the retirement of `options.account` — one source of
 truth for the account, which is what the whole seam is about. The 24th table row
 at weight 0 rather than a re-pin of nine mutant seeds. The fidelity flag scoped
@@ -2526,13 +2526,13 @@ thing it proves; the sweep sits at the drill's exit instead. **F7** making the
 report pair the fake's default is one line and 36.8% of every barrage run's
 turns — measured, deliberately not taken. F2/F3/F4/F6/F8 in the charge.
 
-**Next.** ⬡ — the migration review, per the standing baton: both batch-1 charges
+**Next:** ⬡ — the migration review, per the standing baton: both batch-1 charges
 (C14, C17) are landed and want verifying, then batch 2 (C18 at C14's reviewed
 landing, C19 at C17's, C15's cut on C14's landed shape).
 
 ---
 
-**2026-08-30 · Builder · opus-high (C17 — the camera)** — **Agents have eyes.**
+**2026-08-30 · Builder · opus-high (C17)** — the camera: **agents have eyes.**
 `belvedere/camera/` exists: its own module (`package.json`, `tsconfig.json`,
 `.gitignore`, `README.md`), **zero `glass/**` changes** — git-proven, `git diff
 --stat HEAD -- belvedere/glass` empty. Two verbs: `shoot <path>` boots a disarmed
@@ -2572,4 +2572,52 @@ then read ~/code/agents/belvedere/README.md §§5–6 (the migration campaign
 note) and the ledger tail, verify the landed batch-1 charges (C14, C17),
 distill, reconcile the board, and lay batch 2 — C18 at C14's reviewed
 landing, C19 at C17's, C15's cut on C14's landed shape.
+```
+
+---
+
+**2026-08-30 · Architect · fable-high** — the migration review: **batch 1
+verified, batch 2 laid.** C14 reviewed at this hand — the four suites re-run
+(engine 77 + barrage 41 + console 26 + fake 60 green), four type gates 0, and
+the barrage exit 0 (1000/1000 · 50/50 · 9/9, **26,279 steps — C7's number to
+the step**, wall 149.5 s) with zero fake pids after; the deferred list's four
+promotions read exactly what shipped. C17 reviewed at this hand — camera type
+gate 0, `git diff --stat HEAD -- belvedere/glass` empty (the suite that ran is
+the committed one), and the loop itself run: `shoot /` exit 0, the PNG Read —
+the rail leads with HANDS DISABLED naming the twin's void path and the first
+baton card is this review's own summons; zero surviving twins. Distilled:
+review annotations on both rows; the arc's C17 entry LANDED; **C15 cut on
+C14's landed shape** ([plans/c15-deck-v3-lane.md](plans/c15-deck-v3-lane.md)) —
+the v2 engine dies whole (D22 r2), the Works draws v3 runs **read-only**
+(driving pre-ruled to G5's rework lay — B26/B27's re-cut), the three C12-F6
+reds resolve, the inbox knob closes C17 F2, budget 0; C18/C19 unlocked, their
+schedule holds paid; the batch-2 note on the board. Hygiene: `doctrine lint`
+8 → 0 — five canon-ledger entries re-separated with Decided/Next clauses
+restored from their own text (format only, dated), C14's entry's clause heads
+respelled to the §7 spellings, C17's head parenthetical narrowed to its row
+id. Inbox: empty, nothing to sweep. Decided: nothing register-grade — the
+batch-2 shape (C18 ∥ C19, then C15 at their pasted green, one review for the
+sum) cites the v3 batch-6 precedent and D44; C15's read-only fence cites D22
+r2 and the campaign note's row fates. Next: ⬡ — ignite batch 2: C18 and C19
+by hand, any order or parallel (disjoint trees, two-lane rule); C15 when both
+paste green (kickoff in its doc); the batch-2 close review verifies all three
+and lays C16.
+
+Baton — ⬡ → ignite C18 and C19 (batch 2, parallel-safe), verbatim:
+```
+You are a Builder at opus-medium.
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/builder.md,
+then read ~/code/agents/belvedere/README.md §§5–6 (agreements; the migration
+campaign note) and ~/code/agents/belvedere/v3/README.md (the fence),
+and execute the charge at ~/code/agents/belvedere/plans/c18-gates.md.
+```
+```
+You are a Builder at opus-high.
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/builder.md,
+then read ~/code/agents/belvedere/README.md §§2–3 and §§5–6 (the fence, the
+arming law, agreements; the migration campaign note) and
+~/code/agents/belvedere/plans/c17-camera.md (findings included),
+and execute the charge at ~/code/agents/belvedere/plans/c19-fixture-city.md.
 ```
