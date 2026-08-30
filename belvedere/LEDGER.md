@@ -2341,3 +2341,54 @@ Next: **C10 is ignitable** — C9 is landed and reviewed-pending, the engine is
 untouched, and C10's step 0 lands on unmodified bytes. Its kickoff is in
 [C10](v3/plans/c10-console-demo.md); budget ≤$3 / ≤30 turns. After it, **G4
 convenes** on campaign bars 1–6, all landed.
+
+**2026-08-30 · Builder · opus-medium** — **C10 landed: the console demo, campaign
+bar 6's instrument, plus step 0.**
+Changed: [v3/console/](v3/console/) — `cli.ts` (five verbs), `runs.ts`,
+`render.ts`, `summon.ts`, `rehearsal.ts`, `test/verbs.test.ts`, README;
+[v3/lab/c10/meter.ts](v3/lab/c10/meter.ts); `v3/engine/transcript.ts` and its
+tests (step 0); the v3 board, C13's F3 correction, the bulletin. Commits
+`2f2d4f0` `0d6d76b` `0818028` `67c2501` `69469f6` `abd4325`.
+
+**Step 0 landed on its own red.** The transcript fallback collapsed every
+non-`done` report to ‹no report›, so a turn whose disk plainly carried the
+question showed the poorer name on a board row — C13 F3, deferred to this lay.
+It now names ‹needs-⬡ question› and ‹blocked› from the report's own bytes, and
+the test asserts the two paths **equal** rather than merely both-plausible
+(`verdictFromTranscript` against `verdict()` on the same report). C6's
+*transcript-only ≡ streamed verdict* holds for every reporting state now, not
+for `done` alone. C13's F3 carries a dated correction; the engine README's law 5
+with it.
+
+**The console is five verbs and nothing else** — `list · read · send · summon ·
+return`, each a thin call into the engine's exports, driven by plain argv with
+exit codes. 19 tests on fake subjects, every refusal the engine's own where the
+engine has one. The real rehearsal passed in **one script, one pass**: a 3-step
+flow on `personal`, all five verbs through the console's own argv as a
+subprocess, 3/3 landed, terminal, invariants 9/9 — and **the summon round trip
+lossless in both directions on one session**: the codeword the engine gave at
+ignition and the sign-off a human typed into the pane both came back through a
+headless resume, the cursor absorbing the hand turn unasked (C8 F7, re-proved
+through the console). Console 19 + engine 64 + barrage 38 + fake 59 green, four
+type gates 0, **barrage exit 0 twice on the settled tree** (1000/1000 · 50/50 ·
+9/9, wall 147.5 s and 147.7 s). **Budget 12/30 turns, $0.4148/$3.**
+
+Three findings bind outside this charge. **F5: the run log cannot name the
+account** — `ignited` records the subject's cwd and nothing else, so a run whose
+sidecar `conditions.json` is lost is readable forever and drivable never; one
+field, engine-side, and **the deck hits this on its first session row**. **F6:
+the trust read still lives only in `lab/c8/accounts.ts`** — this is its second
+caller; the console measured the pane instead of making a second copy of the
+policy, which cannot drift but also cannot warn before the summon. **F2: the fake
+has no answer-then-land scenario**, so `send <text>`'s landing arc is proven only
+on real bytes — one scenario file plus a golden makes it guardable at budget 0
+forever. All three relayed to the bulletin and entered on the board's deferred
+list. **F1 is the one worth reading**: the first rehearsal pass failed on my own
+prompt — a flow's steps share no memory, and I wrote one that assumed they did —
+and the subject **asked instead of confabulating while the engine paused instead
+of landing**. The failure mode a headless runner should fear, caught in the wild,
+behaving exactly as designed.
+Next: **G4 convenes** — batch 8 is complete and the evidence pack is campaign
+bars 1–6, all landed. C10 wants the Architect's review first (the six findings,
+and step 0's widening of the fallback vocabulary, are rulings the gate should
+carry in).
