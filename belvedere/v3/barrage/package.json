@@ -1,0 +1,13 @@
+{
+	"name": "v3-barrage",
+	"version": "0.1.0",
+	"description": "The proving instrument: a seeded topology generator, the driver, the nine-invariant oracle, crash injection and the mutation check — one command an agent runs unattended.",
+	"private": true,
+	"type": "module",
+	"module": "run.ts",
+	"scripts": {
+		"test": "bun test",
+		"typecheck": "../../glass/node_modules/.bin/tsc --noEmit",
+		"barrage": "bun run.ts"
+	}
+}
