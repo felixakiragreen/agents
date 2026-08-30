@@ -450,11 +450,43 @@ export function migrateText(file: string, md: string, knownIds?: Set<string>): M
 }
 
 /**
+ * What each source line BECAME under the line and cell rules — an edit's whole emission sits on
+ * its first line, the rest of its from-range empties. This is the re-parse between rule classes
+ * (C31 item 1): the structure rules run, the document is re-read, and the clause pass reads what
+ * the document now says instead of what it said before the run. Reading the stale bytes is how
+ * `ledger.unrecorded-clauses` came to fill 61 whiteboardy entries that already carried a clause
+ * — in the dialect a field rule had just repaired — while the round-trip law printed `ok`
+ * (C25-F1: `decided`/`next` are fields the rule declares it may change, so the law licensed it).
+ */
+function becameLines(lines: string[], edits: Edit[]): string[] {
+	const out = lines.slice();
+	for (const e of edits) {
+		out[e.line - 1] = e.to;
+		for (let k = 1; k < e.from.split('\n').length; k++) out[e.line - 1 + k] = '';
+	}
+	return out;
+}
+
+/**
  * D63 as amended: a pre-doctrine entry whose source never held a Decided:/Next: clause gets
  * the literal `unrecorded` — a typed absence, never a reconstruction. Only entries carrying
  * the pre-doctrine dialect's own `Changed:`/`Blocked:` label qualify, and only pre-D63
  * dates: a live entry's missing clause is a session's lint failure, not the converter's stamp.
+ *
+ * Two documents are read on purpose: an entry's LICENSE is a fact about the source (the old
+ * dialect's own shape, its date), its clause PRESENCE a fact about the migrated text.
  */
+/**
+ * Does this entry, as migrated, record the field at all? Two signals, and the second is the
+ * load-bearing one: the conforming clause rides anywhere in the flattened body (`… Decided: x.`),
+ * and a line that OPENS with the field name IS that field's clause whatever punctuation follows
+ * it — `Decided/measured:` and a scope parenthetical wrapping past its own line are both live in
+ * the corpus and neither is a rule here. Where the tool cannot repair the spelling it must
+ * refuse to fill: a refusal is a lint failure with a human's name on it, a fill is a lie.
+ */
+const records = (field: 'Decided' | 'Next', migrated: string[]) =>
+	migrated.some(l => new RegExp(`${field}:`).test(l) || new RegExp(`^${field}\\b`).test(l));
+
 function clauseEdits(lines: string[], edits: Edit[]): Edit[] {
 	const HEAD = /^(##\s+|\*\*)?(\d{4}-\d{2}-\d{2})\s*·/;
 	const extra: Edit[] = [];
@@ -474,22 +506,31 @@ function clauseEdits(lines: string[], edits: Edit[]): Edit[] {
 	if (cur) spans.push({ ...cur, end: lines.length });
 
 	const covered = (n: number) => edits.find(e => n >= e.line && n < e.line + e.from.split('\n').length);
+	const became = becameLines(lines, edits);
+	const hosted = new Set<Edit>();
 	for (const s of spans) {
 		const span = lines.slice(s.start, s.end);
 		// the license is the dialect shape: an old-shape head, or the labels only it wrote —
 		// a conforming-era bold head qualifies by its labels alone, and only pre-D63
 		if (!s.dialect && !span.some(l => /^(Changed|Blocked):/.test(l))) continue;
 		if (!s.dialect && !preD63(s.date)) continue;
-		const flat = span.join(' ');
+		const migrated = became.slice(s.start, s.end);
 		const missing = [
-			...(/Decided:/.test(flat) ? [] : ['Decided: unrecorded.']),
-			...(/Next:/.test(flat) ? [] : ['Next: unrecorded.']),
+			...(records('Decided', migrated) ? [] : ['Decided: unrecorded.']),
+			...(records('Next', migrated) ? [] : ['Next: unrecorded.']),
 		];
 		if (!missing.length) continue;
 		let last = s.end - 1;
 		while (last > s.start && !lines[last]!.trim()) last--;
 		const host = covered(last + 1);
-		if (host) { host.to = `${host.to}\n${missing.join(' ')}`; host.rule += '+ledger.unrecorded-clauses'; }
+		if (host) {
+			// One edit hosts at most one entry's fill: a second would land at the first's tail,
+			// in the wrong entry. Impossible by construction (two entries never share a head) —
+			// asserted because a silent misplacement is the exact genus this pass just killed.
+			if (hosted.has(host)) throw new Error(`ledger.unrecorded-clauses: two spans claim the edit at line ${host.line} — a converter bug (C31 item 1)`);
+			hosted.add(host);
+			host.to = `${host.to}\n${missing.join(' ')}`; host.rule += '+ledger.unrecorded-clauses';
+		}
 		else extra.push({ line: last + 1, from: lines[last]!, to: `${lines[last]!}\n${missing.join(' ')}`, rule: 'ledger.unrecorded-clauses' });
 	}
 	return extra;

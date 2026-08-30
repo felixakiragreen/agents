@@ -367,6 +367,49 @@ describe('migrate — pre-D63 fixtures', () => {
 		expect(roundTrip(m)).toEqual([]);
 	});
 
+	test('the clause pass reads the MIGRATED document, not the stale one (C31 item 1)', () => {
+		// whiteboardy-shaped: bare heads multiply the entries (0 parsed → 4) while field rules
+		// repair the clauses those same heads carry. Pre-C31 the clause pass read the source
+		// bytes and stamped 4 false `unrecorded` fills into entries with a real clause — and
+		// printed `round-trip ok` for all of them, because `decided`/`next` are declared fields.
+		const m = migrateText(join(FX, 'pre-d63', 'dialect', 'LEDGER.md'), fx('pre-d63/dialect', 'LEDGER.md'));
+		expect(parseLedger(m.before).entries).toHaveLength(0);
+		const after = parseLedger(m.after);
+		expect(codes(after.fails)).toEqual([]);
+		expect(after.entries).toHaveLength(4);
+		// three real clauses survive; only the entry that never recorded one is typed
+		expect(after.entries.map(e => [e.row, e.decided])).toEqual([
+			['E7', '(inside the fence) the clipboard verbs are NOT dispatched as verbs'],
+			['E8', 'nothing new — spec §7.4 followed as written'],
+			['E9', '(scope: the verb table) softBreak joins UNGROUPED beside undo/redo'],
+			['E10', 'unrecorded'],
+		]);
+		expect(after.entries.map(e => e.next)).toEqual([
+			'dispatch E8 per the batch-4 chain.',
+			'dispatch E9 (soft line breaks, §7.5).',
+			'(gate 10) Felix reads the diff.',
+			'unrecorded.',
+		]);
+		// the count is the whole claim: 2 fills, both E10's — pre-C31 wrote 6
+		expect(m.after.match(/unrecorded/g)).toHaveLength(2);
+		expect(after.entries[3]!.block).toContain('Decided: unrecorded. Next: unrecorded.');
+		expect(roundTrip(m)).toEqual([]);
+	});
+
+	test('a clause spelling no rule repairs is refused, never filled (C31 item 1)', () => {
+		// Both live in whiteboardy and neither is a migrate rule: a third label spelling, and a
+		// scope parenthetical that wraps past its own line. A fill would be a lie; the refusal
+		// leaves an honest `ledger.decided` failure for a session to spell.
+		const entry = (clause: string) => `# L\n\n---\n\n2026-08-16 · Builder · opus-high (E7 — w)\nChanged: the thing.\n${clause}\nNext: dispatch E8.\n`;
+		for (const clause of ['Decided/measured: **the §3.4 pan is gone** — 0 px on every build.',
+			'Decided (Architect scope, Felix\'s veto live — same class as the two\nalready-recorded ones): the amendment stands.']) {
+			const m = migrateText('LEDGER.md', entry(clause));
+			expect([clause, m.after.includes('unrecorded')]).toEqual([clause, false]);
+			expect(codes(parseLedger(m.after).fails)).toEqual(['ledger.decided']);
+			expect(roundTrip(m)).toEqual([]);
+		}
+	});
+
 	test('the inline-attribution decision variant types the absent title, never authors one (item 6)', () => {
 		const m = migrateText(join(FX, 'pre-d63', 'decisions-inline.md'), fx('pre-d63', 'decisions-inline.md'));
 		expect(m.edits).toHaveLength(2);
@@ -421,7 +464,7 @@ describe('migrate — pre-D63 fixtures', () => {
 	});
 
 	test('migrate is idempotent — a second pass finds nothing', () => {
-		for (const n of ['board.md', 'ledger.md', 'decisions.md', 'decisions-inline.md', 'heading/LEDGER.md', 'bare/LEDGER.md']) {
+		for (const n of ['board.md', 'ledger.md', 'decisions.md', 'decisions-inline.md', 'heading/LEDGER.md', 'bare/LEDGER.md', 'dialect/LEDGER.md']) {
 			const once = migrateText(join(FX, 'pre-d63', n), fx('pre-d63', n));
 			expect(migrateText(once.file, once.after).edits).toEqual([]);
 		}
@@ -517,6 +560,7 @@ describe('the register', () => {
 			'conforming/ledger.md', 'conforming/ledger-standard.md', 'conforming/decisions.md',
 			'conforming/decisions-standard.md', 'pre-d63/board.md', 'pre-d63/ledger.md', 'pre-d63/decisions.md',
 			'pre-d63/decisions-inline.md', 'pre-d63/heading/LEDGER.md', 'pre-d63/bare/LEDGER.md',
+				'pre-d63/dialect/LEDGER.md',
 			'pre-d71/board.md', 'defects/bold-verdict.md', 'defects/truncated.md', 'defects/merged-LEDGER.md',
 			'defects/parked-leads.md', 'defects/unstaffed.md']) {
 			const p = join(FX, n);
