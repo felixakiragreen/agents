@@ -45,6 +45,15 @@ export const UNSTAFFED = 'unstaffed';     // → `—`, and only where the Statu
  */
 export const isId = (s: string) => /^[A-Za-z0-9][A-Za-z0-9-]*$/.test(s) && /\d/.test(s);
 
+/**
+ * §8 — a decision id, as text, named ONCE: a campaign prefix, an optional second letter run,
+ * then the number. `D63` · `D63a` · `RP-1` · `A17` · and the standard's own `‹prefix›-D‹n›`
+ * (`PD-D9`, `TH-D11`, `LB-D10`, `C-D2`, `VX-D2`) are one shape. The reader used to spell it in
+ * four places and reject the form §7 mandates in all four — a silent zero over bob's 53
+ * declared decisions (C26-F1). One spelling, or it drifts again.
+ */
+export const DECISION_ID = String.raw`[A-Za-z]{1,8}(?:-[A-Za-z]{1,8})?-?\d+[a-z]?`;
+
 /** §7 — the blessing mark. `✓ Felix` is the historical spelling: read forever, never emitted. */
 export const BLESSED_MARK = /⬡\s*✓|✓\s*Felix/;
 /**

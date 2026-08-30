@@ -249,6 +249,28 @@ describe('the silence family — defects that once reported clean', () => {
 		expect(r.queue.map(d => d.id)).toEqual(['D68']);
 	});
 
+	test('the id form §7 mandates parses — `‹prefix›-D‹n›` was a silent zero (C31 item 3)', () => {
+		const r = parseDecisions(fx('vocab', 'DECISIONS.md'));
+		expect(r.candidates).toBe(3);                                              // 2 before the widening
+		expect(r.decisions.map(d => d.id)).toEqual(['D1', 'C4', 'VX-D2']);
+		expect(codes(r.fails)).toEqual([]);
+		// every id spelling the city writes, one line each — the four bob rejected among them
+		for (const id of ['PD-D9', 'TH-D11', 'LB-D10', 'C-D2', 'VX-D2', 'RP-1', 'A17', 'D63', 'D63a'])
+			expect(parseDecisions(`- **${id}** (2026-08-29, Architect): **T.** b.`).decisions.map(d => d.id)).toEqual([id]);
+		// the guard the widening may not break: a bold cross-reference carries no attribution
+		expect(parseDecisions('- **T13 ∥ t12c**, concurrent — both land.').candidates).toBe(0);
+		expect(parseDecisions('- **PD-D9** — no attribution, so not a decision.').candidates).toBe(0);
+	});
+
+	test('a prefixed-D entry migrates by both decision rules (C31 item 3)', () => {
+		const head = migrateText('DECISIONS.md', '- **PD-D9 · 2026-08-13 · The pod unit** the body.\n');
+		expect(head.after).toBe('- **PD-D9** (2026-08-13): **The pod unit** the body.\n');
+		const inline = migrateText('DECISIONS.md', '- **TH-D11 (2026-08-13, Felix):** the body.\n');
+		expect(inline.after).toBe('- **TH-D11** (2026-08-13, Felix): **unrecorded.** the body.\n');
+		expect(roundTrip(head)).toEqual([]);
+		expect(roundTrip(inline)).toEqual([]);
+	});
+
 	test('a fence naming no mantle after the article is not a kickoff candidate (item 13)', () => {
 		const letters = [
 			'```\nYou are the founding ⟨title as the window knew it⟩ of ⟨project⟩ — the window that\n⟨founding act⟩ on ⟨date⟩.\n```',

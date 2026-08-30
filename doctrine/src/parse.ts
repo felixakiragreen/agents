@@ -6,7 +6,7 @@
 // verbatim excerpt — never a parser branch. The shapes below are P3 §5's, normative per D65.
 
 import {
-	BLESSED_MARK, BLESSED_TAIL, DEFERRED, FELIX_GATE, HEX_GATE, MANTLES, PARKED, PENDING, PROPOSED_MARK,
+	BLESSED_MARK, BLESSED_TAIL, DECISION_ID, DEFERRED, FELIX_GATE, HEX_GATE, MANTLES, PARKED, PENDING, PROPOSED_MARK,
 	RETIRED, STATES, UNRECORDED, UNSTAFFED, VERDICTS,
 	delink, fail, isId, isMantle, isState, isTier, leadingToken, linkTarget, strip, topSplit, trailingParen,
 	type Fail, type State,
@@ -408,16 +408,19 @@ export type Decision = {
 	blessed: boolean; pending: boolean; line: number;
 };
 
+// A project's decision ids carry its own prefix — RP-1, A1, D63 (item 11) and §7's mandated
+// `‹prefix›-D‹n›` (PD-D9, C-D2 — C31 item 3); the shape is `DECISION_ID`, the id is verbatim. A
+// candidate must carry the ATTRIBUTION shape after its id — `**D1** (…`, `**D1 (…` or the
+// pre-doctrine `**D1 · …` — or every bold cross-reference bullet in a master doc
+// ("**T13 ∥ t12c**, concurrent…") is promoted to a malformed decision.
+const CANDIDATE = new RegExp(String.raw`^\s*[-*]\s*\*\*${DECISION_ID}(\*\*\s*[*_]?\(|\s+\(|\s*·)`);
+const DECISION_HEAD = new RegExp(String.raw`^\s*[-*]\s*\*\*(${DECISION_ID})\*\*\s*\(`);
+
 export function parseDecisions(md: string): { decisions: Decision[]; queue: Decision[]; fails: Fail[]; candidates: number } {
 	const fails: Fail[] = [];
 	const lines = md.split('\n');
 	const decisions: Decision[] = [];
 	let candidates = 0;
-	// A project's decision ids carry its own prefix — RP-1, A1, D63 (item 11); the id is
-	// verbatim. A candidate must carry the ATTRIBUTION shape after its id — `**D1** (…`,
-	// `**D1 (…` or the pre-doctrine `**D1 · …` — or every bold cross-reference bullet in a
-	// master doc ("**T13 ∥ t12c**, concurrent…") is promoted to a malformed decision.
-	const CANDIDATE = /^\s*[-*]\s*\*\*[A-Za-z]{1,8}-?\d+[a-z]?(\*\*\s*[*_]?\(|\s+\(|\s*·)/;
 	for (let i = 0; i < lines.length; i++) {
 		if (!CANDIDATE.test(lines[i]!)) continue;
 		candidates++;
@@ -426,7 +429,7 @@ export function parseDecisions(md: string): { decisions: Decision[]; queue: Deci
 		for (; j < lines.length && lines[j]!.trim() && !CANDIDATE.test(lines[j]!) && !/^#{1,6} /.test(lines[j]!); j++) text += ' ' + lines[j]!.trim();
 		i = j - 1;
 
-		const head = text.match(/^\s*[-*]\s*\*\*([A-Za-z]{1,8}-?\d+[a-z]?)\*\*\s*\(/);
+		const head = text.match(DECISION_HEAD);
 		if (!head) {
 			fails.push(fail('decisions', 'decision.head', 'entry does not open "- **<id>** (" (§8)', text.slice(0, 240), at));
 			continue;

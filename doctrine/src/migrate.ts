@@ -13,7 +13,7 @@
 import { basename } from 'path';
 import { readFileSync, writeFileSync } from 'fs';
 import {
-	DEFERRED, FELIX_GATE, HEX_GATE, PARKED, RETIRED, UNRECORDED, UNSTAFFED, VERDICTS,
+	DECISION_ID, DEFERRED, FELIX_GATE, HEX_GATE, PARKED, RETIRED, UNRECORDED, UNSTAFFED, VERDICTS,
 	isId, isMantle, isTier, leadingToken, strip, topSplit, trailingParen,
 } from './grammar';
 import { boardIds, isBoardHeader, parseBoards, parseDecisions, parseLedger, tables } from './parse';
@@ -294,7 +294,7 @@ const decisionHead: Rule = {
 	id: 'decision.pre-doctrine-head', changes: ['id', 'date', 'decider', 'title', 'body', 'blessed', 'pending'],
 	line: {
 		run: t => {
-			const m = t.match(/^(\s*[-*]\s*)\*\*([A-Za-z]{1,8}-?\d+[a-z]?)\s*·\s*(\d{4}-\d{2}-\d{2})\s*·\s*(.+?)\*\*(.*)$/);
+			const m = t.match(new RegExp(String.raw`^(\s*[-*]\s*)\*\*(${DECISION_ID})\s*·\s*(\d{4}-\d{2}-\d{2})\s*·\s*(.+?)\*\*(.*)$`));
 			return m ? `${m[1]}**${m[2]}** (${m[3]}): **${m[4]}**${m[5]}` : null;
 		},
 	},
@@ -309,7 +309,7 @@ const decisionInlineAttribution: Rule = {
 	id: 'decision.inline-attribution', changes: ['title', 'body', 'date', 'decider', 'blessed', 'pending'],
 	line: {
 		run: t => {
-			const m = t.match(/^(\s*[-*]\s*)\*\*([A-Za-z]{1,8}-?\d+[a-z]?)\s+\((\d{4}-\d{2}-\d{2}),\s*([^)]*)\):\*\*\s*(.*)$/);
+			const m = t.match(new RegExp(String.raw`^(\s*[-*]\s*)\*\*(${DECISION_ID})\s+\((\d{4}-\d{2}-\d{2}),\s*([^)]*)\):\*\*\s*(.*)$`));
 			return m ? `${m[1]}**${m[2]}** (${m[3]}, ${m[4]}): **${UNRECORDED}.** ${m[5]}` : null;
 		},
 	},
