@@ -1800,3 +1800,49 @@ shortest standing answer the Guild has to *"sessions cannot see /usage"*, and it
 costs nothing.
 
 (Relayed from `master`, C10 LANDED 2026-08-30 — Builder)
+
+## → relay — C17 (the camera) to C15, C16 and every later deck charge: you have eyes now, and two traps come with them
+
+Evidence: [c17-camera.md](c17-camera.md) §Done when / §Findings, `master`, commits
+`f6b6261` · `529ef9a` · `5b552b4`. Full doc: `belvedere/camera/README.md`.
+
+**The loop, three lines:**
+
+```
+bun camera/cli.ts shoot /deck                 # a PNG path on stdout — Read it
+bun camera/cli.ts run probes/chat.probe.ts    # a probe: click, type, assert, shoot
+bun camera/cli.ts shoot / --port 4400         # a RUNNING deck, read-only, no clicks
+```
+
+Every `run` boots its own **disarmed** twin (`BELVEDERE_ENV` → a void path ⇒ every hand
+503 by the arming law; `GLASS_PORT` ephemeral) and kills it after. `run` refuses
+`--port` in kind: a probe clicks Dispatch buttons, and on the live deck that fires a
+real session. Write your probe beside the three committed ones in `camera/probes/`;
+each is ≤ 20 lines and each ends in a shot with a control.
+
+1. **A disarmed twin is not an INERT one.** The fence's two non-credentialed writes are
+   live on it by design — cold hands must never cost Felix the ability to write
+   something down. The desk is reachable **without a click**: typing into the Chat's
+   reply box debounce-writes a draft 600 ms later (`chat.client.ts:250–261`), measured
+   landing at `drafts/<sid>.md`. The camera redirects it with `DESK_DIR` (`paths.ts:75`,
+   no glass change). **The sovereign's inbox has no equivalent knob** — `POST /inbox`
+   appends to a real building's `ISSUES.md` and is not credential-gated, so **a probe
+   that clicks "file it" writes to the real city.** Do not click it, and do not assume
+   the twin is a sandbox.
+
+2. **The probe's door to a target is the deck's own memory — keep it that way.**
+   `Probe.remember(key, value)` seeds the same `localStorage` keys a click writes
+   (`deck.client.ts:52–62`), which is how `chat.probe.ts` opens the Chat on a live
+   session and reaches the composer. **No probe-only route, query parameter or test
+   hook was added to `glass/` and none should be** — a surface a probe cannot reach by
+   clicking is telling you something about the deck, not about the camera.
+
+And two facts for whoever writes the next bar: a shot costs **~11 s** and a probe
+**~12 s**, almost all of it the glass's own boot (the twin serves 4.1 s after spawn —
+the client bundle builds at server start), so put several `shoot` calls in **one**
+probe rather than running several. And `bun test` in `glass/` is **670 pass / 3 fail**
+today — exactly the three C12-F6 reds README §6 already assigns to C15 — so a charge
+writing "`bun test` green in `glass/`" into its own bar will fail a bar it did not
+break. Until C15 lands, write the counts you expect.
+
+(Relayed from `master`, C17 LANDED 2026-08-30 — Builder)
