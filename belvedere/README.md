@@ -739,7 +739,15 @@ batch, never before its inputs exist:
    ~156 live-prose hits: README ×130 + the six batch-6 docs, inbox 2026-08-29)
    with its two ⬡ identity forks put to Felix: **`fire`** (the engine's own noun
    vs the graveyard — respelling prose without code forks the deck's copy from
-   its API) and **`the glass`** (the building's own name for itself).
+   its API) and **`the glass`** (the building's own name for itself). **The
+   master-doc purge rides the same lay** (Felix's question 2026-08-30, this
+   ruling): this README fails the doctrine's two-minute cold-read — ~950 lines,
+   over a single 25k-token read, LANDED rows carrying paragraph-length status
+   cells — and the canon pair C34 → C35 is the blade: LANDED rows compress to
+   status + findings link, spent batch notes die, §7 entries fully distilled
+   into §§1–5 are killed whole, live holds survive verbatim. Cut once, at G5,
+   against the settled v3 world — never mid-strangle, while C15/C16 are
+   rewriting the very sections a purge would touch.
 
 **Batch 1 — 2026-08-30:** single charge, **C14**, ignitable now (no dependencies;
 V3 LANDED — BLESSED). Serial, no flow, no bulletin. Tender: **Felix ignites by
