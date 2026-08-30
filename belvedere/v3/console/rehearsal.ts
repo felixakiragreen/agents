@@ -27,7 +27,7 @@
 // Budget: ≤$3 and ≤30 turns, dollars leading (C8 F9). The meter runs at the end
 // and exits nonzero on a ceiling — that is a ⬡-fork, not a retry (D21).
 
-import { mkdirSync, appendFileSync, rmSync, writeFileSync } from "node:fs";
+import { appendFileSync, existsSync, mkdirSync, renameSync, writeFileSync } from "node:fs";
 import { loadavg } from "node:os";
 import { load } from "../engine/engine.ts";
 import { invariants } from "../engine/invariants.ts";
@@ -72,7 +72,7 @@ const FLOW = {
 	steps: [
 		step("plan", [], `Write a file called notes.md in your working directory containing exactly one line: "Release notes pending." Then stop. ${REPORT_RULE}`),
 		step("ask", ["plan"], `You are drafting a release announcement. The release NAME has not been given to you and you must not invent one. Ask for the release name and stop. ${REPORT_RULE}`),
-		step("hold", ["ask"], `You are writing the announcement's sign-off line. The NAME OF THE PERSON who signs it has not been given to you and you must not invent one. Ask who signs it and stop. ${REPORT_RULE}`),
+		step("hold", ["ask"], `Remember this codeword exactly: ${NAME}. You are writing the announcement's sign-off line. The NAME OF THE PERSON who signs it has not been given to you and you must not invent one. Ask who signs it and stop. ${REPORT_RULE}`),
 	],
 };
 
@@ -99,7 +99,14 @@ const tmux = async (...args: string[]): Promise<string> => {
 
 // ── the pass ─────────────────────────────────────────────────────────────────
 
-rmSync(runDir, { recursive: true, force: true });
+// A previous pass is rotated aside, never deleted: its streams are the only
+// record of turns this account actually paid for, and the meter reads them.
+if (existsSync(runDir)) {
+	let n = 1;
+	while (existsSync(`${runDir}-${n}`)) n++;
+	renameSync(runDir, `${runDir}-${n}`);
+	console.log(`  (a previous pass was rotated aside to ${runDir}-${n} — its spend still counts)`);
+}
 mkdirSync(runDir, { recursive: true });
 mkdirSync(workDir, { recursive: true });
 writeFileSync(`${runDir}/flow.json`, JSON.stringify(FLOW, null, 2) + "\n");
@@ -153,7 +160,7 @@ appendFileSync(`${RUNS}/off-log.jsonl`, JSON.stringify({ what: "the rehearsal's 
 // 5 — return: back under the engine, headless, on the same session. The cursor
 // absorbs the pane's rows because it is a recorded row count (C11, C8 F7).
 await verb("return", RUN, "hold",
-	`Report now. Set state to done. In \`answer\`, give exactly two things separated by a comma: the release name you were given earlier, and the sign-off you were just told.`,
+	`Report now. Set state to done. In \`answer\`, give exactly two things separated by a comma: the codeword you were told at the very start, and the sign-off you were just told.`,
 	"--run");
 
 // 6 — list again: the terminal state, from the log alone.
