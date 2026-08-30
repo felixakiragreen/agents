@@ -196,16 +196,11 @@ live; the archive serves the dead, the cleared, and the search index.
   collision were measured (a Builder swept a Digger's live probe, then a Digger
   swept a Builder's half-written module); nothing was lost, but attribution
   lied twice.
-- **Engine venue semantics (written down at the 08-29 flow-1 sweep):** a step's
-  `kickoff.doc` resolves against the **master checkout** (`docPath`: absolute, `~`,
-  or city-root-relative — never the step's venue), so the blessed bytes are always
-  master's; the fired *session*, though, reads its docs from its venue cwd, so a
-  standing worktree must be current before any re-fire. A standing worktree path
-  **refuses the cut** (`hands.ts` — "worktree path already exists"): a re-blessed
-  flow neither reuses nor silently re-mints a stale venue. The run log is telemetry
-  and the engine never re-fires a step whose log says `fired` — a true re-run
-  rotates `summon/log/census/flows/<name>.run.jsonl` aside, removes standing
-  worktrees of un-landed fired steps, then blesses fresh.
+- **A standing worktree path refuses the cut** (`hands.ts` — "worktree path
+  already exists"): a venue is neither reused nor silently re-minted. *(Re-cut
+  2026-08-30 at C15's review, its F6 — the rest of the 08-29 "engine venue
+  semantics" note described the v2 engine and died with it, D22 r2; v3's law
+  is the frozen `prompt` and the run log as truth, the campaign note §6.)*
 - **Trust is read from `~/.claude/.claude.json`** (per account dir), never the
   legacy `~/.claude.json` — a human measuring trust by the legacy file gets wrong
   answers (canon charge 20 F6, measured 2026-08-29).
@@ -260,7 +255,8 @@ live; the archive serves the dead, the cleared, and the search index.
 | C17 | [The camera](plans/c17-camera.md) — agents' eyes and hands on the deck: a disarmed twin per probe (`BELVEDERE_ENV` void ⇒ hands 503, `GLASS_PORT` ephemeral), `playwright-core` on installed Chrome headless, `shoot` + `run` verbs, PNGs the agent Reads; every later deck charge's visual bars ship camera evidence | — | Builder · opus-high (parallel-safe with C14 — disjoint trees, two-lane rule) | **LANDED** 2026-08-30 — agents have eyes; nothing escalated, DoD evidenced in [C17](plans/c17-camera.md). `camera/` boots a **disarmed** twin per probe and proves the disarm before a browser opens (one `POST /hands/fire` ⇒ 503, or it refuses); `shoot` + `run`, three committed probes, the Chat's 503 photographed. `playwright-core@1.62.1` on the installed Chrome under bun — **neither fallback needed**, no browser download. Zero `glass/**` changes (git-proven), **budget 0 real turns spent**. Two traps relayed: a disarmed twin is not inert (the inbox has no knob — a probe clicking "file it" writes the real city; the desk is redirected by `DESK_DIR`), and `bun test` in `glass/` is 670/3 — the three C12-F6 reds C15 already owns (F4). Reviewed 2026-08-30 at the tender's hand: camera type gate 0, `git diff --stat HEAD -- belvedere/glass` empty, `shoot /` exit 0 with the PNG Read — the rail leads with the HANDS DISABLED banner naming the twin's void path and the first baton card is this review's own summons — zero surviving twins |
 | C18 | [The gates](plans/c18-gates.md) — one command, every standing gate: four suites + four type gates + the barrage, ending in the paste-ready evidence block; the runner seen to fail per family | — | Builder · opus-medium | **LANDED** 2026-08-30 — `bun v3/gates.ts` is the proving run; six bars evidenced in [C18](plans/c18-gates.md), five findings. Settled tree ALL GREEN — 9 gates · wall 209.5 s; `--fast` 60.6 s and says the skip twice; seen to fail in all three families and with two plants live, plants proven reverted; `--glass` works and is honestly RED at HEAD (C15's three). **F1 — `bunx tsc` inside `v3/**` FETCHES a checker off npm** (nothing local resolves; versions match B8's pin by luck) — the runner invokes the pinned binary by path; relayed. Reviewed 2026-08-30 at the tender's hand: `bun v3/gates.ts` ALL GREEN — 9 gates, wall 209.1 s, exit 0; **F1 ruled — the coda's type-check sentence trued** (the fetch twice-measured, this review's own C14 pass included); **F2 ruled and built at the review** — the runner grades itself, `gates · types` added over `v3/tsconfig.json`, `--fast` ALL GREEN — 9 gates |
 | C19 | [The fixture city](plans/c19-fixture-city.md) — deterministic card states for the camera's twin: two conforming fixture buildings + one broken (lint red as control), pid-live/dead census + fresh usage seeded at boot, `--fixture` wiring, four committed probes | C17 | Builder · opus-high | **LANDED** 2026-08-30 — all seven bars evidenced in [C19](plans/c19-fixture-city.md), findings F1–F7; nothing escalated, one deviation named and **ratified at the review**: **F1 — a fixture city inside `~/code` 500s every building page** (slug-vs-city-root, B10 F5's second face, measured), so `seed.ts` copies the tree out at boot — fixture buildings wear their temp paths, ugly and unambiguous; **binds C15/C16**. F2 `--fixture` contains the un-gated inbox write (the real-city twin keeps C17 F2's trap); **F3 the deck renders D71's dissolved staffing as `? · ?` beside 0 lint** — filed, folded into C15; F5 a probe declares its own world (`export const fixture`); F7 `fixtures/` is invisible to the register on descent only — keep fixture cities under `fixtures/`/`lab/`. Reviewed 2026-08-30 at the tender's hand: alpha + beta lint 0, broken exit 1 with 6 classes (the control), `fixture-rail` re-run exit 0 with the PNGs Read — beta's composed Dispatch pair beside the unwired ⬡ cards, D10 in pixels — zero twins and zero fixture dirs after, glass byte-identical to HEAD |
-| C15 | [The deck's v3 lane](plans/c15-deck-v3-lane.md) — the v2 engine dies whole (`glass/flow.ts` · `glass/engine.ts` · `glass/judge.ts` · `flows/*.flow.json` + tests, D22 r2); the Works draws v3 runs off the engine's own exports (the run log is truth, read-only — driving is G5's rework lay, pre-ruled); the three C12-F6 reds + C19 F3's ternary resolve; the inbox knob closes C17 F2; every visual bar ships camera evidence | C14; C17 | Builder · opus-high | **IN FLIGHT** — dispatched 2026-08-30 by the tender at his word (batch 2; C18 + C19 pasted green at the review, the schedule hold paid); budget 0 real turns |
+| C15 | [The deck's v3 lane](plans/c15-deck-v3-lane.md) — the v2 engine dies whole (`glass/flow.ts` · `glass/engine.ts` · `glass/judge.ts` · `flows/*.flow.json` + tests, D22 r2); the Works draws v3 runs off the engine's own exports (the run log is truth, read-only — driving is G5's rework lay, pre-ruled); the three C12-F6 reds + C19 F3's ternary resolve; the inbox knob closes C17 F2; every visual bar ships camera evidence | C14; C17 | Builder · opus-high | **LANDED** 2026-08-30 — the v2 engine is gone whole (git rm ×9, `flows/` gone, zero live references) and the Works draws v3 runs read-only off the engine's own exports; 8 of 8 bars evidenced in [C15](plans/c15-deck-v3-lane.md), findings F1–F7. Glass 673 → **565 pass / 0 fail** (123 died with v2, 15 added); **F1 — the two colour reds were ONE cause**, a translation applied twice (`INTENT_OF` deleted, an ANSI slot name is now `null`); **F2/F3 — two bugs only the camera could see**: `data-at` is the deck's clock and stamping a node with it erased the node one second after paint, and a repaint signature omitting the picker's state left Action drawing the previous run (inherited from v2, invisible at one-flow-per-building); the kickoff is frozen bytes proven against a rewritten-then-deleted doc; the inbox knob `$INBOX_DIR` closes C17 F2 (real city byte-identical before/after, photographed); F5 barrage runs crowd the `agents` picker (named, the fake/real filter is G5's); F6 `lab/b10–b12` probes are dead letters kept as landing evidence. Reviewed 2026-08-30 at the tender's hand: `bun v3/gates.ts --glass` **ALL GREEN — 12 gates, wall 211.6 s, exit 0** (glass 565/0, barrage 1000 · 50 · 9/9), `works-v3` probe re-run exit 0 with the PNG Read — the rehearsal's three nodes landed-green above the NOW line, frozen byte counts and the READ-ONLY pill in Action — zero twins after; F6's stale §5 agreement re-cut at the review (the worktree-refusal sentence survives) |
+| C16 | [The Chat chapter](plans/c16-chat-chapter.md) — the Chat primary over the engine's world (D20/D22 r4): read any session, pane or headless; a ‹needs-⬡ question› answered in the rendered Chat lands the step through the engine's own seam; delivery verified on the transcript (B16's law kept); rich rendering camera-verified before his pass | C15; C17 | Builder · opus-high | OPEN — cut 2026-08-30 at C15's reviewed landing (batch 3); ⬡-gate: his ignition (D11); budget ≤$2 / ≤15 subject turns — the one real-bytes round trip, either ceiling a ⬡-fork (D21) |
 
 **Batch 1 (cut at founding, 2026-08-26) — Felix-tended, reasons named:** the venue
 is his live desktop (first contact with a new substrate — his eyes at each landing),
@@ -704,9 +700,9 @@ batch, never before its inputs exist:
    Chrome, headless), and writes PNGs the working agent Reads with its own
    eyes. Every later deck charge's visual bars ship camera evidence; his ⬡
    passes stay for taste, not defect-hunting.
-3. **C15 — the deck's v3 lane** (batch 2, OPEN — **cut 2026-08-30** at C14's
-   reviewed landing, [the charge](plans/c15-deck-v3-lane.md); the account
-   field's final shape is its input): the v2 engine retires from the
+3. **C15 — the deck's v3 lane** (batch 2, **LANDED 2026-08-30** —
+   [the charge](plans/c15-deck-v3-lane.md); the account
+   field's final shape was its input): the v2 engine retires from the
    live deck — `glass/flow.ts`, `glass/engine.ts`, `glass/judge.ts`, the
    `flows/*.flow.json` files and their tests die whole (zero debt, D22 r2); the
    Works and the hands re-point to the v3 engine's exports and run dirs (the
@@ -726,7 +722,8 @@ batch, never before its inputs exist:
    landing reads the subject's own report, never a board row — the v2 sensor
    circle (flow-1's worktree stall: board-by-master + merge-gated-on-landing)
    is not rebuilt.
-4. **C16 — the Chat chapter** (un-laid; cut at C15's reviewed landing): the Chat
+4. **C16 — the Chat chapter** (batch 3, OPEN — **cut 2026-08-30** at C15's
+   reviewed landing, [the charge](plans/c16-chat-chapter.md)): the Chat
    primary on the engine's read/inject (D20's my_checklist pattern) — read
    anything, send turns; summon-to-terminal stays the measured fallback (C8 F7,
    C10's round trip). The Chat's rich formatting — markdown, code fences,
@@ -797,6 +794,25 @@ one tender owns the sum). The bulletin
 ([plans/BULLETIN.md](plans/BULLETIN.md)) stands while the parallel pair runs.
 After batch 2: the close review verifies the three landings and lays **C16 —
 the Chat chapter** on C15's reviewed shape; G5 remains the campaign's close.
+
+**Batch 2 CLOSED 2026-08-30** — three landings, zero kills, every one reviewed
+at the tender's own hand (`bun v3/gates.ts --glass` ALL GREEN — 12 gates, wall
+211.6 s; the Works-on-v3 and fixture-rail probes re-run with their PNGs Read).
+The v2 engine is gone from the deck; the city has one engine. Rulings at the
+close: C18 F1 → the coda trued (`fdfce9f`) · C18 F2 → the runner grades itself
+(`056f9e8`) · C19 F1's copy-out deviation ratified · C19 F3 folded into C15
+and landed there · C15 F6 → §5's stale agreement re-cut, `lab/b10–b12`'s dead
+letters stand as landing evidence (a sweep is G5's if wanted).
+
+**Batch 3 — 2026-08-30 (laid at the batch-2 close):** single charge, **C16 —
+the Chat chapter** ([the charge](plans/c16-chat-chapter.md)), cut on C15's
+reviewed shape. **⬡-gate: his ignition** (D11 — the review of the laid charge
+is the authorization); budget **≤$2 / ≤15 subject turns**, either ceiling a
+⬡-fork (D21) — the one real spend is the round-trip bar (a real paused run
+answered from the rendered Chat). Tender at ignition: Felix by hand, or the
+review session on his dispatch word (the batch-2 precedent). After C16's
+reviewed landing: **G5 — the migration close** (the arc's step 5) convenes on
+the strangle whole.
 
 ## 7. Decisions
 
