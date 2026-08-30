@@ -2079,9 +2079,18 @@ the evidence records of landed charges (B11's `0.513 s`, B12's `0.553 s`), so de
 them deletes a landing's proof. They retire to probe history the way `lab/p3/`'s parsers
 did. Three more (`lab/b16`, `lab/b19`, `lab/b21`) still set `FLOWS_DIR` at an empty
 directory to disarm the old engine; that line is inert. **If `lab/` is to be swept, it is
-a sweep, not a Builder's side-quest.** And `belvedere/README.md` §§6–7 still describe the
-v2 arm in spent batch notes and D-entries — historical records, and exactly what the
-master-doc purge at G5 is cut to handle.
+a sweep, not a Builder's side-quest.**
+
+And one line of `belvedere/README.md` that is **not** a historical record and is now
+false: §5's *"Engine venue semantics (written down at the 08-29 flow-1 sweep)"* — it is a
+standing working agreement, and its first and third sentences describe the dead engine
+(`kickoff.doc` resolving `docPath` against the master checkout; a re-run rotating
+`summon/log/census/flows/<name>.run.jsonl` aside). Its middle sentence still holds and is
+worth keeping: a standing worktree path **refuses the cut** in `hands.ts`, which is a
+hand's law, not an engine's. Left for the Architect's pen, because the master doc's
+agreements are not a Builder's to rewrite. §§6–7's v2 arm references are the other kind —
+spent batch notes and D-entries, exactly what the master-doc purge at G5 is cut to
+handle.
 
 And the cost, for anyone budgeting `/deck/state`: `?b=agents` is **p95 89.1 ms** over 20
 spaced requests (bar 500 ms) with a **234 638 B** payload, of which `works` is 44 551 B;

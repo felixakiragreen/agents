@@ -436,6 +436,15 @@ parsers did (README §1). Three other probes (`lab/b16`, `lab/b19`, `lab/b21`) s
 `FLOWS_DIR` at an empty directory purely to disarm the old engine; that line is now inert
 and harmless. **If the Architect wants `lab/` swept, it is a sweep, not this charge.**
 
+  One README line is the same class and is worth naming separately, because it is a
+  **standing working agreement rather than a spent record**: `belvedere/README.md` §5's
+  *"Engine venue semantics (written down at the 08-29 flow-1 sweep)"*. Its first and
+  third sentences describe the dead engine (`kickoff.doc` resolving `docPath` against the
+  master checkout; a re-run rotating `summon/log/census/flows/<name>.run.jsonl` aside);
+  its middle sentence still holds and should survive — a standing worktree path **refuses
+  the cut** in `hands.ts`, which is a hand's law and not an engine's. Left for the
+  Architect's pen: the master doc's agreements are not a Builder's to rewrite.
+
 **F7 — the deck's own `?b=` payload grew by 44 kB and the register walk still dominates
 it.** `/deck/state?b=agents` is 234 638 B, of which `works` is 44 551 B (census 104 kB,
 workshop 56 kB, queue 40 kB). Server cost: `worksOf('agents')` is **3.1 ms p50** of a
