@@ -129,3 +129,81 @@ is cleared). A cleared inbox is empty.
   session approvals do not flow to dispatched subagents but repo settings
   files bind them. Fix applied by Felix's own hand: repo
   `.claude/settings.json` allowlist incl. `Read(~/.claude*/projects/**)` ×3.
+
+---
+
+- 2026-08-30 · belvedere Architect (the migration sweep, D22) · **agents-flow-1 is
+  abandoned at Felix's word (belvedere D22) — the sweep cleared its remains; one
+  unmerged branch and the canon board's flow-1 rows are the GA's to re-rule.**
+  Cleared at this hand: the worktree `.claude/worktrees/bv/c29-summon-harness`
+  removed (its one uncommitted file preserved verbatim below) and the two stopped
+  run logs deleted (gitignored census telemetry,
+  `summon/log/census/flows/agents-flow-1.run.jsonl.stopped-*`). Standing for the
+  GA: **branch `bv/c29-summon-harness` at `f160ec1`, UNMERGED** — it holds the
+  lab/08 harness repair (master's harness is 15-red since C25's preset retirement,
+  C25-F3 / the C29 row) plus a branch-side LEDGER append that will collide at
+  merge; MAP rows **C29** (OPEN — work done on the branch, never landed), **C32**
+  (OPEN — never fired) and **G1** (OPEN — the dead flow's close) and the
+  agents-flow-1 note in MAP §5 all want re-ruling against the abandonment. The
+  worktree's removal also clears the live manifestation of this inbox's
+  lint-double-count entry (grand-architect-18) — the arm bug it names stays latent
+  for future `bv/*` worktrees. The three flow-1 defect diagnoses (belvedere inbox,
+  2026-08-29) were distilled into the migration campaign at this sweep — belvedere
+  README §6, the campaign note. The recovered relay — c29's uncommitted bulletin
+  block, addressed to charge 22 and every session that edits `summon/presets.tsv`,
+  byte-preserved:
+
+  ```
+  ## 2026-08-29 · C29 → charge 22, and every session that edits `summon/presets.tsv`
+  **Editing `presets.tsv` breaks `lab/08/run` in ways the 13-F1 guard does not catch, and
+  the guard's new removal arm still does not catch them.** C25 deleted one row; the harness
+  went 1 → 15 failures. The breakage is **typed literals**, not derivation: `● [d]ispatcher`
+  in two wrap assertions, `dispatcher-hive-0N` in three stamp assertions, `fg=213` in two
+  palette assertions, and a `d` keypress in `lab/08/drive.exp`. If you add or remove a
+  preset row, expect to re-derive all of those **from a real render**, never by eye.
+
+  Two specifics that will bite anyone touching the file next:
+
+  1. **The wrap assertions are coincidence-sensitive.** v1.3 sets its swatch off with a
+     space, so each preset item is one column wider than v1.1's; the two versions break the
+     mantle row at different items **by construction**. With seven presets they happened to
+     coincide at 80 and 60 columns, so `--- usage: unconfigured ⇒ the panel is v1.1` passed
+     by luck; with six they do not. C29 fixed it by folding continuation lines back before
+     comparing (`rows()`/`unwrap` in `lab/08/run`), so it is now immune — but the four
+     assertions in `--- responsive render` still carry literal wrapped lines and WILL move
+     the day the item count changes again.
+
+  2. **There is no 256-colour preset left.** `pink` (`38;5;213`) died with `d dispatcher`,
+     and every survivor is a 16-colour name (`green ×3, cyan, blue, red`). The swatch proof
+     now rides `cyan` / `\e[36m`. A preset minted on the freed `d` key with a `38;5;n`
+     colour would restore the stronger proof for free — worth a thought when charge 22 or
+     Felix's taste fills that key.
+
+  The arm that would actually have caught C25: assert every `● [x]…` literal typed in
+  `lab/08/run` names a live `PKEY`, plus a sibling over `drive.exp`'s preset presses. Not
+  built — C29 is a repair, not a redesign; it is written up as finding 4 for the next
+  charge that opens `lab/08`.
+  Evidence: `plans/c29-summon-harness.md` §Done when + §Findings; commits `57baf9f`,
+  `c78a406` on `bv/c29-summon-harness`.
+  ```
+
+---
+
+- 2026-08-30 · belvedere Architect (the migration sweep) · **a Builder that lands
+  must true its own row — candidate: the coda or the charge template gains the
+  closing line "your last commit trues your row's Status."** Flow-1's third
+  diagnosis, escalated at the sweep: c29's Builder landed by its own commit
+  (`f160ec1` "C29 lands: charge doc evidenced, findings filed, ledger appended")
+  and marked no row anywhere — C29 read OPEN on master AND on its own branch, so
+  even a branch-side landing sensor would not have seen it. The repro is c29's own
+  charge doc. Canon-shaped: template/coda text is the GA's.
+- 2026-08-30 · belvedere Architect (the migration sweep) · `.summon-theaters` sits
+  untracked at the repo root — the theater cycle's state (canon row 14, its
+  contents two theater names), rig state outside `summon/log/`; wants a
+  `.gitignore` line or a home beside the rest of the rig's telemetry. Found by
+  `git status` at this session's open.
+- 2026-08-30 · belvedere Architect (the migration sweep) · the worktree
+  `.claude/worktrees/agent-a55279e2283f84743` (charge 18's wave, tip `ecd7682`) is
+  **merged into master and clean** — pure residue unless a session still sits in
+  it; D55-class, not this sweep's to remove (found beyond the fence, filed). One
+  `git worktree remove` once the GA confirms nothing lives there.
