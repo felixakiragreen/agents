@@ -158,6 +158,17 @@ logs from day one so it lights up from real history later) · whiteboardy links
 (THG-only, Felix) · the Steward (lands INTO this deck, after; un-deferred by Felix's
 word only) · editing truth (forever-class, §2).
 
+**Future campaigns, filed:** the unified conversation archive at campaign scale —
+search surfaces, deck integration, N accounts — on C12's mirror as its foundation
+(Felix's word 2026-08-30, verbatim in the inbox history of that date; ruled filed,
+not laid). The mirror + launchd + restore drill are LANDED (C12); the campaign,
+when called, inherits two measured traps: any directory-walking `rg` over the
+archive needs `--hidden --no-ignore` or the `personal` account silently vanishes
+(C12 F1 — the archive's account dirs are dotfiles and `.gitignore`'s `.claude/`
+line masks one by name; explicitly-named file lists are exempt), and the mirror is
+derived, never authoritative — truth stays in the account dirs while sessions
+live; the archive serves the dead, the cleared, and the search index.
+
 ## 5. Working agreements
 
 - **Venue:** this subdirectory. Probes commit straight to `master` (they touch only

@@ -1,6 +1,8 @@
 # C1 — the fence repoint
 
-**Status:** OPEN — laid 2026-08-29 · **Depends on:** — · **Staffing:** Builder · sonnet-high
+**Status:** LANDED 2026-08-29 — status trued 2026-08-30 at the migration sweep (this
+line read OPEN against a LANDED board row — root inbox 2026-08-29; commits `68b953b`,
+`ba2ed0b`) · **Depends on:** — · **Staffing:** Builder · sonnet-high
 
 ## Mission
 
