@@ -121,3 +121,11 @@ is cleared). A cleared inbox is empty.
   `Bash(git *)` / `Bash(cd *)` allow rules (2026-08-30 10:33) and blocks were
   still observed — syntax-vs-classifier question dispatched to the guide, its
   answer lands in the v3 review session's report of this date.
+  Evidence 2026-08-30, same session: the classifier blocked
+  `/fewer-permission-prompts` itself — the prompt-reduction skill is in the
+  unauthorized-read class (`~/.claude/projects` transcripts). Guide's verdict,
+  relayed: space-star Bash rules are valid; allow rules bypass the classifier
+  except protected-path writes (`.git/`, `.claude/`) and critical `rm`;
+  session approvals do not flow to dispatched subagents but repo settings
+  files bind them. Fix applied by Felix's own hand: repo
+  `.claude/settings.json` allowlist incl. `Read(~/.claude*/projects/**)` ×3.
