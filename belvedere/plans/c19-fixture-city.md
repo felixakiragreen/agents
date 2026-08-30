@@ -371,8 +371,22 @@ past 900 px, and the charge's own bar asks for both in pixels. The first run of
 the four committed ones do, and `--fixture` on the command line still overrides. The reason
 is not convenience — **the world is part of what a probe asserts**: `fixture-rail` asserting
 "2 Dispatch buttons" against the real city is a lie, and a probe that carries its own world
-cannot be run against the wrong one by accident. `shoot --fixture` and `shoot --port` refuse
-each other in kind, for the same reason `run` refuses `--port` (C17).
+cannot be run against the wrong one by accident. The flag works on the other verb too, and
+the contradiction is answered **before anything is dialled** — its first cut checked the
+foreign port first and died with a true sentence about the wrong thing (`no deck answering on
+127.0.0.1:4400`, exit 1), which is exactly the shape C17's `run --port` refusal exists to
+avoid:
+
+```
+$ bun camera/cli.ts shoot /shelf --fixture
+fixture     /var/folders/…/belvedere-fixture-hiK7yt
+/Users/felix/code/agents/belvedere/camera/shots/2026-08-30T20-45-16-399-shelf.png
+exit: 0
+
+$ bun camera/cli.ts shoot / --fixture --port 4400
+--fixture boots a twin against a seeded city; --port shoots a deck that is already running. Pick one.
+exit: 2
+```
 
 **F6 — the live hands audit gained two lines during this session and neither is this
 charge's.** `2026-08-30T20:34:42.456Z` and `.457Z`, both `action:"inbox"`, both on a
