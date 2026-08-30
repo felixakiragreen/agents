@@ -2189,3 +2189,31 @@ Baton — ⬡ → ignite C9 (kickoff fenced in
 [v3/plans/c9-scale.md](belvedere/v3/plans/c9-scale.md); the coda appends at
 ignition; or say the word and the review session dispatches the batch,
 C10 following on C9's reviewed landing).
+
+---
+
+**2026-08-30 · Architect · fable-high** — batch 8 closed; **the campaign's six
+bars are all LANDED and reviewed, and G4 is convened.** C9 reviewed (fake ×100
+re-run ×3 at this hand — 100 in flight measured, replay ≡, exit 0; K2's wording
+re-cut with a dated note, the lay's own error; the real ladder green to 25, no
+ceiling; the G4 cost table in the charge). C10 reviewed (engine 64 + barrage 38
++ fake 59 + console 19 green, four type gates 0, barrage exit 0 at this hand;
+step 0 seen red on the parent engine — a `needs_input` report on disk now
+pauses ‹needs-⬡ question› carrying the question; the five verbs refuse in kind;
+the rehearsal's first pass failed on its own prompt and the engine paused
+instead of landing a confabulation — kept as evidence). Hygiene: 26 orphaned
+fake subjects (barrage mutant `hang`s, C10 F4) swept to zero after the last
+proving run; the mutant-drill sweep entered the deferred list with C10's
+F2/F5/F6 (six items, none blocking). **G4 laid as a board row (⬡-gate) with
+its pack assembled at [v3/plans/g4-verdict.md](belvedere/v3/plans/g4-verdict.md)**:
+the four rulings (substrate · v2's fate · migration · viewport), the six bars
+with pointers, the honest limits (auto's permissiveness, the false ask, the
+cost inversion), spend ~223 turns / ~$9.64 total, and the tender's read —
+evidence supports substrate YES; rulings 2–4 are his taste, unrecommended.
+Memory: the /usage-gauge memory gained C9 F5's in-band mechanism. Decided:
+nothing register-grade. Next: G4 — his hand and his word.
+
+Baton — ⬡ → G4: run `bun belvedere/v3/console/rehearsal.ts personal`, drive
+the five verbs by hand, then record the four rulings in
+[v3/plans/g4-verdict.md](belvedere/v3/plans/g4-verdict.md) §the verdict —
+the board row resolves on your word.
