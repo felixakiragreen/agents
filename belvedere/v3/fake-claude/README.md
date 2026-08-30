@@ -65,7 +65,7 @@ Each act is a list of steps, performed in order:
 | `tool` | `assistant` tool_use + the `user` tool_result, and `Pre`/`PostToolUse` hooks |
 | `deny` | the tool_use, `system/permission_denied`, an error tool_result, and a row in the closing result's `permission_denials[]` |
 | `delay` | nothing — real wall time, and the virtual clock advances with it |
-| `report` | sets the `--json-schema` answer (`done` / `needs_input` / `blocked` + cause) on the next result. Without `--json-schema` the fake refuses at the door. |
+| `report` | sets the `--json-schema` answer (`done` / `needs_input` / `blocked` + cause) on the next result, and writes the closing `StructuredOutput` pair into the transcript. Without `--json-schema` the fake refuses at the door. |
 | `result` | an extra `result` mid-act, with any field overridden |
 | `die` | stop, then `exit n` or a real signal to self |
 | `hang` | stop emitting and stay alive: no result, no EOF |
@@ -76,13 +76,19 @@ rateLimit }` turns on `system/thinking_tokens` and `rate_limit_event`; both are
 off by default, because real claude's noise drowns a golden and the two
 scenarios named for it carry the coverage.
 
+`streamsReport: true` puts the report's closing pair on **stdout** as well as in
+the transcript, which is where real claude puts it — the fake wrote one carrier
+of the three (C13 F2). It is opt-in because turning it on rewrites a golden, and
+the 23 recorded before it are not this flag's to re-record; `answer-then-land` is
+the first scenario faithful here.
+
 `golden` declares how [`goldens.ts`](goldens.ts) spawns the scenario to record
 its stream: `mode` (`argv` = one process per turn, `stdin` = arm B), `paced`,
 `flags`, `turns`, `seed`, `expectExit`.
 
 ## The library
 
-23 scenarios in [`scenarios/`](scenarios/), each with a committed golden stream
+24 scenarios in [`scenarios/`](scenarios/), each with a committed golden stream
 in [`goldens/`](goldens/). `bun goldens.ts` checks them; `bun goldens.ts --gild`
 rewrites them. Every scenario's `note` says what it proves.
 
@@ -91,7 +97,7 @@ rewrites them. Every scenario's `note` says what it proves.
 `die-137` · `die-exit-1` · `orphan-finish` · `hang` · `schema-done` ·
 `schema-needs-input` · `schema-blocked` · `resume-chain-4` · `armb-paced-4` ·
 `armb-merge-trap` · `armb-merge-trap-queued` · `usage-cost` · `hook-events` ·
-`rate-limit` · `thinking-noise`
+`rate-limit` · `thinking-noise` · `answer-then-land`
 
 ## The validator
 

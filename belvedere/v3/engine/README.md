@@ -95,8 +95,14 @@ it a `StructuredOutput` **tool call** — that call's own input, in the transcri
 7. **Budget is a ceiling** (D73). Ignitions and resumes both cost a turn.
 8. **`invariants(logPath)`** ([invariants.ts](invariants.ts)) — cornerstone §5's
    nine as one pure module over a log. C7's oracle imports it.
-9. **`precheckVenue(account, venue)`** ([venue.ts](venue.ts)) is an interface
-   (C4 F8): the layer-0 stub says yes, C8 implements real trust.
+9. **`precheckVenue(venue, subject)`** ([venue.ts](venue.ts)) runs before every
+   ignition (C4 F8). A **real** subject's venue is read against the account's own
+   `.claude.json` — an untrusted cwd pauses ‹venue› and nothing spawns, because a
+   session born there could never be summoned. A **fake** subject's config dir is
+   a sandbox the run made and owns: trusted by construction, and no live account
+   file is ever opened for one. The read itself lives here, and only here (C10
+   F6, moved at C14); `precheckReal` is the same read without the subject's
+   exemption, for a caller that means it.
 
 **A pause names every cause it sensed, not one.** A subject granted the wrong
 posture *and* refused a tool is two findings, and reporting one hides the other;

@@ -43,13 +43,18 @@ was handed and names `send`. Ambiguity never authorizes (D10).
 ## What it reads
 
 The run log, and nothing else — it is the truth (cornerstone §3.4). Two things
-the log does not carry, because the engine never needed them written down:
+it has to work out for itself:
 
-- **the account.** `CLAUDE_CONFIG_DIR` selects it (C4 F0) and the log records
-  only the subject's cwd, so a run that means to be re-driven leaves a
-  `conditions.json` beside its log naming `account` / `configDir` / `workDir` —
-  the shape C8's harness already writes. Absent, the run is a layer-0 one and
-  its config dir is the engine's own sandbox, which is right for a fake subject.
+- **the venue, and so the account.** `CLAUDE_CONFIG_DIR` selects the account (C4
+  F0) and since C14 the `ignited` event records it, so a log alone re-opens a run
+  to drive it. Three sources, in this order: the **log**; then a
+  `conditions.json` beside it naming `account` / `configDir` / `workDir`, which
+  is how a **pre-C14** run says the same thing (C8's harness wrote it); then the
+  engine's own sandbox, which is right for a layer-0 run and wrong for every
+  other. A pre-C14 run on real subjects whose sidecar is gone is **readable
+  forever and drivable never** — `list` and `read` work, and `send` / `summon` /
+  `return` refuse in kind rather than resuming into a config dir that holds no
+  such session. Nothing backfills an old log.
 - **the flow file.** `load()` takes a path. When none sits beside the log, the
   console writes one from the log's own first event — the same bytes `load()`
   compares against (invariant 8).
@@ -83,6 +88,12 @@ looks exactly like one that worked until somebody looks, because the
 workspace-trust dialog is the TUI's and only `-p` skips it (C4 F8). All three
 accounts trust `~/code/agents` and trust is inherited by descendants (C8 F2), so
 a warm venue inside the fence exists without touching a live config dir.
+
+`summon` runs the same trust read the engine ran at ignite (`engine/venue.ts`)
+**before it opens anything**: an unsummonable venue costs a refusal, not a
+terminal and a human's attention (C10 F6). Reading the pane back stays, because
+the two answer different questions — the file says what the account accepted, the
+pane says what the TUI did about it.
 
 The summon mark lands in `summoned.jsonl` beside the log — **the console's own
 record, never the engine's**: a summon is not a transition, the run log records

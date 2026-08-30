@@ -46,9 +46,12 @@ carry a cycle. Kinds, scenarios, models, postures, the ceiling and the blessed
 scope are all drawn; `(haiku, auto)` never is, because it is refused at bless
 and a refused blessing would test the generator rather than the engine.
 
-**[scenarios.ts](scenarios.ts)** — the scenario table, one row per scenario ×23:
-verdict class, whether a `result` reaches the stream file, what `init` grants
-back, the timeout the row needs, its draw weight, and its act count.
+**[scenarios.ts](scenarios.ts)** — the scenario table, one row per scenario in
+the library: verdict class, whether a `result` reaches the stream file, what
+`init` grants back, the timeout the row needs, its draw weight, and its act
+count. **A weight of 0 is a row the generator never draws** — its properties are
+still measured, but a weight on it would re-shape every seed's topology and
+re-pin all nine mutant seeds for nothing.
 C6 F7's warning made structural — every row is **measured** by
 [scenarios.test.ts](scenarios.test.ts) through the engine's own `ignite()`, not
 declared and hoped for.
@@ -86,6 +89,14 @@ only fires where the topology gives it something to corrupt. Two things must
 hold per mutant: the oracle reds naming that mutant's class, and the same seed
 unmutated is green. `bun run.ts --pin-mutants` re-derives the seeds when the
 generator changes shape.
+
+**[sweep.ts](sweep.ts)** — nothing this command spawned outlives it (C10 F4: 22
+`hang` fakes, hours old, from mutant runs). The run log is the register — the
+engine wrote every subject's pid — so a SIGKILLed child's orphans are still
+findable, and a pid is SIGTERMed only after `ps` says it is still the fake. The
+mutant drill sweeps after each pair of runs, and `run.ts` sweeps on every exit
+path including a throw and a `^C`. **The crash drill is deliberately exempt**
+between its cut and its restart: adopting a live orphan is the thing it proves.
 
 **[reds.ts](reds.ts)** — a red files to `reds/<phase>-<seed>.md` with its
 invariants, its one-command repro and the generated flow. **Never to root
