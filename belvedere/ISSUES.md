@@ -137,3 +137,8 @@ the inbox is cleared. A cleared inbox is empty.
   git, out of unconsidered cloud sync); live files append mid-turn (mirror on
   mtime+size, re-copy tails); accounts scale as a source list (the census's proven
   pattern, C4 F9). Bigger than v3's fence; census-family organ on this board.
+  Re-ruled same day, his word ("Let's do B"): the minimal backstop — mirror +
+  launchd + restore drill — laid and dispatched as
+  [C12](plans/c12-transcript-mirror.md); this entry stays as the campaign-scale
+  expansion (search surfaces, deck integration, N accounts), built on C12's
+  archive when its campaign comes.
