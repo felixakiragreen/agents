@@ -115,8 +115,9 @@ describe('flow-batch-1 — the chapter’s own DAG, parsed', () => {
 		]);
 		// The mantle's hue is the rig's table through felikai's (B18 F1): Builder is felikai blue.
 		expect(batch1.nodes.find(n => n.mantle === 'Builder')!.color).toBe('#0362b2');
-		// A building nobody declared a flow for gets an empty list, never somebody else's flow.
-		expect(worksOf('agents')!.flows).toEqual([]);
+		// A building gets its own flows and never somebody else's: agents carries agents-flow-1
+		// (the first foreign-building flow, 2026-08-29) and none of belvedere's.
+		expect(worksOf('agents')!.flows.map(f => f.name)).toEqual(['agents-flow-1']);
 		expect(worksOf(null)).toBeNull();
 	});
 
