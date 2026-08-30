@@ -207,8 +207,18 @@ $ bun barrage/run.ts --runs 1000 --crashes 50
 barrage: 1000/1000 green
 crash drill: 50/50 converged, zero double-ignitions
 mutation check: 9/9 caught
-barrage GREEN · 1000 runs · 50 cuts · 9/9 mutants · wall 147.7s   # exit 0
+barrage GREEN · 1000 runs · 50 cuts · 9/9 mutants · wall 148.1s   # exit 0
+$ cd barrage && bun test                    38 pass · 0 fail
+$ ../../glass/node_modules/.bin/tsc --noEmit  exit 0
 ```
+
+*One follow-up commit, `4d81191`:* the barrage's own type gate caught a
+hand-built `Fired` literal in `scenarios.test.ts` that the new field made
+incomplete — a test-only fixture, no runtime path, but the gate is a landing bar
+and it was red until it was fixed. Both type gates and the full barrage above
+are the re-proof **after** it. Three hand-built `Fired` literals exist in the
+tree (two in `engine/test/laws.test.ts`, one here); anyone adding a field to
+`Fired` must feed all three, and only `tsc` will say so.
 
 **A trap worth the next Builder's while:** the first regression run came back
 RED at crash seed 1000003, and the red named its own cause —
