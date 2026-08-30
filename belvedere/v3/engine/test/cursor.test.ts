@@ -15,7 +15,7 @@
 import { test, expect } from "bun:test";
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { readLog } from "../log.ts";
-import { readTranscript, readTranscriptText, transcriptPath, transcriptRows, type TranscriptVerdict } from "../transcript.ts";
+import { readTranscript, readTranscriptText, transcriptPath, transcriptRows, verdictFromTranscript, type TranscriptVerdict } from "../transcript.ts";
 import { HERE, reopen, SCRATCH } from "./harness.ts";
 
 const DRIVER = `${HERE}/test/resume-door.ts`;
@@ -60,6 +60,65 @@ test("bar 1 — a resume that dies at the door re-derives as dead, not as the tu
 	const t = state.steps.t;
 	expect(t?.at).toBe("paused");
 	if (t?.at === "paused") expect(t.causes).toEqual(["dead"]);
+}, 60_000);
+
+// ---------------------------------------------------------------------------
+// C13 bar 3 — the regression signal C8 F3 took with it, restored.
+//
+// C8 proved the cursor *slices* correctly on real bytes, and no more: every
+// engine turn read `dead` from row 0 anyway, so a sabotaged cursor and a true
+// one agreed by accident and nothing could have caught a reader that went back
+// to reading from row 0 (C8 F7's caveat). With the completion rule trued, a
+// landed prior turn and a torn resumed one differ again — and the wrong answer
+// is now a **landing**, which is worse than what C7 F3 first showed.
+
+/** The same flow shape as bar 1, but the turn before the door death **reports**:
+ *  the case F3 masked, because only a reporting turn's transcript looked
+ *  different from a dead one's. */
+const REPORT_FLOW = {
+	id: "cursor-report", name: "the door death after a turn that reported", budget: 2,
+	steps: [{
+		id: "t", kind: "task", depends: [], model: "sonnet", effort: "low", posture: "auto",
+		timeout_ms: 5_000, subject: { fake: { scenario: "schema-needs-input", seed: 5 } },
+	}],
+};
+
+test("bar 3 — a sabotaged cursor answers for the reporting turn before it", async () => {
+	const name = "cursor-report";
+	const runDir = `${SCRATCH}/${name}`;
+	rmSync(runDir, { recursive: true, force: true });
+	mkdirSync(runDir, { recursive: true });
+	const flowPath = `${SCRATCH}/${name}.json`;
+	writeFileSync(flowPath, JSON.stringify(REPORT_FLOW));
+
+	const child = Bun.spawn([process.execPath, DRIVER, flowPath, runDir, "t"], { stdout: "pipe", stderr: "pipe" });
+	const [, err] = await Promise.all([
+		new Response(child.stdout).text(), new Response(child.stderr).text(), child.exited,
+	]);
+	expect([err, child.signalCode]).toEqual([err, "SIGKILL"]);
+
+	// Turn 0 closed on its report; the resume died at the door writing nothing.
+	const logPath = `${runDir}/run.jsonl`;
+	const atCut = readFileSync(logPath, "utf8");
+	const resumed = readLog(logPath).find((e) => e.kind === "resumed");
+	if (resumed?.kind !== "resumed") throw new Error("the driver never resumed the step");
+	expect(resumed.cursor).toBeGreaterThan(0);
+	expect(readFileSync(`${runDir}/streams/t.t1.jsonl`, "utf8")).toBe("");
+
+	// The recorded cursor answers for the turn the engine fired: it never reached
+	// disk, so it is dead.
+	const truth = await reopen(name, flowPath).run();
+	expect(truth.steps.t?.at === "paused" ? truth.steps.t.causes : null).toEqual(["dead"]);
+
+	// The same disk, the cursor sabotaged to 0 — the read a pre-C11 engine made.
+	writeFileSync(logPath, atCut.split(`"cursor":${resumed.cursor}`).join(`"cursor":0`));
+	const stale = await reopen(name, flowPath).run();
+	const causes = stale.steps.t?.at === "paused" ? stale.steps.t.causes : null;
+	expect(causes).not.toEqual(["dead"]);
+	expect(causes).toEqual(["no report"]);
+	// Pre-C13 this assertion could not have been written: the prior turn's
+	// `StructuredOutput` pair read as died-mid-work, so the stale cursor answered
+	// ‹dead› as well and the sabotage was invisible.
 }, 60_000);
 
 // ---------------------------------------------------------------------------
@@ -143,6 +202,29 @@ for (const [name, turns, rows] of [
 		expect([name, past.rows, past.verdict]).toEqual([name, 0, "dead"]);
 	});
 }
+
+test("bar 3 — on real engine bytes the sabotaged cursor lands the wrong turn", () => {
+	const path = `${FIXTURES}/real-c8-q1-smoke.jsonl`;
+	const rows = transcriptRows(path);
+	expect(rows).toBe(14);
+
+	// The cursor a resume would record here is the whole file. The turn fired
+	// next dies at the door and writes nothing, so the slice is empty: dead, and
+	// that is the truth.
+	const answered = readTranscript(path, rows);
+	expect([answered.rows, answered.verdict]).toEqual([0, "dead"]);
+	expect(verdictFromTranscript(answered).land).toBe(false);
+
+	// Sabotage the cursor to 0 and the reader answers for the turn before —
+	// which on real engine bytes is one that **landed**, report and all.
+	const stale = readTranscript(path, 0);
+	expect([stale.complete, stale.denied]).toEqual([true, false]);
+	expect(verdictFromTranscript(stale)).toEqual({ land: true, report: { state: "done", cause: "n/a" } });
+
+	// C8 F7's caveat, closed: before the completion rule was trued, this same
+	// row-0 read answered `dead` too, so the two agreed by accident and no real
+	// transcript this engine ever wrote could show a stale cursor at all.
+});
 
 test("bar 2 — a hand turn is why the cursor is recorded and never computed", () => {
 	const path = `${FIXTURES}/real-q5b-summon.jsonl`;

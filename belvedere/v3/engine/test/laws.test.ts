@@ -3,13 +3,13 @@
 // lost-stream re-derivation (bar 8) and the timeout (bar 9). Every one of them
 // exists because C4 measured the hazard, not because it seemed prudent.
 import { test, expect } from "bun:test";
-import { existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { load } from "../engine.ts";
 import { isRefusal } from "../refusal.ts";
 import { ignite } from "../spawn.ts";
 import { verdict } from "../sense.ts";
-import { readTranscript, transcriptPath } from "../transcript.ts";
-import { freshRun, must, SCRATCH, streamVerdict } from "./harness.ts";
+import { readTranscript, transcriptPath, verdictFromTranscript } from "../transcript.ts";
+import { freshRun, HERE, must, SCRATCH, streamVerdict } from "./harness.ts";
 
 type Spec = { id: string; budget: number; steps: unknown[] };
 
@@ -105,9 +105,14 @@ test("law 6 — a ruling may resume the turn on the same session", async () => {
 
 test("bar 8 — the transcript-only outcome equals the streamed outcome", async () => {
 	const cases = [
-		{ scenario: "orphan-finish", expect: "worked" },
-		{ scenario: "permission-denial", expect: "denied" },
-		{ scenario: "die-137", expect: "dead" },
+		{ scenario: "orphan-finish", expect: "worked", lands: false },
+		{ scenario: "permission-denial", expect: "denied", lands: false },
+		{ scenario: "die-137", expect: "dead", lands: false },
+		// C13 — the state C6 could not reach transcript-only. The step report is
+		// the input of the `StructuredOutput` call the schema turns it into, so
+		// the disk alone lands the turn: throw the whole stream away and the
+		// outcome is unchanged, report and all.
+		{ scenario: "schema-done", expect: "worked", lands: true },
 	] as const;
 
 	for (const c of cases) {
@@ -130,10 +135,61 @@ test("bar 8 — the transcript-only outcome equals the streamed outcome", async 
 		expect(onDisk.torn).toBe(0);
 		expect([c.scenario, streamVerdict(reading)]).toEqual([c.scenario, c.expect]);
 		expect([c.scenario, onDisk.verdict]).toEqual([c.scenario, c.expect]);
-		// And the verdict the engine would record from each: never landed, either way.
-		expect(verdict(reading).land).toBe(false);
+		// And the verdict the engine would record from each — the two sources agree
+		// on the landing, and where they land they agree on the report itself.
+		const streamed = verdict(reading), rederived = verdictFromTranscript(onDisk);
+		expect([c.scenario, streamed.land]).toEqual([c.scenario, c.lands]);
+		expect([c.scenario, rederived.land]).toEqual([c.scenario, c.lands]);
+		if (streamed.land && rederived.land)
+			expect([c.scenario, rederived.report]).toEqual([c.scenario, streamed.report]);
 	}
 }, 60_000);
+
+// C13 bar 2 — the fake writes the real shape, checked against the real bytes.
+//
+// The fake is the only thing the barrage ever runs, so a rule measured on real
+// transcripts is only guarded forever if the fake writes those rows too. C5 F2
+// is the cautionary tale in the other direction: the fake was unfaithful in
+// exactly the place a rule lived, and the barrage could not have caught C8 F3.
+test("the fake closes a reporting turn on the real closing pair", async () => {
+	const runDir = `${SCRATCH}/lost-stream/fake-shape`;
+	rmSync(runDir, { recursive: true, force: true });
+	mkdirSync(`${runDir}/work`, { recursive: true });
+	const venue = { workDir: `${runDir}/work`, configDir: `${runDir}/config` };
+	const sessionId = crypto.randomUUID();
+	const spawned = ignite({
+		step: { kind: "task", id: "shape", depends: [], model: "sonnet", effort: "low",
+			posture: "auto", timeoutMs: 20_000, prompt: "fake-shape",
+			subject: { fake: { scenario: "schema-done", seed: 3 } } },
+		venue, sessionId, resume: false, prompt: "fake-shape",
+		stream: `${runDir}/streams/shape.t0.jsonl`,
+	});
+	if (isRefusal(spawned)) throw new Error(spawned.refusal);
+	await spawned.settled;
+
+	const written = closing(readFileSync(transcriptPath(venue.configDir, venue.workDir, sessionId), "utf8"));
+	const real = closing(readFileSync(`${HERE}/test/fixtures/real-c8-q1-smoke.jsonl`, "utf8"));
+	expect(written.shape).toEqual(real.shape);
+	expect(written.shape).toEqual(["assistant/tool_use:StructuredOutput", "user/tool_result"]);
+	// Linked by id in both, and in both the id is what carries the report back.
+	expect([written.linked, real.linked]).toEqual([true, true]);
+	expect(written.report).toEqual({ state: "done", cause: "Wrote config.yaml with the requested port", answer: "config.yaml is in place." });
+	expect(real.report).toEqual({ state: "done", cause: "n/a" });
+}, 30_000);
+
+/** The last two conversation rows of a transcript, as row types and as linkage. */
+function closing(text: string): { shape: string[]; linked: boolean; report: unknown } {
+	const rows = text.split("\n").filter((l) => l !== "").map((l) => JSON.parse(l) as Row);
+	const conv = rows.filter((r) => r.type === "user" || r.type === "assistant").slice(-2);
+	const blocks = (r: Row | undefined): Block[] => Array.isArray(r?.message?.content) ? r.message.content : [];
+	const shape = conv.map((r) => `${r.type}/${blocks(r).map((b) => b.type + (b.name === undefined ? "" : `:${b.name}`)).join(",")}`);
+	const call = blocks(conv[0]).find((b) => b.name === "StructuredOutput");
+	const answer = blocks(conv[1]).find((b) => b.type === "tool_result");
+	return { shape, linked: call !== undefined && answer !== undefined && call.id === answer.tool_use_id, report: call?.input };
+}
+
+type Block = { type?: string; name?: string; id?: string; tool_use_id?: string; input?: unknown };
+type Row = { type?: string; message?: { content?: unknown } };
 
 test("the engine refuses a log blessed on a different flow", () => {
 	const a = flowFile({ id: "law-swap", budget: 2, steps: [task("t", "schema-done")] });
