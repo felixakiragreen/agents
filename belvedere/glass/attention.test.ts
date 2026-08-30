@@ -149,6 +149,27 @@ describe('needsYou — one ranked list, four classes, nothing that fires', () =>
 		expect(q[0]!.note).toContain('no cmux pane');
 	});
 
+	test('a paused engine step is the waiting class arriving from the other sensor (C16 §3)', () => {
+		const step = {
+			run: 'c16/paused', step: 'ask', at: 'paused', causes: ['needs-⬡ question'],
+			why: 'Which release name goes in the sign-off?', account: null, venueFrom: 'log' as const,
+			building: null, fake: true, refusal: null, summoned: false, logAt: 1_756_500_000,
+			where: '~/…/c16/paused · ask', dir: '/tmp/c16/paused', sessionId: 'e-1',
+			configDir: '/tmp/c16/paused/config', workDir: '/tmp/c16/paused/work',
+			transcript: '/tmp/c16/paused/config/projects/x/e-1.jsonl',
+		};
+		const q = needsYou(walk(), [], [step]);
+		const item = q.find(i => i.key === 'paused:c16/paused/ask')!;
+		expect(item.kind).toBe('waiting');
+		// No pane to jump to — headless is the engine's venue (D22) — and the Chat is the whole view.
+		expect(item.sid).toBeNull();
+		expect(item.chat).toBe('e-1');
+		expect(item.full).toContain('Which release name');
+		// Still nothing that can fire, on this class as on every other.
+		for (const forbidden of ['summons', 'stamp', 'hands/fire'])
+			expect(JSON.stringify(q)).not.toContain(forbidden);
+	});
+
 	test('a LANDED gate is history: only a live row\'s gate reaches the queue (B3\'s law)', () => {
 		const bs = walk();
 		const loud = at(bs, 'nb/loud');

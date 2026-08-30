@@ -55,9 +55,9 @@ export const recentRuns = (root: string = runsRoot(), limit: number = LIMITS.rea
 /**
  * Every step of the runs this deck reads, keyed by the session id it ignited.
  *
- * A step appears only once it has a session: `pending` steps never had one, and a card never will.
- * A log that will not read is skipped in silence **here** and reported by the Works, which is the
- * surface parser-as-lint already gave it (README §1) — one refusal, drawn once.
+ * A step appears once it has ever ignited: `pending` steps never had a session and a card never
+ * will. A log that will not read is skipped in silence **here** and reported by the Works, which is
+ * the surface parser-as-lint already gave it (README §1) — one refusal, drawn once.
  */
 export function stepIndex(buildings: readonly Building[] = [], root: string = runsRoot()): Map<string, Located> {
 	const found = new Map<string, Located>();
@@ -71,13 +71,29 @@ export function stepIndex(buildings: readonly Building[] = [], root: string = ru
 	return found;
 }
 
+/**
+ * The session each step was fired on, off the log's own ignitions — **not** off the fold's state.
+ *
+ * A landed step's state has forgotten its session and the log has not (C8 F8, and the console's
+ * `list` reads it the same way). Taking the state's word would mean the Chat losing a conversation
+ * the moment the reply it just delivered landed the step, which is the one moment Felix wants to
+ * read it.
+ */
+function sessionsIn(handle: RunHandle): Map<string, string> {
+	const found = new Map<string, string>();
+	for (const e of handle.entries)
+		if (e.kind === 'ignited' || e.kind === 'resumed') found.set(e.step, e.sessionId);
+	return found;
+}
+
 function stepsOf(handle: RunHandle, buildings: readonly Building[]): Located[] {
 	const open = summoned(handle.dir);
 	const drives = drivable(handle);
 	const last = handle.entries.at(-1) ?? null;
+	const sessions = sessionsIn(handle);
 	const out: Located[] = [];
 	for (const [id, at] of Object.entries(handle.state.steps)) {
-		const sessionId = at.at === 'running' || at.at === 'ended' || at.at === 'paused' ? at.sessionId : null;
+		const sessionId = sessions.get(id) ?? null;
 		if (sessionId === null) continue;
 		out.push({
 			run: handle.name,

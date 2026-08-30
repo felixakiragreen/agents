@@ -13,8 +13,8 @@ import { tmpdir } from 'os';
 import { join } from 'path';
 import { MESSAGE_LIMITS, refusals } from './deck-model';
 import {
-	blocksOf, boxOf, draftFile, parseMessage, readDraft, sendable, turnsAfter, turnsOf, verify,
-	windowOf, writeDraft, type Located,
+	blocksOf, boxOf, draftFile, indexOf, parseMessage, readDraft, sample, sendable, turnsAfter,
+	turnsOf, verify, windowOf, writeDraft, type Located,
 } from './chat';
 
 const tmp = mkdtempSync(join(tmpdir(), 'b16-'));
@@ -289,5 +289,79 @@ describe('drafts persist under desk/drafts (D17, D18 class 3)', () => {
 	test('the sid IS the filename, so it is a session id or it is refused', () => {
 		expect(writeDraft('../../escape', 'x').ok).toBe(false);
 		expect(writeDraft(sid, 'x'.repeat((64 << 10) + 1)).ok).toBe(false);
+	});
+});
+
+// ---------- the transcript's own markdown, view only (C16 §4) ----------
+
+describe('rich rendering is the TRANSCRIPT’s, and it is data before it is DOM', () => {
+	test('headings, lists and paragraphs come back as shapes — the client parses no notation', () => {
+		const blocks = blocksOf('## The verdict\n\nTwo things happened.\n\n- the first, with `code`\n- the second\n', tmp);
+		expect(blocks.map(b => b.kind)).toEqual(['head', 'prose', 'list']);
+		expect((blocks[0] as { level: number }).level).toBe(2);
+		const list = blocks[2] as { items: { kind: string; text: string }[][] };
+		expect(list.items.length).toBe(2);
+		// Inline markdown reaches inside an item: a code tick is a `code` span, not two backticks.
+		expect(list.items[0]!.map(s => s.kind)).toContain('code');
+	});
+
+	test('a table is a table only when the delimiter row says so — a sentence with pipes is prose', () => {
+		const t = blocksOf('| gate | result |\n|---|---|\n| suite | PASS |\n| types | PASS |\n', tmp);
+		expect(t.map(b => b.kind)).toEqual(['table']);
+		const table = t[0] as { head: { text: string }[][]; rows: { text: string }[][][] };
+		expect(table.head.map(c => c.map(s => s.text).join(''))).toEqual(['gate', 'result']);
+		expect(table.rows.length).toBe(2);
+		expect(table.rows[1]!.map(c => c.map(s => s.text).join(''))).toEqual(['types', 'PASS']);
+		expect(blocksOf('a | b and nothing under it', tmp).map(b => b.kind)).toEqual(['prose']);
+	});
+
+	test('a fence inside rich text is still verbatim and still carries no spans (B20 §1)', () => {
+		const blocks = blocksOf('# canon row 17\n\n```ts\nconst x = "canon row 17";\n```\n\n| a |\n|---|\n| D2 |\n', tmp);
+		expect(blocks.map(b => b.kind)).toEqual(['head', 'fence', 'table']);
+		const fence = blocks[1] as { lang: string; text: string };
+		expect(fence.lang).toBe('ts');
+		expect(fence.text).toBe('const x = "canon row 17";');
+		expect('spans' in fence).toBe(false);
+	});
+
+	test('an ordered list is its own list, and a wrapped item keeps its own words', () => {
+		const blocks = blocksOf('1. first\n   wrapped on\n2. second\n', tmp);
+		expect(blocks.map(b => b.kind)).toEqual(['list']);
+		const list = blocks[0] as { ordered: boolean; items: { text: string }[][] };
+		expect(list.ordered).toBe(true);
+		expect(list.items[0]!.map(s => s.text).join('')).toBe('first wrapped on');
+	});
+});
+
+// ---------- the minimap's index: the whole file, grown incrementally (C16 §6) ----------
+
+describe('the minimap indexes the whole transcript, and grows with it', () => {
+	test('one mark per turn, keyed by the same byte offsets the window keys turns by', () => {
+		const p = file('marks.jsonl', [user('one'), say('a'), say('b'), user('two'), say('c')]);
+		const marks = indexOf(p);
+		expect(marks.map(m => m.role)).toEqual(['user', 'assistant', 'user', 'assistant']);
+		expect(marks.map(m => m.key)).toEqual(turnsOf(windowOf(p, null, 1 << 20)!, tmp).map(t => t.key));
+	});
+
+	test('an appended turn is indexed WITHOUT re-reading the file’s history', () => {
+		const p = file('grow.jsonl', [user('one'), say('a')]);
+		expect(indexOf(p).length).toBe(2);
+		appendFileSync(p, user('two') + '\n' + say('b') + '\n');
+		const grown = indexOf(p);
+		expect(grown.length).toBe(4);
+		// The keys of the first two are untouched: an append-only index never re-derives what it holds.
+		expect(grown.slice(0, 2).map(m => m.key)).toEqual(indexOf(p).slice(0, 2).map(m => m.key));
+		expect(grown.map(m => m.key)).toEqual(turnsOf(windowOf(p, null, 1 << 20)!, tmp).map(t => t.key));
+	});
+
+	test('a transcript longer than the strip is downsampled evenly — never truncated to its tail', () => {
+		const marks = Array.from({ length: 5_000 }, (_, n) => ({ key: n * 10, role: (n % 2 ? 'user' : 'assistant') as 'user' | 'assistant' }));
+		const shown = sample(marks, 600);
+		expect(shown.length).toBe(600);
+		expect(shown[0]).toEqual(marks[0]!);
+		expect(shown.at(-1)).toEqual(marks.at(-1)!);
+		// Every mark is a real turn's key, so a click on one addresses a turn that exists.
+		const keys = new Set(marks.map(m => m.key));
+		expect(shown.every(m => keys.has(m.key))).toBe(true);
 	});
 });
