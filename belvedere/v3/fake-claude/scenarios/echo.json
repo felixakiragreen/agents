@@ -1,0 +1,15 @@
+{
+	"name": "echo",
+	"note": "One turn, one line of text, a clean result. The idle sense state (grammar §5).",
+	"acts": [
+		{ "steps": [
+			{ "do": "init" },
+			{ "do": "text", "text": "pong", "thinking": "The user asked for exactly one word." }
+		] }
+	],
+	"golden": {
+		"mode": "argv", "paced": true, "seed": 1, "expectExit": 0,
+		"flags": ["--model", "haiku", "--permission-mode", "acceptEdits"],
+		"turns": ["Reply with exactly: pong"]
+	}
+}

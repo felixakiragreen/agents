@@ -1,0 +1,13 @@
+{
+	"name": "fake-claude",
+	"version": "0.1.0",
+	"description": "The stand-in binary the v3 engine spawns instead of real claude: C4's captured dialect, scenario-scripted, seed-deterministic, free.",
+	"private": true,
+	"type": "module",
+	"module": "cli.ts",
+	"scripts": {
+		"test": "bun test",
+		"typecheck": "../../glass/node_modules/.bin/tsc --noEmit",
+		"gild": "bun goldens.ts --gild"
+	}
+}
