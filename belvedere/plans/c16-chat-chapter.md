@@ -56,6 +56,11 @@ camera before Felix's pass ever convenes.
 - P6's transport law stands for pane targets — untouched. The misdelivery law
   (UUID always) and B16 F3 (never wait on a probe's words or name) bind any
   new probe here.
+- **Design input (Felix, 2026-08-30, at the batch-3 lay — his notes verbatim):**
+  *"Full rich text (formatting) — view only · Sans & Monospace · Links, tooltip
+  overlays, etc — to charges, decisions, etc · Tiny Minimap (never scrolls,
+  always full height) on the right for jumping between User and agent
+  sections."* Folded into spec items 4 and 6 below.
 
 ## Spec
 
@@ -80,15 +85,29 @@ camera before Felix's pass ever convenes.
    hands only); ‹blocked›/‹dead› render read-only with the cause. The
    attention queue's needs-you item for a paused step opens this view (the
    existing hotswap seam).
-4. **Rich rendering, agent-verified.** Markdown, fences (zero decoded spans
-   inside them — B16's law), tables, tool rows, the streamed tail of an
-   in-flight headless turn (poll-driven as today). One probe, several shoots:
-   the rich fixture rendered, the paused-question conversation, the
-   cold-hands Chat on a headless target. Every visual bar ships the PNG, Read
-   and described.
+4. **Rich rendering, agent-verified — view only.** Markdown, fences (zero
+   decoded spans inside them — B16's law), tables, tool rows, the streamed
+   tail of an in-flight headless turn (poll-driven as today). Rendering is the
+   TRANSCRIPT's — the composer stays plain text (his note: view only). The §3
+   font law applies to chat content: Inter for prose, IosevkaFelix for code,
+   numbers, and tool rows. **The decoder reaches the rendered prose**: charge
+   ids, D-ids, and §refs in transcript text light as B20 spans — link, tooltip
+   overlay, context-scoped — through `words()`, never a re-implementation;
+   fence-interior text stays dark. One probe, several shoots: the rich fixture
+   rendered, the paused-question conversation, the cold-hands Chat on a
+   headless target. Every visual bar ships the PNG, Read and described.
 5. **The fallback stays measured.** Summon-to-terminal (the composer, B4's
    hands) is untouched; nothing in this charge removes or gates it (D22 r4
    names it the fallback, not a casualty).
+6. **The minimap.** A tiny strip on the transcript's right edge: always the
+   pane's full height, never scrolls itself, one mark per turn with User and
+   agent sections distinguishable at a glance; a click jumps the transcript
+   to that turn. It draws from the turn index the tail window already knows —
+   marks for the whole transcript, not just the loaded window (a jump outside
+   the window loads it, the existing paging). Respect the law of space: it
+   rides inside the Chat's pane, adds no page scroll (B13's 0 px law), and
+   survives repaints (C15 F3's signature law — the minimap's state rides the
+   signature of whatever draws it).
 
 Implementation choices inside this spec are the Builder's; anything touching a
 contract — a v3 export change, a new engine verb, transport semantics beyond
@@ -116,7 +135,16 @@ the two roads above — escalates.
   503 on the wire.
 - [ ] Rich rendering shot and Read: markdown + fence + table + tool rows from
   a deterministic fixture (the fake-transcript answer above, or a committed
-  real capture — say which shipped); zero decoded spans inside fences.
+  real capture — say which shipped); zero decoded spans inside fences; the
+  composer beside it still plain text; prose in Inter, code and tool rows in
+  IosevkaFelix — all in the same shot.
+- [ ] Decoder spans live in rendered transcript prose: a charge id and a D-id
+  light with their tooltips (shot or asserted through the served DOM), zero
+  spans inside fences (B16's law re-proven on the rich path).
+- [ ] The minimap shot and Read: full pane height on a transcript taller than
+  the viewport, User and agent sections distinguishable, a click on an
+  out-of-window mark landing the transcript on that turn (the coordinate
+  proven, B21's pattern — never the DOM's opinion); page scroll still 0 px.
 - [ ] `bun v3/gates.ts --fast --glass` — ALL GREEN, block pasted; camera gate
   0 if probes added; zero new dependencies.
 - [ ] Live TUI sends unchanged: B16's existing suite green untouched (its

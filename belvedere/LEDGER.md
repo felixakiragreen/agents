@@ -2739,3 +2739,18 @@ arming law, agreements; the migration campaign note),
 ~/code/agents/belvedere/plans/c15-deck-v3-lane.md (findings included),
 and execute the charge at ~/code/agents/belvedere/plans/c16-chat-chapter.md.
 ```
+
+---
+
+**2026-08-30 · Architect · fable-high (cont.)** — C16 amended at his word,
+pre-ignition: four design notes folded into the charge (verbatim in its
+inputs) — **view-only rich text** (the composer stays plain), the §3 font law
+on chat content (Inter prose · IosevkaFelix code/tool rows), **decoder links
+and tooltip overlays** in transcript prose (B20's `words()` seam, charges and
+decisions light, fences stay dark), and **the turn minimap** — a tiny strip,
+full pane height, never scrolls, User/agent sections at a glance, click jumps
+the transcript (coordinate-proven, B21's pattern). Three Done-when bars added
+to carry them; the board row names the fold. Decided: nothing register-grade —
+his notes are the input, the fold is the lay's own pen (an OPEN charge's doc
+amends freely before ignition). Next: ⬡ — ignite C16 (the standing baton
+above holds the kickoff, unchanged).
