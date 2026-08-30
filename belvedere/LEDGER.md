@@ -1999,10 +1999,11 @@ flow-doctrine cut); 3) the ⬡ visual pass on canon C27 still open.
 
 ---
 
-**2026-08-29 · Architect · fable-high (same session, the re-bless incident)** — flow-1's
+**2026-08-29 · Architect · fable-high** — the same session, continued: flow-1's
 second run diagnosed at ⬡'s call and **stopped at his word** (run log rotated to
 `agents-flow-1.run.jsonl.stopped-2026-08-29-2124`; unarmed is inert, verified over two
-ticks). What happened: c31's ordinary close pasted fenced evidence into its own charge
+ticks). Decided: the stop is §5's rotation, not HALT — flow-specific, the city
+untouched; findings filed, nothing patched — diagnosis was the charge. What happened: c31's ordinary close pasted fenced evidence into its own charge
 doc, the positional `{doc, fence: 1}` pointer resolved to test output, and the engine
 correctly paused all fires at 20:45:59 ("edited since the arm") — c31/c30 still landed
 by board (20:46/21:04); c29 could never land: worktree lane, row OPEN on master AND its
