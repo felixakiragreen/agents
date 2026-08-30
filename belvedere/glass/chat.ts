@@ -17,23 +17,35 @@
  * **The fence gains nothing** (README §2). The send is D18's write class 1 and rides the same
  * arming switch and the same audit as every hand; the draft is a file write under `desk/`, which is
  * class 3; the read is a read. Nothing in this file edits a board, a ledger or a decision.
+ *
+ * **C16 widened all three, and added a road.** The target set now includes a session no cmux pane
+ * ever held — an engine run's step, found by `steps.ts` off the run log (D22's primary venue is
+ * headless, so a Chat that could only read pane-born sessions could not read the city's own
+ * engine). A reply into a step the engine is holding **paused** therefore travels the engine's own
+ * `rule(resume)` rather than P6's transport: same session, headless, exactly what the console's
+ * `send` does. The verification read is unchanged and still decides — B16's three failure verdicts
+ * hold on both roads and neither is ever retried.
  */
 
 import { createHash } from 'crypto';
 import { closeSync, existsSync, mkdirSync, openSync, readdirSync, readFileSync, readSync, rmSync, statSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import type { Building } from '../../doctrine';
+import { load } from '../v3/engine/engine.ts';
+import { isRefusal } from '../v3/engine/refusal.ts';
+import { readRun } from '../v3/console/runs.ts';
 import { waitingOf } from './attention';
 import { identify, isLive, readCensus, type CensusRead, type Session } from './census';
-import { refusals, type ChatBlock, type ChatSend, type ChatTarget, type ChatTurn, type ChatView } from './deck-model';
+import { refusals, type ChatBlock, type ChatMark, type ChatSend, type ChatStep, type ChatTarget, type ChatTurn, type ChatView, type Span } from './deck-model';
 import { audit, cmux, fail, field, fire, json, readCredential, type Outcome } from './hands';
 import { spans } from './html';
 import { buildingOf } from './pages';
-import { cityRoot, draftsDir, projectsDir } from './paths';
+import { cityRoot, draftsDir, projectsDir, runsRoot } from './paths';
 import { city } from './register';
 import { accountLabel, mantleOf, readRig, type Rig } from './rig';
 // (`CensusRead` and `Building` are the two halves of `World` below.)
 import { sanitizeSummons } from './sanitize';
+import { stepIndex, type Located as LocatedStep } from './steps';
 import { colourOf } from './summon';
 
 /**
@@ -45,6 +57,20 @@ import { colourOf } from './summon';
 export const LIMITS = {
 	window: 192 << 10, turns: 40, acts: 40, head: 90, draftBytes: 64 << 10,
 	appended: 4 << 20, verifyMs: 45_000, pollMs: 700, callMs: 20_000,
+	/**
+	 * The minimap's own two limits (C16 §6). `marks` is what a 900-px strip can distinguish, so a
+	 * transcript with more turns is **evenly downsampled** and the pane prints both numbers;
+	 * `indexBytes` bounds one growth scan, and a file that outran it stops indexing rather than
+	 * allocating whatever it likes.
+	 */
+	marks: 600, indexBytes: 32 << 20,
+	/**
+	 * How long the engine road waits for `rule()` to answer before it stops waiting on the *ruling*
+	 * and starts waiting on the *transcript*. Every refusal `rule()` has is decided before a subject
+	 * is spawned, so a second is generous; a real turn takes minutes and is never what is waited on
+	 * — **delivered is the transcript, never the ruling** (B16's law, kept on the second road).
+	 */
+	ruleMs: 1_000,
 	/**
 	 * How far past a jump target the window reaches (B21). The anchored turn is *centred* in the
 	 * turns that come back, so this only has to put the target comfortably inside the window's bytes —
@@ -89,30 +115,49 @@ function findTranscript(rig: Rig, sid: string): { path: string; configDir: strin
 /** cmux's word where the socket gave one, the rig's birth name otherwise, the uuid's head last. */
 const nameOf = (stamp: string | null, sid: string) => stamp ?? sid.slice(0, 8);
 
-export function locate(sid: string, rig: Rig, census: CensusRead, buildings: Building[]): Located | null {
-	const s: Session | undefined = census.sessions.find(x => x.sid === sid);
-	const found = s?.transcript ? null : findTranscript(rig, sid);
-	if (!s && !found) return null;
+/** What a step contributes to a target: its own venue, its transcript, and the step itself. */
+const asStep = (found: LocatedStep): { step: ChatStep; transcript: string | null; configDir: string; cwd: string } => {
+	const { dir: _dir, sessionId: _sid, transcript, configDir, workDir, ...step } = found;
+	return { step, transcript: existsSync(transcript) ? transcript : null, configDir, cwd: workDir };
+};
 
-	const transcript = s?.transcript ?? found?.path ?? null;
+/**
+ * Three sources now, in this order: the census, the **engine's run logs**, and the accounts'
+ * transcript trees. The middle one is C16's widening and it is not merely a fallback — a session
+ * the census also knows can still be a step the engine is holding, and that fact decides the road a
+ * reply takes. So the index is consulted for **every** target, and only the transcript falls back.
+ */
+export function locate(sid: string, rig: Rig, census: CensusRead, buildings: Building[], steps: Map<string, LocatedStep> = stepIndex(buildings)): Located | null {
+	const s: Session | undefined = census.sessions.find(x => x.sid === sid);
+	const engine = steps.get(sid);
+	const mine = engine === undefined ? null : asStep(engine);
+	const found = s?.transcript || mine?.transcript ? null : findTranscript(rig, sid);
+	if (!s && !found && !mine) return null;
+
+	const transcript = s?.transcript ?? mine?.transcript ?? found?.path ?? null;
 	// The census's cwd is the session's own and current; the transcript's is where it began. Prefer
 	// the live one, fall back to the head window, claim nothing if neither (shelf's law, kept).
 	const who = s === undefined && transcript !== null ? identify(transcript) : null;
-	const cwd = s?.cwd ?? who?.cwd ?? null;
-	const configDir = s?.account ?? found?.configDir ?? null;
+	const cwd = s?.cwd ?? mine?.cwd ?? who?.cwd ?? null;
+	const configDir = s?.account ?? mine?.configDir ?? found?.configDir ?? null;
 	const stamp = s?.stamp ?? who?.stamp ?? null;
 	return {
 		sid,
+		// The step's own address is a FIELD, never spliced into the name: the name is the word the
+		// transcript's turns are labelled with, and a run path in it would relabel every turn.
 		name: nameOf(stamp, sid),
 		stamp,
-		account: accountLabel(rig, configDir),
-		building: buildingOf(cwd, buildings)?.building ?? null,
+		// A layer-0 sandbox is not an account, and `accountLabel` would print the raw path as if it
+		// were one — the run's own word for it (C14's shape) outranks the label here.
+		account: mine?.step.fake === true ? null : accountLabel(rig, configDir),
+		building: buildingOf(cwd, buildings)?.building ?? mine?.step.building ?? null,
 		cwd,
 		model: s?.model ?? who?.model ?? null,
 		state: s !== undefined && isLive(s) ? s.state : 'dead',
 		waiting: s === undefined ? null : waitingOf(s),
 		ws: s?.last.ws ?? null,
 		transcript,
+		step: mine?.step ?? null,
 		configDir,
 	};
 }
@@ -187,23 +232,88 @@ function headOf(input: unknown): string {
  */
 const FENCE = /^\s{0,3}```(\S*)\s*$/;
 
+/**
+ * The block markdown agents actually write (C16 §4). Deliberately four shapes and no fifth:
+ * headings, lists, tables and paragraphs, on top of the fence that already had a shape of its own.
+ * A blockquote, an HR or a nested list renders as the paragraph it textually is — **the words are
+ * never lost**, only their decoration, and a renderer that grows a case per notation is a
+ * dependency in disguise (D54's neighbour, and `html.ts`'s own standing note).
+ */
+const HEAD = /^\s{0,3}(#{1,6})\s+(.*)$/;
+const ITEM = /^(\s*)(?:[-*+]|(\d+)[.)])\s+(.*)$/;
+/** A table's second line, and the only thing that makes the first one a table. */
+const RULE = /^\s*\|?\s*:?-{1,}:?\s*(\|\s*:?-{1,}:?\s*)*\|?\s*$/;
+const isRow = (line: string | undefined): boolean => line !== undefined && line.includes('|') && line.trim() !== '';
+
+/** One table row's cells: the outer pipes are decoration, the inner ones are the columns. */
+const cells = (line: string, baseDir: string): Span[][] =>
+	line.trim().replace(/^\|/, '').replace(/\|$/, '').split('|').map(c => spans(c.trim(), baseDir));
+
 export function blocksOf(text: string, baseDir: string): ChatBlock[] {
 	const out: ChatBlock[] = [];
 	const lines = text.split('\n');
 	let held: string[] = [];
+	/** A paragraph closes on anything that is not more of it — that is the whole block grammar. */
 	const flush = () => {
 		const t = held.join('\n');
 		held = [];
 		if (t.trim() !== '') out.push({ kind: 'prose', spans: spans(t, baseDir) });
 	};
+
 	for (let i = 0; i < lines.length;) {
-		const open = FENCE.exec(lines[i]!);
-		if (!open) { held.push(lines[i]!); i++; continue; }
-		flush();
-		const body: string[] = [];
-		for (i++; i < lines.length && !FENCE.test(lines[i]!); i++) body.push(lines[i]!);
-		i++;                                      // the closing fence, where the turn had one
-		out.push({ kind: 'fence', lang: open[1] ?? '', text: body.join('\n') });
+		const line = lines[i]!;
+
+		const open = FENCE.exec(line);
+		if (open) {
+			flush();
+			const body: string[] = [];
+			for (i++; i < lines.length && !FENCE.test(lines[i]!); i++) body.push(lines[i]!);
+			i++;                                    // the closing fence, where the turn had one
+			out.push({ kind: 'fence', lang: open[1] ?? '', text: body.join('\n') });
+			continue;
+		}
+
+		const head = HEAD.exec(line);
+		if (head) {
+			flush();
+			out.push({ kind: 'head', level: head[1]!.length, spans: spans(head[2] ?? '', baseDir) });
+			i++;
+			continue;
+		}
+
+		// A table is two lines or it is prose: the header alone is a sentence with pipes in it.
+		if (isRow(line) && RULE.test(lines[i + 1] ?? '')) {
+			flush();
+			const rows: Span[][][] = [];
+			for (i += 2; isRow(lines[i]); i++) rows.push(cells(lines[i]!, baseDir));
+			out.push({ kind: 'table', head: cells(line, baseDir), rows });
+			continue;
+		}
+
+		const item = ITEM.exec(line);
+		if (item) {
+			flush();
+			const ordered = item[2] !== undefined;
+			const raw: string[] = [];
+			// A wrapped item's continuation belongs to the item, so it is joined onto it rather than
+			// opening a paragraph in the middle of the list.
+			for (; i < lines.length; i++) {
+				const next = ITEM.exec(lines[i]!);
+				if (next) {
+					if ((next[2] !== undefined) !== ordered) break;
+					raw.push(next[3] ?? '');
+					continue;
+				}
+				if (lines[i]!.trim() === '' || raw.length === 0) break;
+				raw[raw.length - 1] += ` ${lines[i]!.trim()}`;
+			}
+			out.push({ kind: 'list', ordered, items: raw.map(t => spans(t, baseDir)) });
+			continue;
+		}
+
+		if (line.trim() === '') { flush(); i++; continue; }
+		held.push(line);
+		i++;
 	}
 	flush();
 	return out;
@@ -257,6 +367,23 @@ export function around(all: ChatTurn[], target: number | null): ChatTurn[] {
 	return all.slice(start, start + LIMITS.turns);
 }
 
+/**
+ * What one record is, for turn-grouping — the **one** reading of that question in this file, so the
+ * window and the minimap's index can never disagree about where a turn begins (C16 §6).
+ *
+ * A `user` record whose content is an array is a tool result: the `tool_use` line above it already
+ * said what ran. A sidechain is a subagent's own conversation and is its own target to hotswap to.
+ */
+type Opens = 'user' | 'assistant' | null;
+
+function opensWith(r: Rec): Opens {
+	if (r['isSidechain'] === true) return null;
+	const content = (r['message'] as Rec | undefined)?.['content'];
+	if (r['type'] === 'user') return typeof content === 'string' && r['isMeta'] !== true ? 'user' : null;
+	if (r['type'] !== 'assistant') return null;
+	return Array.isArray(content) ? 'assistant' : null;
+}
+
 export function turnsOf(w: Window, baseDir: string, target: number | null = null): ChatTurn[] {
 	const out: ChatTurn[] = [];
 	let items: Item[] = [];
@@ -270,21 +397,17 @@ export function turnsOf(w: Window, baseDir: string, target: number | null = null
 		if (line.trim() === '') continue;
 		let r: Rec;
 		try { r = JSON.parse(line) as Rec; } catch { continue; }
-		if (r['isSidechain'] === true) continue;
+		const opens = opensWith(r);
+		if (opens === null) continue;
 
-		if (r['type'] === 'user') {
-			const content = (r['message'] as Rec | undefined)?.['content'];
-			if (typeof content !== 'string' || r['isMeta'] === true) continue;
+		if (opens === 'user') {
 			close();
-			out.push(turn(start, 'user', at(r), [{ kind: 'text', text: content }], baseDir));
+			out.push(turn(start, 'user', at(r), [{ kind: 'text', text: String((r['message'] as Rec)['content']) }], baseDir));
 			continue;
 		}
-		if (r['type'] !== 'assistant') continue;
 
-		const content = (r['message'] as Rec | undefined)?.['content'];
-		if (!Array.isArray(content)) continue;
 		if (items.length === 0) { key = start; when = at(r); }
-		for (const raw of content) {
+		for (const raw of (r['message'] as Rec)['content'] as unknown[]) {
 			const b = raw as Rec;
 			if (b['type'] === 'text' && typeof b['text'] === 'string') items.push({ kind: 'text', text: b['text'] });
 			else if (b['type'] === 'thinking' && typeof b['thinking'] === 'string') items.push({ kind: 'act', tool: 'thinking', head: clip(b['thinking']) });
@@ -294,6 +417,72 @@ export function turnsOf(w: Window, baseDir: string, target: number | null = null
 	close();
 	// Everything has a limit: the window is bytes, this is what the browser is asked to lay out.
 	return around(out, target);
+}
+
+// ---------- the minimap's index: one mark per turn, for the WHOLE transcript (C16 §6) ----------
+
+/**
+ * The turn index of a transcript, **grown incrementally**.
+ *
+ * The minimap's whole point is that the loaded window is a keyhole, so its marks have to span the
+ * file — and a full re-parse of a two-megabyte transcript on a three-second poll is a price nobody
+ * agreed to. A transcript is append-only, so the index is too: the scan resumes at the last complete
+ * line it read and the marks it already holds are never re-derived. A file that shrank was replaced,
+ * and the index for it is thrown away rather than patched.
+ */
+type Index = { scanned: number; open: boolean; marks: ChatMark[] };
+
+const indexes = new Map<string, Index>();
+/** Everything has a limit: how many transcripts the index remembers at once. */
+const INDEXED = 8;
+
+export function indexOf(path: string): ChatMark[] {
+	let size: number;
+	try { size = statSync(path).size; }
+	catch { return []; }
+
+	let held = indexes.get(path);
+	if (held === undefined || held.scanned > size) {
+		held = { scanned: 0, open: false, marks: [] };
+		if (indexes.size >= INDEXED) indexes.delete(indexes.keys().next().value!);
+		indexes.set(path, held);
+	}
+
+	while (held.scanned < size) {
+		const chunk = readFrom(path, held.scanned, Math.min(size - held.scanned, LIMITS.indexBytes));
+		if (chunk === '') break;
+		let off = held.scanned;
+		const lines = chunk.split('\n');
+		// The last element is either the empty string after a final newline or a partial line: either
+		// way it is not scanned, and the next pass starts at it.
+		const whole = lines.slice(0, -1);
+		for (const line of whole) {
+			const start = off;
+			off += bytesOf(line) + 1;
+			if (line.trim() === '') continue;
+			let r: Rec;
+			try { r = JSON.parse(line) as Rec; } catch { continue; }
+			const opens = opensWith(r);
+			if (opens === null) continue;
+			if (opens === 'user') { held.marks.push({ key: start, role: 'user' }); held.open = false; continue; }
+			if (!held.open) { held.marks.push({ key: start, role: 'assistant' }); held.open = true; }
+		}
+		if (off === held.scanned) break;              // one line longer than the chunk: stop, do not spin
+		held.scanned = off;
+	}
+	return held.marks;
+}
+
+/**
+ * The marks a strip can actually distinguish, **evenly spaced across the whole file** — so the first
+ * and the last turn always have a mark and every mark still points at a real turn's key. Taking the
+ * tail instead would be a minimap of the end of the file, which is the window the reader already has.
+ */
+export function sample(marks: readonly ChatMark[], cap: number = LIMITS.marks): ChatMark[] {
+	if (marks.length <= cap) return [...marks];
+	const out: ChatMark[] = [];
+	for (let i = 0; i < cap; i++) out.push(marks[Math.round((i * (marks.length - 1)) / (cap - 1))]!);
+	return out;
 }
 
 // ---------- the drafts: one file per target under `desk/drafts/` (D17, D18 class 3) ----------
@@ -323,7 +512,7 @@ export function writeDraft(sid: string, text: string): Outcome<{ path: string; b
 
 const noView = (sid: string, error: string): ChatView => ({
 	sid, target: null, error, turns: [], from: 0, bytes: 0, anchor: null, doc: cityRoot(), draft: '',
-	send: { can: false, mode: null, why: error },
+	send: { can: false, mode: null, why: error }, marks: [], turnCount: 0,
 });
 
 /**
@@ -359,9 +548,25 @@ const anchorOf = (turns: ChatTurn[], target: number): number | null => {
  * filesystem are. The client draws no send control at all when `can` is false (D10: ambiguity never
  * arms, and neither does a target the glass cannot reach); the reason is what it draws instead.
  */
+/**
+ * The engine road's own gate (C16 §2). Every refusal here is a fact the run log states — the compat
+ * law, the summon mark, the step's state — and the words are the console's own where the console
+ * has them, so the deck and the console can never disagree about what a step will take.
+ */
+function sendableStep(step: ChatStep): ChatSend {
+	if (step.refusal !== null) return { can: false, mode: null, why: `read-only — ${step.refusal}` };
+	if (step.summoned) return { can: false, mode: null, why: `${step.run}/${step.step} is summoned — it is in a human's hands, and it comes back with the console's \`return\`, never a reply from here` };
+	if (step.at !== 'paused') return { can: false, mode: null, why: `the engine holds ${step.run}/${step.step} at ${step.at} — only a paused step takes a ruling` };
+	if (step.causes.includes('card')) return { can: false, mode: null, why: `${step.run}/${step.step} is a card: it is your own step and has no session to resume` };
+	return { can: true, mode: 'engine', why: `through the engine's own resume into ${step.run}/${step.step} — the same session, headless, exactly what the console's \`send\` does; the run log is re-read after` };
+}
+
 export function sendable(t: Located, armed: boolean, note: string): ChatSend {
 	if (!armed) return { can: false, mode: null, why: `hands disabled — ${note}` };
 	if (t.transcript === null) return { can: false, mode: null, why: 'no transcript for this session — a delivery that cannot be verified is not a delivery (P6 §T)' };
+	// The engine's step outranks the census's word: a step it is holding is resumed by the engine, and
+	// a cmux resume alongside it would be a second writer on one session (single-writer physics).
+	if (t.step !== null) return sendableStep(t.step);
 	if (t.state !== 'dead')
 		return t.ws
 			? { can: true, mode: 'live', why: 'into the live pane, as one user turn — segmented paste, then the transcript is read back (P6 §T)' }
@@ -377,9 +582,12 @@ export function sendable(t: Located, armed: boolean, note: string): ChatSend {
  * already read all three by the time it composes the Chat, and re-reading the census there would
  * double the most expensive read on the poll path for nothing (B14 F8's own accounting).
  */
-export type World = { rig: Rig; census: CensusRead; buildings: Building[] };
+export type World = { rig: Rig; census: CensusRead; buildings: Building[]; steps: Map<string, LocatedStep> };
 
-export const readWorld = (): World => ({ rig: readRig(), census: readCensus(), buildings: city().buildings });
+export const readWorld = (): World => {
+	const buildings = city().buildings;
+	return { rig: readRig(), census: readCensus(), buildings, steps: stepIndex(buildings) };
+};
 
 /**
  * One target, read. `where` is the poll's tail, the window before one already held (the scroll-up),
@@ -387,8 +595,8 @@ export const readWorld = (): World => ({ rig: readRig(), census: readCensus(), b
  */
 export function chatView(sid: string, where: Where, armed: boolean, note: string, world: World = readWorld()): ChatView {
 	if (!SID.test(sid)) return noView(sid, `not a session id: "${sid}"`);
-	const { rig, census, buildings } = world;
-	const t = locate(sid, rig, census, buildings);
+	const { rig, census, buildings, steps } = world;
+	const t = locate(sid, rig, census, buildings, steps);
 	if (!t) return noView(sid, `no session ${sid} — neither the census nor the three transcript trees know it`);
 
 	const { configDir: _drop, ...target } = t;
@@ -397,9 +605,12 @@ export function chatView(sid: string, where: Where, armed: boolean, note: string
 	const w = t.transcript === null ? null : windowOf(t.transcript, endOf(where, bytes), LIMITS.window);
 	const at = where.kind === 'around' ? where.byte : null;
 	const turns = w === null ? [] : turnsOf(w, t.cwd ?? doc, at);
+	const marks = t.transcript === null ? [] : indexOf(t.transcript);
 	return {
 		sid, target, error: null,
 		turns,
+		marks: sample(marks),
+		turnCount: marks.length,
 		from: w?.from ?? 0,
 		bytes,
 		// Null where the jump target fell outside the turns this window could carry — the client says
@@ -579,7 +790,12 @@ export async function verify(path: string, from: number, sent: string, deadline:
 	}
 }
 
-export type Sent = { mode: 'live' | 'resume'; sha: string; bytes: number; turns: number; ms: number; workspace: string | null };
+export type Sent = {
+	mode: 'live' | 'resume' | 'engine';
+	sha: string; bytes: number; turns: number; ms: number; workspace: string | null;
+	/** The engine road only: what the run log says about the step once the words are on disk. */
+	step: { run: string; id: string; at: string; why: string } | null;
+};
 
 /** One target, one send at a time. A second POST over a delivery in flight is the split it forbids. */
 const sending = new Set<string>();
@@ -607,6 +823,8 @@ async function attemptSend(req: Message, password: string): Promise<Outcome<Sent
 	const from = statSync(t.transcript).size;
 	const deadline = Date.now() + LIMITS.verifyMs;
 
+	if (can.mode === 'engine') return await resumeStep(t.step!, t.transcript, req.text, from, deadline, t0);
+
 	if (can.mode === 'live') {
 		// Address by UUID, always (P6 F2): a `workspace:N` ref that no longer resolves is not an error
 		// to cmux — it delivers to whatever Felix is looking at. The census's `ws` is a uuid, and this
@@ -624,7 +842,7 @@ async function attemptSend(req: Message, password: string): Promise<Outcome<Sent
 
 		const seen = await verify(t.transcript, from, req.text, deadline);
 		return seen.ok
-			? { ok: true, result: { mode: 'live', sha: seen.result, bytes: bytesOf(req.text), turns: 1, ms: Math.round(performance.now() - t0), workspace: t.ws } }
+			? { ok: true, result: { mode: 'live', sha: seen.result, bytes: bytesOf(req.text), turns: 1, ms: Math.round(performance.now() - t0), workspace: t.ws, step: null } }
 			: seen;
 	}
 
@@ -639,8 +857,73 @@ async function attemptSend(req: Message, password: string): Promise<Outcome<Sent
 
 	const seen = await verify(t.transcript, from, req.text, deadline);
 	return seen.ok
-		? { ok: true, result: { mode: 'resume', sha: seen.result, bytes: bytesOf(req.text), turns: 1, ms: Math.round(performance.now() - t0), workspace: fired.result.workspace } }
+		? { ok: true, result: { mode: 'resume', sha: seen.result, bytes: bytesOf(req.text), turns: 1, ms: Math.round(performance.now() - t0), workspace: fired.result.workspace, step: null } }
 		: fail(`${seen.error} (the resume itself succeeded into ${fired.result.workspace})`);
+}
+
+// ---------- the engine road: a reply into a step the engine is holding (C16 §2) ----------
+
+/**
+ * The console's `send`, in the glass.
+ *
+ * `rule(resume)` is the engine's own seam and everything it refuses it refuses **here** in its own
+ * words — a step that is not paused, a session it never had, a ceiling that is spent. What this adds
+ * over the console is B16's law: the ruling is not the receipt. `rule()` awaits the whole turn, and
+ * a real turn runs for minutes; **delivered** means the words are in the transcript, which happens
+ * in the first moments of the turn. So the ruling is raced against a short grace — long enough for
+ * every refusal, which are all decided before a subject spawns — and then the verification read
+ * decides, exactly as it does on P6's road. The turn goes on in the background; the run log is where
+ * its outcome lands, and the poll re-reads it.
+ *
+ * **The deck never writes into a run dir.** `openRun()` materializes a `flow.json` from the log's own
+ * bytes where none sits beside it, which is right for the console and outside this building's fence
+ * (README §2's write list), so a run without one is refused by name and ruled from the console.
+ */
+async function resumeStep(step: ChatStep, transcript: string, text: string, from: number, deadline: number, t0: number): Promise<Outcome<Sent>> {
+	const root = runsRoot();
+	const handle = readRun(`${root}/${step.run}`, root);
+	if (isRefusal(handle)) return fail(handle.refusal);
+
+	const flowPath = `${handle.dir}/flow.json`;
+	if (!existsSync(flowPath))
+		return fail(`${handle.name} keeps no flow.json beside its log. The console writes one from the log's own bytes when it opens a run; the deck writes nothing into a run dir (README §2), so rule this step from the console.`);
+
+	const run = load(flowPath, { runDir: handle.dir, venue: handle.venue });
+	if (isRefusal(run)) return fail(run.refusal);
+
+	const ruling = run.rule(step.step, { do: 'resume', turn: text });
+	const early = await Promise.race([ruling, sleep(LIMITS.ruleMs).then(() => PENDING)]);
+	if (early !== PENDING && isRefusal(early)) return fail(`the engine refused the ruling: ${early.refusal}`);
+	// A turn that outlives the grace finishes on its own; its verdict is an event in the run log, and
+	// the audit records that it settled at all — never swallowed (directive 3.3).
+	if (early === PENDING) void ruling.then(r => audit('turn', { run: handle.name, step: step.step }, isRefusal(r) ? fail(r.refusal) : { ok: true, result: after(handle.dir, step.step) }));
+
+	const seen = await verify(transcript, from, text, deadline);
+	if (!seen.ok) return seen;
+	const now = after(handle.dir, step.step);
+	return { ok: true, result: {
+		mode: 'engine', sha: seen.result, bytes: bytesOf(text), turns: 1,
+		ms: Math.round(performance.now() - t0), workspace: null,
+		step: { run: handle.name, id: step.step, at: now.at, why: now.why },
+	} };
+}
+
+/** A sentinel the race can compare by identity — `null` is a value `rule()` could plausibly answer. */
+const PENDING = Symbol('the turn is still in flight');
+
+/** What the run log says about one step, re-read from disk — the only source of a step's state. */
+function after(dir: string, id: string): { at: string; why: string } {
+	const handle = readRun(dir, runsRoot());
+	if (isRefusal(handle)) return { at: 'unreadable', why: handle.refusal };
+	const at = handle.state.steps[id];
+	if (at === undefined) return { at: 'unknown', why: `the log no longer names step ${id}` };
+	return {
+		at: at.at,
+		why: at.at === 'paused' ? `${at.causes.join(', ')} — ${at.detail}`
+			: at.at === 'landed' ? at.report?.cause ?? 'landed'
+			: at.at === 'killed' ? at.reason
+			: '',
+	};
 }
 
 // ---------- the route ----------

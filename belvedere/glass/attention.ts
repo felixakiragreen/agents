@@ -22,6 +22,7 @@ import { isLive } from './census';
 import type { Attention, DeckBuilding, QueueItem, Waiting } from './deck-model';
 import { encap, short } from './html';
 import { countersignState } from './inbox';
+import type { Located as LocatedStep } from './steps';
 import { attentionOf, buildingOf, freshness, groupLabel, groupOf } from './pages';
 
 // ---------- the waiting edge ----------
@@ -148,8 +149,31 @@ const RANK: Readonly<Record<Attention, number>> = { waiting: 0, gate: 1, counter
  * a fourth class. An item the doctrine gives no date (a board row is not a ledger entry) keeps its
  * rank and falls to the bottom of it, never to the top.
  */
-export function needsYou(buildings: Building[], sessions: Session[]): QueueItem[] {
+export function needsYou(buildings: Building[], sessions: Session[], steps: readonly LocatedStep[] = []): QueueItem[] {
 	const out: QueueItem[] = [];
+
+	// A step the engine has paused is the `waiting` class arriving from the other sensor (C16 §3).
+	// The census cannot see it — the subject's turn is over and its process is gone — but the run log
+	// says the run cannot move without Felix, which is the whole of what this class means. No fifth
+	// kind: a second word for one fact is two surfaces disagreeing about what is urgent.
+	for (const s of steps) {
+		out.push({
+			kind: 'waiting', key: `paused:${s.run}/${s.step}`,
+			building: s.building ?? 'off the register', path: buildings.find(b => b.building === s.building)?.path ?? '',
+			...title(`${s.run}/${s.step}`, s.why === '' ? s.causes.join(', ') : s.why),
+			at: s.logAt,
+			where: `${s.where} · ‹${s.causes.join(', ')}›`,
+			doc: buildings.find(b => b.building === s.building)?.path ?? '',
+			jump: s.building ? slug(s.building) : null,
+			// Headless by construction (D22): there is no pane to jump to, and the Chat is the whole view.
+			sid: null,
+			chat: s.sessionId,
+			decision: null, state: null,
+			note: s.refusal !== null
+				? `The engine is holding this step and it is read-only: ${s.refusal}`
+				: 'The engine paused this step and still holds its session. Chat opens the conversation; your reply travels the engine’s own resume and the run log says what it landed (C16 §2).',
+		});
+	}
 
 	for (const s of sessions) {
 		const w = waitingOf(s);
@@ -167,6 +191,7 @@ export function needsYou(buildings: Building[], sessions: Session[]): QueueItem[
 			doc: b?.path ?? '',
 			jump: b ? slug(b.building) : null,
 			sid: s.last.sf ? s.sid : null,
+			chat: s.sid,
 			decision: null, state: null,
 			note: (w === 'blocked'
 				? 'A tool call is sitting on the approval dialog — the session is alive and spending nothing until you answer it. '
@@ -192,7 +217,7 @@ export function needsYou(buildings: Building[], sessions: Session[]): QueueItem[
 							kind: 'gate', key: `gate:${b.building}:${r.id}:${n}`,
 							building: b.building, path: b.path,
 							...title(r.id, text),
-							at: null, where, doc: board.file, jump: slug(b.building), sid: null, decision: null, state: null,
+							at: null, where, doc: board.file, jump: slug(b.building), sid: null, chat: null, decision: null, state: null,
 							note: `Charge ${r.id} is ${r.state ?? 'unparsed'} and waits on your pen. A note files to this building's inbox; the ruling is the Architect's (D3).`,
 						});
 				}
@@ -201,7 +226,7 @@ export function needsYou(buildings: Building[], sessions: Session[]): QueueItem[
 						kind: 'escalation', key: `escalation:${b.building}:${r.id}:${e.id}`,
 						building: b.building, path: b.path,
 						...title(`${r.id} ${e.id}`, e.text),
-						at: null, where, doc: board.file, jump: slug(b.building), sid: null, decision: null, state: null,
+						at: null, where, doc: board.file, jump: slug(b.building), sid: null, chat: null, decision: null, state: null,
 						note: 'Raised on a landing and nothing in the charge says it was ruled. Read as prose — the corpus has no escalation field (findings F2).',
 					});
 			}
@@ -213,7 +238,7 @@ export function needsYou(buildings: Building[], sessions: Session[]): QueueItem[
 				building: b.building, path: b.path,
 				...title(d.id, d.title),
 				at: iso(d.date), where: `${d.date} · ${d.decider}`, doc: b.files.decisions ?? b.path,
-				jump: slug(b.building), sid: null, decision: d.id, state,
+				jump: slug(b.building), sid: null, chat: null, decision: d.id, state,
 				note: state === 'pending'
 					? 'One line into this building’s inbox. The deck records the blessing; the ✓ reaches the D-entry when the Architect sweeps (D3).'
 					: state === 'recorded'

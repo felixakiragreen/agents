@@ -242,6 +242,7 @@ describe('sendable — ambiguity never arms (D10)', () => {
 		sid: '11111111-2222-4333-8444-555555555555', name: 'probe', stamp: 'probe', account: 'personal',
 		building: 'agents', cwd: tmp, model: 'sonnet', state: 'idle', waiting: null,
 		ws: 'B01C9D0F-C040-40C0-8043-9DE256384376', transcript: join(tmp, 'window.jsonl'), configDir: '/x',
+		step: null,
 	};
 
 	test('cold hands arm nothing, and say which credential is missing', () => {

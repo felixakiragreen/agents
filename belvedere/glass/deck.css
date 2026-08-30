@@ -649,11 +649,38 @@ body.deck {
 .deck .ct-head .big { font-size: 15px; letter-spacing: .1em; }
 .deck .ct-head .tier { font-family: var(--mono); font-size: 9.5px; color: var(--grey-550); }
 .deck .ct-head .who { font-family: var(--mono); font-size: 9.5px; color: var(--grey-600); }
-.deck .ct-turns {
-	margin-top: 6px; overflow-y: auto; overflow-x: hidden;
-	/* The pane's head and the target line are the only chrome above it; the rest is the read. */
-	max-height: calc(100% - 44px);
+/* The read and the minimap side by side: the strip is the pane's full height by construction (C16
+   §6), so the row owns the height and the transcript owns the scrolling inside it. */
+.deck .ct-body { display: flex; gap: 6px; align-items: stretch; height: calc(100% - 44px); margin-top: 6px; }
+.deck .ct-turns { flex: 1 1 auto; min-width: 0; overflow-y: auto; overflow-x: hidden; max-height: 100%; }
+/* --- the minimap (C16 §6): the whole transcript as one strip ---
+   One mark per turn, never scrolling itself, `flex: 1` so N marks always fill exactly one pane. */
+.deck .ct-map {
+	flex: 0 0 12px; display: flex; flex-direction: column; gap: 1px;
+	padding: 1px; border-left: 1px solid var(--grey-850); overflow: hidden;
 }
+.deck .ct-mark {
+	flex: 1 1 0; min-height: 1px; padding: 0; border: none; border-radius: 1px;
+	background: var(--grey-800); cursor: pointer;
+}
+.deck .ct-mark-user { background: color-mix(in srgb, var(--felix) 40%, transparent); }
+.deck .ct-mark-assistant { background: var(--grey-750); }
+/* Lit: this turn is in the window on screen — the strip's whole job is saying where you are. */
+.deck .ct-mark.on { background: var(--grey-500); }
+.deck .ct-mark-user.on { background: var(--felix); }
+.deck .ct-mark.aim { background: var(--yellow-600); }
+.deck .ct-mark:hover { outline: 1px solid var(--grey-600); }
+/* --- the engine's step (C16 §3): a pause is a conversation, and its question sits above the reply --- */
+.deck .ct-step { margin-top: 6px; padding: 5px 7px; border: 1px solid var(--grey-800); border-radius: 3px; background: var(--grey-900); }
+.deck .ct-step .kv { display: flex; align-items: baseline; gap: 6px; }
+.deck .ct-step .pill {
+	font-family: var(--mono); font-size: 9px; letter-spacing: .08em;
+	border: 1px solid var(--grey-700); border-radius: 3px; padding: 0 4px; color: var(--grey-400);
+}
+.deck .ct-step .who { font-family: var(--mono); font-size: 9.5px; color: var(--grey-600); }
+.deck .ct-step-paused { border-color: var(--felix); }
+.deck .ct-step-paused .pill { border-color: var(--felix); color: var(--felix); }
+.deck .ct-step .prose { margin: 4px 0 0; font-size: 11.5px; line-height: 1.5; color: var(--grey-250); }
 .deck .ct { border-left: 2px solid var(--grey-800); padding: 4px 0 4px 7px; margin-top: 7px; }
 .deck .ct-user { border-left-color: var(--felix); }
 .deck .ct-assistant { border-left-color: var(--grey-700); }
@@ -673,6 +700,23 @@ body.deck {
 	font-family: var(--mono); font-size: 10px; line-height: 1.45; color: var(--grey-350);
 	white-space: pre; tab-size: 3;
 }
+/* --- the transcript's own markdown (C16 §4), view only ---
+   Prose is Inter and everything countable or quoted is IosevkaFelix (the design law, §3), so a
+   table and a fence read as data and a paragraph reads as speech. */
+.deck .ct .ct-md-h { margin: 7px 0 0; font-family: var(--wide); font-weight: 700; color: var(--grey-150); }
+.deck .ct .ct-md-h1 { font-size: 12.5px; letter-spacing: .06em; }
+.deck .ct .ct-md-h2 { font-size: 11.5px; letter-spacing: .05em; }
+.deck .ct .ct-md-h3 { font-size: 11px; color: var(--grey-350); }
+.deck .ct .ct-md-list { margin: 4px 0 0; padding-left: 16px; font-size: 11.5px; line-height: 1.5; color: var(--grey-250); }
+.deck .ct-assistant .ct-md-list { color: var(--grey-350); }
+.deck .ct .ct-md-list li { margin-top: 2px; }
+.deck .ct .ct-md-table { margin: 5px 0 0; overflow-x: auto; }
+.deck .ct .ct-md-table table { border-collapse: collapse; font-family: var(--mono); font-size: 10px; }
+.deck .ct .ct-md-table th, .deck .ct .ct-md-table td {
+	border: 1px solid var(--grey-800); padding: 2px 6px; text-align: left; white-space: nowrap;
+}
+.deck .ct .ct-md-table th { color: var(--grey-300); font-weight: 700; background: var(--grey-900); }
+.deck .ct .ct-md-table td { color: var(--grey-450); }
 /* One tool call, one line — the encapsulation law where the traffic is densest. */
 .deck .ct-act { display: flex; align-items: baseline; gap: 6px; margin-top: 2px; font-size: 10px; }
 .deck .ct-act .tool { font-family: var(--mono); font-weight: 700; color: var(--blue-300); }

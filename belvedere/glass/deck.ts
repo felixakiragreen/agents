@@ -21,6 +21,7 @@ import { buildingOf } from './pages';
 import { cityRoot } from './paths';
 import { age, city } from './register';
 import { readRig } from './rig';
+import { stepIndex } from './steps';
 import { worksOf } from './works';
 import { workshopOf } from './workshop';
 
@@ -105,7 +106,12 @@ export async function deckState(open: string | null = null, talking: string | nu
 
 	const sessions = census.sessions.map(s => deckSession(s, buildingOf(s.cwd, buildings)?.building ?? null, names));
 
-	const queue = needsYou(buildings, live);
+	// The engine's runs, read once for the two tenants that ask about them: the queue lists the steps
+	// it has paused (C16 §3), and the Chat resolves its target through the same index. One read, one
+	// bound — a second walk of the telemetry tree on this thread would be a second answer to the same
+	// question (`steps.ts` §LIMITS).
+	const steps = stepIndex(buildings);
+	const queue = needsYou(buildings, live, [...steps.values()].filter(s => s.at === 'paused'));
 	const rows = cityRows(buildings, live, queue);
 
 	// The Workshop's detail is **asked for, never broadcast**: the whole of the city's biggest
@@ -128,7 +134,7 @@ export async function deckState(open: string | null = null, talking: string | nu
 	// three, and re-reading the census inside would double the most expensive read on the path.
 	const cred = readCredential();
 	const chat = talking === null ? null
-		: chatView(talking, TAIL, cred.ok, cred.ok ? 'armed' : cred.error, { rig: readRig(), census, buildings });
+		: chatView(talking, TAIL, cred.ok, cred.ok ? 'armed' : cred.error, { rig: readRig(), census, buildings, steps });
 
 	return {
 		at: Date.now() / 1000,

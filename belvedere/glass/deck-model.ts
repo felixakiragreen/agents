@@ -425,20 +425,28 @@ export type Works = {
 // ---------- the Chat: one hotswappable conversation (B16, keel §5) ----------
 
 /**
- * One run of a turn. A transcript is not prose — it is prose, quoted bytes, and work — so the three
- * are three shapes rather than one string the client has to re-parse.
+ * One run of a turn. A transcript is not prose — it is prose, quoted bytes, structure and work — so
+ * each is a shape rather than one string the client has to re-parse.
  *
- *  - `prose` — the agent's or Felix's words, already spanned server-side, so they decode like every
- *    other rendering of corpus text (B20's seam, spec §2).
+ *  - `prose` — one paragraph of the agent's or Felix's words, already spanned server-side, so it
+ *    decodes like every other rendering of corpus text (B20's seam, B16 §2).
+ *  - `head` / `list` / `table` — the block markdown agents actually write (C16 §4). Every cell and
+ *    item is spans, so inline markdown and the decoder reach inside them by construction.
  *  - `fence` — a fenced block, kept **verbatim and exempt from the decoder**: a kickoff quoted in a
  *    transcript is bytes somebody will copy, and a glass that hung controls inside it would be
  *    editing what it was asked to show (B20 §1's law, extended from code ticks to fences).
- *  - `act` — one tool call or one thought, **encapsulated to a single line** (spec §2, dataviz
+ *  - `act` — one tool call or one thought, **encapsulated to a single line** (B16 §2, dataviz
  *    first): the tool's name and the one field that says what it touched. The full record is one
  *    jump away, in the pane cmux already owns.
+ *
+ * **Rendering is the transcript's, never the composer's** (Felix, 2026-08-30: *"full rich text —
+ * view only"*): nothing in this shape is editable and the reply box stays plain text.
  */
 export type ChatBlock =
 	| { kind: 'prose'; spans: Span[] }
+	| { kind: 'head'; level: number; spans: Span[] }
+	| { kind: 'list'; ordered: boolean; items: Span[][] }
+	| { kind: 'table'; head: Span[][]; rows: Span[][][] }
 	| { kind: 'fence'; lang: string; text: string }
 	| { kind: 'act'; tool: string; head: string };
 
@@ -457,6 +465,38 @@ export type ChatTurn = {
 	folded: number;
 };
 
+/**
+ * The engine's step behind a session, where there is one (C16 §1). A session the census knows and a
+ * session only a run log names are the **same view**; this is what says which it is, and it is the
+ * whole of how the send picks its road.
+ *
+ * `refusal` is C14's compat law made visible: a pre-C14 run that named no config dir is readable
+ * forever and drivable never, so the Chat renders the refusal in kind rather than stalling.
+ */
+export type ChatStep = {
+	/** The run dir's path under the telemetry root — how every console verb addresses it. */
+	run: string;
+	step: string;
+	/** The fold's own state name: `running` · `ended` · `paused` · (never `pending`, which has no session). */
+	at: string;
+	/** A paused step's causes, verbatim from the log — `needs-⬡ question`, `gate`, `dead`, `venue`. */
+	causes: string[];
+	/** The pause's detail: the question, or the cause behind it. */
+	why: string;
+	account: string | null;
+	venueFrom: 'log' | 'conditions' | 'sandbox';
+	building: string | null;
+	/** A layer-0 run: the config dir is a sandbox the run made and owns, so there is no account. */
+	fake: boolean;
+	/** Why this run cannot be driven at all (C14's compat law), or null when it can. */
+	refusal: string | null;
+	/** The step is in a human's hands (`console summon`) — it comes back with `return`, not a reply. */
+	summoned: boolean;
+	/** The run log's last event, in epoch seconds — the pause's own clock. */
+	logAt: number | null;
+	where: string;
+};
+
 /** Who the Chat is pointed at. Carried whole, because a **dead** target is in no snapshot session. */
 export type ChatTarget = {
 	sid: string;
@@ -473,6 +513,8 @@ export type ChatTarget = {
 	/** The cmux workspace **UUID** — never a `workspace:N` ref (P6 F2: a stale ref delivers to whatever Felix is looking at). */
 	ws: string | null;
 	transcript: string | null;
+	/** The engine's step behind this session, where a run log names one (C16 §1). */
+	step: ChatStep | null;
 };
 
 /**
@@ -482,10 +524,17 @@ export type ChatTarget = {
  */
 export type ChatSend = {
 	can: boolean;
-	/** How the words would travel: into a live pane (P6 §T), or as the turn a resume carries (P6 Q3). */
-	mode: 'live' | 'resume' | null;
+	/**
+	 * **Which road the words take**, and the Chat says so before and after it takes it (C16 §2):
+	 * into a live cmux pane (P6 §T), as the turn a cmux resume carries (P6 Q3), or through the
+	 * **engine's own resume** into a step it is holding paused — the console's `send`, in the glass.
+	 */
+	mode: 'live' | 'resume' | 'engine' | null;
 	why: string;
 };
+
+/** One mark on the minimap: a turn's key, and who spoke it (C16 §6). */
+export type ChatMark = { key: number; role: 'user' | 'assistant' };
 
 /** The one conversation view's whole payload, under the poll's `?s=` (spec §1). */
 export type ChatView = {
@@ -508,6 +557,15 @@ export type ChatView = {
 	/** His draft for THIS target, off `desk/drafts/` — it outlives a reload, a hotswap and a kill. */
 	draft: string;
 	send: ChatSend;
+	/**
+	 * **One mark per turn of the WHOLE transcript** (C16 §6), not just the loaded window — the
+	 * minimap's whole reason for existing is that the window is a keyhole. Evenly downsampled where
+	 * a transcript holds more turns than the strip has marks, so the first and the last always
+	 * survive and every mark still points at a real turn's key.
+	 */
+	marks: ChatMark[];
+	/** How many turns the transcript holds, against how many marks came back — a bounded read says so. */
+	turnCount: number;
 };
 
 /**
@@ -904,6 +962,14 @@ export type QueueItem = {
 	jump: string | null;
 	/** waiting only — the session `POST /hands/focus` jumps to, or null when it sits in no pane. */
 	sid: string | null;
+	/**
+	 * The session the Chat opens on, or null where the item is about no session at all.
+	 *
+	 * Split from `sid` at C16, because the two questions came apart: a **paused engine step** has a
+	 * conversation to read and a reply that lands it, and no cmux pane to jump to at all. Reading is
+	 * never gated, so this is set wherever a session exists — `sid` stays exactly the pane jump.
+	 */
+	chat: string | null;
 	/** countersign only — the D-id the gesture carries, and which of B6's three states it is in. */
 	decision: string | null;
 	state: Countersigned | null;

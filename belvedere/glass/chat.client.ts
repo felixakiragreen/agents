@@ -18,7 +18,7 @@
 
 import {
 	refusals,
-	type ChatBlock, type ChatTurn, type ChatView, type DeckSnapshot, type PaneState, type QueueItem,
+	type ChatBlock, type ChatStep, type ChatTurn, type ChatView, type DeckSnapshot, type PaneState, type QueueItem,
 } from './deck-model';
 import { moveIn, selection, swap, viewer, type FocusView } from './deck-view';
 import { button, drawSpans, el, paint, reading, receipt, say, stamp, words } from './deck-dom';
@@ -102,7 +102,17 @@ function latch(): void {
 
 const WHO = (t: ChatTurn, name: string) => (t.role === 'user' ? 'you' : name);
 
+/**
+ * One block, drawn (C16 §4). The server already parsed the markdown into shapes and every run of
+ * words into spans, so this is a `switch` and nothing else — the client parses no notation, which is
+ * how the decoder reaches inside a table cell and a list item without a second grammar existing.
+ *
+ * **View only** (Felix, 2026-08-30): nothing here is editable, and the reply box beside it is a
+ * plain textarea. A rendered transcript and a rendered composer are two different products.
+ */
 function drawBlock(host: HTMLElement, b: ChatBlock, doc: string): void {
+	const open = (path: string, line: number | null) => viewer.open?.(path, line);
+	const ctx = reading(doc);
 	if (b.kind === 'act') {
 		const line = el('div', 'ct-act');
 		line.append(el('span', 'tool', b.tool));
@@ -118,8 +128,41 @@ function drawBlock(host: HTMLElement, b: ChatBlock, doc: string): void {
 		host.append(pre);
 		return;
 	}
+	if (b.kind === 'head') {
+		const h = el('p', `ct-md-h ct-md-h${Math.min(b.level, 3)}`);
+		drawSpans(h, b.spans, open, ctx);
+		host.append(h);
+		return;
+	}
+	if (b.kind === 'list') {
+		const list = el(b.ordered ? 'ol' : 'ul', 'ct-md-list');
+		for (const item of b.items) {
+			const li = el('li');
+			drawSpans(li, item, open, ctx);
+			list.append(li);
+		}
+		host.append(list);
+		return;
+	}
+	if (b.kind === 'table') {
+		// Tabular data is IosevkaFelix by the design law (§3), and the table owns its own overflow: a
+		// wide table must scroll inside the pane, never widen it (the law of space).
+		const box = el('div', 'ct-md-table');
+		const table = el('table');
+		const head = el('tr');
+		for (const cell of b.head) { const th = el('th'); drawSpans(th, cell, open, ctx); head.append(th); }
+		table.append(head);
+		for (const row of b.rows) {
+			const tr = el('tr');
+			for (const cell of row) { const td = el('td'); drawSpans(td, cell, open, ctx); tr.append(td); }
+			table.append(tr);
+		}
+		box.append(table);
+		host.append(box);
+		return;
+	}
 	const p = el('p', 'prose');
-	drawSpans(p, b.spans, (path, line) => viewer.open?.(path, line), reading(doc));
+	drawSpans(p, b.spans, open, ctx);
 	host.append(p);
 }
 
@@ -161,10 +204,12 @@ function drawTranscript(host: HTMLElement): void {
 	const t = v.target;
 	const head = el('div', 'ct-head');
 	head.append(el('span', 'big', t.name));
-	head.append(el('span', 'st-word', t.waiting ?? t.state));
+	head.append(el('span', 'st-word', t.step ? t.step.at : t.waiting ?? t.state));
 	if (t.model) head.append(el('span', 'tier', t.model));
 	if (t.building) head.append(el('span', 'who', t.building));
+	if (t.step) head.append(el('span', 'who', `${t.step.run}/${t.step.step}`));
 	host.append(head);
+	if (t.step) drawStep(host, t.step);
 
 	const turns = allTurns(v);
 	if (!turns.length) {
@@ -174,6 +219,7 @@ function drawTranscript(host: HTMLElement): void {
 		return;
 	}
 
+	const body = el('div', 'ct-body');
 	const box = el('div', 'ct-turns');
 	box.id = 'chat-turns';
 	// A standing jump says so, and says how to leave: this window is somewhere in the file's past, and
@@ -193,7 +239,57 @@ function drawTranscript(host: HTMLElement): void {
 	}
 	else box.append(el('p', 'quiet', 'the beginning of this transcript'));
 	for (const turn of turns) drawTurn(box, turn, t.name, v.doc);
+	body.append(box);
+	body.append(minimap(v, turns));
+	host.append(body);
+}
+
+/**
+ * The engine's step, where the target is one (C16 §3). A paused `‹needs-⬡ question›` **is** a
+ * conversation: the question the subject asked is the last thing it said, and it belongs above the
+ * reply box rather than three panes away in the Works. `‹blocked›` and `‹dead›` render the same way
+ * and the reply box simply is not drawn beside them (the honest-disabled law).
+ */
+function drawStep(host: HTMLElement, s: ChatStep): void {
+	const box = el('section', `ct-step ct-step-${s.at}`);
+	const line = el('div', 'kv');
+	line.append(el('span', 'pill', s.at === 'paused' ? `‹${s.causes.join(', ')}›` : s.at));
+	line.append(el('span', 'who', s.fake ? 'no account — a layer-0 sandbox the run made and owns' : s.account ?? s.venueFrom));
+	box.append(line);
+	if (s.why) box.append(el('p', 'prose', s.why));
+	if (s.refusal) box.append(el('p', 'quiet prose', s.refusal));
+	if (s.summoned) box.append(el('p', 'quiet prose', 'This step is summoned — a human holds it in a terminal, and it returns to the engine with the console’s `return`.'));
 	host.append(box);
+}
+
+/**
+ * **The minimap** (C16 §6): the whole transcript as one strip, always the pane's full height and
+ * never scrolling itself. One mark per turn — Felix's and the agent's in different colours — with
+ * the loaded window lit, so the strip says *where in the conversation this window is*. A click loads
+ * the window around that turn through the same gesture route the Grep's jump uses (B21), so the
+ * anchor the server names is what lands rather than the DOM's opinion of where it scrolled to.
+ *
+ * Marks are the SERVER's index of the file, not the window's turns: a minimap of the forty turns
+ * already on screen would be a picture of the keyhole.
+ */
+function minimap(v: ChatView, drawn: ChatTurn[]): HTMLElement {
+	const strip = el('div', 'ct-map');
+	if (!v.marks.length) return strip;
+	strip.dataset['tip'] = `${v.turnCount} turns · ${v.marks.length} marks`;
+	strip.dataset['tipMore'] = v.marks.length < v.turnCount
+		? `The strip holds one mark per turn up to its own limit; beyond that the marks are spaced evenly across the file, so the first and last turns always have one. Click any mark to load the window around that turn.`
+		: 'One mark per turn of the whole transcript. Click one to load the window around it.';
+	const first = drawn.at(0)?.key ?? 0;
+	const last = drawn.at(-1)?.key ?? 0;
+	for (const m of v.marks) {
+		const lit = m.key >= first && m.key <= last;
+		const mark = el('button', `ct-mark ct-mark-${m.role}${lit ? ' on' : ''}${aim?.key === m.key ? ' aim' : ''}`) as HTMLButtonElement;
+		mark.type = 'button';
+		mark.dataset['chatMark'] = String(m.key);
+		mark.setAttribute('aria-label', `${m.role === 'user' ? 'your' : 'the agent’s'} turn at byte ${m.key}`);
+		strip.append(mark);
+	}
+	return strip;
 }
 
 // ---------- the jump: one window, around a byte offset (B21) ----------
@@ -440,7 +536,19 @@ export const chat: FocusView = {
 		focus.addEventListener('click', e => {
 			const t = e.target as Element | null;
 			if (t?.closest('[data-chat-earlier]')) return void loadEarlier();
-			if (t?.closest('[data-chat-latest]')) toLatest();
+			if (t?.closest('[data-chat-latest]')) return void toLatest();
+			const mark = t?.closest<HTMLElement>('[data-chat-mark]');
+			// Every mark takes the same road, including one already on screen: the window around a turn
+			// is the server's answer, and a client that sometimes scrolled instead would be two jumps.
+			if (mark && selection.session) {
+				const at = Number(mark.dataset['chatMark']);
+				aim = { at, key: null };
+				earlier = [];
+				from = 0;
+				scrolled = false;
+				stick = false;
+				void loadAround(selection.session, at);
+			}
 		});
 	},
 	unmount() { focusHost = null; actionHost = null; },
