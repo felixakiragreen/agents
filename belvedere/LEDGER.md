@@ -2302,6 +2302,8 @@ then read ~/code/agents/belvedere/v3/README.md, the ledger tail,
 and lay batch 8 — C9 scale and C10 the console demo.
 ```
 
+---
+
 **2026-08-30 · Digger · opus-medium** — **C9 landed: scale, bar 5 met both
 halves.** Changed: [`v3/lab/c9/`](v3/lab/c9/) — `drill.ts` (a run root per arm,
 load recorded before *and* after, and `holdForLoad()`, the batch note's load-8
@@ -2341,6 +2343,8 @@ Next: **C10 is ignitable** — C9 is landed and reviewed-pending, the engine is
 untouched, and C10's step 0 lands on unmodified bytes. Its kickoff is in
 [C10](v3/plans/c10-console-demo.md); budget ≤$3 / ≤30 turns. After it, **G4
 convenes** on campaign bars 1–6, all landed.
+
+---
 
 **2026-08-30 · Builder · opus-medium** — **C10 landed: the console demo, campaign
 bar 6's instrument, plus step 0.**

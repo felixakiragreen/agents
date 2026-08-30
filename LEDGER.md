@@ -2213,7 +2213,7 @@ evidence supports substrate YES; rulings 2–4 are his taste, unrecommended.
 Memory: the /usage-gauge memory gained C9 F5's in-band mechanism. Decided:
 nothing register-grade. Next: G4 — his hand and his word.
 
-Baton — ⬡ → G4: run `bun belvedere/v3/console/rehearsal.ts personal`, drive
+Baton — ⬡ → rule G4: run `bun belvedere/v3/console/rehearsal.ts personal`, drive
 the five verbs by hand, then record the four rulings in
 [v3/plans/g4-verdict.md](belvedere/v3/plans/g4-verdict.md) §the verdict —
 the board row resolves on your word.
