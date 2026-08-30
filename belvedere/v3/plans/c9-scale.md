@@ -72,6 +72,13 @@ the substrate's §4.8 bar is physics or hope.
   `rate_limit_event` on the ladder → stop that arm immediately, record, file;
   the account's health outranks the measurement (denominator: per arm).
 
+> **Corrected 2026-08-30, the C9 review (F1):** `rate_limit_event` fires on
+> **every** turn with `status: "allowed"` — routine telemetry, so the literal
+> criterion would have killed the ladder at turn 2. The trigger reads *"second
+> consecutive `rate_limit_event` with `status !== "allowed"`"* — the intent
+> the ladder actually ran under (it never fired). The deviation is ratified;
+> the spec error was the lay's, and the correction is the lay's too.
+
 ## Escalation points
 
 - Any auth, login, or trust dialog — only Felix's hands.
