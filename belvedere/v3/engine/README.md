@@ -9,6 +9,9 @@ before a real token is spent.
 redundancy, audit it for truth (cornerstone §3.4). Between turns the engine
 holds nothing: `state()` is a fold of the log, every transition is appended
 before it is acted on, and a restart at any instant re-derives and continues.
+**And the stream is state:** a turn's stdout is written to a file the subject
+owns, so a turn that finished while the engine was dead still lands (C6 F2,
+ruled 2026-08-30).
 
 Built at [C6](../plans/c6-engine-core.md) against
 [C4's grammar](../lab/c4/grammar.md) as amended and
@@ -35,6 +38,12 @@ transition: `blessed` `re-blessed` `ignited` `resumed` `turn-ended` `landed`
 itself, so a log is judged from itself alone. Home:
 `summon/log/v3/runs/` (gitignored telemetry); test fixtures commit deliberately.
 
+**The stream files** — `<runDir>/streams/<stepId>.t<n>.jsonl`, one per step per
+turn, with the subject's stderr beside it as `.err`. The engine opens the file
+and hands the fd to the child, which owns it: the stream survives the engine's
+death, and that is what makes a mid-turn crash cost nothing. Nothing records the
+path — the run dir and the log's own turn count name it.
+
 **The step report** — `{state: "done"|"needs_input"|"blocked", cause, answer?}`,
 declared as `--json-schema` on every fired step. Without it a session that asked
 a question is byte-identical to one that finished (grammar §5). A turn with no
@@ -42,7 +51,8 @@ parseable report never lands.
 
 ## The laws the code wears
 
-1. **The engine holds nothing.** State is (flow file + run log + transcripts).
+1. **The engine holds nothing.** State is (flow file + run log + stream files
+   + transcripts) — the fourth item ruled in at C6 F2 and built at C7 step 0.
 2. **The blessing is the caller's act** (D11). `bless()` before anything
    ignites; a re-blessing covers unignited steps and may raise the ceiling,
    never lower it below what is spent.
@@ -52,8 +62,11 @@ parseable report never lands.
 4. **Posture legality per (model, posture)** at bless ([posture.ts](posture.ts)):
    `auto` | `acceptEdits` | `bypassPermissions`, and (haiku, `auto`) refuses —
    loud, never a silent fallback.
-5. **Lost-stream re-derivation** ([transcript.ts](transcript.ts)): watch the
-   pid; when it is gone the transcript alone yields worked / denied / dead.
+5. **Restart re-derivation is stream-file-first.** A step the log says is
+   running that this process never spawned: watch the pid (the step's own
+   `timeout_ms`, re-armed), then read its stream file — complete iff it carries
+   a `result` row (parse rule 1). Only a **torn** stream falls to
+   [transcript.ts](transcript.ts)'s poorer worked / denied / dead.
 6. **Timeouts are per step** (`timeout_ms`, default 120 s): SIGTERM ⇒ dead ⇒
    paused ‹timeout›. **No auto-retry** — a dead step pauses for a ruling.
 7. **Budget is a ceiling** (D73). Ignitions and resumes both cost a turn.
@@ -75,6 +88,7 @@ run.tick() / run.run()       →  RunState              // run() drives to termi
 run.rule(stepId, ruling)     →  true | Refusal        // land | kill | resume
 run.halt(reason) / run.state()
 replay(logPath)              →  RunState              // ≡ state(), exactly
+verdicts(state)              →  Record<step, string>  // run-to-run comparable
 invariants(logPath)          →  Violation[]
 ```
 
@@ -90,8 +104,9 @@ Without `--bless` a fresh run does nothing: the engine never blesses itself.
 `V3_ENGINE_CRASH_AT=<point>` makes the engine SIGKILL itself at a named instant
 — `before-ignite:<step>`, `after-ignite:<step>`, `before-card:<step>`,
 `before-settle:<step>`, `before-pause:<step>`. The drill in
-[test/crash.test.ts](test/crash.test.ts) cuts at five of them and asserts the
-restart converges with zero double-ignitions. C7 drives the same seam.
+[test/crash.test.ts](test/crash.test.ts) cuts at seven of them and asserts the
+restart converges **on the uncrashed run's own terminal verdicts**
+(`verdicts()`), with zero double-ignitions. C7 drives the same seam.
 
 ## What it does not do
 

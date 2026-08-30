@@ -1,7 +1,7 @@
 {
 	"id": "drill",
-	"name": "The crash-redo drill flow — a first ignition, a parallel pair, a long turn, a gate and a card",
-	"budget": 7,
+	"name": "The crash-redo drill flow — a first ignition, a parallel pair, a long turn, a death, a gate and a card",
+	"budget": 8,
 	"steps": [
 		{ "id": "prep", "kind": "task", "depends": [], "model": "sonnet", "effort": "low",
 		  "posture": "auto", "subject": { "fake": { "scenario": "schema-done", "seed": 101 } } },
@@ -11,6 +11,8 @@
 		  "posture": "auto", "subject": { "fake": { "scenario": "schema-done", "seed": 103 } } },
 		{ "id": "orphan", "kind": "task", "depends": ["prep"], "model": "sonnet", "effort": "low",
 		  "posture": "auto", "subject": { "fake": { "scenario": "orphan-finish", "seed": 104 } } },
+		{ "id": "dead", "kind": "task", "depends": ["prep"], "model": "sonnet", "effort": "low",
+		  "posture": "auto", "subject": { "fake": { "scenario": "die-137", "seed": 107 } } },
 		{ "id": "gate", "kind": "gate", "depends": ["fan-a", "fan-b"], "model": "sonnet", "effort": "low",
 		  "posture": "auto", "subject": { "fake": { "scenario": "schema-done", "seed": 105 } } },
 		{ "id": "card", "kind": "card", "depends": ["prep"], "ask": "prep landed. Carry on?" },

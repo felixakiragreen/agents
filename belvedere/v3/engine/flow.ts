@@ -16,6 +16,11 @@ export type Subject = { fake: { scenario: string; seed: number } };
 
 export const DEFAULT_TIMEOUT_MS = 120_000;
 
+/** A step id names that step's stream files on disk (C6 F2's ruled fix), so it
+ *  is a file name or it is refused — never a slug, which would collide two ids
+ *  into one stream. */
+const STEP_ID = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
+
 export type Fired = {
 	/** `task`: work. `gate`: work whose report rules the verdict for what follows. */
 	kind: "task" | "gate";
@@ -78,6 +83,8 @@ function parseStep(raw: unknown, where: string): Step | Refusal {
 	if (typeof raw !== "object" || raw === null) return refuse(`${where}: not an object`);
 	const s = raw as Record<string, unknown>;
 	if (typeof s.id !== "string" || s.id === "") return refuse(`${where}: id must be a non-empty string`);
+	if (!STEP_ID.test(s.id))
+		return refuse(`${where}: step id ${JSON.stringify(s.id)} is not a file name, and it names the step's stream files — ${STEP_ID}`);
 	if (!Array.isArray(s.depends) || s.depends.some((d) => typeof d !== "string"))
 		return refuse(`${where}: depends must be an array of step ids`);
 	const depends = s.depends as string[];

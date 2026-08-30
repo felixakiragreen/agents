@@ -32,6 +32,9 @@ export type RunState = {
 	budget: number;
 	/** Subject turns spent — ignitions and resumes both cost (D73). */
 	turns: number;
+	/** Turns spent per step. It names the step's stream files (`streamPath`),
+	 *  so a restart addresses the stream of the turn actually in flight. */
+	spent: Record<string, number>;
 	ceiling: boolean;
 	halted: string | null;
 	steps: Record<string, StepState>;
@@ -41,7 +44,7 @@ export const replay = (logPath: string): RunState => fold(readLog(logPath));
 
 export function fold(entries: readonly Entry[]): RunState {
 	const state: RunState = {
-		flow: null, scope: [], budget: 0, turns: 0, ceiling: false, halted: null, steps: {},
+		flow: null, scope: [], budget: 0, turns: 0, spent: {}, ceiling: false, halted: null, steps: {},
 	};
 	const set = (id: string, at: StepState) => { state.steps[id] = at; };
 
@@ -61,6 +64,7 @@ export function fold(entries: readonly Entry[]): RunState {
 			case "ignited":
 			case "resumed":
 				state.turns++;
+				state.spent[e.step] = (state.spent[e.step] ?? 0) + 1;
 				set(e.step, { at: "running", sessionId: e.sessionId, pid: e.pid, since: e.seq });
 				break;
 			case "turn-ended":
@@ -116,6 +120,19 @@ export function terminal(state: RunState): boolean {
 	if (state.halted !== null || state.ceiling) return true;
 	return !state.flow.steps.some((s) => ready(state, s));
 }
+
+/**
+ * The run's outcome, one line per step, with nothing in it that varies between
+ * two runs of the same flow — no pids, no session ids, no sequence numbers.
+ * The crash drill and the barrage both ask the same question of it: does the
+ * restarted run end where the uncrashed one ended?
+ */
+export const verdicts = (state: RunState): Record<string, string> =>
+	Object.fromEntries(Object.entries(state.steps).map(([id, at]) => [id,
+		at.at === "paused" ? `paused ‹${at.causes.join(", ")}›`
+		: at.at === "landed" ? `landed ${at.report?.state ?? "by ruling"}`
+		: at.at === "killed" ? "killed"
+		: at.at]));
 
 export const stepOf = (state: RunState, id: string): Step | undefined =>
 	state.flow === null ? undefined : stepById(state.flow, id);

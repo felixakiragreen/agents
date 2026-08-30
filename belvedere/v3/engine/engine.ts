@@ -5,18 +5,18 @@
 //
 // The only thing kept in memory is a handle on the subjects currently in
 // flight — an OS resource, not state. Lose it (crash, restart) and `adopt()`
-// gets the outcome back from the pid and the transcript.
+// gets the outcome back from the pid, the stream file, and the transcript.
 //
 // The library is the product; `cli.ts` is a hand-hold over it.
 
 import { existsSync, mkdirSync, readFileSync } from "node:fs";
-import { parseFlow, stepById, type Fired, type Flow, type Step } from "./flow.ts";
+import { DEFAULT_TIMEOUT_MS, parseFlow, stepById, type Fired, type Flow, type Posture, type Step } from "./flow.ts";
 import { openLog, type Log, type Ruling, type Sensed } from "./log.ts";
 import { postureLegal } from "./posture.ts";
 import { fold, ready, running, terminal, unresolved, type RunState } from "./replay.ts";
-import { verdict, type Cause, type Reading, type Verdict } from "./sense.ts";
+import { senseFile, verdict, type Cause, type Reading, type Verdict } from "./sense.ts";
 import { readTranscript, transcriptPath, verdictFromTranscript } from "./transcript.ts";
-import { ignite as spawnSubject, type Venue } from "./spawn.ts";
+import { ignite as spawnSubject, streamPath, type Venue } from "./spawn.ts";
 import { precheckVenue as defaultPrecheck, type VenuePrecheck } from "./venue.ts";
 import { crashPoint } from "./crash.ts";
 import { isRefusal, refuse, type Refusal } from "./refusal.ts";
@@ -29,11 +29,10 @@ export type Options = {
 	runDir: string;
 	/** C4 F8's slot. The layer-0 stub says yes; C8 supplies the real read. */
 	precheck?: VenuePrecheck;
-	/** How long an adopted subject is waited on before its transcript is read. */
-	adoptMs?: number;
 };
 
-const ADOPT_MS = 120_000;
+/** How often an adopted subject's pid is looked at while it finishes. */
+const ADOPT_POLL_MS = 25;
 /** The account a fake subject belongs to. Real accounts arrive with C8. */
 const FAKE_ACCOUNT = "fake";
 
@@ -74,7 +73,6 @@ export function load(flowPath: string, options: Options): Run | Refusal {
 
 function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
 	const precheck = options.precheck ?? defaultPrecheck;
-	const adoptMs = options.adoptMs ?? ADOPT_MS;
 	/** step id -> the turn in flight. A handle, never state. */
 	const inFlight = new Map<string, Promise<void>>();
 
@@ -116,9 +114,12 @@ function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
 		const trust = precheck(FAKE_ACCOUNT, venue.workDir);
 		if (!trust.trusted) { pause(step.id, ["venue"], `venue trust refused: ${trust.reason}`); return; }
 
+		// The turns already spent name this one's stream file, and the log
+		// carries them — so a restart addresses the same file without being told.
 		const spawned = spawnSubject({
 			step, venue, sessionId, resume: resume !== null,
 			prompt: resume ?? `${flow.id}/${step.id}`,
+			stream: streamPath(options.runDir, step.id, state().spent[step.id] ?? 0),
 		});
 		if (isRefusal(spawned)) { pause(step.id, ["dead"], spawned.refusal); return; }
 
@@ -137,19 +138,44 @@ function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
 
 	/**
 	 * A step the log says is running that this process never spawned: the engine
-	 * before us died holding its stream. Watch the pid; when it is gone, the
-	 * transcript alone yields the outcome (law 5, C4 F7's corollary).
+	 * before us died holding it. The stream file did not die with that engine
+	 * (C6 F2, ruled), so watch the pid, then read the disk.
+	 *
+	 * The wait re-arms the step's **full** `timeout_ms` — conservative, and
+	 * bounded by the same law that bounds a live turn (law 6). A subject that
+	 * outlives it is SIGTERMed and read as the timeout it is.
 	 */
-	function adopt(stepId: string, sessionId: string, pid: number): void {
+	function adopt(stepId: string, sessionId: string, pid: number, turn: number): void {
 		inFlight.set(stepId, waitThenRead());
 
 		async function waitThenRead(): Promise<void> {
-			const deadline = Date.now() + adoptMs;
-			while (alive(pid) && Date.now() < deadline) await new Promise((r) => setTimeout(r, 25));
+			const step = stepById(flow, stepId);
+			const timeoutMs = step !== undefined && step.kind !== "card" ? step.timeoutMs : DEFAULT_TIMEOUT_MS;
+			const asked = step !== undefined && step.kind !== "card" ? step.posture : "auto";
+			const deadline = Date.now() + timeoutMs;
+			while (alive(pid) && Date.now() < deadline) await Bun.sleep(ADOPT_POLL_MS);
+
+			const timedOut = alive(pid);
+			if (timedOut) { try { process.kill(pid, "SIGTERM"); } catch { /* it went on its own */ } }
 			inFlight.delete(stepId);
-			const reading = readTranscript(transcriptPath(venue.configDir, venue.workDir, sessionId));
-			settle(stepId, sessionId, { source: "transcript", reading });
+			settle(stepId, sessionId, fromDisk(stepId, sessionId, turn, asked, timedOut));
 		}
+	}
+
+	/**
+	 * What the disk says one turn was — stream file first (C6 F2, ruled). The
+	 * file is complete iff it carries a `result` row (parse rule 1); only a torn
+	 * stream falls back to the transcript's poorer worked / denied / dead.
+	 *
+	 * The one exception is a turn **this** engine timed out: it has first-hand
+	 * knowledge law 6 names, and a stream torn by its own SIGTERM is read as the
+	 * timeout it is rather than laundered through the transcript.
+	 */
+	function fromDisk(stepId: string, sessionId: string, turn: number, asked: Posture, timedOut: boolean): Sensed {
+		const reading = senseFile(streamPath(options.runDir, stepId, turn), asked);
+		reading.timedOut = timedOut;
+		if (!reading.dead || timedOut) return { source: "stream", reading };
+		return { source: "transcript", reading: readTranscript(transcriptPath(venue.configDir, venue.workDir, sessionId)) };
 	}
 
 	async function tick(): Promise<RunState> {
@@ -166,7 +192,7 @@ function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
 		for (const id of running(now))
 			if (!inFlight.has(id)) {
 				const at = now.steps[id];
-				if (at?.at === "running") adopt(id, at.sessionId, at.pid);
+				if (at?.at === "running") adopt(id, at.sessionId, at.pid, (now.spent[id] ?? 1) - 1);
 			}
 
 		// A card never ignites: when its edges land it pauses, and stays paused

@@ -6,7 +6,15 @@
 // eight variables of `cleanEnv` and nothing inherited, and `HOME` is never
 // overridden — `CLAUDE_CONFIG_DIR` selects the account, and overriding HOME
 // breaks keychain OAuth.
+//
+// **The stream is state** (C6 F2, ruled 2026-08-30). A turn's stdout goes to a
+// file the child owns, never a pipe: the fd outlives the engine that opened it,
+// so a turn that finished while the engine was dead can still be read as the
+// landing it was. Sensing tails that file rather than a pipe.
 
+import { closeSync, mkdirSync, openSync, readSync } from "node:fs";
+import { dirname } from "node:path";
+import { StringDecoder } from "node:string_decoder";
 import type { Fired } from "./flow.ts";
 import { REPORT_SCHEMA, emptyReading, senseLine, type Reading } from "./sense.ts";
 import { refuse, type Refusal } from "./refusal.ts";
@@ -19,7 +27,8 @@ export type Venue = { workDir: string; configDir: string };
 export type Spawned = {
 	sessionId: string;
 	pid: number;
-	/** Resolves when the turn is over: read to EOF, or timed out and SIGTERMed. */
+	/** Resolves when the turn is over: the stream read to the process's end, or
+	 *  timed out and SIGTERMed. */
 	settled: Promise<Reading>;
 };
 
@@ -30,9 +39,27 @@ export type Ignition = {
 	/** A fresh session id, or the id of the session this turn resumes. */
 	sessionId: string;
 	resume: boolean;
+	/** This turn's stream file. The child owns the fd (`streamPath`). */
+	stream: string;
 };
 
 const FAKE_CLI = new URL("../fake-claude/cli.ts", import.meta.url).pathname;
+
+/** How often the tail looks for new bytes. Small enough that a pause cause
+ *  surfaces well within one engine tick (invariant 5). */
+const TAIL_MS = 10;
+
+/**
+ * Where one turn's stdout lands: one file per step per turn, named by the turn
+ * index the log already carries (`spent`). Derived, never recorded — the run
+ * dir and the log together name it, so no event has to.
+ */
+export const streamPath = (runDir: string, stepId: string, turn: number): string =>
+	`${runDir}/streams/${stepId}.t${turn}.jsonl`;
+
+/** stderr's own file beside the stream: a refusal from the binary is a
+ *  diagnostic the barrage's reds want, and a pipe nobody reads loses it. */
+const stderrPath = (stream: string): string => stream.replace(/\.jsonl$/, ".err");
 
 /** The eight variables of C4's clean room. HOME is passed through, never set. */
 function cleanEnv(configDir: string): Record<string, string> {
@@ -61,45 +88,78 @@ export function argvFor(i: Ignition): string[] {
 
 export function ignite(i: Ignition): Spawned | Refusal {
 	const { scenario, seed } = i.step.subject.fake;
-	const proc = Bun.spawn([process.execPath, FAKE_CLI, ...argvFor(i)], {
-		cwd: i.venue.workDir,
-		env: {
-			...cleanEnv(i.venue.configDir),
-			FAKE_CLAUDE_SCENARIO: new URL(`../fake-claude/scenarios/${scenario}.json`, import.meta.url).pathname,
-			FAKE_CLAUDE_SEED: String(seed),
-		},
-		stdout: "pipe", stderr: "pipe",
-	});
+	mkdirSync(dirname(i.stream), { recursive: true });
+	// Opened by the parent, owned by the child: closed here the instant the
+	// spawn has its own copy, so nothing the engine holds keeps the file live.
+	const out = openSync(i.stream, "w");
+	const err = openSync(stderrPath(i.stream), "w");
+	let proc: Bun.Subprocess;
+	try {
+		proc = Bun.spawn([process.execPath, FAKE_CLI, ...argvFor(i)], {
+			cwd: i.venue.workDir,
+			env: {
+				...cleanEnv(i.venue.configDir),
+				FAKE_CLAUDE_SCENARIO: new URL(`../fake-claude/scenarios/${scenario}.json`, import.meta.url).pathname,
+				FAKE_CLAUDE_SEED: String(seed),
+			},
+			stdout: out, stderr: err,
+		});
+	} finally {
+		closeSync(out);
+		closeSync(err);
+	}
 	if (proc.pid === undefined) return refuse(`step ${i.step.id}: the subject did not spawn`);
 
-	return { sessionId: i.sessionId, pid: proc.pid, settled: read(proc, i.step.timeoutMs, i.step.posture) };
+	return { sessionId: i.sessionId, pid: proc.pid, settled: tail(proc, i.stream, i.step.timeoutMs, i.step.posture) };
 }
 
 /**
- * Read the stream to EOF, then wait for the process — parse rule 1: the last
- * `result` is the turn's outcome, and "the process exited" is never the turn
- * boundary. The timeout is the step's own (law 6): SIGTERM, then dead.
+ * Tail the stream file until the process is gone, then read what is left —
+ * parse rule 1: the last `result` is the turn's outcome, and "the process
+ * exited" is never the turn boundary. The timeout is the step's own (law 6):
+ * SIGTERM, then dead.
  *
- * The pump is a named function, not an IIFE: bun narrows a variable captured by
- * one to its call-site value (C5 F6).
+ * Reading a file rather than a pipe changes one thing and it is the point: what
+ * this function sees, a restart can see too.
  */
-async function read(proc: Bun.Subprocess<"ignore", "pipe", "pipe">, timeoutMs: number, asked: Fired["posture"]): Promise<Reading> {
+async function tail(proc: Bun.Subprocess, stream: string, timeoutMs: number, asked: Fired["posture"]): Promise<Reading> {
 	const reading = emptyReading(asked);
 	const timer = setTimeout(() => { reading.timedOut = true; proc.kill("SIGTERM"); }, timeoutMs);
 
-	async function pump(): Promise<void> {
-		let rest = "";
-		for await (const chunk of proc.stdout) {
-			rest += new TextDecoder().decode(chunk);
+	let running = true;
+	const exited = proc.exited.then((code) => { running = false; return code; });
+
+	const fd = openSync(stream, "r");
+	const decoder = new StringDecoder("utf8");
+	const buf = Buffer.alloc(64 * 1024);
+	let rest = "";
+
+	/** Every whole line written since the last look. A partial line waits: the
+	 *  writer appends whole lines, and half of one parses as nothing. */
+	function drain(): void {
+		for (;;) {
+			const n = readSync(fd, buf, 0, buf.length, null);
+			if (n === 0) break;
+			rest += decoder.write(buf.subarray(0, n));
 			const lines = rest.split("\n");
 			rest = lines.pop() ?? "";
 			for (const line of lines) senseLine(reading, line);
 		}
-		if (rest !== "") senseLine(reading, rest);
 	}
 
-	try { await pump(); } finally { clearTimeout(timer); }
-	reading.exit = await proc.exited;
+	try {
+		while (running) {
+			await Promise.race([exited, Bun.sleep(TAIL_MS)]);
+			drain();
+		}
+		drain();
+		if (rest !== "") senseLine(reading, rest);
+	} finally {
+		clearTimeout(timer);
+		closeSync(fd);
+	}
+
+	reading.exit = await exited;
 	reading.signal = proc.signalCode ?? null;
 	return reading;
 }

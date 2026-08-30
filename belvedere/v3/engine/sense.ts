@@ -7,6 +7,7 @@
 // `is_error:false` is emitted by turns that did nothing at all. So nothing here
 // reads success; it reads denials, the granted posture, and the declared report.
 
+import { existsSync, readFileSync } from "node:fs";
 import type { Posture } from "./flow.ts";
 
 export type ReportState = "done" | "needs_input" | "blocked";
@@ -89,6 +90,22 @@ export function senseLine(r: Reading, line: string): void {
 		})
 		: [];
 	r.report = parseReport(e.structured_output) ?? parseReport(r.text);
+}
+
+/**
+ * One turn's stream read back off disk — the restart's first source (C6 F2,
+ * ruled 2026-08-30). A stream file is complete iff it carries a `result` row,
+ * and `dead` is exactly that question already answered: a torn stream reads
+ * `dead: true`, and the caller falls to the transcript.
+ *
+ * `exit` and `signal` stay null: they were the spawning engine's to see, and
+ * that engine is gone. Nothing here guesses them.
+ */
+export function senseFile(path: string, asked: Posture): Reading {
+	const reading = emptyReading(asked);
+	if (!existsSync(path)) return reading;
+	for (const line of readFileSync(path, "utf8").split("\n")) senseLine(reading, line);
+	return reading;
 }
 
 /** The report rides `structured_output`, and `result.result` carries the same

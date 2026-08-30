@@ -120,6 +120,7 @@ test("bar 8 — the transcript-only outcome equals the streamed outcome", async 
 			step: { kind: "task", id: c.scenario, depends: [], model: "sonnet", effort: "low",
 				posture: "auto", timeoutMs: 20_000, subject: { fake: { scenario: c.scenario, seed: 3 } } },
 			venue, sessionId, resume: false, prompt: `lost-stream/${c.scenario}`,
+			stream: `${runDir}/streams/${c.scenario}.t0.jsonl`,
 		});
 		if (isRefusal(spawned)) throw new Error(spawned.refusal);
 
