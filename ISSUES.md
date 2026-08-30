@@ -93,3 +93,10 @@ is cleared). A cleared inbox is empty.
   charges (C25's live/spent rule, the vocab arm's own precedent) or canon rules
   that door repairs reach history. Same calibration family as the bv/* counting
   entry above. Belvedere's red stands until ruled.
+- 2026-08-29 · Architect (summon colours) · `presets.tsv` now speaks REAL colours
+  (builder blue, digger orange; commit 7973440), so belvedere's
+  `glass/colors.ts` `INTENT_OF` inversion — built for the old ANSI words — now
+  maps rig-sourced words wrong (`blue`→felikai orange). Felix ruled belvedere
+  out of this session's scope (mid-rework); the rework should collapse the
+  inversion to an identity lookup and true its tests (`colors.test.ts:21-23`,
+  `composer.test.ts:329`, `shelf.test.ts:201`).
