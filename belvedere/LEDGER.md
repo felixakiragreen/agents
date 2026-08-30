@@ -2660,3 +2660,44 @@ arming law, agreements; the migration campaign note),
 ~/code/agents/belvedere/plans/c17-camera.md (findings included),
 and execute the charge at ~/code/agents/belvedere/plans/c15-deck-v3-lane.md.
 ```
+
+---
+
+**2026-08-30 · Builder · opus-high (C15)** — **the v2 engine is gone and the
+deck's Works draws v3 runs.** `glass/flow.ts`, `glass/engine.ts`,
+`glass/judge.ts`, their three test files and all three `flows/*.flow.json` are
+`git rm`'d (`3c3dea1`); `belvedere/flows/` no longer exists, `rg -l
+'readFlows|glass/engine|glass/judge'` over `glass/` + `camera/` matches nothing,
+and **this server has no clock** — the arm route, the pass route and the
+five-second tick died with it. The Works now reads the v3 engine's own run logs
+through the v3 engine's own exports (`runs`/`readRun`, `fold`, `verdicts`,
+`postureLegal`) and re-implements none of them; a committed test asserts the
+drawn node states **≡ `verdicts()`** on the same log and goes red under mutation.
+The three C12-F6 reds are resolved: the `readFlows` test **died with v2**, and
+the fork-baton red and `colors.ts`'s `INTENT_OF` inversion were **one cause**
+(F1 — the rig writes real colour words since C25 and the deck translated them a
+second time, putting Builder in orange); C19 F3's ternary is trued at
+`pages.ts`'s own seam. `paths.ts` gained `$RUNS_DIR` and **`$INBOX_DIR`**, and
+the camera's twin turns the second on every boot — **C17 F2 closed**: the probe
+that clicks "file it" now lands in `$TMPDIR` with the real
+`belvedere/ISSUES.md` byte-identical either side (`sha256 bab5285b…`, 751 B).
+Bar: `bun v3/gates.ts --glass` **ALL GREEN — 12 gates, wall 213.4 s, exit 0**
+(glass 565 pass / 0 fail, glass types 0, barrage 1000 runs · 50 cuts · 9/9
+mutants); camera type gate 0; zero new dependencies; **0 real turns, $0**. Two
+camera probes committed and their PNGs Read — the Works on C10's landed
+rehearsal (three ranks running down, the NOW line below all three, `personal`
+off the log, `444 B FROZEN AT THE BLESSING` on the picked node, **0
+fire/arm/pass controls on the pane**) and the inbox knob clicked; seven
+predecessor probes re-run whole, all green. Two bugs the camera caught that no
+unit test could: **`data-at` is the deck's clock** and a node stamping its fold
+state there had its whole body replaced by `NaNd` every second (F2), and a
+repaint signature omitting the picker's `showing` left the Act pane on the
+previous run (F3, inherited from the v2 tenant and invisible while every
+building had one flow). Decided: nothing register-grade — every choice above
+sits inside the charge's fence and cites its finding. Next: the tender reviews
+this landing, then lays C16 at the close.
+
+Baton — Felix (the C15 tender's own session holds it; this Builder was
+dispatched and reports). Findings F1–F7 and the evidenced bar are in
+[plans/c15-deck-v3-lane.md](plans/c15-deck-v3-lane.md); the relay for C16 and
+G5 is in [plans/BULLETIN.md](plans/BULLETIN.md).

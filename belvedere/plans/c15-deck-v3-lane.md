@@ -1,6 +1,8 @@
 # C15 — the deck's v3 lane
 
-**Status:** OPEN — cut 2026-08-30 at C14's reviewed landing · **Depends on:**
+**Status:** **LANDED** 2026-08-30 — nothing escalated; the bar is evidenced below,
+seven findings, two of them bugs the camera caught that no unit test could (F2 the
+`data-at` collision, F3 the repaint signature) · **Depends on:**
 C14 (the account field's final shape is this charge's input); C17 (the camera —
 every visual bar ships its evidence) · **Schedule:** ignites when C18 and C19
 paste green — camera-tree contention plus C19's fixture states, not dependency
