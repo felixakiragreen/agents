@@ -275,10 +275,11 @@ function drawStep(host: HTMLElement, s: ChatStep): void {
 function minimap(v: ChatView, drawn: ChatTurn[]): HTMLElement {
 	const strip = el('div', 'ct-map');
 	if (!v.marks.length) return strip;
-	strip.dataset['tip'] = `${v.turnCount} turns · ${v.marks.length} marks`;
-	strip.dataset['tipMore'] = v.marks.length < v.turnCount
-		? `The strip holds one mark per turn up to its own limit; beyond that the marks are spaced evenly across the file, so the first and last turns always have one. Click any mark to load the window around that turn.`
-		: 'One mark per turn of the whole transcript. Click one to load the window around it.';
+	strip.dataset['tip'] = `${v.turnCount} turns · ${v.marks.length} marks · yours lit, the agent’s grey`;
+	strip.dataset['tipMore'] = (v.marks.length < v.turnCount
+		? 'The strip holds one mark per turn up to its own limit; beyond that the marks are spaced evenly across the file, so the first and last turns always have one. '
+		: 'One mark per turn of the whole transcript. ')
+		+ 'Bright marks are the window on screen. Click any mark to load the window around that turn.';
 	const first = drawn.at(0)?.key ?? 0;
 	const last = drawn.at(-1)?.key ?? 0;
 	for (const m of v.marks) {

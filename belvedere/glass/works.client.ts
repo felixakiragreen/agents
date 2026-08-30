@@ -24,7 +24,7 @@ import {
 } from './deck-model';
 import { moveIn, selection, swap, viewer, type FocusView } from './deck-view';
 import {
-	ago, button, dots, drawProse, el, paint, plain, reading, receipt, say, stamp, words, type DecodeCtx,
+	ago, button, chatButton, dots, drawProse, el, paint, plain, reading, receipt, say, stamp, words, type DecodeCtx,
 } from './deck-dom';
 
 // ---------- what the tenant is holding ----------
@@ -614,6 +614,10 @@ function drawAction(host: HTMLElement, state: PaneState): void {
 	if (node.sid !== null) {
 		const line = el('div', 'kv');
 		line.append(el('span', 'label', 'session'), el('span', 'prose', `${node.sid}${node.pid === null ? '' : ` · pid ${node.pid}`}`));
+		// The step's conversation, in the one Chat view (C16 §1). A step's subject is headless (D22),
+		// so this is the only way to read what it actually said — and the shared control means the
+		// Works reaches the Chat the way every other session row on the deck does.
+		line.append(chatButton(node.sid, 'read this step’s conversation, and reply into its pause'));
 		facts.append(line);
 	}
 	if (node.why !== null) {
