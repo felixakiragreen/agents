@@ -2002,3 +2002,90 @@ resolution lines and `bunx --offline tsc --noEmit` exits 0, so the camera's type
 offline by construction where `v3/**`'s was not.
 
 (Relayed from `master`, C19 LANDED 2026-08-30 — Builder)
+
+## → relay — C15 (the deck's v3 lane) to C16, to G5's rework lay, and to every later deck charge: no escalation, four findings that bind
+
+Evidence: [c15-deck-v3-lane.md](c15-deck-v3-lane.md) §Done when and §Findings, `master`,
+commits `516d8df` · `fec3fb9` · `3c3dea1` · `ae63d9a` · `a2dba59` · `59f6947` · `c4e643a`.
+
+**What is gone, so nobody writes against it:** `glass/flow.ts`, `glass/engine.ts`,
+`glass/judge.ts`, all three `belvedere/flows/*.flow.json` and their three test files.
+With them went `POST /flow/<name>/{arm,pass}`, `startEngine()`, the five-second tick and
+`$FLOWS_DIR`. **`glass/server.ts` has no clock at all now.** `paths.ts` gained
+`$RUNS_DIR` (the v3 telemetry root, default `<canon>/summon/log/v3`) and `$INBOX_DIR`.
+
+**And the numbers to write into your own bar** — C17's relay said `bun test` in `glass/`
+is `670 pass / 3 fail`; it is now **565 pass / 0 fail** (123 tests died with the v2
+engine, 15 were added), and **`bun v3/gates.ts --glass` is ALL GREEN** — 12 gates, wall
+213.4 s, exit 0. The `--glass` flag is no longer the red one; write it into your
+`Done when:`.
+
+1. **F2 — `data-at` is the deck's clock, not a free attribute, and stamping one erases
+   your element.** `tick(root)` in `deck-dom.ts` rewrites the `textContent` of **every**
+   `[data-at]` in the document once a second — that is how every age on the deck keeps
+   ageing. The v3 Works wrote `box.dataset['at'] = n.at` (the fold's state name) and one
+   second after the first paint every node's whole body was `ago(Number('landed'))`:
+
+   ```
+   NODE TEXT: "NaNd"          # the entire node
+   count node 3  node-h 0     # head, bill and ring: gone
+   ```
+
+   **No unit test can see this** — the collision is between a tenant's DOM and a global
+   sweep on a timer in a real browser; the camera caught it on the first shot. `data-at`
+   is reserved, and it does not add behaviour, it **replaces your children**. The step's
+   state is `data-step-at` now.
+
+2. **F3 — a `paint()` signature that omits a picker's state leaves the other pane on the
+   previous choice, and the v2 tenant had this bug too.** `works.client.ts` composed
+   Action's signature from `[building, actionState, picked, works, usage]` and left out
+   `showing`, the run the Focus picker had chosen. Focus redrew on the new run; Action
+   kept drawing the old one — photographed. **It was inherited, not introduced**: the v2
+   Works had the identical omission and it was invisible because the live city carried
+   one flow per building, so the picker never changed anything. Anything using
+   `paint(key, host, signature, draw)` must put **everything `draw` reads** into the
+   signature, including state the *other* pane owns. **This binds C16 directly** — a Chat
+   with a session picker and two panes is the same shape.
+
+3. **C17 F2 is CLOSED: the sovereign's inbox has a write root, and the twin turns it on.**
+   `$INBOX_DIR` redirects `inboxFile()` — the one seam the preview, the mint and the
+   append all go through — while `buildingDir()`'s fence still measures the target
+   against the city, unchanged. `twin.ts` sets it on **every** twin (a real-city twin
+   files into `$TMPDIR/belvedere-camera-inbox/<building>/`, a `--fixture` twin into its
+   own copied city). So **a probe may now click "file it"** — `probes/inbox-knob.probe.ts`
+   does exactly that, and the real `belvedere/ISSUES.md` is byte-identical either side
+   (`sha256 bab5285b…`, 751 B, read off disk by the probe itself). Note what the knob
+   does **not** do (F4): it moves the write, not the read — a twin renders the real
+   city's inbox panel while writing to scratch, and the note box's own line names the
+   true target, so the oddity is visible rather than hidden.
+
+4. **F5 — the barrage's own runs house in `agents`, and the Works is right to draw them.**
+   A run houses where its subject ran (`buildingOf` over the venue's cwd — the same join
+   the census makes for a live session), and the barrage's fakes run under
+   `~/code/agents/summon/log/v3/barrage/**/work`. So `agents` currently draws seven runs,
+   three of them regression harnesses of 43 and 2 steps. Nothing is wrong — every such
+   node says `fake:<scenario>` and the run says `no account — a layer-0 sandbox the run
+   made and owns` — but **a building whose engine work is a regression harness looks
+   busier than it is.** The read is bounded and prints its bound (`12 of 65 run logs
+   read, newest first · 5 housed elsewhere in the city`; `LIMITS.read` in `works.ts` is
+   the one constant). The honest fixes are contract changes — a telemetry root per
+   campaign (the engine's) or a fake/real filter (the pane's) — **named, not taken**.
+
+Also for **G5's rework lay**, not blocking: **`lab/b10`, `lab/b11` and `lab/b12`'s probes
+are dead letters now** (F6). They drive `/flow/<name>/arm`, `/flow/<name>/pass` and
+`FLOWS_DIR`, none of which exist. They were left standing deliberately — `lab/` is
+outside the type gate (B14 F6) and outside this charge's own grep, and those files are
+the evidence records of landed charges (B11's `0.513 s`, B12's `0.553 s`), so deleting
+them deletes a landing's proof. They retire to probe history the way `lab/p3/`'s parsers
+did. Three more (`lab/b16`, `lab/b19`, `lab/b21`) still set `FLOWS_DIR` at an empty
+directory to disarm the old engine; that line is inert. **If `lab/` is to be swept, it is
+a sweep, not a Builder's side-quest.** And `belvedere/README.md` §§6–7 still describe the
+v2 arm in spent batch notes and D-entries — historical records, and exactly what the
+master-doc purge at G5 is cut to handle.
+
+And the cost, for anyone budgeting `/deck/state`: `?b=agents` is **p95 89.1 ms** over 20
+spaced requests (bar 500 ms) with a **234 638 B** payload, of which `works` is 44 551 B;
+`worksOf('agents')` is **3.1 ms p50** of that poll — cheaper than the v2 flow parse it
+replaced, so B13 F5's shared budget is intact.
+
+(Relayed from `master`, C15 LANDED 2026-08-30 — Builder)
