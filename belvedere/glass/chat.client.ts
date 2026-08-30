@@ -400,7 +400,11 @@ async function send(sid: string, text: string): Promise<void> {
 		});
 		const body = await r.json() as { ok: boolean; error?: string; result?: Record<string, unknown> };
 		if (!body.ok) return say(key, `${r.status} ${body.error}`);
-		say(key, `delivered · ${String(body.result?.['mode'])} · ${String(body.result?.['bytes'])} B · sha ${String(body.result?.['sha']).slice(0, 16)}… · ${String(body.result?.['ms'])} ms`);
+		// The road is named in the receipt, because two roads reporting the same word are one road
+		// nobody can audit (C16 §2). The engine's road adds what the RUN LOG says after the delivery.
+		const step = body.result?.['step'] as { run?: string; id?: string; at?: string; why?: string } | null | undefined;
+		say(key, `delivered · ${String(body.result?.['mode'])} · ${String(body.result?.['bytes'])} B · sha ${String(body.result?.['sha']).slice(0, 16)}… · ${String(body.result?.['ms'])} ms`
+			+ (step ? ` · ${step.run}/${step.id} is ${step.at}${step.why ? ` — ${step.why}` : ''}` : ''));
 		// It is his turn now, in the transcript: the box empties, and so does the file behind it.
 		drafts.set(sid, '');
 		dirty.delete(sid);
@@ -442,7 +446,7 @@ function drawAction(host: HTMLElement, state: PaneState): void {
 	// D10 as structure: no resolvable target, no cold-hands, no send **control** — the reason stands
 	// where the button would have been, and a grep for the wiring finds nothing.
 	if (v.send.can && bad.length === 0) {
-		const go = button('st wide', v.send.mode === 'resume' ? 'send · resume' : 'send', v.send.why);
+		const go = button('st wide', v.send.mode === null ? 'send' : `send · ${v.send.mode}`, v.send.why);
 		go.dataset['chatSend'] = sid;
 		acts.append(go);
 	}
@@ -452,9 +456,10 @@ function drawAction(host: HTMLElement, state: PaneState): void {
 	acts.append(out);
 	host.append(acts);
 
-	host.append(el('p', 'quiet prose', v.send.can
-		? `${v.send.why} Verified after delivery: the transcript is read back and the sha compared — nothing is reported delivered without it.`
-		: v.send.why));
+	// The road, and the promise that rides it. Where there is no road the reason already stands where
+	// the button would have been, and printing it a second time is furniture, not honesty.
+	if (v.send.can) host.append(el('p', 'quiet prose',
+		`${v.send.why} Verified after delivery: the transcript is read back and the sha compared — nothing is reported delivered without it.`));
 
 	if (state === 'expanded') drawBatons(host, v.target.building);
 }
@@ -471,9 +476,13 @@ function draw(): void {
 	const v = view();
 
 	const turns = v ? allTurns(v) : [];
+	// C15 F3's law: everything `draw` reads is in the signature. The minimap's marks are an
+	// append-only index, so three numbers pin them — the file's turn count, how many marks came back,
+	// and the newest one's key — rather than six hundred keys re-serialized on every poll.
 	paint('chat:focus', focusHost, JSON.stringify([
 		selection.session, selection.awaiting, focusState, loading, from, v?.error, v?.target, aim,
 		turns.map(t => [t.key, t.blocks.length, t.folded]),
+		v?.turnCount, v?.marks.length, v?.marks.at(-1)?.key,
 	]), h => {
 		if (focusState === 'minimal') {
 			h.append(el('span', 'big', v?.target?.name ?? 'chat'));
