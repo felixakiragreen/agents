@@ -2156,3 +2156,32 @@ mine under the review grant). Next: ignite C6.
 Baton — ⬡ → Ignite C6 (kickoff fenced in
 [v3/plans/c6-engine-core.md](v3/plans/c6-engine-core.md); the coda appends at
 ignition).
+
+---
+
+**2026-08-30 · Builder · opus-medium** — **C12 landed**: the transcript mirror,
+the backstop for a mortal corpus (v3 C11 F1). Changed:
+`belvedere/archive/mirror.ts` (discovery over `~/.claude*/projects`, byte-true
+incremental copy, derived index), `belvedere/archive/com.felix.belvedere-archive.plist`
+(hourly tick, stamped run log), the glass type gate widened to reach
+`../archive/*.ts`. Measured: **1608 transcripts / 1.67 GB in 2.5 s cold**,
+1.1–2.2 s warm; archived == source ×4 accounts; **36/36 hashes byte-identical**;
+incremental proven on a fixture (20 → 0 → 1 on a touch → 0); append-only proven
+twice (3 sources deleted → `found 17 · indexed 20`, and the drill's own deleted
+transcript survives). **The restore drill passed with its control**: with the
+live transcript deleted the resume REFUSED (`No conversation found with session
+ID`), and after restoring the archived bytes it recalled `BELVEDERE-LAZARUS-C12`
+— so the archive, not luck, did the work. Cross-account grep 51 ms over 1.7 GB.
+**Budget 2 of ≤5 subject turns, $0.1295.** Type gate exit 0. Decided: nothing —
+every choice sat inside the fence; the two that could have looked like scope
+(mirroring subagent transcripts, F2; widening the type gate's `include`) are
+argued at the findings. Filed to [ISSUES](ISSUES.md): archive exposure inside
+`~/code` (F4, unruled), `bun test belvedere/glass` **670 pass / 3 fail at HEAD**
+and not C12's (F6), the archive search trap (F1). Next: Felix installs the
+schedule.
+
+Baton — ⬡ → Felix installs the launchd tick by his own hand (an agent may not
+write a live `LaunchAgents` dir; `launchctl bootstrap` was classifier-refused,
+correctly). The three commands are listed verbatim at
+[C12](plans/c12-transcript-mirror.md) §Done when 6. Until then the mirror runs
+only when someone runs it.
