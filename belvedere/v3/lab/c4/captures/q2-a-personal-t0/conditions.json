@@ -1,0 +1,32 @@
+{
+  "capture": "q2-a-personal-t0",
+  "account": "personal",
+  "model": "haiku",
+  "effort": "low",
+  "posture": "acceptEdits",
+  "cwdClass": "scratch-untracked",
+  "task": "T-ignite",
+  "cwd": "/private/tmp/claude-502/-Users-felix-code-agents/6902add3-501b-475a-9304-6df5b3bc8371/scratchpad/c4/q2-a-personal",
+  "sid": "646e0809-f7b0-4e4f-ac24-4370f6eb2018",
+  "at": "2026-08-30T02:26:24.658Z",
+  "exit": 0,
+  "signal": null,
+  "ms": 8769,
+  "argv": [
+    "/Users/felix/.local/bin/claude",
+    "-p",
+    "You are a byte-echo probe. For every message I send, reply with exactly the word OK and nothing else. Use no tools.",
+    "--model",
+    "haiku",
+    "--effort",
+    "low",
+    "--permission-mode",
+    "acceptEdits",
+    "--output-format",
+    "stream-json",
+    "--include-hook-events",
+    "--verbose"
+  ],
+  "bin": "/Users/felix/.local/bin/claude",
+  "load": "3.59 4.52 5.44"
+}

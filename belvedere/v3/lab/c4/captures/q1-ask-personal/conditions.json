@@ -1,0 +1,32 @@
+{
+  "capture": "q1-ask-personal",
+  "account": "personal",
+  "model": "haiku",
+  "effort": "low",
+  "posture": "auto",
+  "cwdClass": "scratch-untracked",
+  "task": "T-ask",
+  "prompt": "Ask me one question about which filename to use, then stop and wait for my answer. Do not use any tools.",
+  "cwd": "/private/tmp/claude-502/-Users-felix-code-agents/6902add3-501b-475a-9304-6df5b3bc8371/scratchpad/c4/q1-ask-personal",
+  "at": "2026-08-30T02:23:00.014Z",
+  "exit": 0,
+  "signal": null,
+  "ms": 7944,
+  "argv": [
+    "/Users/felix/.local/bin/claude",
+    "-p",
+    "Ask me one question about which filename to use, then stop and wait for my answer. Do not use any tools.",
+    "--model",
+    "haiku",
+    "--effort",
+    "low",
+    "--permission-mode",
+    "auto",
+    "--output-format",
+    "stream-json",
+    "--include-hook-events",
+    "--verbose"
+  ],
+  "bin": "/Users/felix/.local/bin/claude",
+  "load": "4.40 5.90 6.09"
+}
