@@ -18,6 +18,7 @@ import { checkMutant, passed, searchSeed, MUTANT_ROWS, type MutantResult } from 
 import { judge, type Red } from "./oracle.ts";
 import { fileRed } from "./reds.ts";
 import { SCENARIOS } from "./scenarios.ts";
+import { sweep } from "./sweep.ts";
 import { carriesHazard, carriesHold, scenariosIn, topology } from "./topology.ts";
 
 const DEFAULT_ROOT = new URL("../../../summon/log/v3/barrage", import.meta.url).pathname;
@@ -43,6 +44,19 @@ const MUTANTS_ON = !has("--no-mutants");
  *  dir — the drill needs a clean run and a cut run of the same seed. */
 const CRASH_BASE = SEED_BASE + 1_000_000;
 const MUTANT_ROOT = `${ROOT}/mutants`;
+
+// Nothing this command spawned outlives it (C10 F4). The handler is registered
+// before the first child, runs on every exit path — the clean one, a throw, and
+// the two signals a human sends — and reads the run logs rather than a register
+// it would have to keep: see sweep.ts. It is synchronous because an exit handler
+// is the one place nothing may await.
+const sweepUp = (why: string): void => {
+	const killed = sweep(ROOT);
+	if (killed.length > 0) console.log(`swept ${killed.length} live subject${killed.length === 1 ? "" : "s"} on ${why}: ${killed.join(", ")}`);
+};
+process.on("exit", () => { sweepUp("exit"); });
+for (const signal of ["SIGINT", "SIGTERM"] as const)
+	process.on(signal, () => { sweepUp(signal); process.exit(130); });
 
 const started = Date.now();
 const elapsed = (): string => `${((Date.now() - started) / 1000).toFixed(1)}s`;
@@ -127,7 +141,7 @@ if (MUTANTS_ON) {
 		const result = await checkMutant(row, MUTANT_ROOT, CAP_MS);
 		mutantResults.push(result);
 		say(`  ${passed(result) ? "caught" : "MISSED"}  ${row.name.padEnd(18)} invariant ${row.invariant} ${row.law}`);
-		say(`          seed ${row.seed} · oracle named ${result.classes.join(", ") || "nothing"} · control ${result.controlGreen ? "green" : `RED (${result.controlReds.map((r) => r.invariant).join(", ")})`}`);
+		say(`          seed ${row.seed} · oracle named ${result.classes.join(", ") || "nothing"} · control ${result.controlGreen ? "green" : `RED (${result.controlReds.map((r) => r.invariant).join(", ")})`}${result.swept.length === 0 ? "" : ` · swept ${result.swept.length}`}`);
 	}
 	const missed = mutantResults.filter((r) => !passed(r));
 	reds += missed.length;

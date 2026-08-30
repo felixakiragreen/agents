@@ -20,6 +20,7 @@ import { rmSync } from "node:fs";
 import { MUTANT, MUTANTS, type Mutant } from "../engine/mutant.ts";
 import { runChild, outcomeOf } from "./child.ts";
 import { judge, type Red } from "./oracle.ts";
+import { sweep } from "./sweep.ts";
 
 export type MutantRow = {
 	name: Mutant;
@@ -59,6 +60,10 @@ export type MutantResult = {
 	caught: boolean;
 	/** The same seed, unmutated, was green. */
 	controlGreen: boolean;
+	/** Subjects left breathing by the pair of runs, SIGTERMed here (C10 F4). A
+	 *  mutant can strand one by design — `orphan-terminal` is the law "nothing is
+	 *  in flight at a terminal state" removed — so this is routine, not a red. */
+	swept: number[];
 	classes: number[];
 	controlReds: Red[];
 };
@@ -75,6 +80,10 @@ export async function checkMutant(row: MutantRow, root: string, capMs: number): 
 
 	await runChild(row.seed, mutatedDir, capMs, { [MUTANT]: row.name });
 	await runChild(row.seed, controlDir, capMs);
+	// Both runs are over and neither will be restarted, so anything of theirs
+	// still breathing is an orphan. The crash drill's cut runs are the exception
+	// this is deliberately not applied to — see sweep.ts.
+	const swept = sweep(`${root}/${row.name}`);
 
 	const mutated = judge(mutatedDir, outcomeOf(mutatedDir));
 	const control = judge(controlDir, outcomeOf(controlDir));
@@ -84,6 +93,7 @@ export async function checkMutant(row: MutantRow, root: string, capMs: number): 
 		row,
 		caught: classes.includes(row.invariant),
 		controlGreen: control.reds.length === 0,
+		swept,
 		classes,
 		controlReds: control.reds,
 	};
