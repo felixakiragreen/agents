@@ -79,6 +79,12 @@ async function shoot(path: string, flags: Record<string, string>): Promise<void>
 	const out = flags['out'] === undefined ? shotPath(path.replace(/^\//, '') || 'rail') : resolve(flags['out']);
 	const foreign = flags['port'] === undefined ? null : foreignPort(flags['port']);
 
+	// The argv contradiction is answered before anything is dialled: a command that cannot mean one
+	// thing must not fail for an unrelated reason (measured — "no deck answering on 4400" is a true
+	// sentence and the wrong one).
+	if (foreign !== null && flags['fixture'] !== undefined)
+		die('--fixture boots a twin against a seeded city; --port shoots a deck that is already running. Pick one.', 2);
+
 	// A foreign deck is checked before the browser opens, so "nothing is running there" reads as one
 	// sentence rather than as a navigation stack trace.
 	if (foreign !== null) {
@@ -86,9 +92,6 @@ async function shoot(path: string, flags: Record<string, string>): Promise<void>
 			.then(r => r.status, (e: Error) => e.message);
 		if (typeof answered === 'string') die(`no deck answering on 127.0.0.1:${foreign} — \`shoot --port\` shoots one that is already running (${answered})`);
 	}
-
-	if (foreign !== null && flags['fixture'] !== undefined)
-		die('--fixture boots a twin against a seeded city; --port shoots a deck that is already running. Pick one.', 2);
 
 	const twin = foreign === null ? await bootTwin({ fixture: flags['fixture'] !== undefined }) : null;
 	if (twin && !twin.ok) die(twin.error);
