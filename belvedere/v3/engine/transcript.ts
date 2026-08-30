@@ -14,6 +14,7 @@
 // an `assistant` text row.
 
 import { existsSync, readFileSync } from "node:fs";
+import type { Verdict } from "./sense.ts";
 
 /** Grammar §2: every non-alphanumeric in the cwd becomes a dash. */
 export const slugFor = (cwd: string): string => cwd.replace(/[^a-zA-Z0-9]/g, "-");
@@ -90,4 +91,22 @@ const content = (row: Record<string, unknown>): unknown =>
 function blocks(row: Record<string, unknown>): Record<string, unknown>[] {
 	const c = content(row);
 	return Array.isArray(c) ? (c as Record<string, unknown>[]) : [];
+}
+
+/**
+ * The transcript-only verdict (law 5). It is deliberately poorer than the
+ * stream's: the step report and the granted posture ride the stream and are
+ * never written to disk — `structured_output` is a `result` field and the last
+ * assistant row is prose (captures/q3-schema-done). So a turn the engine died
+ * in front of can be seen to have worked, and still cannot be landed.
+ */
+export function verdictFromTranscript(t: TranscriptReading): Verdict {
+	if (t.verdict === "dead")
+		return { land: false, causes: ["dead"], detail: `re-derived from the transcript: ${t.rows} rows, the last turn never closed` };
+	if (t.verdict === "denied")
+		return { land: false, causes: ["needs-⬡ permission"], detail: "re-derived from the transcript: a tool result in the last turn carries is_error" };
+	return {
+		land: false, causes: ["no report"],
+		detail: "re-derived from the transcript: the turn completed, but the step report rides the stream and the stream died with its reader",
+	};
 }

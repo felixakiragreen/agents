@@ -110,14 +110,14 @@ export function parseReport(raw: unknown): Report | null {
  *  findings, and reporting one hides the other. */
 export type Cause =
 	| "timeout" | "dead" | "needs-⬡ permission" | "posture" | "error"
-	| "needs-⬡ question" | "blocked" | "no report" | "card" | "halted";
+	| "needs-⬡ question" | "blocked" | "no report" | "venue" | "gate" | "card" | "halted";
 
 /** Most-load-bearing first: the primary cause is what a board row shows. The
  *  denial outranks the posture because the silent success is the hazard that
  *  loses work; both are always carried. */
 const SEVERITY: readonly Cause[] = [
-	"timeout", "dead", "needs-⬡ permission", "posture", "error",
-	"blocked", "needs-⬡ question", "no report", "card", "halted",
+	"venue", "timeout", "dead", "needs-⬡ permission", "posture", "error",
+	"blocked", "needs-⬡ question", "no report", "gate", "card", "halted",
 ];
 
 export type Verdict =

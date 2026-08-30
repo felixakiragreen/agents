@@ -1,0 +1,251 @@
+// The engine — a state machine over a declared flow whose entire memory is the
+// run log on disk. Between turns it holds nothing: `state()` is a fold of the
+// log, every transition is appended before it is acted on, and a restart at any
+// instant re-derives and continues (cornerstone §4.9, invariant 7).
+//
+// The only thing kept in memory is a handle on the subjects currently in
+// flight — an OS resource, not state. Lose it (crash, restart) and `adopt()`
+// gets the outcome back from the pid and the transcript.
+//
+// The library is the product; `cli.ts` is a hand-hold over it.
+
+import { existsSync, mkdirSync, readFileSync } from "node:fs";
+import { parseFlow, stepById, type Fired, type Flow, type Step } from "./flow.ts";
+import { openLog, type Log, type Ruling, type Sensed } from "./log.ts";
+import { postureLegal } from "./posture.ts";
+import { fold, ready, running, terminal, type RunState } from "./replay.ts";
+import { verdict, type Cause, type Reading, type Verdict } from "./sense.ts";
+import { readTranscript, transcriptPath, verdictFromTranscript } from "./transcript.ts";
+import { ignite as spawnSubject, type Venue } from "./spawn.ts";
+import { precheckVenue as defaultPrecheck, type VenuePrecheck } from "./venue.ts";
+import { crashPoint } from "./crash.ts";
+import { isRefusal, refuse, type Refusal } from "./refusal.ts";
+
+/** What the caller blesses: the steps covered, and the ceiling they run under. */
+export type Scope = { steps?: string[]; budget?: number };
+
+export type Options = {
+	/** Everything one run owns: the log, the subjects' venue, their transcripts. */
+	runDir: string;
+	/** C4 F8's slot. The layer-0 stub says yes; C8 supplies the real read. */
+	precheck?: VenuePrecheck;
+	/** How long an adopted subject is waited on before its transcript is read. */
+	adoptMs?: number;
+};
+
+const ADOPT_MS = 120_000;
+/** The account a fake subject belongs to. Real accounts arrive with C8. */
+const FAKE_ACCOUNT = "fake";
+
+export type Run = {
+	flow: Flow;
+	log: Log;
+	venue: Venue;
+	state(): RunState;
+	bless(scope?: Scope): true | Refusal;
+	tick(): Promise<RunState>;
+	run(): Promise<RunState>;
+	rule(stepId: string, ruling: Ruling): Promise<true | Refusal>;
+	halt(reason: string): Promise<void>;
+};
+
+/**
+ * Open a run: the flow file, the log beside it, the venue under it. A log that
+ * already holds a blessing must hold *this* flow — statuses on disk match what
+ * happened, or the engine stops rather than continue someone else's run
+ * (invariant 8).
+ */
+export function load(flowPath: string, options: Options): Run | Refusal {
+	if (!existsSync(flowPath)) return refuse(`flow ${flowPath} does not exist`);
+	const flow = parseFlow(readFileSync(flowPath, "utf8"), flowPath);
+	if (isRefusal(flow)) return flow;
+
+	const venue: Venue = { workDir: `${options.runDir}/work`, configDir: `${options.runDir}/config` };
+	mkdirSync(venue.workDir, { recursive: true });
+	mkdirSync(venue.configDir, { recursive: true });
+	const log = openLog(`${options.runDir}/run.jsonl`);
+
+	const priorFlow = fold(log.entries()).flow;
+	if (priorFlow !== null && JSON.stringify(priorFlow) !== JSON.stringify(flow))
+		return refuse(`${log.path} was blessed on a different flow — amend and re-bless, never edit under a live log`);
+
+	return make(flow, log, venue, options);
+}
+
+function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
+	const precheck = options.precheck ?? defaultPrecheck;
+	const adoptMs = options.adoptMs ?? ADOPT_MS;
+	/** step id -> the turn in flight. A handle, never state. */
+	const inFlight = new Map<string, Promise<void>>();
+
+	const state = (): RunState => fold(log.entries());
+	const pause = (step: string, causes: Cause[], detail: string) => { log.append({ kind: "paused", step, causes, detail }); };
+
+	/**
+	 * One turn's evidence becomes one transition. A gate is the exception that
+	 * names the kind: it never lands itself — its report is the verdict a ruling
+	 * is made on, so a gate pauses whatever the report says and nothing
+	 * downstream moves until it is ruled (invariant 3).
+	 */
+	const settle = (stepId: string, sessionId: string | null, sensed: Sensed, v: Verdict) => {
+		log.append({ kind: "turn-ended", step: stepId, sessionId, sensed });
+		crashPoint(`before-pause:${stepId}`);
+		const isGate = stepById(flow, stepId)?.kind === "gate";
+		if (v.land && !isGate) { log.append({ kind: "landed", step: stepId, report: v.report }); return; }
+		if (v.land) { pause(stepId, ["gate"], `report: ${v.report.cause}`); return; }
+		pause(stepId, isGate ? [...v.causes, "gate"] : v.causes, v.detail);
+	};
+
+	/** Ignite one step, or say loudly why it did not. */
+	function fire(step: Fired, sessionId: string, resume: string | null): void {
+		const trust = precheck(FAKE_ACCOUNT, venue.workDir);
+		if (!trust.trusted) { pause(step.id, ["venue"], `venue trust refused: ${trust.reason}`); return; }
+
+		const spawned = spawnSubject({
+			step, venue, sessionId, resume: resume !== null,
+			prompt: resume ?? `${flow.id}/${step.id}`,
+		});
+		if (isRefusal(spawned)) { pause(step.id, ["dead"], spawned.refusal); return; }
+
+		log.append(resume === null
+			? { kind: "ignited", step: step.id, sessionId, pid: spawned.pid, venue: venue.workDir,
+				model: step.model, effort: step.effort, posture: step.posture, subject: step.subject.fake.scenario }
+			: { kind: "resumed", step: step.id, sessionId, pid: spawned.pid, turn: resume });
+		crashPoint(`after-ignite:${step.id}`);
+
+		inFlight.set(step.id, spawned.settled.then((reading: Reading) => {
+			crashPoint(`before-settle:${step.id}`);
+			inFlight.delete(step.id);
+			settle(step.id, reading.sessionId ?? sessionId, { source: "stream", reading }, verdict(reading));
+		}));
+	}
+
+	/**
+	 * A step the log says is running that this process never spawned: the engine
+	 * before us died holding its stream. Watch the pid; when it is gone, the
+	 * transcript alone yields the outcome (law 5, C4 F7's corollary).
+	 */
+	function adopt(stepId: string, sessionId: string, pid: number): void {
+		inFlight.set(stepId, waitThenRead());
+
+		async function waitThenRead(): Promise<void> {
+			const deadline = Date.now() + adoptMs;
+			while (alive(pid) && Date.now() < deadline) await new Promise((r) => setTimeout(r, 25));
+			inFlight.delete(stepId);
+			const reading = readTranscript(transcriptPath(venue.configDir, venue.workDir, sessionId));
+			settle(stepId, sessionId, { source: "transcript", reading }, verdictFromTranscript(reading));
+		}
+	}
+
+	async function tick(): Promise<RunState> {
+		let now = state();
+		if (now.halted !== null) return now;
+
+		for (const id of running(now))
+			if (!inFlight.has(id)) {
+				const at = now.steps[id];
+				if (at?.at === "running") adopt(id, at.sessionId, at.pid);
+			}
+
+		// A card never ignites: when its edges land it pauses, and stays paused
+		// until `rule()` supplies the answer (D10, D11).
+		for (const step of flow.steps)
+			if (step.kind === "card" && ready(now, step)) {
+				crashPoint(`before-card:${step.id}`);
+				pause(step.id, ["card"], step.ask);
+				now = state();
+			}
+
+		for (const step of flow.steps) {
+			if (step.kind === "card" || !ready(now, step)) continue;
+			if (now.turns >= now.budget) {
+				log.append({ kind: "ceiling", budget: now.budget, turns: now.turns });
+				return state();
+			}
+			crashPoint(`before-ignite:${step.id}`);
+			fire(step, crypto.randomUUID(), null);
+			now = state();
+		}
+
+		if (inFlight.size > 0) await Promise.race([...inFlight.values()]);
+		return state();
+	}
+
+	return {
+		flow, log, venue, state, tick,
+
+		bless(scope = {}) {
+			const now = state();
+			const ids = scope.steps ?? flow.steps.map((s) => s.id);
+			for (const id of ids)
+				if (stepById(flow, id) === undefined) return refuse(`blessing names an unknown step ${JSON.stringify(id)}`);
+
+			// Posture legality is a bless-time gate: a pair the substrate cannot
+			// grant is refused before anything ignites, never downgraded silently.
+			for (const id of ids) {
+				const step = stepById(flow, id) as Step;
+				if (step.kind === "card") continue;
+				const legal = postureLegal(step.model, step.posture);
+				if (isRefusal(legal)) return refuse(`step ${id}: ${legal.refusal}`);
+			}
+
+			const budget = scope.budget ?? flow.budget;
+			if (budget < now.turns)
+				return refuse(`budget ${budget} is below the ${now.turns} turns already spent — a ceiling never moves down`);
+
+			if (now.flow === null) log.append({ kind: "blessed", flow, scope: ids, budget });
+			else log.append({ kind: "re-blessed", scope: ids, budget });
+			return true;
+		},
+
+		async run() {
+			let now = state();
+			while (!terminal(now)) now = await tick();
+			return now;
+		},
+
+		async rule(stepId, ruling) {
+			const now = state();
+			const at = now.steps[stepId];
+			if (at === undefined) return refuse(`no such step ${JSON.stringify(stepId)}`);
+			if (at.at !== "paused") return refuse(`step ${stepId} is ${at.at}, and only a paused step takes a ruling`);
+			const step = stepById(flow, stepId);
+			if (step === undefined) return refuse(`no such step ${JSON.stringify(stepId)}`);
+
+			if (ruling.do === "resume") {
+				if (step.kind === "card") return refuse(`step ${stepId} is a card: it has no session to resume`);
+				if (at.sessionId === null) return refuse(`step ${stepId} has no session id — it never ignited`);
+				if (now.turns >= now.budget) return refuse(`a resume is a turn, and the ceiling of ${now.budget} is spent`);
+				log.append({ kind: "ruled", step: stepId, ruling });
+				fire(step, at.sessionId, ruling.turn);
+				await inFlight.get(stepId);
+				return true;
+			}
+
+			log.append({ kind: "ruled", step: stepId, ruling });
+			if (ruling.do === "land") log.append({ kind: "landed", step: stepId, report: null });
+			else log.append({ kind: "killed", step: stepId, reason: ruling.note });
+			return true;
+		},
+
+		async halt(reason) {
+			const cut = state();
+			log.append({ kind: "halted", reason });
+			for (const id of running(cut)) {
+				const at = cut.steps[id];
+				if (at?.at === "running") { try { process.kill(at.pid, "SIGTERM"); } catch { /* already gone */ } }
+			}
+			await Promise.allSettled([...inFlight.values()]);
+			// Clean terminals (invariant 6): whatever the dying turns reported,
+			// a step the halt cut is killed by the halt, and the log says so.
+			for (const id of running(cut)) {
+				const at = state().steps[id];
+				if (at?.at !== "landed" && at?.at !== "killed") log.append({ kind: "killed", step: id, reason });
+			}
+		},
+	};
+}
+
+const alive = (pid: number): boolean => {
+	try { process.kill(pid, 0); return true; } catch { return false; }
+};
