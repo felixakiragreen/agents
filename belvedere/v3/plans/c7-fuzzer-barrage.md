@@ -325,6 +325,15 @@ not land"* from a torn stream ([barrage/oracle.ts](../barrage/oracle.ts),
 cursor into the transcript, of the kind the fake already re-derives at
 `--resume` — is an engine change beyond step 0, so it is the Architect's.
 
+> **Ruled 2026-08-30, the C7 review: the fix is laid as
+> [C11](c11-cursor-real-seam.md), and C8 depends on it.** The cursor is
+> **recorded, never computed**: the `ignited`/`resumed` event gains the
+> transcript row count observed at spawn, and re-derivation reads only past
+> it — turn-index arithmetic breaks the moment a summoned terminal adds hand
+> turns (D20's fallback is law). A kill drill measured through a fallback that
+> answers for the wrong turn is a contaminated number (findings law 7), so the
+> fix lands before a real turn is spent.
+
 **F4 — the engine spun forever on restart, and the fuzzer found it on its first
 crash cycle. Fixed, in its own commit.** `adopt()` read
 `inFlight.set(stepId, waitThenRead())`, and **an async function body runs
@@ -351,6 +360,17 @@ step 0 and the mutant seam and I took it rather than stopping**: bars 5–7 are
 unreachable through a restart that never returns, and an ordering correction is
 not the mid-charge engine rework the kill criteria forbid. Named so the
 Architect can rule it in or out.
+
+> **Ruled 2026-08-30, the C7 review: RATIFIED.** The fix wears the granted-fix
+> shape exactly — its own commit (`c16ee29`), filed and named for ruling (the
+> door's fix-on-the-way law) — and the review re-proved the landing on the
+> fixed bytes at the Architect's own hand: 86 tests green, both type gates
+> exit 0, `bun barrage/run.ts --runs 1000 --crashes 50` exit 0 — 1000/1000 ·
+> 50/50 · 9/9, wall 147.6 s. An ordering correction that made the charge's own
+> bars reachable is not the rework kill criterion 1 forbids. The ruling is
+> this desk's (architect charter §Owns: merging what lands). The next Builder
+> in this seat still stops first — ratification is a review outcome, never a
+> standing grant.
 
 **F5 — a step id is now required to be a file name.** Step 0 makes the step id
 name that step's stream files on disk, so `parseFlow` refuses an id outside
@@ -391,6 +411,11 @@ no generated telemetry. `reds/` is empty because the barrage is green; the
 directory is created on demand by `fileRed`. C6 F9's field report still wants
 filing to root `ISSUES.md` (the fence forbids it from here), and C8 will still
 need Felix's hand for real config-dir reads.
+
+> **Correction 2026-08-30, the C7 review:** C6 F9's field report was already
+> filed before this charge ignited — root `ISSUES.md` carries the 2026-08-30
+> v3-Architect entry, committed at `2de72d4` (the C7 lay session). Nothing
+> outstanding; the Grand Architect's sweep rules it.
 
 ---
 

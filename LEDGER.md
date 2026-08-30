@@ -2064,3 +2064,32 @@ fixture needed re-recording; the barrage commits no telemetry) — C6 F9's own
 ISSUES filing is still outstanding. Next: Felix reviews C7 and rules F4 and F3;
 **C8 is not yet laid** and wants an Architect's pre-chew — it is the first
 charge that spends real turns, so it needs a budget line before it is ignitable.
+
+---
+
+**2026-08-30 · Architect · fable-high (the C7 review + the batch-6 lay)** — C7's
+landing verified at this desk's own hand: engine 49 + barrage 37 tests green,
+both type gates exit 0, `bun barrage/run.ts --runs 1000 --crashes 50` exit 0 —
+1000/1000 runs · 50/50 cuts converged · 9/9 mutants each naming its own class,
+wall 147.6 s, on current bytes (`51c267c` included). Ruled: **C7 F4 RATIFIED** —
+the restart-spin fix (`c16ee29`) wears the granted-fix shape and the landing
+re-proves on it; ratification is a review outcome, never a standing grant.
+**C7 F3 → C11**: the transcript fallback goes turn-addressable by a **recorded
+row cursor** on `ignited`/`resumed` (turn arithmetic breaks under summoned hand
+turns) — laid as [v3 C11](belvedere/v3/plans/c11-cursor-real-seam.md), Builder ·
+opus-high, budget 0; C8 depends on it (a kill drill through a wrong-turn
+fallback is a contaminated number, findings law 7). **C8 laid** with the
+campaign's first real budget line —
+[v3 C8](belvedere/v3/plans/c8-real-session-physics.md), Digger · opus-high
+(bound up from the cornerstone's opus-medium: kill drills on live accounts,
+G4-feeding conclusions): **≤200 subject turns and ≤$15**, ignitions + resumes
+both counted (C6 F8), either ceiling a ⬡-fork (D21); expected ~140 turns / ~$5
+(C4 F11's 3.3¢). Board trued: batch-5's stale "C6 F9 still wants filing" struck
+(filed at `2de72d4`, before C7 ignited); `doctrine lint`: v3 ok — the 8
+standing reds are other desks', all already in the inbox. Decided: nothing
+register-grade — both rulings ride C7's findings. Next: Felix ignites C11; C8
+ignites when C11's five machine-checked gates paste green (batch note 6, D44).
+
+Baton — ⬡ → ignite C11 (kickoff fenced in
+[v3/plans/c11-cursor-real-seam.md](belvedere/v3/plans/c11-cursor-real-seam.md);
+the coda appends at ignition). Ordered behind it: C8, on C11's green gates.
