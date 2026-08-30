@@ -1983,3 +1983,31 @@ exists — `[t]` and the ✓ ride the selected one, in the panel's own bracket g
 outgrown the code under test; its surviving claim — no log/usage ⇒ no usage row — stands
 as its own arm. 209 green, 0 failures. Reload law unchanged: a live shell shows the new
 paint only after re-sourcing.
+
+**2026-08-30 · Builder · opus-high** — C6 LANDED: `belvedere/v3/engine/` is the
+event-sourced flow runner. **45 tests green, `tsc --noEmit` exit 0, zero real
+`claude` invocations** (budget 0 held — C4's transcripts all survive on disk).
+The 10-step demo flow — serial head, parallel fan of five, a gate, a ⬡-card, a
+denial and a death — runs to a full terminal state (7 landed, 3 killed) and
+`replay(log)` equals `state()` exactly. The oracle is green on the committed
+demo log and **red on seven planted corruptions** (invariants 1,2,3,4,5,6,9),
+and the crash drill SIGKILLs the engine at **five named cut points** — before
+the first ignition, mid-turn, mid-parallel, at the gate pause, at the card
+pause — with every restart converging and **zero double-ignitions**; the
+orphan-finish subject finishes while the engine is dead and the restart reads
+its transcript. Three findings change other sessions' plans: **F2** the step
+report rides the stream and is never written to disk (measured on C4's
+q3-schema-done), so an engine death mid-turn always downgrades a landing to
+paused ‹no report› — the durable-stream fix adds a fourth item to law 1's state
+tuple and is the Architect's to rule; **F1** a pause carries *every* cause it
+sensed, because `permission-denial` and `posture-mismatch` are structurally
+identical and one cause cannot serve bars 5 and 6; **F6** a gate never lands
+itself — it pauses ‹gate› carrying its report, which is the only reading under
+which invariant 3's "unruled gate" and bar 4's "gate pause" both hold. **F9**
+the harness blocked three charge-sanctioned actions (reading C4's transcript out
+of `~/.claude`, `git add` of both fixture files); Felix ran the copy by hand and
+the two fixture files remain uncommitted — this recurs for C7 and C8 and wants
+an `ISSUES.md` field report the v3 fence forbids me to write. Next: **commit
+`belvedere/v3/engine/test/fixtures/` by hand**, then ignite C7 (the fuzzer + the
+barrage) — it imports `engine.ts` and `invariants.ts`, drives the same
+`V3_ENGINE_CRASH_AT` seam, and should read F7 before planting crash cuts.
