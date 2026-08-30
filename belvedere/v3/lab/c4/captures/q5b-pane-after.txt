@@ -1,0 +1,50 @@
+
+ ▐▛███▛█   Claude Code v2.1.251
+▝▜██████▀  Haiku 4.5 · Claude Max
+  ▝▝ ▝▝    ~/code/agents/belvedere/v3/lab/c4/summon-venue
+
+
+❯ Remember this codeword: HEADLESS-ALPHA-7. Reply with exactly: stored
+
+  Thought for 5s
+  ⎿  Error: No such tool available: mcp__claude_ai_Bash__bash
+
+  Thought for 1s
+  ⎿  Error: No such tool available: mcp__claude_ai_Write__write
+
+  Thought for 1s
+
+⏺ stored
+
+❯ What was the codeword? Also remember TERMINAL-BRAVO-9. Answer in one line.
+
+⏺ HEADLESS-ALPHA-7, stored TERMINAL-BRAVO-9.
+
+✻ Cooked for 2s · done 10:40 PM
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+❯ 
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  ⏸ manual mode on · ? for shortcuts · ← for agents                                                                                                                                                /rc

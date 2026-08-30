@@ -1,0 +1,20 @@
+{
+  "capture": "q2-b-paced-thg-fgreen",
+  "account": "thg-fgreen",
+  "model": "haiku",
+  "effort": "low",
+  "posture": "acceptEdits",
+  "cwdClass": "scratch-untracked",
+  "task": "T-inject-stdin-paced",
+  "cwd": "/private/tmp/claude-502/-Users-felix-code-agents/6902add3-501b-475a-9304-6df5b3bc8371/scratchpad/c4/q2-b-paced-thg-fgreen",
+  "sid": "8a4ffe24-2c62-4c5e-9b20-152f40a0c0d2",
+  "at": "2026-08-30T02:28:53.483Z",
+  "exit": 0,
+  "signal": null,
+  "ms": 17609,
+  "argv": [
+    "paced"
+  ],
+  "bin": "/Users/felix/.local/bin/claude",
+  "load": "2.92 4.12 5.14"
+}

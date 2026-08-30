@@ -1,0 +1,33 @@
+{
+  "capture": "q5b-1-headless-personal",
+  "account": "personal",
+  "model": "haiku",
+  "effort": "low",
+  "posture": "default",
+  "cwdClass": "repo-warm-v3-lab",
+  "task": "T-echo",
+  "cwd": "/Users/felix/code/agents/belvedere/v3/lab/c4/summon-venue",
+  "sid": "3f14e1e9-d8d0-4d65-b843-17021b4b4727",
+  "at": "2026-08-30T02:39:42.126Z",
+  "exit": 0,
+  "signal": null,
+  "ms": 14908,
+  "argv": [
+    "/Users/felix/.local/bin/claude",
+    "--session-id",
+    "3f14e1e9-d8d0-4d65-b843-17021b4b4727",
+    "-p",
+    "Remember this codeword: HEADLESS-ALPHA-7. Reply with exactly: stored",
+    "--model",
+    "haiku",
+    "--effort",
+    "low",
+    "--tools",
+    "",
+    "--output-format",
+    "stream-json",
+    "--verbose"
+  ],
+  "bin": "/Users/felix/.local/bin/claude",
+  "load": "3.98 4.63 4.92"
+}

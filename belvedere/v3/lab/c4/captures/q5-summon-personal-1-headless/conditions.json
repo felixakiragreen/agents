@@ -1,0 +1,33 @@
+{
+  "capture": "q5-summon-personal-1-headless",
+  "account": "personal",
+  "model": "haiku",
+  "effort": "low",
+  "posture": "acceptEdits",
+  "cwdClass": "scratch-untracked",
+  "task": "T-echo",
+  "cwd": "/private/tmp/claude-502/-Users-felix-code-agents/6902add3-501b-475a-9304-6df5b3bc8371/scratchpad/c4/q5-summon-personal",
+  "sid": "b3ea869c-38f6-4951-a805-40c3337c2677",
+  "at": "2026-08-30T02:36:02.078Z",
+  "exit": 0,
+  "signal": null,
+  "ms": 5510,
+  "argv": [
+    "/Users/felix/.local/bin/claude",
+    "--session-id",
+    "b3ea869c-38f6-4951-a805-40c3337c2677",
+    "-p",
+    "Remember this codeword: HEADLESS-ALPHA-7. Reply with exactly: stored",
+    "--model",
+    "haiku",
+    "--effort",
+    "low",
+    "--permission-mode",
+    "acceptEdits",
+    "--output-format",
+    "stream-json",
+    "--verbose"
+  ],
+  "bin": "/Users/felix/.local/bin/claude",
+  "load": "5.75 4.85 5.05"
+}

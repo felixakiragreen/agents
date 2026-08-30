@@ -1,0 +1,33 @@
+{
+  "capture": "q3-schema-done",
+  "account": "personal",
+  "model": "haiku",
+  "effort": "low",
+  "posture": "default",
+  "cwdClass": "scratch-untracked",
+  "task": "T-schema",
+  "cwd": "/private/tmp/claude-502/-Users-felix-code-agents/6902add3-501b-475a-9304-6df5b3bc8371/scratchpad/c4/q3-schema-done",
+  "prompt": "Say hello. You have everything you need. Then report your state.",
+  "at": "2026-08-30T02:41:20.988Z",
+  "exit": 0,
+  "signal": null,
+  "ms": 15972,
+  "argv": [
+    "/Users/felix/.local/bin/claude",
+    "-p",
+    "Say hello. You have everything you need. Then report your state.",
+    "--model",
+    "haiku",
+    "--effort",
+    "low",
+    "--tools",
+    "",
+    "--json-schema",
+    "{\"type\":\"object\",\"properties\":{\"state\":{\"type\":\"string\",\"enum\":[\"done\",\"needs_input\",\"blocked\"]},\"cause\":{\"type\":\"string\"},\"answer\":{\"type\":\"string\"}},\"required\":[\"state\",\"cause\"]}",
+    "--output-format",
+    "stream-json",
+    "--verbose"
+  ],
+  "bin": "/Users/felix/.local/bin/claude",
+  "load": "4.99 4.76 4.94"
+}

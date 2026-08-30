@@ -1,0 +1,33 @@
+{
+  "capture": "q5-summon-personal-4-headless-again",
+  "account": "personal",
+  "model": "haiku",
+  "effort": "low",
+  "posture": "acceptEdits",
+  "cwdClass": "scratch-untracked",
+  "task": "T-echo",
+  "cwd": "/private/tmp/claude-502/-Users-felix-code-agents/6902add3-501b-475a-9304-6df5b3bc8371/scratchpad/c4/q5-summon-personal",
+  "sid": "b3ea869c-38f6-4951-a805-40c3337c2677",
+  "at": "2026-08-30T02:38:41.072Z",
+  "exit": 0,
+  "signal": null,
+  "ms": 5643,
+  "argv": [
+    "/Users/felix/.local/bin/claude",
+    "-p",
+    "List both codewords you have been given, comma separated, nothing else.",
+    "--resume",
+    "b3ea869c-38f6-4951-a805-40c3337c2677",
+    "--model",
+    "haiku",
+    "--effort",
+    "low",
+    "--permission-mode",
+    "acceptEdits",
+    "--output-format",
+    "stream-json",
+    "--verbose"
+  ],
+  "bin": "/Users/felix/.local/bin/claude",
+  "load": "4.71 4.83 5.01"
+}

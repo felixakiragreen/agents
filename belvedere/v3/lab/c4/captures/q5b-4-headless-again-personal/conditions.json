@@ -1,0 +1,33 @@
+{
+  "capture": "q5b-4-headless-again-personal",
+  "account": "personal",
+  "model": "haiku",
+  "effort": "low",
+  "posture": "default",
+  "cwdClass": "repo-warm-v3-lab",
+  "task": "T-echo",
+  "cwd": "/Users/felix/code/agents/belvedere/v3/lab/c4/summon-venue",
+  "sid": "3f14e1e9-d8d0-4d65-b843-17021b4b4727",
+  "at": "2026-08-30T02:40:23.332Z",
+  "exit": 0,
+  "signal": null,
+  "ms": 3980,
+  "argv": [
+    "/Users/felix/.local/bin/claude",
+    "-p",
+    "List both codewords you have been given, comma separated, nothing else.",
+    "--resume",
+    "3f14e1e9-d8d0-4d65-b843-17021b4b4727",
+    "--model",
+    "haiku",
+    "--effort",
+    "low",
+    "--tools",
+    "",
+    "--output-format",
+    "stream-json",
+    "--verbose"
+  ],
+  "bin": "/Users/felix/.local/bin/claude",
+  "load": "5.12 4.80 4.97"
+}

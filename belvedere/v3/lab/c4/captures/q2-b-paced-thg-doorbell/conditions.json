@@ -1,0 +1,20 @@
+{
+  "capture": "q2-b-paced-thg-doorbell",
+  "account": "thg-doorbell",
+  "model": "haiku",
+  "effort": "low",
+  "posture": "acceptEdits",
+  "cwdClass": "scratch-untracked",
+  "task": "T-inject-stdin-paced",
+  "cwd": "/private/tmp/claude-502/-Users-felix-code-agents/6902add3-501b-475a-9304-6df5b3bc8371/scratchpad/c4/q2-b-paced-thg-doorbell",
+  "sid": "bab196bf-d354-43c0-8aab-ef2bab9822f8",
+  "at": "2026-08-30T02:28:47.394Z",
+  "exit": 0,
+  "signal": null,
+  "ms": 11522,
+  "argv": [
+    "paced"
+  ],
+  "bin": "/Users/felix/.local/bin/claude",
+  "load": "3.00 4.15 5.16"
+}
