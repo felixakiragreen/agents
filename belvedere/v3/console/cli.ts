@@ -30,7 +30,7 @@ import { streamPath } from "../engine/spawn.ts";
 import type { Posture } from "../engine/flow.ts";
 import { renderStream, renderRow } from "./render.ts";
 import { alive, locate, openRun, runs, TELEMETRY, type RunHandle } from "./runs.ts";
-import { markReturned, markSummoned, openPane, paneName, paneReady, summonCommand, summoned, SOCKET } from "./summon.ts";
+import { lines, markReturned, markSummoned, openPane, paneName, paneReady, summonCommand, summoned, SOCKET } from "./summon.ts";
 
 const HELP = `console — five verbs over the v3 engine (campaign bar 6)
 
@@ -280,8 +280,9 @@ async function summon(): Promise<void> {
 		pane = paneName(handle.name, stepId!);
 		const failed = await openPane(pane, summons);
 		if (failed.trim() !== "") die(`tmux refused the pane: ${failed.trim()}`);
-		const { rendered, dialog } = await paneReady(pane, "❯", PANE_SECONDS);
-		console.log(`\n  pane ${pane} on socket ${SOCKET} · prompt rendered ${rendered} · trust dialog ${dialog}`);
+		const { shot, dialog } = await paneReady(pane, PANE_SECONDS);
+		console.log(`\n  pane ${pane} on socket ${SOCKET} · trust dialog ${dialog}`);
+		for (const line of lines(shot).slice(-PANE_TAIL)) console.log(`  | ${line}`);
 		console.log(`  tmux -L ${SOCKET} attach -t ${pane}`);
 	}
 
@@ -290,6 +291,8 @@ async function summon(): Promise<void> {
 }
 
 const PANE_SECONDS = 60;
+/** Enough of the pane to see whether the history came back, and no more. */
+const PANE_TAIL = 8;
 
 // ── return ───────────────────────────────────────────────────────────────────
 

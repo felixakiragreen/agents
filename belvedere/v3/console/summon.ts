@@ -100,17 +100,23 @@ export async function openPane(name: string, s: Summons): Promise<string> {
 
 export const capturePane = (name: string): Promise<string> => tmux("capture-pane", "-p", "-t", name);
 
-/** What the pane is showing, in the two terms that decide whether the summon
- *  worked: the prior turn rendered, or the trust dialog stopped it (C8 F7). */
-export async function paneReady(name: string, expect: string, seconds: number): Promise<{ rendered: boolean; dialog: boolean; shot: string }> {
+/**
+ * Wait for the pane to draw something, then say what it drew. The one question
+ * worth answering here is whether the TUI came up or stopped on the
+ * workspace-trust dialog — a summon into a cold cwd looks exactly like a summon
+ * that worked until somebody reads the pane (C4 F8). So the console reads it.
+ */
+export async function paneReady(name: string, seconds: number): Promise<{ shot: string; dialog: boolean }> {
 	let shot = "";
 	for (let i = 0; i < seconds; i++) {
 		shot = await capturePane(name);
-		if (shot.includes(expect)) break;
+		if (lines(shot).length >= 3) break;
 		await Bun.sleep(1000);
 	}
-	return { rendered: shot.includes(expect), dialog: shot.includes("Is this a project you created"), shot };
+	return { shot, dialog: shot.includes("Is this a project you created") };
 }
+
+export const lines = (shot: string): string[] => shot.split("\n").filter((l) => l.trim() !== "");
 
 // ── the mark ─────────────────────────────────────────────────────────────────
 
