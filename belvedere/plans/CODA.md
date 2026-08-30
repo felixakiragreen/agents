@@ -14,8 +14,10 @@ appending this.
 > relays flagged entries verbatim; everything else of yours rides your branch.
 > Third-party code — fetch, vendor, install beyond existing deps, or execute from
 > the network — only where your charge doc names it; otherwise STOP and escalate
-> (D54). The sanctioned type-check is `bunx tsc --noEmit` against the deck's
-> repo-pinned `typescript`/`@types/bun` (B8) — offline; a type-checker fetched
-> from the network is still a STOP. Your findings file and commits are the deliverable. Your final report is
+> (D54). The sanctioned type-check is the repo-pinned checker invoked offline —
+> `bun v3/gates.ts --fast` for `v3/**`, or the pinned binary by path
+> (`glass/node_modules/.bin/tsc --noEmit`; `camera/` pins its own). Bare
+> `bunx tsc` in a tree with no pinned ancestor FETCHES a checker off npm
+> (C18 F1, measured — B8's offline law) and is a STOP. Your findings file and commits are the deliverable. Your final report is
 > logistics only: status (LANDED / KILLED / BLOCKED), a one-line outcome, and
 > pointers to findings + commits.
