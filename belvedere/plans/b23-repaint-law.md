@@ -101,7 +101,8 @@ the leak fix demands restructuring the tenant seam itself (it should not:
 
 ```
 You are a Builder at opus-high.
-Wear ~/code/agents/canon/mantles/builder.md,
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/builder.md,
 then read ~/code/agents/belvedere/README.md §§5–6
 and ~/code/agents/belvedere/plans/b23-repaint-law.md,
 and build it to its `Done when:`.

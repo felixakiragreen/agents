@@ -481,7 +481,8 @@ byte-exact):
 
 ```
 You are an Architect at fable-high.
-Wear ~/code/agents/canon/mantles/architect.md,
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/architect.md,
 then read ~/code/agents/belvedere/README.md §§5–6 (the board, the batch-6
 note) and LEDGER.md's tail, and run G3: verify batch 6's landings, fold
 findings, sweep ISSUES, true the board, and close the batch — the close
@@ -496,7 +497,8 @@ except for the mantle it names.)*
 
 ```
 You are an Architect at fable-high.
-Wear ~/code/agents/canon/mantles/architect.md,
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/architect.md,
 then read ~/code/agents/belvedere/README.md §§5–6 (agreements, board, batch-6
 note) and tend batch 6: B23 → B22 → B26 → B25 → B24 → B27 strictly serial,
 one in flight, straight to master — kickoffs verbatim from each work doc

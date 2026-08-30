@@ -126,7 +126,8 @@ bounded by §5, and this row would rather land small than rule once.
 
 ```
 You are a Builder at opus-high.
-Wear ~/code/agents/canon/mantles/builder.md,
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/builder.md,
 then read ~/code/agents/belvedere/README.md §§5–6
 and ~/code/agents/belvedere/plans/b27-qol-close.md
 plus the tweak-list amendment the tender hands you,
