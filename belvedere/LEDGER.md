@@ -1955,3 +1955,43 @@ Behind it: 1) appoint batch 6's tender — B23 is the head, its kickoff verbatim
 [plans/b23-repaint-law.md](plans/b23-repaint-law.md); 2) canon C28 (your charter
 drafts) is the deploy batch's last open charge; 3) the two canon asks above wait on
 the Grand Architect, not on you.
+
+---
+
+**2026-08-29 · Architect · fable-high** — the flow-1 sweep: inbox ×3 ruled to empty,
+the coda gap closed at fire. **Changed:** the engine appends the building's
+`plans/CODA.md` quote block to every ignition (f0b6e67 — ignition = kickoff + the
+project coda, DOCTRINE §5; absent file fires bare, blockless CODA refuses; four new
+tests, **673/0 in one process**, tsc 0) · eight live fences enter by the door
+(479347f pattern: B22–B27, README fences 4 + 5; spent fences 1–3/6/7 stand as
+history, ordinals unmoved) · the Works speaks **bless** (a1552e5 — button, pill,
+facts row, node prose; wire `/arm`, run events and the arming switch stand by C2's
+law and GA-15's own delegation) · flow.test's agents-has-no-flows assumption
+repaired (58d956f — red at HEAD since agents-flow-1 landed) · README distilled: §3
+the ignition law, §5 engine venue semantics (kickoff.doc resolves against master,
+never the venue; a standing worktree **refuses** the cut; run log is telemetry —
+a true re-run rotates it) + the trust split-brain fact (canon charge 20 F6) · the
+flow-doctrine cut parked as next-cut candidates (budget · continues · pre-flight
+kickoff validation · post-C32 adoption · ⬡-card on trust refusal), laid as C‹n›
+charges when canon C32 lands. **Decided:** coda joins at fire, outside the flow
+hash (GA-15 item 5 + GA-18 ask 1 are the citation; the coda is fixed per project,
+never part of the blessed plan) · refuse-on-standing-venue stands over
+refresh-on-refire (the hand's deny-don't-retry shape; a silent refresh rewrites a
+venue that may carry work) · re-bless = fresh run (fired-once law): flow-1's run
+log rotated aside (`agents-flow-1.run.jsonl.stopped-2026-08-29`), all five stopped
+sessions verified gone (SessionEnd, pids dead), c29 worktree verified clean and
+divergence-free — its removal **refused by the permission guard** (the design),
+handed to Felix. Batch 6 untouched — B23 its head, the tender still Felix's.
+
+Baton — ⬡ → Felix re-blesses agents-flow-1, three gestures in order: (1) remove
+the stale c29 venue — `git -C ~/code/agents worktree remove
+.claude/worktrees/bv/c29-summon-harness && git -C ~/code/agents branch -d
+bv/c29-summon-harness` (clean, zero divergent commits — verified this session);
+(2) relaunch the deck — the running server predates the coda fix and the bless
+copy; (3) **Bless** agents-flow-1 in the Works — kickoffs repaired canon-side
+(479347f), run log already rotated, every ignition now carries the agents coda.
+
+Behind it: 1) appoint batch 6's tender — B23 the head, its kickoff verbatim in
+[plans/b23-repaint-law.md](plans/b23-repaint-law.md), fence now door-true;
+2) the flow-doctrine C‹n› cut waits on canon C32 (parked list, README §the
+flow-doctrine cut); 3) the ⬡ visual pass on canon C27 still open.

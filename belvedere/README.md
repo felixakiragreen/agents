@@ -98,7 +98,10 @@ gitignored, never truth.
    `set-buffer` + `paste-buffer` (`send` rewrites literal `\n`/`\t`/`\r`); never
    paste into a live Claude TUI — it splits at the first blank line and
    auto-submits. The shelf may address sessions **by name-stamp**
-   (`claude --resume "digger-agents-04"` is legal — P4 §R).
+   (`claude --resume "digger-agents-04"` is legal — P4 §R). **Ignition = kickoff +
+   the building's coda** (DOCTRINE §5): the engine appends the `plans/CODA.md`
+   quote block verbatim at fire — absent file fires the kickoff alone, a blockless
+   CODA.md refuses the fire (the 08-29 flow-1 incident; `engine.ts` §the coda).
 
 **Deployment (RULED — D8, Felix's smoke 2026-08-26):** the deck server runs
 OUTSIDE cmux under `socketControlMode: password` — the socket gate is *live*
@@ -182,6 +185,19 @@ word only) · editing truth (forever-class, §2).
   collision were measured (a Builder swept a Digger's live probe, then a Digger
   swept a Builder's half-written module); nothing was lost, but attribution
   lied twice.
+- **Engine venue semantics (written down at the 08-29 flow-1 sweep):** a step's
+  `kickoff.doc` resolves against the **master checkout** (`docPath`: absolute, `~`,
+  or city-root-relative — never the step's venue), so the blessed bytes are always
+  master's; the fired *session*, though, reads its docs from its venue cwd, so a
+  standing worktree must be current before any re-fire. A standing worktree path
+  **refuses the cut** (`hands.ts` — "worktree path already exists"): a re-blessed
+  flow neither reuses nor silently re-mints a stale venue. The run log is telemetry
+  and the engine never re-fires a step whose log says `fired` — a true re-run
+  rotates `summon/log/census/flows/<name>.run.jsonl` aside, removes standing
+  worktrees of un-landed fired steps, then blesses fresh.
+- **Trust is read from `~/.claude/.claude.json`** (per account dir), never the
+  legacy `~/.claude.json` — a human measuring trust by the legacy file gets wrong
+  answers (canon charge 20 F6, measured 2026-08-29).
 - Stack: bun (canon D59); tabs at width 3 (global directives).
 
 ## 6. The board
@@ -521,6 +537,24 @@ amendment + D69, and D71 then killed `unstaffed` and PARKED: what stands is
 `unrecorded` and DEFERRED, and their render lands with C2, the molt)* · the D64
 baton-grammar asks are batched into canon row 20 — B26
 builds on today's shapes and its warning-card mitigation stands until then.
+
+**The flow-doctrine cut (D73/D74 + the 08-29 inbox, swept 2026-08-29 — next-cut
+candidates, laid as C‹n› charges when canon C32 lands at the flow-1 close;
+tracked not lost):** **`budget`** — a Flow field: max engine ignitions per bless,
+ceiling pauses, one re-bless extends (D73; schema + bless-view bill + engine
+check) · **`continues`** — a step mode: resume the predecessor's session instead
+of igniting fresh (D73's wording; B5's resume-by-stamp is the hand) · **pre-flight
+kickoff validation** — before igniting, check the kickoff's opening lines against
+the summons grammar (`canon/mantles/README.md`) or run `doctrine lint`'s kickoff
+arm once agents C31 lands it; refuse loudly on drift — a stale fence is a stopped
+step, never a mis-briefed session (the 08-29 incident's ask 2) · **post-C32
+adoption** — the written baton holder retires `classifyBaton`'s inference and the
+rail's `shapeOf` splitter; `holds:` retires `SPEC_PATTERNS`' interim classifier;
+E-ids land as fields; render-side heuristics retire as the parser types each
+field (D65) · **⬡-card on a trust refusal at blessing** — his word: "you can just
+ask me to do that"; one session opened by his hand warms the cell — card it,
+never guess (GA-15) · **per-building flow home** stands interim
+(`belvedere/flows/` naming the building) until the reader grows legs (D73).
 
 **Batch 7 (the molt batch — canon C27 run at home, laid 2026-08-29 by the
 canon-C27 Architect session):** **C1 → C2 → C3** *(C3 joined 2026-08-29 as the
