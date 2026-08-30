@@ -257,6 +257,7 @@ live; the archive serves the dead, the cleared, and the search index.
 | V3 | [The v3 campaign](v3/README.md) — the proving ground: substrate + engine from first principles, judged at G4; sub-board within | — | Architect · fable-high | **LANDED — BLESSED 2026-08-30** — nine charges + G4 in two days; **the keystone set**. The verdict (D22): substrate YES, v2 superseded-in-place, migration strangler engine-first (agents-flow-1 abandoned), the Chat primary. ~223 real turns, ~$9.64, zero ⬡-forks fired |
 | C12 | [The transcript mirror](plans/c12-transcript-mirror.md) — append-only byte-true mirror of every account's transcripts + launchd interval + restore drill; the mortal-corpus backstop (v3 C11 F1), his word 2026-08-30 ("Let's do B"); the campaign-scale build stays filed in [ISSUES.md](ISSUES.md) | — | Builder · opus-medium | **LANDED** 2026-08-30 — `belvedere/archive/mirror.ts`, **1608 transcripts / 1.67 GB mirrored in 2.5 s cold, 1.1–2.2 s warm**; archived count == source count ×4 accounts, **36/36 hashes identical**, incremental proven on a fixture (copied 20 → 0 → 1 on a touch → 0), append-only proven twice (3 sources deleted → `found 17 · indexed 20`). **The restore drill passed with its control**: the resume REFUSED with the transcript deleted, then recalled `BELVEDERE-LAZARUS-C12` off the archived bytes alone. Cross-account grep **51 ms over 1.7 GB** — but **`--hidden --no-ignore` or the personal account vanishes** (F1). **Budget 2 of ≤5 turns, $0.1295**. ⬡-gate: `launchctl bootstrap` was classifier-refused — the three install commands are listed at the charge's Done-when 6 for Felix's `!`. Three filed to [ISSUES](ISSUES.md): archive exposure inside `~/code` (F4), `bun test belvedere/glass` **670 pass / 3 fail at HEAD** and not C12's (F6), the search trap (F1). Reviewed 2026-08-30 at the tender's hand: mirror re-run copied only live deltas (3·1·0), counts matched ×4 accounts (+1 in personal — the drill's deleted source, append-only's own evidence), glass type gate exit 0 |
 | C14 | [The engine seams](plans/c14-engine-seams.md) — D22's migration opener: the account on `ignited`, the trust read's home (`engine/venue.ts`), the answer-then-land scenario + golden, the mutant drill's subject sweep | — | Builder · opus-high | OPEN — laid 2026-08-30 (the migration campaign, batch 1); budget ≤$1 / ≤10 real turns, either ceiling a ⬡-fork (D21) |
+| C17 | [The camera](plans/c17-camera.md) — agents' eyes and hands on the deck: a disarmed twin per probe (`BELVEDERE_ENV` void ⇒ hands 503, `GLASS_PORT` ephemeral), `playwright-core` on installed Chrome headless, `shoot` + `run` verbs, PNGs the agent Reads; every later deck charge's visual bars ship camera evidence | — | Builder · opus-high (parallel-safe with C14 — disjoint trees, two-lane rule) | OPEN — laid 2026-08-30 (batch 1, amended in at Felix's word — the C14-ignition session); budget 0 real turns |
 
 **Batch 1 (cut at founding, 2026-08-26) — Felix-tended, reasons named:** the venue
 is his live desktop (first contact with a new substrate — his eyes at each landing),
@@ -691,13 +692,24 @@ batch, never before its inputs exist:
    `engine/venue.ts`, the answer-then-land fake scenario + golden, the mutant
    drill's subject sweep. The sixth cut family stays on the v3 deferred list
    under its own trigger (a third recurrence promotes it).
-2. **C15 — the deck's v3 lane** (un-laid; cut at C14's reviewed landing — the
+2. **C17 — the camera** (batch 1, OPEN — folded in at Felix's word, 2026-08-30,
+   C14's ignition: "if the agents can't see it, I'm constantly having to
+   describe all the problems to them"): agents' eyes and hands on the deck — a
+   probe harness that boots a **disarmed** deck twin per probe (`BELVEDERE_ENV`
+   pointed at a void ⇒ every hand 503 by the arming law; `GLASS_PORT`
+   ephemeral), drives it browser-grade (`playwright-core` on the installed
+   Chrome, headless), and writes PNGs the working agent Reads with its own
+   eyes. Every later deck charge's visual bars ship camera evidence; his ⬡
+   passes stay for taste, not defect-hunting.
+3. **C15 — the deck's v3 lane** (un-laid; cut at C14's reviewed landing — the
    account field's final shape is its input): the v2 engine retires from the
    live deck — `glass/flow.ts`, `glass/engine.ts`, `glass/judge.ts`, the
    `flows/*.flow.json` files and their tests die whole (zero debt, D22 r2); the
    Works and the hands re-point to the v3 engine's exports and run dirs (the
-   run log is truth); the organs stand untouched. **Intake, distilled at the
-   2026-08-30 inbox sweep:** the three C12-F6 red glass tests resolve here
+   run log is truth); the organs stand untouched. Every visual bar ships camera
+   evidence (C17) — the Works drawing v3 runs, the re-pointed hands' states —
+   shot by the Builder's own probe, the PNG Read and described in findings.
+   **Intake, distilled at the 2026-08-30 inbox sweep:** the three C12-F6 red glass tests resolve here
    (`readFlows` dies with v2; the fork-baton test and `colors.ts`'s `INTENT_OF`
    inversion — root inbox 2026-08-29, the presets-speak-real-colours entry —
    are trued); no deck surface lands anything on an exit code — the engine's
@@ -710,11 +722,14 @@ batch, never before its inputs exist:
    landing reads the subject's own report, never a board row — the v2 sensor
    circle (flow-1's worktree stall: board-by-master + merge-gated-on-landing)
    is not rebuilt.
-3. **C16 — the Chat chapter** (un-laid; cut at C15's reviewed landing): the Chat
+4. **C16 — the Chat chapter** (un-laid; cut at C15's reviewed landing): the Chat
    primary on the engine's read/inject (D20's my_checklist pattern) — read
    anything, send turns; summon-to-terminal stays the measured fallback (C8 F7,
-   C10's round trip).
-4. **G5 — the migration close** (un-laid; Architect · fable-high + ⬡-gate: his
+   C10's round trip). The Chat's rich formatting — markdown, code fences,
+   tables, tool rows, streaming — is agent-verified through the camera (C17):
+   the Builder shoots and Reads its own render before his pass ever convenes;
+   describing rendering bugs to a blind agent dies here (his word, 2026-08-30).
+5. **G5 — the migration close** (un-laid; Architect · fable-high + ⬡-gate: his
    visual pass on the deck's v3 lane and the Chat primary): verify the strangle —
    v2 engine gone, deck on v3, Chat primary, barrage green — then the rework lay
    in the same session: batch 6 (B23/B22/B26/B25/B24/B27) re-cut against the v3
@@ -732,6 +747,17 @@ at ignition. Budget **≤$1 / ≤10 real turns, either ceiling a ⬡-fork** (D21
 seams are code-side and fake-side; the one real spend is the rehearsal re-run
 proving the account field on real bytes. His ignition is the arm — the review of
 the laid charge IS the authorization (D11's law).
+
+**Batch 1 amended 2026-08-30, in-session (D57 — the note committed first, the
+message carries the instruments): C14 ∥ C17.** Felix's word at C14's ignition:
+agents must be able to use and screenshot the deck — laid as its own charge
+ahead of C15/C16 so the deck lane is born with eyes. Parallel-safe: disjoint
+trees (`v3/**` vs `camera/**`), both on master, the two-lane commit rule binds
+(explicit paths). No shared live resources: the camera boots its own disarmed
+twin on an ephemeral port and never interacts with the live deck. Tender
+unchanged: Felix ignites by hand. C17 budget: **0 real turns**; third-party
+named in its doc (`playwright-core` pinned, driving installed Chrome — no
+browser download on the happy path).
 
 ## 7. Decisions
 

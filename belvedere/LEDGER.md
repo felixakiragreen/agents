@@ -2436,10 +2436,25 @@ Also filed to the root inbox: `.summon-theaters` stray at the repo root; charge
 reds measured to be masked missing-clause defects, not separator omissions — the
 insert probe reverted, the repair the GA's. `doctrine lint`: this building
 green — belvedere 42/42 rows typed · queue 0 · inbox 0; the root repo's 5
-pre-existing reds are the filed item. Decided: nothing register-grade — every
-ruling cites D22 or stands proposed in place. Next: ⬡ — ignite C14.
+pre-existing reds are the filed item.
 
-Baton — ⬡ → ignite C14: kickoff fenced in
-[plans/c14-engine-seams.md](plans/c14-engine-seams.md), the coda appends at
-ignition. (C15's cut waits on C14's reviewed landing — the account field's
-final shape is its input.)
+**Amended in-session at Felix's word (C14 already ignited at his hand): batch 1
+grows C17 — the camera** (D57: this note committed, the message carries the
+kickoff). His ask, verbatim: agents must "interact with & use, and take
+screenshots of belvedere … if the agents can't see it, then I'm constantly
+having to describe all the problems to them." Laid as its own charge ahead of
+C15/C16 — the deck lane is born with eyes:
+[plans/c17-camera.md](plans/c17-camera.md), Builder · opus-high, parallel-safe
+with C14 (disjoint trees, two-lane rule), budget 0 real turns. Zero glass
+changes needed — recon proved the knobs exist (`BELVEDERE_ENV` void ⇒ hands 503
+by the arming law, `GLASS_PORT` ephemeral; Chrome installed, so
+`playwright-core` drives it with no browser download). The campaign note's arc
+renumbered (C14 → C17 → C15 → C16 → G5); C15/C16's recorded intakes now require
+camera evidence on every visual bar — his ⬡ passes stay for taste, not
+defect-hunting. Decided: nothing register-grade — every ruling cites D22, his
+in-session word, or stands proposed in place. Next: ⬡ — ignite C17 (C14 already
+burning; C15's cut waits on C14's reviewed landing).
+
+Baton — ⬡ → ignite C17: kickoff fenced in
+[plans/c17-camera.md](plans/c17-camera.md), the coda appends at ignition —
+parallel-safe beside the burning C14.
