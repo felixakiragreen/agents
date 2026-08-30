@@ -789,9 +789,11 @@ their bars are machine-checked exit codes, so Felix's read of the pasted
 evidence suffices and the batch-2 close review verifies all three (the v3
 batch-6 precedent; D44 — one judgment call for the whole batch). C15's cut is
 on C14's landed shape; it waits on the camera tree settling (C19 edits it,
-C15 runs it) and gains C19's fixture states for its shots. Tender: **Felix
-ignites by hand** — C18 edits `v3/**` (the engine does not run the charge that
-edits it, v3's independence rule) and one tender owns the sum. The bulletin
+C15 runs it) and gains C19's fixture states for its shots. Tender: **the
+review session dispatches, at Felix's word** (2026-08-30, "Can you dispatch
+them for me? and then review when done?" — amending this note's Felix-by-hand
+line; the engine still runs nothing here, v3's independence rule intact, and
+one tender owns the sum). The bulletin
 ([plans/BULLETIN.md](plans/BULLETIN.md)) stands while the parallel pair runs.
 After batch 2: the close review verifies the three landings and lays **C16 —
 the Chat chapter** on C15's reviewed shape; G5 remains the campaign's close.
