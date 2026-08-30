@@ -9,7 +9,9 @@ live in `glass/`'s tests; shots are evidence.
 bun camera/cli.ts shoot /                        # boot a twin, shoot the rail
 bun camera/cli.ts shoot /deck --out /tmp/x.png   # anywhere you like
 bun camera/cli.ts shoot / --port 4400            # shoot a RUNNING deck, read-only
+bun camera/cli.ts shoot / --fixture              # …against the seeded city instead
 bun camera/cli.ts run probes/chat.probe.ts       # drive a probe against a twin
+bun camera/cli.ts run probes/fixture-rail.probe.ts   # …a probe that asks for the fixture
 bunx tsc --noEmit                                # from here — the type gate, offline
 ```
 
@@ -40,11 +42,16 @@ export default async function (p: Probe): Promise<void> {
 `run` **refuses `--port`**: a probe clicks, types and sends, and on the live deck a
 Dispatch button fires a real session. Looking is a read; interacting is not.
 
-The verbs, and nothing else: `goto` · `click` · `type` · `waitFor` · `text` · `remember`
-· `ask` · `shoot`. No playwright `Page` escapes `probe.ts`, so a probe cannot address a
-deck the camera did not boot, and replacing the driver is one file.
+The verbs, and nothing else: `goto` · `click` · `type` · `waitFor` · `text` · `count` ·
+`scroll` · `remember` · `ask` · `shoot`. No playwright `Page` escapes `probe.ts`, so a probe
+cannot address a deck the camera did not boot, and replacing the driver is one file.
 
 - `text(sel)` — what the page says there. A probe's assertions go here.
+- `count(sel)` — how many match. The structural laws are counts: *"a ⬡ card carries zero
+  fire wiring"* is `count('article[data-holder="felix"] button[data-fire]') === 0`, and the
+  DOM knows which card an attribute is inside where a grep over the HTML does not.
+- `scroll(sel)` — bring an element into the viewport. A shot is viewport-sized, and the rail
+  is taller than one viewport: a card below the fold is a card no shot proves.
 - `remember(key, value)` — seed the deck's own `localStorage` before the next load
   (`deck.client.ts:52–62`). It is how `chat.probe.ts` opens the Chat on a session:
   through a surface the deck already has, never a probe-only route into the app.
@@ -76,8 +83,34 @@ render path, so no fixtures and no seeded census.
 > because cold hands must never cost Felix the ability to write something down: the desk
 > (D18 class 3) and the **sovereign's inbox**. `DESK_DIR` redirects the first — measured:
 > typing into the Chat debounce-writes `drafts/<sid>.md` 600 ms later. The inbox has no
-> such knob and still appends to a real `ISSUES.md`, so a probe must not click "file it".
-> Documented, not defended.
+> such knob and still appends to a real `ISSUES.md`, so a probe against the REAL city must
+> not click "file it". Documented, not defended — and closed under `--fixture`, where the
+> city itself is a copy inside the run directory.
+
+## `--fixture` — the seeded city
+
+`--fixture` (and `export const fixture = true` in a probe, which is how the four
+`fixture-*` probes ask for it) points the same twin at a world minted for this run, so a
+card state is **rendered on demand** instead of waited for:
+
+| knob | value |
+|---|---|
+| `GLASS_CITY` | a copy of `fixtures/city/` — `alpha` (a row in every state, a ⬡-held baton, two inbox entries), `beta` (a session-holder **fork** and one pending blessing), `broken` (six lint failures, the control) |
+| `CENSUS_DIR` | seeded beats: four live sessions on **the camera's own pid**, two dead — one by `SessionEnd`, one whose last line says `Stop` and whose pid is a corpse |
+| `USAGE_DIR` | three caches: near-cap and burning · headroom · an hour stale |
+| `DESK_DIR` | inside the run directory, like everything else |
+
+The static tree is committed and lint-checked in place —
+`bun doctrine/cli.ts lint camera/fixtures/city/alpha` is green, `…/broken` is red, and the
+red one is the control. The timed half (pids, timestamps) is generated at boot, because a
+committed pid is dead by the time it renders and a committed usage cache is stale by
+definition: **deterministic content, generated timing** (`fixtures/seed.ts`).
+
+Everything lands in one `$TMPDIR` run directory, printed on stderr, removed with the twin.
+The tree is copied there rather than served from the repo for two reasons, both measured:
+a city root inside `~/code` gives buildings slugs relative to `~/code` while `/b/<slug>`
+resolves against the CITY root, so every building link 500s (B10 F5's second face); and a
+copy is what makes the un-gated inbox write harmless.
 
 ## No pixel goldens, ever
 
