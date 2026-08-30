@@ -1,0 +1,12 @@
+{
+	"name": "v3-engine",
+	"version": "0.1.0",
+	"description": "The event-sourced flow runner over headless subjects: the run log is the truth, replay is the redundancy, the nine invariants are executable.",
+	"private": true,
+	"type": "module",
+	"module": "engine.ts",
+	"scripts": {
+		"test": "bun test",
+		"typecheck": "../../glass/node_modules/.bin/tsc --noEmit"
+	}
+}

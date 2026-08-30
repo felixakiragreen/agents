@@ -1,0 +1,149 @@
+// The flow file — the engine's own declared shape (D7), parsed once at the
+// boundary into trusted types. A step is one of three kinds and the kinds do
+// not share a field list: a card has no subject because a card never ignites,
+// and that is spelled in the type rather than checked at every use.
+
+import { refuse, type Refusal } from "./refusal.ts";
+
+/** The postures a step may declare. `manual` / `dontAsk` / `plan` do no work
+ *  headless (grammar §4), so they are not legal on an unattended step. */
+export const POSTURES = ["auto", "acceptEdits", "bypassPermissions"] as const;
+export type Posture = (typeof POSTURES)[number];
+
+/** What the spawn adapter is handed. `{real: …}` joins at C8 — the adapter is
+ *  the only code that cares which (the cornerstone's D4 echo). */
+export type Subject = { fake: { scenario: string; seed: number } };
+
+export const DEFAULT_TIMEOUT_MS = 120_000;
+
+export type Fired = {
+	/** `task`: work. `gate`: work whose report rules the verdict for what follows. */
+	kind: "task" | "gate";
+	id: string;
+	depends: string[];
+	subject: Subject;
+	model: string;
+	effort: string;
+	posture: Posture;
+	timeoutMs: number;
+};
+
+/** Felix's own step: no subject, never ignited, pauses until `rule()` answers. */
+export type Card = { kind: "card"; id: string; depends: string[]; ask: string };
+
+export type Step = Fired | Card;
+
+export type Flow = {
+	id: string;
+	name: string;
+	/** The ignition ceiling (D73): subject turns, never exceeded without a re-blessing. */
+	budget: number;
+	steps: Step[];
+};
+
+export function parseFlow(text: string, source: string): Flow | Refusal {
+	let raw: unknown;
+	try { raw = JSON.parse(text); } catch (e) { return refuse(`${source}: not JSON — ${e}`); }
+	if (typeof raw !== "object" || raw === null) return refuse(`${source}: not an object`);
+	const f = raw as Record<string, unknown>;
+
+	if (typeof f.id !== "string" || f.id === "") return refuse(`${source}: id must be a non-empty string`);
+	if (typeof f.name !== "string") return refuse(`${source}: name must be a string`);
+	if (typeof f.budget !== "number" || !Number.isInteger(f.budget) || f.budget < 1)
+		return refuse(`${source}: budget must be a positive integer — every flow carries its ceiling (D73)`);
+	if (!Array.isArray(f.steps) || f.steps.length === 0)
+		return refuse(`${source}: steps must be a non-empty array`);
+
+	const steps: Step[] = [];
+	const seen = new Set<string>();
+	for (const [i, s] of f.steps.entries()) {
+		const step = parseStep(s, `${source} step ${i}`);
+		if ("refusal" in step) return step;
+		if (seen.has(step.id)) return refuse(`${source}: two steps share the id ${JSON.stringify(step.id)}`);
+		seen.add(step.id);
+		steps.push(step);
+	}
+	for (const step of steps)
+		for (const dep of step.depends) {
+			if (!seen.has(dep)) return refuse(`${source}: step ${step.id} depends on unknown step ${JSON.stringify(dep)}`);
+			if (dep === step.id) return refuse(`${source}: step ${step.id} depends on itself`);
+		}
+	const cycle = firstCycle(steps);
+	if (cycle !== null) return refuse(`${source}: the depends graph has a cycle — ${cycle.join(" -> ")}`);
+
+	return { id: f.id, name: f.name, budget: f.budget, steps };
+}
+
+function parseStep(raw: unknown, where: string): Step | Refusal {
+	if (typeof raw !== "object" || raw === null) return refuse(`${where}: not an object`);
+	const s = raw as Record<string, unknown>;
+	if (typeof s.id !== "string" || s.id === "") return refuse(`${where}: id must be a non-empty string`);
+	if (!Array.isArray(s.depends) || s.depends.some((d) => typeof d !== "string"))
+		return refuse(`${where}: depends must be an array of step ids`);
+	const depends = s.depends as string[];
+
+	if (s.kind === "card") {
+		if (typeof s.ask !== "string" || s.ask === "")
+			return refuse(`${where}: a card must say what it asks — a pause with no cause is a silent stall (invariant 5)`);
+		if (s.subject !== undefined) return refuse(`${where}: a card has no subject — it never ignites`);
+		return { kind: "card", id: s.id, depends, ask: s.ask };
+	}
+	if (s.kind !== "task" && s.kind !== "gate")
+		return refuse(`${where}: kind must be task | gate | card (got ${JSON.stringify(s.kind)})`);
+
+	const subject = parseSubject(s.subject, where);
+	if ("refusal" in subject) return subject;
+	if (typeof s.model !== "string" || s.model === "") return refuse(`${where}: model must be a non-empty string`);
+	if (typeof s.effort !== "string" || s.effort === "") return refuse(`${where}: effort must be a non-empty string`);
+	if (!(POSTURES as readonly unknown[]).includes(s.posture))
+		return refuse(`${where}: posture must be one of ${POSTURES.join(" | ")} (got ${JSON.stringify(s.posture)})`);
+	if (s.timeout_ms !== undefined && (typeof s.timeout_ms !== "number" || s.timeout_ms <= 0))
+		return refuse(`${where}: timeout_ms must be a positive number of milliseconds`);
+
+	return {
+		kind: s.kind, id: s.id, depends, subject,
+		model: s.model, effort: s.effort, posture: s.posture as Posture,
+		timeoutMs: typeof s.timeout_ms === "number" ? s.timeout_ms : DEFAULT_TIMEOUT_MS,
+	};
+}
+
+function parseSubject(raw: unknown, where: string): Subject | Refusal {
+	if (typeof raw !== "object" || raw === null) return refuse(`${where}: subject must be an object`);
+	const fake = (raw as Record<string, unknown>).fake;
+	if (typeof fake !== "object" || fake === null)
+		return refuse(`${where}: the only subject layer 0 knows is {fake: {scenario, seed}} — real subjects land at C8`);
+	const k = fake as Record<string, unknown>;
+	if (typeof k.scenario !== "string" || k.scenario === "") return refuse(`${where}: fake.scenario must be a scenario name`);
+	if (typeof k.seed !== "number" || !Number.isInteger(k.seed)) return refuse(`${where}: fake.seed must be an integer`);
+	return { fake: { scenario: k.scenario, seed: k.seed } };
+}
+
+/** Depth-first, colouring as it goes: the first back edge names the cycle. */
+function firstCycle(steps: readonly Step[]): string[] | null {
+	const deps = new Map(steps.map((s) => [s.id, s.depends]));
+	const state = new Map<string, "open" | "closed">();
+	const stack: string[] = [];
+
+	const walk = (id: string): string[] | null => {
+		const mark = state.get(id);
+		if (mark === "closed") return null;
+		if (mark === "open") return [...stack.slice(stack.indexOf(id)), id];
+		state.set(id, "open");
+		stack.push(id);
+		for (const dep of deps.get(id) ?? []) {
+			const found = walk(dep);
+			if (found !== null) return found;
+		}
+		stack.pop();
+		state.set(id, "closed");
+		return null;
+	};
+
+	for (const s of steps) {
+		const found = walk(s.id);
+		if (found !== null) return found;
+	}
+	return null;
+}
+
+export const stepById = (flow: Flow, id: string): Step | undefined => flow.steps.find((s) => s.id === id);
