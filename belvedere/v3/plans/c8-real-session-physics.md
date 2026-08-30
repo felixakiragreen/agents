@@ -212,6 +212,13 @@ $ cd barrage && bun test                    38 pass · 0 fail
 $ ../../glass/node_modules/.bin/tsc --noEmit  exit 0
 ```
 
+> **Ruled 2026-08-30, the C8 review: RATIFIED — `2fe9d1f` and the follow-up
+> `4d81191`.** Both defects met the grant's own bar (each blocked every
+> question); one commit for one repair in one seam is the git rule applied,
+> not the grant stretched; the parse-time default kept layer 0 byte-unchanged;
+> and the review re-ran the full barrage on the settled tree at its own hand —
+> exit 0. The type-gate follow-up is the landing bar doing its job.
+
 *One follow-up commit, `4d81191`:* the barrage's own type gate caught a
 hand-built `Fired` literal in `scenarios.test.ts` that the new field made
 incomplete — a test-only fixture, no runtime path, but the gate is a landing bar
@@ -334,6 +341,16 @@ to have worked"* — on real bytes it cannot, ever. Two consequences that bind:
   was proven against the fake, which writes no `StructuredOutput` row. **The fake
   is unfaithful in exactly the place this rule lives** — a C5-side finding, and
   the reason the barrage could never have caught this.
+
+> **Ruled 2026-08-30, the C8 review: the fix is laid as
+> [C13](c13-report-on-disk.md), and it aims higher than repair.** The report's
+> own bytes are *in* the transcript — the `StructuredOutput` tool call's input
+> — so the completion rule is not merely trued: the fallback gains the report
+> itself, and a turn the engine died in front of can **land from disk**,
+> restoring cornerstone law 5's redundancy claim stronger than C6 proved it.
+> The fake becomes faithful in the same charge (the barrage must guard this
+> class forever), and C11's cursor regression signal (F7's caveat) is restored
+> with it. C13 precedes C9 — G4 does not convene on a falsified capability row.
 
 ### F4 — `auto` is not a restrictive posture headless, and the denial pause cannot be induced at it
 

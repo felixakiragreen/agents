@@ -318,3 +318,31 @@ model still *attempts* MCP tools and takes `No such tool available` errors.
 9. If arm B: **pace on `result`**, and detect merged turns by **arithmetic —
    fewer `result`s than messages sent** *(corrected 2026-08-29, C5 F1:
    ~~`queued_turn_count > 0`~~ never fires — the merged run's own results report 0)*.
+
+## 11. Amendments at the C8 review (2026-08-30, the Architect — C8's measurements through the engine)
+
+- **Rules 3/6 carry a trap this grammar did not know:** with rule 7's
+  `--json-schema` declared, the step report arrives as a `StructuredOutput`
+  **tool call**, so a cleanly finished turn's transcript ends on a
+  `user/tool_result` row — the exact signature §6-era readers take for
+  died-mid-work. Measured: 48/48 engine-landed turns read `dead` ×3 accounts,
+  C4-born controls green (C8 F3, K1). Rules 3 and 6 stand; any transcript
+  *completion* rule must treat the trailing `StructuredOutput` pair as a closed
+  turn — and its input IS the report, on disk (the C13 fix).
+- **Three stream shapes C4 never saw**, none consumed by the sensor:
+  `rate_limit_event`; the `system/task_started|task_updated|task_notification`
+  trio; and `system/hook_started`/`hook_response` arriving **without**
+  `--include-hook-events` (C5 F2's leak, confirmed through the engine).
+- **§1's "one invocation can emit more than one `result`" did not reproduce**
+  under the 2026-08-30 binary — a subagent completed inside the turn: one
+  `init`, one `result` (one attempt; recorded as seen, not claimed absent).
+  Rule 1 (read to EOF, take the last) remains the safe rule either way.
+- **Rule 8 is scoped by C8 F2:** trust is a property of a flow's *intent* —
+  only a step that means to be summonable pays the precheck; an unconditional
+  precheck at ignite refuses every fence-compliant scratch venue. Trust is
+  inherited by subdirectories of an accepted repo, and all three accounts
+  trust `~/code/agents`.
+- **§4 sharpened by C8 F4:** under `auto` at sonnet a headless step was granted
+  an out-of-workspace write, arbitrary Bash, and public-internet WebFetch —
+  the denial pause is not inducible at `auto`; `acceptEdits` is the posture
+  that refuses. "auto" reads cautious and is not.
