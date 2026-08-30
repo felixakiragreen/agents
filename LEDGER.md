@@ -2217,3 +2217,35 @@ Baton — ⬡ → rule G4: run `bun belvedere/v3/console/rehearsal.ts personal`,
 the five verbs by hand, then record the four rulings in
 [v3/plans/g4-verdict.md](belvedere/v3/plans/g4-verdict.md) §the verdict —
 the board row resolves on your word.
+
+---
+
+**2026-08-30 · Architect · fable-high (G4)** — **the verdict. G4 BLESSED ⬡✓
+in-session; the v3 campaign is complete and the keystone is set.** His hand ran
+the rehearsal first (exit 0, 9/9 invariants, 3/3 landed, the round trip true
+both ways). The four rulings, recorded in
+[v3/plans/g4-verdict.md](belvedere/v3/plans/g4-verdict.md) and minted as
+**D22** (belvedere §7): **substrate YES** — headless is the venue, and naked
+`-p` without the engine is not approved unattended (C4 F6/C8 F4 are the
+citation) · **v2 superseded-in-place** — organs survive, the v2 engine
+retires · **migration strangler engine-first, simplified by his own fact** —
+agents-flow-1 abandoned at his word, so the retirement is immediate; the seams
+charge leads, then the deck's v3 lane, then the Chat chapter · **the Chat is
+primary**, summon the fallback. D19's deferrals unfreeze and ride the
+migration lay, with the abandoned flow's remains (the stopped run log, the
+`bv/c29-summon-harness` worktree, the flow-1 inbox entries) as its first
+sweep. Campaign books: nine charges + one gate in two days, ~223 real turns,
+~$9.64, zero ⬡-forks fired, every landing reviewed at a tender's hand.
+Decided: **D22** (⬡✓ 2026-08-30). Next: found the migration campaign — a new
+lay on the parent board; Felix summons it fresh (below) or says the word here.
+
+Baton — ⬡ → ignite the migration lay:
+```
+You are an Architect at fable-max.
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/architect.md,
+then read ~/code/agents/belvedere/README.md (D22),
+~/code/agents/belvedere/v3/plans/g4-verdict.md and the v3 deferred list,
+and lay the migration campaign — the seams charge first, D19's unfrozen
+deferrals swept into the lay.
+```

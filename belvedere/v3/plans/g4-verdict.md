@@ -72,7 +72,35 @@ invariant fuzzed, crash-redo proven on real orphans, scale to 25 real / 100
 fake with headroom, at ~5¢ a turn. Rulings 2–4 are operational and taste —
 what your daily hands want — and carry no recommendation from this desk.
 
-## The verdict, recorded
+## The verdict, recorded — ⬡✓ 2026-08-30, Felix, in-session
 
-*(Felix's rulings land here, dated; the board row resolves
-`LANDED — BLESSED <date>` on his word.)*
+His hand ran the rehearsal first: exit 0, 9/9 invariants, 3/3 landed, the
+round trip true both ways, "REHEARSAL-ALPHA, REHEARSAL-BRAVO", ~$0.20.
+
+1. **Substrate: YES — blessed** ("bless"). Headless (`claude -p`,
+   turn-per-invocation, state on disk) is the engine venue. The rider is law:
+   **naked `-p` without the engine is not an approved way to run unattended
+   work** — the substrate lies politely (C4 F6, C8 F4); the engine's parse
+   rules, posture refusal, and loud pauses are what make it safe.
+2. **v2's fate: superseded-in-place** ("rec" — the recommendation taken). The
+   v2 engine retires; the deck's organs survive (census, City View, baton
+   rail, shelf, usage strip, inbox — the diagnosis never condemned them,
+   cornerstone §2); the deck's hands re-point to the v3 engine; cmux retreats
+   to viewport candidate.
+3. **Migration: strangler, engine-first — simplified by his own fact.** His
+   word, verbatim: *"there are no existing v2 flows. (Well, there is 1, but it
+   was stopped mid flow because of problems) I am willing to abandon it."*
+   agents-flow-1 is **abandoned**; with nothing alive to strangle, the v2
+   engine retires immediately. The shape: the seams charge first (the account
+   field on `ignited` · the trust read into `venue.ts` · the answer-then-land
+   scenario), then the deck's hands grow the v3 lane, then the Chat chapter on
+   the engine's read/inject (D20's my_checklist pattern) — every step a
+   charge, the barrage as standing regression. The abandoned flow's remains
+   (the stopped run log, the `bv/c29-summon-harness` worktree, the flow-1
+   inbox entries) are the migration lay's first sweep — D19's deferrals
+   unfreeze with this verdict.
+4. **Viewport: the Chat is primary** ("Yes, Chat as primary");
+   summon-to-terminal the fallback, measured lossless both directions; the
+   console the interim hand until the Chat chapter lands.
+
+**The campaign is complete. The keystone is set, 2026-08-30.**
