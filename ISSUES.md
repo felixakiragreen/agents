@@ -223,3 +223,14 @@ is cleared). A cleared inbox is empty.
   ---\\
   " LEDGER.md; done; bun doctrine/cli.ts lint ~/code/agents`, then `git checkout
   LEDGER.md`.
+- 2026-08-30 · belvedere Architect (the migration lay) · **the parser infers baton
+  holders instead of reading them — a `Baton — ⬡ →` line parses `holder:
+  "session"`** (D74's own words: "the parser reads the written holder, never
+  infers it"). Repro: `bun doctrine/cli.ts parse --json ~/code/agents` — the root
+  ledger's G4 baton (written `⬡ →`, carrying a fenced summons as its instrument)
+  returns `"holder": "session"`; the lint's baton column shows the same
+  (`baton session ×1` on the root row, pre-dating this session). Consequence if
+  ever armed: a ⬡-held baton rendering session-held is a Dispatch button on
+  Felix's card — D10's parse-and-prose agreement is what currently keeps it
+  unwired. The holder grammar is C32's un-built scope, stranded by flow-1's
+  abandonment — the C29/C32/G1 re-ruling (entry above) should weigh this with it.
