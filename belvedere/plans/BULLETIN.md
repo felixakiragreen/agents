@@ -1846,3 +1846,78 @@ writing "`bun test` green in `glass/`" into its own bar will fail a bar it did n
 break. Until C15 lands, write the counts you expect.
 
 (Relayed from `master`, C17 LANDED 2026-08-30 — Builder)
+
+## → relay — C18 (the gates) to C15, C16, C19, every later charge that pastes a type gate, and the Architect: no escalation, one finding that binds every `Done when:` from here on
+
+Evidence: [c18-gates.md](c18-gates.md) §Done when and §Findings, commits `6c7f43b`,
+`48cf6f4` on `master`.
+
+1. **F1 — `bunx tsc --noEmit` inside `belvedere/v3/**` FETCHES a checker off npm; it
+   has never been the repo-pinned one, and the versions match today by luck.** `bunx`
+   resolves from the nearest `node_modules/.bin` walking up, and
+   `belvedere/glass/node_modules` is **not an ancestor of `belvedere/v3/`** — so there
+   is nothing local to find and bun goes to the registry. Measured on a clean tree,
+   first command of this charge:
+
+   ```
+   $ cd belvedere/v3/engine && bunx tsc --noEmit
+   Resolving dependencies
+   Resolved, downloaded and extracted [2]
+   Saved lockfile
+   exit=0
+   ```
+
+   Control, same directory, the pinned binary — silent, and the **same version**:
+   `../../glass/node_modules/.bin/tsc --version` → `Version 7.0.2`; `bunx tsc
+   --version` → the three install lines, then `Version 7.0.2`. npm's current
+   `typescript` simply happens to be B8's pin. **A `typescript@7.1` release silently
+   re-points every `bunx tsc` gate in the campaign at a checker no lockfile names, and
+   a green gate is as bad an outcome as a red one.** Nothing was written into the repo
+   — the fetch lands in bunx's temp dir; `git status --untracked-files=all` stayed
+   clean and no `bun.lock` appeared under `v3/**`.
+
+   **The invocation that is offline by construction is the path:**
+   `belvedere/glass/node_modules/.bin/tsc --noEmit`, which is what C5–C11 pasted and
+   what `v3/gates.ts` now runs. C14's landing pasted `bunx tsc --noEmit -p
+   $d/tsconfig.json` ×4 and C13's pasted `bunx --offline tsc --noEmit`. **So the
+   project coda's sentence and the coda's intent disagree in these trees** — the
+   wording is the Architect's to true. Until then: **run `bun v3/gates.ts` and paste
+   its block; do not hand-run `bunx tsc` in a v3 tree.**
+
+2. **The block is the paste, and it is byte-ready.** `bun v3/gates.ts` runs the four
+   suites, the four type gates and the barrage — serial, **every gate to completion
+   even after an earlier red** — and ends in one fenced table (gate · result · counts ·
+   wall · exit) plus a single verdict line, with each red's own tail re-printed
+   beneath it. Exit 0 iff every gate passed. Settled tree: **ALL GREEN — 9 gates, wall
+   209.5s** (77 · 41 · 60 · 26 tests, four type gates 0 errors, barrage 1000 runs · 50
+   cuts · 9/9 mutants). `--fast` drops the barrage (**60.6s**) and says so twice — its
+   own row *and* the verdict line — because a paste that loses the table must still
+   carry the disclaimer; it is never sufficient for a landing.
+
+3. **`--glass` works and is RED at HEAD — do not write it into a bar before C15.**
+   `bun v3/gates.ts --fast --glass` adds the deck's two gates and reports `glass ·
+   suite | RED | 670 pass · 3 fail` with `glass · types` at 0 errors. Those are C12
+   F6's three, which README §6 already assigns to **C15**. The flag is opt-in
+   precisely because the deck is not v3's standing regression; the default run is
+   unaffected.
+
+4. **F4 — for anyone forcing a barrage red: the engine's mutation seam is
+   process-wide.** `engine/mutant.ts` reads `V3_ENGINE_MUTANT` from the environment,
+   so exporting it for a whole run corrupts the unit tests too — `V3_ENGINE_MUTANT=
+   double-ignite bun test` in `engine/` is **56 pass / 21 fail** against a 77/0
+   control. The isolated red plants the variable on the barrage gate's own
+   `Bun.spawn`, and shortens the run to `double-ignite`'s pinned seed (`--runs 1
+   --seed-base 2000000 --crashes 1 --no-mutants`): **red in 4.3 s instead of 149 s**,
+   with two `reds/*.md` filings to sweep afterwards.
+
+Also, not blocking, for the Architect: **`gates.ts` is guarded by no standing gate**
+(F2). It lives in `v3/`, which no existing tsconfig included, so this charge added
+`v3/tsconfig.json` and ran it by hand (exit 0) — but the spec's standing set is four
+type gates, and making the runner grade itself, or adding `../gates.ts` to
+`barrage/tsconfig.json`'s include, are both changes to the gates the runner runs.
+One line either way, ruled by you, not by a Builder. And the shape of the wall, for
+anyone budgeting: the four type gates cost **0.1 s each** (typescript 7.0.2 is the
+native compiler), the four suites 60 s, the barrage 149 s — **the half that lapsed in
+C2 E1 was the free half.**
+
+(Relayed from `master`, C18 LANDED 2026-08-30 — Builder)
