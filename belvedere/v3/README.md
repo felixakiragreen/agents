@@ -66,6 +66,12 @@ this review: C7 **F4 RATIFIED** (fix re-proved on current bytes), **F3 → C11**
 (the recorded row cursor); both texts under the findings in
 [C7](plans/c7-fuzzer-barrage.md).
 
+> **Amended 2026-08-30, Felix's word at the review session ("dispatch both"):
+> tender is the reviewing Architect session** — it dispatches C11, itself
+> verifies C11's five gates at landing (the review), then dispatches C8.
+> Serial shape unchanged; C8's budget line and its ⬡-forks unchanged — a
+> ceiling hit still stops and escalates to Felix.
+
 **Batch note — 2026-08-30 (batch 5):** C7 LANDED; C8 is the next charge and is
 **not yet laid** — the arc's next stop is real-session physics, and it is the
 first charge in the campaign that spends real turns, so it wants an Architect's
