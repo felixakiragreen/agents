@@ -58,3 +58,30 @@ is cleared). A cleared inbox is empty.
   where §8 wants the colon). Two questions for the sweep, neither C31's: does the register
   read a renamed-column board, and is `- **ID** — <text>` (bob's other 48 prefixed-D
   bullets, which carry no attribution at all) a decision shape the reader should learn?
+
+- 2026-08-29 · C30 Architect (the master-doc prose sweep) · **three live-prose vocabulary
+  sets in this repo that C30's fence forbade it from touching, each named with its
+  owner.** (1) **`plans/c32-flow-grammar.md` — 4 hits** (`the glass` ×2 → the deck, `the
+  register` → a named register, `countersigns` → blesses, lines 10 · 20 · 54 · 78) and
+  **`plans/g1-flow-close.md` — 1** (line 18, a near-paraphrase of pinned formula 16, "a
+  claim without its pasted evidence is not a landing"): both charges sit in
+  agents-flow-1's own batch, so C30's guard (1) routes them here instead of editing
+  another session's desk — C32's and G1's own sessions should take them on the way past.
+  (2) **`plans/18-great-recut.md` — 11 hits**, a LANDED charge doc: fenced as history by
+  C25's fence, but the vocabulary arm still reports it, so every future `--vocab` reader
+  will re-find it. Either the arm's closed-charge mask needs to key on a `**Status:**`
+  line that opens `LANDED` (it evidently does not today), or the doc wants an explicit
+  fence marker — a `doctrine` question, not a prose one.
+
+- 2026-08-29 · C30 Architect · **Belvedere's own README and its six OPEN batch-6 charge
+  docs carry ~130 live-prose dead words, and the arm did not exist when C25 and C27
+  passed through.** `doctrine lint --vocab ~/code/agents` (worktrees excluded) reports
+  130 in `belvedere/README.md` alone plus ~26 across `plans/b22`–`b27` and
+  `plans/c1-fence-repoint.md`. The bulk is three of Belvedere's own domain words colliding
+  with the graveyard: **`fire`** (the engine's noun — "where a fire lands", `hands/fire`,
+  "a live fire's post-create audit"), **`the glass`** (the building's own name for itself,
+  which §9 buries in favour of *Belvedere / the deck*), and **`the register`** (§7 says a
+  register is always named). Those are not misses a prose sweep can rule — respelling
+  `fire` would fork the deck's copy from its code, and renaming `the glass` is the
+  building's own identity. **Filed to Belvedere's inbox too**; its Architect owns it, and
+  it is the natural successor charge to C27.
