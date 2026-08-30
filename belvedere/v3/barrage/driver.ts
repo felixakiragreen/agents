@@ -13,7 +13,7 @@ import { load } from "../engine/engine.ts";
 import { isRefusal, type Refusal } from "../engine/refusal.ts";
 import { replay, terminal, verdicts, type RunState } from "../engine/replay.ts";
 import type { Ruling } from "../engine/log.ts";
-import { stepById } from "../engine/flow.ts";
+import { fakeScenario, stepById } from "../engine/flow.ts";
 import { stream } from "./prng.ts";
 import { byName } from "./scenarios.ts";
 import { topology, type Plan } from "./topology.ts";
@@ -116,7 +116,8 @@ export async function drive(seed: number, runDir: string, capMs: number): Promis
 /** How many acts this step's subject scripts — one for most of the library. */
 function actsOf(plan: Plan, stepId: string): number {
 	const step = stepById(plan.flow, stepId);
-	return step === undefined || step.kind === "card" ? 0 : byName(step.subject.fake.scenario).acts;
+	const scenario = step === undefined || step.kind === "card" ? null : fakeScenario(step.subject);
+	return scenario === null ? 0 : byName(scenario).acts;
 }
 
 /** Steps the blessing never covered, still waiting with every edge landed. */

@@ -1,11 +1,14 @@
 // The spawn adapter — the one place that knows what a subject IS. Everything
-// above it works in steps, sessions and readings; C8 adds `{real: …}` here and
-// nowhere else.
+// above it works in steps, sessions and readings; the two arms differ by a
+// program and an environment, and by nothing else.
 //
 // Two laws of the clean room ride in this file (C4 F0): the subject gets the
 // eight variables of `cleanEnv` and nothing inherited, and `HOME` is never
 // overridden — `CLAUDE_CONFIG_DIR` selects the account, and overriding HOME
-// breaks keychain OAuth.
+// breaks keychain OAuth. A third rides the real arm: the binary is
+// `~/.local/bin/claude` by construction, never whatever `claude` resolves to on
+// PATH — that is the cmux shim, and a subject spawned through it is not in a
+// clean room at all.
 //
 // **The stream is state** (C6 F2, ruled 2026-08-30). A turn's stdout goes to a
 // file the child owns, never a pipe: the fd outlives the engine that opened it,
@@ -15,9 +18,9 @@
 import { closeSync, mkdirSync, openSync, readSync } from "node:fs";
 import { dirname } from "node:path";
 import { StringDecoder } from "node:string_decoder";
-import type { Fired } from "./flow.ts";
+import type { Fired, FakeSubject } from "./flow.ts";
 import { REPORT_SCHEMA, emptyReading, senseLine, type Reading } from "./sense.ts";
-import { refuse, type Refusal } from "./refusal.ts";
+import { isRefusal, refuse, type Refusal } from "./refusal.ts";
 
 /** Where a subject lives: the cwd it works in, the config dir that holds its
  *  transcript. For a fake subject the config dir is a sandbox; for a real one
@@ -44,6 +47,9 @@ export type Ignition = {
 };
 
 const FAKE_CLI = new URL("../fake-claude/cli.ts", import.meta.url).pathname;
+
+/** The clean room's binary, relative to HOME (C4 F0). Never resolved from PATH. */
+const REAL_CLI = ".local/bin/claude";
 
 /** How often the tail looks for new bytes. Small enough that a pause cause
  *  surfaces well within one engine tick (invariant 5). */
@@ -86,8 +92,34 @@ export function argvFor(i: Ignition): string[] {
 	];
 }
 
+/** All the two subject arms differ by: what to exec, and what the clean room's
+ *  eight variables are joined by. `argvFor` is the same either way — it has
+ *  spoken the real flags since C5. */
+type Program = { command: string[]; env: Record<string, string> };
+
+const fakeProgram = (fake: FakeSubject): Program => ({
+	command: [process.execPath, FAKE_CLI],
+	env: {
+		FAKE_CLAUDE_SCENARIO: new URL(`../fake-claude/scenarios/${fake.scenario}.json`, import.meta.url).pathname,
+		FAKE_CLAUDE_SEED: String(fake.seed),
+	},
+});
+
+/** The real arm: `cleanEnv` alone — no `FAKE_*` variables reach a real subject
+ *  — and the binary named from HOME, which `cleanEnv` passes through and never
+ *  overrides. An absent HOME is refused rather than spawned from `/`. */
+function realProgram(): Program | Refusal {
+	const home = process.env.HOME;
+	if (home === undefined || home === "")
+		return refuse(`HOME is unset, and the real binary is addressed as ~/${REAL_CLI} (C4 F0)`);
+	return { command: [`${home}/${REAL_CLI}`], env: {} };
+}
+
 export function ignite(i: Ignition): Spawned | Refusal {
-	const { scenario, seed } = i.step.subject.fake;
+	const subject = i.step.subject;
+	const program = "fake" in subject ? fakeProgram(subject.fake) : realProgram();
+	if (isRefusal(program)) return refuse(`step ${i.step.id}: ${program.refusal}`);
+
 	mkdirSync(dirname(i.stream), { recursive: true });
 	// Opened by the parent, owned by the child: closed here the instant the
 	// spawn has its own copy, so nothing the engine holds keeps the file live.
@@ -95,13 +127,9 @@ export function ignite(i: Ignition): Spawned | Refusal {
 	const err = openSync(stderrPath(i.stream), "w");
 	let proc: Bun.Subprocess;
 	try {
-		proc = Bun.spawn([process.execPath, FAKE_CLI, ...argvFor(i)], {
+		proc = Bun.spawn([...program.command, ...argvFor(i)], {
 			cwd: i.venue.workDir,
-			env: {
-				...cleanEnv(i.venue.configDir),
-				FAKE_CLAUDE_SCENARIO: new URL(`../fake-claude/scenarios/${scenario}.json`, import.meta.url).pathname,
-				FAKE_CLAUDE_SEED: String(seed),
-			},
+			env: { ...cleanEnv(i.venue.configDir), ...program.env },
 			stdout: out, stderr: err,
 		});
 	} finally {

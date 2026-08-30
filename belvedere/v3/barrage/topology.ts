@@ -7,7 +7,7 @@
 // each from its own named stream (`prng.ts`), so the same seed is the same flow
 // on any machine and a red reproduces from its number alone.
 
-import { parseFlow, type Flow } from "../engine/flow.ts";
+import { fakeScenario, parseFlow, type Flow } from "../engine/flow.ts";
 import { isRefusal } from "../engine/refusal.ts";
 import { SCENARIOS, isHazard, type Row } from "./scenarios.ts";
 import { stream } from "./prng.ts";
@@ -115,6 +115,6 @@ function edges(rng: { chance(p: number): boolean; int(lo: number, hi: number): n
 /** What the barrage's coverage report counts, per flow. */
 export const carriesHold = (p: Plan): boolean => p.flow.steps.some((s) => s.kind === "gate" || s.kind === "card");
 export const carriesHazard = (p: Plan): boolean =>
-	p.flow.steps.some((s) => s.kind !== "card" && isHazard(SCENARIOS.find((r) => r.name === s.subject.fake.scenario)!));
+	p.flow.steps.some((s) => s.kind !== "card" && isHazard(SCENARIOS.find((r) => r.name === fakeScenario(s.subject))!));
 export const scenariosIn = (p: Plan): string[] =>
-	p.flow.steps.flatMap((s) => (s.kind === "card" ? [] : [s.subject.fake.scenario]));
+	p.flow.steps.flatMap((s) => (s.kind === "card" ? [] : [fakeScenario(s.subject) ?? "real"]));

@@ -46,7 +46,17 @@ test("every flow carries its ceiling, and every step a distinct id", () => {
 	expect(why(flow([task(), task()]))).toContain("share the id");
 });
 
-test("layer 0 knows one kind of subject, and says so", () => {
-	expect(why(flow([task({ subject: { real: { kickoff: "x", account: "personal", venue: "/tmp" } } })])))
-		.toContain("real subjects land at C8");
+test("a subject is exactly one arm, and the real arm declares nothing", () => {
+	const real = flow([task({ subject: { real: {} } })]);
+	expect(isRefusal(real)).toBe(false);
+	if (!isRefusal(real)) expect(real.steps[0]).toMatchObject({ subject: { real: {} } });
+
+	// The fields C8 might have been tempted to hang here: the account rides the
+	// venue's config dir, the model and posture ride the step.
+	expect(why(flow([task({ subject: { real: { account: "personal", venue: "/tmp" } } })])))
+		.toContain("a real subject declares nothing");
+	expect(why(flow([task({ subject: {} })]))).toContain("exactly one of");
+	expect(why(flow([task({ subject: { fake: { scenario: "echo", seed: 1 }, real: {} } })]))).toContain("fake and real");
+	expect(why(flow([task({ subject: { real: "yes" } })]))).toContain("real must be an object");
+	expect(why(flow([task({ subject: { fake: { scenario: "echo" } } })]))).toContain("fake.seed must be an integer");
 });

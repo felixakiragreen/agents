@@ -3,7 +3,7 @@
 // lost-stream re-derivation (bar 8) and the timeout (bar 9). Every one of them
 // exists because C4 measured the hazard, not because it seemed prudent.
 import { test, expect } from "bun:test";
-import { mkdirSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { load } from "../engine.ts";
 import { isRefusal } from "../refusal.ts";
 import { ignite } from "../spawn.ts";
@@ -142,4 +142,27 @@ test("the engine refuses a log blessed on a different flow", () => {
 	const swapped = load(b, { runDir: `${SCRATCH}/law-swap` });
 	expect(isRefusal(swapped)).toBe(true);
 	if (isRefusal(swapped)) expect(swapped.refusal).toContain("blessed on a different flow");
+});
+
+test("the real seam refuses in kind, and never resolves `claude` from PATH", () => {
+	// The one exercise of the real arm in the tree. It cannot spawn: `HOME` is
+	// blanked, and the adapter refuses a blank HOME before it opens a file or
+	// touches `Bun.spawn` — the binary is addressed as ~/.local/bin/claude by
+	// construction, never resolved from PATH, which is the cmux shim (C4 F0).
+	const home = process.env.HOME;
+	try {
+		process.env.HOME = "";
+		const refused = ignite({
+			step: { kind: "task", id: "real", depends: [], model: "sonnet", effort: "low",
+				posture: "auto", timeoutMs: 1_000, subject: { real: {} } },
+			venue: { workDir: SCRATCH, configDir: `${SCRATCH}/no-such-config` },
+			sessionId: "00000000-0000-0000-0000-000000000000", resume: false,
+			prompt: "never sent", stream: `${SCRATCH}/never-written.jsonl`,
+		});
+		expect(isRefusal(refused)).toBe(true);
+		if (isRefusal(refused)) expect(refused.refusal).toContain("~/.local/bin/claude");
+	} finally {
+		process.env.HOME = home;
+	}
+	expect(existsSync(`${SCRATCH}/never-written.jsonl`)).toBe(false);
 });

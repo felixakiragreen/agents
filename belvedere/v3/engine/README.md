@@ -29,8 +29,14 @@ steps[]}`. Three kinds of step, and the kinds do not share a field list:
 | `gate` | yes | when every edge landed | **never by itself** — it pauses ‹gate› carrying its report, and a ruling lands or kills it |
 | `card` | **none** | **never** | only by a ruling — it pauses ‹card› on its own `ask` |
 
-A subject is `{fake: {scenario, seed}}` today and `{real: {…}}` at C8; the spawn
-adapter is the only code that cares.
+A subject is `{fake: {scenario, seed}}` or `{real: {}}` — exactly one arm, parsed
+strict, and the spawn adapter is the only code that cares which. The real arm
+declares nothing: the account rides the venue's config dir, the model, effort and
+posture ride the step, and a `real` object carrying any field at all is refused
+rather than half-understood. It spawns `~/.local/bin/claude` with `cleanEnv`
+alone — never `claude` off PATH, which is the cmux shim (C4 F0). **Nothing in
+this tree spawns it**: C11 proved the arm by parse and refusal, and the first
+real ignition is C8's.
 
 **The run log** — append-only jsonl at `<runDir>/run.jsonl`, one event per
 transition: `blessed` `re-blessed` `ignited` `resumed` `turn-ended` `landed`
@@ -127,10 +133,10 @@ oracle has been seen to fail (cornerstone §6's mutation law).
 
 ## What it does not do
 
-Topology generation, fuzz loops, auto-filing (C7) · real subjects beyond the one
-transcript fixture (C8) · census, deck, UI, summon (C10) · arm B (stdin turns) ·
-D12 scope-growth auto-join · retry policies · anything from `glass/` — the trust
-precheck is an interface, not an import.
+Topology generation, fuzz loops, auto-filing (C7) · **spawn a real subject** —
+the arm exists and nothing in this tree fires it (C8) · census, deck, UI, summon
+(C10) · arm B (stdin turns) · D12 scope-growth auto-join · retry policies ·
+anything from `glass/` — the trust precheck is an interface, not an import.
 
 ## The bars, measured
 

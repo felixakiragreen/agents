@@ -10,9 +10,25 @@ import { refuse, type Refusal } from "./refusal.ts";
 export const POSTURES = ["auto", "acceptEdits", "bypassPermissions"] as const;
 export type Posture = (typeof POSTURES)[number];
 
-/** What the spawn adapter is handed. `{real: …}` joins at C8 — the adapter is
- *  the only code that cares which (the cornerstone's D4 echo). */
-export type Subject = { fake: { scenario: string; seed: number } };
+/** A scripted stand-in: which scenario, and the seed its id stream runs on. */
+export type FakeSubject = { scenario: string; seed: number };
+
+/** The real binary. It declares nothing — the account rides the venue's config
+ *  dir and the model/effort/posture ride the step — so the arm is an empty
+ *  object rather than a bag of fields nothing reads. */
+export type RealSubject = Record<string, never>;
+
+/** What the spawn adapter is handed. The adapter is the only code that cares
+ *  which arm it is (the cornerstone's D4 echo). */
+export type Subject = { fake: FakeSubject } | { real: RealSubject };
+
+/** What the log records a subject as. `real` carries no scenario, so the arm is
+ *  named rather than left to a field that would be empty half the time. */
+export const subjectName = (s: Subject): string => ("fake" in s ? `fake:${s.fake.scenario}` : "real");
+
+/** The scenario a fake subject runs, or null for a real one — how everything
+ *  above the adapter asks, instead of reaching into the union. */
+export const fakeScenario = (s: Subject): string | null => ("fake" in s ? s.fake.scenario : null);
 
 export const DEFAULT_TIMEOUT_MS = 120_000;
 
@@ -114,12 +130,28 @@ function parseStep(raw: unknown, where: string): Step | Refusal {
 	};
 }
 
+/** Exactly one arm, and every field in it named. A subject that is neither, or
+ *  both, or carries a field the arm does not declare, is refused rather than
+ *  half-understood — the spawn adapter is handed a trusted shape or nothing. */
 function parseSubject(raw: unknown, where: string): Subject | Refusal {
 	if (typeof raw !== "object" || raw === null) return refuse(`${where}: subject must be an object`);
-	const fake = (raw as Record<string, unknown>).fake;
-	if (typeof fake !== "object" || fake === null)
-		return refuse(`${where}: the only subject layer 0 knows is {fake: {scenario, seed}} — real subjects land at C8`);
-	const k = fake as Record<string, unknown>;
+	const s = raw as Record<string, unknown>;
+	const arms = ["fake", "real"].filter((a) => s[a] !== undefined);
+	if (arms.length !== 1)
+		return refuse(`${where}: a subject is exactly one of {fake: {scenario, seed}} | {real: {}} (got ${arms.length === 0 ? "neither" : arms.join(" and ")})`);
+
+	if (s.real !== undefined) {
+		if (typeof s.real !== "object" || s.real === null || Array.isArray(s.real))
+			return refuse(`${where}: real must be an object`);
+		const keys = Object.keys(s.real);
+		if (keys.length > 0)
+			return refuse(`${where}: a real subject declares nothing — the account rides the venue and the model rides the step (got ${keys.join(", ")})`);
+		return { real: {} };
+	}
+
+	if (typeof s.fake !== "object" || s.fake === null || Array.isArray(s.fake))
+		return refuse(`${where}: fake must be an object of {scenario, seed}`);
+	const k = s.fake as Record<string, unknown>;
 	if (typeof k.scenario !== "string" || k.scenario === "") return refuse(`${where}: fake.scenario must be a scenario name`);
 	if (typeof k.seed !== "number" || !Number.isInteger(k.seed)) return refuse(`${where}: fake.seed must be an integer`);
 	return { fake: { scenario: k.scenario, seed: k.seed } };

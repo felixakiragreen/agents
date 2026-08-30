@@ -10,7 +10,7 @@
 // The library is the product; `cli.ts` is a hand-hold over it.
 
 import { existsSync, mkdirSync, readFileSync } from "node:fs";
-import { DEFAULT_TIMEOUT_MS, parseFlow, stepById, type Fired, type Flow, type Posture, type Step } from "./flow.ts";
+import { DEFAULT_TIMEOUT_MS, parseFlow, stepById, subjectName, type Fired, type Flow, type Posture, type Step } from "./flow.ts";
 import { openLog, type Log, type Ruling, type Sensed } from "./log.ts";
 import { postureLegal } from "./posture.ts";
 import { fold, ready, running, terminal, unresolved, type RunState, type StepState } from "./replay.ts";
@@ -140,7 +140,7 @@ function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
 
 		log.append(resume === null
 			? { kind: "ignited", step: step.id, sessionId, pid: spawned.pid, venue: venue.workDir, cursor,
-				model: step.model, effort: step.effort, posture: step.posture, subject: step.subject.fake.scenario }
+				model: step.model, effort: step.effort, posture: step.posture, subject: subjectName(step.subject) }
 			: { kind: "resumed", step: step.id, sessionId, pid: spawned.pid, cursor, turn: resume });
 		crashPoint(`after-ignite:${step.id}`);
 
