@@ -1,0 +1,4 @@
+# The driver and the type gate's pinned deps — installed, never committed.
+node_modules/
+# Evidence, not truth: a shot is written to be Read once and pasted into a finding.
+shots/

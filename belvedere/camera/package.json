@@ -1,0 +1,19 @@
+{
+	"name": "camera",
+	"version": "0.1.0",
+	"description": "Belvedere's camera: an agent's eyes on the deck. Boots a disarmed twin of the glass, drives it browser-grade, writes PNGs the agent Reads.",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"shoot": "bun cli.ts shoot",
+		"run": "bun cli.ts run",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"playwright-core": "1.62.1"
+	},
+	"devDependencies": {
+		"@types/bun": "1.4.0",
+		"typescript": "7.0.2"
+	}
+}
