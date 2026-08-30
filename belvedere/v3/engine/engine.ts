@@ -13,7 +13,7 @@ import { existsSync, mkdirSync, readFileSync } from "node:fs";
 import { parseFlow, stepById, type Fired, type Flow, type Step } from "./flow.ts";
 import { openLog, type Log, type Ruling, type Sensed } from "./log.ts";
 import { postureLegal } from "./posture.ts";
-import { fold, ready, running, terminal, type RunState } from "./replay.ts";
+import { fold, ready, running, terminal, unresolved, type RunState } from "./replay.ts";
 import { verdict, type Cause, type Reading, type Verdict } from "./sense.ts";
 import { readTranscript, transcriptPath, verdictFromTranscript } from "./transcript.ts";
 import { ignite as spawnSubject, type Venue } from "./spawn.ts";
@@ -87,13 +87,28 @@ function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
 	 * is made on, so a gate pauses whatever the report says and nothing
 	 * downstream moves until it is ruled (invariant 3).
 	 */
-	const settle = (stepId: string, sessionId: string | null, sensed: Sensed, v: Verdict) => {
-		log.append({ kind: "turn-ended", step: stepId, sessionId, sensed });
-		crashPoint(`before-pause:${stepId}`);
+	/**
+	 * The verdict for a turn already recorded. Split from the recording on
+	 * purpose: the reading rides the `turn-ended` event, so an engine that dies
+	 * between the two appends resolves the turn from its own log on restart
+	 * rather than re-reading a stream that no longer exists.
+	 *
+	 * A gate is the exception that names the kind: it never lands itself — its
+	 * report is the verdict a ruling is made on, so a gate pauses whatever the
+	 * report says and nothing downstream moves until it is ruled (invariant 3).
+	 */
+	const resolve = (stepId: string, sensed: Sensed) => {
+		const v: Verdict = sensed.source === "stream" ? verdict(sensed.reading) : verdictFromTranscript(sensed.reading);
 		const isGate = stepById(flow, stepId)?.kind === "gate";
 		if (v.land && !isGate) { log.append({ kind: "landed", step: stepId, report: v.report }); return; }
 		if (v.land) { pause(stepId, ["gate"], `report: ${v.report.cause}`); return; }
 		pause(stepId, isGate ? [...v.causes, "gate"] : v.causes, v.detail);
+	};
+
+	const settle = (stepId: string, sessionId: string | null, sensed: Sensed) => {
+		log.append({ kind: "turn-ended", step: stepId, sessionId, sensed });
+		crashPoint(`before-pause:${stepId}`);
+		resolve(stepId, sensed);
 	};
 
 	/** Ignite one step, or say loudly why it did not. */
@@ -116,7 +131,7 @@ function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
 		inFlight.set(step.id, spawned.settled.then((reading: Reading) => {
 			crashPoint(`before-settle:${step.id}`);
 			inFlight.delete(step.id);
-			settle(step.id, reading.sessionId ?? sessionId, { source: "stream", reading }, verdict(reading));
+			settle(step.id, reading.sessionId ?? sessionId, { source: "stream", reading });
 		}));
 	}
 
@@ -133,13 +148,20 @@ function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
 			while (alive(pid) && Date.now() < deadline) await new Promise((r) => setTimeout(r, 25));
 			inFlight.delete(stepId);
 			const reading = readTranscript(transcriptPath(venue.configDir, venue.workDir, sessionId));
-			settle(stepId, sessionId, { source: "transcript", reading }, verdictFromTranscript(reading));
+			settle(stepId, sessionId, { source: "transcript", reading });
 		}
 	}
 
 	async function tick(): Promise<RunState> {
 		let now = state();
 		if (now.halted !== null) return now;
+
+		// A turn read but never ruled into a transition: the engine before us
+		// died in that window. Its reading is in the log; resolve it from there.
+		for (const id of unresolved(now)) {
+			const at = now.steps[id];
+			if (at?.at === "ended") { resolve(id, at.sensed); now = state(); }
+		}
 
 		for (const id of running(now))
 			if (!inFlight.has(id)) {

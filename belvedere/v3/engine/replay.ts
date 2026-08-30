@@ -11,12 +11,16 @@
 
 import type { Flow, Step } from "./flow.ts";
 import { stepById } from "./flow.ts";
-import { readLog, type Entry } from "./log.ts";
+import { readLog, type Entry, type Sensed } from "./log.ts";
 import type { Cause, Report } from "./sense.ts";
 
 export type StepState =
 	| { at: "pending" }
 	| { at: "running"; sessionId: string; pid: number; since: number }
+	/** The turn is read and recorded; its verdict is not yet a transition. The
+	 *  window a crash falls into between the two appends — and the reason the
+	 *  reading rides the event: a restart resolves it without re-reading. */
+	| { at: "ended"; sessionId: string | null; sensed: Sensed }
 	| { at: "paused"; causes: Cause[]; detail: string; sessionId: string | null }
 	| { at: "landed"; report: Report | null }
 	| { at: "killed"; reason: string };
@@ -52,6 +56,7 @@ export function fold(entries: readonly Entry[]): RunState {
 			case "re-blessed":
 				state.scope = [...new Set([...state.scope, ...e.scope])];
 				state.budget = e.budget;
+				state.ceiling = false;             // the whole point of a re-blessing: the ceiling moved
 				break;
 			case "ignited":
 			case "resumed":
@@ -59,7 +64,8 @@ export function fold(entries: readonly Entry[]): RunState {
 				set(e.step, { at: "running", sessionId: e.sessionId, pid: e.pid, since: e.seq });
 				break;
 			case "turn-ended":
-				break;                                     // the verdict lands or pauses; the turn itself moves nothing
+				set(e.step, { at: "ended", sessionId: e.sessionId, sensed: e.sensed });
+				break;
 			case "landed":
 				set(e.step, { at: "landed", report: e.report });
 				break;
@@ -84,7 +90,8 @@ export function fold(entries: readonly Entry[]): RunState {
 
 const sessionOf = (state: RunState, id: string): string | null => {
 	const at = state.steps[id];
-	return at?.at === "running" ? at.sessionId : at?.at === "paused" ? at.sessionId : null;
+	if (at === undefined) return null;
+	return at.at === "running" || at.at === "ended" || at.at === "paused" ? at.sessionId : null;
 };
 
 /** A step may ignite when it is in scope, still pending, and every edge landed. */
@@ -98,10 +105,14 @@ export function ready(state: RunState, step: Step): boolean {
 export const running = (state: RunState): string[] =>
 	Object.entries(state.steps).filter(([, s]) => s.at === "running").map(([id]) => id);
 
+/** Turns read but not yet ruled into a transition — a restart's first duty. */
+export const unresolved = (state: RunState): string[] =>
+	Object.entries(state.steps).filter(([, s]) => s.at === "ended").map(([id]) => id);
+
 /** Terminal: nothing is in flight and nothing more can move without a ruling. */
 export function terminal(state: RunState): boolean {
 	if (state.flow === null) return true;
-	if (running(state).length > 0) return false;
+	if (running(state).length > 0 || unresolved(state).length > 0) return false;
 	if (state.halted !== null || state.ceiling) return true;
 	return !state.flow.steps.some((s) => ready(state, s));
 }

@@ -20,7 +20,7 @@ export type Violation = { invariant: number; name: string; seq: number; step: st
 
 export const invariants = (logPath: string): Violation[] => check(readLog(logPath));
 
-type At = "pending" | "running" | "paused" | "landed" | "killed";
+type At = "pending" | "running" | "ended" | "paused" | "landed" | "killed";
 
 export function check(entries: readonly Entry[]): Violation[] {
 	const v: Violation[] = [];
@@ -108,6 +108,7 @@ export function check(entries: readonly Entry[]): Violation[] {
 			case "turn-ended":
 				if (at.get(step) !== "running") add(7, e.seq, step, `a turn ended for a step that was ${at.get(step) ?? "unknown"}`);
 				ended.add(step);
+				at.set(step, "ended");
 				break;
 
 			case "landed": {
@@ -158,6 +159,8 @@ export function check(entries: readonly Entry[]): Violation[] {
 		const state = at.get(s.id);
 		if (state === "running")
 			add(6, last, s.id, "the log ends with the step still in flight — an orphan the run never accounted for");
+		if (state === "ended")
+			add(6, last, s.id, "the log ends with a turn read and never resolved into a transition");
 		if (state === "paused" && !paused.has(s.id))
 			add(5, last, s.id, "paused with no pause event");
 		if (state === "pending" && scope.has(s.id) && halted === null &&

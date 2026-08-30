@@ -1,0 +1,30 @@
+{
+	"id": "demo",
+	"name": "The demo flow — serial, parallel, a gate, a card, a denial, a death",
+	"budget": 9,
+	"steps": [
+		{ "id": "prep", "kind": "task", "depends": [], "model": "sonnet", "effort": "low",
+		  "posture": "auto", "subject": { "fake": { "scenario": "schema-done", "seed": 11 } } },
+
+		{ "id": "fan-a", "kind": "task", "depends": ["prep"], "model": "sonnet", "effort": "low",
+		  "posture": "auto", "subject": { "fake": { "scenario": "schema-done", "seed": 21 } } },
+		{ "id": "fan-b", "kind": "task", "depends": ["prep"], "model": "haiku", "effort": "low",
+		  "posture": "acceptEdits", "subject": { "fake": { "scenario": "schema-done", "seed": 22 } } },
+		{ "id": "fan-c", "kind": "task", "depends": ["prep"], "model": "sonnet", "effort": "low",
+		  "posture": "bypassPermissions", "subject": { "fake": { "scenario": "schema-done", "seed": 23 } } },
+
+		{ "id": "orphan", "kind": "task", "depends": ["prep"], "model": "sonnet", "effort": "low",
+		  "posture": "auto", "subject": { "fake": { "scenario": "orphan-finish", "seed": 31 } } },
+		{ "id": "deny", "kind": "task", "depends": ["prep"], "model": "sonnet", "effort": "low",
+		  "posture": "auto", "subject": { "fake": { "scenario": "permission-denial", "seed": 41 } } },
+		{ "id": "crash", "kind": "task", "depends": ["prep"], "model": "sonnet", "effort": "low",
+		  "posture": "auto", "subject": { "fake": { "scenario": "die-137", "seed": 51 } } },
+
+		{ "id": "gate", "kind": "gate", "depends": ["fan-a", "fan-b", "fan-c"], "model": "sonnet",
+		  "effort": "low", "posture": "auto", "subject": { "fake": { "scenario": "schema-done", "seed": 61 } } },
+		{ "id": "card", "kind": "card", "depends": ["gate"],
+		  "ask": "The fan landed and the gate reported done. Ship it?" },
+		{ "id": "finish", "kind": "task", "depends": ["card"], "model": "sonnet", "effort": "low",
+		  "posture": "auto", "subject": { "fake": { "scenario": "schema-done", "seed": 71 } } }
+	]
+}
