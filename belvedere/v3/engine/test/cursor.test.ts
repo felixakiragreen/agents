@@ -116,7 +116,10 @@ test("bar 3 — a sabotaged cursor answers for the reporting turn before it", as
 	const stale = await reopen(name, flowPath).run();
 	const causes = stale.steps.t?.at === "paused" ? stale.steps.t.causes : null;
 	expect(causes).not.toEqual(["dead"]);
-	expect(causes).toEqual(["no report"]);
+	// C10 step 0 sharpens the signal: the prior turn is `schema-needs-input`, so
+	// the stale cursor now answers with that turn's own cause rather than the
+	// ‹no report› every weaker report used to collapse to.
+	expect(causes).toEqual(["needs-⬡ question"]);
 	// Pre-C13 this assertion could not have been written: the prior turn's
 	// `StructuredOutput` pair read as died-mid-work, so the stale cursor answered
 	// ‹dead› as well and the sabotage was invisible.

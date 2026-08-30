@@ -304,6 +304,18 @@ now holds for `done` and for the non-reporting scenarios, and not for
 change in `verdictFromTranscript`; it widens the fallback's vocabulary, so it is
 the Architect's call, not a Builder's.
 
+> *Corrected 2026-08-30, C10 step 0 (the Architect's call, taken at the batch-8
+> lay): **this paragraph's second sentence no longer describes the tree.**
+> `verdictFromTranscript` now names ‹needs-⬡ question› and ‹blocked› from the
+> disk's own report, mirroring `sense.ts` exactly, and ‹no report› means what it
+> says — the turn closed carrying no parseable report at all. C6's
+> **"transcript-only ≡ streamed verdict" therefore holds for every reporting
+> state**, not for `done` and the non-reporting scenarios alone. Evidence: the
+> red/green on `real-c8-q5-question.jsonl` under both readers, pasted in
+> [C10](c10-console-demo.md) bar 1. The consequence noted above — a board row
+> showing ‹no report› over a turn whose disk plainly carries the question — was
+> the reason: the console demo is where the poorer name becomes a UX lie.*
+
 ### F4 — one archived C8 session holds three report calls, and position picks the wrong one
 
 `summon/log/archive/.claude/-Users-felix-code-agents-summon-log-v3-c8-venue-personal/6a76ee7e-….jsonl`

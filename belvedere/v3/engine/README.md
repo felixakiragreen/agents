@@ -84,8 +84,12 @@ it a `StructuredOutput` **tool call** — that call's own input, in the transcri
    `toolUseId` — and that call's input is the step report, so a closed turn
    reporting `done` with nothing refused **lands from the transcript alone**
    (C8 F3, built at C13). Anything short of all four — closed, report parses,
-   `done`, no refusal — pauses, and the posture the turn was granted is still
-   `init`'s to say and still absent from disk.
+   `done`, no refusal — pauses **in the stream's own words**: a report that
+   parses names ‹needs-⬡ question› or ‹blocked› exactly as [sense.ts](sense.ts)
+   would, so one vocabulary serves two sources and ‹no report› means what it
+   says (C13 F3, built as C10's step 0). The posture the turn was granted is
+   still `init`'s to say and still absent from disk — that, and not the outcome,
+   is what the transcript is now poorer about.
 6. **Timeouts are per step** (`timeout_ms`, default 120 s): SIGTERM ⇒ dead ⇒
    paused ‹timeout›. **No auto-retry** — a dead step pauses for a ruling.
 7. **Budget is a ceiling** (D73). Ignitions and resumes both cost a turn.

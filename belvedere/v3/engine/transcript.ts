@@ -171,11 +171,18 @@ function blocks(row: Record<string, unknown>): Record<string, unknown>[] {
  * disk alone when the disk is explicit about all four things: the turn closed,
  * the report parses, it says `done`, and nothing in the turn was refused.
  *
- * Everywhere short of that it pauses exactly as it did before the report was
- * readable — a report saying anything but `done` is named in the detail and
- * still pauses ‹no report›, and a turn carrying a failed tool result pauses
- * ‹needs-⬡ permission› over any report at all (C11 F2: this path cannot tell a
- * refusal from a tool that merely failed, and must not start guessing).
+ * Everywhere short of that it pauses — but it pauses in the **stream's own
+ * words**: a report that parses names its state's cause exactly as `verdict()`
+ * would (`sense.ts` is the authority; one vocabulary, two sources), so the same
+ * turn read from disk and from the stream shows the same cause on a board row.
+ * Collapsing both weaker states to ‹no report› was C13's literal reading of "as
+ * today" and it made the poorer name a lie — the disk plainly carries the
+ * question (C13 F3, ruled onto C10's lay). ‹no report› now means what it says:
+ * the turn closed carrying no parseable report at all.
+ *
+ * A turn carrying a failed tool result still pauses ‹needs-⬡ permission› over
+ * any report at all (C11 F2: this path cannot tell a refusal from a tool that
+ * merely failed, and must not start guessing).
  */
 export function verdictFromTranscript(t: TranscriptReading): Verdict {
 	if (t.verdict === "dead")
@@ -184,11 +191,12 @@ export function verdictFromTranscript(t: TranscriptReading): Verdict {
 			: `re-derived from the transcript: ${t.rows} rows past the spawn cursor, the turn never closed` };
 	if (t.verdict === "denied")
 		return { land: false, causes: ["needs-⬡ permission"], detail: "re-derived from the transcript: a tool result in the last turn carries is_error" };
-	if (t.report !== null && t.report.state === "done") return { land: true, report: t.report };
+	if (t.report === null)
+		return { land: false, causes: ["no report"], detail: "re-derived from the transcript: the turn completed and closed on no step report" };
+	if (t.report.state === "done") return { land: true, report: t.report };
 	return {
-		land: false, causes: ["no report"],
-		detail: t.report === null
-			? "re-derived from the transcript: the turn completed and closed on no step report"
-			: `re-derived from the transcript: the turn completed and its report says ${t.report.state}: ${t.report.cause}`,
+		land: false,
+		causes: [t.report.state === "needs_input" ? "needs-⬡ question" : "blocked"],
+		detail: `re-derived from the transcript: ${t.report.cause}`,
 	};
 }

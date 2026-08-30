@@ -10,6 +10,7 @@ import { test, expect } from "bun:test";
 import { readFileSync } from "node:fs";
 import { validateTranscript } from "../../fake-claude/validate.ts";
 import { readTranscript, readTranscriptText, slugFor, transcriptPath, verdictFromTranscript } from "../transcript.ts";
+import { emptyReading, verdict } from "../sense.ts";
 import { HERE } from "./harness.ts";
 
 const REAL = `${HERE}/test/fixtures/real-q1-write.jsonl`;
@@ -80,8 +81,72 @@ test("bar 1's control — a real C8 turn that asked a question is complete and s
 	expect(reading.report?.state).toBe("needs_input");
 	const v = verdictFromTranscript(reading);
 	expect(v.land).toBe(false);
-	if (!v.land) expect(v.causes).toEqual(["no report"]);
+	// C10 step 0: the cause is the stream's own word, not ‹no report› (C13 F3).
+	if (!v.land) expect(v.causes).toEqual(["needs-⬡ question"]);
 	expect(validateTranscript(readFileSync(ASKED, "utf8")).violations).toEqual([]);
+});
+
+// ---------------------------------------------------------------------------
+// C10 step 0 — the fallback's pause vocabulary (C13 F3, ruled onto this lay).
+//
+// The transcript path collapsed every non-`done` report to ‹no report›, so the
+// same turn read from disk and from the stream showed two different causes and
+// the poorer one is a lie: a board row saying ‹no report› over a turn whose disk
+// plainly carries the question. `sense.ts` is the authority — one vocabulary,
+// two sources — so the two paths now name the same causes for the same report.
+
+const same = (a: unknown, b: unknown) => expect(a).toEqual(b);
+
+test("step 0 — a needs_input report on disk pauses ‹needs-⬡ question› carrying the question", () => {
+	const reading = readTranscript(ASKED, 0);
+	const v = verdictFromTranscript(reading);
+	expect(v.land).toBe(false);
+	if (v.land) return;
+	expect(v.causes).toEqual(["needs-⬡ question"]);
+	// The question's own words, not a paraphrase and not a state name.
+	expect(v.detail).toContain(reading.report!.cause);
+	// The stream, given the same report, says the same thing.
+	const streamed = verdict({ ...emptyReading("auto"), dead: false, granted: "auto", results: 1, report: reading.report });
+	expect(streamed.land).toBe(false);
+	if (!streamed.land) same(v.causes, streamed.causes);
+});
+
+test("step 0 — a blocked report on disk pauses ‹blocked›, and the two sources agree", () => {
+	const rows = (...r: object[]) => r.map((x) => JSON.stringify(x)).join("\n") + "\n";
+	const user = { type: "user", message: { role: "user", content: "do it" } };
+	const call = (input: object) =>
+		({ type: "assistant", message: { content: [{ type: "tool_use", id: "toolu_r", name: "StructuredOutput", input }] } });
+	const answer = { type: "user", message: { content: [{ type: "tool_result", tool_use_id: "toolu_r", content: "ok" }] } };
+
+	for (const [state, cause] of [["blocked", "the upstream repo is gone"], ["needs_input", "which account?"]] as const) {
+		const report = { state, cause };
+		const reading = readTranscriptText(rows(user, call(report), answer), 0);
+		expect(reading.report).toEqual(report);
+		const disk = verdictFromTranscript(reading);
+		const stream = verdict({ ...emptyReading("auto"), dead: false, granted: "auto", results: 1, report });
+		expect(disk.land).toBe(false);
+		expect(stream.land).toBe(false);
+		if (disk.land || stream.land) return;
+		same(disk.causes, stream.causes);
+		expect(disk.detail).toContain(cause);
+	}
+});
+
+test("step 0 — the non-reporting states are untouched: no report, dead, denied", () => {
+	const rows = (...r: object[]) => r.map((x) => JSON.stringify(x)).join("\n") + "\n";
+	const user = { type: "user", message: { role: "user", content: "do it" } };
+	const said = { type: "assistant", message: { content: [{ type: "text", text: "done" }] } };
+	const working = { type: "assistant", message: { content: [{ type: "tool_use", id: "toolu_b", name: "Bash" }] } };
+	const failed = { type: "user", message: { content: [{ type: "tool_result", tool_use_id: "toolu_b", content: "no", is_error: true }] } };
+
+	const bare = verdictFromTranscript(readTranscriptText(rows(user, said), 0));
+	if (!bare.land) expect(bare.causes).toEqual(["no report"]);
+	const dead = verdictFromTranscript(readTranscriptText(rows(user, working), 0));
+	if (!dead.land) expect(dead.causes).toEqual(["dead"]);
+	const denied = verdictFromTranscript(readTranscriptText(rows(user, working, failed, said), 0));
+	if (!denied.land) expect(denied.causes).toEqual(["needs-⬡ permission"]);
+	// And a `done` report still lands (bar 1 unmoved).
+	expect(verdictFromTranscript(readTranscript(DONE, 0)).land).toBe(true);
 });
 
 test("the closing pair is matched by toolUseId, never by position", () => {
