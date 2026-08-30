@@ -8,6 +8,7 @@
 import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { load } from "../../engine/engine.ts";
 import { isRefusal } from "../../engine/refusal.ts";
+import type { Venue } from "../../engine/spawn.ts";
 
 export const HERE = new URL("..", import.meta.url).pathname.replace(/\/$/, "");
 export const CLI = `${HERE}/cli.ts`;
@@ -15,8 +16,8 @@ export const SCRATCH = "/private/tmp/v3-console-test";
 
 /** `resume-chain-4` for the middle step: it reports nothing, so it pauses, and
  *  it scripts four acts, so a resume from the console is a turn it can serve.
- *  The fake has no answer-then-land scenario — that arc is the real rehearsal's
- *  (findings F2). */
+ *  It pauses ‹no report›, which is a pause and not a question — the arc where a
+ *  subject asks and then lands on the answer is [ARC](#) below. */
 export const FLOW = {
 	id: "console", name: "the console's three moves", budget: 6,
 	steps: [
@@ -33,23 +34,52 @@ function step(id: string, scenario: string, depends: string[]) {
 	};
 }
 
-export type Fixture = { root: string; runDir: string; name: string };
+/** The same three moves, with a middle step that **asks and then lands on the
+ *  answer** (C14). This is the arc `send <text>` drives and the one the console
+ *  could not exercise on a fake before the scenario existed (C10 F2). */
+export const ARC = {
+	id: "console", name: "ask, then land on the answer", budget: 6,
+	steps: [
+		step("plan", "schema-done", []),
+		step("ask", "answer-then-land", ["plan"]),
+		step("ship", "schema-done", ["ask"]),
+	],
+};
+
+export type Fixture = { root: string; runDir: string; name: string; venue: Venue };
+
+export type Options = {
+	/** Which flow to drive. The three moves by default. */
+	flow?: object;
+	/**
+	 * Where the subjects live. Omitted, the engine's own sandbox under the run
+	 * dir — which is also what a lost venue falls back to, so a test about
+	 * *resolving* the venue must name one that is visibly not the sandbox.
+	 */
+	venue?: Venue;
+	/** Write the pre-C14 sidecar naming that venue, the way C8's harness did. */
+	conditions?: boolean;
+};
 
 /** A run driven to its pause: `plan` landed, `ask` paused, `ship` pending. */
-export async function fixture(name: string): Promise<Fixture> {
+export async function fixture(name: string, options: Options = {}): Promise<Fixture> {
 	const root = `${SCRATCH}/${name}`;
 	const runDir = `${root}/console/three-moves`;
 	rmSync(root, { recursive: true, force: true });
 	mkdirSync(runDir, { recursive: true });
 	const flowPath = `${runDir}/flow.json`;
-	writeFileSync(flowPath, JSON.stringify(FLOW, null, 2) + "\n");
+	writeFileSync(flowPath, JSON.stringify(options.flow ?? FLOW, null, 2) + "\n");
 
-	const run = load(flowPath, { runDir });
+	const run = load(flowPath, { runDir, ...(options.venue === undefined ? {} : { venue: options.venue }) });
 	if (isRefusal(run)) throw new Error(run.refusal);
+	if (options.conditions === true)
+		writeFileSync(`${runDir}/conditions.json`, JSON.stringify({
+			drill: name, account: "test", configDir: run.venue.configDir, workDir: run.venue.workDir,
+		}, null, 2) + "\n");
 	const blessed = run.bless();
 	if (isRefusal(blessed)) throw new Error(blessed.refusal);
 	await run.run();
-	return { root, runDir, name: "console/three-moves" };
+	return { root, runDir, name: "console/three-moves", venue: run.venue };
 }
 
 export type Ran = { code: number; out: string };
