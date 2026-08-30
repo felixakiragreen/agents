@@ -126,9 +126,6 @@ async function tail(proc: Bun.Subprocess, stream: string, timeoutMs: number, ask
 	const reading = emptyReading(asked);
 	const timer = setTimeout(() => { reading.timedOut = true; proc.kill("SIGTERM"); }, timeoutMs);
 
-	let running = true;
-	const exited = proc.exited.then((code) => { running = false; return code; });
-
 	const fd = openSync(stream, "r");
 	const decoder = new StringDecoder("utf8");
 	const buf = Buffer.alloc(64 * 1024);
@@ -147,19 +144,21 @@ async function tail(proc: Bun.Subprocess, stream: string, timeoutMs: number, ask
 		}
 	}
 
+	// One timer reads the file, one await ends the turn. Racing `proc.exited`
+	// against a sleep in a loop would do the same job and say it less plainly —
+	// the turn is over when the process is over, and that is a thing to wait
+	// for, not a thing to poll for.
+	const ticker = setInterval(drain, TAIL_MS);
 	try {
-		while (running) {
-			await Promise.race([exited, Bun.sleep(TAIL_MS)]);
-			drain();
-		}
-		drain();
-		if (rest !== "") senseLine(reading, rest);
+		reading.exit = await proc.exited;
 	} finally {
+		clearInterval(ticker);
 		clearTimeout(timer);
-		closeSync(fd);
 	}
+	drain();
+	if (rest !== "") senseLine(reading, rest);
+	closeSync(fd);
 
-	reading.exit = await exited;
 	reading.signal = proc.signalCode ?? null;
 	return reading;
 }

@@ -132,11 +132,17 @@ function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
 			: { kind: "resumed", step: step.id, sessionId, pid: spawned.pid, turn: resume });
 		crashPoint(`after-ignite:${step.id}`);
 
-		inFlight.set(step.id, spawned.settled.then((reading: Reading) => {
-			crashPoint(`before-settle:${step.id}`);
-			inFlight.delete(step.id);
-			settle(step.id, reading.sessionId ?? sessionId, { source: "stream", reading });
-		}));
+		// The map entry is dropped by `.finally`, never from inside the work: an
+		// async body runs to its first `await` **synchronously**, so a turn that
+		// is already over would delete its own entry before `set` ever put one
+		// there — and a resolved promise left in the map makes `tick`'s race
+		// return instantly, forever (C7 F4).
+		inFlight.set(step.id, spawned.settled
+			.then((reading: Reading) => {
+				crashPoint(`before-settle:${step.id}`);
+				settle(step.id, reading.sessionId ?? sessionId, { source: "stream", reading });
+			})
+			.finally(() => { inFlight.delete(step.id); }));
 	}
 
 	/**
@@ -149,7 +155,7 @@ function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
 	 * outlives it is SIGTERMed and read as the timeout it is.
 	 */
 	function adopt(stepId: string, sessionId: string, pid: number, turn: number): void {
-		inFlight.set(stepId, waitThenRead());
+		inFlight.set(stepId, waitThenRead().finally(() => { inFlight.delete(stepId); }));
 
 		async function waitThenRead(): Promise<void> {
 			const step = stepById(flow, stepId);
@@ -160,7 +166,6 @@ function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
 
 			const timedOut = alive(pid);
 			if (timedOut) { try { process.kill(pid, "SIGTERM"); } catch { /* it went on its own */ } }
-			inFlight.delete(stepId);
 			settle(stepId, sessionId, fromDisk(stepId, sessionId, turn, asked, timedOut));
 		}
 	}
