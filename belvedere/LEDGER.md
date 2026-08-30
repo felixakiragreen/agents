@@ -2289,7 +2289,15 @@ Then **rule F3** (name ‹needs-⬡ question› / ‹blocked› from disk, or ke
 literal reading) and **F2** (the fake's *stream* is now unfaithful where its
 transcript stopped being). C9 is unblocked: the capability row G4 would have
 convened on is no longer falsified.
-Next: the batch-7 tender reviews C13 — done same day: all gates re-run green at
-its hand, F1 accepted (the deterministic pair guards the class; sixth cut family
-to the v3 board's deferred list), F3 deferred to C10's lay; batch 8 (C9 + C10)
-is the next lay — the root ledger's baton of this date carries the fork.
+Next: the batch-7 tender reviewed C13 same day — all gates green at its hand,
+F1 accepted (the deterministic pair guards the class; sixth cut family to the
+v3 board's deferred list), F3 deferred to C10's lay. The lay of batch 8 hands
+by this summons (or the same words to the live review session):
+
+```
+You are an Architect at fable-high.
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/architect.md,
+then read ~/code/agents/belvedere/v3/README.md, the ledger tail,
+and lay batch 8 — C9 scale and C10 the console demo.
+```
