@@ -2754,3 +2754,61 @@ to carry them; the board row names the fold. Decided: nothing register-grade —
 his notes are the input, the fold is the lay's own pen (an OPEN charge's doc
 amends freely before ignition). Next: ⬡ — ignite C16 (the standing baton
 above holds the kickoff, unchanged).
+
+---
+
+**2026-08-30 · Builder · opus-high (C16)** — **the Chat is the primary viewport
+over the engine's world, and a pause is a conversation.** The target set gained
+a third door: `glass/steps.ts` indexes the newest 12 run dirs by session id
+through the console's own reader, so a **headless engine-born session** — the
+venue D22 made primary — opens in the one Chat view, layer-0 runs included,
+whose transcripts no account tree carries. A reply into a step the engine is
+holding **paused** takes a third road, `mode: 'engine'`: `load()` +
+`rule(resume)`, the console's own mechanism, credential-gated like every other
+hand and verified on the transcript exactly as P6's road is — B16's three
+failure verdicts kept, neither road ever retried. **The round trip on real
+bytes, once:** a real run paused ‹needs-⬡ question›, the reply typed into the
+rendered textarea and sent with the rendered button delivered **98 B, sha
+`1d6c388d035d4a66…` page-side and on disk**, and the run log said `landed done ·
+answer BELVEDERE-C16` **5.1 s** later — **4 turns, $0.2471** against ≤15/≤$2,
+the ⬡-fork never near. The same arc is guarded at budget 0 on the fake
+(`answer-then-land`), and the pre-C14 read-only refusal, the cold-hands 503 and
+the fence law are asserted in the suite. **Rich rendering shipped**: `ChatBlock`
+gained `head`, `list` and `table` beside `prose`/`fence`/`act`, parsed once
+server-side so every cell and item is spans and the decoder reaches inside them
+— `row 17` and `D22` light in prose, in a bullet and in a table cell, **0 spans
+inside fences** — prose in Inter, tables and code in IosevkaFelix, the composer
+still plain text (his word: view only). The fixture is a **committed real
+capture** (`lab/c16/rich.jsonl`, the round trip's own transcript): no fake
+scenario writes markdown and adding one is a `v3/**` write this charge's fence
+forbids (F5). The **minimap** indexes the whole file incrementally — 42 marks
+over a 4.7 MB conversation, yours and the agents' apart, the loaded window lit,
+a click on an out-of-window mark landing `[data-key="3265"]` by the server's own
+coordinate — and B16's probe still measures **body 757 px − viewport 757 px = 0
+px** with it drawn. Both entry points are clicked, not addressed: the ⬡-queue's
+needs-you item for a paused step (`QueueItem.sid` split from `chat` — a headless
+step has a conversation and no pane, F4) and the Works' node. **582 tests green
+in one process**, `bun v3/gates.ts --glass` **ALL GREEN — 12 gates, 212.7 s**,
+camera types 0, **zero new dependencies**, nine standing camera probes and
+`lab/b16/probe.ts` re-run whole and green. **F2 — the deck IS the engine for the
+turn it resumes**: delivered is the transcript, landed is the run log, and a
+deck killed between them leaves a step `running` until something ticks that run
+(measured, and `lab/c16/settle.ts` closes it in one tick) — **this binds G5's
+rework lay** · F3 a landed step's session comes off the log's ignitions, never
+the fold's state (it cost the Works its own chat control) · F1 a `$TMPDIR` venue
+has two spellings and the engine names a transcript with one of them; real runs
+under `~/code` are unaffected and the engine-side fix is `v3/**`, so it is
+named, not taken. Nothing escalated. Next: **G5 — the migration close** convenes
+on the strangle whole (v2 gone, deck on v3, Chat primary, barrage green), then
+lays the rework batch and the respell sweep in the same session.
+
+Baton — ⬡ → convene G5 (the migration close), verbatim:
+```
+You are an Architect at fable-high.
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/architect.md,
+then read ~/code/agents/belvedere/README.md §§5–6 (the agreements and the
+migration campaign note) and the findings of C14, C15, C16, C17, C18 and C19,
+and run G5 — the migration close: verify the strangle, fold the findings, then
+lay the rework batch and the respell sweep per the campaign note's step 5.
+```
