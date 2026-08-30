@@ -288,6 +288,41 @@ const ledgerBareHead: Rule = {
 	},
 };
 
+/**
+ * The house clause dialect (C25-F2 — whiteboardy 61, snappy 3): the scope rides BEFORE the
+ * colon, `Decided (<scope>): x`. §7 puts `:` on the field name and nowhere else, so the repair
+ * is a colon relocation — total, mechanical, byte-preserving: the scope survives verbatim as
+ * the clause's own first words. Line-start only; a clause buried mid-prose is C25-F2's other
+ * shape and no rule here claims it.
+ */
+const clauseScopedColon: Rule = {
+	id: 'ledger.clause-scope', changes: ['decided', 'next', 'body'],
+	line: {
+		files: /^LEDGER\.md$/i,
+		run: t => {
+			const m = t.match(/^(Decided|Next)\s+(\([^)]*\)):\s*(.*)$/);
+			return m ? `${m[1]}: ${m[2]}${m[3] ? ` ${m[3]}` : ''}` : null;
+		},
+	},
+};
+
+/**
+ * The same clause head wearing the joiner instead of the colon — `Next — <text>` (whiteboardy
+ * ×3). §7: `—` joins a thing to its qualifier, `:` introduces a field's value; a clause head is
+ * a field name. Both field names, because it is one move — leaving `Decided —` alive would keep
+ * the identical defect on the page under a different word.
+ */
+const clauseDashHead: Rule = {
+	id: 'ledger.clause-dash', changes: ['decided', 'next', 'body'],
+	line: {
+		files: /^LEDGER\.md$/i,
+		run: t => {
+			const m = t.match(/^(Decided|Next)\s+[—–]\s*(.*)$/);
+			return m ? `${m[1]}: ${m[2]}` : null;
+		},
+	},
+};
+
 // ---------- §8 decisions — line rule ----------
 
 const decisionHead: Rule = {
@@ -323,7 +358,8 @@ const ledgerUnrecordedClauses: Rule = { id: 'ledger.unrecorded-clauses', changes
 export const RULES: Rule[] = [
 	staffingHexGate, dependsHexGate, staffingDissolved, staffingRiderParens,
 	statusRetired, statusVerdict, statusPending, statusParkedRespell, statusDeferred, dependsRange,
-	ledgerTierSlot, ledgerHeading, ledgerBareHead, decisionHead, decisionInlineAttribution,
+	ledgerTierSlot, ledgerHeading, ledgerBareHead, clauseScopedColon, clauseDashHead,
+	decisionHead, decisionInlineAttribution,
 	ledgerUnrecordedClauses,
 ];
 

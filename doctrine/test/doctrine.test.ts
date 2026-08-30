@@ -378,6 +378,40 @@ describe('migrate — pre-D63 fixtures', () => {
 		expect(roundTrip(m)).toEqual([]);
 	});
 
+	test('the house clause dialect molts: the colon relocates, the joiner becomes a colon (C31 item 2)', () => {
+		const led = (body: string) => `# L\n\n---\n\n**2026-08-16 · Builder · opus-high (E7)** — the work.\n${body}\n`;
+		const applied = migrateText('LEDGER.md', led('Decided (inside the fence): the verbs stay put.\nNext — dispatch E8.'));
+		expect(applied.after).toContain('Decided: (inside the fence) the verbs stay put.');
+		expect(applied.after).toContain('Next: dispatch E8.');
+		// the scope is relocated, never dropped — the same bytes, the colon one field name to the left
+		expect(applied.edits.map(e => [e.rule, e.from, e.to])).toEqual([
+			['ledger.clause-scope', 'Decided (inside the fence): the verbs stay put.', 'Decided: (inside the fence) the verbs stay put.'],
+			['ledger.clause-dash', 'Next — dispatch E8.', 'Next: dispatch E8.'],
+		]);
+		const after = parseLedger(applied.after);
+		expect(codes(after.fails)).toEqual([]);
+		expect([after.tail!.decided, after.tail!.next])
+			.toEqual(['(inside the fence) the verbs stay put', 'dispatch E8.']);
+		expect(roundTrip(applied)).toEqual([]);
+	});
+
+	test('the dialect rules refuse everything that is not a clause head (C31 item 2)', () => {
+		const refuses = [
+			'Decided: (inside the fence) already home.',       // idempotent — the conforming form
+			'The board Decided (scope): mid-prose is C25-F2\'s other shape, not this rule\'s.',
+			'Next steps (the gate): a heading, not a field name.',
+			'Nexus — the joiner belongs to a word that is not a field.',
+		];
+		for (const line of refuses) {
+			const m = migrateText('LEDGER.md', `# L\n\n---\n\n**2026-08-16 · Builder · opus-high (E7)** — w. Decided: x. Next: y.\n${line}\n`);
+			expect([line, m.edits]).toEqual([line, []]);
+		}
+		// and the rules are the ledger's: the same line in a DECISIONS.md is untouched
+		expect(migrateText('DECISIONS.md', 'Decided (scope): not a ledger.\n').edits).toEqual([]);
+		// a fenced quote of the dialect is a quote, not an entry
+		expect(migrateText('LEDGER.md', '# L\n\n---\n\n**2026-08-16 · Builder · opus-high (E7)** — w. Decided: x. Next: y.\n\n```\nDecided (scope): quoted.\n```\n').edits).toEqual([]);
+	});
+
 	test('a range expands only where every id resolves (item 7)', () => {
 		const md = '| ID | Work | Depends on | Staffing | Status |\n|---|---|---|---|---|\n| 01 | a | — | Builder · opus-high | LANDED |\n| 02 | b | — | Builder · opus-high | LANDED |\n| 03 | c | — | Builder · opus-high | LANDED |\n| 04 | d | 01–03 | Builder · opus-high | OPEN |\n| 05 | e | E1–E9 | Builder · opus-high | OPEN |\n';
 		const m = migrateText('board.md', md);
