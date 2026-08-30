@@ -2101,3 +2101,31 @@ Next: ignite C5.
 Baton — ⬡ → Ignite C5 (kickoff fenced in
 [v3/plans/c5-fake-claude.md](v3/plans/c5-fake-claude.md); the coda appends at
 ignition).
+
+---
+
+**2026-08-29 · Builder · opus-high** — **C5 LANDED**: `v3/fake-claude/` exists and
+is the campaign's standing instrument — the stand-in binary, 23 scenarios with
+committed goldens, and the conformance oracle both C6 and C7 will import.
+Changed: [v3/fake-claude/](v3/fake-claude/) (13 modules + 7 test files + 23
+scenarios + 23 goldens + README), bars evidenced in
+[v3/plans/c5-fake-claude.md](v3/plans/c5-fake-claude.md), board row trued, two
+findings to [ISSUES.md](ISSUES.md). All seven bars measured, none asserted: 58
+tests green in one process and type gate exit 0 (the deck's pinned tsc, offline —
+`fake-claude` installs nothing); **validator 43/43 C4 captures**, with **five**
+corrupted captures red, each named; 23 goldens matching, byte-identical ×3 on
+four scenarios across both inject arms; **p50 16 ms** spawn→exit over 50 (bar
+100); the sandbox guard refuses all three real account dirs *by spawn*, emitting
+zero bytes; zero torn transcript lines after every scripted death, including an
+orphan drill that SIGKILLs a real parent mid-turn and watches the subject finish.
+**Zero real `claude` invocations — the 0-turn budget held.** Decided: nothing
+that changes the contract — two grammar contradictions were found and **filed,
+not applied** (F1 `queued_turn_count` is 0 in the merged run, so parse rule 9's
+detector never fires — both shapes ship so either detector has a target; F2
+`SessionStart` hooks leak without `--include-hook-events`), and the pinned argv
+subset's missing `--effort` (which every C4 subject carried) was **not** added —
+all three are the Architect's amendments. Next: sweep C5's findings, rule the
+grammar amendments, lay C6.
+
+Baton — ⬡ → Rule C5's three amendments (grammar §3/§10.9, grammar §1's hook
+gating, the argv subset's `--effort`), then lay C6 the engine core.

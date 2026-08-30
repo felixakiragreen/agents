@@ -1,6 +1,6 @@
 # C5 — the fake claude
 
-**Status:** OPEN — laid 2026-08-29 · **Depends on:** C4 · **Staffing:** Builder ·
+**Status:** LANDED 2026-08-29 · **Depends on:** C4 · **Staffing:** Builder ·
 opus-high · **Spec blessed:** rides the BLESSED cornerstone §8 arc (⬡✓
 2026-08-29); pre-chewed and laid by the board's Architect, 2026-08-29 · **Branch:**
 none — serial sole lane, straight to `master`, explicit paths
@@ -101,22 +101,126 @@ interface, keep it small and stable.
 
 ## Done when
 
-1. `bun test` green in `v3/fake-claude/`; `bunx tsc --noEmit` green (the coda's
-   sanctioned check). Output pasted.
-2. **Validator vs reality: 43/43 C4 capture dirs green.** Denominator: every dir
-   in `../lab/c4/captures/` with a `stdout.jsonl`.
-3. **The negative control (a validator nobody saw fail is theater): ≥3 corrupted
-   captures red** — e.g. a stripped required field, an unknown subtype, a torn
-   final line — each named in the test.
-4. **≥20 scenarios** from the list, each with a committed golden stream;
-   `--gild` records them; same (scenario, seed) → byte-identical ×3 runs, shown
-   for at least 3 scenarios.
-5. **Speed:** p50 spawn→exit for the echo scenario ≤ 100 ms over 50 spawns,
-   conditions recorded (load, machine state).
-6. **The sandbox guard proven:** a test spawns with `CLAUDE_CONFIG_DIR` pointed
-   at a real account dir and asserts the loud refusal; same for unset.
-7. Crash scenarios re-parsed: transcript has zero torn lines after every
-   scripted death. Evidence pasted.
+All seven met 2026-08-29. The suite asserts every claim below; the pasted
+numbers are the same checks run by hand so the counts are visible.
+
+**1. `bun test` green; `bunx tsc --noEmit` green.**
+
+```
+$ cd belvedere/v3/fake-claude && bun test
+bun test v1.3.10 (30e609e0)
+
+speed.test.ts:
+spawn->exit over 50: min=15 p50=16 p90=20 max=25 ms
+load 9.35 9.01 7.23 -> 9.64 9.07 7.26
+
+ 58 pass
+ 0 fail
+ 295 expect() calls
+Ran 58 tests across 7 files. [10.24s]
+
+$ ../../glass/node_modules/.bin/tsc --noEmit ; echo exit=$?
+exit=0
+```
+
+(The deck's repo-pinned `typescript@7.0.2` + `@types/bun`, offline, per the
+coda's B8 gate; `fake-claude` has no `node_modules` of its own and installs
+nothing — `package.json`'s `typecheck` script is that path.)
+
+**2. Validator vs reality: 43/43.** `validate.test.ts` asserts both the
+denominator and the verdict.
+
+```
+$ bun -e '<validate every captures/*/stdout.jsonl>'
+capture dirs with stdout.jsonl: 43  conformant: 43  red: 0
+```
+
+**3. The negative control — five corrupted captures, all red**, each named in
+`validate.test.ts`:
+
+```
+1 result missing a required field  -> 2 violations, rules {fields, denials}: result/success is missing permission_denials
+2 unknown subtype                  -> 4 violations, rules {subtype, init-first, turns}: unknown system subtype "initialise"
+3 torn final line                  -> 1 violations, rules {json}: line is not JSON
+4 denial never reaching a result   -> 1 violations, rules {denials}: permission_denied toolu_015Et1tfyNvZM8YPjWSubYDr never reached a result's denials
+5 a second session id              -> 1 violations, rules {session}: second session id 00000000-0000-4000-8000-000000000000
+```
+
+**4. 23 scenarios, each with a committed golden; `--gild` records them.**
+
+```
+$ bun goldens.ts
+ok    armb-merge-trap
+ok    armb-merge-trap-queued
+ok    armb-paced-4
+ok    die-137
+ok    die-exit-1
+ok    echo
+ok    hang
+ok    hook-events
+ok    multi-tool
+ok    one-tool
+ok    orphan-finish
+ok    permission-denial
+ok    plan-noop
+ok    posture-mismatch
+ok    rate-limit
+ok    resume-chain-4
+ok    schema-blocked
+ok    schema-done
+ok    schema-needs-input
+ok    slow-turn
+ok    subagent-double-result
+ok    thinking-noise
+ok    usage-cost
+
+23 match, 0 differ
+```
+
+Byte-identity ×3, shown on four scenarios spanning both arms and both process
+shapes (one process per turn, and four turns in one process):
+
+```
+scenarios: 23
+echo             sha256(stream)/sha256(transcript) x3: 0a033f6b86277908/195533480ea8bdb9  0a033f6b86277908/195533480ea8bdb9  0a033f6b86277908/195533480ea8bdb9  identical=true
+multi-tool       sha256(stream)/sha256(transcript) x3: 9a5a134c1618cfa9/92d5d63d16fc24e6  9a5a134c1618cfa9/92d5d63d16fc24e6  9a5a134c1618cfa9/92d5d63d16fc24e6  identical=true
+resume-chain-4   sha256(stream)/sha256(transcript) x3: fa220a39d34d9089/c7fcd728fcafa1b0  fa220a39d34d9089/c7fcd728fcafa1b0  fa220a39d34d9089/c7fcd728fcafa1b0  identical=true
+armb-paced-4     sha256(stream)/sha256(transcript) x3: debed39230201264/1c7d3ba354232e76  debed39230201264/1c7d3ba354232e76  debed39230201264/1c7d3ba354232e76  identical=true
+```
+
+**5. Speed: p50 16 ms over 50 spawns** — the bar is 100 ms.
+
+```
+spawn->exit over 50: min=15 p50=16 p90=20 max=25 ms
+load 9.35 9.01 7.23 -> 9.64 9.07 7.26
+```
+
+Conditions: macOS 24.6.0, this machine, load ~9 (a busy interactive session and
+the suite itself); `bun` 1.3.10; the echo scenario, argv mode, stdout piped and
+drained. A 1,000-run layer-0 barrage is ~16 s of subject time.
+
+**6. The sandbox guard, proven by spawn** (`guard.test.ts`, and by hand):
+
+```
+CLAUDE_CONFIG_DIR=/Users/felix/.claude            -> exit=2 stdout=0 bytes stderr="fake-claude: CLAUDE_CONFIG_DIR /Users/felix/.claude is a real account dir — the fake never writes into one"
+CLAUDE_CONFIG_DIR=/Users/felix/.claude-thg-fgreen -> exit=2 stdout=0 bytes stderr="fake-claude: CLAUDE_CONFIG_DIR /Users/felix/.claude-thg-fgreen is a real account dir — the fake never writes into one"
+CLAUDE_CONFIG_DIR=(unset)                         -> exit=2 stdout=0 bytes stderr="fake-claude: CLAUDE_CONFIG_DIR is unset — the fake has no sandbox to write into"
+--- unknown flag ---
+exit=2 stderr="fake-claude: unknown flag "--effort" — the fake speaks only the engine's dialect"
+--- nothing written into the real accounts ---
+ls: cannot access '/Users/felix/.claude/projects/-Users-felix-code-agents-belvedere-v3-fake-claude': No such file or directory
+```
+
+**7. Crash scenarios re-parsed: zero torn lines after every scripted death**
+(`crash.test.ts`). The orphan drill kills a real parent process mid-turn and the
+subject finishes anyway.
+
+```
+die-137          exit=137  results_in_stream=0  transcript rows=6 torn=0 violations=0
+die-exit-1       exit=1    results_in_stream=1  transcript rows=3 torn=0 violations=0
+hang             exit=null results_in_stream=0  transcript rows=2 torn=0 violations=0
+orphan-finish    exit=0    results_in_stream=1  transcript rows=7 torn=0 violations=0
+```
 
 ## Out of scope
 
@@ -128,7 +232,75 @@ bug.**
 
 ## Findings
 
-*(append here)*
+**F1 — `queued_turn_count` does NOT signal merged turns; grammar §10.9 is
+falsified by C4's own capture.** Grammar §3 and parse rule 9 say
+"`queued_turn_count > 0` in a result means turns were merged". The unpaced
+capture it rests on, `captures/q2-b-personal`, produced 2 results for 4 messages
+— turns merged — and **both results report `queued_turn_count: 0`**:
+
+```
+$ jq -c 'select(.type=="result")|{num_turns,queued_turn_count}' captures/q2-b-personal/stdout.jsonl
+{"num_turns":1,"queued_turn_count":0}
+{"num_turns":1,"queued_turn_count":0}
+```
+
+A detector written to rule 9 never fires. The only sound signal is arithmetic:
+**fewer results than messages sent**. This bit the charge's own scenario list
+("unpaced: fewer results than messages, `queued_turn_count > 0`"), so the
+library ships **both** shapes rather than picking one silently:
+`armb-merge-trap` is the measured shape (2 results, both 0) and
+`armb-merge-trap-queued` is the shape rule 9 assumes (second result carries 2),
+so a detector written either way has something to fire on. **Grammar §3 and
+parse rule 9 need the Architect's amendment before C6 writes the detector.**
+
+**F2 — `SessionStart` hook events are emitted WITHOUT
+`--include-hook-events`.** Grammar §1 puts the hook lifecycle behind that flag.
+Twelve captures ran without it; every one carries a `SessionStart` hook pair,
+and nothing else:
+
+```
+q3-schema-done                 flag=false  hooks=[SessionStart:startup]
+q5b-1-headless-personal        flag=false  hooks=[SessionStart:startup]
+q6-SIGKILL-personal-resume     flag=false  hooks=[SessionStart:resume]
+```
+
+(argv verified faithful in each — `q2-b-paced-*` looks flagless too, but its
+`conditions.json` records the placeholder `["paced"]`; `q2b-paced.ts` does pass
+the flag. Disregard those three rows; the finding stands on the nine that
+record real argv.) So the flag gates `UserPromptSubmit` / `PreToolUse` /
+`PostToolUse` / `Stop`, and **`SessionStart` leaks unconditionally**. The fake
+follows this charge's spec — all hook events under the flag — so a C6 parser
+hardened only against the fake will meet an unexpected `SessionStart` pair on
+every unflagged real invocation. One-line fix in `run.ts` once ruled.
+
+**F3 — the pinned argv subset is missing `--effort`, and probably `--tools`.**
+The dialect this charge pins has no `--effort`; **all 43 C4 captures were
+spawned with `--effort low`**, and the Guild's staffing grid is model × effort,
+so C6's ignite almost certainly carries it. `--tools ""` was used on
+`q3-schema-*` and the q5 summon runs, and `--replay-user-messages` is what
+produces arm B's `isReplay` echo rows. The fake refuses all three loudly
+(by design, `argv.ts`). **Adding a flag is a contract change, so nothing was
+added** — the Architect's amendment, then three lines in `argv.ts`.
+
+**F4 — the fake's transcript is grammar §2's minimum, not a replica.** It writes
+`user`, `assistant` and `last-prompt` rows. Real transcripts also carry
+`attachment` (the environment/model/skills/agents preamble — kilobytes of it),
+`queue-operation`, `mode` and `atis-latch`. Grammar §2 says only
+`user`/`assistant` carry conversation, so the minimum is right for the engine —
+but **C6's transcript reader must be exercised against a real capture too**, or
+it will meet its first `attachment` row in production.
+
+**F5 — same seed, same session id, across scenarios.** Determinism means a fake
+spawned without `--session-id` at seed 1 always reports
+`a08ff49b-6f77-4263-8716-c43069c43a8c`, whatever the scenario. This is correct
+(parse rule 5: the engine chooses the id) but it is a collision waiting for a
+fuzzer: **C7 must pass `--session-id` or vary the seed per subject.**
+
+**F6 — bun narrows variables captured by an IIFE.** `wake?.()` inside
+`void (async () => { … })()` type-checks as `never` because TS applies the
+call-site value to the capture. Named the function and called it; noted here
+because the pattern (an async pump feeding a queue the outer scope drains) will
+recur in C6's stream reader.
 
 ---
 

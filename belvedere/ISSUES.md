@@ -92,3 +92,23 @@ the inbox is cleared. A cleared inbox is empty.
   the turn still reports success. The truth signal is `result.permission_denials[]`.
   Any v2 or v3 code that lands a step on exit code is wrong by construction.
   Evidence: `belvedere/v3/lab/c4/grammar.md` §4 (ten-row posture matrix, all exit 0).
+- 2026-08-29 · Builder (C5 the fake claude) · **grammar §10.9's merge detector is
+  falsified by C4's own capture** — parse rule 9 says "`queued_turn_count > 0` in
+  a result means turns were merged"; the unpaced arm-B run it rests on
+  (`v3/lab/c4/captures/q2-b-personal`) produced 2 results for 4 messages with
+  **both** reporting `queued_turn_count: 0`. A detector written to rule 9 never
+  fires. The sound signal is arithmetic — fewer results than messages sent.
+  Filed not applied: amending `v3/lab/c4/grammar.md` §3/§10.9 is the Architect's.
+  C5 ships both shapes so either detector has something to fire on
+  (`armb-merge-trap` measured, `armb-merge-trap-queued` assumed); evidence and the
+  jq one-liner in [v3/plans/c5-fake-claude.md](v3/plans/c5-fake-claude.md) F1.
+- 2026-08-29 · Builder (C5 the fake claude) · **`SessionStart` hook events are
+  emitted without `--include-hook-events`** — grammar §1 puts the whole hook
+  lifecycle behind that flag; nine captures with faithfully-recorded flagless argv
+  (`q3-schema-*`, `q5*-headless*`, `q6-*-resume`) each carry exactly one
+  `SessionStart:startup` / `SessionStart:resume` pair and nothing else. The flag
+  gates `UserPromptSubmit` / `PreToolUse` / `PostToolUse` / `Stop` only. The fake
+  follows C5's spec (all hooks behind the flag), so a C6 parser hardened only
+  against it will meet an unexpected `SessionStart` pair on every real unflagged
+  invocation. One line in `v3/fake-claude/run.ts` once ruled;
+  [v3/plans/c5-fake-claude.md](v3/plans/c5-fake-claude.md) F2.
