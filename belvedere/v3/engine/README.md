@@ -53,7 +53,10 @@ path — the run dir and the log's own turn count name it.
 **The step report** — `{state: "done"|"needs_input"|"blocked", cause, answer?}`,
 declared as `--json-schema` on every fired step. Without it a session that asked
 a question is byte-identical to one that finished (grammar §5). A turn with no
-parseable report never lands.
+parseable report never lands. It reaches the engine two ways, and both are
+durable: `result.structured_output` in the stream, and — because the schema makes
+it a `StructuredOutput` **tool call** — that call's own input, in the transcript
+(C8 F3, read at C13).
 
 ## The laws the code wears
 
@@ -68,14 +71,21 @@ parseable report never lands.
 4. **Posture legality per (model, posture)** at bless ([posture.ts](posture.ts)):
    `auto` | `acceptEdits` | `bypassPermissions`, and (haiku, `auto`) refuses —
    loud, never a silent fallback.
-5. **Restart re-derivation is stream-file-first, and turn-addressed.** A step
-   the log says is running that this process never spawned: watch the pid (the
-   step's own `timeout_ms`, re-armed), then read its stream file — complete iff
-   it carries a `result` row (parse rule 1). Only a **torn** stream falls to
-   [transcript.ts](transcript.ts)'s poorer worked / denied / dead, and it falls
-   there **past the turn cursor** — the transcript's row count as the engine
-   found it at spawn, carried by the `ignited`/`resumed` event (C7 F3, fixed at
-   C11). An empty slice is a turn that never reached disk: `dead`.
+5. **Restart re-derivation is stream-file-first, turn-addressed, and it can
+   land.** A step the log says is running that this process never spawned: watch
+   the pid (the step's own `timeout_ms`, re-armed), then read its stream file —
+   complete iff it carries a `result` row (parse rule 1). Only a **torn** stream
+   falls to [transcript.ts](transcript.ts), and it falls there **past the turn
+   cursor** — the transcript's row count as the engine found it at spawn,
+   carried by the `ignited`/`resumed` event (C7 F3, fixed at C11). An empty
+   slice is a turn that never reached disk: `dead`. A turn closes on disk when
+   its last conversation row is an `assistant` row asking for no tool, **or** the
+   `tool_result` answering its own `StructuredOutput` call, matched by
+   `toolUseId` — and that call's input is the step report, so a closed turn
+   reporting `done` with nothing refused **lands from the transcript alone**
+   (C8 F3, built at C13). Anything short of all four — closed, report parses,
+   `done`, no refusal — pauses, and the posture the turn was granted is still
+   `init`'s to say and still absent from disk.
 6. **Timeouts are per step** (`timeout_ms`, default 120 s): SIGTERM ⇒ dead ⇒
    paused ‹timeout›. **No auto-retry** — a dead step pauses for a ruling.
 7. **Budget is a ceiling** (D73). Ignitions and resumes both cost a turn.

@@ -92,7 +92,7 @@ test("the closing pair is matched by toolUseId, never by position", () => {
 		({ type: "assistant", message: { content: [{ type: "tool_use", id, name: "StructuredOutput", input }] } });
 	const answer = (id: string) =>
 		({ type: "user", message: { content: [{ type: "tool_result", tool_use_id: id, content: "Structured output provided successfully" }] } });
-	const done = { state: "done", cause: "shipped" };
+	const done = { state: "done", cause: "shipped" } as const;
 
 	const closed = readTranscriptText(rows(user, said, report("toolu_r", done), answer("toolu_r")), 0);
 	expect([closed.complete, closed.verdict]).toEqual([true, "worked"]);
@@ -125,5 +125,5 @@ test("the closing pair is matched by toolUseId, never by position", () => {
 
 test("a missing transcript is dead, not an exception", () => {
 	expect(readTranscript(`${HERE}/test/fixtures/there-is-no-such-file.jsonl`, 0))
-		.toEqual({ turns: 0, rows: 0, torn: 0, complete: false, denied: false, text: "", verdict: "dead" });
+		.toEqual({ turns: 0, rows: 0, torn: 0, complete: false, denied: false, text: "", report: null, verdict: "dead" });
 });

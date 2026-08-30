@@ -15,15 +15,29 @@
 // the round trip); a recorded row count does not care who wrote what before it.
 //
 // **The completion signal.** A turn ends when the assistant stops asking for
-// tools. So a turn is complete iff its last conversation row is an `assistant`
-// row carrying no `tool_use` block; if the last row is a tool result, or an
-// assistant row still holding a `tool_use`, work was in flight when the writing
-// stopped. Measured on C4's own captures: q6-SIGKILL's cut turn ends at a
-// `user`/`tool_result` row, q6-PARENT's orphan and q1-write's denial both end at
-// an `assistant` text row.
+// tools — with one exception the engine creates itself. It declares
+// `--json-schema` on every step (`argvFor`), so the step report comes back as a
+// `StructuredOutput` **tool call**, and its `tool_result` is the turn's last
+// conversation row. A rule that reads a trailing tool result as died-mid-work
+// therefore calls every turn this engine fires dead: 48/48 landed turns across
+// three accounts, with C4-born captures (no schema declared) green under the
+// same reader on the same day (C8 F3, K1).
+//
+// So a turn is complete iff its last conversation row is either an `assistant`
+// row carrying no `tool_use`, or the `tool_result` **answering this turn's
+// `StructuredOutput` tool call** — matched by `toolUseId`, never by position.
+// Any other trailing tool call is still work in flight. Measured on C4's own
+// captures: q6-SIGKILL's cut turn ends at a `user`/`tool_result` row,
+// q6-PARENT's orphan and q1-write's denial both end at an `assistant` text row;
+// and on C8's, where `real-c8-q1-smoke` closes on the pair.
+//
+// **The report is on disk.** That tool call's *input* is the step report. The
+// stream is no longer the only carrier, so a turn the engine died in front of
+// can be seen to have worked **and be landed** — cornerstone law 5's redundancy
+// claim, stronger than C6 could prove it (C13).
 
 import { existsSync, readFileSync } from "node:fs";
-import type { Verdict } from "./sense.ts";
+import { parseReport, type Report, type Verdict } from "./sense.ts";
 
 /** Grammar §2: every non-alphanumeric in the cwd becomes a dash. */
 export const slugFor = (cwd: string): string => cwd.replace(/[^a-zA-Z0-9]/g, "-");
@@ -47,12 +61,18 @@ export type TranscriptReading = {
 	denied: boolean;
 	/** The last assistant text of the last turn — prose, never the step report. */
 	text: string;
+	/** The step report, read out of the closing `StructuredOutput` call's input.
+	 *  Null when the turn closed without one, or when the input is not a report. */
+	report: Report | null;
 	verdict: TranscriptVerdict;
 };
 
 const EMPTY: TranscriptReading = {
-	turns: 0, rows: 0, torn: 0, complete: false, denied: false, text: "", verdict: "dead",
+	turns: 0, rows: 0, torn: 0, complete: false, denied: false, text: "", report: null, verdict: "dead",
 };
+
+/** The tool the engine's `--json-schema` turns the step report into (C8 F3). */
+const REPORT_TOOL = "StructuredOutput";
 
 /**
  * The cursor the engine records at spawn: how many rows the file already holds.
@@ -97,7 +117,10 @@ export function readTranscriptText(text: string, cursor: number): TranscriptRead
 	}
 
 	const last = turn.at(-1);
-	reading.complete = last?.type === "assistant" && !blocks(last).some((b) => b.type === "tool_use");
+	const closingReport = last === undefined ? null : reportAnswered(turn, last);
+	reading.report = closingReport === null ? null : parseReport(closingReport.input);
+	reading.complete = closingReport !== null
+		|| (last?.type === "assistant" && !blocks(last).some((b) => b.type === "tool_use"));
 	// The stream names a denial outright; on disk it is an errored tool result,
 	// and a real transcript adds `toolDenialKind` (C4's q1-write row). Neither
 	// separates a refusal from a tool that simply failed — the precise signal is
@@ -113,6 +136,25 @@ export function readTranscriptText(text: string, cursor: number): TranscriptRead
 	return reading;
 }
 
+/**
+ * The turn's `StructuredOutput` call, if `last` is the `tool_result` that
+ * answers it. The linkage is the id: a turn can hold several tool calls and the
+ * report's need not be the one before it, so position proves nothing.
+ */
+function reportAnswered(
+	turn: readonly Record<string, unknown>[], last: Record<string, unknown>,
+): Record<string, unknown> | null {
+	if (last.type !== "user") return null;
+	const answered = new Set(blocks(last).flatMap((b) =>
+		b.type === "tool_result" && typeof b.tool_use_id === "string" ? [b.tool_use_id] : []));
+	if (answered.size === 0) return null;
+	for (const row of turn)
+		for (const b of blocks(row))
+			if (b.type === "tool_use" && b.name === REPORT_TOOL && typeof b.id === "string" && answered.has(b.id))
+				return b;
+	return null;
+}
+
 const content = (row: Record<string, unknown>): unknown =>
 	(row.message as Record<string, unknown> | undefined)?.content;
 
@@ -122,11 +164,18 @@ function blocks(row: Record<string, unknown>): Record<string, unknown>[] {
 }
 
 /**
- * The transcript-only verdict (law 5). It is deliberately poorer than the
- * stream's: the step report and the granted posture ride the stream and are
- * never written to disk — `structured_output` is a `result` field and the last
- * assistant row is prose (captures/q3-schema-done). So a turn the engine died
- * in front of can be seen to have worked, and still cannot be landed.
+ * The transcript-only verdict (law 5). Still poorer than the stream's — the
+ * granted posture is `init`'s to say and is never written to disk — but no
+ * longer poorer about the *outcome*: the report rides the closing
+ * `StructuredOutput` call, so a turn the engine died in front of lands from
+ * disk alone when the disk is explicit about all four things: the turn closed,
+ * the report parses, it says `done`, and nothing in the turn was refused.
+ *
+ * Everywhere short of that it pauses exactly as it did before the report was
+ * readable — a report saying anything but `done` is named in the detail and
+ * still pauses ‹no report›, and a turn carrying a failed tool result pauses
+ * ‹needs-⬡ permission› over any report at all (C11 F2: this path cannot tell a
+ * refusal from a tool that merely failed, and must not start guessing).
  */
 export function verdictFromTranscript(t: TranscriptReading): Verdict {
 	if (t.verdict === "dead")
@@ -135,8 +184,11 @@ export function verdictFromTranscript(t: TranscriptReading): Verdict {
 			: `re-derived from the transcript: ${t.rows} rows past the spawn cursor, the turn never closed` };
 	if (t.verdict === "denied")
 		return { land: false, causes: ["needs-⬡ permission"], detail: "re-derived from the transcript: a tool result in the last turn carries is_error" };
+	if (t.report !== null && t.report.state === "done") return { land: true, report: t.report };
 	return {
 		land: false, causes: ["no report"],
-		detail: "re-derived from the transcript: the turn completed, but the step report rides the stream and the stream died with its reader",
+		detail: t.report === null
+			? "re-derived from the transcript: the turn completed and closed on no step report"
+			: `re-derived from the transcript: the turn completed and its report says ${t.report.state}: ${t.report.cause}`,
 	};
 }
