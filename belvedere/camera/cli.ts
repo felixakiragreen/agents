@@ -60,6 +60,14 @@ async function shoot(path: string, flags: Record<string, string>): Promise<void>
 	const out = flags['out'] === undefined ? shotPath(path.replace(/^\//, '') || 'rail') : resolve(flags['out']);
 	const foreign = flags['port'] === undefined ? null : foreignPort(flags['port']);
 
+	// A foreign deck is checked before the browser opens, so "nothing is running there" reads as one
+	// sentence rather than as a navigation stack trace.
+	if (foreign !== null) {
+		const answered = await fetch(`http://127.0.0.1:${foreign}/`, { signal: AbortSignal.timeout(5_000) })
+			.then(r => r.status, (e: Error) => e.message);
+		if (typeof answered === 'string') die(`no deck answering on 127.0.0.1:${foreign} — \`shoot --port\` shoots one that is already running (${answered})`);
+	}
+
 	const twin = foreign === null ? await bootTwin() : null;
 	if (twin && !twin.ok) die(twin.error);
 	const base = twin?.ok ? twin.result.url : (p: string) => `http://127.0.0.1:${foreign}${p.startsWith('/') ? p : `/${p}`}`;
