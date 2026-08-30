@@ -22,7 +22,7 @@ import { readLog } from '../v3/engine/log.ts';
 import { isRefusal } from '../v3/engine/refusal.ts';
 import { transcriptPath } from '../v3/engine/transcript.ts';
 import { locate as locateRun } from '../v3/console/runs.ts';
-import { paused, type Minted } from '../lab/c16/fakerun.ts';
+import { paused, rich, type Minted } from '../lab/c16/fakerun.ts';
 
 /** The suite's own census home: `audit()` writes one line per send, and B8 F1 is the lesson. */
 const scratch = mkdtempSync(join(tmpdir(), 'c16-suite-'));
@@ -185,4 +185,34 @@ describe('the reply lands the step through the engine’s own resume', () => {
 		}
 		finally { process.env.RUNS_DIR = run.root; arc.close(); }
 	}, 60_000);
+});
+
+// ---------- the rich fixture: a committed real capture, mounted as a run ----------
+
+describe('the rendering fixture is a committed real capture (C16 §4)', () => {
+	test('the capture renders as markdown shapes, and the fence carries no spans', () => {
+		const mounted = rich();
+		process.env.RUNS_DIR = mounted.root;
+		try {
+			const w: World = { ...world, steps: stepIndex([], mounted.root) };
+			const v = chatView(mounted.sessionId, TAIL, true, 'armed', w);
+			expect(v.error).toBeNull();
+			const kinds = v.turns.flatMap(t => t.blocks.map(b => b.kind));
+			// The four shapes the bar names, all from one real subject's own turn.
+			for (const kind of ['head', 'list', 'table', 'fence', 'act', 'prose'] as const) expect(kinds).toContain(kind);
+
+			// The decoder reaches the rendered prose — a charge id and a D-id light — and stops at the
+			// fence (B20 §1, re-proven on the rich path). `doc` spans are what a resolved reference is.
+			const words = v.turns.flatMap(t => t.blocks.flatMap(b =>
+				b.kind === 'prose' || b.kind === 'head' ? b.spans.map(s => s.text)
+				: b.kind === 'list' ? b.items.flatMap(i => i.map(s => s.text))
+				: b.kind === 'table' ? [...b.head, ...b.rows.flat()].flatMap(c => c.map(s => s.text))
+				: [])).join(' ');
+			expect(words).toContain('row 17');
+			expect(words).toContain('D22');
+			for (const fence of v.turns.flatMap(t => t.blocks).filter(b => b.kind === 'fence'))
+				expect('spans' in fence).toBe(false);
+		}
+		finally { process.env.RUNS_DIR = run.root; mounted.close(); }
+	});
 });

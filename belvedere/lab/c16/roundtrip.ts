@@ -21,7 +21,7 @@
 // Budget: ≤$2 and ≤15 subject turns, dollars leading (D21). The meter runs at the end and exits
 // nonzero on a ceiling — that is a ⬡-fork, not a retry.
 
-import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, renameSync, statSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, renameSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -45,8 +45,12 @@ if (configDir === undefined) throw new Error(`unknown account ${account} — one
 const TURN_CEILING = 15;
 const COST_CEILING = 2;
 
-const RUNS = new URL("../../../summon/log/v3", import.meta.url).pathname;
-const HOME = new URL("../../../summon/log/v3/c16", import.meta.url).pathname;
+// The dress rehearsal runs in its own scratch tree: a rehearsal has no business in the city's
+// telemetry, and the fake's synthetic `total_cost_usd` would be counted as money by the meter.
+const RUNS = fake
+	? mkdtempSync(join(realpathSync(tmpdir()), "c16-rehearsal-"))
+	: new URL("../../../summon/log/v3", import.meta.url).pathname;
+const HOME = fake ? RUNS : new URL("../../../summon/log/v3/c16", import.meta.url).pathname;
 const RUN = fake ? "c16/roundtrip-fake" : "c16/roundtrip";
 const runDir = join(RUNS, RUN);
 const workDir = join(HOME, "venue", account);
@@ -223,9 +227,24 @@ try {
 		console.log(`   on disk    ${landed === undefined ? "ABSENT" : `${Buffer.byteLength(landed)} B  sha ${sha256(landed)}`}`);
 		if (landed === undefined) throw new Error("the reply is not in the transcript on disk");
 
+		// **Delivered is not landed, and the deck is the engine for the turn it just resumed**
+		// (findings F2). The send answers as soon as the words are on disk; the turn goes on inside
+		// the glass, and tearing the glass down before it settles leaves the log saying `running`
+		// forever. So the instrument waits on the LOG, which is the only thing that says what a step
+		// became — and this wait is what a human's deck does by simply staying up.
+		const settled = async (): Promise<string> => {
+			for (const deadline = Date.now() + 300_000; Date.now() < deadline;) {
+				const s = fold(readLog(`${runDir}/run.jsonl`)).steps["note"];
+				if (s !== undefined && s.at !== "running" && s.at !== "ended") return s.at;
+				await sleep(500);
+			}
+			return "running";
+		};
+		const at5 = await settled();
 		const after = fold(readLog(`${runDir}/run.jsonl`)).steps["note"];
-		console.log(`\n5. THE LOG    ${after?.at}`);
+		console.log(`\n5. THE LOG    ${at5} after ${((Date.now() - t0) / 1000).toFixed(1)} s`);
 		if (after?.at === "landed") console.log(`   report     ${after.report?.state} · ${after.report?.cause}\n   answer     ${after.report?.answer}`);
+		if (after?.at !== "landed") throw new Error(`the step is ${after?.at}, not landed`);
 
 		console.log(`\n6. THE RENDER ${JSON.stringify(counts)}`);
 
@@ -245,7 +264,8 @@ finally {
 for (const s of shots) console.log(s);
 
 const m = meter(HOME);
-console.log(`\n  turns ${m.turns}/${TURN_CEILING} · cost $${m.cost.toFixed(4)}/$${COST_CEILING}`);
+console.log(`\n  turns ${m.turns}/${TURN_CEILING} · cost $${m.cost.toFixed(4)}/$${COST_CEILING}${fake ? " (the fake's, and both are synthetic)" : ""}`);
+if (fake) rmSync(RUNS, { recursive: true, force: true });
 if (m.turns > TURN_CEILING || m.cost > COST_CEILING) {
 	console.error("  CEILING HIT — stop, file what stands, ⬡-fork to Felix (D21)");
 	process.exit(1);
