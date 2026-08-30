@@ -112,3 +112,28 @@ the inbox is cleared. A cleared inbox is empty.
   against it will meet an unexpected `SessionStart` pair on every real unflagged
   invocation. One line in `v3/fake-claude/run.ts` once ruled;
   [v3/plans/c5-fake-claude.md](v3/plans/c5-fake-claude.md) F2.
+
+---
+
+- 2026-08-30 · Felix (via the v3 review session) · **Future expansion, campaign-scale:
+  the unified conversation archive — every account's transcripts mirrored to one
+  place.** His word, verbatim: "I have considered copying every conversation from all
+  the accounts into a unified place -- for 2 reasons: easier access & searching across
+  all accounts: especially when I have to add more (inevitable when belv unlocks
+  greater capacity); backups: if a config is cleared, I want to have a stored record."
+  Ruled at his word: filed as a future campaign, not laid now.
+  Evidence the need is real: C11 F1 (2026-08-30) — the real-transcript corpus lives
+  only in the live account dirs, mortal, nothing in the repo pins it; a cleared config
+  dir takes the history.
+  The shape as assessed at filing (the future lay re-tests it): backup and search want
+  different designs — the unified place is an **append-only mirror, derived, never
+  authoritative** (truth stays in the account dirs while sessions live; the mirror
+  serves the dead, the cleared, and the search index). Cron work, not agent work: an
+  incremental byte-true mirror `<archive>/<account>/<project-slug>/<sid>.jsonl` +
+  launchd interval, raw JSONL untouched, a small index beside it (sid → account, cwd,
+  dates) for cross-account search. **The restore test is the whole backup**: a mirrored
+  transcript copied back into a config dir must `--resume` (C4 F7 — the file is the
+  session). Hazards named: transcripts capture tool output (secrets surface — out of
+  git, out of unconsidered cloud sync); live files append mid-turn (mirror on
+  mtime+size, re-copy tails); accounts scale as a source list (the census's proven
+  pattern, C4 F9). Bigger than v3's fence; census-family organ on this board.
