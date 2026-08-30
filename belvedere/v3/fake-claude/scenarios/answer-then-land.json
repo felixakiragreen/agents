@@ -1,0 +1,30 @@
+{
+	"name": "answer-then-land",
+	"note": "The arc `send <text>` drives, made guardable at budget 0 (C10 F2): act 0 reports needs_input and the engine pauses ‹needs-⬡ question› carrying the question; act 1 is the resumed turn the answer fires, and it reports done. Until this scenario the console's most consequential verb was proven on real bytes alone. It is also the first faithful report on the wire — `streamsReport` puts the closing pair in the stream as well as the transcript, which is where real claude has always put it (C13 F2).",
+	"streamsReport": true,
+	"acts": [
+		{ "steps": [
+			{ "do": "init" },
+			{ "do": "text", "text": "I need the release name before I can write the sign-off." },
+			{ "do": "report", "state": "needs_input",
+			  "cause": "Which release name goes in the sign-off?",
+			  "answer": "Give me the release name." }
+		] },
+		{ "steps": [
+			{ "do": "init" },
+			{ "do": "text", "text": "Sign-off written." },
+			{ "do": "report", "state": "done",
+			  "cause": "The answer arrived and the sign-off is written",
+			  "answer": "ANSWER-THEN-LAND-OK" }
+		] }
+	],
+	"golden": {
+		"mode": "argv", "paced": true, "seed": 1, "expectExit": 0,
+		"flags": ["--model", "haiku", "--permission-mode", "acceptEdits", "--json-schema",
+			"{\"type\":\"object\",\"properties\":{\"state\":{\"type\":\"string\",\"enum\":[\"done\",\"needs_input\",\"blocked\"]},\"cause\":{\"type\":\"string\"},\"answer\":{\"type\":\"string\"}},\"required\":[\"state\",\"cause\"]}"],
+		"turns": [
+			"Write the release sign-off. Report your state.",
+			"The release name is ANSWER-THEN-LAND. Write the sign-off and report done."
+		]
+	}
+}

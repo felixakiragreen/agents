@@ -33,7 +33,10 @@ export type Row = {
 	timeoutMs: number;
 	/** How often the generator draws it. The lander is common; the two that
 	 *  cost real wall time are rare; the hazards are frequent enough to meet
-	 *  the charge's ≥30 % quota. */
+	 *  the charge's ≥30 % quota. **Zero means never drawn** — the row is here to
+	 *  keep the table total over the library and to have its properties measured,
+	 *  and a weight on it would re-shape every seed's topology and re-pin all
+	 *  nine mutant seeds for nothing (C14). */
 	weight: number;
 	/** Acts the scenario scripts. A `--resume` past the last act is a subject
 	 *  that dies at the door, so the driver resumes multi-act scenarios far more
@@ -53,6 +56,12 @@ export const SCENARIOS: readonly Row[] = [
 	// Reports that do not land.
 	{ name: "schema-needs-input", klass: "worked", result: true, grants: null, timeoutMs: 2_000, weight: 6, acts: 1 },
 	{ name: "schema-blocked", klass: "denied", result: true, grants: null, timeoutMs: 2_000, weight: 4, acts: 1 },
+
+	// The console's arc: act 0 asks, act 1 lands on the answer. Not drawn — the
+	// fuzzer's rulings are a function of the seed and would resume it at random,
+	// which proves nothing this scenario exists to prove. The engine and console
+	// tests drive it deliberately instead.
+	{ name: "answer-then-land", klass: "worked", result: true, grants: null, timeoutMs: 2_000, weight: 0, acts: 2 },
 
 	// Turns that work and report nothing — the `no report` pause.
 	{ name: "echo", klass: "worked", result: true, grants: null, timeoutMs: 2_000, weight: 6, acts: 1 },

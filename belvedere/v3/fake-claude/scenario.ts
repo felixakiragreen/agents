@@ -47,6 +47,15 @@ export type Scenario = {
 	note: string;
 	/** Off by default: real claude always emits these, and they drown a golden. */
 	noise: { thinkingTokens: boolean; rateLimit: boolean };
+	/**
+	 * Whether the report's closing pair reaches **stdout** as well as the
+	 * transcript. Real claude writes it to both (C13 F2: the report has three
+	 * carriers and the fake wrote one), so a scenario that says true is the
+	 * faithful one and a scenario that says nothing is merely the older one.
+	 * It is opt-in because turning it on rewrites a golden, and the 23 recorded
+	 * before it are not this flag's to re-record.
+	 */
+	streamsReport: boolean;
 	acts: Act[];
 	golden: Golden;
 };
@@ -76,6 +85,7 @@ export function parseScenario(text: string, source: string): Scenario | Refusal 
 	return {
 		name: s.name, note: s.note, acts, golden,
 		noise: { thinkingTokens: noise.thinkingTokens === true, rateLimit: noise.rateLimit === true },
+		streamsReport: s.streamsReport === true,
 	};
 }
 

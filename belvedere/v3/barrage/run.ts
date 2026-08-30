@@ -87,13 +87,16 @@ await pool(seeds, WORKERS, async (seed) => {
 });
 reds += barrageReds.length;
 
-const missing = SCENARIOS.filter((s) => !coverage.scenarios.has(s.name)).map((s) => s.name);
+// A weight-0 row is never drawn, so its absence from the coverage map is the
+// table telling the truth, not the generator missing a shape.
+const drawn = SCENARIOS.filter((s) => s.weight > 0);
+const missing = drawn.filter((s) => !coverage.scenarios.has(s.name)).map((s) => s.name);
 say("");
 say(`coverage over ${RUNS} flows: ${coverage.steps} steps (mean ${(coverage.steps / RUNS).toFixed(1)})`);
 say(`  gate or card   ${pct(coverage.hold)}   (quota ≥20%)`);
 say(`  hazard subject ${pct(coverage.hazard)}   (quota ≥30%)`);
 say(`  tight budget   ${pct(coverage.tight)}   ·  blessed in halves ${pct(coverage.partial)}`);
-say(`  scenarios      ${coverage.scenarios.size}/${SCENARIOS.length}${missing.length === 0 ? "" : ` — MISSING ${missing.join(", ")}`}`);
+say(`  scenarios      ${coverage.scenarios.size}/${drawn.length}${missing.length === 0 ? "" : ` — MISSING ${missing.join(", ")}`}`);
 say(`barrage: ${RUNS - barrageReds.length}/${RUNS} green${barrageReds.length === 0 ? "" : ` · red seeds ${barrageReds.join(", ")}`}`);
 
 // ── Phase 2 — the crash-redo drill ───────────────────────────────────────────

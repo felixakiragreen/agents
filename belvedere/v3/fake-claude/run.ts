@@ -155,9 +155,17 @@ export async function runAct(s: Session, actIndex: number, turn: Turn, out: Sink
 				// what lets a turn whose stream died still be landed (C8 F3, C13).
 				if (s.argv.jsonSchema !== null) {
 					const toolUseId = c.ids.toolUse();
+					const messageId = c.ids.message();
 					c.clock.advance(SPAN.toolUse);
-					rows.assistant(c, c.ids.message(), [{ type: "tool_use", id: toolUseId, name: REPORT_TOOL, input: report }]);
+					const block = { type: "tool_use", id: toolUseId, name: REPORT_TOOL, input: report } as const;
+					// The same pair on stdout, for a scenario that asks for it: real
+					// claude streams it too, and a stream poorer than its own
+					// transcript is a fake that teaches the wrong lesson (C13 F2).
+					// Guarded, so the ids and the clock move for nobody else.
+					if (s.scenario.streamsReport) out.emit(ev.assistant(c, messageId, c.ids.request(), [block]));
+					rows.assistant(c, messageId, [block]);
 					c.clock.advance(SPAN.toolResult);
+					if (s.scenario.streamsReport) out.emit(ev.toolResult(c, toolUseId, REPORT_ACK, false));
 					rows.toolResult(c, [{ type: "tool_result", tool_use_id: toolUseId, content: REPORT_ACK }]);
 				}
 				break;

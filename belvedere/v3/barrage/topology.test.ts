@@ -51,7 +51,10 @@ test("the coverage quotas hold over 1,000 flows", () => {
 	const plans = Array.from({ length: 1_000 }, (_, i) => topology(i + 1));
 	const seen = new Set(plans.flatMap(scenariosIn));
 
-	expect([...SCENARIOS.map((s) => s.name)].filter((n) => !seen.has(n))).toEqual([]);
+	// Every row the generator draws must actually appear. A weight-0 row is not
+	// drawn on purpose (`scenarios.ts`), and must not appear.
+	expect(SCENARIOS.filter((s) => s.weight > 0).map((s) => s.name).filter((n) => !seen.has(n))).toEqual([]);
+	expect(SCENARIOS.filter((s) => s.weight === 0).map((s) => s.name).filter((n) => seen.has(n))).toEqual([]);
 	expect(plans.filter(carriesHold).length / plans.length).toBeGreaterThanOrEqual(0.2);
 	expect(plans.filter(carriesHazard).length / plans.length).toBeGreaterThanOrEqual(0.3);
 	expect(plans.filter((p) => p.tight).length).toBeGreaterThan(0);

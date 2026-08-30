@@ -39,7 +39,7 @@ async function measure(scenario: string, timeoutMs: number): Promise<Reading> {
 test("the table names every scenario in the library, and nothing else", () => {
 	const library = readdirSync(LIBRARY).filter((f) => f.endsWith(".json")).map((f) => f.replace(/\.json$/, "")).sort();
 	expect(SCENARIOS.map((s) => s.name).sort()).toEqual(library);
-	expect(SCENARIOS.length).toBe(23);
+	expect(SCENARIOS.length).toBe(24);
 });
 
 test("every row's act count is the scenario file's own", () => {
