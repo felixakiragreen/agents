@@ -78,7 +78,8 @@ function step(s: Step, run: ReturnType<typeof fold>, verdict: string, depth: num
 		depth,
 		verdict,
 		at: at.at,
-		sid: at.at === 'running' ? at.sessionId : at.at === 'ended' || at.at === 'paused' ? at.sessionId : null,
+		// Three of the six fold states carry a session; the other three never had one.
+		sid: at.at === 'running' || at.at === 'ended' || at.at === 'paused' ? at.sessionId : null,
 		pid: at.at === 'running' ? at.pid : null,
 		why: at.at === 'paused' ? pausedWhy(at.causes, at.detail)
 			: at.at === 'landed' ? at.report?.cause ?? null
