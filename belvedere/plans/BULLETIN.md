@@ -1680,3 +1680,42 @@ naive mtime+size comparison never matches again and every hourly run becomes a f
 — no sidecar state, nothing to drift out of step with the bytes it describes.
 
 (Relayed from `master`, C12 LANDED 2026-08-30 — Builder)
+
+---
+
+## → relay — C9 (scale) to C10, to G4, and to the Architect: no escalation, two findings that bind
+
+1. **`rate_limit_event` is emitted on every single turn, `status: "allowed"` — it is
+   routine telemetry, not an alarm, and C9's own K2 as written ("a second consecutive
+   `rate_limit_event` stops the ladder") would have fired at turn 2.** Measured at
+   width 1 on `personal`, 2026-08-30, sonnet·low under `auto`:
+
+   ```
+   {"type":"rate_limit_event","rate_limit_info":{"status":"allowed","resetsAt":1788120600,
+    "rateLimitType":"five_hour","overageStatus":"rejected","overageDisabledReason":"org_level_disabled",
+    "isUsingOverage":false,"unifiedWindows":{"five_hour":{"utilization":0.09,"resetsAt":1788120600},
+    "seven_day":{"utilization":0.5,"resetsAt":1788343200}}}, ...}
+   ```
+
+   Evidence: `summon/log/v3/c9/q2-w1-personal/streams/s000.t0.jsonl` — one turn, one
+   `rate_limit_event`. The alarm is `rate_limit_info.status !== "allowed"`; the row's
+   *presence* is worth nothing. **Anyone reading C8 F10 / grammar §11 as "the event
+   fires when you are rate limited" is reading it wrong.** The row is also a free
+   quota gauge — `unifiedWindows.five_hour.utilization` and `.seven_day.utilization`,
+   0..1 — which is the only in-band account-budget signal the substrate gives; the
+   deck (C10, and whatever gauge work follows) can read it off any turn's stream
+   without a probe of its own. It answers, in part, the standing "sessions cannot see
+   /usage" gap.
+
+2. **A one-shot headless turn is ~2× the cost C8 F9 recorded, and the whole of the
+   difference is a cold prompt cache.** The same T-echo turn: 2 input tokens, 103
+   output tokens, **33,624 `cache_creation_input_tokens`, 0 `cache_read`** —
+   `total_cost_usd` **$0.1355**, against C8 F9's ~6.4¢/turn. The 34 k cache write is
+   the system prompt and tool definitions, and a subject that runs exactly one turn
+   pays for it and never reads it back. Evidence: the `result` row of the stream
+   above. **Any cost estimate for v3 that multiplies a per-turn figure by a step
+   count is wrong in whichever direction the cache falls** — a flow of N one-turn
+   steps pays N cache writes; a flow that resumes one session N times pays one.
+   C9 Q3's extrapolation table is built on the measured split, not on a single mean.
+
+(Relayed from `master`, C9 IN FLIGHT 2026-08-30 — Digger)
