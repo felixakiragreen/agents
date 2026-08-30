@@ -2798,9 +2798,16 @@ rework lay** · F3 a landed step's session comes off the log's ignitions, never
 the fold's state (it cost the Works its own chat control) · F1 a `$TMPDIR` venue
 has two spellings and the engine names a transcript with one of them; real runs
 under `~/code` are unaffected and the engine-side fix is `v3/**`, so it is
-named, not taken. Nothing escalated. Next: **G5 — the migration close** convenes
-on the strangle whole (v2 gone, deck on v3, Chat primary, barrage green), then
-lays the rework batch and the respell sweep in the same session.
+named, not taken. Nothing escalated. Decided: nothing register-grade — every
+choice above is inside the charge's fence. Three worth reading as precedent: the
+engine road **races the ruling against a grace and lets the transcript decide**
+(B16's law, kept rather than re-argued); the deck **refuses to write a
+`flow.json` into a run dir** and says to rule that step from the console, rather
+than growing a fourth write class; and the paused step joins the queue as the
+**`waiting`** class rather than a fifth kind, because two words for one fact are
+two surfaces disagreeing about what is urgent. Next: **G5 — the migration close**
+convenes on the strangle whole (v2 gone, deck on v3, Chat primary, barrage
+green), then lays the rework batch and the respell sweep in the same session.
 
 Baton — ⬡ → convene G5 (the migration close), verbatim:
 ```
