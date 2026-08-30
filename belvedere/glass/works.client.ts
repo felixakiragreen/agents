@@ -375,7 +375,7 @@ function drawFocus(host: HTMLElement, state: PaneState): void {
 	}
 
 	host.append(el('p', 'quiet prose', `${flow.name} · ${flow.scope} · cut ${flow.created} · ${flow.file}`
-		+ (flow.armedAt === null ? ' — not armed (the arm is B11’s)' : '')
+		+ (flow.armedAt === null ? ' — not blessed (the blessing is B11’s)' : '')
 		+ (flow.run.present ? ` · run log ${flow.run.lines} lines${flow.run.malformed ? `, ${flow.run.malformed} unreadable` : ''}` : ' · no run log yet')));
 
 	const all = rows(snap);
@@ -450,10 +450,10 @@ async function post(path: string, body: unknown): Promise<[number, { ok: boolean
  * has trusted, cold hands. Never a silent mid-flow stall (P5 F5 iv).
  */
 async function arm(flow: WorksFlow): Promise<void> {
-	say('arm', 'arming…');
+	say('arm', 'blessing…');
 	try {
 		const [code, r] = await post(`/flow/${encodeURIComponent(flow.name)}/arm`, { hash: flow.hash });
-		say('arm', r.ok ? `armed ${String(r.result?.['steps'] ?? '')} steps · ${String(r.result?.['hash'] ?? '').slice(0, 12)}…` : `${code} ${r.error}`);
+		say('arm', r.ok ? `blessed ${String(r.result?.['steps'] ?? '')} steps · ${String(r.result?.['hash'] ?? '').slice(0, 12)}…` : `${code} ${r.error}`);
 	}
 	catch (e) { say('arm', String(e)); }
 }
@@ -516,7 +516,7 @@ function drawArm(host: HTMLElement, w: Works, flow: WorksFlow): void {
 	const armed = flow.armedHash !== null;
 	const amended = armed && flow.armedHash !== flow.hash;
 	const head = el('div', 'ws-row-h');
-	head.append(el('span', 'pill', armed ? (amended ? 'amended' : 'armed') : 'not armed'));
+	head.append(el('span', 'pill', armed ? (amended ? 'amended' : 'blessed') : 'not blessed'));
 	head.append(el('span', 'rname', flow.name.replace(/^flow-/, '')));
 	if (flow.armedAt !== null) head.append(stamp(flow.armedAt));
 	card.append(head);
@@ -524,7 +524,7 @@ function drawArm(host: HTMLElement, w: Works, flow: WorksFlow): void {
 	const facts = el('div', 'facts');
 	for (const [k, v] of [
 		['on disk', `${flow.hash.slice(0, 16)}… — the flow file’s bytes and every resolved kickoff`],
-		['armed', flow.armedHash === null ? 'nothing yet' : `${flow.armedHash.slice(0, 16)}…${amended ? ' — and the plan has moved since' : ' — the plan matches'}`],
+		['blessed', flow.armedHash === null ? 'nothing yet' : `${flow.armedHash.slice(0, 16)}…${amended ? ' — and the plan has moved since' : ' — the plan matches'}`],
 		['scope', `${flow.scope} · concurrency ${flow.concurrency} · judge ${flow.judgeTier}`],
 		['engine', flow.last === null ? 'nothing in the run log yet' : `${flow.last.ev}${flow.last.why ? ` — ${flow.last.why}` : ''}`],
 	] as const) {
@@ -536,7 +536,7 @@ function drawArm(host: HTMLElement, w: Works, flow: WorksFlow): void {
 
 	// What the arm covers, re-rendered from the same payload the drawing uses: a plan nobody re-read
 	// is a plan nobody reviewed, and the review IS the authorization.
-	card.append(el('span', 'label', `${flow.nodes.length} steps this arm authorizes`));
+	card.append(el('span', 'label', `${flow.nodes.length} steps this blessing authorizes`));
 	const list = el('div', 'armsteps');
 	for (const n of flow.nodes) {
 		const line = el('div', `armstep${n.blocks.length ? ' bad' : ''}`);
@@ -552,14 +552,14 @@ function drawArm(host: HTMLElement, w: Works, flow: WorksFlow): void {
 
 	drawLiveBill(card);
 
-	const go = button('st wide arm', amended ? 're-arm' : armed ? 're-arm' : 'arm this flow',
+	const go = button('st wide arm', amended ? 're-bless' : armed ? 're-bless' : 'bless this flow',
 		w.hands.armed
 			? 'one click authorizes every step above; the engine ignites them as their dependencies land'
 			: `the hands are cold — ${w.hands.note}`);
 	go.dataset['arm'] = flow.name;
 	go.disabled = !w.hands.armed;
 	card.append(go, out('arm'));
-	if (!w.hands.armed) card.append(el('p', 'quiet prose', `Hands disabled: ${w.hands.note}. The plan still reads; the arm answers 503.`));
+	if (!w.hands.armed) card.append(el('p', 'quiet prose', `Hands disabled: ${w.hands.note}. The plan still reads; the blessing answers 503.`));
 
 	host.append(card);
 }
@@ -613,8 +613,8 @@ function drawNodeActions(host: HTMLElement, n: WorksNode, row: WorkshopRow | nul
 		+ 'A judge is never judged, so the engine inserts no second one and nothing behind this card ignites.'));
 	else if (!n.awaitingPass) acts.append(el('span', 'quiet prose', held(n, row) ?? (
 		flow.armedHash === null
-			? 'Declared, not armed. The arm is one click on the flow’s own card — click away from this node to reach it.'
-			: 'Armed. The engine ignites this the moment its dependencies land, its checkout is free and HALT is absent.')));
+			? 'Declared, not blessed. The blessing is one click on the flow’s own card — click away from this node to reach it.'
+			: 'Blessed. The engine ignites this the moment its dependencies land, its checkout is free and HALT is absent.')));
 
 	host.append(acts);
 
