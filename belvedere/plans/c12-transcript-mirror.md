@@ -296,6 +296,12 @@ is not something this charge measured and retention/exposure policy is explicitl
 out of scope — **filed to [ISSUES](../ISSUES.md), not ruled here.** The pre-existing
 copies in `~/.claude*` have the same exposure; what is new is the neighborhood.
 
+> **Ruled 2026-08-30, Felix's word at the C12 review session: Backblaze sweeps
+> the archive DELIBERATELY — "that's extra backup."** The cloud copy is a
+> feature, not an exposure to close; the inbox entry is ruled and cleared. The
+> launchd install is his hand's, same day — verified: `last exit code = 0`,
+> the tick's own stamped run in `mirror.log`.
+
 ### F5 — regenerating the index whole costs 1.1–2.5 s over 1.7 GB, so it needs no cache
 
 The cold run — copy 1608 files, 1.67 GB, then read every archived byte — is
