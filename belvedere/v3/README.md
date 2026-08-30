@@ -3,6 +3,8 @@
 The building's third campaign: substrate + engine rebuilt from first principles,
 proven by an agent-runnable barrage, judged at one verdict gate. **Campaign
 complete — G4 BLESSED ⬡✓ 2026-08-30, the keystone set** ([the verdict](plans/g4-verdict.md)).
+The migration campaign that inherits the engine runs on the parent board
+([../README.md](../README.md) §6, the campaign note of 2026-08-30).
 Founding record:
 [cornerstone.md](cornerstone.md) (BLESSED ⬡✓ 2026-08-29); where it
 and this doc diverge, this doc is current. Parent building:
@@ -56,21 +58,25 @@ spent (D21); the v2 deck serves daily, untouched, until G4.
 
 **Deferred — tracked, not lost:**
 
-- **The answer-then-land fake scenario** — two acts, `report needs_input` then
+- ~~**The answer-then-land fake scenario** — two acts, `report needs_input` then
   `report done`, plus its golden: the arc `send <text>` drives on a real subject
   is unreachable on fakes today, so the console's most consequential verb is
   guarded only by the real rehearsal (C10 F2 — the fake is C5's, so the scenario
-  and its golden want their own lay).
-- **The account on the `ignited` event** — the run log records the subject's cwd
+  and its golden want their own lay).~~ *Promoted to
+  [C14](../plans/c14-engine-seams.md), the migration campaign's batch 1,
+  2026-08-30.*
+- ~~**The account on the `ignited` event** — the run log records the subject's cwd
   and never the config dir that selects the account, so nothing that reads a log
   alone can reopen the run to drive it; the console depends on a sidecar
   `conditions.json` for `send`/`summon`/`return` (C10 F5). One field, engine-side,
-  and the deck hits it on its first session row.
-- **The trust read's home** — the only real implementation is
+  and the deck hits it on its first session row.~~ *Promoted to
+  [C14](../plans/c14-engine-seams.md), 2026-08-30.*
+- ~~**The trust read's home** — the only real implementation is
   `lab/c8/accounts.ts`, inside a dig's scratch, while `engine/venue.ts` ships a
   stub with the slot reserved. Second caller now (C10 F6, which measured the pane
-  rather than making a second copy); wants promoting before a third.
-- **The mutant drill sweeps its own subjects** — a mutant run that ends early leaves `hang`-scenario fakes alive (C10 F4 found 22, hours old; swept at the batch-8 close); the mutation check wants a SIGTERM of its spawned pids at exit.
+  rather than making a second copy); wants promoting before a third.~~ *Promoted
+  to [C14](../plans/c14-engine-seams.md), 2026-08-30.*
+- ~~**The mutant drill sweeps its own subjects** — a mutant run that ends early leaves `hang`-scenario fakes alive (C10 F4 found 22, hours old; swept at the batch-8 close); the mutation check wants a SIGTERM of its spawned pids at exit.~~ *Promoted to [C14](../plans/c14-engine-seams.md), 2026-08-30.*
 - **The sixth cut family** — a crash cut that kills the *subject* in the window
   between its transcript's closing pair and its `result` row, so the barrage can
   reach the transcript-fallback landing path it never touches today (C11 F4 +
