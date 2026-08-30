@@ -351,6 +351,17 @@ to have worked"* — on real bytes it cannot, ever. Two consequences that bind:
 > The fake becomes faithful in the same charge (the barrage must guard this
 > class forever), and C11's cursor regression signal (F7's caveat) is restored
 > with it. C13 precedes C9 — G4 does not convene on a falsified capability row.
+>
+> *Corrected 2026-08-30, the C13 review (C13 F1): the "barrage guards this
+> class forever" clause was this ruling's claim and it is measured false — the
+> durable stream means a torn stream and a complete transcript essentially
+> never coexist (1 fallback read in ~2,300 turns, 0 landings from it), so the
+> class is guarded by C13's deterministic pair. The fake's faithfulness was
+> delivered; the frequency claim was the desk's, and the correction is the
+> desk's too. Second occurrence of the shape (C11 F4); the sixth cut family —
+> a cut that kills the subject between its closing pair and its `result` row —
+> is deferred, tracked on the board's deferred list, promoted if the shape
+> recurs a third time.*
 
 ### F4 — `auto` is not a restrictive posture headless, and the denial pause cannot be induced at it
 

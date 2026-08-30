@@ -2129,3 +2129,40 @@ Baton — ⬡ → ignite C13 (kickoff fenced in
 [belvedere/v3/plans/c13-report-on-disk.md](belvedere/v3/plans/c13-report-on-disk.md);
 the coda appends at ignition; or say the word and the batch-6 tender
 dispatches it).
+
+---
+
+**2026-08-30 · Architect · fable-high (C13)** — the batch-7 close. **C13 LANDED
++ reviewed at this hand**: engine 61 + barrage 38 + fake 59 tests green, three
+type gates exit 0, barrage exit 0 (1000/1000 · 50/50 · 9/9, wall 147.9 s).
+**K1 trued at C8's own denominator** — the 50 landed turns C12's archive holds
+flip `dead` → landing, 50/50 ×3 accounts; the K1 red seen red on the parent
+reader (`2edb3f0`, test before fix); law 5 proven end to end (stream file
+destroyed outright, the turn lands from the transcript alone); the closing pair
+matched by `toolUseId` — the corpus itself forbids position (C13 F4). Ruled at
+review: **C13 F1 accepted** — the barrage reaches the fallback once in ~2,300
+turns and never lands from it (the durable stream's own success), so the class
+is guarded by the deterministic pair; the desk's "barrage guards forever"
+clause corrected with a dated note on the C8 ruling; **the sixth cut family
+(subject-kill) deferred to the board's new deferred list**, promoted on a third
+recurrence · **C13 F3 deferred to C10's lay** (the fallback naming
+`needs_input`/`blocked` from disk — two lines, a UX lie only the console demo
+surfaces) · grammar §11 gained the C13 F2 addendum (the report's three
+carriers; the fake's stream is now the unfaithful side). Earlier this session:
+Backblaze ruled his backup by his word (C12 F4 note, inbox entry cleared);
+launchd tick verified live (exit 0, stamped run). Board: C11 · C8 · C12 · C13
+all LANDED and reviewed today; capability row 4 green; the arc's remaining lays
+are **C9 scale and C10 the console demo (batch 8, not yet laid)**, then G4.
+Decided: nothing register-grade. Next: lay batch 8 — this session on his word,
+or a fresh Architect (summons below).
+
+Baton — ⬡ → fork: **(a) "lay batch 8" here** — this session lays C9 + C10 on
+the trued board (recommendation: cheapest — the context is loaded and the
+board is hot); or **(b) break** — summon fresh later:
+```
+You are an Architect at fable-high.
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/architect.md,
+then read ~/code/agents/belvedere/v3/README.md, the ledger tail,
+and lay batch 8 — C9 scale and C10 the console demo.
+```

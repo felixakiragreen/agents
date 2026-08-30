@@ -346,3 +346,11 @@ model still *attempts* MCP tools and takes `No such tool available` errors.
   an out-of-workspace write, arbitrary Bash, and public-internet WebFetch —
   the denial pause is not inducible at `auto`; `acceptEdits` is the posture
   that refuses. "auto" reads cautious and is not.
+
+- **Addendum at the C13 review (2026-08-30, C13 F2):** the report has three
+  carriers — the transcript's `StructuredOutput` tool-call input, an
+  `attachment` row (`type: "structured_output"`) between the call and its
+  result, and the same closing pair **in the stream**, before the `result`
+  row. The fake writes only the transcript pair: its *stream* is unfaithful
+  where its transcript stopped being — a stream-side completion rule written
+  against the fake would fall into C8 F3's trap from the other side.
