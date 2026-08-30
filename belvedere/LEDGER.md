@@ -2647,6 +2647,16 @@ ruling above cites its finding, the fold and the ratification are this board's
 to make. Next: C15 reports — this session reviews its landing, then lays C16
 at the close.
 
-Baton — session (C15's Builder, running): execute the charge at
-[plans/c15-deck-v3-lane.md](plans/c15-deck-v3-lane.md); the tender reviews on
-its report.
+Baton — session (C15's Builder, dispatched 2026-08-30 and running; the tender
+reviews on its report). The instrument, already fired — re-fire only if that
+run died without landing:
+```
+You are a Builder at opus-high.
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/builder.md,
+then read ~/code/agents/belvedere/README.md §§2–3 and §§5–6 (the fence, the
+arming law, agreements; the migration campaign note),
+~/code/agents/belvedere/plans/c14-engine-seams.md and
+~/code/agents/belvedere/plans/c17-camera.md (findings included),
+and execute the charge at ~/code/agents/belvedere/plans/c15-deck-v3-lane.md.
+```
