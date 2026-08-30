@@ -42,11 +42,18 @@ spent (D21); the v2 deck serves daily, untouched, until G4.
 | ID | Work | Depends on | Staffing | Status |
 |---|---|---|---|---|
 | C4 | [Headless physics](plans/c4-headless-physics.md) — the event grammar captured; the nine capabilities measured ×3 accounts; kills on the bet itself | ⬡-gate: the cornerstone blessing | Digger · opus-high | **LANDED** 2026-08-29 — K1 NO, K2 NO; 9/9 capabilities met (needs-⬡(question) needs `--json-schema`); grammar at [lab/c4/grammar.md](lab/c4/grammar.md) |
+| C6 | [The engine core](plans/c6-engine-core.md) — event-sourced flow runner: run log as truth, replay, crash-redo, the nine invariants executable | C5 | Builder · opus-high | OPEN — laid 2026-08-29, ignitable |
 | C5 | [The fake claude](plans/c5-fake-claude.md) — the stand-in binary + scenario library + stream validator, against C4's grammar | C4 | Builder · opus-high | **LANDED** 2026-08-29 — [fake-claude/](fake-claude/) is the campaign's standing instrument; all 7 bars evidenced in [C5](plans/c5-fake-claude.md). 58 tests green, type gate exit 0; **validator 43/43 C4 captures** with **five** negative controls red; **23 scenarios**, each with a committed golden, byte-identical ×3 on four of them (both arms); **p50 16 ms** spawn→exit over 50 (bar 100); the sandbox guard refuses all three real account dirs by spawn, emitting nothing; zero torn transcript lines after every scripted death, orphan drill included. Zero real `claude` invocations — budget 0 held. **F1 grammar §10.9 is falsified by C4's own capture** — `queued_turn_count` is 0 in the merged run, so rule 9's detector never fires; both shapes ship, the amendment is the Architect's · **F2 `SessionStart` hooks leak without `--include-hook-events`** (9 captures with faithful argv) · **F3 the pinned argv subset is missing `--effort`**, which every C4 subject carried — nothing added, contract change · F4 the fake's transcript is grammar §2's minimum (no `attachment` rows) — C6's reader needs a real capture too · F5 same seed ⇒ same session id across scenarios; C7 passes `--session-id` or varies the seed |
 
 **The arc** (cornerstone §8; laid batch by batch, never before its inputs exist):
 C5 the fake claude → C6 the engine core → C7 the fuzzer + the barrage → C8
 real-session physics · C9 scale · C10 the console demo → G4 the verdict (⬡-gate).
+
+**Batch note — 2026-08-29 (batch 3):** single charge, C6, ignitable now (C5
+LANDED, its three amendments ruled and committed at review — grammar rule 9,
+SessionStart unflagged, the F3 flags). Felix ignites; serial, no flow, no
+bulletin. Budget: 0 real turns (≤3 only if the real-transcript fixture's C4
+source is gone).
 
 **Batch note — 2026-08-29 (batch 2):** single charge, C5, ignitable now (C4
 LANDED); Felix ignites; serial, no flow, no bulletin. No real sessions, no live

@@ -2129,3 +2129,30 @@ grammar amendments, lay C6.
 
 Baton — ⬡ → Rule C5's three amendments (grammar §3/§10.9, grammar §1's hook
 gating, the argv subset's `--effort`), then lay C6 the engine core.
+
+---
+
+**2026-08-29 · Architect · fable-high** — the same session, continued: **C5
+verified and merged** — 58 tests + type gate re-run at this desk (then 59 with
+the amendment test), validator 43/43 captures with five negative controls red,
+23 gilded scenarios, byte-identity ×3, p50 16 ms (bar 100), sandbox guard proven
+by spawn, budget 0 held. All three amendment-grade findings **verified by my own
+jq and ruled** (side-quest grant, commit `032c92f`): grammar §3/§10.9 corrected —
+merged turns detect by **arithmetic, never `queued_turn_count`** (the merged
+run's own results report 0); **`SessionStart` hook pairs leak unflagged** at
+every process start — grammar §1 amended, the fake now emits them (startup /
+resume kinds, goldens regilded); the dialect gains **`--effort` / `--tools` /
+`--replay-user-messages` as accepted-and-inert** (40/43 C4 captures carried
+--effort). F4 (real-transcript fixture) and F5 (always pass `--session-id`)
+distilled into C6's doc; F6 (bun IIFE narrowing) noted there. **C6 laid**
+([v3/plans/c6-engine-core.md](v3/plans/c6-engine-core.md), Builder · opus-high,
+master): the flow shapes, the run-log-as-truth law, parse rules as amended,
+posture legality per (model, posture) at bless, lost-stream re-derivation,
+no-retry v1, budget ceiling, `invariants()` as a pure module with its own
+negative controls, ten bars incl. crash-redo at five named cut points; D12
+scope-growth deferred conservative. Decided: the three C5 rulings (cited above,
+mine under the review grant). Next: ignite C6.
+
+Baton — ⬡ → Ignite C6 (kickoff fenced in
+[v3/plans/c6-engine-core.md](v3/plans/c6-engine-core.md); the coda appends at
+ignition).
