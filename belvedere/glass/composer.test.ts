@@ -65,7 +65,7 @@ trustFile(WORK, {
 
 const rig: Rig = {
 	accounts: new Map([[PERSONAL, 'personal'], [WORK, 'work']]),
-	colours: new Map([['builder', 'cyan'], ['architect', 'green'], ['grand-architect', 'green']]),
+	colours: new Map([['builder', 'blue'], ['architect', 'green'], ['grand-architect', 'green']]),
 	tiers: new Map([['builder', 'opus-high'], ['architect', 'fable-high'], ['grand-architect', 'fable-max']]),
 	mantles: ['grand-architect', 'architect', 'builder'],
 };
@@ -326,9 +326,8 @@ describe('the plan', () => {
 	test('the composed body is exactly what `POST /hands/fire` parses', () => {
 		const p = plan(rig, draft({ where: BELVEDERE, mantle: 'Builder', summons: 'go', account: 'work' }));
 		expect('body' in p.fire && p.fire.body).toMatchObject({
-			// The Builder's colour is `cyan` in `presets.tsv`, which is an ANSI slot name: Felix's
-			// felikai↔ANSI table reads it as felikai **blue**, and cmux takes the theme's own hex
-			// (`colors.ts`, measured). Was `Aqua` under B3 F1's interim name map.
+			// The Builder's colour is `blue` in `presets.tsv` — the REAL colour since C25 — and cmux
+			// refuses the word, so the map answers felikai's own hex (`colors.ts`, measured).
 			account: 'work', cwd: BELVEDERE, model: 'opus', effort: 'high', color: '#0362b2', summons: 'go',
 		});
 		expect(p.refusal).toBe(null);

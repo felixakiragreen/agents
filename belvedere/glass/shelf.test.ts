@@ -23,7 +23,7 @@ const ACCOUNTS: [string, string][] = [
 	[join(ROOT, '.claude-thg-fgreen'), 'thg-fgreen'],
 ];
 
-const rig: Rig = { accounts: new Map(ACCOUNTS), colours: new Map([['builder', 'cyan']]),
+const rig: Rig = { accounts: new Map(ACCOUNTS), colours: new Map([['builder', 'blue']]),
 	tiers: new Map([['builder', 'opus-high']]), mantles: ['builder'] };
 
 const CITY = join(ROOT, 'code');
@@ -198,9 +198,9 @@ describe('the resume payload — nothing invented', () => {
 	});
 
 	test('the colour is the mantle\'s, in a value cmux accepts (B3 F1 → B18 §3)', () => {
-		// `presets.tsv` spends `cyan` on Builder and cmux refuses `cyan` outright. B3 F1 answered
-		// with cmux's nearest name (`Aqua`); B18 answers with felikai's own blue, which the socket
-		// takes verbatim — measured, `lab/b18/colors.ts`. A mantle with no colour still falls back.
+		// `presets.tsv` spends `blue` on Builder and cmux refuses the word `blue` outright. B3 F1
+		// answered with cmux's nearest name (`Navy`); B18 answers with felikai's own blue, which the
+		// socket takes verbatim — measured, `lab/b18/colors.ts`. A mantle with no colour falls back.
 		expect(resumeBody(row(), rig).color).toBe('#0362b2');
 		expect(resumeBody(row({ stamp: null }), rig).color).toBe('#3e3f38');
 	});

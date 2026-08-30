@@ -1,118 +1,163 @@
 /**
- * The Works, server side: **the declared plan, shaped for the drawing** (B10, keel §6).
+ * The Works, server side: **the v3 engine's runs, shaped for the drawing** (B10, keel §6; the lane
+ * swapped to v3 at C15, D22 r2).
  *
- * One thing only — turn parsed `Flow`s and their run logs into the wire shape the Works draws. The
- * file parse is `flow.ts`'s and nothing else touches those bytes; the *past* half of the drawing is
- * the building's own board rows, which are already on the wire (`workshop`) and are joined to these
- * nodes by id in the client rather than parsed a second time here.
+ * One thing only — turn run logs into the wire shape the Works draws. Every reading of a log is the
+ * engine's own: `runs()`/`readRun()` find and open one, `fold()` derives the state, `verdicts()`
+ * names each step's outcome, `postureLegal()` says whether a step could ever have ignited. **This
+ * module re-implements none of it** (D65's one-parser law, same shape) — a genuinely missing export
+ * is an escalation, never a copy.
  *
- * **Nothing here writes and nothing here fires.** A node carries its kickoff as bytes to read; the
- * arm is B11's, and the string `hands/fire` appears nowhere in this file or in what it produces.
+ * **Nothing here writes, nothing here fires, and nothing here drives.** The v2 engine lived in this
+ * building and ran on a clock; the v3 engine runs out of process and this is a reader of what it
+ * left behind. The arm, the pass and the tick died with the retirement — driving is G5's rework lay.
  */
 
 import type { Building } from '../../doctrine';
-import { cmuxColor } from './colors';
-import type { Works, WorksEdge, WorksFail, WorksFlow, WorksNode, WorksUsage } from './deck-model';
-import { blocksOf, armedAt, armedHash, flowLast, readFlows, readRun, stateOf, type Flow, type Step } from './flow';
+import { fold, verdicts } from '../v3/engine/replay.ts';
+import { subjectName, type Flow, type Step } from '../v3/engine/flow.ts';
+import { postureLegal } from '../v3/engine/posture.ts';
+import { isRefusal } from '../v3/engine/refusal.ts';
+import { findRunDirs, readRun, type RunHandle } from '../v3/console/runs.ts';
+import type { Works, WorksEdge, WorksFail, WorksRun, WorksStep, WorksUsage } from './deck-model';
 import { BUCKETS, pacing } from './gauges';
-import { handsState, readHalt } from './hands';
 import { short, tilde } from './html';
-import { gatedOf, isJudge, judgesOf } from './judge';
-import { buildingPath } from './register';
+import { buildingOf } from './pages';
+import { runsRoot } from './paths';
 import { readRig, type Rig } from './rig';
 import { usageNow } from './usage';
 
-/**
- * The venue as one phrase — the law of space: a node has room for a line, not a record. It renders
- * **home**-relative rather than city-relative (`tilde`, not `short`): a venue is a place a session
- * runs and may sit outside the city entirely, and `~/code/agents` is how the corpus writes it.
- */
-const venueOf = (s: Step): string =>
-	s.venue.kind === 'master' ? `master ${tilde(s.venue.cwd)}` : `worktree ${tilde(s.venue.repo)}:${s.venue.branch}`;
-
-const fromOf = (s: Step): string | null =>
-	s.kickoff.doc === null ? null : `${short(s.kickoff.doc)} #${s.kickoff.fence}`;
+import { existsSync, statSync } from 'fs';
 
 /**
- * The mantle's hue: the rig's table (`presets.tsv`) through felikai's (B18 F1) — **never a colour
- * word invented here**, and null where the rig staffs no such mantle, because a node wearing a
- * guessed colour is a node lying about who is holding it.
+ * Everything has a limit (directive 3.1). The telemetry tree grows by a run dir every time the
+ * barrage runs — 65 of them the day this landed, 629 kB of folded state — and this read sits on a
+ * three-second poll. So the walk is whole (it is cheap: one `statSync` per dir) and the **read** is
+ * the newest few, with the page saying how many of how many it looked at. A bounded read that hides
+ * its bound is a page lying about the city.
  */
-const colorOf = (mantle: string, rig: Rig): string | null =>
-	cmuxColor(rig.colours.get(mantle.toLowerCase().replace(/\s+/g, '-')) ?? '');
+const LIMITS = { read: 12 } as const;
+
+// ---------- one run's steps ----------
 
 /**
- * **The card the reactive gate leaves behind** (B12 §2). A judge node whose lane the engine has
- * paused is a judge that sat and left something Felix's: the pause's own sentence *is* the card, so
- * the drawing states the engine's reason rather than inventing an idiom for it, and — like every
- * Felix-card on this deck — nothing on it can fire (D10; `awaitingPass` stays false because the
- * judge has already fired, so there is no pass gesture either).
+ * Dependency depth, over the flow's own graph: a step sits one rank below its deepest dependency.
+ * The parse has already refused a cycle (`parseFlow`), so this terminates by construction — and the
+ * memo is what keeps a wide diamond from re-walking its own shoulders.
  */
-const residue = (s: Step, ring: string, last: ReturnType<typeof stateOf>['last']): string | null =>
-	isJudge(s.id) && ring === 'paused' && last?.why !== undefined && last.why !== null ? last.why : null;
+function depths(flow: Flow): Map<string, number> {
+	const by = new Map(flow.steps.map(s => [s.id, s]));
+	const memo = new Map<string, number>();
+	const depth = (id: string): number => {
+		const held = memo.get(id);
+		if (held !== undefined) return held;
+		memo.set(id, 0);                         // a self-reference the parse would have refused
+		const deps = by.get(id)?.depends ?? [];
+		const d = deps.length === 0 ? 0 : Math.max(...deps.map(depth)) + 1;
+		memo.set(id, d);
+		return d;
+	};
+	for (const s of flow.steps) depth(s.id);
+	return memo;
+}
 
-function node(s: Step, run: ReturnType<typeof readRun>, rig: Rig): WorksNode {
-	const { ring, last } = stateOf(run, s.id);
-	const card = residue(s, ring, last);
+/** A paused step's sentence: the causes it named, then the detail behind them. */
+const pausedWhy = (causes: readonly string[], detail: string): string =>
+	detail === '' ? causes.join(', ') : `${causes.join(', ')} — ${detail}`;
+
+function step(s: Step, run: ReturnType<typeof fold>, verdict: string, depth: number): WorksStep {
+	const at = run.steps[s.id] ?? { at: 'pending' as const };
+	const fired = s.kind === 'card' ? null : s;
+	// P5 F5's clause, evaluated by the engine's own gate: legality is per (model, posture), and the
+	// refusal's words are the engine's, so the deck and the arm can never disagree about a step.
+	const legal = fired === null ? true : postureLegal(fired.model, fired.posture);
 	return {
-		id: s.id, name: s.name, mantle: s.mantle, color: colorOf(s.mantle, rig),
-		tier: s.tier, account: s.account,
-		venue: venueOf(s), depends: s.depends, depth: s.depth,
-		inserted: isJudge(s.id),
-		gate: card !== null ? 'felix' : s.gate.kind,
-		card: card ?? (s.gate.kind === 'felix' ? s.gate.card : null),
-		kickoff: s.kickoff.text, from: fromOf(s),
-		run: {
-			ring,
-			ev: last?.ev ?? null, at: last?.ts ?? null,
-			sid: last?.sid ?? null, workspace: last?.workspace ?? null, why: last?.why ?? null,
+		id: s.id,
+		kind: s.kind,
+		depends: [...s.depends],
+		depth,
+		verdict,
+		at: at.at,
+		sid: at.at === 'running' ? at.sessionId : at.at === 'ended' || at.at === 'paused' ? at.sessionId : null,
+		pid: at.at === 'running' ? at.pid : null,
+		why: at.at === 'paused' ? pausedWhy(at.causes, at.detail)
+			: at.at === 'landed' ? at.report?.cause ?? null
+			: at.at === 'killed' ? at.reason
+			: null,
+		ask: s.kind === 'card' ? s.ask : null,
+		model: fired?.model ?? null,
+		effort: fired?.effort ?? null,
+		posture: fired?.posture ?? null,
+		subject: fired === null ? null : subjectName(fired.subject),
+		prompt: fired?.prompt ?? null,
+		timeoutMs: fired?.timeoutMs ?? null,
+		turns: run.spent[s.id] ?? 0,
+		blocks: isRefusal(legal) ? [legal.refusal] : [],
+	};
+}
+
+/**
+ * One run, folded. The flow comes off the log's own first event — **never off a file beside it** —
+ * because the log is the truth (cornerstone §3.4) and the bytes it carries are the bytes that were
+ * blessed. That is also what makes a step's `prompt` frozen: nothing here resolves a document
+ * position, so a kickoff whose source doc has since moved still renders what the run was given.
+ */
+export function worksRun(handle: RunHandle): WorksRun {
+	const state = handle.state;
+	const flow = state.flow;
+	const spoken = verdicts(state);
+	const rank = flow === null ? new Map<string, number>() : depths(flow);
+	const steps = (flow?.steps ?? []).map(s => step(s, state, spoken[s.id] ?? 'pending', rank.get(s.id) ?? 0));
+	const edges: WorksEdge[] = (flow?.steps ?? []).flatMap(s => s.depends.map(from => ({ from, to: s.id })));
+	const last = handle.entries.at(-1) ?? null;
+	return {
+		name: handle.name,
+		dir: short(handle.dir),
+		flowId: flow?.id ?? handle.name,
+		flowName: flow?.name ?? 'never blessed — the log carries no flow',
+		venue: tilde(handle.venue.workDir),
+		account: handle.account,
+		venueFrom: handle.venueFrom,
+		budget: state.budget,
+		turns: state.turns,
+		ceiling: state.ceiling,
+		scope: [...state.scope],
+		halted: state.halted,
+		log: {
+			lines: handle.entries.length,
+			at: last === null ? null : Date.parse(last.at) / 1000,
+			last: last?.kind ?? null,
 		},
-		blocks: blocksOf(s),
-		timeoutMinutes: s.timeoutMinutes,
-		// The engine parks his lane on the card and waits; a `resumed` after it is his pass, so the
-		// affordance follows the log rather than being remembered anywhere. A step that has already
-		// fired is past its card — a later pause there is a timeout, not a gate.
-		awaitingPass: s.gate.kind === 'felix' && last?.ev === 'paused'
-			&& !run.lines.some(l => l.step === s.id && l.ev === 'fired'),
-	};
-}
-
-/**
- * One flow, with its run log read once and every node drawn from it — **including the judges the
- * reactive gate inserted** (B12 §2). They are derived from the log by the same function the engine
- * fires from, so the kickoff on the node is the kickoff that was sent, compared rather than argued
- * about; and the edge from a gated step to its judge is drawn even though the judge *depends* on
- * nothing, because insertion is the relation and readiness is not.
- */
-export function worksFlow(flow: Flow, rig: Rig, buildingPath: string): WorksFlow {
-	const run = readRun(flow.name);
-	const judges = judgesOf(flow, run, buildingPath);
-	const edges: WorksEdge[] = [
-		...flow.steps.flatMap(s => s.depends.map(from => ({ from, to: s.id }))),
-		...judges.map(j => ({ from: gatedOf(j.id)!, to: j.id })),
-	];
-	const last = flowLast(run);
-	return {
-		name: flow.name, file: short(flow.file), building: flow.building, scope: flow.scope,
-		created: flow.created, concurrency: flow.concurrency, judgeTier: flow.judgeTier,
-		armedAt: armedAt(run),
-		hash: flow.hash, armedHash: armedHash(run),
-		nodes: [...flow.steps, ...judges].map(s => node(s, run, rig)),
+		steps,
 		edges,
-		run: { file: short(run.file), present: run.present, lines: run.lines.length, malformed: run.malformed },
-		last: last === null ? null : { ev: last.ev, at: last.ts, why: last.why },
 	};
 }
 
+// ---------- discovery ----------
+
+/** A run dir and when its log last moved — the sort key, so the newest runs are the ones read. */
+const touched = (dir: string): number => {
+	try { return statSync(`${dir}/run.jsonl`).mtimeMs; } catch { return 0; }
+};
+
 /**
- * The bill, per account (B10 §5). **B17 put the live read behind this shape**, as B10 said it
- * would: `usageNow` hands over whatever the deck's own fetcher last got — the composer's expand is
- * what fetches — and falls back to the rig's cache for an account it has not reached, labelled as
- * that. It never fetches *here*: this runs on the three-second poll, and a token read plus an HTTPS
- * round trip on a clock is a price nobody agreed to (`usage.ts` §usageNow).
- *
- * The age still rides every figure, because a quota panel that hides its own staleness is the
- * hidden bill this row exists to show.
+ * The newest run dirs under the telemetry root, newest first. The walk is the console's own
+ * (`findRunDirs`, dotted names included — C12 F1's trap lives in it and is already handled).
+ */
+export const recentRuns = (root = runsRoot(), limit = LIMITS.read): { dirs: string[]; total: number } => {
+	if (!existsSync(root)) return { dirs: [], total: 0 };
+	const all = findRunDirs(root).sort((a, b) => touched(b) - touched(a));
+	return { dirs: all.slice(0, limit), total: all.length };
+};
+
+// ---------- the bill ----------
+
+/**
+ * The bill, per account (B10 §5). **B17 put the live read behind this shape**: `usageNow` hands
+ * over whatever the deck's own fetcher last got — the composer's expand is what fetches — and falls
+ * back to the rig's cache for an account it has not reached, labelled as that. It never fetches
+ * *here*: this runs on the three-second poll, and a token read plus an HTTPS round trip on a clock
+ * is a price nobody agreed to (`usage.ts` §usageNow).
  */
 export function worksUsage(rig: Rig = readRig(), nowSeconds = Date.now() / 1000): WorksUsage[] {
 	return usageNow(rig).map(u => ({
@@ -125,26 +170,35 @@ export function worksUsage(rig: Rig = readRig(), nowSeconds = Date.now() / 1000)
 	}));
 }
 
+// ---------- the pane's whole payload ----------
+
 /**
- * Every flow declared for one building, and every flow file that would not parse.
+ * Every v3 run that ran in one building, and every run dir the reader refused.
  *
- * A failure is carried rather than dropped: **a flow that will not render is a flow that is lying**
- * (README §1's parser-as-lint), so the page shows the named refusal and files nothing. Failures are
- * building-blind by necessity — a file that will not parse has no `building` field to filter on —
- * so they ride every building's Works and say which file they came from.
+ * **A run houses where its subject ran** — the venue's cwd through the register, which is the same
+ * join the census makes for a live session (`buildingOf`, B5 F1's own fix). A run log carries no
+ * building field and never will: the engine knows a cwd, and only the register knows what a
+ * building is (D65).
+ *
+ * A refusal is carried rather than dropped: **a log that will not read is a run that is lying**
+ * (README §1's parser-as-lint), so the pane shows the named refusal and files nothing. Refusals are
+ * building-blind by necessity — a log nobody could open has no venue to house it by — so they ride
+ * every building's Works and say which dir they came from.
  */
 export function worksOf(building: string | null, buildings: readonly Building[] = []): Works | null {
 	if (building === null) return null;
-	const rig = readRig();
-	const reads = readFlows(rig);
-	// The register's own path for this building — the same one the engine hands the judge as its
-	// venue. Handed in from the poll's existing read rather than looked up again (B14 F8's budget).
-	const path = buildingPath(building, buildings);
-	const flows: WorksFlow[] = [];
+	const { dirs, total } = recentRuns();
+	const root = runsRoot();
+	const runs: WorksRun[] = [];
 	const fails: WorksFail[] = [];
-	for (const r of reads) {
-		if (!r.ok) fails.push({ ...r.fail, file: short(r.fail.file) });
-		else if (r.flow.building === building) flows.push(worksFlow(r.flow, rig, path));
+	let elsewhere = 0;
+	for (const dir of dirs) {
+		let handle;
+		try { handle = readRun(dir, root); }
+		catch (e) { fails.push({ name: short(dir), error: (e as Error).message }); continue; }
+		if (isRefusal(handle)) { fails.push({ name: short(dir), error: handle.refusal }); continue; }
+		if (buildingOf(handle.venue.workDir, [...buildings])?.building !== building) { elsewhere++; continue; }
+		runs.push(worksRun(handle));
 	}
-	return { building, flows, fails, usage: worksUsage(rig), halt: readHalt(), hands: handsState() };
+	return { building, runs, fails, read: dirs.length, total, elsewhere, usage: worksUsage() };
 }

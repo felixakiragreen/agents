@@ -272,113 +272,128 @@ export type WorkshopDetail = {
 	badges: Record<Attention, number>;
 };
 
-// ---------- the Works: the building's whole work, drawn on one line of time (B10) ----------
+// ---------- the Works: the building's whole work, drawn on one line of time (B10, C15) ----------
 
 /**
- * One declared step, on the wire. The DAG is **drawn, not listed** (D11), so a node carries what a
- * node must show: its encapsulation, its bill (mantle · tier · account), where it would run, what
- * gates it, and what the engine has said about it.
+ * One step of one **v3 run**, on the wire (C15 §2). The v2 flow file is gone (D22 r2); what the
+ * Works draws now is the engine's own run log, and every field here is either read out of that log
+ * or derived by the engine's own exports over it — `fold`, `verdicts`, `postureLegal`. The deck
+ * re-implements no part of the log's meaning (D65's one-parser law, same shape).
  *
- * **Nothing in this shape can fire.** There is no summons body wired to a button anywhere on it —
- * `kickoff` is the bytes to *read*, and the arm is B11's (D10: ambiguity never renders as fireable
- * structure, and neither does anything else on this deck outside the composer).
+ * **Nothing in this shape can fire, and nothing can drive.** The deck's v3 lane is read-only: the
+ * arm, the pass and the tick died with the v2 engine, and driving semantics are G5's rework lay.
  */
-export type WorksNode = {
+export type WorksStep = {
 	id: string;
-	name: string;
-	mantle: string;
-	/** The mantle's hue, felikai's own (B18 F1's table) — resolved server-side, where the rig's is. */
-	color: string | null;
-	tier: string;
-	account: string;
-	/** The venue as one phrase — `master ~/code/agents`, `worktree agents:bv/b11` (B10 §2). */
-	venue: string;
+	/** `task` · `gate` · `card`. A card is Felix's own step: no subject, never ignited. */
+	kind: 'task' | 'gate' | 'card';
 	depends: string[];
+	/** Dependency depth — the rank this node is drawn on. Time flows down (D14). */
 	depth: number;
 	/**
-	 * **The reactive gate put this node here** (B12 §2) — it is not in the flow file, it is derived
-	 * from an `extended` line in the engine's own log. Drawn as an insertion so the plan on screen
-	 * never claims a sitting was declared when it was staffed mid-run.
+	 * **The engine's own word for this step**, verbatim from `verdicts()` — the one export whose
+	 * whole job is naming a run's outcome with nothing in it that varies between two runs. The
+	 * drawing derives its ring from `at` below and its sentence from this; neither is invented here.
 	 */
-	inserted: boolean;
-	gate: 'none' | 'felix' | 'architect';
-	/** The Felix-card's text, where this step is his. Rendered in his idiom; never wired. */
-	card: string | null;
-	kickoff: string;
-	/** Where the kickoff was quoted from — `plans/b11-flow-engine.md #1` — or null when inline. */
-	from: string | null;
+	verdict: string;
+	/** The fold's own state name: `pending` · `running` · `ended` · `paused` · `landed` · `killed`. */
+	at: string;
+	/** `running`: the session the log named, and the pid it was born with. */
+	sid: string | null;
+	pid: number | null;
+	/** `paused`: the causes and the detail. `landed`: the report's own cause. Else null. */
+	why: string | null;
+	/** A card's ask — what it is waiting on Felix for. */
+	ask: string | null;
+	/** The bill: what would run, at what model and effort, under which posture. Null on a card. */
+	model: string | null;
+	effort: string | null;
+	posture: string | null;
+	/** `fake:<scenario>` or `real` — `subjectName()`, so the arm is named and never guessed. */
+	subject: string | null;
 	/**
-	 * What the **engine's own log** says (B10 §4). `ring` is `declared` where it has said nothing,
-	 * which is not the same as the board saying nothing — see `ringOf`.
+	 * **The frozen kickoff** — the step's own first user turn, byte-exact, as the flow carried it
+	 * when the run was blessed. It is read out of the run log's own `blessed` event and nothing
+	 * resolves a document position: a kickoff that pointed at a doc by fence ordinal is exactly
+	 * what collapsed at flow-1, and v3's `prompt` field is the law that replaced it.
 	 */
-	run: { ring: Ring; ev: string | null; at: number | null; sid: string | null; workspace: string | null; why: string | null };
-	/** P5 F5's clause, evaluated: why this step could not be armed as declared. Empty is arm-able. */
+	prompt: string | null;
+	timeoutMs: number | null;
+	/** Turns spent on this step — an ignition and a resume both cost (D73). */
+	turns: number;
+	/**
+	 * Why this step could not have been ignited as declared — `postureLegal()`'s own refusal, and
+	 * nothing else. Legality is per **(model, posture)**, never per model (C4 F6): haiku holds
+	 * `acceptEdits` and does the work; asked for `auto` it is granted `default` and writes nothing.
+	 */
 	blocks: string[];
-	/** The step's own limit, in minutes from its fire — past it the engine pauses, never kills (B11 §4). */
-	timeoutMinutes: number;
-	/**
-	 * The engine has reached his card and parked the lane on it (B11 §5). **His pass is the only
-	 * thing that opens it** — the gesture is `POST /flow/<name>/pass`, credential-gated, and nothing
-	 * on the card reaches a hand that fires.
-	 */
-	awaitingPass: boolean;
 };
 
 export const RINGS = ['declared', 'fired', 'landed', 'paused', 'refused'] as const;
 export type Ring = (typeof RINGS)[number];
 
-/** Board lifecycle → the same five rings, so past and future are drawn in one vocabulary. */
+/** The fold's six step states → the five rings, so past and future draw in one vocabulary. */
+const RING_OF_AT: Readonly<Record<string, Ring>> = {
+	pending: 'declared', running: 'fired', ended: 'fired',
+	landed: 'landed', paused: 'paused', killed: 'refused',
+};
+
+/** Board lifecycle → the same five rings. */
 const RING_OF_STATE: Readonly<Record<string, Ring>> = {
 	LANDED: 'landed', 'IN FLIGHT': 'fired', BLOCKED: 'paused', KILLED: 'refused', OPEN: 'declared',
 };
 
 /**
- * A node's ring, and **where the claim comes from**.
+ * A node's ring, and **where the claim comes from** (B10 F4, kept whole through the engine swap).
  *
- * The engine's log outranks the board because it is the finer sensor: it knows a step was fired
- * before any board says IN FLIGHT. Where it is silent the **board** speaks, which is what makes the
- * Works one drawing of past and future rather than a plan hovering over a history it cannot see —
- * and `from` carries the difference, because a landed ring taken off a board row is not evidence
- * that this engine ever fired it (D10's family: never let a rendering claim more than its source).
+ * The run log outranks the board because it is the finer sensor: it knows a step ignited before any
+ * board says IN FLIGHT. Where the log has said nothing about a step — `pending` — and the step id
+ * happens to name a row on this building's board, the **board** speaks; and `from` carries the
+ * difference, because a landed ring taken off a board row is not evidence that any engine ran it.
  */
-export const ringOf = (n: WorksNode, state: string | null): { ring: Ring; from: 'run' | 'board' | 'none' } =>
-	n.run.ev !== null ? { ring: n.run.ring, from: 'run' }
+export const ringOf = (n: WorksStep, state: string | null): { ring: Ring; from: 'run' | 'board' | 'none' } =>
+	n.at !== 'pending' ? { ring: RING_OF_AT[n.at] ?? 'declared', from: 'run' }
 	: state !== null && RING_OF_STATE[state] ? { ring: RING_OF_STATE[state]!, from: 'board' }
 	: { ring: 'declared', from: 'none' };
 
-/** Lit: fired, and the session it named is still beating (the census, the sole liveness authority). */
-export const lit = (n: WorksNode, ring: Ring, live: ReadonlySet<string>): boolean =>
-	ring === 'fired' && n.run.sid !== null && live.has(n.run.sid);
+/** Lit: running, and the session it named is still beating (the census, the sole liveness authority). */
+export const lit = (n: WorksStep, ring: Ring, live: ReadonlySet<string>): boolean =>
+	ring === 'fired' && n.sid !== null && live.has(n.sid);
 
 export type WorksEdge = { from: string; to: string };
 
-export type WorksFlow = {
+/** One v3 run: the flow it was blessed on, folded from its own log. */
+export type WorksRun = {
+	/** How every verb addresses it — the run dir's path under the telemetry root. */
 	name: string;
-	file: string;
-	building: string;
-	scope: string;
-	created: string;
-	concurrency: number;
-	judgeTier: string;
-	/** When the flow itself was armed, per its run log — null while nothing has authorized it. */
-	armedAt: number | null;
+	dir: string;
+	flowId: string;
+	flowName: string;
+	/** The subject's cwd, home-relative — a venue is a place a session runs, not a city path. */
+	venue: string;
 	/**
-	 * **What is on disk** and **what was armed** (B11 §1): sha256 over the flow file's bytes plus
-	 * every resolved kickoff. Armed flows are immutable, so a page whose two differ shows the delta
-	 * and offers re-arm — and the arm gesture posts `hash` back, so nobody ever authorizes bytes
-	 * that moved while they were reading them (B10 F2).
+	 * The account's own word where the config dir is one of the three, the raw config dir where it
+	 * is not, and **null for a layer-0 run** — a sandbox the run made and owns is not an account
+	 * (C14's shape, read straight off `RunHandle`).
 	 */
-	hash: string;
-	armedHash: string | null;
-	nodes: WorksNode[];
+	account: string | null;
+	/** Where the venue came from: the log (C14 and after), a `conditions.json` sidecar, or neither. */
+	venueFrom: 'log' | 'conditions' | 'sandbox';
+	/** The ignition ceiling and what has been spent against it (D73). */
+	budget: number;
+	turns: number;
+	ceiling: boolean;
+	/** The step ids the blessing authorized (D11, D12). */
+	scope: string[];
+	/** The run's own HALT, as its log records it — never the glass's flag. */
+	halted: string | null;
+	log: { lines: number; at: number | null; last: string | null };
+	steps: WorksStep[];
 	edges: WorksEdge[];
-	run: { file: string; present: boolean; lines: number; malformed: number };
-	/** The flow's own last word — the arm, or the pause that stopped its advance. */
-	last: { ev: string; at: number; why: string | null } | null;
 };
 
-/** A flow that will not parse renders its failure and files nothing (parser-as-lint, README §1). */
-export type WorksFail = { name: string; file: string; code: string; error: string };
+/** A run dir whose log the reader refuses: shown, never swallowed (parser-as-lint, README §1). */
+export type WorksFail = { name: string; error: string };
 
 /** The bill, per account: B5's strip source, rendered where the plan is (B10 §5). */
 export type WorksUsage = {
@@ -388,22 +403,23 @@ export type WorksUsage = {
 };
 
 /**
- * The declared work for one building. **Asked for, never broadcast** — like the Workshop's detail,
- * it rides the poll's `?b=` and nothing else, and the board rows it draws against are the ones
- * already on the wire (`workshop`), joined by id rather than parsed a second time.
+ * The v3 runs that ran in one building, plus the bill. **Asked for, never broadcast** — it rides
+ * the poll's `?b=` and nothing else, and the board rows it draws against are the ones already on
+ * the wire (`workshop`), joined by id rather than parsed a second time.
+ *
+ * A run houses where its subject ran: the venue's cwd through the register, the same join the
+ * census makes for a live session. `read` / `total` / `elsewhere` are how the pane stays honest
+ * about a bounded read — everything has a limit (directive 3.1), and the telemetry tree grows
+ * every time the barrage runs.
  */
 export type Works = {
 	building: string;
-	flows: WorksFlow[];
+	runs: WorksRun[];
 	fails: WorksFail[];
+	read: number;
+	total: number;
+	elsewhere: number;
 	usage: WorksUsage[];
-	/**
-	 * The engine's two standing conditions, so the arm card can be honest before it is pressed
-	 * (B11 §§1, 5): the HALT flag — nothing fires while it exists, and the drawing says so — and
-	 * whether the hands are armed at all, because an arm on a cold glass answers 503.
-	 */
-	halt: { at: string; by: string; text: string } | null;
-	hands: { armed: boolean; note: string };
 };
 
 // ---------- the Chat: one hotswappable conversation (B16, keel §5) ----------
@@ -929,9 +945,10 @@ export type DeckSnapshot = {
 	 */
 	workshop: WorkshopDetail | null;
 	/**
-	 * The same building's **declared** work (B10) — flows, run-state and the bill — under the same
-	 * `?b=` and the same timer. It carries no board rows of its own: the Works draws the past out of
-	 * `workshop` above and the plan out of this below, which is what makes it one drawing (keel §6).
+	 * The same building's **engine work** (B10, on v3 since C15) — the run logs, folded, and the
+	 * bill — under the same `?b=` and the same timer. It carries no board rows of its own: the
+	 * Works draws the past out of `workshop` above and the runs out of this below, which is what
+	 * makes it one drawing (keel §6).
 	 */
 	works: Works | null;
 	/**

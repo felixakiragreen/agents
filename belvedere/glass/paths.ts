@@ -37,19 +37,14 @@ export const haltFlag = () => join(dirname(censusDir()), 'HALT');
 export const handsEnv = () => process.env.BELVEDERE_ENV ?? join(home, '.config/belvedere/env');
 
 /**
- * Declared flows — **committed truth**, a batch note as data (B10 §1). Relative to the canon repo
- * rather than to `$HOME` for the same reason `canonRoot()` is: a fixture city carries flows of its
- * own, and a probe must never be able to read the real ones as truth. `$FLOWS_DIR` is this row's
- * knob, `$CENSUS_DIR`'s twin.
+ * The v3 engine's telemetry tree: every campaign's run dirs under it, each holding a `run.jsonl`
+ * that IS the run (cornerstone §3.4). **The deck reads it and never writes it** — the engine runs
+ * out of process, and the glass's own engine retired whole at C15.
+ *
+ * `$RUNS_DIR` is `$CENSUS_DIR`'s twin, and it exists for the same reason: a probe must be able to
+ * point the deck at a fixture run tree without being able to mistake it for the real one.
  */
-export const flowsDir = () => process.env.FLOWS_DIR ?? join(canonRoot(), 'belvedere/flows');
-
-/**
- * A flow's run-state, in the D6 telemetry neighborhood beside the census — **gitignored, written by
- * the engine (B11), never by this row**. The board stays the only truth about work; this is the
- * engine's working memory.
- */
-export const flowRun = (name: string) => join(censusDir(), 'flows', `${name}.run.jsonl`);
+export const runsRoot = () => process.env.RUNS_DIR ?? join(canonRoot(), 'summon/log/v3');
 
 /** The D53 header a building's FIRST gesture mints its inbox from (DOCTRINE §3, adoption-on-first-need). */
 export const ISSUES_TEMPLATE = join(home, 'code/agents/canon/work/templates/issues.md');
@@ -66,9 +61,22 @@ export const usageDir = () => process.env.USAGE_DIR ?? join(home, 'code/agents/s
 export const projectsDir = (configDir: string) => join(configDir, 'projects');
 
 /**
+ * Where the sovereign's inbox lands — `deskDir`'s sibling, and the fence's other write that stands
+ * in FRONT of the arming switch (D18 class 2; B6 F3). Default: the city itself, so a gesture
+ * appends to the target building's own `ISSUES.md` and the knob costs the real deck nothing.
+ *
+ * **This is the knob C17 F2 named missing.** A disarmed twin is not an inert one: `POST /inbox` is
+ * un-gated by design, so a probe clicking "file it" wrote into a real building's inbox. Pointed
+ * elsewhere, the same gesture lands under this root at the building's own city-relative path — the
+ * write moves, the fence does not (`inbox.ts` §the write fence still measures against the city).
+ */
+export const inboxRoot = () => process.env.INBOX_DIR ?? cityRoot();
+
+/**
  * The desk — **one drawer, city-wide** (D17), and the glass's only file-write neighborhood outside
- * the gitignored telemetry (D18 class 3). Relative to the canon repo for the same reason `flowsDir`
- * is: a fixture city carries a desk of its own, so a probe can never write into the real one.
+ * the gitignored telemetry (D18 class 3). Relative to the canon repo for the same reason
+ * `canonRoot` is: a fixture city carries a desk of its own, so a probe can never write into the
+ * real one.
  *
  * B16 mints `desk/drafts/` and nothing else there — the desk proper is B19's row.
  */

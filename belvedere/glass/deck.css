@@ -463,9 +463,7 @@ body.deck {
 	border-left: 2px solid var(--orange-600); background: var(--grey-950);
 }
 
-/* The reactive gate's insertion (B12 §2): a sitting the engine staffed mid-run, in no flow file.
-   Dashed, for the same reason a board-sourced ring is — the drawing says where the claim came from. */
-.deck .node.inserted { border-style: dashed; }
+/* A ⬡-card in the legend: Felix's own step, which the engine can only pause on. */
 .deck .pill.tone-ins {
 	font-size: 8.5px; letter-spacing: .1em; text-transform: uppercase;
 	border: 1px dashed var(--purple-600); border-radius: 3px; padding: 0 4px; color: var(--purple-300);
@@ -594,7 +592,6 @@ body.deck {
 .deck .c-knobs .btn .sub { margin-left: 4px; font-size: 9px; color: var(--grey-600); }
 .deck .c-knobs .btn[data-on='yes'] .sub { color: color-mix(in srgb, var(--felix) 70%, var(--grey-500)); }
 .deck .c-knobs .btn .swatch { width: 7px; height: 7px; border-radius: 2px; }
-.deck .go[data-armed='no'] { opacity: .45; cursor: not-allowed; }
 
 /* Usage, live — the same table the Works draws, plus the one thing the rig's caches could not say:
    which clock each figure is on (`usage.ts` §source). */

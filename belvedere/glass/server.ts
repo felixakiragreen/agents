@@ -14,7 +14,6 @@ import { deckPage, deckState, readDoc } from './deck';
 import { deskRoute } from './desk';
 import { composeRoute } from './deck-composer';
 import { decodeQuery } from './decoder';
-import { flowRoute, kick, startEngine } from './engine';
 import { grepQuery } from './grep';
 import { handsRoute } from './hands';
 import { inboxRoute } from './inbox';
@@ -137,10 +136,10 @@ async function rewalkRoute(url: URL): Promise<Response> {
 // path, so the first rail Felix opens in the morning is already warm.
 boot();
 
-// The engine's clock (B11 §2). It starts HERE and only here — a module-scope interval would drive
-// Felix's real desktop from any test process that imported `engine.ts` (B8 F1's lesson). A pass over
-// a city with no armed flow reads the run logs and stops; nothing is armed until he clicks.
-startEngine();
+// **This server has no clock.** The v2 engine's five-second tick started here and died with it
+// (D22 r2, C15): the city's engine is `v3/` and it runs itself, out of process. The deck reads its
+// run logs and draws them — the whole of the deck's v3 lane is a read (C15 §3, pre-ruled at the
+// cut: driving is G5's rework lay).
 
 const server = Bun.serve({
 	hostname: HOST,                          // D3: 127.0.0.1 and nothing else, until real auth
@@ -149,17 +148,7 @@ const server = Bun.serve({
 		try {
 			const url = new URL(req.url);
 			// The only writing routes in the building, and the only async ones (B4, B6).
-			// A hand changes the world the engine reasons over — a worktree cut, a HALT set — so the
-			// tick runs after every one of them rather than waiting out its five seconds (B11 §2).
-			if (url.pathname.startsWith('/hands/')) {
-				const answered = await handsRoute(req, url.pathname.slice('/hands/'.length));
-				kick();
-				return answered;
-			}
-			// The arm, and his pass on a card (B11). Credential-gated inside, like every hand: an arm
-			// authorizes socket writes. The engine writes nothing but run-state and hands calls, so the
-			// fence's write list is unchanged (README §2).
-			if (url.pathname.startsWith('/flow/')) return await flowRoute(req, url.pathname.slice('/flow/'.length));
+			if (url.pathname.startsWith('/hands/')) return await handsRoute(req, url.pathname.slice('/hands/'.length));
 			// The voice (B16, D18 class 1). Its two halves sit on opposite sides of the arming switch
 			// on purpose: `send` is a socket write and goes cold with the credential; `draft` is a
 			// file write under `desk/` and must never go cold with it (B6 F3's law).

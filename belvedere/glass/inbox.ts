@@ -20,13 +20,13 @@
  *     the D53 header template, verbatim, and the entry appended under it.
  */
 
-import { appendFileSync, existsSync, readFileSync, statSync, writeFileSync } from 'fs';
+import { appendFileSync, existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'fs';
 import { homedir } from 'os';
-import { isAbsolute, join, resolve, sep } from 'path';
+import { dirname, isAbsolute, join, relative, resolve, sep } from 'path';
 import type { Decision, Issue } from '../../doctrine';
 import { audit, fail, field, json, type Outcome } from './hands';
 import { esc, label, pill } from './html';
-import { cityRoot, ISSUES_TEMPLATE } from './paths';
+import { cityRoot, inboxRoot, ISSUES_TEMPLATE } from './paths';
 import { bust } from './register';
 import { compose, type Composed } from './summon';
 import type { Rig } from './rig';
@@ -144,7 +144,25 @@ export function parseFiling(raw: unknown): Outcome<Filing> {
 
 // ---------- the write ----------
 
-export const inboxFile = (buildingPath: string) => join(buildingPath, 'ISSUES.md');
+/**
+ * Where this building's inbox is read and written.
+ *
+ * **The fence and the write root are two questions** (C15 §5, closing C17 F2). `buildingDir` above
+ * measures the target against the city — that is the fence, and it never moves. This decides which
+ * tree the append lands in, and `$INBOX_DIR` moves it: the building keeps its city-relative path
+ * under the new root, so a scratch drawer holds `agents/belvedere/ISSUES.md` exactly where the real
+ * city holds it. Unset, the root IS the city and this is `<building>/ISSUES.md` — the same bytes in
+ * the same file the deck has always written.
+ *
+ * The reason it exists: `POST /inbox` stands in FRONT of the arming switch by law (B6 F3), so a
+ * disarmed camera twin can still write, and a probe clicking "file it" wrote into a real inbox.
+ */
+export function inboxFile(buildingPath: string): string {
+	const root = inboxRoot();
+	const city = cityRoot();
+	if (root === city) return join(buildingPath, 'ISSUES.md');
+	return join(root, relative(city, buildingPath), 'ISSUES.md');
+}
 
 /**
  * The bytes ONE gesture adds, and the only shaping this module does.
@@ -212,7 +230,8 @@ export function fileGesture(f: Filing, date = today()): Outcome<Filed> {
 	if (!stands.ok) return stands;
 	const { existing, minting } = stands.result;
 	if (minting) {
-		try { writeFileSync(path, existing, { flag: 'wx' }); }
+		// The scratch root a knob points at need not exist yet; the real city's building always does.
+		try { mkdirSync(dirname(path), { recursive: true }); writeFileSync(path, existing, { flag: 'wx' }); }
 		catch (e) { return fail(`cannot mint ${path}: ${(e as Error).message}`); }
 	}
 	const minted = minting;
