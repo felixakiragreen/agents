@@ -1,6 +1,6 @@
 // The colour map, pinned. The *acceptance* half is measured against a live socket
 // (`lab/b18/colors.ts`, evidence in `colors.ts`'s header and in the B18 findings); what a unit test
-// can hold is the half that is a ruling rather than a measurement: **Felix's felikai↔ANSI table**,
+// can hold is the half that is a ruling rather than a measurement: **an intent is its own word**,
 // and the rule that an unknown word never quietly becomes a colour.
 
 import { expect, test, describe } from 'bun:test';
@@ -15,13 +15,13 @@ describe('felikai intent → a value cmux accepts', () => {
 		expect(FELIKAI.grey).toBe('#3e3f38');        // --grey-650
 	});
 
-	test('Felix\'s table is the map, and it is the two entries a naive reading gets backwards', () => {
-		// felikai blue/ANSI cyan · felikai orange/ANSI blue (his table, keel §7). So the rig's `cyan`
-		// is felikai's blue and the rig's `blue` is felikai's orange — not the words themselves.
-		expect(cmuxColor('cyan')).toBe(FELIKAI.blue);
-		expect(cmuxColor('blue')).toBe(FELIKAI.orange);
-		expect(cmuxColor('magenta')).toBe(FELIKAI.purple);
-		for (const same of ['green', 'yellow', 'red']) expect(cmuxColor(same)).toBe(FELIKAI[same as 'green']);
+	test('an intent is its own word — the rig writes real colours, and the ANSI slot names are not colours here', () => {
+		for (const i of INTENTS) expect(cmuxColor(i)).toBe(FELIKAI[i]);
+		expect(cmuxColor('BLUE')).toBe(FELIKAI.blue);
+		// The two words the pre-C25 table translated. The rig no longer writes them, and reading one
+		// as a colour is what put Builder in orange: an ANSI slot is not an intent (C15 §4).
+		expect(cmuxColor('cyan')).toBeNull();
+		expect(cmuxColor('magenta')).toBeNull();
 	});
 
 	test('a hex passes through — the socket takes `#RRGGBB` verbatim (measured)', () => {
@@ -47,7 +47,7 @@ describe('the rig\'s mantles, coloured', () => {
 			const c = colourOf(rig, mantle);
 			expect(c).toMatch(/^#[0-9a-f]{6}$/);
 		}
-		// `presets.tsv` spends `cyan` on Builder, a word cmux refuses; the map answers a hex.
+		// `presets.tsv` spends `blue` on Builder and `orange` on Digger; the map answers felikai's hex.
 		expect(colourOf(rig, 'builder')).toBe(FELIKAI.blue);
 		expect(colourOf(rig, 'digger')).toBe(FELIKAI.orange);
 	});

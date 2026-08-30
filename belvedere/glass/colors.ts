@@ -25,12 +25,8 @@
 export const INTENTS = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'grey'] as const;
 export type Intent = (typeof INTENTS)[number];
 
-/**
- * The map, and the whole of it. Values are `felikai.css`'s 600 level verbatim — `pink` is the one
- * entry with no felikai hue of its own and takes `--red-400`, the light end of the red scale
- * (see `INTENT_OF`).
- */
-export const FELIKAI: Readonly<Record<Intent | 'pink', string>> = {
+/** The map, and the whole of it. Values are `felikai.css`'s 600 level verbatim. */
+export const FELIKAI: Readonly<Record<Intent, string>> = {
 	red: '#a11420',      // --red-600
 	orange: '#9e490c',   // --orange-600
 	yellow: '#c6930b',   // --yellow-600
@@ -38,38 +34,28 @@ export const FELIKAI: Readonly<Record<Intent | 'pink', string>> = {
 	blue: '#0362b2',     // --blue-600
 	purple: '#643bc0',   // --purple-600
 	grey: '#3e3f38',     // --grey-650
-	pink: '#ed3467',     // --red-400
 };
 
-/**
- * **Felix's felikai↔ANSI table** (his field report, folded into keel §7), inverted — because the
- * rig's `presets.tsv` writes ANSI slot names and the intent behind each is his theme's:
- *
- *   felikai green/ANSI green · yellow/yellow · red/red · purple/**magenta** · blue/**cyan** ·
- *   orange/**blue**
- *
- * So the rig's `cyan` (Builder) means felikai **blue**, and its `blue` (Digger) means felikai
- * **orange** — the two entries a naive reading gets backwards, and the reason this table exists at
- * all rather than a `CMUX_COLOURS` lookup of the same words. `pink` (Dispatcher) is the one colour
- * the rig spends that ANSI does not name and his table therefore does not cover: it keeps a value
- * of its own rather than collapsing onto `red`, which mentat already holds.
- */
-const INTENT_OF: Readonly<Record<string, Intent | 'pink'>> = {
-	green: 'green', yellow: 'yellow', red: 'red',
-	magenta: 'purple', cyan: 'blue', blue: 'orange',
-	// words the table does not reach: their own intent, or the rig's own fifth colour
-	purple: 'purple', orange: 'orange', grey: 'grey', pink: 'pink',
-};
+const isIntent = (word: string): word is Intent => (INTENTS as readonly string[]).includes(word);
 
 /**
  * A colour word — the rig's, felikai's, or a bare `#rrggbb` — as a value the socket accepts, or
  * **null**: an unknown word is never quietly turned into a colour (D10's family). The caller
  * decides what to do with a refusal; nothing here falls back.
+ *
+ * **The rig writes the real colour now** (C25, `presets.tsv`'s own header: *"color is the REAL
+ * colour — what `/color` fires; the panel swatch renders it through the S0 ANSI slot map in
+ * summon.zsh"*). Until C15 this module carried the inversion of Felix's felikai↔ANSI table — the
+ * rig's `cyan` read as felikai blue, its `blue` as felikai orange — and once the rig started
+ * spelling intents outright that table ran a second time over words that had already been
+ * translated: **Builder came out orange and Digger blue, both wrong, and two tests had been red
+ * since** (the presets-speak-real-colours entry, root inbox 2026-08-29). The slot map lives in the
+ * rig, where the slots are; here a word is an intent or it is nothing.
  */
 export function cmuxColor(word: string): string | null {
 	if (/^#[0-9a-fA-F]{6}$/.test(word)) return word;
-	const intent = INTENT_OF[word.toLowerCase()];
-	return intent === undefined ? null : FELIKAI[intent];
+	const lower = word.toLowerCase();
+	return isIntent(lower) ? FELIKAI[lower] : null;
 }
 
 /** The swatch row the deck offers: every intent, and nothing that is not one. */
