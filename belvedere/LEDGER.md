@@ -3234,3 +3234,33 @@ His own Belvedere on :4477 is running pre-B24 code and answers `404` to
 
 Baton — the dispatch → Felix: read the City (restart the deck first), then
 ignite B27 or call G6. Nothing here ignites itself.
+
+---
+
+**2026-08-31 · Architect · fable-high (G5)** — **the serial chain is home
+through B24: C21 · B26 · B24 all LANDED, each reviewed at this hand, each
+proving run re-run green at the review** (C21: --glass 12 gates + the
+after-shots Read — the 21 h NAGGING row reads IDLE, presence byte-identical;
+B26: --glass --probes 29 gates — the baton the fifth attention class, the
+fixture-sid fix first; B24: --glass --probes **31 gates, 475.1 s** — spaces
+live to `desk/city-arrangement.json`, candidate 7 reproduced and fixed, the
+scrim closed with its standing probe). Rulings at the reviews, all cited on
+the rows: C21's filings → B27 §§8–9 + B26's first act; B26's F6 → B24 item
+0, F9 → B27 §7, F2 + the Next-splitter mis-split → the canon inbox (F2 the
+fourth filing — amendment candidate by recurrence); B24's two filings
+distilled into §5 (the two-run desk bar; a driving probe asserts the
+receipt); B24's attention-over-order ruling accepted on §3's law,
+strike-able at the G6 visual pass. Inbox swept to empty at every review.
+Decided: nothing register-grade beyond the above. Next: **the chain waits on
+Felix's one ⬡** — B22's typed hold (the ~4-turn budget extension) pauses
+B27 by D74's law; on "extend" a short B22 session closes the two re-run
+bars, the hold clears, B27 ignites (its doc carries eleven items, the
+PermissionRequest fix before G6's ritual among them), then G6 convenes on
+his summons.
+
+Baton — ⬡ Felix → rule the B22 hold: "extend" (recommended — ~4 real turns
+/ well under $1, closing the b17-probe and placement re-run bars; a fresh
+Builder session at opus-high, summons = B22's kickoff + the coda + the
+amendment naming only the two open bars) — or rule the hold non-blocking
+for B27 with the two bars riding to G6. His word in the tender's room is
+the instrument (D57's receiving-room clause).
