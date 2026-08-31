@@ -21,10 +21,11 @@
 
 import {
 	ATTENTION, bump, columns, PANES, RESTING, toLayout,
-	type Attention, type DeckBuilding, type Decoded, type DeckSession, type DeckSnapshot,
+	type Attention, type BatonOption, type BatonWire,
+	type DeckBuilding, type Decoded, type DeckSession, type DeckSnapshot,
 	type Layout, type Pane, type PaneState, type QueueItem,
 } from './deck-model';
-import { selection, swap, tenant, tenants, viewer, type FocusView } from './deck-view';
+import { compose, selection, swap, tenant, tenants, viewer, type FocusView } from './deck-view';
 import {
 	ago, button, chatButton, DEPTH_CAP, dot, dots, el, forget, named, need, paint, reading, receipt,
 	receipts, remember, remembered, say, stamp, tick, tipSession, words, type DecodeCtx,
@@ -173,7 +174,7 @@ function drawTenantBar(): void {
 // ---------- the City (Context's one tenant, keel §3) ----------
 
 const BADGE_WORD: Readonly<Record<Attention, string>> = {
-	waiting: 'blocked on you', gate: '⬡-gate', countersign: 'blessing', escalation: 'escalation',
+	waiting: 'blocked on you', baton: 'baton', gate: '⬡-gate', countersign: 'blessing', escalation: 'escalation',
 };
 
 function badges(b: DeckBuilding): HTMLElement {
@@ -231,6 +232,7 @@ const LEGEND: [string, string, string?][] = [
 	['dot s-unknown', 'unknown — no pid to ask'],
 	['dot s-idle w-blocked', 'blocked — a permission prompt is waiting'],
 	['badge b-waiting', 'blocked on you'],
+	['badge b-baton', 'a ledger tail handed the next move on'],
 	['badge b-gate', '⬡-gate on a live charge'],
 	['badge b-countersign', 'decision waiting on your pen'],
 	['badge b-escalation', 'escalation raised, nothing says it was ruled'],
@@ -353,8 +355,58 @@ const drafts = new Map<string, string>();
 const opened = new Set<string>();
 
 const QUEUE_TONE: Readonly<Record<Attention, string>> = {
-	waiting: 'red', gate: 'purple', countersign: 'yellow', escalation: 'orange',
+	waiting: 'red', baton: 'cyan', gate: 'purple', countersign: 'yellow', escalation: 'orange',
 };
+
+/**
+ * The rail's own three words for a baton's holder (B3), so one handoff reads the same on both
+ * surfaces. It is the pill, in place of the class name, because *whose* baton this is decides what
+ * can be done with it — and the class name would say "baton" three times over.
+ */
+const HOLDER_WORD: Readonly<Record<BatonWire['holder'], string>> = {
+	session: 'baton', felix: 'Felix’s baton', prose: 'dropped baton',
+};
+
+/**
+ * One instrument the baton hands over: what it is, where it was read, and its bytes.
+ *
+ * **Nothing here ignites, and nothing here is a disabled ignition** (D10, and B14's own DoD). The
+ * two controls are `compose` — which loads the bytes into the composer, exactly the desk's third
+ * route (B19), where the knobs resolve and Felix's own click is the ignition — and `copy`, which is
+ * reading. `POST /hands/ignite` is reachable from one client file on this deck and this is not it.
+ *
+ * A blocked option draws no control at all: what stands there is the reason the rail would have
+ * printed (`baton.ts` §resolveRow) — a greyed reason beats a guessed ignition.
+ */
+function batonOption(i: QueueItem, o: BatonOption, ctx: DecodeCtx): HTMLElement {
+	const box = el('div', 'qopt');
+	const head = el('div', 'qopt-h');
+	head.append(el('span', 'olabel', o.label));
+	if (o.recommended) head.append(el('span', 'pill tone-green', 'recommended'));
+	head.append(el('span', 'src', o.source));
+	box.append(head);
+
+	if (o.blocked !== null) {
+		const bad = el('p', 'note bad');
+		words(bad, o.blocked, ctx);
+		box.append(bad);
+		return box;
+	}
+
+	const bytes = el('pre', 'summons', o.summons);
+	bytes.dataset['summons'] = 'yes';
+	box.append(bytes);
+
+	const go = button('st wide', 'compose', 'load these bytes into the composer — the knobs resolve there and your click is the ignition');
+	go.dataset['composeWith'] = o.summons;
+	go.dataset['composeFor'] = i.building;
+	const copy = button('st', 'copy', 'the instrument’s bytes, verbatim, on the clipboard');
+	copy.dataset['copyOption'] = 'yes';
+	const acts = el('div', 'qacts');
+	acts.append(go, copy);
+	box.append(acts);
+	return box;
+}
 
 /** The note box: one append to that building's ISSUES, exactly B6's gesture and nothing more. */
 function noteBox(i: QueueItem): HTMLElement {
@@ -420,7 +472,16 @@ function queueItem(i: QueueItem): HTMLElement {
 	const ctx = reading(i.doc);
 
 	const head = el('div', 'qi-h');
-	head.append(el('span', `pill tone-${QUEUE_TONE[i.kind]}`, i.kind === 'waiting' ? 'blocked on you' : i.kind));
+	const word = i.kind === 'waiting' ? 'blocked on you'
+		: i.kind === 'baton' && i.baton ? HOLDER_WORD[i.baton.holder]
+		: i.kind;
+	head.append(el('span', `pill tone-${QUEUE_TONE[i.kind]}`, word));
+	// D64's shape, beside the holder: a fork is a choice and a batch is not, and the rail has said
+	// so on its cards since B3. `plural` is the parser's missing field showing — several instruments
+	// and no word for what they are — so it is reported rather than guessed at.
+	if (i.baton && i.baton.options.length > 1)
+		head.append(el('span', 'pill tone-yellow',
+			i.baton.shape === 'plural' ? `${i.baton.options.length} instruments — shape unstated` : i.baton.shape));
 	const qname = el('span', 'qname');
 	words(qname, i.name, ctx);
 	head.append(qname);
@@ -445,7 +506,15 @@ function queueItem(i: QueueItem): HTMLElement {
 	const note = el('p', 'quiet prose');
 	words(note, i.note, ctx);
 	more.append(note);
-	if (i.kind === 'gate' || i.kind === 'escalation') more.append(noteBox(i));
+	// D10 on the item, in the words the rail uses: the parser read an instrument and the clause named
+	// Felix, so the two readings disagree and this one is his. Named, never overruled (D65).
+	if (i.baton?.collides) {
+		const bad = el('p', 'note bad');
+		words(bad, 'The clause names Felix, and D64 reads the instrument first — so the parser calls this a session baton and the prose calls it his. Ambiguity never arms (D10): the bytes are yours to read and copy.', ctx);
+		more.append(bad);
+	}
+	for (const o of i.baton?.options ?? []) more.append(batonOption(i, o, ctx));
+	if (i.kind === 'gate' || i.kind === 'escalation' || i.kind === 'baton') more.append(noteBox(i));
 	if (opened.has(i.key)) (more as HTMLDetailsElement).open = true;
 	more.dataset['openKey'] = i.key;
 	li.append(more);
@@ -935,7 +1004,45 @@ const post = async (path: string, body: unknown): Promise<[number, { ok: boolean
 	return [r.status, await r.json() as { ok: boolean; error?: string }];
 };
 
-const QUEUE_KEY = /^(note:)?(waiting|gate|countersign|escalation):/;
+const QUEUE_KEY = /^(note:)?(waiting|baton|gate|countersign|escalation):/;
+
+/**
+ * A baton's instrument, into the composer (B26 §2) — the desk's third route, from a second door.
+ *
+ * **This is not the spawning hand and it is one remove from it.** What crosses is a document's
+ * bytes; what happens next is the composer resolving stamp, tier, venue and trust *live*, with its
+ * own button behind Felix's click and behind the credential (B17 §3, D10). The queue promises the
+ * bytes and nothing else — which is exactly what D10 licenses as copy-is-reading.
+ *
+ * The building is set first, and that is not decoration: **the building names the work, the cwd is
+ * only the venue** (B17 §2). A summons composed against whatever the City happened to have selected
+ * stamps the wrong theater, which is the field report's own case — `architect-agents-03` where
+ * `architect-belvedere-02` was meant.
+ */
+function toComposer(btn: HTMLElement): void {
+	const key = btn.closest<HTMLElement>('.qi')?.dataset['key'] ?? '';
+	const text = btn.dataset['composeWith'] ?? '';
+	const building = btn.dataset['composeFor'] ?? '';
+	if (!compose.with) return say(key, 'the composer is not mounted — open the Workshop once and it is');
+	if (building) {
+		selection.building = building;
+		remember(BUILDING_KEY, building);
+	}
+	compose.with(text);
+	say(key, `${new TextEncoder().encode(text).length} B loaded as the summons — the composer resolves it, and your click is the ignition`);
+	focusOn('workshop');
+}
+
+/** Copy is reading (D10). The bytes come off the option's own `<pre>`, so what is copied is what is shown. */
+async function copyOption(btn: HTMLElement): Promise<void> {
+	const key = btn.closest<HTMLElement>('.qi')?.dataset['key'] ?? '';
+	const text = btn.closest<HTMLElement>('.qopt')?.querySelector('[data-summons]')?.textContent ?? '';
+	try {
+		await navigator.clipboard.writeText(text);
+		say(key, `${new TextEncoder().encode(text).length} B on the clipboard`);
+	}
+	catch (e) { say(key, `the clipboard refused: ${e instanceof Error ? e.message : String(e)}`); }
+}
 
 /**
  * His word, filed. One `POST /inbox` — a file append, in front of the credential gate (B6 F3), so
@@ -1019,6 +1126,14 @@ app.addEventListener('click', e => {
 
 	const ges = target.closest<HTMLElement>('[data-gesture]');
 	if (ges) { void gesture(ges); return; }
+
+	// A baton's two affordances (B26 §2), neither of which ignites: the bytes into the composer,
+	// where his click is the hand, and the bytes onto the clipboard, which is reading.
+	const into = target.closest<HTMLElement>('[data-compose-with]');
+	if (into) { toComposer(into); return; }
+
+	const copy = target.closest<HTMLElement>('[data-copy-option]');
+	if (copy) { void copyOption(copy); return; }
 
 	// A grep hit's jump sits on the ROW, never on the word (B20 F6): a click on a code word inside a
 	// result is captured and stopped by the decoder, so it decodes rather than jumping — which is the
