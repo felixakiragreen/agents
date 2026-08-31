@@ -147,6 +147,31 @@ list` showed one worktree, master's).
 **F4 — c29's typed-literals arm is still unbuilt and still unclaimed.** Untouched here
 per Out of scope; it remains a finding for the next charge that opens `lab/08`.
 
+**F5 — the agents building's lint went `ok` → 1 failure mid-session, and not by this
+charge.** The ignition's standing condition named exactly one lint failure city-wide
+(`ledger.next`, belvedere, fenced) with the agents building reading `ok`. At the close it
+reads two:
+
+```
+$ bun doctrine/cli.ts lint .
+FAIL  agents  —  3 board(s) · 48/48 rows typed · ledger 2026-08-31 · baton felix ×1 · 47 kickoff(s) · queue 0
+      [1×] ledger.row — the parenthetical holds more than a row id (D63f)
+           ~/code/agents/LEDGER.md:2402: "GA-19, continued"
+```
+
+It arrived with Felix's own commit, landed on master while this charge was in flight —
+not with the graft, which touches `lab/08/run` alone:
+
+```
+$ git log -S'GA-19, continued' --oneline -- LEDGER.md
+b232f05 C22 blessed: three forks ruled (no-prompt bare, colorless launch, venue detect) — gate paid, ignitable
+```
+
+The header reads `**2026-08-31 · Grand Architect · fable-max (GA-19, continued)**`; D63f
+wants the parenthetical to hold a row id and nothing else. Filed to `ISSUES.md`, not
+fixed — it is Felix's entry and beyond this fence. The board rows this charge wrote parse
+clean (48/48 typed); both failures are ledger-side.
+
 ---
 
 **Kickoff (verbatim):**

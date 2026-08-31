@@ -30,3 +30,9 @@ is cleared). A cleared inbox is empty.
   and left alone as beyond this charge's fence. Note: 18g's `worktree-agent-a55279e2283f84743`
   is a different branch and is **not** in this repo's list — that pointer, named unmerged on
   18g's row, appears already gone.
+- 2026-08-31 · C37's Builder · `LEDGER.md:2402` — GA-19's continuation entry heads
+  `(GA-19, continued)`, and D63f wants a bare row id in the parenthetical, so
+  `lint ~/code/agents` now reads 1 `ledger.row` failure where the agents building read `ok`
+  at this charge's ignition. It came in with `b232f05` (Felix's C22 blessing), mid-flight;
+  the graft touched `lab/08/run` alone. Not fixed — his entry, his call whether the word
+  goes or D63f widens (C37 F5).
