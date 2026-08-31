@@ -1,7 +1,9 @@
 # G1 — flow-1's close gate
 
-**Status:** OPEN — laid 2026-08-29 · **Depends on:** C29; C30; C31; C32 ·
-**Staffing:** Architect · fable-high
+**Status:** KILLED 2026-08-31 — the flow this gate closed was abandoned at Felix's
+word (belvedere D22, 2026-08-30); nothing remained to close. C29's merge — the one
+live duty here — survives as [G2](g2-c29-merge.md). Laid 2026-08-29 ·
+**Depends on:** C29; C30; C31; C32 · **Staffing:** Architect · fable-high
 
 ## Mission
 

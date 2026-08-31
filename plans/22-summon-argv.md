@@ -36,6 +36,20 @@ venue-native mechanisms:
 3. Does the preset TSV grow a venue column, or does the rig detect cmux at ignition
    time?
 
+## Notes laid 2026-08-31 (GA-19 sweep) — ride the blessing
+
+- **The coda composes too:** DOCTRINE §10 — ignition = kickoff + the project coda,
+  appended verbatim. The v3 engine did this at fire; a hand ignition ships without
+  it unless Felix pastes twice (he doesn't — C14 ignited coda-less 2026-08-30).
+  Since this charge IS the composition, the rig appends the target building's
+  `plans/CODA.md` when one exists. Costs one `cat`.
+- **`presets.tsv` is load-bearing in `lab/08`:** editing it breaks the harness in
+  typed-literal ways the 13-F1 guard does not catch — the full warning is c29's
+  finding 4 (`plans/c29-summon-harness.md` on `bv/c29-summon-harness`, merged by
+  G2). Re-derive wrap/stamp/palette literals from a real render, never by eye.
+- **Priority raised:** the deck retires (row 15, 2026-08-31) — the rig is primary
+  again; this charge is the queue's head for rig work.
+
 ## Constraints inherited
 
 - 13's name-stamp and 14's theater cycle stand — this charge touches composition only.

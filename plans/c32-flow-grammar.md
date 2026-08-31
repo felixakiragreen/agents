@@ -1,6 +1,9 @@
 # C32 — the flow grammar
 
-**Status:** OPEN — laid 2026-08-29 · **Depends on:** C31 · **Staffing:** Builder · opus-high ·
+**Status:** KILLED 2026-08-31 — flow-1 abandoned before ignition (belvedere D22, his
+word 2026-08-30); the holder-grammar scope moved to
+[C36](c36-grammar-debt.md), the rest of the D74 spec waits in this doc for the day a
+flow venue returns. Laid 2026-08-29 · **Depends on:** C31 · **Staffing:** Builder · opus-high ·
 **Blessed:** D73 + D74 ⬡✓ Felix 2026-08-29, in-session (GA-15) — the gate is paid.
 
 ## Mission

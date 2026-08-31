@@ -3,7 +3,7 @@
 		{
 			"id": "s:felix",
 			"name": "Felix",
-			"color": "blue",
+			"color": "green",
 			"type": "district",
 			"binding": null,
 			"children": [
@@ -67,19 +67,19 @@
 					]
 				},
 				{
-					"id": "b:whiteboardy",
-					"name": "",
-					"color": null,
-					"type": null,
-					"binding": "whiteboardy",
-					"children": []
-				},
-				{
 					"id": "b:hexwright",
 					"name": "",
 					"color": null,
 					"type": null,
 					"binding": "hexwright",
+					"children": []
+				},
+				{
+					"id": "b:whiteboardy",
+					"name": "",
+					"color": null,
+					"type": null,
+					"binding": "whiteboardy",
 					"children": []
 				}
 			]
