@@ -3164,7 +3164,9 @@ scrim paints over the whole app so an **open** drawer cannot be clicked at all
 ledger entry that mentions `Next:` in its own body mis-splits (F5). Both to
 ISSUES; F2 is the ask that outlives this charge — nine of the fifteen live
 batons are his and six of those say nothing is owed, and no field can tell them
-apart.
+apart. Next: ignite B24 — the baton below carries the instrument. *(This clause
+repaired 2026-08-31 at the close-out: the entry shipped without a `Next:` and
+`lint` read a dropped baton — C36 F2's find, routed back via the inbox.)*
 
 Baton — the dispatch → ignite B24 (its fenced kickoff + the coda, verbatim;
 B27 behind it, and it now inherits F6 and F2 as well as C21's filings). Felix
@@ -3264,3 +3266,25 @@ Builder session at opus-high, summons = B22's kickoff + the coda + the
 amendment naming only the two open bars) — or rule the hold non-blocking
 for B27 with the two bars riding to G6. His word in the tender's room is
 the instrument (D57's receiving-room clause).
+
+---
+
+**2026-08-31 · Architect · fable-max** — *(the close-out, at stigmergon's
+founding — no charge of this board; the summons is the canon ledger's GA-19
+baton.)* **The books are closed: Belvedere is retired (⬡, his word — "the attempt lacked
+the right foundation"), and a documented kill is a win.** Changed: canon board
+row 15 flipped IN FLIGHT → KILLED; B27 and G6 KILLED on this board (the rework
+died with the building — its un-ruled residue is named on the B27 row); the
+README leads with the retirement notice (what died, what the salvage is, where
+the post-mortem lands); the inbox swept to empty — the B26 `Next:` repair landed
+in this file (C36 F2's find), the `Baton.holder` dispatch/none render gap and
+the census `PermissionRequest` blindness (C21 F1) ride the salvage via the
+notice. G5's open baton (the B22 hold, B27, G6) is overtaken: the retirement
+kills the chain it gated. The post-mortem itself lands in stigmergon's
+cornerstone non-goals — the one place failure lessons are load-bearing; the
+salvage inputs: the v3 engine · console · fake claude · barrage, the camera +
+gates + fixture city, the census, the desk (which outlived its renderer —
+`desk/city-arrangement.json` survives this building, the law proven on its own
+grave). Decided: nothing new (the retirement and the fold-into-founding are ⬡
+rulings of 2026-08-31, on the canon ledger). Next: none — the building is
+retired; stigmergon's founding continues on the canon repo's ledger.
