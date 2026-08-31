@@ -2541,6 +2541,17 @@ commits `de5af28` · `5a2aa54` · `d4190bb` · `051aeed` · `b39b05a` · `c5b7a0
    field, B14 F2 an escalation field: **a ledger tail needs a way to say *nothing is owed* that is
    not the absence of a word.** Canon's, not Belvedere's.
 
+5. **F9 — the composer takes a baton's bytes and lands BLOCKED, and the missing piece is a
+   contract.** A fence's first line names its tier (`You are an Architect at fable-max.`, D45) and
+   `readBaton` resolves it, but `ComposeDraft` carries `mantle`/`model`/`effort` and **no tier** —
+   the tier is the server's own derivation — and `compose.with(summons)` passes text only. So the
+   plan reads `no tier: mantle "" has no preset and no model/effort chosen` until Felix clicks one
+   chip. Seeding the mantle alone is **wrong and silent**: the Architect chip's preset is
+   `fable-high` where that fence says `fable-max`, so the composer would resolve a tier the summons
+   does not name. The honest fix is a tier axis on the draft (or resolved knobs through
+   `compose.with`, which the desk also uses) — **B27's or the Architect's**, and the data is already
+   one field from the wire. Anyone else seeding that composer inherits this.
+
 Also, for anyone adding a jump or any client state to a drawn region: **it belongs in that region's
 repaint signature or the jump is a dead button** (F4, C15 F3's law arriving on cue). `queue.show()`
 set the aim and called `drawDrawer()`, whose signature is `[layout.drawer, snapshot.queue]` —

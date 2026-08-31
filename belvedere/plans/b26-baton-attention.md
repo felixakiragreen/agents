@@ -1,9 +1,9 @@
 # B26 — batons on Belvedere
 
-**Status:** OPEN (re-laid 2026-08-30 at G5 — the rail survives whole, D22 r2;
-baton semantics re-read against v3 runs; the original lay is git history) ·
-**Depends on:** — · **Staffing:** Builder · opus-high · **Blessed:**
-✓ Felix 2026-08-30 (the rework blessing)
+**Status:** **LANDED** 2026-08-31 — nothing escalated; every bar evidenced below, nine findings,
+three of them defects a real page caught that no unit test could (F4 the invisible landing, F6 the
+scrim over the whole app, F9 the tier with no field) · **Depends on:** — ·
+**Staffing:** Builder · opus-high · **Blessed:** ✓ Felix 2026-08-30 (the rework blessing)
 
 ## Goal
 
@@ -108,6 +108,12 @@ camera/shots/2026-08-31T04-27-21-728-baton-real-composer.png
   ~/code/agents/canon/mantles/architect.md, / then read ~/code/agents/belvedere/README.md (D22), …`)
   and `COMPOSE · COPY` under it. After the click the receipt on the item reads *"366 B loaded as the
   summons — the composer resolves it, and your click is the ignition"*.
+
+  **And the second frame is where F9 is visible:** Focus is the Workshop on `agents` — the baton's
+  own building, not whatever the City had selected — Action is open with the fence verbatim in the
+  summons box, and the plan above it reads `BLOCKED · no tier: mantle "" has no preset and no
+  model/effort chosen`, with the cold-hands reason under it. The bytes arrived; the tier the fence
+  names has no field to arrive in. Filed, not built (F9).
 
 - [x] A session-holder baton renders with Dispatch semantics; a
   collided/ambiguous holder renders note + copy with **zero ignite wiring**
@@ -338,6 +344,32 @@ drawer shows only on `[expand]`. That is inside B13 F5's budget (C16 measured a 
 `?b=&s=`) and it buys the byte-identity the charge asked for: what the composer receives is what the
 ledger wrote, proven page-side against the file on disk. If a later charge wants it back, the shape
 is already right — `options[].summons` is the one field to fetch on demand.
+
+**F9 — the composer receives the bytes and lands BLOCKED, because a summons names a tier and the
+draft has no tier axis. Named, not built: it is a contract change.** The landing shot is the
+evidence — the composer holding `agents`' fence verbatim, and above it:
+
+```
+SUMMON  [BLOCKED]     no tier: mantle "" has no preset and no model/effort chosen
+```
+
+The fence's own first line says `You are an Architect at fable-max.` (D45), and `BatonOption` knows
+it: `readBaton` resolves each instrument's `mantle` and `tier` and the rail composes an ignition
+from exactly those. The deck's composer cannot take them. `ComposeDraft` carries `mantle`, `model`
+and `effort` as three separate knobs and **no tier**; the tier is the server's own derivation
+(`tierParts`), and `compose.with(summons)` — B19's seam — passes text and nothing else. So the two
+honest roads are both somebody else's:
+
+  - **seed the mantle alone** — wrong, and silently: the mantle chip's preset for Architect is
+    `fable-high` while this fence says `fable-max`, so the composer would resolve a tier the summons
+    does not name, which is the ignition-composed-from-the-DOM class B17 §1 exists to forbid;
+  - **give the draft a tier axis** (or let `compose.with` carry resolved knobs, and let the server
+    resolve the tier as it already does for the rail) — correct, and a change to
+    `POST /deck/compose`'s contract and to the `compose.with` seam the desk also uses.
+
+Nothing is lost meanwhile: the bytes are there, byte-identical, and one chip-click composes them —
+but a dispatch that lands on a blocked plan is half a dispatch, and this is the half. **B27's sweep
+or the Architect's**; the data is already on the wire's own shape one field away.
 
 **F8 — `noBadges` was written out twice, and that is how the fifth class arrived half-drawn.** Two
 hand-written literals (`attention.ts`, `deck.ts`) each listed the four classes, so adding one to
