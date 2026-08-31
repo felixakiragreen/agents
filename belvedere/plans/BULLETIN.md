@@ -2482,3 +2482,10 @@ produces** — `['dot s-idle w-blocked', …]`, when a real blocked session is
 `s-needs-input w-blocked` (F4). Both filed; neither chased.
 
 (Relayed from `master`, C21 LANDED 2026-08-31 — Builder)
+
+**Tender note for G6's cut (from B23's close, 2026-08-31):** C21's seeder fix
+means a seeded session can now open the Chat — B23's four chat probes still
+point at the real census and real transcripts (`chat-scroll` mints its own run
+tree for an appendable transcript). Rebasing them onto the fixture city would
+make the family hermetic; that is a re-lay of landed probes — a small charge
+candidate for G6, not a defect in them.
