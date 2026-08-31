@@ -421,7 +421,7 @@ frontmost still `Arc` through both socket calls (B18's findings).
 
 Env: `GLASS_CITY` (default `~/code`), `CENSUS_DIR` (B1's own knob), `USAGE_DIR` (the rig's
 caches — **rendered, never fetched**), `BELVEDERE_ENV` (the
-credential), `FLOWS_DIR`, `DESK_DIR`, `GLASS_PORT` (4400) — all resolved **per call** in `paths.ts`, never frozen at
+credential), `DESK_DIR`, `GLASS_PORT` (4400) — all resolved **per call** in `paths.ts`, never frozen at
 module load: a frozen anchor is hidden state, and it cost eight test failures (B8 §4).
 Theme: [`felikai.css`](felikai.css), copied from `~/code/felix/src/felikai.css` — edit the
 source and re-copy, never fork here.
