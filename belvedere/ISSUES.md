@@ -36,3 +36,11 @@ the inbox is cleared. A cleared inbox is empty.
   changes with the sidebar." *(Referents — which surfaces are "Agents
   Presence", which chrome is "cmux nagging", the sidebar list — to pin with
   him at the G5 blessing; D20/D22's cmux-retreat is the standing frame.)*
+- 2026-08-30 · Felix · decoder bug, hovering `G5`: "G5 — unresolved · no board
+  in scope carries a charge G5 · looked at: agents — 45 charges." Two halves:
+  the honest one — G5 had no board row anywhere (un-laid, prose-only; a row is
+  laid this date, which resolves the hover) — and the suspicious one — the
+  tooltip names ONLY the canon board (45 charges) as consulted; hovered in a
+  belvedere context it should have looked at belvedere's 46 too. Check the
+  decoder's scope walk; and consider: a named-but-unlaid id could resolve to
+  its planning mention (the campaign note) instead of "unresolved".
