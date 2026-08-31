@@ -2967,3 +2967,45 @@ two-lane commit rule), an Architect tender at the batch boundary.
 Baton — the dispatch → ignite B23, B22, C20 (batch; each session's summons is
 its own fenced kickoff + the coda, verbatim; the tender convenes at the
 batch's close per the rework note).
+
+**2026-08-30 · Builder · opus-high (B22)** — hands hygiene: five of six
+candidates paid, evidenced, and the sixth stopped at the ceiling rather than
+over it. **Trust:** the flip was not where the charge sent it — `v3/engine/
+venue.ts` has always been right, and the class was alive in the *second* home,
+`glass/trust.ts`, where the composer's badge short-circuited on an
+auto-created `false` and rendered a working venue cold (F1). Both homes now
+say **only `true` decides**; the regression carries its own red (a flipped
+read beside the real one, opposite answers on one record) and pins §5's
+agreement (the inside `.claude.json`, never the legacy file). **Placement +
+attribution (B25's fold):** an ignition for a building now lands in the
+workspace Felix keeps for it — found by name, addressed by **uuid**, minted
+only when none exists, ambiguity minting fresh and auditing rather than
+guessing; a landing adds a tab and touches nothing else of his (no rename, no
+recolor); `retire()` closes only what the audit records as our mint and
+nothing was added to. The census join gained `homeOf` — **ignited-for
+outranks cwd for Belvedere-ignited sessions, cwd for everyone else** — live on
+City, Workshop and the queue. Proved in his own `belvedere` workspace: the b17
+ignition arrived as `surface:101 builder-belvedere-78` beside his five tabs
+instead of minting a sixteenth workspace, then closed (D55). **Audit anchor:**
+`desk.test.ts` anchored, and the class made unreproducible by an interlock at
+the write — under `bun test` a write aimed at `~/code/agents/summon/log/`
+throws and names the knob; the live audit is byte-identical across two full
+suite runs (160 545 B before, after run 1, after run 2). Its own first cut
+armed the real HALT from its own test (F4 — B8 F1, by the hand writing the
+guard). **Runbook:** `plans/permissionrequest-runbook.md` for G6, one command
+rather than three hand-edits, because `deploy.ts` now recognises its own
+install as an upgrade and never re-backs-up over the true original (F5). Bar:
+`bun v3/gates.ts --glass` ALL GREEN — 12 gates, glass 608/0, barrage 1000 · 50
+· 9/9, wall 213.2 s. Decided: nothing new — the placement law was blessed at
+G5 as B25's fold; **the UUID law gained a documented exception** (`workspace
+create` and `new-surface` print refs and ignore `--id-format both`, so a ref
+may not outlive the breath that made it, F8) and a widening (**a surface
+handle is resolved inside one workspace; every surface call names it** — B18
+F1's class, F3). Next: the tender's review of the parallel triple. **⬡ — the
+budget:** 6 of 6 real turns spent, not exceeded. Two evidence bars stay open:
+the b17 probe's second consecutive green run and a full `lab/b22/placement.ts`
+run after F3's fix, both re-runs of already-fixed code, ~4 turns together.
+
+Baton — Felix: the ⬡ budget fork above (grant ~4 turns for the two re-runs, or
+accept the split evidence), and the PermissionRequest ritual at G6
+(`plans/permissionrequest-runbook.md`, one command, his hand).
