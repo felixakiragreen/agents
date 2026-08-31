@@ -5,7 +5,7 @@
 
 import { describe, expect, test } from 'bun:test';
 import { readFileSync } from 'fs';
-import { join } from 'path';
+import { basename, join } from 'path';
 import {
 	batonFails, classifyBaton, parseBoards, parseDecisions, parseIssues, parseKickoffs, parseLedger,
 } from '../src/parse';
@@ -620,6 +620,25 @@ describe('the register', () => {
 		expect(staffsSessions('| ID | Work | Depends on | Staffing | Status |\n|---|---|---|---|---|\n| 01 | a | — | Digger · opus-high | OPEN |')).toBe(true);
 		expect(staffsSessions('| a | b |\n|---|---|\n| x | it carries no Staffing column, so it never counts |')).toBe(false);
 		expect(staffsSessions('Staffing lives in the tier descriptions.')).toBe(false);
+	});
+
+	test('a worktree checkout is skipped whatever its branch name is shaped like (C36 item 5)', () => {
+		// `bv/c29-summon-harness` puts TWO segments where one was assumed, so no file under the
+		// checkout ever resolved to its twin: 2 buildings → 4, 84 rows → 168, in the real city.
+		const r = lint([join(FX, 'worktree', 'repo')]);
+		expect([r.totals.buildings, r.totals.rows, r.totals.ledgers]).toEqual([1, 3, 1]);
+		expect(r.totals.worktreeCopiesSkipped).toBe(2);              // the README and LEDGER copies
+		expect(codes(r.fails)).toEqual([]);
+		// and the skip is not blanket: the branch's own BOARD.md has no mainline twin, so it stays
+		expect(r.buildings[0]!.board.flatMap(b => b.rows).map(x => x.id).sort()).toEqual(['C1', 'C2', 'C3']);
+	});
+
+	test('a building\'s board reads out of BOARD.md, the master doc carrying none (C36 item 6, D78)', () => {
+		const b = parse(join(FX, 'board-file'));
+		expect(b.files.boards.map(f => basename(f))).toEqual(['BOARD.md']);
+		expect(b.board.flatMap(x => x.rows).map(r => r.id)).toEqual(['C1', 'C2', 'C3']);
+		expect(b.fails).toEqual([]);
+		expect(b.ledgerTail!.row).toBe('C1');                        // the master doc is still prose
 	});
 
 	test('--live is a strict subset: a closed work doc\'s kickoff fail drops, the board fail stays', () => {

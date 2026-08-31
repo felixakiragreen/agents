@@ -2,3 +2,6 @@ summon/log/
 .summon-theaters
 lab/*/out/
 .claude/
+
+# the fixture worktree tree is corpus, not config (C36 item 5)
+!doctrine/fixtures/**/.claude/

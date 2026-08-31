@@ -11,7 +11,7 @@
 // FILE: `<repo>/.claude/worktrees/<branch>/<rest>` is a branch checkout of `<repo>/<rest>`
 // whenever that path exists — the ~40 stale copies vanish, the four originals stay.
 
-import { readFileSync, readdirSync, statSync } from 'fs';
+import { existsSync, readFileSync, readdirSync, statSync } from 'fs';
 import { basename, dirname, join, relative, resolve, sep } from 'path';
 import { homedir } from 'os';
 import {
@@ -74,12 +74,25 @@ export const staffsSessions = (md: string) =>
 
 type FoundFile = { path: string; dir: string; kind: 'ledger' | 'decisions' | 'issues' | 'board' | 'workdoc' | 'prose' };
 
-/** `<repo>/.claude/worktrees/<branch>/<rest>` — the branch checkout's coordinates, or null. */
+/**
+ * `<repo>/.claude/worktrees/<branch…>/<rest>` — the branch checkout's coordinates, or null.
+ *
+ * A branch name carries as many path segments as it has slashes, so where the checkout root
+ * ends is FOUND, never assumed: the split is the shallowest one whose remainder's own directory
+ * exists in the mainline. Keyed on being a worktree, never on a name shape — one segment was
+ * assumed until `bv/c29-summon-harness` took two, and every total doubled (2 buildings → 4,
+ * 84 rows → 168) because no file under it ever resolved to its twin.
+ */
 function worktreePath(p: string): { repo: string; rest: string } | null {
 	const i = p.indexOf(sep + WORKTREES + sep);
 	if (i < 0) return null;
-	const rest = p.slice(i + WORKTREES.length + 2).split(sep).slice(1).join(sep);
-	return rest === '' ? null : { repo: p.slice(0, i), rest };
+	const repo = p.slice(0, i);
+	const segs = p.slice(i + WORKTREES.length + 2).split(sep);
+	for (let k = 1; k < segs.length; k++) {
+		const rest = segs.slice(k).join(sep);
+		if (existsSync(join(repo, dirname(rest)))) return { repo, rest };
+	}
+	return null;
 }
 
 /**
