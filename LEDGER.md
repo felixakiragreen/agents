@@ -2340,3 +2340,42 @@ Baton — ⬡ → fork — rule E1, then: ignite C37 ∥ ignite C36 (kickoffs ve
 [plans/c36-grammar-debt.md](plans/c36-grammar-debt.md); parallel-safe, `lab/08/` vs
 `doctrine/`, both on the master checkout) — recommendation: rule E1 as recommended and
 run the pair.
+
+---
+
+**2026-08-31 · Builder · opus-high (C36)** — **doctrine v1.3: the grammar debt paid, seven
+items, suite 80 → 87.** The parser reads what is written instead of inferring. **Item 4, the
+splitter:** `Decided:` and `Next:` split a body only where the marker leads — opens the body,
+opens a line, or opens a sentence — with fenced and inline code masked first, and each clause
+running to the next marker; the pre-doctrine `- **Next:**` dialect leads its line, and its
+closing `**` no longer rides into the value (F6). **Item 2, the written holder (D74):**
+`Baton — <holder> → <action>` is read off the line — `⬡`/`Felix` · `the dispatch` · a named
+session — and an instrument no longer outranks the hand; the inference survives only for
+entries that write no baton line, all of them history. **Item 3:** `Next: none — <why>` parses
+as its own holder and is not a dropped baton (B26 F2, closed). **Item 1, the spent mask:** a
+charge that tends a wave is filed as a *board*, and the vocabulary arm read every board whatever
+its Status said — `plans/18-great-recut.md` landed 2026-08-29 and reported 11 dead words until
+today (**11 → 0**, city-wide 47 → 36); `isSpentWorkDoc` is not the negation of `isLiveWorkDoc`,
+because a doc with no Status line says nothing and stays a law surface. The kickoff half was
+already law and is now pinned on both spent states (F1). **Item 5, the register:** where a
+worktree's checkout root ends is found, not assumed from a name shape — `bv/c29-summon-harness`
+took two segments where one was assumed, and the fixture doubles 1 building → 2 and 3 rows → 5
+without the fix. **Item 6:** a `BOARD.md`-only building parses, proven rather than assumed.
+Six fixtures, every one red at this charge's ref. **The one unmet bar, named:** `lint
+~/code/agents` reads **1** `ledger.next` — `belvedere/LEDGER.md:3129` (B26's own entry) writes a
+conforming §11 baton and no `Next:` clause, and the old splitter was manufacturing one out of
+the entry's own quoted marker. A one-line repair, out of scope by this charge's own words
+(building-side repairs are each building's sweep) and filed. The agents building itself is 0,
+and its row moved `baton session ×2` → **`baton felix ×3`**: the root tail had been mis-splitting
+on its own quotation of `Next: none — <why>` (F3). Three field reports to `ISSUES.md`: that
+dropped baton, `c37-removal-arm.md`'s "behaviour" (F5), and the glass's two-way holder branch —
+`dispatch` and `none` render as **dropped** in belvedere today (F4). Decided: nothing — the law
+was already blessed at GA-19; this is its reader. Next: the baton below — this charge owes
+nothing further; what is left on the board was already on his pen when this session opened, and
+C36 changed none of it.
+
+Baton — ⬡ → rule E1 (C29's status; G2's recommended close and its five findings are in
+[plans/g2-c29-merge.md](plans/g2-c29-merge.md), unchanged by this charge). Behind it, in order:
+ignite C37 (kickoff verbatim in [plans/c37-removal-arm.md](plans/c37-removal-arm.md)), then
+C22's three fork rulings. Belvedere's close-out owns the one lint failure C36 exposed — it is
+that building's sweep, not a hold on anything here.
