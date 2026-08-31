@@ -35,6 +35,13 @@ that same one-computation attention model, never a second one.
 
 ## Spec
 
+0. **First act — the fixture sids (C21 F3, ruled here at the review):** the
+   fixture city's seeded session ids are not uuids and B22's sweep made
+   `glass/chat.ts` refuse them (`not a session id: "fixture-nagged"`,
+   measured), so no probe can open the Chat on a seeded session. Fix at
+   `camera/fixtures/seed.ts` — seeded sids become uuids, the readable name
+   stays the name-stamp — and re-run the standing family before building on
+   it; every session surface this charge draws inherits the fix.
 1. **The bucket.** `attention.ts` gains a baton bucket over the parsed ledger
    tails the building register already carries. Felix-holder ⇒ a needs-you queue item
    + its City badge (attention outranks recency, §3). Session-holder ⇒ the

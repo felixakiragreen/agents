@@ -70,13 +70,23 @@ bounds what may be absorbed without a new ruling.
    name workspaces by title wherever one exists, refs only where none does.
    **STOP-clause applies:** if titles cost more than the poll's remaining
    headroom (B18 F4's ~161 ms baseline) or turn structural, escalate.
-8. **The worker-env knob** (B23's find, bug-class): a Bun worker never sees
+8. **The PermissionRequest blindness (C21 F1, bug-class — MUST land here,
+   before G6's ritual):** `census.ts:113` maps `PermissionRequest →
+   'needs-input'`, but `waitingOf` gates on `s.last.ev !== 'Notification'`
+   (`attention.ts:53`) — so the moment Felix runs B22's runbook at G6, a
+   session blocked on approval would render on the City line yet raise **no
+   queue item, no badge, no ring**, re-opening the exact blindness C21
+   closed. One line plus its test; G6 verifies it before the ritual runs.
+   And **the legend's dead token (C21 F4):** `deck.client.ts:232` draws
+   `s-idle w-blocked` — a class the deck never produces; a real blocked
+   session is `s-needs-input w-blocked`. One token.
+9. **The worker-env knob** (B23's find, bug-class): a Bun worker never sees
    a `process.env` set at runtime, so a test pointing `$GLASS_CITY` at a
    fixture after start-up has `register.worker.ts` silently re-walk the real
    `~/code` (B8 F1's family, one thread along; cannot reach Felix's live
    deck — its env rides the spawn). Hand the worker its city at spawn (a
    workerData/argument, not ambient env) or refuse a mismatch loudly.
-9. **The tweak list.** Absorb entries that are visual/QoL/usability within
+10. **The tweak list.** Absorb entries that are visual/QoL/usability within
    existing surfaces — label, spacing, hover, ordering, wording,
    findability. **STOP-clause:** a tweak that changes structure, adds a
    surface, touches the fence, or contradicts a design law escalates to the
@@ -124,7 +134,7 @@ bounds what may be absorbed without a new ruling.
 ## Kill criteria
 
 None global. The STOP-clause is the row's safety valve: absorbed scope is
-bounded by §9, and this row would rather land small than rule once.
+bounded by §10, and this row would rather land small than rule once.
 
 ---
 
