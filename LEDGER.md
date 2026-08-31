@@ -2479,3 +2479,36 @@ Baton — ⬡ → single — ignite C22 (kickoff verbatim in
 [plans/22-summon-argv.md](plans/22-summon-argv.md)); the summon rig owes nothing else.
 Standing: `lint .` reads 1 failure, belvedere's `ledger.next`, fenced until that building's
 close-out.
+
+---
+
+**2026-08-31 · Grand Architect · fable-max (GA-19)** — *(the session's third act;
+this entry supersedes the two `ignite C22` batons above it.)* **C22 and 11 KILLED at
+his word**, an hour after C22's forks were ruled: C22's customer — the deck's spawn
+recipe — retired the same morning, dispatched ignition rides the v3 engine, and the
+interactive residue (one turn burned on `/color`, a coda-less hand ignition) is a
+papercut, not a foundation; 11 sat deferred-indefinitely since 08-08 with nobody
+waiting. Both docs carry documented kills; C22's fork rulings (⬡✓ 2026-08-31) and
+P2's evidence stay in its doc for any re-lay. **The rig sub-campaign is closed
+whole**: 08–10, 12–14 landed and in daily use, C29's arc closed by G2 + C37 (E1
+ruled by Felix between entries — close C29, ignite C37; 215 green on master), 11 and
+22 deliberate kills. The sweep's second pass: the two dead `worktree-agent-*`
+branches deleted (verified `git log master..X` empty ×2), the lab/08 residue
+(typed-literals arm · the `run:407` dead assertion · `count`'s silent-0) onto the
+deferred list as one future charge, the two belvedere reports routed into
+`belvedere/ISSUES.md` for the close-out, both spent batch notes and the flow-1 note
+died (D78), G2's doc header reconciled to its row (LANDED — REJECTED). Inbox cleared
+again — twice in one session. Decided: C22 + 11 KILLED (⬡; rulings live in the
+docs). Next: one summons remains that is his alone — the belvedere close-out, at his
+chosen hour.
+
+Baton — ⬡ → ignite the belvedere close-out session:
+```
+You are an Architect at fable-high.
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/architect.md,
+then read ~/code/agents/BOARD.md row 15, ~/code/agents/belvedere/README.md,
+and ~/code/agents/belvedere/ISSUES.md, and run the retirement Felix declared
+2026-08-31: the campaign closed on its own board, the v3 engine's salvage
+scoped, the deck's remains documented — a documented kill is a win.
+```

@@ -1,8 +1,14 @@
 # 22 — summon rig: the argv summons
 
-**Status:** OPEN — laid 2026-08-28 (GA-11) from Belvedere P2's escalation; ignitable ·
-**Depends on:** ⬡-gate: blessing — **paid 2026-08-31** (the three forks ruled at the
-GA-19 desk, below) · **Staffing:** Builder · opus-high
+**Status:** KILLED 2026-08-31 (⬡, at the GA-19 desk, an hour after blessing its
+forks) — the payload shrank three times since the lay: the byte-exact first-turn
+property served Belvedere P2's spawn recipe and the deck retired this morning;
+dispatched ignition rides the v3 engine, which composes kickoff + coda at fire; the
+remaining interactive pain — one turn burned on `/color`, a coda-less hand
+ignition — is a papercut, not a foundation. The fork rulings below (⬡✓ 2026-08-31)
+and P2's evidence stay recorded — a re-lay inherits them whole. Laid 2026-08-28
+(GA-11) from Belvedere P2's escalation ·
+**Depends on:** ⬡-gate: blessing — paid 2026-08-31 · **Staffing:** Builder · opus-high
 
 ## The problem — proven, not hypothesized
 
@@ -65,7 +71,7 @@ venue-native mechanisms:
 
 ---
 
-**Kickoff (verbatim — the blessing condition paid 2026-08-31; ignitable):**
+**Kickoff (verbatim — the charge is KILLED; kept for any re-lay):**
 
 ```
 You are a Builder at opus-high.

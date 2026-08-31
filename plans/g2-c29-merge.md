@@ -1,6 +1,9 @@
 # G2 — c29's merge gate
 
-**Status:** BLOCKED — E1 2026-08-31 · **Depends on:** — · **Staffing:** Architect · opus-high ·
+**Status:** LANDED 2026-08-31 — REJECTED (E1 ruled by Felix the same day: close C29,
+ignite C37 — the salvage landed at `6b795b5`, 215 green; the E1 block below stands as
+the record; header reconciled to the row at the GA-19 sweep) · **Depends on:** — ·
+**Staffing:** Architect · opus-high ·
 **Parallel-safe with:** C36
 
 > **E1 — the gate's premise is falsified; the merge is rejected; the status ruling is

@@ -1,6 +1,10 @@
 # 11 — summon rig v1.3: the live table
 
-**Status:** OPEN · **Depends on:** 10 LANDED; **⬡-gate: blessing** ·
+**Status:** KILLED 2026-08-31 (⬡, at the GA-19 desk) — deferred since 2026-08-08
+with nobody waiting; killed with C22 at the rig re-scope: three weeks dormant, its
+blessing gate never paid, and the panel it polishes works today. The lay's rulings
+and the rebase notes below stay recorded for any re-lay. ·
+**Depends on:** 10 LANDED; **⬡-gate: blessing** (never paid) ·
 **Staffing:** Builder · opus-high (confirmed at the lay — same trap class as charges
 08–10: zle, detached spawns, harness fixtures) · **Blessed:** ⟨Architect reviewed and
 laid 2026-08-08 — rulings in *The lay* below, spawn architecture reconciled with
