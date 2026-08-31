@@ -117,9 +117,16 @@ before.**
   resources, branch rules), the `Done when:`. Corrections distill in as dated amendment
   notes (simmy's `> **S0 correction (08-02).** …` blockquotes) — the doc stays current,
   the history stays visible.
-- **dream.md** exists when Felix has an origin dump — his dream for the project;
-  everything else is born from it. Immutable from the moment it lands: the master doc
-  interprets it; nobody edits it (hexwright's law; renamed from `initial.md`, D33).
+- **dream.md** exists when Felix has an origin vision — and it is **a record, not a
+  spec**: the founding interrogates it, the master doc interprets it, and where the
+  cornerstone contradicts it the master doc says so with the reasoning. A dream may
+  arrive as **drafts, co-developed at the founding sitting** — refined with Felix
+  until he calls it ready; `dream.md` lands at his word and is immutable from that
+  moment: his words, agents' hands off, git the only historian. (hexwright's law,
+  amended 2026-08-31 ⬡✓: hexwright's dream arrived mature by his own hours and the
+  law generalized from that accident; Belvedere's froze half-refined and the
+  foundation failed on the details. Co-development's ancestors: the standard's nine
+  live rounds, the charters' probe forge. Renamed from `initial.md`, D33.)
 - **ISSUES.md law (D53):** the project's incident inbox — field reports and
   distillation candidates land there mid-work: Felix's hand, or a session's at his word
   (a Fixer told to file does so and moves on). The project's Architect sweeps at every
@@ -556,8 +563,9 @@ Every session, any mantle:
 
 A new project boots onto the doctrine in one founding session:
 
-1. **Felix:** repo + `git init` (branch `master`, never main); the origin dump lands as
-   `dream.md` if one exists — immutable from that moment.
+1. **Felix:** repo + `git init` (branch `master`, never main); a finished dream may
+   land as `dream.md` at once — immutable on landing; drafts instead come to the
+   sitting (step 3).
 2. **Summon the founding Architect** — a foundational session, `fable-max` (architect
    charter staffing):
 
@@ -569,8 +577,10 @@ A new project boots onto the doctrine in one founding session:
    and <dream.md | Felix's telling>, and lay the cornerstone.
    ```
 
-3. **The founding session:** interrogate the vision — question every requirement,
-   define minimal scope, defend against creep — then instantiate from
+3. **The founding session:** where the dream arrived as drafts, **co-develop it with
+   Felix first** — interrogate, refine, correct until he calls it ready; `dream.md`
+   lands then, frozen (§3). Then — question every requirement, define minimal scope,
+   defend against creep — instantiate from
    `canon/work/templates/`: `CLAUDE.md`, the master doc with its board (first charges
    laid and staffed), `LEDGER.md` (entry one), `DECISIONS.md` (the day-one blessings:
    name, scope, non-goals — there are always some), `ISSUES.md` (empty, header only —

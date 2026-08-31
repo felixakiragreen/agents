@@ -2522,3 +2522,36 @@ cornerstone's non-goals; scope the v3 engine salvage as founding inputs;
 flip Belvedere's books (row 15 and its own board) — a documented kill is a
 win.
 ```
+
+---
+
+**2026-08-31 · Grand Architect · fable-max (GA-19)** — *(fourth act; the baton below
+supersedes the third act's.)* **The dream law amended at his challenge (⬡✓
+in-session):** the dream is **a record, not a spec** — the founding interrogates it,
+the master doc may contradict it with reasoning; drafts **co-develop at the founding
+sitting** and `dream.md` freezes when Felix calls it ready — agents' hands off, as
+ever. His evidence: hexwright's dream arrived mature by his own hours and the law
+generalized from that accident; Belvedere's froze half-refined and the foundation
+failed on the details. Ancestry: hexwright's law amended in place (DOCTRINE §3 +
+§12), no mint; co-development's ancestors are the standard's nine live rounds and
+the charters' probe forge. Stigmergon's founding re-cut to three acts: the funeral
+(his post-mortem taken fresh), the dream forge (his drafts, refined until ready),
+the cornerstone (the failures in the non-goals, the v3 salvage as inputs). Decided:
+the §3/§12 amendment (⬡✓ 2026-08-31). Next: his hand — init the repo, bring the
+drafts, paste the summons.
+
+Baton — ⬡ → ignite stigmergon's founding (repo init first; drafts in hand):
+```
+You are an Architect at fable-max.
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/architect.md,
+then read ~/code/agents/canon/work/DOCTRINE.md §§3/12 and
+~/code/agents/BOARD.md row 15, and run stigmergon's founding in three acts:
+(1) Belvedere's close-out — read ~/code/agents/belvedere/README.md and
+~/code/agents/belvedere/ISSUES.md, take Felix's post-mortem at the desk, flip
+Belvedere's books (row 15 and its own board) — a documented kill is a win;
+(2) the dream forge — co-develop Felix's drafts with him until he calls it
+ready; dream.md lands then, frozen (§3);
+(3) lay the cornerstone — the post-mortem in the non-goals, the v3 engine
+salvage scoped as inputs.
+```
