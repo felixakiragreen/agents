@@ -493,6 +493,14 @@ async function land(req: Ignite, password: string, command: string, workspace: s
 
 	const typed = await cmux(password, LIMITS.commandMs, 'send', '--workspace', workspace, '--surface', surface, command);
 	if (!typed.ok) return shed(password, surface, workspace, `send failed: ${typed.error}`);
+	// The screen is read back BEFORE Enter: characters typed at a shell that was not listening are
+	// lost silently, and an ignition that reported success over a lost line would be the worst kind
+	// of wrong — a receipt for a session that does not exist. Nothing has run yet, so a surface that
+	// does not show the line is shed and refused.
+	const echoed = await cmux(password, LIMITS.commandMs, 'read-screen', '--workspace', workspace, '--surface', surface, '--lines', '40');
+	if (!echoed.ok || !echoed.result.includes('CLAUDE_CONFIG_DIR'))
+		return shed(password, surface, workspace, `the launch line did not reach ${surface}'s shell — nothing was run`);
+
 	const entered = await cmux(password, LIMITS.commandMs, 'send-key', '--workspace', workspace, '--surface', surface, 'Enter');
 	// Past the Enter there is a live session in Felix's workspace: closing the surface would kill it,
 	// so a failed receipt is reported with the surface named, never unwound.
@@ -501,14 +509,26 @@ async function land(req: Ignite, password: string, command: string, workspace: s
 	return { ok: true, result: { workspace, minted: false, home, surface } };
 }
 
-/** A shell that has printed anything at all is a shell that can be typed at. Bounded, and it says so. */
+/**
+ * Wait until the new surface can actually be typed at, then say so — because a launch line typed
+ * into a terminal that does not exist yet is silently lost, and the ignition would report success
+ * over nothing.
+ *
+ * **A bare `Enter` is the probe, not `read-screen`.** Measured at this row: `read-screen` on a
+ * surface in a workspace nobody has selected answers `internal_error: Failed to read terminal text`
+ * forever — the terminal has no text to read until something touches it. One `send-key Enter` is
+ * harmless at a shell prompt (a blank line), it touches the terminal, and the read answers on the
+ * very next call. So the loop primes and reads, bounded, and a surface that will not answer is a
+ * refusal rather than a line typed into the dark.
+ */
 async function shellReady(password: string, workspace: string, surface: string): Promise<Outcome<string>> {
-	for (let waited = 0; waited < LIMITS.shellMs; waited += 200) {
-		const seen = await cmux(password, 5_000, 'read-screen', '--workspace', workspace, '--surface', surface, '--lines', '4');
+	for (let waited = 0; waited < LIMITS.shellMs; waited += 250) {
+		await cmux(password, 5_000, 'send-key', '--workspace', workspace, '--surface', surface, 'Enter');
+		const seen = await cmux(password, 5_000, 'read-screen', '--workspace', workspace, '--surface', surface, '--lines', '6');
 		if (seen.ok && seen.result.trim() !== '') return seen;
-		await Bun.sleep(200);
+		await Bun.sleep(250);
 	}
-	return fail(`the new surface printed nothing in ${LIMITS.shellMs} ms — its shell never came up, so the launch line was never typed`);
+	return fail(`the new surface would not answer a read in ${LIMITS.shellMs} ms — its shell never came up, so the launch line was never typed`);
 }
 
 /**

@@ -32,6 +32,15 @@ const ACCOUNT_DIR = join(homedir(), '.claude');
 const BUILDING = 'agents/b22-probe-home';                       // its last segment IS the home name
 const HOME = 'b22-probe-home';
 
+/**
+ * `B22_ONLY=land` re-measures **the landing alone**, for one ignition instead of three: the home is
+ * created with `cmux workspace create` (no `--command`, so no session and no quota) rather than by
+ * an ignition, and the two bars the landing path cannot affect — the mint and the ambiguity — are
+ * skipped, their own run's evidence standing. The mode exists because the budget is a ceiling and a
+ * ceiling is a ⬡-fork (D21), not because the full run is optional.
+ */
+const landOnly = process.env.B22_ONLY === 'land';
+
 const ROOT = mkdtempSync(join(tmpdir(), 'b22-placement-'));
 const CENSUS = join(ROOT, 'census.jsonl');
 const AUDIT = join(ROOT, 'hands.jsonl');
@@ -157,17 +166,24 @@ ok('the home under test does not exist yet — every mint below is this probe\'s
 
 // --- 1. with no home, the first ignition MINTS one named for the building ---
 
-const first = await ignite('builder-b22probe-01', BUILDING);
-const afterFirst = await named(HOME);
-ok('with no matching workspace, the first ignition mints one NAMED FOR THE BUILDING — never `workspace:N`',
-	first.ok && first.result?.minted === true && first.result.home === HOME
-	&& afterFirst.length === 1 && afterFirst[0]!.id === first.result.workspace
-	&& !/\b(?:workspace|surface):\d+\b/.test(JSON.stringify(first.result)),
-	`receipt: ${JSON.stringify(first.result ?? first.error)}\n`
-	+ `      cmux now carries ${afterFirst.length} workspace named "${HOME}": ${afterFirst.map(w => `${w.ref}/${w.id}`).join(', ')}\n`
-	+ `      the receipt's every id is a uuid — no ref survived the breath that made it (P6 F2)`);
-
-const homeUuid = first.result?.workspace ?? '';
+let homeUuid = '';
+if (landOnly) {
+	await cmux('workspace', 'create', '--name', HOME, '--cwd', VENUE, '--focus', 'false');
+	homeUuid = (await named(HOME))[0]?.id ?? '';
+	mine.workspaces.add(homeUuid);
+	console.log(`SKIP  the mint bar — B22_ONLY=land; the home was made by hand as ${homeUuid}\n`);
+} else {
+	const first = await ignite('builder-b22probe-01', BUILDING);
+	const afterFirst = await named(HOME);
+	ok('with no matching workspace, the first ignition mints one NAMED FOR THE BUILDING — never `workspace:N`',
+		first.ok && first.result?.minted === true && first.result.home === HOME
+		&& afterFirst.length === 1 && afterFirst[0]!.id === first.result.workspace
+		&& !/\b(?:workspace|surface):\d+\b/.test(JSON.stringify(first.result)),
+		`receipt: ${JSON.stringify(first.result ?? first.error)}\n`
+		+ `      cmux now carries ${afterFirst.length} workspace named "${HOME}": ${afterFirst.map(w => `${w.ref}/${w.id}`).join(', ')}\n`
+		+ `      the receipt's every id is a uuid — no ref survived the breath that made it (P6 F2)`);
+	homeUuid = first.result?.workspace ?? '';
+}
 
 // --- 2. the second ignition LANDS in the mint: same workspace, a new tab, no second mint ---
 
@@ -184,6 +200,8 @@ ok('a second ignition lands in the workspace already there — uuid-addressed, o
 
 // --- 3. an induced collision mints fresh and audits the ambiguity; neither existing one is touched ---
 
+let cleanMint: string | null = null;
+if (!landOnly) {
 const decoy = await cmux('workspace', 'create', '--name', HOME, '--cwd', '/tmp', '--focus', 'false');
 const decoyUuid = (await named(HOME)).find(w => w.id !== homeUuid)?.id ?? '';
 mine.workspaces.add(decoyUuid);
@@ -204,6 +222,8 @@ ok('two workspaces wearing one name is an ambiguity: mint fresh, audit it, touch
 	+ `      workspaces named "${HOME}": ${homes.length} — ${homes.map(w => w.id.slice(0, 8)).join(', ')}\n`
 	+ `      the audit says: ${JSON.stringify(ambiguity)}\n`
 	+ `      tabs untouched: ${homeUuid.slice(0, 8)} ${homeTabsBefore.length} → ${(await panes(homeUuid)).length} · ${decoyUuid.slice(0, 8)} ${decoyTabsBefore.length} → ${(await panes(decoyUuid)).length}`);
+cleanMint = third.result?.workspace ?? null;
+} else console.log(`SKIP  the ambiguity bar and the clean retirement — B22_ONLY=land\n`);
 
 // --- 4. the housing join: ignited-for outranks cwd, and only for what Belvedere ignited ---
 
@@ -242,26 +262,31 @@ const hands = await import('../../glass/hands.ts');
 const cred = hands.readCredential();
 if (!cred.ok) throw new Error(`the credential went away mid-run: ${cred.error}`);
 
-// Felix moves a panel into the home: from here it is his, forever (B25 §3).
+// Felix moves a panel into the home: from here it is his, forever (B25 §3). Only in a full run —
+// under `B22_ONLY=land` the home was made by hand rather than minted, so `retire` refuses it for
+// the OTHER correct reason (it is not in the audit) and this bar would be measuring the wrong law.
 await cmux('new-surface', '--type', 'terminal', '--workspace', homeUuid, '--focus', 'false');
 for (const sf of await panes(homeUuid)) mine.surfaces.add(sf);
 const keptTry = await hands.retire(homeUuid, cred.result);
-ok('a minted workspace something was added to is left standing — it has been touched, so it is his',
-	!keptTry.ok && (await workspaces()).some(w => w.id === homeUuid)
-	&& (keptTry.ok ? '' : keptTry.error).includes('surfaces'),
-	`retire(${homeUuid.slice(0, 8)}…) → ${JSON.stringify(keptTry)}\n`
-	+ `      it holds ${(await panes(homeUuid)).length} surfaces and is still on the desktop`);
+if (!landOnly)
+	ok('a minted workspace something was added to is left standing — it has been touched, so it is his',
+		!keptTry.ok && (await workspaces()).some(w => w.id === homeUuid)
+		&& (keptTry.ok ? '' : keptTry.error).includes('surfaces'),
+		`retire(${homeUuid.slice(0, 8)}…) → ${JSON.stringify(keptTry)}\n`
+		+ `      it holds ${(await panes(homeUuid)).length} surfaces and is still on the desktop`);
+else console.log(`SKIP  the kept-workspace bar — B22_ONLY=land; this home was not minted by an ignition\n`);
 
 // The third ignition's own workspace: minted, and holding only the session it was minted for.
-const clean = third.result!.workspace;
-const cleanTabs = (await panes(clean)).length;
-const retired = await hands.retire(clean, cred.result);
-ok('a workspace we minted and nothing was added to retires cleanly, audited (D55)',
-	retired.ok && !(await workspaces()).some(w => w.id === clean),
-	`it held ${cleanTabs} surface(s) — the session it was minted for, and nothing else\n`
-	+ `      retire(${clean.slice(0, 8)}…) → ${JSON.stringify(retired)}\n`
-	+ `      workspaces named "${HOME}" now: ${(await named(HOME)).length}`);
-if (retired.ok) mine.workspaces.delete(clean);
+if (cleanMint !== null) {
+	const cleanTabs = (await panes(cleanMint)).length;
+	const retired = await hands.retire(cleanMint, cred.result);
+	ok('a workspace we minted and nothing was added to retires cleanly, audited (D55)',
+		retired.ok && !(await workspaces()).some(w => w.id === cleanMint),
+		`it held ${cleanTabs} surface(s) — the session it was minted for, and nothing else\n`
+		+ `      retire(${cleanMint.slice(0, 8)}…) → ${JSON.stringify(retired)}\n`
+		+ `      workspaces named "${HOME}" now: ${(await named(HOME)).length}`);
+	if (retired.ok) mine.workspaces.delete(cleanMint);
+}
 
 // And the one law that makes the rest safe.
 const his = before[0]!;
@@ -273,8 +298,8 @@ ok('a workspace the audit does not record as OUR mint is never closed, whatever 
 
 const retireLines = readFileSync(AUDIT, 'utf8').trim().split('\n')
 	.map(l => JSON.parse(l) as { action: string }).filter(l => l.action === 'retire');
-ok('every retirement — the two refusals and the close — is in the audit',
-	retireLines.length === 3,
+ok('every retirement — refusals and closes alike — is in the audit',
+	retireLines.length === (landOnly ? 2 : 3),
 	`${retireLines.length} retire lines: ${retireLines.map(l => JSON.stringify(l)).join('\n      ')}`);
 
 }
