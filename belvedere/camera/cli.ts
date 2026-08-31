@@ -12,7 +12,7 @@
 //
 // The asymmetry between the verbs is deliberate and is the fence in argv form. Shooting a live
 // deck is a read, and a read of Felix's own running deck is legal and useful. *Interacting* with
-// one is not: a probe clicks Dispatch buttons, and a Dispatch button on the live deck fires a
+// one is not: a probe clicks Dispatch buttons, and a Dispatch button on the live deck ignites a
 // real session. So `run` refuses a foreign port in kind, and names why.
 
 import { isAbsolute, join, resolve } from 'path';
@@ -116,7 +116,7 @@ async function shoot(path: string, flags: Record<string, string>): Promise<void>
 async function run(script: string, flags: Record<string, string>): Promise<void> {
 	if (flags['port'] !== undefined) die(
 		`run refuses --port. A probe clicks, types and sends, and the only deck it may do that to is one the camera booted disarmed:\n`
-		+ `on the live deck a Dispatch button fires a real session and a send reaches a real agent (README §2 — the fence).\n`
+		+ `on the live deck a Dispatch button ignites a real session and a send reaches a real agent (README §2 — the fence).\n`
 		+ `To look at a running deck, that is what \`shoot --port\` is for: one GET and a screenshot, no clicks.`, 2);
 
 	// A probe path is read against the caller's cwd, then against `camera/` — so

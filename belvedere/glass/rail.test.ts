@@ -2,8 +2,8 @@
 //
 //  1. **The holder decides the wiring.** The Felix-card test is structural, not cosmetic: it
 //     asserts the rendered HTML carries no payload and no hands path AT ALL, and that every
-//     button on the card is a `/inbox` gesture (B6) rather than a fire. A `disabled` attribute
-//     would pass a weaker test and still be one devtools edit from a fire.
+//     button on the card is a `/inbox` gesture (B6) rather than an ignition. A `disabled` attribute
+//     would pass a weaker test and still be one devtools edit from an ignition.
 //  2. **The rail resolves; it never invents.** A row that names no work doc, a summons with no
 //     known tier, a fork whose recommendation matches no option — each must say so and offer
 //     nothing.
@@ -102,9 +102,9 @@ describe('the fork baton', () => {
 		expect(html.indexOf('recommended')).toBeLessThan(html.indexOf('Builder · opus-high'));
 	});
 
-	test('each option composes its own fire body, from its own summons line', () => {
+	test('each option composes its own ignite body, from its own summons line', () => {
 		const c = baton('probe-fork');
-		const bodies = c.shots.map(s => 'blocked' in s.fire ? null : s.fire.body);
+		const bodies = c.shots.map(s => 'blocked' in s.ignite ? null : s.ignite.body);
 		// Colours are felikai hexes now (B18 §3): the rig's `blue` (Digger) is an ANSI slot name and
 		// Felix's table reads it as felikai **orange**; its `cyan` (Builder) as felikai **blue**.
 		expect(bodies[0]).toMatchObject({ model: 'fable', effort: 'high', color: '#9e490c' });
@@ -124,7 +124,7 @@ describe('the row reference', () => {
 			+ 'then read the R1 order and build it.');
 	});
 
-	test('a work doc naming a branch composes the worktree ahead of the fire', () => {
+	test('a work doc naming a branch composes the worktree ahead of the ignition', () => {
 		const s = baton('probe-row').shots[0]!;
 		expect(s.worktree).toEqual({ repo: expect.stringContaining('probe-row'), branch: 'bv/b3-smoke' });
 		const html = cardHtml(baton('probe-row'), true, ACCOUNTS);
@@ -178,31 +178,31 @@ const synthetic = (holder: Baton['holder'], instruments: Instrument[]): Building
 	baton: { holder, text: 'Felix rules the frame.', instruments }, ledgerEntries: 1, decisions: 0,
 });
 
-const FIRE_WIRING = [/data-fire/, /data-worktree/, /data-copy/, /\/hands\//, /data-account/];
+const IGNITE_WIRING = [/data-ignite/, /data-worktree/, /data-copy/, /\/hands\//, /data-account/];
 
 /**
  * **Amended at B6, deliberately, and strictly stronger.** Until B6 this file asserted `/<button/`:
  * a Felix-card carried no button at all. B6's blessed order puts a note box — and, on a pending
  * countersign card, a Countersign button — on every card, so "no button" stopped being true while
- * the invariant it was protecting did not change: *nothing on his card may reach `/hands/fire`*.
+ * the invariant it was protecting did not change: *nothing on his card may reach `/hands/ignite`*.
  *
  * So the button check became a claim about what the buttons ARE. A `class="ges"` button posts one
  * D63 line to `/inbox`, which appends to a file a human then sweeps; it carries no summons, no
- * account, no payload a fire could ride. If a fire button ever appears on one of these cards it
- * fails both this and `FIRE_WIRING` — the weaker of the two possible regressions is still caught.
+ * account, no payload an ignition could ride. If an ignite button ever appears on one of these cards it
+ * fails both this and `IGNITE_WIRING` — the weaker of the two possible regressions is still caught.
  */
 const everyButtonIsAGesture = (html: string) =>
 	[...html.matchAll(/<button[^>]*>/g)].every(m => /class="ges[ "]/.test(m[0]));
 
 const unwired = (html: string) => {
-	for (const pattern of FIRE_WIRING) expect(html).not.toMatch(pattern);
+	for (const pattern of IGNITE_WIRING) expect(html).not.toMatch(pattern);
 	expect(everyButtonIsAGesture(html)).toBe(true);
 };
 
 describe("a Felix-holder baton is his card", () => {
 	const summons: Instrument = { kind: 'summons', text: 'You are a Digger at opus-high.', mantle: 'Digger', tier: 'opus-high' };
 
-	test('carries no fire wiring in the DOM at all — not even a disabled one', () => {
+	test('carries no ignite wiring in the DOM at all — not even a disabled one', () => {
 		const [card] = cards([synthetic('felix', [summons])], rig, ACCOUNTS[0]!);
 		const html = cardHtml(card!, true, ACCOUNTS);
 		unwired(html);
@@ -267,10 +267,10 @@ describe("a Felix-holder baton is his card", () => {
 // ---------- D10: ambiguity never arms ----------
 
 /**
- * The fire subset of `FIRE_WIRING`: everything a click could ride to `/hands/fire`. A collided
+ * The ignite subset of `IGNITE_WIRING`: everything a click could ride to `/hands/ignite`. A collided
  * card must carry none of it — while keeping the summons and the copy button, which are reading.
  */
-const FIRE_ONLY = [/data-fire/, /data-worktree/, /data-account/, /class="go"/, /\/hands\//];
+const IGNITE_ONLY = [/data-ignite/, /data-worktree/, /data-account/, /class="go"/, /\/hands\//];
 
 describe('a session baton whose clause names Felix', () => {
 	const withText = (text: string) => {
@@ -283,9 +283,9 @@ describe('a session baton whose clause names Felix', () => {
 	test("keeps the parser's holder — D10 is render law, not a second parser", () =>
 		expect(cardHtml(collided(), true, ACCOUNTS)).toContain('data-holder="session"'));
 
-	test('carries no fire wiring at all, and says which two readings collided', () => {
+	test('carries no ignite wiring at all, and says which two readings collided', () => {
 		const html = cardHtml(collided(), true, ACCOUNTS);
-		for (const pattern of FIRE_ONLY) expect(html).not.toMatch(pattern);
+		for (const pattern of IGNITE_ONLY) expect(html).not.toMatch(pattern);
 		expect(html).toContain('Ambiguity never arms (D10)');
 	});
 
@@ -299,7 +299,7 @@ describe('a session baton whose clause names Felix', () => {
 
 	test('an uncollided session baton keeps its buttons and carries no collision note', () => {
 		const html = cardHtml(withText('fire the fence below.'), true, ACCOUNTS);
-		expect(html).toContain('data-fire');
+		expect(html).toContain('data-ignite');
 		expect(html).toMatch(/<button class="go"/);
 		expect(html).not.toContain('Ambiguity never arms');
 	});
@@ -317,12 +317,12 @@ describe("the live city's collided clauses, verbatim", () => {
 	];
 
 	for (const [name, clause] of LIVE)
-		test(`${name}: zero fire wiring, note and copy intact`, () => {
+		test(`${name}: zero ignite wiring, note and copy intact`, () => {
 			const b = synthetic('session', [{ kind: 'summons', text: 'You are a Digger at opus-high.', mantle: 'Digger', tier: 'opus-high' }]);
 			const card = cards([{ ...b, baton: { ...b.baton!, text: clause } }], rig, ACCOUNTS[0]!)[0]! as Card & { kind: 'baton' };
 			expect(card.wired).toBe(false);
 			const html = cardHtml(card, true, ACCOUNTS);
-			for (const pattern of FIRE_ONLY) expect(html).not.toMatch(pattern);
+			for (const pattern of IGNITE_ONLY) expect(html).not.toMatch(pattern);
 			expect(html).toContain('Ambiguity never arms (D10)');
 			expect(html).toContain('data-copy');
 		});
@@ -333,7 +333,7 @@ describe("the live city's collided clauses, verbatim", () => {
 describe('hands disabled', () => {
 	test('the buttons exist and are disabled; the summons still reads', () => {
 		const html = cardHtml(baton('probe-row'), false, ACCOUNTS);
-		expect(html).toContain('data-fire');
+		expect(html).toContain('data-ignite');
 		expect(html).toMatch(/<button class="go"[^>]*\sdisabled>/);
 		expect(html).toContain('You are a Builder at opus-high.');
 	});
@@ -351,7 +351,7 @@ describe('the rail resolves; it never invents', () => {
 		const b: Building = { ...synthetic('session', [{ kind: 'row', row: 'Z9' }]), building: 'scratch' };
 		const [card] = cards([b], rig, ACCOUNTS[0]!);
 		const shot = (card as Card & { kind: 'baton' }).shots[0]!;
-		expect(shot.fire).toEqual({ blocked: 'no charge "Z9" on any board in scratch' });
+		expect(shot.ignite).toEqual({ blocked: 'no charge "Z9" on any board in scratch' });
 		unwired(cardHtml(card!, true, ACCOUNTS));
 	});
 
@@ -359,8 +359,8 @@ describe('the rail resolves; it never invents', () => {
 		const b = synthetic('session', [{ kind: 'summons', text: 'You are a Digger at whenever.', mantle: 'Digger', tier: null }]);
 		const [card] = cards([b], rig, ACCOUNTS[0]!);
 		const shot = (card as Card & { kind: 'baton' }).shots[0]!;
-		expect(shot.fire).toHaveProperty('blocked');
-		expect((shot.fire as { blocked: string }).blocked).toContain('no known tier');
+		expect(shot.ignite).toHaveProperty('blocked');
+		expect((shot.ignite as { blocked: string }).blocked).toContain('no known tier');
 	});
 });
 

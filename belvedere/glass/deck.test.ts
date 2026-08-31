@@ -144,8 +144,8 @@ describe('the shell — three panes, always, and nothing off this origin', () =>
 		expect(shell).toContain('id="drawer-queue"');
 	});
 
-	test('nothing in the shell can fire — no fire wiring, no summons, no stamp (D10)', () => {
-		for (const forbidden of ['/hands/fire', 'data-fire', 'data-apply', 'summons'])
+	test('nothing in the shell can ignite — no ignite wiring, no summons, no stamp (D10)', () => {
+		for (const forbidden of ['/hands/ignite', 'data-ignite', 'data-apply', 'summons'])
 			expect(shell).not.toContain(forbidden);
 	});
 

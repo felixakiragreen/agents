@@ -124,11 +124,11 @@ describe('a ⬡-gate charge is his card', () => {
 			.toBe(anon(cardOf('graveyard', 'gate'), 'graveyard'));
 	});
 
-	test('and it is his: purple, holder felix, no fire wiring', () => {
+	test('and it is his: purple, holder felix, no ignite wiring', () => {
 		const html = cardOf('standard', 'gate');
 		expect(html).toContain('data-kind="gate"');
 		expect(html).toContain('data-holder="felix"');
-		expect(html).not.toMatch(/data-fire|\/hands\//);
+		expect(html).not.toMatch(/data-ignite|\/hands\//);
 	});
 
 	test('the Workshop reads the same staffing off the same row', () => {
@@ -159,7 +159,7 @@ describe('an `ignite` baton is the fireable card `fire` was', () => {
 		expect(cardOf('graveyard', 'baton')).toContain('fire C3 — the tree is its own.');
 	});
 
-	test('and it is fireable: a session baton whose C‹n› instrument resolves to its work doc', () => {
+	test('and it is ignitable: a session baton whose C‹n› instrument resolves to its work doc', () => {
 		const card = cardsOf('standard').find(c => c.kind === 'baton')! as Card & { kind: 'baton' };
 		expect(card.baton.holder).toBe('session');
 		expect(card.wired).toBe(true);

@@ -109,7 +109,7 @@ afterAll(() => {
 const walk = (): Building[] => discover([CITY]);
 const at = (bs: Building[], suffix: string) => bs.find(b => b.path.endsWith(suffix))!;
 
-describe('needsYou — one ranked list, four classes, nothing that fires', () => {
+describe('needsYou — one ranked list, four classes, nothing that ignites', () => {
 	test('the fixture yields exactly one of each paper class, and the settled escalation is silent', () => {
 		const bs = walk();
 		const q = needsYou(bs, []);
@@ -165,8 +165,8 @@ describe('needsYou — one ranked list, four classes, nothing that fires', () =>
 		expect(item.sid).toBeNull();
 		expect(item.chat).toBe('e-1');
 		expect(item.full).toContain('Which release name');
-		// Still nothing that can fire, on this class as on every other.
-		for (const forbidden of ['summons', 'stamp', 'hands/fire'])
+		// Still nothing that can ignite, on this class as on every other.
+		for (const forbidden of ['summons', 'stamp', 'hands/ignite'])
 			expect(JSON.stringify(q)).not.toContain(forbidden);
 	});
 
@@ -177,10 +177,10 @@ describe('needsYou — one ranked list, four classes, nothing that fires', () =>
 		expect(needsYou(bs, []).filter(i => i.kind === 'gate')).toEqual([]);
 	});
 
-	test('NOTHING in the queue can fire: no summons, no stamp, no account, no cwd', () => {
+	test('NOTHING in the queue can ignite: no summons, no stamp, no account, no cwd', () => {
 		const q = needsYou(walk(), [session({ state: 'needs-input' }, { ev: 'Notification', why: 'permission_prompt' })]);
 		const wire = JSON.stringify(q);
-		for (const forbidden of ['summons', 'stamp', 'account', 'model', 'effort', 'color', 'hands/fire'])
+		for (const forbidden of ['summons', 'stamp', 'account', 'model', 'effort', 'color', 'hands/ignite'])
 			expect(wire).not.toContain(forbidden);
 	});
 });

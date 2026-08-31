@@ -1,26 +1,26 @@
 /**
- * `/summon` — the blank page, fired. The rail fires batons and the shelf fires resumes; both
+ * `/summon` — the blank page, ignited. The rail ignites batons and the shelf ignites resumes; both
  * answer "what did the city already decide?". This page answers the other question: **anything**
  * — new work, a new building, an ad-hoc sitting — with no terminal in the loop (B7's goal).
  *
  * Four laws shape it:
  *
- *  1. **Compose, then fire.** The form is inert: picking a mantle or typing a summons writes
+ *  1. **Compose, then ignite.** The form is inert: picking a mantle or typing a summons writes
  *     nothing and decides nothing. One `Compose` press re-renders the page with the resolved
  *     target, tier, name-stamp, colour, worktree plan and trust verdict, and only THAT render
- *     carries a fire button. The review of the rendered plan is the authorization (D11's shape,
- *     applied to one fire) — and the button carries the exact JSON the page is showing, never a
+ *     carries an ignite button. The review of the rendered plan is the authorization (D11's shape,
+ *     applied to one ignition) — and the button carries the exact JSON the page is showing, never a
  *     re-derivation a script assembled from the DOM.
  *  2. **The hands' own boundary decides what arms.** After composing, the body is run through
- *     `parseFire` — the very function `POST /hands/fire` parses with — and its refusal is
+ *     `parseIgnite` — the very function `POST /hands/ignite` parses with — and its refusal is
  *     rendered instead of a button. One gate, not a second copy of one (D10's family).
  *  3. **No client state and no dropdowns** (design law, README §3). Every choice is a radio in a
  *     toggled button group, so the browser holds the selection, the back button walks the
- *     history, and there is nothing to lose. The one script is the fire click, exactly as the
+ *     history, and there is nothing to lose. The one script is the ignite click, exactly as the
  *     rail and the shelf carry it.
- *  4. **A cold directory is named, never answered.** A fire into a tree the chosen account has
+ *  4. **A cold directory is named, never answered.** An ignition into a tree the chosen account has
  *     never trusted stalls on Claude's folder-trust dialog with no transcript and no census beat
- *     (B3 F2). The composer reads the trust roots, warns on the button, and renders such a fire
+ *     (B3 F2). The composer reads the trust roots, warns on the button, and renders such an ignition
  *     honestly — a workspace opened is not a session started.
  *
  * The form POSTs to this same path because the summons rides in the body: a GET would put a
@@ -34,7 +34,7 @@ import { isAbsolute, join, resolve } from 'path';
 import { MANTLES } from '../../doctrine';
 import { readCensus } from './census';
 import { pacing, readUsage, usageNote, usageStrip, type Usage } from './gauges';
-import { handsState, parseFire } from './hands';
+import { handsState, parseIgnite } from './hands';
 import { esc, label, page, pill, short, type Tone } from './html';
 import { sweepSummons } from './inbox';
 import { registerNote } from './pages';
@@ -161,12 +161,12 @@ export function targetOf(draft: Draft): Target {
 	return { path };
 }
 
-/** Slots the canon grammar leaves for Felix. A fired `<verb>` is a session with no instruction. */
+/** Slots the canon grammar leaves for Felix. An ignited `<verb>` is a session with no instruction. */
 export const slotsIn = (summons: string): string[] =>
 	(summons.match(/<[^<>\n]{1,60}>|⟨[^⟨⟩\n]{1,60}⟩/g) ?? []).slice(0, LIMITS.slots);
 
 /**
- * The worktree the fire will land in, when a branch is named. The repo is **derived, never asked
+ * The worktree the ignition will land in, when a branch is named. The repo is **derived, never asked
  * for**: `/hands/worktree` resolves its own `git rev-parse --show-toplevel`, so a second field
  * would only be a second way to get it wrong. It is resolved here too, and only here, so the
  * rendered plan names the exact path the hand will make (and the trust walk asks about that path,
@@ -194,17 +194,17 @@ export type Plan = {
 	cut: Cut | null;
 	trust: { verdict: Verdict; file: string; where: string } | null;
 	slots: string[];
-	fire: Composed;
-	refusal: string | null;       // what `parseFire` — the hands' own gate — says about this body
+	ignite: Composed;
+	refusal: string | null;       // what `parseIgnite` — the hands' own gate — says about this body
 };
 
 /**
- * The draft, resolved against disk. Every field the page prints comes from here, and the fire
- * button carries `fire.body` and nothing else.
+ * The draft, resolved against disk. Every field the page prints comes from here, and the ignite
+ * button carries `ignite.body` and nothing else.
  *
  * The stamp is minted unless the one in the field still names this lineage: an edited ordinal or
  * a hand-written suffix survives every recompose, and switching mantle or building re-mints
- * rather than firing a Builder under an Architect's name. The counter reads three sources — both
+ * rather than igniting a Builder under an Architect's name. The counter reads three sources — both
  * logs and the live census (`summon.ts` §nextStamp).
  */
 export function plan(rig: Rig, draft: Draft): Plan {
@@ -237,15 +237,15 @@ export function plan(rig: Rig, draft: Draft): Plan {
 		? (({ file, roots }) => ({ file, where: askAbout, verdict: trustOf(askAbout, { file, roots }) }))(readTrust(configDir))
 		: null;
 
-	const fire: Composed = target === null ? { blocked: targetNote }
+	const ignite: Composed = target === null ? { blocked: targetNote }
 		: compose(rig, { summons: draft.summons, mantle: draft.mantle || null, tier, cwd: target, account, stamp });
 
 	// The page arms only what the hands would accept. One boundary, asked early.
-	const checked = 'body' in fire ? parseFire(fire.body) : null;
+	const checked = 'body' in ignite ? parseIgnite(ignite.body) : null;
 
 	return {
 		draft, account, target, targetNote, tier, preset, stamp, cut, trust,
-		slots: slotsIn(draft.summons), fire,
+		slots: slotsIn(draft.summons), ignite,
 		refusal: checked && !checked.ok ? checked.error : null,
 	};
 }
@@ -278,21 +278,21 @@ const LEGEND = `<section class="legend">
 </section>`;
 
 /**
- * The composed plan, and the only place on this page a fire button can exist. Its three states are
+ * The composed plan, and the only place on this page an ignite button can exist. Its three states are
  * the legend's three: blocked (a reason, no button), warning (a button and what it will cost),
  * ready. A warning never disarms — an untrusted directory and an unfilled slot are both things
- * Felix may mean, and the glass reports rather than refuses. What DOES disarm is the hands'
- * refusal, because that fire would 400 anyway, and cold hands, because there is nothing to fire with.
+ * Felix may mean, and Belvedere reports rather than refuses. What DOES disarm is the hands'
+ * refusal, because that ignition would 400 anyway, and cold hands, because there is nothing to ignite with.
  */
 export function planCard(p: Plan, armed: boolean): string {
-	if ('blocked' in p.fire || p.refusal !== null)
+	if ('blocked' in p.ignite || p.refusal !== null)
 		return `<section class="panel tone-purple plan">
 			<h2>Nothing composed</h2>
-			<p class="prose note bad">${esc('blocked' in p.fire ? p.fire.blocked : p.refusal ?? '')}</p>
+			<p class="prose note bad">${esc('blocked' in p.ignite ? p.ignite.blocked : p.refusal ?? '')}</p>
 			<p class="prose note">Fill the form below and press <b>compose</b>. Nothing here has touched disk.</p>
 		</section>`;
 
-	const body = p.fire.body;
+	const body = p.ignite.body;
 	const cold = p.trust !== null && !p.trust.verdict.warm;
 	const warnings: string[] = [];
 	if (p.trust && !p.trust.verdict.warm)
@@ -333,7 +333,7 @@ export function planCard(p: Plan, armed: boolean): string {
 		${facts}${notes}
 		<pre class="summons" data-summons>${esc(body.summons)}</pre>
 		<div class="acts">
-			<button type="button" class="go" data-fire="${esc(JSON.stringify(body))}"${wtAttr}${coldAttr}${disabled}>ignite</button>
+			<button type="button" class="go" data-ignite="${esc(JSON.stringify(body))}"${wtAttr}${coldAttr}${disabled}>ignite</button>
 			<button type="button" class="alt" data-copy>copy summons</button>
 			<span class="out" data-out>${esc(`${Buffer.byteLength(body.summons)} B`)}</span>
 		</div>
@@ -383,10 +383,10 @@ export function form(p: Plan, rig: Rig, entries: Entry[], usages: Usage[], nowSe
 	</form>`;
 }
 
-/** The one script: fire (worktree first when the plan says so) and copy, one delegated listener. */
+/** The one script: ignite (worktree first when the plan says so) and copy, one delegated listener. */
 const SCRIPT = `<script>
 document.addEventListener('click', async ev => {
-	const btn = ev.target.closest('button[data-fire], button[data-copy]');
+	const btn = ev.target.closest('button[data-ignite], button[data-copy]');
 	if (!btn) return;
 	const card = btn.closest('.plan'), out = card.querySelector('[data-out]');
 	const text = card.querySelector('[data-summons]').textContent;
@@ -400,7 +400,7 @@ document.addEventListener('click', async ev => {
 		return [r.status, await r.json()];
 	};
 	btn.disabled = true;
-	const body = JSON.parse(btn.dataset.fire);
+	const body = JSON.parse(btn.dataset.ignite);
 	try {
 		if (btn.dataset.worktree) {
 			out.textContent = 'worktree…';
@@ -409,9 +409,9 @@ document.addEventListener('click', async ev => {
 			body.cwd = r.result.path;
 			out.textContent = 'worktree ' + r.result.path + ' · igniting…';
 		} else out.textContent = 'igniting…';
-		const [code, r] = await post('fire', body);
+		const [code, r] = await post('ignite', body);
 		if (!r.ok) { out.textContent = code + ' ' + r.error; btn.disabled = false; return; }
-		// A stalled fire is a stalled fire: a cold directory opens a workspace and stops at the
+		// A stalled ignition is a stalled ignition: a cold directory opens a workspace and stops at the
 		// trust dialog, so it must never read as a session that started (B7 §amendment).
 		out.textContent = btn.dataset.cold
 			? 'opened ' + r.result.workspace + ' · WAITING on Claude\\'s trust prompt — jump in and answer it; nothing has been read'

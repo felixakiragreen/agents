@@ -3,7 +3,7 @@
 // **Encapsulation is a derivation, never an invention** (B9 §3): the name a card leads with must be
 // text the document already wrote, and a text with no name must render whole rather than be cut to
 // fit. A cropped truth on the rail is worse than a long one — Felix reads these cards to decide
-// what to fire.
+// what to ignite.
 
 import { expect, test, describe } from 'bun:test';
 import { encap, encapHtml, legend, mantleKeys } from './html';
@@ -46,10 +46,10 @@ describe('encap — the name a card leads with', () => {
 	});
 
 	test('the [expand] carries the WHOLE text, name included — nothing is only in the summary', () => {
-		const html = encapHtml('B4: hands — /fire /worktree /focus /halt, and the credential', '/', 'rail-text');
+		const html = encapHtml('B4: hands — /ignite /worktree /focus /halt, and the credential', '/', 'rail-text');
 		expect(html).toContain('<p class="encap">B4: hands</p>');
 		expect(html).toContain('<summary>expand</summary>');
-		expect(html).toContain('B4: hands — /fire /worktree /focus /halt, and the credential');
+		expect(html).toContain('B4: hands — /ignite /worktree /focus /halt, and the credential');
 	});
 
 	test('the disclosure is the browser\'s: no script, no state, no client JSON', () => {

@@ -6,7 +6,7 @@
 // element building, ages that keep ageing, the repaint gate, browser storage, the dot vocabulary,
 // and the one renderer for prose the server parsed into spans.
 //
-// **Nothing in here fetches, decides urgency, or fires.** It builds DOM out of what it is handed.
+// **Nothing in here fetches, decides urgency, or ignites.** It builds DOM out of what it is handed.
 
 import { detect, key as tokenKey } from './decode';
 import type { DeckSession, Prose, Span } from './deck-model';

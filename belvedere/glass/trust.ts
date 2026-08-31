@@ -1,10 +1,10 @@
 /**
  * Claude Code's folder-trust dialog — read, and never answered.
  *
- * A fire into a tree the account has never trusted launches, puts the summons in argv, and then
+ * An ignition into a tree the account has never trusted launches, puts the summons in argv, and then
  * sits forever on *"Quick safety check: Is this a project you created or one you trust?"* — no
- * first user turn, no transcript, no census beat (B3 F2, re-measured here). The glass must never
- * answer that dialog; the honest move is to warn on the fire button and to render such a fire as
+ * first user turn, no transcript, no census beat (B3 F2, re-measured here). Belvedere must never
+ * answer that dialog; the honest move is to warn on the ignite button and to render such an ignition as
  * what it is: a workspace waiting on a question only Felix may answer.
  *
  * **Trust is per account.** Every silo keeps its own `<config-dir>/.claude.json`, so the same
@@ -18,14 +18,14 @@
  *   · every one of the **36 trust entries** across the three accounts sits exactly on a project
  *     root — not one is a subdirectory of the project it names;
  *   · a plain directory inherits an ancestor's blanket trust: `~/code` is trusted for `personal`,
- *     and a fire into `~/code/b7-founding-probe` (no repo) reached its first user turn and beat
+ *     and an ignition into `~/code/b7-founding-probe` (no repo) reached its first user turn and beat
  *     the census ten times;
  *   · **a repository does not**: `~/code/b7-scratch-repo`, a fresh `git init` in that same
  *     trusted `~/code`, stalled with zero census beats and no transcript — and so did a worktree
  *     under it;
  *   · a worktree inherits its repo's trust, because `--git-common-dir` resolves a linked worktree
- *     to the main repo's `.git` — which is why B3's fire into `agents/.claude/worktrees/…` needed
- *     no prompt while this row's identical fire under an untrusted repo did.
+ *     to the main repo's `.git` — which is why B3's ignition into `agents/.claude/worktrees/…` needed
+ *     no prompt while this row's identical ignition under an untrusted repo did.
  *
  * Cross-checked against the live city: all **9** live sessions carrying a cwd are warm under this
  * rule, and a running session is warm by construction — a single "cold" would have falsified it.

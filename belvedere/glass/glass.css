@@ -356,7 +356,7 @@ pre.doc {
 .gesture .summons { margin-top: 7px; max-height: 15em; overflow-y: auto; }
 .gesture .more > summary { margin-top: 8px; }
 
-/* A gesture is never a fire: it wears the sovereign's colour, not the dispatch green. */
+/* A gesture is never an ignition: it wears the sovereign's colour, not the dispatch green. */
 button.ges { color: var(--grey-250); border-color: var(--grey-650); }
 button.ges:hover:not(:disabled) { border-color: var(--felix); color: var(--felix); }
 button.ges.apply { color: var(--felix); border-color: color-mix(in srgb, var(--felix) 50%, transparent); }
@@ -401,7 +401,7 @@ input.pick:focus-visible + label.btn { outline: 1px solid var(--blue-300); outli
 }
 .composer input.path:focus, .composer textarea.summons-in:focus { outline: none; border-color: var(--felix); }
 
-/* the composed plan — the only place on the page a fire button may exist */
+/* the composed plan — the only place on the page an ignite button may exist */
 .plan { border-left: 3px solid var(--t); }
 .plan h2 { color: var(--t); }
 .plan .kv .label { flex: 0 0 6ch; }

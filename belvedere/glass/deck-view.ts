@@ -66,8 +66,8 @@ export const selection: {
 	building: string | null;
 	session: string | null;
 	/**
-	 * A name-stamp the deck has just fired and is waiting for the census to name (B16 §1, keel §5:
-	 * *"summoning swaps in the Chat"*). A fire answers a workspace and **no session id** (B11 F2), so
+	 * A name-stamp the deck has just ignited and is waiting for the census to name (B16 §1, keel §5:
+	 * *"summoning swaps in the Chat"*). An ignition answers a workspace and **no session id** (B11 F2), so
 	 * the stamp is the join, and the Chat latches the moment a beat carries it. Null the rest of the
 	 * time; never a target, only a promise of one.
 	 */

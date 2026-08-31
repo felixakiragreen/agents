@@ -40,7 +40,7 @@ export function readRig(): Rig {
 	return { accounts, colours, tiers, mantles: [...colours.keys()].sort((a, b) => b.length - a.length) };
 }
 
-/** The census carries `CLAUDE_CONFIG_DIR` verbatim; unset means a session the rig did not fire. */
+/** The census carries `CLAUDE_CONFIG_DIR` verbatim; unset means a session the rig did not ignite. */
 export const accountLabel = (rig: Rig, configDir: string | null): string | null =>
 	configDir === null ? null : rig.accounts.get(abs(configDir)) ?? configDir;
 

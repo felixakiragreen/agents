@@ -7,13 +7,13 @@
 // defaults). A `path:line` reference anywhere in this pane opens the viewer **at that line, marked**
 // — the third item of the field report, which is the whole reason this pane has a viewer at all.
 //
-// **Nothing here fires.** One wire leaves this file: `POST /hands/focus`, his eyes moving to a
-// panel. The fire hand is unreachable from this pane, and `lab/b15/probe.ts` greps this source for
+// **Nothing here ignites.** One wire leaves this file: `POST /hands/focus`, his eyes moving to a
+// panel. The ignite hand is unreachable from this pane, and `lab/b15/probe.ts` greps this source for
 // its path to keep it that way (D10) — which is why the path is not spelled out anywhere in this
 // file, comments included.
 //
 // **Amended at B17:** the Action pane this tenant owns now holds the *composer*, which is the one
-// surface on the deck that may fire (Action follows Focus, keel §3). So the bundle carries that
+// surface on the deck that may ignite (Action follows Focus, keel §3). So the bundle carries that
 // path once, from `composer.client.ts` and from nowhere else — the grep moved from the bundle to
 // the sources, which is strictly stronger: it names WHICH file may reach it (B17 F1).
 

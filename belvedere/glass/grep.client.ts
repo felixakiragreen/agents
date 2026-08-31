@@ -6,7 +6,7 @@
 // the Workshop's viewer or in the desk's editor, and each of those is somebody else's surface (B16
 // F8's law: a tenant asks the shell, it never reaches into another tenant).
 //
-// **Nothing here fires.** One wire leaves this file, `GET /deck/grep`, and it is a read.
+// **Nothing here ignites.** One wire leaves this file, `GET /deck/grep`, and it is a read.
 
 import type { DeckSnapshot, GrepAnswer, GrepGroup, GrepHit } from './deck-model';
 import { el, liveName, reading, stamp, words } from './deck-dom';

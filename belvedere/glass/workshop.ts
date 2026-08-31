@@ -7,8 +7,8 @@
  * files and lines into `DocRef`s, and the encapsulation-first name onto every piece of prose — done
  * once, server-side, where the filesystem is, so the client can build DOM and know nothing.
  *
- * **Nothing here writes and nothing here fires.** The Workshop's only wire is `POST /hands/focus`
- * (his eyes, a jump); the string `hands/fire` does not appear in this file or in what it produces.
+ * **Nothing here writes and nothing here ignites.** The Workshop's only wire is `POST /hands/focus`
+ * (his eyes, a jump); the string `hands/ignite` does not appear in this file or in what it produces.
  */
 
 import type { Board, BoardRow, Building, Decision, Fail, Issue, LedgerEntry } from '../../doctrine';

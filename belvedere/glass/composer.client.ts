@@ -8,17 +8,17 @@
  *  1. **One logic, round-tripped.** Resolution is `POST /deck/compose`, server-side, where the
  *     register, the trust files, the lineage logs and `git` are (`deck-composer.ts` §mechanism).
  *     This file holds knobs and draws answers; it derives nothing, so there is no second copy to
- *     drift. **The bytes it fires are the bytes it was handed** — never a re-derivation assembled
+ *     drift. **The bytes it ignites are the bytes it was handed** — never a re-derivation assembled
  *     from the DOM.
  *  2. **The building names the work, the cwd is only the venue.** The building is the City's
  *     selection — the deck's one cross-pane fact (keel §3's ontology) — so clicking `agents/belvedere`
- *     and firing at `~/code/agents` stamps `…-belvedere-NN`. That is the field report's own case,
+ *     and igniting at `~/code/agents` stamps `…-belvedere-NN`. That is the field report's own case,
  *     closed at the model.
  *  3. **Ambiguity never arms** (D10). The button exists only on a resolved plan the hands' own
- *     `parseFire` accepted, with the credential armed; every knob move disarms it until the next
- *     answer lands, because a button wired to a stale plan is a fire nobody reviewed.
+ *     `parseIgnite` accepted, with the credential armed; every knob move disarms it until the next
+ *     answer lands, because a button wired to a stale plan is an ignition nobody reviewed.
  *
- * **This is the one file on the deck that may reach `/hands/fire`** — and it is why every other
+ * **This is the one file on the deck that may reach `/hands/ignite`** — and it is why every other
  * tenant's DoD greps its own source for that string rather than the bundle (B17 F1). Everything
  * else on this deck reads, gestures, or moves his eyes.
  */
@@ -121,14 +121,14 @@ async function fetchUsage(): Promise<void> {
 	draw();
 }
 
-// ---------- the fire: the one wire on this deck that spawns ----------
+// ---------- the ignition: the one wire on this deck that spawns ----------
 
-async function doFire(): Promise<void> {
+async function doIgnite(): Promise<void> {
 	const p = plan;
-	if (!p?.fire || !p.handsArmed) return;
+	if (!p?.ignite || !p.handsArmed) return;
 	// The body the page is showing, not one rebuilt from it. The only field that moves is the cwd,
 	// and only because the worktree does not exist until the hand makes it (B7's proven order).
-	const body = { ...p.fire };
+	const body = { ...p.ignite };
 	say('composer', 'igniting…');
 	try {
 		if (p.worktree) {
@@ -139,16 +139,16 @@ async function doFire(): Promise<void> {
 			say('composer', `worktree ${cut.result.path} · igniting…`);
 		}
 		const r = await post<{ ok: boolean; error?: string; result?: { workspace: string; sha: string | null; bytes: number } }>(
-			'/hands/fire', body);
+			'/hands/ignite', body);
 		if (!r.ok || !r.result) return say('composer', `refused — ${r.error ?? 'no result'}`);
 		const same = r.result.sha === p.sha;
-		// A stalled fire is a stalled fire: a cold venue opens a workspace and stops at the trust
+		// A stalled ignition is a stalled ignition: a cold venue opens a workspace and stops at the trust
 		// dialog, so it must never read as a session that started (B7's amendment).
 		say('composer', p.trust && !p.trust.warm
 			? `opened ${r.result.workspace} · WAITING on Claude's folder-trust prompt — jump in and answer it; nothing has been read`
 			: `ignited ${r.result.workspace} · ${body.stamp} · ${r.result.bytes} B · sha ${r.result.sha}`
 				+ ` · ${same ? 'identical to the previewed bytes' : `DIFFERS from the previewed ${p.sha}`}`);
-		// *"Summoning swaps in the Chat"* (keel §3, B16 §1). A fire answers a workspace and **no
+		// *"Summoning swaps in the Chat"* (keel §3, B16 §1). An ignition answers a workspace and **no
 		// session id** (B11 F2), so what is handed over is the name-stamp — the Chat waits for the
 		// census to name it and latches then, rather than pointing at whatever is newest. Through the
 		// seam's own cells, so this file gains no import and the tenants keep their registration order.
@@ -279,7 +279,7 @@ function planCard(): HTMLElement {
 	card.dataset['cwd'] = p.worktree?.path ?? p.cwd ?? '';
 	card.dataset['sha'] = p.sha;
 	card.dataset['bytes'] = String(p.bytes);
-	card.dataset['account'] = p.fire?.account ?? '';
+	card.dataset['account'] = p.ignite?.account ?? '';
 	const head = el('div', 'plan-h');
 	head.append(el('span', `pill tone-${p.warnings.length ? 'orange' : 'green'}`, p.warnings.length ? 'read the warnings' : 'ready'));
 	const swatch = el('span', 'swatch');
@@ -310,9 +310,9 @@ function acts(): HTMLElement {
 	const go = button('go', 'ignite', 'spawn the session this plan describes') as HTMLButtonElement;
 	// D10, structurally: no plan, a refusal, or cold hands and there is nothing to press. The button
 	// is disabled rather than absent so the affordance's *state* is readable at a glance.
-	go.disabled = !p?.fire || !p.handsArmed;
+	go.disabled = !p?.ignite || !p.handsArmed;
 	go.dataset['armed'] = go.disabled ? 'no' : 'yes';
-	go.addEventListener('click', () => void doFire());
+	go.addEventListener('click', () => void doIgnite());
 	const copy = button('alt', 'copy summons', 'copying is reading — the gate stays Felix\'s');
 	copy.addEventListener('click', () => {
 		void navigator.clipboard.writeText(plan?.summons ?? '')

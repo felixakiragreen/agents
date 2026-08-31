@@ -1,7 +1,7 @@
 /**
  * The composer, server side — **Action at rest** (keel §3, B17).
  *
- * v0's `/summon` proved the shape: compose, read the plan, then fire. The deck keeps every law of
+ * v0's `/summon` proved the shape: compose, read the plan, then ignite. The deck keeps every law of
  * it and changes two things.
  *
  * **1. The resolution is round-tripped, and that is the named mechanism** (B17 §2). Every knob move
@@ -17,8 +17,8 @@
  * used the answer for two ("what is it about?"). Here they are two knobs. The cwd stays the venue;
  * it stops naming the work.
  *
- * **Nothing here writes.** It reads, it composes, and it hands back a body — the fire itself is
- * `POST /hands/fire`'s, behind the credential gate, exactly as it has always been.
+ * **Nothing here writes.** It reads, it composes, and it hands back a body — the ignition itself is
+ * `POST /hands/ignite`'s, behind the credential gate, exactly as it has always been.
  */
 
 import { createHash } from 'crypto';
@@ -29,8 +29,8 @@ import { MANTLES } from '../../doctrine';
 import { readCensus } from './census';
 import { cmuxColor } from './colors';
 import { applyTemplate, slotsIn, TEMPLATES, worktreeCut, type Draft } from './composer';
-import type { ComposeDraft, ComposePlan, ComposeWarning, FireWire, MantleChip } from './deck-model';
-import { handsState, parseFire } from './hands';
+import type { ComposeDraft, ComposePlan, ComposeWarning, IgniteWire, MantleChip } from './deck-model';
+import { handsState, parseIgnite } from './hands';
 import { register } from './register';
 import { sanitizeSummons } from './sanitize';
 import { readRig, type Rig } from './rig';
@@ -131,8 +131,8 @@ export function templateBody(key: string, mantle: string, tier: string, target: 
 }
 
 /**
- * The whole resolution. Every field the page prints comes from here, and the fire button posts
- * `fire` and nothing else.
+ * The whole resolution. Every field the page prints comes from here, and the ignite button posts
+ * `ignite` and nothing else.
  *
  * The order matters and is the order a reader would ask in: which building, so the theater is
  * known; which venue, so trust and the worktree can be asked about; which mantle and tier, so the
@@ -211,7 +211,7 @@ export function composePlan(draft: ComposeDraft, clicked = ''): ComposePlan {
 	const spoken = d.template ? templateBody(d.template, d.mantle, tier, building?.path ?? null) : null;
 
 	// The bytes, sanitized exactly once and exactly as the hands sanitize them — so the `<pre>` on
-	// the page, the JSON the button posts and the file the fire writes are one string with one sha.
+	// the page, the JSON the button posts and the file the ignition writes are one string with one sha.
 	const summons = sanitizeSummons(spoken ?? d.summons);
 	const color = colourOf(rig, d.mantle);
 	const slots = slotsIn(summons);
@@ -224,21 +224,21 @@ export function composePlan(draft: ComposeDraft, clicked = ''): ComposePlan {
 
 	/**
 	 * The body carries the **venue**, never the worktree path: the cut does not exist until the
-	 * hand makes it, and a body naming a directory that is not there is a body `parseFire` refuses.
+	 * hand makes it, and a body naming a directory that is not there is a body `parseIgnite` refuses.
 	 * The client cuts first and swaps in the path the hand answers with — B7's proven order.
 	 */
-	const body: FireWire | null = blocked === null && cwd !== null
+	const body: IgniteWire | null = blocked === null && cwd !== null
 		? { account, stamp, cwd, model, effort, color, summons }
 		: null;
 
 	// The hands' own boundary decides what arms — one gate, asked early, not a second copy of one
 	// (D10's family).
-	const checked = body === null ? null : parseFire(body);
+	const checked = body === null ? null : parseIgnite(body);
 	const refusal = checked && !checked.ok ? checked.error : null;
 
 	const hands = handsState();
 	return {
-		// The draft as resolved: a sticky template's words come back so the box shows what will fire.
+		// The draft as resolved: a sticky template's words come back so the box shows what will ignite.
 		draft: { ...d, summons: spoken ?? d.summons },
 		accounts, mantles: mantleChips(rig),
 		templates: TEMPLATES.map(t => ({ key: t.key, name: t.name })),
@@ -247,7 +247,7 @@ export function composePlan(draft: ComposeDraft, clicked = ''): ComposePlan {
 		worktree, worktreeNote, trust, slots,
 		summons, bytes: Buffer.byteLength(summons),
 		sha: createHash('sha256').update(summons).digest('hex').slice(0, 16),
-		fire: refusal === null ? body : null,
+		ignite: refusal === null ? body : null,
 		blocked: blocked ?? refusal,
 		warnings: warningsOf({ trust, slots, worktreeNote, model, building, cwd }),
 		// **Read, never fetched, on this path** (B17 §4): the composer answers a knob move, and a knob
@@ -285,8 +285,8 @@ const json = (body: unknown, status: number) =>
 	Response.json(body, { status, headers: { 'cache-control': 'no-store' } });
 
 /**
- * What will fire and deserves a second look. **A warning never disarms** (B7's three states): an
- * untrusted directory and an unfilled slot are both things Felix may mean, and the glass reports
+ * What will ignite and deserves a second look. **A warning never disarms** (B7's three states): an
+ * untrusted directory and an unfilled slot are both things Felix may mean, and Belvedere reports
  * rather than refuses. What disarms is `blocked` — the hands' refusal, or nothing to compose.
  */
 function warningsOf(o: {

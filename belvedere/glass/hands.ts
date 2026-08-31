@@ -1,7 +1,7 @@
 /**
  * The hands — the fence's write powers, and nothing else (README §2, D3).
  *
- *   POST /hands/fire      spawn a session, the summons already landed as its first user turn
+ *   POST /hands/ignite    spawn a session, the summons already landed as its first user turn
  *   POST /hands/worktree  a branch checkout under `.claude/worktrees/` (DOCTRINE §10)
  *   POST /hands/focus     jump Felix's eyes to a live session's panel
  *   POST /hands/halt      touch the HALT flag
@@ -11,7 +11,7 @@
  * Three laws hold this file down:
  *
  *  1. **Parse at the boundary.** Every request arrives as `unknown` and leaves this module's
- *     top half as a trusted `Fire`/`Worktree`/`Focus`/`Halt`, or as an error string. Below the
+ *     top half as a trusted `Ignite`/`Worktree`/`Focus`/`Halt`, or as an error string. Below the
  *     parse line, nothing re-checks anything.
  *  2. **Errors are values.** No hand throws for a refusal — a taken branch, a dead socket and
  *     an absent credential are all `{ ok: false, error }`. The one deliberate exception is the
@@ -97,20 +97,20 @@ const UUID = /^[0-9a-fA-F-]{8,64}$/;                     // session ids and cmux
 const BRANCH = /^[A-Za-z0-9][A-Za-z0-9._\/-]{0,79}$/;    // git-legal enough; `..` is refused below
 
 /**
- * A fire, or a resume — one hand, because both are "spawn a session" and the fence has one line
- * for that (D3). What separates them is `resume`, and one rule follows from it:
+ * An ignition, or a resume — one hand, because both are "spawn a session" and the fence has one
+ * line for that (D3). What separates them is `resume`, and one rule follows from it:
  *
- * **On a resume, a field the glass does not know is omitted from argv, never guessed.** A dead
+ * **On a resume, a field Belvedere does not know is omitted from argv, never guessed.** A dead
  * transcript carries its own uuid and (sometimes) its own name-stamp; it does not carry the tier
  * it ran at, and it certainly does not carry a next instruction. So on a resume `stamp`, `model`,
  * `effort` and `summons` may all be empty, and each empty one drops its flag — claude comes back
- * on the session's own settings. On a fresh fire every one of them is still required.
+ * on the session's own settings. On a fresh ignition every one of them is still required.
  *
  * The summons is the sharp end: `/shelf` exists so Felix can **stand in** a session, and a resume
  * that injected a first user turn would wake a three-week-dead agent and set it working with no
  * instruction. That is the self-inflicted DoS this row was cut to prevent, not a convenience.
  */
-export type Fire = {
+export type Ignite = {
 	account: string; stamp: string; cwd: string; model: string; effort: string;
 	color: string; summons: string; resume: string | null;
 };
@@ -145,30 +145,30 @@ function directory(path: string, what: string): string | null {
 	return null;
 }
 
-/** Required on a fresh fire; on a resume, empty is legal and means "leave it as the session had it". */
+/** Required on a fresh ignition; on a resume, empty is legal and means "leave it as the session had it". */
 const known = (value: string, re: RegExp, what: string, optional: boolean): string | null =>
 	optional && value === '' ? null : re.test(value) ? null : `${what} must match ${re} — got "${value}"`;
 
-export function parseFire(raw: unknown): Outcome<Fire> {
+export function parseIgnite(raw: unknown): Outcome<Ignite> {
 	if (typeof raw !== 'object' || raw === null) return fail('body must be a JSON object');
 	const r = raw as Record<string, unknown>;
-	const fire: Fire = {
+	const ignite: Ignite = {
 		account: field(r, 'account'), stamp: field(r, 'stamp'), cwd: field(r, 'cwd'),
 		model: field(r, 'model'), effort: field(r, 'effort'), color: field(r, 'color'),
 		summons: field(r, 'summons'), resume: field(r, 'resume') || null,
 	};
-	if (fire.resume !== null && !UUID.test(fire.resume)) return fail(`resume must be a session id — got "${fire.resume}"`);
-	const resuming = fire.resume !== null;
+	if (ignite.resume !== null && !UUID.test(ignite.resume)) return fail(`resume must be a session id — got "${ignite.resume}"`);
+	const resuming = ignite.resume !== null;
 	// The colour is never optional: it is a property of the workspace this call is about to make,
 	// not of the session it is reviving, so there is nothing to leave alone.
-	const bad = known(fire.stamp, STAMP, 'stamp', resuming)
-		?? known(fire.model, MODEL, 'model', resuming)
-		?? known(fire.effort, EFFORT, 'effort', resuming)
-		?? (COLOR.test(fire.color) ? null : `color must be a cmux colour name or #rrggbb — got "${fire.color}"`)
-		?? (!resuming && fire.summons === '' ? 'summons is empty — the fire IS the summons' : null)
-		?? (Buffer.byteLength(fire.summons) > LIMITS.summonsBytes ? `summons exceeds ${LIMITS.summonsBytes} bytes` : null)
-		?? directory(fire.cwd, 'cwd');
-	return bad ? fail(bad) : { ok: true, result: fire };
+	const bad = known(ignite.stamp, STAMP, 'stamp', resuming)
+		?? known(ignite.model, MODEL, 'model', resuming)
+		?? known(ignite.effort, EFFORT, 'effort', resuming)
+		?? (COLOR.test(ignite.color) ? null : `color must be a cmux colour name or #rrggbb — got "${ignite.color}"`)
+		?? (!resuming && ignite.summons === '' ? 'summons is empty — the ignition IS the summons' : null)
+		?? (Buffer.byteLength(ignite.summons) > LIMITS.summonsBytes ? `summons exceeds ${LIMITS.summonsBytes} bytes` : null)
+		?? directory(ignite.cwd, 'cwd');
+	return bad ? fail(bad) : { ok: true, result: ignite };
 }
 
 export function parseWorktree(raw: unknown): Outcome<Worktree> {
@@ -261,7 +261,7 @@ const parseRef = (out: string): string | null => out.match(/\b((?:workspace|surf
 // ---------- the four hands ----------
 
 /** `summonsPath`/`sha` are null on a resume: there was no first user turn to write or to prove. */
-export type Fired = { workspace: string; summonsPath: string | null; sha: string | null; bytes: number };
+export type Ignited = { workspace: string; summonsPath: string | null; sha: string | null; bytes: number };
 
 /**
  * The launch, as one shell line. The summons travels by file and is read back by `"$(cat …)"`,
@@ -269,11 +269,11 @@ export type Fired = { workspace: string; summonsPath: string | null; sha: string
  * a live TUI (T4). Every interpolation is single-quoted even where the parse already proved it
  * inert: a quoting rule with an exception is a quoting rule nobody can check by eye.
  *
- * An empty field drops its flag — the resume law (§Fire). `summonsPath` is null exactly when
+ * An empty field drops its flag — the resume law (§Ignite). `summonsPath` is null exactly when
  * there is no first user turn, and the line then ends at the last flag: `claude --resume <uuid>`,
  * which is the shape cmux's own restore binding re-execs (P4 §R).
  */
-export function launchCommand(req: Fire, configDir: string, summonsPath: string | null): string {
+export function launchCommand(req: Ignite, configDir: string, summonsPath: string | null): string {
 	const flags: string[] = [];
 	if (req.model) flags.push('--model', req.model);
 	if (req.effort) flags.push('--effort', req.effort);
@@ -284,25 +284,25 @@ export function launchCommand(req: Fire, configDir: string, summonsPath: string 
 }
 
 /**
- * The cmux workspace's label. A fresh fire is its name-stamp; a resume of a session that never
+ * The cmux workspace's label. A fresh ignition is its name-stamp; a resume of a session that never
  * had one is named after the transcript it is reviving, because a workspace called `""` is a
- * workspace Felix cannot find and the glass will not invent him a lineage he did not fire.
+ * workspace Felix cannot find and Belvedere will not invent him a lineage he did not ignite.
  */
-export const workspaceName = (req: Fire): string =>
+export const workspaceName = (req: Ignite): string =>
 	req.stamp || (req.resume ? `resume-${req.resume.slice(0, 8)}` : 'belvedere');
 
 /**
- * One fire = one cmux workspace + one claude session + the summons already landed.
+ * One ignition = one cmux workspace + one claude session + the summons already landed.
  *
  * Deltas from `lab/p2/spawn.ts`: the account table is the rig's `accounts.tsv` (one table in
  * the city, not a second copy in code), the launch `cd`s into the cwd as well as passing
  * `--cwd` (the workspace label and the process's actual directory are two different things),
  * and every command is bounded. The shape itself is P2's, unchanged and proven ×3 accounts.
  */
-export const fire = async (req: Fire, password: string): Promise<Outcome<Fired>> =>
-	busting(audited('fire', fireArgs(req), await attemptFire(req, password)));
+export const ignite = async (req: Ignite, password: string): Promise<Outcome<Ignited>> =>
+	busting(audited('ignite', igniteArgs(req), await attemptIgnite(req, password)));
 
-async function attemptFire(req: Fire, password: string): Promise<Outcome<Fired>> {
+async function attemptIgnite(req: Ignite, password: string): Promise<Outcome<Ignited>> {
 	const configDir = [...readRig().accounts].find(([, label]) => label === req.account)?.[0];
 	if (!configDir) return fail(`unknown account "${req.account}" — the rig's accounts.tsv names the three`);
 
@@ -339,16 +339,16 @@ async function attemptFire(req: Fire, password: string): Promise<Outcome<Fired>>
 }
 
 /**
- * A fire is create-then-configure, so a failure after the create leaves a live workspace running
+ * An ignition is create-then-configure, so a failure after the create leaves a live workspace running
  * a session nobody asked for — B3 F1 measured exactly that: a colour cmux refuses cost a whole
- * fire and orphaned the workspace behind it. So a fire that dies after its create closes what it
+ * ignition and orphaned the workspace behind it. So an ignition that dies after its create closes what it
  * made, and the audit carries the unwind under its own action. **If the close fails too, the
  * error names the live workspace** — an orphan Felix knows about is a chore; one he does not is
  * a session burning quota in a window he never opens.
  */
 async function unwind(password: string, workspace: string, why: string): Promise<Outcome<never>> {
 	const closed = await cmux(password, LIMITS.commandMs, 'workspace', 'close', workspace);
-	audit('fire.unwind', { workspace, why }, closed);
+	audit('ignite.unwind', { workspace, why }, closed);
 	return fail(closed.ok
 		? `${why} — ${workspace} closed, nothing left running`
 		: `${why} — AND the unwind failed: ${closed.error}. ${workspace} is still live; close it by hand.`);
@@ -561,7 +561,7 @@ function attemptHalt(req: Halt): Outcome<{ path: string; at: string }> {
 
 /**
  * One line per action, in the census's own gitignored neighbourhood. `args` is what was asked
- * for MINUS the summons text — the record keeps its length and its sha so a fire can still be
+ * for MINUS the summons text — the record keeps its length and its sha so an ignition can still be
  * proven byte-exact without the log becoming a copy of every prompt the city ever sent.
  *
  * This is the one write that may throw: an action the city cannot account for is a failed
@@ -596,8 +596,8 @@ function busting<T>(outcome: Outcome<T>): Outcome<T> {
 	return outcome;
 }
 
-/** The audit's view of a fire: everything but the words. */
-export const fireArgs = (f: Fire) => ({
+/** The audit's view of an ignition: everything but the words. */
+export const igniteArgs = (f: Ignite) => ({
 	account: f.account, stamp: f.stamp, cwd: f.cwd, model: f.model, effort: f.effort,
 	color: f.color, resume: f.resume, summonsBytes: Buffer.byteLength(f.summons),
 });
@@ -624,9 +624,9 @@ export async function handsRoute(req: Request, action: string): Promise<Response
 	catch (e) { return json({ ok: false, error: `body is not JSON: ${(e as Error).message}` }, 400); }
 
 	switch (action) {
-		case 'fire': {
-			const parsed = parseFire(body);
-			return parsed.ok ? answer(await fire(parsed.result, cred.result)) : json(parsed, 400);
+		case 'ignite': {
+			const parsed = parseIgnite(body);
+			return parsed.ok ? answer(await ignite(parsed.result, cred.result)) : json(parsed, 400);
 		}
 		case 'worktree': {
 			const parsed = parseWorktree(body);
@@ -649,6 +649,6 @@ export async function handsRoute(req: Request, action: string): Promise<Response
 			return parsed.ok ? answer(await recolor(parsed.result, cred.result)) : json(parsed, 400);
 		}
 		default:
-			return json({ ok: false, error: `no such hand: ${action} — fire, worktree, focus, halt, rename, recolor` }, 404);
+			return json({ ok: false, error: `no such hand: ${action} — ignite, worktree, focus, halt, rename, recolor` }, 404);
 	}
 }

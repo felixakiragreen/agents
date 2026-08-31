@@ -28,7 +28,7 @@ export const canonRoot = () => join(cityRoot(), 'agents');
 export const censusDir = () => process.env.CENSUS_DIR ?? join(home, 'code/agents/summon/log/census');
 export const censusFile = () => join(censusDir(), 'census.jsonl');
 
-/** The hands' three writes: one summons file per fire, one audit line per action, the HALT flag. */
+/** The hands' three writes: one summons file per ignition, one audit line per action, the HALT flag. */
 export const summonsDir = () => join(censusDir(), 'summons');
 export const auditLog = () => join(censusDir(), 'hands.jsonl');
 export const haltFlag = () => join(dirname(censusDir()), 'HALT');

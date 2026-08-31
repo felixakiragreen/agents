@@ -418,7 +418,7 @@ body.deck {
 	border-radius: 3px; padding: 5px 7px; background: var(--grey-900); cursor: pointer;
 }
 /* The left edge carries the ring, so a node reads at a glance from the pane's own margin. */
-.deck .node.ring-fired { border-left-color: var(--felix); }
+.deck .node.ring-ignited { border-left-color: var(--felix); }
 .deck .node.ring-landed { border-left-color: var(--green-400); }
 .deck .node.ring-paused { border-left-color: var(--yellow-400); }
 .deck .node.ring-refused { border-left-color: var(--grey-700); }
@@ -443,7 +443,7 @@ body.deck {
 	width: 9px; height: 9px; border-radius: 50%;
 	border: 1.5px solid var(--grey-600); background: transparent;
 }
-.deck .nring.r-fired { border-color: var(--felix); background: var(--felix); }
+.deck .nring.r-ignited { border-color: var(--felix); background: var(--felix); }
 .deck .nring.r-landed { border-color: var(--green-400); background: var(--green-400); }
 .deck .nring.r-paused { border-color: var(--yellow-400); background: var(--yellow-600); }
 .deck .nring.r-refused { border-color: var(--grey-600); background: var(--grey-700); }

@@ -347,7 +347,7 @@ function queuePanel(b: Building): string {
 /**
  * The sovereign's inbox, rendered and writable (B6). Three things live here and only one of them
  * is a hand: the entries (read), the note box (the fence's third write — no credential, §inbox),
- * and the apply button (a fire, so it goes cold with the hands).
+ * and the apply button (an ignition, so it goes cold with the hands).
  *
  * **Non-empty includes an inbox the parser could not read.** An entry in a shape D63 does not
  * know is exactly an entry that needs a human's sweep, so the lint filing it also arms the button.

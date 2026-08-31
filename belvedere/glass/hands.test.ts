@@ -1,5 +1,5 @@
 // The hands' tested core: the parse boundary, the credential gate, the launch line, the audit's
-// redaction, and the worktree refusal. What is NOT here is what cannot be faked — a real fire
+// redaction, and the worktree refusal. What is NOT here is what cannot be faked — a real ignition
 // against a real cmux socket is DoD evidence in `plans/b4-hands.md`, not a unit test.
 //
 // Every test that touches disk works inside its own temp directory, wired through the two env
@@ -54,7 +54,7 @@ describe('the credential gate', () => {
 		expect(cred.ok ? '' : cred.error).not.toContain('hunter2');   // never the value, ever
 	});
 
-	test('a file with no CMUX_SOCKET_PASSWORD is a disabled glass, not an empty password', () => {
+	test('a file with no CMUX_SOCKET_PASSWORD is a disabled Belvedere, not an empty password', () => {
 		credential('SOMETHING_ELSE=1\nCMUX_SOCKET_PASSWORD=\n');
 		expect(hands.readCredential().ok).toBe(false);
 	});
@@ -72,7 +72,7 @@ describe('the parse boundary', () => {
 	};
 
 	test('a whole request passes and arrives trusted', () => {
-		const parsed = hands.parseFire(good);
+		const parsed = hands.parseIgnite(good);
 		expect(parsed.ok).toBe(true);
 		expect(parsed.ok && parsed.result.resume).toBe(null);
 	});
@@ -88,11 +88,11 @@ describe('the parse boundary', () => {
 		['cwd that does not exist', { cwd: '/no/such/place/at/all' }],
 		['resume that is not an id', { resume: 'yesterday' }],
 	])('refuses %s', (_name, patch) => {
-		expect(hands.parseFire({ ...good, ...patch }).ok).toBe(false);
+		expect(hands.parseIgnite({ ...good, ...patch }).ok).toBe(false);
 	});
 
 	test('a summons over the limit is refused whole', () => {
-		expect(hands.parseFire({ ...good, summons: 'x'.repeat((64 << 10) + 1) }).ok).toBe(false);
+		expect(hands.parseIgnite({ ...good, summons: 'x'.repeat((64 << 10) + 1) }).ok).toBe(false);
 	});
 
 	test('worktree refuses path tricks in the branch', () => {
@@ -146,7 +146,7 @@ describe('the launch line', () => {
 });
 
 /**
- * B5's law: **a resume omits what the glass does not know, and never invents a first user turn.**
+ * B5's law: **a resume omits what Belvedere does not know, and never invents a first user turn.**
  * The shelf resumes sessions that have been dead for weeks; a summons injected at that moment
  * would wake an agent with no instruction and set it working — the self-inflicted DoS the whole
  * row exists to prevent.
@@ -156,22 +156,22 @@ describe('the resume widening (B5)', () => {
 	const bare = { account: 'personal', cwd: tmpdir(), color: 'Charcoal', stamp: '', model: '', effort: '', summons: '' };
 
 	test('a resume may carry no stamp, no tier and no summons', () => {
-		const parsed = hands.parseFire({ ...bare, resume: UUID });
+		const parsed = hands.parseIgnite({ ...bare, resume: UUID });
 		expect(parsed.ok).toBe(true);
 	});
 
-	test('a FRESH fire still requires every one of them', () => {
+	test('a FRESH ignition still requires every one of them', () => {
 		for (const patch of [{}, { stamp: 'builder-belvedere-01' }, { stamp: 'builder-belvedere-01', model: 'opus' }])
-			expect(hands.parseFire({ ...bare, ...patch, resume: null }).ok).toBe(false);
+			expect(hands.parseIgnite({ ...bare, ...patch, resume: null }).ok).toBe(false);
 	});
 
 	test('a resume still refuses a malformed field — empty is legal, junk is not', () => {
 		for (const patch of [{ stamp: 'Not A Stamp' }, { model: '--dangerously' }, { effort: 'VERY' }, { color: "x'; rm -rf /" }])
-			expect(hands.parseFire({ ...bare, ...patch, resume: UUID }).ok).toBe(false);
+			expect(hands.parseIgnite({ ...bare, ...patch, resume: UUID }).ok).toBe(false);
 	});
 
 	test('an empty field drops its flag; the line ends at --resume, with no user turn', () => {
-		const parsed = hands.parseFire({ ...bare, resume: UUID });
+		const parsed = hands.parseIgnite({ ...bare, resume: UUID });
 		expect(parsed.ok).toBe(true);
 		if (!parsed.ok) return;
 		expect(hands.launchCommand(parsed.result, '/Users/felix/.claude-thg-fgreen', null)).toBe(
@@ -179,7 +179,7 @@ describe('the resume widening (B5)', () => {
 	});
 
 	test('a stamped resume keeps its own name and adds nothing else', () => {
-		const parsed = hands.parseFire({ ...bare, stamp: 'digger-agents-04', resume: UUID });
+		const parsed = hands.parseIgnite({ ...bare, stamp: 'digger-agents-04', resume: UUID });
 		expect(parsed.ok).toBe(true);
 		if (!parsed.ok) return;
 		expect(hands.launchCommand(parsed.result, '/d', null)).toBe(
@@ -187,8 +187,8 @@ describe('the resume widening (B5)', () => {
 	});
 
 	test('the workspace is named by the stamp, or by the transcript it revives — never ""', () => {
-		const named = hands.parseFire({ ...bare, stamp: 'digger-agents-04', resume: UUID });
-		const nameless = hands.parseFire({ ...bare, resume: UUID });
+		const named = hands.parseIgnite({ ...bare, stamp: 'digger-agents-04', resume: UUID });
+		const nameless = hands.parseIgnite({ ...bare, resume: UUID });
 		expect(named.ok && hands.workspaceName(named.result)).toBe('digger-agents-04');
 		expect(nameless.ok && hands.workspaceName(nameless.result)).toBe('resume-d285127e');
 	});
@@ -199,18 +199,18 @@ describe('the audit', () => {
 	const lastLine = () =>
 		JSON.parse(readFileSync(join(ROOT, 'census', 'hands.jsonl'), 'utf8').trimEnd().split('\n').at(-1)!);
 
-	test('records the fire without the words, and can prove them anyway', () => {
-		const fire = hands.parseFire({
+	test('records the ignition without the words, and can prove them anyway', () => {
+		const ignite = hands.parseIgnite({
 			account: 'personal', stamp: 'builder-belvedere-01', cwd: tmpdir(),
 			model: 'opus', effort: 'high', color: 'Blue', summons: 'SECRET SUMMONS TEXT',
 		});
-		expect(fire.ok).toBe(true);
-		if (!fire.ok) return;
+		expect(ignite.ok).toBe(true);
+		if (!ignite.ok) return;
 
-		hands.audit('fire', hands.fireArgs(fire.result), { ok: true, result: { workspace: 'workspace:9' } });
+		hands.audit('ignite', hands.igniteArgs(ignite.result), { ok: true, result: { workspace: 'workspace:9' } });
 		const record = lastLine();
 		expect(JSON.stringify(record)).not.toContain('SECRET SUMMONS TEXT');
-		expect(record).toMatchObject({ action: 'fire', ok: true, args: { stamp: 'builder-belvedere-01', summonsBytes: 19 } });
+		expect(record).toMatchObject({ action: 'ignite', ok: true, args: { stamp: 'builder-belvedere-01', summonsBytes: 19 } });
 		expect(record.args.summons).toBeUndefined();
 		expect(Date.parse(record.ts)).toBeGreaterThan(0);
 	});
@@ -218,6 +218,25 @@ describe('the audit', () => {
 	test('a refusal is audited as loudly as a success', () => {
 		hands.audit('worktree', { repo: '/x', branch: 'bv/b4' }, { ok: false, error: 'branch already exists: bv/b4' });
 		expect(lastLine()).toMatchObject({ ok: false, result: 'branch already exists: bv/b4' });
+	});
+
+	/**
+	 * Fork 1 (C22, "one word everywhere"): the writer now spells `ignite`, but `hands.jsonl` is
+	 * append-only and every line already on disk still says `fire` — the C2 precedent
+	 * (`recordedIn` accepts both `countersign ` and `bless `) generalizes here: a reader must
+	 * never choke on the old head. Nothing in this module parses `action` back out of the log
+	 * (it is written, never re-read, by any glass code today), so the proof is that the log
+	 * itself stays honest JSONL regardless of which spelling wrote a given line — old and new
+	 * lines round-trip identically, side by side.
+	 */
+	test('a historical `fire` line and a fresh `ignite` line read back identically — both heads forever', () => {
+		hands.audit('fire', { stamp: 'legacy-line' }, { ok: true, result: { workspace: 'workspace:1' } });
+		const legacy = lastLine();
+		hands.audit('ignite', { stamp: 'fresh-line' }, { ok: true, result: { workspace: 'workspace:2' } });
+		const fresh = lastLine();
+		expect(legacy).toMatchObject({ action: 'fire', ok: true, args: { stamp: 'legacy-line' } });
+		expect(fresh).toMatchObject({ action: 'ignite', ok: true, args: { stamp: 'fresh-line' } });
+		expect(Object.keys(legacy).sort()).toEqual(Object.keys(fresh).sort());
 	});
 });
 

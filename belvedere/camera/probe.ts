@@ -39,9 +39,9 @@ export type Probe = {
 	/** What the page says at a selector, trimmed. The probe's own assertions read through this. */
 	text(selector: string): Promise<string>;
 	/**
-	 * How many elements match. The verb the structural laws need: "a ⬡ card carries **zero** fire
+	 * How many elements match. The verb the structural laws need: "a ⬡ card carries **zero** ignite
 	 * wiring" is a count, and counting it in the page beats grepping the served HTML for
-	 * `data-fire` — the DOM knows which card an attribute is inside and a regex does not.
+	 * `data-ignite` — the DOM knows which card an attribute is inside and a regex does not.
 	 */
 	count(selector: string): Promise<number>;
 	/**

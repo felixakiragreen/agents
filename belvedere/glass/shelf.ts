@@ -13,7 +13,7 @@
 //
 // Two affordances, and which one a row gets is a fact, not a preference: a **dead** session
 // resumes into a new cmux workspace; a **live** one is already running, so the honest action is
-// to jump to its panel. Neither ever sends a first user turn — see `hands.ts` §Fire.
+// to jump to its panel. Neither ever sends a first user turn — see `hands.ts` §Ignite.
 
 import { readdirSync, existsSync, statSync } from 'fs';
 import { join } from 'path';
@@ -208,7 +208,7 @@ function row(s: Shelved, rig: Rig, armed: boolean): string {
 /**
  * The two affordances, and the reasons there is sometimes neither. A resume needs a directory to
  * land in: a worktree that has since been removed leaves a transcript whose cwd is gone, and the
- * honest render is to say so rather than to fire into `~` and call it the same session.
+ * honest render is to say so rather than to ignite into `~` and call it the same session.
  */
 function actions(s: Shelved, rig: Rig, armed: boolean): string {
 	const cold = armed ? '' : ' disabled';
@@ -226,7 +226,7 @@ function actions(s: Shelved, rig: Rig, armed: boolean): string {
  * drops the flag rather than guessing: no summons (no first user turn), no model or effort (the
  * tier a session ran at is nowhere in its transcript), and no `-n` for a session that never had a
  * stamp. The handle is always the **uuid**, never the stamp: resume-by-name is legal (P4 §R) but
- * it resolves through claude's own most-recent rule, and the glass will not make that choice
+ * it resolves through claude's own most-recent rule, and Belvedere will not make that choice
  * blind when the exact handle is the filename it just read.
  */
 export const resumeBody = (s: Shelved, rig: Rig) => ({
@@ -252,7 +252,7 @@ document.addEventListener('click', async ev => {
 	if (!btn) return;
 	const out = btn.closest('.acts').querySelector('[data-out]');
 	const resuming = btn.hasAttribute('data-resume');
-	const hand = resuming ? 'fire' : 'focus';
+	const hand = resuming ? 'ignite' : 'focus';
 	btn.disabled = true;
 	out.textContent = resuming ? 'resuming…' : 'jumping…';
 	try {

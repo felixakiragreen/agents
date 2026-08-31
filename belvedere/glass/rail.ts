@@ -5,14 +5,14 @@
 // Two laws shape every card:
 //
 //  1. **The holder decides the wiring.** A session-holder baton gets Dispatch buttons wired to
-//     `POST /hands/fire`. A Felix-holder baton — and every gate and countersign, which are his
+//     `POST /hands/ignite`. A Felix-holder baton — and every gate and countersign, which are his
 //     by definition — renders as HIS CARD: no button, no payload, no handler, nothing in the
 //     DOM a click could reach. Structurally unwired, not disabled (B3 DoD). **D10 sharpens it:
 //     where the parser says session and the clause says Felix, the two readings collide and the
 //     card renders safe too — note and copy-summons, no wiring (`collides()` below).**
 //  2. **The rail resolves; it never invents.** A row reference that names no work doc, a
 //     summons with no known tier, a fork whose recommendation matches no option: each says so
-//     on the card and offers no button. A greyed reason beats a guessed fire.
+//     on the card and offers no button. A greyed reason beats a guessed ignition.
 //
 // D64's shapes, named by D71 — single / batch / fork — render as one / n / choice buttons. `doctrine/`'s parsed
 // `Baton` carries `instruments[]` but no `kind`, so the shape is read render-side here by a
@@ -43,7 +43,7 @@ export type Shape = 'single' | 'batch' | 'fork' | 'plural';
 
 // A fork is the choice ITSELF; a batch is n things ignited together. Both are prose today, so
 // both are matched as prose — and plurality with neither marker is reported, never guessed. The
-// corpus still writes `wave`, so the batch matcher keeps reading it: the deck's words molt, the
+// corpus still writes `wave`, so the batch matcher keeps reading it: Belvedere's words molt, the
 // corpus's words are read as it wrote them.
 const FORK = /\bfork\b|\bexclusive\b|\bchoos|\bchoice\b|\beither\b|\boption [a-z]\b/i;
 const BATCH = /\bbatch\b|\bwave\b|\bparallel\b|\bboth\b|\ball (?:two|three|four|five)\b/i;
@@ -70,7 +70,7 @@ export function recommended(text: string, instruments: Instrument[]): number {
 	return hits.length === 1 ? hits[0]! : -1;
 }
 
-// ---------- resolving an instrument to a fireable summons ----------
+// ---------- resolving an instrument to an ignitable summons ----------
 
 export type Shot = {
 	label: string;
@@ -78,7 +78,7 @@ export type Shot = {
 	summons: string;
 	worktree: { repo: string; branch: string } | null;
 	recommended: boolean;
-	fire: Composed;                            // the body, or the reason there is none
+	ignite: Composed;                            // the body, or the reason there is none
 };
 
 const readDoc = (p: string) =>
@@ -113,7 +113,7 @@ const findRow = (b: Building, id: string): { row: BoardRow; file: string } | nul
 };
 
 /**
- * `fire <row-id>` → that work doc's kickoff fence (D63g). A work doc carrying several summons
+ * `ignite <row-id>` → that work doc's kickoff fence (D63g). A work doc carrying several summons
  * fences hands over its last: §5's template puts the row's own kickoff at the foot of the doc.
  */
 function resolveRow(b: Building, id: string): { summons: string; source: string; mantle: string | null; tier: string | null; worktree: { repo: string; branch: string } | null } | { blocked: string } {
@@ -141,21 +141,21 @@ function shot(rig: Rig, b: Building, i: Instrument, ledgerLine: number, account:
 	if (i.kind === 'summons') {
 		const label = `${i.mantle ?? 'unknown mantle'} · ${i.tier ?? 'unknown tier'}`;
 		return { ...base, label, source: `${short(b.files.ledger ?? b.path)}:${ledgerLine}`, summons: i.text,
-			fire: compose(rig, { summons: i.text, mantle: i.mantle, tier: i.tier, cwd: b.path, account, taken }) };
+			ignite: compose(rig, { summons: i.text, mantle: i.mantle, tier: i.tier, cwd: b.path, account, taken }) };
 	}
 	const r = resolveRow(b, i.row);
-	if ('blocked' in r) return { ...base, label: `charge ${i.row}`, source: short(b.files.ledger ?? b.path), summons: '', fire: r };
+	if ('blocked' in r) return { ...base, label: `charge ${i.row}`, source: short(b.files.ledger ?? b.path), summons: '', ignite: r };
 	return { ...base, label: `charge ${i.row} — ${r.mantle ?? 'unknown mantle'} · ${r.tier ?? 'unknown tier'}`,
 		source: r.source, summons: r.summons, worktree: r.worktree,
-		fire: compose(rig, { summons: r.summons, mantle: r.mantle, tier: r.tier, cwd: b.path, account, taken }) };
+		ignite: compose(rig, { summons: r.summons, mantle: r.mantle, tier: r.tier, cwd: b.path, account, taken }) };
 }
 
 // ---------- the cards ----------
 
 /**
  * **D10 — ambiguity never arms.** `classifyBaton` gives the instrument precedence over the word
- * "Felix", so a clause reading *"PENDING Felix's ruling — on a pass, fire: ⟨fence⟩"* parses as a
- * session baton. All three of the live city's fireable batons read exactly that way (B3 E2): the
+ * "Felix", so a clause reading *"PENDING Felix's ruling — on a pass, ignite: ⟨fence⟩"* parses as a
+ * session baton. All three of the live city's ignitable batons read exactly that way (B3 E2): the
  * parser says session, the prose says his. Until canon rules the holder grammar, a card whose two
  * readings disagree renders **safe** — the collision named, the summons copyable, no wiring at
  * all. Copying is reading; the gate stays his.
@@ -205,8 +205,8 @@ export function cards(buildings: Building[], rig: Rig, account: string): Card[] 
 			out.push({ kind: 'countersign', building: b.building, path: b.path, decision: d,
 				file: b.files.decisions ?? b.path, state: countersignState(d, b.issues) });
 	}
-	// Fireable first, then Felix's own work, then the rest: the morning reads top-down. A collided
-	// card is not fireable, so it sits with his — which is whose the clause says it is.
+	// Ignitable first, then Felix's own work, then the rest: the morning reads top-down. A collided
+	// card is not ignitable, so it sits with his — which is whose the clause says it is.
 	const rank = (c: Card) => c.kind === 'baton'
 		? (c.wired && c.shots.length ? 0 : c.baton.holder === 'prose' ? 3 : 2)
 		: c.kind === 'countersign' ? 1 : 2;
@@ -237,18 +237,18 @@ const buildingLink = (slug: string) =>
 	`<a class="where" href="/b/${slug.split('/').map(encodeURIComponent).join('/')}">${esc(slug)}</a>`;
 
 /**
- * One instrument, with its two affordances (B3 §4): **new session** fires through the hands,
+ * One instrument, with its two affordances (B3 §4): **new session** ignites through the hands,
  * **copy summons** puts the byte-exact text on the clipboard for a window of Felix's choosing.
- * Nothing is ever pasted into a live TUI (P2 T4) — the clipboard is his hand, not the glass's.
+ * Nothing is ever pasted into a live TUI (P2 T4) — the clipboard is his hand, not Belvedere's.
  *
  * `wired: false` is D10's safe render: the summons and the copy button stay, and the account
- * picker, the payload and the fire button are not in the DOM at all. `armed: false` is the other
+ * picker, the payload and the ignite button are not in the DOM at all. `armed: false` is the other
  * cold state and a different one — the hands' credential is absent, so the button exists and is
- * disabled (B4 E2). One says "not this card"; the other says "not this glass, yet".
+ * disabled (B4 E2). One says "not this card"; the other says "not Belvedere, yet".
  */
 /**
- * Which account fires this shot — **a toggled button group, never a dropdown** (design law, README
- * §3; B9's sweep took the glass's last `<select>` out of this file). The radio IS the state, so the
+ * Which account ignites this shot — **a toggled button group, never a dropdown** (design law, README
+ * §3; B9's sweep took Belvedere's last `<select>` out of this file). The radio IS the state, so the
  * browser holds it and the script reads `:checked`; the composer's `input.pick + label.btn` costume
  * is reused rather than re-invented. The group's name is the shot's own name-stamp, which `taken`
  * already reserves once per render — so no two pickers on the rail can ever share a radio group.
@@ -266,32 +266,32 @@ function shotHtml(s: Shot, armed: boolean, accounts: string[], wired: boolean): 
 		+ (s.worktree ? ' ' + pill(`worktree ${s.worktree.branch}`, 'purple', `git worktree add .claude/worktrees/${s.worktree.branch}`) : '')
 		+ `<span class="src">${esc(s.source)}</span></div>`;
 
-	if ('blocked' in s.fire)
-		return `<div class="shot">${head}<p class="note bad">${esc(s.fire.blocked)}</p></div>`;
+	if ('blocked' in s.ignite)
+		return `<div class="shot">${head}<p class="note bad">${esc(s.ignite.blocked)}</p></div>`;
 
-	const summons = `<pre class="summons" data-summons>${esc(s.fire.body.summons)}</pre>`;
+	const summons = `<pre class="summons" data-summons>${esc(s.ignite.body.summons)}</pre>`;
 	if (!wired) return `<div class="shot">${head}${summons}
 		<div class="acts">
 			<button class="alt" data-copy>copy summons</button>
-			<span class="out" data-out>${esc(`${s.fire.body.model}-${s.fire.body.effort} · ${short(s.fire.body.cwd)}`)}</span>
+			<span class="out" data-out>${esc(`${s.ignite.body.model}-${s.ignite.body.effort} · ${short(s.ignite.body.cwd)}`)}</span>
 		</div></div>`;
 
-	const body = JSON.stringify(s.fire.body);
+	const body = JSON.stringify(s.ignite.body);
 	const wt = s.worktree ? ` data-worktree="${esc(JSON.stringify(s.worktree))}"` : '';
 	const disabled = armed ? '' : ' disabled';
 	return `<div class="shot">${head}${summons}
 		<div class="acts">
 			<span class="label">as</span>
-			${accountPicker(s.fire.body.stamp, accounts)}
-			<button class="go" data-fire="${esc(body)}"${wt}${disabled}>new session</button>
+			${accountPicker(s.ignite.body.stamp, accounts)}
+			<button class="go" data-ignite="${esc(body)}"${wt}${disabled}>new session</button>
 			<button class="alt" data-copy>copy summons</button>
-			<span class="out" data-out>${esc(`${s.fire.body.stamp} · ${s.fire.body.model}-${s.fire.body.effort} · ${short(s.fire.body.cwd)}`)}</span>
+			<span class="out" data-out>${esc(`${s.ignite.body.stamp} · ${s.ignite.body.model}-${s.ignite.body.effort} · ${short(s.ignite.body.cwd)}`)}</span>
 		</div></div>`;
 }
 
 function batonCard(c: Card & { kind: 'baton' }, armed: boolean, accounts: string[], foot: string): string {
 	const base = dirname(c.file);
-	// Tone answers "whose is this?", so a collided card wears his colour, not the fireable green.
+	// Tone answers "whose is this?", so a collided card wears his colour, not the ignitable green.
 	const tone: Tone = c.baton.holder === 'prose' ? 'orange' : c.wired ? 'green' : 'purple';
 	const shape = c.baton.instruments.length > 1 || c.baton.holder === 'session'
 		? pill(c.shape === 'plural' ? `${c.baton.instruments.length} instruments — shape unstated` : c.shape,
@@ -301,12 +301,12 @@ function batonCard(c: Card & { kind: 'baton' }, armed: boolean, accounts: string
 	const dropped = c.baton.holder === 'prose'
 		? `<p class="note bad">Dropped baton: the Next clause carries no instrument and names no Felix-action (D63g/D64).</p>` : '';
 
-	// D10, on the card: the parser and the prose disagree about whose baton this is, so the glass
+	// D10, on the card: the parser and the prose disagree about whose baton this is, so Belvedere
 	// arms nothing and says which two readings collided. The summons is still copyable — reading
-	// is never gated — and the fire stays Felix's hand.
+	// is never gated — and the ignition stays Felix's hand.
 	const named = c.wired ? ''
 		: `<p class="note bad">The clause names <strong>Felix</strong>, and D64 reads the instrument first — so the parser calls this a session baton and the prose calls it his.
-			Ambiguity never arms (D10): no button on this card. Copy the summons and fire it yourself if the clause is yours.</p>`;
+			Ambiguity never arms (D10): no button on this card. Copy the summons and ignite it yourself if the clause is yours.</p>`;
 
 	// Felix's card and the dropped baton carry no shots at all — no payload, no handler, no button.
 	const shots = c.shots.length ? `<div class="shots">${c.shots.map(s => shotHtml(s, armed, accounts, c.wired)).join('')}</div>` : '';
@@ -336,7 +336,7 @@ const countersignCard = (c: Card & { kind: 'countersign' }, foot: string) =>
 /**
  * One card's HTML — the seam the DOM tests read, and the only place a card's kind is dispatched.
  * **Every card's foot is the note box** (B6 §1): his word about the thing he is looking at lands
- * in that building's inbox. A gesture is never a fire, so no card gains fire wiring here — the
+ * in that building's inbox. A gesture is never an ignition, so no card gains ignite wiring here — the
  * holder law (§1) and D10 both still decide, alone, what may be dispatched.
  */
 export const cardHtml = (c: Card, armed: boolean, accounts: string[]): string => {
@@ -366,7 +366,7 @@ function strip(buildings: Building[], census: CensusRead, rig: Rig): string {
 /** The one script on the rail: two affordances, one delegated listener, no framework. */
 const SCRIPT = `<script>
 document.addEventListener('click', async ev => {
-	const btn = ev.target.closest('button[data-fire], button[data-copy]');
+	const btn = ev.target.closest('button[data-ignite], button[data-copy]');
 	if (!btn) return;
 	const shot = btn.closest('.shot'), out = shot.querySelector('[data-out]');
 	const text = shot.querySelector('[data-summons]').textContent;
@@ -380,7 +380,7 @@ document.addEventListener('click', async ev => {
 		return [r.status, await r.json()];
 	};
 	btn.disabled = true;
-	const body = JSON.parse(btn.dataset.fire);
+	const body = JSON.parse(btn.dataset.ignite);
 	body.account = shot.querySelector('[data-account] input:checked').value;
 	try {
 		if (btn.dataset.worktree) {
@@ -390,18 +390,18 @@ document.addEventListener('click', async ev => {
 			body.cwd = r.result.path;
 			out.textContent = 'worktree ' + r.result.path + ' · igniting…';
 		} else out.textContent = 'igniting…';
-		const [code, r] = await post('fire', body);
+		const [code, r] = await post('ignite', body);
 		out.textContent = r.ok
 			? 'ignited ' + r.result.workspace + ' · ' + body.stamp + ' · sha ' + r.result.sha + ' · ' + r.result.bytes + ' B'
 			: code + ' ' + r.error;
-		if (!r.ok) btn.disabled = false;   // the stamp is spent only on a fire that landed
+		if (!r.ok) btn.disabled = false;   // the stamp is spent only on an ignition that landed
 	} catch (e) { out.textContent = String(e); btn.disabled = false; }
 });
 </script>`;
 
 /**
  * The rail's two colour vocabularies, said out loud (design law, README §3): the card's own left
- * edge — whose card is this, and will it fire — and the city strip's windows, which are the City
+ * edge — whose card is this, and will it ignite — and the city strip's windows, which are the City
  * View's vocabulary appearing here in miniature.
  */
 const railLegend = (rig: Rig) => legend([
@@ -422,9 +422,9 @@ export function railPage(): string {
 	const accounts = [...rig.accounts.values()];
 
 	const list = cards(buildings, rig, accounts[0] ?? 'personal');
-	const n = { baton: 0, gate: 0, countersign: 0, fireable: 0 };
-	// Fireable counts what this page will actually fire: a collided card's shots are not it (D10).
-	for (const c of list) { n[c.kind]++; if (c.kind === 'baton' && c.wired) n.fireable += c.shots.filter(s => !('blocked' in s.fire)).length; }
+	const n = { baton: 0, gate: 0, countersign: 0, ignitable: 0 };
+	// Ignitable counts what this page will actually ignite: a collided card's shots are not it (D10).
+	for (const c of list) { n[c.kind]++; if (c.kind === 'baton' && c.wired) n.ignitable += c.shots.filter(s => !('blocked' in s.ignite)).length; }
 
 	const banner = hands.armed ? '' : `<section class="panel"><h2>Hands disabled</h2>
 		<p class="prose note">Every Dispatch button below is cold — <code>/hands/*</code> answers 503 until the credential is armed.
@@ -433,7 +433,7 @@ export function railPage(): string {
 
 	const counts = `<section class="strip">
 		<div class="stat"><span class="label">batons</span><b>${n.baton}</b></div>
-		<div class="stat"><span class="label">ignitable</span><b class="t-working">${n.fireable}</b></div>
+		<div class="stat"><span class="label">ignitable</span><b class="t-working">${n.ignitable}</b></div>
 		<div class="stat"><span class="label">⬡-gates</span><b class="t-needs-input">${n.gate}</b></div>
 		<div class="stat"><span class="label">blessings</span><b class="t-unknown">${n.countersign}</b></div>
 		<div class="stat"><span class="label">buildings</span><b>${buildings.length}</b></div>

@@ -37,7 +37,7 @@ import { readRun } from '../v3/console/runs.ts';
 import { waitingOf } from './attention';
 import { identify, isLive, readCensus, type CensusRead, type Session } from './census';
 import { refusals, type ChatBlock, type ChatMark, type ChatSend, type ChatStep, type ChatTarget, type ChatTurn, type ChatView, type Span } from './deck-model';
-import { audit, cmux, fail, field, fire, json, readCredential, type Outcome } from './hands';
+import { audit, cmux, fail, field, ignite, json, readCredential, type Outcome } from './hands';
 import { spans } from './html';
 import { buildingOf } from './pages';
 import { cityRoot, draftsDir, projectsDir, runsRoot } from './paths';
@@ -848,17 +848,17 @@ async function attemptSend(req: Message, password: string): Promise<Outcome<Sent
 
 	// The dead target: a resume that carries the turn (P6 Q3, PASS ×5) — the same hand, the same
 	// audit, the same byte-exact first-turn proof, and the session keeps its id and its transcript.
-	// B5 E2 is extended, not violated: the glass omits what it does not know, and it knows the words.
-	const fired = await fire({
+	// B5 E2 is extended, not violated: Belvedere omits what it does not know, and it knows the words.
+	const ignited = await ignite({
 		account: t.account!, stamp: '', cwd: t.cwd!, model: '', effort: '',
 		color: colourOf(rig, mantleOf(rig, t.stamp)), summons: req.text, resume: req.sid,
 	}, password);
-	if (!fired.ok) return fired;
+	if (!ignited.ok) return ignited;
 
 	const seen = await verify(t.transcript, from, req.text, deadline);
 	return seen.ok
-		? { ok: true, result: { mode: 'resume', sha: seen.result, bytes: bytesOf(req.text), turns: 1, ms: Math.round(performance.now() - t0), workspace: fired.result.workspace, step: null } }
-		: fail(`${seen.error} (the resume itself succeeded into ${fired.result.workspace})`);
+		? { ok: true, result: { mode: 'resume', sha: seen.result, bytes: bytesOf(req.text), turns: 1, ms: Math.round(performance.now() - t0), workspace: ignited.result.workspace, step: null } }
+		: fail(`${seen.error} (the resume itself succeeded into ${ignited.result.workspace})`);
 }
 
 // ---------- the engine road: a reply into a step the engine is holding (C16 §2) ----------

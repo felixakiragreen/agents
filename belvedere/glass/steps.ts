@@ -12,7 +12,7 @@
  * step be driven?** Everything it answers with is read through the engine's own exports —
  * `findRunDirs`/`readRun` find and open a run, the fold derives the state, `drivable` says whether
  * the account holding these sessions is knowable, `transcriptPath` names the file (D65's
- * one-parser law, the shape `works.ts` already keeps). Nothing here writes, fires or drives.
+ * one-parser law, the shape `works.ts` already keeps). Nothing here writes, ignites or drives.
  */
 
 import { statSync } from 'fs';
@@ -72,7 +72,7 @@ export function stepIndex(buildings: readonly Building[] = [], root: string = ru
 }
 
 /**
- * The session each step was fired on, off the log's own ignitions — **not** off the fold's state.
+ * The session each step was ignited on, off the log's own ignitions — **not** off the fold's state.
  *
  * A landed step's state has forgotten its session and the log has not (C8 F8, and the console's
  * `list` reads it the same way). Taking the state's word would mean the Chat losing a conversation

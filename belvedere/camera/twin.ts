@@ -84,23 +84,23 @@ const sleep = (ms: number) => new Promise(done => setTimeout(done, ms));
 /**
  * The disarm probe: one POST at a **real** hand with an empty body.
  *
- * `fire` rather than a made-up name because the answer has to come from the gate the deck really
+ * `ignite` rather than a made-up name because the answer has to come from the gate the deck really
  * uses, and empty-body rather than a payload because the armed reading of this call must also be
  * inert — `handsRoute` reads the credential *before* it parses (`hands.ts:617`), so a twin that
- * somehow held one answers 400 at the parse and spawns nothing. Either way nothing is fired; only
+ * somehow held one answers 400 at the parse and spawns nothing. Either way nothing is ignited; only
  * 503 lets the camera proceed.
  */
 async function disarmed(port: number): Promise<Outcome<string>> {
 	let res: Response;
 	try {
-		res = await fetch(`http://127.0.0.1:${port}/hands/fire`, {
+		res = await fetch(`http://127.0.0.1:${port}/hands/ignite`, {
 			method: 'POST', body: '{}', signal: AbortSignal.timeout(LIMITS.disarmMs),
 		});
 	}
 	catch (e) { return fail(`the disarm probe could not reach the twin: ${(e as Error).message}`); }
 
 	const body = (await res.text()).trim();
-	if (res.status !== 503) return fail(`THE TWIN IS ARMED — POST /hands/fire answered ${res.status}, not 503:\n${body}`);
+	if (res.status !== 503) return fail(`THE TWIN IS ARMED — POST /hands/ignite answered ${res.status}, not 503:\n${body}`);
 	if (!body.includes('hands disabled')) return fail(`the twin answered 503 but not the arming law's refusal:\n${body}`);
 	return { ok: true, result: body };
 }

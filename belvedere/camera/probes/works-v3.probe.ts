@@ -13,7 +13,7 @@
 //   · a node's word is the engine's verdict (`landed done`), not a board state;
 //   · the account rides the run (C14's shape) and the drawing says where it came from;
 //   · the frozen kickoff renders as bytes on a picked node;
-//   · **nothing on the pane can fire or drive** — zero fire wiring, zero arm control.
+//   · **nothing on the pane can ignite or drive** — zero ignite wiring, zero arm control.
 
 import type { Probe } from '../probe';
 
@@ -69,9 +69,9 @@ export default async function (p: Probe): Promise<void> {
 
 	// The whole point of the read-only lane, counted rather than argued about: there is no control
 	// on this pane that spawns a session or drives the engine.
-	const fires = await p.count('[data-fire], [data-arm], [data-pass]');
-	if (fires !== 0) throw new Error(`${fires} fire/arm/pass control(s) on the Works — the v3 lane is read-only (C15 §3)`);
+	const ignites = await p.count('[data-ignite], [data-arm], [data-pass]');
+	if (ignites !== 0) throw new Error(`${ignites} ignite/arm/pass control(s) on the Works — the v3 lane is read-only (C15 §3)`);
 
-	console.log(`kickoff     ${kickoff.length} B frozen · ${fires} fire/arm/pass controls on the pane`);
+	console.log(`kickoff     ${kickoff.length} B frozen · ${ignites} ignite/arm/pass controls on the pane`);
 	console.log(await p.shoot('works-v3-kickoff'));
 }

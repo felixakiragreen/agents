@@ -23,8 +23,8 @@ import { cityRoot } from './paths';
  * The staleness bar, as the E1 ruling of 2026-08-27 set it: **300 s**. The walk is ~9.5 s of
  * filesystem over 50 795 directories, so a 20 s TTL re-walked the city about half the time Felix
  * was reading it — burning a core to re-learn a fact that changes weekly (B3 E1). Freshness is
- * not lost, it is redirected: the two things that move the register *within* a morning are the
- * glass's own fires and worktrees, and both call `bust()`, so the glass is never blind to its own
+ * not lost, it is redirected: the two things that move the register *within* a morning are
+ * Belvedere's own ignitions and worktrees, and both call `bust()`, so Belvedere is never blind to its own
  * writes. Anything else — a building Felix minted by hand in another window — is the re-walk
  * button's job, one click beside the printed age.
  */
@@ -89,7 +89,7 @@ export function register(): Register {
 }
 
 /**
- * The glass's own writes are never invisible to it (B8 §1). A fire or a worktree can mint the
+ * Belvedere's own writes are never invisible to it (B8 §1). An ignition or a worktree can mint the
  * very directory the register is a list of, so both mark it stale and the next request kicks the
  * walk. Marking beats walking here: the hand answers at once, and the walk still never rides a
  * request thread. A bust raised *during* a walk survives it — that walk began before the write.

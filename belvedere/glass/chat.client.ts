@@ -7,7 +7,7 @@
 // ending (field report). The draft lives on disk under `desk/drafts/`, so a reload, a hotswap and a
 // killed server all give it back.
 //
-// **Nothing here fires a session.** One wire leaves this file — `POST /chat/send`, D18's write class
+// **Nothing here ignites a session.** One wire leaves this file — `POST /chat/send`, D18's write class
 // 1, a message into a session that already exists — and one file write, `POST /chat/draft`. The
 // spawning hand is unreachable from this pane and its path is not spelled here, so a grep over the
 // sources can say so (B17 F1's check: which SOURCE contains it, not how often the bundle does).
@@ -88,7 +88,7 @@ function toLatest(): void {
 }
 
 /**
- * The composer fired something and the keel says the Chat swaps in (§5). A fire answers a workspace
+ * The composer ignited something and the keel says the Chat swaps in (§5). An ignition answers a workspace
  * and no session id (B11 F2), so what is held is the **name-stamp**, and this latches the moment the
  * census names it — honestly waiting until then rather than pointing at the wrong session.
  */

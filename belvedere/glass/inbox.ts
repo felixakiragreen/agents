@@ -8,14 +8,14 @@
  *
  *  1. **Append-only, and that is the whole licence.** Every write this module makes adds bytes
  *     at EOF: the content BEFORE a gesture is always a byte-prefix of the content after. The
- *     glass never rewrites, reorders, resolves or deletes an entry — that is the sweep's pen,
+ *     Belvedere never rewrites, reorders, resolves or deletes an entry — that is the sweep's pen,
  *     and editing truth is the forever non-goal (README §4).
- *  2. **The glass never pens the ruling.** A countersign gesture records *that Felix countersigned*;
+ *  2. **Belvedere never pens the ruling.** A countersign gesture records *that Felix countersigned*;
  *     the ✓ is stamped into the D-entry by the Architect who sweeps, with his name on it. So a
  *     card has three states and all three are read off files: pending → recorded → folded.
  *  3. **No credential gate.** A note is a file write, not a socket call — the arming switch
  *     (D9) exists to gate one-click *dispatch*, so the hands going cold must never cost Felix
- *     the ability to say something. Only the apply button, which IS a fire, disables.
+ *     the ability to say something. Only the apply button, which IS an ignition, disables.
  *  4. **Adoption-on-first-need** (DOCTRINE §3): a building with no inbox gets one minted from
  *     the D53 header template, verbatim, and the entry appended under it.
  */
@@ -298,8 +298,8 @@ sweep the inbox: rule each entry, true the board, attribute Felix's entries
 to Felix, commit in his git style.`;
 };
 
-/** The scoped session, composed exactly as `POST /hands/fire` parses it (B4 F1). */
-export const sweepFire = (rig: Rig, buildingPath: string, account: string): Composed =>
+/** The scoped session, composed exactly as `POST /hands/ignite` parses it (B4 F1). */
+export const sweepIgnite = (rig: Rig, buildingPath: string, account: string): Composed =>
 	compose(rig, {
 		summons: sweepSummons(buildingPath), mantle: 'Architect', tier: 'fable-high',
 		cwd: buildingPath, account,
@@ -382,9 +382,9 @@ export function countersignAct(buildingPath: string, d: Decision, state: Counter
  */
 export function applyAct(rig: Rig, buildingPath: string, accounts: string[], armed: boolean, entries: number): string {
 	const first = accounts[0];
-	if (!first) return `<p class="prose note bad">No accounts in <code>accounts.tsv</code> — nothing to fire the sweep as.</p>`;
+	if (!first) return `<p class="prose note bad">No accounts in <code>accounts.tsv</code> — nothing to ignite the sweep as.</p>`;
 
-	const composed = sweepFire(rig, buildingPath, first);
+	const composed = sweepIgnite(rig, buildingPath, first);
 	if ('blocked' in composed) return `<p class="prose note bad">${esc(composed.blocked)}</p>`;
 
 	const cold = armed ? '' : ' disabled';
@@ -411,8 +411,8 @@ document.addEventListener('click', async ev => {
 	btn.disabled = true;
 	try {
 		if (btn.dataset.apply) {
-			out.textContent = 'firing…';
-			const r = await fetch('/hands/fire', { method: 'POST', headers: { 'content-type': 'application/json' }, body: btn.dataset.apply });
+			out.textContent = 'igniting…';
+			const r = await fetch('/hands/ignite', { method: 'POST', headers: { 'content-type': 'application/json' }, body: btn.dataset.apply });
 			const body = await r.json();
 			out.textContent = body.ok ? 'ignited ' + body.result.workspace + ' · sha ' + body.result.sha : r.status + ' ' + body.error;
 			if (!body.ok) btn.disabled = false;

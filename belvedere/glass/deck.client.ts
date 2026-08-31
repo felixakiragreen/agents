@@ -8,7 +8,7 @@
 // and the queue *mean* lives in `attention.ts`, server-side, where the files are — this file draws
 // what it is handed and computes no urgency of its own.
 //
-// **Nothing here can fire.** The wires a click may reach are `POST /inbox` (his word, one file
+// **Nothing here can ignite.** The wires a click may reach are `POST /inbox` (his word, one file
 // append), `POST /hands/focus` (his eyes, a jump) and B18's two write-throughs, `POST /hands/rename`
 // and `POST /hands/recolor` (cmux display state, D18 class 2 — a name and a colour, never a session).
 // The spawning hand is unreachable from this file, and its path is not spelled here so a grep can
@@ -750,7 +750,7 @@ function jumpButton(label: string, building: string, path: string, line: number 
 }
 
 /**
- * The object's live gestures — **gestures only, never fires** (B20 §3, D10). Both are B6's inbox
+ * The object's live gestures — **gestures only, never ignites** (B20 §3, D10). Both are B6's inbox
  * wire, and both show the bytes before the append: the countersign law is that he reads the line
  * he is signing, so the preview is the entry itself and the note's preview grows as he types.
  */

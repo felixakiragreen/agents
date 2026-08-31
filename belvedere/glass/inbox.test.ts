@@ -19,7 +19,7 @@ import { join } from 'path';
 import { parseIssues, type Decision, type Issue } from '../../doctrine';
 import {
 	addition, countersignState, entryLine, filed, fileGesture, gestureText, inboxFile,
-	inboxRoute, noteBox, parseFiling, recordedIn, sweepFire, sweepSummons, today, WHO,
+	inboxRoute, noteBox, parseFiling, recordedIn, sweepIgnite, sweepSummons, today, WHO,
 	type Filing, type Gesture,
 } from './inbox';
 import { handsState } from './hands';
@@ -375,9 +375,9 @@ to Felix, commit in his git style.`);
 		expect(sweepSummons(join(process.env.HOME!, 'code/agents/belvedere'))).toContain('~/code/agents/belvedere/ISSUES.md');
 	});
 
-	test('it composes as a real fire body — Architect, fable-high, this building', () => {
+	test('it composes as a real ignite body — Architect, fable-high, this building', () => {
 		const at = building('composed');
-		const composed = sweepFire(readRig(), at, 'personal');
+		const composed = sweepIgnite(readRig(), at, 'personal');
 		expect('blocked' in composed).toBe(false);
 		if ('blocked' in composed) return;
 		expect(composed.body).toMatchObject({ account: 'personal', cwd: at, model: 'fable', effort: 'high' });
@@ -389,11 +389,11 @@ to Felix, commit in his git style.`);
 // ---------- the rendered gesture, structurally ----------
 
 describe('the note box', () => {
-	test('carries the building it targets and nothing that could fire', () => {
+	test('carries the building it targets and nothing that could ignite', () => {
 		const html = noteBox('/Users/felix/code/agents/belvedere');
 		expect(html).toContain('data-gesture=');
 		expect(html).toContain('/Users/felix/code/agents/belvedere');
-		for (const pattern of [/data-fire/, /data-worktree/, /\/hands\//]) expect(html).not.toMatch(pattern);
+		for (const pattern of [/data-ignite/, /data-worktree/, /\/hands\//]) expect(html).not.toMatch(pattern);
 	});
 });
 

@@ -35,11 +35,11 @@ describe('the draft: every knob a string, and empty always means unset', () => {
 		const d = readDraft({ mantle: '  Builder ', summons: 'one\r\ntwo\rthree\n' });
 		expect(d.mantle).toBe('Builder');
 		// An HTML textarea submits CRLF and the hands normalise to LF at their own boundary
-		// (`sanitize.ts`), so normalising here keeps page bytes, wire bytes and fired bytes one string.
+		// (`sanitize.ts`), so normalising here keeps page bytes, wire bytes and ignited bytes one string.
 		expect(d.summons).toBe('one\ntwo\nthree\n');
 	});
 
-	test('everything has a limit: an oversized summons is cut at the boundary, not at the fire', () => {
+	test('everything has a limit: an oversized summons is cut at the boundary, not at the ignition', () => {
 		expect(readDraft({ summons: 'x'.repeat(LIMITS.summonsChars + 500) }).summons.length)
 			.toBe(LIMITS.summonsChars);
 	});
@@ -140,7 +140,7 @@ describe('a template is a whole opening: it sets the mantle and the tier it spea
 
 	/**
 	 * §1's *"the summons text updating as knobs move"*, which is the whole reason stickiness exists:
-	 * a fence names its own tier (D45), so a page showing `at opus-high` beside an `opus-low` fire
+	 * a fence names its own tier (D45), so a page showing `at opus-high` beside an `opus-low` ignition
 	 * is a page arguing with itself.
 	 */
 	test('a sticky template re-speaks at the CURRENT tier, and follows the mantle chip rather than freezing it', () => {

@@ -1,10 +1,10 @@
-// What a fire needs, composed from the city's own tables — never from a second copy of them.
+// What an ignition needs, composed from the city's own tables — never from a second copy of them.
 //
 // A summons fence already carries its mantle and its tier (`You are a Builder at opus-high.`,
 // D45). The tier IS the model and the effort. The rig's `presets.tsv` carries the colour a
 // mantle wears, `accounts.tsv` the three silos, and `invocations.jsonl` the lineage counter
 // that makes every name-stamp a unique `claude --resume <name>` handle (rig §name-stamp).
-// The glass reads all four and mints exactly what `POST /hands/fire` parses (B4 F1).
+// Belvedere reads all four and mints exactly what `POST /hands/ignite` parses (B4 F1).
 
 import { readFileSync, statSync } from 'fs';
 import { basename, join } from 'path';
@@ -16,7 +16,7 @@ import type { Rig } from './rig';
 /** Everything has a limit: the lineage scan reads a bounded tail, never a whole history. */
 const LOG_BYTES = 1 << 20;
 
-/** `opus-high` → the two flags cmux's claude actually takes. An unknown tier is not fireable. */
+/** `opus-high` → the two flags cmux's claude actually takes. An unknown tier is not ignitable. */
 export function tierParts(tier: string | null): { model: string; effort: string } | null {
 	if (!tier) return null;
 	const cut = tier.lastIndexOf('-');
@@ -32,8 +32,8 @@ export const mantleKey = (mantle: string | null) =>
 /**
  * The rig's colour for a mantle, as a value cmux accepts — one map, `colors.ts`, measured against
  * the live socket (B18 §3, B3 F1 closed at the cause). A mantle the rig gives no colour, or a
- * colour word the map does not know, wears felikai's grey rather than nothing: `attemptFire`
- * creates the workspace BEFORE it sets the colour, so a refused colour costs a whole fire.
+ * colour word the map does not know, wears felikai's grey rather than nothing: `attemptIgnite`
+ * creates the workspace BEFORE it sets the colour, so a refused colour costs a whole ignition.
  */
 export const colourOf = (rig: Rig, mantle: string | null) =>
 	cmuxColor(rig.colours.get(mantleKey(mantle) ?? '') ?? '') ?? FELIKAI.grey;
@@ -45,10 +45,10 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(
 const PLAIN = /^[A-Za-z0-9._-]+$/;
 
 /**
- * The fire directory's filed campaign, or nothing. One read of `<dir>/.summon-theaters`, first
+ * The ignition directory's filed campaign, or nothing. One read of `<dir>/.summon-theaters`, first
  * non-blank line, **no parent walk** — row 14's semantics exactly. A line that is not a plain
- * name makes the rig refuse the whole file rather than compose a bad launch, so it makes the
- * glass fall back to the directory name for the same reason.
+ * name makes the rig refuse the whole file rather than compose a bad launch, so it makes
+ * Belvedere fall back to the directory name for the same reason.
  */
 function filedTheater(dir: string): string | null {
 	let text: string;
@@ -61,7 +61,7 @@ function filedTheater(dir: string): string | null {
 }
 
 /**
- * Row 14's theater: the fire directory's `.summon-theaters` first line, else the directory's own
+ * Row 14's theater: the ignition directory's `.summon-theaters` first line, else the directory's own
  * name — one repo can host several campaigns, and the stamp is what carries which (rig §theater
  * cycle). Only the default is offered here; cycling is the rig panel's keystroke.
  *
@@ -90,8 +90,8 @@ const logged = (path: string, key: string): string[] =>
  * A lineage's prefix, the rig's own two shapes (`summon.zsh:_summon_name_stamp`): **the Grand
  * Architect keeps no theater** — there is one office, so the segment would be redundancy — and
  * every other mantle is `<mantle>-<theater>`. The rig's third shape (a bare launch, the theater
- * counting alone) is deliberately not offered: a mantle-less fire would arm what the glass could
- * not name, and every glass affordance chooses a mantle.
+ * counting alone) is deliberately not offered: a mantle-less ignition would arm what Belvedere could
+ * not name, and every Belvedere affordance chooses a mantle.
  */
 export const stampPrefix = (mantle: string | null, theater: string): string | null => {
 	const key = mantleKey(mantle);
@@ -101,21 +101,21 @@ export const stampPrefix = (mantle: string | null, theater: string): string | nu
 };
 
 /**
- * The prefix for work done *at* a directory — the v0 composer's question, where the fire directory
+ * The prefix for work done *at* a directory — the v0 composer's question, where the ignition directory
  * and the work are the same place. **The deck asks a different one** (B17): a theater names the
- * WORK, and belvedere work fired at `~/code/agents` is `…-belvedere-NN`, so the deck resolves the
+ * WORK, and belvedere work ignited at `~/code/agents` is `…-belvedere-NN`, so the deck resolves the
  * theater off the chosen building and calls `stampPrefix` directly. One prefix rule, two askers.
  */
 export const lineage = (mantle: string | null, buildingPath: string): string | null =>
 	stampPrefix(mantle, theaterOf(buildingPath));
 
 /**
- * The next ordinal in a lineage. The rig counts from `invocations.jsonl`'s `name` field; the
- * glass's own fires never reach that file, so the hands' audit is read alongside it — one
+ * The next ordinal in a lineage. The rig counts from `invocations.jsonl`'s `name` field;
+ * Belvedere's own ignitions never reach that file, so the hands' audit is read alongside it — one
  * counter over both, or two dispatchers would hand out one stamp twice.
  *
  * `known` is the third source and the reason it exists: a stamp the **live census** carries came
- * from somewhere neither log records (a hand-typed `-n`, a session fired before the audit), and
+ * from somewhere neither log records (a hand-typed `-n`, a session ignited before the audit), and
  * a counter blind to a running session hands its name out twice.
  *
  * `taken` closes the same hole inside a single render: a wave of two Builders in one building
@@ -149,14 +149,14 @@ export function nextStamp(
 	return prefix === null ? null : ordinal(prefix, nextOrdinal(prefix, taken, known));
 }
 
-/** Exactly the body `POST /hands/fire` parses (B4 F1). `account` is the viewer's pick. */
-export type FireBody = {
+/** Exactly the body `POST /hands/ignite` parses (B4 F1). `account` is the viewer's pick. */
+export type IgniteBody = {
 	account: string; stamp: string; cwd: string;
 	model: string; effort: string; color: string; summons: string;
 };
 
-/** A fire the glass can actually compose, or the reason it cannot — never a guessed field. */
-export type Composed = { body: FireBody } | { blocked: string };
+/** An ignition Belvedere can actually compose, or the reason it cannot — never a guessed field. */
+export type Composed = { body: IgniteBody } | { blocked: string };
 
 export function compose(rig: Rig, opts: {
 	summons: string; mantle: string | null; tier: string | null; cwd: string; account: string;

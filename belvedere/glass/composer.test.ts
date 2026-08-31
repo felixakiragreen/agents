@@ -1,10 +1,10 @@
 // The composer's tested core: the four things it resolves before anything can be armed — the
 // target, the tier, the name-stamp's lineage, and whether the chosen account has ever trusted the
-// directory — plus the two structural laws of the page (no dropdowns; the fire button carries the
+// directory — plus the two structural laws of the page (no dropdowns; the ignite button carries the
 // exact body the page shows).
 //
-// What is NOT here is a real fire: a composed session landing byte-exact in cmux, the founding
-// template at a scratch dir, a worktree-composed fire and a cold-directory stall are all DoD
+// What is NOT here is a real ignition: a composed session landing byte-exact in cmux, the founding
+// template at a scratch dir, a worktree-composed ignition and a cold-directory stall are all DoD
 // evidence in `plans/b7-summon-composer.md`, not unit tests.
 //
 // Every anchor this file needs is env-derived and set per test (`paths.ts` resolves per call —
@@ -318,14 +318,14 @@ describe('the plan', () => {
 		expect(p.stamp).toBe('builder-belvedere-77');
 	});
 
-	test('a stamp that no longer names this lineage is re-minted, never fired as it stands', () => {
+	test('a stamp that no longer names this lineage is re-minted, never ignited as it stands', () => {
 		const p = plan(rig, draft({ where: BELVEDERE, mantle: 'Architect', stamp: 'builder-belvedere-77', summons: 'go' }));
 		expect(p.stamp.startsWith('architect-belvedere-')).toBe(true);
 	});
 
-	test('the composed body is exactly what `POST /hands/fire` parses', () => {
+	test('the composed body is exactly what `POST /hands/ignite` parses', () => {
 		const p = plan(rig, draft({ where: BELVEDERE, mantle: 'Builder', summons: 'go', account: 'work' }));
-		expect('body' in p.fire && p.fire.body).toMatchObject({
+		expect('body' in p.ignite && p.ignite.body).toMatchObject({
 			// The Builder's colour is `blue` in `presets.tsv` — the REAL colour since C25 — and cmux
 			// refuses the word, so the map answers felikai's own hex (`colors.ts`, measured).
 			account: 'work', cwd: BELVEDERE, model: 'opus', effort: 'high', color: '#0362b2', summons: 'go',
@@ -333,13 +333,13 @@ describe('the plan', () => {
 		expect(p.refusal).toBe(null);
 	});
 
-	test('no mantle blocks the fire, because a fire the glass cannot name is a fire it will not arm', () => {
+	test('no mantle blocks the ignition, because an ignition Belvedere cannot name is one it will not arm', () => {
 		const p = plan(rig, draft({ where: BELVEDERE, summons: 'go' }));
-		expect('blocked' in p.fire).toBe(true);
+		expect('blocked' in p.ignite).toBe(true);
 	});
 
-	test('an empty summons blocks it: the fire IS the summons', () => {
-		expect('blocked' in plan(rig, draft({ where: BELVEDERE, mantle: 'Builder' })).fire).toBe(true);
+	test('an empty summons blocks it: the ignition IS the summons', () => {
+		expect('blocked' in plan(rig, draft({ where: BELVEDERE, mantle: 'Builder' })).ignite).toBe(true);
 	});
 
 	test('the trust verdict follows the chosen account — the same directory, two answers', () => {
@@ -350,7 +350,7 @@ describe('the plan', () => {
 		expect(cold.trust?.where).toBe(BELVEDERE);
 	});
 
-	test('a worktree fire asks about the repo it will be cut from, never the path that does not exist yet', () => {
+	test('a worktree ignition asks about the repo it will be cut from, never the path that does not exist yet', () => {
 		const p = plan(rig, draft({ where: BELVEDERE, mantle: 'Builder', summons: 'go', account: 'work', branch: 'bv/ask' }));
 		expect(p.trust?.where).toBe(AGENTS);
 		expect(p.trust?.verdict.warm).toBe(true);
@@ -383,25 +383,25 @@ describe('the rendered page', () => {
 		expect(html).toMatch(/name="effort" id="effort-5" value="max" checked/);
 	});
 
-	test('the fire button carries the exact body the page shows, and nothing it re-derived', () => {
+	test('the ignite button carries the exact body the page shows, and nothing it re-derived', () => {
 		const p = composed();
 		const html = planCard(p, true);
-		const hit = /data-fire="([^"]*)"/.exec(html);
+		const hit = /data-ignite="([^"]*)"/.exec(html);
 		const unesc = (s: string) => s.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&amp;/g, '&');
-		expect(JSON.parse(unesc(hit![1]!))).toEqual('body' in p.fire ? p.fire.body : null);
+		expect(JSON.parse(unesc(hit![1]!))).toEqual('body' in p.ignite ? p.ignite.body : null);
 	});
 
-	test('cold hands leave the button in the DOM and disabled — "not this glass, yet"', () => {
-		expect(planCard(composed(), false)).toMatch(/data-fire="[^"]*"\s*disabled/);
+	test('cold hands leave the button in the DOM and disabled — "not Belvedere, yet"', () => {
+		expect(planCard(composed(), false)).toMatch(/data-ignite="[^"]*"\s*disabled/);
 	});
 
-	test('a blocked plan has no fire button at all — nothing a click could reach', () => {
+	test('a blocked plan has no ignite button at all — nothing a click could reach', () => {
 		const html = planCard(plan(rig, draft({ mantle: 'Builder', summons: 'go' })), true);
-		expect(html).not.toContain('data-fire');
+		expect(html).not.toContain('data-ignite');
 		expect(html).toContain('pick a building');
 	});
 
-	test('a cold directory warns on the button and marks the fire as one that will stall', () => {
+	test('a cold directory warns on the button and marks the ignition as one that will stall', () => {
 		const html = planCard(composed({ where: '', cwd: COLD, account: 'work' }), true);
 		expect(html).toContain('untrusted directory');
 		expect(html).toContain("wait on Claude's trust prompt");
@@ -429,16 +429,16 @@ describe('the rendered page', () => {
 		expect(html).toContain('data-worktree');
 	});
 
-	test('a branch named outside a git repo says so and fires in the target itself', () => {
+	test('a branch named outside a git repo says so and ignites in the target itself', () => {
 		const html = planCard(composed({ where: '', cwd: COLD, account: 'personal', branch: 'x' }), true);
 		expect(html).toContain('no worktree');
 		expect(html).not.toContain('data-worktree');
-		expect(html).toContain('data-fire');
+		expect(html).toContain('data-ignite');
 	});
 
 	test('an unfilled slot warns and still arms — the sovereign may mean those words', () => {
 		const html = planCard(composed({ summons: 'then read <context>.' }), true);
 		expect(html).toContain('unfilled slots');
-		expect(html).toContain('data-fire');
+		expect(html).toContain('data-ignite');
 	});
 });

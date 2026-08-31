@@ -171,7 +171,7 @@ describe('the reply lands the step through the engine’s own resume', () => {
 			const at = state.steps['ask'];
 			expect(at?.at).toBe('landed');
 			if (at?.at === 'landed') expect(at.report?.answer).toBe('ANSWER-THEN-LAND-OK');
-			// Two turns: the ignition that asked, and the resume the reply fired (D73 — a resume costs).
+			// Two turns: the ignition that asked, and the resume the reply ignited (D73 — a resume costs).
 			expect(state.turns).toBe(2);
 
 			// And the delivered bytes are in the transcript, which is the only thing that ever means

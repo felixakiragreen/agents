@@ -8,7 +8,7 @@
  * module re-implements none of it** (D65's one-parser law, same shape) — a genuinely missing export
  * is an escalation, never a copy.
  *
- * **Nothing here writes, nothing here fires, and nothing here drives.** The v2 engine lived in this
+ * **Nothing here writes, nothing here ignites, and nothing here drives.** The v2 engine lived in this
  * building and ran on a clock; the v3 engine runs out of process and this is a reader of what it
  * left behind. The arm, the pass and the tick died with the retirement — driving is G5's rework lay.
  */
@@ -66,10 +66,10 @@ const pausedWhy = (causes: readonly string[], detail: string): string =>
 
 function step(s: Step, run: ReturnType<typeof fold>, verdict: string, depth: number, sid: string | null): WorksStep {
 	const at = run.steps[s.id] ?? { at: 'pending' as const };
-	const fired = s.kind === 'card' ? null : s;
+	const withSubject = s.kind === 'card' ? null : s;
 	// P5 F5's clause, evaluated by the engine's own gate: legality is per (model, posture), and the
 	// refusal's words are the engine's, so the deck and the arm can never disagree about a step.
-	const legal = fired === null ? true : postureLegal(fired.model, fired.posture);
+	const legal = withSubject === null ? true : postureLegal(withSubject.model, withSubject.posture);
 	return {
 		id: s.id,
 		kind: s.kind,
@@ -89,12 +89,12 @@ function step(s: Step, run: ReturnType<typeof fold>, verdict: string, depth: num
 			: at.at === 'killed' ? at.reason
 			: null,
 		ask: s.kind === 'card' ? s.ask : null,
-		model: fired?.model ?? null,
-		effort: fired?.effort ?? null,
-		posture: fired?.posture ?? null,
-		subject: fired === null ? null : subjectName(fired.subject),
-		prompt: fired?.prompt ?? null,
-		timeoutMs: fired?.timeoutMs ?? null,
+		model: withSubject?.model ?? null,
+		effort: withSubject?.effort ?? null,
+		posture: withSubject?.posture ?? null,
+		subject: withSubject === null ? null : subjectName(withSubject.subject),
+		prompt: withSubject?.prompt ?? null,
+		timeoutMs: withSubject?.timeoutMs ?? null,
 		turns: run.spent[s.id] ?? 0,
 		blocks: isRefusal(legal) ? [legal.refusal] : [],
 	};

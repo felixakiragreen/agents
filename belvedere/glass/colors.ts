@@ -2,8 +2,8 @@
  * The one colour map: **felikai intent → a value cmux accepts** (B18 §3, D16).
  *
  * B3 F1 measured the failure this closes: `--color cyan` and `--color pink` — two of the rig's own
- * five mantle colours — are refused by the socket, and `attemptFire` creates the workspace *before*
- * it sets the colour, so a refused colour cost a whole fire and left an orphan behind. B8 unwound
+ * five mantle colours — are refused by the socket, and `attemptIgnite` creates the workspace *before*
+ * it sets the colour, so a refused colour cost a whole ignition and left an orphan behind. B8 unwound
  * the orphan; this module removes the refusal.
  *
  * **Measured, not assumed** (`lab/b18/colors.ts`, one throwaway workspace, 29 candidates, 2026-08-27):

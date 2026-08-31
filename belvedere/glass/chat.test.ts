@@ -4,7 +4,7 @@
 // What is NOT here is a cmux socket or a live session. `deliver()` is P6's measured transport and
 // `sendMessage()` drives Felix's real desktop — proving either in `bun test` would mean a suite that
 // types into whatever pane he is looking at (B8 F1's lesson, and P6's own disclosed accident). Those
-// ride `lab/b16/probe.ts` against a real fired probe session, which is where the DoD's byte-exact
+// ride `lab/b16/probe.ts` against a real ignited probe session, which is where the DoD's byte-exact
 // shas come from. **Everything that can be a pure function is one, and lives here.**
 
 import { expect, test, describe, afterAll, beforeAll } from 'bun:test';

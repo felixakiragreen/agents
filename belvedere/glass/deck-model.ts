@@ -165,9 +165,9 @@ export type DocRef = { path: string; label: string; line: number };
 // ---------- the decoder: a code word, resolved into its object (B20) ----------
 
 /**
- * What a decoded object lets Felix *do* from its tooltip. **Gestures only, never fires** (B20 §3,
+ * What a decoded object lets Felix *do* from its tooltip. **Gestures only, never ignites** (B20 §3,
  * D10's discipline): a tooltip files a line into a building's inbox — B6's wire, in front of the
- * credential gate — and the composer and the Works are the only surfaces that fire.
+ * credential gate — and the composer and the Works are the only surfaces that ignite.
  *
  * Both carry the bytes that will be appended, because the countersign law is that he sees the line
  * before it is written: `preview` is the whole entry, `prefix` is everything but his own words.
@@ -280,7 +280,7 @@ export type WorkshopDetail = {
  * or derived by the engine's own exports over it — `fold`, `verdicts`, `postureLegal`. The deck
  * re-implements no part of the log's meaning (D65's one-parser law, same shape).
  *
- * **Nothing in this shape can fire, and nothing can drive.** The deck's v3 lane is read-only: the
+ * **Nothing in this shape can ignite, and nothing can drive.** Belvedere's v3 lane is read-only: the
  * arm, the pass and the tick died with the v2 engine, and driving semantics are G5's rework lay.
  */
 export type WorksStep = {
@@ -329,18 +329,18 @@ export type WorksStep = {
 	blocks: string[];
 };
 
-export const RINGS = ['declared', 'fired', 'landed', 'paused', 'refused'] as const;
+export const RINGS = ['declared', 'ignited', 'landed', 'paused', 'refused'] as const;
 export type Ring = (typeof RINGS)[number];
 
 /** The fold's six step states → the five rings, so past and future draw in one vocabulary. */
 const RING_OF_AT: Readonly<Record<string, Ring>> = {
-	pending: 'declared', running: 'fired', ended: 'fired',
+	pending: 'declared', running: 'ignited', ended: 'ignited',
 	landed: 'landed', paused: 'paused', killed: 'refused',
 };
 
 /** Board lifecycle → the same five rings. */
 const RING_OF_STATE: Readonly<Record<string, Ring>> = {
-	LANDED: 'landed', 'IN FLIGHT': 'fired', BLOCKED: 'paused', KILLED: 'refused', OPEN: 'declared',
+	LANDED: 'landed', 'IN FLIGHT': 'ignited', BLOCKED: 'paused', KILLED: 'refused', OPEN: 'declared',
 };
 
 /**
@@ -358,7 +358,7 @@ export const ringOf = (n: WorksStep, state: string | null): { ring: Ring; from: 
 
 /** Lit: running, and the session it named is still beating (the census, the sole liveness authority). */
 export const lit = (n: WorksStep, ring: Ring, live: ReadonlySet<string>): boolean =>
-	ring === 'fired' && n.sid !== null && live.has(n.sid);
+	ring === 'ignited' && n.sid !== null && live.has(n.sid);
 
 export type WorksEdge = { from: string; to: string };
 
@@ -575,7 +575,7 @@ export type ChatView = {
  *
  *  - **tab** — the TUI swallows every 0x09 and the wire carries them all, so the model receives
  *    fewer bytes than were sent (P6 T6). Felix's own directives are tabs at width 3, so this fires
- *    on real content; expanding them is *his* choice to make, never the glass's to make silently.
+ *    on real content; expanding them is *his* choice to make, never Belvedere's to make silently.
  *  - **command** — a first line starting `/` executes as a slash command and creates **zero** user
  *    turns (P6 T8, measured). `!` (bash) and `#` (memory) are the same family by construction and
  *    were not separately measured — refused here anyway, because refusing more is safe and a `!`
@@ -755,19 +755,19 @@ export type ComposeDraft = {
 	 * It is **sticky** because §1 wants the summons *text* live under the knobs, not just the plan:
 	 * a fence names its own mantle and tier (D45), so `You are a Builder at opus-high.` has to
 	 * become `…at opus-low.` when the effort chip moves, or the page is showing a summons that
-	 * contradicts the fire it is about to make. The first keystroke in the box clears it — from
+	 * contradicts the ignition it is about to make. The first keystroke in the box clears it — from
 	 * there the words are his and nothing rewrites them.
 	 */
 	template: string;
 };
 
-/** Exactly the body `POST /hands/fire` parses (B4 F1) — the plan carries it, the button sends it. */
-export type FireWire = {
+/** Exactly the body `POST /hands/ignite` parses (B4 F1) — the plan carries it, the button sends it. */
+export type IgniteWire = {
 	account: string; stamp: string; cwd: string;
 	model: string; effort: string; color: string; summons: string;
 };
 
-/** Something that will fire and deserves a second look. A warning never disarms (B7's three states). */
+/** Something that will ignite and deserves a second look. A warning never disarms (B7's three states). */
 export type ComposeWarning = { name: string; text: string };
 
 /** What a mantle chip offers: the rig's preset tier and felikai's hue for it (B18 F1's table). */
@@ -780,7 +780,7 @@ export type MantleChip = { name: string; key: string; preset: string; color: str
  * server holds the logic, one copy, and what the page shows is what the server composed rather than
  * a second derivation that could drift from it.
  *
- * `fire` is the exact body the button posts, and `summons`/`sha`/`bytes` describe those very bytes:
+ * `ignite` is the exact body the button posts, and `summons`/`sha`/`bytes` describe those very bytes:
  * page-side and transcript-side agreement is a sha comparison, not an argument.
  */
 export type ComposePlan = {
@@ -809,7 +809,7 @@ export type ComposePlan = {
 	summons: string;
 	bytes: number;
 	sha: string;
-	fire: FireWire | null;
+	ignite: IgniteWire | null;
 	/** Why nothing composed, or the hands' own parse refusal of what did. Either way: no button. */
 	blocked: string | null;
 	warnings: ComposeWarning[];
@@ -900,8 +900,8 @@ export type DeckSession = {
 	 * **What cmux calls this session's workspace right now** (D16: cmux is truth for live identity),
 	 * or null where the socket cannot say — an unarmed glass, a dead socket, a session in no pane.
 	 *
-	 * `stamp` above stays the **birth name**: the rig wrote it at the fire and nothing renames it, so
-	 * a workspace Felix renamed in cmux left every rig-derived label in the glass one revision stale.
+	 * `stamp` above stays the **birth name**: the rig wrote it at the ignition and nothing renames it, so
+	 * a workspace Felix renamed in cmux left every rig-derived label in Belvedere one revision stale.
 	 * Both are carried and both are shown where they differ; **neither is derived from the other**,
 	 * and a null here renders as "no live identity", never as the birth name wearing a live badge.
 	 */
@@ -934,7 +934,7 @@ export type DeckBuilding = {
  * the client turns it into a row — so what can be answered in place is decided once, server-side,
  * where the files are.
  *
- * **Nothing in this shape can fire.** There is no summons, no stamp, no account and no fire body
+ * **Nothing in this shape can ignite.** There is no summons, no stamp, no account and no ignite body
  * anywhere in it (D10, and B14's own DoD): the two wires a queue item may carry are `POST /inbox`
  * (his word, a file append) and `POST /hands/focus` (his eyes, a jump).
  */

@@ -11,7 +11,7 @@
 // what is drawn now is the v3 engine's own run logs, read through its own exports. The surface
 // survives whole — the line of time, the ranks, the rings, the frozen kickoff on the node.
 //
-// **Nothing here fires and nothing here drives.** The arm, the pass and the tick died with the v2
+// **Nothing here ignites and nothing here drives.** The arm, the pass and the tick died with the v2
 // engine; driving v3 from the deck is G5's rework lay and is pre-ruled out of this lane. Two wires
 // leave this file and both are the shell's: `POST /hands/focus` (his eyes, on a running step)
 // through `data-jump-sid`, and the viewer, which belongs to the Workshop and is reached through the
@@ -257,8 +257,8 @@ function place(graph: HTMLElement): void {
 
 const RING_KEYS: [string, string][] = [
 	['r-declared', 'declared — the log has said nothing about this step'],
-	['r-fired', 'fired — the engine ignited it'],
-	['r-fired lit', 'lit — and its session is beating now'],
+	['r-ignited', 'ignited — the engine set the step running'],
+	['r-ignited lit', 'lit — and its session is beating now'],
 	['r-landed', 'landed'],
 	['r-paused', 'paused — a cause the engine named, a card, or HALT'],
 	['r-refused', 'killed'],
@@ -543,7 +543,7 @@ function drawRunCard(host: HTMLElement, w: Works, run: WorksRun): void {
 function drawNodeActions(host: HTMLElement, n: WorksStep, r: string, live: Set<string>): void {
 	const acts = el('div', 'qacts');
 
-	if (n.at === 'running' || lit(n, 'fired', live)) {
+	if (n.at === 'running' || lit(n, 'ignited', live)) {
 		const session = (snap?.census.sessions ?? []).find(s => s.sid === n.sid) ?? null;
 		const jump = button('st wide', 'jump to pane', session?.pane ? 'focus this step’s cmux panel' : 'this step names no live pane');
 		jump.dataset['jumpSid'] = n.sid ?? '';

@@ -164,7 +164,7 @@ const server = Bun.serve({
 			// nothing: the fence's write list is the four hands and the inbox, and this is a page.
 			if (url.pathname === '/summon') return html(await summonRoute(req, url));
 			// The deck's composer, same argument, same non-write: `POST` because a summons does not
-			// belong in a URL. It resolves a draft and answers a plan; the fire is still the hands'.
+			// belong in a URL. It resolves a draft and answers a plan; the ignition is still the hands'.
 			if (url.pathname === '/deck/compose') return await composeRoute(req);
 			if (url.pathname === '/rewalk') return await rewalkRoute(url);
 			return await route(url);
