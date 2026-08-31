@@ -336,8 +336,11 @@ const shown = await evaluate<{ lines: string[]; chips: string[] }>(`(() => ({
 	lines: [...document.querySelectorAll('#host-action .usage .uline')].map(l => l.textContent.replace(/\\s+/g, ' ').trim()),
 	chips: [...document.querySelectorAll('#host-action .group[data-knob="account"] .btn')].map(b => b.textContent.replace(/\\s+/g, ' ').trim()),
 }))()`);
+// A chip carries a figure **or an honest absence**: an account with no session window open reads
+// `—`, which is what the rig itself prints (measured on `thg-doorbell` at B22). Demanding `\d+%`
+// of every chip asserted that Felix always has three windows open, which is not a law of anything.
 ok('the number is rendered where accounts are chosen, with its age and its provenance (design law §3)',
-	shown.chips.length === 3 && shown.chips.every(c => /\d+% [+-]\d+/.test(c))
+	shown.chips.length === 3 && shown.chips.every(c => /\d+% [+-]\d+|—/.test(c))
 	&& shown.lines.length === 3 && shown.lines.every(l => /live · \d+s old/.test(l)),
 	`chips: ${shown.chips.join('  |  ')}\n      block: ${shown.lines.join('\n             ')}`);
 
@@ -410,31 +413,31 @@ ok('knob → preview: effort, mantle and account each move the SUMMONS TEXT and 
 // Two checks, because the obvious one is unsound here. B14/B15/B20 grep the rendered DOM for the
 // hand's path and expect zero — which held only because their fixture cities never quoted it. This
 // probe runs over the REAL city, where the belvedere Workshop renders belvedere's own board, and
-// belvedere's own board writes `/hands/fire` in prose. So the question is not whether the string is
+// belvedere's own board writes `/hands/ignite` in prose. So the question is not whether the string is
 // on screen; it is whether any of it is **markup**. `outerHTML` minus `textContent` is exactly that
 // difference, and it is the check that was always meant (B17 F2).
 
 const bundle = await (await fetch(`${ORIGIN}/deck.js`)).text();
 const clientSources = ['deck.client.ts', 'deck-dom.ts', 'workshop.client.ts', 'works.client.ts', 'composer.client.ts'];
 const perSource = clientSources.map(f =>
-	[f, (readFileSync(join(HERE, 'glass', f), 'utf8').match(/hands\/fire/g) ?? []).length] as const);
+	[f, (readFileSync(join(HERE, 'glass', f), 'utf8').match(/hands\/ignite/g) ?? []).length] as const);
 const elsewhere = await evaluate<{ attrs: number; inMarkup: number; asProse: number }>(`(() => {
 	const hosts = ['host-context', 'host-drawer', 'host-focus'].map(id => document.getElementById(id));
-	const count = (s) => s.split('hands/fire').length - 1;
+	const count = (s) => s.split('hands/ignite').length - 1;
 	const html = hosts.map(h => count(h.outerHTML)).reduce((a, b) => a + b, 0);
 	const text = hosts.map(h => count(h.textContent)).reduce((a, b) => a + b, 0);
 	return {
-		attrs: document.querySelectorAll('#host-context [data-fire], #host-drawer [data-fire], #host-focus [data-fire]').length,
+		attrs: document.querySelectorAll('#host-context [data-ignite], #host-drawer [data-ignite], #host-focus [data-ignite]').length,
 		inMarkup: html - text, asProse: text,
 	};
 })()`);
-ok('one file may fire, and it is the composer — every other client source is still zero (D10, B17 F1)',
+ok('one file may ignite, and it is the composer — every other client source is still zero (D10, B17 F1)',
 	perSource.every(([f, n]) => (f === 'composer.client.ts' ? n >= 1 : n === 0))
-	&& (bundle.match(/hands\/fire/g) ?? []).length >= 1
+	&& (bundle.match(/hands\/ignite/g) ?? []).length >= 1
 	&& elsewhere.attrs === 0 && elsewhere.inMarkup === 0,
 	`sources: ${perSource.map(([f, n]) => `${f} ${n}×`).join(' · ')}\n`
-	+ `      /deck.js is ${bundle.length} B and carries it ${(bundle.match(/hands\/fire/g) ?? []).length}× — from the composer and nowhere else\n`
-	+ `      City + drawer + Focus: ${elsewhere.attrs} fire attributes and ${elsewhere.inMarkup}× in MARKUP;`
+	+ `      /deck.js is ${bundle.length} B and carries it ${(bundle.match(/hands\/ignite/g) ?? []).length}× — from the composer and nowhere else\n`
+	+ `      City + drawer + Focus: ${elsewhere.attrs} ignite attributes and ${elsewhere.inMarkup}× in MARKUP;`
 	+ ` the ${elsewhere.asProse}× on screen are the corpus quoting the path in its own prose (B17 F2)`);
 
 const noSelect = await evaluate<number>(`document.querySelectorAll('select').length`);
@@ -480,15 +483,24 @@ const countBefore = allBefore.length;
 const homesBefore = allBefore.filter(w => w.title === HOME);
 
 await evaluate(`document.querySelector('#host-action button.go').click()`);
-const receipt = await until('the ignition\'s receipt', async () => {
-	const c = await card();
-	return c && /^ignited /.test(c.out) ? c.out : null;
-}, 60_000);
 
-// The receipt names the landing: `ignited <home> <workspace-uuid> · tab <surface-uuid> · …` on a
-// landing, `ignited minted <home> <workspace-uuid> · …` on a mint (B22 §placement).
-const wsUuid = receipt.match(/\b([0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12})\b/i)?.[1] ?? '';
-const sfUuid = receipt.match(/\btab ([0-9A-F-]{36})\b/i)?.[1] ?? null;
+/**
+ * **The receipt is read out of the audit, not off the card.** A successful ignition calls
+ * `swap.to('chat')` in the same breath as it says its receipt (C16 §1, *"summoning swaps in the
+ * Chat"*), so the composer's card is gone by the next poll — and the run this probe made at B22
+ * timed out waiting for a message that had been on screen for a few frames. The audit is the hand's
+ * own word for the same event, it is durable, and it is what the DoD cites anyway.
+ */
+const ignition = await until('the ignition\'s audit line', async () => {
+	const lines = readFileSync(join(ROOT, 'hands.jsonl'), 'utf8').trim().split('\n')
+		.map(l => { try { return JSON.parse(l) as { action: string; ok: boolean; args: Record<string, unknown>; result: unknown }; } catch { return null; } });
+	return lines.find(l => l?.action === 'ignite' && l.ok) ?? null;
+}, 90_000);
+const landed = ignition.result as { workspace: string; minted: boolean; home: string | null; surface: string | null; sha: string | null; bytes: number };
+const receipt = JSON.stringify(landed);
+
+const wsUuid = landed.workspace;
+const sfUuid = landed.surface;
 const after9 = await workspaces();
 const named = after9.find(w => w.id === wsUuid) ?? null;
 // **The cleanup follows the landing.** A surface this probe added to a workspace of Felix's is
@@ -529,7 +541,7 @@ const transcript = await until('the session\'s transcript', async () => {
 }, 90_000);
 
 ok('one live ignition, end to end: the previewed bytes ARE the ignited bytes ARE the first user turn',
-	sha16(transcript.content) === pageSha && receipt.includes(pageSha) && armed.sha === pageSha,
+	sha16(transcript.content) === pageSha && landed.sha === pageSha && armed.sha === pageSha,
 	`in the box on screen  : ${Buffer.byteLength(previewed)} B · sha256 ${pageSha}\n`
 	+ `      the card's own claim  : ${armed.bytes} B · sha256 ${armed.sha}\n`
 	+ `      the hands' receipt    : ${receipt}\n`
@@ -540,14 +552,13 @@ ok('one live ignition, end to end: the previewed bytes ARE the ignited bytes ARE
 // join, and a line without `building` houses the session by its cwd forever (B22 §the ignited-for join).
 const auditLines = readFileSync(join(ROOT, 'hands.jsonl'), 'utf8').trim().split('\n')
 	.map(l => JSON.parse(l) as { action: string; ok: boolean; args: Record<string, unknown>; result: unknown });
-const ignition = auditLines.find(l => l.action === 'ignite' && l.ok) ?? null;
-const igResult = ignition?.result as { workspace?: string; minted?: boolean; home?: string; surface?: string } | undefined;
+const igResult = landed;
 ok('the audit records the building it ignited FOR, and the uuids it drove (B22 candidates 2 + 6)',
-	ignition !== null && ignition.args['building'] === BUILDING && ignition.args['stamp'] === armed.stamp
-	&& igResult?.workspace === wsUuid && igResult.minted === false && igResult.home === HOME
+	ignition.args['building'] === BUILDING && ignition.args['stamp'] === armed.stamp
+	&& igResult.workspace === wsUuid && igResult.minted === false && igResult.home === HOME
 	&& !JSON.stringify(auditLines).match(/\b(?:workspace|surface|pane):\d+\b/),
 	`audit line    : ${JSON.stringify(ignition)}\n`
-	+ `      the join it makes: stamp "${armed.stamp}" → building "${ignition?.args['building']}" (the census will read that stamp off the transcript)\n`
+	+ `      the join it makes: stamp "${armed.stamp}" → building "${ignition.args['building']}" (the census will read that stamp off the transcript)\n`
 	+ `      refs anywhere in the whole audit (${auditLines.length} lines): ${(JSON.stringify(auditLines).match(/\b(?:workspace|surface|pane):\d+\b/g) ?? ['none']).join(', ')}`);
 
 // The ordinal it just spent is gone: the next mint has to move, or two sessions share one handle.
