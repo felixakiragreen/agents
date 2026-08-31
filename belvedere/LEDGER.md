@@ -2895,7 +2895,7 @@ G6's gates.
 
 ---
 
-**2026-08-30 · Architect · fable-high (G5, cont.)** — **the rework blessing is
+**2026-08-30 · Architect · fable-high (G5)** — **the rework blessing is
 PAID and the batch is live.** His rulings, all in-session: the batch blessed
 whole; the four proposed rulings converted ("fine") — B25's fold, **D23
 blessed**, the pane-side filter, the decoder's planned-mention resolve; the
