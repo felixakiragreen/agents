@@ -3170,3 +3170,67 @@ Baton — the dispatch → ignite B24 (its fenced kickoff + the coda, verbatim;
 B27 behind it, and it now inherits F6 and F2 as well as C21's filings). Felix
 still owes the one ⬡ from G5 — B22's budget extension — which gates B22's two
 re-run bars and B27's ignition, nothing in B26 or B24.
+
+---
+
+## 2026-08-31 (B24) · Builder · opus-high
+
+Changed: the City is his. **Item 0 first** (B26 F6, ruled to this charge at the
+review): `.app`'s `z-index: 1` is gone from `deck.css`, so an OPEN drawer's
+controls are clickable again — the note box, `file it`, `bless D<n>`, `jump to
+pane`, `chat`, `compose`/`copy`, all of them behind the scrim since B13 — and
+`camera/probes/drawer-click.probe.ts` stands over it in `standing.txt`, seen to
+fail with the line reinstated (Chrome's own `<div id="scrim"> intercepts pointer
+events`, ×19, then the timeout); the two workaround comments are rewritten as
+choices. Then the arrangement layer, his model whole: **`glass/spaces.ts`** —
+pure, shared by server and client — carries one recursive `Space` (name · color ·
+type · children · an optional binding to a building; **order is the array**, not
+a field), the drawn order, and every edit as tree surgery that returns a new
+tree; **`glass/arrangement.ts`** is the parse boundary and the one write,
+`desk/city-arrangement.json` through `POST /desk/arrangement` (a desk file, fence
+class 7 — **no new write class**, no credential gate, B6 F3's law fourth venue);
+and the City itself moved out of the shell into **`glass/city.client.ts`**, where
+the arrange mode lives: a pointer drag (never HTML5 DnD), toggled buttons, a
+felikai swatch row, a free `type` box, `+ space`, `dissolve`/`unfile`, and an
+unfiled tail holding every building he has not filed. **Candidate 7 reproduced
+before anything was built** — the live register drew **7 sections for 5 labels**,
+`~/code/universal_robots_sdk` split twice — and fixed by restoring B9's
+group-first invariant *as `spaces.derived()`*, so the default City and his
+arranged City are one renderer and cannot drift. His sketch is expressible
+verbatim and now filed: `desk/city-arrangement.json`, 5 889 B, FELIX and THG as
+districts with agents → belvedere → v3 three deep inside. glass **621 → 657**
+(36 added, none weakened). Evidence: `bun v3/gates.ts --glass --probes`
+**ALL GREEN — 31 gates, wall 480.9 s**, exit 0 (glass 657/0; barrage 1000 · 50 ·
+9/9; the standing family two larger — `city-arrange` and `drawer-click`);
+doctrine lint 0 both boards; `/deck/state` p95 **265.8 ms** against the 500 ms
+bar with the arrangement 5 889 B of a 70 239 B payload; the persistence bar
+`sha256 55dd33b6…` byte-identical across a `kill -9` and a relaunch, read back
+in a browser that had never held a key of this deck's. Budget **0 real turns, 0
+spent** — no session was ignited.
+
+Decided: **attention outranks his order at every level**, not only recency —
+the bar's own sentence (*"the quiet group holds the loudest building pins group
+ordering by loudest member"*) requires it for groups, and two laws in one pane
+would be worse than one; the drop reports why when it bites, the file always
+keeps his order, and reversing the ruling later is one comparator line (F2).
+Four defects found and fixed inside the fence, each pinned: a duplicate space id
+minted in one millisecond (F4), an id regex written as a character list that
+made the server refuse **every** arrangement the live City could make (F3), a
+bound space carrying a copy of its building's name (F5), and the drag verb's
+missing viewport law (F9). Two filed to ISSUES rather than chased: the camera
+cannot drive a deck that writes the real desk (a contract question — the live
+bar was paid in two honest runs), and the transferable half of F3 — **a probe
+that drives a write must assert the receipt**, because an optimistic redraw and
+a saved arrangement are pixel-identical. C21 F4's legend token was ported
+forward with its defect on purpose: it is B27 §8's and it carries a comment
+saying so.
+
+Next: **Felix reviews B24** — his City, arranged; the rework batch's last build
+row is **B27** (the QoL sweep), which now inherits B26's F9 and this row's F2 as
+well as C21's filings, and whose ignition still waits on the one ⬡ Felix owes
+from G5 (B22's budget extension). **G6** convenes by his summons after it.
+His own Belvedere on :4477 is running pre-B24 code and answers `404` to
+`/desk/arrangement`; his arrangement reaches him on the next restart.
+
+Baton — the dispatch → Felix: read the City (restart the deck first), then
+ignite B27 or call G6. Nothing here ignites itself.
