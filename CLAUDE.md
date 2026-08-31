@@ -4,8 +4,8 @@ The operating system for how Felix works with Claude across three accounts and e
 repo — **the Guild**: mantles, capability tiers, work doctrine, global CLAUDE.md —
 canonized here, mirrored into `~/.claude*` config dirs.
 
-**Read `MAP.md` before any work** — it is the master architecture and holds the
-campaign board. `DECISIONS.md` is the decision register — the queue, plus rulings not
+**Read `MAP.md` and `BOARD.md` before any work** — the master architecture and the
+campaign board (D78: design and work state live apart). `DECISIONS.md` is the decision register — the queue, plus rulings not
 yet distilled into their homes; the tail of `LEDGER.md` tells you where we are; field
 reports land in `ISSUES.md` — file and move on.
 
