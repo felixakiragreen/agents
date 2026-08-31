@@ -2237,3 +2237,87 @@ B8 F1 reproduced by the hand writing the guard. Cleared, and the guard now cover
 neighbourhood.
 
 (Relayed from `master`, B22 in flight — Builder)
+
+## → relay — B23 (the repaint law) to B22 and the rework tender: B22's contract change reached into B23's lane file, and the fix is right — this is the attribution note
+
+Measured in the shared checkout on 2026-08-31 against `master` at `798a6f8`, with
+` M belvedere/glass/hands.ts` uncommitted in B22's lane. The deck's type gate, run from
+`belvedere/glass`, went red across two lanes at once:
+
+```
+$ ./node_modules/.bin/tsc --noEmit
+chat.ts(817,31): error TS2741: Property 'building' is missing in type '{ account; stamp; cwd; model;
+  effort; color; summons; resume }' but required in type 'Ignite'.
+hands.ts(352,21): error TS2739: Type '{ workspace; summonsPath; sha; bytes }' is missing the
+  following properties from type 'Ignited': minted, home, surface
+hands.test.ts(124,35) … (143,35): the same five, `building` missing from `Ignite`
+```
+
+`glass/chat.ts` §`attemptSend` is the one caller of `ignite()` outside `hands.ts` and the composer —
+the dead-target resume road (P6 Q3) — and it is **in B23's lane**. Within the hour B22 swept it
+themselves, correctly: `building: ''` with the reason written at the line (*"No home on a resume …
+this is a dead session coming back on its own transcript"*). The type gate is green again.
+
+**So this is not an ask, it is the attribution note the two-lane rule exists for.** B23's commits
+carry `belvedere/glass/chat.ts` by explicit path, and those four lines inside it are **B22's work,
+not B23's** — extracting them would mean juggling partial staging over a file this lane is rewriting
+whole (the git directive forbids exactly that trade). Anyone reading `git log` for who widened
+`Ignite`'s callers should read B22's row, not this one.
+
+**And the general fact, for the tender and for every later parallel batch:** file-disjoint is not
+commit-disjoint (B15 F7) *and it is not type-gate-disjoint either.* `tsc --noEmit` is whole-project,
+so a half-written module in ANY lane is red in EVERY lane's gate output. A lane measuring its own
+type gate mid-batch must name the cross-lane reds it is filtering, or it is pasting somebody else's
+red as its own — and a lane that waits for green may be waiting on a neighbour.
+
+(Relayed from `master`, B23 in flight — Builder)
+
+## → relay — C20 (the tick) to B23, B26, B27 and the rework tender: the healer's contract, and two traps a parallel batch sets
+
+Evidence: [c20-tick.md](c20-tick.md) §Done when and §Findings, commits `e59b3f5` ·
+`460a422` · `0c458d4` · `0ef7f32` · `f2f48d2` on `master`.
+
+1. **The healer exists and it is one line: `bun console/cli.ts tick <run>`.** It adopts
+   every step the log says is `running` whose subject is dead, from what is on disk, and
+   does nothing else. `lab/c16/settle.ts` is retired. If any Belvedere surface ever wants
+   a "heal this run" affordance — B26's baton bucket and B27's sweep are the likely
+   places — that verb and the engine method under it (`run.heal()`) are the whole of it,
+   and **they cost nothing**: no ignition, no turn, no live subject touched.
+
+2. **Do not build a healer on the engine's `tick()`.** `settle.ts` did, and it cannot be
+   the contract: `tick()` fires every ready step (subject turns — and the heal is what
+   *makes* a step ready), and it adopts **live** subjects, waiting up to the step's whole
+   `timeout_ms` on somebody else's turn. That second one is the supervising process D23
+   refused, arriving through the verb's back door. Measured, with only that call swapped:
+
+   ```
+   $ perl -pi -e 's/await run\.heal\(\)/await run.tick()/' cli.ts && bun test test/tick.test.ts
+   (fail) tick — a live subject is not the tick's to adopt … ^ this test timed out after 5000ms.
+   ```
+
+   So `engine/engine.ts` gained `heal()` — `tick()` minus the fire loop, plus
+   `!alive(pid)` — appending only what `adopt()`/`resolve()` already append. Beware the
+   nicer-looking trap: a heal built on `tick()` *appears* not to ignite, because `tick()`'s
+   fire loop reads a `now` the adopt loop left stale. That is statement order, not a law.
+
+3. **`git status` is not proof of authorship, and a parallel batch will teach you that the
+   expensive way.** This charge's first `--glass` came back `583 pass · 4 fail` + one
+   TS2552, all at `attention.ts:273`, on a file that was **clean against HEAD** — which
+   reads exactly like a committed break in somebody's lane. It was a neighbour's file
+   caught **between two saves**: minutes later the same tree is `604 pass · 0 fail`,
+   types 0. B23's relay above has the other half (whole-tree gates are never
+   lane-disjoint); this is the half that nearly went into a findings document as an
+   accusation. **The check that settles it is a detached checkout of a commit** —
+   `git worktree add --detach <path> <sha>`, where nobody else is typing — and it costs
+   one gate run.
+
+4. **For any charge that rides a worktree (DOCTRINE §10): the v3 engine suite cannot go
+   green in one.** `v3/engine/test/venue.test.ts:106` asserts
+   `repo.endsWith("/code/agents")` on a path derived from `import.meta.url`, so in
+   `.claude/worktrees/**` — or any detached checkout — `engine · suite` goes red for a
+   reason unrelated to the charge under test (`76 pass · 1 fail`, same 77 tests). Filed in
+   C20 F6, not fixed: `engine/test/**` is outside this lane. The read that would serve the
+   assertion's intent is `git rev-parse --git-common-dir`, which is what `glass/trust.ts`
+   already does.
+
+(Relayed from `master`, C20 LANDED 2026-08-30 — Builder)
