@@ -65,6 +65,79 @@ export const stamp = (seconds: number, cls = 'ago'): HTMLElement => {
 const painted = new Map<string, { signature: string; host: HTMLElement }>();
 
 /**
+ * **The repaint law** (B23 §1): what a rebuild must preserve.
+ *
+ * An element's identity across a rebuild is its tag, its id and its whole dataset — nothing else,
+ * because nothing else is stable. `textarea[data-chat-draft="<sid>"]` and
+ * `textarea[data-note-for="<key>"]` are already written that way by the tenants that need them, so
+ * this asks for no new convention and invents no probe-only attribute: an element that wants to
+ * survive a repaint says who it is, which it had to do anyway for the shell to wire it.
+ *
+ * An element with neither an id nor a data attribute has no identity and is not tracked.
+ */
+type Who = { tag: string; id: string; data: Record<string, string> };
+
+function who(e: Element): Who | null {
+	const h = e as HTMLElement;
+	const data = { ...h.dataset } as Record<string, string>;
+	if (!h.id && Object.keys(data).length === 0) return null;
+	return { tag: h.tagName, id: h.id, data };
+}
+
+const same = (a: Who, b: Who): boolean => {
+	if (a.tag !== b.tag || a.id !== b.id) return false;
+	const ka = Object.keys(a.data), kb = Object.keys(b.data);
+	return ka.length === kb.length && ka.every(k => a.data[k] === b.data[k]);
+};
+
+function find(host: HTMLElement, want: Who): HTMLElement | null {
+	for (const e of host.querySelectorAll<HTMLElement>(want.tag)) {
+		const got = who(e);
+		if (got && same(got, want)) return e;
+	}
+	return null;
+}
+
+/** What Felix was doing in this region: where he was typing, and where every scroller stood. */
+type Held = {
+	focus: { at: Who; caret: [number, number] | null } | null;
+	scrolls: { at: Who; top: number; left: number }[];
+};
+
+function hold(host: HTMLElement): Held {
+	const active = document.activeElement;
+	const inside = active instanceof HTMLElement && active !== host && host.contains(active) ? active : null;
+	const at = inside === null ? null : who(inside);
+	const box = inside instanceof HTMLTextAreaElement || inside instanceof HTMLInputElement ? inside : null;
+	const scrolls: Held['scrolls'] = [];
+	for (const e of host.querySelectorAll<HTMLElement>('*')) {
+		if (e.scrollTop === 0 && e.scrollLeft === 0) continue;
+		const id = who(e);
+		if (id) scrolls.push({ at: id, top: e.scrollTop, left: e.scrollLeft });
+	}
+	return {
+		focus: at === null ? null : { at, caret: box === null ? null : [box.selectionStart ?? 0, box.selectionEnd ?? 0] },
+		scrolls,
+	};
+}
+
+function restore(host: HTMLElement, held: Held): void {
+	// Scrollers first: focusing an element inside one scrolls it into view, so restoring the caret
+	// before the offset would hand the pane back at the wrong place.
+	for (const s of held.scrolls) {
+		const back = find(host, s.at);
+		if (back) { back.scrollTop = s.top; back.scrollLeft = s.left; }
+	}
+	if (!held.focus) return;
+	const back = find(host, held.focus.at);
+	if (!back || back === document.activeElement) return;
+	back.focus({ preventScroll: true });
+	const caret = held.focus.caret;
+	if (caret && (back instanceof HTMLTextAreaElement || back instanceof HTMLInputElement))
+		back.setSelectionRange(caret[0], caret[1]);
+}
+
+/**
  * Rebuild a region only when what it *says* changed. Ages tick separately, always (B14 F4).
  *
  * **The memo is a claim about a host's contents, so it records the host** (B19). Without that it
@@ -72,13 +145,22 @@ const painted = new Map<string, { signature: string; host: HTMLElement }>();
  * away and back with an unchanged signature would find its memo still standing and draw nothing —
  * a blank pane, no error, and only for the tenants Felix returns to without changing anything.
  * `forget(host)` is how the shell retracts the claim when it clears a host.
+ *
+ * **And a rebuild keeps his place** (B23 §1): focus, the caret, and every scroll offset inside the
+ * region are held across the rebuild and put back. A signature is a claim about what a region
+ * *says*, never about where Felix is standing in it — so the two are kept apart here, once, rather
+ * than by each tenant remembering to. The reported bug was one keystroke into an empty Reply box
+ * unfocusing it; the cause is fixed at its own signature (`chat.client.ts` §the box), and this is
+ * the law that makes the whole class impossible: **a poll may never cost a keystroke.**
  */
 export function paint(key: string, host: HTMLElement, signature: string, draw: (host: HTMLElement) => void): void {
 	const was = painted.get(key);
 	if (!was || was.signature !== signature || was.host !== host) {
 		painted.set(key, { signature, host });
+		const held = hold(host);
 		host.textContent = '';
 		draw(host);
+		restore(host, held);
 	}
 	tick(host);
 }

@@ -441,6 +441,19 @@ function drawAction(host: HTMLElement, state: PaneState): void {
 	area.dataset['chatDraft'] = sid;
 	host.append(area);
 
+	// **The controls are their own region** (B23 §1). What stands beside the box — the send control
+	// or the reason in its place — is a function of the WORDS, and the words are his: a signature
+	// carrying them rebuilds the box he is typing in, which is the reported bug. So the box's own
+	// region never reads the text, and this host is repainted by a second signature that does.
+	const acts = el('div', 'ct-acts');
+	acts.dataset['chatActs'] = sid;
+	host.append(acts);
+
+	if (state === 'expanded') drawBatons(host, v.target.building);
+}
+
+/** The send control or the reason in its place, and the promise the road carries (spec §2). */
+function drawActs(host: HTMLElement, sid: string, v: ChatView, text: string): void {
 	const acts = el('div', 'qacts');
 	const bad = refusals(text);
 	// D10 as structure: no resolvable target, no cold-hands, no send **control** — the reason stands
@@ -460,8 +473,6 @@ function drawAction(host: HTMLElement, state: PaneState): void {
 	// the button would have been, and printing it a second time is furniture, not honesty.
 	if (v.send.can) host.append(el('p', 'quiet prose',
 		`${v.send.why} Verified after delivery: the transcript is read back and the sha compared — nothing is reported delivered without it.`));
-
-	if (state === 'expanded') drawBatons(host, v.target.building);
 }
 
 // ---------- the tenant ----------
@@ -500,15 +511,31 @@ function draw(): void {
 	if (target) { target.scrollIntoView({ block: 'center' }); scrolled = true; }
 	else if (box && stick && !aim) box.scrollTop = box.scrollHeight;
 
-	// Action is the one surface here Felix TYPES into, so it is painted by a signature that
-	// deliberately excludes his own text (B14 F4): the box is rebuilt when the target, the pane state
-	// or the send's own verdict changes, and never because he pressed a key or a poll landed.
+	// Action is the one surface here Felix TYPES into, so the box's own signature carries **nothing
+	// that his typing moves** (B23 §1): not the words, not the refusals they produce, not the send
+	// verdict beside them. The target, the pane state and the batons are the whole of it — and at
+	// `minimal` there is no box at all, which is the one state where the draft's own shape may
+	// legally decide the region's contents.
 	const sid = selection.session;
+	const text = sid ? held(sid, v) : '';
 	paint('chat:action', actionHost, JSON.stringify([
-		sid, actionState, v?.send, v?.target?.building, v?.target?.state,
-		refusals(sid ? held(sid, v) : '').map(r => r.code),
+		sid, actionState, v?.target !== undefined && v?.target !== null,
+		actionState === 'minimal' ? (text.trim() === '' ? 0 : text.split('\n').length) : null,
 		actionState === 'expanded' ? [snap?.queue.filter(i => i.building === v?.target?.building).map(i => i.key), snap?.workshop?.tail?.baton?.text.name] : null,
 	]), h => drawAction(h, actionState));
+
+	// The controls beside it, repainted on what they actually draw. A rebuild here cannot cost a
+	// keystroke: the box is not inside this host.
+	const actsHost = actionHost.querySelector<HTMLElement>('[data-chat-acts]');
+	if (actsHost && sid && v)
+		paint('chat:acts', actsHost, JSON.stringify([sid, v.send, refusals(text).map(r => r.code), receipt(`chat:${sid}`)]),
+			h => drawActs(h, sid, v, text));
+
+	// The box is outside every signature, so nothing rebuilds it when the SERVER's copy of the draft
+	// moves — a send emptying it, or the file changing under a hotswap. It is re-seated here instead,
+	// and never while he is in it (the desk's own rule, `desk.client.ts` §draw).
+	const draftBox = actionHost.querySelector<HTMLTextAreaElement>('[data-chat-draft]');
+	if (draftBox && document.activeElement !== draftBox && draftBox.value !== text) draftBox.value = text;
 }
 
 export const chat: FocusView = {

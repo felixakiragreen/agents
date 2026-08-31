@@ -17,7 +17,7 @@ import { chromium, type Browser, type Page } from 'playwright-core';
 import type { Outcome } from './twin';
 
 /** Everything has a limit (directive 3.1). A probe that hangs is an agent that waits forever. */
-const LIMITS = { actionMs: 10_000, gotoMs: 20_000, settleMs: 4_000, scrollMs: 250 } as const;
+const LIMITS = { actionMs: 10_000, gotoMs: 20_000, settleMs: 4_000, scrollMs: 250, keyMs: 20 } as const;
 
 /**
  * The deck is a no-scroll surface under the law of space (README §3), so a shot is viewport-sized
@@ -34,6 +34,35 @@ export type Probe = {
 	goto(path: string): Promise<void>;
 	click(selector: string): Promise<void>;
 	type(selector: string, text: string): Promise<void>;
+	/**
+	 * **Real keystrokes**, one at a time, into the element at `selector` — `type` fills a value in
+	 * one assignment and fires one `input` event, which is a different experiment.
+	 *
+	 * B23's composer bar is *"typing 10 characters across ≥3 poll repaints loses zero keystrokes and
+	 * zero focus"*, and the defect it hunts is a repaint that replaces the box mid-word: `fill`
+	 * cannot see it, because the whole word is already in the box before the first poll lands.
+	 */
+	press(selector: string, text: string): Promise<void>;
+	/** What an input or textarea is holding — the composer bar counts keystrokes with it. */
+	value(selector: string): Promise<string>;
+	/**
+	 * Who has focus, as `<tag>[<the first data- attribute>]`, or `''` for the body. A repaint that
+	 * replaced the box Felix was typing in shows up here as focus on nothing.
+	 */
+	focused(): Promise<string>;
+	/** The caret's offset in a textarea — `-1` where the element is not one. */
+	caret(selector: string): Promise<number>;
+	/** Dwell. The deck polls every three seconds, so *"across ≥3 poll repaints"* is a wait. */
+	wait(ms: number): Promise<void>;
+	/** A scroller's position and extent: `top` is `scrollTop`, `height` the content, `client` the pane. */
+	scrolled(selector: string): Promise<{ top: number; height: number; client: number }>;
+	/** Put a scroller at an offset — how a probe scrolls to the very top and stays there. */
+	scrollTo(selector: string, top: number): Promise<void>;
+	/**
+	 * Whether the first match's box lies inside the viewport. The minimap's bar is **spatial** — a
+	 * click lands the marked turn where Felix can see it — and only the geometry can say so.
+	 */
+	inView(selector: string): Promise<boolean>;
 	/** Wait for a selector to be attached and visible. Throws on timeout — a probe asserts by throwing. */
 	waitFor(selector: string): Promise<void>;
 	/** What the page says at a selector, trimmed. The probe's own assertions read through this. */
@@ -108,6 +137,37 @@ export async function openEyes(base: (path: string) => string): Promise<Outcome<
 		async goto(path) { await page.goto(base(path), { waitUntil: 'load', timeout: LIMITS.gotoMs }); await settle(page); },
 		async click(selector) { await page.click(selector); },
 		async type(selector, text) { await page.fill(selector, text); },
+		async press(selector, text) { await page.locator(selector).first().pressSequentially(text, { delay: LIMITS.keyMs }); },
+		async value(selector) { return await page.locator(selector).first().inputValue(); },
+		async focused() {
+			return await page.evaluate(() => {
+				const a = document.activeElement as HTMLElement | null;
+				if (!a || a === document.body) return '';
+				const key = Object.keys(a.dataset)[0];
+				// `dataset` speaks camelCase and the DOM speaks dashes; the probe reads as a selector.
+				const attr = key === undefined ? null : `data-${key.replace(/[A-Z]/g, c => `-${c.toLowerCase()}`)}`;
+				return attr === null ? a.tagName.toLowerCase() : `${a.tagName.toLowerCase()}[${attr}]`;
+			});
+		},
+		async caret(selector) {
+			return await page.locator(selector).first().evaluate(e =>
+				e instanceof HTMLTextAreaElement || e instanceof HTMLInputElement ? e.selectionStart ?? -1 : -1);
+		},
+		async wait(ms) { await page.waitForTimeout(ms); },
+		async scrolled(selector) {
+			return await page.locator(selector).first().evaluate(e =>
+				({ top: Math.round(e.scrollTop), height: Math.round(e.scrollHeight), client: Math.round(e.clientHeight) }));
+		},
+		async scrollTo(selector, top) {
+			await page.locator(selector).first().evaluate((e, y) => { e.scrollTop = y; }, top);
+			await page.waitForTimeout(LIMITS.scrollMs);
+		},
+		async inView(selector) {
+			return await page.locator(selector).first().evaluate((e, h) => {
+				const r = e.getBoundingClientRect();
+				return r.bottom > 0 && r.top < h && r.height > 0;
+			}, VIEWPORT.height);
+		},
 		async waitFor(selector) { await page.waitForSelector(selector, { state: 'visible' }); },
 		async text(selector) { return (await page.textContent(selector) ?? '').trim(); },
 		async count(selector) { return await page.locator(selector).count(); },
