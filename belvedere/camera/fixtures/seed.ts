@@ -107,10 +107,16 @@ function deadPid(): number {
 }
 
 /**
- * Six sessions: four alive on the camera's own pid — alive for exactly the probe's life and dead
+ * Seven sessions: five alive on the camera's own pid — alive for exactly the probe's life and dead
  * the moment it exits — and two dead, one by `SessionEnd` and one by a pid the census still
  * believes in. That second one is the F5 law's whole point: the last line says `Stop`, and only
  * `kill -0` knows better.
+ *
+ * The seventh is C21's: a session whose last word was cmux's 60-second `idle_prompt` nag, hours
+ * ago. It is here because the gut needs its own standing subject — the state the deck used to
+ * render as a demand for input (`NAGGING`, ranked into the queue and badged on the City) and now
+ * must render as what it honestly is. Every other seeded state proves something the deck DOES;
+ * this one proves something it no longer does.
  */
 function censusText(city: string, transcripts: string, accounts: string[]): string {
 	const now = Date.now() / 1000;
@@ -130,6 +136,7 @@ function censusText(city: string, transcripts: string, accounts: string[]): stri
 	const capped = t('fixture-capped', 'builder-beta-03', beta, 'claude-opus-4-5-20251101');
 	const stopped = t('fixture-stopped', 'digger-beta-04', beta, 'claude-sonnet-4-5-20250929');
 	const ended = t('fixture-ended', 'builder-alpha-06', alpha, 'claude-haiku-4-5-20251001');
+	const nagged = t('fixture-nagged', 'builder-beta-05', beta, 'claude-sonnet-4-5-20250929');
 
 	return [
 		// working — a live pid mid-tool-call
@@ -149,6 +156,15 @@ function censusText(city: string, transcripts: string, accounts: string[]): stri
 		// idle, roster CAPPED — the hook's 16-entry slice, so every figure it feeds renders `n+`
 		record(now - 700, 'SessionStart', 'fixture-capped', acct(2), mine, beta, capped, { why: 'startup' }),
 		record(now - 60, 'Stop', 'fixture-capped', acct(2), mine, beta, capped, { bg: tasks(16, 'shell') }),
+
+		// C21's subject: alive, quiet since yesterday, and the last thing it said was cmux's nag.
+		// `Stop` is the real idle edge (P1 F1) and the `idle_prompt` `Notification` lands 60 s
+		// after it — so the honest reading of this session is IDLE, 21 hours old, and nothing is
+		// owed. The 21 h is Felix's own screenshot: the deck used to render this row as a demand
+		// for his input, hours after the session had stopped asking for anything.
+		record(now - 76_000, 'SessionStart', 'fixture-nagged', acct(0), mine, beta, nagged, { why: 'startup' }),
+		record(now - 75_660, 'Stop', 'fixture-nagged', acct(0), mine, beta, nagged, {}),
+		record(now - 75_600, 'Notification', 'fixture-nagged', acct(0), mine, beta, nagged, { why: 'idle_prompt' }),
 
 		// dead, and the census does not know it: last line `Stop`, pid a corpse (census.ts §F5)
 		record(now - 5400, 'SessionStart', 'fixture-stopped', acct(1), dead, beta, stopped, { why: 'startup' }),
