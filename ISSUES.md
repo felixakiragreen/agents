@@ -289,3 +289,16 @@ is cleared). A cleared inbox is empty.
   path + a greppable anchor ("belvedere/README.md §6, 'The rework batch' note"),
   and a board carries ONE live batch note — spent notes purge at close (the
   C34/C35 blade as standing law, not one-off surgery).
+- 2026-08-31 · belvedere Architect (B26's review) · **the ledger grammar has no
+  way to say "nothing is owed"** — B26 F2, the FOURTH filing of this one ask
+  (amendment candidate by recurrence): six of nine live Felix-holder batons say
+  "nothing waits" in their own prose and no field distinguishes them from real
+  asks; a render-side detector was rightly refused (a false positive hides a
+  baton). The ask: a typed Next form for "nothing is owed" that is not the
+  absence of a word. Grand Architect's; record in [B26 F2](belvedere/plans/b26-baton-attention.md).
+- 2026-08-31 · belvedere Architect (B26's review) · **the Next splitter fires on
+  a `Next:` mention inside an entry's body** — `spacex-dashboard-c2` and `manny`
+  tails mis-split, the parsed baton reads bytes the writer never meant as the
+  Next clause (both happen to parse `felix` today, nothing mis-armed). Parser is
+  the Standards Office's (D65; the render side never fattens). Full record in
+  belvedere's B26 filing, git history of belvedere/ISSUES.md this date.

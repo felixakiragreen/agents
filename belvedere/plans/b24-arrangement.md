@@ -48,6 +48,15 @@ arrangement hides nothing new.
 
 ## Spec
 
+0. **First act — the scrim (B26 F6, ruled here at the review):** `.app`'s
+   `position: relative; z-index: 1` makes a stacking context that traps the
+   drawer's `z-index: 30` under the root-level `#scrim` at 20 — Chrome's own
+   hit test says the scrim intercepts every queue control (`file it`,
+   `bless`, `chat`, B26's `compose`/`copy`). One line — drop the `z-index`
+   from `.app`, or move `#scrim` inside `#app` below the drawer — plus a
+   probe asserting an OPEN drawer's control actually clicks; then delete the
+   two workaround comments (C16's `chat-engine.probe.ts:42`, B26's
+   `baton.probe.ts`). Your arrangement controls draw there too.
 1. **The arrangement layer is spaces** (his model, the header). One
    recursive structure over the building register: a space carries name · color ·
    order · type (free label) · children, plus an optional binding to a
