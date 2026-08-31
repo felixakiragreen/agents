@@ -3146,9 +3146,13 @@ without reaching into it, and a landed **terminal** node in a building whose
 tail hands a baton now says so and jumps to that item. First act, as ordered:
 the fixture city's seeded sids are uuids (C21 F3) — the readable half was always
 the name-stamp — so a probe can open the Chat, the queue or any session surface
-on a seeded session; the standing family was re-run whole on the fix before
-anything was built on it. Evidence: 621 glass tests (609 → 621, twelve added,
-none weakened), `bun lab/b26/cost.ts` `/deck/state` p95 **280.2 ms** against the
+on a seeded session; the standing family was re-run whole on that fix (26 gates
+green) — said exactly, that run overlapped this charge's first edits, so the
+settled-tree run below is the landing evidence and it carries the family whole. Evidence: `bun v3/gates.ts --glass --probes` **ALL GREEN — 29 gates,
+wall 465.0 s** on a settled tree (glass 621/0, up from 609 with twelve added and
+none weakened; barrage 1000 · 50 · 9/9; the standing family whole, `baton` its
+eighteenth), doctrine lint 0 both boards, both type gates exit 0,
+`bun lab/b26/cost.ts` `/deck/state` p95 **280.2 ms** against the
 500 ms bar with the bucket costing **0.09 ms** a snapshot, and two probes —
 `baton.probe.ts` on the fixture (standing, hermetic) and `baton-real.probe.ts`
 on the real corpus (committed, hand-run, because it reads two trees other

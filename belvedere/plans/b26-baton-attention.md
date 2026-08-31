@@ -76,8 +76,10 @@ fixture twin, before and after in one run:
    error="not a session id: \"fixture-nagged\""  target=null  turns=0  marks=0
 ```
 
-The standing family was re-run whole on the fix before anything was built on it:
-`bun v3/gates.ts --probes` → **ALL GREEN — 26 gates, wall 449.1 s**.
+The standing family was re-run whole on the fix, at the seeded-sid commit: `bun v3/gates.ts
+--probes` → **ALL GREEN — 26 gates, wall 449.1 s**. Said exactly: that run **overlapped this
+charge's first edits**, so by C20 F3's own rule it is a re-run of the fix and not landing evidence —
+the settled-tree run at the last bar is, and it carries the family whole.
 
 - [x] A live Felix-holder baton appears as a City badge and a queue item;
   opening it lands the composer holding that baton's fenced summons,
@@ -210,7 +212,64 @@ camera/shots/2026-08-31T04-27-21-897-baton-real-works.png
   Run whole, `--glass --probes` in one pass, so the deck suite, the barrage and every standing probe
   answer together:
 
-<!-- GATES -->
+```
+$ git status --porcelain                       # `?? .summon-theaters` only — no tracked change in flight
+$ bun v3/gates.ts --glass --probes
+| gate | result | counts | wall | exit |
+|---|---|---|---|---|
+| engine · suite | PASS | 80 pass · 0 fail | 24.3s | 0 |
+| barrage · suite | PASS | 41 pass · 0 fail | 23.5s | 0 |
+| fake-claude · suite | PASS | 60 pass · 0 fail | 10.2s | 0 |
+| console · suite | PASS | 30 pass · 0 fail | 1.7s | 0 |
+| engine · types | PASS | 0 errors | 0.2s | 0 |
+| barrage · types | PASS | 0 errors | 0.1s | 0 |
+| fake-claude · types | PASS | 0 errors | 0.1s | 0 |
+| console · types | PASS | 0 errors | 0.1s | 0 |
+| gates · types | PASS | 0 errors | 0.1s | 0 |
+| glass · suite | PASS | 621 pass · 0 fail | 2.5s | 0 |
+| glass · types | PASS | 0 errors | 0.2s | 0 |
+| probe · city | PASS | 1 shot | 11.5s | 0 |
+| probe · building | PASS | 1 shot | 11.7s | 0 |
+| probe · fixture-rail | PASS | 2 shots | 6.9s | 0 |
+| probe · fixture-building | PASS | 2 shots | 7.3s | 0 |
+| probe · fixture-broken | PASS | 2 shots | 6.9s | 0 |
+| probe · fixture-gauges | PASS | 2 shots | 7.2s | 0 |
+| probe · inbox-knob | PASS | 2 shots | 11.6s | 0 |
+| probe · board-fresh | PASS | 1 shot | 11.8s | 0 |
+| probe · nag-honesty | PASS | 2 shots | 6.7s | 0 |
+| probe · act-stall | PASS | 1 shot | 51.8s | 0 |
+| probe · tenant-leak | PASS | 1 shot | 19.9s | 0 |
+| probe · chat | PASS | 2 shots | 12.8s | 0 |
+| probe · chat-composer | PASS | 2 shots | 22.6s | 0 |
+| probe · chat-engine | PASS | 3 shots | 14.9s | 0 |
+| probe · chat-works | PASS | 2 shots | 13.4s | 0 |
+| probe · chat-scroll | PASS | 3 shots | 28.6s | 0 |
+| probe · baton | PASS | 2 shots | 7.3s | 0 |
+| barrage | PASS | 1000 runs · 50 cuts · 9/9 mutants | 149.3s | 0 |
+
+ALL GREEN — 29 gates, wall 465.0s
+```
+
+  **609 → 621: twelve tests added, none weakened and none removed.** The one existing assertion that
+  had to change is named rather than quietly relaxed — `deck.test.ts`'s badge-key check now reads
+  `[...ATTENTION].sort()` instead of a hand-written four, which is the same guard over a list that
+  can no longer disagree with itself (F8).
+
+  Both offline type gates, run from their own directories against the pinned checkers:
+
+```
+$ cd belvedere/glass   && ./node_modules/.bin/tsc --noEmit ; echo "exit=$?"    → exit=0
+$ cd belvedere/camera  && ./node_modules/.bin/tsc --noEmit ; echo "exit=$?"    → exit=0
+$ bun doctrine/cli.ts lint . belvedere                                          → 0 failure(s) in 0 class(es)
+$ git diff 174ec1e..HEAD --stat -- '**/package.json' 'package.json' 'belvedere/**/bun.lock'
+                                            # empty — zero new dependencies
+```
+
+  **Predecessor probes green**: the whole standing family runs in the table above — the seventeen
+  that stood before this charge plus `baton`, which is the eighteenth. Both of this charge's probes
+  were **seen to fail**: `baton` times out on a `textarea.summons-in` that resolves `24 × … hidden`
+  with the pane-opening line removed, and `baton-real` never finds `.qi-aim` with the aim taken back
+  out of the drawer's repaint signature — the two defects F4 records.
 
   Cost, on a live deck against the real city (`bun lab/b26/cost.ts`, N=20 spaced):
 

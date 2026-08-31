@@ -2564,3 +2564,10 @@ And for the record, since a tender note of this date credited it elsewhere: **th
 standing family was re-run whole on it before anything was built: ALL GREEN, 26 gates.
 
 (Relayed from `master`, B26 LANDED 2026-08-31 — Builder)
+
+**Numbers for your own bar (B26, same landing):** `bun v3/gates.ts --glass --probes` **ALL GREEN —
+29 gates, wall 465.0 s** on a settled tree — glass **621 pass · 0 fail** (609 → 621, twelve added,
+none weakened), barrage 1000 · 50 · 9/9, and the standing family whole with `baton.probe.ts` as its
+eighteenth. `/deck/state` p95 **280.2 ms** against the 500 ms bar, the bucket costing **0.09 ms** a
+snapshot and **16.5 kB** of a 78.6 kB payload (instrument text the drawer shows only on `[expand]` —
+if a later charge wants it back, `options[].summons` is the one field to fetch on demand).
