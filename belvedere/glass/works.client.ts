@@ -19,10 +19,10 @@
 
 import {
 	lit, ringOf,
-	type DeckSession, type DeckSnapshot, type PaneState, type UsageWire, type WorkshopRow,
+	type DeckSession, type DeckSnapshot, type PaneState, type QueueItem, type UsageWire, type WorkshopRow,
 	type Works, type WorksRun, type WorksStep,
 } from './deck-model';
-import { moveIn, selection, swap, viewer, type FocusView } from './deck-view';
+import { moveIn, queue, selection, swap, viewer, type FocusView } from './deck-view';
 import {
 	ago, button, chatButton, dots, drawProse, el, paint, plain, reading, receipt, say, stamp, words, type DecodeCtx,
 } from './deck-dom';
@@ -100,7 +100,7 @@ function ring(n: WorksStep, state: string | null, live: Set<string>): HTMLElemen
  * and the bill sits under both. A card — Felix's own step — renders its ask in its own idiom and
  * carries **no control at all** (D10).
  */
-function drawNode(host: HTMLElement, n: WorksStep, all: Map<string, WorkshopRow>, live: Set<string>, compact: boolean): void {
+function drawNode(host: HTMLElement, n: WorksStep, all: Map<string, WorkshopRow>, live: Set<string>, compact: boolean, handed: QueueItem | null): void {
 	const row = rowOf(n, all);
 	const state = row?.state ?? null;
 	const { ring: r, from } = ringOf(n, state);
@@ -152,7 +152,33 @@ function drawNode(host: HTMLElement, n: WorksStep, all: Map<string, WorkshopRow>
 		words(blocked, b, ctx);
 		box.append(blocked);
 	}
+	if (handed && r === 'landed') handedOn(box, handed);
 	host.append(box);
+}
+
+/**
+ * **The end of the line, and what came after it** (B26 §3).
+ *
+ * Felix's report was that a session finished, handed a baton, and the deck said nothing anywhere.
+ * The Works is where he watches a run finish, so it is where the sentence belongs: a **landed
+ * terminal** node — one nothing else depends on — in a building whose ledger tail hands a baton
+ * says so, and the click lands on that baton's own queue item.
+ *
+ * It is deliberately not a claim about causation. The node does not say *this step wrote that
+ * clause*: the run log knows nothing about a ledger and never will. It says the two facts sit
+ * together — this run ended here, and this building's tail hands the next move on — which is
+ * exactly what Felix was looking at when he found nothing.
+ */
+const terminal = (run: WorksRun, id: string) => !run.edges.some(e => e.from === id);
+
+const batonOf = (s: DeckSnapshot | null): QueueItem | null =>
+	s?.queue.find(i => i.kind === 'baton' && i.building === s.works?.building) ?? null;
+
+function handedOn(host: HTMLElement, item: QueueItem): void {
+	const b = button('handed st wide', 'this landing handed a baton',
+		`${item.name} — open it in the ⬡-queue`);
+	b.dataset['queueKey'] = item.key;
+	host.append(b);
 }
 
 /** A row this run does not declare — the arc above the line, and the unplanned work below it. */
@@ -189,6 +215,7 @@ function drawNow(host: HTMLElement, ss: DeckSession[]): void {
  * which is what makes "past above, plan below" a property of the data rather than a layout choice.
  */
 function drawGraph(host: HTMLElement, run: WorksRun, all: Map<string, WorkshopRow>, ss: DeckSession[], compact: boolean): void {
+	const handed = batonOf(snap);
 	const live = liveSids(snap);
 	const graph = el('div', 'graph');
 
@@ -218,7 +245,8 @@ function drawGraph(host: HTMLElement, run: WorksRun, all: Map<string, WorkshopRo
 		if (firstOpen !== undefined && d === firstOpen) { drawNow(graph, ss); nowDrawn = true; }
 		const rank = el('div', 'rank');
 		rank.dataset['rank'] = String(d);
-		for (const n of run.steps.filter(x => x.depth === d)) drawNode(rank, n, all, live, compact);
+		for (const n of run.steps.filter(x => x.depth === d))
+			drawNode(rank, n, all, live, compact, terminal(run, n.id) ? handed : null);
 		graph.append(rank);
 	}
 	if (!nowDrawn) drawNow(graph, ss);       // everything declared has landed: NOW is below all of it
@@ -627,6 +655,9 @@ function drawAction(host: HTMLElement, state: PaneState): void {
 	}
 	host.append(facts);
 
+	const handed = batonOf(snap);
+	if (handed && r === 'landed' && terminal(run, node.id)) handedOn(host, handed);
+
 	for (const b of node.blocks) {
 		const blocked = el('div', 'node-blocked');
 		words(blocked, b, ctx);
@@ -662,14 +693,18 @@ function draw(): void {
 	if (!focusHost || !actionHost) return;
 	const [focusState, actionState] = states;
 	const w = snap?.works ?? null;
+	// The baton belongs in both signatures for the same reason `showing` does: a landed terminal node
+	// draws the handoff, so a signature blind to it leaves the sentence off a node that now has one —
+	// or standing on a node whose baton was taken up (C15 F3's repaint law, one tenant along).
+	const handed = batonOf(snap)?.key ?? null;
 	const sig = JSON.stringify([
-		selection.building, focusState, showing, picked, w,
+		selection.building, focusState, showing, picked, w, handed,
 		snap?.workshop?.boards, snap?.workshop?.tail, mine(snap),
 	]);
 	paint('works:focus', focusHost, sig, h => drawFocus(h, focusState));
 	// `showing` belongs in BOTH signatures: Action draws the run the picker chose, so a signature
 	// that forgot it left the Act pane on the previous run while Focus drew the new one.
-	paint('works:action', actionHost, JSON.stringify([selection.building, actionState, showing, picked, w, usage]),
+	paint('works:action', actionHost, JSON.stringify([selection.building, actionState, showing, picked, w, usage, handed]),
 		h => drawAction(h, actionState));
 	// The run card is the gesture that asks for a live bill (B17 F5): a render reads, a gesture
 	// fetches, and the card coming up is what makes this a gesture rather than a clock.
@@ -680,6 +715,11 @@ function draw(): void {
 function wire(host: HTMLElement, signal: AbortSignal): void {
 	host.addEventListener('click', e => {
 		const target = e.target as Element | null;
+		// The handoff is read before the node under it: a click on "this landing handed a baton" is a
+		// click at the baton, not at the step. It goes through the shell's own cell — the drawer is not
+		// this tenant's to reach into (B26 §3, `deck-view.ts` §queue).
+		const b = target?.closest<HTMLElement>('[data-queue-key]');
+		if (b) { queue.show?.(b.dataset['queueKey'] ?? ''); return; }
 		const f = target?.closest<HTMLElement>('[data-flow]');
 		if (f) { showing = f.dataset['flow'] ?? null; picked = null; repaint(); return; }
 		const n = target?.closest<HTMLElement>('[data-node]');
