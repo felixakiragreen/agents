@@ -3063,3 +3063,30 @@ lane writes (F12). Next: B23's review, at the parallel triple's close.
 Baton — Felix: dispatch the tender's review of the parallel triple — his word
 ignites it (the rework note: *"an Architect review session dispatches at Felix's
 word"*), and B23's own two ISSUES entries ride into that sweep.
+
+---
+
+**2026-08-30 · Architect · fable-high (G5)** — **the triple is home: B23 ∥ B22
+∥ C20 all LANDED, each reviewed at this hand.** C20: the console's `tick`
+over the engine's new `heal()` (the deviation ruled accepted — `tick()`
+measured to hang the live-subject control; the kill criterion's sanctioned
+space), console 30/0 + engine 80/0, `settle.ts` gone. B22: five of six
+candidates paid, the trust flip found alive in `glass/trust.ts` (the
+charge's premise off by one file, both pinned), placement + attribution
+live; **holds: ⬡ budget extension** (~4 real turns for the two re-run bars —
+6/6 spent, stopped at the ceiling, D21); `census/deploy.ts --check` reads
+DRIFT ×3 by design until G6's ritual. B23: all seven bars zero open — the
+composer keystroke, continuous scroll + spatial minimap, the tenant leak,
+the stale board falsified, the stall bounded-retired; `--probes` is the
+standing interaction rail. Verified whole on the settled tree: `--glass`
+ALL GREEN (12 gates, 212.3 s) and `--fast --probes` ALL GREEN (24 gates,
+298.8 s), both exit 0. Swept at the review: the b16 grep (C22's residue,
+probe ALL GREEN after), worker-env folded into B27 §8, relays committed,
+B22's ledger separator trued. Decided: the `heal()` deviation (accepted,
+row citation). Next: C21 ignites (the nag gut, serial); Felix owes one ⬡ —
+the B22 budget extension — which gates only B22's two re-run bars and B27's
+ignition, nothing else in the chain.
+
+Baton — the dispatch → ignite C21 (the summons is its fenced kickoff + the
+coda, verbatim; B26 behind it, then B24; the B22 ⬡ rides to Felix in the
+tender's report).
