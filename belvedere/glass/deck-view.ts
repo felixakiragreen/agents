@@ -23,9 +23,22 @@ export type FocusView = {
 	 * Both hosts at once: Action follows Focus, so one tenant owns both and there is no second
 	 * registry for the Action pane. Called on swap-in; the hosts are empty and are the tenant's
 	 * until `unmount`.
+	 *
+	 * **The third parameter is the lease's own end** (B23 §3). The two hosts are the SHELL's elements
+	 * and they outlive every tenancy, so a listener hung on one outlives the tenant that hung it: the
+	 * deck was gaining a whole listener set per swap-in, and one click was running the handler once
+	 * per swap Felix had ever made — fifteen audit lines from one click, measured at G2's close, and
+	 * a picker whose toggle ran an even number of times looked like a dead button. **Every
+	 * `addEventListener` a tenant puts on a host it does not own takes `{ signal }`**, and the shell
+	 * aborts it at unmount. Nothing else can be relied on: `unmount` cannot remove an anonymous
+	 * handler, and a tenant that remembered to would still be one forgotten wire from the same bug.
 	 */
-	mount(focusHost: HTMLElement, actionHost: HTMLElement): void;
-	/** Swap-out. The shell empties the hosts afterwards; a tenant holding a timer clears it here. */
+	mount(focusHost: HTMLElement, actionHost: HTMLElement, signal: AbortSignal): void;
+	/**
+	 * Swap-out. The shell aborts the mount's signal and empties the hosts afterwards, so what belongs
+	 * here is what the signal cannot reach: a timer to clear, an observer to disconnect, an unsaved
+	 * sentence to flush.
+	 */
 	unmount(): void;
 	/** Every poll and every state change. `snap` is null before the first poll answers. */
 	draw(snap: DeckSnapshot | null, focusState: PaneState, actionState: PaneState): void;

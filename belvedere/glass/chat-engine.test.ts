@@ -276,3 +276,47 @@ describe('the whole transcript, and the two limits that say when it is not', () 
 		finally { (LIMITS as { wholeTurns: number }).wholeTurns = held; }
 	});
 });
+
+// ---------- B23 §3: the leak's sharp edge, on the server side of it ----------
+
+/**
+ * **N leaked click handlers on the send control would have delivered the same words N times** — the
+ * sharp edge of the tenant leak, and the one face of it a browser probe cannot reach: the send
+ * control is not drawn at all on a disarmed twin (the honest-disabled law), so a probe at budget 0
+ * has nothing to click. See §Findings.
+ *
+ * The client-side cause is dead at the seam (`deck-view.ts` §mount's signal). This is the second
+ * lock, and it is the one that would hold even if a future tenant hung a wire wrong: `sendMessage`
+ * admits **one delivery per target at a time**, so N simultaneous sends of the same words produce
+ * one turn and N−1 refusals in P6's own words. Zero real turns — the engine road on a fake run.
+ */
+describe('one click or fifteen, a target takes ONE delivery at a time', () => {
+	test('N simultaneous sends of the same words land exactly one turn, byte-verified', async () => {
+		const arc = await paused('b23/edge');
+		process.env.RUNS_DIR = arc.root;
+		try {
+			const w: World = { ...world, steps: stepIndex([], arc.root) };
+			expect(chatView(arc.sessionId, TAIL, true, 'armed', w).send.mode).toBe('engine');
+
+			const text = 'The release name is ANSWER-THEN-LAND. Set your report state to done.';
+			const before = readFileSync(arc.transcript, 'utf8');
+			// Fifteen, because fifteen is the number G2's close measured from one click.
+			const all = await Promise.all(Array.from({ length: 15 }, () =>
+				sendMessage({ sid: arc.sessionId, text }, 'no cmux call is made on this road')));
+
+			const landed = all.filter(r => r.ok);
+			expect(landed.length).toBe(1);
+			for (const r of all) if (!r.ok) expect(r.error).toContain('one delivery at a time');
+
+			// The transcript is what means delivered (B16's law): exactly one new user turn carrying
+			// exactly those bytes — not fifteen, and not a truncated one.
+			const after = readFileSync(arc.transcript, 'utf8');
+			const added = after.slice(before.length).split('\n').filter(l => l !== '')
+				.map(l => JSON.parse(l) as { type?: string; message?: { content?: unknown } })
+				.filter(r => r.type === 'user' && typeof r.message?.content === 'string');
+			expect(added.length).toBe(1);
+			expect(added[0]!.message!.content).toBe(text);
+		}
+		finally { delete process.env.RUNS_DIR; arc.close(); }
+	}, 60_000);
+});

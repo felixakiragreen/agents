@@ -395,14 +395,14 @@ function drawFocus(host: HTMLElement, state: PaneState): void {
 }
 
 /** Drag-to-reorder: HTML5 DnD over the same `moved()` the ▲▼ buttons call, so there is one law. */
-function wireDrag(host: HTMLElement): void {
+function wireDrag(host: HTMLElement, signal: AbortSignal): void {
 	let from: Section | null = null;
 	host.addEventListener('dragstart', e => {
 		const h = (e.target as Element | null)?.closest<HTMLElement>('[data-section]');
 		from = (h?.dataset['section'] as Section | undefined) ?? null;
 		if (from) e.dataTransfer?.setData('text/plain', from);
-	});
-	host.addEventListener('dragover', e => { if (from) e.preventDefault(); });
+	}, { signal });
+	host.addEventListener('dragover', e => { if (from) e.preventDefault(); }, { signal });
 	host.addEventListener('drop', e => {
 		const h = (e.target as Element | null)?.closest<HTMLElement>('[data-section]');
 		const onto = h?.dataset['section'] as Section | undefined;
@@ -411,7 +411,7 @@ function wireDrag(host: HTMLElement): void {
 		order = moved(order, from, order.indexOf(onto) - order.indexOf(from));
 		from = null;
 		saveOrder();
-	});
+	}, { signal });
 }
 
 function draw(): void {
@@ -435,11 +435,11 @@ export const workshop: FocusView = {
 	states: ['minimal', 'typical', 'expanded'],
 	/** The building whose detail this tenant wants on the wire — the shell puts it in the poll's query. */
 	needs: focusState => (focusState === 'minimal' ? null : selection.building),
-	mount(focus, action) {
+	mount(focus, action, signal) {
 		focusHost = focus;
 		actionHost = action;
-		wireDrag(focus);
-		composer.mount(action);
+		wireDrag(focus, signal);
+		composer.mount(action, signal);
 	},
 	unmount() { composer.unmount(); focusHost = null; actionHost = null; viewing = null; },
 	draw(s, focusState, actionState) {

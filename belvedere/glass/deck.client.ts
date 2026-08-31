@@ -106,14 +106,24 @@ const setState = (p: Pane, s: PaneState): void => { layout[p] = s; apply(); };
 // ---------- the Focus tenant (the seam, driven) ----------
 
 /**
- * Swap the tenant standing in Focus. The old one is unmounted before the hosts are emptied — a
- * tenant that holds a timer gets its chance to clear it, which is the whole reason `unmount` is on
- * the interface.
+ * The standing tenancy's own lifetime (B23 §3). Every listener a tenant hangs on the shell's hosts
+ * rides this signal, and it is aborted the moment the tenant leaves — so a tenant swapped in five
+ * times has one listener set, not five. It is the shell's rather than each tenant's because the
+ * hosts are the shell's: whoever owns the element owns the retraction.
+ */
+let tenancy: AbortController | null = null;
+
+/**
+ * Swap the tenant standing in Focus. The old one is unmounted before its listeners are cut and
+ * before the hosts are emptied — a tenant that holds a timer or an unsaved sentence gets its chance,
+ * which is the whole reason `unmount` is still on the interface.
  */
 function focusOn(name: string): void {
 	const next = tenant(name);
 	if (!next || next === standing) return;
 	if (standing) standing.unmount();
+	tenancy?.abort();
+	tenancy = new AbortController();
 	const focus = hostOf('focus'), action = hostOf('action');
 	focus.textContent = '';
 	action.textContent = '';
@@ -123,7 +133,7 @@ function focusOn(name: string): void {
 	forget(focus);
 	forget(action);
 	standing = next;
-	next.mount(focus, action);
+	next.mount(focus, action, tenancy.signal);
 	drawTenantBar();
 	remember(FOCUS_KEY, name);
 	redraw();

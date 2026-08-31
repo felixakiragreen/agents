@@ -677,7 +677,7 @@ function draw(): void {
 }
 
 /** A click picks a node or a run; a code word inside one is the shell's (B20 F6 stops it first). */
-function wire(host: HTMLElement): void {
+function wire(host: HTMLElement, signal: AbortSignal): void {
 	host.addEventListener('click', e => {
 		const target = e.target as Element | null;
 		const f = target?.closest<HTMLElement>('[data-flow]');
@@ -686,7 +686,7 @@ function wire(host: HTMLElement): void {
 		if (!n) return;
 		picked = picked === n.dataset['node'] ? null : n.dataset['node'] ?? null;
 		repaint();
-	});
+	}, { signal });
 	// The pane is a 69 ms transition and the drawer takes a track: the edges follow the boxes rather
 	// than being measured once and left behind (B13 F2, applied to geometry the tenant owns).
 	watching = new ResizeObserver(() => {
@@ -704,11 +704,11 @@ function wire(host: HTMLElement): void {
  * question is which SOURCE contains it, and a probe greps this file for that path — so it must not
  * be written here even in a comment).
  */
-function wireAction(host: HTMLElement): void {
+function wireAction(host: HTMLElement, signal: AbortSignal): void {
 	host.addEventListener('click', e => {
 		const bill = (e.target as Element | null)?.closest<HTMLElement>('[data-bill]');
 		if (bill) void fetchUsage(true);
-	});
+	}, { signal });
 }
 
 export const works: FocusView = {
@@ -717,11 +717,11 @@ export const works: FocusView = {
 	states: ['minimal', 'typical', 'expanded'],
 	/** The same building the Workshop asks for: one query, one timer, two readings (B13 F5). */
 	needs: focusState => (focusState === 'minimal' ? null : selection.building),
-	mount(focus, action) {
+	mount(focus, action, signal) {
 		focusHost = focus;
 		actionHost = action;
-		wire(focus);
-		wireAction(action);
+		wire(focus, signal);
+		wireAction(action, signal);
 	},
 	unmount() {
 		watching?.disconnect();

@@ -598,7 +598,7 @@ export const chat: FocusView = {
 	needs: focusState => (focusState === 'minimal' ? null : view()?.target?.building ?? null),
 	/** The session itself: the deck's sixth seam member, and the only thing this tenant needs. */
 	asks: () => selection.session,
-	mount(focus, action) {
+	mount(focus, action, signal) {
 		focusHost = focus;
 		actionHost = action;
 		// **Nothing here loads anything.** The scroll used to page the transcript, and paging on a
@@ -610,7 +610,7 @@ export const chat: FocusView = {
 			if (!host.classList.contains('ct-turns')) return;
 			stick = host.scrollHeight - host.scrollTop - host.clientHeight < LIMITS.bottomPx;
 			lightMap(host);
-		}, true);
+		}, { capture: true, signal });
 		action.addEventListener('input', e => {
 			const area = e.target as HTMLTextAreaElement | null;
 			const sid = area?.dataset?.['chatDraft'];
@@ -619,13 +619,13 @@ export const chat: FocusView = {
 			// The refusal line and the send control are a function of the text, so they move with it —
 			// without rebuilding the box he is typing in (the signature above excludes the words).
 			repaint();
-		});
+		}, { signal });
 		action.addEventListener('click', e => {
 			const go = (e.target as Element | null)?.closest<HTMLElement>('[data-chat-send]');
 			if (!go) return;
 			const sid = go.dataset['chatSend']!;
 			void send(sid, held(sid, view()));
-		});
+		}, { signal });
 		focus.addEventListener('click', e => {
 			const mark = (e.target as Element | null)?.closest<HTMLElement>('[data-chat-mark]');
 			if (!mark) return;
@@ -636,7 +636,7 @@ export const chat: FocusView = {
 			scrolled = false;
 			stick = false;
 			repaint();
-		});
+		}, { signal });
 	},
 	unmount() { focusHost = null; actionHost = null; },
 	draw(s, focusState, actionState) {

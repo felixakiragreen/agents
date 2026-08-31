@@ -433,7 +433,7 @@ function draw(): void {
  * IS what Action holds at rest, and the Chat (B16) and the Works (B10) hold their own.
  */
 export const composer = {
-	mount(into: HTMLElement): void {
+	mount(into: HTMLElement, signal: AbortSignal): void {
 		host = into;
 		into.textContent = '';
 		const head = el('div', 'c-head');
@@ -445,7 +445,7 @@ export const composer = {
 		text.placeholder = 'the first user turn, byte for byte';
 		text.value = draft.summons;
 		// The first keystroke makes the words his: a sticky template stops re-writing what he typed.
-		text.addEventListener('input', () => knob({ summons: text.value, template: '' }, DEBOUNCE_MS));
+		text.addEventListener('input', () => knob({ summons: text.value, template: '' }, DEBOUNCE_MS), { signal });
 		const extra = el('div', 'c-extra');
 		into.append(head, card, text, knobs, extra);
 		regions = { head, card, knobs, text, extra };

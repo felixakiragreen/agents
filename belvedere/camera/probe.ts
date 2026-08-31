@@ -54,6 +54,17 @@ export type Probe = {
 	caret(selector: string): Promise<number>;
 	/** Dwell. The deck polls every three seconds, so *"across ≥3 poll repaints"* is a wait. */
 	wait(ms: number): Promise<void>;
+	/**
+	 * **How many times the page asked the server for something** whose URL contains `part`, off the
+	 * browser's own resource timeline.
+	 *
+	 * This is the leak's measuring instrument (B23 §3). A tenant that hung its listeners on a host it
+	 * does not own gained a second set on every swap-in, so one click ran the handler N times — and on
+	 * a wire that reaches the server, N handlers are N requests. The deck's audit log records the same
+	 * fact one layer down, but a disarmed twin answers 503 before it audits (C17 F1), so the count has
+	 * to be taken here.
+	 */
+	requests(part: string): Promise<number>;
 	/** A scroller's position and extent: `top` is `scrollTop`, `height` the content, `client` the pane. */
 	scrolled(selector: string): Promise<{ top: number; height: number; client: number }>;
 	/** Put a scroller at an offset — how a probe scrolls to the very top and stays there. */
@@ -154,6 +165,10 @@ export async function openEyes(base: (path: string) => string): Promise<Outcome<
 				e instanceof HTMLTextAreaElement || e instanceof HTMLInputElement ? e.selectionStart ?? -1 : -1);
 		},
 		async wait(ms) { await page.waitForTimeout(ms); },
+		async requests(part) {
+			return await page.evaluate(p =>
+				performance.getEntriesByType('resource').filter(e => e.name.includes(p!)).length, part);
+		},
 		async scrolled(selector) {
 			return await page.locator(selector).first().evaluate(e =>
 				({ top: Math.round(e.scrollTop), height: Math.round(e.scrollHeight), client: Math.round(e.clientHeight) }));

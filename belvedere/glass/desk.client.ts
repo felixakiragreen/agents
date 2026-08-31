@@ -322,7 +322,7 @@ export const desk: FocusView = {
 	title: 'the desk',
 	states: ['minimal', 'typical', 'expanded'],
 
-	mount(focus, action) {
+	mount(focus, action, signal) {
 		focusHost = focus;
 		actionHost = action;
 
@@ -345,7 +345,7 @@ export const desk: FocusView = {
 			// A note whose words moved is a plan nobody reviewed: the preview disarms with them (D10).
 			if (plan) { plan = null; drawPreview(prev); }
 			save();
-		});
+		}, { signal });
 
 		action.addEventListener('click', e => {
 			const go = (e.target as Element | null)?.closest<HTMLElement>('[data-desk-go]');
@@ -353,17 +353,17 @@ export const desk: FocusView = {
 			if (plan.to === 'issues') void fire(plan);
 			else if (plan.to === 'session') void toSession(plan);
 			else toComposer(plan);
-		});
+		}, { signal });
 		action.addEventListener('click', e => {
 			const to = (e.target as Element | null)?.closest<HTMLElement>('[data-desk-route]')?.dataset['deskRoute'];
 			if (to) void ask(to as DeskRouteName);
-		});
+		}, { signal });
 		focus.addEventListener('click', e => {
 			const target = e.target as Element | null;
 			if (target?.closest('[data-desk-new]')) return newNote();
 			const row = target?.closest<HTMLElement>('[data-desk-open]');
 			if (row) void openNote(row.dataset['deskOpen']!);
-		});
+		}, { signal });
 
 		void refresh().then(() => {
 			// *"New note, or continue the last"* (spec §2): the note he had open, else the newest, else
