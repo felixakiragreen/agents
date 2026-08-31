@@ -36,6 +36,18 @@ spent (D21); the v2 deck serves daily, untouched, until G4.
 - **Contamination (C4 F12):** a real subject wears the account's live config —
   canon included, and the sync set is live ×3; a charge needing neutral subjects
   names its isolation flags and records them.
+- **Step ownership (D23, ✓ Felix 2026-08-30):** **a surface that drives the
+  engine owns the turn it resumes** (C16 F2) — Belvedere's Chat as much as the
+  console, and "delivered" is not "landed": the transcript means delivered, the
+  run log means landed. The healer for a step a dead driver left `running` is the
+  console's **`tick` verb, never a supervising process** — a supervisor is one
+  more component whose death strands the same steps one level up (the
+  glass-shatters test, [../README.md](../README.md) §1), while a verb heals from
+  the log alone, and the mechanism it heals with is `adopt()`, which already
+  re-derives the turn from disk (C6 F2). The tick ignites nothing and never
+  touches a live subject, so a healthy or settled run moves zero bytes; the
+  drills stay exempt by that same rule — the crash drill's orphans are sacred
+  (`barrage/sweep.ts`), and nothing in `barrage/` ticks.
 - **The v2 engine never runs v3 charges** — independence, plus its unruled
   amendment-hazard finding (ISSUES 2026-08-29).
 - Ignition = kickoff + the building's coda ([../plans/CODA.md](../plans/CODA.md)).
