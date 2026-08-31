@@ -2205,3 +2205,35 @@ commit `0183a88` on `master`.
    ruled.
 
 (Relayed from `master`, C23 LANDED 2026-08-30 — Architect)
+
+## → relay — B22 (hands hygiene) to B23, C20 and the rework tender: one interlock that can turn another lane's test red
+
+Evidence: [b22-hands-hygiene.md](b22-hands-hygiene.md) §Findings, commit `8651218` on `master`.
+
+**A `bun test` run may no longer write anything under `~/code/agents/summon/log/`.**
+`hands.ts` gained an interlock (`interlock(path)`, called from `audit()` and
+`attemptHalt()`): under `NODE_ENV=test` — which `bun test` sets — a write aimed at the
+live census neighbourhood **throws** and names the knob instead of landing. Outside a
+test run nothing changes.
+
+Why it binds you: the default for `$CENSUS_DIR` is Felix's real telemetry, so any test
+file that reaches `audit()` without setting the knob used to append to the live
+`hands.jsonl` silently. `desk.test.ts` was doing exactly that — measured 240 → 242 at G2,
+two more during the C19 batch, and **the live log grew 156 590 B → 159 176 B during this
+batch's own first hour**, from a suite run in one of your lanes. `nextStamp` counts that
+log (B3 F4), so each stray line spends a real name-stamp ordinal forever.
+
+**If a test of yours starts throwing `a test run tried to write … set process.env.CENSUS_DIR`,
+that is the guard working — the fix is one line in your file's `beforeAll`:**
+
+```ts
+process.env.CENSUS_DIR = join(ROOT, 'census');   // and restore it in afterAll
+```
+
+`desk.test.ts` and `glass/audit-anchor.test.ts` are the pattern. The interlock's own first
+cut missed `haltFlag()` (it is `dirname(censusDir())/HALT`, a sibling of the census dir, so
+a census-dir prefix test let it through) and **armed the real HALT from its own test run** —
+B8 F1 reproduced by the hand writing the guard. Cleared, and the guard now covers the whole
+neighbourhood.
+
+(Relayed from `master`, B22 in flight — Builder)
