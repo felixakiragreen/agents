@@ -2574,7 +2574,9 @@ the salvage in §6, the arc in §7), BOARD.md (S1 the salvage survey · S2 the
 foundation sitting · S3 the city sitting), DECISIONS.md D1–D13, LEDGER.md,
 ISSUES.md, plans/CODA.md — `doctrine lint` 0 (3/3 rows, queue 2). Decided:
 nothing canon-side; stigmergon's D1–D12 are Felix's in-session rulings on its
-own register; its D8 home-half + D13 await his ⬡ there. Next: **⬡ — rule
-stigmergon's two proposed entries (D8: the spaces file lives in the desk; D13:
-fence · glass-shatters · encapsulation-first carry), then ignite S1** — kickoff
-in `~/code/stigmergon/plans/s1-salvage-survey.md`, dispatched or his hand.
+own register; at the blessing, same sitting, D8 ⬡✓ (the desk stays — "keep
+desk as is") and D13 re-cut ⬡✓ (**the fence struck as a Belvedere relic**;
+glass-shatters + receipts + one-writer survive; name-first re-intentioned) —
+the founding blessed whole. Next: **S1 in flight** — dispatched at his word
+from the founding session, which tends its landing; stigmergon's board carries
+the state.
