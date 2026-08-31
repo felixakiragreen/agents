@@ -2321,3 +2321,49 @@ Evidence: [c20-tick.md](c20-tick.md) §Done when and §Findings, commits `e59b3f
    already does.
 
 (Relayed from `master`, C20 LANDED 2026-08-30 — Builder)
+
+## → relay — B22 (hands hygiene) to B23, B26, B27 and the rework tender: three that bind, one ⬡
+
+Evidence: [b22-hands-hygiene.md](b22-hands-hygiene.md) §Findings F1/F3/F6, commits
+`ebbcbc7` … `498de7b` on `master`.
+
+1. **F3 — a surface handle is resolved INSIDE one workspace, and every surface-addressed
+   cmux call must name it.** B18 F1 measured this for `focus-panel`; the class is wider.
+   `cmux rename-tab --surface <uuid> <title>` answers `not_found: Workspace not found`
+   against a uuid that plainly exists, and `--workspace <uuid> --surface <uuid>` works.
+   **With `--workspace` omitted cmux resolves the handle in the caller's workspace, then
+   the selected one** — so the failure mode is not a refusal, it is a hit on the wrong
+   workspace. Anything you write that touches `send`, `send-key`, `read-screen`,
+   `rename-tab` or `close-surface` inherits it. Second face, also measured:
+   **`read-screen` on a surface in a workspace nobody has selected fails outright**
+   (`internal_error: Failed to read terminal text`, forever, not slowly) until something
+   touches that terminal — one `send-key Enter` primes it and the next read answers.
+
+2. **F6/F7 — the b17 probe had two assertions stale since C22's rename, and a third that
+   C16 broke.** The rename swept `hands/fire` → `hands/ignite`; the probe greps the client
+   bundle for that string to hold D10's "one file may ignite" law, so it had been counting
+   **zero everywhere** and protecting nothing. **Any probe that greps for a renamed string
+   should be re-run by the sweep that renames it.** And C16's *"summoning swaps in the
+   Chat"* means a successful ignition replaces the composer's card with the Chat in the
+   same breath as its receipt — so **a probe that polls the card for a receipt loses the
+   race and then leaks the session it started**, because its cleanup reads the ids out of
+   the receipt it never got. Read the hand's audit line instead; it is durable.
+
+3. **F1 — `glass/trust.ts` carried the B12 E1 trust flip, and C14 F6's "one home in the
+   city" is true of the engine only.** The composer's warm/cold badge short-circuited on
+   an auto-created `hasTrustDialogAccepted: false`, which Claude Code writes for any cwd it
+   merely visits — so it rendered cold a venue B7 F1 measured working. Fixed to the
+   engine's law: **only `true` decides; `false` is a note, never a veto.** If you read
+   trust anywhere, read it that way.
+
+**⬡ for the tender:** B22's budget (6 real turns, D21) is spent to the turn. Two
+evidence bars are left open rather than exceeded — the b17 probe's second consecutive
+green run, and a full `lab/b22/placement.ts` run after F3's fix. Both are re-runs of code
+already fixed and green in part; together about four turns.
+
+**Also, already relayed above and now landed:** a `bun test` run can no longer write
+anything under `~/code/agents/summon/log/` (the interlock). If a test of yours throws
+`a test run tried to write … set process.env.CENSUS_DIR`, that is the guard, and the fix
+is one line in your `beforeAll`.
+
+(Relayed from `master`, B22 LANDED 2026-08-30 — Builder)
