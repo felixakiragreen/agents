@@ -70,6 +70,31 @@ function accountDirs(): string[] {
 type Task = { id: string; type: string; status: string; agent_type: string | null };
 type Extra = { tool?: string; why?: string; bg?: Task[] };
 
+/**
+ * **A seeded session id is a UUID** (C21 F3, ruled at B26 §0). The seeder wrote readable ids —
+ * `fixture-nagged`, `fixture-working` — and B22's UUID sweep made every session surface refuse
+ * anything that is not one: `GET /deck/chat?sid=fixture-nagged` answered *"not a session id"*, so no
+ * probe could open the Chat, the queue or any later session surface against the seeded world. The
+ * readable half was never carried by the sid anyway — it is the **name-stamp** (`builder-beta-05`),
+ * which is what the deck draws and what every probe already reads by — so the fix costs the fixture
+ * nothing legible.
+ *
+ * Fixed rather than minted, because a shot is evidence: `f1c7` is the fixture's own nibble and the
+ * tail counts the sessions, so a sid in a photograph or a failure diff says which seeded session it
+ * was without a lookup, and two runs of one probe compare byte for byte.
+ */
+const SIDS = {
+	working: 'f1c70000-0000-4000-8000-000000000001',
+	waiting: 'f1c70000-0000-4000-8000-000000000002',
+	idle: 'f1c70000-0000-4000-8000-000000000003',
+	capped: 'f1c70000-0000-4000-8000-000000000004',
+	stopped: 'f1c70000-0000-4000-8000-000000000005',
+	ended: 'f1c70000-0000-4000-8000-000000000006',
+	nagged: 'f1c70000-0000-4000-8000-000000000007',
+} as const;
+
+type Seeded = keyof typeof SIDS;
+
 const record = (t: number, ev: string, sid: string, acct: string, pid: number, cwd: string, tp: string, extra: Extra) =>
 	JSON.stringify({
 		t, ev, sid,
@@ -127,52 +152,52 @@ function censusText(city: string, transcripts: string, accounts: string[]): stri
 	// One account per session, cycling the rig's own order so every account lights a WIP row.
 	const acct = (n: number) => accounts[n % accounts.length] ?? '';
 
-	const t = (sid: string, stamp: string, cwd: string, model: string) =>
-		transcript(transcripts, sid, stamp, cwd, model);
+	const t = (who: Seeded, stamp: string, cwd: string, model: string) =>
+		transcript(transcripts, SIDS[who], stamp, cwd, model);
 
-	const working = t('fixture-working', 'builder-alpha-07', alpha, 'claude-opus-4-5-20251101');
-	const waiting = t('fixture-waiting', 'digger-alpha-02', alpha, 'claude-sonnet-4-5-20250929');
-	const idle = t('fixture-idle', 'architect-beta-01', beta, 'claude-fable-5-20260501');
-	const capped = t('fixture-capped', 'builder-beta-03', beta, 'claude-opus-4-5-20251101');
-	const stopped = t('fixture-stopped', 'digger-beta-04', beta, 'claude-sonnet-4-5-20250929');
-	const ended = t('fixture-ended', 'builder-alpha-06', alpha, 'claude-haiku-4-5-20251001');
-	const nagged = t('fixture-nagged', 'builder-beta-05', beta, 'claude-sonnet-4-5-20250929');
+	const working = t('working', 'builder-alpha-07', alpha, 'claude-opus-4-5-20251101');
+	const waiting = t('waiting', 'digger-alpha-02', alpha, 'claude-sonnet-4-5-20250929');
+	const idle = t('idle', 'architect-beta-01', beta, 'claude-fable-5-20260501');
+	const capped = t('capped', 'builder-beta-03', beta, 'claude-opus-4-5-20251101');
+	const stopped = t('stopped', 'digger-beta-04', beta, 'claude-sonnet-4-5-20250929');
+	const ended = t('ended', 'builder-alpha-06', alpha, 'claude-haiku-4-5-20251001');
+	const nagged = t('nagged', 'builder-beta-05', beta, 'claude-sonnet-4-5-20250929');
 
 	return [
 		// working — a live pid mid-tool-call
-		record(now - 240, 'SessionStart', 'fixture-working', acct(0), mine, alpha, working, { why: 'startup' }),
-		record(now - 230, 'UserPromptSubmit', 'fixture-working', acct(0), mine, alpha, working, {}),
-		record(now - 12, 'PreToolUse', 'fixture-working', acct(0), mine, alpha, working, { tool: 'Edit' }),
+		record(now - 240, 'SessionStart', SIDS.working, acct(0), mine, alpha, working, { why: 'startup' }),
+		record(now - 230, 'UserPromptSubmit', SIDS.working, acct(0), mine, alpha, working, {}),
+		record(now - 12, 'PreToolUse', SIDS.working, acct(0), mine, alpha, working, { tool: 'Edit' }),
 
 		// needs-input — the permission prompt, the deck's one blocked edge (B14 F1)
-		record(now - 300, 'SessionStart', 'fixture-waiting', acct(1), mine, alpha, waiting, { why: 'startup' }),
-		record(now - 90, 'PreToolUse', 'fixture-waiting', acct(1), mine, alpha, waiting, { tool: 'Write' }),
-		record(now - 84, 'Notification', 'fixture-waiting', acct(1), mine, alpha, waiting, { why: 'permission_prompt' }),
+		record(now - 300, 'SessionStart', SIDS.waiting, acct(1), mine, alpha, waiting, { why: 'startup' }),
+		record(now - 90, 'PreToolUse', SIDS.waiting, acct(1), mine, alpha, waiting, { tool: 'Write' }),
+		record(now - 84, 'Notification', SIDS.waiting, acct(1), mine, alpha, waiting, { why: 'permission_prompt' }),
 
 		// idle, carrying a roster — `Stop` is the roster-bearing payload (B5 F2)
-		record(now - 600, 'SessionStart', 'fixture-idle', acct(0), mine, beta, idle, { why: 'startup' }),
-		record(now - 45, 'Stop', 'fixture-idle', acct(0), mine, beta, idle, { bg: tasks(3, 'subagent') }),
+		record(now - 600, 'SessionStart', SIDS.idle, acct(0), mine, beta, idle, { why: 'startup' }),
+		record(now - 45, 'Stop', SIDS.idle, acct(0), mine, beta, idle, { bg: tasks(3, 'subagent') }),
 
 		// idle, roster CAPPED — the hook's 16-entry slice, so every figure it feeds renders `n+`
-		record(now - 700, 'SessionStart', 'fixture-capped', acct(2), mine, beta, capped, { why: 'startup' }),
-		record(now - 60, 'Stop', 'fixture-capped', acct(2), mine, beta, capped, { bg: tasks(16, 'shell') }),
+		record(now - 700, 'SessionStart', SIDS.capped, acct(2), mine, beta, capped, { why: 'startup' }),
+		record(now - 60, 'Stop', SIDS.capped, acct(2), mine, beta, capped, { bg: tasks(16, 'shell') }),
 
 		// C21's subject: alive, quiet since yesterday, and the last thing it said was cmux's nag.
 		// `Stop` is the real idle edge (P1 F1) and the `idle_prompt` `Notification` lands 60 s
 		// after it — so the honest reading of this session is IDLE, 21 hours old, and nothing is
 		// owed. The 21 h is Felix's own screenshot: the deck used to render this row as a demand
 		// for his input, hours after the session had stopped asking for anything.
-		record(now - 76_000, 'SessionStart', 'fixture-nagged', acct(0), mine, beta, nagged, { why: 'startup' }),
-		record(now - 75_660, 'Stop', 'fixture-nagged', acct(0), mine, beta, nagged, {}),
-		record(now - 75_600, 'Notification', 'fixture-nagged', acct(0), mine, beta, nagged, { why: 'idle_prompt' }),
+		record(now - 76_000, 'SessionStart', SIDS.nagged, acct(0), mine, beta, nagged, { why: 'startup' }),
+		record(now - 75_660, 'Stop', SIDS.nagged, acct(0), mine, beta, nagged, {}),
+		record(now - 75_600, 'Notification', SIDS.nagged, acct(0), mine, beta, nagged, { why: 'idle_prompt' }),
 
 		// dead, and the census does not know it: last line `Stop`, pid a corpse (census.ts §F5)
-		record(now - 5400, 'SessionStart', 'fixture-stopped', acct(1), dead, beta, stopped, { why: 'startup' }),
-		record(now - 5000, 'Stop', 'fixture-stopped', acct(1), dead, beta, stopped, {}),
+		record(now - 5400, 'SessionStart', SIDS.stopped, acct(1), dead, beta, stopped, { why: 'startup' }),
+		record(now - 5000, 'Stop', SIDS.stopped, acct(1), dead, beta, stopped, {}),
 
 		// dead, and the census does know it
-		record(now - 7200, 'SessionStart', 'fixture-ended', acct(2), dead, alpha, ended, { why: 'startup' }),
-		record(now - 6900, 'SessionEnd', 'fixture-ended', acct(2), dead, alpha, ended, { why: 'clear' }),
+		record(now - 7200, 'SessionStart', SIDS.ended, acct(2), dead, alpha, ended, { why: 'startup' }),
+		record(now - 6900, 'SessionEnd', SIDS.ended, acct(2), dead, alpha, ended, { why: 'clear' }),
 	].join('');
 }
 
