@@ -1,15 +1,15 @@
 # C20 — the tick
 
 **Status:** OPEN · **Depends on:** — · **Staffing:** Builder · opus-high ·
-**Blessed:** pending (the rework blessing)
+**Blessed:** ✓ Felix 2026-08-30 (the rework blessing)
 
 ## Mission
 
 Close C16 F2's window at the contract. Belvedere IS the engine for the turn it
 resumes: delivered is the transcript, landed is the run log, and a Belvedere killed
 between them leaves a step `running` until something opens that run. Today the
-healer is a hand tool (`lab/c16/settle.ts`). The contract choice is ruled at G5,
-**proposed (D23)**: **a `tick` verb on the console, never a supervising
+healer is a hand tool (`lab/c16/settle.ts`). The contract choice is ruled at G5
+and **blessed (D23, ✓ Felix 2026-08-30)**: **a `tick` verb on the console, never a supervising
 process** — citation: the glass-shatters test (README §1, D3's standing bar — a
 supervisor is one more component whose death strands the same steps one level
 up; a verb heals from the log alone) and C6 F2's ruled redundancy (`adopt()`

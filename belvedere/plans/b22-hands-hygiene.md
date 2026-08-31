@@ -3,7 +3,7 @@
 **Status:** OPEN (re-laid 2026-08-30 at G5 — the hands narrowed to the summon
 fallback + shelf, D22 r2/r4; B25's surviving half folds in per its fate
 clause; the original lay is git history) · **Depends on:** — · **Staffing:**
-Builder · opus-high · **Blessed:** pending (the rework blessing)
+Builder · opus-high · **Blessed:** ✓ Felix 2026-08-30 (the rework blessing)
 
 ## Goal
 

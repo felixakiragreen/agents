@@ -2,7 +2,7 @@
 
 **Status:** OPEN (re-laid 2026-08-30 at G5 — City View survives whole, D22 r2;
 carried over least changed as the fate clause expected) · **Depends on:** — ·
-**Staffing:** Builder · opus-high · **Blessed:** pending (the rework blessing)
+**Staffing:** Builder · opus-high · **Blessed:** ✓ Felix 2026-08-30 (the rework blessing)
 
 **The sidebar design input (Felix, the blessing 2026-08-30):** he sketched
 two models and leans to the second — (A) a fixed taxonomy: District /

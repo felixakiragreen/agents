@@ -2,7 +2,7 @@
 
 **Status:** OPEN (re-laid 2026-08-30 at G5 — the v3 world; the original lay is
 git history) · **Depends on:** — · **Staffing:** Builder · opus-high ·
-**Blessed:** pending (the rework blessing)
+**Blessed:** ✓ Felix 2026-08-30 (the rework blessing)
 
 ## Goal
 

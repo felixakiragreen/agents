@@ -4,7 +4,7 @@
 engine, D22 r2; the QoL list survives and the punch list joins it; the
 original lay is git history) · **Depends on:** B22; B23; B24; B26; C21 (last
 in the batch — it sweeps their surfaces) · **Staffing:** Builder · opus-high ·
-**Blessed:** pending (the rework blessing)
+**Blessed:** ✓ Felix 2026-08-30 (the rework blessing)
 
 ## Goal
 

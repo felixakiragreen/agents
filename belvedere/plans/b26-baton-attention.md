@@ -2,8 +2,8 @@
 
 **Status:** OPEN (re-laid 2026-08-30 at G5 — the rail survives whole, D22 r2;
 baton semantics re-read against v3 runs; the original lay is git history) ·
-**Depends on:** — · **Staffing:** Builder · opus-high · **Blessed:** pending
-(the rework blessing)
+**Depends on:** — · **Staffing:** Builder · opus-high · **Blessed:**
+✓ Felix 2026-08-30 (the rework blessing)
 
 ## Goal
 
