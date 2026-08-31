@@ -856,3 +856,88 @@ body.deck {
    view. B21's `.ct-aim-note` — "jumped to your search hit", with a [↓ latest] out of it — retired
    with the pager (B23 §2): there is no window to come back from, so the mark is the whole of it. */
 .deck .ct-aim { border-left-color: var(--yellow-600); background: var(--grey-900); }
+
+/* --- spaces: his arrangement of the City (B24) ---------------------------------------------
+   One recursive structure — a space binds a building or holds children, and nests. The nesting is
+   a left rule and an indent, so a three-deep arrangement reads as three-deep without a page that
+   scrolls (the law of space: the pane owns its overflow, the page never has any).
+   Editing is a MODE: at rest none of this chrome exists, and no drag can move anything. */
+
+.deck .sp-bar { display: flex; align-items: center; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+.deck .sp-bar .out { margin-left: auto; }
+
+.deck .sp-tree { margin-top: 2px; }
+.deck .sp { margin-top: 8px; }
+.deck .sp .sp { margin-top: 3px; }
+.deck .sp-kids { margin-left: 9px; padding-left: 7px; border-left: 1px solid var(--sp, var(--grey-850)); }
+
+.deck .sp-h { gap: 6px; padding: 1px 2px; border-radius: 3px; min-width: 0; }
+.deck .sp-h:hover { background: var(--grey-900); }
+/* A bound space IS a building row: the City's own row, drawn where he put it. */
+.deck .sp-row { display: flex; align-items: center; gap: 7px; flex: 1; min-width: 0; cursor: pointer; }
+.deck .sp-row.on { box-shadow: inset 2px 0 0 var(--felix); border-radius: 3px; }
+.deck .sp-row .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* His color, where he set one. It runs down the group's rule and marks its name — a space wears it,
+   a building's badges never do (truth underneath). */
+.deck .sp[data-color='red'] { --sp: var(--red-500); }
+.deck .sp[data-color='orange'] { --sp: var(--orange-500); }
+.deck .sp[data-color='yellow'] { --sp: var(--yellow-500); }
+.deck .sp[data-color='green'] { --sp: var(--green-500); }
+.deck .sp[data-color='blue'] { --sp: var(--blue-500); }
+.deck .sp[data-color='purple'] { --sp: var(--purple-500); }
+.deck .sp[data-color='grey'] { --sp: var(--grey-650); }
+.deck .sp[data-color] > .sp-h > .nb-name, .deck .sp[data-color] > .sp-h > .sp-row > .name { color: var(--sp); }
+
+/* His label and the register's own name, side by side wherever they differ (spec §5). */
+.deck .sp-true {
+	font-family: var(--mono); font-size: 9px; color: var(--grey-600); flex: none;
+	overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.deck .sp-type {
+	font-size: 8.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--grey-500);
+	border: 1px dashed var(--grey-750); border-radius: 3px; padding: 0 4px; flex: none;
+}
+.deck .sp-note { font-size: 9.5px; color: var(--orange-300); }
+.deck .sp-bad { color: var(--orange-200); }
+.deck .sp-gone > .sp-h > .nb-name { color: var(--orange-300); text-decoration: line-through; }
+
+.deck .sp-caret, .deck .sp-edit, .deck .sp-grip {
+	font-family: var(--mono); font-size: 9px; line-height: 1.5;
+	background: transparent; color: var(--grey-600); border: 0; padding: 0 2px; cursor: pointer;
+}
+.deck .sp-edit { border: 1px solid var(--grey-750); border-radius: 3px; padding: 0 4px; margin-left: auto; }
+.deck .sp-edit:hover, .deck .sp-caret:hover { color: var(--felix); }
+.deck .sp-grip { cursor: grab; color: var(--grey-650); touch-action: none; }
+body[data-arr-dragging] { cursor: grabbing; }
+body[data-arr-dragging] .deck .sp-h { user-select: none; }
+
+/* Where the pointer would let go. One target at a time, and it is the only thing that lights. */
+.deck [data-arr-over] { outline: 1px dashed var(--felix); outline-offset: 1px; background: var(--grey-900); }
+
+.deck .sp-unfiled { margin-top: 14px; padding-top: 6px; border-top: 1px dashed var(--grey-800); }
+.deck .sp-unfiled > .sp-h > .nb-name { color: var(--orange-300); }
+
+/* The edit strip: his name, his word, his color. Buttons and boxes — no dropdowns (design law). */
+.deck .sp-strip {
+	display: flex; flex-wrap: wrap; gap: 4px; align-items: center;
+	margin: 4px 0 4px 16px; padding: 5px 6px;
+	border: 1px solid var(--grey-800); border-left: 2px solid var(--sp, var(--felix)); border-radius: 3px;
+	background: var(--grey-900);
+}
+.deck .sp-in {
+	flex: 1 1 120px; min-width: 90px; box-sizing: border-box;
+	background: var(--grey-950); color: var(--grey-150);
+	border: 1px solid var(--grey-750); border-radius: 3px; padding: 2px 5px; font-size: 11px;
+}
+.deck .sp-in-type { font-family: var(--mono); font-size: 10px; }
+.deck .sp-swatches, .deck .sp-acts { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; }
+.deck .sp-swatches { flex: 1 1 100%; }
+.deck .sp-swatches .swatch-btn[data-on='yes'] { outline: 1px solid var(--felix); outline-offset: 1px; }
+.deck .sp-acts { flex: 1 1 100%; }
+
+/* The legend's own sample for the arrangement layer (spec §5 — the two identity layers, named). */
+.deck .sp-key {
+	font-size: 8.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--grey-500);
+	border: 1px dashed var(--grey-750); border-radius: 3px; padding: 0 4px;
+}

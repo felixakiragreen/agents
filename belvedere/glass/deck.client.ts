@@ -31,6 +31,9 @@ import {
 	receipts, remember, remembered, say, stamp, tick, tipSession, words, type DecodeCtx,
 } from './deck-dom';
 import { SWATCHES } from './colors';
+// The City is Context's tenant and owns his arrangement of it (B24). It signs no `FocusView` lease
+// — Context has one tenant forever (keel §3) — so the shell mounts it by hand, once.
+import { cityClick, cityCommit, cityDrag, citySignature, cityTyped, drawCity, mountCity } from './city.client';
 // The Workshop signs its lease on import (B15). It is imported for that effect and for nothing
 // else: a tenant reaches the deck through `deck-view.ts` and never through this file.
 import './workshop.client';
@@ -172,177 +175,17 @@ function drawTenantBar(): void {
 // three seconds eats the note Felix is halfway through typing (B14 F4).
 
 // ---------- the City (Context's one tenant, keel §3) ----------
+//
+// The City moved to `city.client.ts` at B24, where his arrangement lives with it. What stays here
+// is the seam: the shell hands it the snapshot, the pane's state and its own redraw, and takes back
+// a signature and a draw — the same contract every other tenant on this deck has.
 
-const BADGE_WORD: Readonly<Record<Attention, string>> = {
-	waiting: 'blocked on you', baton: 'baton', gate: '⬡-gate', countersign: 'blessing', escalation: 'escalation',
-};
-
-function badges(b: DeckBuilding): HTMLElement {
-	const box = el('span', 'badges');
-	for (const k of ATTENTION) {
-		if (!b.badges[k]) continue;
-		const pip = el('span', `badge b-${k}`, String(b.badges[k]));
-		pip.title = `${b.badges[k]} × ${BADGE_WORD[k]}`;
-		box.append(pip);
-	}
-	return box;
-}
-
-/** Everything has a limit: a building with thirty open gates gets a tooltip, not a transcript. */
-const TIP_ITEMS = 4;
-
-function buildingRow(b: DeckBuilding, mine: DeckSession[], wants: QueueItem[]): HTMLElement {
-	const row = el('li', 'row' + (b.building === selection.building ? ' on' : ''));
-	row.dataset['building'] = b.building;
-	row.dataset['tip'] = b.building;
-	// **What** wants him, by name, rather than how many: the badge already carries the count, and a
-	// name is the encapsulation law's own answer to "2 ⬡-gate". It is corpus prose, so the City's
-	// tooltip decodes exactly like the Workshop's (B20 §5).
-	const named = wants.slice(0, TIP_ITEMS).map(i => i.name);
-	row.dataset['tipMore'] = `${b.path} · ${b.live} live · `
-		+ (named.join(' · ') || 'nothing waiting on you')
-		+ (wants.length > named.length ? ` · +${wants.length - named.length} more` : '');
-	row.dataset['tipIn'] = b.path;
-	row.dataset['tipGo'] = `/b/${b.building.split('/').map(encodeURIComponent).join('/')}`;
-	row.append(dots(mine), el('span', 'name', b.building), badges(b));
-	return row;
-}
-
-/**
- * Expanded: the sessions themselves, one line each — the name cmux gives it, the birth name where
- * they differ, state, age. The tooltip carries the depth and the rename/recolor controls (B18).
- */
-function sessionLines(ss: DeckSession[], stale: boolean): HTMLElement {
-	const box = el('ul', 'lines');
-	for (const s of ss) {
-		const line = el('li', 'line');
-		tipSession(line, s);
-		line.append(dot(s), named(s, stale), el('span', 'st-word', s.waiting ?? s.state), stamp(s.last));
-		// Hotswap entry point #1 (B16 §1): every session row on the deck reaches the one Chat, and
-		// reaches it through the same shared control (`deck-dom.ts` §chatButton).
-		line.append(chatButton(s.sid));
-		box.append(line);
-	}
-	return box;
-}
-
-const LEGEND: [string, string, string?][] = [
-	['dot s-working', 'working'],
-	['dot s-idle', 'idle'],
-	['dot s-unknown', 'unknown — no pid to ask'],
-	['dot s-idle w-blocked', 'blocked — a permission prompt is waiting'],
-	['badge b-waiting', 'blocked on you'],
-	['badge b-baton', 'a ledger tail handed the next move on'],
-	['badge b-gate', '⬡-gate on a live charge'],
-	['badge b-countersign', 'decision waiting on your pen'],
-	['badge b-escalation', 'escalation raised, nothing says it was ruled'],
-	// B18's three: cmux owns the first two, and the third says the socket stopped answering.
-	['swatch legend-swatch', 'the colour cmux is wearing — the swatch row recolours it', ' '],
-	['birth', 'the rig\'s birth name, shown where cmux calls it something else', 'born'],
-	['stale', 'the identity read failed — this name is the last copy that answered', 'stale'],
-];
-
-function legend(): HTMLElement {
-	const box = el('div', 'legend-deck');
-	box.append(el('span', 'label', 'legend'));
-	for (const [cls, text, sample] of LEGEND) {
-		const key = el('span', 'lkey');
-		key.append(el('span', cls, sample ?? (cls.startsWith('badge') ? 'n' : '')), el('span', '', text));
-		box.append(key);
-	}
-	return box;
-}
-
-/**
- * Context is the City and always the City (keel §3). Three states, exactly as the order writes
- * them: minimal = neighborhoods and dots, typical = + the buildings and their badges, expanded =
- * + the sessions themselves.
- *
- * **Attention outranks recency across the whole pane** — the server sorted the buildings by rank
- * and the groups inherit their loudest member's place in that list, so a building that has been
- * asking for a week still sits above the one somebody touched five minutes ago.
- */
-function drawCity(host: HTMLElement): void {
-	if (!snapshot) { host.append(el('p', 'quiet', 'waiting for the first poll…')); return; }
-	const c = snapshot.census;
-	const stale = snapshot.identity.error !== null;
-	const live = c.sessions.filter(s => s.state !== 'gone');
-	const bySid = new Map(live.map(s => [s.sid, s]));
-
-	const count = el('span', 'big');
-	count.id = 'live-count';
-	count.dataset['live'] = String(c.live);
-	count.textContent = String(c.live);
-	const head = el('div', 'headline');
-	head.append(count, el('span', 'label', 'live'));
-	if (c.waiting) {
-		const w = el('span', 'big waiting-count', String(c.waiting));
-		w.dataset['waiting'] = String(c.waiting);
-		w.id = 'waiting-count';
-		head.append(w, el('span', 'label', 'blocked on you'));
-	}
-	host.append(head);
-
-	// Groups in the order the sorted building list produces them: a neighborhood is exactly as
-	// loud as its loudest building, which is one sort rather than two that can disagree.
-	const groups: { label: string; buildings: DeckBuilding[] }[] = [];
-	for (const b of snapshot.register.buildings) {
-		const last = groups.at(-1);
-		if (last && last.label === b.label) last.buildings.push(b);
-		else groups.push({ label: b.label, buildings: [b] });
-	}
-
-	for (const g of groups) {
-		const box = el('section', 'nb');
-		const lit = g.buildings.flatMap(b => b.sids.map(id => bySid.get(id)).filter((s): s is DeckSession => !!s));
-		const h = el('div', 'nb-h');
-		h.append(el('span', 'nb-name', g.label), dots(lit));
-		box.append(h);
-
-		if (layout.context !== 'minimal') {
-			const list = el('ul', 'rows');
-			for (const b of g.buildings) {
-				const mine = b.sids.map(id => bySid.get(id)).filter((s): s is DeckSession => !!s);
-				list.append(buildingRow(b, mine, snapshot.queue.filter(i => i.building === b.building)));
-				if (layout.context === 'expanded' && mine.length) list.append(sessionLines(mine, stale));
-			}
-			box.append(list);
-		}
-		host.append(box);
-	}
-
-	if (layout.context === 'minimal') return;                // one word and a mark, and that is the law
-
-	host.append(legend());
-	const a = snapshot.auditor;
-	host.append(el('p', 'quiet prose', c.present
-		? `${c.beats} beats · ${c.malformed} unreadable · horizon ${c.since === null ? 'unknown' : ago(c.since) + ' back'}`
-			+ ` — every count here is a floor, not a total`
-		: 'no census file: the sensor is not deployed on this machine'));
-	host.append(el('p', 'quiet prose', `${c.live} tracked · `
-		+ (a.visible === null ? 'no process auditor — ps did not answer' : `≈${a.visible} claude processes visible · ${Math.max(0, a.visible - c.live)} beyond the census`)
-		+ ` (taken ${ago(a.at)} ago — the sensor's drift alarm, never a session)`));
-	host.append(el('p', 'quiet prose', `${snapshot.register.buildings.length} buildings · register ${ago(snapshot.register.at / 1000)} old`
-		+ (snapshot.register.refreshing ? ' (re-walking)' : '') + (snapshot.register.error ? ` · ${snapshot.register.error}` : '')));
-	// cmux is truth for live identity (D16), so the deck says when it last heard from it. A read that
-	// failed keeps the last good copy on screen, marked `stale` on every name it gave — never blanked,
-	// never refreshed by guesswork.
-	const id = snapshot.identity;
-	host.append(el('p', `quiet prose${stale ? ' stale-note' : ''}`, stale
-		? `live identity STALE — ${id.error} (last read ${ago(id.at)} ago; names below are that copy)`
-		: `${id.workspaces} cmux workspaces named · identity read ${ago(id.at)} ago — cmux is truth for names and colours`));
-}
+mountCity({ snapshot: () => snapshot, state: () => layout.context, redraw: () => redraw() });
 
 function drawContext(): void {
-	const host = hostOf('context');
-	const sig = snapshot === null ? 'cold' : JSON.stringify([
-		layout.context, selection.building, snapshot.register.buildings, snapshot.auditor.visible,
-		snapshot.register.refreshing, snapshot.register.error,
-		snapshot.census.present, snapshot.census.beats, snapshot.census.malformed, snapshot.census.since,
-		snapshot.census.sessions, snapshot.identity.error, snapshot.identity.workspaces,
-	]);
-	paint('context', host, sig, drawCity);
+	paint('context', hostOf('context'), citySignature(), drawCity);
 }
+
 
 // ---------- the ⬡-queue (the drawer's tenant, D15) ----------
 
@@ -1166,6 +1009,10 @@ app.addEventListener('click', e => {
 	const swap = target.closest<HTMLElement>('[data-focus-on]');
 	if (swap) { focusOn(swap.dataset['focusOn'] ?? ''); return; }
 
+	// The City claims its own clicks first while he is arranging — the grips, the carets, the edit
+	// strip — so a click that means "move this space" never also means "select this building".
+	if (cityClick(target)) return;
+
 	const ges = target.closest<HTMLElement>('[data-gesture]');
 	if (ges) { void gesture(ges); return; }
 
@@ -1224,10 +1071,24 @@ app.addEventListener('toggle', e => {
 }, true);
 
 app.addEventListener('input', e => {
+	if (cityTyped(e.target)) return;
 	const area = e.target as HTMLTextAreaElement | null;
 	const key = area?.dataset?.['noteFor'];
 	if (key) drafts.set(key, area!.value);
 });
+
+// A name or a type is his word, and it is written when he has finished saying it: Enter, or the
+// moment he leaves the box. `focusout` bubbles where `blur` does not, so one listener covers the
+// pane (`city.client.ts` §his gestures).
+app.addEventListener('focusout', e => { cityCommit(e.target); });
+app.addEventListener('keydown', e => {
+	if (e.key !== 'Enter') return;
+	if (cityCommit(e.target)) { e.preventDefault(); (e.target as HTMLElement).blur(); }
+});
+
+// The drag lives on the pane that owns the rows, and it is installed once (B23 §3: one mount, one
+// listener set).
+cityDrag(paneOf('context'));
 
 // ---------- the poll ----------
 //
