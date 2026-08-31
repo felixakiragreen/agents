@@ -28,6 +28,11 @@
 # the engine's telemetry root — two trees other processes write — because the states it measures (a
 # ledger fence handed under a D10 collision, a landed run's terminal node) exist only in the real
 # corpus. `baton.probe.ts` is that charge's hermetic half, and it is the one that stands.
+#
+# B24 kept a third out for the same reason: `city-arrange-real.probe.ts` drives the four arrangement
+# gestures against the LIVE register — it names real buildings and reads a tree the city writes.
+# `city-arrange.probe.ts` is its hermetic half: it mints its own building inside the run's own copy
+# of the fixture city, so the unfiled tail it asserts on is one it made.
 
 city.probe.ts
 city-arrange.probe.ts
