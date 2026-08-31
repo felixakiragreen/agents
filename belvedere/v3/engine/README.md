@@ -123,6 +123,7 @@ wrong turn while a recorded row count still addresses the right one.
 load(flowPath, { runDir })   →  Run | Refusal
 run.bless(scope?)            →  true | Refusal        // { steps?, budget? }
 run.tick() / run.run()       →  RunState              // run() drives to terminal
+run.heal()                   →  RunState              // adopt the dead, ignite nothing
 run.rule(stepId, ruling)     →  true | Refusal        // land | kill | resume
 run.halt(reason) / run.state()
 replay(logPath)              →  RunState              // ≡ state(), exactly

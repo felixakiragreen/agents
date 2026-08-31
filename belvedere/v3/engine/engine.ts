@@ -61,6 +61,7 @@ export type Run = {
 	state(): RunState;
 	bless(scope?: Scope): true | Refusal;
 	tick(): Promise<RunState>;
+	heal(): Promise<RunState>;
 	run(): Promise<RunState>;
 	rule(stepId: string, ruling: Ruling): Promise<true | Refusal>;
 	halt(reason: string): Promise<void>;
@@ -178,8 +179,10 @@ function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
 	 * bounded by the same law that bounds a live turn (law 6). A subject that
 	 * outlives it is SIGTERMed and read as the timeout it is.
 	 */
-	function adopt(stepId: string, at: Extract<StepState, { at: "running" }>, turn: number): void {
-		inFlight.set(stepId, waitThenRead().finally(() => { inFlight.delete(stepId); }));
+	function adopt(stepId: string, at: Extract<StepState, { at: "running" }>, turn: number): Promise<void> {
+		const settled = waitThenRead().finally(() => { inFlight.delete(stepId); });
+		inFlight.set(stepId, settled);
+		return settled;
 
 		async function waitThenRead(): Promise<void> {
 			const step = stepById(flow, stepId);
@@ -257,8 +260,50 @@ function make(flow: Flow, log: Log, venue: Venue, options: Options): Run {
 		return state();
 	}
 
+	/**
+	 * The healer: what a dead driver left behind, adopted, and nothing else.
+	 *
+	 * A surface that drives the engine owns the turn it resumes (D23), and
+	 * Belvedere IS the engine for the turn a Chat reply drives — kill it between
+	 * the subject's `result` row and the `landed` append and the log says
+	 * `running` forever, because the process that would have appended it is gone
+	 * (C16 F2, measured). This is `tick()`'s own recovery with the two things a
+	 * healer must never do taken away:
+	 *
+	 *  - **it never ignites.** `tick()` fires every ready step, and every one of
+	 *    those is a subject turn; a heal that spends turns is a supervisor
+	 *    wearing a verb's name, which is exactly what D23 refused.
+	 *  - **it never adopts a live subject.** A pid the kernel still knows is
+	 *    somebody else's turn — the engine that spawned it owns it, and the crash
+	 *    drill's orphans are sacred (`barrage/sweep.ts`'s header, C6 F2).
+	 *    Waiting on one would make this the supervising process too.
+	 *
+	 * So a healthy or a settled run moves zero bytes, which is what makes it safe
+	 * to run at any moment on any run. There is no new landing logic here: every
+	 * transition it appends is `adopt()`'s and `resolve()`'s.
+	 */
+	async function heal(): Promise<RunState> {
+		let now = state();
+		if (now.halted !== null) return now;
+
+		// A turn read but never ruled into a transition — the same window one
+		// append earlier. Its reading is in the log; resolve it from there.
+		for (const id of unresolved(now)) {
+			const at = now.steps[id];
+			if (at?.at === "ended") { resolve(id, at.sensed); now = state(); }
+		}
+
+		const adopted: Promise<void>[] = [];
+		for (const id of running(now)) {
+			const at = now.steps[id];
+			if (at?.at === "running" && !inFlight.has(id) && !alive(at.pid)) adopted.push(adopt(id, at, (now.spent[id] ?? 1) - 1));
+		}
+		await Promise.allSettled(adopted);
+		return state();
+	}
+
 	return {
-		flow, log, venue, state, tick,
+		flow, log, venue, state, tick, heal,
 
 		bless(scope = {}) {
 			const now = state();
