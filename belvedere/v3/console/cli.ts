@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// The console — five verbs over the engine's own exports, and nothing else.
+// The console — six verbs over the engine's own exports, and nothing else.
 //
 // This is campaign bar 6's instrument and it is deliberately the thinnest thing
 // that can be it: the library is the product, and every verb here is a call into
@@ -13,11 +13,12 @@
 //   send   <run> <step> <text|land|kill> a ruling into a paused step
 //   summon <run> <step> [--tmux]        the session, in a real terminal
 //   return <run> <step> <text>          back under the engine, headless
+//   tick   <run>                        adopt what a dead driver left running
 //
 // A ruling never ignites anything on its own: `send` and `return` move the step
 // they name and stop there. `--run` drives the flow on from that step, which
 // spends subject turns on everything the ruling unblocked — so it is a word the
-// caller types and never a default.
+// caller types and never a default. `tick` never ignites at all.
 //
 // Plain argv in, exit code out: 0 did it, 2 refused. There are no prompts and no
 // TTY is required, except that `summon --tmux` wants tmux on PATH.
@@ -33,13 +34,14 @@ import { renderStream, renderRow } from "./render.ts";
 import { alive, drivable, locate, openRun, runs, TELEMETRY, type RunHandle } from "./runs.ts";
 import { lines, markReturned, markSummoned, openPane, paneName, paneReady, summonCommand, summoned, SOCKET } from "./summon.ts";
 
-const HELP = `console — five verbs over the v3 engine (campaign bar 6)
+const HELP = `console — six verbs over the v3 engine (campaign bar 6, plus C20's healer)
 
   bun console/cli.ts list                          [--root <dir>]
   bun console/cli.ts read   <run> <step>           [--turn <n>] [--follow]
   bun console/cli.ts send   <run> <step> <text|land|kill> [--note <why>] [--run]
   bun console/cli.ts summon <run> <step>           [--tmux]
   bun console/cli.ts return <run> <step> <text>    [--run]
+  bun console/cli.ts tick   <run>
 
 <run> is a run dir, or its path under the telemetry root (default
 ${TELEMETRY}).
@@ -47,6 +49,9 @@ ${TELEMETRY}).
 is an answer, and answering a paused step spends a subject turn.
 \`--run\` drives the flow on after the ruling, spending a turn on every step the
 ruling unblocked. Without it a ruling moves its own step and stops.
+\`tick\` heals: a step the log says is \`running\` whose subject is dead is adopted
+from what is on disk, which is the engine's own recovery. It ignites nothing, it
+touches no live subject, and a healthy or settled run moves nothing and says so.
 
 A step's posture is its flow's, never the console's. Read one plainly: **\`auto\`
 is not a restrictive posture headless** — a step at \`auto\` was granted
@@ -340,6 +345,58 @@ async function back(): Promise<void> {
 	await settled(handle, run, `summoned ${mark.at}  ->`);
 }
 
+// ── tick ─────────────────────────────────────────────────────────────────────
+
+/**
+ * The healer (D23). Belvedere IS the engine for the turn it resumes: a deck
+ * killed between the subject's `result` row and the engine's `landed` append
+ * leaves the step `running` until something opens the run again (C16 F2,
+ * measured the hard way). One tick adopts what that dead driver left — the
+ * engine's own `heal()`, and no landing logic on this side of the call.
+ *
+ * It is a verb and not a supervising process because a supervisor is one more
+ * component whose death strands the same steps one level up (README §1, the
+ * glass-shatters test); a verb heals from the log alone, at any moment, from any
+ * hand. It ignites nothing — a heal that spent turns would be that supervisor
+ * wearing a verb's name.
+ *
+ * **The drills are exempt, and by construction.** The crash drill needs its
+ * orphans alive between the cut and the restart — adopting one is the thing it
+ * proves (C6 F2, `barrage/sweep.ts`'s own header) — so nothing in `barrage/`
+ * calls this, and a hand that runs it mid-drill still moves nothing, because a
+ * live pid is never adopted.
+ *
+ * A pid the kernel has since handed to somebody else reads as live, so the tick
+ * says "nothing to heal" and moves nothing. That is the safe direction of that
+ * error: this verb declines to act on a doubt, it never acts on one.
+ */
+async function tick(): Promise<void> {
+	if (runName === undefined) die(`tick wants <run>\n\n${HELP}`);
+	const handle = locate(runName, ROOT);
+	if (isRefusal(handle)) die(handle.refusal);
+	const drives = drivable(handle);
+	if (isRefusal(drives)) die(drives.refusal);
+
+	const before = handle.state.steps;
+	const live = Object.entries(before).flatMap(([id, at]) =>
+		at.at === "running" && alive(at.pid) ? [`${id} pid ${at.pid}`] : []);
+
+	const run = openRun(handle);
+	if (isRefusal(run)) die(run.refusal);
+	const after = await run.heal();
+
+	let moved = 0;
+	for (const [id, at] of Object.entries(after.steps)) {
+		const was = before[id];
+		if (was === undefined || describe(was) === describe(at)) continue;
+		console.log(`${handle.name}/${id}  ${describe(was)}  ->  ${describe(at)}`);
+		moved++;
+	}
+	if (moved === 0)
+		console.log(`${handle.name}  nothing to heal${live.length === 0 ? "" : ` — ${live.join(", ")} still live, and the engine that spawned them owns their turns`}`);
+	console.log(`${moved} step${moved === 1 ? "" : "s"} healed  ·  turns ${after.turns}/${after.budget}`);
+}
+
 // ── the address every verb but `list` takes ──────────────────────────────────
 
 function step(): { handle: RunHandle; state: RunState; at: StepState } | Refusal {
@@ -361,5 +418,6 @@ switch (verb) {
 	case "send": await send(); break;
 	case "summon": await summon(); break;
 	case "return": await back(); break;
-	default: die(`unknown verb ${JSON.stringify(verb)} — one of list read send summon return\n\n${HELP}`);
+	case "tick": await tick(); break;
+	default: die(`unknown verb ${JSON.stringify(verb)} — one of list read send summon return tick\n\n${HELP}`);
 }

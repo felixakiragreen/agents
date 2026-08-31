@@ -1,11 +1,12 @@
-# console — five verbs over the engine
+# console — six verbs over the engine
 
 Campaign bar 6's instrument: **list · read · send · summon · return**, each a
-thin call into [engine/](../engine/)'s own exports. It is the piece Felix's hand
-tests at G4 and it is deliberately the thinnest thing that can be that — the
-library is the product, and this is a hand-hold over it, like `engine/cli.ts`.
+thin call into [engine/](../engine/)'s own exports, plus **tick**, the healer
+[C20](../../plans/c20-tick.md) added. It is the piece Felix's hand tests at G4
+and it is deliberately the thinnest thing that can be that — the library is the
+product, and this is a hand-hold over it, like `engine/cli.ts`.
 
-**It is not the deck.** No glass, no HTTP, no Chat, no colours. Built at
+**It is not Belvedere.** No glass, no HTTP, no Chat, no colours. Built at
 [C10](../plans/c10-console-demo.md).
 
 ```
@@ -14,6 +15,7 @@ bun console/cli.ts read   <run> <step>           [--turn <n>] [--follow]
 bun console/cli.ts send   <run> <step> <text|land|kill> [--note <why>] [--run]
 bun console/cli.ts summon <run> <step>           [--tmux]
 bun console/cli.ts return <run> <step> <text>    [--run]
+bun console/cli.ts tick   <run>
 ```
 
 Plain argv in, exit code out — 0 did it, 2 refused. No prompts, no TTY, except
@@ -29,6 +31,7 @@ the telemetry root (default `summon/log/v3`).
 | `send` | a ruling into a paused step: `land`, `kill`, or an answer that resumes the subject | an answer is one turn; `--run` spends more |
 | `summon` | the session in a real terminal (D20's fallback): prints the exact command, `--tmux` opens a pane on a private socket | nothing |
 | `return` | a summoned step back under the engine, headless, on the same session | one turn; `--run` spends more |
+| `tick` | the healer: a step the log says is `running` whose subject is dead, adopted from what is on disk | nothing, ever |
 
 **A ruling never ignites anything on its own.** `send` and `return` move the
 step they name and stop there; `--run` drives the flow on, spending a turn on
@@ -39,6 +42,43 @@ money.
 **`send` and `return` partition cleanly.** A summoned step is in a human's
 hands: `send` refuses it and names `return`; `return` refuses a step no human
 was handed and names `send`. Ambiguity never authorizes (D10).
+
+## The tick
+
+**A surface that drives the engine owns the turn it resumes.** Belvedere IS the
+engine for the turn a Chat reply drives, and a driver killed between the
+subject's `result` row and the engine's `landed` append leaves the step
+`running` until something opens that run again — measured the hard way at
+[C16 F2](../../plans/c16-chat-chapter.md). `tick` is that something:
+
+```
+bun console/cli.ts tick <run>
+```
+
+It is a **verb and never a supervising process** (D23). A supervisor is one more
+component whose death strands the same steps one level up — the glass-shatters
+test, [README §1](../../README.md) — while a verb heals from the log alone, at
+any moment, from any hand. Two rules give it the idempotence that makes it safe
+to run on anything:
+
+- **it ignites nothing.** The engine's `tick()` also fires every ready step, and
+  every one of those is a subject turn; a heal that spends turns is the
+  supervisor wearing a verb's name. `run.heal()` is `tick()` with the fire loop
+  taken away.
+- **it never touches a live subject.** A pid the kernel still knows belongs to
+  the engine that spawned it. So a settled run and a healthy one both move
+  **zero bytes** and say which they were.
+
+The transitions are `adopt()`'s and `resolve()`'s — the same recovery a restarted
+engine performs (C6 F2's ruled fix), with no landing logic on the console's side
+of the call.
+
+**The drills are exempt, by construction.** The crash drill *needs* its orphans
+alive between the cut and the restart — adopting one is the thing it proves — so
+nothing in `barrage/` calls this, and a hand that runs it mid-drill still moves
+nothing, because a live pid is never adopted (`barrage/sweep.ts`'s own header).
+A pid the kernel has since handed to somebody else reads as live, so the tick
+declines to act on that doubt rather than acting on it.
 
 ## What it reads
 
@@ -103,7 +143,9 @@ invariants never see it.
 ## The rehearsal
 
 [rehearsal.ts](rehearsal.ts) is the one scripted pass, on real sessions, that
-proves all five verbs — and the script Felix's hand re-runs at G4:
+proves the five driving verbs — and the script Felix's hand re-runs at G4
+(`tick` is not in it: its whole arc is a dead engine, which the console suite
+reproduces at budget 0 and a real rehearsal cannot):
 
 ```
 bun console/rehearsal.ts [account]      # default: personal
