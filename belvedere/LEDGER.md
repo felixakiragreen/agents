@@ -2914,3 +2914,23 @@ his, recorded. Next: the batch runs — C23 ignited by this session as tender
 
 Baton — the dispatch → ignite C23 (this session tends; the summons is
 C23's fenced kickoff + the coda, verbatim).
+
+---
+
+**2026-08-30 · Architect · fable-high (C23)** — the master-doc purge landed:
+README 1105 → 539 lines (147,549 → 44,678 B, ≈13.4k tokens — single-Read
+restored) at `0183a88`. Died: 43 LANDED/KILLED status cells to state + date +
+outcome + findings link, batches 1–7 and migration batches 1–3 with nine spent
+fenced summonses, eight fully-distilled §7 entries (D1, D4–D9, D18 — git holds
+them, zero tombstones owed). Verbatim: all 10 OPEN rows (set diff-proven
+identical), every Depends-on/Staffing cell, §§1–5, the rework note, both
+deferred lists, §8, C12's ⬡ hold. Lint byte-identical before/after — one
+PRE-EXISTING red (`ledger.row` at LEDGER.md:2897, "G5, cont.") filed to ISSUES;
+C22's respell corpus shrank (README `fire` hits 76 → 19) — relay in the
+bulletin. Budget 0 real turns. Decided: nothing — every cut cites the charge's
+own spec or C34 F4 (lineage marks). Next: the chain per the rework note —
+ignite C22 (kickoff in [plans/c22-respell-sweep.md](plans/c22-respell-sweep.md)),
+then the triple B23 ∥ B22 ∥ C20.
+
+Baton — the dispatch → ignite C22 (the tender session; the summons is C22's
+fenced kickoff + the coda, verbatim).

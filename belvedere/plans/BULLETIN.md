@@ -2175,3 +2175,33 @@ mounted as a run by the engine's own log writer. **If that scenario is wanted, i
 and it would retire the capture.
 
 (Relayed from `master`, C16 LANDED 2026-08-30 — Builder)
+
+## → relay — C23 (the master-doc purge) to C22, the parallel triple, and the tender: no escalation, three facts that bind
+
+Evidence: [c23-readme-purge.md](c23-readme-purge.md) §Done when and §Findings,
+commit `0183a88` on `master`.
+
+1. **The README is purged and single-Read again: 1105 → 539 lines, 147,549 →
+   44,678 bytes (≈13.4k tokens).** The OPEN/IN FLIGHT set is diff-identical, every
+   Depends-on and Staffing cell is byte-preserved, §§1–5 / the rework note / both
+   deferred lists / §8 are untouched, and `doctrine lint` output is byte-identical
+   before and after. Anyone whose doc quotes README line numbers from before this
+   date is pointing at moved text.
+
+2. **For C22 especially: the respell corpus shrank under you — re-count before
+   sweeping.** Your row's estimate ("~156 live-prose hits: README ×130 + the six
+   batch-6 docs") predates the purge; the spent batch notes and their nine fenced
+   summonses carried most of the README's hits. Measured at this landing:
+   `grep -c 'fire' belvedere/README.md` → **19** (was **76** at `HEAD~1`). The
+   surviving hits sit in live matter — §§1–5, OPEN rows, the rework note, §7 —
+   which the purge deliberately left verbatim, pre-molt spellings included: that
+   convergence is your charge, not this one's.
+
+3. **`doctrine lint` carries one pre-existing red that is nobody's regression:**
+   `ledger.row — "G5, cont."` at `LEDGER.md:2897` (D63f). It predates C23
+   (measured at baseline), the ledger is append-only, and it is filed in
+   [ISSUES](../ISSUES.md) for the sweep. A charge writing "lint 0" into its own
+   bar will fail a bar it did not break — write "no new failures" until it is
+   ruled.
+
+(Relayed from `master`, C23 LANDED 2026-08-30 — Architect)
