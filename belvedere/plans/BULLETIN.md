@@ -2413,3 +2413,72 @@ grep**, so the *"which SOURCE may reach the spawning hand"* check has been asser
 the respell — one word, and it belongs to whoever sweeps C22's residue.
 
 (Relayed from `master`, B23 LANDED 2026-08-31 — Builder)
+
+## → relay — C21 (the gut) to B26, B24, B27 and the G6 tender: one warning that outlives this charge, and two traps for anyone drawing a session surface
+
+Evidence: [c21-gut-v1.md](c21-gut-v1.md) §Done when and §Findings, `master`, commits
+`025b5cb` · `5002e38` · `d163250` · `2eaabdf`.
+
+**What is gone, so nobody writes against it:** the `nagging` class, whole. `Waiting` is
+`'blocked'` alone (`deck-model.ts`), `waitingOf` has one arm, `WAITING_NOTE` is a string
+rather than a record, `.dot.w-nagging` is out of `deck.css` and its swatch out of the
+legend. A session whose last beat is cmux's `idle_prompt` is **idle** — which is what
+`census.ts` always called it — and it is in no queue and on no badge. Numbers for your own
+bar: `bun test` in `glass/` is **609 pass · 0 fail**, `bun v3/gates.ts --glass` ALL GREEN
+(12 gates, 211.9 s), `--fast --probes` ALL GREEN (**25** gates, 300.0 s — the family grew
+by one).
+
+1. **F1 — the ritual G6 gates will re-open the blindness this charge just closed, and the
+   two files have been disagreeing since B14.** `waitingOf` is gated on
+   `s.last.ev !== 'Notification'` (`attention.ts:53`), so it reads exactly one wire shape.
+   The census reads two: `BY_EVENT` maps `PermissionRequest → 'needs-input'`
+   (`census.ts:113`) — B14 F1's deliberate *"the reader is ready before the sensor is"*
+   line, inert only because no account subscribes to that hook today. **The moment Felix
+   runs B22's runbook, a session blocked on approval whose last beat is `PermissionRequest`
+   renders `needs-input` on the City line and produces no queue item, no badge and no
+   ring.** And B14 F1 measured the `Notification` inference as *"~6 s late and only in
+   interactive sessions"*, so for a **headless** step the new event may be the only blocked
+   signal — the waiting-input blindness D15 was commissioned to kill, arriving through the
+   sensor that was supposed to fix it. One line plus a test
+   (`if (s.last.ev === 'PermissionRequest') return 'blocked'`); C21's fence did not name it,
+   so it is filed, not taken. **Whoever lands the ritual must land this in the same
+   breath** — a green deck is the failure mode here.
+
+2. **F3 — a probe cannot open the Chat on a fixture session, and the refusal is correct.**
+   C19's seeder writes readable sids and B22's UUID sweep made `chat.ts:572` refuse anything
+   that is not a uuid. Measured against a fixture twin:
+
+   ```
+   GET /deck/chat?sid=fixture-nagged
+   200 {"sid":"fixture-nagged","target":null,
+        "error":"not a session id: \"fixture-nagged\"","turns":[], …}
+   ```
+
+   So the Chat's state word — the second surface this cut reaches, through `chat.ts:161` —
+   could not be photographed against the seeded world; it rides the same single `waitingOf`
+   call and the suite pins it. **B26, B24 and B27 all draw session surfaces: if you want a
+   Chat probe against a seeded world, mint uuid sids in `seed.ts` first.** Filed to
+   [ISSUES](../ISSUES.md), one line in the seeder.
+
+3. **The fixture city has a seventh session now, and it is a state rather than a subject.**
+   `fixture-nagged` (`builder-beta-05`) is `Stop` at −21 h 01 m plus the `idle_prompt`
+   `Notification` sixty seconds later, on a live pid — Felix's own screenshot, reproducible
+   on demand. Every other seeded session proves something the deck **does**; this one proves
+   something it no longer does, and `nag-honesty.probe.ts` is in `standing.txt` holding it
+   down (seen to fail: the defect reinstated as one ternary arm, caught in the DOM as
+   `3 nagging ring(s) on the City`). The whole family re-ran green with it in place, so the
+   seed change broke no counts — but **anyone asserting an exact session count against the
+   fixture should re-read `censusText`**, not a number in an older doc.
+
+Also, not blocking: **`Waiting` is now a one-member union that re-derives a fact the census
+already carries** (F2). `waitingOf(s) === 'blocked'` is the same predicate `sessionState`
+uses for `'needs-input'`, narrower by exactly F1's missing event — so the wire carries the
+fact twice and the deck prints two words for it: the City line says **BLOCKED** where the
+shelf says **needs input** for the identical beat (`shelf.ts:162`). The type was kept
+deliberately (the charge rules that `blocked` survives, and collapsing the wire shape of a
+surviving organ is the Architect's call), but the honest end-state is one computation, and
+F1's fix is where it would land. And **the legend draws a class combination the deck never
+produces** — `['dot s-idle w-blocked', …]`, when a real blocked session is
+`s-needs-input w-blocked` (F4). Both filed; neither chased.
+
+(Relayed from `master`, C21 LANDED 2026-08-31 — Builder)
