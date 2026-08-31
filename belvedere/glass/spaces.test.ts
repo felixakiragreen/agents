@@ -22,7 +22,7 @@ const b = (building: string, attention: number, label = '~/code/x', badges: Part
 const group = (id: string, children: Space[] = []): Space =>
 	({ id, name: id, color: null, type: null, binding: null, children });
 const bound = (building: string, children: Space[] = []): Space =>
-	({ id: `b:${building}`, name: building, color: null, type: null, binding: building, children });
+	({ id: `b:${building}`, name: '', color: null, type: null, binding: building, children });
 
 const ok = <T>(o: { ok: true; result: T } | { ok: false; error: string }): T => {
 	if (!o.ok) throw new Error(`expected ok, got: ${o.error}`);
@@ -166,8 +166,9 @@ describe('his gestures', () => {
 		expect(findSpace(ok(editSpace(named, 'other', { type: '   ' })), 'other')!.type).toBeNull();
 		expect(editSpace(start, 'other', { name: '   ' }).ok).toBe(false);
 		expect(editSpace(start, 'nope', { name: 'x' }).ok).toBe(false);
-		// A bound space may be renamed to nothing: the register's own name is still drawn beside it.
+		// A bound space may be named nothing: that IS the default, and the register's name draws.
 		expect(ok(editSpace(start, 'b:one', { name: '' })).length).toBe(2);
+		expect(derived([b('one', 1)])[0]!.children[0]!.name).toBe('');
 	});
 
 	test('a color is one of felikai\'s seven, or none', () => {

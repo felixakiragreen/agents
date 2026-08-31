@@ -17,7 +17,7 @@ import { chromium, type Browser, type Page } from 'playwright-core';
 import type { Outcome } from './twin';
 
 /** Everything has a limit (directive 3.1). A probe that hangs is an agent that waits forever. */
-const LIMITS = { actionMs: 10_000, gotoMs: 20_000, settleMs: 4_000, scrollMs: 250, keyMs: 20 } as const;
+const LIMITS = { actionMs: 10_000, gotoMs: 20_000, settleMs: 4_000, scrollMs: 250, keyMs: 20, dragSteps: 8 } as const;
 
 /**
  * The deck is a no-scroll surface under the law of space (README §3), so a shot is viewport-sized
@@ -74,6 +74,17 @@ export type Probe = {
 	 * click lands the marked turn where Felix can see it — and only the geometry can say so.
 	 */
 	inView(selector: string): Promise<boolean>;
+	/**
+	 * **Drag one element onto another, with the pointer.** Press on `from`, move across in steps,
+	 * release over `to`.
+	 *
+	 * The deck's own arrangement drag is built on pointer events rather than HTML5 drag-and-drop
+	 * (`city.client.ts` §the drag), and this is why it can be: a `dragstart` payload is a negotiation
+	 * with the OS that no driver can hold, while a press-move-release is exactly what his hand does.
+	 * The intermediate moves are not decoration — a drag that jumps in one step passes the threshold
+	 * and the hover target in the same event, and a real hand never does.
+	 */
+	drag(from: string, to: string): Promise<void>;
 	/** Wait for a selector to be attached and visible. Throws on timeout — a probe asserts by throwing. */
 	waitFor(selector: string): Promise<void>;
 	/** What the page says at a selector, trimmed. The probe's own assertions read through this. */
@@ -182,6 +193,28 @@ export async function openEyes(base: (path: string) => string): Promise<Outcome<
 				const r = e.getBoundingClientRect();
 				return r.bottom > 0 && r.top < h && r.height > 0;
 			}, VIEWPORT.height);
+		},
+		async drag(from, to) {
+			// The drop target first: a pane is a scroller, and a box the viewport does not hold is a
+			// pair of coordinates the mouse can be moved to and nothing can be dropped on.
+			await page.locator(to).first().scrollIntoViewIfNeeded();
+			await page.waitForTimeout(LIMITS.scrollMs);
+			const a = await page.locator(from).first().boundingBox();
+			const b = await page.locator(to).first().boundingBox();
+			if (!a) throw new Error(`nothing to drag at ${from}`);
+			if (!b) throw new Error(`nowhere to drop at ${to}`);
+			const off = (r: { y: number; height: number }) => r.y < 0 || r.y + r.height > VIEWPORT.height;
+			if (off(a) || off(b))
+				throw new Error(`a drag needs both ends in the viewport at once: ${from} at y=${Math.round(a.y)}, ${to} at y=${Math.round(b.y)}`);
+			const at = (r: { x: number; y: number; width: number; height: number }) =>
+				[r.x + r.width / 2, r.y + r.height / 2] as const;
+			const [x0, y0] = at(a), [x1, y1] = at(b);
+			await page.mouse.move(x0, y0);
+			await page.mouse.down();
+			for (let i = 1; i <= LIMITS.dragSteps; i++)
+				await page.mouse.move(x0 + (x1 - x0) * i / LIMITS.dragSteps, y0 + (y1 - y0) * i / LIMITS.dragSteps);
+			await page.mouse.up();
+			await page.waitForTimeout(LIMITS.scrollMs);
 		},
 		async waitFor(selector) { await page.waitForSelector(selector, { state: 'visible' }); },
 		async text(selector) { return (await page.textContent(selector) ?? '').trim(); },

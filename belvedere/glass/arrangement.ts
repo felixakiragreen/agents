@@ -26,8 +26,15 @@ import { LIMITS, SPACE_COLORS, countNodes, depthOf, walk, type Arrangement, type
 
 export const arrangementFile = () => join(deskDir(), 'city-arrangement.json');
 
-/** An id is minted by `spaces.ts` and is never a path: it is only ever compared to another id. */
-const ID = /^[0-9a-zA-Z:._/-]{1,120}$/;
+/**
+ * An id is a **token**: minted by `spaces.ts`, only ever compared to another id, never joined to a
+ * path and never printed. So the rule is what a token must not be — empty, whitespace-bearing, or
+ * carrying a control character — rather than a list of the characters a building name happens to
+ * use today. The first cut spelled that list out and left `~` off it, and every derived id in the
+ * live city is `g:~/code/<x>`: the whole arrangement was refused at the door with a 400 the page
+ * printed and no test read (B24 F3).
+ */
+const ID = /^[^\s\x00-\x1f"\\]{1,160}$/;
 
 const str = (v: unknown): string => (typeof v === 'string' ? v : '');
 

@@ -184,16 +184,16 @@ function spaceNode(n: Drawn, live: Map<string, DeckSession>, stale: boolean, dep
 		row.dataset['tipIn'] = b.path;
 		row.dataset['tipGo'] = `/b/${b.building.split('/').map(encodeURIComponent).join('/')}`;
 		const mine = b.sids.map(id => live.get(id)).filter((x): x is DeckSession => !!x);
-		row.append(dots(mine), el('span', 'name', s.name));
-		// His label and the register's name are two different facts, and where they differ BOTH are
-		// shown: an arrangement renames the City, never the city (spec §5).
-		if (s.name !== b.building) row.append(el('span', 'sp-true', b.building));
+		row.append(dots(mine), el('span', 'name', s.name || b.building));
+		// His label and the register's name are two different facts, and where he has written one
+		// BOTH are shown: an arrangement renames the City, never the city (spec §5).
+		if (s.name !== '') row.append(el('span', 'sp-true', b.building));
 		if (s.type) row.append(el('span', 'sp-type', s.type));
 		row.append(badges(b.badges));
 		head.append(row);
 	}
 	else {
-		head.append(el('span', 'nb-name', s.name));
+		head.append(el('span', 'nb-name', s.name));   // a group is its name; it has nothing else
 		if (s.type) head.append(el('span', 'sp-type', s.type));
 		if (n.missing) head.append(el('span', 'sp-note', `bound to ${s.binding} — not on the register`));
 		// A group carries its members' liveness at rest and their badges when it is shut — the
@@ -232,6 +232,7 @@ function editStrip(s: Space): HTMLElement {
 	const name = el('input', 'sp-in') as HTMLInputElement;
 	name.type = 'text';
 	name.value = typing.get(`name:${s.id}`) ?? s.name;
+	if (s.binding !== null && s.name === '') name.placeholder = s.binding;
 	name.maxLength = 60;
 	name.spellcheck = false;
 	name.placeholder = 'name it';
@@ -371,7 +372,7 @@ export function drawCity(host: HTMLElement): void {
 	if (minimal) {
 		for (const n of tree) {
 			const h = el('div', 'nb-h sp-h');
-			h.append(el('span', 'nb-name', n.space.name),
+			h.append(el('span', 'nb-name', n.space.name || n.building?.building || ''),
 				dots(sidsOf(n).map(id => live.get(id)).filter((x): x is DeckSession => !!x)));
 			host.append(h);
 		}
@@ -443,22 +444,50 @@ const post = async (path: string, body: unknown): Promise<{ ok: boolean; error?:
  * back — so a refusal shows up as the arrangement snapping back, with the reason printed beside the
  * toggle rather than swallowed.
  */
-async function keep(spaces: Space[]): Promise<void> {
+async function keep(spaces: Space[], note: string): Promise<void> {
 	const snap = ctx!.snapshot();
 	if (!snap) return;
 	snap.arrangement = { spaces, his: true, error: null };
 	ctx!.redraw();
 	try {
 		const r = await post('/desk/arrangement', { spaces });
-		say(OUT, r.ok ? 'arrangement saved' : `refused: ${r.error ?? 'unknown'}`);
+		say(OUT, r.ok ? note : `refused: ${r.error ?? 'unknown'}`);
 	}
 	catch (e) { say(OUT, String(e)); }
 }
 
 /** Apply one pure edit and write it, or print the refusal. Nothing here changes on a refusal. */
-function apply(out: { ok: true; result: Space[] } | { ok: false; error: string }): void {
-	if (!out.ok) { say(OUT, `refused: ${out.error}`); return; }
-	void keep(out.result);
+function apply(out: { ok: true; result: Space[] } | { ok: false; error: string }, note = (_: Space[]) => 'arrangement saved'): Space[] | null {
+	if (!out.ok) { say(OUT, `refused: ${out.error}`); return null; }
+	void keep(out.result, note(out.result));
+	return out.result;
+}
+
+/**
+ * **Why the drop did not land where he let go.** Attention outranks his order (the standing law,
+ * README §3), so a space he drags below a louder sibling is stored where he put it and drawn above
+ * it. That is the law working, and a page that just snapped back without a word would read as a
+ * broken drag — which is the whole class of complaint this deck exists to end.
+ */
+function explain(spaces: Space[], id: string): string {
+	const snap = ctx!.snapshot();
+	if (!snap) return 'arrangement saved';
+	const find = (nodes: Drawn[]): Drawn[] | null => {
+		for (const n of nodes) {
+			if (n.space.id === id) return nodes;
+			const inner = find(n.children);
+			if (inner) return inner;
+		}
+		return null;
+	};
+	const { tree } = arrange(spaces, snap.register.buildings);
+	const siblings = find(tree);
+	const drawn = siblings?.findIndex(n => n.space.id === id) ?? -1;
+	const above = drawn > 0 ? siblings![drawn - 1]! : null;
+	const me = drawn >= 0 ? siblings![drawn]! : null;
+	return me && above && above.loud < me.loud
+		? `saved — ${above.space.name} draws above it while it is louder (attention outranks your order)`
+		: 'arrangement saved';
 }
 
 const current = (): Space[] => {
@@ -502,7 +531,7 @@ export function cityClick(target: Element): boolean {
 		const out = mintGroup(current(), into === '' ? null : into, 'new space');
 		if (!out.ok) { say(OUT, `refused: ${out.error}`); return true; }
 		editing = out.result.id;
-		void keep(out.result.spaces);
+		void keep(out.result.spaces, 'new space — name it, then drag things into it');
 		return true;
 	}
 
@@ -625,18 +654,19 @@ export function cityDrag(pane: HTMLElement): void {
 		// this one", because a building is a place in a list rather than a container he thinks in.
 		const onBound = over.closest<HTMLElement>('.sp-bound') !== null;
 		const target = over.dataset['arrInto'] ?? '';
+		const moved = was.building === null ? was.id : `b:${was.building}`;
 		if (onBound) {
 			const site = siteOfId(spaces, target);
 			if (!site) { say(OUT, `refused: ${target} is no longer in your arrangement`); return; }
 			apply(was.building === null
 				? moveNode(spaces, was.id, site.parent, site.at)
-				: bindBuilding(spaces, was.building, site.parent, site.at));
+				: bindBuilding(spaces, was.building, site.parent, site.at), s => explain(s, moved));
 			return;
 		}
 		const into = target === '' ? null : target;
 		apply(was.building === null
 			? moveNode(spaces, was.id, into, Number.MAX_SAFE_INTEGER)
-			: bindBuilding(spaces, was.building, into, Number.MAX_SAFE_INTEGER));
+			: bindBuilding(spaces, was.building, into, Number.MAX_SAFE_INTEGER), s => explain(s, moved));
 	};
 
 	pane.addEventListener('pointerup', finish);

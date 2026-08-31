@@ -46,6 +46,11 @@ export type SpaceColor = (typeof SPACE_COLORS)[number];
  */
 export type Space = {
 	id: string;
+	/**
+	 * **His label, and empty where he has not given one.** A bound space with no name of his draws
+	 * the register's own name for its building — so the default carries no copy of a fact the
+	 * register already holds, and a rename is visibly his (the City shows both, `city.client.ts`).
+	 */
 	name: string;
 	color: SpaceColor | null;
 	/** His word for what this is — "district", "campaign", "office", or nothing. Never a rank. */
@@ -162,7 +167,7 @@ export function derived(buildings: readonly DeckBuilding[]): Space[] {
 	for (const b of buildings) {
 		let g = groups.get(b.label);
 		if (!g) { g = { id: `g:${b.label}`, name: b.label, color: null, type: null, binding: null, children: [] }; groups.set(b.label, g); }
-		g.children.push({ id: `b:${b.building}`, name: b.building, color: null, type: null, binding: b.building, children: [] });
+		g.children.push({ id: `b:${b.building}`, name: '', color: null, type: null, binding: b.building, children: [] });
 	}
 	return [...groups.values()];
 }
@@ -217,7 +222,7 @@ export function bindBuilding(spaces: readonly Space[], building: string, parent:
 	const into = listIn(next, parent);
 	if (into === null) return no(`no such space to file into: ${parent}`);
 	into.splice(Math.max(0, Math.min(index, into.length)), 0,
-		{ id: `b:${building}`, name: building, color: null, type: null, binding: building, children: [] });
+		{ id: `b:${building}`, name: '', color: null, type: null, binding: building, children: [] });
 	if (depthOf(next) > LIMITS.depth) return no(`an arrangement nests at most ${LIMITS.depth} deep`);
 	return { ok: true, result: next };
 }

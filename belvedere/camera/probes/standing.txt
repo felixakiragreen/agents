@@ -30,6 +30,7 @@
 # corpus. `baton.probe.ts` is that charge's hermetic half, and it is the one that stands.
 
 city.probe.ts
+city-arrange.probe.ts
 building.probe.ts
 drawer-click.probe.ts
 fixture-rail.probe.ts
