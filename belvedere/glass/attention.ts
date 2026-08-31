@@ -22,7 +22,7 @@
  * `rankOf`).
  */
 
-import type { Building, BoardRow, LedgerEntry } from '../../doctrine';
+import type { Baton, Building, BoardRow, LedgerEntry } from '../../doctrine';
 import { readBaton, withoutFences } from './baton';
 import type { Session } from './census';
 import { isLive } from './census';
@@ -198,14 +198,14 @@ function batonNote(w: BatonWire): string {
  * row. Where a tail names no row the fallback is the clause itself, which is B9 F1's honest
  * furniture rule and the fourth filing of the same ask (findings).
  */
-function batonItem(b: Building, tail: LedgerEntry): QueueItem {
-	const read = readBaton(b, b.baton!, tail.line);
-	const wire: BatonWire = { holder: b.baton!.holder, shape: read.shape, collides: read.collides, options: read.options };
+function batonItem(b: Building, baton: Baton, tail: LedgerEntry): QueueItem {
+	const read = readBaton(b, baton, tail.line);
+	const wire: BatonWire = { holder: baton.holder, shape: read.shape, collides: read.collides, options: read.options };
 	const file = b.files.ledger ?? b.path;
 	return {
 		kind: 'baton', key: `baton:${b.building}`,
 		building: b.building, path: b.path,
-		...title(tail.row, withoutFences(b.baton!.text)),
+		...title(tail.row, withoutFences(baton.text)),
 		at: iso(tail.date),
 		where: `${base(file)}:${tail.line}`,
 		doc: file,
@@ -276,7 +276,7 @@ export function needsYou(buildings: Building[], sessions: Session[], steps: read
 	}
 
 	for (const b of buildings) {
-		if (b.baton && b.ledgerTail) out.push(batonItem(b, b.ledgerTail));
+		if (b.baton && b.ledgerTail) out.push(batonItem(b, b.baton, b.ledgerTail));
 
 		// The building's own row-id namespace: an escalation marker that names one of these is a
 		// row reference (§escalationsIn, false positive 1). Whole building, not one board — a
