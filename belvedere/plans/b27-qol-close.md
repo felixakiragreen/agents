@@ -70,7 +70,13 @@ bounds what may be absorbed without a new ruling.
    name workspaces by title wherever one exists, refs only where none does.
    **STOP-clause applies:** if titles cost more than the poll's remaining
    headroom (B18 F4's ~161 ms baseline) or turn structural, escalate.
-8. **The tweak list.** Absorb entries that are visual/QoL/usability within
+8. **The worker-env knob** (B23's find, bug-class): a Bun worker never sees
+   a `process.env` set at runtime, so a test pointing `$GLASS_CITY` at a
+   fixture after start-up has `register.worker.ts` silently re-walk the real
+   `~/code` (B8 F1's family, one thread along; cannot reach Felix's live
+   deck — its env rides the spawn). Hand the worker its city at spawn (a
+   workerData/argument, not ambient env) or refuse a mismatch loudly.
+9. **The tweak list.** Absorb entries that are visual/QoL/usability within
    existing surfaces — label, spacing, hover, ordering, wording,
    findability. **STOP-clause:** a tweak that changes structure, adds a
    surface, touches the fence, or contradicts a design law escalates to the
@@ -118,7 +124,7 @@ bounds what may be absorbed without a new ruling.
 ## Kill criteria
 
 None global. The STOP-clause is the row's safety valve: absorbed scope is
-bounded by §8, and this row would rather land small than rule once.
+bounded by §9, and this row would rather land small than rule once.
 
 ---
 

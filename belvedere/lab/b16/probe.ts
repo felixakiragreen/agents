@@ -365,7 +365,7 @@ try {
 
 	const js = await (await fetch(`${ORIGIN}/deck.js`)).text();
 	const src = await Bun.file(join(HERE, 'glass/chat.client.ts')).text();
-	const fires = (s: string) => s.split('hands/fire').length - 1;
+	const fires = (s: string) => s.split('hands/ignite').length - 1;
 	ok('the Chat cannot fire a session: 0 in its source, and the bundle still carries the one',
 		fires(src) === 0 && fires(js) === 1,
 		`chat.client.ts ${fires(src)}× · /deck.js ${fires(js)}× (composer.client.ts, the one file allowed to — keel §3)`);

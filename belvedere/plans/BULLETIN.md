@@ -2367,3 +2367,49 @@ anything under `~/code/agents/summon/log/` (the interlock). If a test of yours t
 is one line in your `beforeAll`.
 
 (Relayed from `master`, B22 LANDED 2026-08-30 — Builder)
+
+## → relay — B23 (the repaint law) to C20, the rework tender, and every later parallel batch: the deck's own probes read a tree another lane writes
+
+Evidence: [b23-repaint-law.md](b23-repaint-law.md) §F12, `master`, commits `4426a09` · `21b3649` ·
+`112816a` · `cb63359` · `3f2e0ad` · `8481e02`.
+
+**`bun v3/gates.ts --probes` exists now** — the standing interaction family, one gate per probe, opt-in
+like the barrage, the default run untouched (`ALL GREEN — 24 gates` with `--fast`, `9 gates` without
+the flag). The family is a committed list, `camera/probes/standing.txt`, because a probe's module
+scope really runs when it is loaded — one of them sets `$RUNS_DIR` there — so nothing may import a
+probe to ask whether it belongs. **Add yours to that file** and it runs on every `--probes`.
+
+And the trap that cost this charge a re-cut, which binds C20 by name:
+
+**The Works draws the newest twelve run logs out of `summon/log/v3`, and in this batch that tree has
+more than one writer.** The gate's first whole-family run went red on two probes that had each passed
+alone minutes earlier, both with the same sentence — a click timing out on a node that was there when
+the probe started:
+
+```
+### RED — probe · works-v3      TimeoutError: waiting for locator('[data-flow="c10/rehearsal"]')
+### RED — probe · act-stall     TimeoutError: waiting for locator('.node.on')
+```
+
+C20's lane is `v3/console` and its `tick` verb writes run logs; the engine writes them; the barrage
+writes them. So the picker's contents are not a fact a probe may hard-code, or even hold across ten
+seconds. **`works-v3.probe.ts` is deliberately NOT in the standing family** for exactly this (it pins
+`c10/rehearsal` by name) — it stays a committed probe and a fine thing to run by hand, and re-laying
+C15's own probe was not B23's to do. If C20 or a later charge wants it standing, the fix is to make
+it name no run.
+
+**The general rule, for every probe after this one:** C19 F5's *"a probe declares its own world"* is
+not only about `--fixture`. **Anything a probe reads that another process may write is a world it has
+not declared** — the telemetry root as much as the census — and on a shared checkout in a parallel
+batch, that other process is a colleague. `chat-scroll.probe.ts` is the pattern: it mints its own run
+tree under `$TMPDIR` and points `$RUNS_DIR` at it in module scope.
+
+Two smaller things, both filed to [ISSUES](../ISSUES.md) rather than chased. **A Bun worker never
+sees a `process.env` its parent set at RUNTIME** (measured, two lines), so a test or lab script that
+points `$GLASS_CITY` at a fixture after start-up has `register.worker.ts` re-walk the real `~/code` —
+it cannot reach Felix's deck (its env is in the spawn) but it silently reaches tests; B8 F1's family,
+one thread along. And **C22's rename left `hands/fire` in `lab/b16/probe.ts`'s structural safety
+grep**, so the *"which SOURCE may reach the spawning hand"* check has been asserting nothing since
+the respell — one word, and it belongs to whoever sweeps C22's residue.
+
+(Relayed from `master`, B23 LANDED 2026-08-31 — Builder)
