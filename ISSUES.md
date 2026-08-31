@@ -30,9 +30,16 @@ is cleared). A cleared inbox is empty.
   and left alone as beyond this charge's fence. Note: 18g's `worktree-agent-a55279e2283f84743`
   is a different branch and is **not** in this repo's list — that pointer, named unmerged on
   18g's row, appears already gone.
-- 2026-08-31 · C37's Builder · `LEDGER.md:2402` — GA-19's continuation entry heads
-  `(GA-19, continued)`, and D63f wants a bare row id in the parenthetical, so
-  `lint ~/code/agents` now reads 1 `ledger.row` failure where the agents building read `ok`
-  at this charge's ignition. It came in with `b232f05` (Felix's C22 blessing), mid-flight;
-  the graft touched `lab/08/run` alone. Not fixed — his entry, his call whether the word
-  goes or D63f widens (C37 F5).
+- 2026-08-31 · G2's Architect · `lab/08/run:407` — `count 'no .summon-theaters ⇒ no theater
+  row at all' 0 '[t]heater' $LAB/out/theater-nofile.txt` reads a file that line **413**
+  creates, four lines later. `run` does `rm -rf $LAB/out` at the top, so on every run the
+  file is absent when the assertion fires; `count` runs `grep -cF` on a missing path, which
+  errors to stderr and yields 0, and 0 is what the assertion expects — so it **passes
+  because its subject does not exist**. Evidence: a run prints
+  `grep: …/theater-nofile.txt: No such file or directory` while reporting 0 failures.
+  The behavior it means to prove is in fact correct (`grep -c '[t]heater'` on the file
+  once line 413 has written it → 0), so this hides no red — it is a dead assertion, not a
+  false green. Same class as the gap C37 just closed: a guard that proves nothing. The fix
+  is to move the assertion below line 413; the wider fix is for `count` to fail loudly on a
+  missing file rather than score it 0. Found while verifying C37's landing; out of that
+  charge's fence, so filed, not fixed.

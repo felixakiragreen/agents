@@ -76,7 +76,10 @@ $ git log --oneline --format='%h %ad %s' --date=short -- lab/08 summon/presets.t
 
 `7973440` restored the item count with the `F fixer` preset and re-derived the
 assertions; the two after it grew the panel again. **Master control run, 2026-08-31 @
-`67d73be`: 210 PASS · 0 failure(s).** C29's mission — "`lab/08/run` goes green again on
+`67d73be`: 211 PASS · 0 failure(s).**  *(Corrected 2026-08-31 at C37's landing: this
+finding first read 210. A piped `grep -c PASS` drops one line; the control is 211 and the
+arm adds 4, not 5. The total this gate turned on — 215 — was never in doubt, and no arm
+was tuned to reach it. C37 F2.)* C29's mission — "`lab/08/run` goes green again on
 a `presets.tsv` that no longer carries a dead mantle" — is **met on master**:
 
 ```

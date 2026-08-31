@@ -2304,7 +2304,7 @@ checkout, no gate between them).
 
 **2026-08-31 · Architect · opus-high (G2)** — the gate ran and **stopped at E1: the
 merge is rejected, the premise was false.** Spec step 1 named a green control an
-escalation, and the control ran green — 210 PASS · 0 FAIL at `67d73be`. Master had
+escalation, and the control ran green — **211** PASS · 0 FAIL at `67d73be` (corrected 2026-08-31: this entry first read 210 — a piped `grep -c` drops one line; C37 F2 caught it, the total 215 was never in doubt). Master had
 repaired its own harness after C25 with the three summon commits that followed
 (`7973440` restored the item count with the `F fixer` preset and re-derived the
 assertions, then `08a97d0` + `6724213` grew the panel again); C29's mission — green on a
@@ -2400,7 +2400,8 @@ that building's sweep, not a hold on anything here.
 
 ---
 
-**2026-08-31 · Grand Architect · fable-max (GA-19, continued)** — C22's three forks
+**2026-08-31 · Grand Architect · fable-max (GA-19)** — *(GA-19 continued; the
+parenthetical carries the row id alone, D63f.)* C22's three forks
 ruled at the desk: bare mode keeps its no-prompt shape · a colorless venue launches
 anyway ("equivalent to no prompt" — no warning gate, the drop named in the panel
 preview) · the rig detects the venue at ignition time, `presets.tsv` grows no
@@ -2446,3 +2447,35 @@ it blocking: BOARD.md's C37-alone batch note still wants an Architect's close li
 `LEDGER.md:2402`'s parenthetical is his word to strike or D63f's to widen; the two dead
 `worktree-agent-*` pointers are free to delete. Belvedere's `ledger.next` stays that
 building's close-out, untouched here.
+
+---
+
+**2026-08-31 · Architect · opus-high (G2)** — *(G2 continued: the dispatch returned and its
+landing was reviewed here.)* **C37 LANDED, verified at the desk** — `./lab/08/run` re-run
+reads **215 PASS · 0 failure(s)**, the arm's four PASS lines byte-identical to G2 F4's
+pre-verification, `bv/c29-summon-harness` confirmed deleted (`f160ec1` still reachable and
+recorded on the board and in both charge docs). **C29's arc is closed whole:** mission met
+on master, branch rejected, the one deliverable worth saving salvaged and landed. The
+C37-alone batch is CLOSED. **C37's F2 corrected me and it was right:** master's control is
+**211**, not the 210 I twice recorded — a piped `grep -c PASS` drops a line — and the arm
+adds **4**, not 5. The errors cancelled at 215, so the gate's verdict never turned on it and
+no arm was tuned; the number is now corrected in [G2's F1](plans/g2-c29-merge.md), this
+ledger's G2 entry, and C29's row. **A form repair on GA-19's continuation entry** (`(GA-19,
+continued)` → `(GA-19)`, the word preserved verbatim in the body): D63f wants a bare row id
+in the parenthetical, and the repair clears the `ledger.row` red C37 filed. Precedent for a
+session repairing another's ledger *form*: `fd9b98a`, `74355ef`, `92b4528`. Felix's ruling
+and words are untouched and one word reverts it. **One defect found while verifying, filed
+not fixed:** `lab/08/run:407` asserts against `theater-nofile.txt`, which line **413**
+creates — `rm -rf $LAB/out` at the top means the file is always absent when the assertion
+fires, so `count` greps a missing path, scores 0, expects 0, and **passes because its
+subject does not exist**. It hides no red (the behavior is genuinely correct), but it is a
+dead assertion of exactly the class C37 just closed. Inbox: C37's `ledger.row` entry ruled
+and deleted (fixed here); the dead assertion filed; belvedere's two still routed, not swept.
+Decided: nothing — the form repair is precedent, not a new rule. Next: `ignite C22` — the
+rig's last open step, its three forks blessed by Felix at `b232f05`, kickoff verbatim in
+[plans/22-summon-argv.md](plans/22-summon-argv.md).
+
+Baton — ⬡ → single — ignite C22 (kickoff verbatim in
+[plans/22-summon-argv.md](plans/22-summon-argv.md)); the summon rig owes nothing else.
+Standing: `lint .` reads 1 failure, belvedere's `ledger.next`, fenced until that building's
+close-out.
