@@ -95,6 +95,25 @@ describe('control — conforming fixtures parse with zero failures', () => {
 		expect([r.tail!.mantle, r.tail!.tier]).toEqual(['unrecorded', 'unrecorded']);
 	});
 
+	test('ledger — only a leading marker splits the body; a mention never does (C36 item 4)', () => {
+		const r = parseLedger(fx('conforming', 'ledger-clauses.md'));
+		expect(codes(r.fails)).toEqual([]);
+		// C1 quotes `Next —` and `Next:` in its own prose — the clause is the one that leads a sentence
+		expect(r.entries[0]!.next).toBe('nothing is ignitable here; the checkout is merged and inert.');
+		expect(r.entries[0]!.decided).toBe('nothing new — the sweep executes the standard');
+		// C2's clauses arrive out of §7's order: each runs to the NEXT marker, never to the end
+		expect(r.entries[1]!.next).toBe('**C3 is ignitable** — C2 is landed and the engine is untouched.');
+		expect(r.entries[1]!.decided).toBe('nothing — findings only');
+		// C3 fences a summons whose body writes both markers — code is masked before the search
+		expect(r.entries[2]!.next).toBe('ignite C4 (kickoff fenced above).');
+	});
+
+	test('ledger — the pre-doctrine bullet dialect still leads its line (C36 item 4)', () => {
+		const r = parseLedger('# L\n\n---\n\n**2026-08-02 · Architect · unrecorded** — the kernel landed.\n\n- **Decided:** D1, D2.\n- **Next:** Felix gives the go.\n');
+		expect(codes(r.fails)).toEqual([]);
+		expect([r.tail!.decided, r.tail!.next]).toEqual(['D1, D2', 'Felix gives the go.']);
+	});
+
 	test('baton — a fenced summons in the tail is one fireable instrument (D63g/D64)', () => {
 		const tail = parseLedger(fx('conforming', 'ledger.md')).tail!;
 		const b = classifyBaton(tail)!;

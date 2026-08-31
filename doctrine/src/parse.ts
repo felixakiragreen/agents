@@ -255,6 +255,48 @@ export type LedgerEntry = {
 	block: string;                // the entry verbatim — the baton's fences live here
 };
 
+/**
+ * §7's two clauses — `Decided:` and `Next:` — split an entry's body, and only a marker that
+ * LEADS splits it: one that opens the body, opens a line, or opens a sentence. A marker the
+ * prose merely mentions is not a clause: two of the city's fifteen tails handed a `next` read
+ * off bytes their writer never meant as the clause (B26 F5, spacex-dashboard-c2 and manny).
+ * Code is masked before the search — an entry quoting `Next:` is quoting, not clausing — and
+ * each clause runs to the NEXT marker, so a `Next:` no longer swallows the `Decided:` behind it.
+ */
+const CLAUSE_MARKER = /\b(Decided|Next):/g;
+
+const blankRun = (s: string) => s.replace(/[^\n]/g, ' ');
+
+/** Fenced blocks and inline ticks, blanked in place — every offset stays the real one. */
+function maskCode(md: string): string {
+	let fence = false;
+	return md.split('\n')
+		.map(l => /^\s*```/.test(l) ? (fence = !fence, blankRun(l)) : fence ? blankRun(l) : l)
+		.join('\n')
+		.replace(/`[^`\n]*`/g, blankRun);
+}
+
+function clauses(body: string): { decided: string | null; next: string | null } {
+	const masked = maskCode(body);
+	const marks: { name: string; at: number; end: number }[] = [];
+	for (const m of masked.matchAll(CLAUSE_MARKER)) {
+		// bullets and emphasis are punctuation, not prose — `- **Next:**` leads its line
+		const lead = masked.slice(0, m.index).replace(/[ \t*_+-]*$/, '');
+		if (lead === '' || lead.endsWith('\n') || /[.!?][)\]”"']*$/.test(lead))
+			marks.push({ name: m[1]!, at: m.index, end: m.index + m[0]!.length });
+	}
+	const clause = (name: string) => {
+		const k = marks.findIndex(x => x.name === name);
+		if (k < 0) return null;
+		// `- **Next:** x` closes its own bold on the far side of the colon: a `**` with a space
+		// behind it is that delimiter, never the opening of the clause's own emphasis.
+		return body.slice(marks[k]!.end, marks[k + 1]?.at ?? body.length)
+			.replace(/\s+/g, ' ').trim().replace(/^\*\*(?=\s)/, '').trim();
+	};
+	// §7 writes the clause as a sentence; the record keeps its text, never the full stop.
+	return { decided: clause('Decided')?.replace(/[\s*_+-]+$/, '').replace(/\.$/, '') ?? null, next: clause('Next') };
+}
+
 function blocks(md: string): { text: string; line: number }[] {
 	const lines = md.split('\n');
 	const out: { text: string; line: number }[] = [];
@@ -318,9 +360,12 @@ export function parseLedger(md: string): { entries: LedgerEntry[]; tail: LedgerE
 		else fails.push(fail('ledger', 'ledger.tier', 'unknown tier', JSON.stringify(tierSeg), b.line));
 		if (row !== null && /[\s,]/.test(row)) fails.push(fail('ledger', 'ledger.row', 'the parenthetical holds more than a row id (D63f)', JSON.stringify(row), b.line));
 
+		// The clauses are read off the entry's OWN lines, never the flattened run: flattening
+		// erases the line starts that tell a clause from a mention (B26 F5).
+		const raw = b.text.replace(/^\s+/, '');
+		const rawHead = raw.match(/^\*\*([^*]+?)\*\*\s*[—–-]\s*/);
 		const body = m[2]!;
-		const decided = body.match(/Decided:\s*(.+?)(?:\.\s*Next:|\.$|$)/)?.[1] ?? null;
-		const next = body.match(/Next:\s*(.+)$/)?.[1] ?? null;
+		const { decided, next } = clauses(rawHead ? raw.slice(rawHead[0]!.length) : raw);
 		if (!decided) fails.push(fail('ledger', 'ledger.decided', 'no "Decided:" clause (§7)', flat.slice(0, 220), b.line));
 		if (!next) fails.push(fail('ledger', 'ledger.next', 'no "Next:" clause — the baton (§7)', flat.slice(0, 220), b.line));
 
