@@ -3124,3 +3124,45 @@ Baton — the dispatch → ignite B26 (the summons is its fenced kickoff + the c
 verbatim; B24 then B27 behind it). Felix still owes the one ⬡ from G5 — B22's
 budget extension — which gates B22's two re-run bars and B27's ignition, nothing
 in C21 or B26.
+
+---
+
+**2026-08-31 · Builder · opus-high (B26)** — **the baton is attention, and the
+deck can act on it.** Changed: the splitter, the resolver and D10's collision
+test moved out of the rail into `glass/baton.ts`, so one reading of a handoff
+serves two surfaces (`readBaton` — shape, collision, every instrument resolved
+to its bytes; the rail keeps the composing of an ignition on top, and the deck's
+queue never does it); `ATTENTION` gained its fifth class and `noBadges` now
+derives from that list instead of two hand-written literals (F8);
+`attention.ts` gained the bucket — every ledger tail, `baton` **sharing
+`waiting`'s rank** so the two interleave under one law and recency orders inside
+it; the item leads with the entry's own row (F3), quotes its instrument's bytes,
+and carries the holder, the shape, the collision and an honest note per holder;
+`deck.client.ts` draws it — the parser's word and `HIS BY PROSE` side by side,
+per-option `COMPOSE` (into the composer through `compose.with`, the desk's own
+seam) and `COPY`, zero ignite wiring anywhere in the drawer; `deck-view.ts`
+gained the drawer's door (`queue.show`) so the Works can reach the ⬡-queue
+without reaching into it, and a landed **terminal** node in a building whose
+tail hands a baton now says so and jumps to that item. First act, as ordered:
+the fixture city's seeded sids are uuids (C21 F3) — the readable half was always
+the name-stamp — so a probe can open the Chat, the queue or any session surface
+on a seeded session; the standing family was re-run whole on the fix before
+anything was built on it. Evidence: 621 glass tests (609 → 621, twelve added,
+none weakened), `bun lab/b26/cost.ts` `/deck/state` p95 **280.2 ms** against the
+500 ms bar with the bucket costing **0.09 ms** a snapshot, and two probes —
+`baton.probe.ts` on the fixture (standing, hermetic) and `baton-real.probe.ts`
+on the real corpus (committed, hand-run, because it reads two trees other
+processes write). Budget **0 real turns, 0 spent**. Decided: nothing — the
+charge's Felix-holder-with-a-fence is the D10 collision and was built as that
+(F1), and the two defects found beyond the fence were filed, not chased: the
+scrim paints over the whole app so an **open** drawer cannot be clicked at all
+(F6 — every queue control since B13, cause and one-line fix on the entry), and a
+ledger entry that mentions `Next:` in its own body mis-splits (F5). Both to
+ISSUES; F2 is the ask that outlives this charge — nine of the fifteen live
+batons are his and six of those say nothing is owed, and no field can tell them
+apart.
+
+Baton — the dispatch → ignite B24 (its fenced kickoff + the coda, verbatim;
+B27 behind it, and it now inherits F6 and F2 as well as C21's filings). Felix
+still owes the one ⬡ from G5 — B22's budget extension — which gates B22's two
+re-run bars and B27's ignition, nothing in B26 or B24.
