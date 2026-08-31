@@ -7,19 +7,26 @@
  * and the City's badges are **rolled up from the queue's own items**. A badge can therefore never
  * count something the queue does not list, and the queue can never list something the badge missed.
  *
- * Four classes and no fifth (B14 §out-of-scope). Nothing in this file composes a summons, mints a
- * stamp or touches the hands: an attention item is a thing to *read* and, at most, to *answer with
- * a word* — the two wires it may carry are `POST /inbox` and `POST /hands/focus` (D10).
+ * B14 shipped four classes; **B26 added the fifth, the baton**, because a Felix-holder baton is the
+ * needs-you class by definition (D15) and this file had no bucket for it — *"an agent finished,
+ * handed a baton, and I can't see that anywhere or act on it anywhere in Belvedere"*. It is one
+ * bucket in this one computation, never a second attention model beside it.
+ *
+ * Nothing in this file composes an ignition, mints a stamp or touches the hands: an attention item
+ * is a thing to *read* and, at most, to *answer with a word* — the two wires it may carry are
+ * `POST /inbox` and `POST /hands/focus` (D10). A baton item quotes its instrument's bytes, which is
+ * what the Workshop already prints under a ledger tail; the composer, after his click, is the hand.
  *
  * The ranking law is v0's, ported not reinvented: `attentionOf` and `freshness` in `pages.ts` are
  * the standing sort and are imported, not copied. B14 extends it by exactly one rank (see
  * `rankOf`).
  */
 
-import type { Building, BoardRow } from '../../doctrine';
+import type { Building, BoardRow, LedgerEntry } from '../../doctrine';
+import { readBaton, withoutFences } from './baton';
 import type { Session } from './census';
 import { isLive } from './census';
-import type { Attention, DeckBuilding, QueueItem, Waiting } from './deck-model';
+import { noBadges, type Attention, type BatonWire, type DeckBuilding, type QueueItem, type Waiting } from './deck-model';
 import { encap, short } from './html';
 import { countersignState } from './inbox';
 import type { Located as LocatedStep } from './steps';
@@ -148,12 +155,74 @@ const base = (file: string) => file.split('/').at(-1) ?? file;
 
 // ---------- the queue ----------
 
-const RANK: Readonly<Record<Attention, number>> = { waiting: 0, gate: 1, countersign: 2, escalation: 3 };
+/**
+ * **`baton` shares `waiting`'s rank, deliberately** (B26 §4). Both are the city waiting on Felix —
+ * one because a dialog is holding a tool call, one because a session finished and handed him the
+ * next move — and giving the baton its own rank would sort every handoff below a permission prompt
+ * from yesterday, or every prompt below a handoff. One rank, and recency orders inside it: the two
+ * classes **interleave**, which is the standing law (attention across ranks, recency within) applied
+ * rather than a second ordering invented for the new class.
+ */
+const RANK: Readonly<Record<Attention, number>> = { waiting: 0, baton: 0, gate: 1, countersign: 2, escalation: 3 };
+
+/**
+ * What this baton can and cannot do from the drawer, in one honest line — the holder decides it,
+ * and the holder is the parser's (D65). Every branch ends the same way: the composer, after his
+ * click, is the only hand on this deck.
+ */
+function batonNote(w: BatonWire): string {
+	if (w.holder === 'prose')
+		return 'A dropped baton — the Next clause carries no instrument and names no Felix-action (D63g/D64), so there is nothing here to take up. What it needs is a Next clause the grammar can read; a note files that ask to this building’s inbox.';
+	if (w.collides)
+		return 'The parser reads an instrument here and the clause names Felix, so the two readings disagree — and an ambiguous holder never arms (D10). The bytes are yours to read, copy and carry into the composer; nothing on this deck dispatches them for you.';
+	if (w.holder === 'felix')
+		return 'The ledger tail hands this one to you and names no instrument, so there is nothing to open — the clause is the whole of it. Read it where it was written; a note files to this building’s inbox.';
+	if (w.shape === 'fork')
+		return 'A fork: the options are exclusive and choosing is yours (D64). Each carries its own bytes and the recommendation is marked where the clause named one — take one to the composer, where your click is the ignition.';
+	if (w.shape === 'plural')
+		return `This clause hands ${w.options.length} instruments and never says whether they run together or instead of each other — D64’s shape is not a field the grammar carries yet, so the deck offers all of them and decides nothing.`;
+	return 'A session holds this baton. Compose loads its summons into the composer, where the stamp, tier, venue and trust resolve live and your click is the ignition — nothing on this path ignites on its own (D10).';
+}
+
+/**
+ * One building's ledger tail, as an attention item (B26 §1).
+ *
+ * The text is stripped of its fences before it is named: an instrument quoted inside the Next clause
+ * is printed by the item's own options, and leaving it in the prose prints every summons twice — the
+ * rail's own display rule (`baton.ts` §withoutFences), not a second reading of the clause.
+ *
+ * **The id is the entry's own row** — the charge that just landed and handed this on (§7's ledger
+ * head). Every other class in this queue leads with an id and falls back to it when the text wrote
+ * no ≤6-word head; the baton was the one class with none, and without it six of the live city's
+ * fifteen batons named themselves *"unchanged"* while three put a 400-character clause in a drawer
+ * row. Where a tail names no row the fallback is the clause itself, which is B9 F1's honest
+ * furniture rule and the fourth filing of the same ask (findings).
+ */
+function batonItem(b: Building, tail: LedgerEntry): QueueItem {
+	const read = readBaton(b, b.baton!, tail.line);
+	const wire: BatonWire = { holder: b.baton!.holder, shape: read.shape, collides: read.collides, options: read.options };
+	const file = b.files.ledger ?? b.path;
+	return {
+		kind: 'baton', key: `baton:${b.building}`,
+		building: b.building, path: b.path,
+		...title(tail.row, withoutFences(b.baton!.text)),
+		at: iso(tail.date),
+		where: `${base(file)}:${tail.line}`,
+		doc: file,
+		jump: slug(b.building),
+		// A baton is about a building's next move, not about a session: there is no pane to jump to
+		// and no conversation to open. Both stay null rather than pointing at whatever ran last.
+		sid: null, chat: null,
+		decision: null, state: null,
+		baton: wire,
+		note: batonNote(wire),
+	};
+}
 
 /**
  * One ranked list across the whole city. **Attention outranks recency**: the class decides the
  * order and the date only ever breaks a tie inside one — the rail's own sort law (B3), extended to
- * a fourth class. An item the doctrine gives no date (a board row is not a ledger entry) keeps its
+ * a fifth class. An item the doctrine gives no date (a board row is not a ledger entry) keeps its
  * rank and falls to the bottom of it, never to the top.
  */
 export function needsYou(buildings: Building[], sessions: Session[], steps: readonly LocatedStep[] = []): QueueItem[] {
@@ -175,7 +244,7 @@ export function needsYou(buildings: Building[], sessions: Session[], steps: read
 			// Headless by construction (D22): there is no pane to jump to, and the Chat is the whole view.
 			sid: null,
 			chat: s.sessionId,
-			decision: null, state: null,
+			decision: null, state: null, baton: null,
 			note: s.refusal !== null
 				? `The engine is holding this step and it is read-only: ${s.refusal}`
 				: 'The engine paused this step and still holds its session. Chat opens the conversation; your reply travels the engine’s own resume and the run log says what it landed (C16 §2).',
@@ -198,7 +267,7 @@ export function needsYou(buildings: Building[], sessions: Session[], steps: read
 			jump: b ? slug(b.building) : null,
 			sid: s.last.sf ? s.sid : null,
 			chat: s.sid,
-			decision: null, state: null,
+			decision: null, state: null, baton: null,
 			note: 'A tool call is sitting on the approval dialog — the session is alive and spending nothing until you answer it. '
 				+ (s.last.sf
 					? 'Jump puts your eyes on its panel; chat opens it in the Chat, where an answer is delivered as a real user turn (B16).'
@@ -207,6 +276,8 @@ export function needsYou(buildings: Building[], sessions: Session[], steps: read
 	}
 
 	for (const b of buildings) {
+		if (b.baton && b.ledgerTail) out.push(batonItem(b, b.ledgerTail));
+
 		// The building's own row-id namespace: an escalation marker that names one of these is a
 		// row reference (§escalationsIn, false positive 1). Whole building, not one board — a
 		// landing record cites rows across the boards of its own building.
@@ -221,7 +292,7 @@ export function needsYou(buildings: Building[], sessions: Session[], steps: read
 							kind: 'gate', key: `gate:${b.building}:${r.id}:${n}`,
 							building: b.building, path: b.path,
 							...title(r.id, text),
-							at: null, where, doc: board.file, jump: slug(b.building), sid: null, chat: null, decision: null, state: null,
+							at: null, where, doc: board.file, jump: slug(b.building), sid: null, chat: null, decision: null, state: null, baton: null,
 							note: `Charge ${r.id} is ${r.state ?? 'unparsed'} and waits on your pen. A note files to this building's inbox; the ruling is the Architect's (D3).`,
 						});
 				}
@@ -230,7 +301,7 @@ export function needsYou(buildings: Building[], sessions: Session[], steps: read
 						kind: 'escalation', key: `escalation:${b.building}:${r.id}:${e.id}`,
 						building: b.building, path: b.path,
 						...title(`${r.id} ${e.id}`, e.text),
-						at: null, where, doc: board.file, jump: slug(b.building), sid: null, chat: null, decision: null, state: null,
+						at: null, where, doc: board.file, jump: slug(b.building), sid: null, chat: null, decision: null, state: null, baton: null,
 						note: 'Raised on a landing and nothing in the charge says it was ruled. Read as prose — the corpus has no escalation field (findings F2).',
 					});
 			}
@@ -242,7 +313,7 @@ export function needsYou(buildings: Building[], sessions: Session[], steps: read
 				building: b.building, path: b.path,
 				...title(d.id, d.title),
 				at: iso(d.date), where: `${d.date} · ${d.decider}`, doc: b.files.decisions ?? b.path,
-				jump: slug(b.building), sid: null, chat: null, decision: d.id, state,
+				jump: slug(b.building), sid: null, chat: null, decision: d.id, state, baton: null,
 				note: state === 'pending'
 					? 'One line into this building’s inbox. The deck records the blessing; the ✓ reaches the D-entry when the Architect sweeps (D3).'
 					: state === 'recorded'
@@ -257,8 +328,6 @@ export function needsYou(buildings: Building[], sessions: Session[], steps: read
 }
 
 // ---------- the City ----------
-
-const noBadges = (): Record<Attention, number> => ({ waiting: 0, gate: 0, countersign: 0, escalation: 0 });
 
 /**
  * **The one rank B14 adds.** `attentionOf` (v0, ported) puts live work first, then his pen, then

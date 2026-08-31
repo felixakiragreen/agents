@@ -13,7 +13,7 @@ import { cityRows, needsYou, waitingOf } from './attention';
 import { readCensus, isLive, type Session } from './census';
 import { chatView, TAIL } from './chat';
 import { readCredential } from './hands';
-import { ATTENTION, columns, RESTING, type Attention, type DeckSession, type DeckSnapshot } from './deck-model';
+import { columns, noBadges, RESTING, type DeckSession, type DeckSnapshot } from './deck-model';
 import { auditorCount } from './gauges';
 import { CSS, esc, short } from './html';
 import { byWorkspace, identity, type LiveWorkspace } from './identity';
@@ -25,10 +25,6 @@ import { readRig } from './rig';
 import { stepIndex } from './steps';
 import { worksOf } from './works';
 import { workshopOf } from './workshop';
-
-/** A building the City has no row for still gets a shape, never an absent field (badges are counts). */
-const NO_BADGES = (): Record<Attention, number> =>
-	Object.fromEntries(ATTENTION.map(k => [k, 0])) as Record<Attention, number>;
 
 /**
  * The auditor's own staleness bar. `ps -axo command=` costs 36 ms of the request thread (B9 F3),
@@ -124,7 +120,7 @@ export async function deckState(open: string | null = null, talking: string | nu
 	// names one building in the query and gets that one back — and a name the register does not
 	// carry answers null rather than a guess.
 	const workshop = open === null ? null
-		: workshopOf(buildings, open, rows.find(r => r.building === open)?.badges ?? NO_BADGES());
+		: workshopOf(buildings, open, rows.find(r => r.building === open)?.badges ?? noBadges());
 
 	// The Works asks the same question of the same building (B10): what is *declared* here. It rides
 	// the same `?b=` because the two tenants draw the same building — the board above the now-line and
