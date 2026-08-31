@@ -39,7 +39,7 @@ only where evidence forced it.
 |---|---|---|
 | How do we work here? | `CLAUDE.md` — auto-loaded orientation | §3 |
 | What is this, what's the plan? | the master doc (`MAP.md` / `README.md`) | §3 |
-| What's the state of work? | the board, in the master doc | §4 |
+| What's the state of work? | the board — `BOARD.md`; inline in a subproject README | §4 |
 | What do I do right now? | your charge doc | §5 |
 | What have we learned? | findings, appended under each charge doc | §6 |
 | Where were we? | the `LEDGER.md` tail | §7 |
@@ -54,7 +54,8 @@ A **full project** (weeks+, multiple mantles) carries at its root:
 ```
 CLAUDE.md      orientation: what this is, hard laws, session protocol — auto-loaded
 dream.md       Felix's dream, when one exists — IMMUTABLE: never edited, only read
-MAP.md         master doc: architecture, the bet, non-goals, board, agreements, Done when
+MAP.md         master doc: architecture, the bet, non-goals, agreements, Done when
+BOARD.md       the work state: the board, batch notes, the deferred list
 LEDGER.md      append-only session log
 DECISIONS.md   blessed choices — D-entries
 ISSUES.md      incident inbox: field reports await the Architect's sweep — cleared, never archived
@@ -74,6 +75,15 @@ when the first distillation needs a home; the bulletin exists only during parall
 batches (§9); the coda when the first batch ignites (§10). **Split when it hurts, not
 before.**
 
+- **Retention law (D78):** master docs and boards are pruned at rhythm points —
+  every Architect review and every close gate carries the prune check: LANDED rows
+  compress to status + findings pointer, spent batch notes die, register entries
+  fully distilled into their homes are killed whole, checklists every box of which
+  is ticked die. **Git is the archive** — deleted, never tombstoned; no ARCHIVE.md,
+  which is the bloat relocated plus a hop. The ledger is exempt: its tail-read
+  protocol already bounds the read. Birthplace: C34/C35's blades, run once each;
+  made standing 2026-08-31 (belvedere's README hit 988 lines, simmy's 100k chars —
+  the bloat recurs wherever the sweep isn't scheduled).
 - **Naming law (D25):** **ALLCAPS for protocol singletons; lowercase-kebab for
   addressable siblings.** A file is ALLCAPS when both tests pass: only one of it can
   exist in its scope, AND sessions are told to read it as protocol — `CLAUDE.md`,
@@ -87,7 +97,10 @@ before.**
   `[plans/04-sync.md](plans/04-sync.md)`, `[D19](DECISIONS.md)` — one click beats a
   minute's hunt. Anchors only onto real headings: a bold list item resolves no anchor —
   the file link is the value. Boards link their charge docs (this repo's board, since
-  founding).
+  founding). A pointer into a large doc names the repo path AND a greppable anchor —
+  `belvedere/README.md §6, 'The rework batch' note`, never a bare "§6's note"
+  (amended 2026-08-31: an anchorless reference cost Felix minutes among seven spent
+  notes — G5's defect).
 - **Serialization law (charge 17's verdict):** prose artifacts are schema-markdown;
   field artifacts are data (flows); a field a machine consumer needs enters the
   doctrine grammar — never a storage flip.
@@ -126,10 +139,14 @@ before.**
 
 ## 4. The board
 
-The board is the project's single work-state table, and it lives in the master doc — not
-a separate `BOARD.md`: that's an extra hop on every cold start, and neither parent ever
-needed one. **Any table that staffs sessions is a board**, and this section is its law —
-a build board inside a contract doc is not exempt by its venue (D45).
+The board is the project's single work-state table. At full-project scale it lives in
+**`BOARD.md`** beside the master doc, holding the fast-moving work state whole — the
+table, the batch notes, the deferred list — while the master doc keeps the slow-moving
+design (D78; amended 2026-08-31 — the old board-in-master-doc law optimized away one
+hop and bought a 25k-token wade: one function, one home). A subproject README carries
+its board inline until the split rule triggers (§3). **Any table that staffs sessions
+is a board**, and this section is its law — a build board inside a contract doc is not
+exempt by its venue (D45).
 
 **A charge is one ignitable unit of work = one charge doc = one session.**
 
@@ -218,7 +235,8 @@ has FINISHED — not started, not predicted — before the merge executes (D48).
 **Under the board:**
 
 - **Batch notes** — the Architect lays each batch as a dated note: which charges, the
-  shape (serial, parallel, any graph), who tends. Parallel-safety is marked here and in
+  shape (serial, parallel, any graph), who tends. One live note per running batch; a
+  spent note dies at the batch's close (D78). Parallel-safety is marked here and in
   the charge-doc headers. **Parallel-safe is not parallel-affordable:** safety is
   correctness (no file/doc collisions); affordability is physics (the shared live
   resources bear the simultaneity). When charges contend for live resources — VMs,
@@ -275,14 +293,20 @@ project coda, nothing else. The single-glance test (D45): a kickoff's first line
 summons line — `You are a <Mantle> at <tier>.` — a kickoff that doesn't open by naming
 both is malformed; fix it before ignition.
 
-**Third-party pre-authorization (D54):** fetching, vendoring, installing beyond the
-repo's existing dependencies, or executing anything pulled from the network happens
-only when the charge doc names it — an unnamed need is a stop-and-escalate fork, never
-an after-the-fact review. A vendored tree records its exact upstream version and
-carries its license FILE — a license named from memory is not a record. Birthplace:
-simmy §8 (S8's vendoring: blessed only after a 59-file hash-verify against upstream
-tarballs and two license corrections — authorization is the cheap path, review is the
-expensive one).
+**Pre-authorization (D54, generalized 2026-08-31):** fetching, vendoring, installing
+beyond the repo's existing dependencies, or executing anything pulled from the network
+happens only when the charge doc names it — an unnamed need is a stop-and-escalate
+fork, never an after-the-fact review. A vendored tree records its exact upstream
+version and carries its license FILE — a license named from memory is not a record.
+Birthplace: simmy §8 (S8's vendoring: blessed only after a 59-file hash-verify against
+upstream tarballs and two license corrections — authorization is the cheap path,
+review is the expensive one). **Guarded acts ride the charge the same way:** work that
+needs permission-guarded actions — config-dir reads, protected-path writes, committed
+fixtures a classifier resents — names them in the charge doc, and the lay lands them
+in the repo's `.claude/settings.json` allowlist before ignition: repo settings files
+bind dispatched sessions; session approvals do not (the guide's verdict on record,
+2026-08-30, at Felix's own fix). A sanctioned act never costs a human round-trip per
+file.
 
 ## 6. Findings law
 
@@ -341,6 +365,9 @@ nowhere else, or by naming the board charge(s) whose docs carry the fences
 (`ignite <charge-ids>`; the old `fire` verb stays legal in history) — never re-typed
 from memory: a kickoff the Architect replaces must not leave a stale twin here. A
 `Next:` that names a next session without its instrument is a dropped baton (D46/D64).
+A session owing nothing writes the typed close **`Next: none — <why>`** — never bare
+prose ("nothing waits") that no parser can tell from a dropped baton (amended
+2026-08-31, B26 F2 — the fourth filing of this ask).
 
 The acceptance test — **The tail alone reboots a cold session.** Write it for the
 stranger who reads it next — that stranger is you (hexwright format, canonized).
@@ -497,9 +524,9 @@ tender creates `plans/BULLETIN.md` (next to the charge docs — simmy's lived at
 
 Every session, any mantle:
 
-- **Start:** `CLAUDE.md` (automatic) → the master doc, or the sections your summons
-  names → the ledger tail → your charge doc → the bulletin, when one exists. Two
-  minutes, productive.
+- **Start:** `CLAUDE.md` (automatic) → the board (`BOARD.md`, or the master doc's
+  inline board) → the master doc sections your summons names → the ledger tail → your
+  charge doc → the bulletin, when one exists. Two minutes, productive.
 - **End:** state written where the docs say it goes — findings appended, statuses
   current, board reconciled (Architect) — then the ledger entry, then commits in
   Felix's git style. **The test for whether a context wipe is free: everything the
@@ -520,9 +547,10 @@ Every session, any mantle:
   marked: the choice IS the action — few exclusive options, every option
   instrumented — choosing A ignites *this* — and a `recommendation:` named, or the
   call explicitly marked taste). A menu of nexts with no ordering, or a kickoff produced
-  only on request, is a malformed close. **Ambiguity, never plurality, is the sin**
-  (D64, amending D46): an uninstrumented option, a menu with no recommendation, two
-  holders, or a decision smuggled in prose is a dropped baton.
+  only on request, is a malformed close. **The null close:** a session owing nothing
+  writes no baton — `Next: none — <why>` (§7) is the typed form. **Ambiguity, never
+  plurality, is the sin** (D64, amending D46): an uninstrumented option, a menu with
+  no recommendation, two holders, or a decision smuggled in prose is a dropped baton.
 
 ## 12. Founding a project — the founding ritual
 

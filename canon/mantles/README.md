@@ -118,11 +118,13 @@ project, appended verbatim to every ignition.
 > uncommitted — the tender relays flagged entries verbatim; everything else of
 > yours rides your branch. Third-party code — fetch, vendor, install beyond existing
 > deps, or execute from the network — only where your charge doc names it; otherwise
-> STOP and escalate (D54). Your findings file and commits are the deliverable. Your final report is
-> logistics only: status (LANDED / KILLED / BLOCKED), a one-line outcome, and pointers
-> to findings + commits.
+> STOP and escalate (D54). Before your last commit: reconcile your charge's Status in
+> the surface you can write — a landing that marks no row is invisible. Your findings
+> file and commits are the deliverable. Your final report is logistics only: status
+> (LANDED / KILLED / BLOCKED), a one-line outcome, and pointers to findings + commits.
 
 Universal core (never varies): the dispatched framing · files-are-the-deliverable ·
+status reconciliation (D78's sitting — c29's invisible landing is the birthplace) ·
 report-is-logistics-only · third-party pre-authorization (D54). Project slots:
 agreements ref, bulletin path (projects with no bulletin drop that sentence), worktree
 specifics.

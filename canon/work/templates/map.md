@@ -18,20 +18,9 @@ dated amendment notes, never silent rewrites:⟩
 
 ## 3. The board
 
-| ID | Work | Depends on | Staffing | Status |
-|---|---|---|---|---|
-| C1 | ⟨question or mission, one line⟩ | — | ⟨mantle · tier⟩ | OPEN — laid ⟨date⟩ |
-
-Statuses: OPEN → IN FLIGHT → LANDED / KILLED; BLOCKED transient, PENDING annotates
-external waits, DEFERRED annotates deliberate shelving — law in
-`~/code/agents/canon/work/DOCTRINE.md` §4.
-
-**Batch ⟨n⟩ (laid ⟨date⟩):** ⟨charges; the shape; who tends; concurrency plan when
-charges share live resources — ceiling, shape, gauge⟩.
-
-**Deferred (tracked, not lost):**
-
-- ⟨item + pointer⟩
+The work state lives in **[BOARD.md](BOARD.md)** (D78) — the board, batch notes, the
+deferred list; instantiate `board.md` beside this file. Subproject scale: the board
+stays inline in the README until the split rule triggers (DOCTRINE §3).
 
 ## 4. Working agreements (project physics)
 
