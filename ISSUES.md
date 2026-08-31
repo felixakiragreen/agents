@@ -281,3 +281,11 @@ is cleared). A cleared inbox is empty.
   doc-pointer instrument lints `ledger.baton` dropped. Either the glyph joins
   the classifier or D74's wording tightens to require the name; Grand
   Architect's call.
+- 2026-08-30 · Felix (relayed, G5's close) · UX defect, the reference trail: the
+  G5 baton said "README §6's rework note" — no path, no anchor, seven spent
+  batch notes around it; Felix, several minutes: "There's too many rework notes
+  inside README §6. I don't even know if it's belvedere/README or v3/README."
+  Law candidate for the Grand Architect: a baton or note reference names repo
+  path + a greppable anchor ("belvedere/README.md §6, 'The rework batch' note"),
+  and a board carries ONE live batch note — spent notes purge at close (the
+  C34/C35 blade as standing law, not one-off surgery).
