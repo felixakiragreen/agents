@@ -2856,3 +2856,39 @@ and run G5 — the migration close: verify the strangle, record his visual-pass
 verdict, fold the findings (C16 F2 is the rework lay's first intake), then
 lay the rework batch and the respell sweep per the campaign note's step 5.
 ```
+
+---
+
+**2026-08-30 · Architect · fable-high (G5)** — **the migration close: the
+campaign is CLOSED and the rework is laid.** The strangle verified whole at
+this hand: `bun v3/gates.ts --glass` **ALL GREEN — 12 gates, wall 212.9 s,
+exit 0** (glass 582/0, barrage 1000 · 50 · 9/9); v2 git-proven gone — all
+four paths absent, zero live references, and its last doc ghost (a
+`FLOWS_DIR` line in glass/README's env list) fixed at `83cc4dc` under the
+side-quest grant. His visual-pass verdict recorded on the G5 row (the ⬡
+paid): a punch-list pass — the v3 lane and the Chat primary stand, "quite a
+few bugs" — and the punch list distilled: the two Chat bugs and his scroll
+ruling into B23, the tooltip and decoder items into B27, the gut direction
+into C21 + B24's amendment intake, the UI-tests direction into §3's Chat
+laws and B23's `--probes` gate. Findings folded: C16 F2 → C20 (**D23
+proposed** — the tick verb, never a supervisor; glass-shatters + C6 F2);
+C15 F5 → B27 (pane-side filter, pre-ruled); C16 F1/F5 stand deferred with
+triggers. The inbox swept to empty, every entry ruled. The rework batch
+laid, blessing pending: **C23 → C22 → [B23 ∥ B22 ∥ C20] → C21 → B26 → B24 →
+B27 → G6** — six re-cut (B25 KILLED, folded into B22 per its fate clause),
+four laid new (C20 tick · C21 gut · C22 respell · C23 purge), G6 the close;
+budgets B22 ≤6/$1, B27 ≤3/$1, else 0. Decided: D23 (proposed, above); the
+B25 fold, the pane-side filter, and the decoder's planned-mention resolve —
+all proposed, presenting at the blessing with their citations. Lint 0
+(53/53 typed, queue 1 — the blessing). Next: ⬡ — **the rework blessing, one
+sitting** (README §6, the rework note: the batch + budgets; the four
+proposed rulings; the two identity forks — `fire` one-word-everywhere
+recommended but taste, `the glass` his alone; the two referent lists —
+Agents Presence / cmux nagging for C21, the sidebar list for B24). On his
+word the tender dispatches C23 first (exclusive on the README), C22 behind
+it, then the triple.
+
+Baton — ⬡ → the rework blessing (one sitting; the instrument is README §6's
+rework note — bless, amend, or strike there, and name the two lists). After
+it: dispatch is the tender's, no further word of his needed until G6's
+gates.
