@@ -26,11 +26,20 @@ import { draftFile } from './chat';
 
 // Set and restored around this file, never at module scope: `paths.ts` resolves per call, so a
 // leaked `GLASS_CITY` would point every later file in the process at a temp tree (B15 F4's family).
-const saved = { city: process.env.GLASS_CITY, desk: process.env.DESK_DIR, env: process.env.BELVEDERE_ENV };
+const saved = {
+	city: process.env.GLASS_CITY, desk: process.env.DESK_DIR,
+	env: process.env.BELVEDERE_ENV, census: process.env.CENSUS_DIR,
+};
 
 beforeAll(() => {
 	process.env.GLASS_CITY = CITY;
 	process.env.DESK_DIR = DESK;
+	// **The audit anchor** (B22 candidate 4). `fileNote(… to: 'issues' …)` reaches `filed()`, which
+	// audits — and `auditLog()` hangs off `CENSUS_DIR`, so a suite that leaves the knob unset appends
+	// its scratch-building filings to the LIVE `hands.jsonl`. Measured twice: 240 → 242 lines at G2,
+	// two more during the C19 two-lane batch. `nextStamp` counts that log (B3 F4), so a test filing
+	// spends a real ordinal forever after — B8 F1's lesson, arriving a second time by another door.
+	process.env.CENSUS_DIR = join(ROOT, 'census');
 	// A desk suite must never reach a socket: an armed test process drives Felix's real desktop (B18).
 	process.env.BELVEDERE_ENV = join(ROOT, 'no-credential-here');
 	mkdirSync(DESK, { recursive: true });
@@ -40,6 +49,7 @@ afterAll(() => {
 	process.env.GLASS_CITY = saved.city;
 	process.env.DESK_DIR = saved.desk;
 	process.env.BELVEDERE_ENV = saved.env;
+	if (saved.census === undefined) delete process.env.CENSUS_DIR; else process.env.CENSUS_DIR = saved.census;
 	rmSync(ROOT, { recursive: true, force: true });
 });
 

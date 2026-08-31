@@ -29,7 +29,7 @@ import { dirname, isAbsolute, join } from 'path';
 import { readCensus, isLive, type Session } from './census';
 import { readRig } from './rig';
 import { sanitizeSummons } from './sanitize';
-import { auditLog, haltFlag, handsEnv, summonsDir } from './paths';
+import { auditLog, haltFlag, handsEnv, LIVE_CENSUS, summonsDir } from './paths';
 import { bust } from './register';
 
 /** Everything has a limit (directive 3.1). A hand that hangs is a glass that hangs. */
@@ -551,6 +551,7 @@ export function readHalt(): Halted | null {
 function attemptHalt(req: Halt): Outcome<{ path: string; at: string }> {
 	const at = new Date().toISOString();
 	try {
+		interlock(haltFlag());                        // B8 F1: the real HALT was armed by a suite, once
 		mkdirSync(dirname(haltFlag()), { recursive: true });
 		writeFileSync(haltFlag(), `${at} ${req.requester}\n`);
 	} catch (e) { return fail(`cannot write ${haltFlag()}: ${(e as Error).message}`); }
@@ -572,8 +573,34 @@ export function audit(action: string, args: Record<string, unknown>, outcome: Ou
 		ts: new Date().toISOString(), action, args,
 		ok: outcome.ok, result: outcome.ok ? outcome.result : outcome.error,
 	});
+	interlock(auditLog());
 	mkdirSync(dirname(auditLog()), { recursive: true });
 	appendFileSync(auditLog(), line + '\n');
+}
+
+/**
+ * **The live-neighbourhood interlock** (B22 candidate 4). Every census anchor hangs off
+ * `$CENSUS_DIR`, whose default is Felix's real telemetry — so a test file that forgets the knob
+ * writes into the city's own audit, silently. The city has paid twice: B8 F1 (`hands.test.ts`
+ * armed the real HALT and left 16 lines in `hands.jsonl`) and this row (`desk.test.ts` filed
+ * scratch-building notes through `filed()`, which audits — 240 → 242 at G2, two more during the
+ * C19 batch). `nextStamp` counts that log (B3 F4), so each stray line spends a real name-stamp
+ * ordinal forever after.
+ *
+ * The guard is at the write rather than in a checklist, because the failure is *silence*: a suite
+ * cannot assert "the live audit is byte-identical after this run" from inside itself — `bun test`
+ * sets and restores the knob per file, so no `afterAll` speaks for the whole run. Under
+ * `bun test` (`NODE_ENV=test`), a write aimed at the live neighbourhood throws and says which knob
+ * to set. Outside a test run nothing changes: the hands write where they always did.
+ */
+export function interlock(path: string): void {
+	if (process.env.NODE_ENV !== 'test') return;
+	// The whole neighbourhood, not the census directory: `haltFlag()` is `dirname(censusDir())/HALT`,
+	// so a guard keyed on the census dir alone lets B8 F1's own door straight through. Measured —
+	// this row's first cut of the interlock armed the real HALT from its own test.
+	const live = dirname(LIVE_CENSUS);
+	if (path !== live && !path.startsWith(`${live}/`)) return;
+	throw new Error(`a test run tried to write ${path} — set process.env.CENSUS_DIR to a scratch path first (B8 F1, B22 candidate 4)`);
 }
 
 /**

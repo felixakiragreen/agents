@@ -24,8 +24,13 @@ export const cityRoot = () => process.env.GLASS_CITY ?? join(home, 'code');
  */
 export const canonRoot = () => join(cityRoot(), 'agents');
 
-/** D6's census home — beside `invocations.jsonl`, gitignored. `$CENSUS_DIR` is B1's own knob. */
-export const censusDir = () => process.env.CENSUS_DIR ?? join(home, 'code/agents/summon/log/census');
+/**
+ * D6's census home — beside `invocations.jsonl`, gitignored. `$CENSUS_DIR` is B1's own knob, and
+ * `LIVE_CENSUS` is what it defaults to: the city's real telemetry, named so the hands' interlock
+ * can recognise it (`hands.ts` §the live-neighbourhood interlock).
+ */
+export const LIVE_CENSUS = join(home, 'code/agents/summon/log/census');
+export const censusDir = () => process.env.CENSUS_DIR ?? LIVE_CENSUS;
 export const censusFile = () => join(censusDir(), 'census.jsonl');
 
 /** The hands' three writes: one summons file per ignition, one audit line per action, the HALT flag. */
