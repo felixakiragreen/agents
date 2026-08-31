@@ -23,7 +23,7 @@
  * named at their sites — the account table, the cwd, and the timeout.
  */
 
-import { appendFileSync, existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'fs';
+import { appendFileSync, closeSync, existsSync, mkdirSync, openSync, readFileSync, readSync, statSync, writeFileSync } from 'fs';
 import { createHash } from 'crypto';
 import { dirname, isAbsolute, join } from 'path';
 import { readCensus, isLive, type Session } from './census';
@@ -33,7 +33,7 @@ import { auditLog, haltFlag, handsEnv, LIVE_CENSUS, summonsDir } from './paths';
 import { bust } from './register';
 
 /** Everything has a limit (directive 3.1). A hand that hangs is a glass that hangs. */
-const LIMITS = { summonsBytes: 64 << 10, requestBytes: 128 << 10, commandMs: 20_000, requester: 64, title: 64 } as const;
+const LIMITS = { summonsBytes: 64 << 10, requestBytes: 128 << 10, commandMs: 20_000, shellMs: 8_000, requester: 64, title: 64 } as const;
 
 /**
  * The write boundary's own vocabulary — `Outcome`, `fail`, `field` and `json`. The fence has a
@@ -95,6 +95,7 @@ const MODEL = /^[a-z0-9][a-z0-9.\-\[\]]{0,40}$/;
 const EFFORT = /^[a-z]{1,10}$/;
 const UUID = /^[0-9a-fA-F-]{8,64}$/;                     // session ids and cmux surface ids alike
 const BRANCH = /^[A-Za-z0-9][A-Za-z0-9._\/-]{0,79}$/;    // git-legal enough; `..` is refused below
+const BUILDING = /^[A-Za-z0-9][A-Za-z0-9._-]*(?:\/[A-Za-z0-9._-]+){0,4}$/;   // the register's path
 
 /**
  * An ignition, or a resume — one hand, because both are "spawn a session" and the fence has one
@@ -113,6 +114,10 @@ const BRANCH = /^[A-Za-z0-9][A-Za-z0-9._\/-]{0,79}$/;    // git-legal enough; `.
 export type Ignite = {
 	account: string; stamp: string; cwd: string; model: string; effort: string;
 	color: string; summons: string; resume: string | null;
+	/** The building the work is FOR — the register's path, `agents/belvedere`. Empty is legal and
+	 *  means "no home": the ignition mints its own workspace, which is what every hand did before
+	 *  B22. See §placement. */
+	building: string;
 };
 export type Worktree = { repo: string; branch: string };
 export type Focus = { sid: string };
@@ -156,8 +161,11 @@ export function parseIgnite(raw: unknown): Outcome<Ignite> {
 		account: field(r, 'account'), stamp: field(r, 'stamp'), cwd: field(r, 'cwd'),
 		model: field(r, 'model'), effort: field(r, 'effort'), color: field(r, 'color'),
 		summons: field(r, 'summons'), resume: field(r, 'resume') || null,
+		building: field(r, 'building'),
 	};
 	if (ignite.resume !== null && !UUID.test(ignite.resume)) return fail(`resume must be a session id — got "${ignite.resume}"`);
+	if (ignite.building !== '' && !BUILDING.test(ignite.building))
+		return fail(`building must be a register path like "agents/belvedere" — got "${ignite.building}"`);
 	const resuming = ignite.resume !== null;
 	// The colour is never optional: it is a property of the workspace this call is about to make,
 	// not of the session it is reviving, so there is nothing to leave alone.
@@ -260,8 +268,18 @@ const parseRef = (out: string): string | null => out.match(/\b((?:workspace|surf
 
 // ---------- the four hands ----------
 
-/** `summonsPath`/`sha` are null on a resume: there was no first user turn to write or to prove. */
-export type Ignited = { workspace: string; summonsPath: string | null; sha: string | null; bytes: number };
+/**
+ * `summonsPath`/`sha` are null on a resume: there was no first user turn to write or to prove.
+ *
+ * `workspace` is a **uuid**, always (P6 F2 — see §the UUID law), and `surface` is the uuid of the
+ * pane the session actually runs in. `minted` says whether this hand made the workspace: it is what
+ * `retire()` reads back out of the audit, and the difference between a workspace Belvedere may
+ * close and one that is Felix's.
+ */
+export type Ignited = {
+	workspace: string; minted: boolean; home: string | null; surface: string | null;
+	summonsPath: string | null; sha: string | null; bytes: number;
+};
 
 /**
  * The launch, as one shell line. The summons travels by file and is read back by `"$(cat …)"`,
@@ -317,25 +335,276 @@ async function attemptIgnite(req: Ignite, password: string): Promise<Outcome<Ign
 	}
 
 	const command = launchCommand(req, configDir, summonsPath);
+	const placed = await place(req, password, command);
+	if (!placed.ok) return placed;
+
+	return { ok: true, result: {
+		...placed.result, summonsPath,
+		sha: summonsPath === null ? null : createHash('sha256').update(text).digest('hex').slice(0, 16),
+		bytes: Buffer.byteLength(text),
+	} };
+}
+
+// ---------- §placement: where a fire lands (B22 candidate 6, B25's surviving half) ----------
+
+/**
+ * **The UUID law** (P6 F2, ruled city-wide at G2). A `workspace:N` ref that does not resolve is not
+ * an error to cmux — it delivers to the *focused* workspace instead, so a stale ref drives whatever
+ * Felix happens to be looking at. Every socket call past a create therefore addresses by uuid.
+ *
+ * The one documented exception is structural and is named at its site: **`cmux workspace create`
+ * and `new-surface` print refs and only refs** — `--id-format both` is accepted and ignored on
+ * both (measured at this row). So a ref is read out of the create's own output and converted to a
+ * uuid inside the same breath, by the read immediately after it; nothing downstream ever sees it.
+ *
+ * **The home** (D55's neighbour, B25 §1). An ignition for a building lands in the workspace Felix
+ * keeps for that building — found by **name**, addressed by **uuid**, minted only when none
+ * exists. The name is the building's last segment, matched exactly: `agents/belvedere` looks for a
+ * workspace called `belvedere` and nothing else. Two matches never guess between his workspaces —
+ * the ignition mints fresh and the audit carries the ambiguity (D10's spirit); zero matches mint
+ * one **named for the building**, never `workspace:N`.
+ *
+ * A landing into a workspace Belvedere did not make touches nothing but the surface it adds: no
+ * rename, and **no recolor** — the colour is a property of the whole workspace, and repainting
+ * Felix's is not a hand this fence has.
+ */
+type Placed = { workspace: string; minted: boolean; home: string | null; surface: string | null };
+
+/** The workspace name a building keeps: its last segment. `agents/belvedere` → `belvedere`. */
+export const homeName = (building: string): string | null =>
+	building === '' ? null : building.split('/').filter(Boolean).at(-1) ?? null;
+
+/** `cmux workspace list --json` in, the uuids of every workspace wearing exactly this name out. */
+export function workspacesNamed(raw: unknown, name: string): string[] {
+	const list = (raw as { workspaces?: unknown } | null)?.workspaces;
+	if (!Array.isArray(list)) return [];
+	const out: string[] = [];
+	for (const item of list) {
+		if (typeof item !== 'object' || item === null) continue;
+		const w = item as Record<string, unknown>;
+		const title = typeof w['title'] === 'string' && w['title'] !== '' ? w['title'] : w['custom_title'];
+		if (title === name && typeof w['id'] === 'string') out.push(w['id']);
+	}
+	return out;
+}
+
+/** `* surface:74 226CF97B-…  b22-scratch` → the uuid beside a ref. `list-pane-surfaces --id-format both`. */
+export function uuidOfRef(listing: string, ref: string): string | null {
+	for (const line of listing.split('\n')) {
+		const m = line.match(/\b(\w+:\d+)\s+([0-9A-Fa-f-]{36})\b/);
+		if (m && m[1] === ref) return m[2]!;
+	}
+	return null;
+}
+
+async function place(req: Ignite, password: string, command: string): Promise<Outcome<Placed>> {
+	const home = homeName(req.building);
+	if (home === null) return mint(req, password, command, null, null);
+
+	const listed = await cmux(password, LIMITS.commandMs, 'workspace', 'list', '--json');
+	if (!listed.ok) return listed;
+	let found: string[];
+	try { found = workspacesNamed(JSON.parse(listed.result), home); }
+	catch (e) { return fail(`cmux workspace list answered no JSON: ${(e as Error).message}`); }
+
+	if (found.length === 1) return land(req, password, command, found[0]!, home);
+	// Ambiguity never blocks and never guesses between his workspaces (D10's spirit): mint fresh,
+	// and say in the audit which uuids collided so the next hand can see what it stepped around.
+	const note = found.length === 0 ? null : `${found.length} workspaces are named "${home}" (${found.join(', ')}) — minted fresh rather than guess`;
+	return mint(req, password, command, home, note);
+}
+
+/** A workspace of Belvedere's own, named for the building where there is one. */
+async function mint(req: Ignite, password: string, command: string, home: string | null, ambiguity: string | null): Promise<Outcome<Placed>> {
+	const name = home ?? workspaceName(req);
 	const created = await cmux(password, LIMITS.commandMs, 'workspace', 'create',
-		'--name', workspaceName(req), '--cwd', req.cwd, '--focus', 'false', '--command', command);
+		'--name', name, '--cwd', req.cwd, '--focus', 'false', '--command', command);
 	if (!created.ok) return created;
-	const workspace = parseRef(created.result);
+	const ref = parseRef(created.result);
 	// A workspace with no readable ref cannot be closed — there is nothing to name. Say so with
 	// the raw output, because the thing is running and only Felix can find it now.
-	if (!workspace) return fail(`workspace created but no ref in its output — find it by hand and close it: ${created.result}`);
+	if (!ref) return fail(`workspace created but no ref in its output — find it by hand and close it: ${created.result}`);
+
+	// The ref → uuid conversion, inside the breath that made the ref (§the UUID law). Everything
+	// after this line — the colour, the unwind, the audit, `retire()` — carries the uuid.
+	const listed = await cmux(password, LIMITS.commandMs, 'workspace', 'list', '--json');
+	if (!listed.ok) return unwind(password, ref, `the workspace was created as ${ref} but cmux would not list it back: ${listed.error}`);
+	let workspace: string | null = null;
+	try { workspace = uuidOfList(JSON.parse(listed.result), ref); }
+	catch (e) { return unwind(password, ref, `cmux workspace list answered no JSON: ${(e as Error).message}`); }
+	if (!workspace) return unwind(password, ref, `${ref} is not in cmux's own workspace list — it cannot be addressed by uuid`);
 
 	// Colour is a cmux property, not a `/color` turn — so the session's first user turn stays
-	// the summons, and the 359-fire paste gap stays closed (P2's find).
+	// the summons, and the 359-ignition paste gap stays closed (P2's find). Only ever on a mint:
+	// a workspace of Felix's keeps the colour he gave it.
 	const colored = await cmux(password, LIMITS.commandMs, 'workspace-action',
 		'--workspace', workspace, '--action', 'set-color', '--color', req.color);
 	if (!colored.ok) return unwind(password, workspace, `set-color failed: ${colored.error}`);
 
-	return { ok: true, result: {
-		workspace, summonsPath,
-		sha: summonsPath === null ? null : createHash('sha256').update(text).digest('hex').slice(0, 16),
-		bytes: Buffer.byteLength(text),
-	} };
+	if (ambiguity) audit('ignite.ambiguous', { building: req.building, home, workspace }, fail(ambiguity));
+	return { ok: true, result: { workspace, minted: true, home, surface: null } };
+}
+
+/** `cmux workspace list --json` in, the uuid of one ref out — the breath's own conversion. */
+export function uuidOfList(raw: unknown, ref: string): string | null {
+	const list = (raw as { workspaces?: unknown } | null)?.workspaces;
+	if (!Array.isArray(list)) return null;
+	for (const item of list) {
+		const w = item as Record<string, unknown>;
+		if (w?.['ref'] === ref && typeof w['id'] === 'string') return w['id'];
+	}
+	return null;
+}
+
+/**
+ * Landing into a workspace that is already Felix's: one new terminal surface, named for the
+ * name-stamp, and the launch line typed into it.
+ *
+ * `new-surface` takes no `--command` (measured — the flag does not exist on it or on `new-pane`),
+ * so the launch travels as text into a **fresh shell**, which is legal exactly where pasting into a
+ * live Claude TUI is not (P2 T4): the surface has never run anything, `launchCommand` is one line,
+ * and every interpolation in it is single-quoted. The shell needs a moment to exist before it can
+ * be typed at, so the surface is read until it answers something rather than typed at blind.
+ */
+async function land(req: Ignite, password: string, command: string, workspace: string, home: string): Promise<Outcome<Placed>> {
+	const made = await cmux(password, LIMITS.commandMs, 'new-surface', '--type', 'terminal', '--workspace', workspace, '--focus', 'false');
+	if (!made.ok) return made;
+	const ref = made.result.match(/\bsurface:\d+\b/)?.[0] ?? null;
+	if (!ref) return fail(`surface created in ${workspace} but no ref in its output — find it by hand: ${made.result}`);
+
+	const listed = await cmux(password, LIMITS.commandMs, 'list-pane-surfaces', '--workspace', workspace, '--id-format', 'both');
+	if (!listed.ok) return shed(password, ref, workspace, `the surface was created as ${ref} but cmux would not list it back: ${listed.error}`);
+	const surface = uuidOfRef(listed.result, ref);
+	if (!surface) return shed(password, ref, workspace, `${ref} is not in ${workspace}'s own surface list — it cannot be addressed by uuid`);
+
+	// The workspace wears the building's name, so the tab wears the stamp: without it the session
+	// is a pane called "Terminal" in a workspace holding several, which is one Felix cannot find.
+	const named = await cmux(password, LIMITS.commandMs, 'rename-tab', '--surface', surface, workspaceName(req));
+	if (!named.ok) return shed(password, surface, workspace, `rename-tab failed: ${named.error}`);
+
+	const ready = await shellReady(password, surface);
+	if (!ready.ok) return shed(password, surface, workspace, ready.error);
+
+	const typed = await cmux(password, LIMITS.commandMs, 'send', '--surface', surface, command);
+	if (!typed.ok) return shed(password, surface, workspace, `send failed: ${typed.error}`);
+	const entered = await cmux(password, LIMITS.commandMs, 'send-key', '--surface', surface, 'Enter');
+	// Past the Enter there is a live session in Felix's workspace: closing the surface would kill it,
+	// so a failed receipt is reported with the surface named, never unwound.
+	if (!entered.ok) return fail(`the launch line is typed into ${surface} but Enter was refused (${entered.error}) — press it by hand`);
+
+	return { ok: true, result: { workspace, minted: false, home, surface } };
+}
+
+/** A shell that has printed anything at all is a shell that can be typed at. Bounded, and it says so. */
+async function shellReady(password: string, surface: string): Promise<Outcome<string>> {
+	for (let waited = 0; waited < LIMITS.shellMs; waited += 200) {
+		const seen = await cmux(password, 5_000, 'read-screen', '--surface', surface, '--lines', '4');
+		if (seen.ok && seen.result.trim() !== '') return seen;
+		await Bun.sleep(200);
+	}
+	return fail(`the new surface printed nothing in ${LIMITS.shellMs} ms — its shell never came up, so the launch line was never typed`);
+}
+
+/**
+ * A landing that dies after its surface exists closes **the surface**, never the workspace: the
+ * workspace is Felix's and holds his other panes. `unwind`'s sibling, and the distinction is the
+ * whole reason placement is worth writing carefully.
+ */
+async function shed(password: string, surface: string, workspace: string, why: string): Promise<Outcome<never>> {
+	const closed = await cmux(password, LIMITS.commandMs, 'close-surface', '--surface', surface, '--workspace', workspace);
+	audit('ignite.shed', { surface, workspace, why }, closed);
+	return fail(closed.ok
+		? `${why} — ${surface} closed, ${workspace} untouched`
+		: `${why} — AND the surface would not close: ${closed.error}. ${surface} is still open in ${workspace}; close it by hand.`);
+}
+
+// ---------- §retirement (D55) ----------
+
+/**
+ * Close a workspace **Belvedere minted** that **nothing has been added to**. Both halves are
+ * measured rather than assumed: the audit says who made it, and cmux says what is in it now.
+ *
+ * A mint arrives holding exactly one surface — the session it was made for. A workspace holding
+ * more than that is one Felix moved a panel into, and a workspace Felix touched is his, forever
+ * (B25 §3). This is the D55 cleanup a probe owes its own desktop, not a hand on the wire: no route
+ * reaches it, and the write surface is exactly the one `unwind` already had.
+ */
+export async function retire(workspace: string, password: string): Promise<Outcome<{ workspace: string; surfaces: number }>> {
+	if (!mintedByBelvedere(workspace))
+		return audited('retire', { workspace }, fail(`${workspace} is not in the audit as a workspace Belvedere minted — it is Felix's`));
+
+	const listed = await cmux(password, LIMITS.commandMs, 'list-pane-surfaces', '--workspace', workspace, '--id-format', 'both');
+	if (!listed.ok) return audited('retire', { workspace }, listed);
+	const surfaces = listed.result.split('\n').filter(l => /\bsurface:\d+\s+[0-9A-Fa-f-]{36}/.test(l)).length;
+	if (surfaces > 1)
+		return audited('retire', { workspace, surfaces }, fail(`${workspace} holds ${surfaces} surfaces — something was added to it, so it is Felix's now and stays standing`));
+
+	const closed = await cmux(password, LIMITS.commandMs, 'workspace', 'close', workspace);
+	return audited('retire', { workspace, surfaces }, closed.ok ? { ok: true, result: { workspace, surfaces } } : closed);
+}
+
+/** Does the audit record this uuid as one of Belvedere's own mints? */
+export function mintedByBelvedere(workspace: string): boolean {
+	return readAudit().some(line =>
+		line.action === 'ignite' && line.ok === true
+		&& (line.result as { workspace?: unknown; minted?: unknown } | null)?.workspace === workspace
+		&& (line.result as { minted?: unknown }).minted === true);
+}
+
+/** The audit, parsed, bounded to the tail the readers need. A malformed line is skipped, never fatal. */
+type AuditLine = { ts?: string; action?: string; args?: Record<string, unknown>; ok?: boolean; result?: unknown };
+
+export function readAudit(tailBytes = 4 << 20): AuditLine[] {
+	let text: string;
+	try {
+		const size = statSync(auditLog()).size;
+		const fd = openSync(auditLog(), 'r');
+		try {
+			const from = Math.max(0, size - tailBytes);
+			const buf = Buffer.alloc(size - from);
+			readSync(fd, buf, 0, buf.length, from);
+			text = buf.toString('utf8');
+		} finally { closeSync(fd); }
+	} catch { return []; }
+	const out: AuditLine[] = [];
+	for (const line of text.split('\n')) {
+		if (line === '') continue;
+		try { out.push(JSON.parse(line) as AuditLine); } catch { /* a partial first line, or a torn write */ }
+	}
+	return out;
+}
+
+/**
+ * **The ignited-for join** (B25 §2). The census keys a session by cwd alone (`buildingOf`, B5 F1),
+ * so `architect-belvedere-04` working at the repo root houses under `agents` while the stamp, the
+ * summons and the audit all say `agents/belvedere`. The ignition knew the building; the audit kept
+ * it; the name-stamp is what joins them, because it is the one field the audit and the census both
+ * carry (the census reads it out of the transcript's `agent-name` record — B2 F1).
+ *
+ * Stamp → building, last ignition wins. A stamp Belvedere never ignited is absent, and an absent
+ * stamp falls back to the cwd — hand-started sessions house exactly as they always did.
+ */
+let joined: { at: number; size: number; homes: Map<string, string> } | null = null;
+
+export function ignitedFor(): Map<string, string> {
+	// The deck polls every 3 s and the audit is append-only, so the read is keyed on the file's own
+	// size and mtime: a log that has not grown cannot have named a new home (B8 F3's law — nothing
+	// on the poll path re-does work it can prove is unchanged).
+	let stamp: { at: number; size: number };
+	try { const s = statSync(auditLog()); stamp = { at: s.mtimeMs, size: s.size }; }
+	catch { return new Map(); }
+	if (joined && joined.at === stamp.at && joined.size === stamp.size) return joined.homes;
+
+	const homes = new Map<string, string>();
+	for (const line of readAudit()) {
+		if (line.action !== 'ignite' || line.ok !== true) continue;
+		const stamp = line.args?.['stamp'];
+		const building = line.args?.['building'];
+		if (typeof stamp === 'string' && stamp !== '' && typeof building === 'string' && building !== '')
+			homes.set(stamp, building);
+	}
+	joined = { ...stamp, homes };
+	return homes;
 }
 
 /**
@@ -626,7 +895,7 @@ function busting<T>(outcome: Outcome<T>): Outcome<T> {
 /** The audit's view of an ignition: everything but the words. */
 export const igniteArgs = (f: Ignite) => ({
 	account: f.account, stamp: f.stamp, cwd: f.cwd, model: f.model, effort: f.effort,
-	color: f.color, resume: f.resume, summonsBytes: Buffer.byteLength(f.summons),
+	color: f.color, resume: f.resume, building: f.building, summonsBytes: Buffer.byteLength(f.summons),
 });
 
 // ---------- the route ----------

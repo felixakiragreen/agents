@@ -228,7 +228,7 @@ export function composePlan(draft: ComposeDraft, clicked = ''): ComposePlan {
 	 * The client cuts first and swaps in the path the hand answers with — B7's proven order.
 	 */
 	const body: IgniteWire | null = blocked === null && cwd !== null
-		? { account, stamp, cwd, model, effort, color, summons }
+		? { account, stamp, cwd, model, effort, color, summons, building: building?.building ?? '' }
 		: null;
 
 	// The hands' own boundary decides what arms — one gate, asked early, not a second copy of one

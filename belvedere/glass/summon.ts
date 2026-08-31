@@ -153,6 +153,8 @@ export function nextStamp(
 export type IgniteBody = {
 	account: string; stamp: string; cwd: string;
 	model: string; effort: string; color: string; summons: string;
+	/** The building the work is FOR — what decides where the ignition lands (B22 §placement). */
+	building: string;
 };
 
 /** An ignition Belvedere can actually compose, or the reason it cannot — never a guessed field. */
@@ -160,7 +162,7 @@ export type Composed = { body: IgniteBody } | { blocked: string };
 
 export function compose(rig: Rig, opts: {
 	summons: string; mantle: string | null; tier: string | null; cwd: string; account: string;
-	taken?: Set<string>; known?: readonly string[]; stamp?: string;
+	taken?: Set<string>; known?: readonly string[]; stamp?: string; building?: string;
 }): Composed {
 	const parts = tierParts(opts.tier);
 	if (!parts) return { blocked: `the summons names no known tier (got ${JSON.stringify(opts.tier)}) — model and effort are unguessable` };
@@ -170,5 +172,6 @@ export function compose(rig: Rig, opts: {
 	return { body: {
 		account: opts.account, stamp, cwd: opts.cwd,
 		model: parts.model, effort: parts.effort, color: colourOf(rig, opts.mantle), summons: opts.summons,
+		building: opts.building ?? '',
 	} };
 }

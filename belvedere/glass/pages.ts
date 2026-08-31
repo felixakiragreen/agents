@@ -6,7 +6,7 @@ import { homedir } from 'os';
 import { dirname, resolve, sep } from 'path';
 import { discover, type Building, type Board, type BoardRow, type Fail } from '../../doctrine';
 import { readCensus, isLive, type CensusRead, type Session } from './census';
-import { handsState } from './hands';
+import { handsState, ignitedFor } from './hands';
 import { applyAct, INBOX_SCRIPT, noteBox, rowGestures } from './inbox';
 import { city, TTL_MS, type Register } from './register';
 import { readRig, accountLabel, mantleOf, type Rig } from './rig';
@@ -64,6 +64,28 @@ export function buildingOf<T extends { building: string; path: string }>(cwd: st
 		for (const b of buildings)
 			if ((norm === b.path || norm.startsWith(b.path + sep)) && (!best || b.path.length > best.path.length)) best = b;
 	return best;
+}
+
+/**
+ * **Where a session houses** (B22 candidate 6, B25 §2). The ignition knows the building the work is
+ * FOR; the census knows only the directory the process sits IN. They are two facts, and until this
+ * join existed the glass kept the second and forgot the first — which is why `architect-belvedere-04`
+ * showed up under `agents` while its stamp, its summons and its audit line all said
+ * `agents/belvedere` (Felix's field report, ISSUES `73bdfad`).
+ *
+ * **The ignited-for building outranks the cwd, for the sessions Belvedere ignited and no others.**
+ * The join key is the name-stamp: the audit carries it beside the building, and the census reads it
+ * out of the transcript's own `agent-name` record (B2 F1). A stamp Belvedere never ignited — every
+ * hand-started session — is not in the map, so `buildingOf` answers exactly as it always did.
+ *
+ * `homes` is passed in rather than read here: one read per render, never one per session.
+ */
+export function homeOf<T extends { building: string; path: string }>(
+	session: { cwd: string | null; stamp: string | null }, buildings: T[], homes: ReadonlyMap<string, string>,
+): T | null {
+	const named = session.stamp === null ? undefined : homes.get(session.stamp);
+	const ignited = named === undefined ? undefined : buildings.find(b => b.building === named);
+	return ignited ?? buildingOf(session.cwd, buildings);
 }
 
 /** One live session, as a dot: mantle-coloured, ringed by state. Unknown reads as unknown. */
@@ -142,10 +164,11 @@ export function cityPage(): string {
 	const census = readCensus();
 	const rig = readRig();
 
+	const homes = ignitedFor();                       // the ignited-for join, one read per page
 	const housed = new Map<string, Session[]>();
 	const loose: Session[] = [];
 	for (const s of census.sessions.filter(isLive)) {
-		const b = buildingOf(s.cwd, buildings);
+		const b = homeOf(s, buildings, homes);
 		if (!b) { loose.push(s); continue; }
 		housed.set(b.building, [...(housed.get(b.building) ?? []), s]);
 	}

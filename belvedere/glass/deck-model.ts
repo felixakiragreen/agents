@@ -543,25 +543,27 @@ export type ChatView = {
 	/** Why there is no target. An unknown sid says so rather than rendering an empty room. */
 	error: string | null;
 	turns: ChatTurn[];
-	/** Byte offset this window begins at — `> 0` means earlier windows exist and load on scroll-up. */
+	/**
+	 * Byte offset this read begins at. The poll carries the **tail** and this is where the tail
+	 * starts; the whole-transcript read (`/deck/chat?sid=`) begins at 0 unless the file outran the
+	 * read's own limit, and `> 0` there is the pane saying so rather than pretending it holds the
+	 * beginning (B23 §2 — the scroll is continuous over what is held, and what is held is printed).
+	 */
 	from: number;
 	bytes: number;
-	/**
-	 * The **key of the turn a jump landed in** (B21), or null — either because nothing was aimed at,
-	 * or because the target fell outside the turns this window could carry. Null is honest: the client
-	 * says the hit is out of view rather than marking the nearest turn and calling it the one.
-	 */
-	anchor: number | null;
 	/** The document this transcript's code words decode against (B20 §2) — the building, or the cwd. */
 	doc: string;
 	/** His draft for THIS target, off `desk/drafts/` — it outlives a reload, a hotswap and a kill. */
 	draft: string;
 	send: ChatSend;
 	/**
-	 * **One mark per turn of the WHOLE transcript** (C16 §6), not just the loaded window — the
-	 * minimap's whole reason for existing is that the window is a keyhole. Evenly downsampled where
-	 * a transcript holds more turns than the strip has marks, so the first and the last always
-	 * survive and every mark still points at a real turn's key.
+	 * **One mark per turn of the whole transcript** (C16 §6). Evenly downsampled where a transcript
+	 * holds more turns than the strip has marks, so the first and the last always survive and every
+	 * mark still points at a real turn's key.
+	 *
+	 * **Spatial, never temporal** (Felix, 2026-08-30 — README §3's Chat laws): the strip is an index
+	 * of *where in the scroll view* a turn sits, and a click on a mark moves the scroll view there.
+	 * It never loads a different window, because under continuous scroll there is only one.
 	 */
 	marks: ChatMark[];
 	/** How many turns the transcript holds, against how many marks came back — a bounded read says so. */
@@ -587,6 +589,21 @@ export type ChatView = {
 export const MESSAGE_LIMITS = { bytes: 8 << 10, lines: 100 } as const;
 
 export type Refusal = { code: string; text: string };
+
+/**
+ * **The turn a byte offset belongs to**, or null when it is before every turn held.
+ *
+ * A turn's key is the byte offset of the record that opened it (`chat.ts` §turnsOf), so a grep hit's
+ * offset and a minimap mark's are the same coordinate and both resolve by the same rule: the last
+ * turn that does not start after it. It lives here, beside `refusals`, because both sides need it —
+ * the Grep computes the offset server-side and the Chat scrolls to the turn client-side — and two
+ * copies of one rule are two answers waiting to disagree.
+ */
+export function turnAt(turns: readonly { key: number }[], at: number): number | null {
+	let key: number | null = null;
+	for (const t of turns) if (t.key <= at) key = t.key;
+	return key;
+}
 
 export function refusals(text: string): Refusal[] {
 	const out: Refusal[] = [];
@@ -765,6 +782,8 @@ export type ComposeDraft = {
 export type IgniteWire = {
 	account: string; stamp: string; cwd: string;
 	model: string; effort: string; color: string; summons: string;
+	/** The building the work is FOR — what decides where the ignition lands (B22 §placement). */
+	building: string;
 };
 
 /** Something that will ignite and deserves a second look. A warning never disarms (B7's three states). */

@@ -6,7 +6,7 @@
 // climbs over the building holding a Felix-gate, which is a rail that hides the ask.
 
 import { expect, test, describe } from 'bun:test';
-import { attentionOf, groupLabel, groupOf, OUTSIDE, staffing } from './pages';
+import { attentionOf, buildingOf, groupLabel, groupOf, homeOf, OUTSIDE, staffing } from './pages';
 import type { BoardRow, Building } from '../../doctrine';
 
 const building = (over: Partial<Building> = {}): Building => ({
@@ -90,5 +90,43 @@ describe('staffing — D71\'s three cells, each in its own word (C19 F3)', () =>
 
 	test('a ⬡-gate is neither', () => {
 		expect(staffing(row({ hexGate: true }) as BoardRow)).toContain('⬡-gate');
+	});
+});
+
+/**
+ * §the ignited-for join (B22 candidate 6). "The building the work is FOR" and "the directory the
+ * session sits IN" are two facts, and the census only ever knew the second — which is how
+ * `architect-belvedere-04` came to be housed under `agents` while everything about it said
+ * `agents/belvedere`.
+ */
+describe('homeOf — the ignited-for building outranks the cwd, and only for what Belvedere ignited', () => {
+	const buildings = [
+		{ building: 'agents', path: '/Users/felix/code/agents' },
+		{ building: 'agents/belvedere', path: '/Users/felix/code/agents/belvedere' },
+	];
+	const REPO_ROOT = '/Users/felix/code/agents';
+
+	test('a Belvedere-ignited session at the repo root houses under the building it was ignited FOR', () => {
+		const homes = new Map([['architect-belvedere-04', 'agents/belvedere']]);
+		const s = { cwd: REPO_ROOT, stamp: 'architect-belvedere-04' };
+		expect(buildingOf(s.cwd, buildings)?.building).toBe('agents');            // what it used to say
+		expect(homeOf(s, buildings, homes)?.building).toBe('agents/belvedere');   // what it says now
+	});
+
+	test('a hand-started session in the SAME cwd still houses by cwd — the control', () => {
+		const homes = new Map([['architect-belvedere-04', 'agents/belvedere']]);
+		expect(homeOf({ cwd: REPO_ROOT, stamp: 'mentat-01' }, buildings, homes)?.building).toBe('agents');
+		expect(homeOf({ cwd: REPO_ROOT, stamp: null }, buildings, homes)?.building).toBe('agents');
+		expect(homeOf({ cwd: REPO_ROOT, stamp: 'mentat-01' }, buildings, new Map())?.building).toBe('agents');
+	});
+
+	test('an ignited-for building the register does not carry falls back rather than vanishing', () => {
+		// The register decides what a building is (D65). A name it does not know is not a home.
+		const homes = new Map([['builder-ghost-01', 'somewhere/that-was-deleted']]);
+		expect(homeOf({ cwd: REPO_ROOT, stamp: 'builder-ghost-01' }, buildings, homes)?.building).toBe('agents');
+	});
+
+	test('no cwd and no ignition is no home at all — off the register, honestly', () => {
+		expect(homeOf({ cwd: null, stamp: 'mentat-01' }, buildings, new Map())).toBeNull();
 	});
 });

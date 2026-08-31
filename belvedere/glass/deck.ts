@@ -17,7 +17,8 @@ import { ATTENTION, columns, RESTING, type Attention, type DeckSession, type Dec
 import { auditorCount } from './gauges';
 import { CSS, esc, short } from './html';
 import { byWorkspace, identity, type LiveWorkspace } from './identity';
-import { buildingOf } from './pages';
+import { homeOf } from './pages';
+import { ignitedFor } from './hands';
 import { cityRoot } from './paths';
 import { age, city } from './register';
 import { readRig } from './rig';
@@ -104,7 +105,10 @@ export async function deckState(open: string | null = null, talking: string | nu
 	const who = await identity();
 	const names = byWorkspace(who);
 
-	const sessions = census.sessions.map(s => deckSession(s, buildingOf(s.cwd, buildings)?.building ?? null, names));
+	// The ignited-for building outranks the cwd for sessions Belvedere ignited (B22 §the ignited-for
+	// join). One read per snapshot: City, Workshop and the queue all house off this one field.
+	const homes = ignitedFor();
+	const sessions = census.sessions.map(s => deckSession(s, homeOf(s, buildings, homes)?.building ?? null, names));
 
 	// The engine's runs, read once for the two tenants that ask about them: the queue lists the steps
 	// it has paused (C16 §3), and the Chat resolves its target through the same index. One read, one

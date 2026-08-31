@@ -23,7 +23,8 @@ import type { Attention, DeckBuilding, QueueItem, Waiting } from './deck-model';
 import { encap, short } from './html';
 import { countersignState } from './inbox';
 import type { Located as LocatedStep } from './steps';
-import { attentionOf, buildingOf, freshness, groupLabel, groupOf } from './pages';
+import { attentionOf, freshness, groupLabel, groupOf, homeOf } from './pages';
+import { ignitedFor } from './hands';
 
 // ---------- the waiting edge ----------
 
@@ -178,7 +179,7 @@ export function needsYou(buildings: Building[], sessions: Session[], steps: read
 	for (const s of sessions) {
 		const w = waitingOf(s);
 		if (!w) continue;
-		const b = buildingOf(s.cwd, buildings);
+		const b = homeOf(s, buildings, ignitedFor());
 		const who = s.stamp ?? s.sid.slice(0, 8);
 		out.push({
 			kind: 'waiting', key: `waiting:${s.sid}`,
@@ -269,7 +270,7 @@ export const rankOf = (b: Building, live: number, waiting: number): number =>
 export function cityRows(buildings: Building[], sessions: Session[], items: QueueItem[]): DeckBuilding[] {
 	const housed = new Map<string, Session[]>();
 	for (const s of sessions) {
-		const b = buildingOf(s.cwd, buildings);
+		const b = homeOf(s, buildings, ignitedFor());
 		if (b) housed.set(b.building, [...(housed.get(b.building) ?? []), s]);
 	}
 

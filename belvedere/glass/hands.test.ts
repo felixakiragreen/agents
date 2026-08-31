@@ -117,7 +117,7 @@ describe('the parse boundary', () => {
 describe('the launch line', () => {
 	const req = {
 		account: 'personal', stamp: 'digger-belvedere-smoke', cwd: '/Users/felix/code/agents',
-		model: 'haiku', effort: 'medium', color: 'Red', summons: 'x', resume: null,
+		model: 'haiku', effort: 'medium', color: 'Red', summons: 'x', resume: null, building: '',
 	};
 
 	test('is one line, config-dir prefixed, and reads the summons from its file', () => {
@@ -362,5 +362,116 @@ describe('findSurface — where a panel actually sits now', () => {
 		expect(hands.findSurface(tree, 'SF-GONE')).toBeNull();
 		expect(hands.findSurface(null, 'SF-1')).toBeNull();
 		expect(hands.findSurface({ windows: 'nonsense' }, 'SF-1')).toBeNull();
+	});
+});
+
+/**
+ * §placement — where a fire lands (B22 candidate 6). Every socket call is out of reach here; what
+ * is testable is the arithmetic that decides *which* uuid those calls address, and it is exactly
+ * where the class lives: a name matched loosely, or a ref that outlived its breath, is how an
+ * ignition lands in a workspace Felix was looking at.
+ */
+describe('placement: the home, the name→uuid join, and the ref that may not escape its breath', () => {
+	const list = {
+		workspaces: [
+			{ id: 'WS-AAA', ref: 'workspace:1', title: 'belvedere' },
+			{ id: 'WS-BBB', ref: 'workspace:2', title: 'belvedere-notes' },
+			{ id: 'WS-CCC', ref: 'workspace:3', custom_title: 'belvedere' },
+			{ id: 'WS-DDD', ref: 'workspace:4' },
+		],
+	};
+
+	test('a building names its home by its last segment, and no building names none', () => {
+		expect(hands.homeName('agents/belvedere')).toBe('belvedere');
+		expect(hands.homeName('agents')).toBe('agents');
+		expect(hands.homeName('universal_robots_sdk/simmy')).toBe('simmy');
+		expect(hands.homeName('')).toBeNull();
+	});
+
+	test('the name match is EXACT — a prefix is a different workspace of his, never a home', () => {
+		expect(hands.workspacesNamed(list, 'belvedere')).toEqual(['WS-AAA', 'WS-CCC']);
+		expect(hands.workspacesNamed(list, 'belvedere-notes')).toEqual(['WS-BBB']);
+		expect(hands.workspacesNamed(list, 'belv')).toEqual([]);          // never fuzzy (B25's kill criterion)
+		expect(hands.workspacesNamed(null, 'belvedere')).toEqual([]);
+		expect(hands.workspacesNamed({ workspaces: 'nonsense' }, 'x')).toEqual([]);
+	});
+
+	test('two homes are an ambiguity, and an ambiguity is a mint — the count is what decides', () => {
+		// `place()` reads exactly this: one ⇒ land, anything else ⇒ mint. Two of Felix's workspaces
+		// wearing one name never get guessed between (D10's spirit).
+		expect(hands.workspacesNamed(list, 'belvedere').length).toBe(2);
+	});
+
+	test('a ref converts to a uuid inside the breath that made it, and an unknown ref converts to nothing', () => {
+		expect(hands.uuidOfList(list, 'workspace:3')).toBe('WS-CCC');
+		expect(hands.uuidOfList(list, 'workspace:9')).toBeNull();          // refused, never delivered to the focused one
+		expect(hands.uuidOfList(null, 'workspace:1')).toBeNull();
+	});
+
+	test('the surface listing is `--id-format both`, and the ref is matched whole', () => {
+		const listing = [
+			'* surface:74 226CF97B-D560-452D-9ABB-7652A2D87820  b22-scratch  [selected]',
+			'  surface:76 5D2BC487-C29E-453C-82ED-96C287AFF2AF  Terminal',
+		].join('\n');
+		expect(hands.uuidOfRef(listing, 'surface:76')).toBe('5D2BC487-C29E-453C-82ED-96C287AFF2AF');
+		expect(hands.uuidOfRef(listing, 'surface:7')).toBeNull();          // not a prefix match
+		expect(hands.uuidOfRef('', 'surface:1')).toBeNull();
+	});
+
+	test('the building is parsed at the boundary like every other field, or refused by name', () => {
+		const body = {
+			account: 'personal', stamp: 'builder-belvedere-01', cwd: ROOT,
+			model: 'opus', effort: 'high', color: 'Blue', summons: 'go',
+		};
+		expect(hands.parseIgnite({ ...body, building: 'agents/belvedere' }))
+			.toMatchObject({ ok: true, result: { building: 'agents/belvedere' } });
+		expect(hands.parseIgnite(body)).toMatchObject({ ok: true, result: { building: '' } });   // absent is legal
+		for (const bad of ['../escape', '/absolute', 'a b', 'a/b/c/d/e/f/g'])
+			expect(hands.parseIgnite({ ...body, building: bad }).ok).toBe(false);
+	});
+});
+
+/**
+ * §the ignited-for join and §retirement, both read out of the audit — so both are measured against
+ * one written by hand. The audit is the only place the ignition's knowledge of the building
+ * survives; if this read is wrong, a session houses where it sits rather than where it works.
+ */
+describe('the audit as the join: which building ignited a stamp, and which workspace is ours to close', () => {
+	const AUDIT = join(ROOT, 'census/hands.jsonl');
+
+	const write = (...lines: unknown[]) => {
+		mkdirSync(join(ROOT, 'census'), { recursive: true });
+		writeFileSync(AUDIT, lines.map(l => JSON.stringify(l)).join('\n') + '\n');
+	};
+
+	test('stamp → building, last ignition wins, and a stamp nobody ignited is simply absent', () => {
+		write(
+			{ action: 'ignite', ok: true, args: { stamp: 'builder-belvedere-01', building: 'agents/belvedere' }, result: { workspace: 'WS-1', minted: true } },
+			{ action: 'ignite', ok: false, args: { stamp: 'builder-belvedere-02', building: 'agents/belvedere' }, result: 'refused' },
+			{ action: 'ignite', ok: true, args: { stamp: 'architect-simmy-03', building: 'universal_robots_sdk/simmy' }, result: { workspace: 'WS-2', minted: false } },
+			{ action: 'ignite', ok: true, args: { stamp: 'builder-belvedere-01', building: 'agents' }, result: { workspace: 'WS-3', minted: true } },
+			'not json at all',
+		);
+		const homes = hands.ignitedFor();
+		expect(homes.get('builder-belvedere-01')).toBe('agents');           // last ignition wins
+		expect(homes.get('architect-simmy-03')).toBe('universal_robots_sdk/simmy');
+		expect(homes.has('builder-belvedere-02')).toBe(false);              // a refusal ignited nothing
+		expect(homes.has('digger-agents-99')).toBe(false);                  // a hand-started session
+	});
+
+	test('only a workspace the audit records as OUR mint may ever be retired (D55)', () => {
+		write(
+			{ action: 'ignite', ok: true, args: { stamp: 'a', building: 'agents' }, result: { workspace: 'WS-MINE', minted: true } },
+			{ action: 'ignite', ok: true, args: { stamp: 'b', building: 'agents' }, result: { workspace: 'WS-HIS', minted: false } },
+		);
+		expect(hands.mintedByBelvedere('WS-MINE')).toBe(true);
+		expect(hands.mintedByBelvedere('WS-HIS')).toBe(false);              // landed in, never made — his
+		expect(hands.mintedByBelvedere('WS-NEVER-SEEN')).toBe(false);
+	});
+
+	test('an unreadable or absent audit is no homes and no mints, never a throw', () => {
+		rmSync(AUDIT, { force: true });
+		expect(hands.ignitedFor().size).toBe(0);
+		expect(hands.mintedByBelvedere('WS-MINE')).toBe(false);
 	});
 });
