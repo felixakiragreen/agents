@@ -1,7 +1,8 @@
-# C21 — the gut of v1
+# C21 — the gut: the cmux nag
 
-**Status:** OPEN · **Depends on:** ⬡-gate: the referent list (pinned at the
-rework blessing) · **Staffing:** Builder · opus-high · **Blessed:** pending
+**Status:** OPEN · **Depends on:** — (the referent ⬡ paid at the blessing,
+2026-08-30) · **Staffing:** Builder · opus-high · **Blessed:** ✓ Felix
+2026-08-30 (the rework blessing)
 
 ## Mission
 
@@ -12,19 +13,33 @@ shit."** The frame is standing law: cmux retreated to viewport candidate
 whose job the Chat and the Works now do die whole, tests with them, zero debt
 (D22 r2's precedent: the v2 engine died the same way).
 
-**The fence on referents:** "Agents Presence" and "cmux nagging" name nothing
-in the code (grep-proven at the lay) — they are his names for what his eyes
-see. The referent list is pinned with him at the blessing and rides the
-kickoff amendment (D57); this charge deletes what the list names and nothing
-it does not. Candidate readings for that sitting, from the lay's own read:
-the pane/census-centric presence surfaces (the shelf's live-pane listings,
-City/Workshop pane chrome), jump-to-pane affordances where the session is
-headless, workspace-ref hovers, any "cmux not running / no pane" nag class.
-His list rules; the candidates are only a menu to point at.
+**The referents, pinned (Felix, the blessing 2026-08-30, screenshot in hand —
+"it's the CMUX bug: stale NAGGING because cmux says needs input" — then his
+correction, verbatim: "I do want to see when there is an agent that's
+working, or has input / blocked / but it was specifically the CMUX part I'm
+ready to remove"):**
+
+1. **Presence SURVIVES.** The LIVE SESSIONS surface and its signal — an
+   agent working, needing input, blocked — stay visible. Their states come
+   from the census's own sensors only: `working`, `Stop` → idle (P1 F1's
+   real idle sensor, `census.ts:109`), `permission_prompt` → blocked —
+   never from the cmux nag.
+2. **The cmux part DIES**: the `nagging` class whole — `Waiting = 'blocked'
+   | 'nagging'` (`deck-model.ts:869`), where `nagging` is the `idle_prompt`
+   `Notification`, the 60-second cmux "waiting for your input" nag
+   (`attention.ts:44`) — killed everywhere it renders or ranks.
+   **`blocked` (`permission_prompt`) is real attention and survives.**
+3. **Stale labels die with it.** A needs-input label must never outlive the
+   fact: the 33m/21h NAGGING rows in his screenshot were quiescent
+   last-event labels (`census.ts:126`). After the gut, every rendered state
+   is one the census's sensors currently support — a label with no living
+   evidence renders as what it honestly is (idle / unknown with its age),
+   never as a demand for input.
 
 ## Inputs — read before working
 
-- The pinned referent list (the kickoff amendment — do not fire without it).
+- The pinned referent list (the Mission — pinned at the blessing, no
+  amendment needed).
 - D20/D22 (the cmux retreat), C16 F4 (`sid` vs `chat` — a headless step has a
   conversation and no pane; the pattern for what survives), C15 (how a
   surface dies whole: git rm, tests die with it, zero live references).
@@ -79,7 +94,6 @@ You are a Builder at opus-high.
 Enter by the door — read ~/code/agents/canon/GUILD.md,
 wear ~/code/agents/canon/mantles/builder.md,
 then read ~/code/agents/belvedere/README.md §§2–3 and §§5–6 (the fence,
-design laws, agreements; the campaign notes) plus the referent-list amendment
-the tender hands you,
+design laws, agreements; the campaign notes),
 and execute the charge at ~/code/agents/belvedere/plans/c21-gut-v1.md.
 ```

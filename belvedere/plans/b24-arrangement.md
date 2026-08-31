@@ -4,10 +4,24 @@
 carried over least changed as the fate clause expected) · **Depends on:** — ·
 **Staffing:** Builder · opus-high · **Blessed:** pending (the rework blessing)
 
-**Amendment intake (D57):** Felix's "then a bunch of changes with the
-sidebar" (the visual pass, 2026-08-30) lands HERE — the pinned sidebar list
-from the rework blessing rides this charge's kickoff amendment. C21 (the gut)
-runs first; this row arranges the surviving City.
+**The sidebar design input (Felix, the blessing 2026-08-30):** he sketched
+two models and leans to the second — (A) a fixed taxonomy: District /
+Building / Campaign / Offices (his worked example: Felix district → Offices,
+Agents→Belvedere, Rooted→Arborist/Repot, Whiteboardy; THG district →
+bob→lunchbox/pods/catalog, mega→simmy/snappy/cornerizer/…, speakeasy); (B)
+**"spaces"** — *"a space can have optional: color/name/cwd/board/agents/type/
+order and nest inside another space. Done."* His own counter-example to (A):
+speakeasy is not a campaign, "more like a one-off thing" he wants to keep
+around. **Pre-chewed ruling (G5, strike-able at his glance): spaces —**
+(A)'s fixed ranks are the glass inventing a classification, which spec §4
+already forbids; one recursive structure carries his example verbatim, with
+`type` a free label ("district", "campaign", "office", or nothing — words he
+types, never ranks the glass knows). **One trim on his field list:** a space
+stores name · color · order · type · children + an optional **binding** to a
+building (the cwd); `board`, `agents`, and liveness are what the register
+and census already know about the bound building — derived through the
+binding, never stored in the arrangement file (truth underneath, the Goal's
+own law). C21 (the gut) runs first; this row arranges the surviving City.
 
 ## Goal
 
@@ -34,12 +48,16 @@ arrangement hides nothing new.
 
 ## Spec
 
-1. **The arrangement layer.** One structure over the register: his groups
-   (nestable), his order within and among them, his labels, his colors.
-   Rendering rules: attention monotone **inside** his arrangement (a group's
-   loudness is its loudest member; recency only inside a rank); an
-   unarranged building lands in an unfiled tail he can file from; nothing
-   the census knows can be absent from the view.
+1. **The arrangement layer is spaces** (his model, the header). One
+   recursive structure over the register: a space carries name · color ·
+   order · type (free label) · children, plus an optional binding to a
+   building; his sketch (the header) must be expressible verbatim, speakeasy
+   included. Rendering rules: attention monotone **inside** his arrangement
+   (a space's loudness is its loudest member; recency only inside a rank);
+   an unarranged building lands in an unfiled tail he can file from;
+   nothing the census knows can be absent from the view; a bound space
+   renders its building's badges, board and liveness through the binding
+   (derived, never stored).
 2. **Persistence (pre-chewed ruling, strike-able at blessing): a desk
    file** — `desk/city-arrangement.json`. His own words ask durability
    across browsers and machines; localStorage is per-browser by
@@ -115,8 +133,8 @@ You are a Builder at opus-high.
 Enter by the door — read ~/code/agents/canon/GUILD.md,
 wear ~/code/agents/canon/mantles/builder.md,
 then read ~/code/agents/belvedere/README.md §§2–3 and §§5–6 (the fence,
-design laws, agreements; the campaign notes) plus the sidebar-list amendment
-the tender hands you,
+design laws, agreements; the campaign notes — the sidebar design input sits
+in the charge doc's header),
 and build ~/code/agents/belvedere/plans/b24-arrangement.md to its
 `Done when:`.
 ```

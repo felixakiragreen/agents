@@ -2892,3 +2892,25 @@ Baton — ⬡ Felix → the rework blessing (one sitting; the instrument is READ
 §6's rework note — bless, amend, or strike there, and name the two lists).
 After it: dispatch is the tender's, no further word of Felix's needed until
 G6's gates.
+
+---
+
+**2026-08-30 · Architect · fable-high (G5, cont.)** — **the rework blessing is
+PAID and the batch is live.** His rulings, all in-session: the batch blessed
+whole; the four proposed rulings converted ("fine") — B25's fold, **D23
+blessed**, the pane-side filter, the decoder's planned-mention resolve; the
+identity forks ruled — "rename to ignite, call it belvedere" (C22's header);
+the referents pinned then **corrected at his word**: presence survives ("I do
+want to see when there is an agent that's working, or has input / blocked"),
+the cmux part dies — C21 re-cut to "the gut: the cmux nag" (`nagging` =
+idle_prompt Notification, `attention.ts:44`; `blocked` survives; stale labels
+die); the sidebar is **spaces** — his model, ruled over the fixed taxonomy,
+sketch verbatim in B24's header with the derived-not-stored trim. A
+findability defect (his several minutes lost to "README §6") filed to the
+canon inbox with its law candidate: references name path + greppable anchor,
+one live batch note per board. Decided: nothing new — every ruling above is
+his, recorded. Next: the batch runs — C23 ignited by this session as tender
+(exclusive on the README), C22 behind it, then the triple B23 ∥ B22 ∥ C20.
+
+Baton — the dispatch → ignite C23 (this session tends; the summons is
+C23's fenced kickoff + the coda, verbatim).
