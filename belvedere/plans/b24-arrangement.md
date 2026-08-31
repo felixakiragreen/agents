@@ -1,7 +1,13 @@
 # B24 — his arrangement
 
-**Status:** OPEN · **Depends on:** — (chain per the batch-6 note) · **Staffing:** Builder · opus-high ·
-**Blessed:** pending (batch-6 blessing)
+**Status:** OPEN (re-cut 2026-08-30 at G5 — City View survives whole, D22 r2;
+carried over least changed as the fate clause expected) · **Depends on:** — ·
+**Staffing:** Builder · opus-high · **Blessed:** pending (the rework blessing)
+
+**Amendment intake (D57):** Felix's "then a bunch of changes with the
+sidebar" (the visual pass, 2026-08-30) lands HERE — the pinned sidebar list
+from the rework blessing rides this charge's kickoff amendment. C21 (the gut)
+runs first; this row arranges the surviving City.
 
 ## Goal
 
@@ -63,7 +69,10 @@ arrangement hides nothing new.
 
 ## Done when:
 
-Browser half on B13's instrument; the live half against the real register.
+Browser half on the camera (C17) with the fixture city (C19) where a fixture
+serves; the live half against the real register; every visual bar's shot Read
+and described. Drag-and-arrange interaction probes join the `--probes` suite
+(B23's rail).
 
 - [ ] Arrange the live city: reorder two buildings, relabel one, recolor
   one, nest two under a new group of his naming — all four visible on the
@@ -105,7 +114,9 @@ If nesting genuinely cannot satisfy the law of space at his real city's size
 You are a Builder at opus-high.
 Enter by the door — read ~/code/agents/canon/GUILD.md,
 wear ~/code/agents/canon/mantles/builder.md,
-then read ~/code/agents/belvedere/README.md §§5–6
-and ~/code/agents/belvedere/plans/b24-arrangement.md,
-and build it to its `Done when:`.
+then read ~/code/agents/belvedere/README.md §§2–3 and §§5–6 (the fence,
+design laws, agreements; the campaign notes) plus the sidebar-list amendment
+the tender hands you,
+and build ~/code/agents/belvedere/plans/b24-arrangement.md to its
+`Done when:`.
 ```

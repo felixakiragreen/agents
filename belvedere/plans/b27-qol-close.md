@@ -1,124 +1,124 @@
-# B27 — the QoL sweep + the close flow
+# B27 — the QoL sweep
 
-**Status:** OPEN · **Depends on:** B22–B26 (last in the chain — it sweeps their
-surfaces and absorbs the tweak list) · **Staffing:** Builder · opus-high ·
-**Blessed:** pending (batch-6 blessing)
+**Status:** OPEN (re-cut 2026-08-30 at G5 — the close flow died with the v2
+engine, D22 r2; the QoL list survives and the punch list joins it; the
+original cut is git history) · **Depends on:** B22; B23; B24; B26; C21 (last
+in the chain — it sweeps their surfaces) · **Staffing:** Builder · opus-high ·
+**Blessed:** pending (the rework blessing)
 
 ## Goal
 
-The small usability debts from Felix's first real hours, swept in one pass
-over the finished rework — and the batch's close flow left on disk. **This
-row is deliberately last so the tweak list can keep growing until it fires**:
-his field reports were first impressions, more are coming (his word,
-2026-08-28), and they land in ISSUES / the desk right up to this row's
-dispatch.
+The small usability debts from Felix's real hours, swept in one pass over the
+finished rework. **Deliberately last so the tweak list keeps growing until it
+fires** — his punch-list entries and desk notes land right up to dispatch,
+scoped by the Architect amendment that accompanies the kickoff (D57). §5
+bounds what may be absorbed without a new ruling.
 
 ## Inputs — read before building
 
-- ISSUES commits `731bac6` (the Works' Chat slot), `6d67536` (pass-gesture
-  discoverability + the account knob), the G2 design-input line (README §6,
-  batch-5 close).
-- B10 F8 (`swap.to` exists), B16 F1 (the `?s=` seam member), B16's cold-send
-  hover ("the hands are cold" — the honest-disabled exemplar).
-- B12's precedent for leaving a close flow on disk; B11 F3 (the arm hashes
-  file + resolved kickoffs).
-- **The tweak list at dispatch:** every ISSUES entry and desk note Felix has
-  filed as tweak-class by the time this row fires, as scoped by the
-  Architect amendment that accompanies the kickoff (D57). This
-  charge doc's §5 bounds what may be absorbed without a new ruling.
+- The punch list (G5's sweep, Felix verbatim): *"Locked tooltips need a
+  better way to dismiss"* · the decoder scope report (hovering `G5`: the
+  tooltip named ONLY the canon board — 45 charges — as consulted, in a
+  belvedere context).
+- C15 F5 (barrage runs crowd the `agents` Works picker — the pane-side
+  filter named as the honest fix this row now owns).
+- B10 F8 (`swap.to` exists), B16 F1 (the `?s=` seam), B16's cold-send hover
+  (the honest-disabled exemplar), C16 F3 (a node's session off the log's
+  ignitions), C16 F4 (the `waiting` class — a paused step's row draws CHAT).
+- His account ruling (2026-08-28, struck deferral): "I need to be able to
+  choose accounts" — with all three usage windows labeled (`sess` · `week` ·
+  `fable`, the buckets `usage.ts` parses, plus pacing and fetch age —
+  B17's law); the unlabeled chip was the DoS the WIP-gauges law exists to
+  prevent.
+- B18 F3/F4 (surface titles: measured, glyph-rewritten; the poll's socket
+  read ~161 ms — the budget for §7).
+- The camera (C17) + `--probes` (B23's rail): hover and dismissal are
+  CDP-assertable.
 
 ## Spec
 
-1. **Wire the Works' hotswap slot.** The fired node carries the sid; the
-   slot becomes the real control: `swap.to('chat')` on that session (B16's
-   `?s=`). The placeholder span dies.
+1. **Wire the Works' Chat hotswap.** The node's session comes off the log
+   (C16 F3); the slot becomes the real control: `swap.to('chat')` on that
+   session (B16's `?s=`). The placeholder span dies.
 2. **The honest-disabled law, city-wide.** Anything rendered inert says WHY
-   on hover — B16's cold send is the exemplar. Sweep every inert control on
-   every route; a slot that names a landed row must never read as broken. A
-   grep-able convention (one attribute/class carrying the why) so the sweep
-   is checkable, plus live hover checks.
-3. **The pass gesture, findable (pre-chewed).** Today only a picked node
-   shows its actions, so a waiting Felix-card is invisible until he happens
-   to click it. The flow view surfaces "a card waits — [go]" without picking:
-   a pointer that scrolls/picks the node — **not a second pass button**. One
-   gesture, one place; the card itself remains the only pass surface (D10's
-   shape preserved).
-4. **The account knob (Felix's ruling, 2026-08-28 — he struck the deferral:
-   "I need to be able to choose accounts").** Wherever an account renders
-   choosable — the composer AND the arm card — a toggled button group of the
-   three accounts (no dropdowns, §3), default = the flow-declared / composed
-   account. Choosing re-resolves the plan against that account:
-   `CLAUDE_CONFIG_DIR`, the per-(step, account) trust + posture precheck
-   (P5 F5's `trust.ts` precheck is already keyed exactly this way),
-   refusals loud at arm, never a mid-flow stall; the run log and hands
-   audit record the chosen account.
-   **And the gauges tell the whole truth:** each account button carries all
-   THREE usage windows, labeled — `sess` (5 h) · `week` (7 d) · `fable`
-   (7 d scoped) — the buckets `usage.ts` already parses, plus pacing and
-   the fetch age (B17's law). Today's chip compresses to one unlabeled
-   number (his screenshot, 2026-08-28: "11% +18 · 0S" — which window it is
-   the builder states and labels); a choice made on one unlabeled window is
-   the DoS the WIP-gauges law exists to prevent.
-5. **The tweak list.** Absorb entries that are visual/QoL/usability within
-   surfaces that already exist — label, spacing, hover, ordering, wording,
-   affordance-findability. **STOP-clause:** a tweak that changes structure,
-   adds a surface, touches the fence, or contradicts a design law escalates
-   to the Architect instead of being absorbed — this row never rules.
-6. **The close flow.** Leave `flows/flow-close-6.flow.json` on disk,
-   **unarmed**: G3's kickoff byte-identical to the batch note's fence
-   (B12's pattern; B11 F3's hash law makes a drift loud at arm).
-7. **The session's cmux name reaches the deck (the mentat-00 gap, ruled at
-   blessing 2026-08-28).** Diagnosed live: identity NOT stale, workspace
-   joined, yet a hand-named session showed no name — the name sits on the
-   **agent surface's title** (B18 F3: measured, glyph-rewritten), which the
-   deck never reads, and the hover printed the bare `workspace:2` ref where
-   a title exists. Fix both: the live-identity read carries surface titles;
-   renders and hovers name workspaces by title wherever one exists, refs
-   only where none does. A stampless session then shows its cmux name
-   beside its honest birth identity. **STOP-clause applies:** B18 F4 priced
-   the poll's socket read (~161 ms) — if surface titles cost more than the
-   remaining headroom or turn structural, escalate rather than absorb.
+   on hover — one grep-able convention (an attribute carrying the why), the
+   sweep counted, plus live hover checks.
+3. **Locked tooltips dismiss** (his line). One obvious gesture — Esc and
+   click-away at minimum — consistent across every locked tooltip on the
+   deck; a probe pins it.
+4. **The decoder's scope walk** (bug-class, not a tweak): hovered in a
+   building's context the decoder consults that building's board too, never
+   just canon's; the tooltip lists what it walked. And **pre-ruled here** (the
+   honest-off-register family, G1's E→F2 precedent; D10's honesty): an id
+   that is named in prose but laid on no board resolves to its planning
+   mention, labeled `planned — no row`, never a bare "unresolved" when a
+   mention exists.
+5. **The fake/real filter** (C15 F5, pre-ruled pane-side at G5): the Works
+   picker defaults to real runs; a toggled button (no dropdowns) reveals
+   fake/barrage runs. The bound line ("n of m read, k housed elsewhere")
+   survives the filter.
+6. **The account knob (his ruling stands).** Wherever an account renders
+   choosable on the deck today — the composer and the shelf's resume — a
+   toggled button group of the three accounts, default = the composed
+   account; choosing re-resolves config dir + the per-(step, account) trust
+   precheck (`engine/venue.ts` — one read in the city), refusals loud at
+   compose, never a mid-fire stall; the audit records the chosen account.
+   Every account button carries all THREE usage windows, labeled, with
+   pacing and fetch age.
+7. **The session's cmux name reaches the deck** (the mentat-00 gap): the
+   live-identity read carries surface titles (B18 F3); renders and hovers
+   name workspaces by title wherever one exists, refs only where none does.
+   **STOP-clause applies:** if titles cost more than the poll's remaining
+   headroom (B18 F4's ~161 ms baseline) or turn structural, escalate.
+8. **The tweak list.** Absorb entries that are visual/QoL/usability within
+   existing surfaces — label, spacing, hover, ordering, wording,
+   findability. **STOP-clause:** a tweak that changes structure, adds a
+   surface, touches the fence, or contradicts a design law escalates to the
+   Architect — this row never rules.
 
 ## Done when:
 
-- [ ] From a fired Works node, the hotswap control lands the Chat on that
-  exact sid (live, sid verified); the placeholder is gone from source and
-  bundle.
-- [ ] The inert sweep: every disabled/inert control on every route carries
-  its why (the convention greppable and counted), and a live hover on three
-  representative cases (cold hands, no-baton, not-yet-landed) shows it.
-- [ ] An armed flow with a waiting Felix-card shows the waiting state at
-  flow level without any node picked; the gesture jumps to the card; the
-  card is still the only pass surface (zero new pass wiring elsewhere —
-  B17 F1's sound check).
-- [ ] The account knob: composer and arm card each offer the three accounts
-  as a toggled group; choosing one re-resolves the plan (config dir, trust,
-  posture — refusal induced live for an untrusted (step, account) pair,
-  loud at arm); a live fire lands under the chosen account (audit +
-  transcript account verified); every account button shows `sess` · `week`
-  · `fable` labeled, with pacing and fetch age, matching the rig's own
-  figures at one instant (B5's 9/9-cells bar).
-- [ ] Each absorbed tweak listed in findings with its before/after; each
-  escalated tweak named with why.
-- [ ] `flows/flow-close-6.flow.json` parses (the one parser, 0 lint), sits
-  unarmed, kickoff byte-identical to the batch note's G3 fence (sha both
-  sides).
-- [ ] The mentat case: a hand-named, stampless cmux session renders its
-  surface title on the deck; hovers print workspace titles, bare refs only
-  where no title exists; the poll's cost measured against B18 F4's budget.
-- [ ] Suite green in one process, offline type gate exit 0, predecessor
-  probes re-run green, `/deck/state` p95 within the landed budget, page
-  scroll 0 px.
+- [ ] Hotswap live: from a Works node, the control lands the Chat on that
+  exact session (sid verified); placeholder gone from source and bundle.
+- [ ] Inert sweep: every disabled control carries its why (convention
+  counted); live hovers on three representative cases shown.
+- [ ] Tooltips: locked tooltips dismiss by Esc and click-away everywhere; a
+  `--probes` probe pins both gestures.
+- [ ] Decoder: hovering a belvedere id in a belvedere context consults and
+  names both boards (photographed); a named-but-unlaid id resolves to its
+  planning mention labeled `planned — no row` (fixture pinned).
+- [ ] Filter: real-only by default, fakes behind the toggle, bound line
+  intact (fixture + live shot).
+- [ ] Account knob: composer and shelf offer the three accounts as toggled
+  groups; an untrusted (step, account) pair refuses loudly at compose
+  (induced live); a live fire lands under the chosen account (audit +
+  transcript verified); every button shows `sess` · `week` · `fable`
+  labeled + pacing + fetch age, matching the rig's own figures at one
+  instant.
+- [ ] The mentat case: a hand-named, stampless session renders its surface
+  title; hovers print titles over refs; the poll's cost measured against
+  B18 F4's budget.
+- [ ] Each absorbed tweak in findings with before/after; each escalated
+  tweak named with why.
+- [ ] `bun v3/gates.ts --glass` and `--probes` ALL GREEN; predecessor probes
+  green; `/deck/state` p95 within budget; page scroll 0 px. Budget **≤3
+  real turns / ≤$1** (the account-knob live fire) — either ceiling a ⬡-fork
+  (D21).
 
 ## Out of scope
 
-- The ⬡ prettifying pass (DEFERRED until Felix un-defers it — README §3); any
-  structural change (the STOP-clause routes it out); arming anything.
+- The ⬡ prettifying pass (DEFERRED until Felix un-defers it — README §3);
+  any structural change (the STOP-clause routes it out); arming or driving
+  engine runs from the deck (no such surface is laid this batch).
+
+## Findings
+
+*(append here — evidence-grade)*
 
 ## Kill criteria
 
 None global. The STOP-clause is the row's safety valve: absorbed scope is
-bounded by §5, and this row would rather land small than rule once.
+bounded by §8, and this row would rather land small than rule once.
 
 ---
 
@@ -128,8 +128,10 @@ bounded by §5, and this row would rather land small than rule once.
 You are a Builder at opus-high.
 Enter by the door — read ~/code/agents/canon/GUILD.md,
 wear ~/code/agents/canon/mantles/builder.md,
-then read ~/code/agents/belvedere/README.md §§5–6
-and ~/code/agents/belvedere/plans/b27-qol-close.md
-plus the tweak-list amendment the tender hands you,
-and build it to its `Done when:`.
+then read ~/code/agents/belvedere/README.md §§2–3 and §§5–6 (the fence,
+design laws, agreements; the campaign notes) and
+~/code/agents/belvedere/plans/c15-deck-v3-lane.md + c16-chat-chapter.md
+(findings) plus the tweak-list amendment the tender hands you,
+and build ~/code/agents/belvedere/plans/b27-qol-close.md to its
+`Done when:`.
 ```

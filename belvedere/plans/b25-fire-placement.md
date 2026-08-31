@@ -1,7 +1,12 @@
 # B25 — where a fire lands
 
-**Status:** OPEN · **Depends on:** — (chain per the batch-6 note) · **Staffing:** Builder · opus-high ·
-**Blessed:** pending (batch-6 blessing)
+**Status:** KILLED 2026-08-30 — folded into B22 at G5 (proposed ruling; the
+fate clause delegated fold-or-keep to the migration close). Headless steps
+make no panes (D22), so the surviving scope — the summon fallback's
+building-homed placement + the fired-for attribution — is one candidate in
+[B22](b22-hands-hygiene.md) §candidate 6, severability kept. This doc stands
+as the fold's record; the spec below is the folded content's source. ·
+**Staffing:** — · **Blessed:** n/a
 
 ## Goal
 
