@@ -2577,6 +2577,7 @@ nothing canon-side; stigmergon's D1–D12 are Felix's in-session rulings on its
 own register; at the blessing, same sitting, D8 ⬡✓ (the desk stays — "keep
 desk as is") and D13 re-cut ⬡✓ (**the fence struck as a Belvedere relic**;
 glass-shatters + receipts + one-writer survive; name-first re-intentioned) —
-the founding blessed whole. Next: **S1 in flight** — dispatched at his word
-from the founding session, which tends its landing; stigmergon's board carries
-the state.
+the founding blessed whole. Next: **ignite S2** at ⬡'s summons when S1
+lands — the kickoff rides `~/code/stigmergon/plans/s2-foundation-sitting.md`;
+the founding session tends S1's landing (in flight, dispatched at his word);
+stigmergon's board carries the state.
