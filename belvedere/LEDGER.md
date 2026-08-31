@@ -2888,7 +2888,7 @@ Agents Presence / cmux nagging for C21, the sidebar list for B24). On his
 word the tender dispatches C23 first (exclusive on the README), C22 behind
 it, then the triple.
 
-Baton — ⬡ → the rework blessing (one sitting; the instrument is README §6's
-rework note — bless, amend, or strike there, and name the two lists). After
-it: dispatch is the tender's, no further word of his needed until G6's
-gates.
+Baton — ⬡ Felix → the rework blessing (one sitting; the instrument is README
+§6's rework note — bless, amend, or strike there, and name the two lists).
+After it: dispatch is the tender's, no further word of Felix's needed until
+G6's gates.

@@ -275,3 +275,9 @@ is cleared). A cleared inbox is empty.
   leaks by default). Since charge 22 is the argv-summons composition, the rig is
   the natural place to append `plans/CODA.md` when the target building has one —
   worth a line when its three forks are blessed.
+- 2026-08-30 · belvedere Architect (G5) · doctrine parser: `classifyBaton` reads
+  the Felix holder only from the literal word `Felix` (`parse.ts:433`), while
+  D74 names `⬡` as a legal written holder — a `Baton — ⬡ → <blessing>` with a
+  doc-pointer instrument lints `ledger.baton` dropped. Either the glyph joins
+  the classifier or D74's wording tightens to require the name; Grand
+  Architect's call.
