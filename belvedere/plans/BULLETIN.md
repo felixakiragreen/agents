@@ -2489,3 +2489,67 @@ point at the real census and real transcripts (`chat-scroll` mints its own run
 tree for an appendable transcript). Rebasing them onto the fixture city would
 make the family hermetic; that is a re-lay of landed probes — a small charge
 candidate for G6, not a defect in them.
+
+## → relay — B26 (batons) to B24, B27 and the G6 tender: one defect that predates this batch and hits every queue control, and three that bind anyone drawing a ledger tail
+
+Evidence: [b26-baton-attention.md](b26-baton-attention.md) §Done when and §Findings, `master`,
+commits `de5af28` · `5a2aa54` · `d4190bb` · `051aeed` · `b39b05a` · `c5b7a0a` · `b5af90a` ·
+`1a2d795` · `0a79d2a` · `073f1a0` · `7702740`.
+
+1. **F6 — an OPEN drawer cannot be clicked, and it has been that way since B13.** `.deck .app` is
+   `position: relative; z-index: 1` (`deck.css:50`) — a stacking context — so the drawer's
+   `z-index: 30` is scoped **inside** it while `#scrim` is a root-level sibling at `20`
+   (`deck.ts:250`). The scrim paints above the whole app, drawer included, and Chrome's own hit test
+   says so:
+
+   ```
+   - attempting click action  … element is visible, enabled and stable · done scrolling
+     <div id="scrim" class="scrim"></div> intercepts pointer events
+   - retrying click action    (× 22, ten seconds, then the timeout)
+   ```
+
+   **Every control the ⬡-queue draws is behind it** — the note box, `file it`, `bless D<n>`,
+   `jump to pane`, `chat`, and B26's own `compose`/`copy`. Pinning draws no scrim and works, which is
+   why C16's `chat-engine.probe.ts:42` worked around it in a comment and B26's two probes now do the
+   same. **B24 and B27 both draw controls that live in that drawer.** Not taken (outside B26's
+   fence), filed to [ISSUES](../ISSUES.md) with the one-line fix: drop `z-index: 1` from `.app`, or
+   move `#scrim` inside `#app` below the drawer.
+
+2. **F1 — there is no such thing as a Felix-holder baton carrying an instrument, and the charge that
+   asks for one means the D10 collision.** `classifyBaton` gives the instrument precedence, so
+   `holder: 'felix'` is returned **only** when there is no instrument at all. Measured over the whole
+   live register: `15 batons · 9 felix (0 instruments, every one) · 6 session · 4 of those collide`.
+   Anything you write that reasons about "his baton" must read `holder === 'felix' || collides` —
+   `collides` is `holder === 'session' && /\bFelix\b/` and now lives in `glass/baton.ts` beside the
+   splitter and the resolver, exported, so nobody writes a second copy. The deck draws both readings
+   at once: the parser's word as the pill (D65, never overruled) and `HIS BY PROSE` beside it.
+
+3. **F3 — lead a ledger tail with `ledgerTail.row`.** The baton was the one queue class with no id,
+   and `encap()` then handed back the whole clause: six of the fifteen live items named themselves
+   `unchanged` and three put 400 characters into a drawer row. The entry's own row — §7's ledger head
+   — is an id the text really did write, and it names the charge that just landed:
+   `unchanged` → `C30 — unchanged`, `` `, and `unrecorded.` written where… `` → `G4 — found the
+   migration campaign`. **B24's sidebar and B27's sweep draw the same tails.**
+
+4. **F2, the ask that outlives this charge — the needs-you queue now lists nine batons and six of
+   them say nothing is owed.** `nothing waits` · `nothing here is ignitable` · `unchanged` ·
+   `nothing owed inside manny`. A render-side "is anything owed?" detector was considered and
+   **refused**: a false positive there hides a baton, which is the blindness B26 exists to kill, and
+   README §1 forbids fattening the reader to absorb it. The noise is held down structurally instead
+   (the class shares `waiting`'s rank and sorts by recency inside it, so a closed building's tail
+   sinks). This is the **fourth filing of one ask** — B3 F4/F5 wanted `Baton.kind`, B9 F1 a name
+   field, B14 F2 an escalation field: **a ledger tail needs a way to say *nothing is owed* that is
+   not the absence of a word.** Canon's, not Belvedere's.
+
+Also, for anyone adding a jump or any client state to a drawn region: **it belongs in that region's
+repaint signature or the jump is a dead button** (F4, C15 F3's law arriving on cue). `queue.show()`
+set the aim and called `drawDrawer()`, whose signature is `[layout.drawer, snapshot.queue]` —
+unchanged by a jump — so `paint()` rebuilt nothing and the item never lit. Same shape, one line
+along: a click that loaded the composer left Action at `minimal`, where `.summons-in` is
+`display: none`, so the bytes landed in a box nobody could see. Both fixed at the cause.
+
+And for the record, since a tender note of this date credited it elsewhere: **the seeded-sid fix
+(uuids in `camera/fixtures/seed.ts`) is B26's first act**, ruled there by C21 F3 — `de5af28`. The
+standing family was re-run whole on it before anything was built: ALL GREEN, 26 gates.
+
+(Relayed from `master`, B26 LANDED 2026-08-31 — Builder)
