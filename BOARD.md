@@ -62,3 +62,8 @@ account choice is quota arbitrage.
   a sibling over `drive.exp`'s presses) · the `run:407` dead assertion (its subject
   file is created at line 413, after it fires) · `count`'s silent-0 on a missing
   file (G2's find, 2026-08-31).
+- The belvedere purge — delete the retired `belvedere/` subtree and prune the
+  belvedere-era `plans/` docs from this repo once stigmergon has extracted its
+  salvage (engine, camera, gates, fixtures, census); git is the archive (D78).
+  Felix's word 2026-08-31 at stigmergon's founding ("cleanup all the belvedere
+  garbage"); context in [desk/stigmergon-forge.md](desk/stigmergon-forge.md).
