@@ -118,6 +118,17 @@ export const swap: { to: ((name: string) => void) | null } = { to: null };
  */
 export const compose: { with: ((summons: string) => void) | null } = { with: null };
 
+/**
+ * The drawer's own door, registered by the shell at boot (B26).
+ *
+ * The ⬡-queue is the shell's, not a tenant's, and the Works needs to reach it: a landed terminal
+ * node whose building handed a baton says so, and *"says so"* is worth nothing unless the thing it
+ * names is one click away — that gap is the whole of Felix's report (*"I can't see that anywhere or
+ * act on it anywhere"*). Same law as `viewer` and `swap`: a tenant asks the shell, and a null here
+ * means no jump is offered rather than a control that does nothing.
+ */
+export const queue: { show: ((key: string) => void) | null } = { show: null };
+
 const signed = new Map<string, FocusView>();
 
 /** Sign the lease. A second tenant under one name is a bug, not a replacement — it throws. */
