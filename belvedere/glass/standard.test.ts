@@ -19,6 +19,7 @@ import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'fs';
 import { tmpdir } from 'os';
 import { basename, join } from 'path';
 import { discover, type Building } from '../../doctrine';
+import { noBadges } from './deck-model';
 import { cardHtml, cards, type Card } from './rail';
 import { readRig } from './rig';
 import { workshopOf } from './workshop';
@@ -75,7 +76,7 @@ then read this doc and build it.
 const ROOT = mkdtempSync(join(tmpdir(), 'c2-molt-'));
 const rig = readRig();
 const ACCOUNTS = ['personal'];
-const NO_BADGES = { waiting: 0, gate: 0, countersign: 0, escalation: 0 };
+const NO_BADGES = noBadges();
 
 /** `graveyard` writes the dead words, `standard` the successors. Neither name is the other's substring. */
 const NAMES = ['graveyard', 'standard'] as const;

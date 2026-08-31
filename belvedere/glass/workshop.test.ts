@@ -10,12 +10,12 @@ import { join } from 'path';
 import { discover } from '../../doctrine';
 import type { Beat, Session } from './census';
 import type { LiveWorkspace } from './identity';
-import { SECTIONS, moved, toCollapsed, toSections, type Section } from './deck-model';
+import { noBadges, SECTIONS, moved, toCollapsed, toSections, type Section } from './deck-model';
 import { deckSession } from './deck';
 import { prose, spans } from './html';
 import { workshopOf } from './workshop';
 
-const NO_BADGES = { waiting: 0, gate: 0, countersign: 0, escalation: 0 };
+const NO_BADGES = noBadges();
 
 // ---------- the sections: his order, remembered ----------
 

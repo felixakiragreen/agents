@@ -12,7 +12,7 @@ import { mkdtempSync, rmSync, writeFileSync, mkdirSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
 import {
-	bump, columns, PANES, PANE_STATES, RESTING, shares, toLayout, weights,
+	ATTENTION, bump, columns, PANES, PANE_STATES, RESTING, shares, toLayout, weights,
 	type Layout, type PaneState,
 } from './deck-model';
 import { moveIn, tenant, tenants, type FocusView } from './deck-view';
@@ -246,7 +246,7 @@ describe('deckState — one composed read, and the joins it makes', () => {
 		expect(town.group).toBe('tinytown');
 		expect(town.live).toBe(1);                                // `aaa` works here; `bbb` is gone
 		expect(town.sids).toEqual(['aaa']);
-		expect(Object.keys(town.badges).sort()).toEqual(['countersign', 'escalation', 'gate', 'waiting']);
+		expect(Object.keys(town.badges).sort()).toEqual([...ATTENTION].sort());
 		expect(town.attention).toBe(0);                           // live work — v0's own rank, untouched
 		for (const [kind, n] of Object.entries(town.badges))
 			expect(n).toBe(snap.queue.filter(i => i.building === town.building && i.kind === kind).length);

@@ -15,7 +15,7 @@ import { join } from 'path';
 import { discover, type Building } from '../../doctrine';
 import { cityRows, escalationsIn, needsYou, rankOf, waitingOf } from './attention';
 import type { Beat, Session } from './census';
-import type { DeckBuilding } from './deck-model';
+import { noBadges, type DeckBuilding } from './deck-model';
 import { fileGesture } from './inbox';
 
 // ---------- the waiting edge ----------
@@ -215,8 +215,8 @@ describe('cityRows — attention outranks recency, and the badges ARE the queue'
 		for (const r of rows)
 			for (const [kind, n] of Object.entries(r.badges))
 				expect(n).toBe(items.filter(i => i.building === r.building && i.kind === kind).length);
-		expect(at2(rows, 'loud').badges).toEqual({ waiting: 0, gate: 1, countersign: 1, escalation: 1 });
-		expect(at2(rows, 'quiet').badges).toEqual({ waiting: 0, gate: 0, countersign: 0, escalation: 0 });
+		expect(at2(rows, 'loud').badges).toEqual({ ...noBadges(), gate: 1, countersign: 1, escalation: 1 });
+		expect(at2(rows, 'quiet').badges).toEqual(noBadges());
 	});
 
 	test('a waiting session takes the rank above everything, and moves its building to the top', () => {

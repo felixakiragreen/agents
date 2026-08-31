@@ -234,6 +234,57 @@ export type WorkshopBaton = {
 	instruments: { kind: 'summons' | 'row'; text: string }[];
 };
 
+// ---------- the baton: what a ledger tail hands next (D64, B26) ----------
+
+/**
+ * D64's three shapes, named by D71 — a **single** move, a **batch** ignited together, a **fork**
+ * whose options are exclusive. `plural` is not one of the three: it is what the render reports when
+ * a baton hands several instruments and its own prose names no shape.
+ *
+ * The shape is read render-side (`baton.ts` §shapeOf) because `doctrine/`'s parsed `Baton` carries
+ * `instruments[]` and no `kind`; the field ask rides canon row 20, and until it lands nothing here
+ * fattens the parser (README §1, §6's parked note).
+ */
+export const BATON_SHAPES = ['single', 'batch', 'fork', 'plural'] as const;
+export type Shape = (typeof BATON_SHAPES)[number];
+
+/**
+ * One instrument the baton hands, resolved to the bytes a session would be given.
+ *
+ * `blocked` is the rail's own law kept whole — *the rail resolves; it never invents*: a row
+ * reference naming no work doc, a doc carrying no kickoff fence, a file that will not read. A
+ * blocked option has no `summons` and draws no control; what stands there is the reason.
+ */
+export type BatonOption = {
+	/** Encapsulation-first: the mantle and tier the summons opens with, or the charge it names. */
+	label: string;
+	/** Where the bytes were read — the ledger's own fence, or the charge doc's, with its line. */
+	source: string;
+	/** The instrument's bytes, **verbatim**: what copy copies and what the composer is handed. */
+	summons: string;
+	/** D64 requires a fork to name its recommendation. At most one option is ever true. */
+	recommended: boolean;
+	/** Why there are no bytes to hand over, or null. Non-null means no summons and no control. */
+	blocked: string | null;
+};
+
+/**
+ * A ledger tail's baton, on the wire (B26). It is what the rail has drawn since B3, carried into the
+ * deck's one attention model rather than computed a second time.
+ *
+ * **`collides` is D10 on the item.** `classifyBaton` gives the instrument precedence over the word
+ * "Felix", so *"PENDING Felix's ruling — on a pass, ignite: ⟨fence⟩"* parses as a session baton while
+ * its prose says it is his. Where the two readings disagree the item says so and offers no dispatch —
+ * the bytes stay copyable, because copying is reading and the gate stays his.
+ */
+export type BatonWire = {
+	holder: 'session' | 'felix' | 'prose';
+	shape: Shape;
+	collides: boolean;
+	/** Empty on a Felix-holder or dropped baton: today's grammar gives neither an instrument. */
+	options: BatonOption[];
+};
+
 export type WorkshopTail = {
 	date: string; mantle: string; tier: string | null; row: string | null;
 	body: Prose;
@@ -865,12 +916,26 @@ export type UsageWire = {
 // ---------- attention: one vocabulary, two places (D15) ----------
 
 /**
- * The four classes, in the order they rank. **This list is closed** — B14's order forbids a fifth
- * attention source, and both the City's badges and the drawer's queue read this one array, so a
- * class cannot exist in one place and not the other.
+ * The classes, in the order they rank. Both the City's badges and the drawer's queue read this one
+ * array, so a class cannot exist in one place and not the other.
+ *
+ * **B26 added the fifth, and it is the one B14 was missing rather than a new source.** A ledger tail
+ * hands a baton; a Felix-holder baton is the needs-you class by definition (D15) and the deck raised
+ * no badge and listed no item for it — *"an agent finished, handed a baton, and I can't see that
+ * anywhere or act on it anywhere in Belvedere"*. It ranks **with `waiting`** rather than under it:
+ * both are the city waiting on him, and two ranks would sort a handoff below a permission dialog
+ * from yesterday. Interleaved, recency inside — the standing law (README §3).
  */
-export const ATTENTION = ['waiting', 'gate', 'countersign', 'escalation'] as const;
+export const ATTENTION = ['waiting', 'baton', 'gate', 'countersign', 'escalation'] as const;
 export type Attention = (typeof ATTENTION)[number];
+
+/**
+ * An empty badge count, **derived from `ATTENTION` rather than written out**. Two hand-written
+ * copies of this literal is how the fifth class arrived: adding a word to the list above left them
+ * both short one key, and a badge shape missing a class is a City that cannot count it.
+ */
+export const noBadges = (): Record<Attention, number> =>
+	Object.fromEntries(ATTENTION.map(k => [k, 0])) as Record<Attention, number>;
 
 /**
  * Why a session cannot go on without Felix. **One measured edge** (P1 F1): `blocked` — a
@@ -957,9 +1022,15 @@ export type DeckBuilding = {
  * the client turns it into a row — so what can be answered in place is decided once, server-side,
  * where the files are.
  *
- * **Nothing in this shape can ignite.** There is no summons, no stamp, no account and no ignite body
- * anywhere in it (D10, and B14's own DoD): the two wires a queue item may carry are `POST /inbox`
- * (his word, a file append) and `POST /hands/focus` (his eyes, a jump).
+ * **Nothing in this shape can ignite.** There is no stamp, no account, no model, no cwd and no
+ * ignite body anywhere in it (D10, and B14's own DoD): the two wires a queue item may carry are
+ * `POST /inbox` (his word, a file append) and `POST /hands/focus` (his eyes, a jump).
+ *
+ * A baton item carries its instrument's **bytes** (`baton.options[].summons`) and that is not an
+ * exception to the rule: it is a quotation of a document, exactly what the Workshop already prints
+ * under a ledger tail, and `POST /hands/ignite` parses none of it. Handing it to the composer is the
+ * desk's own third route (B19) — one surface seeding another — and the composer's button, after his
+ * click, stays the only hand on this deck.
  */
 export type QueueItem = {
 	kind: Attention;
@@ -996,6 +1067,8 @@ export type QueueItem = {
 	/** countersign only — the D-id the gesture carries, and which of B6's three states it is in. */
 	decision: string | null;
 	state: Countersigned | null;
+	/** baton only — the ledger tail's own handoff, holder, shape and instruments (B26). */
+	baton: BatonWire | null;
 	/** One line saying honestly what this item can and cannot do from here. */
 	note: string;
 };
