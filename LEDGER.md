@@ -2412,3 +2412,37 @@ Baton — ⬡ → batch — ignite C22 (kickoff in
 [plans/22-summon-argv.md](plans/22-summon-argv.md)) · rule E1 (C29's status and
 C37's worth — the record in [plans/g2-c29-merge.md](plans/g2-c29-merge.md); C37's
 ignition rides the yes).
+
+---
+
+**2026-08-31 · Builder · opus-high (C37)** — **the removal arm landed: `lab/08/run` reads
+215 PASS · 0 failure(s).** C29's one surviving deliverable is on master. 13-F1's guard now
+proves the harness follows a `presets.tsv` row **deleted**, not only one added: `b builder`
+is stripped from a sandbox copy of the data file, the derivation re-read, and the panel
+rendered from it — the mantle row loses `● [b]uilder`, the derived bracket count falls
+22 where the addition arm sees 24, and an explicit `ITEMS_FULL` comparison asserts the
+count fell by exactly one (24 → 23). This is the arm C25's dispatcher retirement needed
+and did not have. The graft went in **verbatim** from the charge doc, including G2's one
+adaptation (`$(( $(items_expected) - 1 ))`, the selected mantle's furniture having
+brightened at `6724213`), and its four PASS lines came back byte-identical to the ones
+[G2](plans/g2-c29-merge.md) F4 pasted from its throwaway worktree — nothing had moved
+under it. `bv/c29-summon-harness` **deleted** at `f160ec1`; the branch was C29's last
+unlanded value and master now carries it (`6b795b5`). **One correction for the next
+reader (F2):** the spec's total was exact but its arithmetic was not — master's control
+reads **211**, not the 210 both this charge and G2 F4 wrote, and the arm adds **4** PASS
+lines, not 5 (`plain` asserts nothing). The two errors cancel at 215, so no arm was tuned
+to fit a number; the C29 board row's `210 green` is corrected in place. **Two field
+reports** to `ISSUES.md`, neither fixed: two dead branches (`worktree-agent-a5d3644…`,
+`worktree-agent-ab5d6a7…`) sit at `dac8b98` with nothing ahead of master and no worktree
+holding them; and `LEDGER.md:2402` heads `(GA-19, continued)`, which D63f reads as more
+than a row id — it arrived with `b232f05` mid-flight, so `lint ~/code/agents` now reads
+1 `ledger.row` where the agents building read `ok` at this charge's ignition. Decided:
+nothing. Next: the baton below.
+
+Baton — ⬡ → ignite C22 (kickoff verbatim in
+[plans/22-summon-argv.md](plans/22-summon-argv.md); its blessing was paid at `b232f05`
+and the rig is the primary line now the deck retires). Behind it, unordered and none of
+it blocking: BOARD.md's C37-alone batch note still wants an Architect's close line;
+`LEDGER.md:2402`'s parenthetical is his word to strike or D63f's to widen; the two dead
+`worktree-agent-*` pointers are free to delete. Belvedere's `ledger.next` stays that
+building's close-out, untouched here.
