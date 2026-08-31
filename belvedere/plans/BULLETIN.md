@@ -2571,3 +2571,74 @@ none weakened), barrage 1000 · 50 · 9/9, and the standing family whole with `b
 eighteenth. `/deck/state` p95 **280.2 ms** against the 500 ms bar, the bucket costing **0.09 ms** a
 snapshot and **16.5 kB** of a 78.6 kB payload (instrument text the drawer shows only on `[expand]` —
 if a later charge wants it back, `options[].summons` is the one field to fetch on demand).
+
+## → relay — B24 (his arrangement) to B27 and the G6 tender: the drawer's scrim is fixed for everyone, and three traps for anyone who drives a write from a pane
+
+Evidence: [b24-arrangement.md](b24-arrangement.md) §Done when and §Findings, `master`, commits
+`d16120f` · `bcaa97f` · `5044a8c` · `c577fe3` · `2acd9ec`.
+
+**What is new, so nobody writes against the old shape:** the City left `deck.client.ts` for
+**`glass/city.client.ts`** (Context's tenant: one mount, one signature, one draw, one listener set),
+its arrangement law is the pure, shared **`glass/spaces.ts`**, and its file is
+**`glass/arrangement.ts`** → `desk/city-arrangement.json` behind `POST /desk/arrangement` (a desk
+file: no credential gate, B6 F3's law, fourth venue). `DeckSnapshot` gained `arrangement`
+(`{spaces, his, error}`) — **5 889 B of a 70 239 B payload** on the live city, `/deck/state` p95
+**265.8 ms** against the 500 ms bar. Numbers for your own bar: `bun test` in `glass/` is **657 pass ·
+0 fail** (621 → 657).
+
+1. **B26 F6 is CLOSED and it was one line: `.app` no longer carries `z-index: 1`.** Every control an
+   open drawer draws is clickable again — the note box, `file it`, `bless D<n>`, `jump to pane`,
+   `chat`, `compose`/`copy`. `position: relative` stays (it makes no stacking context on its own).
+   **`probes/drawer-click.probe.ts` is standing**, it insists on the scrim being painted before it
+   clicks anything, and it was seen to fail with the line put back — Chrome's own log, verbatim:
+   `<div id="scrim" class="scrim"></div> intercepts pointer events`, ×19, then the timeout.
+   **B27: the two probes that pinned the drawer as a workaround now pin it as a choice** — the
+   comments in `chat-engine.probe.ts` and `baton.probe.ts` are rewritten, and nothing needs to avoid
+   an open drawer any more.
+
+2. **A probe that drives a write must assert the receipt, or it cannot tell a saved page from a
+   refused one.** The parse boundary's first cut spelled its legal id characters out as a list and
+   left `~` off; every derived group id in the live city is `g:~/code/<x>`, so `POST
+   /desk/arrangement` answered **400 to the entire tree**. The page looked perfect, because the
+   client had already drawn its own optimistic copy, and the live probe sailed through four
+   assertions before a missing file gave it away. Both probes now read
+   `[data-out-for="city:arrangement"]` after their first gesture, and the id rule is now what a
+   token must NOT be rather than which characters a building name happens to use today (F3).
+   **This binds every later pane that writes**: optimistic redraw + a receipt nobody reads is a
+   green probe over a dead wire.
+
+3. **Attention outranks HIS order, everywhere, and the surface has to say so.** The charge's own bar
+   settles the ambiguity — *"a quiet group holding the loudest building pins group ordering by
+   loudest member"* — so `spaces.arrange()` sorts siblings by rank first and by his order inside a
+   rank, at every level. The consequence is a drag that visibly does not land where he let go
+   whenever the two differ in rank, which reads as a broken control; so the drop **reports why**
+   (*"saved — `<name>` draws above it while it is louder"*) and the pane states the law at rest.
+   17 of the live city's 24 buildings share rank 1, so most drags move something. **B27's tweak
+   list may be asked to revisit this** — the file always keeps his order, so a ruling that his order
+   is absolute is a one-line change to the comparator and loses nothing already written (F2).
+
+4. **The camera now has `drag(from, to)`, and it refuses a drag it cannot honestly make.** Pointer
+   events, not HTML5 drag-and-drop — a `dragstart` payload is a negotiation with the OS no driver
+   can hold, which is why `city.client.ts` builds its drag on `pointerdown/move/up`. The verb
+   scrolls the drop target into view, reads both boxes, and **throws by name** when either end is
+   outside the viewport: `a drag needs both ends in the viewport at once: … at y=…`. The first live
+   run failed as an opaque selector timeout; the real answer was that a newly minted empty space
+   sinks to the bottom of a 24-building pane. **Anyone driving a drag on a scrolling pane inherits
+   this** (F9).
+
+Also for the **G6 tender**, not blocking: **the camera cannot drive a deck that writes the real
+desk**, so B24's live bar was paid in two runs — gestures against the real register in a twin, the
+real file written by a real Belvedere through the same route the drag posts to. `run` refuses
+`--port` (C17) and every twin redirects `DESK_DIR` (C17 F1); both rules are right alone, and
+together they close that door. Filed to [ISSUES](../ISSUES.md) as a contract question, not a
+workaround. And **Felix's own deck was live on :4477 throughout, running pre-B24 code** — it
+answers `404 no such desk action: arrangement`, it was never touched, and his arrangement reaches
+him on his next restart. This charge's own server ran on :4478 and was killed at the end (B8's
+D55-class leftover).
+
+And for **B27 §8**, not blocking: **C21 F4's legend token was ported forward with its defect on
+purpose** — the legend moved file whole and still draws `dot s-idle w-blocked`, a combination the
+deck never produces. It carries a comment saying it is yours. Also inherited unchanged for you:
+`ComposeDraft` still has no tier (B26 F9).
+
+(Relayed from `master`, B24 LANDED 2026-08-31 — Builder)
