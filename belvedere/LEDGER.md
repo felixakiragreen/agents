@@ -2934,3 +2934,36 @@ then the triple B23 ∥ B22 ∥ C20.
 
 Baton — the dispatch → ignite C22 (the tender session; the summons is C22's
 fenced kickoff + the coda, verbatim).
+
+---
+
+**2026-08-30 · Builder · sonnet-high (C22)** — the respell sweep landed: both
+forks applied. `ignite` one word everywhere — the `/hands/fire` route, every
+`Fire`/`Fired`/`FireBody`/`FireWire` type, `parseFire`/`attemptFire`/
+`fireArgs`/`sweepFire`, the `data-fire` attribute, the `RINGS`/CSS ring state,
+across 46 `glass/**`+`camera/**` files (354 → 28 `fire`-family hits, the 28
+all named exceptions: plain-engineering fires, one historical citation, the
+new audit-backward-compat test, and the protected `standard.test.ts`/
+`rail.test.ts` corpus fixtures) — `hands.jsonl`'s old `action: 'fire'` lines
+read back identical to fresh `'ignite'` ones, proved in `hands.test.ts`. The
+building calls itself **Belvedere**: "the glass"/"the deck" respelled to it
+wherever self-referential, in README §§1–5/the rework note/§7, the 8 live
+plans docs, and glass/** comments — kept where it names a specific past
+session, a frozen LANDED title, or the `glass-shatters test` term of art.
+`doctrine lint --vocab` (run as due diligence, off by default) surfaced
+`cut`/bare `the register`/`trued`/`drain`/`dispatchable`/a spelling drift
+the manual sweep's word-list missed; fixed wherever live, including the
+`re-cut 2026-08-30 at G5` boilerplate common to every rework charge's status
+line, now `re-laid` (matching C20/C21/C22/G6's own `laid`). Scope ruled at
+ignition per C23's own relay: the Parked appendices, the closed migration
+note and §8 are probe history, not live prose — named in findings, left to
+G6. Bar: `glass` suite 583/0, both type gates exit 0, `bun v3/gates.ts
+--glass` ALL GREEN (12 gates), `doctrine lint` unchanged at 0. Budget 0 real
+turns. Decided: nothing new — every respell cites STANDARD §9 or the fork
+ruling; the two-worktree-word / seam-cut / Felix-quote exceptions are named,
+not ruled. Next: the parallel triple — B23 ∥ B22 ∥ C20 (disjoint trees, the
+two-lane commit rule), an Architect tender at the batch boundary.
+
+Baton — the dispatch → ignite B23, B22, C20 (batch; each session's summons is
+its own fenced kickoff + the coda, verbatim; the tender convenes at the
+batch's close per the rework note).
