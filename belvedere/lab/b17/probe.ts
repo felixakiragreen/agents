@@ -35,6 +35,15 @@ const BUILDING = 'agents/belvedere';
 const VENUE = join(homedir(), 'code/agents');
 const INDUCED = 'builder-belvedere-77';                        // census only; in neither lineage log
 const ACCOUNT_DIR = join(homedir(), '.claude');                 // `personal`, the composer's default
+const HOME = 'belvedere';                                       // the workspace this building keeps (B22 §placement)
+
+/**
+ * `B17_INDUCE=throw` — the mid-run failure this probe's own cleanup is measured against (B22
+ * candidate 3). It mints a marker workspace with **no command**, so no session is spawned and no
+ * quota is spent, hands it to `shut()`'s own bookkeeping, and throws. A run in this mode must end
+ * with the marker closed and the temp tree gone: the `finally` is what is under test, not the deck.
+ */
+const INDUCE = process.env.B17_INDUCE ?? '';
 
 const ROOT = mkdtempSync(join(tmpdir(), 'b17-probe-'));
 const CENSUS = join(ROOT, 'census.jsonl');
@@ -88,9 +97,18 @@ const chrome = Bun.spawn([CHROME,
 ], { stdout: 'pipe', stderr: 'pipe' });
 
 let workspaceId: string | null = null;
+let surfaceId: string | null = null;
 
-/** Leave nothing behind (D55): the probe's workspace closed, the temp tree gone. */
+/**
+ * Leave nothing behind (D55): the temp tree gone, and **exactly what this probe made** closed.
+ *
+ * The two are not the same gesture any more. An ignition that MINTED a workspace leaves a workspace
+ * to close; one that LANDED in the workspace Felix keeps for the building leaves a tab — and closing
+ * that workspace would take his other panes with it. So the surface is closed where there is one,
+ * and the workspace only where the probe made it (B22 §placement, B25 §3).
+ */
 async function shut(): Promise<void> {
+	if (surfaceId) console.log(`\n# closing tab ${surfaceId}: ${(await cmux('close-surface', '--surface', surfaceId)).out}`);
 	if (workspaceId) console.log(`\n# closing ${workspaceId}: ${(await cmux('workspace', 'close', workspaceId)).out}`);
 	chrome.kill();
 	glass.kill();
@@ -106,9 +124,18 @@ async function cmux(...args: string[]): Promise<{ code: number; out: string }> {
 	return { code: await p.exited, out: (out + err).trim() };
 }
 
-type WS = { id: string; ref: string; title: string; custom_color: string | null };
+type WS = { id: string; ref: string; title: string; custom_color: string | null; current_directory?: string | null };
 const workspaces = async (): Promise<WS[]> =>
 	(JSON.parse((await cmux('workspace', 'list', '--json')).out) as { workspaces: WS[] }).workspaces;
+
+/** One workspace's tabs, by uuid — `list-pane-surfaces --id-format both`, read the way the hand reads it. */
+async function panes(workspace: string): Promise<{ uuid: string; title: string }[]> {
+	const out = (await cmux('list-pane-surfaces', '--workspace', workspace, '--id-format', 'both')).out;
+	return out.split('\n')
+		.map(l => l.match(/\bsurface:\d+\s+([0-9A-Fa-f-]{36})\s+(.*?)(?:\s+\[selected\])?\s*$/))
+		.filter((m): m is RegExpMatchArray => m !== null)
+		.map(m => ({ uuid: m[1]!, title: m[2]!.trim() }));
+}
 
 // ---------- the DevTools wire (B13's, unchanged) ----------
 
@@ -199,6 +226,16 @@ async function type(knob: string, value: string, settled: (c: Card) => boolean):
 try {
 
 await until('the glass', async () => yes((await fetch(DECK)).ok), 90_000);
+
+// The induced mid-run failure (B22 candidate 3): a marker workspace with no command — no session,
+// no quota — handed to the cleanup's bookkeeping, then a throw. What is under test is the `finally`.
+if (INDUCE === 'throw') {
+	const made = await cmux('workspace', 'create', '--name', 'b17-induced-failure', '--cwd', '/tmp', '--focus', 'false');
+	const ref = made.out.match(/\bworkspace:\d+\b/)?.[0] ?? '';
+	workspaceId = (await workspaces()).find(w => w.ref === ref)?.id ?? null;
+	console.log(`# B17_INDUCE=throw — holding ${ref} / ${workspaceId}; throwing now`);
+	throw new Error('induced mid-run failure — the workspace above must be closed by shut() in `finally`');
+}
 await attach();
 await until('the first poll', async () => yes(await evaluate<boolean>(`!!document.querySelector('#live-count')`)));
 
@@ -242,18 +279,57 @@ await until('the composer\'s own usage fetch', async () => yes(await evaluate<bo
 
 const rig = Bun.spawnSync(['zsh', '-c', `source ${join(homedir(), 'code/agents/summon/summon.zsh')} 2>/dev/null; summon-usage`],
 	{ stdout: 'pipe', stderr: 'pipe' });
-const rigCells = [...new TextDecoder().decode(rig.stdout).matchAll(/\b(sess|week|fable)\s+(-?\d+)%([+-]\d+)/g)]
-	.map(m => `${m[1]} ${m[2]}% ${m[3]}`);
+
+/**
+ * **Compare per (account, bucket)** — B11 F8 + B16's addendum, ruled at G2, paid at B22.
+ *
+ * The comparison this replaces flattened both sides into nine ordered strings and joined them, so
+ * what it actually asserted was *"the rig prints accounts and buckets in the deck's order"* — a
+ * match by position, across accounts. Two ways that lies, and one of them is live today:
+ *
+ *  · **A null cell disappears.** The rig prints `sess —` for an account with no session window
+ *    open (measured on `thg-doorbell` at this row), and a regex demanding `\d+%` skips it — eight
+ *    cells against the deck's nine, so the check fails for a reason that is not disagreement.
+ *  · **A reorder pairs the wrong account with the wrong number.** Nothing pins either side's
+ *    ordering, and a usage figure attributed to the wrong silo is worse than no figure at all.
+ *
+ * So both sides are read into `account bucket → value` maps and compared key by key; a key present
+ * on one side and absent on the other is a difference the report names rather than a length that
+ * happens not to match.
+ */
+const rigOut = new TextDecoder().decode(rig.stdout);
+const rigAccounts = new Map<string, string>();                      // "0" → "personal"
+for (const m of rigOut.matchAll(/^\s*fetched\s+(\d+)\s+(\S+)\s*$/gm)) rigAccounts.set(m[1]!, m[2]!);
+
+const cell = (pct: number | null, delta: number | null) =>
+	`${pct === null ? '—' : `${pct}%`}${delta === null ? '' : `${delta >= 0 ? '+' : ''}${delta}`}`;
+
+const rigCells = new Map<string, string>();
+for (const line of rigOut.split('\n')) {
+	const at = line.match(/^\s*(?:usage\s+)?(\d+)\s+(?:sess|week|fable)\b/);
+	if (!at) continue;
+	const account = rigAccounts.get(at[1]!);
+	if (account === undefined) continue;
+	for (const m of line.matchAll(/(sess|week|fable)\s+(—|-?\d+%)(?:\s*([+-]\d+))?/g))
+		rigCells.set(`${account} ${m[1]}`, `${m[2]}${m[3] ?? ''}`);
+}
 
 const deckUsage = await (await fetch(`${ORIGIN}/deck/usage`)).json() as
 	{ account: string; source: string; ageSeconds: number | null; error: string | null; cells: { bucket: string; pct: number | null; delta: number | null }[] }[];
-const deckCells = deckUsage.flatMap(u => u.cells.map(c => `${c.bucket} ${c.pct}% ${c.delta! >= 0 ? '+' : ''}${c.delta}`));
+const deckCells = new Map<string, string>();
+for (const u of deckUsage) for (const c of u.cells) deckCells.set(`${u.account} ${c.bucket}`, cell(c.pct, c.delta));
 
-ok('usage is LIVE ×3 accounts and matches the rig\'s own `_summon_usage_delta` — 9 of 9 cells',
+const cellKeys = [...new Set([...rigCells.keys(), ...deckCells.keys()])].sort();
+const disagree = cellKeys.filter(k => rigCells.get(k) !== deckCells.get(k));
+const show = (m: Map<string, string>) => cellKeys.map(k => `${k} ${m.get(k) ?? 'ABSENT'}`).join(' | ');
+
+ok('usage is LIVE ×3 accounts and matches the rig\'s own `_summon_usage_delta` — per (account, bucket), 9 of 9',
 	deckUsage.length === 3 && deckUsage.every(u => u.source === 'live')
-	&& rigCells.length === 9 && deckCells.length === 9 && rigCells.join(' | ') === deckCells.join(' | '),
-	`rig  (summon-usage, its own keychain read and its own fetch): ${rigCells.join(' | ')}\n`
-	+ `      deck (its own, ${deckUsage.map(u => Math.round(u.ageSeconds ?? -1) + 's').join('/')} before this line): ${deckCells.join(' | ')}\n`
+	&& cellKeys.length === 9 && disagree.length === 0,
+	`keys compared (${cellKeys.length}, the union of both sides): ${cellKeys.join(', ')}\n`
+	+ `      rig  (summon-usage, its own keychain read and its own fetch): ${show(rigCells)}\n`
+	+ `      deck (its own, ${deckUsage.map(u => Math.round(u.ageSeconds ?? -1) + 's').join('/')} before this line): ${show(deckCells)}\n`
+	+ `      disagreements: ${disagree.length === 0 ? 'none' : disagree.map(k => `${k}: rig ${rigCells.get(k) ?? 'ABSENT'} vs deck ${deckCells.get(k) ?? 'ABSENT'}`).join(' · ')}\n`
 	+ `      sources: ${deckUsage.map(u => `${u.account} ${u.source}`).join(' · ')} — not one of these came off a cache file`);
 
 const shown = await evaluate<{ lines: string[]; chips: string[] }>(`(() => ({
@@ -383,7 +459,7 @@ ok('the round trip is a gesture\'s price, not a clock\'s — and `/deck/state` i
 	`POST /deck/compose (N=12): p50 ${times[6]!.toFixed(0)} ms · p95 ${times[Math.floor(times.length * 0.95)]!.toFixed(0)} ms · max ${times.at(-1)!.toFixed(0)} ms\n`
 	+ `      /deck/state?b= is ${stateBody.length} B and still carries the Works' bill off the held copy — no fetch on the poll`);
 
-// --- 9. one live fire, byte-exact, coloured per the map, named per the building ---
+// --- 9. one live ignition, byte-exact, landing in the workspace Felix keeps for this building ---
 
 await move('mantle', 'Builder', c => c.stamp.startsWith('builder-belvedere-'));
 await move('account', 'personal', c => c.account === 'personal');
@@ -397,15 +473,45 @@ const previewed = await evaluate<string>(`document.querySelector('#host-action t
 const pageSha = sha16(previewed);
 const before9 = Date.now();
 
+// The home as it stands BEFORE the ignition: B22's placement bar is that this ignition joins it
+// rather than opening a sixteenth workspace beside it, so the count is taken first.
+const allBefore = await workspaces();
+const countBefore = allBefore.length;
+const homesBefore = allBefore.filter(w => w.title === HOME);
+
 await evaluate(`document.querySelector('#host-action button.go').click()`);
-const receipt = await until('the fire\'s receipt', async () => {
+const receipt = await until('the ignition\'s receipt', async () => {
 	const c = await card();
-	return c && /^fired /.test(c.out) ? c.out : null;
+	return c && /^ignited /.test(c.out) ? c.out : null;
 }, 60_000);
 
-const ref = receipt.match(/^fired (\S+)/)?.[1] ?? '';
-const named = (await workspaces()).find(w => w.ref === ref) ?? null;
-workspaceId = named?.id ?? null;                                // by uuid from here on (P6 F2)
+// The receipt names the landing: `ignited <home> <workspace-uuid> · tab <surface-uuid> · …` on a
+// landing, `ignited minted <home> <workspace-uuid> · …` on a mint (B22 §placement).
+const wsUuid = receipt.match(/\b([0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12})\b/i)?.[1] ?? '';
+const sfUuid = receipt.match(/\btab ([0-9A-F-]{36})\b/i)?.[1] ?? null;
+const after9 = await workspaces();
+const named = after9.find(w => w.id === wsUuid) ?? null;
+// **The cleanup follows the landing.** A surface this probe added to a workspace of Felix's is
+// closed; his workspace is not. Only a workspace the probe MINTED is ever closed (D55, B25 §3).
+surfaceId = sfUuid;
+workspaceId = sfUuid === null ? (named?.id ?? null) : null;
+
+const tabs = await panes(wsUuid);
+
+ok('placement: the ignition landed in the `belvedere` workspace Felix already keeps — by uuid, no mint (B22 candidate 6)',
+	homesBefore.length === 1 && named !== null && named.id === homesBefore[0]!.id
+	&& sfUuid !== null && after9.filter(w => w.title === HOME).length === 1
+	&& tabs.some(t => t.uuid === sfUuid && t.title === armed.stamp),
+	`before        : ${homesBefore.length} workspace(s) named "${HOME}" — ${homesBefore.map(w => `${w.ref}/${w.id}`).join(', ') || 'none'}\n`
+	+ `      receipt       : ${receipt}\n`
+	+ `      landed in     : ${named?.ref} / ${named?.id} "${named?.title}" (cwd ${named?.current_directory ?? '—'})\n`
+	+ `      as tab        : ${sfUuid} named "${tabs.find(t => t.uuid === sfUuid)?.title ?? '—'}" — the workspace wears the building, the tab wears the stamp\n`
+	+ `      after         : ${after9.filter(w => w.title === HOME).length} workspace(s) named "${HOME}", ${after9.length} workspaces in total (was ${countBefore})\n`
+	+ `      every id above is a uuid: the receipt carries no \`workspace:N\` (P6 F2, the UUID law)`);
+
+ok('the receipt is uuid-only — no ref past the breath that made it (B22 candidate 2)',
+	!/\b(?:workspace|surface|pane):\d+\b/.test(receipt),
+	`receipt: ${receipt}\n      searched for \`workspace:N\`/\`surface:N\`/\`pane:N\` and found none`);
 
 // The transcript this account wrote for that venue, newest first — the first user turn is the summons.
 const projects = join(ACCOUNT_DIR, 'projects', VENUE.replace(/[/_]/g, '-'));
@@ -422,25 +528,38 @@ const transcript = await until('the session\'s transcript', async () => {
 	return null;
 }, 90_000);
 
-ok('one live fire, end to end: the previewed bytes ARE the fired bytes ARE the first user turn',
-	sha16(transcript.content) === pageSha && receipt.includes(pageSha) && armed.sha === pageSha
-	&& armed.stamp === 'builder-belvedere-78' && named?.title === 'builder-belvedere-78'
-	&& (named?.custom_color ?? '').toLowerCase() === '#0362b2',
+ok('one live ignition, end to end: the previewed bytes ARE the ignited bytes ARE the first user turn',
+	sha16(transcript.content) === pageSha && receipt.includes(pageSha) && armed.sha === pageSha,
 	`in the box on screen  : ${Buffer.byteLength(previewed)} B · sha256 ${pageSha}\n`
 	+ `      the card's own claim  : ${armed.bytes} B · sha256 ${armed.sha}\n`
 	+ `      the hands' receipt    : ${receipt}\n`
 	+ `      the transcript's turn : ${Buffer.byteLength(transcript.content)} B · sha256 ${sha16(transcript.content)} · ${transcript.file}\n`
-	+ `      cmux says             : ref ${ref} · uuid ${named?.id} · title "${named?.title}" · color ${named?.custom_color}\n`
-	+ `      the map says Builder is felikai blue #0362b2 (B18 F1's table), and the socket took it verbatim`);
+	+ `      the stamp it wore     : ${armed.stamp}`);
+
+// The audit is where the ignition's knowledge of the building survives — it is half of the housing
+// join, and a line without `building` houses the session by its cwd forever (B22 §the ignited-for join).
+const auditLines = readFileSync(join(ROOT, 'hands.jsonl'), 'utf8').trim().split('\n')
+	.map(l => JSON.parse(l) as { action: string; ok: boolean; args: Record<string, unknown>; result: unknown });
+const ignition = auditLines.find(l => l.action === 'ignite' && l.ok) ?? null;
+const igResult = ignition?.result as { workspace?: string; minted?: boolean; home?: string; surface?: string } | undefined;
+ok('the audit records the building it ignited FOR, and the uuids it drove (B22 candidates 2 + 6)',
+	ignition !== null && ignition.args['building'] === BUILDING && ignition.args['stamp'] === armed.stamp
+	&& igResult?.workspace === wsUuid && igResult.minted === false && igResult.home === HOME
+	&& !JSON.stringify(auditLines).match(/\b(?:workspace|surface|pane):\d+\b/),
+	`audit line    : ${JSON.stringify(ignition)}\n`
+	+ `      the join it makes: stamp "${armed.stamp}" → building "${ignition?.args['building']}" (the census will read that stamp off the transcript)\n`
+	+ `      refs anywhere in the whole audit (${auditLines.length} lines): ${(JSON.stringify(auditLines).match(/\b(?:workspace|surface|pane):\d+\b/g) ?? ['none']).join(', ')}`);
 
 // The ordinal it just spent is gone: the next mint has to move, or two sessions share one handle.
+const spent = armed.stamp;
+const nextOrdinal = String(Number(spent.slice(-2)) + 1).padStart(2, '0');
 const after = await until('the next stamp', async () => {
 	const c = await card();
-	return c && c.stamp !== 'builder-belvedere-78' ? c.stamp : null;
+	return c && c.stamp !== spent ? c.stamp : null;
 }, 20_000);
 ok('the stamp it spent is spent — the next mint moves on rather than handing the name out twice',
-	after === 'builder-belvedere-79',
-	`fired builder-belvedere-78, and the composer now previews ${after} (the audit it just wrote is the fourth reader of the lineage)`);
+	after === spent.slice(0, -2) + nextOrdinal,
+	`ignited ${spent}, and the composer now previews ${after} (the audit it just wrote is the fourth reader of the lineage)`);
 
 }
 catch (e) {

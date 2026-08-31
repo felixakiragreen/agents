@@ -138,15 +138,23 @@ async function doIgnite(): Promise<void> {
 			body.cwd = cut.result.path;
 			say('composer', `worktree ${cut.result.path} · igniting…`);
 		}
-		const r = await post<{ ok: boolean; error?: string; result?: { workspace: string; sha: string | null; bytes: number } }>(
-			'/hands/ignite', body);
+		const r = await post<{ ok: boolean; error?: string; result?: {
+			workspace: string; minted: boolean; home: string | null; surface: string | null;
+			sha: string | null; bytes: number;
+		} }>('/hands/ignite', body);
 		if (!r.ok || !r.result) return say('composer', `refused — ${r.error ?? 'no result'}`);
 		const same = r.result.sha === p.sha;
+		// Where it landed, in the receipt: a session that joined the workspace Felix keeps for this
+		// building reads differently from one that opened a new one, and he should not have to go
+		// look (B22 §placement).
+		const where = r.result.minted
+			? `${r.result.home ? `minted ${r.result.home}` : 'new workspace'} ${r.result.workspace}`
+			: `${r.result.home} ${r.result.workspace} · tab ${r.result.surface}`;
 		// A stalled ignition is a stalled ignition: a cold venue opens a workspace and stops at the trust
 		// dialog, so it must never read as a session that started (B7's amendment).
 		say('composer', p.trust && !p.trust.warm
-			? `opened ${r.result.workspace} · WAITING on Claude's folder-trust prompt — jump in and answer it; nothing has been read`
-			: `ignited ${r.result.workspace} · ${body.stamp} · ${r.result.bytes} B · sha ${r.result.sha}`
+			? `opened ${where} · WAITING on Claude's folder-trust prompt — jump in and answer it; nothing has been read`
+			: `ignited ${where} · ${body.stamp} · ${r.result.bytes} B · sha ${r.result.sha}`
 				+ ` · ${same ? 'identical to the previewed bytes' : `DIFFERS from the previewed ${p.sha}`}`);
 		// *"Summoning swaps in the Chat"* (keel §3, B16 §1). An ignition answers a workspace and **no
 		// session id** (B11 F2), so what is handed over is the name-stamp — the Chat waits for the
