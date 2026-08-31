@@ -1,6 +1,6 @@
 # C37 — the removal arm
 
-**Status:** OPEN — laid 2026-08-31 (G2) · **Depends on:** — · **Staffing:** Builder · opus-high ·
+**Status:** LANDED 2026-08-31 — laid 2026-08-31 (G2) · **Depends on:** — · **Staffing:** Builder · opus-high ·
 **Parallel-safe with:** C36 (disjoint files: `lab/08/` vs `doctrine/`)
 
 ## Mission
@@ -68,11 +68,31 @@ what moved is the finding.
 
 ## Done when:
 
-- [ ] `./lab/08/run` → **215 PASS · 0 failure(s)**, pasted (master's 210 + this arm's 5).
-- [ ] The four PASS lines of the arm itself pasted.
-- [ ] `bv/c29-summon-harness` deleted — its last live value is now on master. Record the
-      sha (`f160ec1`) in the findings before deleting; the board row keeps it too.
-- [ ] BOARD.md: C37 row reconciled; the C29 row's "removal arm → C37" clause struck with
+- [x] `./lab/08/run` → **215 PASS · 0 failure(s)**, pasted (master's 211 + this arm's 4 —
+      see F2; the total the spec named is exact, its decomposition was off by one).
+
+```
+$ ./lab/08/run 2>&1 | tee run.txt | tail -1
+0 failure(s)
+$ grep -c '^  PASS' run.txt
+215
+```
+
+- [x] The four PASS lines of the arm itself pasted.
+
+```
+--- 13-F1: the harness follows presets.tsv, it does not remember it ---
+  PASS  a preset added to the data file lands in the row the harness derived from it (1)
+  PASS  and the bracket count follows the data too — one per item, derived (bar the selected mantle) (24)
+  PASS  ...which is the scratch preset appearing in both
+  PASS  a preset deleted from the data file leaves the row the harness derived from it (1)
+  PASS  and the bracket count follows it down — one per item, derived (bar the selected mantle) (22)
+  PASS  ...which is the deleted preset gone from the row (0)
+  PASS  the derived count fell by exactly one with the row (24 → 23)
+```
+
+- [x] `bv/c29-summon-harness` deleted at `f160ec10b2d42cfa86a1c7d2e5a9a6d1dadd0e19` — F3.
+- [x] BOARD.md: C37 row reconciled; the C29 row's "removal arm → C37" clause struck with
       a dated note.
 
 ## Out of scope
@@ -85,8 +105,47 @@ what moved is the finding.
 
 ## Findings
 
-*(append here — evidence-grade: every claim carries the command and output that
-proved it)*
+**F1 — the graft landed verbatim and reproduced G2's number exactly.** Inserted into
+`lab/08/run` immediately after the addition arm's last line, before the rig restore, with
+no edit to the block the spec named — including the one adaptation
+(`$(( $(items_expected) - 1 ))`). Commit `6b795b5`. The run at master `b232f05`:
+
+```
+$ ./lab/08/run 2>&1 | tee run.txt | tail -1
+0 failure(s)
+$ grep -c '^  PASS' run.txt
+215
+```
+
+The arm's own four lines are byte-identical to the ones G2 F4 pasted from its throwaway
+worktree — same counts (1 · 22 · 0 · 24 → 23), so nothing moved under the graft between
+`67d73be` and here.
+
+**F2 — the spec's total was right; its decomposition was off by one, in both docs.**
+`215 PASS` is exact. But "master's 210 + this arm's 5" (this charge's `Done when:`, from
+G2 F4's "Master 210 + 5") is wrong on both halves. Master's control, measured before the
+graft:
+
+```
+$ git log --oneline -1
+b9b2d76 E1 ruled: C29 closes, G2 rejected, C37 ignited; C36 verified at the desk
+$ ./lab/08/run 2>&1 | grep -c '^  PASS'
+211
+```
+
+211, not 210 — and `6724213`'s own commit message says `211 green`, so master has read 211
+since 2026-08-24. The arm contributes **4** PASS lines, not 5 (`line` · `count` · `count`
+· the `ITEMS_FULL` comparison; `plain` asserts nothing). 211 + 4 = 215. Both errors are
+in prose only, and they cancel — the number the spec made load-bearing held, so this is a
+note for the reader, not a stop. **No harness arm was tuned.**
+
+**F3 — `bv/c29-summon-harness` deleted at `f160ec10b2d42cfa86a1c7d2e5a9a6d1dadd0e19`.**
+Its last unlanded value, the removal arm, is now on master at `6b795b5`. The sha is
+recorded here and on the C29 board row; the branch existed nowhere else (`git worktree
+list` showed one worktree, master's).
+
+**F4 — c29's typed-literals arm is still unbuilt and still unclaimed.** Untouched here
+per Out of scope; it remains a finding for the next charge that opens `lab/08`.
 
 ---
 

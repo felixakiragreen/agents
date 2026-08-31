@@ -23,3 +23,10 @@ is cleared). A cleared inbox is empty.
   Belvedere is retiring; whoever salvages the v3 engine inherits it.
   **Ruled 2026-08-31 (G2's Architect): routed, not swept** — same reason as the first entry;
   it is the v3 salvage's inheritance, named on row 15.
+- 2026-08-31 · C37's Builder · two dead branches sit in this repo: `worktree-agent-a5d364479e11b926c`
+  and `worktree-agent-ab5d6a7b087aef903`, both at `dac8b98` (GA-08's close) with `git log
+  master..<branch>` empty — no worktree holds either (`git worktree list` shows master alone).
+  Zero unique content, so deleting them loses nothing; seen while deleting `bv/c29-summon-harness`
+  and left alone as beyond this charge's fence. Note: 18g's `worktree-agent-a55279e2283f84743`
+  is a different branch and is **not** in this repo's list — that pointer, named unmerged on
+  18g's row, appears already gone.
