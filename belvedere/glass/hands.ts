@@ -479,15 +479,21 @@ async function land(req: Ignite, password: string, command: string, workspace: s
 
 	// The workspace wears the building's name, so the tab wears the stamp: without it the session
 	// is a pane called "Terminal" in a workspace holding several, which is one Felix cannot find.
-	const named = await cmux(password, LIMITS.commandMs, 'rename-tab', '--surface', surface, workspaceName(req));
+	//
+	// **Every surface-addressed call names its workspace** — B18 F1's law, re-measured here: a
+	// surface handle is resolved *inside one workspace*, and with `--workspace` omitted cmux looks
+	// in the caller's, then the selected one. This probe's first run failed exactly there
+	// (`rename-tab … → not_found: Workspace not found`, against a uuid that plainly existed), and
+	// the same omission on `send` would have typed a launch line into whatever Felix was looking at.
+	const named = await cmux(password, LIMITS.commandMs, 'rename-tab', '--workspace', workspace, '--surface', surface, workspaceName(req));
 	if (!named.ok) return shed(password, surface, workspace, `rename-tab failed: ${named.error}`);
 
-	const ready = await shellReady(password, surface);
+	const ready = await shellReady(password, workspace, surface);
 	if (!ready.ok) return shed(password, surface, workspace, ready.error);
 
-	const typed = await cmux(password, LIMITS.commandMs, 'send', '--surface', surface, command);
+	const typed = await cmux(password, LIMITS.commandMs, 'send', '--workspace', workspace, '--surface', surface, command);
 	if (!typed.ok) return shed(password, surface, workspace, `send failed: ${typed.error}`);
-	const entered = await cmux(password, LIMITS.commandMs, 'send-key', '--surface', surface, 'Enter');
+	const entered = await cmux(password, LIMITS.commandMs, 'send-key', '--workspace', workspace, '--surface', surface, 'Enter');
 	// Past the Enter there is a live session in Felix's workspace: closing the surface would kill it,
 	// so a failed receipt is reported with the surface named, never unwound.
 	if (!entered.ok) return fail(`the launch line is typed into ${surface} but Enter was refused (${entered.error}) — press it by hand`);
@@ -496,9 +502,9 @@ async function land(req: Ignite, password: string, command: string, workspace: s
 }
 
 /** A shell that has printed anything at all is a shell that can be typed at. Bounded, and it says so. */
-async function shellReady(password: string, surface: string): Promise<Outcome<string>> {
+async function shellReady(password: string, workspace: string, surface: string): Promise<Outcome<string>> {
 	for (let waited = 0; waited < LIMITS.shellMs; waited += 200) {
-		const seen = await cmux(password, 5_000, 'read-screen', '--surface', surface, '--lines', '4');
+		const seen = await cmux(password, 5_000, 'read-screen', '--workspace', workspace, '--surface', surface, '--lines', '4');
 		if (seen.ok && seen.result.trim() !== '') return seen;
 		await Bun.sleep(200);
 	}
