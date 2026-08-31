@@ -47,8 +47,16 @@ body.deck {
 
 /* --- the three panes --- */
 
+/* **No `z-index` here** (B26 F6, fixed at B24's first act). `.app` used to carry `z-index: 1`,
+   which made it a stacking context — so the drawer's `z-index: 30` was scoped *inside* it while
+   `#scrim` is a root-level sibling at `20`, and the scrim therefore painted over the whole app,
+   drawer included. Chrome's hit test said so: every control an OPEN drawer draws — the note box,
+   `file it`, `bless D<n>`, `jump to pane`, `chat`, `compose`/`copy` — was unclickable, and two
+   probes worked around it by pinning instead. `position: relative` stays: it is the positioning
+   parent for anything a pane places against the app, and on its own it makes no stacking context.
+   `probes/drawer-click.probe.ts` is the standing gate. */
 .deck .app {
-	position: relative; z-index: 1;
+	position: relative;
 	display: grid;
 	gap: 1px;
 	min-height: 0;                          /* a grid row that can shrink is a row that cannot scroll */

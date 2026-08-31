@@ -30,11 +30,9 @@ const FORK = 'B1';       // beta  — "ignite B2 or ignite B3 — the fork is ex
 const item = (id: string) => `#host-drawer .qi[data-kind="baton"]:has(.qname:has-text("${id}"))`;
 
 export default async function (p: Probe): Promise<void> {
-	// **Pinned, not merely open** — C16's probe found the same wall and worked around it the same way,
-	// and this charge measured the cause: `.app` is `position: relative; z-index: 1`, which is a
-	// stacking context, so the drawer's `z-index: 30` is local to it while `#scrim` is a root-level
-	// sibling at 20 — the scrim paints over the whole app, drawer included, and Chrome's own
-	// `elementFromPoint` says so (findings E1). Pinned draws no scrim and is the state Felix reads in.
+	// Pinned: the state Felix reads a baton in, with the City still beside it. (B26 F6's scrim wall is
+	// gone — B24 dropped `z-index: 1` from `.app` and `probes/drawer-click.probe.ts` stands over it —
+	// so this is a choice about what to photograph, no longer a workaround.)
 	// One load first: `localStorage` belongs to an origin, and a page has to exist to have one (C17 F5).
 	await p.goto('/deck');
 	await p.remember('belvedere.deck.layout', { context: 'typical', focus: 'minimal', action: 'minimal', drawer: 'pinned' });

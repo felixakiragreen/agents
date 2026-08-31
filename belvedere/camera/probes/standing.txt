@@ -31,6 +31,7 @@
 
 city.probe.ts
 building.probe.ts
+drawer-click.probe.ts
 fixture-rail.probe.ts
 fixture-building.probe.ts
 fixture-broken.probe.ts

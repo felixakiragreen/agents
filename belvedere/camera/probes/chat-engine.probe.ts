@@ -39,8 +39,9 @@ export default async function (p: Probe): Promise<void> {
 		if (item.chat !== run.sessionId) throw new Error(`the queue item opens on ${item.chat}, not the step's session`);
 		if (item.sid !== null) throw new Error(`a headless step offers a pane jump to ${item.sid} — there is no pane`);
 
-		// Pinned rather than merely open: an overlaying drawer puts its scrim between the pointer and
-		// the button, and a probe fighting a scrim is a probe measuring the wrong thing.
+		// Pinned rather than merely open: the drawer keeps a track of its own, so the shot carries the
+		// queue item and the Chat it opens side by side. (Until B24 this was a workaround — the scrim
+		// intercepted every click in an open drawer, B26 F6.)
 		const button = `#host-drawer [data-chat-sid="${run.sessionId}"]`;
 		await p.scroll(button);
 		const queueShot = await p.shoot('chat-engine-queue');
