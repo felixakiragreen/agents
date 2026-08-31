@@ -23,6 +23,11 @@
 # gate's first whole-family run for exactly that (B23 F12). It stays a committed probe and a fine
 # thing to run by hand against the real city; making it standing is a re-lay of C15's own probe and
 # is not this charge's to make.
+#
+# B26 kept a second one out by the same rule: `baton-real.probe.ts` reads the city's own ledgers and
+# the engine's telemetry root — two trees other processes write — because the states it measures (a
+# ledger fence handed under a D10 collision, a landed run's terminal node) exist only in the real
+# corpus. `baton.probe.ts` is that charge's hermetic half, and it is the one that stands.
 
 city.probe.ts
 building.probe.ts
@@ -40,3 +45,4 @@ chat-composer.probe.ts
 chat-engine.probe.ts
 chat-works.probe.ts
 chat-scroll.probe.ts
+baton.probe.ts
