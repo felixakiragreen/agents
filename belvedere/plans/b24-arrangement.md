@@ -216,7 +216,12 @@ FRACTURED ×2
   B14's rewrite. Fixed by clustering first — and through the same renderer his
   own arrangement uses, so the default view and his view cannot drift apart.
   Measured after, in Chrome against the real register: `groups 5 · rows 24`.
-  Pinned in `spaces.test.ts` §the register's own neighborhoods.
+  **Pinned as law, not as a fixture, and that is deliberate**: the seeded
+  city's three buildings each carry a distinct label, so no interleaving can
+  fracture it there and a fixture probe would gate nothing. The regression is
+  `spaces.test.ts` §the register's own neighborhoods — *"one section per label,
+  however the attention order interleaves them"* — which is the exact shape the
+  live city has and the fixture cannot make.
 
 - [x] **`git status` after the live run: `desk/` and nothing else; zero
   `<select>`; page scroll 0 px with a 3-deep nest expanded; legend names the
