@@ -9,7 +9,7 @@
 // what it proved the second time it runs (B8 F1's lesson, applied before it bites).
 
 import { expect, test, describe, afterAll, beforeAll } from 'bun:test';
-import { mkdtempSync, rmSync, utimesSync, statSync, readFileSync } from 'fs';
+import { mkdirSync, mkdtempSync, rmSync, utimesSync, statSync, readFileSync, writeFileSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
 import { discover, type Building } from '../../doctrine';
@@ -258,4 +258,188 @@ test('a blessing answered in place is one append, and the item re-reads itself a
 	const again = needsYou(walk(), []).find(i => i.kind === 'countersign')!;
 	expect(again.state).toBe('recorded');
 	expect(again.note).toContain('next sweep');
+});
+
+// ---------- the baton bucket (B26) ----------
+//
+// A purpose-built corpus, because the b14 city carries no ledger at all: the bucket is a reading of
+// a ledger TAIL, and every branch of it — the three holders, the fork, the collision, the resolve's
+// refusal — is a different clause. Five buildings, five clauses, one substitution apart from each
+// other so a difference in what the queue says can only be the clause.
+
+const BATON_ROOT = mkdtempSync(join(tmpdir(), 'b26-batons-'));
+
+/** The smallest building the register accepts: a board with one row, and a tail that hands it on. */
+function batonBuilding(name: string, next: string, opts: { workDoc?: boolean; fence?: boolean } = {}): void {
+	const dir = join(BATON_ROOT, name);
+	mkdirSync(join(dir, 'plans'), { recursive: true });
+	writeFileSync(join(dir, 'README.md'), `# ${name}
+
+## 6. The board
+
+| ID | Work | Depends on | Staffing | Status |
+|---|---|---|---|---|
+| R1 | ${opts.workDoc === false ? 'The doc-less one' : `[The first](plans/r1.md)`} — one row to point at | — | Builder · opus-high | OPEN |
+| R2 | [The second](plans/r2.md) — the other half of a fork | — | Digger · sonnet-high | OPEN |
+`);
+	writeFileSync(join(dir, 'LEDGER.md'), `# Ledger — ${name}
+
+---
+
+**2026-08-29 · Builder · opus-high (R0)** — the fixture's own tail. Decided: nothing. Next: ${next}
+`);
+	for (const [row, mantle, tier] of [['r1', 'Builder', 'opus-high'], ['r2', 'Digger', 'sonnet-high']] as const)
+		writeFileSync(join(dir, 'plans', `${row}.md`), `# ${row.toUpperCase()}
+
+**Status:** OPEN
+
+${opts.fence === false ? 'No kickoff here.' : `\`\`\`
+You are a ${mantle} at ${tier}.
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/${mantle.toLowerCase()}.md,
+then read this doc and build it.
+\`\`\``}
+`);
+}
+
+beforeAll(() => {
+	batonBuilding('his', 'Felix reads the diff, and nothing else moves until he has.');
+	batonBuilding('hers', 'ignite R1 — the tree is its own.');
+	batonBuilding('collided', 'ignite R1 on Felix’s word, once the gate clears.');
+	batonBuilding('forked', 'ignite R1 or ignite R2 — the fork is exclusive, never both. Recommendation: R1.');
+	batonBuilding('dropped', 'the campaign rolls on.');
+	batonBuilding('unreadable', 'ignite R1 — nothing to read it from.', { fence: false });
+});
+afterAll(() => rmSync(BATON_ROOT, { recursive: true, force: true }));
+
+const batons = () => needsYou(discover([BATON_ROOT]), []).filter(i => i.kind === 'baton');
+const baton = (name: string) => batons().find(i => i.building.endsWith(name))!;
+
+describe('the baton bucket — the holder decides what the item says, and the parser decides the holder', () => {
+	test('every ledger tail with a baton is one item, and no tail is two', () =>
+		expect(batons().map(i => i.building.split('/').at(-1)).sort())
+			.toEqual(['collided', 'dropped', 'hers', 'his', 'forked', 'unreadable'].sort()));
+
+	test('a Felix-holder baton is his, names no instrument, and offers nothing to open', () => {
+		const i = baton('his');
+		expect(i.baton!.holder).toBe('felix');
+		expect(i.baton!.options).toEqual([]);
+		expect(i.baton!.collides).toBe(false);
+		expect(i.note).toContain('names no instrument');
+	});
+
+	test('a session-holder baton resolves its charge to that doc\'s own kickoff fence, verbatim', () => {
+		const i = baton('hers');
+		expect(i.baton!.holder).toBe('session');
+		expect(i.baton!.collides).toBe(false);
+		expect(i.baton!.shape).toBe('single');
+		const [o] = i.baton!.options;
+		expect(o!.label).toBe('charge R1 — Builder · opus-high');
+		expect(o!.blocked).toBeNull();
+		// The bytes are the doc's, not a re-derivation: byte-identical to the fence on disk.
+		const doc = readFileSync(join(BATON_ROOT, 'hers', 'plans', 'r1.md'), 'utf8');
+		expect(doc).toContain(o!.summons);
+		expect(o!.summons.startsWith('You are a Builder at opus-high.')).toBe(true);
+	});
+
+	// D10, the whole of it: the parser reads the instrument first, the clause says Felix, and the
+	// deck overrules neither. All three of the live city's ignitable batons read exactly this way.
+	test('a clause that names Felix over an instrument collides, and the collision is on the item', () => {
+		const i = baton('collided');
+		expect(i.baton!.holder).toBe('session');          // the parser's word, untouched (D65)
+		expect(i.baton!.collides).toBe(true);
+		expect(i.baton!.options[0]!.summons.length).toBeGreaterThan(0);   // still copyable — copying is reading
+		expect(i.note).toContain('never arms');
+	});
+
+	test('a fork is a choice: both options carry bytes, and exactly one is the recommendation (D64)', () => {
+		const i = baton('forked');
+		expect(i.baton!.shape).toBe('fork');
+		expect(i.baton!.options.map(o => o.recommended)).toEqual([true, false]);
+		expect(i.baton!.options.map(o => o.label))
+			.toEqual(['charge R1 — Builder · opus-high', 'charge R2 — Digger · sonnet-high']);
+		expect(i.note).toContain('exclusive');
+	});
+
+	test('a dropped baton is named as one and carries nothing (D63g/D64)', () => {
+		const i = baton('dropped');
+		expect(i.baton!.holder).toBe('prose');
+		expect(i.baton!.options).toEqual([]);
+		expect(i.note).toContain('dropped baton');
+	});
+
+	// The rail's law, carried: this resolves, it never invents. A charge whose doc carries no
+	// kickoff fence has no bytes to hand over, and the reason stands where the control would.
+	test('an instrument that resolves to nothing says why, and offers no bytes', () => {
+		const [o] = baton('unreadable').baton!.options;
+		expect(o!.summons).toBe('');
+		expect(o!.blocked).toContain('carries no kickoff fence');
+	});
+
+	test('the item names the row that handed it on, so a nameless clause is still one line', () => {
+		expect(baton('his').name.startsWith('R0')).toBe(true);
+		expect(baton('his').full).toContain('Felix reads the diff');
+	});
+
+	// The one field that had to widen, and exactly how far. A baton item quotes its instrument's
+	// bytes — that is the composer's seed and the clipboard's payload — and NOTHING else about an
+	// ignition may appear anywhere in the queue: no stamp, no account, no model, no cwd, no path to
+	// the spawning hand. Strictly stronger than "the word `summons` never appears": it says where
+	// bytes may live and forbids them everywhere else.
+	test('the queue carries a baton\'s bytes and no ignition — the shape itself, key by key', () => {
+		const q = needsYou(discover([BATON_ROOT]), [session({ state: 'needs-input' }, { ev: 'Notification', why: 'permission_prompt' })]);
+
+		// The law as a key set rather than a word search: a field added later has to come through here,
+		// and prose that happens to say "stamp" cannot pass or fail it. `summons` is the one addition
+		// B26 made and it lives in exactly one place — a baton option, where it is a document quotation.
+		for (const i of q)
+			expect(Object.keys(i).sort()).toEqual([
+				'at', 'baton', 'building', 'chat', 'decision', 'doc', 'full', 'jump', 'kind',
+				'key', 'name', 'note', 'path', 'sid', 'state', 'where',
+			].sort());
+		for (const o of q.flatMap(i => i.baton?.options ?? []))
+			expect(Object.keys(o).sort()).toEqual(['blocked', 'label', 'recommended', 'source', 'summons']);
+
+		// And no path to the spawning hand anywhere in it, in any field.
+		const wire = JSON.stringify(q);
+		for (const forbidden of ['hands/ignite', 'data-ignite', 'data-apply'])
+			expect(wire).not.toContain(forbidden);
+
+		// The bytes are under a baton option and nowhere else.
+		const stripped = JSON.stringify(q.map(i => ({ ...i, baton: null })));
+		expect(stripped).not.toContain('You are a Builder');
+	});
+});
+
+describe('one ordering law: a baton and a waiting session interleave', () => {
+	const blocked = (secondsAgo: number) =>
+		session({ sid: 'sid-b', state: 'needs-input' },
+			{ sid: 'sid-b', ev: 'Notification', why: 'permission_prompt', t: Date.now() / 1000 - secondsAgo });
+
+	/** The fixture's tails are dated 2026-08-29; a session's clock is `Date.now()`. */
+	const TAIL_AT = Date.parse('2026-08-29T00:00:00') / 1000;
+
+	test('a baton newer than a blocked session outranks it, and older sorts under it', () => {
+		const older = needsYou(discover([BATON_ROOT]), [blocked(60)]);          // the session is today
+		expect(older[0]!.kind).toBe('waiting');
+
+		const stale = needsYou(discover([BATON_ROOT]), [blocked(Date.now() / 1000 - TAIL_AT + 86_400)]);
+		expect(stale[0]!.kind).toBe('baton');                                   // the batons are newer now
+		expect(stale.find(i => i.kind === 'waiting')).toBeDefined();
+	});
+
+	test('both classes sit above every gate, blessing and escalation — one rank, recency inside', () => {
+		const q = needsYou([...discover([BATON_ROOT]), ...walk()], [blocked(60)]);
+		const first = q.findIndex(i => i.kind !== 'waiting' && i.kind !== 'baton');
+		expect(q.slice(0, first).every(i => i.kind === 'waiting' || i.kind === 'baton')).toBe(true);
+		expect(q.slice(first).some(i => i.kind === 'waiting' || i.kind === 'baton')).toBe(false);
+	});
+
+	test('the City badge counts the baton the queue lists, and never one it does not', () => {
+		const bs = discover([BATON_ROOT]);
+		const q = needsYou(bs, []);
+		for (const r of cityRows(bs, [], q))
+			expect(r.badges.baton).toBe(q.filter(i => i.kind === 'baton' && i.building === r.building).length);
+		expect(cityRows(bs, [], q).every(r => r.badges.baton === 1)).toBe(true);
+	});
 });
