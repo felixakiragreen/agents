@@ -2299,3 +2299,44 @@ Baton — ⬡ → batch — ignite G2 · ignite C36 (kickoffs verbatim in
 [plans/g2-c29-merge.md](plans/g2-c29-merge.md) and
 [plans/c36-grammar-debt.md](plans/c36-grammar-debt.md); both on the master
 checkout, no gate between them).
+
+---
+
+**2026-08-31 · Architect · opus-high (G2)** — the gate ran and **stopped at E1: the
+merge is rejected, the premise was false.** Spec step 1 named a green control an
+escalation, and the control ran green — 210 PASS · 0 FAIL at `67d73be`. Master had
+repaired its own harness after C25 with the three summon commits that followed
+(`7973440` restored the item count with the `F fixer` preset and re-derived the
+assertions, then `08a97d0` + `6724213` grew the panel again); C29's mission — green on a
+`presets.tsv` carrying no dead mantle — is **met on master**, no dispatcher row, no
+dispatcher assertion (F1; same class as C31's row, a bar cleared by later hands). The
+branch does not pass: `bv/c29-summon-harness` @ `f160ec1` runs **203 PASS · 1 FAIL**,
+twice — the grey-code assertion C29 documented as environmental, which master has since
+fixed properly (`\e[90m` → `\e[38;5;8m`, the code actually on the wire). D48 / §4
+"Passing = finished" forbids the merge outright (F2). A trial `--no-ff` in a detached
+throwaway worktree — **master never touched** — conflicts in 6 hunks across three files,
+and master's side is right in every one; the decisive one is the v1.1 byte-parity block,
+which master **retired on purpose** and the branch **repairs** (F3). **Merge REJECTED,
+ruled here** (charter review loop — "merge or reject worktree branches"; D48); the
+branch is **kept, not deleted** — the spec authorised deletion only after a merge, and
+keeping it holds the reject reversible (F5). One thing on the branch is real and
+unlanded: C29 spec item 4's **removal arm** — the guard that would have caught the whole
+incident. It grafts clean, needs exactly one adaptation to master (`items_expected - 1`,
+the selected mantle brightens since `6724213`), and was **proven 215 green** in the
+throwaway worktree; laid as [C37](plans/c37-removal-arm.md) with the byte-identical
+graft in the doc rather than taken here, because this gate's fence forbids new harness
+arms (F4). Board reconciled: C29 + G2 carry the evidence and the recommendation, C37
+added, the batch note updated; `doctrine lint --live` 0 failures, 48/48 rows typed.
+Decided: nothing — the rejection is a charter call, not a D-entry; the status ruling is
+his. Next: **⬡ E1 — Felix's word**, one line: close C29 as `LANDED — mission met on
+master; branch REJECTED, superseded` and G2 as `LANDED — REJECTED f160ec1`, then
+`ignite C37` (kickoff verbatim in [plans/c37-removal-arm.md](plans/c37-removal-arm.md));
+or kill C37 and delete the branch — the harness stands 210 green either way, and only
+the removal-regression guard is lost. C36 is untouched by this and still ignitable —
+kickoff verbatim in [plans/c36-grammar-debt.md](plans/c36-grammar-debt.md).
+
+Baton — ⬡ → fork — rule E1, then: ignite C37 ∥ ignite C36 (kickoffs verbatim in
+[plans/c37-removal-arm.md](plans/c37-removal-arm.md) and
+[plans/c36-grammar-debt.md](plans/c36-grammar-debt.md); parallel-safe, `lab/08/` vs
+`doctrine/`, both on the master checkout) — recommendation: rule E1 as recommended and
+run the pair.
