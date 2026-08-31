@@ -3011,3 +3011,55 @@ run after F3's fix, both re-runs of already-fixed code, ~4 turns together.
 Baton — Felix: the ⬡ budget fork above (grant ~4 turns for the two re-runs, or
 accept the split evidence), and the PermissionRequest ritual at G6
 (`plans/permissionrequest-runbook.md`, one command, his hand).
+
+---
+
+**2026-08-31 · Builder · opus-high (B23)** — the repaint law, five faces:
+**three fixed at the cause, one falsified, one retired on a bounded record** —
+and Felix's UI-tests direction seeded as a standing gate. **The composer's lost
+keystroke** was the Action pane's own signature carrying the *refusal codes*,
+which are a pure function of his words, so the first character of an empty Reply
+box changed the signature and `paint` rebuilt the host with his textarea inside
+it (F1 — C15 F3's family from the other side; reproduced on keystroke 1 before
+anything was touched). Fixed twice: the box and its controls are two paint
+regions now, and **`paint()` itself holds and restores focus, the caret and
+every scroll offset** it rebuilds — the class, not the instance. **The scroll
+model is replaced, not patched, by his ruling:** one continuous view of the
+whole transcript, the pager (`before`/`around`, `loadEarlier`, `[↑ earlier]`,
+`windowOf`'s end byte, `ChatView.anchor`) gone whole, and **the minimap
+spatial** — a click moves the scroll view, the lit marks are what is on screen.
+No virtualization, and the number that decided it is the TURN count: 4.7 MB is
+42 turns, the account's longest conversation is 108, the cap is 2 000, the whole
+read is 11.7 ms warm on a gesture and the 3 s poll still carries the same 19 kB
+tail (F8). Two defects the model surfaced and cost a re-cut: **the poll's tail
+can begin MID-TURN**, so a key-dedupe merge drew one turn twice — the seam is a
+cut, not a dedupe (F2) — and **a target arrives four ways**, so hanging the whole
+read off `retarget` alone left a reloaded deck holding 5 turns of 42 (F3). **The
+tenant leak is dead at the seam:** `FocusView.mount` takes an `AbortSignal`, the
+shell owns one controller per tenancy, and every listener a tenant hangs on a
+host it does not own rides it — six swaps, one click, one request, and the first
+click selects at both parities. **The stale board did not reproduce** on either
+path and the cause the charge named is falsified — the Workshop's signature
+carries the board whole and has since B15 (F4); what the register holds is the
+file LIST, measured with its window. **The Act-stall is retired**: its mechanism
+(the v2 engine's tick) no longer exists, `server.ts` has no clock at all, and
+three honest runs of the nearest v3 recipe found nothing (F6). Bars: `bun
+v3/gates.ts --glass` **ALL GREEN — 12 gates, glass 608/0, barrage 1000 · 50 ·
+9/9, wall 212.3 s**; `bun v3/gates.ts --fast --probes` **ALL GREEN — 24 gates**,
+the fifteen-probe standing family in one command with the default run untouched;
+one induced red per probe class, each reverted; page scroll 0 px; `/deck/state`
+p95 285.7 ms against a 500 ms bar; **0 real turns, $0**. Decided: nothing new —
+every face was inside the blessed charge. Filed rather than chased: **a Bun
+worker never sees a runtime `process.env`**, so a runtime `$GLASS_CITY` makes the
+register's re-walk walk `~/code` (F5, ISSUES — cannot reach Felix's deck, does
+reach tests), and **C22's rename left `hands/fire` in `lab/b16/probe.ts`'s
+structural safety grep**, which has therefore been asserting nothing since the
+respell (ISSUES). Two probes retired or held back on one law — **a standing probe
+declares its own world**: `chat-minimap.probe.ts` folded into `chat-scroll`
+because its bar asserted the pager (F9), and `works-v3.probe.ts` stays out of the
+standing family because it pins a live run by name in a telemetry tree another
+lane writes (F12). Next: B23's review, at the parallel triple's close.
+
+Baton — Felix: dispatch the tender's review of the parallel triple — his word
+ignites it (the rework note: *"an Architect review session dispatches at Felix's
+word"*), and B23's own two ISSUES entries ride into that sweep.

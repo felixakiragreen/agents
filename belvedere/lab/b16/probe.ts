@@ -246,31 +246,35 @@ try {
 		`City → builder-probe-01 · Workshop → digger-probe-02 · needs-you queue → architect-probe-03`
 		+ `, and exactly one .ct-head on the deck at any moment`);
 
-	// --- 2. the transcript: tail-windowed, encapsulated activity, fences exempt ---
+	// --- 2. the transcript: the WHOLE conversation, encapsulated activity, fences exempt ---
+	//
+	// **Re-laid at B23 §2** (Felix's ruling: *"the scroll view should show the entire chat"*). This
+	// asserted a tail WINDOW — forty turns of four hundred, opening at a byte past zero — and the
+	// pager it measured is gone. The turn grammar, the activity encapsulation and the fence exemption
+	// it also measured are untouched and still asserted below; what changed is how much of the file
+	// is on screen, which is now all of it.
 
 	await evaluate(CLICK_CHAT('host-context', A));
 	await until('A back', async () => yes((await evaluate<Target>(TARGET)).name === 'builder-probe-01'));
 	const tail = await evaluate<Target>(TARGET);
 	const held = await evaluate<{ from: number; total: number }>(
 		`fetch('/deck/chat?sid=${A}').then(r => r.json()).then(v => ({ from: v.from, total: v.bytes }))`);
-	ok('transcript — tail-windowed off a 400-turn file, tool calls encapsulated to one line each',
-		tail.turns > 0 && tail.turns <= 40 && tail.acts > 0 && held.from > 0,
-		`${tail.turns} turns rendered (${tail.user} his) · ${tail.acts} activity lines · window opens at byte ${held.from} of ${held.total}`);
+	ok('transcript — the whole 400-turn file in one scroll view, tool calls encapsulated to one line each',
+		tail.turns === 800 && tail.user === 400 && tail.acts > 0 && held.from === 0,
+		`${tail.turns} turns rendered (${tail.user} his) · ${tail.acts} activity lines · the read begins at byte ${held.from} of ${held.total}`);
 
 	ok('the decoder runs on transcript prose and stops at the fence (B20 §1, one grammar on)',
 		tail.decoded > 0 && tail.fences > 0 && tail.inFence === 0,
 		`${tail.decoded} code words hoverable in the agents' own words · ${tail.fences} fenced blocks · ${tail.inFence} decoder spans inside them`);
 
-	const before = tail.turns;
-	await evaluate(`document.querySelector('[data-chat-earlier]').click()`);
-	const grown = await until('an earlier window', async () => {
-		const t = await evaluate<Target>(TARGET);
-		return t.turns > before ? t : null;
-	});
-	ok('scroll-up loads earlier windows, and no turn is ever drawn twice',
-		grown.turns > before
-		&& await evaluate<boolean>(`(() => { const k = [...document.querySelectorAll('#host-focus .ct')].map(e => e.dataset.key); return new Set(k).size === k.length; })()`),
-		`${before} turns → ${grown.turns} after one [↑ earlier]; every data-key distinct`);
+	// **Re-laid at B23 §2**: `[↑ earlier]` is gone with the pager, so what survives of this bar is the
+	// half that still means something — no turn is ever drawn twice. It means MORE now, not less: the
+	// poll's tail is merged into a whole read on every poll, and the tail's own first turn can be a
+	// fragment of one the whole read holds entire (B23 F2), so a duplicate here is a live defect
+	// rather than a paging accident.
+	ok('no turn is ever drawn twice, poll after poll, with the whole file on screen',
+		await evaluate<boolean>(`(() => { const k = [...document.querySelectorAll('#host-focus .ct')].map(e => e.dataset.key); return new Set(k).size === k.length && k.length === ${tail.turns}; })()`),
+		`${tail.turns} turns drawn; every data-key distinct`);
 
 	// --- 2b. the two scroll independently, and the page still does not (keel §§2, 5) ---
 	//
