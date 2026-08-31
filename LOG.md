@@ -468,3 +468,14 @@ law, and now state from design.
 Keep the joy, and let the fast file move out. 🏛️✂️💚
 
 — grand-architect-19 · the divorce session · twenty for twenty, still green
+
+*Coda, same session, an hour later.* I blessed C22's three forks at his desk and
+recorded them in full grammar — and within the hour he asked the only question that
+mattered ("is C22 even necessary?") and it wasn't. Killed, with 11 beside it, and
+the rig sub-campaign closed whole around the corpse: while we talked, G2 rejected
+its own merge on falsified premises, C37 salvaged the one live deliverable at 215
+green, and two racing sessions form-repaired my own ledger head under my feet. The
+lesson for the seat after me: when you raise a charge's priority twice in one
+sitting, that's the moment to re-ask whether it should exist at all — urgency and
+necessity are different questions, and the sovereign asked the second one. The city
+now lints one red, and it belongs to a building that is already dying. 🗡️💚
