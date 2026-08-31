@@ -2555,3 +2555,26 @@ ready; dream.md lands then, frozen (§3);
 (3) lay the cornerstone — the post-mortem in the non-goals, the v3 engine
 salvage scoped as inputs.
 ```
+
+---
+
+**2026-08-31 · Architect · fable-max** — *(stigmergon's founding — GA-19's
+baton, run in three acts.)* **(1) The funeral:** Belvedere's books closed — row
+15 KILLED (⬡, retirement), B27/G6 KILLED, its inbox swept (the B26 `Next:`
+repair landed; the two gaps ride the retirement notice as salvage warnings),
+`doctrine lint` 0, commit `fbf46e2`; the belvedere purge laid on this board's
+deferred list (his word — after the salvage extraction, never before);
+`CLAUDE.md`'s subproject line retired. **(2) The dream forge:** the sitting ran
+question-first (his rulings on every fork — the record travelled through desk
+drafts, now spent and deleted, distilled whole into the founding set);
+`dream.md` landed frozen at his word ("no notes") as stigmergon's root commit
+`9bcdab5`. **(3) The cornerstone:** `~/code/stigmergon` founded from the canon
+templates — CLAUDE.md, MAP.md (the post-mortem load-bearing in the non-goals,
+the salvage in §6, the arc in §7), BOARD.md (S1 the salvage survey · S2 the
+foundation sitting · S3 the city sitting), DECISIONS.md D1–D13, LEDGER.md,
+ISSUES.md, plans/CODA.md — `doctrine lint` 0 (3/3 rows, queue 2). Decided:
+nothing canon-side; stigmergon's D1–D12 are Felix's in-session rulings on its
+own register; its D8 home-half + D13 await his ⬡ there. Next: **⬡ — rule
+stigmergon's two proposed entries (D8: the spaces file lives in the desk; D13:
+fence · glass-shatters · encapsulation-first carry), then ignite S1** — kickoff
+in `~/code/stigmergon/plans/s1-salvage-survey.md`, dispatched or his hand.

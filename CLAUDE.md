@@ -9,8 +9,8 @@ campaign board (D78: design and work state live apart). `DECISIONS.md` is the de
 yet distilled into their homes; the tail of `LEDGER.md` tells you where we are; field
 reports land in `ISSUES.md` — file and move on.
 
-Subproject: `belvedere/` — the Sovereign's deck; its own board and docs live with it
-(`belvedere/README.md`).
+Subproject: `belvedere/` — RETIRED 2026-08-31; the books stand as the record
+(`belvedere/README.md`). The successor is its own repo: `~/code/stigmergon`.
 
 ## Session protocol
 
