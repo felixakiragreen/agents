@@ -1,6 +1,6 @@
 # B23 — the repaint law
 
-**Status:** OPEN (re-cut 2026-08-30 at G5 — the v3 world; the original cut is
+**Status:** OPEN (re-laid 2026-08-30 at G5 — the v3 world; the original lay is
 git history) · **Depends on:** — · **Staffing:** Builder · opus-high ·
 **Blessed:** pending (the rework blessing)
 
@@ -8,7 +8,7 @@ git history) · **Depends on:** — · **Staffing:** Builder · opus-high ·
 
 One law, five faces — **what a repaint must preserve, and what a swap must
 retract** — fixed at the cause, on the surviving organs and the Chat that is
-now primary (D22 r4). Re-cut from the frozen original: the Chat faces lead,
+now primary (D22 r4). Re-laid from the frozen original: the Chat faces lead,
 because the visual pass (2026-08-30) found them in Felix's own hands. And the
 charge seeds his direction — **"we need to develop some UI tests. Test pieces
 of it, 1 by 1"** — every face fixed here pins a browser interaction probe

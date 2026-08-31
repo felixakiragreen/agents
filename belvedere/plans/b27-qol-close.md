@@ -1,16 +1,16 @@
 # B27 — the QoL sweep
 
-**Status:** OPEN (re-cut 2026-08-30 at G5 — the close flow died with the v2
+**Status:** OPEN (re-laid 2026-08-30 at G5 — the close flow died with the v2
 engine, D22 r2; the QoL list survives and the punch list joins it; the
-original cut is git history) · **Depends on:** B22; B23; B24; B26; C21 (last
-in the chain — it sweeps their surfaces) · **Staffing:** Builder · opus-high ·
+original lay is git history) · **Depends on:** B22; B23; B24; B26; C21 (last
+in the batch — it sweeps their surfaces) · **Staffing:** Builder · opus-high ·
 **Blessed:** pending (the rework blessing)
 
 ## Goal
 
 The small usability debts from Felix's real hours, swept in one pass over the
 finished rework. **Deliberately last so the tweak list keeps growing until it
-fires** — his punch-list entries and desk notes land right up to dispatch,
+ignites** — his punch-list entries and desk notes land right up to dispatch,
 scoped by the Architect amendment that accompanies the kickoff (D57). §5
 bounds what may be absorbed without a new ruling.
 
@@ -44,8 +44,8 @@ bounds what may be absorbed without a new ruling.
    on hover — one grep-able convention (an attribute carrying the why), the
    sweep counted, plus live hover checks.
 3. **Locked tooltips dismiss** (his line). One obvious gesture — Esc and
-   click-away at minimum — consistent across every locked tooltip on the
-   deck; a probe pins it.
+   click-away at minimum — consistent across every locked tooltip on
+   Belvedere; a probe pins it.
 4. **The decoder's scope walk** (bug-class, not a tweak): hovered in a
    building's context the decoder consults that building's board too, never
    just canon's; the tooltip lists what it walked. And **pre-ruled here** (the
@@ -58,14 +58,14 @@ bounds what may be absorbed without a new ruling.
    fake/barrage runs. The bound line ("n of m read, k housed elsewhere")
    survives the filter.
 6. **The account knob (his ruling stands).** Wherever an account renders
-   choosable on the deck today — the composer and the shelf's resume — a
+   choosable on Belvedere today — the composer and the shelf's resume — a
    toggled button group of the three accounts, default = the composed
    account; choosing re-resolves config dir + the per-(step, account) trust
    precheck (`engine/venue.ts` — one read in the city), refusals loud at
-   compose, never a mid-fire stall; the audit records the chosen account.
+   compose, never a mid-ignition stall; the audit records the chosen account.
    Every account button carries all THREE usage windows, labeled, with
    pacing and fetch age.
-7. **The session's cmux name reaches the deck** (the mentat-00 gap): the
+7. **The session's cmux name reaches Belvedere** (the mentat-00 gap): the
    live-identity read carries surface titles (B18 F3); renders and hovers
    name workspaces by title wherever one exists, refs only where none does.
    **STOP-clause applies:** if titles cost more than the poll's remaining
@@ -91,7 +91,7 @@ bounds what may be absorbed without a new ruling.
   intact (fixture + live shot).
 - [ ] Account knob: composer and shelf offer the three accounts as toggled
   groups; an untrusted (step, account) pair refuses loudly at compose
-  (induced live); a live fire lands under the chosen account (audit +
+  (induced live); a live ignition lands under the chosen account (audit +
   transcript verified); every button shows `sess` · `week` · `fable`
   labeled + pacing + fetch age, matching the rig's own figures at one
   instant.
@@ -102,14 +102,14 @@ bounds what may be absorbed without a new ruling.
   tweak named with why.
 - [ ] `bun v3/gates.ts --glass` and `--probes` ALL GREEN; predecessor probes
   green; `/deck/state` p95 within budget; page scroll 0 px. Budget **≤3
-  real turns / ≤$1** (the account-knob live fire) — either ceiling a ⬡-fork
+  real turns / ≤$1** (the account-knob live ignition) — either ceiling a ⬡-fork
   (D21).
 
 ## Out of scope
 
 - The ⬡ prettifying pass (DEFERRED until Felix un-defers it — README §3);
   any structural change (the STOP-clause routes it out); arming or driving
-  engine runs from the deck (no such surface is laid this batch).
+  engine runs from Belvedere (no such surface is laid this batch).
 
 ## Findings
 

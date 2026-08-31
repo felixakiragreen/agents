@@ -1,16 +1,16 @@
 # B22 — hands hygiene
 
-**Status:** OPEN (re-cut 2026-08-30 at G5 — the hands narrowed to the summon
+**Status:** OPEN (re-laid 2026-08-30 at G5 — the hands narrowed to the summon
 fallback + shelf, D22 r2/r4; B25's surviving half folds in per its fate
-clause; the original cut is git history) · **Depends on:** — · **Staffing:**
+clause; the original lay is git history) · **Depends on:** — · **Staffing:**
 Builder · opus-high · **Blessed:** pending (the rework blessing)
 
 ## Goal
 
 Correctness debts on the surviving hands, paid at the cause. Summon-to-
 terminal is the fallback viewport (D20) and the shelf resumes anything — what
-fires panes still fires them right: no false trust refusals, no ref
-misdeliveries, no test writes into the live audit, and a fire that lands in
+ignites panes still ignites them right: no false trust refusals, no ref
+misdeliveries, no test writes into the live audit, and an ignition that lands in
 the workspace Felix keeps for the building (B25's fold — ruled at G5 per the
 fate clause: the surviving placement scope is one candidate here, not a row).
 
@@ -23,11 +23,11 @@ fate clause: the surviving placement scope is one candidate here, not a row).
   `true` only; `false` falls through to later evidence), and pin §5's
   agreement (trust from `~/.claude/.claude.json`, never the legacy file) in
   the same test. `~/code/b7-founding-probe` reads `false` today and works —
-  it is the regression fixture; Felix drains the scratch trust entries by
+  it is the regression fixture; Felix clears the scratch trust entries by
   his hand after this lands.
 - **Candidate 2 — the UUID sweep.** P6 F2 ruled city-wide at G2: address by
   UUID wherever one exists; a ref is legal only inside the breath that
-  created it. `attemptFire`'s post-create addressing still rides refs
+  created it. `attemptIgnite`'s post-create addressing still rides refs
   (B18 F7).
 - **Candidate 3 — the b17 probe.** Compare per (account, bucket); `shut()`
   in `finally` (B11 F8 + B16's addendum, ruled at G2).
@@ -39,16 +39,16 @@ fate clause: the surviving placement scope is one candidate here, not a row).
   a real hook event the census is not subscribed to. Subscribing is a
   Felix-run ritual (D14); this row writes the exact settings diff +
   verification; **Felix runs it at G6** (the rework close — G3 died).
-- **Candidate 6 — placement (B25's fold).** The fire knows the building; the
+- **Candidate 6 — placement (B25's fold).** The ignition knows the building; the
   census keys by cwd alone. Building-homed placement: the workspace found by
   **name** via B18's socket read, addressed by **uuid** once found, minted
   only when none exists — a minted one named for the building, never
   `workspace:N`. Ambiguity never blocks and never guesses between his
   workspaces: two matches ⇒ mint fresh + audit the ambiguity (D10's
-  spirit). **The fired-for building rides the fire:** census join sid →
-  fired-for building outranks cwd for glass-fired sessions; hand-fired keep
-  cwd (`buildingOf` stays the fallback). Retirement: only a workspace the
-  glass minted AND empty at landing (D55); one Felix touched is his,
+  spirit). **The ignited-for building rides the ignition:** census join sid →
+  ignited-for building outranks cwd for Belvedere-ignited sessions; hand-ignited keep
+  cwd (`buildingOf` stays the fallback). Retirement: only a workspace
+  Belvedere minted AND empty at landing (D55); one Felix touched is his,
   forever. The halves are severable: if the name→uuid join proves unstable
   (B18's read says it is not), placement falls back to mint and attribution
   lands regardless — escalate the join, never fuzzy-match.
@@ -58,7 +58,7 @@ fate clause: the surviving placement scope is one candidate here, not a row).
 1. `engine/venue.ts`: the flip fixed with a red-before/green-after regression
    pinning `b7-founding-probe`; an actually-untrusted venue still refuses
    loudly.
-2. `attemptFire`: every post-create cmux call addresses by uuid (read back
+2. `attemptIgnite`: every post-create cmux call addresses by uuid (read back
    from the create or `cmux tree`); the audit records the uuid it drove.
 3. `lab/b17/probe.ts`: per-(account, bucket); `shut()` in `finally`; green
    against the live rig ×2.
@@ -70,9 +70,9 @@ fate clause: the surviving placement scope is one candidate here, not a row).
 
 ## Done when:
 
-- [ ] Trust: `b7-founding-probe` composes and fires (no false refusal),
+- [ ] Trust: `b7-founding-probe` composes and ignites (no false refusal),
   regression red-before/green-after recorded; untrusted still refuses.
-- [ ] UUID: a live fire's post-create audit lines carry uuids only; refs
+- [ ] UUID: a live ignition's post-create audit lines carry uuids only; refs
   nowhere past the breath that made them (grep-able); the constructed
   ambiguous-ref scenario can no longer misdeliver.
 - [ ] Probe ×2 consecutive green, workspace closed in `finally` on an
@@ -80,11 +80,11 @@ fate clause: the surviving placement scope is one candidate here, not a row).
 - [ ] Audit anchor: two full suite runs, `wc -c` on live `hands.jsonl`
   identical before and after both.
 - [ ] Runbook on file for G6.
-- [ ] Placement: a fire for `agents/belvedere` with a `belvedere`-named
+- [ ] Placement: an ignition for `agents/belvedere` with a `belvedere`-named
   workspace lands in it (uuid-addressed, name→uuid in the audit), no mint;
-  with none, first fire mints (named for the building), second lands in the
-  mint; induced collision mints fresh + audits; a glass-fired session at the
-  repo root houses under its fired-for building on City, Workshop, and
+  with none, first ignition mints (named for the building), second lands in the
+  mint; induced collision mints fresh + audits; a Belvedere-ignited session at the
+  repo root houses under its ignited-for building on City, Workshop, and
   queue, a hand-started control in the same cwd houses by cwd; retirement
   retires minted-and-empty only (induced kept-workspace verified).
 - [ ] `bun v3/gates.ts --glass` ALL GREEN; predecessor probes green; every
@@ -93,7 +93,7 @@ fate clause: the surviving placement scope is one candidate here, not a row).
 
 ## Out of scope
 
-- Running the PermissionRequest deploy (Felix's, at G6); draining the trust
+- Running the PermissionRequest deploy (Felix's, at G6); clearing the trust
   entries (Felix's, after this lands); rehoming existing sessions
   retroactively; per-step workspace fields; any widening of the hands' write
   surface.

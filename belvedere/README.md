@@ -4,7 +4,7 @@
 every repo, every account, every live session — and a finger to ignite the next one.
 Commission: [dream.md](dream.md) (immutable). Founding record:
 [../plans/belvedere.md](../plans/belvedere.md) (the cornerstone, 2026-08-26) — the deep
-deliberation lives there; where the keel and this doc diverge, this doc is current.
+deliberation lives there; where the cornerstone and this doc diverge, this doc is current.
 
 Subproject of the canon repo (D2): doctrine per
 [canon/work/DOCTRINE.md](../canon/work/DOCTRINE.md); this file is the master doc.
@@ -21,7 +21,7 @@ a board that's lying — render failures file to ISSUES; the parser never fatten
 absorb them.
 
 **The rework mandate (Felix, founding summons):** the Guild's conventions were
-terminal-first and are NOT sacred — where a doctrine format fights the deck, the fix
+terminal-first and are NOT sacred — where a doctrine format fights Belvedere, the fix
 may be a format amendment (escalated to the Grand Architect via the canon inbox),
 never a fatter parser. [P3](plans/p3-parse-coverage.md) gathers the evidence.
 
@@ -34,7 +34,7 @@ never a fatter parser. [P3](plans/p3-parse-coverage.md) gathers the evidence.
 > canon inbox entry of this date.
 
 > **Molt landed, same day (canon D63–D67, charge 16):** the reference reader is canon
-> [`doctrine/`](../doctrine/) — one parser in the city; the deck imports it, never
+> [`doctrine/`](../doctrine/) — one parser in the city; Belvedere imports it, never
 > forks it (D65). P3 §5's shapes are normative per D65; both baton-rail gates
 > (FC-1/FC-7) cleared by D63. P3's `lab/p3/` parsers retire to probe history.
 
@@ -45,14 +45,14 @@ Read-everything, write-narrow. The write list is exhaustive (D3):
 1. spawn sessions (the hands)
 2. create worktrees/branches per [DOCTRINE §10](../canon/work/DOCTRINE.md)
 3. append sovereign-inbox entries (ISSUES, D63 grammar: `- <date> · Felix (via
-   Belvedere) · <what>` — trued 2026-08-27, B6's own first gesture caught the
+   Belvedere) · <what>` — reconciled 2026-08-27, B6's own first gesture caught the
    pre-D63 wording here)
 4. touch HALT
 5. deliver Felix's text to a session as a real turn (P6's mechanism, audited
    by sha; D10 — an ambiguous target never sends) *(deck chapter, D18)*
 6. rename / recolor cmux display state, write-through, audited *(D18)*
 7. write files under `desk/` only — drafts, notes, dreams; commits are never
-   the deck's *(D17/D18)*
+   Belvedere's *(D17/D18)*
 
 It never edits boards, ledgers, decisions, or canon — those are mantle work; Felix's
 word travels as inbox entries the building's Architect applies with his name on the
@@ -78,8 +78,8 @@ gitignored, never truth.
    hooks are **venue-blind** — the census watches Ghostty sessions too, they just
    carry no pane fields; all three subagent vehicles countable (D67 answered —
    P1 F4). Deploy target clean: no account-level hooks exist today.
-2. **The deck (render)** — one bun server (canon D59), localhost, my_checklist-simple.
-   **City View**: buildings = doctrine repos (the register,
+2. **Belvedere (render)** — one bun server (canon D59), localhost, my_checklist-simple.
+   **City View**: buildings = doctrine repos (the building register,
    [the-city §1](../docs/the-city.md)); windows colored by mantle, rings by status.
    P3 (2026-08-26): 17 buildings carry doctrine artifacts today, four of them
    worktree-only (`manny`, `cornerizer`, `tig-avc`, `schema-migration`) — the
@@ -100,33 +100,33 @@ gitignored, never truth.
    auto-submits. The shelf may address sessions **by name-stamp**
    (`claude --resume "digger-agents-04"` is legal — P4 §R). **Ignition = kickoff +
    the building's coda** (DOCTRINE §5): the engine appends the `plans/CODA.md`
-   quote block verbatim at fire — absent file fires the kickoff alone, a blockless
-   CODA.md refuses the fire (the 08-29 flow-1 incident; `engine.ts` §the coda).
+   quote block verbatim at ignition — absent file ignites the kickoff alone, a blockless
+   CODA.md refuses the ignition (the 08-29 flow-1 incident; `engine.ts` §the coda).
 
-**Deployment (RULED — D8, Felix's smoke 2026-08-26):** the deck server runs
+**Deployment (RULED — D8, Felix's smoke 2026-08-26):** Belvedere's server runs
 OUTSIDE cmux under `socketControlMode: password` — the socket gate is *live*
-ancestry, so a pane-resident deck dies with every cmux restart and can never
+ancestry, so a pane-resident Belvedere dies with every cmux restart and can never
 reconnect; pane-resident is bootstrap/fallback only. The server presents
 `CMUX_SOCKET_PASSWORD` from launch env or a gitignored local file, never git.
 Sharpened by B4 E1 (D9): the password's function is **admission, not
-restriction** — it lets a non-descendant deck connect at all, while the CLI
+restriction** — it lets a non-descendant Belvedere connect at all, while the CLI
 resolves an absent password from cmux Settings, so any local process of Felix's
 is admitted regardless. The credential file is Belvedere's **arming switch** —
 absent, every hand answers 503 — and it holds the real password, not a
-sentinel, so the deck outlives any tightening of that courtesy fallback.
+sentinel, so Belvedere outlives any tightening of that courtesy fallback.
 
 **Design inputs (Felix, founding session):** theme = **felikai** —
 `~/code/felix/src/felikai.css` (89 lines; `hexwright/canon/felikai.css`
 byte-identical; whiteboardy's copy diverged). Applied exemplars: the SpaceX
 dashboard `~/code/universal_robots_sdk/cap-mega/felix/spacex-dashboard-c2` and
 bob's design system `~/code/universal_robots_sdk/bob/web/src/routes/design`. Which
-copy/exemplar leads is Felix's taste call at the deck build charge.
+copy/exemplar leads is Felix's taste call at the Belvedere build charge.
 
 **Design laws (Felix, 2026-08-27):** **encapsulation-first** — every card and row
 leads with a 1–6-word name ("B8: deck hardenings", "E1: register policy"),
 [expand] reveals the full text or a waggle; **Inter for running prose,
-IosevkaFelix for numbers, titles, buttons, tabular data**; **colour legends** on
-every coloured view; the City View **groups by parent directory**; **recency
+IosevkaFelix for numbers, titles, buttons, tabular data**; **color legends** on
+every colored view; the City View **groups by parent directory**; **recency
 informs sort order, never dictates it** (attention — batons, gates, escalations —
 outranks it); **account usage visible wherever accounts are chosen**; **no
 dropdowns** — toggled button groups. Charges from B5 on build to these natively;
@@ -142,7 +142,7 @@ proportional splits; fewest words, most things) · spelling is **color, center,
 grey** (his triple — American-mixed, for all new strings) · panes are a
 replaceable surface · **the striking law**: every law CAN be struck, channel
 discipline intact. The ⬡ hexagon motif (decorative SVG elements, hexagonal
-buttons) is reserved for the prettifying pass — DEFERRED until the deck
+buttons) is reserved for the prettifying pass — DEFERRED until Belvedere
 functions.
 
 **Chat laws (Felix, 2026-08-30, the visual pass):** continuous
@@ -155,7 +155,7 @@ the fixture city; B23 seeds the `--probes` gate).
 
 ## 4. Scope — v0 and non-goals
 
-**v0 (D5):** census + City View + building pages + baton rail + fire/worktree +
+**v0 (D5):** census + City View + building pages + baton rail + ignite/worktree +
 shelf + usage strip + sovereign's inbox.
 
 **Non-goals, named (D5):** images (Felix, the cornerstone session; superset's
@@ -163,11 +163,11 @@ worktree-attachments convention is the plan when called) · Ava / laptop-closed
 continuity (v0.5 — tmux-over-ssh chapter; nothing local survives a shut lid) ·
 embedded terminals (cmux IS the terminal) · the generative city (dessert — census
 logs from day one so it lights up from real history later) · whiteboardy links
-(THG-only, Felix) · the Steward (lands INTO this deck, after; un-deferred by Felix's
+(THG-only, Felix) · the Steward (lands INTO Belvedere, after; un-deferred by Felix's
 word only) · editing truth (forever-class, §2).
 
 **Future campaigns, filed:** the unified conversation archive at campaign scale —
-search surfaces, deck integration, N accounts — on C12's mirror as its foundation
+search surfaces, Belvedere integration, N accounts — on C12's mirror as its foundation
 (Felix's word 2026-08-30, verbatim in the inbox history of that date; ruled filed,
 not laid). The mirror + launchd + restore drill are LANDED (C12); the campaign,
 when called, inherits two measured traps: any directory-walking `rg` over the
@@ -193,7 +193,7 @@ live; the archive serves the dead, the cleared, and the search index.
   exclusive, never over live work.
 - **ISSUES:** [ISSUES.md](ISSUES.md) is this building's inbox (D53 pattern), swept
   by this board's Architect every session.
-- **One parser in the city (D65):** the deck imports canon
+- **One parser in the city (D65):** Belvedere imports canon
   [`doctrine/`](../doctrine/) (`parse()` → Building); it never forks or
   re-implements it. New writing follows the D63 grammar on landing; the pre-molt
   corpus converges via canon charge 18.
@@ -204,8 +204,8 @@ live; the archive serves the dead, the cleared, and the search index.
   collision were measured (a Builder swept a Digger's live probe, then a Digger
   swept a Builder's half-written module); nothing was lost, but attribution
   lied twice.
-- **A standing worktree path refuses the cut** (`hands.ts` — "worktree path
-  already exists"): a venue is neither reused nor silently re-minted. *(Re-cut
+- **A standing worktree path refuses the mint** (`hands.ts` — "worktree path
+  already exists"): a venue is neither reused nor silently re-minted. *(Re-laid
   2026-08-30 at C15's review, its F6 — the rest of the 08-29 "engine venue
   semantics" note described the v2 engine and died with it, D22 r2; v3's law
   is the frozen `prompt` and the run log as truth, the campaign note §6.)*
@@ -247,12 +247,12 @@ live; the archive serves the dead, the cleared, and the search index.
 | B19 | [The desk](plans/b19-desk.md) | B16 | Builder · opus-high | **LANDED** 2026-08-28 — the place he writes exists; DoD evidenced in [B19](plans/b19-desk.md) |
 | B20 | [The decoder](plans/b20-decoder.md) | B18 | Builder · opus-high | **LANDED** 2026-08-27 — no code word without its meaning one hover away; DoD evidenced in [B20](plans/b20-decoder.md) |
 | B21 | [The Grep](plans/b21-grep.md) | B15; B16; B19 | Builder · opus-high | **LANDED** 2026-08-28 — one keystroke, one query, one click; DoD evidenced in [B21](plans/b21-grep.md) |
-| B23 | [The repaint law](plans/b23-repaint-law.md) — the Chat faces first: the composer's lost keystroke, continuous full-transcript scroll + the spatial minimap (his ruling), the tenant-listener leak, the stale board, the Act-stall bounded; seeds the `--probes` interaction gate (his UI-tests direction) | — | Builder · opus-high | OPEN — re-cut 2026-08-30 at G5 against the v3 world; the punch list's heart |
-| B22 | [Hands hygiene](plans/b22-hands-hygiene.md) — the narrowed hands' debts: the trust flip at `engine/venue.ts` (C14 F6's home), the UUID sweep, the b17 probe, the audit anchor (re-confirmed C19 F6), the PermissionRequest runbook for G6, B25's folded placement + attribution | — | Builder · opus-high | OPEN — re-cut 2026-08-30 at G5; B25 folds in (its fate clause delegated the fold here) |
-| B26 | [Batons on the deck](plans/b26-baton-attention.md) — `attention.ts` gains the baton bucket beside C16's `waiting` class: Felix-holder ⇒ queue + badge + open-in-composer (never auto-fired, D10), session-holder ⇒ Dispatch semantics, fork ⇒ copyable options; the Works' landed node says "this landing handed a baton" | — | Builder · opus-high | OPEN — re-cut 2026-08-30 at G5 against v3 runs |
+| B23 | [The repaint law](plans/b23-repaint-law.md) — the Chat faces first: the composer's lost keystroke, continuous full-transcript scroll + the spatial minimap (his ruling), the tenant-listener leak, the stale board, the Act-stall bounded; seeds the `--probes` interaction gate (his UI-tests direction) | — | Builder · opus-high | OPEN — re-laid 2026-08-30 at G5 against the v3 world; the punch list's heart |
+| B22 | [Hands hygiene](plans/b22-hands-hygiene.md) — the narrowed hands' debts: the trust flip at `engine/venue.ts` (C14 F6's home), the UUID sweep, the b17 probe, the audit anchor (re-confirmed C19 F6), the PermissionRequest runbook for G6, B25's folded placement + attribution | — | Builder · opus-high | OPEN — re-laid 2026-08-30 at G5; B25 folds in (its fate clause delegated the fold here) |
+| B26 | [Batons on Belvedere](plans/b26-baton-attention.md) — `attention.ts` gains the baton bucket beside C16's `waiting` class: Felix-holder ⇒ queue + badge + open-in-composer (never auto-ignited, D10), session-holder ⇒ Dispatch semantics, fork ⇒ copyable options; the Works' landed node says "this landing handed a baton" | — | Builder · opus-high | OPEN — re-laid 2026-08-30 at G5 against v3 runs |
 | B25 | [Where a fire lands](plans/b25-fire-placement.md) | — | Builder · opus-high | **KILLED** 2026-08-30 at G5 — folded into B22 (✓ Felix at the blessing); the doc stands as the fold's record |
-| B24 | [His arrangement](plans/b24-arrangement.md) — the City fully his: reorder, relabel, recolor, nest; persists as `desk/city-arrangement.json`; truth underneath (census decides existence, attention outranks recency inside); candidate 7's verdict recorded either way; the layer is **spaces** (his model, ruled at the blessing — doc header carries the sketch) | — | Builder · opus-high | OPEN — re-cut 2026-08-30 at G5; arranges the post-gut City |
-| B27 | [The QoL sweep](plans/b27-qol-close.md) — hotswap wired, honest-disabled city-wide, locked-tooltip dismissal, the decoder's scope walk + planned-mention resolve, the fake/real filter (C15 F5), the account knob with three labeled windows (his ruling 2026-08-28), surface titles, the tweak list (STOP-bounded) | B22; B23; B24; B26; C21 | Builder · opus-high | OPEN — re-cut 2026-08-30 at G5; the close flow died with v2, the list survives — last, sweeps all re-cut surfaces |
+| B24 | [His arrangement](plans/b24-arrangement.md) — the City fully his: reorder, relabel, recolor, nest; persists as `desk/city-arrangement.json`; truth underneath (census decides existence, attention outranks recency inside); candidate 7's verdict recorded either way; the layer is **spaces** (his model, ruled at the blessing — doc header carries the sketch) | — | Builder · opus-high | OPEN — re-laid 2026-08-30 at G5; arranges the post-gut City |
+| B27 | [The QoL sweep](plans/b27-qol-close.md) — hotswap wired, honest-disabled city-wide, locked-tooltip dismissal, the decoder's scope walk + planned-mention resolve, the fake/real filter (C15 F5), the account knob with three labeled windows (his ruling 2026-08-28), surface titles, the tweak list (STOP-bounded) | B22; B23; B24; B26; C21 | Builder · opus-high | OPEN — re-laid 2026-08-30 at G5; the close flow died with v2, the list survives — last, sweeps all re-laid surfaces |
 | G3 | Rework gate | B27; ⬡-gate: the PermissionRequest ritual + the trust-entry drain + the rework visual pass | Architect · fable-high | **KILLED** 2026-08-30 — its vehicle retired with the v2 engine (D22); its gate function re-minted as the migration close (G5). Batch 6 never ran |
 | C1 | [The fence repoint](plans/c1-fence-repoint.md) | — | Builder · sonnet-high | **LANDED** 2026-08-29 — fence 5 → 7 in both flow files; findings in [C1](plans/c1-fence-repoint.md) |
 | C2 | [The vocabulary molt](plans/c2-vocabulary-molt.md) | C1 | Builder · opus-high | **LANDED** 2026-08-29 — the deck speaks the standard; findings in [C2](plans/c2-vocabulary-molt.md) |
@@ -266,11 +266,11 @@ live; the archive serves the dead, the cleared, and the search index.
 | C15 | [The deck's v3 lane](plans/c15-deck-v3-lane.md) | C14; C17 | Builder · opus-high | **LANDED** 2026-08-30 — the v2 engine is gone whole; 8 of 8 bars evidenced in [C15](plans/c15-deck-v3-lane.md) |
 | C16 | [The Chat chapter](plans/c16-chat-chapter.md) | C15; C17 | Builder · opus-high | **LANDED** 2026-08-30 — the Chat is primary; every bar evidenced in [C16](plans/c16-chat-chapter.md) |
 | G5 | The migration close | C14; C15; C16; C17; C18; C19; ⬡-gate: his visual pass — **paid 2026-08-30** | Architect · fable-high | **LANDED** 2026-08-30 — the strangle verified whole; his verdict recorded (the ⬡ paid); the rework batch laid, blessed ✓ Felix 2026-08-30 (the rework note) |
-| C20 | [The tick](plans/c20-tick.md) — C16 F2 closed at the contract: the console's `tick` verb heals a step a dead deck left `running`; `settle.ts` retires; the ownership law written into v3's contract | — | Builder · opus-high | OPEN — laid 2026-08-30 at G5; D23 **blessed** (the tick over a supervisor — glass-shatters + C6 F2's adopt) |
+| C20 | [The tick](plans/c20-tick.md) — C16 F2 closed at the contract: the console's `tick` verb heals a step a dead Belvedere left `running`; `settle.ts` retires; the ownership law written into v3's contract | — | Builder · opus-high | OPEN — laid 2026-08-30 at G5; D23 **blessed** (the tick over a supervisor — glass-shatters + C6 F2's adopt) |
 | C21 | [The gut: the cmux nag](plans/c21-gut-v1.md) — the `nagging` idle-prompt class dies whole with its stale labels; presence SURVIVES on the census's own sensors (his correction, verbatim in the doc) | — | Builder · opus-high | OPEN — laid 2026-08-30 at G5; referents pinned + corrected at the blessing |
-| C22 | [The respell sweep](plans/c22-respell-sweep.md) — C27's successor at home: pre-molt prose converges to the standard; the forks RULED: `ignite` one word everywhere, the building is **Belvedere** | C23 | Builder · sonnet-high | OPEN — laid 2026-08-30 at G5; forks ruled at the blessing (doc header) |
+| C22 | [The respell sweep](plans/c22-respell-sweep.md) — C27's successor at home: pre-molt prose converges to the standard; the forks RULED: `ignite` one word everywhere, the building is **Belvedere** | C23 | Builder · sonnet-high | **LANDED** 2026-08-30 — both forks applied, `glass`/`camera` and README/plans converged; findings in [C22](plans/c22-respell-sweep.md) |
 | C23 | [The master-doc purge](plans/c23-readme-purge.md) — this README under C35's blade: LANDED rows compress to status + findings link, spent notes die, distilled §7 entries die, live holds verbatim; single-Read after | — | Architect · fable-high | **LANDED** 2026-08-30 — 1105 → 539 lines, single-Read restored; live set diff-identical; findings in [C23](plans/c23-readme-purge.md). Reviewed at the tender's hand: lint 0 both boards after the F4a red was ruled (the tender's own ledger head trued to `(G5)`, the inbox entry swept); F4b (§8) and F4c (stale deferred lists) ride to G6 |
-| G6 | The rework close — verify the batch's landings, fold, sweep the inbox, cut next | B27; ⬡-gate: the rework visual pass + the PermissionRequest ritual (B22's runbook, Felix-run) | Architect · fable-high | OPEN — laid 2026-08-30 at G5; convenes by his summons (the gate never continues the session it gates) |
+| G6 | The rework close — verify the batch's landings, distill, sweep the inbox, lay next | B27; ⬡-gate: the rework visual pass + the PermissionRequest ritual (B22's runbook, Felix-run) | Architect · fable-high | OPEN — laid 2026-08-30 at G5; convenes by his summons (the gate never continues the session it gates) |
 
 **Parked from the canon sweep (GA answers, ruled 2026-08-28 — next-cut
 candidates at G3, tracked not lost):** the **campus card** (a root rendering
@@ -336,18 +336,18 @@ hand (evidence on the G5 row); his verdict a punch-list pass, distilled. What
 follows is the rework.
 
 **The rework batch — laid 2026-08-30 at G5. ⬡-gate: the blessing (one
-sitting).** Chain — schedule, not dependency, orders the serial half (D73's
+session).** The serial batch — schedule, not dependency, orders the serial half (D73's
 edge test): **C23 → C22 → [B23 ∥ B22 ∥ C20] → C21 → B26 → B24 → B27 → G6**.
 The doc lane runs first and exclusive (C23 owns this README; C22 the purged
 prose), then the parallel triple — disjoint trees (`glass/` chat + deck-dom +
 `v3/gates.ts` scoped to the `--probes` family alone vs `glass/hands.ts` +
 `lab/` vs `v3/console` + `v3/README.md`), all on master, the two-lane commit
-rule binds (explicit paths) — then the glass structural chain (gut → batons →
+rule binds (explicit paths) — then Belvedere's own structural batch (gut → batons →
 arrangement), the sweep last, the close gate after. Live resources: B22's
 placement bars drive real cmux workspaces — B22 never runs concurrent with
 anything else touching cmux state (its triple-mates touch none). Tender: **an
 Architect review session dispatches at Felix's word** (the batch-2 precedent;
-one tender owns the sum), reviews at wave boundaries. Budgets (D21 — any
+one tender owns the sum), reviews at batch boundaries. Budgets (D21 — any
 ceiling a ⬡-fork): B22 ≤6 real turns / ≤$1 · B27 ≤3 / ≤$1 · all else 0.
 
 **The blessing, batched (D44):** ① the batch, budgets, staffing above. ② the
@@ -372,34 +372,34 @@ it belvedere": `ignite` one word everywhere; the building's self-name is
 **Belvedere** (C22's header carries both). ④ the referents pinned, then
 corrected at his word: **presence survives** ("I do want to see when there is
 an agent that's working, or has input / blocked") — **the cmux part dies**
-(the `nagging` idle-prompt class and its stale labels; C21's header, re-cut
+(the `nagging` idle-prompt class and its stale labels; C21's header, re-laid
 to "the gut: the cmux nag"); the sidebar is **spaces** — his own model, one
-recursive structure, the fixed taxonomy rejected as glass-invented
+recursive structure, the fixed taxonomy rejected as Belvedere-invented
 classification (B24's header carries his sketch verbatim and the trim). The
-batch is dispatchable: C23 first, exclusive on this README.
+batch is ignitable: C23 first, exclusive on this README.
 
 ## 7. Decisions
 
 - **D2** (2026-08-26, Felix): **Venue: in-repo subproject** at `agents/belvedere/`,
   simmy pattern — own README board, one pointer line in the repo CLAUDE.md, one row
   on the canon board; rows never write `canon/**`, `sync/**`, `docs/**`, or root
-  protocol files; extraction later is a cheap subtree split (keel §11 amendment).
-- **D3** (2026-08-26, founding Architect per keel §2 · ✓ Felix same day):
+  protocol files; extraction later is a cheap subtree split (cornerstone §11 amendment).
+- **D3** (2026-08-26, founding Architect per cornerstone §2 · ✓ Felix same day):
   **The fence.** §2's write list is exhaustive; any new write class is an
   Architect-desk question first, never a feature. Glass-shatters and parser-as-lint
   are standing bars.
 - **D10** (2026-08-27, Architect, on B3 E2's corpus evidence · ✓ Felix same day):
-  **Ambiguity never arms.** A glass affordance that fires work renders armed only
+  **Ambiguity never arms.** A Belvedere affordance that ignites work renders armed only
   when parse and prose agree; any collision renders safe — unwired, the conflict
   named on the card, copy-summons allowed (copying is reading; the gate stays
   Felix's). Interim over batons until canon rules the holder grammar (the ask is
-  filed); permanent as design law for every fire affordance — B6's apply button
+  filed); permanent as design law for every ignite affordance — B6's apply button
   and B7's composer inherit it. Generalizes D9: the one-click path gates
   accidents, and a wired button under "pending Felix" prose is an accident
   waiting. Parse stays the parser's (D65) — this is render law, not a second
   parser.
 - **D13** (2026-08-27, Felix + Architect, the deck design session · ✓ Felix
-  in-session): **The deck commission.** Felix's vision (ISSUES case file #2,
+  in-session): **The Belvedere commission.** Felix's vision (ISSUES case file #2,
   folded into [plans/deck-keel.md](plans/deck-keel.md)) is Belvedere's second
   commission: three panes **Context / Focus / Action** with
   minimal/typical/expanded states, ontology **City → Building → Agent**, one
@@ -416,12 +416,12 @@ batch is dispatchable: C23 first, exclusive on this README.
   history, down = future — agreeing with chat, ledger, and scrollback.
 - **D15** (2026-08-27, deck session · ✓ Felix in-session): **Attention lives
   twice.** City badges (ambient — attention outranks recency, at rest,
-  always) + the drawer's needs-you queue (triage — ranked, answerable in
+  always) + the drawer's ⬡-queue (triage — ranked, answerable in
   place, pinnable). The waiting-input blindness dies in both places.
 - **D16** (2026-08-27, deck session · ✓ Felix in-session): **cmux is truth
-  for live identity.** The deck reads names/colors off the socket; renames
+  for live identity.** Belvedere reads names/colors off the socket; renames
   and recolors in Belvedere write through to cmux; a cmux-side rename shows
-  in the deck. The rig's stamp is the birth name; `session_id` is the join
+  in Belvedere. The rig's stamp is the birth name; `session_id` is the join
   key. Kills the rename/not-green/wrong-stamp drift class at the model.
 - **D17** (2026-08-27, deck session · ✓ Felix in-session): **The desk — one
   drawer, `~/code/agents/desk/`.** Gitted, city-wide, account-independent;
@@ -434,12 +434,12 @@ batch is dispatchable: C23 first, exclusive on this README.
   A flow — the batch note as data: rows, gates, accounts, venues
   ([plans/flow-keel.md](plans/flow-keel.md)) — renders as its whole DAG before
   anything runs; **one click arms it, and the review of the rendered plan IS the
-  authorization.** The engine fires only declared steps, pauses at Felix-cards,
-  on any ambiguity (D10), and on HALT; nothing emergent ever fires. Amending a
-  flow re-arms its unfired steps. Timing, same word: the flow chapter builds
+  authorization.** The engine ignites only declared steps, pauses at Felix-cards,
+  on any ambiguity (D10), and on HALT; nothing emergent ever ignites. Amending a
+  flow re-arms its un-ignited steps. Timing, same word: the flow chapter builds
   **after v0 closes** — rows laid at the v0 close session.
 - **D12** (2026-08-27, Felix — "rec" at the batch-5 blessing; the
-  recommendation was his own stated lean since the keel): **Scope-arm.** An
+  recommendation was his own stated lean since the cornerstone): **Scope-arm.** An
   armed flow's declared scope (building + chapter) authorizes growth:
   judge-cut and Architect-cut steps inside the scope **auto-join** the
   running flow — the re-arm is recorded, never clicked; edits to declared
@@ -451,7 +451,7 @@ batch is dispatchable: C23 first, exclusive on this README.
   principles, not repair.** Unsatisfied with cmux, the flow, the Sidebar, the
   Chat; v2 is not fixed, it is superseded-in-place: a first-principles rebuild of
   substrate + engine as an independent implementation
-  ([v3/cornerstone.md](v3/cornerstone.md)), the live deck untouched and serving
+  ([v3/cornerstone.md](v3/cornerstone.md)), the live Belvedere untouched and serving
   daily until the verdict gate G4 rules what survives. Batch 6 (B22–B27), G3, and
   the pending inbox sweep + flow-1 findings ruling: DEFERRED behind that verdict,
   his word ("Skip the ISSUES"). Standing requirement: the whole campaign
@@ -463,13 +463,13 @@ batch is dispatchable: C23 first, exclusive on this README.
   viewport: the Chat is the primary interface — read anything, send turns;
   **summon-to-terminal is the fallback** ("exactly what I wanted").
   Always-visible panes stop being a substrate requirement; cmux retreats to
-  viewport candidate — the founding's visibility rationale is superseded by the
-  deck's own organs (P1/B14). D4's adapter law upheld.
+  viewport candidate — the founding's visibility rationale is superseded by
+  Belvedere's own organs (P1/B14). D4's adapter law upheld.
 - **D22** (2026-08-30, Felix ⬡✓ in-session — the G4 verdict): **The substrate
   verdict, whole.** Headless is the engine venue — and naked `claude -p`
   without the engine is not an approved way to run unattended work. v2 is
   superseded-in-place: the v2 engine retires now (agents-flow-1 abandoned at
-  his word), the deck's organs survive, the deck's hands re-point to the v3
+  his word), Belvedere's organs survive, Belvedere's hands re-point to the v3
   engine, cmux retreats to viewport candidate. Migration is strangler,
   engine-first — the seams charge leads, then the deck's v3 lane, then the
   Chat chapter. The Chat is the primary viewport; summon-to-terminal the

@@ -1,6 +1,6 @@
 # B24 — his arrangement
 
-**Status:** OPEN (re-cut 2026-08-30 at G5 — City View survives whole, D22 r2;
+**Status:** OPEN (re-laid 2026-08-30 at G5 — City View survives whole, D22 r2;
 carried over least changed as the fate clause expected) · **Depends on:** — ·
 **Staffing:** Builder · opus-high · **Blessed:** pending (the rework blessing)
 
@@ -13,12 +13,12 @@ bob→lunchbox/pods/catalog, mega→simmy/snappy/cornerizer/…, speakeasy); (B)
 order and nest inside another space. Done."* His own counter-example to (A):
 speakeasy is not a campaign, "more like a one-off thing" he wants to keep
 around. **Pre-chewed ruling (G5, strike-able at his glance): spaces —**
-(A)'s fixed ranks are the glass inventing a classification, which spec §4
+(A)'s fixed ranks are Belvedere inventing a classification, which spec §4
 already forbids; one recursive structure carries his example verbatim, with
 `type` a free label ("district", "campaign", "office", or nothing — words he
-types, never ranks the glass knows). **One trim on his field list:** a space
+types, never ranks Belvedere knows). **One trim on his field list:** a space
 stores name · color · order · type · children + an optional **binding** to a
-building (the cwd); `board`, `agents`, and liveness are what the register
+building (the cwd); `board`, `agents`, and liveness are what the building register
 and census already know about the bound building — derived through the
 binding, never stored in the arrangement file (truth underneath, the Goal's
 own law). C21 (the gut) runs first; this row arranges the surviving City.
@@ -49,7 +49,7 @@ arrangement hides nothing new.
 ## Spec
 
 1. **The arrangement layer is spaces** (his model, the header). One
-   recursive structure over the register: a space carries name · color ·
+   recursive structure over the building register: a space carries name · color ·
    order · type (free label) · children, plus an optional binding to a
    building; his sketch (the header) must be expressible verbatim, speakeasy
    included. Rendering rules: attention monotone **inside** his arrangement
@@ -62,8 +62,8 @@ arrangement hides nothing new.
    file** — `desk/city-arrangement.json`. His own words ask durability
    across browsers and machines; localStorage is per-browser by
    construction (rejected). The fence needs **no new write class** — the
-   deck writes it as a desk file (class 7); commits are never the glass's
-   (sessions and Felix commit, D17). Editing by gesture on the deck writes
+   Belvedere writes it as a desk file (class 7); commits are never Belvedere's
+   (sessions and Felix commit, D17). Editing by gesture on Belvedere writes
    the file; the file is the state (a kill loses nothing — B8's drill bar).
 3. **The default view must not lie (candidate 7).** The reported
    split-neighborhood: hypothesis from one code read, unreproduced —
@@ -73,12 +73,12 @@ arrangement hides nothing new.
    member — B9's invariant); if it holds, find what his eyes actually saw
    and fix that. Either way the verdict is recorded with evidence.
 4. **Repo-vs-campaign becomes vocabulary, not taxonomy.** A campaign is just
-   a group he makes; the glass invents no classification of its own (the
+   a group he makes; Belvedere invents no classification of its own (the
    G2 design input lands inside his arrangement, free).
 5. **Two identity layers, named apart.** His labels/colors here are
-   glass-side arrangement vocabulary; B18's rename/recolor write-through
+   Belvedere-side arrangement vocabulary; B18's rename/recolor write-through
    (D18) is cmux-side session/workspace identity. This row touches only the
-   former; the deck must render which is which without ambiguity (the
+   former; Belvedere must render which is which without ambiguity (the
    legend says so).
 6. **Law of space holds.** Nesting introduces no page scroll: deep groups
    collapse (encapsulation-first — a collapsed group leads with its name and
@@ -96,10 +96,10 @@ and described. Drag-and-arrange interaction probes join the `--probes` suite
   one, nest two under a new group of his naming — all four visible on the
   next paint, and `desk/city-arrangement.json` on disk is the arrangement
   (byte-inspectable, human-readable).
-- [ ] Kill the glass, relaunch, load in a **different browser** — the
+- [ ] Kill Belvedere, relaunch, load in a **different browser** — the
   arrangement is identical (the file is the state; nothing rides
   localStorage).
-- [ ] A building added to the register after arranging appears in the
+- [ ] A building added to the building register after arranging appears in the
   unfiled tail; filing it by gesture persists.
 - [ ] Attention monotone inside the arrangement: a fixture where the quiet
   group holds the loudest building pins group ordering by loudest member;

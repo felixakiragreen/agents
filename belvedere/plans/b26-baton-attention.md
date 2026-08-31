@@ -1,13 +1,13 @@
-# B26 — batons on the deck
+# B26 — batons on Belvedere
 
-**Status:** OPEN (re-cut 2026-08-30 at G5 — the rail survives whole, D22 r2;
-baton semantics re-read against v3 runs; the original cut is git history) ·
+**Status:** OPEN (re-laid 2026-08-30 at G5 — the rail survives whole, D22 r2;
+baton semantics re-read against v3 runs; the original lay is git history) ·
 **Depends on:** — · **Staffing:** Builder · opus-high · **Blessed:** pending
 (the rework blessing)
 
 ## Goal
 
-The deck's attention model learns the baton. Felix's report (2026-08-28): an
+Belvedere's attention model learns the baton. Felix's report (2026-08-28): an
 agent finished, handed a baton, and "I can't see that anywhere or act on it
 anywhere in belvedere." `attention.ts` has no baton bucket, so a
 **Felix-holder baton — needs-you class by definition (D15) — raises no City
@@ -36,14 +36,14 @@ that same one-computation attention model, never a second one.
 ## Spec
 
 1. **The bucket.** `attention.ts` gains a baton bucket over the parsed ledger
-   tails the register already carries. Felix-holder ⇒ a needs-you queue item
+   tails the building register already carries. Felix-holder ⇒ a needs-you queue item
    + its City badge (attention outranks recency, §3). Session-holder ⇒ the
    rail's Dispatch semantics, D10 collision rules inherited unchanged. Fork ⇒
    Felix-class: the choice rendered with each option's instrument
-   **copyable**, never fired, the recommendation shown.
+   **copyable**, never ignited, the recommendation shown.
 2. **The affordance is the composer.** A Felix-holder item opens the baton's
    instrument in the composer — copy-is-reading; nothing on this path
-   auto-fires; the composer's fire button is the only hand, after his click.
+   auto-ignites; the composer's ignite button is the only hand, after his click.
 3. **The Works closes the loop.** A landed terminal node whose building's
    ledger tail hands a baton says so on the node ("this landing handed a
    baton"), linking to the queue item — the exact gap in his report. The
@@ -61,10 +61,10 @@ bar's shot Read and described.
   opening it lands the composer holding that baton's fenced summons,
   byte-identical to the ledger's fence (photographed).
 - [ ] A session-holder baton renders with Dispatch semantics; a
-  collided/ambiguous holder renders note + copy with **zero fire wiring**
+  collided/ambiguous holder renders note + copy with **zero ignite wiring**
   (B17 F1's sound check).
 - [ ] A fork baton renders its options with copyable instruments and the
-  recommendation; nothing fires (beta's committed fixture, re-shot).
+  recommendation; nothing ignites (beta's committed fixture, re-shot).
 - [ ] The Works' landed terminal node surfaces the handed baton and jumps to
   the queue item.
 - [ ] Ordering holds: a Felix-holder baton outranks a merely-recent building;

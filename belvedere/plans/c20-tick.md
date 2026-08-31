@@ -5,8 +5,8 @@
 
 ## Mission
 
-Close C16 F2's window at the contract. The deck IS the engine for the turn it
-resumes: delivered is the transcript, landed is the run log, and a deck killed
+Close C16 F2's window at the contract. Belvedere IS the engine for the turn it
+resumes: delivered is the transcript, landed is the run log, and a Belvedere killed
 between them leaves a step `running` until something opens that run. Today the
 healer is a hand tool (`lab/c16/settle.ts`). The contract choice is ruled at G5,
 **proposed (D23)**: **a `tick` verb on the console, never a supervising
@@ -19,13 +19,13 @@ given a name and a door).
 ## Inputs — read before working
 
 - C16 F2 (the window, measured the hard way — the instrument's first pass tore
-  the glass down 400 ms after the receipt) and `lab/c16/settle.ts` (the proof
+  Belvedere down 400 ms after the receipt) and `lab/c16/settle.ts` (the proof
   that one tick heals: `running -> landed done`).
-- `v3/engine` — `adopt()` (C6 F2), the run-log law (the log is the register);
+- `v3/engine` — `adopt()` (C6 F2), the run-log law (the log is the register of record);
   `barrage/sweep.ts` (C14 F5 — pid-liveness guarded by `ps`, and the crash
   drill's orphans are sacred: never sweep or tick what a drill is about to
   adopt).
-- C16's engine road in `glass/chat.ts` (`mode: 'engine'`) — the one deck
+- C16's engine road in `glass/chat.ts` (`mode: 'engine'`) — the one Belvedere
   surface that drives the engine today; it already waits on the log.
 
 ## Spec
@@ -55,13 +55,13 @@ given a name and a door).
   live subject moves zero bytes (log byte-identical before/after, asserted).
 - [ ] `lab/c16/settle.ts` gone; zero references (grep-proof).
 - [ ] `v3/README.md` carries the ownership contract + the tick as healer.
-- [ ] `bun v3/gates.ts` ALL GREEN; `--glass` ALL GREEN (the deck's road
+- [ ] `bun v3/gates.ts` ALL GREEN; `--glass` ALL GREEN (Belvedere's road
   unchanged is part of the claim); budget **0 real turns**.
 
 ## Out of scope
 
-- Any supervising/daemon process (refused by the ruling above); deck-side
-  auto-tick (the deck stays read-only off the log — C15's law; the engine
+- Any supervising/daemon process (refused by the ruling above); Belvedere-side
+  auto-tick (Belvedere stays read-only off the log — C15's law; the engine
   road's own turn is the one exception, already landed); the venue
   canonicalization (C16 F1 — on the v3 deferred list with its trigger).
 
