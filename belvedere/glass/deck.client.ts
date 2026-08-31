@@ -483,6 +483,11 @@ function queueItem(i: QueueItem): HTMLElement {
 		: i.kind === 'baton' && i.baton ? HOLDER_WORD[i.baton.holder]
 		: i.kind;
 	head.append(el('span', `pill tone-${QUEUE_TONE[i.kind]}`, word));
+	// **Both readings, at a glance** (D10). The pill above is the parser's word and stays it (D65);
+	// this one is the prose's, because a card whose gate is his has to *look* like his before it is
+	// expanded — the rail's own answer, where a collided card wears his colour rather than the
+	// ignitable green. Neither overrules the other; the note under [expand] says why they differ.
+	if (i.baton?.collides) head.append(el('span', 'pill tone-felix', 'his by prose'));
 	// D64's shape, beside the holder: a fork is a choice and a batch is not, and the rail has said
 	// so on its cards since B3. `plural` is the parser's missing field showing — several instruments
 	// and no word for what they are — so it is reported rather than guessed at.
@@ -556,7 +561,11 @@ function drawDrawer(): void {
 		needsCount.dataset['needs'] = snapshot ? String(snapshot.queue.length) : '';
 		return;
 	}
-	const sig = snapshot === null ? 'cold' : JSON.stringify([layout.drawer, snapshot.queue]);
+	// **The aim rides the signature** (C15 F3's law, measured here the hard way): `paint()` rebuilds a
+	// region only when what it *says* has changed, and a jump into the drawer changes nothing about
+	// the snapshot — so an aim written into the state and not into the signature drew nothing at all,
+	// and the jump looked like a dead button.
+	const sig = snapshot === null ? 'cold' : JSON.stringify([layout.drawer, aimed, snapshot.queue]);
 	// Everything has a limit (directive 3.1): held state belongs to items that still exist, so an
 	// item answered and gone takes its draft, its disclosure and its receipt with it.
 	if (snapshot) {
@@ -1058,6 +1067,12 @@ function toComposer(btn: HTMLElement): void {
 	compose.with(text);
 	say(key, `${new TextEncoder().encode(text).length} B loaded as the summons — the composer resolves it, and your click is the ignition`);
 	focusOn('workshop');
+	// Being sent somewhere and not seeing where you landed is the failure this charge exists to fix.
+	// Action holds the composer and Action is `minimal` at rest — a pane whose summons box is
+	// `display: none` at that size — so a click that loaded the bytes and left the pane shut looked
+	// like a button that did nothing. The pane is opened only when it was closed: a viewer who had
+	// already expanded it keeps the size he chose.
+	if (layout.action === 'minimal') setState('action', 'typical');
 }
 
 /** Copy is reading (D10). The bytes come off the option's own `<pre>`, so what is copied is what is shown. */
