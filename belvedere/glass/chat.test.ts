@@ -87,39 +87,47 @@ describe('refused at compose, never at send — P6 §T', () => {
 
 // ---------- the window: bytes in, whole lines and an offset out ----------
 
-describe('the transcript window pages backwards on its own byte offset', () => {
+describe('the read is the tail or the whole file, and it says which (B23 §2)', () => {
 	const path = file('window.jsonl', [user('one'), user('two'), user('three')]);
 	const size = statSync(path).size;
 
-	test('the tail is the tail, and it says it started at zero when it holds everything', () => {
-		const w = windowOf(path, null, 1 << 20)!;
+	test('a read that holds everything says so: `from` is ZERO, and that is the whole signal', () => {
+		const w = windowOf(path, 1 << 20)!;
 		expect(w.from).toBe(0);
 		expect(w.to).toBe(size);
 		expect(turnsOf(w, tmp).map(t => t.blocks.length)).toEqual([1, 1, 1]);
 	});
 
-	test('a partial edge line is dropped, never guessed at — and `from` is a BYTE offset', () => {
-		// Ask for fewer bytes than the last two records: the window opens mid-record and the partial
-		// head line is dropped whole.
-		const w = windowOf(path, null, 40)!;
+	test('a bounded read drops its partial head line, never guesses at it, and says where it began', () => {
+		// Fewer bytes than the last two records: the read opens mid-record.
+		const w = windowOf(path, 40)!;
 		expect(w.from).toBeGreaterThan(0);
-		// The offset must land exactly on a record boundary, which is what makes `before=` sound.
-		const back = windowOf(path, w.from, 1 << 20)!;
-		expect(back.to).toBe(w.from);
-		expect(back.from).toBe(0);
-		// Together the two windows are the whole file and no turn is in both.
-		const keys = [...turnsOf(back, tmp), ...turnsOf(w, tmp)].map(t => t.key);
-		expect(new Set(keys).size).toBe(keys.length);
+		// It opened on a real record boundary — every line it kept parses, and every turn it found
+		// begins at or after where it began. That is what makes `from` a coordinate rather than a hint.
+		for (const line of w.text.split('\n')) if (line !== '') expect(() => JSON.parse(line)).not.toThrow();
+		for (const t of turnsOf(w, tmp)) expect(t.key).toBeGreaterThanOrEqual(w.from);
 	});
 
 	test('a multi-byte corpus does not shift the offset — the newline is found in the BUFFER', () => {
 		// `—`, `⚡` and `⬡` are three bytes each: a UTF-16 index into a byte offset is a bug that only
 		// shows up on the interesting lines, so the split is done on the buffer.
 		const p = file('utf8.jsonl', [user('— ⚡ ⬡ one'), user('— ⚡ ⬡ two')]);
-		const w = windowOf(p, null, 30)!;
-		const back = windowOf(p, w.from, 1 << 20)!;
-		expect(back.to).toBe(w.from);
-		expect(turnsOf(back, tmp).length + turnsOf(w, tmp).length).toBeGreaterThanOrEqual(1);
+		// Enough for the last record and a bite of the one before it: the read opens mid-record, and
+		// the partial head goes whole. A byte bound counted in UTF-16 units would keep a broken line.
+		const w = windowOf(p, Math.round(statSync(p).size / 2) + 4)!;
+		expect(w.from).toBeGreaterThan(0);
+		const turns = turnsOf(w, tmp);
+		expect(turns.length).toBe(1);
+		// The kept turn's key is its record's true byte offset in the FILE — provable by reading the
+		// file at that offset and finding the same record.
+		const whole = windowOf(p, 1 << 20)!;
+		expect(turnsOf(whole, tmp).some(t => t.key === turns[0]!.key)).toBe(true);
+	});
+
+	test('the pager is gone: `windowOf` reads backwards from EOF and takes no end byte', () => {
+		// The signature IS the law here — a second parameter meaning "read up to byte N" is how the
+		// windowed model grows back (his ruling: the scroll view shows the entire chat).
+		expect(windowOf.length).toBe(2);
 	});
 });
 
@@ -128,7 +136,7 @@ describe('the transcript window pages backwards on its own byte offset', () => {
 describe('turns: what a transcript says, and what it only did', () => {
 	test('a tool result is not a turn — the tool_use line above it already said what ran', () => {
 		const p = file('tools.jsonl', [user('go'), uses('Read', { file_path: '/x/y.ts' }), toolResult(), say('done')]);
-		const turns = turnsOf(windowOf(p, null, 1 << 20)!, tmp);
+		const turns = turnsOf(windowOf(p, 1 << 20)!, tmp);
 		expect(turns.map(t => t.role)).toEqual(['user', 'assistant']);
 		const acts = turns[1]!.blocks.filter(b => b.kind === 'act');
 		expect(acts).toEqual([{ kind: 'act', tool: 'Read', head: '/x/y.ts' }]);
@@ -138,7 +146,7 @@ describe('turns: what a transcript says, and what it only did', () => {
 		const p = file('run.jsonl', [
 			user('go'), say('first'), uses('Bash', { command: 'ls -la\nsecond line' }), say('second'),
 		]);
-		const turns = turnsOf(windowOf(p, null, 1 << 20)!, tmp);
+		const turns = turnsOf(windowOf(p, 1 << 20)!, tmp);
 		expect(turns.length).toBe(2);
 		expect(turns[1]!.blocks.map(b => b.kind)).toEqual(['prose', 'act', 'prose']);
 		// One tool call, one line: the head is the first line of the command and no more.
@@ -148,7 +156,7 @@ describe('turns: what a transcript says, and what it only did', () => {
 	test('a sidechain is a subagent’s own conversation and is not this session’s', () => {
 		const side = JSON.stringify({ type: 'user', isSidechain: true, message: { role: 'user', content: 'inside the subagent' } });
 		const p = file('side.jsonl', [user('go'), side, say('done')]);
-		const turns = turnsOf(windowOf(p, null, 1 << 20)!, tmp);
+		const turns = turnsOf(windowOf(p, 1 << 20)!, tmp);
 		expect(turns.length).toBe(2);
 		expect(JSON.stringify(turns)).not.toContain('inside the subagent');
 	});
@@ -166,7 +174,7 @@ describe('turns: what a transcript says, and what it only did', () => {
 	test('activity is capped per turn and the fold is COUNTED, never silently dropped', () => {
 		const many = Array.from({ length: 50 }, (_, n) => uses('Read', { file_path: `/x/${n}.ts` }));
 		const p = file('many.jsonl', [user('go'), ...many]);
-		const t = turnsOf(windowOf(p, null, 1 << 20)!, tmp)[1]!;
+		const t = turnsOf(windowOf(p, 1 << 20)!, tmp)[1]!;
 		expect(t.blocks.filter(b => b.kind === 'act').length).toBe(40);
 		expect(t.folded).toBe(10);
 	});
@@ -340,7 +348,7 @@ describe('the minimap indexes the whole transcript, and grows with it', () => {
 		const p = file('marks.jsonl', [user('one'), say('a'), say('b'), user('two'), say('c')]);
 		const marks = indexOf(p);
 		expect(marks.map(m => m.role)).toEqual(['user', 'assistant', 'user', 'assistant']);
-		expect(marks.map(m => m.key)).toEqual(turnsOf(windowOf(p, null, 1 << 20)!, tmp).map(t => t.key));
+		expect(marks.map(m => m.key)).toEqual(turnsOf(windowOf(p, 1 << 20)!, tmp).map(t => t.key));
 	});
 
 	test('an appended turn is indexed WITHOUT re-reading the file’s history', () => {
@@ -351,7 +359,7 @@ describe('the minimap indexes the whole transcript, and grows with it', () => {
 		expect(grown.length).toBe(4);
 		// The keys of the first two are untouched: an append-only index never re-derives what it holds.
 		expect(grown.slice(0, 2).map(m => m.key)).toEqual(indexOf(p).slice(0, 2).map(m => m.key));
-		expect(grown.map(m => m.key)).toEqual(turnsOf(windowOf(p, null, 1 << 20)!, tmp).map(t => t.key));
+		expect(grown.map(m => m.key)).toEqual(turnsOf(windowOf(p, 1 << 20)!, tmp).map(t => t.key));
 	});
 
 	test('a transcript longer than the strip is downsampled evenly — never truncated to its tail', () => {

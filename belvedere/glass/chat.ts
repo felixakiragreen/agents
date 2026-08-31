@@ -171,19 +171,23 @@ export function locate(sid: string, rig: Rig, census: CensusRead, buildings: Bui
 export type Window = { text: string; from: number; to: number };
 
 /**
- * The bytes of a transcript ending at `endByte` (or at EOF), whole lines only.
+ * The last `bytes` of a transcript, whole lines only, and **where it started**.
  *
  * `census.ts`'s `fileWindow` answers the same question for a log whose tail is all anyone wants;
- * this one has to page, so it returns **where it started**. The newline is found in the *buffer*,
+ * this one hands back its own opening offset, which is how the pane knows whether it is holding the
+ * beginning of the conversation or a bounded read of the end. The newline is found in the *buffer*,
  * not in the decoded string: the corpus is full of `—` and `⚡`, and a UTF-16 index into a byte
  * offset is a bug that only shows up on the interesting lines.
+ *
+ * It reads backwards from EOF and nowhere else. The `endByte` this took until B23 was the pager's —
+ * *"the window before the one I hold"* — and it retired with the model his ruling replaced (§2): a
+ * door labelled "read up to byte N" is how a keyhole grows back.
  */
-export function windowOf(path: string, endByte: number | null, bytes: number): Window | null {
+export function windowOf(path: string, bytes: number): Window | null {
 	let fd: number;
 	try { fd = openSync(path, 'r'); } catch { return null; }
 	try {
-		const size = statSync(path).size;
-		const end = endByte === null ? size : Math.max(0, Math.min(endByte, size));
+		const end = statSync(path).size;
 		const start = Math.max(0, end - bytes);
 		const buf = Buffer.alloc(end - start);
 		if (buf.length) readSync(fd, buf, 0, buf.length, start);
@@ -574,7 +578,7 @@ export function chatView(sid: string, where: Where, armed: boolean, note: string
 	const doc = buildings.find(b => b.building === t.building)?.path ?? t.cwd ?? cityRoot();
 	const bytes = t.transcript === null ? 0 : statSync(t.transcript).size;
 	const whole = where.kind === 'whole';
-	const w = t.transcript === null ? null : windowOf(t.transcript, null, whole ? LIMITS.whole : LIMITS.window);
+	const w = t.transcript === null ? null : windowOf(t.transcript, whole ? LIMITS.whole : LIMITS.window);
 	const all = w === null ? [] : turnsOf(w, t.cwd ?? doc);
 	const turns = all.slice(-(whole ? LIMITS.wholeTurns : LIMITS.turns));
 	const marks = t.transcript === null ? [] : indexOf(t.transcript);

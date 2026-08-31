@@ -9,7 +9,8 @@ import { afterAll, beforeAll, describe, expect, test } from 'bun:test';
 import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
-import { around, turnsOf, windowOf } from './chat';
+import { turnsOf, windowOf } from './chat';
+import { turnAt } from './deck-model';
 import type { CensusRead } from './census';
 import {
 	clipAround, docFiles, findTerm, grepQuery, insensitiveFor, LIMITS, offsetOfLine, readTerm, rgAvailable, sized,
@@ -186,10 +187,11 @@ describe('one query, three groups', () => {
 	test('the session hit\'s anchor IS the byte offset of the turn it belongs to', async () => {
 		const a = await ask('bob summons');
 		const anchor = (a.groups[0]!.hits[0]!.jump as { anchor: number }).anchor;
-		const w = windowOf(TRANSCRIPT, null, 1 << 20)!;
-		const turns = turnsOf(w, CITY, anchor);
-		const landed = around(turnsOf(w, CITY), anchor).filter(t => t.key <= anchor).at(-1)!;
-		expect(turns.some(t => t.key === landed.key)).toBe(true);
+		// B23 §2: the Chat holds the whole transcript, so the jump is a scroll and the turn it lands on
+		// is `turnAt`'s — the same rule on both sides of the wire, asserted here against real turns.
+		const turns = turnsOf(windowOf(TRANSCRIPT, 1 << 20)!, CITY);
+		const key = turnAt(turns, anchor);
+		const landed = turns.find(t => t.key === key)!;
 		expect(landed.role).toBe('user');
 		expect(JSON.stringify(landed.blocks)).toContain('bob summons');
 	});
@@ -257,24 +259,27 @@ describe('one query, three groups', () => {
 	});
 });
 
-describe('the anchored window (B16\'s reader, given a target)', () => {
-	const turn = (key: number) => ({ key, role: 'user' as const, at: null, blocks: [], folded: 0 });
+/**
+ * B21's jump and B23's minimap are one coordinate and one rule. The windowed reader they used to
+ * share — `around()`, which centred a forty-turn window on a target — retired with the pager: the
+ * whole transcript is held, so nothing is centred and nothing is sliced away.
+ */
+describe('the turn a byte offset belongs to (B23 §2 — one rule, both sides)', () => {
+	const turns = Array.from({ length: 100 }, (_, i) => ({ key: i * 10 }));
 
-	test('with no target the tail survives, exactly as it always did', () => {
-		const all = Array.from({ length: 100 }, (_, i) => turn(i));
-		expect(around(all, null).map(t => t.key)).toEqual(all.slice(-40).map(t => t.key));
+	test('an offset inside a turn resolves to that turn, never the next one', () => {
+		expect(turnAt(turns, 105)).toBe(100);        // between turn 100 and turn 110
+		expect(turnAt(turns, 110)).toBe(110);        // exactly on one is that one
 	});
 
-	test('with a target the window is centred on it, so the hit is never sliced away', () => {
-		const all = Array.from({ length: 100 }, (_, i) => turn(i * 10));
-		const got = around(all, 105);          // between turn 100 and turn 110 — it belongs to 100
-		expect(got.length).toBe(40);
-		expect(got.some(t => t.key === 100)).toBe(true);
-		expect(got[0]!.key).toBe(0);           // clamped at the head rather than running off it
+	test('an offset past the end is the last turn — a hit in a turn still being written', () => {
+		expect(turnAt(turns, 1_000_000)).toBe(990);
 	});
 
-	test('a target before every turn takes the head, never an empty window', () => {
-		const all = Array.from({ length: 100 }, (_, i) => turn(1000 + i));
-		expect(around(all, 5)[0]!.key).toBe(1000);
+	test('an offset before every turn held is NULL, never the nearest', () => {
+		// The honest answer when a limit bit: the pane says the turn is outside what it holds rather
+		// than scrolling somewhere plausible and calling it the hit.
+		expect(turnAt(turns.slice(50), 5)).toBeNull();
+		expect(turnAt([], 5)).toBeNull();
 	});
 });

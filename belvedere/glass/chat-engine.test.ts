@@ -10,10 +10,10 @@
 // P6's own reason: a suite that drove real sessions would drive Felix's desktop (B8 F1).
 
 import { expect, test, describe, afterAll, beforeAll } from 'bun:test';
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'fs';
+import { mkdtempSync, readFileSync, realpathSync, rmSync, writeFileSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
-import { chatView, sendMessage, TAIL, type World } from './chat';
+import { chatView, LIMITS, sendMessage, TAIL, WHOLE, type World } from './chat';
 import { readCensus } from './census';
 import { readRig } from './rig';
 import { stepIndex } from './steps';
@@ -214,5 +214,65 @@ describe('the rendering fixture is a committed real capture (C16 §4)', () => {
 				expect('spans' in fence).toBe(false);
 		}
 		finally { process.env.RUNS_DIR = run.root; mounted.close(); }
+	});
+});
+
+// ---------- B23 §2: the scroll view shows the ENTIRE chat ----------
+
+/**
+ * The whole read is the model his ruling replaced the pager with, so what a test can hold is: the
+ * gesture answers every turn, the poll still answers a bounded tail, and a read that could not hold
+ * the file **says so** in `from` rather than passing a keyhole off as the conversation.
+ *
+ * A run whose transcript this suite writes is the only honest fixture — the assertion is about a
+ * transcript LONGER than one window, and no committed capture is.
+ */
+describe('the whole transcript, and the two limits that say when it is not', () => {
+	let tall: Minted;
+	let tallWorld: World;
+	/** Comfortably past `LIMITS.turns` (40) and past the 192 kB tail window. */
+	const TURNS = 120;
+
+	beforeAll(() => {
+		const root = mkdtempSync(join(realpathSync(tmpdir()), 'b23-tall-'));
+		const sid = 'b23a11a1-0000-4000-8000-000000000023';
+		const capture = join(root, 'tall.jsonl');
+		const filler = 'x'.repeat(2_000);          // 120 × 2 kB ≫ the tail window, so the two differ
+		writeFileSync(capture, `${Array.from({ length: TURNS }, (_, i) => JSON.stringify({
+			type: 'user', sessionId: sid, timestamp: new Date().toISOString(),
+			message: { role: 'user', content: `turn ${i} ${filler}` },
+		})).join('\n')}\n`);
+		tall = rich('b23/tall', root, capture);
+		tallWorld = { ...world, steps: stepIndex([], tall.root) };
+	});
+	afterAll(() => tall?.close());
+
+	test('the gesture answers EVERY turn, and says the beginning is held', () => {
+		const v = chatView(tall.sessionId, WHOLE, false, 'reading', tallWorld);
+		expect(v.turns.length).toBe(TURNS);
+		expect(v.turnCount).toBe(TURNS);
+		expect(v.from).toBe(0);
+		expect(v.turns[0]!.blocks.some(b => b.kind === 'prose' && JSON.stringify(b).includes('turn 0'))).toBe(true);
+	});
+
+	test('the poll still answers a bounded tail — one shared timer is not a place to put a file', () => {
+		const v = chatView(tall.sessionId, TAIL, false, 'reading', tallWorld);
+		expect(v.turns.length).toBe(LIMITS.turns);
+		// And it does not pretend: the tail begins somewhere, and `from` is where.
+		expect(v.from).toBeGreaterThan(0);
+		// The marks still span the whole file, which is what makes the strip a map (C16 §6).
+		expect(v.turnCount).toBe(TURNS);
+	});
+
+	test('a turn cap that BITES reports through `from` — a bounded read never passes for the file', () => {
+		const held = LIMITS.wholeTurns;
+		try {
+			(LIMITS as { wholeTurns: number }).wholeTurns = 10;
+			const v = chatView(tall.sessionId, WHOLE, false, 'reading', tallWorld);
+			expect(v.turns.length).toBe(10);
+			expect(v.from).toBe(v.turns[0]!.key);
+			expect(v.from).toBeGreaterThan(0);
+		}
+		finally { (LIMITS as { wholeTurns: number }).wholeTurns = held; }
 	});
 });

@@ -668,9 +668,14 @@ body.deck {
    conversation, C16's minimap shot). */
 .deck .ct-mark-user { background: color-mix(in srgb, var(--felix) 45%, transparent); }
 .deck .ct-mark-assistant { background: var(--grey-650); }
-/* Lit: this turn is in the window on screen — the strip's whole job is saying where you are. */
+/* Lit: this turn is ON SCREEN right now. Under continuous scroll (B23 §2) the strip is a position
+   indicator over one scroll view rather than a picture of which window loaded — so the lit run
+   moves as he scrolls, and clicking a mark moves the scroll view to it. */
 .deck .ct-mark.on { background: var(--grey-400); }
 .deck .ct-mark-user.on { background: var(--felix); }
+/* A mark whose turn is past the read's own limit: present, so the strip still spans the file, and
+   visibly not something to click — the honest-disabled law, one pixel wide. */
+.deck .ct-mark.off { opacity: .35; cursor: default; }
 .deck .ct-mark.aim { background: var(--yellow-600); }
 .deck .ct-mark:hover { outline: 1px solid var(--grey-600); }
 /* --- the engine's step (C16 §3): a pause is a conversation, and its question sits above the reply --- */
@@ -827,9 +832,7 @@ body.deck {
 }
 .deck .degraded { color: var(--orange-300); }
 
-/* The jump landed here (B21): the turn a grep hit points at, marked in the one Chat view. */
+/* The jump landed here: the turn a grep hit or a minimap click points at, marked in the one Chat
+   view. B21's `.ct-aim-note` — "jumped to your search hit", with a [↓ latest] out of it — retired
+   with the pager (B23 §2): there is no window to come back from, so the mark is the whole of it. */
 .deck .ct-aim { border-left-color: var(--yellow-600); background: var(--grey-900); }
-.deck .ct-aim-note {
-	display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-	margin-bottom: 6px; padding-bottom: 5px; border-bottom: 1px solid var(--grey-850);
-}
