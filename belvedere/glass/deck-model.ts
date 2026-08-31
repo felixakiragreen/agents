@@ -14,6 +14,7 @@ import type { State } from '../../doctrine';
 import type { SessionState } from './census';
 import type { RefKind } from './decode';
 import type { Countersigned } from './inbox';
+import type { Arrangement } from './spaces';
 
 // ---------- the three panes and their three states ----------
 
@@ -1131,4 +1132,14 @@ export type DeckSnapshot = {
 	 * or nothing at all, and the deck says **stale** rather than showing a name as current.
 	 */
 	identity: { at: number; error: string | null; workspaces: number };
+	/**
+	 * **His arrangement of the City** (B24) — the spaces he made, read from `desk/city-arrangement.json`
+	 * every poll. `his: false` means the City is drawing the register's own neighborhoods, and `error`
+	 * says so out loud where his file exists but could not be read.
+	 *
+	 * It rides the snapshot rather than a door of its own because it is small (his whole city is a
+	 * page of JSON) and because every poll already carries the buildings it arranges — a second timer
+	 * for a fact this one already needs would be B13 F5's shared budget spent twice.
+	 */
+	arrangement: Arrangement;
 };

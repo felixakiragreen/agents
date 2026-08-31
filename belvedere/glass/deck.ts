@@ -9,6 +9,7 @@
 
 import { readFileSync, statSync } from 'fs';
 import { sep } from 'path';
+import { readArrangement } from './arrangement';
 import { cityRows, needsYou, waitingOf } from './attention';
 import { readCensus, isLive, type Session } from './census';
 import { chatView, TAIL } from './chat';
@@ -153,6 +154,10 @@ export async function deckState(open: string | null = null, talking: string | nu
 		chat,
 		auditor: auditor(),
 		identity: { at: who.at, error: who.error, workspaces: who.workspaces.length },
+		// His arrangement of the City (B24): one small file, read per poll like every other truth on
+		// this deck rather than held — so an edit he makes by hand in an editor is on the deck within
+		// three seconds, exactly like a board row.
+		arrangement: readArrangement(),
 	};
 }
 

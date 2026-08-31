@@ -26,6 +26,7 @@
 import { createHash } from 'crypto';
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
+import { arrangementRoute } from './arrangement';
 import { readDraft } from './chat';
 import { DESK_ROUTES, type DeskNote, type DeskPlan, type DeskRead, type DeskRouteName } from './deck-model';
 import { fail, field, json, type Outcome } from './hands';
@@ -332,6 +333,10 @@ export async function deskRoute(req: Request, action: string): Promise<Response>
 	catch (e) { return json({ ok: false, error: `body is not JSON: ${(e as Error).message}` }, 400); }
 	const r = (body ?? {}) as Record<string, unknown>;
 
+	// The City's arrangement is a desk file too (B24 §2), so it comes in this door: same
+	// no-credential rule, same one write, and its own parse boundary in `arrangement.ts`.
+	if (action === 'arrangement') return arrangementRoute(body);
+
 	if (action === 'save') {
 		const out = saveNote(field(r, 'slug'), field(r, 'text'));
 		return json(out, out.ok ? 200 : 409);
@@ -348,5 +353,5 @@ export async function deskRoute(req: Request, action: string): Promise<Response>
 		const out = fileNote(ask.result, field(r, 'sha'));
 		return json(out, out.ok ? 200 : 409);
 	}
-	return json({ ok: false, error: `no such desk action: ${action} — notes, note, save, preview, file` }, 404);
+	return json({ ok: false, error: `no such desk action: ${action} — notes, note, save, preview, file, arrangement` }, 404);
 }
