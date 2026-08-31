@@ -32,6 +32,7 @@ fixture-broken.probe.ts
 fixture-gauges.probe.ts
 inbox-knob.probe.ts
 board-fresh.probe.ts
+nag-honesty.probe.ts
 act-stall.probe.ts
 tenant-leak.probe.ts
 chat.probe.ts
