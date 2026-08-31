@@ -5,9 +5,9 @@ import { existsSync, readFileSync } from 'fs';
 import { basename, join, sep } from 'path';
 import { discover, lastWalk, type Building } from './building';
 import { STATES, type Fail } from './grammar';
-import { boardIds, isLiveWorkDoc, parseDecisions } from './parse';
+import { boardIds, isLiveWorkDoc, isSpentWorkDoc, parseDecisions } from './parse';
 
-export { isLiveWorkDoc };
+export { isLiveWorkDoc, isSpentWorkDoc };
 import { prefixFails, vocabularyFails } from './vocabulary';
 
 export type Totals = {
@@ -49,11 +49,17 @@ const VOICE = ['LOG.md', 'SAPHO.md', 'dream.md'];
  */
 const isLawBook = (f: string) => f.split(sep).includes('canon');
 
-/** C25's live list: a building's own master doc and CLAUDE.md, its boards, its OPEN charge docs. */
+/**
+ * C25's live list: a building's own master doc and CLAUDE.md, its boards, its OPEN charge docs.
+ *
+ * And nothing spent. A charge doc that carries a staffing table is filed as a BOARD, so the
+ * board half of this list walked straight past the live/spent rule the work-doc half obeys —
+ * `plans/18-great-recut.md` landed on 2026-08-29 and was still reporting 11 dead words.
+ */
 function lawSurfaces(b: Building): string[] {
 	const live = b.files.workDocs.filter(f => isLiveWorkDoc(readFileSync(f, 'utf8')));
 	return [...new Set([...b.files.prose, ...b.files.boards, ...live])]
-		.filter(f => !VOICE.includes(basename(f)) && !isLawBook(f))
+		.filter(f => !VOICE.includes(basename(f)) && !isLawBook(f) && !isSpentWorkDoc(readFileSync(f, 'utf8')))
 		.sort();
 }
 

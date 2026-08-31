@@ -13,7 +13,7 @@ import {
 } from '../src/lexicon';
 import { mask, vocabularyFails } from '../src/vocabulary';
 import { lint } from '../src/lint';
-import { parseLedger } from '../src/parse';
+import { isSpentWorkDoc, parseLedger } from '../src/parse';
 import { MANTLES } from '../src/grammar';
 
 const FX = join(import.meta.dir, '..', 'fixtures');
@@ -191,6 +191,17 @@ describe('the arms — one line that must catch, one that must not', () => {
 	test('a closed charge doc is history: not one word of it fires', () => {
 		expect(report.fails.some(f => f.file.endsWith('closed.md'))).toBe(false);
 		expect(vocabularyFails(fx('vocab/plans', 'closed.md')).length).toBeGreaterThan(0);   // …only the fence spares it
+	});
+
+	test('and a closed charge that carries a board is history too (C36 item 1)', () => {
+		// the register files this one as a BOARD, and the board half of the live list read every
+		// board whatever its own Status said — `plans/18-great-recut.md` landed and kept reporting
+		const doc = report.buildings[0]!.files.boards.find(f => f.endsWith('closed-board.md'));
+		expect(doc).toBeDefined();                                            // filed as a board, not a work doc
+		expect(report.fails.some(f => f.file === doc)).toBe(false);
+		expect(vocabularyFails(fx('vocab/plans', 'closed-board.md')).length).toBeGreaterThan(0);
+		expect([isSpentWorkDoc(fx('vocab/plans', 'closed-board.md')), isSpentWorkDoc(fx('vocab/plans', 'open.md')),
+			isSpentWorkDoc(fx('vocab', 'README.md'))]).toEqual([true, false, false]);   // no Status line says nothing
 	});
 });
 

@@ -318,10 +318,10 @@ describe('the silence family — defects that once reported clean', () => {
 		// exactly the seven pre-door fences, and the one whose door held but whose charter drifted
 		expect(codes(r.fails).sort()).toEqual([...Array(7).fill('kickoff.door'), 'kickoff.wear']);
 		expect(r.fails.filter(f => f.code === 'kickoff.door').every(f => f.file.endsWith('pre-door.md'))).toBe(true);
-		// the repaired seven, the LANDED doc's pre-door fence, and the inline stanza: silent
-		expect(r.fails.filter(f => /\/(?:door|landed)\.md$/.test(f.file))).toEqual([]);
-		// counted as before — the arm reads fences, it does not stop counting them
-		expect(r.totals.kickoffs).toBe(16);
+		// the repaired seven, the spent docs' pre-door fences, and the inline stanza: silent
+		expect(r.fails.filter(f => /\/(?:door|landed|killed)\.md$/.test(f.file))).toEqual([]);
+		// LANDED and KILLED are one rule — a spent charge's fence is history either way (C36 item 1)
+		expect(r.totals.kickoffs).toBe(17);
 	});
 
 	test('the arm is the live doc\'s alone; the summons line is still everyone\'s (C31 item 4)', () => {

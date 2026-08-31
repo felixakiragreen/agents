@@ -396,10 +396,26 @@ const STANZA_LINE = /^You are an Agent of the Guild\b/;
  * LANDED and KILLED docs are history: nothing re-ignites them, so nothing lints their fences.
  */
 export function isLiveWorkDoc(md: string): boolean {
+	const head = statusHead(md);
+	return head !== null && (head.startsWith('OPEN') || head.startsWith('IN FLIGHT') || head.startsWith('BLOCKED'));
+}
+
+/**
+ * The other half of the same header, and NOT the negation of it: a doc is SPENT when its own
+ * state says LANDED or KILLED, and merely carrying no Status line says nothing either way.
+ * History is whole — C25's live/spent rule — so a spent doc is exempt from the arms that
+ * respell or re-ignite it, whether the register filed it as a work doc or, because it carries
+ * a staffing table, as a board (`plans/18-great-recut.md` is LANDED and reported 11 dead words).
+ */
+export function isSpentWorkDoc(md: string): boolean {
+	const head = statusHead(md);
+	return head !== null && (head.startsWith('LANDED') || head.startsWith('KILLED'));
+}
+
+/** The §5 skeleton's own Status line, de-emphasized and folded — or null where it carries none. */
+function statusHead(md: string): string | null {
 	const m = md.match(/^\*\*Status:\*\*\s*(.+)$/m);
-	if (!m) return false;
-	const head = m[1]!.replace(/\*\*/g, '').trim().toUpperCase();
-	return head.startsWith('OPEN') || head.startsWith('IN FLIGHT') || head.startsWith('BLOCKED');
+	return m ? m[1]!.replace(/\*\*/g, '').trim().toUpperCase() : null;
 }
 
 /**
