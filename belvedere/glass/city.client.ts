@@ -288,7 +288,9 @@ const LEGEND: [string, string, string?][] = [
 	['dot s-working', 'working'],
 	['dot s-idle', 'idle'],
 	['dot s-unknown', 'unknown — no pid to ask'],
-	['dot s-needs-input w-blocked', 'blocked — a permission prompt is waiting'],
+	// C21 F4's legend token — the class combination the deck never produces — is B27 §8's, not this
+	// charge's. Ported verbatim, defect included, so the sweep still finds it where it was filed.
+	['dot s-idle w-blocked', 'blocked — a permission prompt is waiting'],
 	['badge b-waiting', 'blocked on you'],
 	['badge b-baton', 'a ledger tail handed the next move on'],
 	['badge b-gate', '⬡-gate on a live charge'],

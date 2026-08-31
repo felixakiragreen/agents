@@ -122,10 +122,31 @@ export default async function (p: Probe): Promise<void> {
 	const after = flat(arrangement());
 	if (!after.some(b => b.endsWith('/delta'))) throw new Error(`filing did not persist: ${after.join(', ')}`);
 
+	// ---------- 6. three deep, and the page still does not scroll ----------
+
+	// The law of space (README §3): nesting may cost the pane its overflow and must never cost the
+	// PAGE any. `body.deck` is a fixed two-row grid with `overflow: hidden`, and this is the
+	// measurement that says so with a nest standing open inside it.
+	await p.click(`${named('THG')} > .sp-h > .sp-edit`);
+	await p.click(`${named('THG')} [data-arr-add]`);
+	await p.waitFor('[data-arr-name]');
+	await p.type('[data-arr-name]', 'inside');
+	await p.click(`${CITY} .headline`);
+	await p.drag(grip(`${named('THG')} .sp:has(> .sp-h > .sp-row[data-building$="/delta"])`), `${named('inside')} > .sp-h`);
+	await p.waitFor(`${named('inside')} .sp-row[data-building$="/delta"]`);
+	const deep = await p.count(`${CITY} .sp-tree > .sp .sp .sp .sp-row`);
+	if (deep < 1) throw new Error('the three-deep nest did not draw');
+	const page = await p.scrolled('body');
+	if (page.top !== 0 || page.height > page.client)
+		throw new Error(`the page scrolls with a nest open: top ${page.top}, content ${page.height} in ${page.client}`);
+	const selects = await p.count('select');
+	if (selects !== 0) throw new Error(`${selects} dropdowns on the deck — the design law says none`);
+
 	console.log(`default     ${groups} neighborhoods, ${rows} buildings — one section per label`);
 	console.log(`his file    ${file}`);
 	console.log(`            ${after.join(' · ')}`);
 	console.log(`the law     file order beta→alpha, drawn order alpha→beta — attention outranks his order`);
+	console.log(`law of space three deep, page scroll ${page.top} px, content ${page.height} in ${page.client} · ${selects} <select> on the deck`);
 	console.log(arranged);
 	console.log(await p.shoot('city-arranged-filed'));
 }
