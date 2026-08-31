@@ -2499,16 +2499,26 @@ deferred list as one future charge, the two belvedere reports routed into
 `belvedere/ISSUES.md` for the close-out, both spent batch notes and the flow-1 note
 died (D78), G2's doc header reconciled to its row (LANDED — REJECTED). Inbox cleared
 again — twice in one session. Decided: C22 + 11 KILLED (⬡; rulings live in the
-docs). Next: one summons remains that is his alone — the belvedere close-out, at his
-chosen hour.
+docs). Next: **the close-out folds into the successor's founding** (⬡ ruled
+2026-08-31, superseding the standalone close-out baton this entry first carried —
+git holds it): the founding session opens with Belvedere's close-out, writes the
+post-mortem into the new cornerstone's non-goals — the one place failure lessons
+are load-bearing — and flips the books in passing. The successor is **stigmergon**
+(name in play, not set in stone; the dream is at his desk, hours deep). His hand
+first: repo + `git init` (branch master), the dream lands as `dream.md` —
+immutable from that moment — then the summons below.
 
-Baton — ⬡ → ignite the belvedere close-out session:
+Baton — ⬡ → ignite stigmergon's founding when the dream lands (rename the path if
+the name moves):
 ```
-You are an Architect at fable-high.
+You are an Architect at fable-max.
 Enter by the door — read ~/code/agents/canon/GUILD.md,
 wear ~/code/agents/canon/mantles/architect.md,
-then read ~/code/agents/BOARD.md row 15, ~/code/agents/belvedere/README.md,
-and ~/code/agents/belvedere/ISSUES.md, and run the retirement Felix declared
-2026-08-31: the campaign closed on its own board, the v3 engine's salvage
-scoped, the deck's remains documented — a documented kill is a win.
+then read ~/code/agents/canon/work/DOCTRINE.md and ~/code/stigmergon/dream.md,
+and lay the cornerstone — opening with Belvedere's close-out:
+read ~/code/agents/BOARD.md row 15, ~/code/agents/belvedere/README.md, and
+~/code/agents/belvedere/ISSUES.md; write the post-mortem into the new
+cornerstone's non-goals; scope the v3 engine salvage as founding inputs;
+flip Belvedere's books (row 15 and its own board) — a documented kill is a
+win.
 ```
