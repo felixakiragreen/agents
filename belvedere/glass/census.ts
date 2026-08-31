@@ -107,6 +107,12 @@ const BY_EVENT: Readonly<Record<string, SessionState>> = {
 	SubagentStop: 'working',
 	PreCompact: 'working',
 	Stop: 'idle',                // the real idle sensor — Notification is a 60 s nag (P1 F1)
+	// B14 F1's answer: the immediate, headless-safe blocked edge. Today the glass infers this from
+	// `Notification`/`permission_prompt`, which arrives ~6 s late and only in interactive sessions
+	// (measured end to end: `PreToolUse Write` 00:28:09Z → `Notification permission_prompt`
+	// 00:28:15Z). The reader is ready before the sensor is: no account emits this event until Felix
+	// runs the ritual (`plans/permissionrequest-runbook.md`), and until then the line is inert.
+	PermissionRequest: 'needs-input',
 	SessionEnd: 'gone',
 };
 

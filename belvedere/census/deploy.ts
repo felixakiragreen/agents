@@ -27,6 +27,7 @@ type Account = { dir: string; label: string };
 type State =
 	| { kind: "installed" }                        // already exactly our hooks
 	| { kind: "ready"; settingsExist: boolean }    // no hooks — safe to merge
+	| { kind: "upgrade"; note: string }            // our hooks, an older event set — re-merge
 	| { kind: "foreign"; note: string }            // hooks we did not write — refuse
 	| { kind: "blocked"; why: string };            // can't proceed, and won't guess
 
@@ -104,8 +105,16 @@ function inspect(a: Account): State {
 	const isEmpty = hooks == null || (typeof hooks === "object" && Object.keys(hooks).length === 0);
 	if (!isEmpty) {
 		const events = typeof hooks === "object" ? Object.keys(hooks).join(" ") : JSON.stringify(hooks);
-		const commands = [...commandsIn(hooks)].join(", ");
-		return { kind: "foreign", note: `existing hooks: ${events}${commands ? ` → ${commands}` : ""}` };
+		const commands = [...commandsIn(hooks)];
+		// **Ours, at an older event set.** A hooks block whose every command is exactly THIS
+		// `beat.sh` was written by this script and by nothing else, so amending the fragment — one
+		// more event, a corrected timeout — is an upgrade rather than an overwrite. Without this,
+		// adding an event to `hooks.json` refuses on every account that already carries the census
+		// and the only way through is hand-editing three live config files, which is precisely what
+		// D14's guard exists to prevent (B22 candidate 5).
+		if (commands.length > 0 && commands.every(c => c === hook))
+			return { kind: "upgrade", note: `ours, ${Object.keys(hooks as object).length} events → ${Object.keys(fragment.hooks).length}` };
+		return { kind: "foreign", note: `existing hooks: ${events}${commands.length ? ` → ${commands.join(", ")}` : ""}` };
 	}
 	if (existsSync(path + BACKUP_SUFFIX))
 		return { kind: "blocked", why: `${BACKUP_SUFFIX} exists but hooks are gone — backing up twice would destroy the first original; move it aside yourself` };
@@ -113,14 +122,18 @@ function inspect(a: Account): State {
 }
 
 // Returns what happened to the original, for the report — nothing is invented.
-function merge(a: Account): string {
+function merge(a: Account, upgrade: boolean): string {
 	const path = join(a.dir, "settings.json");
 	const had = existsSync(path);
-	if (had) copyFileSync(path, path + BACKUP_SUFFIX);
+	// **An upgrade never backs up.** `.pre-census` holds the file as it was BEFORE the census
+	// existed; copying an already-hooked settings.json over it — or writing one under that name
+	// where none was ever taken — replaces the only original with a lie about what it was.
+	if (had && !upgrade) copyFileSync(path, path + BACKUP_SUFFIX);
 	const settings = had ? JSON.parse(readFileSync(path, "utf8")) : {};
 	settings.hooks = fragment.hooks;
 	writeFileSync(path, JSON.stringify(settings, null, "\t") + "\n");
-	return had ? `original → settings.json${BACKUP_SUFFIX}` : "settings.json created (there was none)";
+	return upgrade ? `event set brought forward; settings.json${BACKUP_SUFFIX} untouched`
+		: had ? `original → settings.json${BACKUP_SUFFIX}` : "settings.json created (there was none)";
 }
 
 const row = (label: string, verdict: string, note: string) =>
@@ -148,6 +161,7 @@ for (const { a, state } of plan) {
 	switch (state.kind) {
 		case "installed": row(a.label, "ok", "census hooks in place"); break;
 		case "ready":     row(a.label, check ? "DRIFT" : "pending", state.settingsExist ? "no hooks — merge will add them" : "no settings.json — deploy will create it"); break;
+		case "upgrade":   row(a.label, check ? "DRIFT" : "pending", `${state.note} — re-merge will bring the event set forward`); break;
 		case "foreign":   row(a.label, "REFUSED", state.note); break;
 		case "blocked":   row(a.label, "REFUSED", state.why); break;
 	}
@@ -159,11 +173,11 @@ if (refused.length) {
 	process.exit(1);
 }
 
-const pending = plan.filter(p => p.state.kind === "ready");
+const pending = plan.filter(p => p.state.kind === "ready" || p.state.kind === "upgrade");
 if (check) {
 	console.log();
 	if (pending.length) {
-		console.log(`DRIFT — ${pending.length} account(s) unsensored. Fix with deploy.ts (Felix-run).`);
+		console.log(`DRIFT — ${pending.length} account(s) not at this event set. Fix with deploy.ts (Felix-run).`);
 		process.exit(1);
 	}
 	console.log(`green — census live on ${plan.length} account(s).`);
@@ -175,8 +189,8 @@ if (!pending.length) {
 	process.exit(0);
 }
 console.log();
-for (const { a } of pending) {
-	const note = merge(a);
+for (const { a, state } of pending) {
+	const note = merge(a, state.kind === "upgrade");
 	const after = inspect(a);
 	if (after.kind !== "installed") { console.error(`   ${a.label}: merge did not take (${after.kind}) — STOP`); process.exit(1); }
 	row(a.label, "merged", note);
