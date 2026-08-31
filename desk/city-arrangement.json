@@ -1,0 +1,244 @@
+{
+	"spaces": [
+		{
+			"id": "s:felix",
+			"name": "Felix",
+			"color": "blue",
+			"type": "district",
+			"binding": null,
+			"children": [
+				{
+					"id": "b:agents",
+					"name": "",
+					"color": null,
+					"type": null,
+					"binding": "agents",
+					"children": [
+						{
+							"id": "b:agents/belvedere",
+							"name": "",
+							"color": null,
+							"type": null,
+							"binding": "agents/belvedere",
+							"children": [
+								{
+									"id": "b:agents/belvedere/v3",
+									"name": "",
+									"color": null,
+									"type": null,
+									"binding": "agents/belvedere/v3",
+									"children": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"id": "s:rooted",
+					"name": "Rooted",
+					"color": "green",
+					"type": null,
+					"binding": null,
+					"children": [
+						{
+							"id": "b:rooted/archive/arborist",
+							"name": "",
+							"color": null,
+							"type": null,
+							"binding": "rooted/archive/arborist",
+							"children": []
+						},
+						{
+							"id": "b:rooted/archive/repot",
+							"name": "",
+							"color": null,
+							"type": null,
+							"binding": "rooted/archive/repot",
+							"children": []
+						},
+						{
+							"id": "b:rooted/archive/blossom",
+							"name": "",
+							"color": null,
+							"type": null,
+							"binding": "rooted/archive/blossom",
+							"children": []
+						}
+					]
+				},
+				{
+					"id": "b:whiteboardy",
+					"name": "",
+					"color": null,
+					"type": null,
+					"binding": "whiteboardy",
+					"children": []
+				},
+				{
+					"id": "b:hexwright",
+					"name": "",
+					"color": null,
+					"type": null,
+					"binding": "hexwright",
+					"children": []
+				}
+			]
+		},
+		{
+			"id": "s:thg",
+			"name": "THG",
+			"color": "purple",
+			"type": "district",
+			"binding": null,
+			"children": [
+				{
+					"id": "b:universal_robots_sdk/bob",
+					"name": "",
+					"color": null,
+					"type": null,
+					"binding": "universal_robots_sdk/bob",
+					"children": [
+						{
+							"id": "b:universal_robots_sdk/bob/docs/campaigns/lunchbox",
+							"name": "",
+							"color": null,
+							"type": null,
+							"binding": "universal_robots_sdk/bob/docs/campaigns/lunchbox",
+							"children": []
+						},
+						{
+							"id": "b:universal_robots_sdk/bob/docs/campaigns/pods",
+							"name": "",
+							"color": null,
+							"type": null,
+							"binding": "universal_robots_sdk/bob/docs/campaigns/pods",
+							"children": []
+						},
+						{
+							"id": "b:universal_robots_sdk/bob/docs/campaigns/theseus",
+							"name": "",
+							"color": null,
+							"type": null,
+							"binding": "universal_robots_sdk/bob/docs/campaigns/theseus",
+							"children": []
+						}
+					]
+				},
+				{
+					"id": "s:mega",
+					"name": "mega",
+					"color": null,
+					"type": "the monorepo",
+					"binding": null,
+					"children": [
+						{
+							"id": "b:universal_robots_sdk/cap-mega/docs",
+							"name": "",
+							"color": null,
+							"type": null,
+							"binding": "universal_robots_sdk/cap-mega/docs",
+							"children": []
+						},
+						{
+							"id": "b:universal_robots_sdk/cap-mega/docs/units",
+							"name": "",
+							"color": null,
+							"type": null,
+							"binding": "universal_robots_sdk/cap-mega/docs/units",
+							"children": []
+						},
+						{
+							"id": "b:universal_robots_sdk/cap-mega/docs/waypoint-stepper",
+							"name": "",
+							"color": null,
+							"type": null,
+							"binding": "universal_robots_sdk/cap-mega/docs/waypoint-stepper",
+							"children": []
+						},
+						{
+							"id": "b:universal_robots_sdk/cap-mega/simmy",
+							"name": "",
+							"color": null,
+							"type": null,
+							"binding": "universal_robots_sdk/cap-mega/simmy",
+							"children": []
+						},
+						{
+							"id": "b:universal_robots_sdk/cap-mega/snappy",
+							"name": "",
+							"color": null,
+							"type": null,
+							"binding": "universal_robots_sdk/cap-mega/snappy",
+							"children": []
+						},
+						{
+							"id": "b:universal_robots_sdk/cap-mega/snappy/ch2",
+							"name": "",
+							"color": null,
+							"type": null,
+							"binding": "universal_robots_sdk/cap-mega/snappy/ch2",
+							"children": []
+						},
+						{
+							"id": "b:universal_robots_sdk/cap-mega/.claude/worktrees/cornerizer/docs",
+							"name": "",
+							"color": null,
+							"type": null,
+							"binding": "universal_robots_sdk/cap-mega/.claude/worktrees/cornerizer/docs",
+							"children": []
+						},
+						{
+							"id": "b:universal_robots_sdk/cap-mega/.claude/worktrees/motion-migration/docs",
+							"name": "",
+							"color": null,
+							"type": null,
+							"binding": "universal_robots_sdk/cap-mega/.claude/worktrees/motion-migration/docs",
+							"children": []
+						},
+						{
+							"id": "b:universal_robots_sdk/cap-mega/.claude/worktrees/user-manual/manny",
+							"name": "",
+							"color": null,
+							"type": null,
+							"binding": "universal_robots_sdk/cap-mega/.claude/worktrees/user-manual/manny",
+							"children": []
+						},
+						{
+							"id": "b:universal_robots_sdk/cap-mega/.claude/worktrees/tig-avc/docs",
+							"name": "",
+							"color": null,
+							"type": null,
+							"binding": "universal_robots_sdk/cap-mega/.claude/worktrees/tig-avc/docs",
+							"children": []
+						}
+					]
+				},
+				{
+					"id": "s:felix-lab",
+					"name": "felix",
+					"color": null,
+					"type": "one-off",
+					"binding": null,
+					"children": [
+						{
+							"id": "b:universal_robots_sdk/cap-mega/felix/spacex-dashboard",
+							"name": "",
+							"color": null,
+							"type": null,
+							"binding": "universal_robots_sdk/cap-mega/felix/spacex-dashboard",
+							"children": []
+						},
+						{
+							"id": "b:universal_robots_sdk/cap-mega/felix/spacex-dashboard-c2",
+							"name": "",
+							"color": null,
+							"type": null,
+							"binding": "universal_robots_sdk/cap-mega/felix/spacex-dashboard-c2",
+							"children": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
