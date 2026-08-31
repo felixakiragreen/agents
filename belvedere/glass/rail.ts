@@ -14,15 +14,15 @@
 //     summons with no known tier, a fork whose recommendation matches no option: each says so
 //     on the card and offers no button. A greyed reason beats a guessed ignition.
 //
-// D64's shapes, named by D71 — single / batch / fork — render as one / n / choice buttons. `doctrine/`'s parsed
-// `Baton` carries `instruments[]` but no `kind`, so the shape is read render-side here by a
-// thin splitter over the baton's own prose (B3 §3's instruction) — and the canon-inbox ask
-// for the missing field rides this row's findings. Nothing below re-implements a parse.
+// D64's shapes, named by D71 — single / batch / fork — render as one / n / choice buttons. The
+// splitter, the resolver and D10's collision test moved to `baton.ts` at B26, where the deck's
+// attention model reads them too: one reading of a handoff, two surfaces drawing it.
 
-import { readFileSync, statSync } from 'fs';
-import { dirname, resolve } from 'path';
-import { parseKickoffs, type Baton, type BoardRow, type Building, type Decision, type Instrument, type LedgerEntry } from '../../doctrine';
+import { dirname } from 'path';
+import { type Baton, type BoardRow, type Building, type Decision, type LedgerEntry } from '../../doctrine';
+import { collides, readBaton, type Resolved } from './baton';
 import { isLive, readCensus, type CensusRead, type Session } from './census';
+import type { BatonOption, Shape } from './deck-model';
 import { handsState } from './hands';
 import { encap, encapHtml, esc, inline, legend, LIVENESS_KEYS, mantleKeys, page, pill, short, stateTone, type Tone } from './html';
 import { auditorCount, auditorLine } from './gauges';
@@ -32,137 +32,24 @@ import { city } from './register';
 import { readRig, type Rig } from './rig';
 import { compose, type Composed } from './summon';
 
-const WORK_DOC_BYTES = 2 << 20;
+// ---------- an instrument, composed into an ignitable summons ----------
 
-// ---------- the baton's shape (D64, named by D71), read render-side ----------
-
-// D71 renamed two of the three: a move is a **single**, a wave is a **batch**. `plural` is not one
-// of the three — it is the defect the parser reports when a baton hands several instruments and
-// names no shape — so it keeps its name.
-export type Shape = 'single' | 'batch' | 'fork' | 'plural';
-
-// A fork is the choice ITSELF; a batch is n things ignited together. Both are prose today, so
-// both are matched as prose — and plurality with neither marker is reported, never guessed. The
-// corpus still writes `wave`, so the batch matcher keeps reading it: Belvedere's words molt, the
-// corpus's words are read as it wrote them.
-const FORK = /\bfork\b|\bexclusive\b|\bchoos|\bchoice\b|\beither\b|\boption [a-z]\b/i;
-const BATCH = /\bbatch\b|\bwave\b|\bparallel\b|\bboth\b|\ball (?:two|three|four|five)\b/i;
-
-export const shapeOf = (text: string, instruments: number): Shape =>
-	instruments <= 1 ? 'single' : FORK.test(text) ? 'fork' : BATCH.test(text) ? 'batch' : 'plural';
-
-/** What names an option in prose: a row id, or the mantle and tier its summons opens with. */
-const keysOf = (i: Instrument): string[] =>
-	i.kind === 'row' ? [i.row] : [i.mantle, i.tier].filter((x): x is string => !!x);
-
-/**
- * D64 requires a fork to name its recommendation. The span FROM the word "recommend" to the end
- * of its sentence is scanned for the options' own names — the recommendation is what follows the
- * word, and "Recommendation: the Digger" puts a colon between the two, so a clause-split on `:`
- * hands back the empty half. A span naming no option — or naming two — resolves to nothing, and
- * the card says the recommendation is unreadable rather than badging a coin-flip.
- */
-export function recommended(text: string, instruments: Instrument[]): number {
-	const from = text.search(/recommend/i);
-	if (from < 0) return -1;
-	const hay = text.slice(from).split(/(?<=[.!?])\s/)[0]!.slice(0, 240).toLowerCase();
-	const hits = instruments.flatMap((i, n) => keysOf(i).some(k => hay.includes(k.toLowerCase())) ? [n] : []);
-	return hits.length === 1 ? hits[0]! : -1;
-}
-
-// ---------- resolving an instrument to an ignitable summons ----------
-
-export type Shot = {
-	label: string;
-	source: string;                            // the file:line the summons was read from
-	summons: string;
+export type Shot = BatonOption & {
 	worktree: { repo: string; branch: string } | null;
-	recommended: boolean;
 	ignite: Composed;                            // the body, or the reason there is none
 };
 
-const readDoc = (p: string) =>
-	statSync(p).size > WORK_DOC_BYTES ? readFileSync(p, 'utf8').slice(0, WORK_DOC_BYTES) : readFileSync(p, 'utf8');
-
-const BRANCH_IN_DOC = /\bbranch(?:es)?\s+`([A-Za-z0-9][A-Za-z0-9._/-]{0,79})`/;
-
 /**
- * DOCTRINE §10's worktree law is prose in a work doc; the branch it names is not — so the rail
- * reads it, narrowly. Only the header block (everything above the doc's first `##`), only a line
- * that names a worktree, and never a line recording a landing.
- *
- * The narrowness is measured, not defensive. "First `` branch `x` `` anywhere in the doc" matched
- * 12 of the city's 62 live work docs and **every single hit was retrospective** — `**Status:**
- * LANDED (branch …)`, `## Commits (branch …)`, a nested board row citing where findings live.
- * One of the twelve sat on an OPEN row, where a Dispatch would have composed a worktree named
- * after somebody else's finished agent checkout. This rule matches none of the twelve. The real
- * fix is a field, not a regex: the canon-inbox ask rides this row's findings.
+ * One resolved option, plus the one thing the rail adds and the deck's queue never does: a composed
+ * ignition body, with a name-stamp minted and reserved for this render.
  */
-export function branchFor(text: string): string | null {
-	for (const line of text.split(/^##\s/m)[0]!.split('\n')) {
-		if (!/\bworktree\b/i.test(line) || /\bLANDED\b/.test(line)) continue;
-		const m = line.match(BRANCH_IN_DOC);
-		if (m) return m[1]!;
-	}
-	return null;
-}
-
-const findRow = (b: Building, id: string): { row: BoardRow; file: string } | null => {
-	for (const board of b.board) for (const r of board.rows) if (r.id === id) return { row: r, file: board.file };
-	return null;
-};
-
-/**
- * `ignite <row-id>` → that work doc's kickoff fence (D63g). A work doc carrying several summons
- * fences hands over its last: §5's template puts the row's own kickoff at the foot of the doc.
- */
-function resolveRow(b: Building, id: string): { summons: string; source: string; mantle: string | null; tier: string | null; worktree: { repo: string; branch: string } | null } | { blocked: string } {
-	const hit = findRow(b, id);
-	if (!hit) return { blocked: `no charge "${id}" on any board in ${b.building}` };
-	if (!hit.row.workDoc) return { blocked: `charge ${id} names no work doc — nothing to read a kickoff from` };
-
-	const doc = resolve(dirname(hit.file), hit.row.workDoc.split('#')[0]!);
-	let text: string;
-	try { text = readDoc(doc); }
-	catch (e) { return { blocked: `charge ${id}'s work doc is unreadable: ${(e as Error).message}` }; }
-
-	const k = parseKickoffs(text).kickoffs.at(-1);
-	if (!k) return { blocked: `charge ${id}'s work doc carries no kickoff fence: ${short(doc)}` };
-
-	const branch = branchFor(text);
-	return {
-		summons: k.text, source: `${short(doc)}:${k.line}`, mantle: k.mantle, tier: k.tier,
-		worktree: branch ? { repo: b.path, branch } : null,
-	};
-}
-
-function shot(rig: Rig, b: Building, i: Instrument, ledgerLine: number, account: string, isRecommended: boolean, taken: Set<string>): Shot {
-	const base = { recommended: isRecommended, worktree: null as Shot['worktree'] };
-	if (i.kind === 'summons') {
-		const label = `${i.mantle ?? 'unknown mantle'} · ${i.tier ?? 'unknown tier'}`;
-		return { ...base, label, source: `${short(b.files.ledger ?? b.path)}:${ledgerLine}`, summons: i.text,
-			ignite: compose(rig, { summons: i.text, mantle: i.mantle, tier: i.tier, cwd: b.path, account, taken }) };
-	}
-	const r = resolveRow(b, i.row);
-	if ('blocked' in r) return { ...base, label: `charge ${i.row}`, source: short(b.files.ledger ?? b.path), summons: '', ignite: r };
-	return { ...base, label: `charge ${i.row} — ${r.mantle ?? 'unknown mantle'} · ${r.tier ?? 'unknown tier'}`,
-		source: r.source, summons: r.summons, worktree: r.worktree,
+function shot(rig: Rig, b: Building, o: BatonOption, r: Resolved | null, account: string, taken: Set<string>): Shot {
+	if (r === null) return { ...o, worktree: null, ignite: { blocked: o.blocked ?? 'the instrument resolved to nothing' } };
+	return { ...o, worktree: r.worktree,
 		ignite: compose(rig, { summons: r.summons, mantle: r.mantle, tier: r.tier, cwd: b.path, account, taken }) };
 }
 
 // ---------- the cards ----------
-
-/**
- * **D10 — ambiguity never arms.** `classifyBaton` gives the instrument precedence over the word
- * "Felix", so a clause reading *"PENDING Felix's ruling — on a pass, ignite: ⟨fence⟩"* parses as a
- * session baton. All three of the live city's ignitable batons read exactly that way (B3 E2): the
- * parser says session, the prose says his. Until canon rules the holder grammar, a card whose two
- * readings disagree renders **safe** — the collision named, the summons copyable, no wiring at
- * all. Copying is reading; the gate stays his.
- *
- * This is render law, not a second parser (D65): the holder stays exactly what `doctrine/` said.
- */
-export const collides = (b: Baton) => b.holder === 'session' && /\bFelix\b/.test(b.text);
 
 /**
  * `path` is the building's own directory: every card carries a note box (B6), and a gesture lands
@@ -183,16 +70,16 @@ export function cards(buildings: Building[], rig: Rig, account: string): Card[] 
 	const taken = new Set<string>();
 	for (const b of buildings) {
 		if (b.baton && b.ledgerTail) {
-			const shape = shapeOf(b.baton.text, b.baton.instruments.length);
-			const rec = shape === 'fork' ? recommended(b.baton.text, b.baton.instruments) : -1;
+			const read = readBaton(b, b.baton, b.ledgerTail.line);
 			// Holder law: only a session-holder baton is ever wired. Felix's is his card.
-			const shots = b.baton.holder === 'session'
-				? b.baton.instruments.map((i, n) => shot(rig, b, i, b.ledgerTail!.line, account, n === rec, taken))
-				: [];
 			// The shots are still composed on a collided card — the summons is what the clipboard
 			// carries — but D10 keeps the wiring off them.
+			const shots = b.baton.holder === 'session'
+				? read.options.map((o, n) => shot(rig, b, o, read.resolved[n] ?? null, account, taken))
+				: [];
 			out.push({ kind: 'baton', building: b.building, path: b.path, file: b.files.ledger ?? b.path, entry: b.ledgerTail,
-				baton: b.baton, shape, shots, recommendation: rec, wired: !collides(b.baton) });
+				baton: b.baton, shape: read.shape, shots, recommendation: read.options.findIndex(o => o.recommended),
+				wired: !read.collides });
 		}
 		for (const board of b.board)
 			for (const r of board.rows) {

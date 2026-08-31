@@ -18,7 +18,8 @@
 import { expect, test, describe } from 'bun:test';
 import { join } from 'path';
 import { discover, type Baton, type Building, type Decision, type Instrument } from '../../doctrine';
-import { branchFor, cardHtml, cards, recommended, shapeOf, type Card } from './rail';
+import { branchFor, recommended, shapeOf } from './baton';
+import { cardHtml, cards, type Card } from './rail';
 import { readRig } from './rig';
 import { nextStamp } from './summon';
 
