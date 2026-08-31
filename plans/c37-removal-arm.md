@@ -80,7 +80,7 @@ what moved is the finding.
 - Any other C29 branch content — it is superseded (G2 F3). Do not merge the branch.
 - c29's F4 (the typed-literals arm) — still a finding for the next charge that opens
   `lab/08`.
-- `presets.tsv` changes, new summon behaviour, the v1.1-parity block master retired.
+- `presets.tsv` changes, new summon behavior, the v1.1-parity block master retired.
   Creep is a bug.
 
 ## Findings

@@ -2335,11 +2335,29 @@ or kill C37 and delete the branch — the harness stands 210 green either way, a
 the removal-regression guard is lost. C36 is untouched by this and still ignitable —
 kickoff verbatim in [plans/c36-grammar-debt.md](plans/c36-grammar-debt.md).
 
-Baton — ⬡ → fork — rule E1, then: ignite C37 ∥ ignite C36 (kickoffs verbatim in
-[plans/c37-removal-arm.md](plans/c37-removal-arm.md) and
-[plans/c36-grammar-debt.md](plans/c36-grammar-debt.md); parallel-safe, `lab/08/` vs
-`doctrine/`, both on the master checkout) — recommendation: rule E1 as recommended and
-run the pair.
+**Same session, after the escalation returned.** **E1 ruled 2026-08-31 by Felix:** close
+C29, ignite C37 — the recommended reading, after one correction at the desk (he read the
+recommendation as *kill* C37; it was the opposite, and the record was corrected before
+the ruling was taken). C29 → **LANDED**, G2 → **LANDED — REJECTED `f160ec1`**, C37 → **IN
+FLIGHT**. The branch is not deleted until C37 lands — its last live value is still only
+on it. **C36 landed in parallel and was verified here** (the Architect's review, not its
+own word): `bun test` in `doctrine/` **87 pass · 0 fail** re-run at the desk (80 → 87),
+and its one unmet `Done when:` bullet confirmed a genuine **doc** defect rather than a
+tool failure — `belvedere/LEDGER.md:3129` truly carries no `Next:` clause, in a building
+C36 fences. The grammar-debt batch is CLOSED, and the parallelism held: the two sessions
+never touched a shared file. C36's Builder filed three field reports, one of them against
+**this** session's own work — `plans/c37-removal-arm.md` wrote "behaviour", the repo's
+only `vocab.spelling` hit; **fixed here and the entry deleted**, vocab now 0 for that
+file. Its other two are belvedere's and are **routed, not swept** — annotated in
+`ISSUES.md` for that building's close-out rather than deleted, since this was a gate
+session and not a full review sweep.
+
+Baton — ⬡ → single — C37 is IN FLIGHT, ignited at his word: a Builder · opus-high
+dispatched with the kickoff verbatim from
+[plans/c37-removal-arm.md](plans/c37-removal-arm.md) plus this repo's coda. Its landing
+wants an Architect's verification — the bar is `./lab/08/run` reading **215 PASS · 0
+failure(s)** and `bv/c29-summon-harness` deleted. Standing: the belvedere `ledger.next`
+failure is expected and fenced; `lint .` reads 1 failure until belvedere's close-out.
 
 ---
 

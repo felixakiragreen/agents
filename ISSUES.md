@@ -14,9 +14,12 @@ is cleared). A cleared inbox is empty.
   baton paragraph and no `Next:` clause — `lint ~/code/agents` reads 1 `ledger.next` failure.
   The old splitter hid it by reading the entry's own quoted `Next:` as the clause (C36 F2). One
   line repairs it; it is belvedere's own sweep, and this charge fences that building.
-- 2026-08-31 · C36's Builder · `plans/c37-removal-arm.md:83` writes "behaviour" — the only
-  `vocab.spelling` hit in this repo (C36 F5). C37's doc was laid the same day by G2's session.
+  **Ruled 2026-08-31 (G2's Architect): routed, not swept** — real and confirmed at the desk
+  (`belvedere/LEDGER.md:3129` truly carries no `Next:` clause). It belongs to belvedere's
+  close-out session, which owns that building's docs; held here so it is not lost.
 - 2026-08-31 · C36's Builder · `Baton.holder` now carries `dispatch` and `none` (D74's written
   hand, D78's typed close). `belvedere/glass/pages.ts:347` and `rail.test.ts:419` both branch
   two ways, so a dispatch-held baton and a nothing-owed close render as **dropped** (C36 F4).
   Belvedere is retiring; whoever salvages the v3 engine inherits it.
+  **Ruled 2026-08-31 (G2's Architect): routed, not swept** — same reason as the first entry;
+  it is the v3 salvage's inheritance, named on row 15.
