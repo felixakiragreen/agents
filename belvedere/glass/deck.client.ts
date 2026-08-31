@@ -25,7 +25,7 @@ import {
 	type DeckBuilding, type Decoded, type DeckSession, type DeckSnapshot,
 	type Layout, type Pane, type PaneState, type QueueItem,
 } from './deck-model';
-import { compose, selection, swap, tenant, tenants, viewer, type FocusView } from './deck-view';
+import { compose, queue, selection, swap, tenant, tenants, viewer, type FocusView } from './deck-view';
 import {
 	ago, button, chatButton, DEPTH_CAP, dot, dots, el, forget, named, need, paint, reading, receipt,
 	receipts, remember, remembered, say, stamp, tick, tipSession, words, type DecodeCtx,
@@ -462,8 +462,15 @@ function actions(i: QueueItem): HTMLElement {
 	return acts;
 }
 
+/**
+ * The item a jump aimed at, held across repaints (the Chat's own `.ct-aim` pattern, C16 §6). It is
+ * one key rather than a class on the DOM because the drawer is repainted from the snapshot: an aim
+ * written onto an element is an aim the next poll erases.
+ */
+let aimed: string | null = null;
+
 function queueItem(i: QueueItem): HTMLElement {
-	const li = el('li', `qi tone-${QUEUE_TONE[i.kind]}`);
+	const li = el('li', `qi tone-${QUEUE_TONE[i.kind]}${i.key === aimed ? ' qi-aim' : ''}`);
 	li.dataset['key'] = i.key;
 	li.dataset['kind'] = i.kind;
 
@@ -556,6 +563,8 @@ function drawDrawer(): void {
 		const alive = new Set(snapshot.queue.flatMap(i => [i.key, `note:${i.key}`]));
 		for (const k of [...drafts.keys()]) if (!alive.has(k)) drafts.delete(k);
 		for (const k of [...opened]) if (!alive.has(k)) opened.delete(k);
+		// The aim points at a row; a row that has left the queue takes its aim with it.
+		if (aimed !== null && !alive.has(aimed)) aimed = null;
 		// Receipts are shared with the Workshop now, so only the queue's OWN keys are the queue's to
 		// drop: a jump reported in another pane is not this pane's to forget.
 		for (const k of [...receipts.keys()]) if (QUEUE_KEY.test(k) && !alive.has(k)) receipts.delete(k);
@@ -648,6 +657,24 @@ function search(): void {
 }
 
 drawerQueue.addEventListener('click', () => { drawerShows = 'queue'; drawDrawer(); });
+
+/**
+ * One queue item, brought to him (B26 §3). The drawer opens on the ⬡-queue, the item's disclosure is
+ * opened, it is scrolled to and it wears the aim — the same four gestures the Chat's minimap jump
+ * makes, because being sent somewhere and not seeing where you landed is the failure both fix.
+ *
+ * A key the queue no longer carries opens the drawer and lands nowhere, which is honest: the thing
+ * was answered, or the ledger moved on, and inventing a row for it would be worse.
+ */
+queue.show = (key: string): void => {
+	drawerShows = 'queue';
+	opened.add(key);
+	aimed = key;
+	if (layout.drawer === 'shut') setDrawer('open');
+	else drawDrawer();
+	hostOf('drawer').querySelector<HTMLElement>(`.qi[data-key="${CSS.escape(key)}"]`)
+		?.scrollIntoView({ block: 'center' });
+};
 
 grepInput.addEventListener('keydown', e => {
 	if (e.key === 'Enter') { e.preventDefault(); search(); return; }

@@ -200,6 +200,14 @@ body.deck {
 .deck .qi .more { margin-top: 6px; }
 .deck .qi .prose { margin: 5px 0 0; font-size: 11px; color: var(--grey-300); }
 
+/* A landed terminal node's handoff (B26 §3) — the sentence Felix went looking for and did not find. */
+.deck .node .handed, .deck .facts + .handed {
+	margin-top: 6px; text-align: left; color: var(--blue-200); border-color: var(--blue-500);
+}
+
+/* Where a jump landed — the Chat's `.ct-aim` in the drawer's idiom (B26 §3). */
+.deck .qi-aim { border-color: var(--yellow-600); }
+
 /* One instrument a baton hands over (B26): what it is, where it was read, and its bytes. */
 .deck .qopt { margin-top: 7px; border-left: 2px solid var(--grey-750); padding-left: 7px; }
 .deck .qopt-h { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
