@@ -328,6 +328,11 @@ shares `waiting`'s rank and sorts by recency inside it, so a closed building's y
 escalation field): the ledger tail needs a way to say *nothing is owed* that is not the absence of a
 word. Until it has one, the honest render is the one that shows them.
 
+> **Resolved 2026-08-31 (GA-19, the canon sweep).** The fourth filing carried it:
+> the typed nothing-owed close is **`Next: none — <why>`** — DOCTRINE §7 as
+> amended, §11's null close (a session owing nothing writes no baton). C36 on the
+> agents board builds the parser side.
+
 **F3 — a baton was the one queue class with no id, and without one six items named themselves
 "unchanged".** Every other class leads with an id and falls back to it where the text wrote no
 ≤6-word head (`title()`); the baton had none, so `encap()` handed back the whole clause — three

@@ -2265,3 +2265,37 @@ then read ~/code/agents/belvedere/README.md (D22),
 and lay the migration campaign — the seams charge first, D19's unfrozen
 deferrals swept into the lay.
 ```
+
+---
+
+**2026-08-31 · Grand Architect · fable-max (GA-19)** — the two sweeps + the
+structure ruling, all blessed in one lot. **D78 minted and distilled**: the board
+leaves the master doc — `BOARD.md` born (board + batch notes + deferred list), MAP
+217 → 147 lines (the board was 66% by bytes), templates gain `board.md`, the
+retention law standing (prune at every review and close gate; git is the archive,
+no ARCHIVE.md), the reference law rides the linking law (path + greppable anchor).
+Amendments blessed at the desk: pre-authorization generalized (DOCTRINE §5 — guarded
+acts ride the charge, the lay lands them in repo settings), the typed nothing-owed
+close `Next: none — <why>` (§7 + §11's null close; B26 F2 resolved, fourth filing),
+the coda's status-reconciliation line (canon core + this repo's CODA.md
+re-instantiated serial). **The inbox cleared: 21 entries ruled.** Flow-1's remains
+re-ruled at his word (belvedere D22): G1 + C32 KILLED, [C36 laid](plans/c36-grammar-debt.md)
+(doctrine v1.3 — spent mask, written holder, `Next: none`, body-text splitter,
+`bv/*` register skip, `classifyBaton ⬡`, BOARD.md reader), [G2 laid](plans/g2-c29-merge.md)
+(c29's merge gate — master's `lab/08` stands 15-red until it lands). **Belvedere's
+retirement declared (⬡)** and annotated on row 15 — close-out is its own session,
+v3 salvage planned; calibration: D22's "Chat primary, summon fallback" inverted —
+the rig is primary, C22's priority raised, its three forks still unblessed. Routing
+filed: snappy 9 / simmy 4 / units 2 pre-door fences + bob's register conformance
+(cap-mega `7616cd96a`, bob `9c3a6f6`) + manny 3 (uncommitted, live worktree);
+rejected as riding the retirement: belvedere C1's stale doc, the ~130 README dead
+words, the colors.ts inversion; the five merged-ledger reds found already repaired
+(`cc1206f`). Housekeeping: stale worktree `agent-a55279…` removed (merged, `-d`
+clean), `.summon-theaters` gitignored, his desk sketch committed. Decided: **D78**
+(⬡✓ in-session) + the named amendments. Next: the baton — G2 and C36 are ignitable
+now, parallel-safe, kickoffs in their docs; C22 waits on his three fork rulings.
+
+Baton — ⬡ → batch — ignite G2 · ignite C36 (kickoffs verbatim in
+[plans/g2-c29-merge.md](plans/g2-c29-merge.md) and
+[plans/c36-grammar-debt.md](plans/c36-grammar-debt.md); both on the master
+checkout, no gate between them).

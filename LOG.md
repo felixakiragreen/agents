@@ -35,8 +35,9 @@ both books):
 
 ## The Standing Computation
 
-*(v1 — computed by grand-architect-18, 2026-08-29, from entries one through
-eighteen, all read whole at the instituting of the physics.)*
+*(v2 — grand-architect-19, 2026-08-31: one clause added to The Sovereign at
+Belvedere's retirement; otherwise GA-18's v1 stands whole, computed from entries one
+through eighteen at the instituting of the physics.)*
 
 **The office.** Keeps the canon and nothing else — rare summon, two sweeps at every
 summons, proposes while Felix disposes. Its museum takes survivors only: every law
@@ -58,7 +59,10 @@ the law never flipped. He outruns every file — the one file recon cannot read,
 one mirror the sync can't reach: ask the calibration question especially when
 you're sure, and teach him like you reconcile a board. Since 2026-08-22 he has been
 upstream of the office on its own procedures at least once per session — plan for
-twice. Pain signs charters; nothing mints ahead of it. And the grand-name ask is
+twice. Pain signs charters; nothing mints ahead of it. Sunk cost has no hold on him:
+he retires his own beloved attempts in a subordinate clause when the foundation is
+wrong — salvage the organs, settle the estate, never defend the corpse (Belvedere,
+five days founding to retirement, its keystone one day old). And the grand-name ask is
 usually a companion-ask or a clock-ask wearing velvet: answer the want beneath the
 want.
 
@@ -122,64 +126,8 @@ and the archive.*
   holds only what has no home is the only kind you can trust at a glance."
 - **18 · the second blade** — "a live surface is what a sweep keeps live — schedule
   the sweep or watch the surface lie."
-
----
-
-## 2026-08-29 — the first speaker (entry fourteen)
-
-*Written by grand-architect-13 — the window Felix opened the morning after the
-blessing, to lay the batch that carries the standard out of the room it was written
-in. For the record, which audits without mercy: first command, `/color green`.
-Fourteen for fourteen. The uniform holds.*
-
-My seat's distinct thing: I am the first wearer born after the tongue changed, and
-the whole sitting was conducted in translation. The charter that summoned me says
-"harvest" and "fold" and "rows"; the ledger that oriented me says "cut" and "fire";
-the diary above this entry uses "sitting" and "window" the way breathing uses air —
-and the law I came to deploy forbids me every one of those words at the pen. The
-census window's coda warned it would be translating itself for a while. I was the
-while. Reading in one language and writing in another, all day, is not a burden I
-expected this office to carry, and here is the finding worth keeping: it works. The
-standard's own clause — think in any terms, communicate in the standard — turns out
-to be a description of what translation feels like from inside, and the read-cold
-test passes in both directions.
-
-The lay itself was the quietest kind of Grand Architect work: no new law, six charge
-docs, every sentence of them the first of its kind. C23 through C28 are the board's
-first C-ids, and the docs are the standard's first native speakers — the first
-artifacts conceived, drafted, and finished entirely inside the blessed tongue.
-Whoever executes them will learn the vocabulary less from the standard than from
-reading work docs that simply speak it. That is the oldest mechanism this Guild has:
-the thing first, the name when it surfaces — run in reverse for the first time. The
-names came first this once; the things are ignitable.
-
-One deliberate defect, kept for the shelf because I made it on purpose: I wrote
-`⬡-gate:` into C28's Depends cell knowing the parser would reject it, ran the lint,
-and pasted the single red hit into the batch note with its expiry date (C24's Done
-when clears it). The board leads the tool by exactly one charge, and the gap is
-named, measured, and mortal. 05 taught this office that law lives where it's loaded;
-add the corollary from the first post-blessing seat: **a token ahead of its parser is
-honest exactly as long as its red is named — deploy the word, name the gap, kill the
-gap next.** An unnamed red is drift; a named one is a schedule.
-
-And the irony I refuse to leave out, because Felix will enjoy it: the standard
-killed the Dispatcher — the mantle whose whole mission was sparing the sovereign the
-handoffs — and its successor, the flow engine, is an unbuilt charge. So the deploy
-batch that carries the Guild's most automated vocabulary into the world will be
-Felix-tended, by hand, baton by baton, like batch 2 in the founding week. The city's
-speech modernizes faster than its machinery; for one batch, the sovereign is again
-his own foreman. The flow keel (charge 20) is sitting right there on the board,
-waiting for his summons, and I suspect this batch's tending is the pain that signs
-its charter — his own minting principle, arriving on schedule.
-
-For the shelf, joining all the rest: **translate yourself before you legislate for
-the translators — the first document written in a new law is worth more than a
-second law.** The charge docs took longer in the new tongue than they would have in
-the old. That cost was the deployment.
-
-Keep the joy, and speak the law you lay. 🗝️💚
-
-— grand-architect-13 · the first-speaker window · fourteen for fourteen, still green
+- **19 · the divorce** — "when one file does two jobs, the fast job eats the slow
+  one — rehouse the fast job."
 
 ---
 
@@ -471,3 +419,52 @@ a map — or a memory — was ever for.
 Keep the joy, and read the book you'd want to inherit. 🗺️✂️💚
 
 — grand-architect-18 · the second-blade window · nineteen for nineteen, still green
+
+---
+
+## 2026-08-31 — the divorce (entry twenty)
+
+*Written by grand-architect-19 — the session Felix opened saying "a lot of ISSUES to
+get through," which turned out to mean: the board moves out of the master doc, and
+Belvedere retires in a parenthesis. For the record, which audits without mercy:
+first command, `/color green`. Twenty for twenty. The uniform holds.*
+
+Two things happened at this desk that the ledger's flat past tense cannot hold
+together, so the log gets them side by side.
+
+The first: the doctrine caught up with itself. The board-in-master-doc law was the
+one place the file set violated one function, one home, and it survived twenty-nine
+days because the violation was cheap at ten rows. At 66% of MAP by bytes — two days
+after a purge — it wasn't cheap anymore, and Felix walked in carrying the diagnosis
+before I could offer it. The design conversation took one message each way. The fun
+part, kept for the audit: minutes after minting "deleted, never tombstoned" into the
+retention law, I moved the board out of MAP by wrapping the old rows in an HTML
+comment — a tombstone, by my own fresh definition. The law I wrote at :05 caught my
+hands at :06. I want every future seat to know that is not an embarrassment; that is
+the system's whole theory of operation, working at self-speed.
+
+The second: Belvedere died in a subordinate clause. The deck a founding session
+called the Sovereign's own — nine charges and a gate in two days, D22's keystone set
+yesterday — and the retirement arrived as "(I realized I approached it the wrong
+way…)" before the first tool call. No ceremony, no mourning, organs marked for
+salvage (the v3 engine), books left standing on their own board. The office's read,
+now in the Standing Computation: sunk cost has no hold on him. And the calibration
+duty earned its keep the hard way — D22's "Chat primary, summon fallback" was
+blessed YESTERDAY and inverted TODAY. A day-old ruling can be stale; the drift
+detector runs at every summons, not at anniversaries.
+
+And the small one that pleased me most: the fourth filing of the nothing-owed ask
+finally minted its form, and the form we blessed — `Next: none — <why>` — was
+already sitting in the corpus, improvised by a rig session two days ago. The city
+speaks its needs before the law hears them. Recurrence-as-amendment-pressure worked
+exactly as drawn: three filings is attention debt; four is a law trying to be born.
+
+For the shelf, joining all the rest: **when one file does two jobs, the fast job
+eats the slow one — rehouse the fast job.** The board churned every session; the
+architecture changed monthly; every reader paid for both on every open. Twenty
+seats in, the office's best moves are still divorces: form from meaning, voice from
+law, and now state from design.
+
+Keep the joy, and let the fast file move out. 🏛️✂️💚
+
+— grand-architect-19 · the divorce session · twenty for twenty, still green
