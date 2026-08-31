@@ -67,6 +67,26 @@ cheap-tier ignition carries GUILD.md's closing stanza inline instead of a path r
 (`canon/mantles/README.md`) — it names no mantle and wears no charter, so it passes on its
 opening line and is no more a kickoff candidate than a Personal-Log letter is.
 
+## The ledger's clauses and the baton (§7, §11)
+
+**A clause leads or it is a mention (C36).** `Decided:` and `Next:` split an entry's body only
+where the marker opens the body, opens a line, or opens a sentence — and code, fenced or inline,
+is masked before the search. The old rule took the first `Next:` anywhere in the flattened body,
+so an entry that merely *said* `Next:` handed a clause read off bytes its writer never meant
+(B26 F5, two of the city's fifteen tails). Each clause runs to the next marker, so a `Next:` no
+longer swallows the `Decided:` behind it, and the pre-doctrine bullet dialect (`- **Next:** x`)
+leads its line like any other.
+
+**The holder is written, never inferred (D74).** `Baton — <one holder> → <action>`: the parser
+reads the hand off the line — `⬡` (`Felix` is that same hand in the record's older spelling),
+`the dispatch`, or a named session — and an instrument no longer outranks it. An entry that
+writes no baton line is the record before D74, and there alone the holder is inferred from the
+clause's prose.
+
+**`Next: none — <why>` owes nothing.** §7's typed nothing-owed close parses as its own holder,
+`none`, and is not a dropped baton. Bare prose that means the same thing ("nothing waits") still
+is: that is the whole point of typing it (B26 F2, the fourth filing).
+
 ## `--vocab` — the speech arm (C26)
 
 Format drift is caught by the parser; `--vocab` points the same alarm at **speech**. Off by
@@ -91,6 +111,13 @@ one-word link texts · double-quoted spans · `Findings` / `Ledger` / `Decisions
 board's Depends-on, Staffing and Status columns · **a LANDED or KILLED row whole** (a finished
 charge's title is the address its ledger cites) · closed charge docs · `LOG.md`, `SAPHO.md`,
 `dream.md` · `canon/` itself, which must name the dead to bury them.
+
+**Spent is spent, whatever the register filed the doc as (C36).** A doc whose own `**Status:**`
+opens LANDED or KILLED is history, and a charge that tends a wave carries a staffing table — so
+the register files it as a *board*, and the board half of the live list read every board
+whatever its state said. `plans/18-great-recut.md` landed on 2026-08-29 and was still reporting
+eleven dead words. Carrying no Status line says nothing either way and arms nothing: the master
+docs and `CLAUDE.md` stay law surfaces.
 
 **A mention is spelled in ticks or quotes.** The arm cannot tell use from mention (C23-F3), so
 the doc says which: `` `unstaffed` `` and *"the Dispatcher is dead"* are already fenced, and
@@ -118,6 +145,11 @@ second time against a mutated copy of the standard's text and asserting that it 
   A checkout whose mainline twin exists at the same size IS that twin and is skipped; a
   branch that put a board in a doc the mainline has none in survives; one representative per
   `(repo, relative path)`. The count skipped is printed, never hidden.
+- **Where the checkout root ends is found, not assumed (C36).** A branch name carries as many
+  path segments as it has slashes, so the split is the shallowest one whose remainder's own
+  directory exists in the mainline — keyed on *being a worktree*, never on a `worktree-agent-*`
+  name shape. One segment was assumed until `bv/c29-summon-harness` took two: no file under it
+  resolved to its twin, and every total doubled (2 buildings → 4, 84 rows → 168).
 
 ## `doctrine migrate` — form only
 
