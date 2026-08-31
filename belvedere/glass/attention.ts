@@ -32,24 +32,30 @@ import { ignitedFor } from './hands';
  * The one reading of "this session cannot move without Felix", taken off the last beat.
  *
  * **Measured, not assumed.** P1 F1 names the only two notification types the hook ever carries —
- * `permission_prompt` and `idle_prompt` — and both are live in the city's own census today. The
- * order's input law calls the first one a `PermissionRequest` event; **there is no such hook
- * event** (P1 F1 maps all ten, and the permission signal rides `Notification` ~6 s after the
- * blocked `PreToolUse`), so this reads the event that exists. Findings §F1.
+ * `permission_prompt` and `idle_prompt` — and this reads exactly one of them. The order's input law
+ * calls the first a `PermissionRequest` event; **the census is not subscribed to it** (P1 F1 maps
+ * all ten hooks B1 deployed and it is not among them, so the permission signal rides `Notification`
+ * ~6 s after the blocked `PreToolUse`), and this reads the event that exists. B14 F1.
  *
- * `Stop` is deliberately absent: it is the *idle* edge, every finished turn emits one, and a queue
- * that lists every idle session is a queue Felix stops opening.
+ * **`idle_prompt` is deliberately absent, and its absence is the whole of C21.** It is cmux's
+ * 60-second *"Claude is waiting for your input"* nag, and it fires once, after `Stop`, for a
+ * session that has finished its turn and is asking for nothing. Read as a waiting edge it outlived
+ * the fact by hours — Felix's own screenshot carried 33-minute and 21-hour rows wearing BLOCKED ON
+ * YOU — so the class it named (`nagging`) is gone: code, rank, badge, dot, note and test. A session
+ * whose last word was the nag is **idle**, which is what the census has always called it
+ * (`census.ts` §BY_EVENT — a `Notification` that is not a permission prompt is the idle edge), and
+ * it renders idle with its age.
+ *
+ * `Stop` is absent for the same reason and always was: it is the idle edge, every finished turn
+ * emits one, and a queue that lists every idle session is a queue Felix stops opening.
  */
 export function waitingOf(s: Session): Waiting | null {
 	if (!isLive(s) || s.last.ev !== 'Notification') return null;
-	return s.last.why === 'permission_prompt' ? 'blocked' : s.last.why === 'idle_prompt' ? 'nagging' : null;
+	return s.last.why === 'permission_prompt' ? 'blocked' : null;
 }
 
 /** Short enough to BE the name (encapsulation-first): the long form is the item's `note`. */
-export const WAITING_NOTE: Readonly<Record<Waiting, string>> = {
-	blocked: 'blocked on a permission prompt',
-	nagging: 'waiting for your input',
-};
+export const WAITING_NOTE = 'blocked on a permission prompt';
 
 // ---------- the escalation mark ----------
 
@@ -177,14 +183,13 @@ export function needsYou(buildings: Building[], sessions: Session[], steps: read
 	}
 
 	for (const s of sessions) {
-		const w = waitingOf(s);
-		if (!w) continue;
+		if (waitingOf(s) === null) continue;
 		const b = homeOf(s, buildings, ignitedFor());
 		const who = s.stamp ?? s.sid.slice(0, 8);
 		out.push({
 			kind: 'waiting', key: `waiting:${s.sid}`,
 			building: b?.building ?? 'off the register', path: b?.path ?? '',
-			...title(who, WAITING_NOTE[w]),
+			...title(who, WAITING_NOTE),
 			at: s.last.t,
 			where: `${s.cwd ? short(s.cwd) : 'no cwd on record'}${s.tool ? ` · ${s.tool}` : ''}`,
 			// A session's words are nobody's document, so its code words decode against its own
@@ -194,9 +199,7 @@ export function needsYou(buildings: Building[], sessions: Session[], steps: read
 			sid: s.last.sf ? s.sid : null,
 			chat: s.sid,
 			decision: null, state: null,
-			note: (w === 'blocked'
-				? 'A tool call is sitting on the approval dialog — the session is alive and spending nothing until you answer it. '
-				: 'The session finished its turn and said so (the 60 s nag, P1 F1) — this is the notification cmux gives you. ')
+			note: 'A tool call is sitting on the approval dialog — the session is alive and spending nothing until you answer it. '
 				+ (s.last.sf
 					? 'Jump puts your eyes on its panel; chat opens it in the Chat, where an answer is delivered as a real user turn (B16).'
 					: 'It sits in no cmux pane (hooks are venue-blind), so there is no panel to jump to.'),

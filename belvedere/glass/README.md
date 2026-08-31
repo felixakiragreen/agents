@@ -89,10 +89,13 @@ no fifth: a **waiting** session, a live **Felix-gate**, a pending **countersign*
 items** into the City's badges, so a badge can never count something the queue does not list.
 The ranking is v0's (`attentionOf`/`freshness`, imported not copied) plus exactly one new
 rank: a session that cannot move without him outranks even the work that is running.
-**Waiting has two measured edges and no third** — `Notification/permission_prompt` (blocked
-on a dialog) and `Notification/idle_prompt` (the 60 s nag, which is the notification cmux
-gives Felix); a bare `Stop` is *idle*, and a queue listing every finished session is a queue
-nobody opens. Note what the census cannot see: **`PermissionRequest` is a real hook event
+**Waiting has one measured edge** — `Notification/permission_prompt`, blocked on a dialog; a
+bare `Stop` is *idle*, and a queue listing every finished session is a queue nobody opens.
+**There was a second and C21 cut it**: `nagging` read cmux's 60 s `idle_prompt` nag as a
+waiting edge, but that beat fires *after* `Stop`, for a session asking for nothing, so the
+label outlived its fact by hours (Felix's screenshot: 21-hour rows wearing BLOCKED ON YOU).
+The nag is the census's idle edge and nothing more. Note what the census cannot see:
+**`PermissionRequest` is a real hook event
 that B1's deploy does not subscribe to** (cmux's own injection does), so the blocked edge is
 a six-second-late inference until that changes — B14 F1. Escalations have **no field**: they
 are read out of a stripped annotation by one narrow marker rule, and the two false positives

@@ -32,11 +32,16 @@ const session = (over: Partial<Session> = {}, last: Partial<Beat> = {}): Session
 	model: null, transcript: null, agent: null, roster: null, ...over,
 });
 
-describe('waitingOf — two measured edges, and no third', () => {
-	test('a permission prompt is blocked; the 60 s nag is waiting for input', () => {
-		expect(waitingOf(session({ state: 'needs-input' }, { ev: 'Notification', why: 'permission_prompt' }))).toBe('blocked');
-		expect(waitingOf(session({}, { ev: 'Notification', why: 'idle_prompt' }))).toBe('nagging');
-	});
+describe('waitingOf — one measured edge, and no second', () => {
+	test('a permission prompt is blocked', () =>
+		expect(waitingOf(session({ state: 'needs-input' }, { ev: 'Notification', why: 'permission_prompt' }))).toBe('blocked'));
+
+	// C21, the gut. cmux's 60-second nag fires AFTER `Stop`, for a session that has finished its
+	// turn and is asking for nothing, so reading it as a waiting edge produced a demand for input
+	// that outlived its fact by hours — the 21-hour NAGGING rows in Felix's own screenshot. The
+	// census has always called this beat idle; the deck now agrees.
+	test('the 60 s cmux nag is not a waiting edge — the session finished and wants nothing', () =>
+		expect(waitingOf(session({}, { ev: 'Notification', why: 'idle_prompt' }))).toBeNull());
 
 	test('`Stop` is idle, not waiting — every finished turn emits one', () => {
 		expect(waitingOf(session({}, { ev: 'Stop' }))).toBeNull();

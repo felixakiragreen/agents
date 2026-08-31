@@ -230,7 +230,6 @@ const LEGEND: [string, string, string?][] = [
 	['dot s-idle', 'idle'],
 	['dot s-unknown', 'unknown — no pid to ask'],
 	['dot s-idle w-blocked', 'blocked — a permission prompt is waiting'],
-	['dot s-idle w-nagging', 'waiting for your input — the session said so'],
 	['badge b-waiting', 'blocked on you'],
 	['badge b-gate', '⬡-gate on a live charge'],
 	['badge b-countersign', 'decision waiting on your pen'],

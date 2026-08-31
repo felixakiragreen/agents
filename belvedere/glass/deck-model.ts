@@ -873,19 +873,23 @@ export const ATTENTION = ['waiting', 'gate', 'countersign', 'escalation'] as con
 export type Attention = (typeof ATTENTION)[number];
 
 /**
- * Why a session cannot go on without Felix. **Two measured edges, and no third** (P1 F1):
+ * Why a session cannot go on without Felix. **One measured edge** (P1 F1): `blocked` — a
+ * `Notification` whose `notification_type` is `permission_prompt`, a tool call sitting on the
+ * approval dialog. This is the one the order calls "blocked-on-approval", and it is real
+ * attention: the dialog waits as long as Felix takes, so the label never goes stale.
  *
- *  - `blocked` — a `Notification` whose `notification_type` is `permission_prompt`: a tool call
- *    is sitting on the approval dialog. This is the one the order calls "blocked-on-approval".
- *  - `nagging` — a `Notification` whose type is `idle_prompt`, the 60-second *"Claude is waiting
- *    for your input"* nag. This is the notification Felix said he was getting from cmux and could
- *    not find anywhere in Belvedere (keel §4), so it is a waiting edge here, named apart from the
- *    blocked one rather than folded into it.
+ * **There was a second, and C21 cut it.** `nagging` read cmux's 60-second `idle_prompt`
+ * *"Claude is waiting for your input"* notification as a waiting edge. It is not one — it fires
+ * after `Stop`, for a session that has finished and wants nothing — so the label outlived its
+ * fact by hours and the deck ranked hours-dead rows into BLOCKED ON YOU. The nag is the census's
+ * idle edge and nothing else (`census.ts` §BY_EVENT); Felix's word at the rework blessing was
+ * *"it was specifically the CMUX part I'm ready to remove"*, and presence itself survives on the
+ * census's own sensors.
  *
- * A bare `Stop` is **not** waiting: `Stop` is the idle edge (P1 F1), every finished session emits
- * one, and a queue that lists them all is a queue nobody reads.
+ * A bare `Stop` is **not** waiting either, for the same reason it never was: every finished
+ * session emits one, and a queue that lists them all is a queue nobody reads.
  */
-export type Waiting = 'blocked' | 'nagging';
+export type Waiting = 'blocked';
 
 /** One live session, flattened for the wire — the deck reads it, it never re-derives liveness. */
 export type DeckSession = {
