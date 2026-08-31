@@ -1,0 +1,41 @@
+# The standing probe family — what `bun v3/gates.ts --probes` runs.
+#
+# A probe drives a real Chrome against a disarmed twin the camera boots, so it sees the class of
+# defect no unit test can: a repaint that eats a keystroke, a scroll that snaps back, a listener that
+# stacked up over five swaps (B23 §6, and Felix's own direction — "we need to develop some UI tests.
+# Test pieces of it, 1 by 1").
+#
+# The family is a LIST rather than a marker the runner greps for, because a probe's module scope
+# really runs when it is loaded — one of these sets `$RUNS_DIR` there (C16's own trick) — so nothing
+# may import a probe to ask whether it belongs. Adding a probe here is a deliberate act, and that is
+# the point: this file is the family.
+#
+# One probe per line, resolved under `camera/probes/`. Blank lines and `#` comments are skipped.
+# Order is cheapest-first, so a broken deck fails on a shot rather than eleven minutes in.
+#
+# Cost: each probe boots its own twin, ~12–20 s (C17 F6 — nearly all of it the glass's own boot).
+# The flag is opt-in for that reason; the default run is untouched.
+#
+# **A standing probe declares its own world** (C19 F5), and one committed probe does not, so it is
+# not in the family: `works-v3.probe.ts` pins the live run `c10/rehearsal` by name, and the Works
+# draws only the newest twelve run logs out of a telemetry root the engine writes, the console's
+# `tick` writes, and — in a parallel batch — another lane's session writes. It went red on this
+# gate's first whole-family run for exactly that (B23 F12). It stays a committed probe and a fine
+# thing to run by hand against the real city; making it standing is a re-lay of C15's own probe and
+# is not this charge's to make.
+
+city.probe.ts
+building.probe.ts
+fixture-rail.probe.ts
+fixture-building.probe.ts
+fixture-broken.probe.ts
+fixture-gauges.probe.ts
+inbox-knob.probe.ts
+board-fresh.probe.ts
+act-stall.probe.ts
+tenant-leak.probe.ts
+chat.probe.ts
+chat-composer.probe.ts
+chat-engine.probe.ts
+chat-works.probe.ts
+chat-scroll.probe.ts

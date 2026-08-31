@@ -4,6 +4,8 @@
 //   bun v3/gates.ts            the four suites, the four type gates, the barrage
 //   bun v3/gates.ts --fast     suites + type gates only — never a landing
 //   bun v3/gates.ts --glass    adds the deck's suite + type gate
+//   bun v3/gates.ts --probes   adds the standing interaction probes (B23 §6) — a real
+//                              Chrome against a disarmed twin, one gate per probe
 //
 // Every gate runs to completion even after an earlier red — report everything,
 // then fail — and the run ends in one fenced block a session pastes verbatim
@@ -13,26 +15,43 @@
 // these trees resolves nothing locally and fetches a checker off npm (C18 F1),
 // which the coda forbids. Nothing here reaches the network.
 
+import { readFileSync } from "fs";
+
 const V3 = new URL(".", import.meta.url).pathname;
 const GLASS = new URL("../glass/", import.meta.url).pathname;
 const TSC = new URL("../glass/node_modules/.bin/tsc", import.meta.url).pathname;
+const CAMERA = new URL("../camera/", import.meta.url).pathname;
 const TREES = ["engine", "barrage", "fake-claude", "console"] as const;
 
-type Kind = "suite" | "types" | "barrage";
+type Kind = "suite" | "types" | "barrage" | "probe";
 type Gate = { name: string; kind: Kind; cwd: string; cmd: string[] };
 type Result = { gate: Gate; exit: number; wallMs: number; output: string };
 
 // ── argv ─────────────────────────────────────────────────────────────────────
 
+const FLAGS = ["--fast", "--glass", "--probes"];
 const argv = process.argv.slice(2);
-const unknown = argv.filter((a) => a !== "--fast" && a !== "--glass");
+const unknown = argv.filter((a) => !FLAGS.includes(a));
 if (unknown.length > 0) {
 	console.error(`gates: unknown argument${unknown.length === 1 ? "" : "s"} ${unknown.join(", ")}`);
-	console.error("usage: bun v3/gates.ts [--fast] [--glass]");
+	console.error("usage: bun v3/gates.ts [--fast] [--glass] [--probes]");
 	process.exit(2);
 }
 const fast = argv.includes("--fast");
 const glass = argv.includes("--glass");
+const probes = argv.includes("--probes");
+
+/** The standing family, from the file that IS the family (`camera/probes/standing.txt`). */
+function standing(): string[] {
+	const list = CAMERA + "probes/standing.txt";
+	let text: string;
+	try { text = require("fs").readFileSync(list, "utf8") as string; }
+	catch (e) {
+		console.error(`gates: --probes needs ${list}\n${String(e)}`);
+		process.exit(2);
+	}
+	return text.split("\n").map((l) => l.trim()).filter((l) => l !== "" && !l.startsWith("#"));
+}
 
 // ── the gates, in order ──────────────────────────────────────────────────────
 
@@ -46,6 +65,14 @@ if (glass) gates.push(
 	{ name: "glass · suite", kind: "suite", cwd: GLASS, cmd: ["bun", "test"] },
 	{ name: "glass · types", kind: "types", cwd: GLASS, cmd: [TSC, "--noEmit"] },
 );
+// One gate per probe: a probe boots its own Chrome, so a red one must name itself in the table
+// rather than hiding inside a "probes" row that says 12 pass · 1 fail.
+if (probes) for (const file of standing()) gates.push({
+	name: `probe · ${file.replace(/\.probe\.ts$/, "")}`,
+	kind: "probe",
+	cwd: CAMERA,
+	cmd: ["bun", "cli.ts", "run", `probes/${file}`],
+});
 if (!fast) gates.push({
 	name: "barrage",
 	kind: "barrage",
@@ -98,6 +125,12 @@ function countsOf(r: Result): string {
 	if (r.gate.kind === "types") {
 		const n = r.output.match(/error TS\d+/g)?.length ?? 0;
 		return `${n} error${n === 1 ? "" : "s"}`;
+	}
+	if (r.gate.kind === "probe") {
+		// A probe asserts by throwing, so the exit code is the verdict; the shots are what it left
+		// behind for an agent to Read, and the count is the only number worth carrying in the table.
+		const shots = r.output.match(/^\/.*\.png$/gm)?.length ?? 0;
+		return r.exit === 0 ? `${shots} shot${shots === 1 ? "" : "s"}` : "threw";
 	}
 	const m = /· (\d+) runs · (\d+) cuts · (\d+)\/9 mutants/.exec(r.output);
 	return m === null ? "counts unparsed" : `${m[1]} runs · ${m[2]} cuts · ${m[3]}/9 mutants`;
