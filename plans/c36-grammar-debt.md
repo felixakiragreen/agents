@@ -1,6 +1,8 @@
 # C36 — doctrine v1.3: the grammar debt
 
-**Status:** OPEN — laid 2026-08-31 · **Depends on:** — · **Staffing:** Builder · opus-high ·
+**Status:** **LANDED** 2026-08-31 — seven items built, suite 80 → 87, one `Done when:` bullet
+unmet and named (F2: a doc defect the fix exposed, in a building this charge fences) ·
+**Depends on:** — · **Staffing:** Builder · opus-high ·
 **Parallel-safe with:** G2 · **Blessed:** ⬡✓ 2026-08-31 in-session (GA-19 sweep — the
 three grammar rulings below are his, ruled at the desk).
 
@@ -55,14 +57,84 @@ spent history stops redding live arms, and the typed nothing-owed close exists.
 
 ## Done when:
 
-- [ ] `bun test` in `doctrine/` green, new fixtures counted per item — paste the
+- [x] `bun test` in `doctrine/` green, new fixtures counted per item — paste the
       suite delta (80 → n).
-- [ ] `bun doctrine/cli.ts lint ~/code/agents` → 0 failures; the agents row's baton
-      column no longer reads `session` for a written-`⬡` baton.
-- [ ] `bun doctrine/cli.ts lint --vocab ~/code/agents` reports 0 hits in
+
+```
+$ cd doctrine && bun test
+ 87 pass
+ 0 fail
+ 362 expect() calls
+Ran 87 tests across 2 files. [41.00ms]
+```
+
+  **80 → 87.** Seven new tests over six new fixtures — `conforming/ledger-clauses.md` (item 4,
+  two tests: the fixture + the pre-doctrine bullet dialect inline), `conforming/ledger-batons.md`
+  (items 2 and 3, one test each), `worktree/repo/` + its `bv/c29-harness` checkout (item 5),
+  `board-file/` (item 6), `vocab/plans/closed-board.md` and `kickoff/plans/killed.md` (item 1).
+  **Every fixture reds without its fix**, measured by running today's suite against the src at
+  this charge's ref:
+
+```
+$ git checkout 076a95d -- doctrine/src && bun test
+(fail) … ledger — only a leading marker splits the body; a mention never does (C36 item 4)
+(fail) … ledger — the pre-doctrine bullet dialect still leads its line (C36 item 4)
+(fail) … baton — §11's holder is written, never inferred (C36 item 2, D74)
+(fail) … baton — `Next: none — <why>` owes nothing, and says so (C36 item 3, §7)
+(fail) … the register > a worktree checkout is skipped whatever its branch name is shaped like (C36 item 5)
+ 59 pass · 6 fail          # the sixth is vocabulary.test.ts, which cannot load: no `isSpentWorkDoc`
+```
+
+  Items 1 (kickoff half) and 6 pass at the ref by design — the charge asked for proof, not a
+  fix, and both are proven generic rather than assumed (F1).
+
+- [ ] **UNMET, and it is a doc defect this charge exposed, not a tool failure (F2).**
+      `bun doctrine/cli.ts lint ~/code/agents` → **1 failure**, in a building this charge
+      fences. The `agents` building itself is 0, and the baton column reads the written hand:
+
+```
+$ bun doctrine/cli.ts lint ~/code/agents
+ ok   agents  —  3 board(s) · 48/48 rows typed · ledger 2026-08-31 · baton felix ×3 · 47 kickoff(s) · queue 0
+FAIL  agents/belvedere  —  1 board(s) · 53/53 rows typed · ledger 2026-08-31 · baton felix · 49 kickoff(s) · queue 0
+      [1×] ledger.next — no "Next:" clause — the baton (§7)
+           ~/code/agents/belvedere/LEDGER.md:3129: **2026-08-31 · Builder · opus-high (B26)** — …
+ ok   agents/belvedere/v3  —  1 board(s) · 10/10 rows typed · ledger none · baton none · 9 kickoff(s) · queue 0
+
+=== FAILURE CLASSES
+     1  ledger.next
+  1 failure(s) in 1 class(es)
+```
+
+  `baton session ×2` → `baton felix ×3` on the agents row: the written `⬡` is read (item 2), and
+  the third instrument appeared when the tail stopped mis-splitting on its own quoted
+  `Next: none — <why>` (item 4 — the charge's repro was live in the root ledger too, F3).
+
+- [x] `bun doctrine/cli.ts lint --vocab ~/code/agents` reports 0 hits in
       `plans/18-great-recut.md` (paste before/after counts).
-- [ ] `bun doctrine/cli.ts parse --json ~/code/agents` shows the G4 baton
+
+```
+$ bun doctrine/cli.ts lint --vocab --verbose ~/code/agents | grep -c '18-great-recut'
+11        # at 076a95d, this charge's ref
+0         # now
+```
+
+  City-wide under this root the arm falls **47 → 36** `vocab.dead-word`; the eleven are exactly
+  18-great-recut's, and no other file's count moved. One `vocab.spelling` appeared during this
+  session from outside it — `plans/c37-removal-arm.md:83` "behaviour", laid by the parallel G2
+  session at 11:18 — filed, not fixed (F5).
+
+- [x] `bun doctrine/cli.ts parse --json ~/code/agents` shows the G4 baton
       `"holder": "felix"` — paste the excerpt.
+
+  The tail is **G2's**, not G4's: G2 closed on this same checkout at 11:18 while this charge was
+  building. Same written form, same reading — `Baton — ⬡ → fork — rule E1, then: ignite C37 ∥
+  ignite C36`:
+
+```
+$ bun doctrine/cli.ts parse --json ~/code/agents
+{ "holder": "felix",
+  "instruments": [ {"kind":"row","row":"C37"}, {"kind":"row","row":"C37"}, {"kind":"row","row":"C36"} ] }
+```
 
 ## Out of scope
 
@@ -73,8 +145,72 @@ spent history stops redding live arms, and the typed nothing-owed close exists.
 
 ## Findings
 
-*(append here — evidence-grade: every claim carries the command and output that
-proved it)*
+*(evidence-grade: every claim carries the command and output that proved it)*
+
+**F1 — item 1's kickoff half was already law; the whole gap was the vocabulary arm's board
+half.** `isLiveWorkDoc` arms the door and wear lines only on OPEN / IN FLIGHT / BLOCKED, and
+`fixtures/kickoff/plans/landed.md` has pinned that since C31 — the belvedere c1 case the charge
+cites was a doc whose own Status *read OPEN against a LANDED board row*, repaired at the
+migration sweep 2026-08-30, and never a parser defect. The live defect was one line in
+`lint.ts`: a charge that tends a wave carries a staffing table, so the register files it as a
+**board**, and `lawSurfaces()` took `b.files.boards` whole while filtering `b.files.workDocs`
+through the live rule. `plans/18-great-recut.md` landed on 2026-08-29 and was still reporting
+eleven dead words a month later. The fix is `isSpentWorkDoc` — **not** the negation of
+`isLiveWorkDoc`: a doc carrying no Status line (`MAP.md`, `CLAUDE.md`, `BOARD.md`) says nothing
+either way and stays a law surface. `killed.md` joins `landed.md` so the kickoff arm's proof
+covers both spent states, as the corpus does (C32 is KILLED).
+
+**F2 — the splitter exposed a real dropped baton it had been hiding, and it is the one unmet
+bar.** `belvedere/LEDGER.md:3129` — B26's own entry — writes a conforming §11 baton paragraph
+and **no `Next:` clause at all**. The old splitter manufactured one out of the entry's own
+prose: F5's sentence, *"a ledger entry that mentions `Next:` in its own body mis-splits"*,
+carries the marker inside ticks, and the parser read the rest of the sentence as the handoff.
+With code masked there is nothing left to read, and §7's arm fires honestly:
+
+```
+$ bun doctrine/cli.ts lint ~/code/agents
+      [1×] ledger.next — no "Next:" clause — the baton (§7)
+           ~/code/agents/belvedere/LEDGER.md:3129
+```
+
+The repair is one line — a `Next:` clause naming the baton the entry already wrote, e.g.
+`Next: the baton below; B24 is ignitable.` — and it is **not mine to make**: this charge's own
+Out of scope reads *"building-side repairs … are each building's own sweep"*, and belvedere is
+fenced and retiring. Filed here and to `ISSUES.md`; whoever runs belvedere's close-out owns it.
+Nothing was mis-armed by it: the mis-split half still contained "Felix", so the holder read
+`felix` either way — the *text*, its name and its instruments were read off bytes the writer
+never meant, exactly as B26 F5 said.
+
+**F3 — the charge's own repro was live in the root ledger, not only in spacex and manny.** The
+GA-19 entry describes D78 by quoting the token it minted — `` `Next: none — <why>` `` — so the
+agents tail split on its own quotation and handed a clause beginning `none — <why>` (§7 + …`.
+Two instruments were found in the wreckage; the correct clause carries three. That is why the
+agents row moves `baton session ×2` → `baton felix ×3` and not merely `session` → `felix`: item
+2 fixed the hand, item 4 fixed what the hand was holding. Measured across the eight ledgers of
+the city (399 entries), the clause rule moves `next` on **21** entries and loses it on exactly
+**one** — F2's.
+
+**F4 — `Baton.holder` gained two members and the glass has no branch for either.** The union is
+now `felix | session | dispatch | none | prose` (§11 names three written hands; `none` and
+`prose` are statements about the clause). `belvedere/glass/pages.ts:347` reads
+`holder === 'session' ? 'green' : holder === 'felix' ? 'purple' : 'orange'`, and orange is the
+dropped-baton tone — so a `the dispatch` baton and a typed nothing-owed close both render as
+**dropped** today. `glass/rail.test.ts:419`'s rank has the same two-way shape. Filed, not
+chased: belvedere is fenced here and retiring. Whoever salvages the v3 engine inherits it, and
+the fix is a table, not a branch.
+
+**F5 — one spelling drift arrived from outside this charge while it ran.**
+`plans/c37-removal-arm.md:83` writes "behaviour"; the doc was laid by the parallel G2 session at
+11:18 and is the only `vocab.spelling` hit in this repo. Filed to `ISSUES.md`, not fixed — an
+ungranted side-quest is still a side-quest even when it is one letter.
+
+**F6 — the pre-doctrine bullet dialect was leaving its own closing `**` in the parsed clause.**
+`- **Next:** Felix gives the go.` parsed as `** Felix gives the go.` under the old reader and
+would have kept doing so under the new one. A `**` with a space behind it is a closing
+delimiter and can never open the clause's own emphasis, so it is stripped — `**C3 is
+ignitable**` (a real bold opening, no space) is untouched. Sixteen hexwright and whiteboardy
+entries in the wider city read their clauses honestly for the first time; none of them is under
+this lint root.
 
 ---
 
