@@ -604,6 +604,30 @@ line 'a preset added to the data file lands in the row the harness derived from 
 count 'and the bracket count follows the data too — one per item, derived (bar the selected mantle)' \
 	$(( $(items_expected) - 1 )) 'fg=8 ⟨[⟩' $LAB/out/f1-panel.txt
 check '...which is the scratch preset appearing in both' '● [w]arden' $LAB/out/f1-panel-plain.txt
+# ...and the arm the addition arm did not cover: a preset REMOVED. C25 retired `d
+# dispatcher` from the data file and this harness went 1 → 15 failures (C29), because the
+# guard above only ever proved growth. A middle row is deleted, so order must follow too.
+presets_read $RIG/presets.tsv $RIG/accounts.tsv
+typeset -i ITEMS_FULL=$(items_expected)
+F1R=$LAB/out/f1-removal-sandbox
+mkdir -p $F1R/log
+cp $RIG/summon.zsh $RIG/accounts.tsv $F1R/
+grep -v $'^b\tbuilder\t' $RIG/presets.tsv > $F1R/presets.tsv
+presets_read $F1R/presets.tsv $F1R/accounts.tsv
+( cd $THEATER/atelier && zsh -f $LAB/render.zsh $F1R 200 a fable high 1 2 ) > $LAB/out/f1-removal-panel.txt
+plain f1-removal-panel.txt
+line 'a preset deleted from the data file leaves the row the harness derived from it' 1 \
+	"$(mantle_row a)" $LAB/out/f1-removal-panel-plain.txt
+count 'and the bracket count follows it down — one per item, derived (bar the selected mantle)' \
+	$(( $(items_expected) - 1 )) 'fg=8 ⟨[⟩' $LAB/out/f1-removal-panel.txt
+count '...which is the deleted preset gone from the row' 0 '● [b]uilder' \
+	$LAB/out/f1-removal-panel-plain.txt
+if (( $(items_expected) == ITEMS_FULL - 1 )); then
+	print -r -- "  PASS  the derived count fell by exactly one with the row ($ITEMS_FULL → $(items_expected))"
+else
+	print -r -- "  FAIL  a deleted row left the derived count at $(items_expected), expected $(( ITEMS_FULL - 1 ))"
+	(( fails++ ))
+fi
 presets_read $RIG/presets.tsv $RIG/accounts.tsv		# back to the rig's own data
 
 print -r -- '--- usage: pacing arithmetic and the response parser ------------------'
