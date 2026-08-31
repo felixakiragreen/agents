@@ -458,10 +458,36 @@ export function parseKickoffs(md: string, opts: { live?: boolean } = {}): { kick
 export type Instrument =
 	| { kind: 'summons'; text: string; mantle: string | null; tier: string | null }
 	| { kind: 'row'; row: string };
-export type Baton = { holder: 'session' | 'felix' | 'prose'; text: string; instruments: Instrument[] };
+/**
+ * `felix` (§7's `⬡`) · `session` (a named one) · `the dispatch` (a batch the machinery tends) —
+ * §11's three written holders, plus the two the parser states about the clause itself: `none`
+ * is the typed nothing-owed close, `prose` a dropped baton.
+ */
+export type BatonHolder = 'felix' | 'session' | 'dispatch' | 'none' | 'prose';
+export type Baton = { holder: BatonHolder; text: string; instruments: Instrument[] };
+
+/** §7's typed nothing-owed close — `Next: none — <why>`: the session owes no baton (§11). */
+const NONE_CLOSE = /^none\b/i;
+
+/**
+ * §11's baton line as D74 wrote it: `Baton — <one holder> → <action>`. **The holder is
+ * written and the parser reads it, never infers it** — `⬡` (`Felix` is the same hand in the
+ * record's older spelling), `the dispatch`, or a named session. The separator is the arrow, or
+ * the colon and parenthesis the pre-D74 record used.
+ */
+const BATON_LINE = /^[ \t]*\**Baton\**\s*[—–-]\s*([^\n]*?)\s*(?:→|->|:|\()/m;
+
+function writtenHolder(block: string): BatonHolder | null {
+	const who = strip(block.match(BATON_LINE)?.[1] ?? '');
+	if (!who) return null;
+	if (who.includes('⬡') || /^Felix\b/i.test(who)) return 'felix';
+	if (/^the dispatch\b/i.test(who)) return 'dispatch';
+	return 'session';
+}
 
 export function classifyBaton(entry: LedgerEntry | null): Baton | null {
 	if (!entry?.next) return null;
+	if (NONE_CLOSE.test(entry.next.trim())) return { holder: 'none', text: entry.next, instruments: [] };
 	const instruments: Instrument[] = [];
 
 	// (a) the summons fenced verbatim in the entry (D63g)
@@ -472,6 +498,10 @@ export function classifyBaton(entry: LedgerEntry | null): Baton | null {
 	for (const m of entry.next.matchAll(/\b(?:ignite|fire)\s+([A-Za-z0-9-]+(?:\s*[,+]\s*[A-Za-z0-9-]+)*)/g))
 		for (const id of topSplit(m[1]!, [',', '+'])) if (isId(id)) instruments.push({ kind: 'row', row: id });
 
+	const written = writtenHolder(entry.block);
+	if (written) return { holder: written, text: entry.next, instruments };
+	// No baton line: the record before D74 wrote its holder into the clause's prose, so this is
+	// the one place the holder is inferred — and the entries it reads are history, all of them.
 	if (instruments.length) return { holder: 'session', text: entry.next, instruments };
 	if (/\bFelix\b/.test(entry.next)) return { holder: 'felix', text: entry.next, instruments };
 	return { holder: 'prose', text: entry.next, instruments };

@@ -130,6 +130,29 @@ describe('control — conforming fixtures parse with zero failures', () => {
 		expect(b.instruments).toEqual([{ kind: 'row', row: '03' }, { kind: 'row', row: '04' }]);
 	});
 
+	test('baton — §11\'s holder is written, never inferred (C36 item 2, D74)', () => {
+		const r = parseLedger(fx('conforming', 'ledger-batons.md'));
+		expect(codes(r.fails)).toEqual([]);
+		// the ⬡ that used to parse `session` because an instrument outranked the written hand
+		expect(r.entries.map(e => classifyBaton(e)!.holder)).toEqual(['felix', 'dispatch', 'session', 'none']);
+		expect(r.entries.slice(0, 3).map(e => classifyBaton(e)!.instruments)).toEqual([
+			[{ kind: 'row', row: 'C2' }], [{ kind: 'row', row: 'C3' }], [{ kind: 'row', row: 'C4' }],
+		]);
+		// `Felix` is the same hand in the record's older spelling, and the colon its older separator
+		const felix = (line: string) => classifyBaton({ next: 'the baton below.', block: line } as never)!.holder;
+		expect([felix('Baton — Felix: bless batch 6.'), felix('Baton — ⬡ Felix → rule the hold.')]).toEqual(['felix', 'felix']);
+	});
+
+	test('baton — `Next: none — <why>` owes nothing, and says so (C36 item 3, §7)', () => {
+		const tail = parseLedger(fx('conforming', 'ledger-batons.md')).tail!;
+		expect(tail.next).toBe('none — the rig is current.');
+		const b = classifyBaton(tail)!;
+		expect([b.holder, b.instruments]).toEqual(['none', []]);
+		expect(batonFails(b, 0)).toEqual([]);                       // a typed close is not a dropped baton
+		// and the untyped prose it replaces still is
+		expect(codes(batonFails(classifyBaton({ next: 'nothing waits.', block: '' } as never), 0))).toEqual(['ledger.baton']);
+	});
+
 	test('ledger — a charge id in the head, `ignite <charge-ids>` in the baton (D71)', () => {
 		const r = parseLedger(fx('conforming', 'ledger-standard.md'));
 		expect(codes(r.fails)).toEqual([]);
