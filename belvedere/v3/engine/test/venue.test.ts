@@ -7,7 +7,7 @@
 // Every config dir here is written by the test. The one live read is the last
 // test, and it is a read C8 F2 already made: the accounts trust this repo.
 import { test, expect } from "bun:test";
-import { mkdirSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { load } from "../engine.ts";
 import { readLog } from "../log.ts";
 import { isRefusal } from "../refusal.ts";
@@ -53,6 +53,89 @@ test("only an accepted dir counts, and trust is inherited by descendants (C8 F2)
 	// A prefix is not an ancestor: `/trusted-elsewhere` starts with the string
 	// and is a different directory.
 	expect(trusts(configDir, "/trusted-elsewhere")).toBe(false);
+});
+
+// ---------- the flip (B12 E1's class), pinned where the read lives ----------
+//
+// Claude Code writes a `projects` entry for **any** cwd it visits, and an entry
+// it wrote without ever showing the dialog carries `hasTrustDialogAccepted:
+// false`. That `false` is *no opinion recorded here*, never a refusal: an
+// ancestor's blanket trust still skips the dialog. A read that short-circuits on
+// it refuses a venue that demonstrably works — measured at B7 F1, where a
+// session ignited into `~/code/b7-founding-probe` (a `false` entry under a
+// `true` `~/code`) reached its first user turn and beat the census ten times.
+//
+// **Only `true` decides.** `false` falls through to later evidence. The mutant
+// below is the read as the flip would write it, and it is what the regression
+// catches: it must call the live fixture cold while `trusts` calls it warm.
+
+/** The flipped read: any entry short-circuits, `false` included. Kept here so the
+ *  regression has a red to be green against. */
+const flipped = (configDir: string, cwd: string): boolean => {
+	const path = configJson(configDir);
+	const projects = (JSON.parse(readFileSync(path, "utf8")) as
+		{ projects?: Record<string, { hasTrustDialogAccepted?: unknown }> }).projects ?? {};
+	const entries = Object.entries(projects)
+		.filter(([dir]) => cwd === dir || cwd.startsWith(`${dir}/`))
+		.sort(([a], [b]) => b.length - a.length);           // nearest entry first
+	return entries[0]?.[1].hasTrustDialogAccepted === true;
+};
+
+test("an auto-created `false` never vetoes an ancestor's trust — only `true` decides (B12 E1)", () => {
+	const configDir = account("flip", "inside", []);
+	writeFileSync(`${configDir}/.claude.json`, JSON.stringify({
+		projects: {
+			"/city": { hasTrustDialogAccepted: true },
+			"/city/visited": { hasTrustDialogAccepted: false },
+			"/elsewhere/visited": { hasTrustDialogAccepted: false },
+		},
+	}));
+	// The read under test: the `false` is a note, the `true` above it is the answer.
+	expect(trusts(configDir, "/city/visited")).toBe(true);
+	expect(trusts(configDir, "/city/visited/deeper")).toBe(true);
+	// And an actually-untrusted venue still refuses, loudly: a `false` with nothing
+	// true above it is cold, and so is a venue with no entry at all.
+	expect(trusts(configDir, "/elsewhere/visited")).toBe(false);
+	expect(trusts(configDir, "/elsewhere")).toBe(false);
+	const cold = precheckReal({ workDir: "/elsewhere/visited", configDir }, REAL);
+	expect(cold.trusted).toBe(false);
+	expect(cold.trusted === false && cold.reason).toContain("has never accepted the workspace-trust dialog");
+
+	// RED-BEFORE: the flipped read calls the same venue cold. Same file, same cwd,
+	// opposite answer — this is the defect the class is named for.
+	expect(flipped(configDir, "/city/visited")).toBe(false);
+	expect(flipped(configDir, "/elsewhere/visited")).toBe(false);   // agrees where it must
+});
+
+test("the live regression fixture: `~/code/b7-founding-probe` reads `false` and is warm", () => {
+	// B22's named fixture, read from the live personal account. The directory
+	// itself is gone; the entry that makes it a fixture is not, and `trusts` is
+	// path arithmetic over the record — so the class is measurable either way.
+	const probe = "/Users/felix/code/b7-founding-probe";
+	const raw = JSON.parse(readFileSync(configJson(ACCOUNTS.personal), "utf8")) as
+		{ projects?: Record<string, { hasTrustDialogAccepted?: unknown }> };
+	const entry = raw.projects?.[probe];
+	if (entry === undefined) return;                                // Felix clears these by his hand after B22 lands
+	expect(entry.hasTrustDialogAccepted).toBe(false);
+	expect(trusts(ACCOUNTS.personal, "/Users/felix/code")).toBe(true);
+	expect(trusts(ACCOUNTS.personal, probe)).toBe(true);
+	expect(flipped(ACCOUNTS.personal, probe)).toBe(false);          // the flip's own answer, for the record
+});
+
+test("trust is read from the account dir's own `.claude.json`, never the legacy file (README §5)", () => {
+	// Both shapes exist on this machine, and for the default account they are one
+	// character apart: `~/.claude/.claude.json` is the account's, `~/.claude.json`
+	// is the legacy file a human reaching for `$HOME` gets wrong answers from
+	// (canon charge 20 F6). `configJson` prefers the inside file wherever it
+	// exists, and only falls beside it for an account that keeps none.
+	const both = account("both", "inside", ["/inside-says-yes"]);
+	writeFileSync(`${both}.json`, JSON.stringify({ projects: { "/beside-says-yes": { hasTrustDialogAccepted: true } } }));
+	expect(configJson(both)).toBe(`${both}/.claude.json`);
+	expect(trustedDirs(both)).toEqual(["/inside-says-yes"]);
+	expect(trusts(both, "/beside-says-yes")).toBe(false);           // the legacy file is not consulted
+
+	// Live: the personal account's operative file, named.
+	expect(configJson(ACCOUNTS.personal)).toBe(`${ACCOUNTS.personal}/.claude.json`);
 });
 
 test("a fake subject is trusted by construction — its sandbox is never read", () => {

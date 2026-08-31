@@ -281,6 +281,21 @@ describe('the folder-trust read', () => {
 		expect(trustOf(REFUSED, readTrust(WORK))).toMatchObject({ warm: false, refused: REFUSED });
 	});
 
+	test('an auto-created `false` under a trusted ancestor is warm, not refused (B12 E1, B22)', () => {
+		// The flip's own fixture: Claude writes an entry for every cwd it visits, and one it
+		// wrote without showing the dialog says `false`. `~/code` is trusted; the visited plain
+		// directory inside it is warm, and a read that short-circuits on the `false` calls a
+		// venue cold that demonstrably works (B7 F1 measured the ignition reaching its first turn).
+		const visited = join(CITY, 'visited-not-accepted');
+		mkdirSync(visited, { recursive: true });
+		trustFile(PERSONAL, { [CITY]: { hasTrustDialogAccepted: true }, [visited]: { hasTrustDialogAccepted: false } });
+		expect(trustOf(visited, readTrust(PERSONAL))).toMatchObject({ warm: true, root: CITY });
+		// And the `false` is still the reason where nothing above it is warm.
+		trustFile(PERSONAL, { [visited]: { hasTrustDialogAccepted: false } });
+		expect(trustOf(visited, readTrust(PERSONAL))).toMatchObject({ warm: false, refused: visited });
+		trustFile(PERSONAL, { [CITY]: { hasTrustDialogAccepted: true } });      // as the file was
+	});
+
 	test('nothing anywhere is cold, and says so without inventing a refusal', () => {
 		expect(trustOf(COLD, readTrust(WORK))).toMatchObject({ warm: false, refused: null });
 	});

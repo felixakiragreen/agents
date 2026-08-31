@@ -98,21 +98,41 @@ export function projectOf(target: string): Project {
 	return git.exitCode === 0 && out !== '' ? { path: dirname(out), repo: true } : { path: real(target), repo: false };
 }
 
-/** The project root decides; a plain directory may still borrow an ancestor's blanket trust. */
+/**
+ * The project root decides; a plain directory may still borrow an ancestor's blanket trust.
+ *
+ * **Only `true` decides** (B12 E1, fixed at B22). Claude Code writes a `projects` entry for any cwd
+ * it visits, so an entry it wrote without ever showing the dialog carries `hasTrustDialogAccepted:
+ * false` — which means *no dialog recorded here*, not *refused*. Reading it as a refusal short-
+ * circuits the ancestor walk and calls a venue cold that demonstrably works: measured at B7 F1,
+ * where `~/code/b7-founding-probe` carries a `false` under a `true` `~/code` and its ignition
+ * reached the first user turn and beat the census ten times. So `false` never vetoes a `true` above
+ * it; it is only ever the *reason* a target that found nothing warm is cold, which is what
+ * `refused` names. The engine's copy of this read has always been shaped this way
+ * (`v3/engine/venue.ts` — `true` entries make the list, nothing else is consulted).
+ */
 export function trustOf(target: string, t: Trust): Verdict {
 	const project = projectOf(target.replace(/\/+$/, '') || '/');
 
 	const own = t.roots.get(project.path);
 	if (own === true) return { warm: true, root: project.path, project };
-	if (own === false) return { warm: false, refused: project.path, project };
+	// The explicit "no" nearest the target — reported only if nothing above says yes.
+	const refused = own === false ? project.path : null;
 	// A repository is its own project: `~/code` being trusted did not carry into a fresh repo
 	// inside it, measured. Nothing above a repo root is consulted.
-	if (project.repo) return { warm: false, refused: null, project };
+	if (project.repo) return { warm: false, refused, project };
 
 	for (let p = dirname(project.path); ; p = dirname(p)) {
 		const opinion = t.roots.get(p);
 		if (opinion === true) return { warm: true, root: p, project };
-		if (opinion === false) return { warm: false, refused: p, project };
-		if (dirname(p) === p) return { warm: false, refused: null, project };
+		if (dirname(p) === p) return { warm: false, refused: refused ?? nearestNo(t, project.path), project };
+	}
+}
+
+/** The nearest ancestor that carries an explicit `false`, for a target nothing warm covers. */
+function nearestNo(t: Trust, from: string): string | null {
+	for (let p = dirname(from); ; p = dirname(p)) {
+		if (t.roots.get(p) === false) return p;
+		if (dirname(p) === p) return null;
 	}
 }
