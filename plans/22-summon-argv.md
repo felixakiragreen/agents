@@ -1,8 +1,8 @@
 # 22 — summon rig: the argv summons
 
-**Status:** OPEN — laid 2026-08-28 (GA-11) from Belvedere P2's escalation ·
-**Depends on:** ⬡-gate: blessing (rig charges are Felix-tended — D34/D36 precedent;
-his UX calls shape the spec before any build) · **Staffing:** Builder · opus-high
+**Status:** OPEN — laid 2026-08-28 (GA-11) from Belvedere P2's escalation; ignitable ·
+**Depends on:** ⬡-gate: blessing — **paid 2026-08-31** (the three forks ruled at the
+GA-19 desk, below) · **Staffing:** Builder · opus-high
 
 ## The problem — proven, not hypothesized
 
@@ -27,14 +27,14 @@ venue-native mechanisms:
 - **Non-cmux venues:** color by flag if the CLI carries one, else post-launch send,
   else dropped with the drop named in the panel preview.
 
-## Forks for Felix at blessing
+## Forks — ruled ⬡✓ 2026-08-31 (the GA-19 desk)
 
-1. Does bare mode (no mantle) keep its current no-prompt shape? (Presumably yes —
-   nothing to compose.)
-2. When no color mechanism exists at a venue, is a colorless ignition acceptable, or
-   does the panel warn?
-3. Does the preset TSV grow a venue column, or does the rig detect cmux at ignition
-   time?
+1. **Bare mode keeps its no-prompt shape** — nothing to compose, nothing changes.
+2. **A venue with no color mechanism launches anyway** — his words: "equivalent to
+   no prompt"; no warning gate, the drop named in the panel preview per the shape
+   above.
+3. **The rig detects the venue at ignition time** — `presets.tsv` grows no venue
+   column.
 
 ## Notes laid 2026-08-31 (GA-19 sweep) — ride the blessing
 
@@ -65,8 +65,7 @@ venue-native mechanisms:
 
 ---
 
-**Kickoff (verbatim — ignite only after Felix's blessing amends or confirms the shape
-above):**
+**Kickoff (verbatim — the blessing condition paid 2026-08-31; ignitable):**
 
 ```
 You are a Builder at opus-high.

@@ -2397,3 +2397,18 @@ Baton — ⬡ → rule E1 (C29's status; G2's recommended close and its five fin
 ignite C37 (kickoff verbatim in [plans/c37-removal-arm.md](plans/c37-removal-arm.md)), then
 C22's three fork rulings. Belvedere's close-out owns the one lint failure C36 exposed — it is
 that building's sweep, not a hold on anything here.
+
+---
+
+**2026-08-31 · Grand Architect · fable-max (GA-19, continued)** — C22's three forks
+ruled at the desk: bare mode keeps its no-prompt shape · a colorless venue launches
+anyway ("equivalent to no prompt" — no warning gate, the drop named in the panel
+preview) · the rig detects the venue at ignition time, `presets.tsv` grows no
+column. The gate is paid on the doc and the board; C22 is ignitable. Decided: C22
+forks 1–3 ⬡✓ 2026-08-31 (recorded in the charge doc — charge-scoped rulings live
+with the charge, no D-entry owed). Next: the baton.
+
+Baton — ⬡ → batch — ignite C22 (kickoff in
+[plans/22-summon-argv.md](plans/22-summon-argv.md)) · rule E1 (C29's status and
+C37's worth — the record in [plans/g2-c29-merge.md](plans/g2-c29-merge.md); C37's
+ignition rides the yes).
