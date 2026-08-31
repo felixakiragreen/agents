@@ -2968,6 +2968,8 @@ Baton — the dispatch → ignite B23, B22, C20 (batch; each session's summons i
 its own fenced kickoff + the coda, verbatim; the tender convenes at the
 batch's close per the rework note).
 
+---
+
 **2026-08-30 · Builder · opus-high (B22)** — hands hygiene: five of six
 candidates paid, evidenced, and the sixth stopped at the ceiling rather than
 over it. **Trust:** the flip was not where the charge sent it — `v3/engine/
