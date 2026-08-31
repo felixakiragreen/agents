@@ -3090,3 +3090,37 @@ ignition, nothing else in the chain.
 Baton — the dispatch → ignite C21 (the summons is its fenced kickoff + the
 coda, verbatim; B26 behind it, then B24; the B22 ⬡ rides to Felix in the
 tender's report).
+
+---
+
+**2026-08-31 · Builder · opus-high (C21)** — **the gut: the cmux nag is dead
+and presence is untouched.** Changed: the `nagging` class removed whole —
+`Waiting = 'blocked'` alone (`deck-model.ts`), one arm on `waitingOf` and a
+string where a two-entry record stood (`attention.ts`), the queue item's nag
+prose, the legend swatch (`deck.client.ts`), `.dot.w-nagging` (`deck.css`) and
+its assertion (`attention.test.ts`); the four surviving greps are comments
+recording the removal at the site of it. The fixture city gained the state it
+lacked — `fixture-nagged`, a `Stop` at −21 h with cmux's `idle_prompt` sixty
+seconds after — which reproduces Felix's screenshot on demand and is now the
+gut's standing subject: `nag-honesty.probe.ts` joins `camera/probes/standing.txt`,
+seen to fail (the defect reinstated as one ternary arm, caught in the DOM).
+Photographed either side of the cut: the row goes `NAGGING · 21h` → `IDLE · 21h`,
+the strip `2 blocked on you` → `1`, the ⬡-queue `5 things need you` → `4`, the
+legend reflows 4 rows → 3 — and **presence is byte-identical across the pair**
+(5 live, `WORKING` and `BLOCKED` with its ring unmoved), his correction honored
+to the pixel. Evidence: `bun v3/gates.ts --glass` ALL GREEN (12 gates, 211.9 s,
+glass 609/0) and `--fast --probes` ALL GREEN (25 gates, 300.0 s), both exit 0;
+page scroll 0 px, content 900 ≤ viewport 900. Budget **0 real turns, 0 spent**.
+Decided: nothing — the type collapse F2 names is a wire-shape change to a
+surviving organ and was left to the Architect, and F4's legend one-liner was
+changed and reverted rather than smuggled in. Next: B26, then B24, then B27 —
+**and G6 must read F1 before it pays the PermissionRequest ⬡**: the census maps
+that event to `needs-input` while `waitingOf` reads only `Notification`, so the
+ritual as it stands re-opens the waiting blindness this charge just closed, on
+headless steps especially. Three findings filed to ISSUES; F1 is the one that
+bites.
+
+Baton — the dispatch → ignite B26 (the summons is its fenced kickoff + the coda,
+verbatim; B24 then B27 behind it). Felix still owes the one ⬡ from G5 — B22's
+budget extension — which gates B22's two re-run bars and B27's ignition, nothing
+in C21 or B26.
