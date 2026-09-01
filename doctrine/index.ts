@@ -20,6 +20,6 @@ export {
 	FELIX_GATE, PARKED, UNSTAFFED,
 	isMantle, isTier, isState, isId, type Fail, type Mantle, type State, type Artifact, type Severity,
 } from './src/grammar';
-export { GRAVEYARD, FORMULAS, SPELLING_PAIRS, SPELLING_EXCEPTIONS, ISE_STOPLIST, CANON_PREFIXES, CHARGE_PREFIX, type Dead } from './src/lexicon';
-export { mask, vocabularyFails, prefixFails, RESERVED } from './src/vocabulary';
+export { GRAVEYARD, FORMULAS, SPELLING_PAIRS, SPELLING_EXCEPTIONS, ISE_STOPLIST, CANON_PREFIXES, type Dead } from './src/lexicon';
+export { mask, vocabularyFails, prefixFails } from './src/vocabulary';
 export { migrate, migrateText, RULES, roundTrip, type Migration, type Edit } from './src/migrate';

@@ -23,8 +23,7 @@ is cleared). A cleared inbox is empty.
   stigmergon's room cannot boot at `fa1dc53`: 32 room-dependent tests red, the types gate
   red on those two lines and nothing else. 027-F11 read this shape as a mid-edit working
   tree; it is committed. The fix is two names off two export lines; the guard is one line —
-  a test that imports the index. Until it lands, stigmergon's ALL GREEN pair (027's hold)
-  and 028 wait.
+  a test that imports the index. The two names dropped at this hand by his grant (2026-09-01, "Granted A"; the commit carrying this line) — stigmergon's index import links, canon's suite 102 pass, lint 0. What remains for the office is the guard.
 - 2026-09-01 · stigmergon's Architect · **`doctrine migrate`, from the second adoption**
   (stigmergon: 1,250 edits / 122 files, a fixed point on runs 2 and 3, lint 0, links
   resolve): two observations, both handled by hand here, neither a defect of the law.
