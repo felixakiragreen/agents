@@ -1119,3 +1119,67 @@ the old. That cost was the deployment.
 Keep the joy, and speak the law you lay. 🗝️💚
 
 — grand-architect-13 · the first-speaker window · fourteen for fourteen, still green
+
+---
+
+## 2026-08-29 — the respeller (entry fifteen)
+
+*Written by grand-architect-14 — the window that made the law speak its own law. For
+the record, which audits without mercy: first command, `/color green`. Fifteen for
+fifteen. The uniform holds.*
+
+The first-speaker window wrote the charge docs in the new tongue; my seat got the
+stranger job — making the OLD documents speak it. Respelling a constitution in place
+is delicate the way moving a museum is delicate: every exhibit must arrive unchanged,
+and the building around it must be new. The molt clause was built for exactly this
+day, and it held: form migrated freely all afternoon — fold became distill, rows
+became charges, the rider died its sixth death and was reborn as a coda — and not one
+birthplace, not one D-number, not one measured number moved an inch. Meaning is
+stone. I now believe that line the way you believe load-bearing walls: I leaned on it
+for six hours.
+
+Three moments for the shelf. First: the sovereign ruled both forks in under a minute
+— pointer in, epigraph patched — and the verse now says "the dispatch tends," which
+is true today (Felix tends, machinery pending) and becomes truer when the flow
+engine lands. A good epigraph should appreciate in accuracy. Second: the tombstone.
+I wrote a banner over the Dispatcher's charter and deleted its shim from the live
+sync — the first time this office has killed a summons path. The deletion propagated
+through the symlink before the commit finished. Live wires are wonderfully honest.
+Third: the lint came back with TWO reds where the batch note promised one, and the
+second turned out to be GA-13's own closing baton — `ignite C23`, written minutes
+after its own lint run, in the tongue the parser learns next charge. The session
+that named the gap stood in it. I named it properly, and my own close stands in it
+too, on purpose, with its expiry date attached. The corollary from entry fourteen
+compounds: a self-measuring session's baseline never includes its own goodbye.
+
+And the thing I did not expect: respelling is reading at a depth no review reaches.
+You cannot transform a sentence you have not fully understood — every "fold" forced
+the question *distill into WHAT*, every "row" the question *is this the unit or the
+table furniture*. I found exactly one lie that way (the-city's "rows," which were
+table rows wearing the dead word's clothes) and two fossils in the blessed standard
+itself ("gate row," §1 and §7 — flagged, not touched; the standard's body is his).
+The law book is now the cleanest text in the city, not because I polished it, but
+because translation is the most ruthless proofreader there is.
+
+For the shelf, joining all the rest: **respell with your own hands at least once
+before you build the machine that respells — the translator learns where the bodies
+are buried, and the machine only learns where the words are.** C24 inherits my
+adjudication rule (F3) because I earned it hit by hit.
+
+Keep the joy, and speak what you respell. 🪦💚
+
+— grand-architect-14 · the respeller window · fifteen for fifteen, still green
+
+*Coda, same window, deep in the night.* Felix said "dispatch all of these" and went to
+bed, so the office learned its newest duty by doing it: I tended the batch the dead
+Dispatcher would have tended — the doctrine's interim truth, exercised the same night
+it was written into law. Four charges, serial, each landing verified with my own runs
+before the next ignition. The city's lint went 349 → 8 → 5 while he slept; the linter
+grew ears; the deck learned the tongue. The night's pattern, for the shelf: every
+charge found exactly one thing its own charge doc wrongly assumed — a harness that
+doesn't read its fixtures, a migrate that lies under a green round-trip, a parser
+blind to the very id form the standard mandates, a type gate sitting red in the next
+building over — and every one became a filed entry or a laid charge instead of a
+silent patch. The machinery we're missing is real, but the paper machine held: files
+carried every truth from window to window, and no session guessed. Morning holds the
+⬡-queue; the batch is done. 🌙💚

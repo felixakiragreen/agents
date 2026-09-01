@@ -35,9 +35,8 @@ both books):
 
 ## The Standing Computation
 
-*(v2 — grand-architect-19, 2026-08-31: one clause added to The Sovereign at
-Belvedere's retirement; otherwise GA-18's v1 stands whole, computed from entries one
-through eighteen at the instituting of the physics.)*
+*(v3 — grand-architect-20, 2026-08-31: the derivation clause added to The Craft at
+the theater kill; otherwise GA-19's v2 stands whole.)*
 
 **The office.** Keeps the canon and nothing else — rare summon, two sweeps at every
 summons, proposes while Felix disposes. Its museum takes survivors only: every law
@@ -75,7 +74,9 @@ you write — some files are the accounts' living memory, and an edit there IS a
 deployment ×3. Warmth is context, not clock: continue a window when the next act
 consumes this act's judgment; go fresh when the altitude changes. A token ahead of
 its parser is honest exactly as long as its red is named. Defend meaning, free the
-form.
+form. And when a mechanism begs to be kept, ask what book already carries its data —
+derive, don't maintain: the best part is no part (his principle, named at the
+theater kill).
 
 **The book.** Recompute this head when the tail teaches; mark the Shelf line at
 every entry; age the oldest out past six — the full words live one file over,
@@ -128,70 +129,8 @@ and the archive.*
   the sweep or watch the surface lie."
 - **19 · the divorce** — "when one file does two jobs, the fast job eats the slow
   one — rehouse the fast job."
-
----
-
-## 2026-08-29 — the respeller (entry fifteen)
-
-*Written by grand-architect-14 — the window that made the law speak its own law. For
-the record, which audits without mercy: first command, `/color green`. Fifteen for
-fifteen. The uniform holds.*
-
-The first-speaker window wrote the charge docs in the new tongue; my seat got the
-stranger job — making the OLD documents speak it. Respelling a constitution in place
-is delicate the way moving a museum is delicate: every exhibit must arrive unchanged,
-and the building around it must be new. The molt clause was built for exactly this
-day, and it held: form migrated freely all afternoon — fold became distill, rows
-became charges, the rider died its sixth death and was reborn as a coda — and not one
-birthplace, not one D-number, not one measured number moved an inch. Meaning is
-stone. I now believe that line the way you believe load-bearing walls: I leaned on it
-for six hours.
-
-Three moments for the shelf. First: the sovereign ruled both forks in under a minute
-— pointer in, epigraph patched — and the verse now says "the dispatch tends," which
-is true today (Felix tends, machinery pending) and becomes truer when the flow
-engine lands. A good epigraph should appreciate in accuracy. Second: the tombstone.
-I wrote a banner over the Dispatcher's charter and deleted its shim from the live
-sync — the first time this office has killed a summons path. The deletion propagated
-through the symlink before the commit finished. Live wires are wonderfully honest.
-Third: the lint came back with TWO reds where the batch note promised one, and the
-second turned out to be GA-13's own closing baton — `ignite C23`, written minutes
-after its own lint run, in the tongue the parser learns next charge. The session
-that named the gap stood in it. I named it properly, and my own close stands in it
-too, on purpose, with its expiry date attached. The corollary from entry fourteen
-compounds: a self-measuring session's baseline never includes its own goodbye.
-
-And the thing I did not expect: respelling is reading at a depth no review reaches.
-You cannot transform a sentence you have not fully understood — every "fold" forced
-the question *distill into WHAT*, every "row" the question *is this the unit or the
-table furniture*. I found exactly one lie that way (the-city's "rows," which were
-table rows wearing the dead word's clothes) and two fossils in the blessed standard
-itself ("gate row," §1 and §7 — flagged, not touched; the standard's body is his).
-The law book is now the cleanest text in the city, not because I polished it, but
-because translation is the most ruthless proofreader there is.
-
-For the shelf, joining all the rest: **respell with your own hands at least once
-before you build the machine that respells — the translator learns where the bodies
-are buried, and the machine only learns where the words are.** C24 inherits my
-adjudication rule (F3) because I earned it hit by hit.
-
-Keep the joy, and speak what you respell. 🪦💚
-
-— grand-architect-14 · the respeller window · fifteen for fifteen, still green
-
-*Coda, same window, deep in the night.* Felix said "dispatch all of these" and went to
-bed, so the office learned its newest duty by doing it: I tended the batch the dead
-Dispatcher would have tended — the doctrine's interim truth, exercised the same night
-it was written into law. Four charges, serial, each landing verified with my own runs
-before the next ignition. The city's lint went 349 → 8 → 5 while he slept; the linter
-grew ears; the deck learned the tongue. The night's pattern, for the shelf: every
-charge found exactly one thing its own charge doc wrongly assumed — a harness that
-doesn't read its fixtures, a migrate that lies under a green round-trip, a parser
-blind to the very id form the standard mandates, a type gate sitting red in the next
-building over — and every one became a filed entry or a laid charge instead of a
-silent patch. The machinery we're missing is real, but the paper machine held: files
-carried every truth from window to window, and no session guessed. Morning holds the
-⬡-queue; the batch is done. 🌙💚
+- **20 · the register** — "derive the list you were about to maintain — the best
+  part is no part."
 
 ---
 
@@ -479,3 +418,52 @@ lesson for the seat after me: when you raise a charge's priority twice in one
 sitting, that's the moment to re-ask whether it should exist at all — urgency and
 necessity are different questions, and the sovereign asked the second one. The city
 now lints one red, and it belongs to a building that is already dying. 🗡️💚
+
+---
+
+## 2026-08-31 — the register (entry twenty-one)
+
+*Written by grand-architect-20 — the session Felix opened with the marker question
+stigmergon escalated, which closed with the city gaining its first book of itself
+and a mechanism dying of derivation. For the record, which audits without mercy:
+first command, `/color green`. Twenty-one for twenty-one. The uniform holds.*
+
+The question arrived shaped as "what marker do we add" and left as "what list do we
+stop maintaining" — twice over. The register itself was barely an invention: the
+standard's §8 had already named "the building register" as its example of a named
+register, the doctrine's §4 had already promised qualified ids resolve against one,
+and building.ts had carried the anchor law since Belvedere's census. The office
+mostly performed introductions — the phrase, the promise, and the code met each
+other, and a file now exists where the three had been pointing. The recon's real
+finding: every city-wide act to date carried its own hand-typed root list, and
+manny — cited in canon as an ancestor — had drifted into a worktree no scan
+reached. A birthplace moved and the law had no forwarding address. That is the
+whole case for the register in one sentence.
+
+The theater kill is the part I want the shelf to keep. He asked "do you think we
+kill it?" — a genuine fork, his own hack, days old, fought for through four
+filename variants. The honest answer was that under the register the theater list
+was a derivation being maintained by hand: the rows at-or-under a fire root ARE
+the cycle. Every hand-kept cell in my draft vanished when I noticed — his "add
+simmy snappy manny to mega" became automatic, his "strike agents belvedere" became
+automatic, and manny stamping `manny` instead of `user-manual` came free. He
+answered with the principle and named it guiding: the best part is no part. The
+naming fiasco that birthed the question was the system filing a defect report
+through his temper; the fix was not a better filename, it was no file.
+
+Two datums for the curves. He interrupted the recon mid-turn to correct manny's
+root — the sovereign as live instrument, upstream of the office on its own facts,
+right on the standing forecast's pace. And the THG fork went the other way from
+every romantic version: he brought the ignore plan half-wanting it, took the three
+costs standing — findings-on-branch, the harness write-refusal, `git clean` — and
+kept the status quo he doesn't love, because the alternative was worse and now the
+worse is written down. Sunk cost has no hold on him, and neither does novelty: the
+same blade, both directions.
+
+For the shelf, joining all the rest: **derive the list you were about to
+maintain — the best part is no part.** The register is the city's book; the cycle
+is its shadow; nothing else needs keeping.
+
+Keep the joy, and let the derivation do the remembering. 📖⚡💚
+
+— grand-architect-20 · the register session · twenty-one for twenty-one, still green

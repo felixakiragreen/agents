@@ -2581,3 +2581,31 @@ the founding blessed whole. Next: **ignite S2** at ⬡'s summons when S1
 lands — the kickoff rides `~/code/stigmergon/plans/s2-foundation-sitting.md`;
 the founding session tends S1's landing (in flight, dispatched at his word);
 stigmergon's board carries the state.
+
+---
+
+**2026-08-31 · Grand Architect · fable-max (GA-20)** — **D79 minted and landed whole
+(⬡✓ in-session): the building register**, `canon/BUILDINGS.md` — membership
+declared, never inferred; 8 buildings + 2 hosts registered (superset/t3code out —
+not his repos; spacex-dashboard-c2 out — subsumed, his word; manny registered at
+its `user-manual` worktree — a declared root outranks the walk's worktree skip).
+Membership attaches to the building; a host never joins by hosting — MegaCap
+converts, never marks. **Theaters killed at his word — "the best part is no part,"
+named a guiding principle:** the stamp cycle derives from the register; agents'
+`.summon-theaters` deleted this landing (his strike), bob's dies at C38. C38 (the
+stamp cycle) and C39 (the parser's register arm) laid, parallel-safe, OPEN. The
+STANDARD's building entry amended in place (repo → structure-with-books,
+register-declared); DOCTRINE §4 + §12 and MAP §4 touched; BOARD's dead
+`desk/stigmergon-forge.md` pointer dropped. The THG ignore plan shelved — tenant
+books stay tracked, status quo until a better way, costs on record in D79.
+stigmergon's inbox carries the D15 unblock line. Inbox swept: the S3 marker entry
+ruled distilled → D79, cleared (committed at `205864e` before the clear); the
+calibration sweep found no strain (D78 and stigmergon D13–D16 all today's, all
+consistent). Decided: D79 (⬡✓ 2026-08-31). Next: `ignite C38 · C39` — kickoffs in
+their docs; the queue holds one proposal — pin "The best part is no part." as
+formula 25 (STANDARD §8), his word pends.
+
+Baton — ⬡ → batch: ignite C38 · C39 (kickoffs verbatim in
+[plans/c38-stamp-cycle.md](plans/c38-stamp-cycle.md) ·
+[plans/c39-register-arm.md](plans/c39-register-arm.md)); parallel-safe,
+independent, both ignitable now.
