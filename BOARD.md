@@ -52,9 +52,6 @@ account choice is quota arbitrage.
 | 039 | [the register arm](plans/039-register-arm.md) — the doctrine parser reads `canon/BUILDINGS.md`; `discover()` roots from it (buildings walked, hosts listed); qualified-id resolution binds to Names; JSON surface stigmergon consumes (their D15 unblocks) | — | Builder · opus-high | **LANDED** 2026-08-31 — `doctrine buildings`, suite 87 → 94; F5 filed a latent worktree-dedup hole |
 | 040 | [the id respell](plans/040-id-respell.md) — D80 built: `doctrine migrate` derives the respell table from the board and respells the building whole, history and filenames included; 39 docs + 6 lab dirs renamed; the `✓ Felix` → `⬡✓` mark with it (D81's first act); the parser reads the new form; stigmergon's dry run is the control | — | Builder · opus-high | **LANDED** 2026-09-01 → [findings 040-F1–F9](plans/040-id-respell.md); the building speaks D80 whole — 180 files respelled by the converter, 39 charge docs + 6 lab dirs renamed, the mark with them (D81's first act). Suite 94 → **102**, lint 0, `0 missing` links, the stigmergon control 1,250 edits / **0 files written**. Rulings the next respell inherits: a code-ticked lone token is a form being NAMED and stands (040-F2) · the path rules bind to the building's own directory name, so a foreign `plans/18-…` is left alone (040-F6) · for a substitution the round-trip law is invariance under the table, not silence (040-F8) · run the converter twice and diff (040-F7). Two ledger heads keep belvedere's `C7`/`C13` — §7's qualified id does not parse in the head's id slot, filed (040-F4) |
 
-**The respell batch (laid 2026-09-01):** 040 alone — serial, **sole occupant**: it renames
-files under every other session's feet, so nothing else ignites in this building until it
-lands. Tender: the office, at Felix's word.
 
 **Deferred (tracked, not lost):**
 
@@ -65,6 +62,10 @@ lands. Tender: the office, at Felix's word.
   arm — and the currency alarm (D81): the vocabulary arm's history fence narrows to
   speech, so token rows (dead ids, marks, compounds) read history too and a respell
   that missed a form is caught.
+  — and the qualified id in the ledger head's slot (040-F4): `isId` rejects `:`, so
+  `(belvedere:C7)` would fall out of the head into the body; the two belvedere heads
+  (`LEDGER.md` 2086, 2151) stand as a dead, unregistered building's addresses — open
+  the slot when a live building writes one.
 
 - The peer-messaging experiment (SendMessage taps between live sessions —
   gate-delivery pokes, cross-account bulletin pokes; pointers-not-payloads,
