@@ -1,6 +1,6 @@
 #!/usr/bin/env expect
 # lab/08 — the name-stamp's lineage counter, driven live: the seed path, the floor, and the
-# proof that only fires advance it. The sandbox's log starts empty and $PWD is the theater,
+# proof that only fires advance it. The sandbox's log starts empty and $PWD decides the stamp,
 # so every ordinal below is derived, never contrived.
 # usage: name.exp <transcript> <rc.zsh>
 
@@ -34,7 +34,7 @@ expect "closed"
 send "\a\r"
 expect "SHIM"
 
-# G7 — bare: the theater alone, counting its own lineage from 01
+# G7 — bare: the stamp alone, counting its own lineage from 01
 send "\an\r"
 expect "SHIM"
 

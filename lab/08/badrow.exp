@@ -1,0 +1,21 @@
+#!/usr/bin/env expect
+# lab/08 — a register row the rig cannot trust must close the panel loudly, not compose a
+# launch out of it. Same treatment a preset on a reserved key gets.
+# usage: badrow.exp <transcript> <rc.zsh>
+
+set timeout 15
+log_file -noappend [lindex $argv 0]
+spawn zsh -f -i
+send "source [lindex $argv 1]\r"
+expect "READY"
+
+send "\a"
+expect "BUILDINGS.md"
+
+# and the panel really is shut: a bare Enter runs an empty line, it does not fire
+send "\r"
+send "print -r -- DONE\r"
+expect "DONE\r"
+
+send "exit\r"
+expect eof

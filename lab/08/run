@@ -17,15 +17,60 @@ mkdir -p $SANDBOX
 cp $RIG/summon.zsh $RIG/presets.tsv $RIG/accounts.tsv $SANDBOX/
 cp -R $LAB/fixtures $SANDBOX/				# the rc's usage shims serve these, never the network
 
-# the name-stamp's theater is $PWD's own basename, so every run happens in a named directory
-# rather than wherever the harness was invoked from — the stamps below are then byte-exact.
-THEATER=$LAB/out/theater
-mkdir -p $THEATER/hive $THEATER/atelier $THEATER/hexwright $THEATER/agents $THEATER/foundry
-# ...and two directories that file a campaign list of their own, the way bob does: one repo,
-# three theaters, the `t` key choosing which one the stamp carries
-mkdir -p $THEATER/bob $THEATER/carrier
-printf 'bob\nlunchbox\npods\n' | tee $THEATER/bob/.summon-theaters > $THEATER/carrier/.summon-theaters
-( cd $THEATER/hive && expect $LAB/drive.exp $TRANSCRIPT $LAB/rc.zsh ) > /dev/null 2>&1
+# A fixture city, and a fixture register over it. The stamp is the register's Name for the
+# fire directory, or $PWD's own basename where the register does not know it, so every run
+# happens inside this city rather than wherever the harness was invoked from — and the stamps
+# below are then byte-exact. hive, atelier and foundry are deliberately UNREGISTERED: they
+# drive the fallback path, which is most of the harness.
+CITY=$LAB/out/city
+mkdir -p $CITY/hive $CITY/atelier $CITY/hexwright $CITY/agents $CITY/foundry
+# ...and two hosts with buildings under them, the way cap-mega hosts simmy and manny: one
+# root, several stamps, the `t` key choosing which one the name carries. manny's root is a
+# worktree three levels down whose directory is called something else entirely.
+mkdir -p $CITY/cap-mega/simmy $CITY/cap-mega/snappy $CITY/cap-mega/felix/spacex-dashboard \
+	$CITY/cap-mega/.claude/worktrees/user-manual $CITY/bob/lunchbox $CITY/bob/pods
+
+# every sandbox below lives directly under out/, and the rig reads ${SUMMON_HOME:h}/canon/
+# BUILDINGS.md — so this one fixture serves all of them and no arm can reach the live
+# register. Each host's own row is filed AFTER the buildings under it, exactly as the real
+# register has cap-mega: a cycle led by the cwd's row therefore proves the rule, not the
+# file order.
+REGISTER=$LAB/out/canon/BUILDINGS.md
+mkdir -p ${REGISTER:h}
+typeset -a CITY_ROWS=(
+	"| agents | building | \`$CITY/agents\` |"
+	"| hexwright | building | \`$CITY/hexwright\` |"
+	"| simmy | building | \`$CITY/cap-mega/simmy\` |"
+	"| snappy | building | \`$CITY/cap-mega/snappy\` |"
+	"| spacex-dashboard | building | \`$CITY/cap-mega/felix/spacex-dashboard\` |"
+	"| manny | building | \`$CITY/cap-mega/.claude/worktrees/user-manual\` |"
+	"| cap-mega | host | \`$CITY/cap-mega\` |"
+	"| lunchbox | building | \`$CITY/bob/lunchbox\` |"
+	"| pods | building | \`$CITY/bob/pods\` |"
+	"| bob | host | \`$CITY/bob\` |"
+)
+register() {	# <path> [row...] — the register written whole, extra rows appended to the table
+	local out=$1 row
+	shift
+	{
+		print -r -- '# The fixture register'
+		print -r -- ''
+		print -r -- 'Prose above the table | pipes and all | is not a row.'
+		print -r -- ''
+		print -r -- '| Name | Kind | Root |'
+		print -r -- '|---|---|---|'
+		for row in $CITY_ROWS "$@"; do print -r -- "$row"; done
+		print -r -- ''
+		print -r -- 'And prose below it closes the table. The line under this one would'
+		print -r -- 'register hive under another Name if the parser read past the prose —'
+		print -r -- 'which is why hive is the directory the whole drive fires from.'
+		print -r -- ''
+		print -r -- "| ghost | building | \`$CITY/hive\` |"
+	} > $out
+}
+register $REGISTER
+
+( cd $CITY/hive && expect $LAB/drive.exp $TRANSCRIPT $LAB/rc.zsh ) > /dev/null 2>&1
 cp $LOG $LAB/out/log-at-stats.jsonl		# what summon-stats saw, before later tests append
 
 # the styled transcript, with the styling taken back off: assertions on what Felix reads.
@@ -157,7 +202,7 @@ presets_read $RIG/presets.tsv $RIG/accounts.tsv
 
 # --- the panel, rendered without a pty --------------------------------------------
 # <file> <columns> <mantle> <model> <effort> <account> <keys> [yank]
-render() { ( cd $THEATER/atelier && zsh -f $LAB/render.zsh $SANDBOX $2 "$3" "$4" "$5" "$6" $7 "${8:-}" ) > $LAB/out/$1 }
+render() { ( cd $CITY/atelier && zsh -f $LAB/render.zsh $SANDBOX $2 "$3" "$4" "$5" "$6" $7 "${8:-}" ) > $LAB/out/$1 }
 plain()  { sed -E $'s/\x1b\\[[0-9;?]*[a-zA-Z]//g' $LAB/out/$1 > $LAB/out/${1:r}-plain.txt }
 render panel-200.txt 200 a fable high 1 2	; plain panel-200.txt
 render panel-60.txt   60 a fable high 1 2	; plain panel-60.txt
@@ -180,7 +225,7 @@ check 'and the command that footer promised carries the stamp as --name' \
 	$P200
 check 'mantle cleared ⇒ [n]one selected' \
 	'[n]one ✓' $LAB/out/panel-bare-plain.txt
-check 'bare footer: the theater stamp alone, and no colour' \
+check 'bare footer: the stamp alone, and no colour' \
 	'⏎  atelier-01 · haiku-high @ thg-doorbell · keys: 3' $LAB/out/panel-bare-plain.txt
 check 'cold state: the footer refuses instead of guessing' \
 	'⏎  nothing selected — press a mantle, or a model and an effort · keys: 1' \
@@ -234,7 +279,7 @@ count 'no item is broken across lines: each survives whole' 1 \
 	'● [A]rchitect·max' $LAB/out/panel-60-plain.txt
 line 'the same panel is one row per field at full width' 1 "$(mantle_row a)" $P200
 # and in a real 60-column terminal: the break must be ours, not the terminal's
-( cd $THEATER/hive && SUMMON_COLUMNS=60 expect $LAB/narrow.exp $LAB/out/narrow.txt $LAB/rc.zsh ) > /dev/null 2>&1
+( cd $CITY/hive && SUMMON_COLUMNS=60 expect $LAB/narrow.exp $LAB/out/narrow.txt $LAB/rc.zsh ) > /dev/null 2>&1
 sed -E $'s/\x1b\\[[0-9;?]*[a-zA-Z]//g' $LAB/out/narrow.txt | tr '\r' '\n' > $LAB/out/narrow-plain.txt
 check 'live 60-column pty: the mantle row wraps where we put the break' \
 	'mantle   ● [g]rand-architect  ● [a]rchitect·high' $LAB/out/narrow-plain.txt
@@ -243,7 +288,7 @@ check 'live 60-column pty: the continuation line is intact and aligned' \
 
 print -r -- '--- preview footer vs the launch it promised (live pty) --------------'
 # one gesture on the state the drive left behind, so the paint is whole and comparable
-( cd $THEATER/hive && expect $LAB/preview.exp $LAB/out/preview.txt $LAB/rc.zsh ) > /dev/null 2>&1
+( cd $CITY/hive && expect $LAB/preview.exp $LAB/out/preview.txt $LAB/rc.zsh ) > /dev/null 2>&1
 sed -E $'s/\x1b\\[[0-9;?]*[a-zA-Z]//g' $LAB/out/preview.txt | tr '\r' '\n' > $LAB/out/preview-plain.txt
 check 'the panel opens pre-selected from log/state, and says what Enter will fire' \
 	'⏎  architect-hive-09 · opus-max @ thg-fgreen · green · keys: 1' $LAB/out/preview-plain.txt
@@ -271,7 +316,7 @@ line 'm = [m]edium: the model stays opus' 1 \
 	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model opus --effort medium -n fixer-hive-02 /color yellow'
 line 'k = hai[k]u: the effort stays medium' 1 \
 	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model haiku --effort medium -n fixer-hive-03 /color yellow'
-line '[n]one → bare launch: the theater stamp alone, no colour, no prompt' 1 \
+line '[n]one → bare launch: the stamp alone, no colour, no prompt' 1 \
 	'SHIM cfg=/Users/felix/.claude-thg-doorbell args=--model haiku --effort medium -n hive-01'
 line 'override + account (6 keys) → the architect lineage continues at 06' 1 \
 	'SHIM cfg=/Users/felix/.claude-thg-fgreen args=--model opus --effort max -n architect-hive-06 /color green'
@@ -298,20 +343,20 @@ fi
 print -r -- '--- eject -----------------------------------------------------------'
 check '`^G .` ejects the sticky config itself (2 keys), stamp and all' \
 	'CLAUDE_CONFIG_DIR=~/.claude-thg-fgreen claude --model opus --effort max -n architect-hive-07 "/color green"'
-check '`^G g 0 .` ejects an editable resolved command — and the Grand Architect carries no theater' \
+check '`^G g 0 .` ejects an editable resolved command — and the Grand Architect carries no stamp' \
 	'CLAUDE_CONFIG_DIR=~/.claude claude --model fable --effort max -n grand-architect-01 "/color green"'
 count 'the ejected command was never executed' 0 'args=--model fable --effort max -n grand-architect'
 check 'the eject is logged with its description' '"mode":"eject"' $LOG
 
 print -r -- '--- the name-stamp: the lineage counter, against a fixture log --------'
 # a sandbox with a hand-written log, so every ordinal below is derived from history the
-# assertion can see. The theater is $PWD's own basename, so each render cds to the one it
+# assertion can see. The stamp is $PWD's own basename, so each render cds to the one it
 # means, and what is asserted is the composed command — the thing that actually launches.
 NAMES=$LAB/out/name-sandbox
 mkdir -p $NAMES/log
 cp $RIG/summon.zsh $RIG/presets.tsv $RIG/accounts.tsv $NAMES/
-nrender() {	# <out> <theater> <mantle-key> [bump]
-	( cd $THEATER/$2 && zsh -f $LAB/render.zsh $NAMES 200 "$3" fable high 1 2 '' ${4:-0} ) \
+nrender() {	# <out> <directory> <mantle-key> [bump]
+	( cd $CITY/$2 && zsh -f $LAB/render.zsh $NAMES 200 "$3" fable high 1 2 '' ${4:-0} ) \
 		> $LAB/out/name-$1.txt
 }
 stamp() {	# <name> <expected stamp> <file> [tail] — the whole composed command, byte for byte
@@ -342,17 +387,17 @@ stamp 'the ordinal is one past the highest ever fired, not past the last one log
 	architect-hexwright-08 seeded
 stamp 'a legacy record with no name field, and a null one, are both skipped' \
 	architect-hexwright-08 seeded
-stamp 'theater isolates the lineage: the same mantle elsewhere starts at 01' \
+stamp 'the stamp isolates the lineage: the same mantle elsewhere starts at 01' \
 	architect-agents-01 crossed
-stamp 'the bare lineage is the theater alone, counted separately and wearing no colour' \
+stamp 'the bare lineage is the stamp alone, counted separately and wearing no colour' \
 	hexwright-03 bare ''
-check 'the Grand Architect carries no theater — one office, so the segment says nothing' \
+check 'the Grand Architect carries no stamp — one office, so the segment says nothing' \
 	'-n grand-architect-10 "/color green"' $LAB/out/name-ga.txt
 if cmp -s <(grep -F CLAUDE_CONFIG_DIR $LAB/out/name-ga.txt) \
 			 <(grep -F CLAUDE_CONFIG_DIR $LAB/out/name-ga-else.txt); then
-	print -r -- '  PASS  ...so the Grand Architect counts one lineage across every theater'
+	print -r -- '  PASS  ...so the Grand Architect counts one lineage across every stamp'
 else
-	print -r -- '  FAIL  the Grand Architect stamp changed with the theater'; (( fails++ ))
+	print -r -- '  FAIL  the Grand Architect stamp changed with the stamp'; (( fails++ ))
 fi
 nrender bumped-up   agents    a 8
 nrender bumped-down agents    a -5
@@ -368,68 +413,106 @@ check 'and the panel footer carries the bumped name in full, before anything fir
 check '...the floored one too — the footer and the launch can never disagree' \
 	'⏎  architect-agents-01 · fable-high @ thg-fgreen · green · keys: 2' $LAB/out/name-bumped-down.txt
 
-print -r -- '--- the theater cycle: the campaign the stamp carries -----------------'
-# a sandbox whose log has already seen two of the three campaigns bob hosts, so the ordinals
-# below prove the lineages are counted apart as well as stamped apart
-TSAND=$LAB/out/theater-sandbox
-mkdir -p $TSAND/log
-cp $RIG/summon.zsh $RIG/presets.tsv $RIG/accounts.tsv $TSAND/
-cat > $TSAND/log/invocations.jsonl <<'JSONL'
+print -r -- '--- the stamp cycle: derived from the building register ---------------'
+# a sandbox whose log has already seen two of the three stamps bob's root derives, so the
+# ordinals below prove the lineages are counted apart as well as stamped apart
+SSAND=$LAB/out/stamp-sandbox
+mkdir -p $SSAND/log
+cp $RIG/summon.zsh $RIG/presets.tsv $RIG/accounts.tsv $SSAND/
+cat > $SSAND/log/invocations.jsonl <<'JSONL'
 {"ts":"2026-08-20T09:00:00-0400","mode":"pick","n":4,"account":"personal","mantle":"architect","model":"fable","effort":"high","color":"green","name":"architect-bob-02","cmd":"claude -n architect-bob-02","keys":"^Ga0⏎"}
 {"ts":"2026-08-20T10:00:00-0400","mode":"pick","n":4,"account":"personal","mantle":"architect","model":"fable","effort":"high","color":"green","name":"architect-bob-04","cmd":"claude -n architect-bob-04","keys":"^Ga0⏎"}
 {"ts":"2026-08-20T11:00:00-0400","mode":"pick","n":4,"account":"personal","mantle":"architect","model":"fable","effort":"high","color":"green","name":"architect-pods-01","cmd":"claude -n architect-pods-01","keys":"^Ga0⏎"}
 JSONL
-trender() {	# <out> <directory> <t presses> [mantle-key] [columns]
-	( cd $THEATER/$2 && zsh -f $LAB/render.zsh $TSAND ${5:-200} "${4-a}" fable high 1 2 '' 0 $3 ) \
-		> $LAB/out/theater-$1.txt
+srender() {	# <out> <directory> <t presses> [mantle-key] [columns]
+	( cd $CITY/$2 && zsh -f $LAB/render.zsh $SSAND ${5:-200} "${4-a}" fable high 1 2 '' 0 $3 ) \
+		> $LAB/out/stamp-$1.txt
 }
-tstamp() {	# <name> <expected stamp> <out> — the whole composed command, byte for byte
+sstamp() {	# <name> <expected stamp> <out> — the whole composed command, byte for byte
 	line "$1" 1 \
 		"CLAUDE_CONFIG_DIR=~/.claude-thg-fgreen claude --model fable --effort high -n $2 \"/color green\"" \
-		$LAB/out/theater-$3.txt
+		$LAB/out/stamp-$3.txt
 }
-trender t0 bob 0 ; trender t1 bob 1 ; trender t2 bob 2 ; trender t3 bob 3
-tstamp 'no press: the default theater is the first line of .summon-theaters' \
+srender t0 bob 0 ; srender t1 bob 1 ; srender t2 bob 2 ; srender t3 bob 3
+sstamp 'no press: the default stamp is the fire directory own Name, wherever it is filed' \
 	architect-bob-05 t0
-tstamp 'one t: the second line' architect-lunchbox-01 t1
-tstamp 'two: the third'        architect-pods-02     t2
-tstamp 'three: the cycle wraps back to the first'  architect-bob-05 t3
+sstamp 'one t: the first row under it, in file order' architect-lunchbox-01 t1
+sstamp 'two: the second'                             architect-pods-02     t2
+sstamp 'three: the cycle wraps back to the cwd own row' architect-bob-05 t3
 check 'and the footer carries the re-stamped name, before anything fires' \
-	'⏎  architect-lunchbox-01 · fable-high @ thg-fgreen · green · keys: 2' $LAB/out/theater-t1.txt
+	'⏎  architect-lunchbox-01 · fable-high @ thg-fgreen · green · keys: 2' $LAB/out/stamp-t1.txt
 print -r -- '  ...the lineages counted apart from one log: bob 05, pods 02, lunchbox 01'
-check 'the theater row lists the campaigns, the key riding the label' \
-	'[t]heater bob ✓  lunchbox  pods' $LAB/out/theater-t0.txt
+check 'the stamp row lists the buildings, the key riding the label' \
+	's[t]amp  bob ✓  lunchbox  pods' $LAB/out/stamp-t0.txt
 check 'a t press moves the ✓' \
-	'[t]heater bob  lunchbox ✓  pods' $LAB/out/theater-t1.txt
-check 'the theater label is pink — the gradient between account and usage' \
-	'fg=213 ⟨heater⟩' $LAB/out/theater-t0.txt
-check 'an unselected theater is grey' 'fg=8 ⟨lunchbox⟩' $LAB/out/theater-t0.txt
-check 'the selected theater is bold, ✓ inline' 'bold ⟨bob ✓⟩' $LAB/out/theater-t0.txt
-count 'no .summon-theaters ⇒ no theater row at all' 0 '[t]heater' \
-	$LAB/out/theater-nofile.txt
-trender elsewhere carrier 1
-tstamp 'the theater travels with the file, not the directory name' \
-	architect-lunchbox-01 elsewhere
-trender nofile hexwright 1
-tstamp 'no .summon-theaters: the theater is $PWD, and t is inert rather than an error' \
-	architect-hexwright-01 nofile
-trender ga bob 0 g ; trender ga-cycled bob 1 g
-if cmp -s <(grep -F CLAUDE_CONFIG_DIR $LAB/out/theater-ga.txt) \
-			 <(grep -F CLAUDE_CONFIG_DIR $LAB/out/theater-ga-cycled.txt); then
-	print -r -- '  PASS  the Grand Architect keeps no theater, so the cycle changes nothing it fires'
+	's[t]amp  bob  lunchbox ✓  pods' $LAB/out/stamp-t1.txt
+check 'the stamp label is pink — the gradient between account and usage' \
+	'fg=213 ⟨amp⟩' $LAB/out/stamp-t0.txt
+check '...and the key inside it keeps the grey brackets the panel gives every key' \
+	'fg=8 ⟨[⟩' $LAB/out/stamp-t0.txt
+check 'an unselected stamp is grey'          'fg=8 ⟨lunchbox⟩' $LAB/out/stamp-t0.txt
+check 'the selected stamp is bold, ✓ inline' 'bold ⟨bob ✓⟩'    $LAB/out/stamp-t0.txt
+
+# the headline case: a host root, its own Name leading the four buildings under it
+for i in 0 1 2 3 4 5; do srender cm$i cap-mega $i; done
+check 'the whole derived cycle on one row: the host leads, its buildings follow in file order' \
+	's[t]amp  cap-mega ✓  simmy  snappy  spacex-dashboard  manny' $LAB/out/stamp-cm0.txt
+sstamp 'no press: the host own Name, though its row is filed after all four' \
+	architect-cap-mega-01 cm0
+sstamp 'one t: simmy'                             architect-simmy-01            cm1
+sstamp 'two: snappy'                              architect-snappy-01           cm2
+sstamp 'three: spacex-dashboard, two levels down' architect-spacex-dashboard-01 cm3
+sstamp 'four: manny, a worktree root four levels down' architect-manny-01       cm4
+sstamp 'five: the cycle wraps'                    architect-cap-mega-01         cm5
+
+srender manny cap-mega/.claude/worktrees/user-manual 0
+sstamp 'a building stamps its register Name, never the directory it is checked out in' \
+	architect-manny-01 manny
+count '...and one row is no choice at all, so nothing paints a stamp row' 0 's[t]amp' \
+	$LAB/out/stamp-manny.txt
+srender unregistered hive 1
+sstamp 'an unregistered directory stamps its own name, and t is inert rather than an error' \
+	architect-hive-01 unregistered
+sstamp 'a table-shaped line below the table prose is prose: hive stays unregistered' \
+	architect-hive-01 unregistered
+count 'no register row for it ⇒ no stamp row either' 0 's[t]amp' \
+	$LAB/out/stamp-unregistered.txt
+srender interior cap-mega/felix 1
+sstamp 'buildings UNDER an unregistered directory do not register it: felix stamps felix' \
+	architect-felix-01 interior
+
+srender ga cap-mega 0 g ; srender ga-cycled cap-mega 1 g
+if cmp -s <(grep -F CLAUDE_CONFIG_DIR $LAB/out/stamp-ga.txt) \
+			 <(grep -F CLAUDE_CONFIG_DIR $LAB/out/stamp-ga-cycled.txt); then
+	print -r -- '  PASS  the Grand Architect carries no stamp, so the cycle changes nothing it fires'
 else
 	print -r -- '  FAIL  the cycle reached the Grand Architect stamp'; (( fails++ ))
 fi
-check '...and what the GA fires is the untheatered stamp itself' \
-	'-n grand-architect-01 "/color green"' $LAB/out/theater-ga-cycled.txt
-trender narrow bob 1 a 60
-sed -E $'s/\x1b\\[[0-9;?]*[a-zA-Z]//g' $LAB/out/theater-narrow.txt > $LAB/out/theater-narrow-plain.txt
-widest $LAB/out/theater-narrow-plain.txt 60
+check '...and what the GA fires is the unstamped name itself' \
+	'-n grand-architect-01 "/color green"' $LAB/out/stamp-ga-cycled.txt
+srender narrow cap-mega 1 a 60
+sed -E $'s/\x1b\\[[0-9;?]*[a-zA-Z]//g' $LAB/out/stamp-narrow.txt > $LAB/out/stamp-narrow-plain.txt
+widest $LAB/out/stamp-narrow-plain.txt 60
+
+# the register is HOME-relative on every row of the real file, and a Root that failed to
+# expand would simply never match — silently, and identically to a directory that is
+# genuinely unregistered. So the arm fires where Name and directory name differ: only a
+# `~` that really expanded can stamp `manny` from a directory called user-manual.
+TILDE=$LAB/out/tilde
+mkdir -p $TILDE/canon $TILDE/sandbox/log
+cp $RIG/summon.zsh $RIG/presets.tsv $RIG/accounts.tsv $TILDE/sandbox/
+register $TILDE/canon/BUILDINGS.md
+sed -i '' "s#\`$LAB/out/#\`~/#g" $TILDE/canon/BUILDINGS.md
+( cd $CITY/cap-mega/.claude/worktrees/user-manual \
+	&& HOME=$LAB/out zsh -f $LAB/render.zsh $TILDE/sandbox 200 a fable high 1 2 ) \
+	> $LAB/out/stamp-tilde.txt
+sstamp 'a `~`-rooted register row expands against $HOME — the real file writes every root so' \
+	architect-manny-01 tilde
 
 print -r -- '--- the name-stamp: one pass at open, O(1) in the keystroke loop ------'
 # the log is taken away after the scan: if a paint re-read it the ordinal would fall back
 # to 01, so the stamp surviving 500 paints IS the proof that the read happened once
-( cd $THEATER/hexwright && zsh -f -c "source $NAMES/summon.zsh 2>/dev/null
+( cd $CITY/hexwright && zsh -f -c "source $NAMES/summon.zsh 2>/dev/null
 COLUMNS=200
 _summon_load; _summon_ordinal_scan
 mv $NAMES/log/invocations.jsonl $LAB/out/name-log-taken.jsonl
@@ -448,38 +531,38 @@ mv $LAB/out/name-log-taken.jsonl $NAMES/log/invocations.jsonl
 check 'the ordinal outlives the log file: it was read once, at open, and never again' \
 	'500 PAINTS WITH THE LOG TAKEN AWAY: architect-hexwright-08' $LAB/out/name-onepass.txt
 grep -F 'per ' $LAB/out/name-onepass.txt
-# the same proof for the campaign list, and the price of the keystroke that cycles it
-( cd $THEATER/bob && zsh -f -c "source $TSAND/summon.zsh 2>/dev/null
+# the same proof for the register, and the price of the keystroke that cycles it
+( cd $CITY/cap-mega && zsh -f -c "source $SSAND/summon.zsh 2>/dev/null
 COLUMNS=200
-_summon_load; _summon_theater_sticky_load; _summon_ordinal_scan
+_summon_load; _summon_stamp_sticky_load; _summon_ordinal_scan
 typeset -F start=\$EPOCHREALTIME
-for i in {1..50}; do _summon_theaters_load; done
-printf '  per panel open, the one read of the list:  %.3f ms\n' \
+for i in {1..50}; do _summon_stamps_load; done
+printf '  per panel open, the one read of the register: %.3f ms\n' \
 	\$(( (\$EPOCHREALTIME - start) * 1000 / 50 ))
-_summon_theater_cycle
-mv .summon-theaters $LAB/out/theater-file-taken
+_summon_stamp_cycle
+mv $REGISTER $LAB/out/register-taken.md
 _summon_mantle_key=a _summon_model=fable _summon_effort=high _summon_account_key=1
 for i in {1..500}; do _summon_panel 3 '' 0; done
-print -r -- \"500 PAINTS WITH THE LIST TAKEN AWAY: \$_summon_name\"
+print -r -- \"500 PAINTS WITH THE REGISTER TAKEN AWAY: \$_summon_name\"
 start=\$EPOCHREALTIME
 for i in {1..500}; do _summon_panel 3 '' 0; done
-printf '  per keystroke, a campaign list in play:    %.3f ms\n' \
+printf '  per keystroke, a five-building cycle in play: %.3f ms\n' \
 	\$(( (\$EPOCHREALTIME - start) * 1000 / 500 ))
 start=\$EPOCHREALTIME
-for i in {1..500}; do _summon_theater_cycle; done
-printf '  per t press, the cycle itself:             %.4f ms\n' \
-	\$(( (\$EPOCHREALTIME - start) * 1000 / 500 ))" ) > $LAB/out/theater-onepass.txt 2>&1
-mv $LAB/out/theater-file-taken $THEATER/bob/.summon-theaters
-check 'the cycled theater outlives the file: the list is read once, at open, and never again' \
-	'500 PAINTS WITH THE LIST TAKEN AWAY: architect-lunchbox-01' $LAB/out/theater-onepass.txt
-grep -F 'per ' $LAB/out/theater-onepass.txt
+for i in {1..500}; do _summon_stamp_cycle; done
+printf '  per t press, the cycle itself:                %.4f ms\n' \
+	\$(( (\$EPOCHREALTIME - start) * 1000 / 500 ))" ) > $LAB/out/stamp-onepass.txt 2>&1
+mv $LAB/out/register-taken.md $REGISTER
+check 'the cycled stamp outlives the register: it is read once, at open, and never again' \
+	'500 PAINTS WITH THE REGISTER TAKEN AWAY: architect-simmy-01' $LAB/out/stamp-onepass.txt
+grep -F 'per ' $LAB/out/stamp-onepass.txt
 
 print -r -- '--- the name-stamp: the seed and correction path, live ----------------'
 NPTY=$LAB/out/name-pty-sandbox
 mkdir -p $NPTY
 cp $RIG/summon.zsh $RIG/presets.tsv $RIG/accounts.tsv $NPTY/
 cp -R $LAB/fixtures $NPTY/
-( cd $THEATER/foundry && SANDBOX=$NPTY expect $LAB/name.exp $LAB/out/name-pty.txt $LAB/rc.zsh ) \
+( cd $CITY/foundry && SANDBOX=$NPTY expect $LAB/name.exp $LAB/out/name-pty.txt $LAB/rc.zsh ) \
 	> /dev/null 2>&1
 sed -E $'s/\x1b\\[[0-9;?]*[a-zA-Z]//g' $LAB/out/name-pty.txt | tr '\r' '\n' > $LAB/out/name-pty-plain.txt
 NP=$LAB/out/name-pty-plain.txt
@@ -497,75 +580,82 @@ ga 'the counter is the highest ever fired, not the last one fired: 11 follows th
 	grand-architect-11
 ga 'an abort in between is inert — it fires nothing, so it counts for nothing: 12' \
 	grand-architect-12
-ga 'a bare launch counts its own theater lineage, from 01' foundry-01 ''
+ga 'a bare launch counts its own stamp lineage, from 01' foundry-01 ''
 count 'eight gestures, six fires: neither abort launched anything' 6 'SHIM cfg=' $NP
 check 'and every fired stamp landed in its own record, for the next open to count' \
 	'"name":"grand-architect-12"' $NPTY/log/invocations.jsonl
 count 'while the abort stamped null' 1 '"mode":"abort","n":2,"account":"personal","mantle":"grand-architect","model":"fable","effort":"max","color":"green","name":null' \
 	$NPTY/log/invocations.jsonl
 
-print -r -- '--- the theater cycle: sticky per directory, on fire only (live) ------'
-# its own sandbox and its own pair of campaign directories: this arm rewrites a
-# .summon-theaters mid-run, and nothing else may be standing under it when it does
-TPTY=$LAB/out/theater-pty-sandbox
-mkdir -p $TPTY
-cp $RIG/summon.zsh $RIG/presets.tsv $RIG/accounts.tsv $TPTY/
-cp -R $LAB/fixtures $TPTY/
-TROOT=$LAB/out/theater-pty
-mkdir -p $TROOT/bob $TROOT/carrier
-printf 'bob\nlunchbox\npods\n' | tee $TROOT/bob/.summon-theaters > $TROOT/carrier/.summon-theaters
-( cd $TROOT/bob && SANDBOX=$TPTY THEATER_ROOT=$TROOT \
-	expect $LAB/theater.exp $LAB/out/theater-pty.txt $LAB/rc.zsh ) > /dev/null 2>&1
-sed -E $'s/\x1b\\[[0-9;?]*[a-zA-Z]//g' $LAB/out/theater-pty.txt | tr '\r' '\n' \
-	> $LAB/out/theater-pty-plain.txt
-TP=$LAB/out/theater-pty-plain.txt
-tp() {	# <name> <expected stamp>
+print -r -- '--- the stamp cycle: sticky per directory, on fire only (live) --------'
+# its own tree, register included: this arm rewrites the register mid-run, and nothing else
+# may be standing under it when it does. The rig reads ${SUMMON_HOME:h}/canon/BUILDINGS.md,
+# so putting the sandbox one level deeper is the whole of the isolation.
+SPTY=$LAB/out/stamp-pty/sandbox
+mkdir -p $SPTY ${SPTY:h}/canon
+cp $RIG/summon.zsh $RIG/presets.tsv $RIG/accounts.tsv $SPTY/
+cp -R $LAB/fixtures $SPTY/
+SREG=${SPTY:h}/canon/BUILDINGS.md
+register $SREG
+grep -vF '| simmy |' $SREG > $LAB/out/stamp-pty/register-without-simmy.md
+( cd $CITY/cap-mega && SANDBOX=$SPTY CITY_ROOT=$CITY REGISTER=$SREG \
+	DROPPED=$LAB/out/stamp-pty/register-without-simmy.md \
+	expect $LAB/stamp.exp $LAB/out/stamp-pty.txt $LAB/rc.zsh ) > /dev/null 2>&1
+sed -E $'s/\x1b\\[[0-9;?]*[a-zA-Z]//g' $LAB/out/stamp-pty.txt | tr '\r' '\n' \
+	> $LAB/out/stamp-pty-plain.txt
+SP=$LAB/out/stamp-pty-plain.txt
+sp() {	# <name> <expected stamp>
 	line "$1" 1 \
-		"SHIM cfg=/Users/felix/.claude-thg-fgreen args=--model fable --effort high -n $2 /color green" $TP
+		"SHIM cfg=/Users/felix/.claude-thg-fgreen args=--model fable --effort high -n $2 /color green" $SP
 }
-tp 'a t on the way past: the fire carries the campaign, not the directory' architect-lunchbox-01
+sp 'a t on the way past: the fire carries the building, not the directory' architect-simmy-01
 check 'the next open in that directory preselects it — whole, on the first paint' \
-	'⏎  architect-lunchbox-02 · fable-high @ thg-fgreen · green · keys: 1' $TP
-tp '...and the refire fires exactly that, continuing the campaign lineage' architect-lunchbox-02
-tp 'a different directory filing the same list keeps its own default' architect-bob-01
-if cmp -s $TPTY/log/abort-before $TPTY/log/abort-after; then
+	'⏎  architect-simmy-02 · fable-high @ thg-fgreen · green · keys: 1' $SP
+sp '...and the refire fires exactly that, continuing that building lineage' architect-simmy-02
+sp 'another registered root keeps its own default' architect-bob-01
+if cmp -s $SPTY/log/abort-before $SPTY/log/abort-after; then
 	print -r -- '  PASS  an abort after cycling persists nothing: the map is byte-identical across it'
 else
-	print -r -- '  FAIL  an aborted cycle reached log/theaters'; (( fails++ ))
+	print -r -- '  FAIL  an aborted cycle reached log/stamps'; (( fails++ ))
 fi
-tp 'and the fire after that abort still carries what the last fire made sticky' \
-	architect-lunchbox-03
-tp 'a sticky theater the list no longer carries falls back to the default (first line)' \
-	architect-bob-02
-print -r -- '  ...and that 02 is the lineage bob-01 opened from the other directory: the'
-print -r -- '     ordinal follows the campaign, not the fire directory'
-count 'ten gestures, five fires: neither abort nor the preselect paint launched anything' 5 \
-	'SHIM cfg=' $TP
+sp 'and the fire after that abort still carries what the last fire made sticky' \
+	architect-simmy-03
+sp 'a sticky stamp the register no longer derives falls back to the default (the cwd own Name)' \
+	architect-cap-mega-01
+count 'seven gestures, five fires: neither abort nor the preselect paint launched anything' 5 \
+	'SHIM cfg=' $SP
 line 'the map is one line per fire directory, keyed by the directory itself' 1 \
-	"$TROOT/bob"$'\t'"bob" $TPTY/log/theaters
+	"$CITY/cap-mega"$'\t'"cap-mega" $SPTY/log/stamps
 line '...and the other directory kept its own entry' 1 \
-	"$TROOT/carrier"$'\t'"bob" $TPTY/log/theaters
-count 'nothing else is in it: two directories were fired from, two lines' 2 '/theater-pty/' \
-	$TPTY/log/theaters
+	"$CITY/bob"$'\t'"bob" $SPTY/log/stamps
+count 'nothing else is in it: two directories were fired from, two lines' 2 '/city/' \
+	$SPTY/log/stamps
 
-print -r -- '--- the theater cycle: a list the rig will not fire from --------------'
-# a theater becomes argv — `-n <mantle>-<theater>-NN`, run by zsh — so a name carrying a
-# space would split the launch in two and one starting with `-` would read as a flag
-# (13-F9, arriving from a data file). The panel refuses to open, the way it refuses a
-# preset on a reserved key.
-BAD=$LAB/out/badlist
-mkdir -p $BAD
-printf 'bob\nmy repo\n' > $BAD/.summon-theaters
-( cd $BAD && SANDBOX=$TPTY expect $LAB/badlist.exp $LAB/out/badlist.txt $LAB/rc.zsh ) \
-	> /dev/null 2>&1
-check 'a theater that is not a plain name refuses the panel, and names the line' \
-	"summon: .summon-theaters: 'my repo' is not a plain name" $LAB/out/badlist.txt
-count 'and nothing is launched from it' 0 'SHIM cfg=' $LAB/out/badlist.txt
-printf -- '-pods\n' > $BAD/.summon-theaters
-( cd $BAD && SANDBOX=$TPTY expect $LAB/badlist.exp $LAB/out/badlist-dash.txt $LAB/rc.zsh ) \
-	> /dev/null 2>&1
+print -r -- '--- the stamp cycle: a register the rig will not fire from -------------'
+# a stamp becomes argv — `-n <mantle>-<stamp>-NN`, run by zsh — so a Name carrying a space
+# would split the launch in two and one starting with `-` would read as a flag (13-F9,
+# arriving from the register this time). The panel refuses to open, the way it refuses a
+# preset on a reserved key — and it refuses wherever it is fired from, because a broken
+# register is broken for the whole city.
+BADREG=$LAB/out/badreg/sandbox
+mkdir -p $BADREG ${BADREG:h}/canon
+cp $RIG/summon.zsh $RIG/presets.tsv $RIG/accounts.tsv $BADREG/
+badrow() {	# <out> <row> — the register plus one row the rig must refuse
+	register ${BADREG:h}/canon/BUILDINGS.md "$2"
+	( cd $CITY/hive && SANDBOX=$BADREG expect $LAB/badrow.exp $LAB/out/$1 $LAB/rc.zsh ) \
+		> /dev/null 2>&1
+}
+badrow badreg-space.txt "| my repo | building | \`$CITY/hive\` |"
+check 'a Name that is not a plain name refuses the panel, and names it' \
+	"summon: BUILDINGS.md: 'my repo' is not a plain name" $LAB/out/badreg-space.txt
+count 'and nothing is launched from it' 0 'SHIM cfg=' $LAB/out/badreg-space.txt
+badrow badreg-dash.txt "| -pods | building | \`$CITY/hive\` |"
 check 'a leading dash too — a bare launch would have stamped a name that reads as a flag' \
-	"summon: .summon-theaters: '-pods' is not a plain name" $LAB/out/badlist-dash.txt
+	"summon: BUILDINGS.md: '-pods' is not a plain name" $LAB/out/badreg-dash.txt
+badrow badreg-cells.txt '| lonely | building |'
+check 'a row that is not three cells is named whole, since no cell of it can be trusted' \
+	'summon: BUILDINGS.md: '"'"' lonely | building '"'"' is not a | Name | Kind | Root | row' \
+	$LAB/out/badreg-cells.txt
 
 print -r -- '--- clipboard law ---------------------------------------------------'
 check 'y yanks the summons for the OVERRIDDEN tier' \
@@ -580,12 +670,12 @@ check 'the reserved set is the whole panel: models, efforts, n, y, ., t, digits,
 	'(reserved: f o s k l m h x M n y . t 0 1 2 3 4 5 6 7 8 9 + -)' $LAB/out/reserved.txt
 check 'the refusal is logged too (a keystroke at 1 key)' '"mode":"abort","n":1' $LOG
 sed -i '' '$d' $SANDBOX/presets.tsv
-# and the theater key joins that namespace on the same terms as ± did
-printf 't\ttheater-shadow\tfable\thigh\tgreen\n' >> $SANDBOX/presets.tsv
+# and the stamp key joins that namespace on the same terms as ± did
+printf 't\tstamp-shadow\tfable\thigh\tgreen\n' >> $SANDBOX/presets.tsv
 expect $LAB/reserved.exp $LAB/out/reserved-t.txt $LAB/rc.zsh > /dev/null 2>&1
-check 'a preset claiming the theater key gets the reserved-key treatment, not the panel' \
+check 'a preset claiming the stamp key gets the reserved-key treatment, not the panel' \
 	"reserved key 't'" $LAB/out/reserved-t.txt
-count 'and it never reaches the mantle row' 0 'theater-shadow' $LAB/out/reserved-t.txt
+count 'and it never reaches the mantle row' 0 'stamp-shadow' $LAB/out/reserved-t.txt
 sed -i '' '$d' $SANDBOX/presets.tsv
 
 print -r -- '--- 13-F1: the harness follows presets.tsv, it does not remember it ---'
@@ -597,7 +687,7 @@ mkdir -p $F1/log
 cp $RIG/summon.zsh $RIG/accounts.tsv $RIG/presets.tsv $F1/
 printf 'w\twarden\tsonnet\tlow\tpurple\n' >> $F1/presets.tsv
 presets_read $F1/presets.tsv $F1/accounts.tsv
-( cd $THEATER/atelier && zsh -f $LAB/render.zsh $F1 200 a fable high 1 2 ) > $LAB/out/f1-panel.txt
+( cd $CITY/atelier && zsh -f $LAB/render.zsh $F1 200 a fable high 1 2 ) > $LAB/out/f1-panel.txt
 plain f1-panel.txt
 line 'a preset added to the data file lands in the row the harness derived from it' 1 \
 	"$(mantle_row a)" $LAB/out/f1-panel-plain.txt
@@ -614,7 +704,7 @@ mkdir -p $F1R/log
 cp $RIG/summon.zsh $RIG/accounts.tsv $F1R/
 grep -v $'^b\tbuilder\t' $RIG/presets.tsv > $F1R/presets.tsv
 presets_read $F1R/presets.tsv $F1R/accounts.tsv
-( cd $THEATER/atelier && zsh -f $LAB/render.zsh $F1R 200 a fable high 1 2 ) > $LAB/out/f1-removal-panel.txt
+( cd $CITY/atelier && zsh -f $LAB/render.zsh $F1R 200 a fable high 1 2 ) > $LAB/out/f1-removal-panel.txt
 plain f1-removal-panel.txt
 line 'a preset deleted from the data file leaves the row the harness derived from it' 1 \
 	"$(mantle_row a)" $LAB/out/f1-removal-panel-plain.txt
@@ -682,7 +772,7 @@ PY
 print -r -- '--- usage: unconfigured ⇒ no usage block at all ------------------------'
 # v1.1 byte-parity (b426166) retired 2026-08-29: the panel legitimately outgrew the
 # baseline — the name-stamp, the swatch space, the S0 palette, coloured mantle labels,
-# the theater row — and the transplant needed to keep the comparison honest had grown
+# the stamp row — and the transplant needed to keep the comparison honest had grown
 # past the code under test. The guarantee that mattered survives as its own claim: a
 # rig with no log/usage paints no usage row, at any width.
 count 'no log/usage ⇒ no usage row at 200 columns' 0 'usage' $P200
@@ -757,7 +847,7 @@ PY
 
 print -r -- '--- usage: the table ------------------------------------------------'
 zsh -f $LAB/usage-seed.zsh $USANDBOX mixed
-urender() { ( cd $THEATER/atelier && zsh -f $LAB/render.zsh $USANDBOX $2 "$3" "$4" "$5" "$6" $7 "${8:-}" ) > $LAB/out/$1 }
+urender() { ( cd $CITY/atelier && zsh -f $LAB/render.zsh $USANDBOX $2 "$3" "$4" "$5" "$6" $7 "${8:-}" ) > $LAB/out/$1 }
 urender usage-200.txt 200 a fable high 1 2 ; plain usage-200.txt
 urender usage-60.txt   60 a fable high 1 2 ; plain usage-60.txt
 UP=$LAB/out/usage-200-plain.txt
@@ -794,7 +884,7 @@ line 'panel open refetches only the cold caches, and leaves the fresh one alone'
 	'SPAWNED personal thg-doorbell' $LAB/out/spawn.txt
 # and on a real 60-column screen, with every cache fresh so nothing races the paint
 zsh -f $LAB/usage-seed.zsh $USANDBOX fresh
-( cd $THEATER/hive && SANDBOX=$USANDBOX SUMMON_COLUMNS=60 expect $LAB/usage.exp $LAB/out/usage-pty.txt $LAB/rc.zsh ) > /dev/null 2>&1
+( cd $CITY/hive && SANDBOX=$USANDBOX SUMMON_COLUMNS=60 expect $LAB/usage.exp $LAB/out/usage-pty.txt $LAB/rc.zsh ) > /dev/null 2>&1
 sed -E $'s/\x1b\\[[0-9;?]*[a-zA-Z]//g' $LAB/out/usage-pty.txt | tr '\r' '\n' > $LAB/out/usage-pty-plain.txt
 check 'live 60-column pty: the usage block paints on a real screen' \
 	'usage    0  sess 17%+13' $LAB/out/usage-pty-plain.txt
@@ -872,7 +962,7 @@ for mode, n, what in (("refire",2,"^G ⏎ — the 2-key refire"), ("pick",3,"one
 	bad += 0 if hit else 1
 bare = [r for r in rows if r["mode"] in ("pick","refire") and r["mantle"] is None]
 ok = bare and all(r["color"] is None and r["name"] == "hive-01" for r in bare)
-print(f"  {'PASS' if ok else 'FAIL'}  bare is inferred from mantle/color = null, not a mode — and stamps the theater alone")
+print(f"  {'PASS' if ok else 'FAIL'}  bare is inferred from mantle/color = null, not a mode — and carries the stamp alone")
 bad += 0 if ok else 1
 fired = [r for r in rows if r["mode"] != "abort"]
 ok = all(r["name"] and f' -n {r["name"]}' in r["cmd"] for r in fired)

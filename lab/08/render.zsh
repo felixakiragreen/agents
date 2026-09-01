@@ -6,18 +6,18 @@
 #   render.zsh <sandbox> <columns> <mantle-key> <model> <effort> <account-key> <keys> [yank]
 #               [bump] [t presses]
 # The name-stamp's lineage ordinal comes from the sandbox's own log, counted once here as the
-# panel counts it at open; $PWD is the theater — its own name, or its `.summon-theaters` list
-# cycled <t presses> times — so callers cd to the theater they mean.
+# panel counts it at open; $PWD decides the stamp — the directory's own name, or the building
+# register's list for it cycled <t presses> times — so callers cd to the building they mean.
 set -u
 source $1/summon.zsh 2>/dev/null
 _summon_load || { print -u2 "render: $_summon_error"; exit 1 }
 # the v1.1 baseline this harness also renders predates the counter, hence the guards
 (( ${+functions[_summon_ordinal_scan]} )) && _summon_ordinal_scan
-if (( ${+functions[_summon_theaters_load]} )); then
-	_summon_theater_sticky_load
-	_summon_theaters_load || { print -u2 "render: $_summon_error"; exit 1 }
+if (( ${+functions[_summon_stamps_load]} )); then
+	_summon_stamp_sticky_load
+	_summon_stamps_load || { print -u2 "render: $_summon_error"; exit 1 }
 	presses=${10:-0}
-	while (( presses-- > 0 )); do _summon_theater_cycle; done
+	while (( presses-- > 0 )); do _summon_stamp_cycle; done
 fi
 _summon_bump=${9:-0}
 COLUMNS=$2
