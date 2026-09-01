@@ -10,7 +10,7 @@
 #   ^G <preset> <account> ⏎     a fresh mantle on a named account           (4 keys)
 #   ^G n ⏎                      bare — no mantle, no colour, no prompt
 #   ^G + / -                    bump the lineage ordinal the name-stamp carries
-#   ^G t                        cycle the theater the stamp carries (.summon-theaters)
+#   ^G t                        cycle the stamp: the buildings at or under this directory
 #   ^G <preset> y … ⏎           yank the derived summons on the way past
 #   ^G .                        eject an editable command, launching nothing
 #   ^G <esc>  /  ^G ^G          close, discarding this panel's changes
@@ -45,7 +45,7 @@ typeset -ga _summon_efforts=(l:low m:medium h:high x:xhigh M:max)
 # the palette (D36, regraded 2026-08-29): brackets and unselected items grey, the selected
 # item bold with an inline ✓; a mantle's label wears its session colour, not just its ●.
 # The header and the row labels run the whole gradient — summon blue · mantle green ·
-# model yellow · effort orange · account red · theater pink · usage purple — spelled in S0
+# model yellow · effort orange · account red · stamp pink · usage purple — spelled in S0
 # slots (see _summon_swatch below); pink has no slot and stays 256-palette 213.
 # These are zle highlight styles, not escapes: zle renders a control character visibly, so
 # an ANSI escape in a panel string reaches the screen as a literal `^[[90m` (F1). `fg=8`
@@ -53,7 +53,7 @@ typeset -ga _summon_efforts=(l:low m:medium h:high x:xhigh M:max)
 # via terminfo as `\e[90m` or `\e[38;5;8m`, both the bright-black slot D36 specified.
 typeset -g _summon_grey='fg=8' _summon_bold='bold'
 typeset -gA _summon_label_color=(summon fg=cyan mantle fg=green model fg=yellow
-	effort fg=blue account fg=red theater fg=213 usage fg=magenta)
+	effort fg=blue account fg=red stamp fg=213 usage fg=magenta)
 # presets.tsv speaks REAL colours and `/color` gets the word verbatim; only this map knows
 # ANSI. It is Felix's S0 slot table: ANSI-16 names no purple or orange, so his terminal
 # repaints three slots — cyan wears blue, blue wears orange, magenta wears purple — and the
@@ -134,82 +134,116 @@ _summon_state_save() {
 	return 0
 }
 
-# --- the theater cycle -------------------------------------------------------------
+# --- the stamp cycle -----------------------------------------------------------------
 
-# A campaign is not always a directory: one repo can host several (bob hosts bob, lunchbox
-# and pods). `.summon-theaters` in the fire directory names them — one per line, the first
-# line the default — and `t` cycles through them, so the *stamp* carries the campaign while
-# Felix goes on firing at repo roots. Claude Code keys history, `/resume` and auto-memory to
-# the launch cwd, so deep-firing a subdirectory would fragment the project silo; and eject
-# cannot do this job at all, since a hand-edited name never reaches the lineage counter.
-# No file, or no directory list: the theater is $PWD's own name, exactly as row 13 had it.
-# cwd only — there is no parent walk.
+# A building is not always a directory's name, and one root can host several: cap-mega hosts
+# simmy, snappy, spacex-dashboard and manny. The building register — `canon/BUILDINGS.md`,
+# beside this rig, the Guild's own declaration of membership (D79) — carries Name · Kind ·
+# Root, and the cycle derives from it: the row whose Root IS the fire directory leads and is
+# the default, then every row whose Root sits under it, in file order. The stamp is the row's
+# **Name**, so manny stamps `manny` from a checkout directory called `user-manual`.
+#
+# An unregistered directory stamps its own name, exactly as row 13 had it. cwd only — there
+# is no parent walk: Claude Code keys history, `/resume` and auto-memory to the launch cwd,
+# so deep-firing a subdirectory would fragment the project silo; and eject cannot do this job
+# at all, since a hand-edited name never reaches the lineage counter.
 
-typeset -ga _summon_theaters			# the fire directory's campaign list, in filed order
-typeset -gi _summon_theater_i			# 1-based index into it; 0 when there is no list
-typeset -gA _summon_theater_sticky	# fire directory → the theater last fired there
+typeset -g  SUMMON_REGISTER=${SUMMON_HOME:h}/canon/BUILDINGS.md	# the rig lives beside canon
+typeset -ga _summon_stamps			# this directory's stamp list, its own Name leading
+typeset -gi _summon_stamp_i		# 1-based index into it; 0 when the directory is unregistered
+typeset -gA _summon_stamp_sticky	# fire directory → the stamp last fired there
 
-# log/theaters → $_summon_theater_sticky. A cache of what fired where, not a contract: a
+# log/stamps → $_summon_stamp_sticky. A cache of what fired where, not a contract: a
 # directory whose list has moved on falls back to the default rather than failing anything.
-_summon_theater_sticky_load() {
-	local dir theater
-	_summon_theater_sticky=()
-	[[ -r $SUMMON_HOME/log/theaters ]] || return 1
-	while IFS=$'\t' read -r dir theater; do
-		[[ -n $dir && -n $theater ]] && _summon_theater_sticky[$dir]=$theater
-	done < $SUMMON_HOME/log/theaters
+_summon_stamp_sticky_load() {
+	local dir stamp
+	_summon_stamp_sticky=()
+	[[ -r $SUMMON_HOME/log/stamps ]] || return 1
+	while IFS=$'\t' read -r dir stamp; do
+		[[ -n $dir && -n $stamp ]] && _summon_stamp_sticky[$dir]=$stamp
+	done < $SUMMON_HOME/log/stamps
 	return 0
 }
 
-# the fired theater → log/theaters, keyed by the fire directory. Called on fire and nowhere
-# else — the same discard rule the four fields live under. A directory with no list has no
-# theater to remember, so it never enters the map.
-_summon_theater_sticky_save() {
+# the fired stamp → log/stamps, keyed by the fire directory. Called on fire and nowhere else
+# — the same discard rule the four fields live under. An unregistered directory derives no
+# stamp to remember, so it never enters the map.
+_summon_stamp_sticky_save() {
 	local dir
-	(( _summon_theater_i )) || return 1
-	_summon_theater_sticky[$PWD]=$_summon_theaters[_summon_theater_i]
-	for dir in ${(ko)_summon_theater_sticky}; do
-		print -r -- "$dir"$'\t'"$_summon_theater_sticky[$dir]"
-	done > $SUMMON_HOME/log/theaters
+	(( _summon_stamp_i )) || return 1
+	_summon_stamp_sticky[$PWD]=$_summon_stamps[_summon_stamp_i]
+	for dir in ${(ko)_summon_stamp_sticky}; do
+		print -r -- "$dir"$'\t'"$_summon_stamp_sticky[$dir]"
+	done > $SUMMON_HOME/log/stamps
 	return 0
 }
 
-# $PWD/.summon-theaters → $_summon_theaters, preselected from the sticky map. ONE read, at
-# panel open: the keystroke loop only ever indexes the array. Refuses rather than guesses,
-# because a theater becomes argv — `-n <mantle>-<theater>-NN` — so a name carrying a space
-# would split the launch in two, and one starting with `-` would make a bare launch's stamp
-# read as a flag (13-F9's hazard, from a data file this time).
-_summon_theaters_load() {
-	local file=$PWD/.summon-theaters line
-	_summon_theaters=() _summon_theater_i=0
-	[[ -f $file && -r $file ]] || return 0
-	while IFS= read -r line || [[ -n $line ]]; do			# a file with no trailing newline
-		[[ -z $line ]] && continue
-		[[ $line == -* || -n ${line//[A-Za-z0-9._-]/} ]] && {
-			_summon_theaters=()
-			_summon_error=".summon-theaters: '$line' is not a plain name"
+# the building register → $_summon_stamps, preselected from the sticky map. ONE read, at
+# panel open: the keystroke loop only ever indexes the array. The table is read by its own
+# markdown grammar — the rows after the separator line, until the pipes stop — so the prose
+# above it needs no rule of its own. Refuses rather than guesses, because a stamp becomes
+# argv — `-n <mantle>-<stamp>-NN` — so a Name carrying a space would split the launch in two,
+# and one starting with `-` would make a bare launch's stamp read as a flag (13-F9's hazard,
+# arriving from the register this time). No register at all is the fallback, not an error:
+# the rig degrades to the directory's own name rather than refusing to fire.
+_summon_stamps_load() {
+	local line name root self='' here=${PWD:A}
+	local -a cell word under=()
+	local -i intable=0
+	_summon_stamps=() _summon_stamp_i=0
+	[[ -r $SUMMON_REGISTER ]] || return 0
+	while IFS= read -r line || [[ -n $line ]]; do		# a file with no trailing newline
+		if (( ! intable )); then								# the table opens at its separator row
+			[[ $line == '|'* && -z ${line//[-:| ]/} ]] && intable=1
+			continue
+		fi
+		[[ $line == '|'* ]] || break							# ...and ends where the pipes do
+		line=${line#\|} line=${line%\|}
+		cell=("${(@s:|:)line}")
+		(( $#cell == 3 )) || {
+			_summon_error="BUILDINGS.md: '$line' is not a | Name | Kind | Root | row"
 			return 1
 		}
-		_summon_theaters+=($line)
-	done < $file
-	(( $#_summon_theaters )) || return 0
-	# the sticky theater, or the default — which is the first line, and also where a sticky
-	# theater the file no longer lists lands (`(Ie)` answers 0 for absent)
-	_summon_theater_i=${_summon_theaters[(Ie)${_summon_theater_sticky[$PWD]:-}]}
-	(( _summon_theater_i )) || _summon_theater_i=1
+		word=(${=cell[1]}) ; name=${(j: :)word}			# trimmed by the split, spaces preserved
+		[[ -z $name || $name == -* || -n ${name//[A-Za-z0-9._-]/} ]] && {
+			_summon_error="BUILDINGS.md: '$name' is not a plain name"
+			return 1
+		}
+		word=(${=${cell[3]//\`/}}) ; root=${(j: :)word}	# the Root is code-quoted in the table
+		[[ -n $root ]] || {
+			_summon_error="BUILDINGS.md: '$name' declares no root"
+			return 1
+		}
+		# `~` is the register's own way of writing $HOME. Two statements, not one: nesting the
+		# `~` flag inside a `:A` leaves zsh's internal glob tokens in the result, and every
+		# `-` in the path comes out as a raw 0x9B (measured, zsh 5.9)
+		root=${~root}
+		root=${root:A}
+		if [[ $root == "$here" ]]; then
+			self=$name								# the cwd's own row leads, wherever it is filed
+		elif [[ $root == "$here"/* ]]; then
+			under+=($name)
+		fi
+	done < $SUMMON_REGISTER
+	[[ -n $self ]] || return 0				# unregistered: the directory's own name, and no cycle
+	_summon_stamps=($self $under)
+	# the sticky stamp, or the default — which is the cwd's own Name, and also where a sticky
+	# stamp the register no longer derives lands (`(Ie)` answers 0 for absent)
+	_summon_stamp_i=${_summon_stamps[(Ie)${_summon_stamp_sticky[$PWD]:-}]}
+	(( _summon_stamp_i )) || _summon_stamp_i=1
 	return 0
 }
 
 # the one keystroke: forward through the list, wrapping. O(1), as the 10-F1 budget demands.
-_summon_theater_cycle() {
-	(( $#_summon_theaters )) || return 1				# no list here — `t` is inert, not an error
-	(( _summon_theater_i = _summon_theater_i % $#_summon_theaters + 1 ))
+_summon_stamp_cycle() {
+	(( $#_summon_stamps > 1 )) || return 1			# nothing to choose — `t` is inert, not an error
+	(( _summon_stamp_i = _summon_stamp_i % $#_summon_stamps + 1 ))
 	return 0
 }
 
 # --- the name-stamp --------------------------------------------------------------
 
-# Every session the rig fires is born named — `<mantle>-<theater>-<NN>` — because the peer
+# Every session the rig fires is born named — `<mantle>-<stamp>-<NN>` — because the peer
 # roster's only semantic carrier is the session name (plans/13, quartermaster §5). The
 # ordinal is the lineage's: one more than the highest this log has ever fired under the same
 # prefix, which makes every stamp a unique `claude --resume <name>` handle by construction.
@@ -239,19 +273,19 @@ _summon_ordinal_scan() {
 	return 0
 }
 
-# the mantle + the theater + the counter → $_summon_name, the stamp this fire would carry.
-# The theater is the cycle's pick where the fire directory files a campaign list, and the
-# directory's own name where it does not — Felix summons at repo roots. The Grand Architect
-# carries no theater: there is one office, so the segment would be redundancy rather than
-# information (Felix, 2026-08-22); a bare launch carries no mantle segment.
+# the mantle + the stamp + the counter → $_summon_name, the name this fire would carry. The
+# stamp is the cycle's pick where the register knows the fire directory, and the directory's
+# own name where it does not — Felix summons at building roots. The Grand Architect carries
+# no stamp: there is one office, so the segment would be redundancy rather than information
+# (Felix, 2026-08-22); a bare launch carries no mantle segment.
 _summon_name_stamp() {
-	local theater=${${PWD:t}:-root} prefix
-	(( _summon_theater_i )) && theater=$_summon_theaters[_summon_theater_i]
+	local stamp=${${PWD:t}:-root} prefix
+	(( _summon_stamp_i )) && stamp=$_summon_stamps[_summon_stamp_i]
 	local -i base
 	case $_summon_mantle in
 		grand-architect)	prefix=$_summon_mantle ;;
-		'')					prefix=$theater ;;
-		*)						prefix=$_summon_mantle-$theater ;;
+		'')					prefix=$stamp ;;
+		*)						prefix=$_summon_mantle-$stamp ;;
 	esac
 	(( base = ${_summon_ordinal[$prefix]:-0} + 1 ))
 	# the floor is 01, clamped on the bump itself so that one `+` off the floor moves the
@@ -734,24 +768,25 @@ _summon_panel() {
 	done
 	_summon_row account $base
 
-	if (( $#_summon_theaters )); then	# the campaign row — only where a list is filed
-		for (( ti = 1; ti <= $#_summon_theaters; ti++ )); do
-			if (( ti == _summon_theater_i )); then
-				_summon_item_plain+=("$_summon_theaters[ti] ✓")
-				_summon_item_span+=("0 $(( ${#_summon_theaters[ti]} + 2 )) $_summon_bold")
+	if (( $#_summon_stamps > 1 )); then	# the stamp row — only where there is a choice to make
+		for (( ti = 1; ti <= $#_summon_stamps; ti++ )); do
+			if (( ti == _summon_stamp_i )); then
+				_summon_item_plain+=("$_summon_stamps[ti] ✓")
+				_summon_item_span+=("0 $(( ${#_summon_stamps[ti]} + 2 )) $_summon_bold")
 			else
-				_summon_item_plain+=("$_summon_theaters[ti]")
-				_summon_item_span+=("0 ${#_summon_theaters[ti]} $_summon_grey")
+				_summon_item_plain+=("$_summon_stamps[ti]")
+				_summon_item_span+=("0 ${#_summon_stamps[ti]} $_summon_grey")
 			fi
 		done
-		# the key rides the label — [t]heater — because a campaign name may carry no t. The
+		# the key rides the label — s[t]amp — because a building Name may carry no t. The
 		# label lands one past the newline _summon_wrap opens with; spans are laid on that.
 		lab=$(( base + $#_summon_panel_value + 1 ))
-		_summon_wrap '[t]heater ' '' '  ' $base
-		_summon_highlight+=("P$lab $((lab + 1)) $_summon_grey"
-			"P$((lab + 1)) $((lab + 2)) $_summon_label_color[theater]"
-			"P$((lab + 2)) $((lab + 3)) $_summon_grey"
-			"P$((lab + 3)) $((lab + 9)) $_summon_label_color[theater]")
+		_summon_wrap 's[t]amp  ' '' '  ' $base
+		_summon_highlight+=("P$lab $((lab + 1)) $_summon_label_color[stamp]"
+			"P$((lab + 1)) $((lab + 2)) $_summon_grey"
+			"P$((lab + 2)) $((lab + 3)) $_summon_label_color[stamp]"
+			"P$((lab + 3)) $((lab + 4)) $_summon_grey"
+			"P$((lab + 4)) $((lab + 7)) $_summon_label_color[stamp]")
 	fi
 
 	_summon_usage_rows $base			# absent entirely when log/usage/ does not exist
@@ -837,8 +872,8 @@ _summon_widget() {
 		return 1
 	}
 	_summon_state_load
-	_summon_theater_sticky_load
-	_summon_theaters_load || {					# a campaign list that would compose a bad launch
+	_summon_stamp_sticky_load
+	_summon_stamps_load || {					# a register row that would compose a bad launch
 		zle -M "summon: $_summon_error"
 		_summon_log abort 1 '^G'
 		return 1
@@ -888,7 +923,7 @@ _summon_widget() {
 			n)					_summon_mantle_key='' ;;		# bare is a state, not a mode
 				'+')				(( _summon_bump++ , 1 )) ;;	# the lineage ordinal, up — this is
 				'-')				(( _summon_bump-- , 1 )) ;;	# both the seed and the correction path
-				t)					_summon_theater_cycle ;;		# the campaign the stamp carries; the
+				t)					_summon_stamp_cycle ;;			# the building the stamp names; the
 																			# footer shows it on the next paint
 			*)					if [[ -n ${_summon_preset[$press]:-} ]]; then
 									p=(${(ps:\t:)_summon_preset[$press]})
@@ -923,8 +958,8 @@ _summon_widget() {
 	[[ "$_summon_mantle_key|$_summon_model|$_summon_effort|$_summon_account_key" == $before ]] && mode=refire
 
 	_summon_log $mode $n "$keys"
-	_summon_state_save						# on fire, and only on fire — and so is the theater
-	_summon_theater_sticky_save
+	_summon_state_save						# on fire, and only on fire — and so is the stamp
+	_summon_stamp_sticky_save
 	BUFFER=$_summon_cmd
 	zle accept-line
 }
