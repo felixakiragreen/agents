@@ -69,7 +69,7 @@ const BARE = /(?<![\w\-§.×])(\d{1,3})(?![\w-]|\.\d)/g;
  * foreign address and the respell has no business in it (D80: hosts keep their forms).
  */
 const ownPath = (t: Respell) =>
-	`(?:(?<![\\w/~.-])|(?<=\\.{1,2}/)${t.dir ? `|(?<=/${esc(t.dir)}/)` : ''})`;
+	`(?:(?<![\\w/~.-])|(?<=\\.{1,2}/)${t.dir ? `|(?<=(?<![\\w-])${esc(t.dir)}/)` : ''})`;
 
 /** Every substitution the respell makes, in the order it makes them. */
 function rules(t: Respell): [RegExp, (m: string, ...g: string[]) => string][] {
