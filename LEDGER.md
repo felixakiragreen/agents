@@ -2753,3 +2753,33 @@ re-run (suite, both lints, the stray sweep, the link check, the ledger-head coun
 mark grep, the stigmergon dry run), the board reconciled, the batch closed.
 
 Baton — the dispatch → 040 runs; the office verifies at landing.
+
+---
+
+**2026-09-01 · Builder · opus-high (040)** — **the id respell, landed.** `doctrine migrate`
+gained the rule: it derives the respell table from the building's own board (bare `n`/`nn` →
+`nnn`, a per-campaign letter shed, a KIND's letter kept), prints it before a byte moves, and
+applies it to every TRACKED text file the building keeps — tokens, paths, board cells, ledger
+head slots, findings ids, the typed prose slots, and the dead compounds `GA-‹nn›` → the
+name-stamp, `FC-‹n›` → its concept's word, `✓ Felix` → `⬡✓` (D81's first act). **180 files
+respelled by the converter, 39 charge docs and 6 lab dirs renamed** (`git mv`, in their own
+commit so history follows), then a supervised pass over every bare-number mention the machine
+could not prove. Suite **94 → 102**, `lint --vocab ~/code/agents` reads `ok agents`, links
+`0 missing`, `ls plans` reads `001-…`–`040-…`, and the control — the dry run on stigmergon —
+printed `S1 → 001` … `S28 → 028` with G1–G5 untouched and **0 files written**. Four rulings the
+next respell inherits, all in [040's findings](plans/040-id-respell.md): a code-ticked lone
+token is a form being **named**, not an address being used, so the graveyard's own rows survive
+their own law (F2) · the path rules bind to the building's directory name, so the census data's
+300 foreign `plans/18-…` are left alone (F6) · for a total substitution the round-trip law is
+**invariance under the table**, `respell(before) ≡ respell(after)`, not silence (F8) · run the
+converter twice and diff — a path prefix has as many spellings as the corpus has ways to write
+one, and two of eight were found only on the second run (F7). Two residues, both named: the
+charge's own out-of-scope line contradicted its Mission, its bar and D81 on the mark — the
+ruling won and the line is struck in place (F1); and two ledger heads keep belvedere's `C7`/`C13`
+because §7's qualified id does not parse in the head's id slot — filed to the inbox (F4).
+Decided: nothing new-numbered — the charge executes D80 and D81. Next: the office verifies the
+landing at its desk (the bar re-run, the diff read, the board's LANDED row and the batch closed);
+the deferred list gains nothing — the currency alarm was already on it.
+
+Baton — the office → verify 040's landing and close the respell batch; the sole-occupant
+fence lifts when it does.

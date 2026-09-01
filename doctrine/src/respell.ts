@@ -83,8 +83,15 @@ function rules(t: Respell): [RegExp, (m: string, ...g: string[]) => string][] {
 		// The acronym expanded to its concept's living word — the inbox took the job (D80).
 		[/\bFC-(\d)\b/g, (_, n) => `distillation candidate ${n}`],
 	];
-	// The lettered ids, table-driven and case-folded: the slug form (`023-law-book.md`,
-	// `lab/028`) is the same address in lower case, and only the table's own keys can match.
+	// Every rule below this line is keyed on a NUMBER, and a number is only an address while the
+	// building still writes an old spelling on its own board. Once it has adopted, the table's
+	// `ids` map is empty and they all fall silent — which is the difference between a converter
+	// that can be re-run forever (D81's whole ask) and one that pads another building's `row 05`
+	// on every pass. The three compounds above have no table, so the named form fences them.
+	if (isEmpty(t)) return out;
+
+	// The lettered ids, table-driven and case-folded: the slug form (`c23-law-book.md`,
+	// `lab/c28`) is the same address in lower case, and only the table's own keys can match.
 	const keys = lettered(t);
 	if (keys.length) out.push([
 		new RegExp(`\\b(${keys.map(esc).join('|')})\\b`, 'gi'),
@@ -149,13 +156,13 @@ export const respellIdCell = (id: string, t: Respell) => t.ids.get(id) ?? null;
 
 /**
  * DOCTRINE §4: a Depends-on cell is a list of ids, crossings and `⬡-gate: <free text>` segments,
- * on the parser's own separators (`·` `,` `;`). A SEGMENT THAT IS A BARE NUMBER is the one place the machine may
- * respell an address with no noun in front of it. A gate's text is prose and stays prose — a
- * board that wrote a whole paragraph into one (`v0 §8 DoD 7/7`, lab/017's twin) is why this
- * reads segments instead of digits.
+ * on the parser's own separators (`·` `,` `;`). A SEGMENT THAT IS A BARE NUMBER is the one place
+ * the machine may respell an address with no noun in front of it. A gate's text is prose and
+ * stays prose — a board that wrote a whole paragraph into one (`v0 §8 DoD 7/7`, lab/017's twin)
+ * is why this reads segments instead of digits. Silent once the building has adopted.
  */
 export const respellDepends = (cell: string, t: Respell) =>
-	cell.split(/([;,·])/).map(seg => {
+	isEmpty(t) ? cell : cell.split(/([;,·])/).map(seg => {
 		const m = seg.match(/^(\s*)(\d{1,3})(\s*)$/);
 		return m && t.charges.has(+m[2]!) ? `${m[1]}${t.charges.get(+m[2]!)}${m[3]}` : seg;
 	}).join('');
