@@ -692,7 +692,7 @@ describe('the building register', () => {
 		expect(codes(r.fails)).toEqual(['register.table']);
 	});
 
-	test('discovery\'s universe is the register: buildings walked, hosts listed, a bare root warned', () => {
+	test('discovery\'s universe is the building register: buildings walked, hosts listed, a bare root warned', () => {
 		const { entries, fails } = walkRegister(REG('good'));
 		expect(entries.map(e => [e.name, e.kind, e.exists, e.buildings.length])).toEqual([
 			['alpha', 'building', true, 1],

@@ -12,6 +12,7 @@ normative per D65 ([belvedere/plans/p3-parse-coverage.md](../belvedere/plans/p3-
 ```
 bun doctrine/cli.ts lint [--live] [--vocab] [--verbose] [--json] <path…>
 bun doctrine/cli.ts parse --json <building>
+bun doctrine/cli.ts buildings [--json]     # the building register, walked
 bun doctrine/cli.ts migrate [--write] <building>
 bun test                                   # from doctrine/ — the §6.2 control + the round-trip law
 ```
@@ -26,9 +27,32 @@ const b = parse('~/code/agents/belvedere');   // → Building: board[] · ledger
 ```
 
 `src/grammar.ts` names every mantle, tier, state, verdict and dead word **once** · `src/parse.ts` the
-five artifact parsers · `src/building.ts` discovery + `parse()` · `src/lint.ts` the walk and
-the report · `src/migrate.ts` the form-only converter · `src/lexicon.ts` the standard's §§7–9 as
-data · `src/vocabulary.ts` the speech arm and its fence · `cli.ts` the arm.
+five artifact parsers · `src/building.ts` discovery + `parse()` · `src/register.ts` the building
+register · `src/lint.ts` the walk and the report · `src/migrate.ts` the form-only converter ·
+`src/lexicon.ts` the standard's §§7–9 as data · `src/vocabulary.ts` the speech arm and its
+fence · `cli.ts` the arm.
+
+## The building register (D79)
+
+Membership is declared, never inferred. `canon/BUILDINGS.md` names every building and host —
+Name · Kind · Root — and that table is discovery's universe:
+
+```ts
+import { walkRegister } from './doctrine';
+
+const { entries, fails } = walkRegister();    // → rows + each building row's parse
+```
+
+A `building` row's Root is walked by the anchor law; a `host` row is listed and never walked;
+a Root inside `.claude/worktrees/` is entered directly — a declared root outranks the walk's
+worktree skip, and the file-level dedup still drops the mainline twins the checkout carries.
+A malformed row, a duplicate Name and a dead Root are **failures** naming their own line; a
+registered building the walk finds nothing in is a **warning** — a founding not yet run.
+
+The building register is an artifact like any other: a building that keeps one has it linted
+in place (`doctrine lint ~/code/agents` reads `canon/BUILDINGS.md`). And it is what
+Depends-on's third form resolves against — the qualified `<building>:<id>` binds its building
+half to a Name here (DOCTRINE §4), parsed for form and resolved at lint.
 
 ## The standard's tokens (D71)
 

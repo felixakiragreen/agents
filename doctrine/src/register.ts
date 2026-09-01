@@ -1,6 +1,6 @@
 // The building register (D79) — `canon/BUILDINGS.md`, read as an artifact.
 //
-// Membership is declared, never inferred: the register names every building and host, and
+// Membership is declared, never inferred: this file names every building and host, and
 // discovery's universe is its `building` rows. A `host` is listed, never walked. A declared
 // root outranks the walk's worktree skip — manny registers its `user-manual` checkout — and
 // the FILE-level dedup (building.ts) still drops the mainline twins that checkout carries.
@@ -35,7 +35,7 @@ const address = (root: string, dir: string) =>
 
 const isDir = (p: string) => { try { return statSync(p).isDirectory(); } catch { return false; } };
 
-/** The register's table, parsed. Every defect is a failure naming the offending line. */
+/** The building register's table, parsed. Every defect is a failure naming the offending line. */
 export function parseRegister(md: string, dir: string): { rows: RegisterRow[]; fails: Fail[] } {
 	const rows: RegisterRow[] = [], fails: Fail[] = [];
 	const table = tables(md).find(t =>
@@ -62,7 +62,7 @@ export function parseRegister(md: string, dir: string): { rows: RegisterRow[]; f
 	return { rows, fails };
 }
 
-/** The register as the disk answers it: the rows, their form defects, and every dead Root. */
+/** The building register as the disk answers it: the rows, their form defects, and every dead Root. */
 export function readRegister(file: string = REGISTER): { rows: RegisterRow[]; fails: Fail[] } {
 	const { rows, fails } = parseRegister(readFileSync(file, 'utf8'), dirname(file));
 	for (const r of rows)
@@ -94,8 +94,8 @@ export const buildingNames = (rows: RegisterRow[]) => new Set(rows.filter(r => r
 
 /**
  * DOCTRINE §4's third Depends-on form, resolved at lint: `<building>:<id>` binds its building
- * half to a register Name. The far id is the far building's business — the crossing names the
- * door, and an unregistered door is the defect this catches.
+ * half to a Name in the building register. The far id is the far building's business — a
+ * crossing names the door, and an unregistered door is the defect this catches.
  */
 export function crossingFails(b: Building, names: Set<string>): Fail[] {
 	const out: Fail[] = [];

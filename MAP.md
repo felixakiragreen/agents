@@ -74,7 +74,7 @@ system noun. Until the engine tends a real batch, a batch note names its tender
 | `canon/CLAUDE.md` | `~/.claude*/CLAUDE.md` | the global file — **live ×3 since 2026-08-03** |
 | `canon/agents/*.md` | `~/.claude*/agents/` | capability tiers — **live ×3 since 2026-08-03** |
 | `canon/mantles/*.md` | read by path | canonical delivery — summons name the charter path |
-| `canon/BUILDINGS.md` | read by path | the building register — the city's book (D79) |
+| `canon/BUILDINGS.md` | read by path | the building register — the city's book (D79); machines read it through `doctrine buildings` (C39) |
 | `canon/work/` | not deployed | doctrine + standard + templates, referenced by projects |
 
 Mechanism: **symlink** — one inode of truth, one rule for every target; editing a live

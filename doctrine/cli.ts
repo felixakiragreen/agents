@@ -39,7 +39,7 @@ const USAGE = `doctrine — the reference reader for the work doctrine (canon/wo
       The building register (canon/BUILDINGS.md, D79) walked: every row — Name · Kind ·
       Root — with each "building" row's roots walked for books and each "host" row
       listed only. --json emits the rows plus each building's parse: the machine surface.
-      Exits 1 on a register failure (a malformed row, a dead Root).
+      Exits 1 on a defect in the building register (a malformed row, a dead Root).
 
   doctrine migrate [--write] <building>
       Form-only re-emission in the current grammar. Prints the diff and the round-trip
