@@ -1,6 +1,6 @@
 # 040 — the id respell
 
-**Status:** OPEN — laid 2026-09-01 · **Depends on:** — · **Staffing:** Builder · opus-high ·
+**Status:** IN FLIGHT — ignited 2026-09-01, laid 2026-09-01 · **Depends on:** — · **Staffing:** Builder · opus-high ·
 **Blessed:** Felix, 2026-09-01 — D80 and D81 (⬡✓ in-session); the spec below is D80 built,
 and D81's first act. **Sole
 occupant:** nothing else ignites in this building while this runs — it renames files under
@@ -134,7 +134,7 @@ probes ship with a control)*
 You are a Builder at opus-high.
 Enter by the door — read ~/code/agents/canon/GUILD.md,
 wear ~/code/agents/canon/mantles/builder.md,
-then read ~/code/agents/MAP.md §7, ~/code/agents/DECISIONS.md (D80),
+then read ~/code/agents/MAP.md §7, ~/code/agents/DECISIONS.md (D80, D81),
 ~/code/agents/canon/work/STANDARD.md §7 and execute the charge at
 ~/code/agents/plans/040-id-respell.md.
 ```

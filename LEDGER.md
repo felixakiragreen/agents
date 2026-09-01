@@ -2741,3 +2741,15 @@ at his yes.
 
 Baton — ⬡ → ignite 040 — the summons is fenced in `plans/040-id-respell.md`; say
 "dispatch" and this desk tends it.
+
+---
+
+**2026-09-01 · Grand Architect · fable-max (grand-architect-21)** — *(third act — the
+dispatch.)* **040 ignited at his word** ("dispatch") — Builder · opus-high, kickoff (D80
+and D81 named) + coda verbatim; the office tends, the register batch's precedent. Board
+IN FLIGHT, header IN FLIGHT, sole occupant: nothing else ignites in this building until
+it lands. Decided: nothing. Next: the tender verifies the landing at this desk — the bar
+re-run (suite, both lints, the stray sweep, the link check, the ledger-head count, the
+mark grep, the stigmergon dry run), the board reconciled, the batch closed.
+
+Baton — the dispatch → 040 runs; the office verifies at landing.
