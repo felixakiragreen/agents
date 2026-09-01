@@ -6,6 +6,7 @@ import { basename, join, sep } from 'path';
 import { discover, lastWalk, type Building } from './building';
 import { STATES, type Fail } from './grammar';
 import { boardIds, isLiveWorkDoc, isSpentWorkDoc, parseDecisions } from './parse';
+import { buildingNames, crossingFails, readRegister } from './register';
 
 export { isLiveWorkDoc, isSpentWorkDoc };
 import { prefixFails, vocabularyFails } from './vocabulary';
@@ -30,6 +31,8 @@ function liveFails(b: Building): Fail[] {
 		f.artifact === 'board'
 		// the vocabulary arm only ever reads live surfaces, so `--live` has nothing left to strip
 		|| f.artifact === 'prose'
+		// the building register is read by every discovery — no surface is more live (D79)
+		|| f.artifact === 'register'
 		|| (f.artifact === 'ledger' && b.ledgerTail !== null && f.line === b.ledgerTail.line)
 		|| (f.artifact === 'kickoff' && openDocs.has(f.file)));
 }
@@ -79,8 +82,19 @@ function vocabFails(b: Building): Fail[] {
 	return out;
 }
 
+/**
+ * The register arm (D79). Two readings, one file: a walked building's own `canon/BUILDINGS.md`
+ * is linted where it lies — form and dead roots — while every board's qualified ids resolve
+ * against the city's ONE register, wherever the walk is pointed.
+ */
+function registerFails(b: Building, names: Set<string>): Fail[] {
+	return [...crossingFails(b, names), ...(b.files.register ? readRegister(b.files.register).fails : [])];
+}
+
 export function lint(roots: string[], opts: { live?: boolean; vocab?: boolean } = {}): LintReport {
+	const names = buildingNames(readRegister().rows);
 	const buildings = discover(roots)
+		.map(b => ({ ...b, fails: [...b.fails, ...registerFails(b, names)] }))
 		.map(b => opts.vocab ? { ...b, fails: [...b.fails, ...vocabFails(b)] } : b)
 		.map(b => opts.live ? { ...b, fails: liveFails(b) } : b);
 	const fails = buildings.flatMap(b => b.fails);

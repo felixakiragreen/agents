@@ -3,6 +3,7 @@
 //
 //   doctrine lint [--live] [--verbose] [--json] <path…>   walk and report; non-zero on any fail
 //   doctrine parse --json <building>                      one building, P3 §5's shapes
+//   doctrine buildings [--json]                           the building register, walked
 //   doctrine migrate [--write] <building>                 re-emit in the current grammar
 
 import { existsSync, mkdtempSync, rmSync } from 'fs';
@@ -11,6 +12,7 @@ import { join, relative, resolve } from 'path';
 import { execSync } from 'child_process';
 import { parse } from './src/building';
 import { guardRegressions, lint, render } from './src/lint';
+import { REGISTER, walkRegister } from './src/register';
 import { diff, migrate, roundTrip, write } from './src/migrate';
 
 const USAGE = `doctrine — the reference reader for the work doctrine (canon/work/DOCTRINE.md)
@@ -32,6 +34,12 @@ const USAGE = `doctrine — the reference reader for the work doctrine (canon/wo
   doctrine parse --json <building>
       Emit one building's parsed shapes (Building, BoardRow, LedgerEntry, Baton,
       Decision, Kickoff, Issue).
+
+  doctrine buildings [--json]
+      The building register (canon/BUILDINGS.md, D79) walked: every row — Name · Kind ·
+      Root — with each "building" row's roots walked for books and each "host" row
+      listed only. --json emits the rows plus each building's parse: the machine surface.
+      Exits 1 on a register failure (a malformed row, a dead Root).
 
   doctrine migrate [--write] <building>
       Form-only re-emission in the current grammar. Prints the diff and the round-trip
@@ -86,6 +94,25 @@ if (cmd === 'parse') {
 	if (paths.length !== 1) die('doctrine parse: exactly one building path per call.');
 	console.log(JSON.stringify(parse(paths[0]!), null, 2));
 	process.exit(0);
+}
+
+if (cmd === 'buildings') {
+	const { entries, fails } = walkRegister();
+	if (flag('--json')) console.log(JSON.stringify({ entries, fails }, null, 2));
+	else {
+		const tilde = (p: string) => p.replace(process.env.HOME + '/', '~/');
+		const pad = Math.max(...entries.map(e => e.name.length));
+		console.log(`the building register — ${tilde(REGISTER)} (D79)\n`);
+		for (const e of entries) {
+			const rows = e.buildings.reduce((a, b) => a + b.board.reduce((n, x) => n + x.rows.length, 0), 0);
+			console.log(`  ${e.name.padEnd(pad)}  ${e.kind.padEnd(8)}  ${tilde(e.root).padEnd(44)}  `
+				+ (!e.exists ? 'MISSING on disk'
+					: e.kind === 'host' ? 'listed, never walked'
+					: `${e.buildings.length} building(s) · ${rows} row(s)`));
+		}
+		for (const f of fails) console.log(`\n  [${f.severity}] ${f.code} — ${f.reason}\n         ${tilde(f.file)}:${f.line}: ${f.excerpt}`);
+	}
+	process.exit(fails.some(f => f.severity === 'fail') ? 1 : 0);
 }
 
 if (cmd === 'migrate') {

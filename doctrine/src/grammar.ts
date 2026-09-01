@@ -67,7 +67,7 @@ export const PROPOSED_MARK = /proposed[\s,]*(?:[—–-]\s*)?pending\s+(?:⬡\s*
 
 export type Mantle = typeof MANTLES[number];
 export type State = typeof STATES[number];
-export type Artifact = 'board' | 'ledger' | 'decisions' | 'issues' | 'kickoff' | 'prose';
+export type Artifact = 'board' | 'ledger' | 'decisions' | 'issues' | 'kickoff' | 'prose' | 'register';
 /**
  * A form defect is a failure — the doc is lying. A `warn` is the vocabulary arm's one softer
  * verdict, and it exists because the standard asks for exactly one (§7's id namespace: a bare

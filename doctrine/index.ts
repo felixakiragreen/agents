@@ -12,6 +12,10 @@ export {
 } from './src/parse';
 export { lint, render, guardRegressions, isLiveWorkDoc, type LintReport, type Totals } from './src/lint';
 export {
+	REGISTER, parseRegister, readRegister, walkRegister, buildingNames, crossingFails,
+	type Kind, type RegisterRow, type RegisteredBuilding,
+} from './src/register';
+export {
 	MANTLES, MODELS, EFFORTS, TIERS, STATES, VERDICTS, RETIRED, HEX_GATE, PENDING, DEFERRED, UNRECORDED,
 	FELIX_GATE, PARKED, UNSTAFFED,
 	isMantle, isTier, isState, isId, type Fail, type Mantle, type State, type Artifact, type Severity,

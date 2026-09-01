@@ -35,6 +35,9 @@ const MASTER_DOCS = ['MAP.md', 'GENESIS.md', 'README.md'];
 // vocabulary arm reads them — and only at a building's own anchor, never every README in a repo.
 const PROSE_DOCS = [...MASTER_DOCS, 'CLAUDE.md'];
 const WORKTREES = join('.claude', 'worktrees');
+// The building register (D79) — an artifact of the building that keeps it, never an anchor:
+// the city's register lives at `canon/BUILDINGS.md`, and canon is not a building.
+const REGISTER_FILE = 'BUILDINGS.md';
 
 export type Board = { heading: string; file: string; line: number; rows: BoardRow[] };
 
@@ -53,7 +56,7 @@ export type Building = {
 	decisionQueue: Decision[];
 	issues: Issue[];
 	kickoffs: (Kickoff & { doc: string })[];
-	files: { boards: string[]; ledger: string | null; decisions: string | null; issues: string | null; workDocs: string[]; prose: string[] };
+	files: { boards: string[]; ledger: string | null; decisions: string | null; issues: string | null; workDocs: string[]; prose: string[]; register: string | null };
 	fails: Fail[];
 };
 
@@ -72,7 +75,7 @@ export const staffsSessions = (md: string) =>
 	/^\s*\|.*\bStaffing\b.*\|\s*$/m.test(md)
 	&& tables(md).some(t => isBoardHeader(t.header) || t.header.some(h => /^staffing$/i.test(strip(h))));
 
-type FoundFile = { path: string; dir: string; kind: 'ledger' | 'decisions' | 'issues' | 'board' | 'workdoc' | 'prose' };
+type FoundFile = { path: string; dir: string; kind: 'ledger' | 'decisions' | 'issues' | 'board' | 'workdoc' | 'prose' | 'register' };
 
 /**
  * `<repo>/.claude/worktrees/<branch…>/<rest>` — the branch checkout's coordinates, or null.
@@ -159,6 +162,7 @@ function walk(root: string, out: FoundFile[], seen: Set<string>, depth = 0): voi
 			name === 'LEDGER.md' ? 'ledger'
 			: name === 'DECISIONS.md' ? 'decisions'
 			: name === 'ISSUES.md' ? 'issues'
+			: name === REGISTER_FILE ? 'register'
 			: staffsSessions(read(p)) ? 'board'
 			: inPlans ? 'workdoc'
 			: PROSE_DOCS.includes(name) ? 'prose'
@@ -210,6 +214,7 @@ function classifyFile(p: string): FoundFile['kind'] {
 	if (n === 'LEDGER.md') return 'ledger';
 	if (n === 'DECISIONS.md') return 'decisions';
 	if (n === 'ISSUES.md') return 'issues';
+	if (n === REGISTER_FILE) return 'register';
 	return staffsSessions(read(p)) ? 'board' : 'workdoc';
 }
 
@@ -249,6 +254,7 @@ function assemble(path: string, files: FoundFile[]): Building {
 			// A building's own master doc and CLAUDE.md, and only its own: the anchor's directory,
 			// never a nested package's README.
 			prose: pick('prose').filter(f => dirname(f) === path),
+			register: pick('register')[0] ?? null,
 		},
 	});
 }

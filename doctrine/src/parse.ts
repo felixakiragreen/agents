@@ -20,6 +20,7 @@ export type BoardRow = {
 	workDoc: string | null;       // the href — the building page's row link
 	dependsOn: string[];          // charge ids (D63e)
 	gates: string[];              // `⬡-gate: <text>` segments (D63e)
+	crossings: string[];          // `<building>:<id>` — resolved against the building register at lint (D79)
 	mantle: string | null;
 	tier: string | null;
 	hexGate: boolean;           // D63a/D71 — the charge is Felix's (`⬡-gate`); the glass never auto-ignites it
@@ -123,23 +124,34 @@ function parseStatus(cell: string, id: string, line: number) {
 	return { state: null, annotation: st, fails };
 }
 
-/** §4's Depends-on: exactly two forms — a charge id, or `⬡-gate: <text>` (D63e, respelled by D71). */
+/**
+ * §4's Depends-on: exactly three forms (D63e, respelled by D71) — a charge id in this
+ * building, the qualified `<building>:<id>`, or `⬡-gate: <text>`.
+ *
+ * The crossing is read for FORM here and resolved at lint (§4's own word): its building half
+ * binds to a Name in the building register, which is a file on disk, and this parser is text
+ * in, values out. A far id is never checked against a far board — the crossing names a door.
+ */
+const CROSSING = /^([A-Za-z][A-Za-z0-9-]*)\s*:\s*(\S+)$/;
+
 function parseDependsOn(cell: string, id: string, line: number, knownIds: Set<string>) {
 	const fails: Fail[] = [];
 	const d = strip(delink(cell));
-	const dependsOn: string[] = [], gates: string[] = [];
-	if (/^[—–-]$/.test(d) || d === '') return { dependsOn, gates, fails };
+	const dependsOn: string[] = [], gates: string[] = [], crossings: string[] = [];
+	if (/^[—–-]$/.test(d) || d === '') return { dependsOn, gates, crossings, fails };
 
 	for (const seg of topSplit(d, ['·', ',', ';'])) {
 		const gate = seg.match(/^\**(?:⬡-gate|Felix-gate)\**\s*:\s*(.+)$/);
 		if (gate) { gates.push(gate[1]!.trim()); continue; }
 		if (knownIds.has(seg)) { dependsOn.push(seg); continue; }
+		const cross = seg.match(CROSSING);
+		if (cross && isId(cross[2]!)) { crossings.push(`${cross[1]}:${cross[2]}`); continue; }
 		// Non-conforming, but still recover any row id it names: a null is a render decision,
 		// not an error (P3 §5) — the glass draws the graph while the lint files the defect.
 		dependsOn.push(...seg.split(/[\s+,]+/).filter(x => knownIds.has(x)));
-		fails.push(fail('board', 'board.depends', `depends-on segment is neither a charge id in this building nor "${HEX_GATE}: <text>" (D63e)`, `${id}: ${JSON.stringify(seg.slice(0, 160))}`, line));
+		fails.push(fail('board', 'board.depends', `depends-on segment is none of the three forms (D63e; D79): a charge id in this building, "<building>:<id>", or "${HEX_GATE}: <text>"`, `${id}: ${JSON.stringify(seg.slice(0, 160))}`, line));
 	}
-	return { dependsOn, gates, fails };
+	return { dependsOn, gates, crossings, fails };
 }
 
 /** The five canonical names present but re-ordered — parseable positionally (item 8). */
@@ -203,7 +215,7 @@ export function parseBoards(md: string, buildingIds?: Set<string>): { boards: Bo
 
 			rows.push({
 				id, work: strip(delink(workC)), workDoc: linkTarget(workC),
-				dependsOn: dep.dependsOn, gates: dep.gates,
+				dependsOn: dep.dependsOn, gates: dep.gates, crossings: dep.crossings,
 				mantle: staff.mantle, tier: staff.tier, hexGate: staff.hexGate, dissolved: staff.dissolved,
 				rider: staff.rider, state: stat.state, annotation: stat.annotation, line,
 			});
