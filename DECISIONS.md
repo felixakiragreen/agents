@@ -97,3 +97,46 @@ register.
   the `✓ Felix` → `⬡✓` mark respell rides 040 (185 marks in 30 files), ending a deferral
   the standard carried for three days. Residue: the vocabulary arm's history fence
   narrows to speech so a missed token can be caught — the deferred list.
+
+- **D82** (2026-09-01, Felix · ⬡✓ 2026-09-01): **The go-mark.** Felix's yes carries two
+  records. `⬡✓` means he looked — the verdict; the checkmark is the act of checking.
+  `⬡ go ‹date›` means proceed without his eyes — authorization on credit, the review
+  owed. Spoken: *bless* and *go*. Downstream of a `⬡ go`, reversible work proceeds and
+  an irreversible act (a merge to the shared branch, a delete, a publish, an external
+  side effect) stops and escalates; downstream of `⬡✓` nothing stops. The statement is
+  derived, never kept: every `⬡ go` on a live surface with the count of charges landed
+  on top of it, rendered by `doctrine`, paid in that order. Marks before this date
+  carry no distinction; nothing respells. Ancestors: the bless entry (STANDARD §1 —
+  assent, never verdict), the token's definition (§7 — identity then act), the
+  Architect's ruling law (reversible and cited proceeds), PENDING (recorded, not
+  blocking). Birthplace: this desk — by his own count, half or more of the city's
+  marks were credit. Homes: STANDARD §1 and §7, DOCTRINE §4 and §8, the Builder
+  charter — distilled 2026-09-01; the statement and the cell caps are one linter
+  charge (041).
+
+- **D83** (2026-09-01, Felix · ⬡✓ 2026-09-01): **The tender kickoff.** Until the flow
+  engine tends a real batch, a batch names an instrument, not a mind:
+  `tender: sonnet-medium · plans/TENDER.md` — a fenced kickoff instantiated once per
+  building from the Dispatcher tombstone's operational law (prerequisites, the
+  dispatch rule, tending, the relay law, escalation triggers, the batch report and
+  the baton), ignited as an unmantled cheap-tier kickoff (the mantles README). The
+  tender relays verbatim and authors nothing; the Architect lays, reviews and rules.
+  Scope at blessing: agents and stigmergon; every other building holds until
+  stigmergon's keystone. The engine retires the kickoff the day it tends a real
+  batch — the successor runs before the ancestor dies. Ancestors: 96 Dispatcher runs
+  at sonnet-medium (the rig's log), the tombstone's own clause (its law passes to the
+  engine's charter), the coda (an instrument instantiated per building). Birthplace:
+  the meter at this desk — tender overhead one to three percent of a batch at sonnet,
+  a quarter to half at Fable. Home: DOCTRINE §10's interim clause, distilled
+  2026-09-01; the canon instance is `plans/TENDER.md`; the README when it survives
+  contact.
+
+- **D84** (2026-09-01, Felix · ⬡✓ 2026-09-01): **Retiring a building.** A retirement is
+  a notice, not a close — one paragraph atop each entry point (`CLAUDE.md`, the
+  master doc), the board row KILLED with the reason, the register line kept. Nothing
+  else is owed: the successor digs for its own salvage; git keeps the rest. The weight
+  of an ending scales with what will be read — a retired building's books are
+  documents built to die (the global file's SCOPE clause, extended from code to
+  books). Birthplace: Belvedere's close, 2026-08-31 — a fifth of the building's spend
+  for a fifteen-line notice, and the successor re-surveyed the salvage regardless
+  (stigmergon 001). Home: DOCTRINE §12, distilled 2026-09-01.

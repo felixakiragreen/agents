@@ -40,6 +40,13 @@ change arrives with an ancestor, or goes to find one:
   canon yet: it runs inside one building first and returns with the
   citation when it survives contact. A foreign birthplace counts, cited
   (charge 020's precedent: air includes other people's air).
+- **Desk-born or field-born** — a field-born law cites a session that
+  failed: a finding, a ledger line. A desk-born law cites a reader who was
+  annoyed: his word, a ruling at this desk. Desk-born is taste —
+  legitimate, held as a glossary, never enforced by a converter — and it
+  mints no formula and no graveyard row until the field files a case
+  (birthplace: grand-architect-22, 2026-09-01 — a week of law with half
+  its entries born at the desk).
 - **An ancestor, served better** — the test is the issue, not the
   behavior (amended at 028): does this serve the issue its ancestor was
   addressing, better? Then it is the same law, improved — amend the

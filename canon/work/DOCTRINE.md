@@ -230,7 +230,8 @@ graveyard of dead words and their successors is the standard's (`STANDARD.md` §
 
 **Resolution vocabulary (D63):** gate, merge, and design charges resolve into the five
 states, the verdict riding the annotation — `LANDED — PASSED <evidence>`,
-`LANDED — MERGED <sha>`, `LANDED — BLESSED <date>`. The lifecycle stays five words;
+`LANDED — MERGED <sha>`, `LANDED — BLESSED <date>` — or `LANDED — ⬡ go <date>` where
+Felix authorized without looking (D82; the standard §1). The lifecycle stays five words;
 PASSED / MERGED / BLESSED never lead.
 
 **Gates are charges (D44).** A judgment step between charges — a merge review, a landing
@@ -407,12 +408,19 @@ queue and the staging ground, never the archive: git is.
 - **The ancestry test — before any number:** does this serve the issue an ancestor
   was addressing, better? Then amend the ancestor — the entry, or the canon home
   that carries it — and mint nothing; only a genuinely new issue mints. Ids are
-  monotonic, never reused.
+  monotonic, never reused. **Desk-born or field-born:** a field-born law cites a
+  session that failed — a finding, a ledger line; a desk-born law cites a reader who
+  was annoyed — his word, a ruling at the desk. Desk-born is taste — legitimate, held
+  as a glossary, never enforced by a converter — and it mints no formula and no
+  graveyard row until the field files a case (the canonization law,
+  `canon/mantles/grand-architect.md`).
 - **Attribution is honest:** the decider named is whoever actually decided. A decision
   that is really Felix's — money, hardware, external commitments, taste — carries his
   name and waits for him (architect charter). Dispatched and delegated sessions mark
   entries **"(proposed — pending ⬡✓)"**; the blessing converts the mark to
-  `⬡✓ <date>` (historical `✓ Felix` marks parse).
+  `⬡✓ <date>` (historical `✓ Felix` marks parse) — or to `⬡ go <date>` when Felix
+  authorizes without looking: the ruling proceeds on credit, the review owed, and the
+  entry sits on the statement until he reads it (D82).
 - **Meaning changes take his blessing** and rewrite the entry to its current truth —
   the ledger line names the change, git holds the old bytes; no in-entry scar owed.
   **Form migrates freely** (the molt clause): a format migration re-emits entries in
@@ -487,8 +495,14 @@ tender creates `plans/BULLETIN.md` (next to the charge docs — simmy's lived at
   Dispatcher wording is superseded by D71). **The interim truth, plainly:** the
   Dispatcher mantle is dead (D71) and its successor — the flow engine, charge 020's
   cornerstone made law at D73 — is built and smoke-proven (Belvedere B10–B12) but has
-  not yet tended a real batch; until agents-flow-1 lands, the batch note names the
-  tender: Felix, an Architect session, or the dispatch (a declared flow). Felix-tended stays the exception with its reason
+  not yet tended a real batch; until it does, the batch note names the tender: **the
+  tender kickoff** — `tender: sonnet-medium · plans/TENDER.md`, an instrument
+  instantiated once per building from the Dispatcher tombstone's operational law and
+  ignited as an unmantled cheap-tier kickoff; it relays verbatim and authors nothing
+  (D83 — agents and stigmergon first, every other building holding until
+  stigmergon's keystone) — an Architect session, or Felix. The engine retires the
+  kickoff the day it tends a real batch: the successor runs before the ancestor
+  dies. Felix-tended stays the exception with its reason
   named in the batch note (his own eyes gate each landing — a visual pass, a live
   smoke); batch size is never the reason. The lay composes the longest
   machine-runnable arc — building charges and dispatched review gates in one serial
@@ -603,6 +617,15 @@ A new project boots onto the doctrine in one founding session:
 
 The Grand Architect founds nothing here — that office keeps the canon; every project is
 its own Architect's board.
+
+**Retiring a building (D84):** a retirement is a notice, not a close — one paragraph
+atop each entry point (`CLAUDE.md`, the master doc), the board row KILLED with the
+reason, the register line kept (D79). Nothing else is owed: the successor digs for its
+own salvage; git keeps the rest. The weight of an ending scales with what will be
+read — a retired building's books are documents built to die (the global file's SCOPE
+clause, extended from code to books). Birthplace: Belvedere's close, 2026-08-31 — a
+fifth of the building's spend for a fifteen-line notice, and the successor re-surveyed
+the salvage regardless (stigmergon 001).
 
 ## 13. The vocabulary — the Guild's Standard
 

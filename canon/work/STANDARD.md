@@ -3,7 +3,8 @@
 **Status:** BLESSED ⬡✓ 2026-08-29 (D71 — "I bless the standard") — laid 2026-08-28
 by the 21 census session, chosen with Felix across nine live rounds. This document
 supersedes DOCTRINE §13; the deploy batch carries it into the law book, the parser,
-the city, and the glass. Amended 2026-09-01 (D80 — the id namespace: §2 ‹nnn›, §7, §9).
+the city, and the glass. Amended 2026-09-01 (D80 — the id namespace: §2 ‹nnn›, §7, §9; D82 — the go-mark:
+§1 bless · go, §7 `⬡ go`).
 
 ## Preamble
 
@@ -22,12 +23,21 @@ replaces.
 
 ## 1. The yes and the decisions
 
-- **bless** · verb · the yes from Felix: assent to a thing, an option in a fork, the
-  sign. Noun: **blessing**. Blessing a flow's drawn plan authorizes the dispatch to
-  run it (D11/D73) — a re-blessing covers an edit; the blessing covers the scope
-  (D12). · *instead of:* countersign (as a verb), approve, greenlight, arm (a flow —
-  killed 2026-08-29, the gun family's last word). The record token is **`⬡✓`**,
-  machine-parsed — speech unified, grammar typed (`✓ Felix` is its history, §7).
+- **bless** · verb · the yes from Felix when he has looked: the verdict, and the
+  assent that rides it — a thing, an option in a fork, the sign. Noun: **blessing**.
+  Blessing a flow's drawn plan authorizes the dispatch to run it (D11/D73) — a
+  re-blessing covers an edit; the blessing covers the scope (D12). · *instead of:*
+  countersign (as a verb), approve, greenlight, arm (a flow — killed 2026-08-29, the
+  gun family's last word). The record token is **`⬡✓`**, machine-parsed — speech
+  unified, grammar typed (`✓ Felix` is its history, §7); the checkmark is the act of
+  checking (D82).
+- **go** · verb · Felix's proceed without his eyes: authorization on credit, the
+  review owed. The record token is **`⬡ go ‹date›`** (§7). Downstream of a `⬡ go`,
+  reversible work proceeds and an irreversible act — a merge to the shared branch, a
+  delete, a publish, an external side effect — stops and escalates; downstream of
+  `⬡✓` nothing stops. **The statement** — every `⬡ go` on a live surface with the
+  count of charges landed on top of it — is derived by `doctrine`, never kept, and
+  paid in that order (D82). · *instead of:* bless, where he has not looked.
 - **rule** · verb · decide a question, either direction — bless can only say yes;
   no's, withdrawals, and choices need **ruled** / **ruling**.
 - ~~ratify~~ · killed 2026-08-28 — bless + the record carry it (a decision is laid,
@@ -196,6 +206,10 @@ replaces.
 - **`⬡✓`** the blessing mark — identity then act, the hexagon signed. · *instead of:*
   `✓ Felix` (historical marks respell at 040 — D81; the parser reads both forever). **`⬡`** alone is
   Felix's mondokoro; further sigil assignments (⬢ ⎔ ⬣) deferred.
+- **`⬡ go`** the credit mark — the hexagon without the check: authorized, unread,
+  dated (`⬡ go 2026-09-01`); the checkmark is the act of checking, so its absence
+  says he has not looked (D82). Marks before 2026-09-01 carry no distinction and
+  respell nothing — there is nothing to derive it from.
 - `·` separates co-equal fields in heads · `§` cites a section · `×3` multiplies ·
   `⟨slots⟩` mark template blanks · `~~strike~~` + dated note retires text · bold
   marks a minting.
