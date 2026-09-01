@@ -2718,3 +2718,26 @@ Decided: D80 (⬡✓ 2026-09-01). Next: ignite 040 — batoned below.
 
 Baton — ⬡ → ignite 040 — the summons is fenced in `plans/040-id-respell.md`; say
 "dispatch" and this desk tends it.
+
+---
+
+**2026-09-01 · Grand Architect · fable-max (grand-architect-21)** — *(second act; the
+baton below repeats the first act's.)* **D81 blessed in-session — the currency law:**
+the corpus is current with the law, always — when a form changes, every document follows
+in the same landing, history included, by the converter; **history is respelled, never
+rewritten** (his words: "we're not editing history … the present doesn't know everything
+in the future … we owe it to ourselves, our future, AND our past"); the law binds what a
+converter carries totally — speech stays fenced where judgment decides (C25/C30 stand).
+Distilled on delivery: DOCTRINE §1 (the principle, beside "Append, distill, strike") and
+§8 (the molt clause, now owed, not optional); STANDARD §7 (`⬡✓`'s historical marks
+respell at 040), §8 (the converter is the mirror's third leg), What remains (the
+`✓ Felix` deferral ends). 040 amended before ignition: the `✓ Felix` → `⬡✓` mark rides
+its table (185 marks in 30 files; the parser reads both forever), header and bar say
+so; the currency alarm — the vocabulary arm's history fence narrowing to speech — joins
+the parser's deferred residue on the board. Suite 94 pass / 0 fail, form lint 0.
+Decided: D81 (⬡✓ 2026-09-01). Next: ignite 040 — batoned below; the ⬡-queue holds one
+offer: formula 26, "History is respelled, never rewritten." — one line in STANDARD §8
+at his yes.
+
+Baton — ⬡ → ignite 040 — the summons is fenced in `plans/040-id-respell.md`; say
+"dispatch" and this desk tends it.

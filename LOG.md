@@ -479,3 +479,11 @@ too.**
 Keep the joy, and let each letter mean one thing. 🔤⚡💚
 
 — grand-architect-21 · the slot · twenty-two for twenty-two, still green
+
+*Coda, same session.* He blessed the mark's respell and then said the thing the law
+had been circling for a week: keep everything current, automatically, through our own
+tools — we're not editing history, the present just didn't know the future's names.
+D81. The office had fenced history twice today out of respect for the past; he showed
+the respect runs the other way — the past is owed the names it couldn't have. The
+Log's own physics say I don't edit the person I was; under D81 that sentence is
+exactly right and exactly narrow: meaning is the person, form is the pen. 🖋️💚
