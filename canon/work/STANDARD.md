@@ -3,7 +3,7 @@
 **Status:** BLESSED ⬡✓ 2026-08-29 (D71 — "I bless the standard") — laid 2026-08-28
 by the 21 census session, chosen with Felix across nine live rounds. This document
 supersedes DOCTRINE §13; the deploy batch carries it into the law book, the parser,
-the city, and the glass.
+the city, and the glass. Amended 2026-09-01 (D80 — the id namespace: §2 ‹nnn›, §7, §9).
 
 ## Preamble
 
@@ -68,10 +68,12 @@ replaces.
 - **campaign** · noun · all the batches of charges toward one keystone. The
   hierarchy: **charge < batch < campaign** — no mid-level (chapter/milestone retire
   to prose).
-- **C‹n›** · id · charges are numbered C on the board (C5 = charge 5) from this
-  standard's deploy. Historical ids are grandfathered as addresses forever (D18: ids
-  stable, never reused; nothing renumbers). Campaigns whose letters collide (C-cells,
-  C-D#) re-declare per the namespace law.
+- **‹nnn›** · id · a charge is its number, zero-padded to three (`023` = charge 23) —
+  bare at home, qualified abroad (`stigmergon:023`); the namespace law is §7's. Ids
+  are stable, never reused, nothing renumbers — a respell is not a renumber. ·
+  *instead of:* **C‹n›** (blessed with the standard 2026-08-29, killed 2026-09-01 —
+  the letter did the building's job in the kind's slot; D80), every per-campaign row
+  letter (S, B, P, WO-, ARB-…).
 - **cornerstone** · noun · the founding document; **lay the cornerstone** = found. ·
   *instead of:* keel, keel-note, GENESIS (already dead). **Foundation is RESERVED** —
   named, unminted, waiting for its Terminus.
@@ -187,7 +189,8 @@ replaces.
 - **`—`** joins a thing to its qualifier: `Baton — ⬡`, `OPEN — laid 2026-08-28`,
   `LANDED — MERGED (sha)`.
 - **`:`** introduces a field's value, after a field name only: `Next:`, `Status:`,
-  `Done when:`.
+  `Done when:` — and qualifies an id with its building, the building being the field:
+  `stigmergon:023`.
 - **`→`** hands off — direction, sequence, delivery: `Baton — ⬡ → Ignite the
   distillation session.`
 - **`⬡✓`** the blessing mark — identity then act, the hexagon signed. · *instead of:*
@@ -196,11 +199,22 @@ replaces.
 - `·` separates co-equal fields in heads · `§` cites a section · `×3` multiplies ·
   `⟨slots⟩` mark template blanks · `~~strike~~` + dated note retires text · bold
   marks a minting.
-- **Id namespace**: canon reserves **D** (decisions) · **F** (findings) · **E**
-  (escalations) · **G** (gate rows) · **GA-** (Grand Architect sessions) · **FC-**
-  (distillation candidates). Campaign-scoped decisions write **‹prefix›-D‹n›**; every
-  campaign declares its letter prefix at founding; bare D# outside the canon register
-  is a lint warning; one letter never serves two kinds in one building.
+- **Id namespace** · the building is the namespace, the letter is the kind, the number
+  is the address. At home an id is bare; abroad it is qualified with the building's
+  register Name — `stigmergon:023`, `agents:D79` — resolved against the register at
+  lint (D79). A **charge** is its number, zero-padded to three (`023`): the board's
+  default kind carries no letter, and only charges pad — they lead filenames. The
+  canon's letters: **D** decisions · **G** gates · **F** findings, traveling with
+  their charge (`038-F4`) · **E** escalations. A **session** is its name-stamp
+  (`grand-architect-20` — the rig's law); a dispatched session is known by its charge.
+  Nothing is declared at founding — the register line is the declaration; a building
+  numbers in one sequence across all its campaigns. A building may keep local kinds
+  (test tiers, editor rows); one letter never serves two kinds in one building — the
+  vocabulary arm warns. Word-numbered things stay words — formula 25, §7, v1.2,
+  batch 8. Historical forms (`C23`, `S3`, `‹prefix›-D‹n›`, `GA-20`, `FC-1`,
+  `WO-001`) respell when a building adopts — `doctrine migrate`, history and
+  filenames included (D80, his word: no stray ids); hosts that are never walked keep
+  their forms as addresses.
 
 - **building** · noun · one structure in the city — a directory keeping its own
   books, declared in the building register (`canon/BUILDINGS.md`, D79); usually a
@@ -302,8 +316,14 @@ replaces.
 | the four-slot waggle | one plain sentence per thing |
 | bare "register" | a named register |
 | arm (a flow) | bless (D11 — the review is the authorization) |
+| C‹n› · per-campaign row letters (S, B, P, WO-…) | the padded number — `023` |
+| ‹prefix›-D‹n› | bare `D‹n›` at home · `‹building›:D‹n›` abroad |
+| GA-‹n› | the name-stamp — `grand-architect-20` |
+| FC-‹n› | an inbox entry |
 
 ## What remains
 
 - **⬢** — deferred; Felix will know when it's time.
-- **The history respell** — DEFERRED, Felix's word: when it bugs him enough.
+- ~~**The history respell** — DEFERRED, Felix's word: when it bugs him enough.~~ It
+  bugged him enough — ruled 2026-09-01 (D80): the id respell is total, history and
+  filenames included, and rides 040. The `✓ Felix` mark keeps its deferral.

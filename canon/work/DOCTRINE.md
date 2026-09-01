@@ -89,7 +89,8 @@ before.**
   exist in its scope, AND sessions are told to read it as protocol — `CLAUDE.md`,
   `MAP.md`, `README.md`, `LEDGER.md`, `DECISIONS.md`, `ISSUES.md`, `DOCTRINE.md`,
   `STANDARD.md`, `CODA.md`, `BULLETIN.md`, `SKILL.md`. One of many addressable siblings
-  is lowercase-kebab — charge docs (`plans/04-sync.md`), mantle charters, tiers,
+  is lowercase-kebab — charge docs (`plans/004-sync.md` — the id leads, zero-padded
+  to three so the directory sorts; the standard §7), mantle charters, tiers,
   templates. `dream.md` (né `initial.md` — D33) stays lowercase by the second test: a
   singleton, but an artifact interpreted once at founding, not a protocol followed.
   Practiced since hexwright/simmy; codified 2026-08-03.
@@ -160,10 +161,10 @@ exempt by its venue (D45).
 | ID | Work | Depends on | Staffing | Status |
 |---|---|---|---|---|
 
-- **ID** — stable, never reused; the charge doc carries it (`plans/c23-law-book.md`).
-  Charges number **C‹n›** from the standard's deploy; historical ids are grandfathered
-  as addresses forever, and every campaign declares its letter prefix at founding — the
-  namespace law is the standard's (`STANDARD.md` §7).
+- **ID** — stable, never reused; the charge doc carries it (`plans/023-law-book.md`).
+  A charge is its number, zero-padded to three; gates carry **G‹n›**; nothing is
+  declared at founding — the building is the namespace, and the namespace law is the
+  standard's (`STANDARD.md` §7, D80).
 - **Work** — one line: the question or the mission. It opens with the
   **encapsulation** — the ≤6-word linked name (D74); qualifiers follow after `—`.
 - **Depends on** — exactly three forms (D63; D74): charge ids that must be LANDED
@@ -362,7 +363,7 @@ corrects, never rewrites (ruled 2026-08-29, the C26 -ise correction).
 `LEDGER.md` — append-only, one entry per session, newest last, `---` between entries:
 
 ```
-**<date> · <mantle> · <tier> (<charge id, when the session ran one>)** — <what changed:
+**<date> · <mantle> · <tier> (<charge id; the session's name-stamp when it ran none>)** — <what changed:
 outcomes + pointers>. Decided: <D-ids, or "nothing">. Next: <the handoff>.
 ```
 
@@ -587,7 +588,8 @@ A new project boots onto the doctrine in one founding session:
    name, scope, non-goals — there are always some), `ISSUES.md` (empty, header only —
    D53), and the register line — the building declared in `canon/BUILDINGS.md`
    (D79): membership is never inferred; the tenant/subproject nuance rides the
-   register's own header. Subproject scale: `README.md` alone (§3).
+   register's own header — and the line is the id namespace too: no prefix is
+   declared (the standard §7). Subproject scale: `README.md` alone (§3).
 4. **Hand off:** first batch laid, its tender named (§10) — or the first summons
    handed verbatim; ledger appended; committed.
 

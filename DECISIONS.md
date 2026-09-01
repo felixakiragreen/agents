@@ -50,3 +50,33 @@ register.
   spacex-dashboard-c2 subsumed, unregistered (his word). Ancestors: the anchor law
   (P3, charge 18), the standard's own "building register" (§8), DOCTRINE §4's
   register-resolved qualified ids.
+
+- **D80** (2026-09-01, Felix · ⬡✓ in-session): **The id namespace is the building.** The
+  building is the namespace, the letter is the kind, the number is the address. At home
+  an id is bare; abroad it is qualified with the building's register Name —
+  `stigmergon:023`, `agents:D79` — resolved against the register at lint (D79). A charge
+  is its number, zero-padded to three (`023`): the board's default kind carries no
+  letter, and only charges pad — they lead filenames. The canon's letters: D decisions
+  · G gates · F findings, traveling with their charge (`038-F4`) · E escalations; a
+  session is its name-stamp (`grand-architect-20`), a dispatched session is known by
+  its charge. Nothing is declared at founding — the register line is the declaration;
+  a building numbers in one sequence across all its campaigns. Killed: `C‹n›`
+  (blessed with the standard 2026-08-29 — the letter did the building's job in the
+  kind's slot: `S3` and `C23` wore building names where `G2` and `D79` wear kinds),
+  every per-campaign row letter (S, B, P, WO-, ARB-…), `‹prefix›-D‹n›` (bob's
+  workaround for campaigns that had no building to be — D79 fixed the cause; the
+  bare-D lint arm was warning every building that keeps a register and none wrote the
+  form), `GA-‹n›` (a hand-kept abbreviation of the stamp the rig mints; the Mentat
+  already wrote `mentat-02`), `FC-‹n›` (the inbox took its job; four uses, all
+  history). Length-encoded levels and three-letter building codes killed at the desk:
+  a rule to be taught, an acronym where a plain form exists, a column to maintain when
+  the Name column is already what the parser binds to. **The respell is total** (his
+  word: "I don't want stray IDs laying around"): every document of an adopting
+  building, history and voice included, plus filenames and lab dirs — `01-…` →
+  `001-…`, `c36-…` → `036-…`; `doctrine migrate` carries the rule (040) and the
+  respell table derives from the building's own board; hosts that are never walked
+  (bob) keep their forms as addresses. Ancestors: the census §6/§13a (46 prefixes,
+  ~24,400 ids, about twenty letters for one kind), D79 (the register makes the
+  namespace derivable — the best part is no part), the qualified id (D73/D74, built
+  C39), hexwright's three-digit plans, this repo's bare 01–22. Buildings adopt at
+  their next Architect session; agents at 040, stigmergon on its inbox line.

@@ -6,7 +6,7 @@ doc; this file carries what moves.
 
 | ID | Work | Depends on | Staffing | Status |
 |---|---|---|---|---|
-| C1 | ⟨question or mission, one line⟩ | — | ⟨mantle · tier⟩ | OPEN — laid ⟨date⟩ |
+| 001 | ⟨question or mission, one line⟩ | — | ⟨mantle · tier⟩ | OPEN — laid ⟨date⟩ |
 
 Statuses: OPEN → IN FLIGHT → LANDED / KILLED; BLOCKED transient, PENDING annotates
 external waits, DEFERRED annotates deliberate shelving.
