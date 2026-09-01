@@ -2812,3 +2812,15 @@ batoned below.
 
 Baton — ⬡ → rule formula 26, "History is respelled, never rewritten." — bless (one line
 in STANDARD §8 and the lexicon mirror, this desk) or kill; recommendation: bless.
+
+---
+
+**2026-09-01 · Grand Architect · fable-max (grand-architect-21)** — *(fifth act — the
+queue cleared.)* **His word: "bless" — formula 26 pinned:** "History is respelled, never
+rewritten." — STANDARD §8 (1–24 ⬡✓ 2026-08-29, 25 ⬡✓ 2026-08-31, 26 ⬡✓ 2026-09-01), the
+lexicon mirror and its drift test updated in the same breath; the hand-kept counts in the
+tool's comments and README replaced with count-free names, so they cannot rot again.
+Suite 102 pass / 0 fail, lint 0. Decided: formula 26 (⬡✓ 2026-09-01, distilled on
+delivery — no register entry owed). Next: none — the ⬡-queue is empty; D80 and D81's arc
+is whole (ruled, built, verified, closed, worded); stigmergon's respell is its
+Architect's, at their desk, with the instrument built.
