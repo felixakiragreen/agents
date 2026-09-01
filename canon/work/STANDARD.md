@@ -194,7 +194,7 @@ replaces.
 - **`→`** hands off — direction, sequence, delivery: `Baton — ⬡ → Ignite the
   distillation session.`
 - **`⬡✓`** the blessing mark — identity then act, the hexagon signed. · *instead of:*
-  `✓ Felix` (historical marks stand until the deferred migration). **`⬡`** alone is
+  `✓ Felix` (historical marks respell at 040 — D81; the parser reads both forever). **`⬡`** alone is
   Felix's mondokoro; further sigil assignments (⬢ ⎔ ⬣) deferred.
 - `·` separates co-equal fields in heads · `§` cites a section · `×3` multiplies ·
   `⟨slots⟩` mark template blanks · `~~strike~~` + dated note retires text · bold
@@ -277,7 +277,10 @@ replaces.
   whole — its Work cell as well as its annotation; `canon/` is fenced: a law book
   must name the dead to bury them. A pattern that cannot be written without false
   positives is dropped in writing, never weakened — the drop reasons live in
-  `doctrine/src/lexicon.ts`, the mirror the drift alarm binds to §§7–9.
+  `doctrine/src/lexicon.ts`, the mirror the drift alarm binds to §§7–9. The converter is
+  the mirror's third leg (D81, the currency law — DOCTRINE §1): a form change to this
+  standard lands with its `doctrine migrate` rule and the corpus respelled, history
+  included — the law and the city never disagree on a name.
 
 ## 9. The graveyard — dead words and their successors
 
@@ -326,4 +329,4 @@ replaces.
 - **⬢** — deferred; Felix will know when it's time.
 - ~~**The history respell** — DEFERRED, Felix's word: when it bugs him enough.~~ It
   bugged him enough — ruled 2026-09-01 (D80): the id respell is total, history and
-  filenames included, and rides 040. The `✓ Felix` mark keeps its deferral.
+  filenames included, and rides 040 — the `✓ Felix` mark with it (D81, the currency law).

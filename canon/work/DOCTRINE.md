@@ -25,6 +25,12 @@ only where evidence forced it.
 - **Append, distill, strike.** Evidence appends as it lands (findings, ledger,
   bulletin); the Architect distills it into durable docs at review; superseded text is
   struck with a dated note, never silently rewritten.
+- **The corpus is current.** When the law changes a form — an id, a mark, a token, a
+  path, a header — every document follows in the same landing, history included, by the
+  converter (`doctrine migrate`), never by hand and never later: the past keeps its
+  meaning and gains the present's names. **History is respelled, never rewritten** — a
+  respell is not an edit; speech is not form and stays fenced where judgment decides
+  (D81, the currency law).
 - **A documented kill is a win.** The campaign learns as much from a clean NO as from a
   YES (simmy README §6).
 - **Anti-sprawl.** Documents and directories are instantiated when needed, never before
@@ -411,7 +417,9 @@ queue and the staging ground, never the archive: git is.
   the ledger line names the change, git holds the old bytes; no in-entry scar owed.
   **Form migrates freely** (the molt clause): a format migration re-emits entries in
   the current grammar, meaning byte-preserved (the converter never paraphrases), the
-  migration commit blessed as a whole. Where a pre-doctrine source never held a
+  migration commit blessed as a whole — and owed, not optional: the currency law (§1,
+  D81) generalizes the clause to every form in every document, in the landing that
+  changes it. Where a pre-doctrine source never held a
   required field — any required slot — migration writes the literal **`unrecorded`**:
   a typed absence, never a guess; replacing it takes cited evidence and a visible
   commit.

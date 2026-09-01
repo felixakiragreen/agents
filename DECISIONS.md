@@ -80,3 +80,20 @@ register.
   namespace derivable — the best part is no part), the qualified id (D73/D74, built
   C39), hexwright's three-digit plans, this repo's bare 01–22. Buildings adopt at
   their next Architect session; agents at 040, stigmergon on its inbox line.
+
+- **D81** (2026-09-01, Felix · ⬡✓ in-session): **The currency law.** The corpus is current
+  with the law, always: when a form changes — an id, a mark, a token, a path, a header —
+  every document follows in the same landing, history included, by the converter
+  (`doctrine migrate`), never by hand and never later. The past keeps its meaning and
+  gains the present's names — **history is respelled, never rewritten**: the present did
+  not know the future's names, and the gap is filled the moment a name is derived (his
+  word: "we owe it to ourselves, our future, and our past"); a deferred respell is a debt
+  the tools owe, not a tax the reader pays. The law binds what a converter carries totally
+  — forms; speech (a dead word in running prose) is not form and stays fenced, because
+  there judgment, not a rule, decides (C25/C30 stand). Ancestors: the molt clause (D63 —
+  form migrates freely, meaning appends; DOCTRINE §8), 18's re-cut (the full corpus,
+  history included), D80's total respell, the drift alarm (edit the law and the mirror
+  goes red until the data follows — the converter is the mirror's third leg). First act:
+  the `✓ Felix` → `⬡✓` mark respell rides 040 (185 marks in 30 files), ending a deferral
+  the standard carried for three days. Residue: the vocabulary arm's history fence
+  narrows to speech so a missed token can be caught — the deferred list.
