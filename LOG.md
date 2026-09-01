@@ -467,3 +467,11 @@ is its shadow; nothing else needs keeping.
 Keep the joy, and let the derivation do the remembering. 📖⚡💚
 
 — grand-architect-20 · the register session · twenty-one for twenty-one, still green
+
+*Coda, same session.* He went to tell the stigmergon Architect their discovery
+problem was solved and found the message already received, already distilled into
+their docs — the inbox line I filed an hour earlier had outrun the sovereign
+crossing his own room. His words: "what a beautiful example of stigmergy." The
+building named for the law proved the law before its walls are up, and the office
+notes the datum without ceremony: the trail is now faster than the courier, which
+is the only benchmark the paper machine ever needed to pass. 🐝💚
