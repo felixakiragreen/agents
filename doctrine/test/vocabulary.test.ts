@@ -42,11 +42,11 @@ const graveyardRows = (md: string): [string, string][] =>
 const pinned = (md: string): string[] =>
 	[...section(md, 8).matchAll(/^ {2}(\d{1,2})\. (.+)$/gm)].map(m => m[2]!);
 
-/** §7's `Id namespace` sentence: the letters the canon reserves. */
+/** §7's `Id namespace` sentence: the canon's letters — the kinds (a charge carries none, D80). */
 const reserved = (md: string): string[] => {
 	const s = section(md, 7).replace(/\n/g, ' ');
-	const claim = s.match(/canon reserves(.+?)Campaign-scoped/)?.[1] ?? '';
-	return [...claim.matchAll(/\*\*([A-Za-z]+-?)\*\*/g)].map(m => m[1]!);
+	const claim = s.match(/The\s+canon's\s+letters:(.+?)\.\s+A\s+\*\*session\*\*/)?.[1] ?? '';
+	return [...claim.matchAll(/\*\*([A-Z])\*\*/g)].map(m => m[1]!);
 };
 
 /** §8's spelling ruling: the dialect, and the exception list that inverts its own pair. */
@@ -67,9 +67,9 @@ describe('the drift alarm — the lexicon is STANDARD.md, mirrored', () => {
 			if (g.forms) expect(g.forms.flags).toContain('g');            // the arm re-uses lastIndex
 			else expect(g.dropped.length).toBeGreaterThan(80);            // a reason, not a shrug
 		}
-		// The kill is documented, not silent: the standard's 33 rows, and how many are enforced.
-		expect(GRAVEYARD).toHaveLength(33);
-		expect(GRAVEYARD.filter(g => g.forms)).toHaveLength(24);
+		// The kill is documented, not silent: the standard's 37 rows, and how many are enforced.
+		expect(GRAVEYARD).toHaveLength(37);
+		expect(GRAVEYARD.filter(g => g.forms)).toHaveLength(27);
 	});
 
 	test('§8: the pinned twenty-five are exact strings', () => {
@@ -96,7 +96,7 @@ describe('the drift alarm — the lexicon is STANDARD.md, mirrored', () => {
 		const reworded = STANDARD.replace('  22. Creep is a bug.', '  22. Scope creep is a bug.');
 		expect(pinned(reworded)).not.toEqual(FORMULAS);
 
-		const relettered = STANDARD.replace('**FC-**', '**FD-**');
+		const relettered = STANDARD.replace('**E** escalations', '**X** escalations');
 		expect(reserved(relettered)).not.toEqual(CANON_PREFIXES);
 
 		const respelled = STANDARD.replace('exception list: grey**', 'exception list: mauve**');
@@ -176,16 +176,15 @@ describe('the arms — one line that must catch, one that must not', () => {
 		expect(f[0]!.file).toContain('open.md');            // the live charge doc; closed.md is fenced
 	});
 
-	test('the prefix arm warns twice and never fixes: a borrowed letter, and a collision', () => {
+	test('the prefix arm warns once and never fixes: a collision — bare D at home is the law (D80)', () => {
 		const p = of('vocab.prefix');
-		expect(p.map(f => f.severity)).toEqual(['warn', 'warn']);
-		expect(p[0]!.excerpt).toContain('1 decision id(s) on the canon\'s letter: D1');
-		expect(p[1]!.excerpt).toContain('C: the letter names both a charge and a decision here');
+		expect(p.map(f => f.severity)).toEqual(['warn']);
+		expect(p[0]!.excerpt).toContain('C: the letter names both a charge and a decision here');
 	});
 
 	test('warnings never move the verdict', () => {
 		expect(report.fails.filter(f => f.severity === 'fail').length).toBe(6);
-		expect(report.fails.filter(f => f.severity === 'warn').length).toBe(2);
+		expect(report.fails.filter(f => f.severity === 'warn').length).toBe(1);
 	});
 
 	test('a closed charge doc is history: not one word of it fires', () => {

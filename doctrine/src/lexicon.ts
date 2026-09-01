@@ -145,6 +145,16 @@ export const GRAVEYARD: readonly Dead[] = [
 			+ 'arms (lint arms, a research arm), Belvedere\'s D10 title and its run-state history all '
 			+ 'carry legal senses. The flow sense retires by respell, not by lint (⬡ 2026-08-29).',
 	},
+	// D80 (2026-09-01) — the id namespace is the building; the letters that did a building's job die.
+	{
+		dead: 'C‹n› · per-campaign row letters (S, B, P, WO-…)', successor: 'the padded number — `023`', forms: null,
+		dropped: 'a row letter is a building\'s own until it respells, and `S3` · `B12` · `C23` cannot be told '
+			+ 'from product tokens (AWS S3, vitamin B12) or a foreign building\'s history by pattern. The '
+			+ 'letters retire by respell — `doctrine migrate`, charge 040 — not by lint (D80).',
+	},
+	{ dead: '‹prefix›-D‹n›', successor: 'bare `D‹n›` at home · `‹building›:D‹n›` abroad', forms: /\b[A-Z]{1,3}-D\d+[a-z]?\b/g },
+	{ dead: 'GA-‹n›', successor: 'the name-stamp — `grand-architect-20`', forms: /\bGA-\d{1,2}\b/g },
+	{ dead: 'FC-‹n›', successor: 'an inbox entry', forms: /\bFC-\d+\b/g },
 ];
 
 // ---------- §8, the spelling lexicon ----------
@@ -187,16 +197,12 @@ export const ISE_STOPLIST: ReadonlySet<string> = new Set([
 
 // ---------- §7, the id namespace ----------
 
-/** §7's sentence, in its own order: the letters the canon reserves. */
-export const CANON_PREFIXES: readonly string[] = ['D', 'F', 'E', 'G', 'GA-', 'FC-'];
-
 /**
- * `C‹n›` — the charge id the standard's deploy writes (§What remains: "Laid 2026-08-29 as
- * C23–C28"). Reserved by use rather than by §7's sentence, so it is declared apart: the drift
- * test binds `CANON_PREFIXES` to the standard and must not be told to expect a letter the
- * standard's §7 does not print.
+ * §7's sentence, in its own order: the canon's letters — the kinds. A charge carries no letter
+ * (its id is the padded number, D80), so nothing here names it: the drift test binds this array
+ * to the standard and must not be told to expect a letter §7 does not print.
  */
-export const CHARGE_PREFIX = 'C';
+export const CANON_PREFIXES: readonly string[] = ['D', 'G', 'F', 'E'];
 
 // ---------- §8, the pinned twenty-five ----------
 

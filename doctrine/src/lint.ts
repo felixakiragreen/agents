@@ -1,8 +1,8 @@
 // `doctrine lint` — the walk, the report, and the totals the DoD is measured against.
 // Parser-as-lint (Belvedere README §1): a doc that will not parse is a doc that is lying.
 
-import { existsSync, readFileSync } from 'fs';
-import { basename, join, sep } from 'path';
+import { readFileSync } from 'fs';
+import { basename, sep } from 'path';
 import { discover, lastWalk, type Building } from './building';
 import { STATES, type Fail } from './grammar';
 import { boardIds, isLiveWorkDoc, isSpentWorkDoc, parseDecisions } from './parse';
@@ -72,12 +72,11 @@ function vocabFails(b: Building): Fail[] {
 		for (const v of vocabularyFails(readFileSync(f, 'utf8'))) { v.file = f; out.push(v); }
 	}
 	// §7's namespace is a building-altitude fact, so it is reported once per building, at the
-	// decision that first borrows the letter — never once per id.
+	// register — never once per id.
 	if (b.files.decisions) {
 		const decisions = parseDecisions(readFileSync(b.files.decisions, 'utf8')).decisions;
 		const chargeIds = new Set(b.files.boards.flatMap(f => [...boardIds(readFileSync(f, 'utf8'))]));
-		const canonRegister = existsSync(join(b.path, 'canon', 'work', 'STANDARD.md'));
-		for (const v of prefixFails({ canonRegister, chargeIds, decisions })) { v.file = b.files.decisions; out.push(v); }
+		for (const v of prefixFails({ chargeIds, decisions })) { v.file = b.files.decisions; out.push(v); }
 	}
 	return out;
 }

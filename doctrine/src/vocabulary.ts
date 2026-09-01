@@ -12,7 +12,7 @@
 
 import { isBoardHeader, tables } from './parse';
 import { fail, leadingToken, strip, type Fail } from './grammar';
-import { CANON_PREFIXES, CHARGE_PREFIX, FORMULAS, GRAVEYARD, ISE_STOPLIST, SPELLING_EXCEPTIONS, SPELLING_PAIRS } from './lexicon';
+import { FORMULAS, GRAVEYARD, ISE_STOPLIST, SPELLING_EXCEPTIONS, SPELLING_PAIRS } from './lexicon';
 
 // ---------- the fence ----------
 
@@ -189,29 +189,18 @@ export function vocabularyFails(md: string): Fail[] {
 const prefixOf = (id: string) => id.match(/^([A-Za-z]+-?[A-Za-z]*?)-?\d/)?.[1] ?? null;
 
 /**
- * §7's namespace, reported at the building's altitude: a campaign writing bare `D‹n›` is
- * borrowing the canon's letter, and one letter serving two kinds in one building is the
- * collision the standard forbids. Both are WARNINGS and neither is ever auto-fixed —
- * re-declaring a prefix is that campaign's own act (standard §2).
+ * §7's namespace, reported at the building's altitude: one letter serving two kinds in one
+ * building is the collision the standard forbids. A WARNING, never auto-fixed — retiring a
+ * letter is that building's own respell (D80). The bare-`D‹n›` arm died with D80: every
+ * building's register writes bare D at home and is qualified `‹building›:D‹n›` abroad.
  */
 export function prefixFails(
-	e: { canonRegister: boolean; chargeIds: Iterable<string>; decisions: readonly { id: string; line: number }[] },
+	e: { chargeIds: Iterable<string>; decisions: readonly { id: string; line: number }[] },
 ): Fail[] {
-	const out: Fail[] = [];
-	const bareD = e.decisions.filter(d => /^D\d+$/.test(d.id));
-	if (!e.canonRegister && bareD.length)
-		out.push(fail('prose', 'vocab.prefix', 'bare `D‹n›` outside the canon register — a campaign-scoped decision writes `‹prefix›-D‹n›` (§7)',
-			`${bareD.length} decision id(s) on the canon's letter: ${bareD.slice(0, 6).map(d => d.id).join(' · ')}${bareD.length > 6 ? ' …' : ''}`,
-			bareD[0]!.line, 'warn'));
-
 	const charges = new Set([...e.chargeIds].map(prefixOf).filter((p): p is string => p !== null));
 	const collisions = [...new Set(e.decisions.map(d => prefixOf(d.id)))]
 		.filter((p): p is string => p !== null && charges.has(p));
-	if (collisions.length)
-		out.push(fail('prose', 'vocab.prefix', 'one letter, two kinds in one building — §7 gives each letter one kind; reported, never auto-fixed',
-			`${collisions.join(' · ')}: the letter names both a charge and a decision here`, e.decisions[0]?.line ?? 1, 'warn'));
-	return out;
+	if (!collisions.length) return [];
+	return [fail('prose', 'vocab.prefix', 'one letter, two kinds in one building — §7 gives each letter one kind; reported, never auto-fixed',
+		`${collisions.join(' · ')}: the letter names both a charge and a decision here`, e.decisions[0]?.line ?? 1, 'warn')];
 }
-
-/** The reserved letters, for a report that wants to name them. */
-export const RESERVED = [...CANON_PREFIXES, CHARGE_PREFIX];
