@@ -198,11 +198,12 @@ export const CANON_PREFIXES: readonly string[] = ['D', 'F', 'E', 'G', 'GA-', 'FC
  */
 export const CHARGE_PREFIX = 'C';
 
-// ---------- §8, the pinned twenty-four ----------
+// ---------- §8, the pinned twenty-five ----------
 
 /**
- * The pinned formulas, blessed ⬡✓ 2026-08-29 — exact strings, one wording each. The drift test
- * reads §8's numbered list and asserts this array is it, item for item.
+ * The pinned formulas, blessed ⬡✓ 2026-08-29 (1–24) and 2026-08-31 (25) — exact strings, one
+ * wording each. The drift test reads §8's numbered list and asserts this array is it, item for
+ * item.
  */
 export const FORMULAS: readonly string[] = [
 	'One concept, one word.',
@@ -229,4 +230,5 @@ export const FORMULAS: readonly string[] = [
 	'Creep is a bug.',
 	'Think in any terms; communicate in the standard.',
 	'Translate the Sovereign\'s vocabulary; challenge his substance.',
+	'The best part is no part.',
 ];
