@@ -72,9 +72,9 @@ describe('the drift alarm — the lexicon is STANDARD.md, mirrored', () => {
 		expect(GRAVEYARD.filter(g => g.forms)).toHaveLength(27);
 	});
 
-	test('§8: the pinned twenty-five are exact strings', () => {
+	test('§8: the pinned formulas are exact strings', () => {
 		expect(FORMULAS).toEqual(pinned(STANDARD));
-		expect(FORMULAS).toHaveLength(25);
+		expect(FORMULAS).toHaveLength(26);
 	});
 
 	test('§7: the canon\'s reserved letters', () => {

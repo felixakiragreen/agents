@@ -204,7 +204,7 @@ export const ISE_STOPLIST: ReadonlySet<string> = new Set([
  */
 export const CANON_PREFIXES: readonly string[] = ['D', 'G', 'F', 'E'];
 
-// ---------- §8, the pinned twenty-five ----------
+// ---------- §8, the pinned formulas ----------
 
 /**
  * The pinned formulas, blessed ⬡✓ 2026-08-29 (1–24) and 2026-08-31 (25) — exact strings, one
@@ -237,4 +237,5 @@ export const FORMULAS: readonly string[] = [
 	'Think in any terms; communicate in the standard.',
 	'Translate the Sovereign\'s vocabulary; challenge his substance.',
 	'The best part is no part.',
+	'History is respelled, never rewritten.',
 ];

@@ -123,7 +123,7 @@ whitelist a file* and *one code per arm, the excerpt differentiates*.
 |---|---|---|
 | the graveyard | §9's table — a dead word, its successor named in the excerpt | `vocab.dead-word` |
 | the spelling lexicon | §8 — American, exception list `{grey, greys, greyed}`, `-ize` with it | `vocab.spelling` |
-| the pinned formulas | §8's twenty-four — most of a formula's spine, none of its wording | `vocab.formula` |
+| the pinned formulas | §8's pinned list — most of a formula's spine, none of its wording | `vocab.formula` |
 | the id namespace | §7 — a letter serving two kinds in one building (bare D at home is the law, D80) | `vocab.prefix` (**warn**) |
 
 A **warning** is reported and never enforced — §7's own word — and never moves the exit code.

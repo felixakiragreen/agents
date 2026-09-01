@@ -135,7 +135,7 @@ function spellingFails(text: string, raw: string): Fail[] {
 	return out;
 }
 
-// ---------- §8's pinned twenty-four ----------
+// ---------- §8's pinned formulas ----------
 
 /** Words too common to carry a formula's identity — a match on these alone is a coincidence. */
 const THIN = new Set(['the', 'a', 'an', 'is', 'are', 'of', 'to', 'in', 'and', 'or', 'not', 'with',

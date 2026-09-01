@@ -237,8 +237,8 @@ replaces.
   cells — speak the law layer only. There are sessions where color and creativity
   are rewarded; those are not these.
 - **Formulas are pinned strings** — one exact wording each; paraphrase drift is a
-  lint catch. The pinned twenty-five (1–24 blessed ⬡✓ 2026-08-29; 25 ⬡✓ 2026-08-31,
-  named at the theater kill):
+  lint catch. The pinned twenty-six (1–24 blessed ⬡✓ 2026-08-29; 25 ⬡✓ 2026-08-31,
+  named at the theater kill; 26 ⬡✓ 2026-09-01, named at the currency law):
   1. One concept, one word.
   2. Files carry the truth.
   3. Lay, then ignite.
@@ -264,6 +264,7 @@ replaces.
   23. Think in any terms; communicate in the standard.
   24. Translate the Sovereign's vocabulary; challenge his substance.
   25. The best part is no part.
+  26. History is respelled, never rewritten.
   Procedural rules stay entries, not formulas ("Charges are always staffed", "The
   mantle says whether a charge digs or builds") — the list carries speech, entries
   carry law; restating law in the list is redundancy carrying no information.
