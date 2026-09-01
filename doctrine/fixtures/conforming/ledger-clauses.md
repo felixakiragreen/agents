@@ -5,22 +5,22 @@ read the first `Next:` anywhere in the flattened body, so a mention split the en
 
 ---
 
-**2026-08-30 · Builder · opus-high (C1)** — the sweep retyped two entries' `Next —` batons
+**2026-08-30 · Builder · opus-high (001)** — the sweep retyped two entries' `Next —` batons
 to `Next:` and wrote `unrecorded.` where a clause never existed. Lint 20 → 0.
 Decided: nothing new — the sweep executes the standard. Next: nothing is ignitable here;
 the checkout is merged and inert.
 
 ---
 
-**2026-08-30 · Digger · opus-medium (C2)** — the dig, with the tender's note appended
+**2026-08-30 · Digger · opus-medium (002)** — the dig, with the tender's note appended
 under it, so the clauses arrive out of §7's order.
-Next: **C3 is ignitable** — C2 is landed and the engine is untouched.
+Next: **003 is ignitable** — 002 is landed and the engine is untouched.
 
 Decided: nothing — findings only.
 
 ---
 
-**2026-08-30 · Architect · fable-high (C3)** — the review. The fence below quotes a
+**2026-08-30 · Architect · fable-high (003)** — the review. The fence below quotes a
 summons whose own body says `Decided:` and `Next:`, and neither is this entry's clause.
 
 ```
@@ -30,4 +30,4 @@ wear ~/code/agents/canon/mantles/builder.md,
 then write the entry's Decided: and Next: clauses in §7's grammar.
 ```
 
-Decided: nothing — findings only. Next: ignite C4 (kickoff fenced above).
+Decided: nothing — findings only. Next: ignite 004 (kickoff fenced above).

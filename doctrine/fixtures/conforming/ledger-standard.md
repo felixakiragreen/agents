@@ -2,10 +2,10 @@
 
 ---
 
-**2026-08-29 · Grand Architect · fable-max (C23)** — the law book respelled; STANDARD.md
-promoted. Decided: D71. Next: ignite C24.
+**2026-08-29 · Grand Architect · fable-max (023)** — the law book respelled; STANDARD.md
+promoted. Decided: D71. Next: ignite 024.
 
 ---
 
-**2026-08-29 · Builder · opus-high (C24)** — the parser learned the standard. Decided:
-nothing. Next: ignite C25, C26.
+**2026-08-29 · Builder · opus-high (024)** — the parser learned the standard. Decided:
+nothing. Next: ignite 025, 026.

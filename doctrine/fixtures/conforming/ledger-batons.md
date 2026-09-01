@@ -2,24 +2,24 @@
 
 ---
 
-**2026-08-30 · Builder · opus-high (C1)** — the arm landed. Decided: nothing — findings only.
-Next: the baton below; C2 is ignitable now.
+**2026-08-30 · Builder · opus-high (001)** — the arm landed. Decided: nothing — findings only.
+Next: the baton below; 002 is ignitable now.
 
-Baton — ⬡ → ignite C2 (kickoff verbatim in the charge doc).
+Baton — ⬡ → ignite 002 (kickoff verbatim in the charge doc).
 
 ---
 
-**2026-08-30 · Builder · opus-high (C2)** — the second arm landed. Decided: nothing.
+**2026-08-30 · Builder · opus-high (002)** — the second arm landed. Decided: nothing.
 Next: the baton below.
 
-Baton — the dispatch → ignite C3 (the tender fires it; no hand is waited on).
+Baton — the dispatch → ignite 003 (the tender fires it; no hand is waited on).
 
 ---
 
-**2026-08-30 · Digger · opus-medium (C3)** — the dig ran while C4's Builder held the lane.
+**2026-08-30 · Digger · opus-medium (003)** — the dig ran while 004's Builder held the lane.
 Decided: nothing. Next: the baton below.
 
-Baton — session (C4's Builder, dispatched this morning) → ignite C4 on its landing.
+Baton — session (004's Builder, dispatched this morning) → ignite 004 on its landing.
 
 ---
 

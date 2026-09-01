@@ -1,8 +1,8 @@
 # Ledger
 
-The typed bare session (D71 §5, C26 item 7): a session with no mantle IS a Fixer, and the
+The typed bare session (D71 §5, 026 item 7): a session with no mantle IS a Fixer, and the
 record that names no mantle types `unrecorded` rather than inventing a tier. Shape harvested
-from `rooted/archive/arborist/README.md` — the three entries C25 typed and the parser rejected.
+from `rooted/archive/arborist/README.md` — the three entries 025 typed and the parser rejected.
 
 ---
 

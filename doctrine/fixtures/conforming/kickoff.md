@@ -1,4 +1,4 @@
-# 01 — thing one
+# 001 — thing one
 **Status:** OPEN · **Depends on:** — · **Staffing:** Digger · opus-high
 
 ## Findings
@@ -12,5 +12,5 @@ Kickoff (verbatim):
 ```
 You are a Digger at opus-high.
 Wear ~/code/agents/canon/mantles/digger.md,
-then read plans/01-thing.md and execute the brief.
+then read plans/001-thing.md and execute the brief.
 ```

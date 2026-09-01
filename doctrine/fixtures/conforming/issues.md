@@ -11,4 +11,4 @@ Entry format (D63): `- <YYYY-MM-DD> · <who> · <what>`.
 
 - 2026-08-26 · the row-01 Digger · the probe disagrees with the spec
 
-Evidence: `lab/01/run.ts` output line 4.
+Evidence: `lab/001/run.ts` output line 4.

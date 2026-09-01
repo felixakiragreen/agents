@@ -8,7 +8,7 @@ The seven as `479347f` left them — summons line, door line, wear line. Zero fa
 You are a Builder at opus-high.
 Enter by the door — read ~/code/agents/canon/GUILD.md,
 wear ~/code/agents/canon/mantles/builder.md,
-then read ~/code/agents/MAP.md §5 and ~/code/agents/plans/11-summon-rig-v13-live-refresh.md,
+then read ~/code/agents/MAP.md §5 and ~/code/agents/plans/011-summon-rig-v13-live-refresh.md,
 and build it to its `Done when:`.
 ```
 
@@ -16,7 +16,7 @@ and build it to its `Done when:`.
 You are a Builder at opus-high.
 Enter by the door — read ~/code/agents/canon/GUILD.md,
 wear ~/code/agents/canon/mantles/builder.md,
-then execute the charge at ~/code/agents/plans/22-summon-argv.md.
+then execute the charge at ~/code/agents/plans/022-summon-argv.md.
 ```
 
 ```

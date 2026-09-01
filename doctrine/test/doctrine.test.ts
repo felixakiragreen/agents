@@ -29,7 +29,7 @@ describe('control — conforming fixtures parse with zero failures', () => {
 	});
 
 	test('board — the ⬡-gate charge is typed, not guessed (D63a, respelled by D71)', () => {
-		const row = parseBoards(fx('conforming', 'board.md')).boards[0]!.rows.find(r => r.id === '04')!;
+		const row = parseBoards(fx('conforming', 'board.md')).boards[0]!.rows.find(r => r.id === '004')!;
 		expect(row.hexGate).toBe(true);
 		expect(row.mantle).toBeNull();
 		expect(row.rider).toBe('smoke ×3');
@@ -38,25 +38,25 @@ describe('control — conforming fixtures parse with zero failures', () => {
 	});
 
 	test('board — the staffing rider never eats the tier (D63d)', () => {
-		const row = parseBoards(fx('conforming', 'board.md')).boards[0]!.rows.find(r => r.id === '02')!;
+		const row = parseBoards(fx('conforming', 'board.md')).boards[0]!.rows.find(r => r.id === '002')!;
 		expect([row.mantle, row.tier, row.rider]).toEqual(['Builder', 'opus-medium', 'worktree']);
 	});
 
 	test('board — Depends-on takes exactly two forms (D63e)', () => {
 		const rows = parseBoards(fx('conforming', 'board.md')).boards[0]!.rows;
-		expect(rows.find(r => r.id === '05')!.dependsOn).toEqual(['01', '02']);
-		expect(rows.find(r => r.id === '06')!.dependsOn).toEqual(['03']);
-		expect(rows.find(r => r.id === '06')!.gates).toEqual(['budget blessing']);
+		expect(rows.find(r => r.id === '005')!.dependsOn).toEqual(['001', '002']);
+		expect(rows.find(r => r.id === '006')!.dependsOn).toEqual(['003']);
+		expect(rows.find(r => r.id === '006')!.gates).toEqual(['budget blessing']);
 	});
 
 	test('board — the typed-absence vocabulary conforms (D63 as amended, D71) [items 1, 2]', () => {
 		const r = parseBoards(fx('conforming', 'board-absences.md'));
 		expect(codes(r.fails)).toEqual([]);
 		const rows = r.boards[0]!.rows;
-		expect(rows.find(x => x.id === 'C8')!.dissolved).toBe(true);         // `—` earned by DEFERRED
-		expect(rows.find(x => x.id === 'C8')!.state).toBe('OPEN');           // OPEN — DEFERRED conforms
-		expect(rows.find(x => x.id === 'C9')!.mantle).toBe('unrecorded');
-		expect(rows.find(x => x.id === 'C10')!.tier).toBe('unrecorded');
+		expect(rows.find(x => x.id === '008')!.dissolved).toBe(true);         // `—` earned by DEFERRED
+		expect(rows.find(x => x.id === '008')!.state).toBe('OPEN');           // OPEN — DEFERRED conforms
+		expect(rows.find(x => x.id === '009')!.mantle).toBe('unrecorded');
+		expect(rows.find(x => x.id === '010')!.tier).toBe('unrecorded');
 	});
 
 	test('board — the standard\'s tongue: ⬡-gate in both columns, C‹n› ids, DEFERRED (D71)', () => {
@@ -87,7 +87,7 @@ describe('control — conforming fixtures parse with zero failures', () => {
 		const r = parseLedger(fx('conforming', 'ledger.md'));
 		expect(codes(r.fails)).toEqual([]);
 		expect(r.entries).toHaveLength(3);
-		expect([r.tail!.date, r.tail!.mantle, r.tail!.tier, r.tail!.row]).toEqual(['2026-08-26', 'Builder', 'opus-high', '03']);
+		expect([r.tail!.date, r.tail!.mantle, r.tail!.tier, r.tail!.row]).toEqual(['2026-08-26', 'Builder', 'opus-high', '003']);
 	});
 
 	test('ledger — unrecorded is legal in the mantle and tier slots (item 1)', () => {
@@ -99,14 +99,14 @@ describe('control — conforming fixtures parse with zero failures', () => {
 	test('ledger — only a leading marker splits the body; a mention never does (036 item 4)', () => {
 		const r = parseLedger(fx('conforming', 'ledger-clauses.md'));
 		expect(codes(r.fails)).toEqual([]);
-		// C1 quotes `Next —` and `Next:` in its own prose — the clause is the one that leads a sentence
+		// 001 quotes `Next —` and `Next:` in its own prose — the clause is the one that leads a sentence
 		expect(r.entries[0]!.next).toBe('nothing is ignitable here; the checkout is merged and inert.');
 		expect(r.entries[0]!.decided).toBe('nothing new — the sweep executes the standard');
-		// C2's clauses arrive out of §7's order: each runs to the NEXT marker, never to the end
-		expect(r.entries[1]!.next).toBe('**C3 is ignitable** — C2 is landed and the engine is untouched.');
+		// 002's clauses arrive out of §7's order: each runs to the NEXT marker, never to the end
+		expect(r.entries[1]!.next).toBe('**003 is ignitable** — 002 is landed and the engine is untouched.');
 		expect(r.entries[1]!.decided).toBe('nothing — findings only');
-		// C3 fences a summons whose body writes both markers — code is masked before the search
-		expect(r.entries[2]!.next).toBe('ignite C4 (kickoff fenced above).');
+		// 003 fences a summons whose body writes both markers — code is masked before the search
+		expect(r.entries[2]!.next).toBe('ignite 004 (kickoff fenced above).');
 	});
 
 	test('ledger — the pre-doctrine bullet dialect still leads its line (036 item 4)', () => {
@@ -128,7 +128,7 @@ describe('control — conforming fixtures parse with zero failures', () => {
 		const entries = parseLedger(fx('conforming', 'ledger.md')).entries;
 		const b = classifyBaton(entries[1]!)!;
 		expect(b.holder).toBe('session');
-		expect(b.instruments).toEqual([{ kind: 'row', row: '03' }, { kind: 'row', row: '04' }]);
+		expect(b.instruments).toEqual([{ kind: 'row', row: '003' }, { kind: 'row', row: '004' }]);
 	});
 
 	test('baton — §11\'s holder is written, never inferred (036 item 2, D74)', () => {
@@ -137,7 +137,7 @@ describe('control — conforming fixtures parse with zero failures', () => {
 		// the ⬡ that used to parse `session` because an instrument outranked the written hand
 		expect(r.entries.map(e => classifyBaton(e)!.holder)).toEqual(['felix', 'dispatch', 'session', 'none']);
 		expect(r.entries.slice(0, 3).map(e => classifyBaton(e)!.instruments)).toEqual([
-			[{ kind: 'row', row: 'C2' }], [{ kind: 'row', row: 'C3' }], [{ kind: 'row', row: 'C4' }],
+			[{ kind: 'row', row: '002' }], [{ kind: 'row', row: '003' }], [{ kind: 'row', row: '004' }],
 		]);
 		// `Felix` is the same hand in the record's older spelling, and the colon its older separator
 		const felix = (line: string) => classifyBaton({ next: 'the baton below.', block: line } as never)!.holder;
@@ -637,9 +637,9 @@ describe('the register', () => {
 	test('a building\'s board reads out of BOARD.md, the master doc carrying none (036 item 6, D78)', () => {
 		const b = parse(join(FX, 'board-file'));
 		expect(b.files.boards.map(f => basename(f))).toEqual(['BOARD.md']);
-		expect(b.board.flatMap(x => x.rows).map(r => r.id)).toEqual(['C1', 'C2', 'C3']);
+		expect(b.board.flatMap(x => x.rows).map(r => r.id)).toEqual(['001', '002', '003']);
 		expect(b.fails).toEqual([]);
-		expect(b.ledgerTail!.row).toBe('C1');                        // the master doc is still prose
+		expect(b.ledgerTail!.row).toBe('001');                        // the master doc is still prose
 	});
 
 	test('--live is a strict subset: a closed work doc\'s kickoff fail drops, the board fail stays', () => {

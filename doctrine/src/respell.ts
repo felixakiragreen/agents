@@ -149,13 +149,13 @@ export const respellIdCell = (id: string, t: Respell) => t.ids.get(id) ?? null;
 
 /**
  * DOCTRINE §4: a Depends-on cell is a list of ids, crossings and `⬡-gate: <free text>` segments,
- * separated by `;` or `·`. A SEGMENT THAT IS A BARE NUMBER is the one place the machine may
+ * on the parser's own separators (`·` `,` `;`). A SEGMENT THAT IS A BARE NUMBER is the one place the machine may
  * respell an address with no noun in front of it. A gate's text is prose and stays prose — a
  * board that wrote a whole paragraph into one (`v0 §8 DoD 7/7`, lab/017's twin) is why this
  * reads segments instead of digits.
  */
 export const respellDepends = (cell: string, t: Respell) =>
-	cell.split(/([;·])/).map(seg => {
+	cell.split(/([;,·])/).map(seg => {
 		const m = seg.match(/^(\s*)(\d{1,3})(\s*)$/);
 		return m && t.charges.has(+m[2]!) ? `${m[1]}${t.charges.get(+m[2]!)}${m[3]}` : seg;
 	}).join('');
