@@ -2676,3 +2676,15 @@ is no part." as formula 25 (STANDARD §8 — one line, the office edits at your 
 · **keep or reverse** C38 F2 (the stamp row paints only where there is a choice;
 always-on is a one-character change) · **keep or reverse** C38 F3 (an unregistered
 cwd has no cycle — `~/code` stays inert). recommendation: bless · keep · keep.
+
+---
+
+**2026-08-31 · Grand Architect · fable-max (GA-20)** — *(fourth act — the queue
+cleared.)* **His word: "bless" — the batch ruled as recommended.** Formula 25
+pinned: "The best part is no part." — STANDARD §8 (1–24 ⬡✓ 2026-08-29, 25 ⬡✓
+2026-08-31), the lexicon mirror and its drift test updated in the same breath
+(the count assertion at `vocabulary.test.ts:77` was the alarm working); suite 94
+pass / 0 fail, city lint 0. C38's F2 and F3 keeps stand as built. Decided:
+formula 25 (⬡✓ 2026-08-31, distilled on delivery — no register entry owed).
+Next: none — D79's arc is whole (ruled, built, verified, closed, worded); the
+⬡-queue is empty.
