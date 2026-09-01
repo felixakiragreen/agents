@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
-# lab/08 — the fetcher under shims: no Keychain, no network, no token that was ever real.
+# lab/008 — the fetcher under shims: no Keychain, no network, no token that was ever real.
 # `security` and `curl` are zsh functions, so they intercept exactly what the rig invokes.
 # The token's whole journey is asserted here without any artefact ever holding it: the curl
 # shim compares its stdin against the expected header and records only the verdict.

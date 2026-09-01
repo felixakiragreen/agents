@@ -8,7 +8,7 @@ REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CANON="$REPO/canon"
 
 # The sync set — each name is both the canon source and the dest name.
-# Mantles are read by path, never deployed. Skills purged 2026-08-29 (C34).
+# Mantles are read by path, never deployed. Skills purged 2026-08-29 (034).
 TARGETS=(CLAUDE.md agents)
 
 # The three accounts (GENESIS §1). Test seam: space-separated override, so deploy and

@@ -1,6 +1,6 @@
-# C24 — the parser
+# 024 — the parser
 
-**Status:** LANDED 2026-08-29 · **Depends on:** C23 · **Staffing:** Builder · opus-high
+**Status:** LANDED 2026-08-29 · **Depends on:** 023 · **Staffing:** Builder · opus-high
 
 ## Mission
 
@@ -10,14 +10,14 @@ parser in the city reads the blessed tongue and writes nothing else.
 
 ## Inputs — read before working
 
-- `canon/work/STANDARD.md` (post-C23 home; §2 ids · §6 typed absence · §7 punctuation
+- `canon/work/STANDARD.md` (post-023 home; §2 ids · §6 typed absence · §7 punctuation
   and namespace · §9 graveyard).
-- [canon/work/DOCTRINE.md](../canon/work/DOCTRINE.md) §4/§7/§8 — post-C23, the
+- [canon/work/DOCTRINE.md](../canon/work/DOCTRINE.md) §4/§7/§8 — post-023, the
   normative grammar this parser implements.
 - `doctrine/src/` — the token block is `grammar.ts:13–26`; migrate and lint carry the
   old tokens' behavior.
-- [plans/16-doctrine-linter.md](16-doctrine-linter.md) §Findings (F1 — the round-trip
-  law's canonical reading) · [plans/19-doctrine-hardening.md](19-doctrine-hardening.md)
+- [plans/016-doctrine-linter.md](016-doctrine-linter.md) §Findings (F1 — the round-trip
+  law's canonical reading) · [plans/019-doctrine-hardening.md](019-doctrine-hardening.md)
   (the live-corpus test, the guard).
 - D63 (molt clause) · D71 · D18 (ids stable, never reused, nothing renumbers).
 
@@ -31,7 +31,7 @@ parser in the city reads the blessed tongue and writes nothing else.
    historical-marks migration is DEFERRED by the standard §7). Baton instruments
    accept `ignite <charge-ids>` beside historical `fire <row-ids>`. The ledger head's
    parens accept charge ids (`(C23)`).
-2. **migrate.ts** — form-only, the round-trip law per 16-F1's reading: `Felix-gate:` →
+2. **migrate.ts** — form-only, the round-trip law per 016-F1's reading: `Felix-gate:` →
    `⬡-gate:` in both columns; `PARKED` → `DEFERRED` wherever it annotates;
    `unstaffed` → `—` where the Status cell carries DEFERRED, surfaced as a residue
    everywhere else — never guessed. Nothing else moves: no `✓ Felix` rewrite, no id
@@ -41,24 +41,24 @@ parser in the city reads the blessed tongue and writes nothing else.
    ("charges are always staffed"). `⬡-gate` staffing renders his card per D63a's law,
    new token, same meaning.
 4. **Tests:** fixtures per token, both directions; migrate round-trips green; prove
-   the change bites — a new-token fixture fed to the pre-C24 tool goes red in the
-   predicted places (the 13-F1/14 guard pattern).
+   the change bites — a new-token fixture fed to the pre-024 tool goes red in the
+   predicted places (the 013-F1/14 guard pattern).
 5. **Namespace note:** `C` joins canon's reserved letters (standard §7). The
-   prefix-table lint arm is C26's, not this charge's.
+   prefix-table lint arm is 026's, not this charge's.
 
 ## Done when:
 
 - `cd doctrine && bun test` green, new fixtures included.
-- `doctrine lint ~/code/agents` → 0 — the batch note's named interim red (C28's
+- `doctrine lint ~/code/agents` → 0 — the batch note's named interim red (028's
   ⬡-gate cell) clears here.
 - `doctrine migrate` dry-run across the register prints the city's respell counts per
-  building — no writes — pasted as evidence; the counts hand C25 its sizing.
+  building — no writes — pasted as evidence; the counts hand 025 its sizing.
 - The round-trip law asserted: declared-changes + identical-otherwise + the byte
   assertion.
 
 ## Out of scope
 
-Writing any building (C25). The vocabulary/lexicon arm (C26). Glass renderers (C27).
+Writing any building (025). The vocabulary/lexicon arm (026). Glass renderers (027).
 The `✓ Felix` → `⬡✓` history migration (DEFERRED — the standard §7).
 
 ## Findings
@@ -82,7 +82,7 @@ Ran 49 tests across 1 file. [42.00ms]
 41 → 49 tests, 127 → 180 assertions. New fixtures, one per token, both directions:
 `conforming/board-standard.md` (⬡-gate in Staffing *and* Depends-on, C‹n› ids, `OPEN —
 DEFERRED`, the dissolved `—`), `conforming/ledger-standard.md` (`(C23)` in the head,
-`ignite C25, C26` as two instruments), `conforming/decisions-standard.md` (`· ⬡✓ <date>`
+`ignite 025, 026` as two instruments), `conforming/decisions-standard.md` (`· ⬡✓ <date>`
 and `proposed, pending ⬡✓`), `pre-d71/board.md` (the molt: `Felix-gate` in both columns,
 a bare `Felix`, `unstaffed` + `PARKED`), `defects/unstaffed.md` (the hard failure's three
 shapes plus the one absence it allows). `conforming/board.md` and `board-absences.md`
@@ -101,12 +101,12 @@ $ ./cli.ts lint ~/code/agents | tail -6
   0 failure(s) in 0 class(es)
 ```
 
-Before: `board.depends` on C28's `⬡-gate:` cell (the named one) **and** `ledger.baton` on
-GA-13's own close — `**ignite C24**` was a dropped baton to the pre-C24 reader. The
+Before: `board.depends` on 028's `⬡-gate:` cell (the named one) **and** `ledger.baton` on
+grand-architect-13's own close — `**ignite 024**` was a dropped baton to the pre-024 reader. The
 standard's own tail was unreadable by the city's rail until this charge; the baton count
 goes 1 → 2.
 
-**3. `doctrine migrate` dry-run across the register — no writes. C25's sizing:**
+**3. `doctrine migrate` dry-run across the register — no writes. 025's sizing:**
 
 ```
    16  agents — 2 file(s): depends.hex-gate ×14 · status.parked-respell ×2
@@ -149,29 +149,29 @@ goes 1 → 2.
 
 **The respell alone is 138 edits in 20 buildings** — `depends.hex-gate` 96 ·
 `staffing.hex-gate` 30 · `status.parked-respell` 9 · `status.deferred` 3. The other 267
-are D63's backlog, which C25 inherits in the same pass. Two buildings are already home.
+are D63's backlog, which 025 inherits in the same pass. Two buildings are already home.
 `staffing.dissolved` fires **zero** times city-wide: no `unstaffed` cell in the city sits
 on a DEFERRED charge (the token was one day old), so all three live ones are residues —
 see F2.
 
 **4. The round-trip law asserted** — declared-changes + identical-otherwise + the byte
-assertion, 16-F1's canonical reading, unchanged and now carrying four more rules:
+assertion, 016-F1's canonical reading, unchanged and now carrying four more rules:
 **0 violations across all 405 city edits** (line above) and `roundTrip() === []` on all
 19 fixtures in the suite's sweep.
 
-**5. The change bites — the guard (13-F1/14's pattern).** The three new-token fixtures,
-assembled into one building and fed to the pre-C24 tool at `HEAD~1`:
+**5. The change bites — the guard (013-F1/14's pattern).** The three new-token fixtures,
+assembled into one building and fed to the pre-024 tool at `HEAD~1`:
 
 ```
-$ <pre-C24>/doctrine/cli.ts lint <guard building>
+$ <pre-024>/doctrine/cli.ts lint <guard building>
       [2×] board.depends — …neither a row id in this building nor "Felix-gate: <text>" (D63e)
-           README.md:7: C25: "⬡-gate: the sovereign's read of the diff"
-           README.md:8: C26: "⬡-gate: Felix's charter drafts"
+           README.md:7: 025: "⬡-gate: the sovereign's read of the diff"
+           README.md:8: 026: "⬡-gate: Felix's charter drafts"
       [2×] board.staffing — staffing is not "<Mantle> · <tier>", "Felix-gate", "unstaffed" or "unrecorded"
-           README.md:8: C26: "⬡-gate (his drafts, his pen)"
-           README.md:9: C27: "—"
+           README.md:8: 026: "⬡-gate (his drafts, his pen)"
+           README.md:9: 027: "—"
       [1×] ledger.baton — the Next clause carries no instrument… — a dropped baton (D63g/D64)
-           LEDGER.md:9: ignite C25, C26.
+           LEDGER.md:9: ignite 025, 026.
   1 boards · 5 rows · 3 fully typed (60%) · 2 decisions (queue 2) · 0 fireable baton(s)
   5 failure(s) in 3 class(es)
 
@@ -181,12 +181,12 @@ $ ./cli.ts lint <the same building>          # this build
 ```
 
 Red in exactly the five predicted places, green here. The **queue 2 → 1** is the quiet
-one: the pre-C24 reader cannot see `⬡✓`, so it held a blessed decision in the queue and
+one: the pre-024 reader cannot see `⬡✓`, so it held a blessed decision in the queue and
 said nothing — a silence, not a failure, and the class the count-regression guard exists
 for.
 
 **City-wide cost, honestly:** 348 → **349** failures. Three new `board.unstaffed` (F2),
-minus C28's depends cell, minus GA-13's baton. Rows fully typed 470 → 467: the three
+minus 028's depends cell, minus grand-architect-13's baton. Rows fully typed 470 → 467: the three
 unstaffed charges stop counting as typed, because they are not.
 
 ### F1 — the respell put the blessing mark inside the *waiting* form
@@ -200,7 +200,7 @@ mark **vetoes** the blessing mark (`src/parse.ts`, `ratified:`), and §8's `·` 
 now required before a trailing mark, so `pending ⬡✓` can no longer be eaten off the
 decider's name either. Both locked by `decisions-standard.md`. **Flagged for the
 Architect:** this is a hazard of the mark's *shape*, not of this implementation — anything
-else that greps for `⬡✓` (the glass, C26's lexicon arm) inherits it.
+else that greps for `⬡✓` (the glass, 026's lexicon arm) inherits it.
 
 ### Where the always-staffed rule actually lives
 
@@ -218,29 +218,29 @@ receives its whole row (`CellCtx`), so Staffing can read Status.
 carry `unstaffed` with no DEFERRED in Status. D71 makes each a hard failure and migrate
 **refuses** all three: `—` is dissolution, legal only where the shelving is on the record,
 and choosing who staffs a live charge is a session's call, never a converter's. They are
-C25's three residues — either the rows are DEFERRED and say so, or they get staffed.
+025's three residues — either the rows are DEFERRED and say so, or they get staffed.
 
 ### F3 — two field names kept, deliberately
 
 `BoardRow.felixGate` and `Decision.ratified` still carry dead words. Both are the glass's
 imported contract (`belvedere/glass/{pages,workshop,rail,attention,inbox,decoder}.ts`), and
-renderers are **C27's**, out of scope here — a rename lands in this charge as edits to
+renderers are **027's**, out of scope here — a rename lands in this charge as edits to
 another campaign's building. The document tokens are respelled; the field names are a
-one-line molt for C27 to take with its own tests. Filed, not fixed.
+one-line molt for 027 to take with its own tests. Filed, not fixed.
 
 ### The glass is unmoved — measured, not assumed
 
 `belvedere/` imports this library, so the shape change (`BoardRow.unstaffed` →
 `dissolved`) had to be proven harmless: **650 pass / 1 fail before this charge and after**,
 same corpus, the doctrine swapped under a clean tree. The one failure (`the g2 kickoff IS
-the README's G2 fence`) is a README fence-index drift that predates C24 and is **already
+the README's G2 fence`) is a README fence-index drift that predates 024 and is **already
 in `belvedere/ISSUES.md`** (2026-08-28, the row-19 Builder — the flow hash covers resolved
 kickoffs, so it is that building's Architect's to rule). Nothing new to file.
 
 *A near-miss worth recording:* the same suite run inside a `git worktree` shows 13
 failures at every commit, because `glass/paths.ts` resolves `cityRoot()`/`flowsDir()` to
 `~/code/agents` — a worktree's belvedere tests read the **mainline's** flows. The first
-read of that (13 → 1) looked exactly like "C24 fixed twelve tests" and was wrong. The
+read of that (13 → 1) looked exactly like "024 fixed twelve tests" and was wrong. The
 control that killed it: swap only `doctrine/` under the live tree. **A claim without
 evidence is a draft** — and a worktree is not a control.
 
@@ -249,6 +249,6 @@ evidence is a draft** — and a worktree is not a control.
 ```
 You are a Builder at opus-high.
 Wear ~/code/agents/canon/mantles/builder.md,
-then execute the charge at ~/code/agents/plans/c24-parser.md —
+then execute the charge at ~/code/agents/plans/024-parser.md —
 the parser learns the standard.
 ```

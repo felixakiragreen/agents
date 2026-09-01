@@ -1,4 +1,4 @@
-// Row 21 — orthography & notation census: BrE/AmE variants, -ize/-ise ratio, dates,
+// Row 021 — orthography & notation census: BrE/AmE variants, -ize/-ise ratio, dates,
 // units, structural symbols. Mechanical, whole corpus, no judgment.
 import { readFileSync, writeFileSync } from 'fs';
 
@@ -50,7 +50,7 @@ for (const r of rows) {
 		units.set(m[1]!, (units.get(m[1]!) ?? 0) + 1);
 	for (const m of t.matchAll(/\b\d+(?:\.\d+)? ?(inch|inches|ft|feet|lb|lbs|oz|mph)\b/gi)) imperial.push(`${r.path.split('/code/')[1]}: ${m[0]}`);
 	for (const s of SYM) symbols.set(s, (symbols.get(s) ?? 0) + count(t, new RegExp(s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g')));
-	symbols.set('✓ Felix', (symbols.get('✓ Felix') ?? 0) + count(t, /✓ Felix/g));
+	symbols.set('⬡✓', (symbols.get('⬡✓') ?? 0) + count(t, /⬡✓/g));
 	symbols.set('⟨slot⟩', (symbols.get('⟨slot⟩') ?? 0) + count(t, /⟨[^⟩\n]+⟩/g));
 	symbols.set('~~strike~~', (symbols.get('~~strike~~') ?? 0) + count(t, /~~[^~\n]+~~/g));
 }

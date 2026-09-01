@@ -1,8 +1,8 @@
-# C38 — the stamp cycle
+# 038 — the stamp cycle
 
 **Status:** **LANDED** 2026-08-31 — 228 PASS · 0 failure(s); findings F1–F9 below
 · **Depends on:** — · **Staffing:** Builder · opus-high
-· **Parallel-safe with:** C39 (different trees — `summon/` here, `doctrine/` there; both only read `canon/BUILDINGS.md`)
+· **Parallel-safe with:** 039 (different trees — `summon/` here, `doctrine/` there; both only read `canon/BUILDINGS.md`)
 
 ## Mission
 
@@ -18,7 +18,7 @@ counters per stamp, GA untouched.
   [DECISIONS.md](../DECISIONS.md) is the ruling.
 - `summon/summon.zsh` — the panel; `summon/README.md`, the theater-cycle section —
   the law being replaced.
-- `lab/08/` — the rig harness; baseline 215 PASS · 0 failure(s) (C37's landing).
+- `lab/008/` — the rig harness; baseline 215 PASS · 0 failure(s) (037's landing).
 
 ## Spec (blessed with D79)
 
@@ -39,7 +39,7 @@ counters per stamp, GA untouched.
 - **GA unchanged:** carries no stamp; the cycle changes nothing that fires.
 - **Malformed register row:** the panel refuses to open, naming the row — the
   existing refuse-on-bad-line law, retargeted at the register.
-- **Harness:** lab/08's theater arms are replaced by derivation arms — the derived
+- **Harness:** lab/008's theater arms are replaced by derivation arms — the derived
   cap-mega cycle (host + three tenants), Name-over-dirname at a worktree root, the
   unregistered fallback, the sticky fallback, the GA no-op. Arms run against a
   fixture register, never the live file.
@@ -47,17 +47,17 @@ counters per stamp, GA untouched.
 ## Out of scope
 
 Register format changes (a format ask is an escalation, never an edit) · the
-doctrine parser (C39) · stigmergon · any new stamp feature.
+doctrine parser (039) · stigmergon · any new stamp feature.
 
 ## Done when:
 
-- ✓ `./lab/08/run` FINISHED green, new arms included; the count at landing recorded
+- ✓ `./lab/008/run` FINISHED green, new arms included; the count at landing recorded
   under Findings with the arm names.
 
   ```
   0 failure(s)
   ```
-  228 PASS · 0 failure(s) (control at C37's landing: 215 · 0). Four consecutive
+  228 PASS · 0 failure(s) (control at 037's landing: 215 · 0). Four consecutive
   clean runs; the arm names are in F8.
 
 - ✓ `grep -ri theater summon/` — zero hits outside `log/` history.
@@ -82,7 +82,7 @@ doctrine parser (C39) · stigmergon · any new stamp feature.
 - ✓ A panel open at `~/code/universal_robots_sdk/cap-mega` shows the derived cycle —
   a drive.exp arm or Felix's smoke, either, evidenced.
 
-  The live rig, live register, real log, rendered at cap-mega (`lab/08/render.zsh`,
+  The live rig, live register, real log, rendered at cap-mega (`lab/008/render.zsh`,
   the panel's own renderer, escapes stripped):
 
   ```
@@ -148,13 +148,13 @@ appears wherever this rig tilde-expands a data-file path; `_summon_usage_service
 bob answered `pathspec … did not match any files`: bob's own `.gitignore:14` hid the
 file, exactly as this repo's `.gitignore` hid its own. So there was nothing to
 delete from history — the file was `rm`'d, and the dead ignore rule is what bob's
-commit carries (`b399bc0`; this repo's, `1acaf69`). For the record: README row 14
+commit carries (`b399bc0`; this repo's, `1acaf69`). For the record: README row 014
 said "Commit it: the campaign list is repo truth", and both repos were ignoring it
 the whole time. The law never held; nothing depended on it.
 
 **F6 — the register path is derived, with no test hook.**
-`SUMMON_REGISTER=${SUMMON_HOME:h}/canon/BUILDINGS.md`. Every lab/08 sandbox lives
-directly under `lab/08/out/`, so one generated fixture at `out/canon/BUILDINGS.md`
+`SUMMON_REGISTER=${SUMMON_HOME:h}/canon/BUILDINGS.md`. Every lab/008 sandbox lives
+directly under `lab/008/out/`, so one generated fixture at `out/canon/BUILDINGS.md`
 serves all of them and no arm can reach the live file; the three arms that must
 mutate a register (the sticky-fallback pty run, the tilde run, the three bad rows)
 live one level deeper with their own. No env-var override reaches production code.
@@ -188,12 +188,12 @@ mutations, each reverted:
 | a lone row paints a stamp row anyway | 1 failure |
 | the plain-name refusal removed | the two refusal arms |
 
-**F9 — one deferred lab/08 item died on the way past.** BOARD's deferred list names
+**F9 — one deferred lab/008 item died on the way past.** BOARD's deferred list names
 "the `run:407` dead assertion (its subject file is created at line 413, after it
 fires)". That was `count 'no .summon-theaters ⇒ no theater row at all' 0 …
 theater-nofile.txt`, passing on `count`'s silent-0 over a missing file. Its successor
 asserts against a file that already exists. The other two items in that bullet — the
-typed-literals arm (c29 F4) and `count`'s silent-0 itself — are untouched and still
+typed-literals arm (029-F4) and `count`'s silent-0 itself — are untouched and still
 owed; the silent-0 is precisely what let the dead assertion pass for a fortnight.
 
 ---
@@ -204,5 +204,5 @@ Kickoff (verbatim):
 You are a Builder at opus-high.
 Enter by the door — read ~/code/agents/canon/GUILD.md,
 wear ~/code/agents/canon/mantles/builder.md,
-then read ~/code/agents/plans/c38-stamp-cycle.md and build it.
+then read ~/code/agents/plans/038-stamp-cycle.md and build it.
 ```

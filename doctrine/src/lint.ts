@@ -37,7 +37,7 @@ function liveFails(b: Building): Fail[] {
 		|| (f.artifact === 'kickoff' && openDocs.has(f.file)));
 }
 
-// ---------- the vocabulary arm (C26) ----------
+// ---------- the vocabulary arm (026) ----------
 //
 // The fence, in one place: which FILES are law surfaces. The regions inside them are fenced
 // structurally by `mask()`. Voice is named here because a voice surface must never be read at
@@ -46,18 +46,18 @@ function liveFails(b: Building): Fail[] {
 const VOICE = ['LOG.md', 'SAPHO.md', 'dream.md'];
 
 /**
- * The law book itself. `canon/` prints the graveyard — §9 IS a table of dead words — and C23
- * respelled it under Felix's own sign-off; C25 fenced it for the same reason. A book that may
+ * The law book itself. `canon/` prints the graveyard — §9 IS a table of dead words — and 023
+ * respelled it under Felix's own sign-off; 025 fenced it for the same reason. A book that may
  * not name the dead cannot bury them.
  */
 const isLawBook = (f: string) => f.split(sep).includes('canon');
 
 /**
- * C25's live list: a building's own master doc and CLAUDE.md, its boards, its OPEN charge docs.
+ * 025's live list: a building's own master doc and CLAUDE.md, its boards, its OPEN charge docs.
  *
  * And nothing spent. A charge doc that carries a staffing table is filed as a BOARD, so the
  * board half of this list walked straight past the live/spent rule the work-doc half obeys —
- * `plans/18-great-recut.md` landed on 2026-08-29 and was still reporting 11 dead words.
+ * `plans/018-great-recut.md` landed on 2026-08-29 and was still reporting 11 dead words.
  */
 function lawSurfaces(b: Building): string[] {
 	const live = b.files.workDocs.filter(f => isLiveWorkDoc(readFileSync(f, 'utf8')));
@@ -173,7 +173,7 @@ export function render(r: LintReport, opts: { verbose?: boolean } = {}): string 
 // ---------- the count-regression guard (item 18) ----------
 //
 // Damage can LOWER the fail count — a merged entry takes its own tier-fail down with it
-// (row 17 C1) — so fail deltas are a lying health gauge; entity counts are not. The guard
+// (row 017 C1) — so fail deltas are a lying health gauge; entity counts are not. The guard
 // compares the entity totals a lint already prints against the same paths at a git ref and
 // fails loudly on ANY decrease. A guard, not a law: an intentional deletion overrides by
 // running without the flag, visibly.

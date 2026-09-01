@@ -1,4 +1,4 @@
-# 21 — the working vocabulary: the census, then the standard
+# 021 — the working vocabulary: the census, then the standard
 
 **Status:** LANDED 2026-08-29 — the standard is blessed (D71 ⬡✓); the census ran, the
 nine choosing rounds ran, [STANDARD.md](../canon/work/STANDARD.md) is law ·
@@ -7,7 +7,7 @@ Architect · fable-max
 
 ## The directive — Felix's words, verbatim
 
-The original mandate (canon inbox 2026-08-28, drained at GA-11):
+The original mandate (canon inbox 2026-08-28, drained at grand-architect-11):
 
 > "I'd like to actually formalize/standardize the language we use about these things
 > at some point … I want to have a dedicated session for this, and then canonize it."
@@ -48,26 +48,26 @@ Riders, same sitting, his words:
   as evidence, not authority.
 - Live surfaces that inherit the ruling: Belvedere's deck tooltips (B20), the flow
   chapter, `doctrine/src/grammar.ts` (the machine-bound vocabulary).
-- Row 20 coordination unchanged: if 20 runs first its flow doctrine mints some terms
+- Row 020 coordination unchanged: if 20 runs first its flow doctrine mints some terms
   and this sitting harmonizes; else this sitting defines and 20 inherits.
 
 ## The method — census first, standard second
 
-**Phase 0 — corpus.** `lab/21/build-manifest.ts` walks the census corpus and assigns
+**Phase 0 — corpus.** `lab/021/build-manifest.ts` walks the census corpus and assigns
 every file a reader territory — deterministic, re-run = same census.
 Tier A: this repo (~250k words — canon, records, plans, belvedere, tooling, lore,
 commit log). Tier B: every other building's Guild surfaces across `~/code`, discovered
 by doctrine markers + board/staffing/findings signature tests (product content
 excluded; manny recovered from its worktree orphanage). 1.26M words, 441 files,
-38 territories → `lab/21/manifest.tsv`, `lab/21/territories/`.
+38 territories → `lab/021/manifest.tsv`, `lab/021/territories/`.
 
 **Phase 1 — the extraction wave.** One reader per territory
-([PROTOCOL](../lab/21/PROTOCOL.md)): opus-high on the law core (canon, records,
+([PROTOCOL](../lab/021/PROTOCOL.md)): opus-high on the law core (canon, records,
 LEDGER, LOG), sonnet-high on the rest, sonnet-medium on the commit log. Readers
 over-collect, quote verbatim, gloss the concept-in-context, flag collisions and
 minting sites; seed list suppresses re-collection of the settled core; a sense-hunt
 list forces per-sense quotes for the known polysemes (session/window/sitting/seat,
-cut, fire, arm, …). Output: `lab/21/obs/<id>.jsonl` + per-file coverage lines.
+cut, fire, arm, …). Output: `lab/021/obs/<id>.jsonl` + per-file coverage lines.
 
 **Phase 2 — the mechanical nets.** Scripts, not readers: concordance (word-boundary
 counts + file spread per merged term), candidate residue (ALLCAPS / bold-at-minting /
@@ -79,9 +79,9 @@ renderings — a rename there is a migration, priced as such).
 **Phase 3 — the merge (this office, fable-max).** Concepts-driven: induce the
 **concept inventory** from the glosses — the referents the Guild's operation actually
 contains — then map observed words onto concepts, many-to-many as found. Deliverables:
-`plans/21-census.md` (concept domains; per concept its words with evidence; the
+`plans/021-census.md` (concept domains; per concept its words with evidence; the
 collision sets; the metaphor-register inventory; orthography report) +
-`lab/21/lexicon.json` (the machine-readable census — the future language-linter's
+`lab/021/lexicon.json` (the machine-readable census — the future language-linter's
 food). Coverage asserted against the manifest.
 
 **Phase 4 — the choosing (Felix, with the office).** Concept by concept, collision by
@@ -91,9 +91,9 @@ named, enforcement (a language linter) cut as its own row if wanted.
 
 ## Deliverables
 
-- `lab/21/` — the census rig and data (lab law: disposable, EXCEPT `lexicon.json`,
+- `lab/021/` — the census rig and data (lab law: disposable, EXCEPT `lexicon.json`,
   whose promotion the choosing decides).
-- `plans/21-census.md` — the census the choosing reads.
+- `plans/021-census.md` — the census the choosing reads.
 - Findings appended here. The standard itself is **not** this row's to write
   unilaterally — it is chosen with Felix, then canonized.
 
@@ -102,7 +102,7 @@ named, enforcement (a language linter) cut as its own row if wanted.
 *(append here)*
 
 **Phase 3 delivered (2026-08-28, same sitting):** the concept pass is written —
-**[plans/21-census.md](21-census.md)** — concepts-driven per Felix's frame: the
+**[plans/021-census.md](021-census.md)** — concepts-driven per Felix's frame: the
 concept atlas (domains, contested and unnamed concepts), the five load-bearing
 decisions (the Felix-yes family · the working-occasion knot · rider ×6 · the verdict
 zoo · the two-tier decision registry), the homonym price list, the metaphor-register
@@ -202,15 +202,15 @@ The sitting wrapped early — account near usage limits; quota arbitrage mid-sit
 
 The continuation, in order:
 
-1. `git status lab/21/obs/` — commit any obs files the closing session didn't catch.
+1. `git status lab/021/obs/` — commit any obs files the closing session didn't catch.
 2. Fire the unlaunched readers (and any casualties) with the template below — one
    `Agent(type=sonnet-high)` per territory, all parallel; the harness caps 20
    concurrent, refill as slots free.
-3. When obs/ holds all 38: `bun lab/21/merge.ts` — validates every line, asserts
+3. When obs/ holds all 38: `bun lab/021/merge.ts` — validates every line, asserts
    coverage against `manifest.tsv` (MISSING list ⇒ re-fire those territories), emits
    `lexicon.json` + `residue.json`.
 4. Phase 3 (§Method): the concept pass — this office, fable-max. Induce the concept
-   inventory from the glosses, map words↔concepts, write `plans/21-census.md`; fold
+   inventory from the glosses, map words↔concepts, write `plans/021-census.md`; fold
    `ortho-report.md` and an eyeball of `residue.json` into it.
 5. Phase 4: the choosing, with Felix. Nothing is standardized before it.
 
@@ -227,12 +227,12 @@ Reader fire template (retained for the record; B-territories — for A-territori
 the dialect sentence):
 
 ```
-Guild vocabulary census reader ⟨ID⟩ (row 21, agents repo; dialect territory: ⟨cluster
-from manifest.tsv col 3⟩). Steps: (1) Read /Users/felix/code/agents/lab/21/PROTOCOL.md
+Guild vocabulary census reader ⟨ID⟩ (row 021, agents repo; dialect territory: ⟨cluster
+from manifest.tsv col 3⟩). Steps: (1) Read /Users/felix/code/agents/lab/021/PROTOCOL.md
 completely — it is your entire protocol. (2) Read EVERY file listed in
-/Users/felix/code/agents/lab/21/territories/⟨ID⟩.txt (absolute paths, one per line) in
+/Users/felix/code/agents/lab/021/territories/⟨ID⟩.txt (absolute paths, one per line) in
 full. (3) Collect term-of-art observations per the protocol into
-/Users/felix/code/agents/lab/21/obs/⟨ID⟩.jsonl — one coverage line per assigned file.
+/Users/felix/code/agents/lab/021/obs/⟨ID⟩.jsonl — one coverage line per assigned file.
 Building-local usage that differs from canon is exactly what we hunt: flag it
 "dialect". (4) Reply with exactly the report format the protocol's last section
 defines. Do not read beyond the protocol, your territory file, and its listed files;
@@ -241,6 +241,6 @@ write nothing except your obs file; do not commit.
 
 ---
 
-~~Summons (verbatim, when Felix calls it): "… read ~/code/agents/plans/21-vocabulary.md
+~~Summons (verbatim, when Felix calls it): "… read ~/code/agents/plans/021-vocabulary.md
 and cut the vocabulary standard."~~ *(struck 2026-08-28: Felix redirected at the
 sitting's open — census before standard; the sitting runs interactive.)*

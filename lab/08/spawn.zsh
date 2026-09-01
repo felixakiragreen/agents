@@ -1,10 +1,10 @@
 #!/usr/bin/env zsh
-# lab/08 — panel-open refresh: exactly the cold caches get a background fetch, and the
+# lab/008 — panel-open refresh: exactly the cold caches get a background fetch, and the
 # fresh one is left alone. The fetches are disowned, so this waits on their evidence
 # (the shim's record) rather than on the jobs table.
 #
 # The shims are PATH executables, not functions: the spawn execs a fresh worker zsh
-# (10-F10), so only the environment crosses — a function shim would silently let the
+# (010-F10), so only the environment crosses — a function shim would silently let the
 # worker hit the real keychain and the real endpoint.
 #   spawn.zsh <sandbox>
 set -u

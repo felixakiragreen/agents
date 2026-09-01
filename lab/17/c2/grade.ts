@@ -1,9 +1,9 @@
-// lab/17 — C2 grader. Mechanical: read answers are scored against ground truth computed
+// lab/017 — C2 grader. Mechanical: read answers are scored against ground truth computed
 // from the twin (fidelity-asserted against the corpus, so it grades both arms fairly);
 // writes are scored by the doctrine parser — the M arm's output directly, the S arm's
 // after render.ts's serializer — first-try conformance, no leniency passes.
 //
-//   bun lab/17/c2/grade.ts            # grades every lab/17/c2/runs/*.json
+//   bun lab/017/c2/grade.ts            # grades every lab/017/c2/runs/*.json
 
 import { readFileSync, readdirSync } from 'fs';
 import { join } from 'path';

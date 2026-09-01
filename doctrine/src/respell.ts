@@ -21,7 +21,7 @@ const BOARD_ID = /^([A-Za-z]{0,3})-?(\d{1,3})$/;
 export type Respell = {
 	/** Every board id whose spelling changes: `C23` → `023`, `01` → `001`. A kind is absent. */
 	ids: Map<string, string>;
-	/** A charge's number → its padded id. Prose keys on the NUMBER (`charge 18`, `lab/08`). */
+	/** A charge's number → its padded id. Prose keys on the NUMBER (`charge 018`, `lab/008`). */
 	charges: Map<number, string>;
 	/** The building's own directory name — what makes `plans/…` THIS building's address. */
 	dir: string;
@@ -83,8 +83,8 @@ function rules(t: Respell): [RegExp, (m: string, ...g: string[]) => string][] {
 		// The acronym expanded to its concept's living word — the inbox took the job (D80).
 		[/\bFC-(\d)\b/g, (_, n) => `distillation candidate ${n}`],
 	];
-	// The lettered ids, table-driven and case-folded: the slug form (`c23-law-book.md`,
-	// `lab/c28`) is the same address in lower case, and only the table's own keys can match.
+	// The lettered ids, table-driven and case-folded: the slug form (`023-law-book.md`,
+	// `lab/028`) is the same address in lower case, and only the table's own keys can match.
 	const keys = lettered(t);
 	if (keys.length) out.push([
 		new RegExp(`\\b(${keys.map(esc).join('|')})\\b`, 'gi'),
@@ -96,7 +96,7 @@ function rules(t: Respell): [RegExp, (m: string, ...g: string[]) => string][] {
 		[new RegExp(`${mine}lab/(\\d{1,3})(?![\\w-]|\\.\\d)`, 'g'), (m, n) => `lab/${charge(n, n)}`],
 		// A sibling charge doc, linked by bare filename from inside `plans/`.
 		[/(?<=\]\()(\d{1,3})(?=-[a-z][a-z0-9-]*\.md)/g, (m, n) => charge(n, m)],
-		// The charge doc's own title slot: `# 01 — …`.
+		// The charge doc's own title slot: `# 001 — …`.
 		[/^(#{1,6} )(\d{1,3})(?= [—–])/gm, (_, h, n) => `${h}${charge(n, n)}`],
 		// A finding travels with its charge and wears one separator (STANDARD §7): `038-F4`.
 		[/(?<![\w-])(\d{1,3})[- ]F(\d{1,2})\b/g, (m, n, k) => t.charges.has(+n) ? `${t.charges.get(+n)}-F${k}` : m],

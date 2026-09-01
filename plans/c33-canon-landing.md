@@ -1,12 +1,12 @@
-# C33 — the canon landing
+# 033 — the canon landing
 
-**Status:** LANDED 2026-08-29 · **Depends on:** C28 · **Staffing:** Builder · opus-medium
+**Status:** LANDED 2026-08-29 · **Depends on:** 028 · **Staffing:** Builder · opus-medium
 
 ## Goal
 
-The C28-blessed roster lands in `canon/`: the door and six charters, the two
+The 028-blessed roster lands in `canon/`: the door and six charters, the two
 shims, the README reconciled, the templates updated. Every text is blessed
-(D76) and frozen in `lab/c28/` — this charge is transcription and wiring,
+(D76) and frozen in `lab/028/` — this charge is transcription and wiring,
 not drafting. **Not one word of a blessed text changes in transit.**
 
 ## The spec (blessed 2026-08-29, D76 — the sources are law)
@@ -14,7 +14,7 @@ not drafting. **Not one word of a blessed text changes in transit.**
 Each lab file carries a delta-note header above a `---` separator; **what
 lands is everything below the separator, verbatim.**
 
-1. `lab/c28/door-v8.md` → `canon/GUILD.md` — **amended 2026-08-29 at the
+1. `lab/028/door-v8.md` → `canon/GUILD.md` — **amended 2026-08-29 at the
    Builder's escalation (GA ruling; both sub-forks were spec defects, not
    blessed content):** exactly two sections land — the door proper
    (`# The Guild`, body byte-identical) and the stanza, its heading
@@ -26,13 +26,13 @@ lands is everything below the separator, verbatim.**
    slot every door draft carried (v6/v7: the delta lists), already
    consumed by the six charters' own Side-quests sections — the original
    drop-clause named the slot by a stale name.
-2. `lab/c28/digger-v4.md` → `canon/mantles/digger.md` (overwrites).
-3. `lab/c28/architect-v6.md` → `canon/mantles/architect.md` (overwrites).
-4. `lab/c28/builder-v2.md` → `canon/mantles/builder.md` (overwrites).
-5. `lab/c28/mentat-v2.md` → `canon/mantles/mentat.md` (overwrites).
-6. `lab/c28/grand-architect-v3.md` → `canon/mantles/grand-architect.md`
+2. `lab/028/digger-v4.md` → `canon/mantles/digger.md` (overwrites).
+3. `lab/028/architect-v6.md` → `canon/mantles/architect.md` (overwrites).
+4. `lab/028/builder-v2.md` → `canon/mantles/builder.md` (overwrites).
+5. `lab/028/mentat-v2.md` → `canon/mantles/mentat.md` (overwrites).
+6. `lab/028/grand-architect-v3.md` → `canon/mantles/grand-architect.md`
    (overwrites).
-7. `lab/c28/fixer-v1.md` → `canon/mantles/fixer.md` (new — the minting).
+7. `lab/028/fixer-v1.md` → `canon/mantles/fixer.md` (new — the minting).
 8. Shims: `canon/skills/fixer/SKILL.md` and `canon/skills/mentat/SKILL.md`,
    minted on the existing shims' exact pattern (read a sibling first —
    `canon/skills/digger/SKILL.md`): point at the charter path, inject
@@ -46,7 +46,7 @@ lands is everything below the separator, verbatim.**
      then …`; the dispatched note: unmantled cheap-tier kickoffs carry the
      stanza inline from GUILD.md's closing section; mantled dispatched
      kickoffs carry the door read in path form.
-   - **The charter template**: replace the old order with the C28 pattern —
+   - **The charter template**: replace the old order with the 028 pattern —
      mission paragraph · **Staffing** · **The summons** (the shared
      paragraph, byte-identical across charters — a lint surface) · the
      role's own law sections · Side-quests (where granted) · escalation /
@@ -55,7 +55,7 @@ lands is everything below the separator, verbatim.**
 10. `canon/work/DOCTRINE.md` §12 founding kickoff: gains the door clause
     (the one fenced summons in that section).
 11. `MAP.md` §3 roster note: the Fixer line's "no charter file" phrasing
-    updated — charter minted at C28.
+    updated — charter minted at 028.
 
 ## Done when:
 
@@ -65,12 +65,12 @@ lands is everything below the separator, verbatim.**
   Six charters, `diff` of `tail -n +<sep+1> <lab>` against the landed file:
 
   ```
-  IDENTICAL  lab/c28/digger-v4.md (below sep line 13)          ==  canon/mantles/digger.md           e4e80d3c1acbdb9c
-  IDENTICAL  lab/c28/architect-v6.md (below sep line 25)       ==  canon/mantles/architect.md        d777fd5bd70d4ac5
-  IDENTICAL  lab/c28/builder-v2.md (below sep line 16)         ==  canon/mantles/builder.md          1e075f52ca454613
-  IDENTICAL  lab/c28/mentat-v2.md (below sep line 12)          ==  canon/mantles/mentat.md           bf9a0ea0c146cc33
-  IDENTICAL  lab/c28/grand-architect-v3.md (below sep line 15) ==  canon/mantles/grand-architect.md  a68d94cd23791ea9
-  IDENTICAL  lab/c28/fixer-v1.md (below sep line 12)           ==  canon/mantles/fixer.md            780191d93a1978db
+  IDENTICAL  lab/028/digger-v4.md (below sep line 13)          ==  canon/mantles/digger.md           e4e80d3c1acbdb9c
+  IDENTICAL  lab/028/architect-v6.md (below sep line 25)       ==  canon/mantles/architect.md        d777fd5bd70d4ac5
+  IDENTICAL  lab/028/builder-v2.md (below sep line 16)         ==  canon/mantles/builder.md          1e075f52ca454613
+  IDENTICAL  lab/028/mentat-v2.md (below sep line 12)          ==  canon/mantles/mentat.md           bf9a0ea0c146cc33
+  IDENTICAL  lab/028/grand-architect-v3.md (below sep line 15) ==  canon/mantles/grand-architect.md  a68d94cd23791ea9
+  IDENTICAL  lab/028/fixer-v1.md (below sep line 12)           ==  canon/mantles/fixer.md            780191d93a1978db
   ```
 
   `canon/GUILD.md`, the three-part bar:
@@ -143,21 +143,21 @@ lands is everything below the separator, verbatim.**
   item 9's own words). `git diff` reviewed hunk by hunk: README changed in four
   regions, DOCTRINE in one (the fenced kickoff, +1 line).
 
-- ✅ **Board reconciled** — this row LANDED with evidence; C28's `holds: C33`
+- ✅ **Board reconciled** — this row LANDED with evidence; 028's `holds: 033`
   cleared.
 
 ## Out of scope
 
-Any wording change to any blessed text. The purge (C34). The old lab
+Any wording change to any blessed text. The purge (034). The old lab
 files (they stay — provenance). Belvedere. The outer city.
 
 ## Findings
 
-**F1 — C28's Depends-on cell carried a comma the D63e parser splits on.**
+**F1 — 028's Depends-on cell carried a comma the D63e parser splits on.**
 `doctrine lint ~/code/agents` was **1 FAIL on a clean tree before this charge
 touched anything**: `MAP.md:127`, class `board.depends`, segment
 `"his notes at the desk"`. Cause: `doctrine/src/parse.ts:132` splits Depends-on
-on `·` `,` `;`, so C28's gate text `⬡-gate: … paid 2026-08-29, his notes at the
+on `·` `,` `;`, so 028's gate text `⬡-gate: … paid 2026-08-29, his notes at the
 desk` yielded a third segment that is neither a charge id nor a gate. Escalated
 (the bar was unreachable inside the fence); **Felix granted the fix in the
 room**. Form-only, no meaning change: the comma became parens. Rides its own
@@ -175,7 +175,7 @@ killed it where it lived and pointed the sentence at `fixer.md`. This is a
 fourth section touched against a "three sections only" fence — flagged, not
 hidden. Same penholder pattern as item 11: MAP §3's Fixer line also contains no
 "no charter file" phrasing, so that item was executed as its evident intent
-(the row now names the C28 minting).
+(the row now names the 028 minting).
 
 **F3 — the shared summons paragraph is word-identical, not byte-identical.**
 Item 9 called it "byte-identical across charters — a lint surface." Measured, it
@@ -200,21 +200,21 @@ here — that is a wording change to blessed text.
 
 **F4 — `## The precedence law` is now stale, and I left it.** README lines
 ~121–137 still open *"Canonical clause, carried verbatim by every charter:"* and
-quote a `**Precedence:**` block. No C28 charter carries that clause any more —
+quote a `**Precedence:**` block. No 028 charter carries that clause any more —
 it was folded into `**The summons:**` (a fact the section immediately below it
 now describes correctly). Untouched: unlike F2, item 9 gave no ruling here and
 the Done-when fences the file to three sections. Next canon sweep should fold or
 retire it. Related residue in the same class: `canon/skills/grand-architect/SKILL.md`
 still says *"Wear the Grand Architect **mantle**"* for what D71 and the landed
 charter both call an office — the new `mentat` shim says "office", so the two
-now disagree. Both are C34-adjacent.
+now disagree. Both are 034-adjacent.
 
 ---
 
 ```
 You are a Builder at opus-medium.
-Enter by the door — read ~/code/agents/lab/c28/door-v8.md (the door is not
+Enter by the door — read ~/code/agents/lab/028/door-v8.md (the door is not
 landed yet; you are landing it — enter by its lab path this once),
 wear ~/code/agents/canon/mantles/builder.md,
-then read plans/c33-canon-landing.md and build it to its bar.
+then read plans/033-canon-landing.md and build it to its bar.
 ```

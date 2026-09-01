@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
-# lab/08 — the DoD harness: run the rig in a sandbox pty, then assert on what it did.
+# lab/008 — the DoD harness: run the rig in a sandbox pty, then assert on what it did.
 # The panel is a pure function of the selection and $COLUMNS (render.zsh), so the palette
 # and the responsive wrap are asserted byte-exactly with no pty in the way.
-#   ./lab/08/run          → transcript + verdicts, artefacts under lab/08/out/
+#   ./lab/008/run          → transcript + verdicts, artefacts under lab/008/out/
 set -u
 
 LAB=${0:A:h}
@@ -150,10 +150,10 @@ widest() {	# <file> <columns> — every rendered line fits, counted in character
 	fi
 }
 
-# --- the data files are fixtures too (13-F1) --------------------------------------
+# --- the data files are fixtures too (013-F1) --------------------------------------
 # The mantle row and the panel's bracket count are DERIVED from presets.tsv and
 # accounts.tsv, never typed. A one-line preset edit rotted this harness for a fortnight
-# (13-F1) because a data file and its harness sweep were two acts joined only by memory;
+# (013-F1) because a data file and its harness sweep were two acts joined only by memory;
 # memory is not a guard, so the fixture reads the data. The bracket placement is
 # re-implemented here rather than borrowed from the rig — a derivation that called
 # _summon_item would assert nothing but itself.
@@ -633,7 +633,7 @@ count 'nothing else is in it: two directories were fired from, two lines' 2 '/ci
 
 print -r -- '--- the stamp cycle: a register the rig will not fire from -------------'
 # a stamp becomes argv — `-n <mantle>-<stamp>-NN`, run by zsh — so a Name carrying a space
-# would split the launch in two and one starting with `-` would read as a flag (13-F9,
+# would split the launch in two and one starting with `-` would read as a flag (013-F9,
 # arriving from the register this time). The panel refuses to open, the way it refuses a
 # preset on a reserved key — and it refuses wherever it is fired from, because a broken
 # register is broken for the whole city.
@@ -678,8 +678,8 @@ check 'a preset claiming the stamp key gets the reserved-key treatment, not the 
 count 'and it never reaches the mantle row' 0 'stamp-shadow' $LAB/out/reserved-t.txt
 sed -i '' '$d' $SANDBOX/presets.tsv
 
-print -r -- '--- 13-F1: the harness follows presets.tsv, it does not remember it ---'
-# the guard row 13 asked for: a data-file edit must not be able to rot this harness again.
+print -r -- '--- 013-F1: the harness follows presets.tsv, it does not remember it ---'
+# the guard row 013 asked for: a data-file edit must not be able to rot this harness again.
 # A scratch preset is added, the derivation re-read, and the panel rendered from it — if
 # anything above were a typed literal, this arm would go red instead of following.
 F1=$LAB/out/f1-sandbox
@@ -694,8 +694,8 @@ line 'a preset added to the data file lands in the row the harness derived from 
 count 'and the bracket count follows the data too — one per item, derived (bar the selected mantle)' \
 	$(( $(items_expected) - 1 )) 'fg=8 ⟨[⟩' $LAB/out/f1-panel.txt
 check '...which is the scratch preset appearing in both' '● [w]arden' $LAB/out/f1-panel-plain.txt
-# ...and the arm the addition arm did not cover: a preset REMOVED. C25 retired `d
-# dispatcher` from the data file and this harness went 1 → 15 failures (C29), because the
+# ...and the arm the addition arm did not cover: a preset REMOVED. 025 retired `d
+# dispatcher` from the data file and this harness went 1 → 15 failures (029), because the
 # guard above only ever proved growth. A middle row is deleted, so order must follow too.
 presets_read $RIG/presets.tsv $RIG/accounts.tsv
 typeset -i ITEMS_FULL=$(items_expected)
@@ -990,7 +990,7 @@ sys.exit(1 if bad else 0)
 PY
 
 print -r -- '--- refire fidelity -------------------------------------------------'
-# a refire repeats the configuration, not the session: since row 13 the one byte that must
+# a refire repeats the configuration, not the session: since row 013 the one byte that must
 # differ is the ordinal, because what it launches is a new session and needs its own handle
 pick=$(grep -m1 '"mode":"pick"' $LOG | sed -e 's/.*"cmd":"//' -e 's/","keys".*//')
 rep=$(grep -m1 '"mode":"refire"' $LOG | sed -e 's/.*"cmd":"//' -e 's/","keys".*//')

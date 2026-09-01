@@ -1,4 +1,4 @@
-# 12 — the dispatch guard
+# 012 — the dispatch guard
 
 **Status:** LANDED 2026-08-08 · **Depends on:** — · **Staffing:** Builder · opus-high
 **Blessed:** Felix, 2026-08-08 — cut and spec direction countersigned at the D46–D49
@@ -39,7 +39,7 @@ canon-law, D34's precedent):
    `.claude/settings.json` and commits.
 3. **`guard/README.md`** — install (paste + commit), what it denies, what it
    deliberately does not (see fence), uninstall.
-4. **The harness** — `lab/12/run`, assertions with control arms (DOCTRINE §6.2):
+4. **The harness** — `lab/012/run`, assertions with control arms (DOCTRINE §6.2):
    - **deny arm:** a call with `model:` is denied AND the caller, given the feedback,
      retries with a bare tier type that passes — the loop proven live;
    - **pass arm (control):** `subagent_type: "opus-medium"` alone passes untouched;
@@ -51,21 +51,21 @@ canon-law, D34's precedent):
 
 ## Definition of done
 
-- [x] All four harness arms green in `lab/12/run`, output pasted here.
+- [x] All four harness arms green in `lab/012/run`, output pasted here.
 - [x] The deny feedback text quoted here verbatim, shown inducing a correct retry.
 - [x] The Workflow surface answered with evidence; README states the result.
 - [x] `guard/` complete: hook + fragment + README; install is paste + commit.
 
-### Evidence — `./lab/12/run`, cold run 2026-08-08 (out/ wiped, four live sessions)
+### Evidence — `./lab/012/run`, cold run 2026-08-08 (out/ wiped, four live sessions)
 
 ```
-lab/12 — four live arms against the shipped guard
+lab/012 — four live arms against the shipped guard
   … deny
   … pass
   … types
   … workflow
 
-lab/12 — ruling on /Users/felix/code/agents/lab/12/out
+lab/012 — ruling on /Users/felix/code/agents/lab/012/out
 
 deny — an engine override is refused, and the caller recovers
   PASS  the caller dispatched, was refused, and dispatched again
@@ -157,7 +157,7 @@ workflow started (`task_started`, `task_type: "local_workflow"`) and its agent r
 `Done. Returned: {"r":"PONG"} — 1 agent, 0 errors … The { model: "haiku", effort: "low" }
 override was accepted without complaint — no guard tripped.` So there was an override-laden
 agent to catch, the hook was demonstrably live, and it was never offered the call. Named in
-`guard/README.md`; `lab/12`'s fourth arm asserts the hole and goes red if a build ever
+`guard/README.md`; `lab/012`'s fourth arm asserts the hole and goes red if a build ever
 closes it.
 
 **F3 — `--setting-sources project` hides the canon tier grid.** A headless session run with
@@ -203,5 +203,5 @@ Kickoff (verbatim):
 ```
 You are a Builder at opus-high.
 Wear ~/code/agents/canon/mantles/builder.md,
-then execute the order at ~/code/agents/plans/12-dispatch-guard.md.
+then execute the order at ~/code/agents/plans/012-dispatch-guard.md.
 ```

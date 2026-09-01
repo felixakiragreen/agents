@@ -1,7 +1,7 @@
 # The night shift — a keel-note
 
 **Status: deliberation — nothing here is dispatchable, nothing ratified.** Written
-2026-08-24/25 by the GA-09 sitting (the window that became `mentat-00`) at Felix's ask:
+2026-08-24/25 by the grand-architect-09 sitting (the window that became `mentat-00`) at Felix's ask:
 *what does the Guild need to build things without me?* Harness facts below are dated
 (Claude Code ~2.1.2xx, Aug 2026) and WILL rot — re-verify before building on them.
 Companion: [plans/quartermaster.md](quartermaster.md) (the peer plane). The Mentat was
@@ -36,9 +36,9 @@ until the routing labor hurts enough to split (the QM note's own minting princip
 ## 3. What already exists (the uncanny convergence)
 
 **City-side:** the truth layer is proven at campaign scale (whiteboardy: 26 rows, 13
-batches, 9 days). Row 10's usage fetcher reads all three accounts' OAuth usage with
+batches, 9 days). Row 010's usage fetcher reads all three accounts' OAuth usage with
 pacing deltas — the throttle exists. Rows 13/14 name-stamps — the roster is a map.
-Row 12's `guard/` — deterministic PreToolUse denies, the unattended-safety pattern.
+Row 012's `guard/` — deterministic PreToolUse denies, the unattended-safety pattern.
 The doctrine has been crawling toward autonomy for weeks: D44 (maximize the run
 between Felix's judgment calls), D61 (Dispatcher-tended default), D57 (amendable
 batches), gates-as-rows. And **whiteboardy's dream names the seam**: "efficiently read

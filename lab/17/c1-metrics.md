@@ -8,5 +8,5 @@
 | R2 D68–D70 append | S | 1 | +24/−0 | 4634 | 1862 | 4633 | 100% |
 | R2b D63 countersign | M | 1 | +2/−2 | 307 | 85 | 43 | 14% |
 | R2b D63 countersign | S | 1 | +1/−1 | 4915 | 2467 | 43 | 1% |
-| R3 GA-11 ledger append | M | 1 | +37/−0 | 2679 | 85 | 2676 | 100% |
-| R3 GA-11 ledger append | S | 1 | +7/−0 | 2803 | 2709 | 2802 | 100% |
+| R3 grand-architect-11 ledger append | M | 1 | +37/−0 | 2679 | 85 | 2676 | 100% |
+| R3 grand-architect-11 ledger append | S | 1 | +7/−0 | 2803 | 2709 | 2802 | 100% |

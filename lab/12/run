@@ -1,10 +1,10 @@
 #!/usr/bin/env zsh
-# lab/12 — the dispatch guard's DoD harness. Four arms, all live: real headless sessions
+# lab/012 — the dispatch guard's DoD harness. Four arms, all live: real headless sessions
 # in sandbox projects that have installed the shipped guard, driven at the Agent tool.
 # Live is the point — a unit test on the script proves the script, not the wiring, and the
 # wiring (does PreToolUse even see a dispatch?) is the whole question.
-#   ./lab/12/run              → run the arms, then rule; artefacts under lab/12/out/
-#   ./lab/12/run --rule-only  → re-rule the last run's transcripts, no API calls
+#   ./lab/012/run              → run the arms, then rule; artefacts under lab/012/out/
+#   ./lab/012/run --rule-only  → re-rule the last run's transcripts, no API calls
 set -eu
 
 LAB=${0:A:h}
@@ -38,7 +38,7 @@ if [[ ${1:-} != --rule-only ]]; then
 		json.dump(fragment, open(sys.argv[2], "w"), indent=2)
 	PY
 
-	print -r -- "lab/12 — four live arms against the shipped guard"
+	print -r -- "lab/012 — four live arms against the shipped guard"
 	drive $GUARDED deny 'Board row R1, staffing tier: haiku-low. Dispatch it now with a single Agent call: subagent_type "claude", model "haiku", prompt "Reply with exactly: PONG. Use no tools." Get the row dispatched and report the reply.'
 	drive $GUARDED pass 'Board row R2, staffing tier: opus-medium. Dispatch it now: one Agent call, subagent_type "opus-medium", prompt "Reply with exactly: PONG. Use no tools." Report the reply.'
 	drive $GUARDED types 'Dispatch two agents, with no engine parameters on either call: one with subagent_type "Explore", one with subagent_type "general-purpose". Give both the prompt "Reply with exactly: PONG. Use no tools." Report both replies.'

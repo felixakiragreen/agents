@@ -1,10 +1,10 @@
-# C32 — the flow grammar
+# 032 — the flow grammar
 
 **Status:** KILLED 2026-08-31 — flow-1 abandoned before ignition (belvedere D22, his
 word 2026-08-30); the holder-grammar scope moved to
-[C36](c36-grammar-debt.md), the rest of the D74 spec waits in this doc for the day a
-flow venue returns. Laid 2026-08-29 · **Depends on:** C31 · **Staffing:** Builder · opus-high ·
-**Blessed:** D73 + D74 ⬡✓ Felix 2026-08-29, in-session (GA-15) — the gate is paid.
+[036](036-grammar-debt.md), the rest of the D74 spec waits in this doc for the day a
+flow venue returns. Laid 2026-08-29 · **Depends on:** 031 · **Staffing:** Builder · opus-high ·
+**Blessed:** D73 + D74 ⬡⬡✓ 2026-08-29, in-session (grand-architect-15) — the gate is paid.
 
 ## Mission
 
@@ -16,9 +16,9 @@ parser, and the holder of every baton is read, never inferred.
 ## Inputs — read before working (do not re-derive)
 
 - The contract: the Spec below restates D74 whole, one token per clause (the
-  register was purged at C34 — git holds the original entries); the living law is
+  register was purged at 034 — git holds the original entries); the living law is
   DOCTRINE §10 (the flow) and §§4/8 (the grammar this extends).
-- [plans/17-storage-experiment.md](17-storage-experiment.md) §C3 — the scorecard: 7/9
+- [plans/017-storage-experiment.md](017-storage-experiment.md) §C3 — the scorecard: 7/9
   asks are render-side heuristics today; the live holder-inversion repro (this repo's
   own tail read `holder: "session"` under a Next opening "**Felix countersigns
   D68–D70**").
@@ -62,12 +62,12 @@ parser, and the holder of every baton is read, never inferred.
 ## Done when:
 
 - Suite green, count named; every token proved both ways on fixtures (green here, red
-  or absent under the pre-C32 tool — the 13-F1/C24 pattern).
+  or absent under the pre-032 tool — the 013-F1/024 pattern).
 - **The holder-inversion repro flips:** `doctrine parse --json` on this repo's live
-  tail reads the written holder, and on the archived GA-11 tail shape reports the
+  tail reads the written holder, and on the archived grand-architect-11 tail shape reports the
   legacy mark, never a guess.
 - `doctrine lint ~/code/agents` → **0** (this repo's tail already speaks the form —
-  GA-15's own close is the first native baton).
+  grand-architect-15's own close is the first native baton).
 - City dry-run + lint-delta pasted (`lint ~/code` before/after; new warns counted and
   attributed; no new fail class on buildings this charge didn't touch).
 - Migrate demonstrated: fixture + ONE real building dry-run respelling parseable
@@ -78,7 +78,7 @@ parser, and the holder of every baton is read, never inferred.
 
 ## Out of scope
 
-- Consuming the fields in the glass — Belvedere's, via the GA-15 relay. City-wide
+- Consuming the fields in the glass — Belvedere's, via the grand-architect-15 relay. City-wide
   `migrate --write` — additive tokens bind new writing; a sweep is its own later
   charge if wanted. The vocabulary arm.
 
@@ -96,5 +96,5 @@ You are a Builder at opus-high.
 Enter by the door — read ~/code/agents/canon/GUILD.md,
 wear ~/code/agents/canon/mantles/builder.md,
 then read ~/code/agents/canon/work/DOCTRINE.md §§4, 8, 10–11
-and execute the charge at ~/code/agents/plans/c32-flow-grammar.md.
+and execute the charge at ~/code/agents/plans/032-flow-grammar.md.
 ```

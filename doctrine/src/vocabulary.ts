@@ -17,7 +17,7 @@ import { FORMULAS, GRAVEYARD, ISE_STOPLIST, SPELLING_EXCEPTIONS, SPELLING_PAIRS 
 // ---------- the fence ----------
 
 /**
- * Sections that are history wherever they appear (C25's fence): a findings section is the
+ * Sections that are history wherever they appear (025's fence): a findings section is the
  * record of what a session found, and an inline ledger is a ledger.
  */
 const FENCED_HEADING = /^(?:\d+\.\s*)?(?:findings?|ledger|decisions|log|escalations?|what landed)\b/i;
@@ -61,7 +61,7 @@ export function mask(md: string): string {
 	}
 
 	// A board's Depends-on, Staffing and Status cells are the parser's columns and their
-	// annotations are history (C25's fence); the ID and Work cells stay, because Work is live
+	// annotations are history (025's fence); the ID and Work cells stay, because Work is live
 	// prose. A FINISHED charge is history whole: its title is the address the ledger cites, and
 	// respelling it would rename the past — exactly what the standard defers.
 	for (const t of tables(md)) {

@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
-# lab/08 — the panel is a pure function of the selection and $COLUMNS, so render it with no
+# lab/008 — the panel is a pure function of the selection and $COLUMNS, so render it with no
 # pty and assert on it byte-exactly: the wrap on the text, the palette on the spans. Each
 # span is printed with the text its offsets actually cover, so a wrong offset shows up as
 # the wrong text rather than passing quietly.

@@ -74,17 +74,17 @@ to both rather than betting on either.
   are not this guard's business; it blocks engine overrides, not type choice.
 - **Reach inside a workflow.** Proven, not assumed: a Workflow script's
   `agent(prompt, {model, effort})` calls **never fire `PreToolUse`**. A wildcard witness
-  hook in `lab/12`'s workflow arm saw the `Workflow` tool call and nothing else, while the
+  hook in `lab/012`'s workflow arm saw the `Workflow` tool call and nothing else, while the
   script's agent demonstrably ran with both overrides bound. **This is the hole:** engine
   overrides inside a workflow script are invisible to the guard, and only the author's
-  discipline keeps them out. `lab/12/run`'s fourth arm re-tests it every run — if a future
+  discipline keeps them out. `lab/012/run`'s fourth arm re-tests it every run — if a future
   build starts routing them, that assertion goes red.
 - **Install itself.** Adoption in any given repo is its own decision. The canon repo
   (`~/code/agents`) is deliberately unguarded: dispatches are rare and Felix is in the room.
 
 ## Evidence
 
-`lab/12/run` — four live arms (deny + recovery, bare-tier control, non-tier-type control,
+`lab/012/run` — four live arms (deny + recovery, bare-tier control, non-tier-type control,
 the workflow surface) against real headless sessions in sandbox projects that installed
-this guard exactly as above. `lab/12/run --rule-only` re-rules the last run's transcripts
+this guard exactly as above. `lab/012/run --rule-only` re-rules the last run's transcripts
 without spending API calls.

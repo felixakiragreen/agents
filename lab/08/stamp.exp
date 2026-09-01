@@ -1,5 +1,5 @@
 #!/usr/bin/env expect
-# lab/08 — the stamp cycle, driven live: what a fire makes sticky, what an abort does not,
+# lab/008 — the stamp cycle, driven live: what a fire makes sticky, what an abort does not,
 # and what happens when the register moves under a directory that remembers a stamp.
 # The sandbox's log starts empty, so every ordinal below is derived from these gestures alone.
 # usage: stamp.exp <transcript> <rc.zsh>   (env: SANDBOX, CITY_ROOT, REGISTER, DROPPED)
@@ -27,7 +27,7 @@ expect "SHIM"
 mark 2
 
 # C2 — the next open in that same directory preselects it: one whole first paint, so the
-# footer reaches the pty as a readable line (13-F8)
+# footer reaches the pty as a readable line (013-F8)
 send "\a"
 expect "keys: 1"
 send "\033"

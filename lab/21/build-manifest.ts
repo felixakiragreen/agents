@@ -1,4 +1,4 @@
-// Row 21 — census manifest builder: walks the corpus, assigns every file a territory,
+// Row 021 — census manifest builder: walks the corpus, assigns every file a territory,
 // emits manifest.tsv + territories/<id>.txt. Deterministic: re-run = same census.
 import { readdirSync, readFileSync, statSync, writeFileSync } from 'fs';
 import { join } from 'path';

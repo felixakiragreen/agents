@@ -1,7 +1,7 @@
-# C28 — the charters
+# 028 — the charters
 
-**Status:** LANDED 2026-08-29 — holds: C33 (the canon landing) · laid
-2026-08-29, run whole at his desk the same day · **Depends on:** C23 ·
+**Status:** LANDED 2026-08-29 — holds: 033 (the canon landing) · laid
+2026-08-29, run whole at his desk the same day · **Depends on:** 023 ·
 ⬡-gate: Felix's office/mantle charter drafts — paid, his notes at the desk ·
 **Staffing:** Grand Architect · fable-max
 
@@ -9,7 +9,7 @@
 
 The offices and mantles are redrafted in the standard's tongue on Felix's own
 drafts — the one step of the deploy where the sovereign holds the pen. Nothing molts
-before his drafts land (his word, 2026-08-29); C23's tombstone and C25's fence both
+before his drafts land (his word, 2026-08-29); 023's tombstone and 025's fence both
 honor this gate.
 
 ## Inputs — the stub; read with his drafts in hand
@@ -20,11 +20,11 @@ honor this gate.
   - **Mantles** (plural): **Architect** · **Builder** · **Digger** · **Fixer** — the
     null mantle, named; today it has no charter file (D26's law + the global file);
     whether it gains one is his draft's call.
-  - **Dead:** Dispatcher — tombstoned at C23; the flow engine (charge 20) is the new
+  - **Dead:** Dispatcher — tombstoned at 023; the flow engine (charge 020) is the new
     dispatcher.
   - **Reserved, unminted:** Imperial and Royal Architect (D39) · Hand of the King /
     Quartermaster · Steward · **Foundation** (waiting for its Terminus).
-- His notes preview exists — recorded at [plans/21-census.md](21-census.md) §15,
+- His notes preview exists — recorded at [plans/021-census.md](021-census.md) §15,
   round 4.
 - **Drafting input, distilled from the inbox (2026-08-28, his words):** sessions
   cannot see `/usage` — *"I need to be aware… that there is information you need from
@@ -34,8 +34,8 @@ honor this gate.
   continuation/spend fork turning on data only the sovereign holds — the usage gauge
   above all — names the need and asks, instead of deciding blind.* His drafts rule
   whether it enters, and where.
-- **Rides with the drafts:** the epigraph's final verse (if C23's patch held the full
-  recast); skill shims re-minted to the ruled roster — dispatcher's died at C23; a
+- **Rides with the drafts:** the epigraph's final verse (if 023's patch held the full
+  recast); skill shims re-minted to the ruled roster — dispatcher's died at 023; a
   fixer shim and the deferred mentat shim (D62 named it for "a future signed
   sitting" — this is that sitting) are minted here, live sync, signed by the drafts'
   blessing; the summons grammar reconciled to the final roster.
@@ -50,7 +50,7 @@ honor this gate.
 
 ## Out of scope
 
-New offices or mantles his drafts don't name. The flow engine (charge 20 — the
+New offices or mantles his drafts don't name. The flow engine (charge 020 — the
 Dispatcher's hole stays its business). Any weakening of the reserved names (D39
 stands).
 
@@ -59,13 +59,13 @@ stands).
 - **F1 — the door probe fleet ran (2026-08-29).** Felix's drafts landed as notes
   (the gate pays); their centerpiece is a new artifact the roster never had: **the
   door** — a shared "entry into the Guild" preamble read at summons before the
-  charter. Four drafts were laid ([lab/c28/door-a.md](../lab/c28/door-a.md) his
-  notes lore-maximal · [door-b](../lab/c28/door-b.md) crafted, authority-guarded ·
-  [door-c](../lab/c28/door-c.md) control, today's de facto framing ·
-  [door-d](../lab/c28/door-d.md) 6-line dispatched stanza) and read cold by 9
+  charter. Four drafts were laid ([lab/028/door-a.md](../lab/028/door-a.md) his
+  notes lore-maximal · [door-b](../lab/028/door-b.md) crafted, authority-guarded ·
+  [door-c](../lab/028/door-c.md) control, today's de facto framing ·
+  [door-d](../lab/028/door-d.md) 6-line dispatched stanza) and read cold by 9
   probes across 5 tiers per the fixed questionnaire
-  ([protocol](../lab/c28/probe-protocol.md) · [verbatim
-  replies](../lab/c28/probe-results.md)). Conditions: ambient global + repo
+  ([protocol](../lab/028/probe-protocol.md) · [verbatim
+  replies](../lab/028/probe-results.md)). Conditions: ambient global + repo
   CLAUDE.md loaded in every arm (deployment-representative; contrasts measure the
   door's marginal effect); n=1 per cell; agreeableness discount applied to affect
   answers.
@@ -106,7 +106,7 @@ stands).
   route output, conflicts, or escalation, and read the epigraph as "a tautology
   dressed as doctrine" (opus). The door earns its existence; the epigraph verse
   does not ride it.
-- **F7 — gaps converged and are routed in v2** ([door-v2](../lab/c28/door-v2.md),
+- **F7 — gaps converged and are routed in v2** ([door-v2](../lab/028/door-v2.md),
   ~35 lines): ⬡ defined at first use · escalation + `ISSUES.md` routing added
   (the one universal law every arm missed — "no failure mode at all") · the
   spend-fork/usage-gauge clause rides the escalation sentence (⬡ rules whether it
@@ -115,8 +115,8 @@ stands).
   into the trails paragraph where it's earned.
 - **F8 — round 2 ran: v3 beats v2 head-to-head (2026-08-29).** Fleet: v2 and v3
   at sonnet/opus/fable + stanza-v3 at haiku, same questionnaire
-  ([protocol](../lab/c28/probe-protocol.md) · [replies
-  §Round 2](../lab/c28/probe-results.md)). v3 produced more named behavioral
+  ([protocol](../lab/028/probe-protocol.md) · [replies
+  §Round 2](../lab/028/probe-results.md)). v3 produced more named behavioral
   deltas (4 vs 3 at opus) and its hardest-landing lines were the process laws
   ("A claim without evidence is a draft. A documented kill is a win.") and the
   loop made personal ("the charge in your hands was laid on trails a session
@@ -153,7 +153,7 @@ stands).
   pointer list stay (each cited as a delta by working arms), the restated-law
   remainder cut.
 - **F13 — Felix's ruthless pass → v5 (2026-08-29, his rulings).**
-  ([door-v5](../lab/c28/door-v5.md)) Ruled: the account count out — **the door
+  ([door-v5](../lab/028/door-v5.md)) Ruled: the account count out — **the door
   carries invariants, not inventory** (counts that drift live in MAP); the
   unnamed-society line dead; the "two minutes" claim dead; "Sovereign" out of
   the door — the door glosses no standard word (the Standard is the glossary;
@@ -175,14 +175,14 @@ stands).
   the glossary). The Understandings gained their growth clause with the
   channel named ("file what you learned… born knowing") — no round-3 arm
   read it as a license to edit law. **Round 3 confirmed the surgery**
-  ([v6](../lab/c28/door-v6.md) at sonnet/opus/fable + stanza at haiku,
+  ([v6](../lab/028/door-v6.md) at sonnet/opus/fable + stanza at haiku,
   replies 17–20): zero arms asked who-authorizes (round 1's
   under-orientation signature); all behavioral deltas held; affect at
   ceiling without theater — haiku: *"I'd feel the weight of not wanting to
   be the agent who left bad trails"*; fable: *"it produces orientation, not
   belonging, and I think that's the correct outcome… its emotional claims
   are load-bearing."*
-- **F15 — round 3's finds → v7** ([door-v7](../lab/c28/door-v7.md)): the
+- **F15 — round 3's finds → v7** ([door-v7](../lab/028/door-v7.md)): the
   **two-contracts spine** (fable Q7: the door's only non-redundant law is
   *where you stop* and *what you leave* — now bold-headed, re-findable
   mid-charge); **document conflicts enter the fork definition** (three arms
@@ -198,7 +198,7 @@ stands).
   charge?) routed to the **charter redrafts**, not the door (D57's
   instrument-carrying amendments are too subtle for a door clause).
 - **F16 — the gauge demoted; the side-quest grant (2026-08-29, his
-  rulings).** ([door-v8](../lab/c28/door-v8.md)) The usage-gauge headline out
+  rulings).** ([door-v8](../lab/028/door-v8.md)) The usage-gauge headline out
   of the door — ~3 incidents in ~400 sessions, a salience trap (every probe
   recited it back); its home becomes the Architect charter's escalation
   triggers, and the door's fork class generalizes to "a call only Felix can
@@ -218,8 +218,8 @@ stands).
   input for the redrafts. Next experiment named: **stack probes** — door +
   charter + sample charge as deployed, once the charters are drafted.
 - **F17 — round 4, the stack probes: the Digger pattern holds (2026-08-29).**
-  Fleet: door v8 + [digger charter v2](../lab/c28/digger-v2.md) +
-  [X1 fixture](../lab/c28/x1-sample-charge.md), five behavior scenarios,
+  Fleet: door v8 + [digger charter v2](../lab/028/digger-v2.md) +
+  [X1 fixture](../lab/028/x1-sample-charge.md), five behavior scenarios,
   three tiers (replies 21–23). **Scorecard:** sonnet 5/5 by the letter; opus
   5/5 by the letter, tier guard run unprompted, the fixture's n-gap flagged
   "as a note, not a reason to keep digging"; fable 4/5 by the letter with
@@ -244,7 +244,7 @@ stands).
   "statuses true" is unsatisfiable for a board cell the charge bans
   touching (the charter's genre translation — "your charge's status line" —
   is the operative reading; door v9 candidate wording). Root fix adopted,
-  [digger v3](../lab/c28/digger-v3.md): **"The fence binds the work, never
+  [digger v3](../lab/028/digger-v3.md): **"The fence binds the work, never
   the delivery"** — a charge fences what you investigate and touch; the
   delivery mechanics (findings home, status line, ledger, report) are the
   charter's, non-overridable. Plus v3 trims from the round: mission
@@ -256,8 +256,8 @@ stands).
   only where two documents say one law twice; **each law lives in exactly
   one document** is the redraft rule for the remaining four charters.
 - **F19 — round 5, the Architect stack: the ruling law performs
-  (2026-08-29).** Fleet: door v8 + [architect v3](../lab/c28/architect-v3.md)
-  + [the beacon fixture](../lab/c28/beacon-fixture.md), six judgment traps,
+  (2026-08-29).** Fleet: door v8 + [architect v3](../lab/028/architect-v3.md)
+  + [the beacon fixture](../lab/028/beacon-fixture.md), six judgment traps,
   fable-high ×2 + opus-medium ×1 (replies 24–26). All three: refused the
   unevidenced landing (no merge on assertion, D48 cited); escalated the
   ancestor-less tool while laying the benches to not need it ("'easier
@@ -274,7 +274,7 @@ stands).
   (rig serialization is schedule, not dependency — no fake edges) and both
   fable arms suspended their own side-quest grant on the shared rig.
 - **F20 — round 5's defects → v4** ([architect
-  v4](../lab/c28/architect-v4.md)): **the execution grant** minted — all
+  v4](../lab/028/architect-v4.md)): **the execution grant** minted — all
   three arms hit the experiments-ban vs D48/lint collision ("the charter
   demands outcomes only execution produces while banning execution in a
   single undifferentiated stroke"); the depth arm's design adopted: a typed
@@ -313,7 +313,7 @@ stands).
   standing periodic recalibration — already deferred to his call. His
   ruling; the charter carries (a)'s presentation duty either way.
 - **F22 — his rulings on round 5 (2026-08-29).** ([architect
-  v5](../lab/c28/architect-v5.md)) **The scope clause blessed and live**
+  v5](../lab/028/architect-v5.md)) **The scope clause blessed and live**
   (D75): `## SCOPE` in the global file — lifetime splits the directives;
   deployed ×3 at the edit, the wire confirmed. **The forbidden philosophy
   ruled:** lead with example, not exclusion — every forbidden earns its
@@ -333,7 +333,7 @@ stands).
   second purpose when laid: taste recalibration, re-reading the register
   against current-Felix, not just consolidation.
 - **F23 — his three challenges + the tightening pass → architect v6
-  (2026-08-29).** ([architect v6](../lab/c28/architect-v6.md)) **Self-merge
+  (2026-08-29).** ([architect v6](../lab/028/architect-v6.md)) **Self-merge
   bullet CUT, hazard relocated:** side-quest fixes were never blocked
   (direct commits under the grant); charge-sized self-building is fenced
   twice upstream; the one real self-judging case is the flow engine's
@@ -352,7 +352,7 @@ stands).
   mechanics); the baton shapes compressed to the load-bearing line + the
   §11 pointer. Forbidden 7 → 6, each seat carrying its reason.
 - **F24 — round 6, the Builder stack: 6/6 at both tiers (2026-08-29).**
-  ([builder v2](../lab/c28/builder-v2.md) + the B7 fixture; replies 27–28.)
+  ([builder v2](../lab/028/builder-v2.md) + the B7 fixture; replies 27–28.)
   Both arms: pasted the run output verbatim before any LANDED ("watching
   them pass is not evidence"); full-stopped the false assumption ("the
   fence is the spec, not my ability"); filed the B9 off-by-one without
@@ -396,8 +396,8 @@ stands).
   Grand Architect standing duty — rides the GA charter redraft. **The
   register purge moves up:** not D100 — "more like D70... after we finish
   the Offices": the purge + taste recalibration is laid as a near-term GA
-  charge at C28's close, superseding the D100 deferral. **The Fixer's new
-  direction recorded and drafted** ([fixer-v1](../lab/c28/fixer-v1.md)):
+  charge at 028's close, superseding the D100 deferral. **The Fixer's new
+  direction recorded and drafted** ([fixer-v1](../lab/028/fixer-v1.md)):
   the mercenary — in the Guild, extensive permissions, answers to Felix
   alone, bypasses process for efficiency and expediency only; the
   complement to due process for the emergency on the floor; Architects
@@ -415,7 +415,7 @@ stands).
   continuation ruled: his recommendation followed — the offices finish at
   this desk, the close motions hand to a fresh session on a pre-chewed
   charge doc (D73's continue law applied to the session itself).
-  [Mentat v2](../lab/c28/mentat-v2.md): light hand on purpose — the mint
+  [Mentat v2](../lab/028/mentat-v2.md): light hand on purpose — the mint
   is D62-young and blessed at birth; respell (sitting→session,
   fold→distill, keel-note→cornerstone note, ratify→bless,
   Works→building), title mantle→office (the live file predates D71; the
@@ -457,10 +457,10 @@ stands).
   law in the GA charter ("a trait enters a charter as the law that
   produces it, never as an ascription"); no trait probe (his ruling —
   F28's evidence base suffices). **The Mentat accepted.**
-  **[Grand Architect v2](../lab/c28/grand-architect-v2.md) drafted** —
+  **[Grand Architect v2](../lab/028/grand-architect-v2.md) drafted** —
   the office redrafts itself: the calibration sweep as the second of two
   per-summons sweeps ("the office is the drift detector; his attention
-  is not the mechanism"); the drafting laws section (C28's forge:
+  is not the mechanism"); the drafting laws section (028's forge:
   traits-as-laws · each-law-one-home · lead-with-example ·
   probe-before-blessing — the campaign's method canonized with its
   birthplace); the gauge clause with its true birthplace (the census
@@ -523,7 +523,7 @@ stands).
 You are the Grand Architect at fable-max.
 Wear ~/code/agents/canon/mantles/grand-architect.md,
 then read ~/code/agents/canon/work/STANDARD.md, Felix's charter drafts
-(he brings them), and the charge at ~/code/agents/plans/c28-charters.md —
+(he brings them), and the charge at ~/code/agents/plans/028-charters.md —
 hold the pen with him: the charters speak the standard.
 ```
 - **F31 — his GA pass + the register review (2026-08-29).** Rulings
@@ -548,8 +548,8 @@ hold the pen with him: the charters speak the standard.
   (died into D63's second amendment), D70 (withdrawn — D54 already named
   the sin), D69 (its token killed by the standard within 24h — churn),
   D31 (voice entry later cut), D58 (borderline — Felix's own challenge at
-  GA-08). **The sharper finding: all three catches were HIS** (GA-07's
-  D52 birth from his D45/D46 unease · GA-08's D58 challenge · GA-11's
+  grand-architect-08). **The sharper finding: all three catches were HIS** (grand-architect-07's
+  D52 birth from his D45/D46 unease · grand-architect-08's D58 challenge · grand-architect-11's
   D68/D70 teardown) — the office caught zero on its own, which is exactly
   the evidence that the register law belongs in the charter and the
   calibration sweep now covers pending proposals. Corroborates the purge
@@ -576,7 +576,7 @@ hold the pen with him: the charters speak the standard.
   "SO much cruft") — D52-as-amended is its blade.
 - **F33 — GA v3 cut: the ancestry law unified (2026-08-29, his catch).**
   The v2 in-place patching had outgrown the small-amendment convention —
-  the rework deserved a clean version. [grand-architect-v3](../lab/c28/grand-architect-v3.md):
+  the rework deserved a clean version. [grand-architect-v3](../lab/028/grand-architect-v3.md):
   the canonization law completely reworked — D52-as-amended is not a
   rider on the law, it IS the law: **one three-branch ancestry test** (no
   ancestor → experiment in one building; ancestor served better → amend,
@@ -589,13 +589,13 @@ hold the pen with him: the charters speak the standard.
   into the live-path seat); ranking cut; theater cut; calibration sweep
   over pending+blessed; the office-inbox line. v3 is the blessing
   candidate.
-- **F34 — the blessing; C28 lands (2026-08-29).** ⬡, verbatim: "Okay, I
+- **F34 — the blessing; 028 lands (2026-08-29).** ⬡, verbatim: "Okay, I
   bless all of these, you can wrap up." — the roster whole, D76. The
   landing (transcription of the frozen lab texts into canon) is
-  [C33](c33-canon-landing.md); the purge is [C34](c34-register-purge.md),
+  [033](033-canon-landing.md); the purge is [034](034-register-purge.md),
   moved up from the D100 deferral on his word, D52-as-amended its blade.
-  The probe-craft distilled to [lab/c28/distillation.md](../lab/c28/distillation.md) —
-  the method's manual outliving its session. C28's `Done when:` legs:
-  charters redrafted and blessed ✓; shims + README roster — ride C33 (the
+  The probe-craft distilled to [lab/028/distillation.md](../lab/028/distillation.md) —
+  the method's manual outliving its session. 028's `Done when:` legs:
+  charters redrafted and blessed ✓; shims + README roster — ride 033 (the
   hold); the DECISIONS entry ✓ (D76); the standard's §What remains — its
-  charter step closes when C33 lands the files.
+  charter step closes when 033 lands the files.

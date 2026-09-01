@@ -1,4 +1,4 @@
-# The Architect mantle — redraft v2 (C28; around door v8)
+# The Architect mantle — redraft v2 (028; around door v8)
 
 *Drafted 2026-08-29 on Felix's go, riding the Digger pattern (F17/F18). What
 entered: the standard's tongue throughout (distill, lay, ignite, bless/rule,

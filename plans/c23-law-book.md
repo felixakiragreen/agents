@@ -1,4 +1,4 @@
-# C23 — the law book
+# 023 — the law book
 
 **Status:** LANDED 2026-08-29 · **Depends on:** — · **Staffing:** Grand Architect · fable-max
 
@@ -12,7 +12,7 @@ D63's molt clause; meaning is stone.
 
 ## Inputs — read before working
 
-- [plans/21-standard.md](21-standard.md) — the law, whole: the entries, the graveyard,
+- [plans/021-standard.md](021-standard.md) — the law, whole: the entries, the graveyard,
   the pinned 24, the punctuation grammar. This charge moves it (spec item 1); read it
   first at its old address.
 - [canon/work/DOCTRINE.md](../canon/work/DOCTRINE.md) — the primary surface.
@@ -22,15 +22,15 @@ D63's molt clause; meaning is stone.
   · `canon/work/templates/` · [plans/RIDER.md](RIDER.md).
 - D71 · D63 (the molt clause) · D25 (naming law) · D33 (rename-is-a-move) ·
   D52 (the clarification lane).
-- The census collision site for escalate: [plans/21-census.md](21-census.md) §2.4.
+- The census collision site for escalate: [plans/021-census.md](021-census.md) §2.4.
 
 ## The spec — blessed D71 ⬡✓ 2026-08-29; this map applies it
 
 The standard is the spec. The application map, site by site:
 
-1. **Promote the standard.** `git mv plans/21-standard.md canon/work/STANDARD.md` —
+1. **Promote the standard.** `git mv plans/021-standard.md canon/work/STANDARD.md` —
    D25's both tests pass (one per scope; sessions read it as protocol), D33 carries the
-   lineage. Retarget live links (MAP charge 21's cell, D71's entry, the 21 ledger
+   lineage. Retarget live links (MAP charge 021's cell, D71's entry, the 21 ledger
    entry's links) — a link retarget is form; meaning untouched.
 2. **DOCTRINE.md — the full respell.** The graveyard is the mapping; quotes stay
    verbatim; birthplace citations keep their addresses; prose speaks the standard even
@@ -48,9 +48,9 @@ The standard is the spec. The application map, site by site:
    - §5: brief and order merge into **the charge doc** — one skeleton, the mantle says
      whether it digs or builds; `Done when:` replaces DoD/acceptance-criteria language.
    - §7: the ledger head's parens take charge ids; `fire <row-ids>` → `ignite
-     <charge-ids>` (the old verb stays legal in history; C24 parses both).
+     <charge-ids>` (the old verb stays legal in history; 024 parses both).
    - §9/§10: the Dispatcher's duties respell onto **the dispatch** — the machinery
-     (standard §3). The mantle is dead (D71); its hole belongs to charge 20 (the flow
+     (standard §3). The mantle is dead (D71); its hole belongs to charge 020 (the flow
      engine). State the interim truth plainly: until the flow engine lands, the batch
      note names the tender — Felix, or an Architect session. D61's intent (machine-
      tended by default) survives; its Dispatcher wording is superseded by D71.
@@ -65,7 +65,7 @@ The standard is the spec. The application map, site by site:
    one concept, one word — `~/code/agents/canon/work/STANDARD.md`"). Recommended yes;
    his call at the keyboard — auto-loaded bytes are taxed (D24).
 4. **canon/mantles/README.md** — grammar and law, not a charter; the charters are
-   fenced (C28).
+   fenced (028).
    - The rider template → **the coda** (standard §4): same universal core — dispatched
      framing · files-are-the-deliverable · report-is-logistics-only · D54 — new name,
      per-project home `plans/CODA.md`.
@@ -73,14 +73,14 @@ The standard is the spec. The application map, site by site:
      the batch").
    - The "Doctrine vocabulary" section → a pointer at the standard.
    - The null mantle gains its name: **Fixer** (D71; D26's law otherwise intact — no
-     charter file until Felix's drafts, C28).
+     charter file until Felix's drafts, 028).
    - Roster counts reconciled (see 5).
 5. **dispatcher.md → tombstone.** A banner at the top: the mantle is dead (D71); the
-   flow engine (charge 20) is the successor; the dispatch survives as the system noun.
+   flow engine (charge 020) is the successor; the dispatch survives as the system noun.
    The body below the banner is preserved as history (simmy's DISPATCHER.md precedent).
    **`canon/skills/dispatcher/` is deleted** — live sync; a shim must not summon a dead
    mantle; D71 signs the deletion. Every other charter stays **byte-identical** — the
-   ⬡-fence: Felix's drafts (C28). The escalate fix arrives structurally: the
+   ⬡-fence: Felix's drafts (028). The escalate fix arrives structurally: the
    Dispatcher-only reading (census §2.4) dies with the tombstone and the standard §1
    defines escalate for every mantle — verify no DOCTRINE sentence still implies the
    narrow reading.
@@ -94,29 +94,29 @@ The standard is the spec. The application map, site by site:
    line reconciled to the dead mantle and the flow engine's shadow, DoD→`Done when:`).
 8. **plans/RIDER.md → plans/CODA.md** — `git mv` + respell to the coda form.
 9. **The epigraph — ⬡-fork, in-session:** "Dispatchers tend" names a dead caste on
-   eight carriers. (a) the one-word patch now; (b) hold the verse whole for C28, where
+   eight carriers. (a) the one-word patch now; (b) hold the verse whole for 028, where
    the roster's final voice lands with his drafts. Recommendation: (a) — a live
-   epigraph must not name the dead; the full recast stays C28's.
+   epigraph must not name the dead; the full recast stays 028's.
 10. **STANDARD.md's own §What remains** — check off the law-book step as this charge
     lands (the standard's tail stays true).
 
 ## Done when:
 
 - Every site above edited; the `git mv` moves hold lineage (100% similarity).
-- Dead-word grep → 0, word-bounded (07-F1), on: DOCTRINE.md, templates/, the mantles
+- Dead-word grep → 0, word-bounded (007-F1), on: DOCTRINE.md, templates/, the mantles
   README, the-city.md, the global file — the graveyard's dead column is the list;
   quotes, birthplace addresses, and STANDARD.md's own graveyard table exempt.
 - Charters other than dispatcher.md byte-identical (`git diff` empty on them);
   dispatcher.md = banner + unchanged body.
 - `cd doctrine && bun test` still green; `doctrine lint ~/code/agents` shows no new
-  failure class (the C28 ⬡-cell red stands until C24 — named in the batch note).
+  failure class (the 028 ⬡-cell red stands until 024 — named in the batch note).
 - Both ⬡-forks ruled in-session (the global pointer line; the epigraph patch), the
   rulings recorded in the ledger entry.
 
 ## Out of scope
 
-The parser (C24). Working trees outside this repo (C25). The charters' content — the
-⬡-fence: Felix's drafts (C28). MAP's own prose (C25 sweeps it with the city; the
+The parser (024). Working trees outside this repo (025). The charters' content — the
+⬡-fence: Felix's drafts (028). MAP's own prose (025 sweeps it with the city; the
 deploy-batch cells are already in the standard's tongue). History — ledger bodies,
 closed charge docs, D-entry bodies (the history respell is DEFERRED, Felix's word).
 
@@ -134,14 +134,14 @@ closed charge docs, D-entry bodies (the history respell is DEFERRED, Felix's wor
   ("The Guild speaks a standard: one concept, one word — `canon/work/STANDARD.md`");
   the epigraph patched now, option (a): "Dispatchers tend" → "the dispatch tends" on
   the four unfenced carriers (MAP, DOCTRINE, the-city, the mantles README) — the six
-  charters keep the old verse under the ⬡-fence until C28's full recast.
-- **F2 — a second parser-gap red, pre-existing:** `ledger.baton` at the GA-13 tail —
-  its `Next: **ignite C23**` was appended after its own lint run, so its "baseline 1
-  hit" count predates its own closing entry. Same genus as the named C28 cell: the
-  blessed token ahead of the parser. This session's close hands `ignite C24`, so the
-  red stands — named on the batch note now, mortal at C24 (`ignite` is in its token
+  charters keep the old verse under the ⬡-fence until 028's full recast.
+- **F2 — a second parser-gap red, pre-existing:** `ledger.baton` at the grand-architect-13 tail —
+  its `Next: **ignite 023**` was appended after its own lint run, so its "baseline 1
+  hit" count predates its own closing entry. Same genus as the named 028 cell: the
+  blessed token ahead of the parser. This session's close hands `ignite 024`, so the
+  red stands — named on the batch note now, mortal at 024 (`ignite` is in its token
   list). An unnamed red is drift; a named one is a schedule.
-- **F3 — the grep adjudication rule, for C26's vocabulary arm:** mentions of the dead
+- **F3 — the grep adjudication rule, for 026's vocabulary arm:** mentions of the dead
   survive in the tombstone genre (the retired-synonyms line, graveyard pointers, "the
   Dispatcher mantle is dead"); quoted/backticked historical tokens survive as quotes
   (`fire`, "pending Felix countersign", `Open`/`Harvested`); universal-engineering
@@ -150,7 +150,7 @@ closed charge docs, D-entry bodies (the history respell is DEFERRED, Felix's wor
   use-vs-mention line drawn mechanically.
 - **F4 — the pending-mark respelled:** DOCTRINE §8 and the coda now prescribe
   "(proposed — pending ⬡✓)"; historical "pending Felix countersign" marks stand (the
-  record migration is DEFERRED, Felix's word). C24 parses both — ⬡✓ already in its
+  record migration is DEFERRED, Felix's word). 024 parses both — ⬡✓ already in its
   token list.
 - **F5 — fossils in the blessed standard, flagged not edited:** STANDARD.md §1 says
   "gate row" and §7 reserves "G (gate rows)" — drafting that predates the row→charge
@@ -161,7 +161,7 @@ closed charge docs, D-entry bodies (the history respell is DEFERRED, Felix's wor
   verb — "and lay the cornerstone." (the standard's own equation: lay the cornerstone
   = found). architect.md carries no founding verb to drift against (checked).
 - **F7 — MAP §7's coda pointer:** retargeted `plans/RIDER.md` → `plans/CODA.md` with
-  the move — a moved file's live pointer is the move's own hygiene (D33), not a C25
+  the move — a moved file's live pointer is the move's own hygiene (D33), not a 025
   sweep item; MAP prose otherwise untouched.
 
 ---
@@ -169,7 +169,7 @@ closed charge docs, D-entry bodies (the history respell is DEFERRED, Felix's wor
 ```
 You are the Grand Architect at fable-max.
 Wear ~/code/agents/canon/mantles/grand-architect.md,
-then read ~/code/agents/plans/21-standard.md (blessed law, D71)
-and execute the charge at ~/code/agents/plans/c23-law-book.md —
+then read ~/code/agents/plans/021-standard.md (blessed law, D71)
+and execute the charge at ~/code/agents/plans/023-law-book.md —
 the canon speaks the standard.
 ```

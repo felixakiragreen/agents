@@ -1,9 +1,9 @@
 # Quartermaster — the peer plane, a keel-note
 
 **Status: deliberation — nothing here is dispatchable, nothing ratified.** Written
-2026-08-08 by GA-06 at Felix's ask, while he deliberates; the peer-messaging
+2026-08-08 by grand-architect-06 at Felix's ask, while he deliberates; the peer-messaging
 experiment is PARKED (MAP §5). Facts below are dated to Claude Code ~2.1.226
-(12-F1's stream names) and WILL rot — re-verify before building on them.
+(012-F1's stream names) and WILL rot — re-verify before building on them.
 
 ## 1. The plane — what exists today
 
@@ -100,8 +100,8 @@ to canon by harvest if tools ever start parsing it.
 
 ## 7. The pain ledger (appended by sweeps)
 
-- 2026-08-20 (filed by Felix; swept 2026-08-22, GA-08): Felix lost sight of a
-  Dispatcher's in-flight background subagent (C35) — *"I don't like not being able to
+- 2026-08-20 (filed by Felix; swept 2026-08-22, grand-architect-08): Felix lost sight of a
+  Dispatcher's in-flight background subagent (035) — *"I don't like not being able to
   see what's active, because it's important for managing my session limits."* The
   Dispatcher's account was accurate on ask; the board carried IN FLIGHT; but the
   harness UI no longer renders background Agent-tool spawns, and the peer-plane

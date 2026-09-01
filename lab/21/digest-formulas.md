@@ -747,10 +747,10 @@
 - FC- · id prefix for a fold candidate reference in prose
 - batch letter-suffix · appending a letter to a batch number denotes a side-batch riding alongside/with…
 - pending-named · a compound status marking a leg/row as PENDING with the blocking reason named i…
-- GA-09 · short seat id form: GA plus zero-padded ordinal
+- grand-architect-09 · short seat id form: GA plus zero-padded ordinal
 - scope-arm / step-arm · the two named policy options for how liberally an armed flow may auto-authorize…
 - addendum · a continuation block appended to a ledger entry when the session outlives its c…
-- GA-11 · office abbreviation plus lineage ordinal naming one sitting
+- grand-architect-11 · office abbreviation plus lineage ordinal naming one sitting
 - ga-<n> · abbreviation pattern pairing a mantle initial with its session number (Grand Ar…
 - mentat-02 · window id under the Mentat mantle, zero-indexed like the Log's
 - delegated scope · the region of a decision Felix handed to the Architect to settle
@@ -820,7 +820,7 @@
 - né · marker recording an artifact's former name inline
 - — · em dash as the explicit empty-value token in a board cell
 - ← · left arrow as a margin annotation on a template line
-- (proposed — pending felix countersign) · the literal mark on an unratified D-entry, converted by countersign to ✓ Felix
+- (proposed — pending felix countersign) · the literal mark on an unratified D-entry, converted by countersign to ⬡✓
 - ⟨ ⟩ · angle-quote slot marking text a template instantiation must replace
 - ⟨ · **x:** ⟨y⟩⟩ · nested slot marking an optional whole clause, not just a value
 - *(append here)* · the italic in-file marker showing exactly where a section is written to

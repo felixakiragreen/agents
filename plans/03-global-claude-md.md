@@ -1,4 +1,4 @@
-# 03 — The Global CLAUDE.md
+# 003 — The Global CLAUDE.md
 
 **Mantle · Tier:** Architect · fable-max · **Gate:** 01 + 02 LANDED, 02's D-entries
 countersigned · **Status:** **LANDED** 2026-08-03 → `canon/CLAUDE.md`
@@ -110,5 +110,5 @@ law, mantled sessions only).
 ```
 You are an Architect at fable-max.
 Wear ~/code/agents/canon/mantles/architect.md, then
-read GENESIS.md and plans/03-global-claude-md.md, and execute the brief.
+read GENESIS.md and plans/003-global-claude-md.md, and execute the brief.
 ```

@@ -2,7 +2,7 @@
 
 Instantiated from the canon core (`canon/mantles/README.md`) — the fixed closing
 passage of every ignition's kickoff in this repo; nobody edits a kickoff beyond
-appending this. Re-instantiated 2026-08-31 (GA-19): flow-1 abandoned, batches run
+appending this. Re-instantiated 2026-08-31 (grand-architect-19): flow-1 abandoned, batches run
 serial — the bulletin and worktree sentences rest; the status-reconciliation line
 enters with D78's sitting.
 

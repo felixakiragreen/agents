@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
-# lab/08 — deterministic usage caches, written relative to now so the pacing deltas are
+# lab/008 — deterministic usage caches, written relative to now so the pacing deltas are
 # fixed numbers rather than whatever the wall clock says. The values reproduce the brief's
 # worked examples: session 42% used at 73% elapsed → +31; week 61% at 48% → −13.
 #   usage-seed.zsh <sandbox> [mixed|fresh]

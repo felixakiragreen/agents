@@ -1,4 +1,4 @@
-// lab/17 — the S arm's lint: schema validation over the twin. The C3 comparandum for
+// lab/017 — the S arm's lint: schema validation over the twin. The C3 comparandum for
 // doctrine/'s parser-as-lint. Refusal classes, all loud:
 //   json.syntax     — JSON.parse refusal (stray newline in string, missing comma, …)
 //   json.dupkey     — duplicate key in one object (raw-text scan; JSON.parse is silently

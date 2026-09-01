@@ -39,9 +39,9 @@ change arrives with an ancestor, or goes to find one:
 - **No ancestor** — no birthplace where it earned its keep — it is not
   canon yet: it runs inside one building first and returns with the
   citation when it survives contact. A foreign birthplace counts, cited
-  (charge 20's precedent: air includes other people's air).
+  (charge 020's precedent: air includes other people's air).
 - **An ancestor, served better** — the test is the issue, not the
-  behavior (amended at C28): does this serve the issue its ancestor was
+  behavior (amended at 028): does this serve the issue its ancestor was
   addressing, better? Then it is the same law, improved — amend the
   ancestor, cite it, mint nothing. Behavior may well change; that is the
   improvement working.
@@ -52,7 +52,7 @@ One ancestry governs both books — the canon's text and the decision
 register. The office checks before Felix must: a small canon is a
 holdable constitution.
 
-## The drafting laws — how canon is written (C28's forge)
+## The drafting laws — how canon is written (028's forge)
 
 - A trait enters a charter as the law that produces it, never as an
   ascription — told traits produce mimicry; instructed behavior produces
@@ -63,7 +63,7 @@ holdable constitution.
   every seat carries its explicit reason (F22, F23).
 
 The probe method that forged these — cold readers, scenario stacks, the
-grind — is on file where it was born (C28, F1–F30): an instrument, not a
+grind — is on file where it was born (028, F1–F30): an instrument, not a
 law.
 
 ## The two sweeps — at every summons

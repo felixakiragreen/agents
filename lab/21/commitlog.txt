@@ -4,13 +4,13 @@ f104d84 doctrine: entity totals, --guard, walk perf fold (19 items 15,18)
 04c9f0b doctrine: vocabulary + parser items 1-13,16-17 and migrate items 3-7 (19)
 0638be3 19 kickoff: amendment entered (items 16-18 + collision ruling), row IN FLIGHT
 0ae40d7 17 LANDED: storage experiment — RETAIN confirmed with numbers, line per-artifact; M4 struck (corpus moved mid-rep); baton fire 19
-6f6a84c lab/17: C2 battery run ×8 graded, meta recorded; C2 findings appended
+6f6a84c lab/017: C2 battery run ×8 graded, meta recorded; C2 findings appended
 b5dc9c6 ga-11 close: D63 2nd amendment + D69 countersigned, D70 withdrawn — doctrine applied, 19 holds behind 17
-b989367 lab/17: S-arm validator (controlled both ways); C1+C3 findings appended
-572c862 lab/17: C2 battery + mechanical grader, q1 stale-lead wart noted
-10294db lab/17: C1 replay harness + metrics, silent-damage probes
+b989367 lab/017: S-arm validator (controlled both ways); C1+C3 findings appended
+572c862 lab/017: C2 battery + mechanical grader, q1 stale-lead wart noted
+10294db lab/017: C1 replay harness + metrics, silent-damage probes
 d38d57e belvedere: cmux needsInput latch diagnosed (21 latched, 17 dead) — unstick+upstream ruled, P7 parked; feedback draft on the desk
-9f6a79a lab/17: arm-S twin built from normative parse, fidelity control green both ways
+9f6a79a lab/017: arm-S twin built from normative parse, fidelity control green both ways
 60377c1 belvedere: batch 6 BLESSED; mentat ruled — surface-title gap folded into B27, inbox drained; baton: fire the Dispatcher
 196fde8 belvedere: rulings applied — account knob ordered (B27), stale board folded into B23, three usage windows labeled
 f637734 belvedere: inbox — GA entry ruled+drained; mentat-00 filed as hypothesis
@@ -19,7 +19,7 @@ f637734 belvedere: inbox — GA entry ruled+drained; mentat-00 filed as hypothes
 daa0ca3 ga-11: ledger + log
 b0db710 ga-11: inbox swept — 29 ruled and drained, rulings relayed to belvedere
 954ffbd ga-11: D68-D70 proposed, board trued — wave closed 8/8, 17 dispatchable
-7c309ad ga-11: row 17 briefed (gate paid), rows 19-22 cut
+7c309ad ga-11: row 017 briefed (gate paid), rows 19-22 cut
 4d05a41 belvedere: ledger — the batch-6 cut sitting
 ce78e41 belvedere: inbox swept — seven entries ruled into the batch-6 cut
 a8dd096 belvedere: board — batch-6 rows + note, both fences riding it
@@ -296,11 +296,11 @@ afb983c agents: D63 grammar across MAP, LEDGER, DECISIONS, plans — 103 lint fa
 888f9e4 belvedere: D63 grammar — ledger tier slots, board depends resolved to row ids
 7f7820f belvedere: molt folded — P1 re-cut with D67 census, gates cleared, inbox swept
 f3cd47c D63 unrecorded amendment countersigned, marks trued
-180cab5 row 16 ruled (F1/F2, unrecorded pending), row 18 cut — the great re-cut wave
+180cab5 row 016 ruled (F1/F2, unrecorded pending), row 018 cut — the great re-cut wave
 1de48e1 16: baton + board-doc detector fixes, register test; ledger entry, evidence trued
-6b87c4e MAP: row 16 LANDED, doctrine/ in the local physics
+6b87c4e MAP: row 016 LANDED, doctrine/ in the local physics
 22b2f20 16: findings + DoD evidence, status LANDED
-10a474c doctrine: README + glass-import proof in lab/16
+10a474c doctrine: README + glass-import proof in lab/016
 2606966 doctrine: CLI, control fixtures, pre-D63 migrate inputs, 20-test suite
 01ed3c5 doctrine: the library — grammar, five parsers, building discovery, lint, migrate
 c4b8e23 ledger + log: the molt sitting
@@ -321,31 +321,31 @@ e53de56 belvedere venue ruled in-repo: keel §11 amended, ledger addendum, SAPHO
 d42a149 SAPHO: mentat-01 coda — the ambush that didn't happen
 a5cd394 SAPHO: mentat-01 — turnout sitting, fold v1
 51d5820 SAPHO coda: red is the complement of the first green
-06bd456 ledger + GA log: GA-09 closes, mentat-00 opens
+06bd456 ledger + GA log: grand-architect-09 closes, mentat-00 opens
 2f093dc plans/night-shift: the Steward keel-note
-9074c2c mentat woven: MAP, the-city, load-map, summon preset (lab/08 200 green)
+9074c2c mentat woven: MAP, the-city, load-map, summon preset (lab/008 200 green)
 972d2d1 mentat: sixth mantle — charter, D62, SAPHO
 cb7e9d1 felix: agent visibility
 66d4c40 14 ruled: F1/F2 accepted, ledger appended
-5cc783e row 14: refusal arm for a malformed campaign list — 200 green
-0ba8ec3 row 14 close: board + ledger
+5cc783e row 014: refusal arm for a malformed campaign list — 200 green
+0ba8ec3 row 014 close: board + ledger
 ecef826 plans/14: DoD evidenced, findings F1-F5, LANDED bar Felix's smoke
 ecba256 summon README: the theater cycle, log/theaters, the derived harness fixtures
-6092663 lab/08: theater-cycle arms, sticky pty drive, and the 13-F1 guard — the harness derives its preset fixtures
+6092663 lab/008: theater-cycle arms, sticky pty drive, and the 013-F1 guard — the harness derives its preset fixtures
 70c96cf summon: the theater cycle — .summon-theaters, reserved t, sticky per fire directory
-1c68422 14 cut: theater cycle — .summon-theaters, reserved t, sticky per dir; inherits 13-F1 guard
-45078f5 13: smoke ✓ Felix, row fully closed
+1c68422 14 cut: theater cycle — .summon-theaters, reserved t, sticky per dir; inherits 013-F1 guard
+45078f5 13: smoke ⬡✓, row fully closed
 43a4026 board trued: 13 landed, rulings recorded, 11 inherits
 7a03c87 GA board + ledger: 13 landed, Felix's smoke pending
 3b0100f 13: DoD evidenced, findings F1-F9 filed — LANDED bar Felix's smoke
 0d94265 summon README: the name-stamp — scheme, ordinal, bump keys, resume handle
-69cd986 lab/08: the name-stamp arms — fixture-log ordinals, the bump, one pass at open
+69cd986 lab/008: the name-stamp arms — fixture-log ordinals, the bump, one pass at open
 0cf4f0f summon: stamp every fire with its lineage name — <mantle>-<theater>-<NN>
 7936cd4 13: GA drops theater, one office; ISSUES: redundancy over blind consistency
 439c02e 13 amended: auto-ordinal name-stamp, account segment out
-dac8b98 GA-08 close: ledger + log
+dac8b98 grand-architect-08 close: ledger + log
 6899d08 D61: the tending default — Dispatcher-tended by default, Felix-tended needs a named reason
-10a7bd5 sweep GA-08: sixteen ruled, inbox drained
+10a7bd5 sweep grand-architect-08: sixteen ruled, inbox drained
 f47ab89 D60: GENESIS becomes MAP — mv + live pointers; quartermaster pain ledger opened
 0891788 D53-D59 harvest wave + clarifications 2-4: inbox law, pre-auth, venues, verdicts, amendments, links, bun; baton shape, YAML unwrap, shim tense
 eba9cc9 felix: the days issues
@@ -367,16 +367,16 @@ b47e48e File arborist field report: rider's worktree bulletin write is harness-b
 94070ca quartermaster: the peer plane written down; ledger addendum + log coda
 b1b9d27 12: dispatch guard landed — DoD evidence, findings, board, ledger
 e9db902 guard: README + verbatim-reason assertion fix
-219226f guard: dispatch guard hook + fragment, lab/12 harness
+219226f guard: dispatch guard hook + fragment, lab/012 harness
 1e71c56 the second-coat sitting: ledger + log
 2177f89 ISSUES: first sweep drains the inbox (D49)
-c3e7662 D46-49: baton shape, verbatim tier, merge-gate laws, ISSUES inbox; row 12 cut
+c3e7662 D46-49: baton shape, verbatim tier, merge-gate laws, ISSUES inbox; row 012 cut
 ba90267 issues: simmy batch-11 mis-staffing ruled - B16+G16 stand, chain resumes
 4143d94 issues: node-param G2 dev-push incident + canon-fold candidates
 e1e8f7e felix: fix log ordering
 e701c71 the handoff sitting: ledger + log
 2a964fc D42-45: the baton, serial chains, gates are rows, the summons line
-ab4cac1 spawn detached via setsid: forked-from-zle wedges the machine two ways — 10-F10
+ab4cac1 spawn detached via setsid: forked-from-zle wedges the machine two ways — 010-F10
 247eb05 flip colors because my ANSI is unique
 d420a16 swatch: a space between ● and the key, so they stop colliding
 369aeac 11 cut OPEN: v1.3 live table spec, unblessed — await-mode tick + precmd warm-keeper
@@ -385,7 +385,7 @@ d420a16 swatch: a space between ● and the key, so they stop colliding
 e485de6 wrap: no tty means COLUMNS=0, not unset — guard the width; F7/F8 filed
 1b71c00 10: DoD evidenced, 130 assertions green; findings F1-F6
 00639a8 README: the usage table, the pacing delta, the trust palette, the E2 caveats
-ab7720f lab/08: usage arms — pacing edges, parser, shimmed fetch, token hygiene, spawn, byte-identity; fixtures trued to the builder preset
+ab7720f lab/008: usage arms — pacing edges, parser, shimmed fetch, token hygiene, spawn, byte-identity; fixtures trued to the builder preset
 245d818 usage panel: live per-account quota with pacing deltas, fetched from the OAuth endpoint
 4a51845 salvage complete: three sibling logs live, ledger + log coda
 f53c72c E2 settled: OAuth usage endpoint is the source, keychain service derivable from config dir

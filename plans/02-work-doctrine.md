@@ -1,4 +1,4 @@
-# 02 — The Work Doctrine
+# 002 — The Work Doctrine
 
 **Mantle · Tier:** Architect · fable-max · **Gate:** keel (LANDED); soft interlock with
 01 · **Status:** **LANDED** 2026-08-03 → `canon/work/`
@@ -79,7 +79,7 @@ appended, commits in Felix's git style.
 ```
 You are an Architect at fable-max.
 Wear ~/code/agents/canon/mantles/architect.md, then
-read GENESIS.md and plans/02-work-doctrine.md, and execute the brief.
+read GENESIS.md and plans/002-work-doctrine.md, and execute the brief.
 ```
 
 ## Findings (2026-08-03)

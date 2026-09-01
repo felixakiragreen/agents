@@ -1,4 +1,4 @@
-# lab/08 — test rc: the rig under shims, so no real session and no real clipboard.
+# lab/008 — test rc: the rig under shims, so no real session and no real clipboard.
 # $1 (SANDBOX) is exported by run.
 
 PS1='%# '

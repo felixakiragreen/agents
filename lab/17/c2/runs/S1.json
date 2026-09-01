@@ -12,7 +12,7 @@
 	},
 	"q9": {
 		"state": "OPEN",
-		"reason": "its only gate is \"blessing\" and that Felix-gate stands unpaid — Felix deferred row 11 on 2026-08-08 and nothing dispatches until his word (deferred indefinitely)"
+		"reason": "its only gate is \"blessing\" and that Felix-gate stands unpaid — Felix deferred row 011 on 2026-08-08 and nothing dispatches until his word (deferred indefinitely)"
 	},
 	"q10": {
 		"mantle": "Dispatcher",
@@ -42,7 +42,7 @@
 	"w3": {
 		"id": "22",
 		"work": "summon rig — the argv summons: the summons composes into the prompt slot, colour goes venue-native (P2 §S3/§T4: paste splits at the first blank line — the 359-fire gap)",
-		"workDoc": "plans/22-summon-argv.md",
+		"workDoc": "plans/022-summon-argv.md",
 		"dependsOn": [],
 		"gates": ["blessing"],
 		"mantle": "Builder",

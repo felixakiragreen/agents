@@ -1,11 +1,11 @@
-# C27 — the glass
+# 027 — the glass
 
-**Status:** LANDED 2026-08-29 — ⬡ visual pass PENDING, rides here as the annotation (spec §5) · **Depends on:** C24 · **Staffing:** Architect · fable-high
+**Status:** LANDED 2026-08-29 — ⬡ visual pass PENDING, rides here as the annotation (spec §5) · **Depends on:** 024 · **Staffing:** Architect · fable-high
 
 ## Mission
 
 Belvedere speaks the standard — the deck's copy, tokens, and parse intake. The work
-runs on Belvedere's own board; this charge is the pointer (charge 15's shape: the
+runs on Belvedere's own board; this charge is the pointer (charge 015's shape: the
 campaign runs at home, canon carries one line). A heads-up is already in
 `belvedere/ISSUES.md` (2026-08-29).
 
@@ -13,7 +13,7 @@ campaign runs at home, canon carries one line). A heads-up is already in
 
 - `canon/work/STANDARD.md` — whole; especially §1 (⬡, the Felix-queue), §3 (baton
   shapes single/batch/fork; ignite), §7 (punctuation and marks).
-- C24's grammar — the glass imports the library (D65); the tokens arrive by import,
+- 024's grammar — the glass imports the library (D65); the tokens arrive by import,
   the renders by this charge.
 - [belvedere/README.md](../belvedere/README.md) — their board and working agreements;
   this charge doc.
@@ -22,20 +22,20 @@ campaign runs at home, canon carries one line). A heads-up is already in
 
 Belvedere's Architect lays the local rows; this map is the commission's content:
 
-1. **Grammar intake:** the deck consumes C24's tokens — `⬡-gate` staffing renders his
+1. **Grammar intake:** the deck consumes 024's tokens — `⬡-gate` staffing renders his
    card (D63a's law, new token), DEFERRED annotations, C‹n› ids, `⬡✓` marks; baton
    classification accepts `ignite` instruments (and historical `fire`).
 2. **Render vocabulary:** the needs-you queue is the **⬡-queue** by name; buttons,
    labels, and copy speak ignite · charge · batch · `Done when:` · DEFERRED; "glass"
    as a self-name gives way to **Belvedere / the deck** in their own copy (the
    graveyard).
-3. Their docs' live surfaces are already swept (C25 — the batch is serial); this
+3. Their docs' live surfaces are already swept (025 — the batch is serial); this
    charge is code, renders, and whatever doc lines the code work itself touches.
 4. **Local lay:** their Architect lays the rows on the Belvedere board and runs them
-   per their own agreements; canon's C27 reconciles LANDED when their board shows the
+   per their own agreements; canon's 027 reconciles LANDED when their board shows the
    molt landed.
 5. **⬡ at the end:** a visual pass — the deck is the sovereign's instrument; his eyes
-   accept it (charge 10's precedent). The pass rides this charge's Status as an
+   accept it (charge 010's precedent). The pass rides this charge's Status as an
    annotation when given.
 
 ## Done when:
@@ -74,7 +74,7 @@ as the batch's amendment). Belvedere declared the C‹n› namespace at this bat
    (⬡-gate card ≡ Felix-gate card; `ignite C3` baton ≡ `fire 17` baton; DEFERRED;
    the ⬡✓ veto). The live corpus parses clean under the deck's imported parser
    (`doctrine lint ~/code/agents`: 77 rows fully typed, 0 failures — ⬡-gate staffing
-   on C28, C‹n› ids on both boards). The live-eyes proof is the ⬡ pass itself.
+   on 028, C‹n› ids on both boards). The live-eyes proof is the ⬡ pass itself.
 3. **The visual pass:** pending — **the live deck process predates the molt, so the
    pass starts with a relaunch.**
 
@@ -84,7 +84,7 @@ as the batch's amendment). Belvedere declared the C‹n› namespace at this bat
   same meaning — locked by the pair); C‹n› ids decode, and the keyword form gained
   `charge N` / `charge C5` beside `row N` (uppercase id only — `charge c5` is prose,
   their F4); baton classification accepts `ignite` beside historical `fire`, and the
-  corpus's own `wave` is still read as a batch; DEFERRED renders. **The ⬡✓ veto (C24
+  corpus's own `wave` is still read as a batch; DEFERRED renders. **The ⬡✓ veto (024
   F1) is inherited by construction:** no file in `glass/` contains the mark at all —
   resolution is the parser's field, and a source-grep test fails the moment anyone
   adds a glass-side read of it.
@@ -96,12 +96,12 @@ as the batch's amendment). Belvedere declared the C‹n› namespace at this bat
   day: *a string a human reads molts; a string two machines agree on does not* —
   wire kinds, CSS classes, run-log tokens (`fired`/`armed`) and `/hands/fire` stand
   as tool vocabulary (standard §3).
-- **C24 F3 taken:** `BoardRow.felixGate` → `hexGate`, `Decision.ratified` →
+- **024-F3 taken:** `BoardRow.felixGate` → `hexGate`, `Decision.ratified` →
   `blessed` — doctrine and every glass call site, both suites green.
 
 ### Escalations for the Grand Architect — three, all canon-shaped
 
-1. **The type gate was RED at HEAD since canon C26, and nothing watched.** C26
+1. **The type gate was RED at HEAD since canon 026, and nothing watched.** 026
    widened `doctrine/`'s `Building.files` (`prose`) and `Fail` (`severity`) and never
    re-ran the gate the deck owns; `bun test` saw none of it (eight type errors,
    invisible at 650/1 throughout). Their C2 repaired it in its own commit
@@ -114,12 +114,12 @@ as the batch's amendment). Belvedere declared the C‹n› namespace at this bat
    `Dispatcher` — rightly, as the historical ledgers' grammar — but the deck's
    composer draws its chips from the same list and so offers a dead mantle for new
    sessions. The ask: two lists (what parses vs what a composer may offer), canon's
-   to mint — likely charge 20's neighborhood.
+   to mint — likely charge 020's neighborhood.
 3. **`classifyBaton` knows the Felix-holder only by the literal word "Felix".** A
    Next clause addressed `⬡` alone — the standard's own benchmark sentence, *"Baton
    — ⬡ → Ignite the distillation session."* — classifies as prose and lints as a
    dropped baton (found live, by this session's own ledger entry; the entry writes
-   both marks as the workaround). A C24 gap: `⬡` is Felix's mondokoro (standard §7)
+   both marks as the workaround). A 024 gap: `⬡` is Felix's mondokoro (standard §7)
    and should classify the holder as the word does.
 
 **Commits** (all `master`, belvedere/): `38c2297` the lay · `68b953b`+`ba2ed0b` C1 ·
@@ -137,6 +137,6 @@ You are an Architect at fable-high.
 Wear ~/code/agents/canon/mantles/architect.md,
 then read ~/code/agents/canon/work/STANDARD.md (blessed law, D71),
 ~/code/agents/belvedere/README.md, and the charge at
-~/code/agents/plans/c27-glass.md — lay the glass's vocabulary molt
+~/code/agents/plans/027-glass.md — lay the glass's vocabulary molt
 on the Belvedere board, then run it.
 ```

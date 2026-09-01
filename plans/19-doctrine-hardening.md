@@ -1,4 +1,4 @@
-# 19 — doctrine v1.1: the wave's residue
+# 019 — doctrine v1.1: the wave's residue
 
 **Status:** LANDED 2026-08-28 — all 18 items + the seam export built to DoD; one
 escalation standing (bob's 3 inline ledger heads, item 10's new visibility — see
@@ -14,15 +14,15 @@ spacex) is NOT this row — that continuation wave is cut when this row lands.
 
 ## Inputs — read before working
 
-- [Row 16's findings](16-doctrine-linter.md) — the tool's own laws (round-trip = 
+- [Row 016's findings](016-doctrine-linter.md) — the tool's own laws (round-trip = 
   declared-changes + identical-otherwise + byte assertion; the register rule).
-- [Row 18's findings](18-great-recut.md) — the wave's batch report, escalations 1–14,
+- [Row 018's findings](018-great-recut.md) — the wave's batch report, escalations 1–14,
   and §18c/§18f/§18g/§18h fixtures.
 - [D63 (as amended 2026-08-28) + D69](../DECISIONS.md) — the typed-absence
   vocabulary and the PARKED annotation, verbatim; the tool must accept exactly
   these tokens, nothing looser.
 - Drained inbox fixtures folded below (canon ISSUES entries of 2026-08-26/27/28,
-  drained at GA-11 — git keeps the bytes).
+  drained at grand-architect-11 — git keeps the bytes).
 
 ## The spec — fifteen items, each with its done-when
 
@@ -67,7 +67,7 @@ spacex) is NOT this row — that continuation wave is cut when this row lands.
    `Next:` labelled body lines (whiteboardy ×96). Bold the head, hoist the row id,
    `—` replaces the `Changed:` label; the parenthetical's non-row-id remainder goes to
    the body untouched (D63f). Handle heads that wrap across lines (three live cases —
-   row 16's parked note comes due). Done when: `doctrine migrate ~/code/whiteboardy`
+   row 016's parked note comes due). Done when: `doctrine migrate ~/code/whiteboardy`
    dry-run covers the 96 and the ledger's post-migrate lint (dry-run projection) is 0.
 6. **`decisionHead` second variant.** `- **D1 (2026-08-13, Felix + Architect):** <body>`
    (bold wraps id + attribution, no separate title) → `- **D1** (2026-08-13, Felix +
@@ -141,11 +141,11 @@ spacex) is NOT this row — that continuation wave is cut when this row lands.
 hand-mirror of `discover()`'s body (B3's ask; the deep-equal pin in
 `register.test.ts` becomes an import).
 
-### Amendment — row 17's harvest: the silence family (entered 2026-08-28, Felix's pen at the row-19 kickoff)
+### Amendment — row 017's harvest: the silence family (entered 2026-08-28, Felix's pen at the row-19 kickoff)
 
 16. **Merged-ledger-entry detector (missing `---`).** Deleting one separator merges
     two entries and the lint gets QUIETER: 53 → 52 entries, fails 26 → 25 — the
-    swallowed entry took its own tier-fail down with it (row 17 C1, probe with
+    swallowed entry took its own tier-fail down with it (row 017 C1, probe with
     control; snappy's ~38 missing separators are this class at scale). A non-first
     line of a ledger block that matches the D63f head grammar at line start
     (`**<ISO date> · …** —`) is a failure, `ledger.merged`, never body prose. Done
@@ -154,11 +154,11 @@ hand-mirror of `discover()`'s body (B3's ask; the deep-equal pin in
     line merely mentions a bold date does not trip it.
 17. **Stale-lead rule.** A status cell may lead with a state its own annotation has
     outrun: MAP rows 13/14 lead OPEN while narrating `→ **LANDED 2026-08-22/24**`
-    — the mechanical parse called row 13 dispatchable, and 2 of 3 structured-arm
+    — the mechanical parse called row 013 dispatchable, and 2 of 3 structured-arm
     C2 reps mis-answered dispatchability off the faithfully-carried stale token
-    (row 17 C2). A leading OPEN/IN FLIGHT whose annotation carries the
+    (row 017 C2). A leading OPEN/IN FLIGHT whose annotation carries the
     this-row-landed idiom is a failure, `board.stale-lead`. The discriminator is
-    the item's real work: row 11's annotation ("13 LANDED 2026-08-22, so the
+    the item's real work: row 011's annotation ("13 LANDED 2026-08-22, so the
     rebase is real") mentions ANOTHER row's landing and must pass. Done when: a
     rows-13/14 fixture fails, a row-11 fixture passes, and the fixed cells' shape
     (state leads, history in annotation) is stated for the continuation wave to
@@ -172,7 +172,7 @@ hand-mirror of `discover()`'s body (B3's ask; the deep-equal pin in
     intentional deletions override by running without the flag, visibly. Done
     when: the item-9 blank-line fixture and the item-16 merged-entry fixture both
     trip the guard against their pre-damage state, and a pure append trips
-    nothing. Per-building pre-commit adoption is NOT this row (row 12's precedent:
+    nothing. Per-building pre-commit adoption is NOT this row (row 012's precedent:
     adoption anywhere is its own row) — this row ships the instrument.
 
 **DoD 1 extension:** items 16–18's fixtures counted with the rest; item 18
@@ -200,8 +200,8 @@ fixed under 18h's residue precedent, each named in findings.
 - Writing to any building's docs — the continuation wave applies; this row proves on
   fixtures and dry runs.
 - The cross-**building** Depends-on form (`theseus:T12a` vs gate rows) — a grammar
-  question routed to row 20; the linter keeps failing genuine cross-building ids.
-- `Baton.kind` / holder / branch / holds fields — row 17's evidence, row 20's design.
+  question routed to row 020; the linter keeps failing genuine cross-building ids.
+- `Baton.kind` / holder / branch / holds fields — row 017's evidence, row 020's design.
 - Any `canon/` edit.
 
 ## Findings
@@ -270,7 +270,7 @@ status.parked · clause dialect gate · b14 fixture + inbox filing.
   zero false positives elsewhere; fenced quotes and mid-line bold dates exempt.
 - **17 (stale-lead):** the discriminator is bold-opened or arrow-led
   `LANDED/KILLED <ISO date>` in an OPEN/IN FLIGHT cell; a landing attributed to a
-  row id (`13 LANDED 2026-08-22`, row 11's cell) passes. **Corpus measurement: 2
+  row id (`13 LANDED 2026-08-22`, row 011's cell) passes. **Corpus measurement: 2
   real trips (MAP rows 13/14), 0 false trips across 469 rows.** The fixed shape for
   the wave: `**LANDED <date> — cut <date>** …` — the state leads with the truth,
   history rides the annotation.
@@ -331,13 +331,13 @@ building, which this row's fence reserves for the continuation wave.
   (blessed)`) that D63e independently forbids: the id now RESOLVES into the graph
   while the segment correctly keeps its lint fail for the wave's hand. Unknown ids
   (X8/W1/R1/B1 — rows on no board) still fail, as they must.
-- **cornerizer PARKED:** 3 `status.parked` edits respell C8/C22/C34 to
+- **cornerizer PARKED:** 3 `status.parked` edits respell C8/C22/034 to
   `OPEN — PARKED …`, board 5 → 2, round-trip []; the residual pair is `staffed
   when unparked` → `unstaffed`, D63's own birthplace citation — the wave's respell.
 - **spacex decisions:** both files 7 `decision.head` → **0**, decisions 0 → 7 per
   file, titles authored: **0**, round-trip [].
 - **snappy (bonus ticket):** `ledger.merged` ×28 pinpoints every missing separator
-  by line — the repair sanctioned at GA-11 is now mechanical to verify.
+  by line — the repair sanctioned at grand-architect-11 is now mechanical to verify.
 
 **5. Perf:** §A item 15 — ~8.8 s → ~4.0 s warm (2.2×), register byte-identical.
 
@@ -391,5 +391,5 @@ whiteboardy's 102 `ledger.head` fall to the wave's re-fire (projection above).
 ```
 You are a Builder at opus-high.
 Wear ~/code/agents/canon/mantles/builder.md,
-then read ~/code/agents/plans/19-doctrine-hardening.md and execute the order.
+then read ~/code/agents/plans/019-doctrine-hardening.md and execute the order.
 ```

@@ -1,6 +1,6 @@
-# 11 — summon rig v1.3: the live table
+# 011 — summon rig v1.3: the live table
 
-**Status:** KILLED 2026-08-31 (⬡, at the GA-19 desk) — deferred since 2026-08-08
+**Status:** KILLED 2026-08-31 (⬡, at the grand-architect-19 desk) — deferred since 2026-08-08
 with nobody waiting; killed with C22 at the rig re-scope: three weeks dormant, its
 blessing gate never paid, and the panel it polishes works today. The lay's rulings
 and the rebase notes below stay recorded for any re-lay. ·
@@ -8,11 +8,11 @@ and the rebase notes below stay recorded for any re-lay. ·
 **Staffing:** Builder · opus-high (confirmed at the lay — same trap class as charges
 08–10: zle, detached spawns, harness fixtures) · **Blessed:** ⟨Architect reviewed and
 laid 2026-08-08 — rulings in *The lay* below, spawn architecture reconciled with
-10-F10. **Felix's blessing PENDING; no build before it.** Deferred by Felix 2026-08-08
-— charge 13 goes first; this charge rebases on it when unshelved.⟩
+010-F10. **Felix's blessing PENDING; no build before it.** Deferred by Felix 2026-08-08
+— charge 013 goes first; this charge rebases on it when unshelved.⟩
 
 > Provenance, honestly: this document is a Builder's design, not an Architect's. Felix
-> asked how to fix the staleness he saw at charge 10's visual pass, chose "write the brief,
+> asked how to fix the staleness he saw at charge 010's visual pass, chose "write the brief,
 > don't build it", and this is that. Everything measured is marked as such; everything
 > proposed is the author's judgment and is the Architect's to overrule.
 
@@ -26,15 +26,15 @@ strictly what v1.2 does today, with no added wakeups.
 
 ## Inputs — read before building
 
-- `plans/10-summon-rig-v12-usage.md` — the whole E2 finding (the source, the keychain
+- `plans/010-summon-rig-v12-usage.md` — the whole E2 finding (the source, the keychain
   derivation, the security law) and F1/F7/F9. **The security law of 10 binds this charge
   unchanged**: tokens never in argv, never in a cache or log; the rig never refreshes or
   rotates a token.
-- `plans/09-summon-rig-v11.md` — **F3** (`zle -I` abandons the display and leaves one stale
+- `plans/009-summon-rig-v11.md` — **F3** (`zle -I` abandons the display and leaves one stale
   panel per keystroke; the panel must repaint with `zle -R`) and **F9** (the pty cannot
   synchronize on panel content).
-- The code: `summon/summon.zsh` (`_summon_widget`, `_summon_usage_*`), `lab/08/run`.
-- `MAP.md` charge 11; `canon/work/DOCTRINE.md` for findings law.
+- The code: `summon/summon.zsh` (`_summon_widget`, `_summon_usage_*`), `lab/008/run`.
+- `MAP.md` charge 011; `canon/work/DOCTRINE.md` for findings law.
 
 ## The problem, stated precisely
 
@@ -58,7 +58,7 @@ cannot have changed. Freshness is won *before* the panel opens (§1), not during
 The draft was sound; four forks it left open are ruled here so the Builder meets none
 of them:
 
-1. **Spawn architecture (10-F10's four options): option (i) — the setsid-detached
+1. **Spawn architecture (010-F10's four options): option (i) — the setsid-detached
    `summon-fetch` worker is the rig's ONE spawn shape, both spawn sites.** The
    `precmd` warm-keeper and the panel-open spawn both exec the landed worker
    (`perl -MPOSIX` fork+setsid+exec); the `{ … } &!` block form is banned by F10's
@@ -72,7 +72,7 @@ of them:
    nothing ever refetches — the exact defect this charge exists to fix. The perl
    dependency is accepted: `security` already binds the rig to macOS, and
    `/usr/bin/perl` ships with it.
-2. **10-F1 ruled, inherited (per §4):** 2.562 ms per keystroke is accepted as landed.
+2. **010-F1 ruled, inherited (per §4):** 2.562 ms per keystroke is accepted as landed.
    The latency clause for this charge is a budget, not "unchanged": **per-keystroke
    ≤ 5 ms measured, fork-free asserted**; a tick costs one paint against the same
    budget.
@@ -91,7 +91,7 @@ of them:
 
 - A `precmd` hook: on every prompt, if any account's cache is older than
   `_summon_usage_warm` (**300 s**), spawn one detached background fetch for that
-  account — the same setsid-detached `summon-fetch` worker the panel spawns (10-F10's
+  account — the same setsid-detached `summon-fetch` worker the panel spawns (010-F10's
   landed shape; the `&!` block form is banned — see *The lay*, ruling 1).
 - **The check must be fork-free**: `fetched_at` already lives inside each cache and
   `_summon_usage_load` reads it with `$(<file)`, no fork. A prompt hook that forks on every
@@ -128,21 +128,21 @@ of them:
   and must not count against the `n < 32` runaway guard — otherwise a panel left open
   closes itself after ~6 s and every telemetry line starts lying about what Felix pressed.
   This is the single most likely way to get this charge wrong.
-- **`zle -R`, never `zle -I`** (09-F3): `zle -I` abandons the display and leaves one stale
+- **`zle -R`, never `zle -I`** (009-F3): `zle -I` abandons the display and leaves one stale
   panel on screen per repaint. At 5 repaints a second that is a screen full of garbage.
 
 ### 4. Latency law — inherited from 08/09/10, one clause amended
 
 - Zero forks in the keystroke loop, ticks included: a tick re-reads caches with `$(<file)`
   and rebuilds the panel, both fork-free. The only forks remain the disowned fetch spawns.
-- **The amended clause — ruled at the lay:** 10-F1 is accepted (see *The lay*,
+- **The amended clause — ruled at the lay:** 010-F1 is accepted (see *The lay*,
   ruling 2); the clause is a budget: **per-keystroke ≤ 5 ms measured, fork-free
   asserted**. A tick costs one paint, so at 0.2 s that is ~1.3% of one core **while
   awaiting only** (≤ 5 s per panel open). Re-measure and paste the numbers.
 
 ## Done when:
 
-Evidence: `lab/08/run` extended, green, no regressions; the charge's numbers pasted in.
+Evidence: `lab/008/run` extended, green, no regressions; the charge's numbers pasted in.
 
 - [ ] Warm caches ⇒ **the panel loop is unchanged**: no tick, no timed read, no repaint
       that nobody typed for — asserted, not argued
@@ -158,10 +158,10 @@ Evidence: `lab/08/run` extended, green, no regressions; the charge's numbers pas
       forks nothing when it decides not to fetch; registered via `add-zsh-hook` and
       removable
 - [ ] No `log/usage/` ⇒ panel **and** prompt byte-identical to v1.2 (the v1.2 render is the
-      reference, as v1.1 was for charge 10)
+      reference, as v1.1 was for charge 010)
 - [ ] Latencies re-measured: per-keystroke, per-tick, per-prompt-hook, panel-open —
       per-keystroke inside the ≤ 5 ms budget
-- [ ] **No stray processes** (10-F10's regression guard): a live pty run that opens the
+- [ ] **No stray processes** (010-F10's regression guard): a live pty run that opens the
       panel on cold caches, sits through await-mode, and closes leaves zero worker or
       shell processes behind — asserted, not eyeballed
 - [ ] **One spawn shape**: both spawn sites — `precmd` and panel-open — exec the
@@ -175,7 +175,7 @@ Evidence: `lab/08/run` extended, green, no regressions; the charge's numbers pas
 - **Polling the endpoint on a timer while the panel is open** — rejected above, with the
   rate-limit evidence. Not deferred: argued and killed.
 - Any change to the fetch itself, the normalization, the cache format, or the keychain
-  derivation — charge 10 landed those (in their post-F10-hotfix shape) and they are not
+  derivation — charge 010 landed those (in their post-F10-hotfix shape) and they are not
   reopened here. The **spawn sites** are this charge's to build per *The lay*, ruling 1 —
   that is the one place the old "any change to the fetch" line is redrawn.
 - Token refresh, re-auth, or any write to any credential store — forbidden, inherited.
@@ -183,17 +183,17 @@ Evidence: `lab/08/run` extended, green, no regressions; the charge's numbers pas
 - `launchd`/`cron` as the warm-keeper. A prompt hook needs no install step, no plist and
   no daemon to debug, and Felix's terminals draw prompts all day. Revisit only if the
   prompt hook proves insufficient — with evidence.
-- Reset countdowns, quota-at-ignition telemetry — still DEFERRED from charge 10.
+- Reset countdowns, quota-at-ignition telemetry — still DEFERRED from charge 010.
 
 ## Findings
 
 *(append here — deviations from spec, discoveries, parked adjacents)*
 
 **2026-08-07, post-draft, pre-bless — this spec is already stale where it touches the
-spawn, and the Architect must reconcile it with [10-F10](10-summon-rig-v12-usage.md)
+spawn, and the Architect must reconcile it with [010-F10](010-summon-rig-v12-usage.md)
 before cutting.** The same evening this brief was drafted, v1.2's panel-open spawn was
 found wedging the machine — two distinct mechanisms, forensics and the landed hotfix
-(a setsid-detached `summon-fetch` worker) are all in 10-F10. Consequences for this charge:
+(a setsid-detached `summon-fetch` worker) are all in 010-F10. Consequences for this charge:
 §1's "the same `_summon_usage_fetch` the panel already spawns" now means *the detached
 worker*, not a `&!` block — the block shape is banned by F10's invariant; §Out of
 scope's "any change to the fetch" is already violated by the hotfix and the line should
@@ -214,6 +214,6 @@ proposes may itself change the answer, since precmd runs outside zle.
 You are a Builder at opus-high.
 Enter by the door — read ~/code/agents/canon/GUILD.md,
 wear ~/code/agents/canon/mantles/builder.md,
-then read ~/code/agents/MAP.md §5 and ~/code/agents/plans/11-summon-rig-v13-live-refresh.md,
+then read ~/code/agents/MAP.md §5 and ~/code/agents/plans/011-summon-rig-v13-live-refresh.md,
 and build it to its `Done when:`.
 ```

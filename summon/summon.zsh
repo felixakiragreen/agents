@@ -143,7 +143,7 @@ _summon_state_save() {
 # the default, then every row whose Root sits under it, in file order. The stamp is the row's
 # **Name**, so manny stamps `manny` from a checkout directory called `user-manual`.
 #
-# An unregistered directory stamps its own name, exactly as row 13 had it. cwd only — there
+# An unregistered directory stamps its own name, exactly as row 013 had it. cwd only — there
 # is no parent walk: Claude Code keys history, `/resume` and auto-memory to the launch cwd,
 # so deep-firing a subdirectory would fragment the project silo; and eject cannot do this job
 # at all, since a hand-edited name never reaches the lineage counter.
@@ -183,7 +183,7 @@ _summon_stamp_sticky_save() {
 # markdown grammar — the rows after the separator line, until the pipes stop — so the prose
 # above it needs no rule of its own. Refuses rather than guesses, because a stamp becomes
 # argv — `-n <mantle>-<stamp>-NN` — so a Name carrying a space would split the launch in two,
-# and one starting with `-` would make a bare launch's stamp read as a flag (13-F9's hazard,
+# and one starting with `-` would make a bare launch's stamp read as a flag (013-F9's hazard,
 # arriving from the register this time). No register at all is the fallback, not an error:
 # the rig degrades to the directory's own name rather than refusing to fire.
 _summon_stamps_load() {
@@ -234,7 +234,7 @@ _summon_stamps_load() {
 	return 0
 }
 
-# the one keystroke: forward through the list, wrapping. O(1), as the 10-F1 budget demands.
+# the one keystroke: forward through the list, wrapping. O(1), as the 010-F1 budget demands.
 _summon_stamp_cycle() {
 	(( $#_summon_stamps > 1 )) || return 1			# nothing to choose — `t` is inert, not an error
 	(( _summon_stamp_i = _summon_stamp_i % $#_summon_stamps + 1 ))
@@ -252,7 +252,7 @@ typeset -gA _summon_ordinal	# name prefix → the highest ordinal ever fired und
 typeset -gi _summon_bump		# the panel's ± correction to that count; cleared on every open
 
 # log/invocations.jsonl → $_summon_ordinal. ONE pass, at panel open: the keystroke loop only
-# ever does an O(1) lookup into this map (the 10-F1 budget). Records that predate the `name`
+# ever does an O(1) lookup into this map (the 010-F1 budget). Records that predate the `name`
 # field read null, as do aborts — which fire nothing, so they stamp nothing and count for
 # nothing. A hand-renamed lineage the log has never seen therefore opens at 01 and is seeded
 # by the bump, not by a synthetic record.
@@ -360,7 +360,7 @@ typeset -gA _summon_usage_cell				# "<key>.<bucket>" → "<used_pct> <resets_at>
 # <ISO-8601 UTC> → $_summon_usage_epoch_value. The API stamps `2026-08-07T22:00:00.470292
 # +00:00`; days-from-civil turns that into an epoch with no fork and no TZ dependency —
 # `strftime -r` would read it as local time, and a `TZ=UTC` prefix on a builtin leaks into
-# the interactive shell's environment. Cross-checked against python in lab/08.
+# the interactive shell's environment. Cross-checked against python in lab/008.
 _summon_usage_epoch() {
 	local iso=$1
 	_summon_usage_epoch_value=0
@@ -566,7 +566,7 @@ _summon_usage_rows() {
 # fetches — harmless under atomic writes, and accepted.
 #
 # The worker is a setsid-detached fresh zsh, never a `{ _summon_usage_fetch } &!` block —
-# two independent hazards force this shape (10-F10). (a) A block forked here is a copy of
+# two independent hazards force this shape (010-F10). (a) A block forked here is a copy of
 # the interactive shell taken *inside an active zle widget*, and on zsh 5.9 such a copy
 # busy-spins forever in the pipeline wait of the fetch's `$(...)` — one wedged 95%-CPU
 # zsh per account per panel-open. (b) Even an exec'd fresh worker still has the panel's

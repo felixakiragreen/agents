@@ -1,8 +1,8 @@
-# 18 — v3: the great re-cut
+# 018 — v3: the great re-cut
 
-**Status:** LANDED 2026-08-29 — reconciled at canon C25's landing, which carried the
+**Status:** LANDED 2026-08-29 — reconciled at canon 025's landing, which carried the
 continuation whole (batch 1 closed 2026-08-26 at 7/8 LANDED, one partial, 18c BLOCKED;
-all four standing sanctions executed at C25 and city lint went 349 → 8) ·
+all four standing sanctions executed at 025 and city lint went 349 → 8) ·
 **Depends on:** 16 · **Staffing:** Dispatcher · sonnet-medium (tended the batch below)
 
 ## Mission
@@ -17,7 +17,7 @@ city-wide by the Sovereign (D63/D65: "We'll migrate every project, I don't care"
 
 - [DOCTRINE](../canon/work/DOCTRINE.md) §§3, 4, 7, 8 — the target grammar, D63/D64
   amended, `unrecorded` included (§8, the molt clause).
-- [Row 16's findings](16-doctrine-linter.md) — the tool, the failure classes, the
+- [Row 016's findings](016-doctrine-linter.md) — the tool, the failure classes, the
   residue law (F2), the register rule.
 - The tool: `~/code/agents/doctrine/` — `./cli.ts lint <path>` ·
   `./cli.ts migrate <building> [--write]`. Trust its dry-run diff; a round-trip
@@ -35,10 +35,10 @@ city-wide by the Sovereign (D63/D65: "We'll migrate every project, I don't care"
 | 18d | bob — lunchbox, pods, theseus: DONE→LANDED, PASSED/MERGED re-spellings, depends prose | — | Architect · opus-medium | LANDED (2026-08-26) — 53/54 typed, 1 unrecorded (linter vocab gap, escalated), commits 1bec7f0/54bdc97/553c5db/b90847e |
 | 18e | cap-mega/simmy — ledger 29 entries (5 parse), ISSUES ## headings → D63h bullets, board depends | — | Architect · opus-high | LANDED (2026-08-26) — 77→1 failure (linter unrecorded gap, escalated), commits b2199f62e/dfde315b4/c5a6f4dce (cap-mega) |
 | 18f | cap-mega snappy + snappy/ch2 + docs cluster (units, waypoint-stepper, advanced-naming, node-param) | — | Architect · opus-medium | LANDED partial (2026-08-26) — 4 of 5 buildings migrated (7 residual, all the escalated vocab gaps); **snappy BLOCKED** on a malformed ledger, escalated. Findings §18f |
-| 18g | cap-mega worktree boards — manny, tig-avc, schema-migration, cornerizer (columns re-cut to the canonical five): each edited inside its own worktree, committed on its own branch | — | Architect · opus-medium | LANDED (2026-08-26) — 83→8 failures (unrecorded/DEFERRED vocab gaps, escalated); findings merged to master 2026-08-28 (GA-11; branch `worktree-agent-a55279e2283f84743`, commits 6d73d23/ecd7682), plus cap-mega branches task/motion-migration `869ea98`, feature/tig-avc `d166d29`, feature/cornerizer `f19a413`/`b17bb15`, feature/user-manual `f6d4edc`/`00fed9f`/`7b179a9`/`c020b9c` — Architect merges at review |
+| 18g | cap-mega worktree boards — manny, tig-avc, schema-migration, cornerizer (columns re-cut to the canonical five): each edited inside its own worktree, committed on its own branch | — | Architect · opus-medium | LANDED (2026-08-26) — 83→8 failures (unrecorded/DEFERRED vocab gaps, escalated); findings merged to master 2026-08-28 (grand-architect-11; branch `worktree-agent-a55279e2283f84743`, commits 6d73d23/ecd7682), plus cap-mega branches task/motion-migration `869ea98`, feature/tig-avc `d166d29`, feature/cornerizer `f19a413`/`b17bb15`, feature/user-manual `f6d4edc`/`00fed9f`/`7b179a9`/`c020b9c` — Architect merges at review |
 | 18h | rooted (repot + arborist archive) + spacex ×2 — small sweeps; absent Decided:/Next: → `unrecorded` | — | Architect · sonnet-high | LANDED (2026-08-26) — rooted 0/0 (2 buildings); spacex-dashboard 22→8 (both escalated tool gaps); spacex-dashboard-c2 deferred (merged, inert worktree). Two new canon defects filed. Commits: rooted `11d00d4`, spacex-dashboard `f6be754` |
 
-**Batch note (cut 2026-08-26, GA-10).** All eight parallel-safe: disjoint repos;
+**Batch note (cut 2026-08-26, grand-architect-10).** All eight parallel-safe: disjoint repos;
 18e/f/g share cap-mega but touch disjoint files, and 18g works inside per-board
 worktrees (the shared checkout's branch is NEVER switched — §10). Concurrency plan:
 **ceiling 4 concurrent**, no gauge — doc-only work, no shared live resources beyond
@@ -53,7 +53,7 @@ here** — every fire posted: row · tier · vehicle.
    belvedere's board especially (probes P1/P2/P4 may be running).
 2. `./cli.ts migrate <building>` — review the dry-run diff, then `--write`. The
    round-trip law is asserted per write; a violation aborts — escalate it as a
-   converter bug (row 16's suite is where it gets fixed, not your target repo).
+   converter bug (row 016's suite is where it gets fixed, not your target repo).
 3. **Rule the residues** — the judgment the converter refuses:
    - **Depends-on prose** (the 232) → real row ids, `Felix-gate: <text>`, or a new
      gate row (D44 enforcement — each new gate row named in your report); scheduling
@@ -95,7 +95,7 @@ writes. A fork this doc doesn't pre-chew is an escalation, not a guess.
 - Meaning edits of any kind beyond typed absences and evidence-cited fills.
 - The ~12,700 skipped worktree branch copies — twins conform when their branches
   merge; nobody edits stale checkouts.
-- Row 17's serialization question; hook/CI wiring; `doctrine/` itself (escalate
+- Row 017's serialization question; hook/CI wiring; `doctrine/` itself (escalate
   converter bugs to a row-16 follow-up).
 
 ## Findings
@@ -133,7 +133,7 @@ row's report verbatim)*
 11. `parseDecisions` hardcodes the `D` id prefix — a building using `RP-`/`A`-prefixed decision ids parses 0 candidates, silently (18h).
 12. No `migrate` rule covers a decisions entry whose bold run wraps the id and attribution together with no separate title; fixing by hand is an editorial title-boundary call the fence forbids guessing at (18h, spacex-dashboard ×2 files, 14 failures standing).
 13. *(filed to whiteboardy's own `ISSUES.md`, not the canon inbox — repo-local)* batch 13's four rows (R1, W1, X8, B1) exist only in prose — cut, dispatched, LANDED, ledgered — but declared on no board; GENESIS's gate 26 can't compute its own dispatchability until this is fixed.
-14. The kickoff detector reads any `You are ` fence as a summons — three false positives in `plans/log-tradition.md`'s letter templates, same class as row 16's two prior fixes (18a).
+14. The kickoff detector reads any `You are ` fence as a summons — three false positives in `plans/log-tradition.md`'s letter templates, same class as row 016's two prior fixes (18a).
 
 **Relay log (`plans/BULLETIN.md`, committed):**
 - 18a → all remaining rows: the `unrecorded` vocabulary gap (escalation #1).
@@ -142,7 +142,7 @@ row's report verbatim)*
 - 18f → wave: the `**`-orphan bug (#4), the blank-line board-truncation bug (#9).
 - 18h → 18g: the register/decisions parser gaps (#10, #11) — 18g's worktree boards were clear of both.
 
-**Deferrals (DoD 4):** none owed — no row found a live in-flight batch on its target building at read time. `spacex-dashboard-c2` was left untouched under row 16's stale-checkout convention (a merged, explicitly "inert; remove at leisure" worktree, not a live batch) — 18h recommends Felix `git worktree remove` it.
+**Deferrals (DoD 4):** none owed — no row found a live in-flight batch on its target building at read time. `spacex-dashboard-c2` was left untouched under row 016's stale-checkout convention (a merged, explicitly "inert; remove at leisure" worktree, not a live batch) — 18h recommends Felix `git worktree remove` it.
 
 **DoD 1 — `doctrine lint ~/code` totals, verbatim, post-wave:**
 ```
@@ -227,7 +227,7 @@ assertion licenses the damage because both `mantle` and `tier` are in the rule's
 declared `changes`. Running it here would have turned 13 failures into 26. The
 remaining 96 blocks are an unbolded house dialect (`<date> · <mantle> · <tier>
 (<rider>)` + `Changed:`/`Decided:`/`Next:` lines) that no rule recognises; three of its
-heads wrap across lines, which is row 16's parked note arriving. **18c did not hand-fix
+heads wrap across lines, which is row 016's parked note arriving. **18c did not hand-fix
 around it on purpose:** whiteboardy is the corpus that proves the new rule, and hand-
 migrating it would spend the test case to buy a number this row cannot reach anyway.
 
@@ -298,7 +298,7 @@ files. Hand-ruled after: every ledger head's row parenthetical trimmed to the ba
 id (`01`/`02`/`03`) or dropped where no board row ran (2 founding/admin sessions);
 five "Next —" (em dash) retyped "Next:" — same word, wrong punctuation, zero content
 change; three entries with **no** Decided:/Next: clause at all got the literal
-`unrecorded` per this row's own brief; row 01's Depends-on freeze-waiver aside moved
+`unrecorded` per this row's own brief; row 001's Depends-on freeze-waiver aside moved
 from the cell (which isn't legal prose) into Status. New migration-session ledger
 entry appended in full D63 grammar, itself lint-clean.
 
@@ -327,7 +327,7 @@ filed to `~/code/agents/ISSUES.md`. Commit `f6be754` (spacex-dashboard, `master`
 **spacex-dashboard-c2: deferred, untouched, 20 residual failures standing.** Confirmed
 by `git worktree list` — a linked worktree of `spacex-dashboard`, branch `chapter-2`,
 and that branch's own ledger entry in the mainline already reads "merged and inert;
-remove at leisure." Row 16's out-of-scope carve-out ("nobody edits stale checkouts —
+remove at leisure." Row 016's out-of-scope carve-out ("nobody edits stale checkouts —
 twins conform when their branches merge") applies in spirit even though the register
 doesn't auto-skip it (it lives outside the `.claude/worktrees/` convention the register
 special-cases, so it registers as its own building rather than a skipped twin — noted,
@@ -357,42 +357,42 @@ Kickoffs (verbatim — the Dispatcher appends `plans/RIDER.md` to each):
 ```
 You are an Architect at opus-high.
 Wear ~/code/agents/canon/mantles/architect.md,
-then read ~/code/agents/plans/18-great-recut.md (§inputs, §method, §fence)
+then read ~/code/agents/plans/018-great-recut.md (§inputs, §method, §fence)
 and execute row 18a: ~/code/agents + ~/code/agents/belvedere.
 ```
 
 ```
 You are an Architect at opus-medium.
 Wear ~/code/agents/canon/mantles/architect.md,
-then read ~/code/agents/plans/18-great-recut.md (§inputs, §method, §fence)
+then read ~/code/agents/plans/018-great-recut.md (§inputs, §method, §fence)
 and execute row 18b: ~/code/hexwright.
 ```
 
 ```
 You are an Architect at opus-high.
 Wear ~/code/agents/canon/mantles/architect.md,
-then read ~/code/agents/plans/18-great-recut.md (§inputs, §method, §fence)
+then read ~/code/agents/plans/018-great-recut.md (§inputs, §method, §fence)
 and execute row 18c: ~/code/whiteboardy.
 ```
 
 ```
 You are an Architect at opus-medium.
 Wear ~/code/agents/canon/mantles/architect.md,
-then read ~/code/agents/plans/18-great-recut.md (§inputs, §method, §fence)
+then read ~/code/agents/plans/018-great-recut.md (§inputs, §method, §fence)
 and execute row 18d: ~/code/universal_robots_sdk/bob (campaigns lunchbox, pods, theseus).
 ```
 
 ```
 You are an Architect at opus-high.
 Wear ~/code/agents/canon/mantles/architect.md,
-then read ~/code/agents/plans/18-great-recut.md (§inputs, §method, §fence)
+then read ~/code/agents/plans/018-great-recut.md (§inputs, §method, §fence)
 and execute row 18e: ~/code/universal_robots_sdk/cap-mega/simmy.
 ```
 
 ```
 You are an Architect at opus-medium.
 Wear ~/code/agents/canon/mantles/architect.md,
-then read ~/code/agents/plans/18-great-recut.md (§inputs, §method, §fence)
+then read ~/code/agents/plans/018-great-recut.md (§inputs, §method, §fence)
 and execute row 18f: cap-mega snappy, snappy/ch2, and the docs cluster
 (units, waypoint-stepper, advanced-naming-system, node-global-parameters).
 ```
@@ -400,7 +400,7 @@ and execute row 18f: cap-mega snappy, snappy/ch2, and the docs cluster
 ```
 You are an Architect at opus-medium.
 Wear ~/code/agents/canon/mantles/architect.md,
-then read ~/code/agents/plans/18-great-recut.md (§inputs, §method, §fence)
+then read ~/code/agents/plans/018-great-recut.md (§inputs, §method, §fence)
 and execute row 18g: the cap-mega worktree boards — manny, tig-avc,
 schema-migration, cornerizer — each inside its own worktree, on its own branch.
 ```
@@ -408,7 +408,7 @@ schema-migration, cornerizer — each inside its own worktree, on its own branch
 ```
 You are an Architect at sonnet-high.
 Wear ~/code/agents/canon/mantles/architect.md,
-then read ~/code/agents/plans/18-great-recut.md (§inputs, §method, §fence)
+then read ~/code/agents/plans/018-great-recut.md (§inputs, §method, §fence)
 and execute row 18h: ~/code/rooted (repot + archive/arborist) and the two
 spacex-dashboard ledgers under cap-mega/felix/.
 ```
@@ -418,7 +418,7 @@ The Dispatcher's summons:
 ```
 You are a Dispatcher at sonnet-medium.
 Wear ~/code/agents/canon/mantles/dispatcher.md,
-then run the wave at ~/code/agents/plans/18-great-recut.md.
+then run the wave at ~/code/agents/plans/018-great-recut.md.
 Concurrency plan: ceiling 4 concurrent rows; all eight parallel-safe (disjoint
 repos; 18e/f/g disjoint files within cap-mega; 18g inside per-board worktrees);
 no gauge — doc-only work. Announce every dispatch (D67).
@@ -451,7 +451,7 @@ Per building: **units 4 → 0** · **advanced-naming-system 26 → 0** ·
 All **7 residual failures are the typed-absence vocabulary gap** — the linter has no
 `unrecorded` (18a/18d's bulletin entry) and D63 has no token for a deliberately unstaffed
 row (18f's own, filed). `unrecorded` counts written: **4** (3 tiers on waypoint-stepper
-rows 12–14, 1 staffing on ch2 row 05, all cited below). No hand-patching of `doctrine/`.
+rows 12–14, 1 staffing on ch2 row 005, all cited below). No hand-patching of `doctrine/`.
 
 **DoD 2 — migration entries.** None of the four buildings carries a `LEDGER.md`, so per
 §method step 5 the **board annotation carries the date**: one dated `> **D63 migration
@@ -495,7 +495,7 @@ working tree was dirty only under `simmy/` (18e's live work), never touched here
 ch2's board was **three tables** — blank lines after rows 11 and 12 — so rows 12 and 13
 were invisible to the parser *and* to the lint, which therefore reported them as zero
 defects. Removing the two blank lines (form only) exposed 5 further residues, including
-row 12's leading `MERGED` verdict. **A low row count is a symptom, not a clean bill**;
+row 012's leading `MERGED` verdict. **A low row count is a symptom, not a clean bill**;
 bulletined for the other rows.
 
 #### Residue rulings, by class
@@ -507,18 +507,18 @@ bulletined for the other rows.
   rulings likewise. **No new gate rows were cut**: every prose precondition sat on an
   already-LANDED row, where a retroactive gate row would be fiction. Scheduling and
   qualifying prose moved verbatim into the Status annotation (§method step 3's sanctioned
-  home) — e.g. units row 03's "(07 gates suite evidence only)", ch2 row 02's bands
-  parenthetical, waypoint-stepper row 11's "(icons landed)".
-- **`01–03 ✓` → `01 · 02 · 03`** (ch2 row 04). 18c parked en-dash ranges as ambiguous
+  home) — e.g. units row 003's "(07 gates suite evidence only)", ch2 row 002's bands
+  parenthetical, waypoint-stepper row 011's "(icons landed)".
+- **`01–03 ✓` → `01 · 02 · 03`** (ch2 row 004). 18c parked en-dash ranges as ambiguous
   across sub-boards; this one is unambiguous — all three ids sit on the same board — so it
   was expanded rather than parked. If the Grand Architect rules ranges legal, this is a
   no-op.
 - **Verdict-led statuses → `LANDED — <verdict>`** (13 rows): 12 in `advanced-naming-system`,
-  1 in ch2 (row 12's `MERGED to feature/snappy (D42)`, visible only after the table was
+  1 in ch2 (row 012's `MERGED to feature/snappy (D42)`, visible only after the table was
   reunited).
 - **Non-lifecycle leads → the state leads** (3): waypoint-stepper FG1 `PART-LANDED` →
-  `OPEN — **PART-LANDED …**` (its own Status names remaining bench items); row 24 `RUN` →
-  `LANDED — **RUN …**` (the run happened; its verdict is E1's job); ch2 row 04 `RULED in
+  `OPEN — **PART-LANDED …**` (its own Status names remaining bench items); row 024 `RUN` →
+  `LANDED — **RUN …**` (the run happened; its verdict is E1's job); ch2 row 004 `RULED in
   part` → `OPEN — **RULED in part …**` (the budget-blessing leg is still owed). In all
   three the annotation is byte-preserved — only the leading state was added.
 - **Absent tiers → `unrecorded`** (waypoint-stepper 12/13/14). Evidence was sought first:
@@ -526,7 +526,7 @@ bulletined for the other rows.
   a *model*, not one of D63's tier tokens — so no cited fill was available. Mantle kept,
   rider kept: `Architect · unrecorded (in-session; Felix released the mantle's no-code rule
   for this arc, 2026-08-13)`.
-- **`—` staffing → `unrecorded`** (ch2 row 05, KILLED at D34 before it was ever staffed).
+- **`—` staffing → `unrecorded`** (ch2 row 005, KILLED at D34 before it was ever staffed).
 - **`unstaffed` left verbatim** (waypoint-stepper 18/19/23) — a recorded fact, not an
   absent record; see the escalation.
 - **Decision titles → bold labels** (ch2 D34, D43). The doc's own words were promoted into
@@ -537,7 +537,7 @@ bulletined for the other rows.
   D42–D45 (§13). Re-adding it would be adding a row, so the dependency reads `—` and the
   Status annotation carries "(after row A, landed and audited off-board — §13)".
 
-**Untouched, by law:** snappy's `README.md:653` row 13 (`CHARTERED` + `Felix (bench) +
+**Untouched, by law:** snappy's `README.md:653` row 013 (`CHARTERED` + `Felix (bench) +
 keyboard session TBD`), its `README.md:1229` D19 head, and its `ISSUES.md` `##` entries —
 all inside the BLOCKED building and all judgment for snappy's own Architect; noted in
 `snappy/ISSUES.md`. No meaning edited, no row added or removed, no re-staffing, no writes
@@ -578,8 +578,8 @@ into **97 real failures across 37 rows that no parser in the city had ever seen*
 `board.depends`, 4 `board.state`, 2 `board.staffing`. A `board.columns` failure is not a
 small job; the number behind it is unknown until the columns are re-cut.
 
-Hiding inside it: **a blank line between C31 and C32** (18c's whiteboardy find, 18f's ch2
-find — third sighting in one wave) that would have kept C32–C38 invisible the moment the
+Hiding inside it: **a blank line between 031 and 032** (18c's whiteboardy find, 18f's ch2
+find — third sighting in one wave) that would have kept 032–038 invisible the moment the
 columns were fixed. Any column re-cut must sweep for it in the same pass.
 
 **Commits** (doc-only, one board per commit):
@@ -587,9 +587,9 @@ columns were fixed. Any column re-cut must sweep for it in the same pass.
 | branch | commit | what |
 |---|---|---|
 | `task/motion-migration` | `869ea98` | schema-migration: `Felix (named gate)` → `Felix-gate`; M2's `(staffed there)` filled `Builder · opus-high (staffed there — row V-B …)` from `docs/node-global-parameters.md`:1525 |
-| `feature/tig-avc` | `d166d29` | tig-avc: 4× `Felix` → `Felix-gate`; row 07's struck `~~Builder · opus-medium~~ Felix, by hand`; row 08's struck `~~05~~`; row 06 `OPEN (PENDING …)` → `OPEN — PENDING …`; row 05's `EXECUTED` |
+| `feature/tig-avc` | `d166d29` | tig-avc: 4× `Felix` → `Felix-gate`; row 007's struck `~~Builder · opus-medium~~ Felix, by hand`; row 008's struck `~~05~~`; row 006 `OPEN (PENDING …)` → `OPEN — PENDING …`; row 005's `EXECUTED` |
 | `feature/cornerizer` | `f19a413` | cornerizer: the canonical five columns + the blank-line split |
-| `feature/cornerizer` | `b17bb15` | cornerizer: 91 `board.depends` → 0; C28's state token |
+| `feature/cornerizer` | `b17bb15` | cornerizer: 91 `board.depends` → 0; 028's state token |
 | `feature/user-manual` | `f6d4edc` | manny: `doctrine migrate --write` (2 edits) |
 | `feature/user-manual` | `00fed9f` | manny: 26 Depends-on cells |
 | `feature/user-manual` | `7b179a9`, `c020b9c` | manny: 17 ledger heads + the 18g entry |
@@ -600,12 +600,12 @@ columns were fixed. Any column re-cut must sweep for it in the same pass.
   overrode the merge, and the cell's own words end "merge waits on 06 + 11 + 12". A merge
   gate that has not merged is not LANDED; OPEN is the row's state and every byte of the
   verdict rides the annotation unchanged.
-- **`WEDGED` (cornerizer C28) → `**LANDED** — **WEDGED** …`.** Determinate: the same cell
+- **`WEDGED` (cornerizer 028) → `**LANDED** — **WEDGED** …`.** Determinate: the same cell
   ends `MERGED 2026-08-18`. Only the state token was added.
-- **`PARKED` (cornerizer C8/C22/C34) → untouched, escalated.** Not determinate — §4's
+- **`PARKED` (cornerizer C8/C22/034) → untouched, escalated.** Not determinate — §4's
   lifecycle is five words, `PARKED` is none of them and is not a retired synonym either,
   yet the Architect mantle uses the verb as doctrine. Three candidate rulings that are not
-  equivalent; filed to the canon inbox. Same for `staffed when unparked` (C8/C34), which
+  equivalent; filed to the canon inbox. Same for `staffed when unparked` (C8/034), which
   is a *recorded* fact, not an absent record — 18f drew the same line on snappy's
   `unstaffed`, independently.
 - **Depends-on: `✓` and `merged` are not information.** The depended row's own Status
@@ -630,7 +630,7 @@ columns were fixed. Any column re-cut must sweep for it in the same pass.
 
 **The `migrate` warning did not fire here.** The BULLETIN's `ledger.pre-doctrine-head`
 defect needs an unbolded pre-D63 head; manny's were already `**<date> · <mantle> …**`, so
-`migrate` produced exactly 2 correct edits (row 28's leading `PENDING`, row 12's tier
+`migrate` produced exactly 2 correct edits (row 028's leading `PENDING`, row 012's tier
 slot) and the post-write lint confirmed it. Every other repo-side edit in this row was by
 hand.
 
@@ -649,7 +649,7 @@ Felix-held baton; the other three buildings have no ledger and none was minted �
 board annotation carries the date) · 3 ✓ (round-trip `ok` on the one `--write`, verified
 by a post-write lint per the BULLETIN; all seven commits doc-only, each worktree's
 pre-existing dirt left untouched) · 4 n/a — **no building was deferred**: nothing was IN
-FLIGHT on any of the four boards (cornerizer C37 OPEN / C38 BLOCKED, tig-avc 06/10/12
+FLIGHT on any of the four boards (cornerizer 037 OPEN / 038 BLOCKED, tig-avc 06/10/12
 OPEN, schema-migration all OPEN behind its M0 Felix-gate, manny 28 OPEN — PENDING) · 5 ✓.
 
 **Untouched, by law:** the ~12,700 branch twins of these files; the shared `cap-mega`

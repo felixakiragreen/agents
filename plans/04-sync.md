@@ -1,4 +1,4 @@
-# 04 — Sync: Canon → Mirrors
+# 004 — Sync: Canon → Mirrors
 
 **Two stages.** Spike: Digger · opus-high — **LANDED 2026-08-03** (F1–F12; U1 closed,
 U2 killed). Build: **Builder · opus-high** — gated on 01–03 LANDED, dispatched (rider:
@@ -481,7 +481,7 @@ Max: linked by deploy, smoke PENDING `/login` (F9), not blocking.
 
 ```
 You are a Digger at opus-high.
-Read GENESIS.md, then plans/04-sync.md, and run Stage A only.
+Read GENESIS.md, then plans/004-sync.md, and run Stage A only.
 Append evidence-grade findings under ## Findings; do not build Stage B.
 ```
 
@@ -490,6 +490,6 @@ Append evidence-grade findings under ## Findings; do not build Stage B.
 ```
 You are a Builder at opus-high.
 Wear ~/code/agents/canon/mantles/builder.md, then read
-GENESIS.md and plans/04-sync.md including the spike findings, and build Stage B to its
+GENESIS.md and plans/004-sync.md including the spike findings, and build Stage B to its
 DoD.
 ```

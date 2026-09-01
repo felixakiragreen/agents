@@ -1,4 +1,4 @@
-# 05 — Saturation harvest: snappy batch-1 lessons → canon
+# 005 — Saturation harvest: snappy batch-1 lessons → canon
 
 **Status:** LANDED 2026-08-05 · **Depends on:** — · **Staffing:** Grand Architect · fable-max
 
@@ -133,7 +133,7 @@ Numbered assuming D28–D30 are next free; renumber at entry if DECISIONS moved.
   or rejected with the defense appended under Findings.
 - Canon edits per ruling. No deploy run needed: `DOCTRINE.md` is referenced by path,
   never deployed (D16); mantles are read by path (D12).
-- Findings appended here; board row 05 trued; ledger appended; committed in Felix's git
+- Findings appended here; board row 005 trued; ledger appended; committed in Felix's git
   style.
 
 ## Out of scope
@@ -194,6 +194,6 @@ Kickoff (verbatim):
 ```
 You are the Grand Architect at fable-max.
 Wear ~/code/agents/canon/mantles/grand-architect.md,
-then read ~/code/agents/plans/05-saturation-harvest.md and run the harvest:
+then read ~/code/agents/plans/005-saturation-harvest.md and run the harvest:
 rule on D28–D30, amend canon where ruled, and queue the countersigns for Felix.
 ```

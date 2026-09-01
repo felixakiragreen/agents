@@ -1,7 +1,7 @@
-# 06 — hexwright retrofit
+# 006 — hexwright retrofit
 
 **Status:** LANDED 2026-08-06 · **Depends on:** — · **Staffing:** Architect · fable-high ·
-**Blessed:** D32 ✓ Felix, 2026-08-06 (the keel's touch map; the dream rename per D33)
+**Blessed:** D32 ⬡✓, 2026-08-06 (the keel's touch map; the dream rename per D33)
 
 ## Goal
 
@@ -135,8 +135,8 @@ Discretion calls the spec delegated:
   (phase one-liner + PENDING ruling, board pointer, ledger pointer, toolchain line, repo
   line); version law is now Hard Law 6.
 - [x] **Canon untouched.** `git -C ~/code/agents status --short` before agents-side
-  landing edits → only `?? lab/` `?? summon/` (row 08's in-flight work, not mine;
-  the `M plans/08-summon-rig.md` from session start was committed by its own session
+  landing edits → only `?? lab/` `?? summon/` (row 008's in-flight work, not mine;
+  the `M plans/008-summon-rig.md` from session start was committed by its own session
   mid-flight). `git diff --stat -- canon/` → empty.
 - [x] **Dream renamed, bytes identical.** `git hash-object dream.md` =
   `git rev-parse HEAD:initial.md` = `6b7543a9e12e957d3b4b2bf86770163e5a68d2d8` (pre-commit);
@@ -166,7 +166,7 @@ Discretion calls the spec delegated:
 You are an Architect at fable-high.
 Wear ~/code/agents/canon/mantles/architect.md,
 then, working in ~/code/hexwright, read ~/code/agents/canon/work/DOCTRINE.md,
-~/code/agents/canon/mantles/README.md, ~/code/agents/plans/06-hexwright-retrofit.md,
+~/code/agents/canon/mantles/README.md, ~/code/agents/plans/006-hexwright-retrofit.md,
 and hexwright's CLAUDE.md, GENESIS.md, DECISIONS.md + LEDGER tail,
 and execute the retrofit to its DoD.
 ```

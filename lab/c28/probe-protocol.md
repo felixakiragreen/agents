@@ -1,4 +1,4 @@
-# C28 probe protocol — the door reader-response survey
+# 028 probe protocol — the door reader-response survey
 
 **Question:** does the Summons door (the "entry into the Guild" preamble) transfer
 the intended model of the Guild to a cold reader, change how it would work, and

@@ -63,7 +63,7 @@ wear one at once. The full law, with the reserved names, is in `canon/mantles/RE
 | **Fixer** | The null mantle: summoned by the Sovereign to do something now. A session with no mantle is a Fixer, under the global file alone; the charter binds when Felix points at it. |
 
 **The `Dispatcher` is dead** — tombstoned in `canon/mantles/dispatcher.md`; the flow
-engine (charge 20's cornerstone) is its successor and **the dispatch** survives as the
+engine (charge 020's cornerstone) is its successor and **the dispatch** survives as the
 system noun. Until the engine tends a real batch, a batch note names its tender
 (doctrine §10).
 
@@ -74,7 +74,7 @@ system noun. Until the engine tends a real batch, a batch note names its tender
 | `canon/CLAUDE.md` | `~/.claude*/CLAUDE.md` | the global file — **live ×3 since 2026-08-03** |
 | `canon/agents/*.md` | `~/.claude*/agents/` | capability tiers — **live ×3 since 2026-08-03** |
 | `canon/mantles/*.md` | read by path | canonical delivery — summons name the charter path |
-| `canon/BUILDINGS.md` | read by path | the building register — the city's book (D79); machines read it through `doctrine buildings` (C39) |
+| `canon/BUILDINGS.md` | read by path | the building register — the city's book (D79); machines read it through `doctrine buildings` (039) |
 | `canon/work/` | not deployed | doctrine + standard + templates, referenced by projects |
 
 Mechanism: **symlink** — one inode of truth, one rule for every target; editing a live
@@ -118,7 +118,7 @@ example #1 of it. Local physics:
 
 **Keystone set 2026-08-03** — canon complete, `deploy`/`check` green ×3, all three
 accounts serving canon live, this repo conforming to its own doctrine; evidence in
-[04's](plans/04-sync.md) Stage B checklist (its one PENDING — Max `/login` — struck
+[04's](plans/004-sync.md) Stage B checklist (its one PENDING — Max `/login` — struck
 2026-08-08 with evidence).
 
 ## 9. Done when — canon v2

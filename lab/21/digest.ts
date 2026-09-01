@@ -1,7 +1,7 @@
-// Row 21 — curation digest: lexicon.json → compact working views for the concept pass.
+// Row 021 — curation digest: lexicon.json → compact working views for the concept pass.
 import { readFileSync, writeFileSync } from 'fs';
 
-const LAB = '/Users/felix/code/agents/lab/21';
+const LAB = '/Users/felix/code/agents/lab/021';
 type Sense = { gloss: string; kind: string; file: string; line: number; quote: string; reader: string; flags: string[] };
 type Entry = { term: string; kinds: string[]; forms: string[]; senses: Sense[]; flags: string[]; count: number; spread: number; byClass: Record<string, number> };
 const lex: { entries: Entry[] } = JSON.parse(readFileSync(`${LAB}/lexicon.json`, 'utf8'));

@@ -1,4 +1,4 @@
-// Row 21 — candidate residue: mechanical term-candidate surfacing to diff against the
+// Row 021 — candidate residue: mechanical term-candidate surfacing to diff against the
 // readers' haul at merge. Bold-at-minting, backticks, italics, ALLCAPS, frequency residue.
 import { readFileSync, writeFileSync } from 'fs';
 

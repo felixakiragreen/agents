@@ -184,7 +184,7 @@ const dependsRange: Rule = {
 
 /**
  * A head parenthetical splits into: an optional tier (hoisted to its D63f slot), an optional
- * row id (`row 01` / `gate 06` / a leading `SH3 — …`), and a remainder that belongs to the
+ * row id (`row 001` / `gate 06` / a leading `SH3 — …`), and a remainder that belongs to the
  * body, never the bold (item 5's law, shared by every ledger head rule).
  */
 function splitParen(inner: string): { tier: string | null; row: string | null; rest: string } {
@@ -309,10 +309,10 @@ const ledgerBareHead: Rule = {
 };
 
 /**
- * The house clause dialect (C25-F2 — whiteboardy 61, snappy 3): the scope rides BEFORE the
+ * The house clause dialect (025-F2 — whiteboardy 61, snappy 3): the scope rides BEFORE the
  * colon, `Decided (<scope>): x`. §7 puts `:` on the field name and nowhere else, so the repair
  * is a colon relocation — total, mechanical, byte-preserving: the scope survives verbatim as
- * the clause's own first words. Line-start only; a clause buried mid-prose is C25-F2's other
+ * the clause's own first words. Line-start only; a clause buried mid-prose is 025-F2's other
  * shape and no rule here claims it.
  */
 const clauseScopedColon: Rule = {
@@ -517,11 +517,11 @@ export function migrateText(file: string, md: string, opts: MigrateOpts = {}): M
 /**
  * What each source line BECAME under the line and cell rules — an edit's whole emission sits on
  * its first line, the rest of its from-range empties. This is the re-parse between rule classes
- * (C31 item 1): the structure rules run, the document is re-read, and the clause pass reads what
+ * (031 item 1): the structure rules run, the document is re-read, and the clause pass reads what
  * the document now says instead of what it said before the run. Reading the stale bytes is how
  * `ledger.unrecorded-clauses` came to fill 61 whiteboardy entries that already carried a clause
  * — in the dialect a field rule had just repaired — while the round-trip law printed `ok`
- * (C25-F1: `decided`/`next` are fields the rule declares it may change, so the law licensed it).
+ * (025-F1: `decided`/`next` are fields the rule declares it may change, so the law licensed it).
  */
 function becameLines(lines: string[], edits: Edit[]): string[] {
 	const out = lines.slice();
@@ -592,7 +592,7 @@ function clauseEdits(lines: string[], edits: Edit[]): Edit[] {
 			// One edit hosts at most one entry's fill: a second would land at the first's tail,
 			// in the wrong entry. Impossible by construction (two entries never share a head) —
 			// asserted because a silent misplacement is the exact genus this pass just killed.
-			if (hosted.has(host)) throw new Error(`ledger.unrecorded-clauses: two spans claim the edit at line ${host.line} — a converter bug (C31 item 1)`);
+			if (hosted.has(host)) throw new Error(`ledger.unrecorded-clauses: two spans claim the edit at line ${host.line} — a converter bug (031 item 1)`);
 			hosted.add(host);
 			host.to = `${host.to}\n${missing.join(' ')}`; host.rule += '+ledger.unrecorded-clauses';
 		}
@@ -612,7 +612,7 @@ function isText(p: string): boolean {
  * the building's record. Minus the nested buildings, whose ids are their own namespace (D80);
  * minus `fixtures/`, because a control set's bytes ARE the form it exists to exercise
  * (building.ts's SKIP_DIRS, DOCTRINE §6.2). `lab/` is in: its directories are named by the
- * charge that dug them, so a run that skipped it would leave `lab/08` pointing at nothing.
+ * charge that dug them, so a run that skipped it would leave `lab/008` pointing at nothing.
  */
 function respellTargets(buildingPath: string): string[] {
 	const root = resolve(buildingPath);

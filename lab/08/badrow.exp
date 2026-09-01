@@ -1,5 +1,5 @@
 #!/usr/bin/env expect
-# lab/08 — a register row the rig cannot trust must close the panel loudly, not compose a
+# lab/008 — a register row the rig cannot trust must close the panel loudly, not compose a
 # launch out of it. Same treatment a preset on a reserved key gets.
 # usage: badrow.exp <transcript> <rc.zsh>
 

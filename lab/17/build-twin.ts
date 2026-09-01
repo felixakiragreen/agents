@@ -1,10 +1,10 @@
-// lab/17 — arm S twin construction (row 17, C0).
+// lab/017 — arm S twin construction (row 017, C0).
 // Reads the live corpus ONCE through doctrine's own parsers (the normative parse, D65)
-// and emits the structured-source twin under lab/17/twin/. Never writes outside lab/17.
+// and emits the structured-source twin under lab/017/twin/. Never writes outside lab/017.
 //
 // Hand-corrections applied (each one a known parser gap, cited in the brief):
 //   1. `unrecorded` tier/mantle tokens survive as the literal string (D63 as amended at
-//      row 16's F2) — the parser nulls them with an "unknown tier" fail (18-wave esc #1),
+//      row 016's F2) — the parser nulls them with an "unknown tier" fail (18-wave esc #1),
 //      so heads are re-extracted raw here.
 //   2. D21's countersign state is a field (`countersigned`), not the regex heuristic that
 //      false-pends the entry defining the marker (brief's case file; parse.ts:338).
@@ -110,7 +110,7 @@ function twinKickoffs() {
 }
 
 mkdirSync(OUT, { recursive: true });
-const boards = [...twinBoards('MAP.md'), ...twinBoards('plans/18-great-recut.md')];
+const boards = [...twinBoards('MAP.md'), ...twinBoards('plans/018-great-recut.md')];
 writeFileSync(join(OUT, 'board.json'), JSON.stringify(boards, null, '\t') + '\n');
 writeFileSync(join(OUT, 'ledger.json'), JSON.stringify(twinLedger(), null, '\t') + '\n');
 writeFileSync(join(OUT, 'decisions.json'), JSON.stringify(twinDecisions(), null, '\t') + '\n');

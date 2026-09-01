@@ -1,9 +1,9 @@
-# 21 — The Census: the Guild's working vocabulary, measured
+# 021 — The Census: the Guild's working vocabulary, measured
 
 **Snapshot 2026-08-28** · corpus 1.26M words · 441 files · 38 readers · 5,544
 observations · 3,066 distinct terms · 294 flagged collisions · 1,144 minting sites ·
-52 Felix-coined · coverage 441/441, zero bad lines. Data: `lab/21/lexicon.json` (the
-future language-linter's food), `lab/21/ortho-report.md`, `lab/21/residue.json`.
+52 Felix-coined · coverage 441/441, zero bad lines. Data: `lab/021/lexicon.json` (the
+future language-linter's food), `lab/021/ortho-report.md`, `lab/021/residue.json`.
 
 ## 0. How to read this
 
@@ -130,7 +130,7 @@ unit) · **house** (lore variant of building) · **home** (the one canonical fil
 fact lives in) · **host** (machine bearing load) · **site** (where a law is written).
 Seven words, seven distinct concepts — this cluster is proof the Guild CAN mint
 cleanly. ⚔ only at the edges: theater vs building (glass derives campaign from
-building; rig from cwd) — row 14/20 territory; and bench (physical robot rig, snappy)
+building; rig from cwd) — row 014/20 territory; and bench (physical robot rig, snappy)
 vs bench (the office-as-judiciary, lore).
 
 ### 2.6 Evidence & measurement
@@ -149,7 +149,7 @@ Settled: **mantle** (charter = its file; title = pre-canon fossil), **tier** (�
 conflict in cap-mega: test-tier T0/T1/T2 and perf tier — same documents as capability
 tiers; *counsel:* keep both, the qualifier disambiguates: "capability tier" ceremonial
 form exists for exactly this), **staff**, **bare / null mantle** (`bare session`
-struck at GA-11 — do not resurrect), **sovereign**, the six mantles, the unminted
+struck at grand-architect-11 — do not resurrect), **sovereign**, the six mantles, the unminted
 (Steward, Royal, Imperial, Quartermaster, Ava chapter — named, reserved, empty).
 
 **The typed-absence family is productive**: unrecorded · unstaffed (canon, D63) —
@@ -167,7 +167,7 @@ The concepts, first-principles:
 | # | Referent | Current word | Evidence |
 |---|---|---|---|
 | Y1 | approve a spec/design for construction | **bless** | §13 canon; blessed: header field |
-| Y2 | confirm a proposed D-entry | **countersign** (`✓ Felix`) | 266 ✓ Felix marks; machine-parsed |
+| Y2 | confirm a proposed D-entry | **countersign** (`✓ Felix`) | 266 ⬡✓ marks; machine-parsed |
 | Y3 | decide an open fork/question, binding | **rule / ruled / ruling** | the field's word, every building, unglossed |
 | Y4 | make a choice a D-entry | **ratify** | canon; low field usage |
 | Y5 | accept a landing by inspection | smoke · visual pass · eye-verdict · certificate (whiteboardy) · "rules" (spacex) | ∅ no one word |
@@ -264,7 +264,7 @@ canon artifact or explicitly rule it building-local.
 | city | the repos | Belvedere's City view (proper noun) | low — "the City" capitalized is the view |
 | harness | Claude Code runtime | test harness (universal engineering) | none — qualify when near test code |
 | fence | scope boundary | code fence (markdown) | none — "fenced verbatim" is always markdown |
-| silo | account isolation | project/cwd isolation (row 14) | qualify: account silo, project silo |
+| silo | account isolation | project/cwd isolation (row 014) | qualify: account silo, project silo |
 | comb | account memory (lore) | LOG re-mint: durable inherited structure | lore-internal; the diary owns it |
 | residue | unfillable migration field (16/18) | census candidate residue (this row!) | the office collided with itself; qualify |
 
@@ -284,7 +284,7 @@ fresh sins; PROPOSED (pre-cut), READY, HOLD/HELD, OWED grew in the field).
   completion token — mint it at the choosing (candidates: CLOSED-at-campaign-altitude
   legalized, or a new word).
 - **experiment/hypothesis verdicts**: PROVEN/KILLED (simmy) · HELD/dead (repot) ·
-  VIABLE/DEAD (whiteboardy) · GO (recon) · RETAIN (row 17) · dirty/clean (safety
+  VIABLE/DEAD (whiteboardy) · GO (recon) · RETAIN (row 017) · dirty/clean (safety
   census) · Genuine/Fake reds (repot) · MISCONFIGURED (non-verdict: bad venue) ·
   CONDITIONAL PASS + CERTIFICATE ISSUED (whiteboardy milestones) · LOST (no
   measurement) · jarIdentity fresh/stale/foreign. *Counsel:* standardize the SMALL
@@ -308,7 +308,7 @@ global register. Seven independent inventions of tier two. *Counsel:* bless the
 two-tier system: D-entries global; a standard campaign-scoped form (prefix = the
 campaign's, the pattern already practiced: ‹campaign›-D‹n›); bare "D#" outside the
 canon register becomes a lint warning (bob's own collision report). "Register
-minimalism" (Felix, GA-11) is the same instinct at the top tier.
+minimalism" (Felix, grand-architect-11) is the same instinct at the top tier.
 
 ## 7. The metaphor registers — a map, not a war
 
@@ -354,7 +354,7 @@ Three strata, by home:
 
 ## 9. Orthography & notation
 
-**Spelling** (full table: `lab/21/ortho-report.md`): the corpus is bilingual with an
+**Spelling** (full table: `lab/021/ortho-report.md`): the corpus is bilingual with an
 AmE lean and one strong BrE island — **grey 231/5** (his own rig law: "staleness greys
 the furniture") beside **color 509/258** (the `/color` command forces AmE). Also
 mixed: center/centre 49/58, behavior/behaviour 219/174, honor 80/52,
@@ -413,7 +413,7 @@ STE governs the shared tongue, not every word ever spoken.
 
 ## 13a. The id-prefix namespace (Felix's ask, first-impressions pass)
 
-Raw registry: `lab/21/prefix-acro-report.md`. 46 letter-prefixes in live use. The
+Raw registry: `lab/021/prefix-acro-report.md`. 46 letter-prefixes in live use. The
 canon-wide kinds: **D** (decisions, 4,448 raw — but scoped eight ways, §6) · **F**
 (findings — also arborist proposals) · **E** (escalations — also whiteboardy editor
 rows e13, experiment ids) · **G** (gates) · **GA-** (sittings — collides with GA the
@@ -433,7 +433,7 @@ high collision yield — the M pile-up alone justifies it.
 
 ## 13b. Acronyms (Felix's ask: "are we including acronyms in this?")
 
-Raw inventory: `lab/21/prefix-acro-report.md` (391 at ≥8 uses; filenames like README
+Raw inventory: `lab/021/prefix-acro-report.md` (391 at ≥8 uses; filenames like README
 are extraction noise). The load-bearing Guild-internal ones: **DoD** (1,352 — the one
 that sent Felix to a search engine), **WO**, **LOC**, **STE**, **GA**, **THG**, plus
 engineering-universal (API, UI, VM, CPU, DAG, CRDT, JVM, DOM…) and product-domain
@@ -475,7 +475,7 @@ chapter/milestone under debate.
 | ratify · grant · approve · decree · greenlight · anoint | various | cold / corporate / too much / green-collision | bench |
 
 *Counsel:* **bless = assent to a thing · rule = decide between things**; countersign
-dies as a verb, survives as the record token's name (the seal / ✓ Felix). `--gild`
+dies as a verb, survives as the record token's name (the seal / ⬡✓). `--gild`
 ships regardless — better than the industry's own word.
 
 ### 14.2 The founding act (his lean: cornerstone over keel; landed / in flight stay)
@@ -651,4 +651,4 @@ decision card, not word-by-word:
 
 Then: DOCTRINE §13 is rewritten as **the standard** (concept → word → part of speech
 → "instead of" column), the D-entry rides, the glass tooltips and grammar.ts inherit,
-and row 18's continuation carries any respellings into history under the molt clause.
+and row 018's continuation carries any respellings into history under the molt clause.

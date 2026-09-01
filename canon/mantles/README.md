@@ -17,9 +17,9 @@ sessions are summoned, and which law wins when laws collide.
 - **Mantles** — plural role charters, many wearers at once:
   **[Architect](architect.md)**, **[Builder](builder.md)**, **[Digger](digger.md)**,
   **[Fixer](fixer.md)** (the null mantle — see below). Every seat carries a charter
-  file; the Fixer's was minted at C28.
+  file; the Fixer's was minted at 028.
 - **The Dispatcher is dead** (D71) — tombstone in [dispatcher.md](dispatcher.md); the
-  flow engine (canon board charge 20) is the successor; **the dispatch** survives as
+  flow engine (canon board charge 020) is the successor; **the dispatch** survives as
   the system noun. Until the engine lands, the batch note names its tender (doctrine
   §10).
 
@@ -75,7 +75,7 @@ board and mantles; work that fits one session with Felix in the room gets neithe
 Tiers are universal — "how much brain" is a question every task has; mantles exist only
 where more than one session must share responsibility. A Fixer that discovers it's
 holding campaign-sized work says so and stops — Felix summons an Architect. The charter
-is [fixer.md](fixer.md), minted at C28: it binds when Felix points at it; a bare session
+is [fixer.md](fixer.md), minted at 028: it binds when Felix points at it; a bare session
 is a Fixer under the global file alone.
 
 ## Summons grammar
@@ -124,7 +124,7 @@ project, appended verbatim to every ignition.
 > (LANDED / KILLED / BLOCKED), a one-line outcome, and pointers to findings + commits.
 
 Universal core (never varies): the dispatched framing · files-are-the-deliverable ·
-status reconciliation (D78's sitting — c29's invisible landing is the birthplace) ·
+status reconciliation (D78's sitting — 029's invisible landing is the birthplace) ·
 report-is-logistics-only · third-party pre-authorization (D54). Project slots:
 agreements ref, bulletin path (projects with no bulletin drop that sentence), worktree
 specifics.
@@ -157,7 +157,7 @@ bulletin §9, batches §10.
 
 ## The charter template
 
-Every charter, in order (the C28 pattern): mission paragraph · **Staffing** ·
+Every charter, in order (the 028 pattern): mission paragraph · **Staffing** ·
 **The summons** (the shared paragraph, carried verbatim — a lint surface) · the role's
 own law sections · Side-quests (where the grant is not the genre default) · Escalation
 triggers / the contract's edges · End of session · **Forbidden — the single-glance

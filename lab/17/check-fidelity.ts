@@ -1,4 +1,4 @@
-// lab/17 — the control (brief §method 1): the twin's fidelity to arm M, asserted before
+// lab/017 — the control (brief §method 1): the twin's fidelity to arm M, asserted before
 // any measurement runs. doctrine's own parsers read BOTH the live corpus and the twin's
 // re-render; every typed field must match. Declared asymmetries (each cited):
 //   - line numbers / verbatim blocks — position is serialization, not meaning.
@@ -22,7 +22,7 @@ function eq(where: string, a: unknown, b: unknown) {
 // boards — corpus MAP + wave boards vs the one rendered board doc
 {
 	const m = parseBoards(corpus('MAP.md')).boards.filter(b => b.rows.length);
-	const w = parseBoards(corpus('plans/18-great-recut.md')).boards.filter(b => b.rows.length);
+	const w = parseBoards(corpus('plans/018-great-recut.md')).boards.filter(b => b.rows.length);
 	const t = parseBoards(rendered('board.md')).boards;
 	const orig = [...m, ...w];
 	eq('board count', orig.length, t.length);

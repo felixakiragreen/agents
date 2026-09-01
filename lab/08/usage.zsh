@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
-# lab/08 — the usage arithmetic and the response parser, with no pty and no clock luck:
+# lab/008 — the usage arithmetic and the response parser, with no pty and no clock luck:
 # every reset time is expressed as an offset from now, so each case has one right answer.
 #   usage.zsh <sandbox>
 set -u

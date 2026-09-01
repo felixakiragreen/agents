@@ -1,4 +1,4 @@
-# 01 — The Composition Model
+# 001 — The Composition Model
 
 **Mantle · Tier:** Architect · fable-max · **Gate:** keel (LANDED) · **Status:** **LANDED** 2026-08-02
 
@@ -109,5 +109,5 @@ exactly. If the prompt names documents to read, read them before acting.
 ```
 You are an Architect at fable-max.
 Wearing the mantle, read GENESIS.md, then
-plans/01-composition-model.md, and execute the brief.
+plans/001-composition-model.md, and execute the brief.
 ```

@@ -6,10 +6,10 @@ model selector: change what you want, Enter fires it, and what fired is what the
 promised. Every invocation is logged, so `presets.tsv` is only the hypothesis and
 `log/invocations.jsonl` is the evidence. Every session it fires is born
 named. Designed in [D34/D35/D36/D41/D79](../DECISIONS.md), built to
-[plans/08](../plans/08-summon-rig.md), [plans/09](../plans/09-summon-rig-v11.md),
-[plans/10](../plans/10-summon-rig-v12-usage.md),
-[plans/13](../plans/13-summon-rig-name-stamp.md) and
-[C38](../plans/c38-stamp-cycle.md), which superseded row 14 — the cycle's first
+[plans/08](../plans/008-summon-rig.md), [plans/09](../plans/009-summon-rig-v11.md),
+[plans/10](../plans/010-summon-rig-v12-usage.md),
+[plans/13](../plans/013-summon-rig-name-stamp.md) and
+[038](../plans/038-stamp-cycle.md), which superseded row 014 — the cycle's first
 build, filed against per-directory list files (the board keeps its link).
 
 ## Install — one line, Felix's own repo
@@ -209,7 +209,7 @@ not merely an old one.
 `summon-usage` run by hand fetches all three accounts in the foreground and prints the
 table plus each cache's age — the answer to "why is my table grey".
 
-**Where the numbers come from, and the caveats** ([plans/10 — E2](../plans/10-summon-rig-v12-usage.md)):
+**Where the numbers come from, and the caveats** ([plans/10 — E2](../plans/010-summon-rig-v12-usage.md)):
 
 - The source is the OAuth usage endpoint, the same payload `/usage` shows. The rig reads
   each account's token from the Keychain, whose service name it derives — never stores —
@@ -225,7 +225,7 @@ table plus each cache's age — the answer to "why is my table grey".
 - Background fetches run as `summon-fetch` — a fresh zsh, detached from the terminal via
   `perl`'s `setsid` (macOS-shipped). Forking the panel's own shell for this wedged the
   machine two different ways; the forensics and the ban are
-  [10-F10](../plans/10-summon-rig-v12-usage.md). `pgrep -fl summon-fetch` answers "is a
+  [010-F10](../plans/010-summon-rig-v12-usage.md). `pgrep -fl summon-fetch` answers "is a
   fetch in flight"; a wedge would show there too, and never should again.
 - `.claude.json`'s own `cachedUsageUtilization` is the same data, but it is refreshed on
   no clock you control — measured 77 minutes and 2.5 hours stale, and once showing 70%
@@ -297,7 +297,7 @@ the panel's own key loop, and the entries are dropped the moment it closes.
 
 ## Tests
 
-`../lab/08/run` — 228 assertions, 0 failures. The gestures run in a real pty against a
+`../lab/008/run` — 228 assertions, 0 failures. The gestures run in a real pty against a
 sandbox copy with `claude` and `pbcopy` shims; the panel's text, wrap and palette spans are
 asserted without a pty (`render.zsh`, a pure function of the selection, `$COLUMNS`, `$PWD`
 and the sandbox's log); and `preview.exp` / `narrow.exp` prove one whole paint on a real
@@ -312,7 +312,7 @@ the counter is proved to read the log once by taking the file away after the pan
 watching 500 repaints keep the ordinal.
 
 The stamp cycle runs against a **fixture register over a fixture city**, never the live
-`canon/BUILDINGS.md`: every sandbox lives under `lab/08/out/`, and the rig reads
+`canon/BUILDINGS.md`: every sandbox lives under `lab/008/out/`, and the rig reads
 `${SUMMON_HOME:h}/canon/BUILDINGS.md`, so one generated fixture serves them all. Asserted on
 the composed command: the derived cap-mega cycle (the host's own Name leading its four
 buildings, though its row is filed last, as the real register has it), Name over
@@ -329,7 +329,7 @@ and a sticky stamp the register no longer derives falling back to the default. T
 is proved read-once by the take-the-file-away trick, and three malformed rows (a Name with a
 space, a leading dash, a row that is not three cells) are proved to refuse the panel by name.
 The harness **derives** the mantle row and the panel's bracket count from `presets.tsv`
-and `accounts.tsv` rather than typing them (13-F1): a data-file edit can no longer rot it.
+and `accounts.tsv` rather than typing them (013-F1): a data-file edit can no longer rot it.
 
 The usage arms never touch a real credential store or the network: `security` and `curl`
 are shims serving fixtures, the pacing arithmetic is asserted at its edges (reset imminent,

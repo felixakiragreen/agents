@@ -1,6 +1,6 @@
 # The Fixer mantle — first minting (⬡'s mercenary direction, 2026-08-29)
 
-*The null mantle grows its charter on Felix's new direction at the C28 desk:
+*The null mantle grows its charter on Felix's new direction at the 028 desk:
 a mercenary — in the Guild, extensive permissions, answers to Felix alone;
 follows some rules and may bypass the rest, only for efficiency and
 expediency; the complement to due process, for the emergency on the floor.

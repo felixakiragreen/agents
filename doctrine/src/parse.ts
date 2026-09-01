@@ -97,7 +97,7 @@ function parseStaffing(cell: string, status: string, id: string, line: number) {
 }
 
 /**
- * The this-row-landed idiom (row 17 C2): a landing narrated in the annotation — bold-opened
+ * The this-row-landed idiom (row 017 C2): a landing narrated in the annotation — bold-opened
  * or arrow-led, ISO-dated — while the state token still says the row is workable. A landing
  * ATTRIBUTED to another row ("13 LANDED 2026-08-22") is that row's history and passes.
  */
@@ -110,7 +110,7 @@ function parseStatus(cell: string, id: string, line: number) {
 	const lead = leadingToken(st);
 	if (isState(lead)) {
 		if ((lead === 'OPEN' || lead === 'IN FLIGHT') && STALE_LEAD.test(cell))
-			fails.push(fail('board', 'board.stale-lead', `the ${lead} lead is outrun by its own annotation's landing (row 17 C2) — the state leads with the truth, history rides the annotation`, `${id}: ${JSON.stringify(st.slice(0, 160))}`, line));
+			fails.push(fail('board', 'board.stale-lead', `the ${lead} lead is outrun by its own annotation's landing (row 017 C2) — the state leads with the truth, history rides the annotation`, `${id}: ${JSON.stringify(st.slice(0, 160))}`, line));
 		return { state: lead as State, annotation: st.slice(lead.length).replace(/^[\s—–-]+/, ''), fails };
 	}
 
@@ -332,7 +332,7 @@ export function parseLedger(md: string): { entries: LedgerEntry[]; tail: LedgerE
 	for (const b of bs) {
 		if (/^#/.test(b.text.trim())) continue; // the file header block
 
-		// A merged entry makes the lint QUIETER, not louder (row 17 C1): a non-first line that
+		// A merged entry makes the lint QUIETER, not louder (row 017 C1): a non-first line that
 		// opens in the head grammar is a swallowed entry missing its `---`, never body prose.
 		const blines = b.text.split('\n');
 		let fence = false, seenHead = false;
@@ -391,7 +391,7 @@ export function parseLedger(md: string): { entries: LedgerEntry[]; tail: LedgerE
 export type Kickoff = { mantle: string; tier: string | null; text: string; line: number };
 
 const SUMMONS_LINE = /^You are (?:an?|the) ([A-Za-z ]+?) at ([\w.-]+)\.$/;
-/** C33's door, line two of every summons — the path varies by account, the grammar does not. */
+/** 033's door, line two of every summons — the path varies by account, the grammar does not. */
 const DOOR_LINE = /^Enter by the door — read \S*GUILD\.md,?$/;
 /** Line three: the charter this session wears. Offices and mantles share the one directory. */
 const WEAR_LINE = /^wear \S*canon\/mantles\/[a-z-]+\.md,?$/;
@@ -415,9 +415,9 @@ export function isLiveWorkDoc(md: string): boolean {
 /**
  * The other half of the same header, and NOT the negation of it: a doc is SPENT when its own
  * state says LANDED or KILLED, and merely carrying no Status line says nothing either way.
- * History is whole — C25's live/spent rule — so a spent doc is exempt from the arms that
+ * History is whole — 025's live/spent rule — so a spent doc is exempt from the arms that
  * respell or re-ignite it, whether the register filed it as a work doc or, because it carries
- * a staffing table, as a board (`plans/18-great-recut.md` is LANDED and reported 11 dead words).
+ * a staffing table, as a board (`plans/018-great-recut.md` is LANDED and reported 11 dead words).
  */
 export function isSpentWorkDoc(md: string): boolean {
 	const head = statusHead(md);
@@ -433,7 +433,7 @@ function statusHead(md: string): string | null {
 /**
  * Every fenced block whose first line opens the canon summons grammar (D45's single-glance test).
  *
- * `live` arms the rest of the grammar (C31 item 4): in a doc still awaiting ignition the fence
+ * `live` arms the rest of the grammar (031 item 4): in a doc still awaiting ignition the fence
  * must open summons line · door line · wear line, because the flow engine fires it VERBATIM —
  * seven un-ignited charges in this repo carried pre-door fences and agents-flow-1's first
  * ignition ran without the door (2026-08-29). The parser counted those kickoffs and never read
@@ -470,7 +470,7 @@ export function parseKickoffs(md: string, opts: { live?: boolean } = {}): { kick
 		const tier = isTier(m[2]!) ? m[2]! : null;
 		if (!tier) fails.push(fail('kickoff', 'kickoff.tier', 'unknown tier in the summons line', first.slice(0, 200), start + 1));
 		if (opts.live && !DOOR_LINE.test(spoken[1] ?? ''))
-			fails.push(fail('kickoff', 'kickoff.door', 'line two is not the door — "Enter by the door — read <path>/GUILD.md," (C33; mantles/README.md)', (spoken[1] ?? '<the fence ends>').slice(0, 200), start + 2));
+			fails.push(fail('kickoff', 'kickoff.door', 'line two is not the door — "Enter by the door — read <path>/GUILD.md," (033; mantles/README.md)', (spoken[1] ?? '<the fence ends>').slice(0, 200), start + 2));
 		else if (opts.live && !WEAR_LINE.test(spoken[2] ?? ''))
 			fails.push(fail('kickoff', 'kickoff.wear', 'line three is not the wear line — "wear <path>/canon/mantles/<charter>.md," (mantles/README.md)', (spoken[2] ?? '<the fence ends>').slice(0, 200), start + 3));
 		kickoffs.push({ mantle: mantle ?? m[1]!, tier, text: body, line: start + 1 });
@@ -521,7 +521,7 @@ export function classifyBaton(entry: LedgerEntry | null): Baton | null {
 	// (a) the summons fenced verbatim in the entry (D63g)
 	for (const k of parseKickoffs(entry.block).kickoffs) instruments.push({ kind: 'summons', text: k.text, mantle: k.mantle, tier: k.tier });
 	// (b) the charge-reference the rail resolves to the charge doc's fence (D63g)
-	// `ignite C24` is an instrument; `ignite the distillation session` is prose (`fire 16` is the
+	// `ignite 024` is an instrument; `ignite the distillation session` is prose (`fire 16` is the
 	// same instrument in history's verb — the standard §3 killed the dispatch sense, not the record).
 	for (const m of entry.next.matchAll(/\b(?:ignite|fire)\s+([A-Za-z0-9-]+(?:\s*[,+]\s*[A-Za-z0-9-]+)*)/g))
 		for (const id of topSplit(m[1]!, [',', '+'])) if (isId(id)) instruments.push({ kind: 'row', row: id });
@@ -548,7 +548,7 @@ export type Decision = {
 };
 
 // A project's decision ids carry its own prefix — RP-1, A1, D63 (item 11) and §7's mandated
-// `‹prefix›-D‹n›` (PD-D9, C-D2 — C31 item 3); the shape is `DECISION_ID`, the id is verbatim. A
+// `‹prefix›-D‹n›` (PD-D9, C-D2 — 031 item 3); the shape is `DECISION_ID`, the id is verbatim. A
 // candidate must carry the ATTRIBUTION shape after its id — `**D1** (…`, `**D1 (…` or the
 // pre-doctrine `**D1 · …` — or every bold cross-reference bullet in a master doc
 // ("**T13 ∥ t12c**, concurrent…") is promoted to a malformed decision.
@@ -573,7 +573,7 @@ export function parseDecisions(md: string): { decisions: Decision[]; queue: Deci
 			fails.push(fail('decisions', 'decision.head', 'entry does not open "- **<id>** (" (§8)', text.slice(0, 240), at));
 			continue;
 		}
-		// The attribution runs to the MATCHING ')' — "Architect (02) · ✓ Felix" nests (P3 §0).
+		// The attribution runs to the MATCHING ')' — "Architect (02) · ⬡✓" nests (P3 §0).
 		let k = head[0]!.length, depth = 1;
 		for (; k < text.length && depth; k++) { if (text[k] === '(') depth++; else if (text[k] === ')') depth--; }
 		const paren = text.slice(head[0]!.length, k - 1);
@@ -591,7 +591,7 @@ export function parseDecisions(md: string): { decisions: Decision[]; queue: Deci
 			id: head[1]!, date: pm ? pm[1]! : '',
 			decider: (pm ? pm[2]! : paren).replace(BLESSED_TAIL, '').trim(),
 			title: tm ? tm[1]! : rest.split('.')[0]!, body: tm ? tm[2]! : rest,
-			// D71 §7 — `⬡✓` is the mark; `✓ Felix` is the history the record still carries. The
+			// D71 §7 — `⬡✓` is the mark; `⬡✓` is the history the record still carries. The
 			// respell put the mark inside the WAITING form too ("proposed, pending ⬡✓"), where the
 			// old spelling could not reach: a blessing awaited is not a blessing given, so the
 			// proposed mark vetoes. Without the veto every dispatched entry falls out of the queue.

@@ -68,7 +68,7 @@ replaces.
 - **campaign** · noun · all the batches of charges toward one keystone. The
   hierarchy: **charge < batch < campaign** — no mid-level (chapter/milestone retire
   to prose).
-- **‹nnn›** · id · a charge is its number, zero-padded to three (`023` = charge 23) —
+- **‹nnn›** · id · a charge is its number, zero-padded to three (`023` = charge 023) —
   bare at home, qualified abroad (`stigmergon:023`); the namespace law is §7's. Ids
   are stable, never reused, nothing renumbers — a respell is not a renumber. ·
   *instead of:* **C‹n›** (blessed with the standard 2026-08-29, killed 2026-09-01 —
@@ -99,7 +99,7 @@ replaces.
   baton's action is ready by definition — nothing not-ready may be handed).
 - **dispatch** · noun · the machinery that turns a laid charge into a running
   session. Survives as the system noun only; the act is ignite. The **Dispatcher
-  mantle is absent from the ruled roster** — its hole belongs to row 20 (the flow
+  mantle is absent from the ruled roster** — its hole belongs to row 020 (the flow
   engine's shadow). Also a legal baton holder (D74): `Baton — the dispatch →
   ‹action›` — a batch the machinery tends, no hand waited on.
 - **baton** · noun · the handoff a session ends with, addressed to one holder. It
@@ -307,7 +307,7 @@ replaces.
 | keel · keel-note | cornerstone · cornerstone note |
 | CLOSED (campaign altitude) | set the keystone |
 | DoD · Definition of Done | Done when: |
-| countersign (verb) | bless (the ✓ Felix mark stays) |
+| countersign (verb) | bless (the ⬡✓ mark stays) |
 | rider (all six senses) | ⬡-named appendix · annotation · condition · small charges |
 | helm | the Felix-queue (noun ⬡) |
 | glass (the word) | Belvedere / the deck |

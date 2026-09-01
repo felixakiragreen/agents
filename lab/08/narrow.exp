@@ -1,5 +1,5 @@
 #!/usr/bin/env expect
-# lab/08 — the panel in a real 60-column terminal: our wrap must land the break, not the
+# lab/008 — the panel in a real 60-column terminal: our wrap must land the break, not the
 # terminal's. Open, look, close — no launch.
 # usage: narrow.exp <transcript> <rc.zsh>
 

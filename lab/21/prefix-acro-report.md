@@ -9,7 +9,7 @@
 - **S** · 1093 · d:whiteboardy,d:simmy-spikes,d:simmy · e.g. S8 S3 S5 S1
 - **G** · 720 · d:capmega-docs,d:capmega-boards,glass-record · e.g. G16 G2 G1 G3
 - **P** · 719 · glass-record,glass-work,d:whiteboardy · e.g. P3 P1 P4 P2
-- **C** · 672 · d:whiteboardy,d:manny,work-doc · e.g. C15 C8 C34 C22
+- **C** · 672 · d:whiteboardy,d:manny,work-doc · e.g. C15 C8 034 C22
 - **ARB** · 593 · d:arborist,work-doc,d:repot · e.g. ARB-07 ARB-02 ARB-16 ARB-05
 - **SH** · 581 · d:whiteboardy,work-doc,glass-work · e.g. SH4 SH5 SH6 SH1
 - **Q** · 566 · d:whiteboardy,glass-work,d:capmega-docs · e.g. Q1 Q5 Q2 Q3
@@ -28,10 +28,10 @@
 - **WO** · 100 · d:hexwright,work-doc,glass-work · e.g. WO-001 WO-002 WO-003 WO-004
 - **LB-D** · 87 · d:bob · e.g. LB-D10 LB-D9 LB-D1 LB-D2
 - **L** · 70 · d:capmega-docs,d:hexwright,d:bob · e.g. L1 L665 L4 L3
-- **GA** · 70 · board-record,work-doc,d:snappy · e.g. GA-09 GA-11 GA-08 GA-10
+- **GA** · 70 · board-record,work-doc,d:snappy · e.g. grand-architect-09 grand-architect-11 grand-architect-08 grand-architect-10
 - **BV** · 61 · d:snappy · e.g. BV-1 BV-20 BV-10 BV-16
 - **I** · 58 · d:capmega-docs,d:snappy,d:bob · e.g. I21 I22 I24 I25
-- **FC** · 52 · glass-work,glass-record,board-record · e.g. FC-1 FC-9 FC-7 FC-2
+- **FC** · 52 · glass-work,glass-record,board-record · e.g. distillation candidate 1 distillation candidate 9 distillation candidate 7 distillation candidate 2
 - **U** · 28 · work-doc,board-record,commit-log · e.g. U1 U2 U5
 - **RP** · 28 · d:repot,work-doc,d:arborist · e.g. RP-1 RP-6 RP-3 RP-4
 - **V** · 23 · d:bob,d:manny,d:capmega-docs · e.g. V8 V1 V5 V-1

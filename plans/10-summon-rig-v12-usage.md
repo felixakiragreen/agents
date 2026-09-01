@@ -1,4 +1,4 @@
-# 10 — summon rig v1.2: the usage panel
+# 010 — summon rig v1.2: the usage panel
 
 The account row's whole job is quota arbitrage — and today Felix plays it blind. v1.2
 puts a condensed per-account usage table in the Ctrl-G panel: session, week and Fable
@@ -8,16 +8,16 @@ Felix presses is an informed spend, not a guess. Felix's call (D41): the table, 
 windows, the green/red pacing. Architect's design: everything below.
 
 This is a modification of a landed, tested system — `summon/` with its harness at
-`lab/08/run` — not a rebuild. Extend, don't rewrite. **One hard unknown gates the build:
+`lab/008/run` — not a rebuild. Extend, don't rewrite. **One hard unknown gates the build:
 where usage data lives (E2).** Phase A settles it or kills the row; a documented kill is
 a win.
 
 ## Inputs — read before working
 
-- This brief, then `plans/09-summon-rig-v11.md` and `plans/08-summon-rig.md` (the landed
+- This brief, then `plans/009-summon-rig-v11.md` and `plans/008-summon-rig.md` (the landed
   contracts + findings — F1/F2 palette law, F9 harness law, F10(b) byte-assertion law)
-  and the code: `summon/summon.zsh`, `lab/08/run`.
-- `GENESIS.md` row 10; `canon/work/DOCTRINE.md` for findings law.
+  and the code: `summon/summon.zsh`, `lab/008/run`.
+- `GENESIS.md` row 010; `canon/work/DOCTRINE.md` for findings law.
 
 ## E2 — the usage source (Phase A; gates Phase B)
 
@@ -84,7 +84,7 @@ failure.
 ### 2. The table — render
 
 Sits between the account row and the hotkey row, aligned to the 9-column gutter, one
-line per account in `accounts.tsv` order. Rendering guide (cosmetics per 09-F8: deviate
+line per account in `accounts.tsv` order. Rendering guide (cosmetics per 009-F8: deviate
 where the data forces it, document why):
 
 ```
@@ -127,11 +127,11 @@ real but speculative — parked, named in out-of-scope, cut when a question need
 
 ## Acceptance criteria — the DoD
 
-Evidence: `lab/08/run` extended, green, no regressions; byte-level assertions in python
-per 09-F10(b); fetch shimmed (a `curl` shim serving fixture JSON, a `security` shim if
+Evidence: `lab/008/run` extended, green, no regressions; byte-level assertions in python
+per 009-F10(b); fetch shimmed (a `curl` shim serving fixture JSON, a `security` shim if
 Keychain is the source).
 
-Evidence: **`./lab/08/run` — 134 assertions, 0 failures** on 2026-08-07 (76 at v1.1, so 58
+Evidence: **`./lab/008/run` — 134 assertions, 0 failures** on 2026-08-07 (76 at v1.1, so 58
 are new; every v1/v1.1 guarantee still asserted and green).
 
 - [x] E2 finding filed in this doc: source, shape, field mapping, freshness, and the
@@ -327,7 +327,7 @@ rots fastest. The week and Fable rows are sound.
 absent, across `~/.claude/.claude.json` and all five of its backups (14:06 → 14:19).
 The account is live and authenticated (`organizationType: claude_max`,
 `organizationRateLimitTier: default_claude_max_20x`, `profileFetchedAt` 13:13 today), so
-this is not a login gap — GENESIS row 04's `~/.claude` "PENDING `/login`" note is stale,
+this is not a login gap — GENESIS row 004's `~/.claude` "PENDING `/login`" note is stale,
 parked, not fixed here. The likely cause is that the key is written when a session
 actually fetches usage (`/usage` opened, or a limit event), and Felix has never opened
 `/usage` on personal. **One keystroke from Felix settles it** — that is the ask at the
@@ -431,14 +431,14 @@ the mtime moved) buys a millisecond nobody can perceive at the cost of a stalene
 class. Premature optimisation; measured and declined. Flagged rather than buried because
 the DoD line said "unchanged" and it is not.
 
-> **Ruled 2026-08-08 (Architect, row 10 review): accepted as landed.** The re-read
+> **Ruled 2026-08-08 (Architect, row 010 review): accepted as landed.** The re-read
 > clause carries the feature, fork-freeness is asserted directly, and 2.562 ms is two
 > orders below perception. The latency law's word was the defect: "unchanged" makes a
-> millisecond that buys correctness read as a violation. For row 11 onward the clause
-> is a budget — **per-keystroke ≤ 5 ms measured, fork-free asserted** — and row 11
+> millisecond that buys correctness read as a violation. For row 011 onward the clause
+> is a budget — **per-keystroke ≤ 5 ms measured, fork-free asserted** — and row 011
 > inherits this ruling (its §4).
 
-**F2 — cosmetic deviations from the rendering guide, and why** (09-F8's precedent). The
+**F2 — cosmetic deviations from the rendering guide, and why** (009-F8's precedent). The
 guide's cells (`sess 42%+31  week 61%-8   fable 12%+55`) pad each cell whole; that is what
 ships, at a fixed 13 columns — the width of the widest cell the data can produce,
 `sess 100%-100`. The guide's `—` lines (`sess    —`) don't follow its own cell grammar, so
@@ -449,7 +449,7 @@ and grey is already the panel's word for "nothing here is selectable" — which 
 block is.
 
 **F3 — the harness was already red before this row, and the cause was data drift.**
-`lab/08/run` failed 5 assertions at `840e541`, the commit this session started from —
+`lab/008/run` failed 5 assertions at `840e541`, the commit this session started from —
 verified by running it there in a worktree. Cause: `e3556c8` uncommented the `b builder`
 preset without re-running the harness, so the mantle-row expectation, the bracket counts
 (21 → 22) and both 60-column continuation lines encoded a preset table that no longer
@@ -459,7 +459,7 @@ harness makes this row's DoD unmeasurable — "green, no regressions" cannot be 
 against a baseline that isn't green. Nothing was weakened: the expectations now name the
 preset that `presets.tsv` actually carries. Lesson for the board: `presets.tsv` and
 `accounts.tsv` are harness fixtures as well as rig data, and changing them means re-running
-`lab/08/run`.
+`lab/008/run`.
 
 **F4 — `(#b)` pattern backreferences are a trap in a sourced rig.** The first cut of the
 ISO-8601 parser used `[[ $iso == (#b)(<->)-(<->)-… ]]`, which silently does nothing unless
@@ -581,7 +581,7 @@ caches refetches all three accounts in ~1 s and leaves zero processes behind; ha
 134/134 (spawn.zsh's shims became PATH executables — function shims die at the exec
 boundary, and had silently let the worker hit the real keychain and endpoint).
 
-*For v1.3 to evaluate* (the row 11 rework should choose deliberately, not inherit):
+*For v1.3 to evaluate* (the row 011 rework should choose deliberately, not inherit):
 (i) keep the perl-setsid worker — proven, but perl is a new dependency for one syscall;
 (ii) spawn from the `precmd` warm-keeper instead, where zle is inactive — untested
 whether jaw (a) or (b) bites outside a widget, and the panel's own open-time spawn still
@@ -592,15 +592,15 @@ reader. Whatever wins, the invariant this finding buys: **no code path may fork 
 interactive shell and run substitutions or pipelines in the copy while zle is active,
 and no fetch worker may share the panel's controlling terminal.**
 
-> **Ruled 2026-08-08 (Architect, row 10 review): option (i) — the perl-setsid worker
-> stays, as the rig's ONE spawn shape.** Row 11's warm-keeper spawns the same detached
+> **Ruled 2026-08-08 (Architect, row 010 review): option (i) — the perl-setsid worker
+> stays, as the rig's ONE spawn shape.** Row 011's warm-keeper spawns the same detached
 > worker from `precmd`; the panel-open spawn is retained (an idle terminal draws no
 > prompts, so the warm-keeper alone reintroduces the stale-open defect); options (iii)
-> and (iv) are declined — reasoning in row 11's spec, where the ruling is operative.
+> and (iv) are declined — reasoning in row 011's spec, where the ruling is operative.
 > The perl dependency is accepted: `security` already binds the rig to macOS, and
 > `/usr/bin/perl` ships with it. F10's invariant is law for every future rig row.
 
-**F6 — adjacent, parked, not fixed:** (a) GENESIS row 04 still carries "Max smoke PENDING
+**F6 — adjacent, parked, not fixed:** (a) GENESIS row 004 still carries "Max smoke PENDING
 `/login`" for `~/.claude`; that account is demonstrably live and authenticated
 (`organizationType: claude_max`, `default_claude_max_20x`, profile fetched the same day,
 and its OAuth usage endpoint answered HTTP 200). The PENDING looks stale — an Architect's
@@ -612,11 +612,11 @@ future reader. (c) The `security` read completed without a GUI prompt in this se
 first-run prompt on Felix's own shell is still possible and is a README caveat, not a
 design.
 
-> **F6(a) ruled 2026-08-08 (Architect, row 10 review): struck.** The PENDING was
+> **F6(a) ruled 2026-08-08 (Architect, row 010 review): struck.** The PENDING was
 > written when `~/.claude` had never authenticated; this row measured the account live
 > (`organizationType: claude_max`, profile fetched same day, OAuth usage HTTP 200), and
-> row 08's rig smoke ran ×3 accounts on 2026-08-06 — the per-account launch proof the
-> PENDING was waiting for. GENESIS row 04 and §8 item 3 amended with this citation.
+> row 008's rig smoke ran ×3 accounts on 2026-08-06 — the per-account launch proof the
+> PENDING was waiting for. GENESIS row 004 and §8 item 3 amended with this citation.
 > (b) and (c) stay parked untouched.
 
 ## Kickoff — verbatim
@@ -624,6 +624,6 @@ design.
 ```
 You are a Builder at opus-high.
 Wear ~/code/agents/canon/mantles/builder.md,
-then execute the brief at ~/code/agents/plans/10-summon-rig-v12-usage.md.
+then execute the brief at ~/code/agents/plans/010-summon-rig-v12-usage.md.
 Phase A (E2) runs with Felix at the keyboard; its gate is in the brief.
 ```

@@ -30,7 +30,7 @@ hives' work looks like one city and not three.
 | A programme of works | a campaign — all the batches of charges toward one keystone |
 | The works schedule | the board; a charge = one job = one crew's shift (a session) |
 | A job ticket | the charge doc — survey or construction; the mantle says which |
-| Survey crew · build crew | Digger · Builder — the foreman's office stands empty: the Dispatcher is dead (D71), and the flow engine (charge 20) will hold the clipboard |
+| Survey crew · build crew | Digger · Builder — the foreman's office stands empty: the Dispatcher is dead (D71), and the flow engine (charge 020) will hold the clipboard |
 | The site diary | `LEDGER.md` — real sites keep one daily; it is legally significant there too |
 | The change-order register | `DECISIONS.md` — no change order executes without the owner's signature |
 | The site noticeboard | the bulletin — up only while crews overlap |

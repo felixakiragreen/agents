@@ -1,4 +1,4 @@
-# 21 — the vocabulary census: reader protocol
+# 021 — the vocabulary census: reader protocol
 
 You are one reader in a parallel census of the Guild's working vocabulary — every noun,
 verb, phrase, token, and notation its documents use as terms of art. The census collects
@@ -111,7 +111,7 @@ observations: N (sense-hunt: n · formulas: n · notations: n · minting-sites: 
 striking: <find 1, one line>
 striking: <find 2, one line>
 striking: <find 3, one line>
-obs: /Users/felix/code/agents/lab/21/obs/<id>.jsonl
+obs: /Users/felix/code/agents/lab/021/obs/<id>.jsonl
 ```
 
 Striking = the finds the Grand Architect should not miss in the merge: a collision, a

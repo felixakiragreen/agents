@@ -1,4 +1,4 @@
-// lab/17 — arm S render: twin JSON → doctrine-markdown VIEW (read-only; writes happen
+// lab/017 — arm S render: twin JSON → doctrine-markdown VIEW (read-only; writes happen
 // in the JSON, never here). Also the fidelity control's left hand: check-fidelity.ts
 // parses these renders and diffs the typed fields against the corpus parse.
 
@@ -42,7 +42,7 @@ export function renderLedger(entries: ReturnType<typeof load>): string {
 export function renderDecisions(entries: ReturnType<typeof load>): string {
 	let md = '# DECISIONS — rendered view\n\n';
 	for (const e of entries)
-		md += `- **${e.id}** (${e.date}, ${e.decider}${e.countersigned ? ' · ✓ Felix' : ''}): **${e.title}.** ${e.body}\n`;
+		md += `- **${e.id}** (${e.date}, ${e.decider}${e.countersigned ? ' · ⬡✓' : ''}): **${e.title}.** ${e.body}\n`;
 	return md;
 }
 

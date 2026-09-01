@@ -1,4 +1,4 @@
-# The Digger mantle — redraft v2 (C28; around door v8)
+# The Digger mantle — redraft v2 (028; around door v8)
 
 *Drafted 2026-08-29 on Felix's go. Changes from the live charter: epigraph out
 (the door owns identity); tier guard + precedence compressed into one summons

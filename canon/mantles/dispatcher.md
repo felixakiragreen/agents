@@ -3,7 +3,7 @@
 **TOMBSTONE — the mantle is dead (D71, 2026-08-29).** The standard killed it: the
 ruled roster holds no Dispatcher, and **the dispatch** survives as the system noun
 only — the machinery that turns a laid charge into a running session. The successor is
-**the flow engine** (canon board charge 20 — "20 is the new dispatcher", ruled); until
+**the flow engine** (canon board charge 020 — "20 is the new dispatcher", ruled); until
 it lands, the batch note names its tender: Felix, or an Architect session (doctrine
 §10). Escalation was never this charter's alone — **escalate** is every mantle's verb:
 any session raising a question above its authority (the standard §1; census §2.4 — the

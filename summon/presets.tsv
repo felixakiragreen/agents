@@ -4,8 +4,8 @@
 g	grand-architect	fable	max	green
 a	architect	fable	high	green
 A	architect	fable	max	green
-# Retired 2026-08-29 (C25): `d dispatcher` — the mantle is dead (D71); the flow engine
-# (charge 20) is its successor. The `d` key is free.
+# Retired 2026-08-29 (025): `d dispatcher` — the mantle is dead (D71); the flow engine
+# (charge 020) is its successor. The `d` key is free.
 # Trued 2026-08-07 from the log: builder launches run opus-high (five bare opus-high
 # fires, briefs 08/09 both staffed Builder · opus-high). Digger stays ejected-for
 # until the log argues otherwise.

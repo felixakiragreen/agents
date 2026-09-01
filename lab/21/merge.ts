@@ -1,8 +1,8 @@
-// Row 21 — the merge: obs/*.jsonl → lexicon.json + coverage assertion + concordance
+// Row 021 — the merge: obs/*.jsonl → lexicon.json + coverage assertion + concordance
 // + candidate residue. Mechanical only — concept grouping is the Grand Architect's pass.
 import { readFileSync, readdirSync, writeFileSync } from 'fs';
 
-const LAB = '/Users/felix/code/agents/lab/21';
+const LAB = '/Users/felix/code/agents/lab/021';
 
 type Obs = { term: string; kind: string; forms?: string[]; file: string; line: number; quote: string; gloss: string; flags?: string[] };
 type Cov = { coverage: string; observations: number; note?: string };

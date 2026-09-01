@@ -1,4 +1,4 @@
-# C28 — the probe-craft distillation
+# 028 — the probe-craft distillation
 
 *The cross-probe patterns this campaign learned that no single finding
 holds — filed at the wrap so the method's craft survives the session that

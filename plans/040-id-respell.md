@@ -22,10 +22,10 @@ any building can run; lint reads 0 and the suite is green. **Zero stray ids** �
   [DOCTRINE.md](../canon/work/DOCTRINE.md) §3 (padding), §4 (ID), §7 (the head's slot).
 - `doctrine/src/migrate.ts` — the converter's rule shape and its round-trip law (total,
   line-scoped, never paraphrases). `doctrine/src/grammar.ts` — `isId`, `DECISION_ID`.
-- Precedents: [18](18-great-recut.md) (the corpus-wide form migration, history included);
-  [C25 — the respell sweep](c25-respell-sweep.md) (the fence method); [C30 — the master-doc
-  prose sweep](c30-master-doc-prose.md) (hits adjudicated by hand, exemptions named);
-  [C31](c31-doctrine-defects.md) item 3 (the parser reads `‹prefix›-D‹n›` — it keeps reading it).
+- Precedents: [18](018-great-recut.md) (the corpus-wide form migration, history included);
+  [025 — the respell sweep](025-respell-sweep.md) (the fence method); [030 — the master-doc
+  prose sweep](030-master-doc-prose.md) (hits adjudicated by hand, exemptions named);
+  [031](031-doctrine-defects.md) item 3 (the parser reads `‹prefix›-D‹n›` — it keeps reading it).
 - The lexicon mirror and the bare-D lint arm are already done (this desk, 2026-09-01) —
   do not re-derive: `CANON_PREFIXES` is `D G F E`, `prefixFails` warns on collisions only.
 - **The denominators** (2026-09-01, `belvedere/` excluded — the Builder re-counts before and
@@ -42,7 +42,7 @@ any building can run; lint reads 0 and the suite is green. **Zero stray ids** �
   | `lab/‹id›` path mentions | 304 |
   | ledger heads with an id slot (bare · C · GA) | 59 (34 · 15 · 10) |
   | bare-number prose: `charge/row ‹n›` · `‹nn›'s` · `ignite ‹n›` | 410 · 327 · 71 |
-  | files to rename in `plans/` · lab dirs | 39 (+ `g2-c29-merge.md`'s slug) · 6 (08 12 16 17 21 c28) |
+  | files to rename in `plans/` · lab dirs | 39 (+ `g2-029-merge.md`'s slug) · 6 (08 12 16 17 21 028) |
   | doctrine fixtures carrying old forms | 20 files — see the fence |
   | `summon/` references | 11 |
   | stigmergon, for the control: `S‹n›` tokens · plans · ledger entries | 977 · 28 · 26 (no S-token above S28) |
@@ -58,7 +58,7 @@ any building can run; lint reads 0 and the suite is green. **Zero stray ids** �
    concept's living word — 14 hits, each hand-checked); `✓ Felix` → `⬡✓` (D81's first
    act — `BLESSED_MARK` reads both forever, the converter emits only the new, and the date
    behind the mark stays where it stands). Path forms ride the same table:
-   `c‹nn›-` → `0nn-`, `plans/‹nn›-` → `plans/0nn-`, `lab/‹nn›` → `lab/0nn`, `lab/c28` →
+   `c‹nn›-` → `0nn-`, `plans/‹nn›-` → `plans/0nn-`, `lab/‹nn›` → `lab/0nn`, `lab/028` →
    `lab/028`. The rule carries a fixture and a round-trip test like its siblings.
 2. **Scope: every tracked text file in the building**, history and voice included (D80, his
    word) — `LEDGER.md` whole, `LOG.md` + `log-archive.md` + `SAPHO.md`, every `plans/` doc
@@ -70,8 +70,8 @@ any building can run; lint reads 0 and the suite is green. **Zero stray ids** �
    `B10–B12`, `B26 F2`) are foreign historical addresses, untouched. The live wire —
    `canon/CLAUDE.md`, `canon/agents/` — verified id-free 2026-09-01: if a hit appears there,
    file it, never edit. **A fixture keeps the form it exists to exercise:** fixtures that model
-   a foreign building's history (`fixtures/worktree/…/bv/c29-harness/`, `fixtures/defects/`,
-   `fixtures/vocab/` — its C-collision is the point, C31's `VX-D2` reproduction) keep their
+   a foreign building's history (`fixtures/worktree/…/bv/029-harness/`, `fixtures/defects/`,
+   `fixtures/vocab/` — its C-collision is the point, 031's `VX-D2` reproduction) keep their
    forms and the parser goes on reading them; fixtures that model THE conforming form
    (`fixtures/conforming/`, `fixtures/kickoff/`, `fixtures/board-file/`) respell to the new
    form. Every fixture's ruling is listed in findings.
@@ -81,9 +81,9 @@ any building can run; lint reads 0 and the suite is green. **Zero stray ids** �
    *Supervised:* bare-number mentions the machine cannot prove — possessives (`18's`), ranges
    (`0–04`), lists (`06 hexwright · 07 simmy`), "the 18 wave" — the Builder adjudicates each hit
    against the table and its context; every mention left as-is is listed in findings with its
-   reason (C30's method). **Form only** — nothing is paraphrased, no sentence is reworded.
+   reason (030's method). **Form only** — nothing is paraphrased, no sentence is reworded.
 4. **Renames via `git mv`:** the 39 `plans/` docs and 6 lab dirs — `01-…` → `001-…`, `c23-…`
-   → `023-…`, `lab/c28` → `lab/028`; slugs carrying an old id respell too (`g2-c29-merge.md`
+   → `023-…`, `lab/028` → `lab/028`; slugs carrying an old id respell too (`g2-029-merge.md`
    → `g2-029-merge.md`). The renames ride one commit so history follows; links respell in the
    same landing.
 5. **The parser:** `isId` already accepts the padded form — prove it with a test; the ledger
@@ -107,7 +107,7 @@ any building can run; lint reads 0 and the suite is green. **Zero stray ids** �
 - [ ] `ls plans` pasted: `001-…` through `040-…`, `g1-flow-close.md`, `g2-029-merge.md`, and
       the six non-id docs unchanged.
 - [ ] Ledger heads: `grep -cE '^\*\*20.*\((C?[0-9]{1,2}|GA-[0-9]+)\)' LEDGER.md` → 0.
-- [ ] The mark: `grep -rl '✓ Felix' --include='*.md' --include='*.ts' --exclude-dir=belvedere --exclude-dir=node_modules .`
+- [ ] The mark: `grep -rl '⬡✓' --include='*.md' --include='*.ts' --exclude-dir=belvedere --exclude-dir=node_modules .`
       → only the doctrine fixtures, tests and grammar that exercise the historical reading,
       each named in findings; 0 elsewhere.
 - [ ] The stigmergon dry run pasted — the table, and `0 files written`.

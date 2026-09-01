@@ -11,7 +11,7 @@ nothing; only a new issue mints (the ancestry test — grand-architect.md, DOCTR
 register.
 
 - **D77** (2026-08-29, Felix): **The purge.** The register consolidated whole at the
-  C34 sitting: D1–D76 killed — every law verified living in its canon home — with the
+  034 sitting: D1–D76 killed — every law verified living in its canon home — with the
   homeless clauses distilled the same day (DOCTRINE §3 the serialization law · §8 the
   register law · the mantles README the tier maxim · this header the Directives
   governance · STANDARD §8 the enforcement contract, D72 blessed at the desk); the
@@ -27,7 +27,7 @@ register.
   killed whole; git is the archive, no ARCHIVE.md. Law distilled same day into
   DOCTRINE §§2–4/§11 + templates; the reference law rides the linking law (§3).
   Evidence: simmy's README at 100.5k chars, belvedere's at 988 lines pre-purge,
-  MAP's board at 66% of the file by bytes two days after C35. Buildings adopt at
+  MAP's board at 66% of the file by bytes two days after 035. Buildings adopt at
   their next Architect session; agents split the same day.
 
 - **D79** (2026-08-31, Felix · ⬡✓ 2026-08-31): **The building register.** Guild
@@ -40,15 +40,15 @@ register.
   (manny, registered at its `user-manual` checkout). Founding registers (DOCTRINE
   §12). Theaters killed — "the best part is no part" (his guiding principle, named
   at the kill): the stamp cycle derives from the register — the rig cycles the rows
-  at-or-under the fire cwd, the cwd's own Name the default (C38); both
-  `.summon-theaters` die (agents' at this landing, his strike; bob's at C38 — its
+  at-or-under the fire cwd, the cwd's own Name the default (038); both
+  `.summon-theaters` die (agents' at this landing, his strike; bob's at 038 — its
   stamp-only campaigns, lunchbox and pods, stamp `bob` until they keep books and
-  register). Machine consumers read the register through the doctrine parser (C39),
+  register). Machine consumers read the register through the doctrine parser (039),
   unblocking stigmergon D15. Same sitting: the THG ignore plan shelved — tenant
   books stay tracked in their hosts, status quo until a better way (costs on
   record: DOCTRINE §6.5 findings-on-branch, harness write-refusal, `git clean`).
   spacex-dashboard-c2 subsumed, unregistered (his word). Ancestors: the anchor law
-  (P3, charge 18), the standard's own "building register" (§8), DOCTRINE §4's
+  (P3, charge 018), the standard's own "building register" (§8), DOCTRINE §4's
   register-resolved qualified ids.
 
 - **D80** (2026-09-01, Felix · ⬡✓ in-session): **The id namespace is the building.** The
@@ -78,7 +78,7 @@ register.
   (bob) keep their forms as addresses. Ancestors: the census §6/§13a (46 prefixes,
   ~24,400 ids, about twenty letters for one kind), D79 (the register makes the
   namespace derivable — the best part is no part), the qualified id (D73/D74, built
-  C39), hexwright's three-digit plans, this repo's bare 01–22. Buildings adopt at
+  039), hexwright's three-digit plans, this repo's bare 01–22. Buildings adopt at
   their next Architect session; agents at 040, stigmergon on its inbox line.
 
 - **D81** (2026-09-01, Felix · ⬡✓ in-session): **The currency law.** The corpus is current
@@ -90,7 +90,7 @@ register.
   word: "we owe it to ourselves, our future, and our past"); a deferred respell is a debt
   the tools owe, not a tax the reader pays. The law binds what a converter carries totally
   — forms; speech (a dead word in running prose) is not form and stays fenced, because
-  there judgment, not a rule, decides (C25/C30 stand). Ancestors: the molt clause (D63 —
+  there judgment, not a rule, decides (025/030 stand). Ancestors: the molt clause (D63 —
   form migrates freely, meaning appends; DOCTRINE §8), 18's re-cut (the full corpus,
   history included), D80's total respell, the drift alarm (edit the law and the mirror
   goes red until the data follows — the converter is the mirror's third leg). First act:

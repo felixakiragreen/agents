@@ -1,4 +1,4 @@
-# 16 — v3: the doctrine linter
+# 016 — v3: the doctrine linter
 
 **Status:** LANDED 2026-08-26 · **Depends on:** — · **Staffing:** Builder · opus-high
 
@@ -51,14 +51,14 @@ reader; two parsers of one format WILL drift.
 3. Round-trip assertion green on every fixture and on ≥ 3 real buildings (dry-run).
 4. `doctrine migrate` dry-run on one pre-doctrine tail (hexwright's `LEDGER.md`)
    produces a diff findings can defend as form-only.
-5. Glass import proven: a one-line bun script under `lab/16/` imports the library and
+5. Glass import proven: a one-line bun script under `lab/016/` imports the library and
    parses `agents/belvedere` — output pasted.
 
 ## Out of scope
 
-- **Writing to any repo outside `~/code/agents`** — dry-run diffs only; row 18 does
+- **Writing to any repo outside `~/code/agents`** — dry-run diffs only; row 018 does
   the writes, per building, blessed.
-- The storage experiment (row 17) and any new serialization.
+- The storage experiment (row 017) and any new serialization.
 - Hook/CI wiring — the CLI is the arm; wiring is each venue's own physics.
 - Belvedere's rendering — the glass consumes this row; it never lives in it
   (glass-shatters: the linter dying must cost the city nothing but lint).
@@ -147,7 +147,7 @@ classes**. All 8 pre-D45 summons lines fall out: every one is in a closed work d
 **The 232-hit `board.depends` class is the honest cost of D63e, and it is the point.** P3
 validated a dependency segment by *shape* (`/^[A-Za-z]{0,6}-?\d{0,3}[a-z]?$/`), so `keel` and
 `Felix's blessing` passed as row ids. This parser resolves each segment **against the row ids
-the board actually declares** — the one thing FC-5 said the column exists for. What the field
+the board actually declares** — the one thing distillation candidate 5 said the column exists for. What the field
 writes instead, verbatim:
 
 ```
@@ -157,7 +157,7 @@ belvedere P4: "P2 (recipe)"                whiteboardy 05: "Pi 5 (Felix stands u
 ```
 
 The parser still **recovers** any row id such a segment names, so the graph draws while the
-lint files the defect (P3 §5 note 1). This is row 18's largest single work item.
+lint files the defect (P3 §5 note 1). This is row 018's largest single work item.
 
 **3. Round-trip assertion green on every fixture and on ≥3 real buildings (dry-run).**
 
@@ -203,7 +203,7 @@ dry-run is the default, and **no repo outside `~/code/agents` was written** (the
 **5. Glass import proven.**
 
 ```
-$ cd lab/16 && bun glass-import.ts
+$ cd lab/016 && bun glass-import.ts
 { "building": "agents/belvedere",
   "board": [ { "heading": "6. The board", "rows": 4 } ],
   "rowsTyped": "4/4",
@@ -218,7 +218,7 @@ $ cd lab/16 && bun glass-import.ts
 ```
 
 One line: `import { parse } from '../../doctrine'`. Note `tier: null` on belvedere's own tail —
-the FC-6 defect P3 named in the newest doc in the city, now a typed lint failure instead of a
+the distillation candidate 6 defect P3 named in the newest doc in the city, now a typed lint failure instead of a
 tier hiding in a row slot.
 
 ### The register — the discovery law (a design decision worth the record)
@@ -255,7 +255,7 @@ register. Full-city walk: **~9 s**.
   rather than migrating. Named, not built.
 - **Adjacent, not fixed** (Builder law): this repo's own `MAP.md` fails D63e on 19 of 19
   dependency cells, `LEDGER.md` on 44 heads and 18 row slots, and `plans/{01,04}` carry
-  pre-D45 summons lines. Row 18's work, per building, blessed — not touched here.
+  pre-D45 summons lines. Row 018's work, per building, blessed — not touched here.
 - **`doctrine` is not wired to anything.** No hook, no CI, no `sync/` entry — the CLI is the
   arm and wiring is each venue's own physics (out of scope, held).
 
@@ -266,6 +266,6 @@ Kickoff (verbatim):
 ```
 You are a Builder at opus-high.
 Wear ~/code/agents/canon/mantles/builder.md,
-then read ~/code/agents/plans/16-doctrine-linter.md
+then read ~/code/agents/plans/016-doctrine-linter.md
 and execute the order.
 ```

@@ -87,7 +87,7 @@ before.**
   fully distilled into their homes are killed whole, checklists every box of which
   is ticked die. **Git is the archive** — deleted, never tombstoned; no ARCHIVE.md,
   which is the bloat relocated plus a hop. The ledger is exempt: its tail-read
-  protocol already bounds the read. Birthplace: C34/C35's blades, run once each;
+  protocol already bounds the read. Birthplace: 034/035's blades, run once each;
   made standing 2026-08-31 (belvedere's README hit 988 lines, simmy's 100k chars —
   the bloat recurs wherever the sweep isn't scheduled).
 - **Naming law (D25):** **ALLCAPS for protocol singletons; lowercase-kebab for
@@ -101,14 +101,14 @@ before.**
   singleton, but an artifact interpreted once at founding, not a protocol followed.
   Practiced since hexwright/simmy; codified 2026-08-03.
 - **Linking law (D58):** durable docs link the files they reference at first mention —
-  `[plans/04-sync.md](plans/04-sync.md)`, `[D19](DECISIONS.md)` — one click beats a
+  `[plans/004-sync.md](plans/004-sync.md)`, `[D19](DECISIONS.md)` — one click beats a
   minute's hunt. Anchors only onto real headings: a bold list item resolves no anchor —
   the file link is the value. Boards link their charge docs (this repo's board, since
   founding). A pointer into a large doc names the repo path AND a greppable anchor —
   `belvedere/README.md §6, 'The rework batch' note`, never a bare "§6's note"
   (amended 2026-08-31: an anchorless reference cost Felix minutes among seven spent
   notes — G5's defect).
-- **Serialization law (charge 17's verdict):** prose artifacts are schema-markdown;
+- **Serialization law (charge 017's verdict):** prose artifacts are schema-markdown;
   field artifacts are data (flows); a field a machine consumer needs enters the
   doctrine grammar — never a storage flip.
 - **CLAUDE.md law:** target ≤ ~60 lines (hexwright's budget). What this is (2–3 lines),
@@ -329,7 +329,7 @@ Findings are the evidence record: what was learned, with proof. They append unde
 charge doc's `## Findings` while the charge runs, and are never edited after it closes —
 the distillation (below) carries truth forward; findings remain its provenance. A number
 a later charge disproves gains a **dated correction note, appended** — the record
-corrects, never rewrites (ruled 2026-08-29, the C26 -ise correction).
+corrects, never rewrites (ruled 2026-08-29, the 026 -ise correction).
 
 1. **Evidence-grade, every claim:** the command and output (or file§ pointer) that
    proved it rides with the claim. **A claim without evidence is a draft** (simmy §8 —
@@ -485,7 +485,7 @@ tender creates `plans/BULLETIN.md` (next to the charge docs — simmy's lived at
   cornerizer batch 8, amended mid-flight 2026-08-16). Every batch has a tender, and
   the default is machine tending, serial batches included (D43/D61's intent — their
   Dispatcher wording is superseded by D71). **The interim truth, plainly:** the
-  Dispatcher mantle is dead (D71) and its successor — the flow engine, charge 20's
+  Dispatcher mantle is dead (D71) and its successor — the flow engine, charge 020's
   cornerstone made law at D73 — is built and smoke-proven (Belvedere B10–B12) but has
   not yet tended a real batch; until agents-flow-1 lands, the batch note names the
   tender: Felix, an Architect session, or the dispatch (a declared flow). Felix-tended stays the exception with its reason

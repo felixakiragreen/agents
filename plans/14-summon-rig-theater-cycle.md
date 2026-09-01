@@ -1,8 +1,8 @@
-# 14 — summon rig: the theater cycle
+# 014 — summon rig: the theater cycle
 
 **Status:** LANDED 2026-08-24 (Builder · opus-high) — DoD green, one box open (Felix's
 smoke). · **Depends on:** 13 LANDED; **serial
-with 11** (shared files: `summon/summon.zsh`, `lab/08` — never both in flight; 11 is
+with 11** (shared files: `summon/summon.zsh`, `lab/008` — never both in flight; 11 is
 deferred, so 14 is dispatchable) · **Staffing:** Builder · opus-high · **Blessed:**
 Felix's ask 2026-08-22 (campaign theaters inside one repo — `architect-pods-NN` fired
 from bob); both design forks ruled by him 2026-08-24: the `t` key, sticky per
@@ -10,7 +10,7 @@ directory.
 
 ## Mission
 
-A campaign is not always a directory. Row 13 stamps theater as `${PWD:t}`, which is
+A campaign is not always a directory. Row 013 stamps theater as `${PWD:t}`, which is
 right when the repo is the theater — but bob hosts three (bob, lunchbox, pods), and
 firing from a campaign subdirectory is the wrong fix: Claude Code keys history,
 `/resume`, and auto-memory to the launch cwd, so deep-firing fragments the project
@@ -25,17 +25,17 @@ campaign session is stamped, logged, and counted.
 - `summon/summon.zsh` — `_summon_resolve`, the name-stamp and ordinal scan (13,
   commit `0cf4f0f`), the reserved-key handling for `+`/`-`, the state file law
   (four fields persist **on fire only**).
-- `lab/08/run` + `name.exp` — 13's harness arms; 13-F8 binds: only a panel's *first*
+- `lab/008/run` + `name.exp` — 13's harness arms; 013-F8 binds: only a panel's *first*
   paint can be asserted from a pty.
 - `summon/README.md` §the name-stamp — extend, don't fork.
-- `plans/13-summon-rig-name-stamp.md` findings F1, F7–F9.
+- `plans/013-summon-rig-name-stamp.md` findings F1, F7–F9.
 
 ## The scheme — ruled at the cut
 
 - **`.summon-theaters`** in the fire directory (cwd only — no parent walk; Felix
   fires at repo roots): one theater per line, non-empty lines only, first line the
   default. Committed to each repo that wants it — the campaign list is repo truth.
-  No file → `${PWD:t}` exactly as row 13 (the `root` fallback at `/` — 13-F9 —
+  No file → `${PWD:t}` exactly as row 013 (the `root` fallback at `/` — 013-F9 —
   unchanged).
 - **`t` cycles** through the file's theaters in filed order, wrapping. `t` joins the
   reserved key namespace (`+`/`-` precedent): `presets.tsv` may never claim it, and
@@ -54,20 +54,20 @@ campaign session is stamped, logged, and counted.
   `architect-bob-NN` count independently for free; the `+`/`-` seed path works per
   theater.
 - **Eject unchanged:** the index-blind one-off escape hatch, by design.
-- **Inherited from 13-F1 (ruled in 2026-08-24, moved off row 11's rebase):**
-  `lab/08/run` derives the mantle row and bracket counts from `presets.tsv` instead
+- **Inherited from 013-F1 (ruled in 2026-08-24, moved off row 011's rebase):**
+  `lab/008/run` derives the mantle row and bracket counts from `presets.tsv` instead
   of hard-coding them — a data-file edit can never silently rot the harness again.
 
 ## Acceptance criteria — the DoD
 
-Evidence: `lab/08/run` extended, green, **no regressions**, byte assertions. Built
+Evidence: `lab/008/run` extended, green, **no regressions**, byte assertions. Built
 2026-08-24 (Builder · opus-high), commits `70c96cf` (rig), `6092663` (harness),
 `ecba256` (README).
 
 - [x] Cycle order and wrap asserted byte-level against a fixture `.summon-theaters`
       (bob → lunchbox → pods → bob); default is the first line; missing file falls
       back to `${PWD:t}` (13's arms stay green untouched)
-      → `lab/08/run` §*the theater cycle: the campaign the stamp carries*, whole-line
+      → `lab/008/run` §*the theater cycle: the campaign the stamp carries*, whole-line
       assertions on the composed command:
       ```
       PASS  no press: the default theater is the first line of .summon-theaters (1)
@@ -110,7 +110,7 @@ Evidence: `lab/08/run` extended, green, **no regressions**, byte assertions. Bui
       ```
       the last being `(reserved: f o s k l m h x M n y . t 0 1 2 3 4 5 6 7 8 9 + -)`.
 - [x] The re-stamped name is visible in the panel footer (first-paint pty assertion
-      per 13-F8)
+      per 013-F8)
       → rendered: `⏎  architect-lunchbox-01 · fable-high @ thg-fgreen · green · keys: 2`
       (the cycled panel, byte-exact); and on a real screen, the first paint of the panel
       reopened in a directory that fired a cycled theater:
@@ -138,7 +138,7 @@ Evidence: `lab/08/run` extended, green, **no regressions**, byte assertions. Bui
       → `PASS  every panel line fits 60 columns (widest 58)` on the cycled panel
       (`lunchbox`, the longest of the three); the three pre-existing 60-column arms
       still read 57.
-- [x] 13-F1 guard: `run` derives mantle row + bracket counts from `presets.tsv`;
+- [x] 013-F1 guard: `run` derives mantle row + bracket counts from `presets.tsv`;
       asserted by editing a scratch preset in the sandbox and watching the harness
       follow
       → ```
@@ -149,13 +149,13 @@ Evidence: `lab/08/run` extended, green, **no regressions**, byte assertions. Bui
       and the guard proved live, both ways, by appending one row to the **real**
       `summon/presets.tsv` and running both harnesses: the new one stays green with
       the counts following (24 items, 197/0 at the time of that check), the pre-14 one
-      goes red in exactly the three places 13-F1 predicted —
+      goes red in exactly the three places 013-F1 predicted —
       ```
       FAIL  mantle row, ● swatches, [n]one, ✓ inline on the selected item
       FAIL  every opening bracket grey — one per item — expected 23, got 24
       FAIL  every closing bracket too — expected 23, got 24
       ```
-- [x] `lab/08/run` fully green, count pasted here
+- [x] `lab/008/run` fully green, count pasted here
       → **200 assertions, 0 failures**, exit 0 — four consecutive runs:
       ```
       run 1: exit=0 · 200 PASS · 0 failure(s)
@@ -163,7 +163,7 @@ Evidence: `lab/08/run` extended, green, **no regressions**, byte assertions. Bui
       run 3: exit=0 · 200 PASS · 0 failure(s)
       run 4: exit=0 · 200 PASS · 0 failure(s)
       ```
-      (was 170 at row 13; all 170 still green, none weakened — two were *strengthened*,
+      (was 170 at row 013; all 170 still green, none weakened — two were *strengthened*,
       see F3.)
 - [x] README: the theater cycle — the file, the `t` key, stickiness, the GA
       no-op, the eject caveat
@@ -192,13 +192,13 @@ Spec extension, deliberate.** The scheme says "one theater per line, non-empty l
 only". But the theater lands in `-n <mantle>-<theater>-NN`, which the widget puts in
 `BUFFER` for zsh to *run*: a line reading `my repo` composes
 `-n architect-my repo-01` and launches with two arguments, and a line reading `-pods`
-makes a bare launch's stamp `-pods-01` — an argv hazard, which is precisely 13-F9,
+makes a bare launch's stamp `-pods-01` — an argv hazard, which is precisely 013-F9,
 arriving this time from a data file rather than from `/`. So `_summon_theaters_load`
 refuses a line that is not a plain name (`A-Z a-z 0-9 . _ -`, not leading `-`), loudly,
 naming the line, exactly as `_summon_load` refuses a reserved key. Silently skipping was
 the alternative and was rejected: a skipped line means `t` cycles past a campaign Felix
 filed and believes in. Nine lines of rig, and one `if` to delete if Felix wants the
-looser parse. Asserted live (`lab/08/badlist.exp`), because fail-fast code nothing
+looser parse. Asserted live (`lab/008/badlist.exp`), because fail-fast code nothing
 exercises is a liability:
 ```
 PASS  a theater that is not a plain name refuses the panel, and names the line
@@ -217,7 +217,7 @@ remember, and storing `${PWD:t}` for every directory ever fired from would grow 
 with noise that changes nothing. Observably identical; recorded because the order's
 "one entry per directory ever fired from" reads wider than what was built.
 
-**F3 — the harness had two assertions that only looked like assertions, and 13-F1's
+**F3 — the harness had two assertions that only looked like assertions, and 013-F1's
 guard exposed both.** Deriving the mantle row from `presets.tsv` meant the old literal
 and the "one row per field at full width" check became the same string; the second was a
 `check` (substring) on the *first three items only*, so a wrap at 200 columns would have
@@ -236,7 +236,7 @@ Cost: one red run. Worth recording because the failure is silent without `set -u
 **F5 — the cycle's reach is bounded by the panel's runaway guard, harmlessly.** The
 picker closes itself at 32 keystrokes, so one panel can cycle about 28 positions. A list
 longer than that cannot be walked end-to-end in a single open — the next panel resumes
-from wherever the last one fired, exactly like 13-F7's seed ceiling. No limit is imposed
+from wherever the last one fired, exactly like 013-F7's seed ceiling. No limit is imposed
 on the file's length: truncating a campaign list would be a lie, and a list that long is
 self-punishing. Parked, not fixed.
 
@@ -252,5 +252,5 @@ Kickoff (verbatim):
 ```
 You are a Builder at opus-high.
 Wear ~/code/agents/canon/mantles/builder.md,
-then execute the order at ~/code/agents/plans/14-summon-rig-theater-cycle.md.
+then execute the order at ~/code/agents/plans/014-summon-rig-theater-cycle.md.
 ```

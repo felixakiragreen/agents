@@ -2,5 +2,5 @@ summon/log/
 lab/*/out/
 .claude/
 
-# the fixture worktree tree is corpus, not config (C36 item 5)
+# the fixture worktree tree is corpus, not config (036 item 5)
 !doctrine/fixtures/**/.claude/

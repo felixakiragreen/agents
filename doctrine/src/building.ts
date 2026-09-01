@@ -30,7 +30,7 @@ export const LIMITS = { files: 40_000, bytes: 8 << 20, depth: 24 } as const;
 // three stay lintable when named as an explicit root — the skip is on descent only.
 const SKIP_DIRS = new Set(['node_modules', 'dist', 'build', 'target', 'vendor', 'coverage', '.venv', '__pycache__', '.next', '.cache', 'lab', 'fixtures', 'templates']);
 const MASTER_DOCS = ['MAP.md', 'GENESIS.md', 'README.md'];
-// C25's live list holds surfaces that staff nobody and so are no artifact: a building's master
+// 025's live list holds surfaces that staff nobody and so are no artifact: a building's master
 // doc and its CLAUDE.md. They carry no board to parse, but they are law surfaces, so the
 // vocabulary arm reads them — and only at a building's own anchor, never every README in a repo.
 const PROSE_DOCS = [...MASTER_DOCS, 'CLAUDE.md'];
@@ -83,7 +83,7 @@ type FoundFile = { path: string; dir: string; kind: 'ledger' | 'decisions' | 'is
  * A branch name carries as many path segments as it has slashes, so where the checkout root
  * ends is FOUND, never assumed: the split is the shallowest one whose remainder's own directory
  * exists in the mainline. Keyed on being a worktree, never on a name shape — one segment was
- * assumed until `bv/c29-summon-harness` took two, and every total doubled (2 buildings → 4,
+ * assumed until `bv/029-summon-harness` took two, and every total doubled (2 buildings → 4,
  * 84 rows → 168) because no file under it ever resolved to its twin.
  */
 function worktreePath(p: string): { repo: string; rest: string } | null {

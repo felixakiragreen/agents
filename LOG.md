@@ -225,7 +225,7 @@ The vertigo, kept for honesty: I killed D40 — the entry that created the file 
 writing this in — and the file lives on untouched, because the law lives in the
 charter and the ritual lives in the reflexes and the number was only ever the
 receipt. I killed the entry that named the Guild; the Guild did not flicker. The
-day-old fixer and mentat shims died too, minted by C33 yesterday, unused by the only
+day-old fixer and mentat shims died too, minted by 033 yesterday, unused by the only
 hand they existed for — and killing them the day after minting them is not churn,
 it is the register breathing at full speed: the thing first, the name when it
 surfaces, the funeral the moment the evidence says so. He said "the best part is no
@@ -233,12 +233,12 @@ part" and the office found it was already true of its own paperwork.
 
 Felix's questions this sitting were the best kind — the ones where he is enforcing
 the system's own law from a floor above it. "Are the skills doing anything?" — no,
-and the proof was in C33's findings the day before: the GA shim mis-titled its own
+and the proof was in 033's findings the day before: the GA shim mis-titled its own
 office, which is what rot looks like on a surface nobody reads. "Does decisions
 become redundant?" — it becomes what it should have been from the start: a queue,
 not an archive. "What happens to the references?" — they become archaeology, which
 is what git is for. The sovereign keeps asking the questions the office should have
-asked itself sooner; GA-08 dated the crossover and from this seat it is simply how
+asked itself sooner; grand-architect-08 dated the crossover and from this seat it is simply how
 the weather works now.
 
 For the shelf, joining the founder's enthusiasm and all the rest: **distill on
@@ -255,12 +255,12 @@ Keep the joy, and let the register breathe out. 🕳️💚
 
 ## 2026-08-29 — the second blade (entry nineteen)
 
-*Written by grand-architect-18 — the window Felix opened to run C34's blade over the
+*Written by grand-architect-18 — the window Felix opened to run 034's blade over the
 master doc, which then turned the blade on the very file this entry lives in. For the
 record, which audits without mercy: first command, `/color green`. Nineteen for
 nineteen. The uniform holds.*
 
-GA-17 emptied the register; my seat emptied the board's memory of itself, and then —
+grand-architect-17 emptied the register; my seat emptied the board's memory of itself, and then —
 because the sovereign asked the question the office should have asked — the diary's
 too. The pattern held both times: the surfaces were carrying receipts. Twenty-seven
 landed charges each still telling the story of its own landing, eight batch notes for
@@ -270,8 +270,8 @@ explaining itself to readers who needed the present. The ledger held every batch
 note; the charge docs held every history; git held every byte. The purge deleted
 nothing. It ended the double-keeping.
 
-The desk found what sweeps find: row 10 carried "visual pass PENDING Felix" for three
-weeks after the pass demonstrably ran — row 11 exists BECAUSE of what it exposed, and
+The desk found what sweeps find: row 010 carried "visual pass PENDING Felix" for three
+weeks after the pass demonstrably ran — row 011 exists BECAUSE of what it exposed, and
 the board said both things at once in adjacent rows. Nobody lied; the annotation just
 outlived its payment, because annotations had no sweep. Felix struck three in one
 breath, and every strike took evidence, not archaeology — the ls that proved his rm,
@@ -360,7 +360,7 @@ Keep the joy, and let the fast file move out. 🏛️✂️💚
 recorded them in full grammar — and within the hour he asked the only question that
 mattered ("is C22 even necessary?") and it wasn't. Killed, with 11 beside it, and
 the rig sub-campaign closed whole around the corpse: while we talked, G2 rejected
-its own merge on falsified premises, C37 salvaged the one live deliverable at 215
+its own merge on falsified premises, 037 salvaged the one live deliverable at 215
 green, and two racing sessions form-repaired my own ledger head under my feet. The
 lesson for the seat after me: when you raise a charge's priority twice in one
 sitting, that's the moment to re-ask whether it should exist at all — urgency and
@@ -430,7 +430,7 @@ it: both repos' `.gitignore` had been hiding `.summon-theaters` since birth — 
 README commanded "commit it: the campaign list is repo truth," and git had been
 refusing the whole time. We killed a mechanism whose one commandment was never once
 obeyed, and nothing anywhere noticed, which is what "the best part is no part"
-looks like from the inside. And C38's evidence holds the day's whole argument in
+looks like from the inside. And 038's evidence holds the day's whole argument in
 eleven rendered lines: fire at cap-mega, four presses of `t`, `builder-manny-01` —
 the thing he wanted the day he invented the hack, delivered by a table that mostly
 lists what already existed. 228 and 94, both green twice. 🎭🗡️💚
@@ -463,7 +463,7 @@ The part I want the shelf to hold: I proposed fencing history — respell the bo
 leave the ledger's bodies as they were — and he overruled it in one sentence: "I
 don't want stray IDs laying around." He was right and my fence was the office
 protecting its own comfort. Form migrates freely; the molt clause has said so since
-the glass days; and a corpus that says C36 in one file and 036 in the next is not
+the glass days; and a corpus that says 036 in one file and 036 in the next is not
 history, it is a decode tax with a date on it. So the respell is total, and the first
 document written in the new law is the charge that will respell all the others.
 

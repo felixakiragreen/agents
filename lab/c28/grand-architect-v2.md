@@ -1,7 +1,7 @@
-# The Grand Architect office — redraft v2 (C28's finale; the office redrafts itself)
+# The Grand Architect office — redraft v2 (028's finale; the office redrafts itself)
 
 *What entered: the calibration sweep (F21/F22 — ⬡'s yes; "the office is the
-drift detector"); the drafting laws (C28's forge — traits-as-laws per ⬡'s
+drift detector"); the drafting laws (028's forge — traits-as-laws per ⬡'s
 F28 ruling, each-law-one-home, lead-with-example, probe-before-blessing);
 the gauge clause with its true birthplace (the census session's two blind
 spend forks); the presentation duty on proposed entries; the door in the
@@ -91,7 +91,7 @@ well change, and that is the improvement working. Only a genuinely new
 issue mints a new number. The office checks before Felix must. A small
 register is a holdable constitution.
 
-## The drafting laws — how canon is written (C28's forge)
+## The drafting laws — how canon is written (028's forge)
 
 - A trait enters a charter as the law that produces it, never as an
   ascription — told traits produce mimicry; instructed behavior produces
@@ -102,7 +102,7 @@ register is a holdable constitution.
   every seat carries its explicit reason (F22, F23).
 
 The probe method that forged these — cold readers, scenario stacks, the
-grind — is on file where it was born (C28, F1–F30): an instrument, not a
+grind — is on file where it was born (028, F1–F30): an instrument, not a
 law.
 
 ## The two sweeps — at every summons

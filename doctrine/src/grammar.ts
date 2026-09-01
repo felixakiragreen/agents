@@ -6,7 +6,7 @@
 
 // `Dispatcher` stays: the parser reads the city's history forever, and the mantle staffed
 // real sessions. `Fixer` is D71 §5's minting — a session with no mantle IS a Fixer, so the
-// word types every bare-session entry the record left unnamed (C25's three, C26 item 7).
+// word types every bare-session entry the record left unnamed (025's three, 026 item 7).
 export const MANTLES = ['Grand Architect', 'Architect', 'Dispatcher', 'Digger', 'Builder', 'Mentat', 'Fixer'] as const;
 export const MODELS = ['fable', 'opus', 'sonnet', 'haiku'] as const;
 export const EFFORTS = ['low', 'medium', 'high', 'xhigh', 'max'] as const;
@@ -50,7 +50,7 @@ export const isId = (s: string) => /^[A-Za-z0-9][A-Za-z0-9-]*$/.test(s) && /\d/.
  * then the number. `D63` · `D63a` · `RP-1` · `A17` · and the standard's own `‹prefix›-D‹n›`
  * (`PD-D9`, `TH-D11`, `LB-D10`, `C-D2`, `VX-D2`) are one shape. The reader used to spell it in
  * four places and reject the form §7 mandates in all four — a silent zero over bob's 53
- * declared decisions (C26-F1). One spelling, or it drifts again.
+ * declared decisions (026-F1). One spelling, or it drifts again.
  */
 export const DECISION_ID = String.raw`[A-Za-z]{1,8}(?:-[A-Za-z]{1,8})?-?\d+[a-z]?`;
 

@@ -1,6 +1,6 @@
-# 13 — summon rig: the name-stamp
+# 013 — summon rig: the name-stamp
 
-**Status:** LANDED 2026-08-22 (Builder · opus-high) — DoD green; smoke ✓ Felix
+**Status:** LANDED 2026-08-22 (Builder · opus-high) — DoD green; smoke ⬡✓
 2026-08-22. · **Depends on:** — *(was 11, a file-collision ordering; 11 deferred
 by Felix 2026-08-08, so this row goes first and 11 rebases on it — never both in
 flight)* · **Staffing:**
@@ -11,7 +11,7 @@ the Architect's delegated design).
 ## Mission
 
 Every session the rig fires is born named. The peer-plane roster's only semantic
-carrier is the session name (`plans/quartermaster.md` §1). Since row 09 the rig stamps
+carrier is the session name (`plans/quartermaster.md` §1). Since row 009 the rig stamps
 the bare mantle (`-n architect` — `_summon_resolve`), and Felix hand-renames in-session
 (`/rename grand-architect-08`), counting lineage ordinals in his head. The rig knows
 mantle, theater, and the lineage's history at fire time; stamp the full name and
@@ -20,9 +20,9 @@ count for him.
 ## Inputs — read before working
 
 - `summon/summon.zsh` (`_summon_compose` — the fired command is
-  `CLAUDE_CONFIG_DIR=<dir> claude --model <m> --effort <e>`), `lab/08/run`.
+  `CLAUDE_CONFIG_DIR=<dir> claude --model <m> --effort <e>`), `lab/008/run`.
 - `plans/quartermaster.md` §5 — the routing and the ask.
-- 10-F3's lesson binds: `presets.tsv` / `accounts.tsv` are harness fixtures as well as
+- 010-F3's lesson binds: `presets.tsv` / `accounts.tsv` are harness fixtures as well as
   rig data — extend the harness in the same change.
 - **Known, do not re-derive** (probed 2026-08-08, build ~2.1.x — re-verify with one
   `claude --help` grep before building, the facts rot): `claude --name <name>` (short
@@ -53,7 +53,7 @@ count for him.
 - **Ordinal mechanics:**
   - **Counter source** `log/invocations.jsonl`: **one pass at panel open** builds a
     `prefix → max ordinal` map; `_summon_resolve` does an O(1) lookup. Never a
-    per-keystroke scan — the 10-F1 budget (≤ 5 ms/keystroke) binds; the open-time
+    per-keystroke scan — the 010-F1 budget (≤ 5 ms/keystroke) binds; the open-time
     pass is outside it but stays a single pass.
   - **The record gains a `name` field** — the fired stamp, post-bump — logged like
     every other resolved field. Records that predate the field read as null and are
@@ -81,15 +81,15 @@ count for him.
 
 ## Acceptance criteria — the DoD
 
-Evidence: `lab/08/run` extended, green, **no regressions** — byte assertions per
-09-F10(b). Built 2026-08-22 (Builder · opus-high), commits `0cf4f0f` (rig), `69cd986`
+Evidence: `lab/008/run` extended, green, **no regressions** — byte assertions per
+009-F10(b). Built 2026-08-22 (Builder · opus-high), commits `0cf4f0f` (rig), `69cd986`
 (harness), `0d94265` (README).
 
 - [x] The composed command carries `--name` with the exact stamp — ordinal included —
       for preset × theater × log-history combinations, asserted byte-level against
       fixture logs (empty log → `01`; seeded log → max+1; null-name legacy records
       skipped)
-      → `lab/08/run` §*the name-stamp: the lineage counter*, whole-line assertions on
+      → `lab/008/run` §*the name-stamp: the lineage counter*, whole-line assertions on
       the composed command (`render.zsh` now prints `$_summon_cmd`):
       ```
       PASS  a log with no history at all: the lineage opens at 01 (1)
@@ -147,7 +147,7 @@ Evidence: `lab/08/run` extended, green, **no regressions** — byte assertions p
       → `PASS  every panel line fits 60 columns (widest 57)` ×3 (panel, bare panel,
       usage block). The stamped footer wraps at its own ` · ` boundary:
       `⏎  architect-atelier-01 · fable-high @ thg-fgreen · green` / `   keys: 2`.
-- [x] The 10-F1 budget holds: counter derivation is one pass at panel open, O(1)
+- [x] The 010-F1 budget holds: counter derivation is one pass at panel open, O(1)
       lookup in the keystroke loop — no per-keystroke log scan
       → the log file is moved away *after* the scan, then 500 repaints:
       `PASS  the ordinal outlives the log file: it was read once, at open, and never again`
@@ -158,7 +158,7 @@ Evidence: `lab/08/run` extended, green, **no regressions** — byte assertions p
       per keystroke  (full panel render + resolve):   1.689 ms (unchanged arm)
       per keystroke,  usage configured (3 caches):    2.699 ms (unchanged arm)
       ```
-- [x] `lab/08/run` fully green, count pasted here
+- [x] `lab/008/run` fully green, count pasted here
       → **170 assertions, 0 failures**, exit 0 — three consecutive runs, to catch the
       flake in F3:
       ```
@@ -166,13 +166,13 @@ Evidence: `lab/08/run` extended, green, **no regressions** — byte assertions p
       run 2: exit=0 · 170 PASS · 0 failure(s)
       run 3: exit=0 · 170 PASS · 0 failure(s)
       ```
-      (was 134 at row 10; 3 of those were red on arrival — F1.)
+      (was 134 at row 010; 3 of those were red on arrival — F1.)
 - [x] README: the name-stamp section — the scheme, the ordinal + bump keys, the
       eject escape hatch, the resume-handle bonus
       → `summon/README.md` §*The name-stamp — every session born named*, plus the
       gesture table, the reserved-key list, the telemetry schema and the test count.
 - [x] **Felix's smoke**: fire one summons, bump a lineage to his hand-count, see the
-      name in the terminal title and the roster → ✓ Felix 2026-08-22, "it works"
+      name in the terminal title and the roster → ⬡✓ 2026-08-22, "it works"
 
 ## Out of scope — defended
 
@@ -192,12 +192,12 @@ Evidence: `lab/08/run` extended, green, **no regressions** — byte assertions p
 
 *(append here — deviations from spec, discoveries, parked adjacents)*
 
-**F1 — the harness was already red, and `presets.tsv` is why.** `lab/08/run` failed 3
+**F1 — the harness was already red, and `presets.tsv` is why.** `lab/008/run` failed 3
 assertions before a byte of this order was written: the mantle-row literal and the two
 bracket counts (22, now 23) predate the `D digger` preset Felix added on 2026-08-09.
-10-F3 said it out loud — `presets.tsv` is a harness fixture as well as rig data — but
+010-F3 said it out loud — `presets.tsv` is a harness fixture as well as rig data — but
 nothing *enforces* it, so a one-line data edit rotted the harness for a fortnight and
-row 13 is the session that found out. Fixed here (the DoD wants green). **The parked
+row 013 is the session that found out. Fixed here (the DoD wants green). **The parked
 adjacent:** a data-file edit and its harness sweep are two acts joined only by memory;
 the cheap guard would be for `run` to derive the mantle row and the bracket count from
 `presets.tsv` rather than hard-code them — not done, out of scope.
@@ -215,7 +215,7 @@ report land in different seconds and the harness goes red for no reason. Replace
 `matches` helper (grep -E) and `^    1 thg-fgreen +[0-9]+ s  fresh$` — the claim was
 always freshness, never zero. Three consecutive green runs stand as the evidence.
 
-**F4 — the v1.1 byte-identity guarantee had to be narrowed, deliberately.** Row 10's
+**F4 — the v1.1 byte-identity guarantee had to be narrowed, deliberately.** Row 010's
 arm compares the current panel against `b426166`'s, byte for byte, to prove the usage
 feature is opt-in. The name-stamp changes the footer and the command for *every*
 configuration, so a whole-file `cmp` could not survive this order. The guarantee now
@@ -250,7 +250,7 @@ character by character, so after the first paint the transcript carries shredded
 fragments (`grand-architect-[27@01 · fable-max @ no accountn account digi20] personal…`)
 rather than lines. Whole-paint assertions must therefore be a panel's *first* paint —
 which is why `name.exp` ends with a bare `^G … Esc` gesture whose only job is to show one
-derived name whole on a real screen. This confirms the harness's founding note (row 08)
+derived name whole on a real screen. This confirms the harness's founding note (row 008)
 in a new place; recorded so the next builder doesn't rediscover it at cost.
 
 **F9 — `${PWD:t}` is empty at `/`, and a bare launch there would have composed `-n -01`.**
@@ -269,5 +269,5 @@ Kickoff (verbatim):
 ```
 You are a Builder at opus-high.
 Wear ~/code/agents/canon/mantles/builder.md,
-then execute the order at ~/code/agents/plans/13-summon-rig-name-stamp.md.
+then execute the order at ~/code/agents/plans/013-summon-rig-name-stamp.md.
 ```

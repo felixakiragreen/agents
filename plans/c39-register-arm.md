@@ -1,8 +1,8 @@
-# C39 — the register arm
+# 039 — the register arm
 
 **Status:** **LANDED** 2026-08-31 — the arm built, suite 87 → 94; one `Done when:` bullet
 unmet and named (the live lint's single pre-existing `ledger.baton`, F6) · **Depends on:** — · **Staffing:** Builder · opus-high
-· **Parallel-safe with:** C38 (different trees — `doctrine/` here, `summon/` there; both only read `canon/BUILDINGS.md`)
+· **Parallel-safe with:** 038 (different trees — `doctrine/` here, `summon/` there; both only read `canon/BUILDINGS.md`)
 
 ## Mission
 
@@ -15,7 +15,7 @@ serves stigmergon — their D15 waits on exactly this.
 - [canon/BUILDINGS.md](../canon/BUILDINGS.md) + D79 in
   [DECISIONS.md](../DECISIONS.md) — the ruling; do not re-derive.
 - `doctrine/src/building.ts` — the anchor law, `discover()`, the worktree dedup;
-  `doctrine/cli.ts`; the suite (87 green at C36).
+  `doctrine/cli.ts`; the suite (87 green at 036).
 - `~/code/stigmergon/DECISIONS.md` D15/D16 — the consumer's pre-rulings: never
   descend worktrees uninvited; existence-checked rows render dim, never auto-drop.
 
@@ -33,14 +33,14 @@ serves stigmergon — their D15 waits on exactly this.
   row; a `building` row whose walk finds zero artifacts is a warning — a founding
   not yet run.
 - **Qualified ids:** `<building>:<id>` resolution binds to register Names;
-  reconcile C36's `bv/*` register skip.
+  reconcile 036's `bv/*` register skip.
 - **The surface:** `doctrine register --json` — or the builder's better spelling
   within the CLI's idiom — the rows plus each building's parse, the shape
   stigmergon imports. One parser in the city (stigmergon D10).
 
 ## Out of scope
 
-Stigmergon-side consumption · the rig (C38) · walking unregistered land · any
+Stigmergon-side consumption · the rig (038) · walking unregistered land · any
 auto-registration.
 
 ## Done when:
@@ -145,7 +145,7 @@ guard ok — no entity total decreased vs HEAD
   `<checkout>/<newdir>/LEDGER.md` is skipped as a twin of `<repo>/LEDGER.md`: the building
   vanishes. Repro and fix sketch filed (`ISSUES.md`, 2026-08-31); latent today (cap-mega
   keeps no root LEDGER, agents' one checkout carries no books). Beyond this fence — it is
-  C36 item 5's arm — so filed, not chased.
+  036 item 5's arm — so filed, not chased.
 - **F6 — `lint ~/code/agents` was already at 1 failure when this charge opened**, so "stays
   0" could not be met and was never this arm's to meet: `LEDGER.md:2614` is the batch's own
   dispatch entry, whose Next clause hands the tender a verification rather than an
@@ -168,5 +168,5 @@ Kickoff (verbatim):
 You are a Builder at opus-high.
 Enter by the door — read ~/code/agents/canon/GUILD.md,
 wear ~/code/agents/canon/mantles/builder.md,
-then read ~/code/agents/plans/c39-register-arm.md and build it.
+then read ~/code/agents/plans/039-register-arm.md and build it.
 ```

@@ -1,4 +1,4 @@
-// C26 — the vocabulary arm's control, and the drift alarm that binds it to the law.
+// 026 — the vocabulary arm's control, and the drift alarm that binds it to the law.
 //
 // STANDARD.md is the single home for the standard; `src/lexicon.ts` is a mirror of §§7–9 and
 // this file is the alarm on the mirror: edit the law, these tests go red until the data follows.
@@ -106,7 +106,7 @@ describe('the drift alarm — the lexicon is STANDARD.md, mirrored', () => {
 		for (const m of [buried, reworded, relettered, respelled]) expect(m).not.toBe(STANDARD);
 	});
 
-	test('the -ise stoplist holds the words the census missed (C26-F2)', () => {
+	test('the -ise stoplist holds the words the census missed (026-F2)', () => {
 		for (const w of ['improvise', 'advertise', 'supervise', 'tortoise']) expect(ISE_STOPLIST.has(w)).toBe(true);
 	});
 });
@@ -192,9 +192,9 @@ describe('the arms — one line that must catch, one that must not', () => {
 		expect(vocabularyFails(fx('vocab/plans', 'closed.md')).length).toBeGreaterThan(0);   // …only the fence spares it
 	});
 
-	test('and a closed charge that carries a board is history too (C36 item 1)', () => {
+	test('and a closed charge that carries a board is history too (036 item 1)', () => {
 		// the register files this one as a BOARD, and the board half of the live list read every
-		// board whatever its own Status said — `plans/18-great-recut.md` landed and kept reporting
+		// board whatever its own Status said — `plans/018-great-recut.md` landed and kept reporting
 		const doc = report.buildings[0]!.files.boards.find(f => f.endsWith('closed-board.md'));
 		expect(doc).toBeDefined();                                            // filed as a board, not a work doc
 		expect(report.fails.some(f => f.file === doc)).toBe(false);

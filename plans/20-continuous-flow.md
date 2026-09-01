@@ -1,13 +1,13 @@
-# 20 — the continuous flow: the cornerstone session
+# 020 — the continuous flow: the cornerstone session
 
-**Status:** LANDED 2026-08-29 — the cornerstone laid at GA-15, D73 + D74 ⬡✓
+**Status:** LANDED 2026-08-29 — the cornerstone laid at grand-architect-15, D73 + D74 ⬡✓
 in-session; design + findings below the stub · **Depends on:** 17 · ⬡-gate: his call
 to sit — paid 2026-08-29, this summons · **Staffing:** Grand Architect · fable-max
 
 *A cornerstone stub, not a design — this file preserves the commission and the case
 file so the session starts loaded. The session itself lays the law.*
 
-## The commission — Felix's words, verbatim (canon inbox 2026-08-26, cleared at GA-11)
+## The commission — Felix's words, verbatim (canon inbox 2026-08-26, cleared at grand-architect-11)
 
 > The goal is not a program where the LLM sat: it is work that KEEPS RUNNING — strings
 > of rows flowing between Architects, Builders, Diggers, and gates; sittings cut new
@@ -37,7 +37,7 @@ the Dispatcher was a band-aid.)
    charge is its successor engine. What remains for the session is the engine, not the
    fate.)*
 3. **The D64 grammar asks, batched** (all filed with evidence, 2026-08-27/28, cleared
-   at GA-11):
+   at grand-architect-11):
    - `Baton.kind` (`single`/`batch`/`fork` — D71's shape names) as a field: the rail
      splits shapes by regex today, and plurality with neither marker renders "shape
      unstated" ([b3 §§F4–F5](../belvedere/plans/b3-baton-rail.md)).
@@ -61,21 +61,21 @@ the Dispatcher was a band-aid.)
    that the column stays strictly local and cross-building sequencing is
    batch-note/flow territory. The flow's cross-board strings make this the natural
    session to rule it. (The same-building cross-DOCUMENT case was a tool scope bug —
-   charge 19 item 7.)
-5. **Charge 17's verdict, distilled** — the storage experiment reads the flow keel as
+   charge 019 item 7.)
+5. **Charge 017's verdict, distilled** — the storage experiment reads the flow keel as
    its case file (flow-keel §6); this session reads the experiment's numbers back and
    rules the serialization of whatever it dethrones or confirms.
 
 ## Inputs at the session
 
 [flow-keel](../belvedere/plans/flow-keel.md) ·
-[charge 17's findings](17-storage-experiment.md) · D61/D63/D64/D65 ·
+[charge 017's findings](017-storage-experiment.md) · D61/D63/D64/D65 ·
 [b3](../belvedere/plans/b3-baton-rail.md), [b10–b12](../belvedere/plans/b10-flow-dag.md)
 · dispatcher.md (the tombstoned charter, for what it recorded).
 
 ---
 
-## The cornerstone — laid 2026-08-29 (GA-15)
+## The cornerstone — laid 2026-08-29 (grand-architect-15)
 
 The summons added a research arm: **graph engineering**
 (codejunkie99/graph-engineering + the 2026 discourse), measured against this stub,
@@ -84,7 +84,7 @@ five items, each ruled:
 
 1. **The flow doctrine** → **D73.** The flow file IS the batch note for engine-tended
    batches; the default tender is the dispatch (operative at agents-flow-1's landing);
-   D10 wholesale; **the budget ceiling** (import); **the continue mode** (GA-10's coda
+   D10 wholesale; **the budget ceiling** (import); **the continue mode** (grand-architect-10's coda
    made law; B5's resume is the hand); **the edge test** (import); the batch report is
    the flow's rendered close; flow home = the building's `plans/` (interim:
    `belvedere/flows/` naming the building); the Steward gate unchanged (D5).
@@ -97,15 +97,15 @@ five items, each ruled:
    <action>`, holder ∈ ⬡ · a named session · **the dispatch** (the tender-holder case
    closes); `batch —`/`fork —` markers + the `recommendation:` slot; `holds:`;
    escalation ids (born `E‹n› —`, dead `E‹n› ruled`); `**Branch:**`; the
-   encapsulation; the tier split. Builder: C32.
+   encapsulation; the tier split. Builder: 032.
 4. **Cross-building Depends-on** → **D74f:** the qualified id `<building>:<id>`,
    register-resolved at lint — one city, one graph, namespaced nodes (his fork,
    blessed; gate-charge-per-crossing and strictly-local rejected).
-5. **Charge 17's verdict, distilled** → ratified in D73: prose artifacts stay
+5. **Charge 017's verdict, distilled** → ratified in D73: prose artifacts stay
    schema-markdown, field artifacts are data, and a field the glass needs **enters
    the D63 grammar — never a storage flip.**
 
-The batch: **C31 → C32 ∥ C29 ∥ C30 → G1 → ⬡-verdict**, declared as
+The batch: **031 → 032 ∥ 029 ∥ 030 → G1 → ⬡-verdict**, declared as
 **`agents-flow-1`** — the Guild's first engine-run batch (the vehicle blessed
 in-session). The note is MAP §5's; the flow file is the batch note (D73).
 
@@ -127,7 +127,7 @@ to import.
 
 **F2 — the four imports, each with a birthplace:** the **budget** (their spawn cap ×
 the zoning law D29 — scope-arm growth was unbounded in count); the **continue mode**
-(their stop rule × GA-10's coda × B5's resume-by-stamp — the flow schema could not
+(their stop rule × grand-architect-10's coda × B5's resume-by-stamp — the flow schema could not
 say "same session continues"); the **edge test** (their fake-edge rule × D63e — a
 named test at lay time, so the engine never inherits habitual over-serialization);
 the **qualified id** (their entity-resolution lens × 18d's filing).
@@ -146,13 +146,13 @@ Nothing laid; the thrones stay empty.
 
 **F5 — the coda gap.** The engine composes fence-only summonses (B3/B11 evidence:
 first user turn = the fence, byte-exact) while §10 says ignition = kickoff + the
-project coda. Relayed to Belvedere (ask #5); the new fences (C31/C32/G1) carry the
+project coda. Relayed to Belvedere (ask #5); the new fences (031/032/G1) carry the
 coda's load-bearing line inline until then.
 
 **F6 — trust cells measured before the lay (D10 — never guess).** whiteboardy has NO
-project entry in personal's `~/.claude.json`, so a c30 venue there refuses at arm
+project entry in personal's `~/.claude.json`, so a 030 venue there refuses at arm
 (B12 E1's bite, foreseen); `agents` and the URSDK tree read `accepted=true` on all
-three accounts (`jq` over the three config dirs, 2026-08-29). c30's venue is
+three accounts (`jq` over the three config dirs, 2026-08-29). 030's venue is
 therefore cap-mega, and its three out-of-tree targets are flow-1's **named physics
 probe** — P5's next cell (out-of-project writes under `auto`): a stall pauses at the
 60-minute timeout, visibly in the Works; the fallback is one rig summons.
@@ -195,5 +195,5 @@ DeepMind × MIT citation is carried as the skill cites it, unverified independen
 ```
 You are the Grand Architect at fable-max.
 Wear ~/code/agents/canon/mantles/grand-architect.md,
-then read ~/code/agents/plans/20-continuous-flow.md and lay the flow cornerstone.
+then read ~/code/agents/plans/020-continuous-flow.md and lay the flow cornerstone.
 ```

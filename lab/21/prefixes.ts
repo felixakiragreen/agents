@@ -1,7 +1,7 @@
-// Row 21 — id-prefix registry + acronym inventory, extracted from the census corpus.
+// Row 021 — id-prefix registry + acronym inventory, extracted from the census corpus.
 import { readFileSync, writeFileSync } from 'fs';
 
-const LAB = '/Users/felix/code/agents/lab/21';
+const LAB = '/Users/felix/code/agents/lab/021';
 const rows = readFileSync(`${LAB}/manifest.tsv`, 'utf8').trim().split('\n')
 	.map(l => { const [, , cls, path] = l.split('\t'); return { cls: cls!, path: path! }; });
 

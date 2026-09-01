@@ -1,5 +1,5 @@
 #!/usr/bin/env expect
-# lab/08 — drives the sticky Ctrl-G panel through every DoD path in one live zsh + pty.
+# lab/008 — drives the sticky Ctrl-G panel through every DoD path in one live zsh + pty.
 # The order is the test: state carries from gesture to gesture, so a refire two gestures
 # later proves what the aborts and ejects in between did NOT persist.
 # Enter, and only Enter, fires: every selection below is confirmed before it launches.

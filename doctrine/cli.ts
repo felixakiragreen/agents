@@ -22,7 +22,7 @@ const USAGE = `doctrine — the reference reader for the work doctrine (canon/wo
       Walk every building under <path…> and report each failure class with file:line and
       the verbatim offending excerpt. Exits 1 if anything failed.
       --live         only the surfaces read today: boards, ledger tails, open work docs' kickoffs
-      --vocab        also lint SPEECH on law surfaces (C26): the standard's graveyard (§9), its
+      --vocab        also lint SPEECH on law surfaces (026): the standard's graveyard (§9), its
                      spelling lexicon and pinned formulas (§8), its id namespace (§7). History
                      and voice are fenced by construction. Off by default — the form arms are
                      the doc's honesty; the vocabulary arm is the city's respell backlog.

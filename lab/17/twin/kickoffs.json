@@ -1,183 +1,183 @@
 [
 	{
-		"doc": "plans/01-composition-model.md",
+		"doc": "plans/001-composition-model.md",
 		"mantle": "Architect",
 		"tier": "fable-max",
 		"text": "You are an Architect at fable-max.\nWearing the mantle, read GENESIS.md, then\nplans/01-composition-model.md, and execute the brief."
 	},
 	{
-		"doc": "plans/02-work-doctrine.md",
+		"doc": "plans/002-work-doctrine.md",
 		"mantle": "Architect",
 		"tier": "fable-max",
-		"text": "You are an Architect at fable-max.\nWear ~/code/agents/canon/mantles/architect.md, then\nread GENESIS.md and plans/02-work-doctrine.md, and execute the brief."
+		"text": "You are an Architect at fable-max.\nWear ~/code/agents/canon/mantles/architect.md, then\nread GENESIS.md and plans/002-work-doctrine.md, and execute the brief."
 	},
 	{
-		"doc": "plans/03-global-claude-md.md",
+		"doc": "plans/003-global-claude-md.md",
 		"mantle": "Architect",
 		"tier": "fable-max",
-		"text": "You are an Architect at fable-max.\nWear ~/code/agents/canon/mantles/architect.md, then\nread GENESIS.md and plans/03-global-claude-md.md, and execute the brief."
+		"text": "You are an Architect at fable-max.\nWear ~/code/agents/canon/mantles/architect.md, then\nread GENESIS.md and plans/003-global-claude-md.md, and execute the brief."
 	},
 	{
-		"doc": "plans/04-sync.md",
+		"doc": "plans/004-sync.md",
 		"mantle": "Digger",
 		"tier": "opus-high",
-		"text": "You are a Digger at opus-high.\nRead GENESIS.md, then plans/04-sync.md, and run Stage A only.\nAppend evidence-grade findings under ## Findings; do not build Stage B."
+		"text": "You are a Digger at opus-high.\nRead GENESIS.md, then plans/004-sync.md, and run Stage A only.\nAppend evidence-grade findings under ## Findings; do not build Stage B."
 	},
 	{
-		"doc": "plans/04-sync.md",
+		"doc": "plans/004-sync.md",
 		"mantle": "Builder",
 		"tier": "opus-high",
-		"text": "You are a Builder at opus-high.\nWear ~/code/agents/canon/mantles/builder.md, then read\nGENESIS.md and plans/04-sync.md including the spike findings, and build Stage B to its\nDoD."
+		"text": "You are a Builder at opus-high.\nWear ~/code/agents/canon/mantles/builder.md, then read\nGENESIS.md and plans/004-sync.md including the spike findings, and build Stage B to its\nDoD."
 	},
 	{
-		"doc": "plans/05-saturation-harvest.md",
+		"doc": "plans/005-saturation-harvest.md",
 		"mantle": "Grand Architect",
 		"tier": "fable-max",
-		"text": "You are the Grand Architect at fable-max.\nWear ~/code/agents/canon/mantles/grand-architect.md,\nthen read ~/code/agents/plans/05-saturation-harvest.md and run the harvest:\nrule on D28–D30, amend canon where ruled, and queue the countersigns for Felix."
+		"text": "You are the Grand Architect at fable-max.\nWear ~/code/agents/canon/mantles/grand-architect.md,\nthen read ~/code/agents/plans/005-saturation-harvest.md and run the harvest:\nrule on D28–D30, amend canon where ruled, and queue the countersigns for Felix."
 	},
 	{
-		"doc": "plans/06-hexwright-retrofit.md",
+		"doc": "plans/006-hexwright-retrofit.md",
 		"mantle": "Architect",
 		"tier": "fable-high",
-		"text": "You are an Architect at fable-high.\nWear ~/code/agents/canon/mantles/architect.md,\nthen, working in ~/code/hexwright, read ~/code/agents/canon/work/DOCTRINE.md,\n~/code/agents/canon/mantles/README.md, ~/code/agents/plans/06-hexwright-retrofit.md,\nand hexwright's CLAUDE.md, GENESIS.md, DECISIONS.md + LEDGER tail,\nand execute the retrofit to its DoD."
+		"text": "You are an Architect at fable-high.\nWear ~/code/agents/canon/mantles/architect.md,\nthen, working in ~/code/hexwright, read ~/code/agents/canon/work/DOCTRINE.md,\n~/code/agents/canon/mantles/README.md, ~/code/agents/plans/006-hexwright-retrofit.md,\nand hexwright's CLAUDE.md, GENESIS.md, DECISIONS.md + LEDGER tail,\nand execute the retrofit to its DoD."
 	},
 	{
-		"doc": "plans/07-simmy-retrofit.md",
+		"doc": "plans/007-simmy-retrofit.md",
 		"mantle": "Architect",
 		"tier": "fable-high",
-		"text": "You are an Architect at fable-high.\nWear ~/code/agents/canon/mantles/architect.md,\nthen, working in ~/code/universal_robots_sdk/cap-mega/.claude/worktrees/simmy,\nread ~/code/agents/canon/work/DOCTRINE.md, ~/code/agents/canon/mantles/README.md,\n~/code/agents/plans/07-simmy-retrofit.md, and simmy/README.md §6 + §8,\nsimmy/DISPATCHER.md, and the simmy/LEDGER.md tail,\nand execute the retrofit to its DoD."
+		"text": "You are an Architect at fable-high.\nWear ~/code/agents/canon/mantles/architect.md,\nthen, working in ~/code/universal_robots_sdk/cap-mega/.claude/worktrees/simmy,\nread ~/code/agents/canon/work/DOCTRINE.md, ~/code/agents/canon/mantles/README.md,\n~/code/agents/plans/007-simmy-retrofit.md, and simmy/README.md §6 + §8,\nsimmy/DISPATCHER.md, and the simmy/LEDGER.md tail,\nand execute the retrofit to its DoD."
 	},
 	{
-		"doc": "plans/08-summon-rig.md",
+		"doc": "plans/008-summon-rig.md",
 		"mantle": "Builder",
 		"tier": "opus-high",
-		"text": "You are a Builder at opus-high.\nWear ~/code/agents/canon/mantles/builder.md,\nthen execute the brief at ~/code/agents/plans/08-summon-rig.md."
+		"text": "You are a Builder at opus-high.\nWear ~/code/agents/canon/mantles/builder.md,\nthen execute the brief at ~/code/agents/plans/008-summon-rig.md."
 	},
 	{
-		"doc": "plans/09-summon-rig-v11.md",
+		"doc": "plans/009-summon-rig-v11.md",
 		"mantle": "Builder",
 		"tier": "opus-high",
-		"text": "You are a Builder at opus-high.\nWear ~/code/agents/canon/mantles/builder.md,\nthen execute the brief at ~/code/agents/plans/09-summon-rig-v11.md."
+		"text": "You are a Builder at opus-high.\nWear ~/code/agents/canon/mantles/builder.md,\nthen execute the brief at ~/code/agents/plans/009-summon-rig-v11.md."
 	},
 	{
-		"doc": "plans/10-summon-rig-v12-usage.md",
+		"doc": "plans/010-summon-rig-v12-usage.md",
 		"mantle": "Builder",
 		"tier": "opus-high",
-		"text": "You are a Builder at opus-high.\nWear ~/code/agents/canon/mantles/builder.md,\nthen execute the brief at ~/code/agents/plans/10-summon-rig-v12-usage.md.\nPhase A (E2) runs with Felix at the keyboard; its gate is in the brief."
+		"text": "You are a Builder at opus-high.\nWear ~/code/agents/canon/mantles/builder.md,\nthen execute the brief at ~/code/agents/plans/010-summon-rig-v12-usage.md.\nPhase A (E2) runs with Felix at the keyboard; its gate is in the brief."
 	},
 	{
-		"doc": "plans/11-summon-rig-v13-live-refresh.md",
+		"doc": "plans/011-summon-rig-v13-live-refresh.md",
 		"mantle": "Builder",
 		"tier": "opus-high",
-		"text": "You are a Builder at opus-high.\nWear ~/code/agents/canon/mantles/builder.md,\nthen read ~/code/agents/GENESIS.md §5 and ~/code/agents/plans/11-summon-rig-v13-live-refresh.md,\nand build it to its DoD."
+		"text": "You are a Builder at opus-high.\nWear ~/code/agents/canon/mantles/builder.md,\nthen read ~/code/agents/GENESIS.md §5 and ~/code/agents/plans/011-summon-rig-v13-live-refresh.md,\nand build it to its DoD."
 	},
 	{
-		"doc": "plans/12-dispatch-guard.md",
+		"doc": "plans/012-dispatch-guard.md",
 		"mantle": "Builder",
 		"tier": "opus-high",
-		"text": "You are a Builder at opus-high.\nWear ~/code/agents/canon/mantles/builder.md,\nthen execute the order at ~/code/agents/plans/12-dispatch-guard.md."
+		"text": "You are a Builder at opus-high.\nWear ~/code/agents/canon/mantles/builder.md,\nthen execute the order at ~/code/agents/plans/012-dispatch-guard.md."
 	},
 	{
-		"doc": "plans/13-summon-rig-name-stamp.md",
+		"doc": "plans/013-summon-rig-name-stamp.md",
 		"mantle": "Builder",
 		"tier": "opus-high",
-		"text": "You are a Builder at opus-high.\nWear ~/code/agents/canon/mantles/builder.md,\nthen execute the order at ~/code/agents/plans/13-summon-rig-name-stamp.md."
+		"text": "You are a Builder at opus-high.\nWear ~/code/agents/canon/mantles/builder.md,\nthen execute the order at ~/code/agents/plans/013-summon-rig-name-stamp.md."
 	},
 	{
-		"doc": "plans/14-summon-rig-theater-cycle.md",
+		"doc": "plans/014-summon-rig-theater-cycle.md",
 		"mantle": "Builder",
 		"tier": "opus-high",
-		"text": "You are a Builder at opus-high.\nWear ~/code/agents/canon/mantles/builder.md,\nthen execute the order at ~/code/agents/plans/14-summon-rig-theater-cycle.md."
+		"text": "You are a Builder at opus-high.\nWear ~/code/agents/canon/mantles/builder.md,\nthen execute the order at ~/code/agents/plans/014-summon-rig-theater-cycle.md."
 	},
 	{
-		"doc": "plans/16-doctrine-linter.md",
+		"doc": "plans/016-doctrine-linter.md",
 		"mantle": "Builder",
 		"tier": "opus-high",
-		"text": "You are a Builder at opus-high.\nWear ~/code/agents/canon/mantles/builder.md,\nthen read ~/code/agents/plans/16-doctrine-linter.md\nand execute the order."
+		"text": "You are a Builder at opus-high.\nWear ~/code/agents/canon/mantles/builder.md,\nthen read ~/code/agents/plans/016-doctrine-linter.md\nand execute the order."
 	},
 	{
-		"doc": "plans/17-storage-experiment.md",
+		"doc": "plans/017-storage-experiment.md",
 		"mantle": "Digger",
 		"tier": "fable-high",
-		"text": "You are a Digger at fable-high.\nWear ~/code/agents/canon/mantles/digger.md,\nthen read ~/code/agents/MAP.md §5 (v3 note)\nand ~/code/agents/plans/17-storage-experiment.md,\nand execute the brief."
+		"text": "You are a Digger at fable-high.\nWear ~/code/agents/canon/mantles/digger.md,\nthen read ~/code/agents/MAP.md §5 (v3 note)\nand ~/code/agents/plans/017-storage-experiment.md,\nand execute the brief."
 	},
 	{
-		"doc": "plans/18-great-recut.md",
+		"doc": "plans/018-great-recut.md",
 		"mantle": "Architect",
 		"tier": "opus-high",
-		"text": "You are an Architect at opus-high.\nWear ~/code/agents/canon/mantles/architect.md,\nthen read ~/code/agents/plans/18-great-recut.md (§inputs, §method, §fence)\nand execute row 18a: ~/code/agents + ~/code/agents/belvedere."
+		"text": "You are an Architect at opus-high.\nWear ~/code/agents/canon/mantles/architect.md,\nthen read ~/code/agents/plans/018-great-recut.md (§inputs, §method, §fence)\nand execute row 18a: ~/code/agents + ~/code/agents/belvedere."
 	},
 	{
-		"doc": "plans/18-great-recut.md",
+		"doc": "plans/018-great-recut.md",
 		"mantle": "Architect",
 		"tier": "opus-medium",
-		"text": "You are an Architect at opus-medium.\nWear ~/code/agents/canon/mantles/architect.md,\nthen read ~/code/agents/plans/18-great-recut.md (§inputs, §method, §fence)\nand execute row 18b: ~/code/hexwright."
+		"text": "You are an Architect at opus-medium.\nWear ~/code/agents/canon/mantles/architect.md,\nthen read ~/code/agents/plans/018-great-recut.md (§inputs, §method, §fence)\nand execute row 18b: ~/code/hexwright."
 	},
 	{
-		"doc": "plans/18-great-recut.md",
+		"doc": "plans/018-great-recut.md",
 		"mantle": "Architect",
 		"tier": "opus-high",
-		"text": "You are an Architect at opus-high.\nWear ~/code/agents/canon/mantles/architect.md,\nthen read ~/code/agents/plans/18-great-recut.md (§inputs, §method, §fence)\nand execute row 18c: ~/code/whiteboardy."
+		"text": "You are an Architect at opus-high.\nWear ~/code/agents/canon/mantles/architect.md,\nthen read ~/code/agents/plans/018-great-recut.md (§inputs, §method, §fence)\nand execute row 18c: ~/code/whiteboardy."
 	},
 	{
-		"doc": "plans/18-great-recut.md",
+		"doc": "plans/018-great-recut.md",
 		"mantle": "Architect",
 		"tier": "opus-medium",
-		"text": "You are an Architect at opus-medium.\nWear ~/code/agents/canon/mantles/architect.md,\nthen read ~/code/agents/plans/18-great-recut.md (§inputs, §method, §fence)\nand execute row 18d: ~/code/universal_robots_sdk/bob (campaigns lunchbox, pods, theseus)."
+		"text": "You are an Architect at opus-medium.\nWear ~/code/agents/canon/mantles/architect.md,\nthen read ~/code/agents/plans/018-great-recut.md (§inputs, §method, §fence)\nand execute row 18d: ~/code/universal_robots_sdk/bob (campaigns lunchbox, pods, theseus)."
 	},
 	{
-		"doc": "plans/18-great-recut.md",
+		"doc": "plans/018-great-recut.md",
 		"mantle": "Architect",
 		"tier": "opus-high",
-		"text": "You are an Architect at opus-high.\nWear ~/code/agents/canon/mantles/architect.md,\nthen read ~/code/agents/plans/18-great-recut.md (§inputs, §method, §fence)\nand execute row 18e: ~/code/universal_robots_sdk/cap-mega/simmy."
+		"text": "You are an Architect at opus-high.\nWear ~/code/agents/canon/mantles/architect.md,\nthen read ~/code/agents/plans/018-great-recut.md (§inputs, §method, §fence)\nand execute row 18e: ~/code/universal_robots_sdk/cap-mega/simmy."
 	},
 	{
-		"doc": "plans/18-great-recut.md",
+		"doc": "plans/018-great-recut.md",
 		"mantle": "Architect",
 		"tier": "opus-medium",
-		"text": "You are an Architect at opus-medium.\nWear ~/code/agents/canon/mantles/architect.md,\nthen read ~/code/agents/plans/18-great-recut.md (§inputs, §method, §fence)\nand execute row 18f: cap-mega snappy, snappy/ch2, and the docs cluster\n(units, waypoint-stepper, advanced-naming-system, node-global-parameters)."
+		"text": "You are an Architect at opus-medium.\nWear ~/code/agents/canon/mantles/architect.md,\nthen read ~/code/agents/plans/018-great-recut.md (§inputs, §method, §fence)\nand execute row 18f: cap-mega snappy, snappy/ch2, and the docs cluster\n(units, waypoint-stepper, advanced-naming-system, node-global-parameters)."
 	},
 	{
-		"doc": "plans/18-great-recut.md",
+		"doc": "plans/018-great-recut.md",
 		"mantle": "Architect",
 		"tier": "opus-medium",
-		"text": "You are an Architect at opus-medium.\nWear ~/code/agents/canon/mantles/architect.md,\nthen read ~/code/agents/plans/18-great-recut.md (§inputs, §method, §fence)\nand execute row 18g: the cap-mega worktree boards — manny, tig-avc,\nschema-migration, cornerizer — each inside its own worktree, on its own branch."
+		"text": "You are an Architect at opus-medium.\nWear ~/code/agents/canon/mantles/architect.md,\nthen read ~/code/agents/plans/018-great-recut.md (§inputs, §method, §fence)\nand execute row 18g: the cap-mega worktree boards — manny, tig-avc,\nschema-migration, cornerizer — each inside its own worktree, on its own branch."
 	},
 	{
-		"doc": "plans/18-great-recut.md",
+		"doc": "plans/018-great-recut.md",
 		"mantle": "Architect",
 		"tier": "sonnet-high",
-		"text": "You are an Architect at sonnet-high.\nWear ~/code/agents/canon/mantles/architect.md,\nthen read ~/code/agents/plans/18-great-recut.md (§inputs, §method, §fence)\nand execute row 18h: ~/code/rooted (repot + archive/arborist) and the two\nspacex-dashboard ledgers under cap-mega/felix/."
+		"text": "You are an Architect at sonnet-high.\nWear ~/code/agents/canon/mantles/architect.md,\nthen read ~/code/agents/plans/018-great-recut.md (§inputs, §method, §fence)\nand execute row 18h: ~/code/rooted (repot + archive/arborist) and the two\nspacex-dashboard ledgers under cap-mega/felix/."
 	},
 	{
-		"doc": "plans/18-great-recut.md",
+		"doc": "plans/018-great-recut.md",
 		"mantle": "Dispatcher",
 		"tier": "sonnet-medium",
-		"text": "You are a Dispatcher at sonnet-medium.\nWear ~/code/agents/canon/mantles/dispatcher.md,\nthen run the wave at ~/code/agents/plans/18-great-recut.md.\nConcurrency plan: ceiling 4 concurrent rows; all eight parallel-safe (disjoint\nrepos; 18e/f/g disjoint files within cap-mega; 18g inside per-board worktrees);\nno gauge — doc-only work. Announce every dispatch (D67)."
+		"text": "You are a Dispatcher at sonnet-medium.\nWear ~/code/agents/canon/mantles/dispatcher.md,\nthen run the wave at ~/code/agents/plans/018-great-recut.md.\nConcurrency plan: ceiling 4 concurrent rows; all eight parallel-safe (disjoint\nrepos; 18e/f/g disjoint files within cap-mega; 18g inside per-board worktrees);\nno gauge — doc-only work. Announce every dispatch (D67)."
 	},
 	{
-		"doc": "plans/19-doctrine-hardening.md",
+		"doc": "plans/019-doctrine-hardening.md",
 		"mantle": "Builder",
 		"tier": "opus-high",
-		"text": "You are a Builder at opus-high.\nWear ~/code/agents/canon/mantles/builder.md,\nthen read ~/code/agents/plans/19-doctrine-hardening.md and execute the order."
+		"text": "You are a Builder at opus-high.\nWear ~/code/agents/canon/mantles/builder.md,\nthen read ~/code/agents/plans/019-doctrine-hardening.md and execute the order."
 	},
 	{
-		"doc": "plans/20-continuous-flow.md",
+		"doc": "plans/020-continuous-flow.md",
 		"mantle": "Grand Architect",
 		"tier": "fable-max",
-		"text": "You are the Grand Architect at fable-max.\nWear ~/code/agents/canon/mantles/grand-architect.md,\nthen read ~/code/agents/plans/20-continuous-flow.md and lay the flow keel."
+		"text": "You are the Grand Architect at fable-max.\nWear ~/code/agents/canon/mantles/grand-architect.md,\nthen read ~/code/agents/plans/020-continuous-flow.md and lay the flow keel."
 	},
 	{
-		"doc": "plans/21-vocabulary.md",
+		"doc": "plans/021-vocabulary.md",
 		"mantle": "Grand Architect",
 		"tier": "fable-max",
-		"text": "You are the Grand Architect at fable-max.\nWear ~/code/agents/canon/mantles/grand-architect.md,\nthen read ~/code/agents/plans/21-vocabulary.md and cut the vocabulary standard."
+		"text": "You are the Grand Architect at fable-max.\nWear ~/code/agents/canon/mantles/grand-architect.md,\nthen read ~/code/agents/plans/021-vocabulary.md and cut the vocabulary standard."
 	},
 	{
-		"doc": "plans/22-summon-argv.md",
+		"doc": "plans/022-summon-argv.md",
 		"mantle": "Builder",
 		"tier": "opus-high",
-		"text": "You are a Builder at opus-high.\nWear ~/code/agents/canon/mantles/builder.md,\nthen read ~/code/agents/plans/22-summon-argv.md and execute the order."
+		"text": "You are a Builder at opus-high.\nWear ~/code/agents/canon/mantles/builder.md,\nthen read ~/code/agents/plans/022-summon-argv.md and execute the order."
 	},
 	{
 		"doc": "plans/belvedere.md",

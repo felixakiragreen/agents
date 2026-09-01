@@ -77,7 +77,7 @@ escalate. Do your charge; leave good trails. ⚡
   definition). **"Baton" unglossed → "handoff"** (probes 5, 9).
 - **Escalation + `ISSUES.md` routing added** — the one universal law every arm
   missed (probes 4, 5, 6, 9: "no failure mode at all"); the spend-fork/usage-gauge
-  clause rides it (C28 drafting input — Felix rules whether it stays).
+  clause rides it (028 drafting input — Felix rules whether it stays).
 - **Precedence one-liner added** ("outranks this door") — probes 5, 6, 9 all asked
   who wins on conflict.
 - **"Leave good ones" moved into the trails paragraph** — as a tacked-on closer it

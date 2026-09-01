@@ -102,7 +102,7 @@
   “Belvedere, the surface where boards are rendered as cards” | “Belvedere's scope stated as the sovereign's view over all agent work” | “literal greenhouse glass sheltering bred phenotypes — not Belvedere” | “literal greenhouse glass, second occurrence colliding with Belvedere'…” | “the touch/iOS coarse-pointer surface of the app, opposed to the keybo…”
 - **ledger** [collision:ledger]
   “to write one's session record into a given ledger file” | “a tracked list of architectural coupling issues found during the spik…”
-- **harness** [collision:harness (a test suite, D62/row 13) collision:harness failure]
+- **harness** [collision:harness (a test suite, D62/row 013) collision:harness failure]
   “the Claude Code runtime that hosts sessions and enforces presets” | “a browser-driven test apparatus proving a DoD claim” | “the Claude Code runtime whose limits are physics for a session” | “the executable evidence rig a row's DoD is measured against” | “a third-party agent-running tool evaluated against the Guild's needs”
 - **dispatch** [collision:dispatch]
   “the mechanism/component that turns a board row into hand commands”
@@ -395,7 +395,7 @@
 - **buried** [collision:strike]
   “retiring a superseded document by deleting it and preserving it only …”
 - **landing gate** [collision:gate]
-  “the collective set of proof obligations required before a change is m…” | “row 03's role as the final verify-then-cutover checkpoint before merg…”
+  “the collective set of proof obligations required before a change is m…” | “row 003's role as the final verify-then-cutover checkpoint before merg…”
 - **w-<n>/m-<n>** [collision:M4]
   “identifies one specific walk-log MISMATCH row — a third distinct numb…”
 - **mantle row** [collision:row]
@@ -626,7 +626,7 @@
 - **gauge** ×13: “the named live measurement a Dispatcher reads bef…” | “the live measurement a Dispatcher watches before …” | “to assess a project incident for whether it carri…” | “the live meter of host or quota load that a Dispa…” | “the instrument that measures live load against th…” | “the resource metric (e.g. host load) that bounds …”
 - **CLOSED** ×12: “a banned status token, superseded by LANDED or KI…” | “a batch-level completion status, distinct from th…” | “a campaign's DoD met — the same word D18 retired …” | “an open question settled by evidence and needing …” | “a whole campaign version finished against its DoD” | “a marker that an open unknown/question in a spike…”
 - **probe** ×11: “an experiment run to detect whether an effect exi…” | “a diagnostic/investigative run producing findings” | “a Digger's numbered investigative work-doc (P-ser…” | “an empirical test run against real/live behavior …” | “a scripted experiment run to answer one factual q…” | “a prior fact-finding investigation whose conclusi…”
-- **harness** ×11: “the Claude Code runtime that hosts sessions and e…” | “a browser-driven test apparatus proving a DoD cla…” | “the Claude Code runtime whose limits are physics …” | “the executable evidence rig a row's DoD is measur…” | “a third-party agent-running tool evaluated agains…” | “the automated test suite (lab/08/run) that exerci…”
+- **harness** ×11: “the Claude Code runtime that hosts sessions and e…” | “a browser-driven test apparatus proving a DoD cla…” | “the Claude Code runtime whose limits are physics …” | “the executable evidence rig a row's DoD is measur…” | “a third-party agent-running tool evaluated agains…” | “the automated test suite (lab/008/run) that exerci…”
 - **spike** ×11: “a small bounded experimental project or investiga…” | “a disposable experiment run to confirm a mechanism” | “a bounded empirical probe run to settle a mechani…” | “a short exploratory experiment run to test a ques…” | “a bounded, disposable exploratory-build row genre…” | “an experimental, flag-gated code change built to …”
 - **campaign** ×11: “a multi-session arc of work with a board behind it” | “a user-made group in the City arrangement, not a …” | “a bounded arc of rows with its own definition of …” | “a multi-session body of work with its own board, …” | “a multi-session bounded programme of work with it…” | “a bounded body of related planned sessions/rows u…”
 - **ruling** ×10: “a decision Felix hands down that binds without fu…” | “a decision made on a live fork, weaker ceremony t…” | “the recorded decision an office makes when applyi…” | “Felix's personal decision act on phase acceptance…” | “Felix's phase-acceptance verdict, recorded as its…” | “a sequentially numbered, dated register of Felix'…”

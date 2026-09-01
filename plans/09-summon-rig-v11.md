@@ -1,14 +1,14 @@
-# 09 — summon rig v1.1: sticky state, palette, responsive panel
+# 009 — summon rig v1.1: sticky state, palette, responsive panel
 
 Three findings from Felix's first live day on the rig (D36), plus the simplifications
 they force. This is a modification of a landed, tested system — `summon/` with its
-harness at `lab/08/run` — not a rebuild. Extend, don't rewrite.
+harness at `lab/008/run` — not a rebuild. Extend, don't rewrite.
 
 ## Inputs — read before working
 
-- This brief, then `plans/08-summon-rig.md` (the landed contract + findings) and the
-  code it landed: `summon/summon.zsh`, `lab/08/run`.
-- `GENESIS.md` row 09; `canon/work/DOCTRINE.md` for findings law.
+- This brief, then `plans/008-summon-rig.md` (the landed contract + findings) and the
+  code it landed: `summon/summon.zsh`, `lab/008/run`.
+- `GENESIS.md` row 009; `canon/work/DOCTRINE.md` for findings law.
 
 ## Spec
 
@@ -72,10 +72,10 @@ account  [0] personal  [1] thg-fgreen ✓  [2] thg-doorbell
 
 ## Acceptance criteria — the DoD
 
-Evidence: `./lab/08/run` — **76 assertions, 0 failures** on 2026-08-06. The rig runs in a
+Evidence: `./lab/008/run` — **76 assertions, 0 failures** on 2026-08-06. The rig runs in a
 sandbox copy under a real pty (`expect`) with `claude` and `pbcopy` shims capturing exactly
 what each launch would have received; the panel, being a pure function of the selection and
-`$COLUMNS`, is also rendered without a pty (`lab/08/render.zsh`) so its text, wrap and
+`$COLUMNS`, is also rendered without a pty (`lab/008/render.zsh`) so its text, wrap and
 palette spans are asserted byte-exactly; and two single-gesture pty runs prove one whole
 paint on a real screen (`preview.exp`, `narrow.exp` at 60 columns).
 
@@ -130,7 +130,7 @@ paint on a real screen (`preview.exp`, `narrow.exp` at 60 columns).
       (`{"mode":"refire","n":3,…,"keys":"^GZ⏎"}` — the Z changed nothing, so it is
       honestly still a refire), `PASS bare is inferred from mantle/color = null, not a
       mode`, `PASS log/last retired — log/state is the only sidecar`. Schema change in F6
-- [x] `lab/08/run` extended to cover all of the above — green, no regressions — 76
+- [x] `lab/008/run` extended to cover all of the above — green, no regressions — 76
       assertions, 0 failures; every v1 guarantee still asserted (Enter-only firing at
       `PASS nothing fires but Enter: 11 launches across 20 gestures`, the clipboard law at
       `PASS clipboard written exactly once, on the one y press`, push-input, eject never
@@ -167,7 +167,7 @@ string is plain text and the colours are zle's own highlight spans. This is the 
 route the brief named first, and it is strictly better than direct terminal writes: zle owns
 the cursor, the wrapping and the teardown, so there is no save/restore arithmetic, no scroll
 hazard, and taking the panel down is `POSTDISPLAY=''` + `region_highlight=()`. The panel
-builder now emits (plain text, spans) instead of an escape-laden string; `lab/08/render.zsh`
+builder now emits (plain text, spans) instead of an escape-laden string; `lab/008/render.zsh`
 prints every span over the text its offsets actually cover, so a wrong offset shows up as
 the wrong text instead of passing quietly.
 
@@ -201,7 +201,7 @@ Probe in a spawned interactive zsh: `stty columns 60 rows 60` then `print
 AFTER=$COLUMNS stty=$(stty size)` → `AFTER=80 stty=60 60`. zsh caches its terminal size and
 only re-reads it on SIGWINCH, which nothing delivers here. So 08's `stty columns 200` never
 widened the shell — **every v1 panel assertion actually ran at 80 columns** (harmless there:
-v1's rows fit in 80). `lab/08/rc.zsh` now sets both, and `SUMMON_COLUMNS=60` drives the
+v1's rows fit in 80). `lab/008/rc.zsh` now sets both, and `SUMMON_COLUMNS=60` drives the
 narrow arm, which is what made the 60-column pty test real rather than nominal.
 
 **F5 — what 60 columns actually looks like** (reconstructed from the live pty stream, so
@@ -267,5 +267,5 @@ writing the next transcript assertion in any repo.
 ```
 You are a Builder at opus-high.
 Wear ~/code/agents/canon/mantles/builder.md,
-then execute the brief at ~/code/agents/plans/09-summon-rig-v11.md.
+then execute the brief at ~/code/agents/plans/009-summon-rig-v11.md.
 ```

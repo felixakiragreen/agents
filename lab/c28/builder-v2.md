@@ -1,4 +1,4 @@
-# The Builder mantle — redraft v2 (C28; riding the proven pattern)
+# The Builder mantle — redraft v2 (028; riding the proven pattern)
 
 *Drafted 2026-08-29 on Felix's go. What entered: the doubly-bound D75 mirror
 (built to last answers to all of it); the hard fence as the genre's side-quest

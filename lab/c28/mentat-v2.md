@@ -1,4 +1,4 @@
-# The Mentat office — redraft v2 (C28; light — the charter is D62-young)
+# The Mentat office — redraft v2 (028; light — the charter is D62-young)
 
 *Respelled and pattern-conformed, not reinvented: the mint is four days old
 and blessed at birth. sitting→session, fold→distill, keel-note→cornerstone

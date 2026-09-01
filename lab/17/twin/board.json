@@ -20,7 +20,7 @@
 			{
 				"id": "01",
 				"work": "Composition model",
-				"workDoc": "plans/01-composition-model.md",
+				"workDoc": "plans/001-composition-model.md",
 				"dependsOn": [
 					"0"
 				],
@@ -35,7 +35,7 @@
 			{
 				"id": "02",
 				"work": "Work doctrine",
-				"workDoc": "plans/02-work-doctrine.md",
+				"workDoc": "plans/002-work-doctrine.md",
 				"dependsOn": [
 					"0"
 				],
@@ -50,7 +50,7 @@
 			{
 				"id": "03",
 				"work": "Global CLAUDE.md",
-				"workDoc": "plans/03-global-claude-md.md",
+				"workDoc": "plans/003-global-claude-md.md",
 				"dependsOn": [
 					"01",
 					"02"
@@ -68,7 +68,7 @@
 			{
 				"id": "04",
 				"work": "Sync",
-				"workDoc": "plans/04-sync.md",
+				"workDoc": "plans/004-sync.md",
 				"dependsOn": [
 					"01",
 					"02",
@@ -80,12 +80,12 @@
 				"felixGate": false,
 				"rider": "→ Builder · opus-high for Stage B",
 				"state": "LANDED",
-				"annotation": "2026-08-03 — deploy + check green 3×3, canary ×3, smoke ✓ ×3 (Max /login PENDING struck 2026-08-08, 10-F6(a): 10-E2 measured ~/.claude live and authenticated — OAuth usage HTTP 200, claude_max profile fetched same day — and row 08's rig smoke ran ×3 on 2026-08-06)"
+				"annotation": "2026-08-03 — deploy + check green 3×3, canary ×3, smoke ✓ ×3 (Max /login PENDING struck 2026-08-08, 010-F6(a): 10-E2 measured ~/.claude live and authenticated — OAuth usage HTTP 200, claude_max profile fetched same day — and row 008's rig smoke ran ×3 on 2026-08-06)"
 			},
 			{
 				"id": "05",
 				"work": "Saturation harvest — snappy batch-1 → canon",
-				"workDoc": "plans/05-saturation-harvest.md",
+				"workDoc": "plans/005-saturation-harvest.md",
 				"dependsOn": [],
 				"gates": [],
 				"mantle": "Grand Architect",
@@ -93,12 +93,12 @@
 				"felixGate": false,
 				"rider": null,
 				"state": "LANDED",
-				"annotation": "2026-08-05 — D28–D30 entered amended, rejections upheld, D31 (hive-city voice) cut; D28–D31 ✓ Felix same day"
+				"annotation": "2026-08-05 — D28–D30 entered amended, rejections upheld, D31 (hive-city voice) cut; D28–D31 ⬡✓ same day"
 			},
 			{
 				"id": "06",
 				"work": "hexwright retrofit",
-				"workDoc": "plans/06-hexwright-retrofit.md",
+				"workDoc": "plans/006-hexwright-retrofit.md",
 				"dependsOn": [],
 				"gates": [
 					"D32 ✓ 2026-08-06"
@@ -108,12 +108,12 @@
 				"felixGate": false,
 				"rider": null,
 				"state": "LANDED",
-				"annotation": "2026-08-06 → [findings](plans/06-hexwright-retrofit.md); hexwright D9 ✓ Felix (via D32); board minted, dream renamed"
+				"annotation": "2026-08-06 → [findings](plans/006-hexwright-retrofit.md); hexwright D9 ⬡✓ (via D32); board minted, dream renamed"
 			},
 			{
 				"id": "07",
 				"work": "simmy retrofit",
-				"workDoc": "plans/07-simmy-retrofit.md",
+				"workDoc": "plans/007-simmy-retrofit.md",
 				"dependsOn": [],
 				"gates": [
 					"D32 ✓ 2026-08-06"
@@ -123,12 +123,12 @@
 				"felixGate": false,
 				"rider": null,
 				"state": "LANDED",
-				"annotation": "2026-08-06 → [findings](plans/07-simmy-retrofit.md); simmy D16 ✓ Felix; B14 clear to resume"
+				"annotation": "2026-08-06 → [findings](plans/007-simmy-retrofit.md); simmy D16 ⬡✓; B14 clear to resume"
 			},
 			{
 				"id": "08",
 				"work": "summon rig",
-				"workDoc": "plans/08-summon-rig.md",
+				"workDoc": "plans/008-summon-rig.md",
 				"dependsOn": [],
 				"gates": [
 					"D34 ✓ 2026-08-06"
@@ -138,12 +138,12 @@
 				"felixGate": false,
 				"rider": null,
 				"state": "LANDED",
-				"annotation": "2026-08-06 → summon/ + [DoD evidence](plans/08-summon-rig.md) (33 assertions green, lab/08/run); dotfiles source line ✓ 2026-08-06; smoke ×3 ✓ Felix 2026-08-06 (the per-account routing proof the shim couldn't give). F3 PARKED (Felix): deferred into the future slash-summons work"
+				"annotation": "2026-08-06 → summon/ + [DoD evidence](plans/008-summon-rig.md) (33 assertions green, lab/008/run); dotfiles source line ✓ 2026-08-06; smoke ×3 ⬡✓ 2026-08-06 (the per-account routing proof the shim couldn't give). F3 PARKED (Felix): deferred into the future slash-summons work"
 			},
 			{
 				"id": "09",
 				"work": "summon rig v1.1",
-				"workDoc": "plans/09-summon-rig-v11.md",
+				"workDoc": "plans/009-summon-rig-v11.md",
 				"dependsOn": [
 					"08"
 				],
@@ -155,12 +155,12 @@
 				"felixGate": false,
 				"rider": null,
 				"state": "LANDED",
-				"annotation": "2026-08-06 → [DoD evidence](plans/09-summon-rig-v11.md) (76 assertions green, lab/08/run); 2-key refire, cascade+override, [n]one bare, palette, 60-col wrap. Palette trap fired — escapes die in zle -M, so the colours ride region_highlight (F1/F2). D36 ✓ Felix (by dispatch); visual pass ✓ Felix 2026-08-06 — rig in daily use, refinements to accrue over live weeks; smoke ×3 ✓ Felix 2026-08-06"
+				"annotation": "2026-08-06 → [DoD evidence](plans/009-summon-rig-v11.md) (76 assertions green, lab/008/run); 2-key refire, cascade+override, [n]one bare, palette, 60-col wrap. Palette trap fired — escapes die in zle -M, so the colours ride region_highlight (F1/F2). D36 ⬡✓ (by dispatch); visual pass ⬡✓ 2026-08-06 — rig in daily use, refinements to accrue over live weeks; smoke ×3 ⬡✓ 2026-08-06"
 			},
 			{
 				"id": "10",
 				"work": "summon rig v1.2 — the usage panel",
-				"workDoc": "plans/10-summon-rig-v12-usage.md",
+				"workDoc": "plans/010-summon-rig-v12-usage.md",
 				"dependsOn": [
 					"09"
 				],
@@ -172,12 +172,12 @@
 				"felixGate": false,
 				"rider": null,
 				"state": "LANDED",
-				"annotation": "2026-08-07 → [DoD evidence](plans/10-summon-rig-v12-usage.md) (134 assertions green, lab/08/run). E2 settled: the usage source is the OAuth endpoint, keychain service derived as sha256(config dir)[:8] — the .claude.json cache was measured hours stale and once inverted the arbitrage, so the rig fetches. Felix's gate: probe (b), granted 2026-08-07. Fetcher proven on all three live accounts (F8). Felix's first look amended D41's palette law in-session — staleness greys the furniture, never the figures (F9). Full panel visual pass PENDING Felix. Ruled 2026-08-08 (Architect): F1 accepted — latency clause is now a budget, per-keystroke ≤ 5 ms; F6(a) struck (row 04 amended); F10's spawn options ruled option (i), operative in row 11's spec"
+				"annotation": "2026-08-07 → [DoD evidence](plans/010-summon-rig-v12-usage.md) (134 assertions green, lab/008/run). E2 settled: the usage source is the OAuth endpoint, keychain service derived as sha256(config dir)[:8] — the .claude.json cache was measured hours stale and once inverted the arbitrage, so the rig fetches. Felix's gate: probe (b), granted 2026-08-07. Fetcher proven on all three live accounts (F8). Felix's first look amended D41's palette law in-session — staleness greys the furniture, never the figures (F9). Full panel visual pass PENDING Felix. Ruled 2026-08-08 (Architect): F1 accepted — latency clause is now a budget, per-keystroke ≤ 5 ms; F6(a) struck (row 004 amended); F10's spawn options ruled option (i), operative in row 011's spec"
 			},
 			{
 				"id": "11",
 				"work": "summon rig v1.3 — the live table",
-				"workDoc": "plans/11-summon-rig-v13-live-refresh.md",
+				"workDoc": "plans/011-summon-rig-v13-live-refresh.md",
 				"dependsOn": [
 					"10"
 				],
@@ -189,12 +189,12 @@
 				"felixGate": false,
 				"rider": null,
 				"state": "OPEN",
-				"annotation": "cut 2026-08-08 (Architect), blessing PENDING Felix. Fixes what row 10's visual pass exposed — the panel repaints only on a keystroke, so an in-flight fetch is invisible if Felix just looks. Two mechanisms: a precmd warm-keeper (the panel opens already-current) and an await-mode tick (read -k -t verified in a zle widget). The cut ruled the 10-F10 spawn fork: one detached summon-fetch worker shape at both spawn sites, panel-open spawn retained (idle terminals draw no prompts), 10-F1 inherited as a ≤ 5 ms budget. Deferred by Felix 2026-08-08 — the blessing gate stands unmet; nothing dispatches until his word. 13 LANDED 2026-08-22, so the rebase is real: at unshelving this row inherits the name-stamp in every asserted panel/command, and 13's narrowed F4/F5 arms (13-F1's guard, first ruled here, moved to row 14 2026-08-24 — 14 touches the harness now, 11 is deferred indefinitely)"
+				"annotation": "cut 2026-08-08 (Architect), blessing PENDING Felix. Fixes what row 010's visual pass exposed — the panel repaints only on a keystroke, so an in-flight fetch is invisible if Felix just looks. Two mechanisms: a precmd warm-keeper (the panel opens already-current) and an await-mode tick (read -k -t verified in a zle widget). The cut ruled the 010-F10 spawn fork: one detached summon-fetch worker shape at both spawn sites, panel-open spawn retained (idle terminals draw no prompts), 010-F1 inherited as a ≤ 5 ms budget. Deferred by Felix 2026-08-08 — the blessing gate stands unmet; nothing dispatches until his word. 13 LANDED 2026-08-22, so the rebase is real: at unshelving this row inherits the name-stamp in every asserted panel/command, and 13's narrowed F4/F5 arms (013-F1's guard, first ruled here, moved to row 014 2026-08-24 — 14 touches the harness now, 11 is deferred indefinitely)"
 			},
 			{
 				"id": "12",
 				"work": "the dispatch guard",
-				"workDoc": "plans/12-dispatch-guard.md",
+				"workDoc": "plans/012-dispatch-guard.md",
 				"dependsOn": [],
 				"gates": [],
 				"mantle": "Builder",
@@ -202,12 +202,12 @@
 				"felixGate": false,
 				"rider": null,
 				"state": "LANDED",
-				"annotation": "2026-08-08 → guard/ + [DoD evidence](plans/12-dispatch-guard.md) (four live arms green, lab/12/run). The deny→retry loop closes with no human in it. The hole, proven: workflow-script agent(…, {model, effort}) calls never fire PreToolUse (F2) — README names it, arm 4 watches it. F6 ruled 2026-08-08 (Architect): no text-matcher — deterministic or nothing; the hole stays named + watched, D47 binds workflow authors procedurally. Adoption anywhere is still its own row"
+				"annotation": "2026-08-08 → guard/ + [DoD evidence](plans/012-dispatch-guard.md) (four live arms green, lab/012/run). The deny→retry loop closes with no human in it. The hole, proven: workflow-script agent(…, {model, effort}) calls never fire PreToolUse (F2) — README names it, arm 4 watches it. F6 ruled 2026-08-08 (Architect): no text-matcher — deterministic or nothing; the hole stays named + watched, D47 binds workflow authors procedurally. Adoption anywhere is still its own row"
 			},
 			{
 				"id": "13",
 				"work": "summon rig — the name-stamp",
-				"workDoc": "plans/13-summon-rig-name-stamp.md",
+				"workDoc": "plans/013-summon-rig-name-stamp.md",
 				"dependsOn": [],
 				"gates": [],
 				"mantle": "Builder",
@@ -215,12 +215,12 @@
 				"felixGate": false,
 				"rider": null,
 				"state": "OPEN",
-				"annotation": "cut 2026-08-08 on Felix's call (quartermaster §5). The rig stamps --name <mantle>-<theater>-<account> at fire (claude --name verified against --help, ~2.1.x); bare launches drop the mantle segment, eject keeps the stamp editable. The roster stops being anonymous doors. Amended 2026-08-22 (Architect, Felix's numbering ask — ISSUES 04152cf): scheme is <mantle>-<theater>-<NN> — account segment out (arbitrage, not identity), GA drops theater too (one office — redundancy, not information; Felix), auto-derived lineage ordinal in, superseding the no-suffix pre-ruling; counter from invocations.jsonl (record gains a name field), one pass at panel open, +/- bump seeds and corrects lineages (no restart — GA continues at 09). Dispatched 2026-08-22 → LANDED 2026-08-22 (Builder · opus-high) → [DoD evidence](plans/13-summon-rig-name-stamp.md) (170 assertions green ×3, lab/08/run; -n/--name re-verified against live --help). The rig is live on the next new shell — summon/ is sourced from dotfiles, not deployed. Smoke ✓ Felix 2026-08-22 (fired, bumped a lineage to his hand-count, name confirmed in title + roster). F1: the harness arrived 3 assertions red — presets.tsv gained D digger on 08-09 and nothing swept lab/08; fixed here, and the guard against a repeat is named-not-built. F4/F5: two row-10 guarantees deliberately narrowed (v1.1 byte-identity now covers every panel *row*; refire fidelity is identity-but-for-the-ordinal). F7 parked: the 32-key runaway guard caps one panel's seed at ~28 ordinals"
+				"annotation": "cut 2026-08-08 on Felix's call (quartermaster §5). The rig stamps --name <mantle>-<theater>-<account> at fire (claude --name verified against --help, ~2.1.x); bare launches drop the mantle segment, eject keeps the stamp editable. The roster stops being anonymous doors. Amended 2026-08-22 (Architect, Felix's numbering ask — ISSUES 04152cf): scheme is <mantle>-<theater>-<NN> — account segment out (arbitrage, not identity), GA drops theater too (one office — redundancy, not information; Felix), auto-derived lineage ordinal in, superseding the no-suffix pre-ruling; counter from invocations.jsonl (record gains a name field), one pass at panel open, +/- bump seeds and corrects lineages (no restart — GA continues at 09). Dispatched 2026-08-22 → LANDED 2026-08-22 (Builder · opus-high) → [DoD evidence](plans/013-summon-rig-name-stamp.md) (170 assertions green ×3, lab/008/run; -n/--name re-verified against live --help). The rig is live on the next new shell — summon/ is sourced from dotfiles, not deployed. Smoke ⬡✓ 2026-08-22 (fired, bumped a lineage to his hand-count, name confirmed in title + roster). F1: the harness arrived 3 assertions red — presets.tsv gained D digger on 08-09 and nothing swept lab/008; fixed here, and the guard against a repeat is named-not-built. F4/F5: two row-10 guarantees deliberately narrowed (v1.1 byte-identity now covers every panel *row*; refire fidelity is identity-but-for-the-ordinal). F7 parked: the 32-key runaway guard caps one panel's seed at ~28 ordinals"
 			},
 			{
 				"id": "14",
 				"work": "summon rig — the theater cycle",
-				"workDoc": "plans/14-summon-rig-theater-cycle.md",
+				"workDoc": "plans/014-summon-rig-theater-cycle.md",
 				"dependsOn": [
 					"13"
 				],
@@ -230,7 +230,7 @@
 				"felixGate": false,
 				"rider": null,
 				"state": "OPEN",
-				"annotation": "cut 2026-08-24 (Architect) on Felix's ask (campaigns are not always directories — bob hosts bob, lunchbox, pods; deep-firing fragments the project silo, eject blinds the counter). .summon-theaters at the fire dir (first line default, no file → ${PWD:t}), reserved t cycles, sticky per directory on fire only; counter and GA exception untouched. Inherits 13-F1's guard: lab/08/run derives its presets.tsv fixtures. Forks ruled by Felix 2026-08-24: t key ✓, sticky ✓. Dispatched 2026-08-24 → LANDED 2026-08-24 (Builder · opus-high) → [DoD evidence](plans/14-summon-rig-theater-cycle.md) (200 assertions green ×4, lab/08/run; was 170 — none weakened, two strengthened). Sticky map is log/theaters (F2), not log/state — different shape, different lifetime. 13-F1's guard landed and proved both ways: one row appended to the live presets.tsv leaves the new harness green with its counts following, and turns the pre-14 harness red in exactly the three predicted places. F1: a theater becomes argv, so a line that is not a plain name refuses the panel out loud — 13-F9's hazard arriving from a data file; spec extension, one if to revert. F5 parked: the 32-key runaway guard caps one panel's cycle at ~28 positions, and no cap is placed on the list itself. Ruled 2026-08-24 (Architect): F1 and F2 accepted — the loud refusal is directives §3 (a silently skipped campaign line lies to the cycle), and log/theaters is the narrower, truer state (only listing directories enter); suite re-run green by the Architect's own hand. Smoke PENDING Felix — the rig is live on the next new shell (summon/ is sourced from dotfiles, not deployed). Serial with 11 (shared files — 11 deferred, so dispatchable)"
+				"annotation": "cut 2026-08-24 (Architect) on Felix's ask (campaigns are not always directories — bob hosts bob, lunchbox, pods; deep-firing fragments the project silo, eject blinds the counter). .summon-theaters at the fire dir (first line default, no file → ${PWD:t}), reserved t cycles, sticky per directory on fire only; counter and GA exception untouched. Inherits 013-F1's guard: lab/008/run derives its presets.tsv fixtures. Forks ruled by Felix 2026-08-24: t key ✓, sticky ✓. Dispatched 2026-08-24 → LANDED 2026-08-24 (Builder · opus-high) → [DoD evidence](plans/014-summon-rig-theater-cycle.md) (200 assertions green ×4, lab/008/run; was 170 — none weakened, two strengthened). Sticky map is log/theaters (F2), not log/state — different shape, different lifetime. 013-F1's guard landed and proved both ways: one row appended to the live presets.tsv leaves the new harness green with its counts following, and turns the pre-14 harness red in exactly the three predicted places. F1: a theater becomes argv, so a line that is not a plain name refuses the panel out loud — 013-F9's hazard arriving from a data file; spec extension, one if to revert. F5 parked: the 32-key runaway guard caps one panel's cycle at ~28 positions, and no cap is placed on the list itself. Ruled 2026-08-24 (Architect): F1 and F2 accepted — the loud refusal is directives §3 (a silently skipped campaign line lies to the cycle), and log/theaters is the narrower, truer state (only listing directories enter); suite re-run green by the Architect's own hand. Smoke PENDING Felix — the rig is live on the next new shell (summon/ is sourced from dotfiles, not deployed). Serial with 11 (shared files — 11 deferred, so dispatchable)"
 			},
 			{
 				"id": "15",
@@ -238,7 +238,7 @@
 				"workDoc": "belvedere/README.md",
 				"dependsOn": [],
 				"gates": [
-					"venue D2 ✓ Felix via keel §11"
+					"venue D2 ⬡✓ via keel §11"
 				],
 				"mantle": "Architect",
 				"tier": "fable-max",
@@ -250,7 +250,7 @@
 			{
 				"id": "16",
 				"work": "v3 · the doctrine linter — P3's parsers harden into canon doctrine/: lint · parse --json · migrate",
-				"workDoc": "plans/16-doctrine-linter.md",
+				"workDoc": "plans/016-doctrine-linter.md",
 				"dependsOn": [],
 				"gates": [],
 				"mantle": "Builder",
@@ -258,12 +258,12 @@
 				"felixGate": false,
 				"rider": null,
 				"state": "LANDED",
-				"annotation": "2026-08-26 → doctrine/ + [DoD evidence](plans/16-doctrine-linter.md) (21 tests green, cd doctrine && bun test; corpus 28/29 board docs · 376 rows · 8/9 ledger tails · 0 per-repo special cases; round-trip green on 5 real buildings; hexwright dry-run form-only — every edit a single ##  heading line, nothing written outside this repo). The register is a rule now, not a list: a building is a dir carrying LEDGER/DECISIONS/ISSUES or a staffing master doc, orphan boards promote their own dir, and a worktree checkout is skipped unless its branch put a board where the mainline has none (12,734 skipped, counted out loud). The amended grammar is stricter than P3's probe on purpose: 718 failures vs 339, because D63e resolves Depends-on against real row ids (232 hits — row 18's largest item) and D63f wants a tier slot (93 heads lack one). --live narrows to 340. F1, flagged for the Architect: the round-trip law needed a reading — bare equality is impossible when migrate exists to fill fields — implemented as declared-changes + identical-otherwise + a byte assertion. F2: hexwright's decisions carry no decider field, so migrate leaves decision.attribution standing rather than invent one; the suite asserts that residue. Rows 17 and 18 are unblocked. Ruled 2026-08-26 (GA-10): F1 accepted as the law's canonical reading (D52 lane — declared-changes + identical-otherwise + byte assertion is the molt clause made mechanical); F2 accepted — the refusal to invent a decider is D63 working; generalized as the unrecorded typed absence, D63 amended (✓ Felix 2026-08-26)"
+				"annotation": "2026-08-26 → doctrine/ + [DoD evidence](plans/016-doctrine-linter.md) (21 tests green, cd doctrine && bun test; corpus 28/29 board docs · 376 rows · 8/9 ledger tails · 0 per-repo special cases; round-trip green on 5 real buildings; hexwright dry-run form-only — every edit a single ##  heading line, nothing written outside this repo). The register is a rule now, not a list: a building is a dir carrying LEDGER/DECISIONS/ISSUES or a staffing master doc, orphan boards promote their own dir, and a worktree checkout is skipped unless its branch put a board where the mainline has none (12,734 skipped, counted out loud). The amended grammar is stricter than P3's probe on purpose: 718 failures vs 339, because D63e resolves Depends-on against real row ids (232 hits — row 018's largest item) and D63f wants a tier slot (93 heads lack one). --live narrows to 340. F1, flagged for the Architect: the round-trip law needed a reading — bare equality is impossible when migrate exists to fill fields — implemented as declared-changes + identical-otherwise + a byte assertion. F2: hexwright's decisions carry no decider field, so migrate leaves decision.attribution standing rather than invent one; the suite asserts that residue. Rows 17 and 18 are unblocked. Ruled 2026-08-26 (grand-architect-10): F1 accepted as the law's canonical reading (D52 lane — declared-changes + identical-otherwise + byte assertion is the molt clause made mechanical); F2 accepted — the refusal to invent a decider is D63 working; generalized as the unrecorded typed absence, D63 amended (⬡✓ 2026-08-26)"
 			},
 			{
 				"id": "17",
 				"work": "v3 · the storage experiment — does structured-source truth beat schema-markdown for the three consumers?",
-				"workDoc": "plans/17-storage-experiment.md",
+				"workDoc": "plans/017-storage-experiment.md",
 				"dependsOn": [
 					"16"
 				],
@@ -275,12 +275,12 @@
 				"felixGate": false,
 				"rider": null,
 				"state": "OPEN",
-				"annotation": "brief cut 2026-08-28 (GA-11), dispatchable now — kickoff in the brief; decided by numbers, never decree (D65); lab = this repo, fallback hexwright"
+				"annotation": "brief cut 2026-08-28 (grand-architect-11), dispatchable now — kickoff in the brief; decided by numbers, never decree (D65); lab = this repo, fallback hexwright"
 			},
 			{
 				"id": "18",
 				"work": "v3 · the great re-cut — full-corpus migration via doctrine migrate, history included",
-				"workDoc": "plans/18-great-recut.md",
+				"workDoc": "plans/018-great-recut.md",
 				"dependsOn": [
 					"16"
 				],
@@ -290,12 +290,12 @@
 				"felixGate": false,
 				"rider": "tends an 8-row wave of scoped Architects",
 				"state": "IN FLIGHT",
-				"annotation": "cut 2026-08-26 (GA-10); wave 1 closed: 8/8 rows reported (18g's stranded branch merged 2026-08-28, GA-11), city lint 718 → 310, every residual an escalated tool/vocabulary gap, none a doc defect; supersedes D32's history scope for form (D63); DoD (doctrine lint ~/code → 0 across the register) blocked on D68/D69 + row 19; continuation wave — whiteboardy re-fire (18c's re-run contract), snappy separator repair (sanctioned 2026-08-28, GA-11: form-only under the molt clause; the ~38 re-framed entries take standard residue rulings), spacex decision heads — cut when 19 lands; re-scoped by 17 only if 17 wins"
+				"annotation": "cut 2026-08-26 (grand-architect-10); wave 1 closed: 8/8 rows reported (18g's stranded branch merged 2026-08-28, grand-architect-11), city lint 718 → 310, every residual an escalated tool/vocabulary gap, none a doc defect; supersedes D32's history scope for form (D63); DoD (doctrine lint ~/code → 0 across the register) blocked on D68/D69 + row 019; continuation wave — whiteboardy re-fire (18c's re-run contract), snappy separator repair (sanctioned 2026-08-28, grand-architect-11: form-only under the molt clause; the ~38 re-framed entries take standard residue rulings), spacex decision heads — cut when 19 lands; re-scoped by 17 only if 17 wins"
 			},
 			{
 				"id": "19",
 				"work": "v3 · doctrine v1.1 — the wave's residue: 15 evidenced tool defects fold into doctrine/, fixtures kept",
-				"workDoc": "plans/19-doctrine-hardening.md",
+				"workDoc": "plans/019-doctrine-hardening.md",
 				"dependsOn": [],
 				"gates": [
 					"D68/D69 countersign (= the blessing)"
@@ -305,12 +305,12 @@
 				"felixGate": false,
 				"rider": null,
 				"state": "OPEN",
-				"annotation": "cut 2026-08-28 (GA-11)"
+				"annotation": "cut 2026-08-28 (grand-architect-11)"
 			},
 			{
 				"id": "20",
 				"work": "the continuous flow — the keel sitting: flow doctrine, the Dispatcher mantle's fate, the D64 grammar asks (kind/recommendation/branch/holder/holds), cross-building Depends-on",
-				"workDoc": "plans/20-continuous-flow.md",
+				"workDoc": "plans/020-continuous-flow.md",
 				"dependsOn": [
 					"17"
 				],
@@ -322,12 +322,12 @@
 				"felixGate": false,
 				"rider": null,
 				"state": "OPEN",
-				"annotation": "mandate recorded 2026-08-28 (GA-11); Felix's commission verbatim in the stub"
+				"annotation": "mandate recorded 2026-08-28 (grand-architect-11); Felix's commission verbatim in the stub"
 			},
 			{
 				"id": "21",
 				"work": "the working vocabulary — the standard sitting: arm / pass / card / flow / verdict / fire / closed / landed / bless / countersign / session / window; subsumes bless-vs-countersign",
-				"workDoc": "plans/21-vocabulary.md",
+				"workDoc": "plans/021-vocabulary.md",
 				"dependsOn": [],
 				"gates": [
 					"his call to sit"
@@ -337,12 +337,12 @@
 				"felixGate": false,
 				"rider": null,
 				"state": "OPEN",
-				"annotation": "mandate recorded 2026-08-28 (GA-11)"
+				"annotation": "mandate recorded 2026-08-28 (grand-architect-11)"
 			},
 			{
 				"id": "22",
 				"work": "summon rig — the argv summons: the summons composes into the prompt slot, colour goes venue-native (P2 §S3/§T4: paste splits at the first blank line — the 359-fire gap)",
-				"workDoc": "plans/22-summon-argv.md",
+				"workDoc": "plans/022-summon-argv.md",
 				"dependsOn": [],
 				"gates": [
 					"blessing"
@@ -352,7 +352,7 @@
 				"felixGate": false,
 				"rider": null,
 				"state": "OPEN",
-				"annotation": "cut 2026-08-28 (GA-11); three forks await his blessing in the stub"
+				"annotation": "cut 2026-08-28 (grand-architect-11); three forks await his blessing in the stub"
 			}
 		]
 	},
@@ -448,7 +448,7 @@
 				"felixGate": false,
 				"rider": null,
 				"state": "LANDED",
-				"annotation": "(2026-08-26) — 83→8 failures (unrecorded/PARKED vocab gaps, escalated); findings merged to master 2026-08-28 (GA-11; branch worktree-agent-a55279e2283f84743, commits 6d73d23/ecd7682), plus cap-mega branches task/motion-migration 869ea98, feature/tig-avc d166d29, feature/cornerizer f19a413/b17bb15, feature/user-manual f6d4edc/00fed9f/7b179a9/c020b9c — Architect merges at review"
+				"annotation": "(2026-08-26) — 83→8 failures (unrecorded/PARKED vocab gaps, escalated); findings merged to master 2026-08-28 (grand-architect-11; branch worktree-agent-a55279e2283f84743, commits 6d73d23/ecd7682), plus cap-mega branches task/motion-migration 869ea98, feature/tig-avc d166d29, feature/cornerizer f19a413/b17bb15, feature/user-manual f6d4edc/00fed9f/7b179a9/c020b9c — Architect merges at review"
 			},
 			{
 				"id": "18h",

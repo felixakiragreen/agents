@@ -38,7 +38,7 @@
 	"w3": {
 		"id": "22",
 		"work": "summon rig — the argv summons: the summons composes into the prompt slot, colour goes venue-native (P2 §S3/§T4: paste splits at the first blank line — the 359-fire gap)",
-		"workDoc": "plans/22-summon-argv.md",
+		"workDoc": "plans/022-summon-argv.md",
 		"dependsOn": [],
 		"gates": ["blessing"],
 		"mantle": "Builder",

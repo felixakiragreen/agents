@@ -115,7 +115,7 @@ spawn is undocumented — the send-line carries both.
   `.summon-theaters` lists campaigns per repo.
 - **Colors**: `summon/presets.tsv` (mantle → color). **Accounts**:
   `summon/accounts.tsv` + the `CLAUDE_CONFIG_DIR` grammar (MAP §1). **Usage ×3**:
-  row 10's fetcher, `summon/log/usage/`, pacing deltas.
+  row 010's fetcher, `summon/log/usage/`, pacing deltas.
 - **Sessions on disk**: `~/.claude*/projects/<cwd-slug>/*.jsonl` per account (23
   slugs on the personal account alone) — the resume shelf enumerates from here.
 - **The page schema is [DOCTRINE §2](../canon/work/DOCTRINE.md)**: the cold-session
@@ -220,7 +220,7 @@ and found the project.
 
 Day-one D-entries at founding (§12's ritual): name (**Belvedere** — ruled), scope
 (§8's cut), non-goals (§8's deferrals), substrate (§4's ruling), the fence (§2).
-Behind it, unordered: the GA-10 sweep (two queued ISSUES entries, and the desk
+Behind it, unordered: the grand-architect-10 sweep (two queued ISSUES entries, and the desk
 question when Felix calls it).
 
 > **§11 amended 2026-08-26, same sitting (Felix's venue ruling):** Belvedere lives
@@ -235,6 +235,6 @@ question when Felix calls it).
 > logs). Pre-steps replace the originals above: `mkdir ~/code/agents/belvedere`,
 > `dream.md` lands there (immutable) — no `git init`, the repo exists. The fenced
 > summons stands, fired **from that directory** ("found the project" reads at
-> subproject scale) — the theater law (row 14) then stamps `architect-belvedere-01`
+> subproject scale) — the theater law (row 014) then stamps `architect-belvedere-01`
 > for free. Extraction to a standalone repo later, if ever needed, is a cheap
 > subtree split — low-regret either way.

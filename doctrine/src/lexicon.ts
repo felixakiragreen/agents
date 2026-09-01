@@ -30,7 +30,7 @@ export type Dead =
 export const GRAVEYARD: readonly Dead[] = [
 	{
 		dead: 'row (unit)', successor: 'charge',
-		// Narrowed to a REFERENCE — `row 26`, `the row-01 Digger`, `rows 3–7`. Bare "row" is the
+		// Narrowed to a REFERENCE — `row 026`, `the row-01 Digger`, `rows 3–7`. Bare "row" is the
 		// city's most collided word (lexicon.json's first entry: a settings-panel row, an outliner
 		// row, a Swing table row), and M13 narrowed the same word the same way for the same reason.
 		forms: /\brows?[-–— ]\d+\b/gi,
@@ -79,7 +79,7 @@ export const GRAVEYARD: readonly Dead[] = [
 	{
 		dead: 'wave', successor: 'batch', forms: null,
 		dropped: 'a wave is a shape in half the city\'s UI and animation prose (whiteboardy, spacex, '
-			+ 'the dashboards) and the Guild sense reads identically. The batch respell is C25\'s '
+			+ 'the dashboards) and the Guild sense reads identically. The batch respell is 025\'s '
 			+ 'sweep; enforcing it costs more false positives than it catches drift.',
 	},
 	{
@@ -102,7 +102,7 @@ export const GRAVEYARD: readonly Dead[] = [
 		forms: /\bCLOSED\b/g,
 	},
 	{ dead: 'DoD · Definition of Done', successor: 'Done when:', forms: /\bDoDs?\b|\bDefinitions? of Done\b/g },
-	{ dead: 'countersign (verb)', successor: 'bless (the ✓ Felix mark stays)', forms: /\bcountersign(?:s|ed|ing)?\b/gi },
+	{ dead: 'countersign (verb)', successor: 'bless (the ⬡✓ mark stays)', forms: /\bcountersign(?:s|ed|ing)?\b/gi },
 	{ dead: 'rider (all six senses)', successor: '⬡-named appendix · annotation · condition · small charges', forms: /\briders?\b/gi },
 	{ dead: 'helm', successor: 'the Felix-queue (noun ⬡)', forms: /\bhelms?\b|\bhelm-frames?\b|\bhelm frames?\b/gi },
 	{
@@ -167,7 +167,7 @@ export const SPELLING_EXCEPTIONS: readonly string[] = ['grey', 'greys', 'greyed'
 
 /**
  * `[American, British]`, harvested verbatim from the census's own pair list
- * (`lab/21/ortho.ts`, charge 21) — the pairs that are actually mixed in this city, not a
+ * (`lab/021/ortho.ts`, charge 021) — the pairs that are actually mixed in this city, not a
  * dictionary. `ortho-report.md` measured every one of them live.
  */
 export const SPELLING_PAIRS: readonly (readonly [string, string])[] = [
@@ -180,10 +180,10 @@ export const SPELLING_PAIRS: readonly (readonly [string, string])[] = [
 ];
 
 /**
- * -ise words that are not -ize words in any dialect. The census's stoplist (`lab/21/ortho.ts`),
+ * -ise words that are not -ize words in any dialect. The census's stoplist (`lab/021/ortho.ts`),
  * plus the words this arm's own corpus run proved it was missing — `improvise` (26 uses),
  * `advertise` (8) and `supervise` (7) all sat in `ortho-report.md`'s "top -ise" table, which
- * means the census's -ise count of 193 is ~41 too high. Filed as C26-F2.
+ * means the census's -ise count of 193 is ~41 too high. Filed as 026-F2.
  */
 export const ISE_STOPLIST: ReadonlySet<string> = new Set([
 	'rise', 'arise', 'wise', 'otherwise', 'likewise', 'clockwise', 'promise', 'premise',

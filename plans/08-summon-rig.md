@@ -1,4 +1,4 @@
-# 08 — summon rig
+# 008 — summon rig
 
 Single-keystroke ignition for mantled sessions. Ctrl-G opens a picker; three keys reach
 any mantle × account invocation; every invocation is logged so the presets evolve on
@@ -125,7 +125,7 @@ typed baseline. Anything fancier is a later row fed by real data.
 
 ## Acceptance criteria — the DoD
 
-Evidence: `./lab/08/run` — the whole rig driven through a real pty (`expect`) against a
+Evidence: `./lab/008/run` — the whole rig driven through a real pty (`expect`) against a
 sandbox copy of `summon/`, with a `claude` shim capturing exactly what each launch would
 have received and a `pbcopy` shim proving the clipboard law. **33 assertions, 0 failures**
 on 2026-08-06; the run prints the verdicts quoted below.
@@ -311,12 +311,12 @@ pre-edit command, per spec.
 builtins; the parser is correct for what `_summon_log` writes and nothing else (documented
 at the function). If the log format ever grows a field containing `","`, the reporter
 needs a real parser — the harness cross-checks its arithmetic against `python3` so the
-day it breaks, `lab/08/run` fails rather than misreporting.
+day it breaks, `lab/008/run` fails rather than misreporting.
 
 ## Kickoff — verbatim
 
 ```
 You are a Builder at opus-high.
 Wear ~/code/agents/canon/mantles/builder.md,
-then execute the brief at ~/code/agents/plans/08-summon-rig.md.
+then execute the brief at ~/code/agents/plans/008-summon-rig.md.
 ```

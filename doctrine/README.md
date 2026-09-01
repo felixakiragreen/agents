@@ -82,9 +82,9 @@ defect.
 tail, and the kickoffs of work docs whose own `**Status:**` is still OPEN / IN FLIGHT /
 BLOCKED.
 
-**The kickoff arm (C31).** Counting a fence is not reading it. In a work doc whose own
+**The kickoff arm (031).** Counting a fence is not reading it. In a work doc whose own
 `**Status:**` is still unfinished the fenced kickoff must open in the summons grammar — the
-summons line (`kickoff.summons`), then C33's door line (`kickoff.door`), then the wear line
+summons line (`kickoff.summons`), then 033's door line (`kickoff.door`), then the wear line
 (`kickoff.wear`): DOCTRINE §5's single-glance test, mechanized, because the flow engine fires
 those bytes verbatim. LANDED and KILLED docs are history and are never read. The unmantled
 cheap-tier ignition carries GUILD.md's closing stanza inline instead of a path read
@@ -93,7 +93,7 @@ opening line and is no more a kickoff candidate than a Personal-Log letter is.
 
 ## The ledger's clauses and the baton (§7, §11)
 
-**A clause leads or it is a mention (C36).** `Decided:` and `Next:` split an entry's body only
+**A clause leads or it is a mention (036).** `Decided:` and `Next:` split an entry's body only
 where the marker opens the body, opens a line, or opens a sentence — and code, fenced or inline,
 is masked before the search. The old rule took the first `Next:` anywhere in the flattened body,
 so an entry that merely *said* `Next:` handed a clause read off bytes its writer never meant
@@ -111,7 +111,7 @@ clause's prose.
 `none`, and is not a dropped baton. Bare prose that means the same thing ("nothing waits") still
 is: that is the whole point of typing it (B26 F2, the fourth filing).
 
-## `--vocab` — the speech arm (C26)
+## `--vocab` — the speech arm (026)
 
 Format drift is caught by the parser; `--vocab` points the same alarm at **speech**. Off by
 default: the form arms are a doc's honesty and gate the exit code, while the vocabulary arm
@@ -136,14 +136,14 @@ board's Depends-on, Staffing and Status columns · **a LANDED or KILLED row whol
 charge's title is the address its ledger cites) · closed charge docs · `LOG.md`, `SAPHO.md`,
 `dream.md` · `canon/` itself, which must name the dead to bury them.
 
-**Spent is spent, whatever the register filed the doc as (C36).** A doc whose own `**Status:**`
+**Spent is spent, whatever the register filed the doc as (036).** A doc whose own `**Status:**`
 opens LANDED or KILLED is history, and a charge that tends a wave carries a staffing table — so
 the register files it as a *board*, and the board half of the live list read every board
-whatever its state said. `plans/18-great-recut.md` landed on 2026-08-29 and was still reporting
+whatever its state said. `plans/018-great-recut.md` landed on 2026-08-29 and was still reporting
 eleven dead words. Carrying no Status line says nothing either way and arms nothing: the master
 docs and `CLAUDE.md` stay law surfaces.
 
-**A mention is spelled in ticks or quotes.** The arm cannot tell use from mention (C23-F3), so
+**A mention is spelled in ticks or quotes.** The arm cannot tell use from mention (023-F3), so
 the doc says which: `` `unstaffed` `` and *"the Dispatcher is dead"* are already fenced, and
 that is the cure for a tombstone sentence — not a per-file exemption.
 
@@ -169,10 +169,10 @@ second time against a mutated copy of the standard's text and asserting that it 
   A checkout whose mainline twin exists at the same size IS that twin and is skipped; a
   branch that put a board in a doc the mainline has none in survives; one representative per
   `(repo, relative path)`. The count skipped is printed, never hidden.
-- **Where the checkout root ends is found, not assumed (C36).** A branch name carries as many
+- **Where the checkout root ends is found, not assumed (036).** A branch name carries as many
   path segments as it has slashes, so the split is the shallowest one whose remainder's own
   directory exists in the mainline — keyed on *being a worktree*, never on a `worktree-agent-*`
-  name shape. One segment was assumed until `bv/c29-summon-harness` took two: no file under it
+  name shape. One segment was assumed until `bv/029-summon-harness` took two: no file under it
   resolved to its twin, and every total doubled (2 buildings → 4, 84 rows → 168).
 
 ## `doctrine migrate` — form only
@@ -186,7 +186,7 @@ required to touch a byte.
 typed comes back identical; only a field a fired rule declared may change; nothing outside a
 recorded edit moves. A violation aborts the write: that is a converter bug, not a doc defect.
 
-**The clause pass re-reads (C31).** The rules run in two classes: structure and field rules
+**The clause pass re-reads (031).** The rules run in two classes: structure and field rules
 first, then the document is re-read and `ledger.unrecorded-clauses` decides its typed absences
 against what the document now says. Reading the pre-migration bytes is how the converter came
 to stamp `Decided: unrecorded.` into 61 whiteboardy entries that carried a real clause — in the

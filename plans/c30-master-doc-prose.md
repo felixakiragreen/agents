@@ -1,10 +1,10 @@
-# C30 — the master-doc prose sweep
+# 030 — the master-doc prose sweep
 
-**Status:** OPEN — laid 2026-08-29 · **Depends on:** C25 · **Staffing:** Architect · opus-high
+**Status:** OPEN — laid 2026-08-29 · **Depends on:** 025 · **Staffing:** Architect · opus-high
 
 ## Mission
 
-The five big master docs the city reads speak the standard in their **prose**. C25 took
+The five big master docs the city reads speak the standard in their **prose**. 025 took
 every machine surface in the city to the standard (`doctrine lint ~/code` 349 → 8) and
 respelled every CLAUDE.md, this repo whole, and Belvedere's docs. What it did not finish
 is the long-form narrative inside the outer city's master docs — five files, ~450
@@ -12,7 +12,7 @@ word-bounded hits, every one needing the use-vs-mention adjudication rather than
 substitution.
 
 This is bounded, mechanical-per-hit, and judgment-dense in aggregate. It is a charge, not
-a rushed tail on C25.
+a rushed tail on 025.
 
 ## The corpus — measured 2026-08-29, non-table non-ledger lines only
 
@@ -23,16 +23,16 @@ a rushed tail on C25.
 | rooted/archive/arborist | `README.md` | 99 |
 | bob/theseus | `docs/campaigns/theseus/README.md` | 41 |
 | cap-mega/simmy | `README.md` | 40 |
-| **agents** (this repo — fork 4, ⬡ **a**, 2026-08-29) | MAP.md prose + OPEN charge docs | 44 at C26's measure — re-measure at execution |
+| **agents** (this repo — fork 4, ⬡ **a**, 2026-08-29) | MAP.md prose + OPEN charge docs | 44 at 026's measure — re-measure at execution |
 
 **The sixth target — this repo (fork 4, ruled a: ⬡ 2026-08-29).** `doctrine lint
---vocab ~/code/agents` measured 44 hits at C26 (13 in MAP.md prose, 31 in six OPEN
+--vocab ~/code/agents` measured 44 hits at 026 (13 in MAP.md prose, 31 in six OPEN
 charge docs, 9 of them pure spelling needing zero adjudication); charges landing
-since shrink the live set (20 and C27 are history-whole now, D72c), so **re-measure
+since shrink the live set (20 and 027 are history-whole now, D72c), so **re-measure
 at execution and sweep what is live** — same fence, same method. Two guards:
 (1) a charge doc whose charge is IN FLIGHT — or in agents-flow-1's own batch — is
 another session's desk: file its hits to this repo's inbox, never edit it;
-(2) MAP's notes for live batches are live instruments — C25's precedent governs
+(2) MAP's notes for live batches are live instruments — 025's precedent governs
 (touch only a dead-mantle instrument, dated).
 
 Behind them, smaller: `bob/pods` · `bob/lunchbox` · `bob/catalog` ·
@@ -44,29 +44,29 @@ quality lands what is done.
 
 - `canon/work/STANDARD.md` — §9 the graveyard (the mapping) · §8 the language law ·
   §5 lore/law layers.
-- [plans/c23-law-book.md](c23-law-book.md) **F3 — the grep adjudication rule.** This is
+- [plans/023-law-book.md](023-law-book.md) **F3 — the grep adjudication rule.** This is
   the whole method: the tombstone genre survives (a graveyard pointer, "the `Dispatcher`
   mantle is dead"), backticked historical tokens survive as quotes, universal-engineering
   senses are not the dead senses (a measurement window, tests pass, tree order, a change
   order), named registers are legal.
-- [plans/c25-respell-sweep.md](c25-respell-sweep.md) §Findings — C25's own rulings, which
+- [plans/025-respell-sweep.md](025-respell-sweep.md) §Findings — 025's own rulings, which
   bind here: the fence (what is live, what is history), the `Depends-on note:` route,
   `⬡-gate` for a Felix precondition, `unrecorded` only where a record never held.
 
-## The fence — unchanged from C25
+## The fence — unchanged from 025
 
 **Live:** the master doc's narrative sections, its batch notes, its `Done when:`/scope
 sections, kickoff fences of OPEN or IN FLIGHT charges.
 
 **Fenced:** ledger entries and decision bodies (history — the respell is DEFERRED,
 Felix's word) · findings sections · closed charge docs · board Status **annotations**
-(historical cells; C25 already took their machine tokens via `doctrine migrate`) ·
-`LOG.md`, `SAPHO.md`, every Personal Log (voice) · `dream.md` (D33) · `canon/` (C23) ·
+(historical cells; 025 already took their machine tokens via `doctrine migrate`) ·
+`LOG.md`, `SAPHO.md`, every Personal Log (voice) · `dream.md` (D33) · `canon/` (023) ·
 fenced summonses of **closed** batches — a historical kickoff records what was actually
 dispatched and a paraphrase is a defect.
 
-**The one exception, and it is C25's precedent:** a **live** batch's summons that names a
-dead mantle is a live-surface defect. C25 struck Belvedere's batch-6 `Dispatcher` summons
+**The one exception, and it is 025's precedent:** a **live** batch's summons that names a
+dead mantle is a live-surface defect. 025 struck Belvedere's batch-6 `Dispatcher` summons
 and replaced it with doctrine §10's interim tender, marked and dated. Do the same
 wherever a live batch's instrument names the `Dispatcher` — and only there.
 
@@ -85,7 +85,7 @@ wherever a live batch's instrument names the `Dispatcher` — and only there.
 ## Out of scope
 
 Meaning — anything the molt clause reserves: supersedes, kills, status-truth changes.
-The 8 standing lint failures C25 left (both classes escalated and owned — see its
+The 8 standing lint failures 025 left (both classes escalated and owned — see its
 findings). `doctrine/` code. The `--gild` rename (relayed to cap-mega).
 
 ## Findings
@@ -100,7 +100,7 @@ findings). `doctrine/` code. The `--gild` rename (relayed to cap-mega).
 | cap-mega/simmy | `README.md` | 57 | **2** (one exempt line, F3) |
 | rooted/archive/arborist | `README.md` | 48 | **0** |
 | bob/theseus | `docs/campaigns/theseus/README.md` | 29 | **0** |
-| **agents** | MAP.md + OPEN charge docs 11 · 22 · C30 | 11 | **0** |
+| **agents** | MAP.md + OPEN charge docs 11 · 22 · 030 | 11 | **0** |
 | cap-mega/docs/units | `README.md` (contract board) | 44 | **0** |
 | cap-mega/docs/waypoint-stepper | `README.md` (contract board) | 32 | **2** (F3) |
 | bob/pods | `README.md` | 16 | **1** (F3) |
@@ -110,7 +110,7 @@ findings). `doctrine/` code. The `--gild` rename (relayed to cap-mega).
 | bob/catalog | `README.md` | 0 | 0 |
 
 **636 hits adjudicated; 14 survive, every one an exemption named in F3.** The charge's
-own measure (~450) was taken before C26's arm existed and undercounted whiteboardy by
+own measure (~450) was taken before 026's arm existed and undercounted whiteboardy by
 128 — the corpus was bigger than the lay knew, and the tails were taken too.
 
 Commits, one per building: `0545cc4` · `fe4c31a` · `ab10197` (whiteboardy) ·
@@ -121,18 +121,18 @@ Commits, one per building: `0545cc4` · `fe4c31a` · `ab10197` (whiteboardy) ·
 ### Done when — measured
 
 **1. Dead-word grep → 0 on the five files' live prose, exemptions named.** The measured
-instrument is `doctrine lint --vocab` — C26's arm IS the mechanized graveyard grep, and
+instrument is `doctrine lint --vocab` — 026's arm IS the mechanized graveyard grep, and
 STANDARD §8 puts its drop reasons in writing (`doctrine/src/lexicon.ts`), so a pattern
 the arm drops is a *detection* drop, never an exemption (F2 rules what that means).
 Every survivor is listed in F3 with the clause that exempts it.
 
-**2. `doctrine lint ~/code` — C30 moved zero form-arm failures.** The number rose 5 → 26
-during the session and **none of it is this charge**: 20 `kickoff.door` are C31's brand-new
-arm (`10f4012`, landed mid-flow) firing on `plans/`, `spikes/` and worktree files C30
-never opened; 1 `ledger.baton` is C29's worktree ledger. The five baseline
-`board.depends` in whiteboardy stand untouched and on purpose — they are 18c's and C25's
+**2. `doctrine lint ~/code` — 030 moved zero form-arm failures.** The number rose 5 → 26
+during the session and **none of it is this charge**: 20 `kickoff.door` are 031's brand-new
+arm (`10f4012`, landed mid-flow) firing on `plans/`, `spikes/` and worktree files 030
+never opened; 1 `ledger.baton` is 029's worktree ledger. The five baseline
+`board.depends` in whiteboardy stand untouched and on purpose — they are 18c's and 025's
 escalation, gate 26's to fix. Per-building, per-class, against the same `doctrine/`
-revision, C30 is flat everywhere. See F8.
+revision, 030 is flat everywhere. See F8.
 
 **3. Every building's ledger carries the sweep's entry.** whiteboardy `LEDGER.md` ·
 snappy `LEDGER.md` · simmy `LEDGER.md` · arborist §7 Ledger · repot §8 Ledger · theseus,
@@ -144,17 +144,17 @@ took the charge's alternative — a dated **Respell note** at the foot of the bo
 `ISSUES.md` · bob `/ISSUES.md` · agents `ISSUES.md` (2) · belvedere `ISSUES.md` ·
 cap-mega `docs/README.md`.
 
-### F1 — the line C25 was reaching for: a SPENT instrument is history, an UNSPENT one is live
+### F1 — the line 025 was reaching for: a SPENT instrument is history, an UNSPENT one is live
 
-C25 ruled that "a **live** batch's summons that names a dead mantle is a live-surface
+025 ruled that "a **live** batch's summons that names a dead mantle is a live-surface
 defect" and fenced "closed batches" as history. That line does not decide the common
 case, and this charge met it three times in one day: **a batch whose charges have all
-landed but whose gate is still OPEN.** The sharper test, and the one C30 applied:
+landed but whose gate is still OPEN.** The sharper test, and the one 030 applied:
 
 > **Has the instrument been dispatched?** A summons that has run is a *record of what
 > was actually dispatched* — it stays byte-identical, because a paraphrase is a defect.
 > A summons that has never run is an *instrument someone will execute* — if it names a
-> dead mantle it is a defect, and it gets C25's strike-and-retender treatment.
+> dead mantle it is a defect, and it gets 025's strike-and-retender treatment.
 
 Applied: whiteboardy's twelve batch summonses all ran → all twelve byte-identical, even
 batch 13's, whose gate 26 is OPEN. Whiteboardy's **gate-26 kickoff** never ran → live,
@@ -165,10 +165,10 @@ cheap, mechanical, and it is what "live" should have meant all along.
 
 ### F2 — the graveyard's dead column names SENSES, not strings
 
-The vocabulary arm narrows `row` to a reference (`row 26`) and drops eight patterns
+The vocabulary arm narrows `row` to a reference (`row 026`) and drops eight patterns
 outright, because they cannot be written without false positives. That is a statement
 about *machines*, not about which words are alive — so a human sweep that stops at the
-arm's output stops early. The rule C30 applied, and the one the next sweep should
+arm's output stops early. The rule 030 applied, and the one the next sweep should
 inherit:
 
 - **Where a dead sense is present and the successor is a drop-in word, sweep it whether
@@ -183,7 +183,7 @@ inherit:
 
 ### F3 — the fourteen exemptions, each with its clause
 
-All under C23-F3's universal-engineering clause unless noted. **A domain word that
+All under 023-F3's universal-engineering clause unless noted. **A domain word that
 happens to collide with a dead one is not the dead one, and respelling it would make
 the sentence false.**
 
@@ -243,17 +243,17 @@ word, three live successors, and only the reading tells you which.
 dispatch appendix appended to every kickoff (`arborist/RIDER.md`, `repot/RIDER.md`,
 `pods/rider.md`, `simmy/spikes/RIDER.md`, whiteboardy's `plans/RIDER.md`); **a
 condition** — attached sanctioned side-work (ARB-14's baseline change, simmy B8's VNC
-rider, B11's check, units FG3's "two riders", waypoint-stepper's "Rider (charge 04 §5)");
+rider, B11's check, units FG3's "two riders", waypoint-stepper's "Rider (charge 004 §5)");
 and once **a charge** (snappy's "rider in 16's brief" → "a condition in 16's charge
-doc"). **The files were not renamed** — C23-F7's rule: a moved file's pointer is the
+doc"). **The files were not renamed** — 023-F7's rule: a moved file's pointer is the
 move's own hygiene, and a rename is not a respell. Every one of them still reads
 `RIDER.md` on disk and `the coda` in prose, which is the honest state until someone lays
 the move.
 
 ### F8 — a lint arm landed mid-flow, and a rising number was not a regression
 
-C31 landed `kickoff.door` (`10f4012`) while C30 was running in the same city. The city's
-form count went 5 → 26 with C30 touching none of it. **The measurement hygiene, for any
+031 landed `kickoff.door` (`10f4012`) while 030 was running in the same city. The city's
+form count went 5 → 26 with 030 touching none of it. **The measurement hygiene, for any
 parallel batch:** compare per-building and per-class against a baseline taken with the
 **same `doctrine/` revision**, never a whole-city integer across a flow that includes a
 `doctrine/` lane. Relayed to the bulletin for G1, which verifies four landings against
@@ -261,7 +261,7 @@ exactly this number.
 
 ### F9 — the batch note's named physics probe: PAID, and the fallback was not needed
 
-flow-1's note called C30's out-of-tree writes a named physics probe — whiteboardy,
+flow-1's note called 030's out-of-tree writes a named physics probe — whiteboardy,
 rooted and `~/code/agents` sit outside the URSDK project root, and the note predicted a
 possible 60-minute permission pause with "one rig summons" as the fallback. **No prompt,
 no pause:** a write-read-delete probe into `~/code/whiteboardy` passed immediately, and
@@ -271,15 +271,15 @@ its evidence. Relayed to the bulletin at the moment it was known, per protocol.
 ### F10 — what was fenced, and where it went
 
 - **belvedere** — 130 hits in its README plus ~26 across B22–B27 and `c1-fence-repoint`.
-  Its own building, its own board, and C27 was its standard charge. Three of the four
+  Its own building, its own board, and 027 was its standard charge. Three of the four
   biggest classes are Belvedere's own words — `fire` (the engine's noun, wired to
   `hands/fire`), `the glass` (the building's name for itself, which §9 buries) and `the
   register` — so this is an ⬡-shaped identity question touching code, not a prose sweep.
-  Filed to **both** inboxes; the natural successor charge to C27.
-- **`plans/c32-flow-grammar.md` (4) and `plans/g1-flow-close.md` (1)** — agents-flow-1's
+  Filed to **both** inboxes; the natural successor charge to 027.
+- **`plans/032-flow-grammar.md` (4) and `plans/g1-flow-close.md` (1)** — agents-flow-1's
   own batch, another session's desk by this charge's guard (1). Filed to agents
   `ISSUES.md` for those charges to take on the way past.
-- **`plans/18-great-recut.md` (11)** — a LANDED charge doc, fenced as history by C25 —
+- **`plans/018-great-recut.md` (11)** — a LANDED charge doc, fenced as history by 025 —
   but the vocabulary arm reports it anyway, so every future `--vocab` reader re-finds
   it. Filed as a `doctrine` question: the closed-charge mask does not appear to key on a
   `**Status:** LANDED` line.
@@ -297,7 +297,7 @@ its evidence. Relayed to the bulletin at the moment it was known, per protocol.
 
 The five master docs' **sub-boards and work docs** are untouched: whiteboardy's
 `docs/` + `plans/` still carry **214** hits, snappy's and simmy's `plans/`/`spikes/`
-their own. C30's fence was the master docs themselves. whiteboardy's inbox carries the
+their own. 030's fence was the master docs themselves. whiteboardy's inbox carries the
 count; the rest is visible to `doctrine lint --vocab <building>` in one command.
 
 ---
@@ -307,6 +307,6 @@ You are an Architect at opus-high.
 Enter by the door — read ~/code/agents/canon/GUILD.md,
 wear ~/code/agents/canon/mantles/architect.md,
 then read ~/code/agents/canon/work/STANDARD.md
-and execute the charge at ~/code/agents/plans/c30-master-doc-prose.md —
+and execute the charge at ~/code/agents/plans/030-master-doc-prose.md —
 the city's master docs speak the standard in prose too.
 ```

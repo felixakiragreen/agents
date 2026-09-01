@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""lab/12 verdicts: rule on the four arms from their stream-json transcripts.
+"""lab/012 verdicts: rule on the four arms from their stream-json transcripts.
 
 	rule <out-dir>    exit 0 = every arm green.
 
@@ -180,7 +180,7 @@ def arm_workflow(out):
 
 def main():
 	out = sys.argv[1]
-	print("lab/12 — ruling on %s" % out)
+	print("lab/012 — ruling on %s" % out)
 	for arm in (arm_deny, arm_pass, arm_types, arm_workflow):
 		arm(out)
 	print("\n%s — %d failure(s)" % ("RED" if fails else "GREEN", fails))

@@ -1,7 +1,7 @@
-# 07 — simmy retrofit
+# 007 — simmy retrofit
 
 **Status:** LANDED 2026-08-06 · **Depends on:** — · **Staffing:** Architect · fable-high ·
-**Blessed:** D32 ✓ Felix, 2026-08-06 (the keel's touch map)
+**Blessed:** D32 ⬡✓, 2026-08-06 (the keel's touch map)
 
 ## Goal
 
@@ -166,8 +166,8 @@ pattern, worth one sweep.
    in `DECISIONS.md` (swept into Felix's own commit `5b32514`), this findings append,
    the ledger entry, and the board row (`GENESIS.md`) — nothing under `canon/`.
    Pre-commit `git status --short` showed exactly `GENESIS.md`, `LEDGER.md`,
-   `plans/07-simmy-retrofit.md`; clean after the landing commit.
-7. simmy D16 cut in `README.md §7`, countersigned ✓ Felix in-session (2026-08-06, after
+   `plans/007-simmy-retrofit.md`; clean after the landing commit.
+7. simmy D16 cut in `README.md §7`, countersigned ⬡✓ in-session (2026-08-06, after
    the F2 correction was disclosed). Commits — `feature/simmy`: `22269c3e` (tier
    deletion) + `1d8a28df` (tombstone, rider, board, §8, D16, CLAUDE.md pointer, ledger);
    `fix/perf`: `3bc872b3` (deletions only); `feature/user-manual`: `82e55578`
@@ -199,7 +199,7 @@ You are an Architect at fable-high.
 Wear ~/code/agents/canon/mantles/architect.md,
 then, working in ~/code/universal_robots_sdk/cap-mega/.claude/worktrees/simmy,
 read ~/code/agents/canon/work/DOCTRINE.md, ~/code/agents/canon/mantles/README.md,
-~/code/agents/plans/07-simmy-retrofit.md, and simmy/README.md §6 + §8,
+~/code/agents/plans/007-simmy-retrofit.md, and simmy/README.md §6 + §8,
 simmy/DISPATCHER.md, and the simmy/LEDGER.md tail,
 and execute the retrofit to its DoD.
 ```

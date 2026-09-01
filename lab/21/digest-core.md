@@ -216,7 +216,7 @@
   “Belvedere, the surface where boards are rendered as cards” | “Belvedere's scope stated as the sovereign's view over all agent work” | “literal greenhouse glass sheltering bred phenotypes — not Belvedere” | “literal greenhouse glass, second occurrence colliding with Belvedere'…”
 - **ledger** · action/thing · 892×164f · work-doc,glass-work,commit-log · [dialect collision:ledger]
   “to write one's session record into a given ledger file” | “a tracked list of architectural coupling issues found during the spik…”
-- **harness** · thing · 882×175f · d:simmy-spikes,d:capmega-boards,d:snappy · [collision:harness (a test suite, D62/row 13) collision:harness failure dialect]
+- **harness** · thing · 882×175f · d:simmy-spikes,d:capmega-boards,d:snappy · [collision:harness (a test suite, D62/row 013) collision:harness failure dialect]
   “the Claude Code runtime that hosts sessions and enforces presets” | “a browser-driven test apparatus proving a DoD claim” | “the Claude Code runtime whose limits are physics for a session” | “the executable evidence rig a row's DoD is measured against”
 - **dispatch** · thing · 869×207f · d:whiteboardy,board-record,d:snappy · [collision:dispatch]
   “the mechanism/component that turns a board row into hand commands”
@@ -1325,7 +1325,7 @@
 - **buried** · action · 17×15f · work-doc,d:arborist,d:bob · [dialect collision:strike]
   “retiring a superseded document by deleting it and preserving it only …”
 - **landing gate** · thing · 17×11f · d:spacex,d:snappy,glass-work · [dialect collision:gate minting-site]
-  “the collective set of proof obligations required before a change is m…” | “row 03's role as the final verify-then-cutover checkpoint before merg…”
+  “the collective set of proof obligations required before a change is m…” | “row 003's role as the final verify-then-cutover checkpoint before merg…”
 - **loss window** · thing · 17×8f · d:whiteboardy · [dialect]
   “the span of time/edits at risk if a process dies before the next succ…”
 - **typed absence** · thing · 16×12f · board-record,work-doc,lore · [minting-site]

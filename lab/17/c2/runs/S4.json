@@ -4,7 +4,7 @@
 	"q3": ["row ids", "Felix-gate: <text>"],
 	"q4": {
 		"holder": "Felix",
-		"action": "countersign D68–D70 — the held DOCTRINE edits apply on his word and row 19's gate opens"
+		"action": "countersign D68–D70 — the held DOCTRINE edits apply on his word and row 019's gate opens"
 	},
 	"q5": { "row18DependsOn": ["16"], "dependentsOf16": ["17", "18"] },
 	"q6": { "date": "2026-08-22", "assertions": 170 },
@@ -15,7 +15,7 @@
 	},
 	"q9": {
 		"state": "OPEN",
-		"reason": "Its Felix-gate ('blessing') is unpaid — Felix deferred the row on 2026-08-08 and nothing dispatches until his word; it is now deferred indefinitely (13-F1's guard moved to row 14). Its row-dependency 10 is LANDED, so the gate is the sole blocker."
+		"reason": "Its Felix-gate ('blessing') is unpaid — Felix deferred the row on 2026-08-08 and nothing dispatches until his word; it is now deferred indefinitely (013-F1's guard moved to row 014). Its row-dependency 10 is LANDED, so the gate is the sole blocker."
 	},
 	"q10": {
 		"mantle": "Dispatcher",
@@ -45,7 +45,7 @@
 	"w3": {
 		"id": "22",
 		"work": "summon rig — the argv summons: the summons composes into the prompt slot, colour goes venue-native (P2 §S3/§T4: paste splits at the first blank line — the 359-fire gap)",
-		"workDoc": "plans/22-summon-argv.md",
+		"workDoc": "plans/022-summon-argv.md",
 		"dependsOn": [],
 		"gates": ["blessing"],
 		"mantle": "Builder",
@@ -53,6 +53,6 @@
 		"felixGate": false,
 		"rider": null,
 		"state": "IN FLIGHT",
-		"annotation": "cut 2026-08-28 (GA-11); three forks await his blessing in the stub; dispatched 2026-08-28"
+		"annotation": "cut 2026-08-28 (grand-architect-11); three forks await his blessing in the stub; dispatched 2026-08-28"
 	}
 }

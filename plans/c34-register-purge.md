@@ -1,6 +1,6 @@
-# C34 — the register purge
+# 034 — the register purge
 
-**Status:** LANDED 2026-08-29 · **Depends on:** C33 · ⬡-gate: his call
+**Status:** LANDED 2026-08-29 · **Depends on:** 033 · ⬡-gate: his call
 to sit — paid 2026-08-29 · **Staffing:** Grand Architect · fable-max
 
 ## Mission
@@ -20,11 +20,11 @@ blessing).
 
 - The blade: **D52 as amended** (the ancestry test — the issue, not the
   behavior) and the canonization law's three branches
-  (`canon/mantles/grand-architect.md` after C33).
-- The census: C28 F31 — the classified leakage list with reasons.
+  (`canon/mantles/grand-architect.md` after 033).
+- The census: 028-F31 — the classified leakage list with reasons.
 - The molt clause: D63 (form migrates freely, meaning appends; `unrecorded`
   for absent slots; the migration commit blessed as a whole).
-- His standing preference (GA-11): register minimalism — an extension of
+- His standing preference (grand-architect-11): register minimalism — an extension of
   recorded intent amends its ancestor.
 
 ## Method — a suggested route, not law
@@ -40,7 +40,7 @@ its tombstone line.
 
 - The meaning-preservation check fails on any migrated entry (the converter
   paraphrased): stop the migration arm, report, hand-repair only what is
-  proven — the C25 F1 precedent.
+  proven — the 025-F1 precedent.
 - Felix's per-entry review stalls the sitting past its value: the
   recalibration arm splits into a follow-up sitting; the cut and the form
   migration land alone.
@@ -73,14 +73,14 @@ The city's other registers (each building's own Architect). The standard
 - **F3 — the skills purge (⬡'s question, the office's ruling).** The shims were
   never used: the rig won the interactive path — presets fire the full summons,
   account-routed, name-stamped, logged; a third summons path is redundancy carrying
-  no information (Directive §1.7), and the rot was already showing (C33 F4: the GA
+  no information (Directive §1.7), and the rot was already showing (033-F4: the GA
   shim mis-titled its own office). Killed: six shims — the fixer and mentat mints
   one day old; the register breathes — plus the sync scripts' skills arm; the sync
   set is `CLAUDE.md` + `agents/`. Cost named: the `${CLAUDE_EFFORT}` effort-guard
   leaves with the shims — effort returns to trust-the-summons, which is already
   charter law, and the rig's presets carry tiers verbatim. Remainder for ⬡'s hand:
   three dangling `skills` symlinks in the account dirs (removing live config is
-  his by design). Both C33 F4 flags cleared: the README precedence section trued;
+  his by design). Both 033-F4 flags cleared: the README precedence section trued;
   the mis-titled shim is dead.
 - **F4 — dangling references ruled (⬡ asked).** History stands untouched — closed
   charge docs, ledger entries, findings keep their D-numbers; git resolves them,
@@ -88,13 +88,13 @@ The city's other registers (each building's own Architect). The standard
   auto-loaded files were stripped this sitting (repo CLAUDE.md, ISSUES.md header)
   — those tokens are taxed every session. Law files keep their D-parentheticals
   as lineage marks: whichever sweep next touches a file strips its dead numbers
-  (C35 does MAP; the charters' ride the next charter sweep). DOCTRINE §8's purge
+  (035 does MAP; the charters' ride the next charter sweep). DOCTRINE §8's purge
   clause teaches any cold reader what a dead number means. DECISIONS.md itself
   survives — the queue, the staging ground for undistilled rulings, the
   Directives-governance record; the template keeps minting it at every founding.
 - **F5 — the next frontier (2026-08-29).** MAP.md: ~356 lines read by every
   session before any work — LANDED-charge histories, spent batch notes, two set
-  keystones itemized in full. Laid as C35 at his appetite ("is there anything
+  keystones itemized in full. Laid as 035 at his appetite ("is there anything
   else?"); the kill criteria fence the live holds.
 
 ---
@@ -103,6 +103,6 @@ The city's other registers (each building's own Architect). The standard
 You are the Grand Architect at fable-max.
 Enter by the door — read ~/code/agents/canon/GUILD.md,
 wear ~/code/agents/canon/mantles/grand-architect.md,
-then read plans/c34-register-purge.md and run the purge with Felix at the
+then read plans/034-register-purge.md and run the purge with Felix at the
 desk.
 ```
