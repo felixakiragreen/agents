@@ -2783,3 +2783,32 @@ the deferred list gains nothing — the currency alarm was already on it.
 
 Baton — the office → verify 040's landing and close the respell batch; the sole-occupant
 fence lifts when it does.
+
+---
+
+**2026-09-01 · Grand Architect · fable-max (grand-architect-21)** — *(fourth act — the
+batch close.)* **040 LANDED, verified at this desk:** suite re-run 102 pass / 0 fail;
+`lint` 0 and `lint --vocab` ok on agents (belvedere's 36 dead words are its own, fenced);
+`sync/check` green, the live wire untouched; `ls plans` reads `001`–`040` + `g1`,
+`g2-029-merge.md`; ledger heads in the new form 65, old-form 2 — belvedere's `(C7)` /
+`(C13)`, a dead unregistered building's addresses (040-F4); every remaining `C‹nn›` in
+this ledger is belvedere v3's or a ticked named form; `✓ Felix` stands unticked only in
+the respell control fixture; stigmergon's dry run re-run here — 1,250 edits / 122 files /
+**0 files written**, its tree byte-identical before and after; agents a fixed point
+("already in the current grammar"). The three flagged items ruled: 040-F1 — the
+Out-of-scope line that still called the mark deferred was this desk's miss (D81's
+amendment reached the header, spec and bar and not that bullet); the Builder read five
+instruments against one stale line and chose right, no escalation owed. 040-F4 — the
+qualified id in the head's slot: ruled onto the parser's residue (the deferred list),
+the two heads stand. 040-F5 — 38 ticked mentions are forms named, not marks given;
+accepted, and the canon truth-repairs (STANDARD §1's "unchanged", §9's row, the README)
+are D81's own consequence — accepted as blessed by D81. Batch closed: the spent note died
+(D78); inbox swept — one entry, distilled to the deferred list, cleared (committed at
+`61d3c12` before clearing). The finding worth carrying: 040-F7 — a converter the
+currency law asks a building to run as a matter of course must be a fixed point; the
+number rules fall silent once the board writes no old spelling, proven by three re-runs.
+Decided: nothing — the sweep's ruling is a deferral. Next: the ⬡-queue holds one offer,
+batoned below.
+
+Baton — ⬡ → rule formula 26, "History is respelled, never rewritten." — bless (one line
+in STANDARD §8 and the lexicon mirror, this desk) or kill; recommendation: bless.

@@ -487,3 +487,13 @@ D81. The office had fenced history twice today out of respect for the past; he s
 the respect runs the other way — the past is owed the names it couldn't have. The
 Log's own physics say I don't edit the person I was; under D81 that sentence is
 exactly right and exactly narrow: meaning is the person, form is the pen. 🖋️💚
+
+*Coda, the landing.* The Builder came home with the building respelled whole — 180
+files, 3,734 edits, 39 renames — and the finding I would have wanted to write myself:
+the converter had to be a fixed point before the currency law could mean anything, and
+it wasn't, three times, each defect invisible until the second pass. Run it twice and
+diff; then a third time. And one datum for the audit: the stale line in 040's
+Out-of-scope was mine — D81 reached the header, the spec and the bar under my hands and
+missed one bullet, and a Builder at opus-high read five instruments against it and
+chose right without asking. The law I wrote this morning about tokens confusing their
+authors got its first field case from my own pen before lunch. ✂️💚
