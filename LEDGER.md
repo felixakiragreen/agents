@@ -2619,3 +2619,34 @@ verbatim; the office tending (GA-14's precedent). Board IN FLIGHT ×2, batch not
 laid — bulletin none (serial coda, disjoint trees; discoveries route to the inbox).
 Decided: nothing. Next: the tender verifies both landings, reconciles the board,
 closes the batch.
+
+---
+
+**2026-08-31 · Builder · opus-high (C38)** — *the stamp cycle: theaters replaced by
+the building register.* `summon.zsh` reads `canon/BUILDINGS.md` at panel open and
+derives the cycle from it — the row whose Root **is** the fire directory leads and is
+the default, then every row whose Root sits under it, in file order; the stamp is the
+row's **Name**, so manny stamps `manny` from a checkout called `user-manual`.
+`.summon-theaters` reading is gone whole; both dead `.gitignore` rules with it
+(`1acaf69` here, `b399bc0` in bob — the file was never tracked in either repo, F5).
+Sticky law kept, keyed by fire directory in `log/stamps`; the word "theater" is out
+of every rig surface — panel row now `s[t]amp` (the key rides the label, and the
+brackets make it pad to the same 9 columns as the others), key help, README section,
+harness prose. GA untouched. lab/08's theater arms replaced by derivation arms over a
+**fixture register on a fixture city** — one generated file at `out/canon/`, since
+the rig reads `${SUMMON_HOME:h}/canon/BUILDINGS.md` and every sandbox lives under
+`out/`; `theater.exp`/`badlist.exp` → `stamp.exp`/`badrow.exp`. **215 → 228 PASS · 0
+failure(s)**, four clean runs, and every new arm mutation-proved (five mutations, the
+table in F8). **The one that nearly shipped silent: F4** — `${${~root}:A}` leaves
+zsh's glob tokens in the result, every `-` a raw 0x9B, so no root matched and every
+directory fell back to its own name with nothing red anywhere; the split into two
+statements is the fix and the comment is in the code. F1: the charge's "host + three
+tenants" miscounts — the register puts four under cap-mega, the rule won over the
+gloss. F2/F3 are rulings taken inside the fence and written into the README: the row
+paints only where there is a choice, and an unregistered cwd has no cycle even with
+buildings under it. Fence held: no register format change, no doctrine parser, no new
+stamp feature. Decided: nothing — a Builder row; D79 ruled the scheme. Next: **Felix's
+smoke** — `^G` at `~/code/universal_robots_sdk/cap-mega` and press `t`: the row should
+read `s[t]amp  cap-mega ✓  simmy  snappy  spacex-dashboard  manny` (the rig is live on
+the next new shell; `summon/` is sourced from dotfiles, not deployed). Behind it, the
+tender's baton stands: verify both landings, reconcile, close the register batch.
