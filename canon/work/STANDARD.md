@@ -26,8 +26,8 @@ replaces.
   sign. Noun: **blessing**. Blessing a flow's drawn plan authorizes the dispatch to
   run it (D11/D73) — a re-blessing covers an edit; the blessing covers the scope
   (D12). · *instead of:* countersign (as a verb), approve, greenlight, arm (a flow —
-  killed 2026-08-29, the gun family's last word). The record token **`✓ Felix`** is
-  unchanged and machine-parsed — speech unified, grammar typed.
+  killed 2026-08-29, the gun family's last word). The record token is **`⬡✓`**,
+  machine-parsed — speech unified, grammar typed (`✓ Felix` is its history, §7).
 - **rule** · verb · decide a question, either direction — bless can only say yes;
   no's, withdrawals, and choices need **ruled** / **ruling**.
 - ~~ratify~~ · killed 2026-08-28 — bless + the record carry it (a decision is laid,

@@ -65,7 +65,7 @@ nothing writes one again.
 | `⬡-gate` — Staffing's gate charge, Depends-on's named gate | `Felix-gate` (and a bare `Felix`) |
 | `DEFERRED` — the annotation that never leads | `PARKED` |
 | `ignite <charge-ids>` — the baton's instrument | `fire <row-ids>` |
-| `⬡✓` — the blessing mark | `✓ Felix` (its record migration is deferred: neither mark migrates) |
+| `⬡✓` — the blessing mark | `✓ Felix` (respelled at 040 — D81; the reader keeps it forever) |
 
 **Charges are always staffed** (D71, lint-hard): an empty Staffing cell, the dead token
 `unstaffed`, or a dissolved `—` on a charge whose Status carries no `DEFERRED` is a failure,
@@ -186,6 +186,17 @@ required to touch a byte.
 typed comes back identical; only a field a fired rule declared may change; nothing outside a
 recorded edit moves. A violation aborts the write: that is a converter bug, not a doc defect.
 
+**The id respell (D80/D81).** `migrate` derives the respell table from the building's own
+board — bare `n`/`nn` → `nnn`, a per-campaign letter shed (`C23` → `023`, `S3` → `003`), a
+KIND's letter kept (`G2`) — prints it before a byte moves, and applies it to every TRACKED
+text file the building keeps: tokens, paths, board cells, ledger head slots, findings ids,
+and the typed prose slots (`charge 018`, `row 007`, `ignite 024`). The dead compounds ride
+the same pass: `GA-‹nn›` → the name-stamp, `FC-‹n›` → its concept's word, `✓ Felix` → `⬡✓`
+(D81's first act). Its round-trip law is stronger than silence: every parsed field must be
+INVARIANT UNDER THE TABLE — `respell(before) ≡ respell(after)` — so a paraphrase, a drop or a
+wrong address still fails, while a bare number no noun types stays a session's call. A
+building that already conforms gets an empty table and a run that writes nothing.
+
 **The clause pass re-reads (031).** The rules run in two classes: structure and field rules
 first, then the document is re-read and `ledger.unrecorded-clauses` decides its typed absences
 against what the document now says. Reading the pre-migration bytes is how the converter came
@@ -197,11 +208,19 @@ failure with a human's name on it, a fill is a lie.
 
 Deliberate refusals, because the alternative is a converter inventing meaning:
 
-- **kickoff fences** — nobody edits a kickoff except the Architect re-laying the charge (§5).
+- **kickoff fences, for the structural rules** — nobody edits a kickoff except the Architect
+  re-laying the charge (§5). The respell reads them: a fenced path is still a path, and a
+  kickoff naming a renamed charge doc is a dead address (D80).
 - **ISSUES entries** — the inbox clears empty by law (D53); the non-conforming inboxes hold
   struck history awaiting their Architects' sweeps.
 - **judgment targets** — a `CHARTERED` status, a missing decider, a session title stuck in a
   ledger's bold run, and **who staffs a live charge**: `unstaffed` becomes `—` only where the
   Status already says the charge is DEFERRED. Those stay lint failures with a human's name on them.
-- **the record's marks** — `✓ Felix` stays `✓ Felix`; the history respell is deferred by the
-  standard (§7), so neither blessing mark migrates.
+- **a named form** — a code-ticked lone token (`C23`, `✓ Felix`, `GA-20`) is a form being
+  NAMED, not an address being used: the graveyard's own rows, §7's historical-forms list.
+  Naming a dead form is how the law records it, so the converter leaves it standing. A ticked
+  span carrying `/` or `.` is an address and respells; a ticked phrase (`ignite 029`) is not a
+  form.
+- **another building's address** — `/…/whiteboardy/plans/18-…` and `cornerizer C34` are
+  foreign ids (D80: hosts keep their forms). The path rules bind to the building's own
+  directory name; a foreign id in prose is a session's call, never a rule's.
