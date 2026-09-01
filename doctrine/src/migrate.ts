@@ -10,14 +10,19 @@
 //   · anything whose target is a judgment (a `CHARTERED` status, a missing decider, a session
 //     title stuck in a ledger's bold run). Those stay lint failures with a human's name on them.
 
-import { basename } from 'path';
-import { readFileSync, writeFileSync } from 'fs';
+import { basename, join, resolve, sep } from 'path';
+import { readFileSync, statSync, writeFileSync } from 'fs';
+import { execSync } from 'child_process';
 import {
 	DECISION_ID, DEFERRED, FELIX_GATE, HEX_GATE, PARKED, RETIRED, UNRECORDED, UNSTAFFED, VERDICTS,
 	isId, isMantle, isTier, leadingToken, strip, topSplit, trailingParen,
 } from './grammar';
 import { boardIds, isBoardHeader, parseBoards, parseDecisions, parseLedger, tables } from './parse';
-import { parse as parseBuilding, type Building } from './building';
+import { LIMITS, discover, parse as parseBuilding, type Building } from './building';
+import {
+	EMPTY, respellDepends, respellIdCell, respellNormal, respellTable, respellText, ticksLeftOpen,
+	type Respell,
+} from './respell';
 
 /**
  * D63's typed-absence license is about HISTORY: where a pre-doctrine source never held a
@@ -29,21 +34,36 @@ const D63_LANDED = '2026-08-26';
 const preD63 = (date: string) => date < D63_LANDED;
 
 export type Edit = { line: number; from: string; to: string; rule: string };
-export type Migration = { file: string; before: string; after: string; edits: Edit[] };
+export type Migration = { file: string; before: string; after: string; edits: Edit[]; respell: Respell };
 
 /** What a line rule can see beyond its own line, and what it can return beyond a rewrite. */
-export type LineCtx = { prev: string | null; ahead: (k: number) => string | null };
+export type LineCtx = {
+	prev: string | null;
+	ahead: (k: number) => string | null;
+	respell: Respell;
+	/** A code-tick span the lines above left open — the respell's mask reads it (respell.ts). */
+	openTick: boolean;
+};
 type LineResult = string | { to: string; eat: number } | null;
 
-/** What a cell rule can see beyond its own cell: the building's ids, and its own row. */
-export type CellCtx = { ids: Set<string>; cells: string[] };
+/** What a cell rule can see beyond its own cell: the building's ids, its own row, the table. */
+export type CellCtx = { ids: Set<string>; cells: string[]; respell: Respell };
+
+/**
+ * Two classes of rule, and a file is eligible for one or both. The STRUCTURAL rules read a typed
+ * artifact — a board, the ledger, the decision register — and would be nonsense anywhere else.
+ * The RESPELL reads every document the building keeps, because an id is an address wherever it
+ * is written (D80/D81) and a link that stops resolving is the whole cost of a partial run.
+ */
+type Pass = 'structural' | 'respell';
 
 /** A rule names the parsed fields it is licensed to alter — the round-trip law reads this. */
 type Rule = {
 	id: string;
+	pass: Pass;
 	changes: string[];
-	/** Rewrite one Depends-on/Staffing/Status cell, or return null to decline. */
-	cell?: { column: 2 | 3 | 4; run: (text: string, ctx: CellCtx) => string | null };
+	/** Rewrite one ID/Depends-on/Staffing/Status cell, or return null to decline. */
+	cell?: { column: 0 | 2 | 3 | 4; run: (text: string, ctx: CellCtx) => string | null };
 	/** Rewrite one whole line (optionally eating following lines), or return null to decline. */
 	line?: { files?: RegExp; run: (text: string, ctx: LineCtx) => LineResult };
 };
@@ -52,7 +72,7 @@ type Rule = {
 
 /** D71 — the gate token respells; `Felix` alone was always the same field, badly typed. */
 const staffingHexGate: Rule = {
-	id: 'staffing.hex-gate', changes: ['mantle', 'tier', 'hexGate', 'rider'],
+	id: 'staffing.hex-gate', pass: 'structural', changes: ['mantle', 'tier', 'hexGate', 'rider'],
 	cell: {
 		column: 3,
 		run: t => {
@@ -65,7 +85,7 @@ const staffingHexGate: Rule = {
 
 /** The same token in the other column — `⬡-gate: <text>` is Depends-on's second form (D63e). */
 const dependsHexGate: Rule = {
-	id: 'depends.hex-gate', changes: [],
+	id: 'depends.hex-gate', pass: 'structural', changes: [],
 	cell: { column: 2, run: t => t.includes(FELIX_GATE) ? t.trim().replace(new RegExp(FELIX_GATE, 'g'), HEX_GATE) : null },
 };
 
@@ -75,7 +95,7 @@ const dependsHexGate: Rule = {
  * stays on the page as a lint residue — choosing who staffs a live charge is a session's call.
  */
 const staffingDissolved: Rule = {
-	id: 'staffing.dissolved', changes: ['mantle', 'tier', 'dissolved'],
+	id: 'staffing.dissolved', pass: 'structural', changes: ['mantle', 'tier', 'dissolved'],
 	cell: {
 		column: 3,
 		run: (t, ctx) => strip(t) === UNSTAFFED && deferralNoted(ctx.cells[4] ?? '') ? '—' : null,
@@ -86,7 +106,7 @@ const staffingDissolved: Rule = {
 const deferralNoted = (status: string) => new RegExp(`\\b(?:${DEFERRED}|${PARKED})\\b`).test(status);
 
 const staffingRiderParens: Rule = {
-	id: 'staffing.rider-parens', changes: ['tier', 'rider'],
+	id: 'staffing.rider-parens', pass: 'structural', changes: ['tier', 'rider'],
 	cell: {
 		column: 3,
 		run: t => {
@@ -116,35 +136,35 @@ function replaceLead(t: string, lead: string, to: string): string | null {
 const balanced = (s: string) => (s.split('**').length - 1) % 2 === 0;
 
 const statusRetired: Rule = {
-	id: 'status.retired', changes: ['state', 'annotation'],
+	id: 'status.retired', pass: 'structural', changes: ['state', 'annotation'],
 	cell: { column: 4, run: t => { const l = leadingToken(strip(t)); return RETIRED[l] ? replaceLead(t.trim(), l, RETIRED[l]!) : null; } },
 };
 
 const statusVerdict: Rule = {
-	id: 'status.verdict', changes: ['state', 'annotation'],
+	id: 'status.verdict', pass: 'structural', changes: ['state', 'annotation'],
 	cell: { column: 4, run: t => { const l = leadingToken(strip(t)); return (VERDICTS as readonly string[]).includes(l) ? replaceLead(t.trim(), l, `LANDED — ${l}`) : null; } },
 };
 
 const statusPending: Rule = {
-	id: 'status.pending', changes: ['state', 'annotation'],
+	id: 'status.pending', pass: 'structural', changes: ['state', 'annotation'],
 	cell: { column: 4, run: t => leadingToken(strip(t)) === 'PENDING' ? replaceLead(t.trim(), 'PENDING', 'OPEN — PENDING') : null },
 };
 
 /** D71 — PARKED is DEFERRED's history: a whole-word respell wherever it annotates the Status. */
 const statusParkedRespell: Rule = {
-	id: 'status.parked-respell', changes: ['state', 'annotation'],
+	id: 'status.parked-respell', pass: 'structural', changes: ['state', 'annotation'],
 	cell: { column: 4, run: t => t.includes(PARKED) ? t.trim().replace(new RegExp(`\\b${PARKED}\\b`, 'g'), DEFERRED) : null },
 };
 
 /** D69/D71 — DEFERRED conforms exactly as PENDING does, so it molts exactly as PENDING does. */
 const statusDeferred: Rule = {
-	id: 'status.deferred', changes: ['state', 'annotation'],
+	id: 'status.deferred', pass: 'structural', changes: ['state', 'annotation'],
 	cell: { column: 4, run: t => leadingToken(strip(t)) === DEFERRED ? replaceLead(t.trim(), DEFERRED, `OPEN — ${DEFERRED}`) : null },
 };
 
 /** `E1–E9` expands to ids where every one resolves in the building; else it stays a lint fail (item 7). */
 const dependsRange: Rule = {
-	id: 'depends.range', changes: ['dependsOn'],
+	id: 'depends.range', pass: 'structural', changes: ['dependsOn'],
 	cell: {
 		column: 2,
 		run: (t, { ids: knownIds }) => {
@@ -186,7 +206,7 @@ function splitParen(inner: string): { tier: string | null; row: string | null; r
 
 /** D63f — hoist a tier out of the overloaded parenthetical into the head's own slot. */
 const ledgerTierSlot: Rule = {
-	id: 'ledger.tier-slot', changes: ['tier', 'row', 'body', 'decided', 'next'],
+	id: 'ledger.tier-slot', pass: 'structural', changes: ['tier', 'row', 'body', 'decided', 'next'],
 	line: {
 		files: /^LEDGER\.md$/i,
 		run: t => {
@@ -228,7 +248,7 @@ const ledgerTierSlot: Rule = {
  * with no tier slot (item 3, 18c's converter bug).
  */
 const ledgerHeading: Rule = {
-	id: 'ledger.pre-doctrine-head', changes: ['date', 'mantle', 'tier', 'row', 'body', 'decided', 'next'],
+	id: 'ledger.pre-doctrine-head', pass: 'structural', changes: ['date', 'mantle', 'tier', 'row', 'body', 'decided', 'next'],
 	line: {
 		files: /^LEDGER\.md$/i,
 		run: t => {
@@ -254,7 +274,7 @@ const ledgerHeading: Rule = {
  * next line (three live cases) is read whole and re-emitted on one.
  */
 const ledgerBareHead: Rule = {
-	id: 'ledger.bare-head', changes: ['date', 'mantle', 'tier', 'row', 'body', 'decided', 'next'],
+	id: 'ledger.bare-head', pass: 'structural', changes: ['date', 'mantle', 'tier', 'row', 'body', 'decided', 'next'],
 	line: {
 		files: /^LEDGER\.md$/i,
 		run: (t, ctx) => {
@@ -296,7 +316,7 @@ const ledgerBareHead: Rule = {
  * shape and no rule here claims it.
  */
 const clauseScopedColon: Rule = {
-	id: 'ledger.clause-scope', changes: ['decided', 'next', 'body'],
+	id: 'ledger.clause-scope', pass: 'structural', changes: ['decided', 'next', 'body'],
 	line: {
 		files: /^LEDGER\.md$/i,
 		run: t => {
@@ -313,7 +333,7 @@ const clauseScopedColon: Rule = {
  * the identical defect on the page under a different word.
  */
 const clauseDashHead: Rule = {
-	id: 'ledger.clause-dash', changes: ['decided', 'next', 'body'],
+	id: 'ledger.clause-dash', pass: 'structural', changes: ['decided', 'next', 'body'],
 	line: {
 		files: /^LEDGER\.md$/i,
 		run: t => {
@@ -326,7 +346,7 @@ const clauseDashHead: Rule = {
 // ---------- §8 decisions — line rule ----------
 
 const decisionHead: Rule = {
-	id: 'decision.pre-doctrine-head', changes: ['id', 'date', 'decider', 'title', 'body', 'blessed', 'pending'],
+	id: 'decision.pre-doctrine-head', pass: 'structural', changes: ['id', 'date', 'decider', 'title', 'body', 'blessed', 'pending'],
 	line: {
 		run: t => {
 			const m = t.match(new RegExp(String.raw`^(\s*[-*]\s*)\*\*(${DECISION_ID})\s*·\s*(\d{4}-\d{2}-\d{2})\s*·\s*(.+?)\*\*(.*)$`));
@@ -341,7 +361,7 @@ const decisionHead: Rule = {
  * absence, NEVER an authored title: choosing where a title ends is editorial (18h's refusal).
  */
 const decisionInlineAttribution: Rule = {
-	id: 'decision.inline-attribution', changes: ['title', 'body', 'date', 'decider', 'blessed', 'pending'],
+	id: 'decision.inline-attribution', pass: 'structural', changes: ['title', 'body', 'date', 'decider', 'blessed', 'pending'],
 	line: {
 		run: t => {
 			const m = t.match(new RegExp(String.raw`^(\s*[-*]\s*)\*\*(${DECISION_ID})\s+\((\d{4}-\d{2}-\d{2}),\s*([^)]*)\):\*\*\s*(.*)$`));
@@ -351,7 +371,35 @@ const decisionInlineAttribution: Rule = {
 };
 
 /** The clause pass is engine-driven, not line-driven — registered so the round-trip law reads its license. */
-const ledgerUnrecordedClauses: Rule = { id: 'ledger.unrecorded-clauses', changes: ['decided', 'next', 'body'] };
+const ledgerUnrecordedClauses: Rule = { id: 'ledger.unrecorded-clauses', pass: 'structural', changes: ['decided', 'next', 'body'] };
+
+// ---------- §7 the id namespace — the respell (D80/D81) ----------
+//
+// The three rules below share one table, derived from the building's own board. `changes` is
+// EMPTY on purpose: the respell buys no license to differ, it proves itself — the round-trip law
+// gives it the stricter contract of asserting every field equals the table applied to the old
+// field. A rule that is a total substitution can be checked by substituting.
+
+export const ID_RESPELL = 'id.respell';
+
+/** The board's own ID cell: the address itself, rewritten from the table's key. */
+const respellIdColumn: Rule = {
+	id: `${ID_RESPELL}.id-cell`, pass: 'respell', changes: [],
+	cell: { column: 0, run: (t, ctx) => respellIdCell(strip(t), ctx.respell) },
+};
+
+/** Depends-on holds ids, gates and crossings and no prose — the one cell where a bare number
+ *  needs no noun in front of it to be an address (DOCTRINE §4). */
+const respellDependsColumn: Rule = {
+	id: `${ID_RESPELL}.depends`, pass: 'respell', changes: [],
+	cell: { column: 2, run: (t, ctx) => { const next = respellDepends(t.trim(), ctx.respell); return next === t.trim() ? null : next; } },
+};
+
+/** Every other surface: tokens, paths, typed slots — wherever they are written. */
+const respellLine: Rule = {
+	id: ID_RESPELL, pass: 'respell', changes: [],
+	line: { run: (t, ctx) => { const next = respellText(t, ctx.respell, ctx.openTick); return next === t ? null : next; } },
+};
 
 // Order is load-bearing in one place: the PARKED respell runs before the leading-annotation
 // rule, so `| PARKED — x |` reaches `OPEN — DEFERRED — x` in one pass.
@@ -361,6 +409,7 @@ export const RULES: Rule[] = [
 	ledgerTierSlot, ledgerHeading, ledgerBareHead, clauseScopedColon, clauseDashHead,
 	decisionHead, decisionInlineAttribution,
 	ledgerUnrecordedClauses,
+	respellIdColumn, respellDependsColumn, respellLine,
 ];
 
 // ---------- the engine ----------
@@ -384,41 +433,56 @@ function boardRowLines(md: string): Set<number> {
 	return out;
 }
 
-export function migrateText(file: string, md: string, knownIds?: Set<string>): Migration {
+/**
+ * `passes` defaults to the structural rules alone: the respell's table is derived from a BOARD,
+ * so it is a building-scoped act and a lone file has no building to derive it from. Hand it a
+ * table and it runs; `migrate()` below hands one to every document the building keeps.
+ */
+export type MigrateOpts = { ids?: Set<string>; respell?: Respell; passes?: Pass[] };
+
+export function migrateText(file: string, md: string, opts: MigrateOpts = {}): Migration {
 	const name = basename(file);
 	const lines = md.split('\n');
 	const rowLines = boardRowLines(md);
-	const ids = knownIds ?? boardIds(md);
+	const ids = opts.ids ?? boardIds(md);
+	const respell = opts.respell ?? EMPTY;
+	const active = new Set<Pass>(opts.passes ?? (opts.respell ? ['structural', 'respell'] : ['structural']));
 	const edits: Edit[] = [];
 
-	let inFence = false, lastNonEmpty: string | null = null;
+	let inFence = false, openTick = false, lastNonEmpty: string | null = null;
 	for (let i = 0; i < lines.length; i++) {
 		const original = lines[i]!;
-		if (/^\s*```/.test(original)) { inFence = !inFence; lastNonEmpty = original; continue; }
-		if (inFence) continue;                          // a quoted head is a quote, not an entry
+		const marker = /^\s*```/.test(original);
+		if (marker) { inFence = !inFence; openTick = false; }   // a fence resets the inline-tick mask
+		// A fenced line is a QUOTE to the structural rules — a quoted head is not an entry — and a
+		// DOCUMENT to the respell: a kickoff naming a renamed charge doc is a dead address (D80).
+		const quoted = marker || inFence;
 		let text = original;
 		let consumed = 1;
 		const fired: string[] = [];
 
-		if (rowLines.has(i + 1)) {
+		if (!quoted && rowLines.has(i + 1)) {
 			for (const rule of RULES) {
-				if (!rule.cell) continue;
+				if (!rule.cell || !active.has(rule.pass)) continue;
 				const spans = cellSpans(text);
 				const span = spans[rule.cell.column];
 				if (!span) continue;
 				const cell = text.slice(span.start, span.end);
 				// The row is re-read per rule: a cell rule may need a neighbour (Staffing reads Status),
 				// and an earlier rule in this same pass may already have rewritten it.
-				const next = rule.cell.run(cell, { ids, cells: spans.map(s => text.slice(s.start, s.end)) });
+				const next = rule.cell.run(cell, { ids, respell, cells: spans.map(s => text.slice(s.start, s.end)) });
 				if (next === null || next === cell.trim()) continue;
 				if (balanced(cell) && !balanced(next)) throw new Error(`${rule.id} orphaned a ** in ${JSON.stringify(next)} — a converter bug, not a doc defect (item 4)`);
 				text = text.slice(0, span.start) + ` ${next} ` + text.slice(span.end);
 				fired.push(rule.id);
 			}
 		}
-		const ctx: LineCtx = { prev: lastNonEmpty, ahead: k => lines[i + k] ?? null };
+		const ctx: LineCtx = { prev: lastNonEmpty, ahead: k => lines[i + k] ?? null, respell, openTick };
+		if (!marker) openTick = ticksLeftOpen(original, openTick);
 		for (const rule of RULES) {
-			if (!rule.line || (rule.line.files && !rule.line.files.test(name))) continue;
+			if (!rule.line || !active.has(rule.pass)) continue;
+			if (quoted && rule.pass === 'structural') continue;
+			if (rule.line.files && !rule.line.files.test(name)) continue;
 			const r = rule.line.run(text, ctx);
 			if (r === null) continue;
 			const next = typeof r === 'string' ? r : r.to;
@@ -432,10 +496,11 @@ export function migrateText(file: string, md: string, knownIds?: Set<string>): M
 			edits.push({ line: i + 1, from: lines.slice(i, i + consumed).join('\n'), to: text, rule: fired.join('+') });
 			i += consumed - 1;
 		}
-		if (original.trim()) lastNonEmpty = original;
+		if (marker) lastNonEmpty = original;
+		else if (!inFence && original.trim()) lastNonEmpty = original;
 	}
 
-	if (/^LEDGER\.md$/i.test(name)) edits.push(...clauseEdits(lines, edits));
+	if (active.has('structural') && /^LEDGER\.md$/i.test(name)) edits.push(...clauseEdits(lines, edits));
 	edits.sort((a, b) => a.line - b.line);
 
 	// one apply pass: every line is either inside exactly one edit's from-range or copied verbatim
@@ -446,7 +511,7 @@ export function migrateText(file: string, md: string, knownIds?: Set<string>): M
 		if (e) { out.push(e.to); i += e.from.split('\n').length; }
 		else { out.push(lines[i]!); i++; }
 	}
-	return { file, before: md, after: out.join('\n'), edits };
+	return { file, before: md, after: out.join('\n'), edits, respell };
 }
 
 /**
@@ -536,20 +601,52 @@ function clauseEdits(lines: string[], edits: Edit[]): Edit[] {
 	return extra;
 }
 
-export function migrate(buildingPath: string): { building: Building; migrations: Migration[] } {
+/** A file the converter may read: inside the walk's size limit, and free of NUL bytes. */
+function isText(p: string): boolean {
+	try { if (statSync(p).size > LIMITS.bytes) return false; } catch { return false; }
+	return !readFileSync(p).includes(0);
+}
+
+/**
+ * Every document the respell reads: the building's TRACKED text files — an ignored file is not
+ * the building's record. Minus the nested buildings, whose ids are their own namespace (D80);
+ * minus `fixtures/`, because a control set's bytes ARE the form it exists to exercise
+ * (building.ts's SKIP_DIRS, DOCTRINE §6.2). `lab/` is in: its directories are named by the
+ * charge that dug them, so a run that skipped it would leave `lab/08` pointing at nothing.
+ */
+function respellTargets(buildingPath: string): string[] {
+	const root = resolve(buildingPath);
+	let tracked: string[];
+	try { tracked = execSync('git ls-files -z', { cwd: root, encoding: 'utf8', maxBuffer: 64 << 20 }).split('\0').filter(Boolean); }
+	catch { return []; }                              // no checkout, no record — nothing to respell
+	const nested = discover([root]).map(b => resolve(b.path)).filter(p => p !== root);
+	return tracked
+		.filter(rel => !rel.split(sep).some(s => s === 'fixtures' || s === 'node_modules'))
+		.map(rel => join(root, rel))
+		.filter(p => !nested.some(n => p === n || p.startsWith(n + sep)))
+		.filter(isText);
+}
+
+export function migrate(buildingPath: string): { building: Building; table: Respell; migrations: Migration[] } {
 	const building = parseBuilding(buildingPath);
-	const targets = [
+	const artifacts = new Set([
 		...building.files.boards,
 		...(building.files.ledger ? [building.files.ledger] : []),
 		...(building.files.decisions ? [building.files.decisions] : []),
-	];
+	]);
 	const ids = new Set<string>();
 	for (const f of building.files.boards) for (const id of boardIds(readFileSync(f, 'utf8'))) ids.add(id);
+	const table = respellTable(ids, basename(resolve(buildingPath)));
+
 	const seen = new Set<string>();
-	const migrations = targets.filter(f => !seen.has(f) && seen.add(f))
-		.map(f => migrateText(f, readFileSync(f, 'utf8'), ids))
+	const targets = [...artifacts, ...respellTargets(buildingPath)].filter(f => !seen.has(f) && seen.add(f));
+	const migrations = targets
+		.map(f => migrateText(f, readFileSync(f, 'utf8'), {
+			ids, respell: table,
+			passes: artifacts.has(f) ? ['structural', 'respell'] : ['respell'],
+		}))
 		.filter(m => m.edits.length);
-	return { building, migrations };
+	return { building, table, migrations };
 }
 
 export function write(m: Migration): void { writeFileSync(m.file, m.after, 'utf8'); }
@@ -564,20 +661,31 @@ export function write(m: Migration): void { writeFileSync(m.file, m.after, 'utf8
 const rowKey = (r: { id: string; line: number }) => r.id || `L${r.line}`;
 
 export function roundTrip(m: Migration): string[] {
-	const allowed = new Set(m.edits.flatMap(e => e.rule.split('+')).flatMap(id => RULES.find(r => r.id === id)?.changes ?? []));
+	const fired = new Set(m.edits.flatMap(e => e.rule.split('+')));
+	// The respell buys no license to differ — it earns its own law: every field must be
+	// INVARIANT UNDER THE TABLE, `respell(before) === respell(after)`. A substitution proves
+	// itself by substituting, so `id`, `workDoc` and `body` are checked rather than waved
+	// through, and a paraphrase, a drop or a wrong address still fails. It is equality under
+	// the table and not equality WITH it because the rules are line-scoped and a parsed field
+	// is not: a typed slot that wrapped mid-line (`row\n14`) is a supervised hit, and the law
+	// must not demand of the converter what the converter can see.
+	const respelled = [...fired].some(id => id === ID_RESPELL || id.startsWith(ID_RESPELL + '.'));
+	const allowed = new Set([...fired].flatMap(id => RULES.find(r => r.id === id)?.changes ?? []));
+	const norm = (v: unknown) => respelled ? respellNormal(JSON.stringify(v), m.respell) : JSON.stringify(v);
+	const key = (id: string) => respelled ? m.respell.ids.get(id) ?? respellText(id, m.respell) : id;
 	const bad: string[] = [];
 
 	const compare = (what: string, before: Record<string, unknown>, after: Record<string, unknown> | undefined) => {
 		if (!after) { bad.push(`${what}: vanished from the migrated document`); return; }
 		for (const [k, v] of Object.entries(before)) {
 			if (k === 'line' || k === 'block' || allowed.has(k)) continue;
-			if (JSON.stringify(v) !== JSON.stringify(after[k])) bad.push(`${what}.${k}: ${JSON.stringify(v)} → ${JSON.stringify(after[k])}`);
+			if (norm(after[k]) !== norm(v)) bad.push(`${what}.${k}: ${norm(v)} expected, ${norm(after[k])} found`);
 		}
 	};
 
 	const b0 = parseBoards(m.before).boards.flatMap(x => x.rows);
 	const b1 = new Map(parseBoards(m.after).boards.flatMap(x => x.rows).map(r => [rowKey(r), r]));
-	for (const r of b0) compare(`row ${rowKey(r)}`, r, b1.get(rowKey(r)));
+	for (const r of b0) compare(`row ${rowKey(r)}`, r, b1.get(key(rowKey(r))));
 
 	// A migration can multiply parsed entries (96 bare heads entering the parse), so positional
 	// alignment lies; each before-entry must EXIST after with its undeclared fields intact.
@@ -585,14 +693,14 @@ export function roundTrip(m: Migration): string[] {
 	const l1 = parseLedger(m.after).entries;
 	for (const e of l0) {
 		const kept = l1.some(x => x.date === e.date && Object.entries(e).every(([k, v]) =>
-			k === 'line' || k === 'block' || allowed.has(k) || JSON.stringify(v) === JSON.stringify(x[k as keyof typeof x])));
+			k === 'line' || k === 'block' || allowed.has(k) || norm(v) === norm(x[k as keyof typeof x])));
 		if (!kept) bad.push(`ledger[${e.date}]: no migrated entry preserves its undeclared fields`);
 	}
 	if (l1.length < l0.length) bad.push(`ledger: ${l0.length} entries parsed before, ${l1.length} after — an entry vanished`);
 
 	const d0 = parseDecisions(m.before).decisions;
 	const d1 = new Map(parseDecisions(m.after).decisions.map(d => [d.id, d]));
-	for (const d of d0) compare(`${d.id}`, d, d1.get(d.id));
+	for (const d of d0) compare(`${d.id}`, d, d1.get(key(d.id)));
 
 	// The byte assertion: every line outside a recorded edit survived untouched. An edit may
 	// consume several source lines (a wrapped head) and emit several (a hoisted separator).

@@ -14,6 +14,7 @@ import { parse } from './src/building';
 import { guardRegressions, lint, render } from './src/lint';
 import { REGISTER, walkRegister } from './src/register';
 import { diff, migrate, roundTrip, write } from './src/migrate';
+import { renderTable } from './src/respell';
 
 const USAGE = `doctrine — the reference reader for the work doctrine (canon/work/DOCTRINE.md)
 
@@ -42,8 +43,10 @@ const USAGE = `doctrine — the reference reader for the work doctrine (canon/wo
       Exits 1 on a defect in the building register (a malformed row, a dead Root).
 
   doctrine migrate [--write] <building>
-      Form-only re-emission in the current grammar. Prints the diff and the round-trip
-      verdict; --write is required to touch a single byte on disk.`;
+      Form-only re-emission in the current grammar, across every tracked text file the
+      building keeps. Prints the id respell table (D80, derived from the building's own
+      board) first, then the diff and the round-trip verdict per file; --write is required
+      to touch a single byte on disk.`;
 
 const argv = process.argv.slice(2);
 const flag = (f: string) => argv.includes(f);
@@ -117,7 +120,10 @@ if (cmd === 'buildings') {
 
 if (cmd === 'migrate') {
 	if (paths.length !== 1) die('doctrine migrate: exactly one building path per call.');
-	const { building, migrations } = migrate(paths[0]!);
+	const { building, table, migrations } = migrate(paths[0]!);
+	// The table is printed before a byte moves — the respell is derived from the board, and a
+	// derivation nobody can read is a rule nobody can refuse (D80).
+	console.log(`${building.building} — the id respell table (D80), derived from the board:\n${renderTable(table)}\n`);
 	if (!migrations.length) { console.log(`${building.building}: already in the current grammar — nothing to migrate.`); process.exit(0); }
 
 	let violations = 0;
@@ -127,12 +133,12 @@ if (cmd === 'migrate') {
 		violations += bad.length;
 		console.log(bad.length
 			? `!! round-trip FAILED (${bad.length}):\n   ${bad.join('\n   ')}`
-			: `   round-trip ok — ${m.edits.length} edit(s), meaning-bearing fields unchanged\n`);
+			: `   round-trip ok — ${m.edits.length} edit(s), every meaning-bearing field unchanged or exactly respelled\n`);
 	}
 	if (violations) die(`\n${violations} round-trip violation(s) — refusing to write. This is a converter bug, not a doc defect.`);
 
 	if (!flag('--write')) {
-		console.log(`\nDry run: ${migrations.reduce((a, m) => a + m.edits.length, 0)} edit(s) across ${migrations.length} file(s). Re-run with --write to apply.`);
+		console.log(`\nDry run: ${migrations.reduce((a, m) => a + m.edits.length, 0)} edit(s) across ${migrations.length} file(s) — 0 files written. Re-run with --write to apply.`);
 		process.exit(0);
 	}
 	for (const m of migrations) write(m);
