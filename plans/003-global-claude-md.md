@@ -1,6 +1,6 @@
 # 003 — The Global CLAUDE.md
 
-**Mantle · Tier:** Architect · fable-max · **Gate:** 01 + 02 LANDED, 02's D-entries
+**Mantle · Tier:** Architect · fable-max · **Gate:** 001 + 002 LANDED, 002's D-entries
 countersigned · **Status:** **LANDED** 2026-08-03 → `canon/CLAUDE.md`
 
 ## Mission
@@ -12,8 +12,8 @@ in the system.
 
 ## Inputs
 
-1. `GENESIS.md`; 01's outputs (`canon/mantles/README.md` — precedence law, summons
-   grammar); 02's outputs (`canon/work/DOCTRINE.md`).
+1. `GENESIS.md`; 001's outputs (`canon/mantles/README.md` — precedence law, summons
+   grammar); 002's outputs (`canon/work/DOCTRINE.md`).
 2. The incumbent: `~/.claude/CLAUDE.md` (byte-identical ×3, dated 2026-07-09) — the
    Coding Directives (five numbered sections), Git Development Guidelines, Agent
    Personality Guidelines.
@@ -36,7 +36,7 @@ in the system.
    consequence ("durable truth goes in repos") or leaves it to doctrine.
 5. **What moves OUT.** Anything in the incumbent that is really mantle- or
    doctrine-content moves to 01/02's files; the global file points, never duplicates.
-6. **Deployment: none in this session.** 04's build deploys `canon/CLAUDE.md` to all
+6. **Deployment: none in this session.** 004's build deploys `canon/CLAUDE.md` to all
    three accounts (symlink, D14) immediately after — land the file in the repo only.
 
 ## Out of scope
@@ -45,7 +45,7 @@ in the system.
 
 ## Deliverables
 
-- `canon/CLAUDE.md` ratified in the repo (deployment: 04's build, per D14).
+- `canon/CLAUDE.md` ratified in the repo (deployment: 004's build, per D14).
 - `DECISIONS.md` appended (what changed vs incumbent, what moved where);
   `GENESIS.md` board updated; `LEDGER.md` appended.
 
@@ -53,7 +53,7 @@ in the system.
 
 This brief runs dispatched (rider: `plans/RIDER.md`). New D-entries land marked
 **"(proposed — pending Felix countersign)"**; the tending session escalates them to
-Felix before 04's build dispatches. End-of-session protocol unchanged.
+Felix before 004's build dispatches. End-of-session protocol unchanged.
 
 ## Findings (2026-08-03)
 
@@ -94,7 +94,7 @@ config dirs). Brief questions 1–6, all settled, none escalated:
    zero mantle- or doctrine-content — the audit found no line whose home is 01/02's
    files. Movement was all inward (the new section).
 6. **Deployment untouched, per brief.** All three mirrors still serve the incumbent
-   (md5s unchanged); 04's build replaces them with symlinks (D14). Until countersign +
+   (md5s unchanged); 004's build replaces them with symlinks (D14). Until countersign +
    04B, canon and mirrors intentionally differ by exactly the appended section.
 
 **Defended non-additions** (creep candidates rejected): branch-`master`-never-main —

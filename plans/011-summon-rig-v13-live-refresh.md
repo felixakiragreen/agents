@@ -1,12 +1,12 @@
 # 011 — summon rig v1.3: the live table
 
 **Status:** KILLED 2026-08-31 (⬡, at the grand-architect-19 desk) — deferred since 2026-08-08
-with nobody waiting; killed with C22 at the rig re-scope: three weeks dormant, its
+with nobody waiting; killed with 022 at the rig re-scope: three weeks dormant, its
 blessing gate never paid, and the panel it polishes works today. The lay's rulings
 and the rebase notes below stay recorded for any re-lay. ·
-**Depends on:** 10 LANDED; **⬡-gate: blessing** (never paid) ·
+**Depends on:** 010 LANDED; **⬡-gate: blessing** (never paid) ·
 **Staffing:** Builder · opus-high (confirmed at the lay — same trap class as charges
-08–10: zle, detached spawns, harness fixtures) · **Blessed:** ⟨Architect reviewed and
+008–010: zle, detached spawns, harness fixtures) · **Blessed:** ⟨Architect reviewed and
 laid 2026-08-08 — rulings in *The lay* below, spawn architecture reconciled with
 010-F10. **Felix's blessing PENDING; no build before it.** Deferred by Felix 2026-08-08
 — charge 013 goes first; this charge rebases on it when unshelved.⟩
@@ -100,7 +100,7 @@ of them:
   the panel block — an unconfigured rig behaves exactly as before.
 - **The multi-terminal race is accepted, not solved.** Every open terminal draws prompts,
   so several may notice the same cold cache and fetch at once. Atomic writes make this
-  harmless (10's law), and the ceiling is one fetch per terminal per 300 s. If that proves
+  harmless (010's law), and the ceiling is one fetch per terminal per 300 s. If that proves
   too many requests, the fix is a lock file, not a shorter interval — but measure before
   adding one.
 - Registered with `add-zsh-hook precmd`, never by assigning `precmd` (which would clobber
@@ -179,7 +179,7 @@ Evidence: `lab/008/run` extended, green, no regressions; the charge's numbers pa
   reopened here. The **spawn sites** are this charge's to build per *The lay*, ruling 1 —
   that is the one place the old "any change to the fetch" line is redrawn.
 - Token refresh, re-auth, or any write to any credential store — forbidden, inherited.
-- A refresh key or usage toggle key — the reserved-key set does not grow (10's fence).
+- A refresh key or usage toggle key — the reserved-key set does not grow (010's fence).
 - `launchd`/`cron` as the warm-keeper. A prompt hook needs no install step, no plist and
   no daemon to debug, and Felix's terminals draw prompts all day. Revisit only if the
   prompt hook proves insufficient — with evidence.

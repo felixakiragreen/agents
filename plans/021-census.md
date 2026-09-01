@@ -610,7 +610,7 @@ thinking partner), Mantle = plural (Architect, Builder, Digger, **Fixer** — th
 mantle minted: summoned by the Sovereign to DO something now); futures reserved:
 Imperial/Royal Architect, Hand of the King / Quartermaster, Steward. **The Dispatcher
 is absent from the ruled roster** — not renamed, gone (the flow engine's shadow; row
-20's question answering itself — flagged, not ruled). The standard's compliance
+020's question answering itself — flagged, not ruled). The standard's compliance
 clause, from his mantle notes: **think in any terms; communicate in the standard**
 (binds communication, not cognition). · **Cornerstone & Keystone: ruled. Foundation:
 RESERVED** (named, unminted — "like what they make on Terminus"). · **Campaign's

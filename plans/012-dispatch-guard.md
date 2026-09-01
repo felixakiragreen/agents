@@ -8,7 +8,7 @@ sitting (mechanism, scope, staffing per the Grand Architect's proposal, same dat
 
 Make the batch-11 dispatch failure mechanically impossible: no Agent call in a Guild
 project carries engine overrides — the tier grid is the only engine authority. This is
-D47's mechanical arm, built as venue tooling per 05's rejection terms ("canon states
+D47's mechanical arm, built as venue tooling per 005's rejection terms ("canon states
 the law; venues enforce their own physics"): a deterministic, repo-committed guard,
 not canon law.
 

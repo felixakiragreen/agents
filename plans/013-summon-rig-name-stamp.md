@@ -1,8 +1,8 @@
 # 013 — summon rig: the name-stamp
 
 **Status:** LANDED 2026-08-22 (Builder · opus-high) — DoD green; smoke ⬡✓
-2026-08-22. · **Depends on:** — *(was 11, a file-collision ordering; 11 deferred
-by Felix 2026-08-08, so this row goes first and 11 rebases on it — never both in
+2026-08-22. · **Depends on:** — *(was 011, a file-collision ordering; 011 deferred
+by Felix 2026-08-08, so this row goes first and 011 rebases on it — never both in
 flight)* · **Staffing:**
 Builder · opus-high · **Blessed:** Architect cut 2026-08-08 on Felix's standing call
 (2026-08-08, `plans/quartermaster.md` §5 — the stamp is his ask; the scheme below is

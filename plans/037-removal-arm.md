@@ -164,7 +164,7 @@ not with the graft, which touches `lab/008/run` alone:
 
 ```
 $ git log -S'grand-architect-19, continued' --oneline -- LEDGER.md
-b232f05 C22 blessed: three forks ruled (no-prompt bare, colorless launch, venue detect) — gate paid, ignitable
+b232f05 022 blessed: three forks ruled (no-prompt bare, colorless launch, venue detect) — gate paid, ignitable
 ```
 
 The header reads `**2026-08-31 · Grand Architect · fable-max (grand-architect-19, continued)**`; D63f

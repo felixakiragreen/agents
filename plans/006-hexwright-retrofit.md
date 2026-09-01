@@ -39,7 +39,7 @@ An order run by the project's Architect: the conformance pass is board-truing wo
 2. **`CLAUDE.md` — Session Workflow.** The break-suggestion / kickoff-handoff /
    clean-boundary lines are now DOCTRINE §11 (hexwright is the cited birthplace) —
    compress to one pointer line. **"Keep the joy" stays verbatim** — taste, not law.
-3. **`CLAUDE.md` — §State.** The WO-outcome digest dies (02's findings flagged it as a
+3. **`CLAUDE.md` — §State.** The WO-outcome digest dies (002's findings flagged it as a
    second home for truth): replace with pointers — phase one-liner, board (GENESIS §6),
    ledger tail. **The version law moves up to Hard Laws** — it is live project physics,
    not state. Repo line stays. Target ≤ ~60 lines total.

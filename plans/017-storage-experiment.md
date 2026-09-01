@@ -5,7 +5,7 @@ line drawn per-artifact; row 018 not re-scoped; row-19/-20 inputs named in §Ver
 harness in `lab/017/` — was: brief cut 2026-08-28 (grand-architect-11); Felix-gate PAID 2026-08-28
 (Belvedere v0 + the deck + the flow chapter landed; batch 5 closed — 14 rows, zero
 kills, 651 tests green; gate called paid by Felix's own summons of this date) ·
-**Depends on:** 16 · **Staffing:** Digger · fable-high
+**Depends on:** 016 · **Staffing:** Digger · fable-high
 
 ## Question
 
@@ -128,7 +128,7 @@ recommendation + row-18 re-scope + row-20 inputs; twin + battery + grader in
 
 - Migrating anything live; edits to `canon/`, `doctrine/`, or any building's docs.
 - Designing new schema fields beyond measuring the case-file list — design is row
-  20's and the Grand Architect's.
+  020's and the Grand Architect's.
 - The serialization of Belvedere's own runtime state (event logs, census) — already
   data; not in question.
 

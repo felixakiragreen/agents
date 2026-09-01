@@ -1,7 +1,7 @@
 # 004 — Sync: Canon → Mirrors
 
 **Two stages.** Spike: Digger · opus-high — **LANDED 2026-08-03** (F1–F12; U1 closed,
-U2 killed). Build: **Builder · opus-high** — gated on 01–03 LANDED, dispatched (rider:
+U2 killed). Build: **Builder · opus-high** — gated on 001–003 LANDED, dispatched (rider:
 `plans/RIDER.md`). **Status:** **LANDED** 2026-08-03 — DoD fully evidenced (Stage B
 checklist); Max smoke PENDING Felix's `/login`, not blocking.
 

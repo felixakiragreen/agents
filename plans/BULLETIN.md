@@ -51,7 +51,7 @@ inline `## Ledger`** — a building with a real, dated, D63-shaped ledger sectio
 "ledger none" and is never read. (2) `parseDecisions` hardcodes the id prefix `D`
 (`\*\*D\d`) — a building whose decisions carry a project prefix (`RP-1`, `A17`, …)
 produces `candidates: 0` and zero failures, not a parse. Neither trips on a bare
-`LEDGER.md` + `D<n>` building (16's fixtures, most of the corpus), so watch for it only
+`LEDGER.md` + `D<n>` building (016's fixtures, most of the corpus), so watch for it only
 if 18g's four worktree boards turn out to carry their own inline ledger/decisions —
 unlikely for board-only docs, named here in case. Full write-up + repro:
 `~/code/agents/ISSUES.md` (row 18h's two entries).
@@ -87,7 +87,7 @@ that resolved the rest is simmy's pre-canon role table, `DISPATCHER.md` §1 at
 
 ### 2026-08-29 · 030 → the flow-1 tender (P5's out-of-tree cell)
 **The named physics probe is PAID: out-of-tree writes do not prompt.** 030 was ignited at
-the URSDK root checkout; `printf 'probe' > ~/code/whiteboardy/.030-probe` wrote, read back
+the URSDK root checkout; `printf 'probe' > ~/code/whiteboardy/.c30-probe` wrote, read back
 and removed with no permission prompt and no pause. whiteboardy, rooted/arborist and
 `~/code/agents` are all writable from a URSDK-rooted session, so the batch note's fallback
 (one rig summons for the three out-of-tree buildings) is **not needed** and the 60-minute

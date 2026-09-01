@@ -46,7 +46,7 @@ venue-native mechanisms:
 
 - **The coda composes too:** DOCTRINE §10 — ignition = kickoff + the project coda,
   appended verbatim. The v3 engine did this at fire; a hand ignition ships without
-  it unless Felix pastes twice (he doesn't — C14 ignited coda-less 2026-08-30).
+  it unless Felix pastes twice (he doesn't — 014 ignited coda-less 2026-08-30).
   Since this charge IS the composition, the rig appends the target building's
   `plans/CODA.md` when one exists. Costs one `cat`.
 - **`presets.tsv` is load-bearing in `lab/008`:** editing it breaks the harness in
@@ -58,7 +58,7 @@ venue-native mechanisms:
 
 ## Constraints inherited
 
-- 13's name-stamp and 14's theater cycle stand — this charge touches composition only.
+- 013's name-stamp and 014's theater cycle stand — this charge touches composition only.
 - Serial with any other rig charge by physics (shared `summon/summon.zsh` + `lab/008`);
   charge 011 remains deferred — whoever unshelves it rebases onto this if this lands
   first.

@@ -53636,7 +53636,7 @@
 					"kind": "thing",
 					"file": "/Users/felix/code/agents/DECISIONS.md",
 					"line": 883,
-					"quote": "cornerizer C8/C22/034 (the field spelling), 18g's recommendation (a).",
+					"quote": "cornerizer C8/C22/C34 (the field spelling), 18g's recommendation (a).",
 					"reader": "A2",
 					"flags": []
 				}
@@ -98179,7 +98179,7 @@
 					"kind": "thing",
 					"file": "/Users/felix/code/universal_robots_sdk/cap-mega/snappy/ch2/plans/06-edt-hygiene.md",
 					"line": 477,
-					"quote": "**Verdict: yes, MegaCap has the THGPosCoord disease, in exactly one repeating place - row 001.**",
+					"quote": "**Verdict: yes, MegaCap has the THGPosCoord disease, in exactly one repeating place - row 1.**",
 					"reader": "B11",
 					"flags": [
 						"dialect",

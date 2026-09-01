@@ -165,7 +165,7 @@ cheap, mechanical, and it is what "live" should have meant all along.
 
 ### F2 — the graveyard's dead column names SENSES, not strings
 
-The vocabulary arm narrows `row` to a reference (`row 026`) and drops eight patterns
+The vocabulary arm narrows `row` to a reference (`row 26`) and drops eight patterns
 outright, because they cannot be written without false positives. That is a statement
 about *machines*, not about which words are alive — so a human sweep that stops at the
 arm's output stops early. The rule 030 applied, and the one the next sweep should
@@ -243,7 +243,7 @@ word, three live successors, and only the reading tells you which.
 dispatch appendix appended to every kickoff (`arborist/RIDER.md`, `repot/RIDER.md`,
 `pods/rider.md`, `simmy/spikes/RIDER.md`, whiteboardy's `plans/RIDER.md`); **a
 condition** — attached sanctioned side-work (ARB-14's baseline change, simmy B8's VNC
-rider, B11's check, units FG3's "two riders", waypoint-stepper's "Rider (charge 004 §5)");
+rider, B11's check, units FG3's "two riders", waypoint-stepper's "Rider (charge 04 §5)");
 and once **a charge** (snappy's "rider in 16's brief" → "a condition in 16's charge
 doc"). **The files were not renamed** — 023-F7's rule: a moved file's pointer is the
 move's own hygiene, and a rename is not a respell. Every one of them still reads

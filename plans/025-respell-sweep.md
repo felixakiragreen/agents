@@ -37,7 +37,7 @@ History, voice, and the charters are fenced.
    ruling (the Dispatcher is dead; the flow engine, charge 020, is the shadow), §5's
    historical cells' machine tokens via migrate, batch-note prose by hand.
    `summon/presets.tsv`: the `d dispatcher` preset retired — the mantle is dead;
-   `lab/008/run` derives its fixtures from the file (14's guard), re-run green.
+   `lab/008/run` derives its fixtures from the file (014's guard), re-run green.
    `docs/load-map.md`.
 4. **The absorbed 18-continuation** — sanctions on record:
    - **whiteboardy re-fire:** migrate is clean post-19 (projected 104→2; the
@@ -114,7 +114,7 @@ ledger entries 203 → **440**.
 **The 8 that stand, both classes escalated:**
 
 - **5 `board.depends` — whiteboardy's board-truth defect, 18c's own escalation.** Batch
-  13's `R1`, `W1`, `X8`, `B1` and `E14` were laid, ignited, LANDED and ledgered, and are
+  013's `R1`, `W1`, `X8`, `B1` and `E14` were laid, ignited, LANDED and ledgered, and are
   **declared on no board**, so gate 26 cannot compute its own dependencies. Declaring a
   landed charge on a board is a status-truth change this charge's §Out-of-scope reserves;
   it is that building's Architect's, at gate 26. Left standing **on purpose** — moving
@@ -201,7 +201,7 @@ doctrine follow-on.
 
 ### F3 — 013-F1's guard derives the fixture, not the script
 
-The charge's own spec asserts "`lab/008/run` derives its fixtures from the file (14's
+The charge's own spec asserts "`lab/008/run` derives its fixtures from the file (014's
 guard), re-run green." **That premise is false**, and retiring the dead `d dispatcher`
 preset proved it: the harness went **1 → 15 failures**. Counts derive; keystrokes and
 expected stamps do not. `drive.exp` presses `d` as a drive key, three assertions name
@@ -223,7 +223,7 @@ follows a preset *addition*, never a *removal*.
   it becomes `⬡-gate: <text>` instead, attribution checked one by one. 28 cells in
   whiteboardy, 21 in snappy.
 - **A date-range head** (`2026-08-22/23`, `2026-08-19/20`) → **the start date**, the span
-  preserved in the head's own body. A session is dated when it begins. This settles 19's
+  preserved in the head's own body. A session is dated when it begins. This settles 019's
   escalation E2, which said form alone could not pick.
 - **A joint-session head** (`Architect … + Builder …`) → one mantle · one tier, the second
   session named in the body. D63f types one session per entry.

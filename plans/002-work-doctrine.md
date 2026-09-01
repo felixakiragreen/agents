@@ -1,7 +1,7 @@
 # 002 — The Work Doctrine
 
 **Mantle · Tier:** Architect · fable-max · **Gate:** keel (LANDED); soft interlock with
-01 · **Status:** **LANDED** 2026-08-03 → `canon/work/`
+001 · **Status:** **LANDED** 2026-08-03 → `canon/work/`
 
 ## Mission
 

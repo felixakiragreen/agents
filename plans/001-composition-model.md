@@ -81,7 +81,7 @@ exactly. If the prompt names documents to read, read them before acting.
 9. **Summons grammar.** Canonical interactive phrase and canonical dispatch shape
    (`Agent(type=tier, prompt=mantle kickoff + brief + rider)`). Generalize simmy's
    standard rider (worktree rules, bulletin protocol, report-is-logistics-only) into a
-   canon rider template — which parts are universal vs project-doctrine (02's turf)?
+   canon rider template — which parts are universal vs project-doctrine (002's turf)?
 10. **Staffing guidance placement.** Simmy's staffing rule lives in tier descriptions
     AND README §6. Decide the single home (tier descriptions seem right — they travel
     with the tier) and keep charters pointing, not duplicating.

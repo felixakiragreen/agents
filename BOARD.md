@@ -11,7 +11,7 @@ account choice is quota arbitrage.
 | 000 | Genesis — lay the keel | ⬡-gate: blessing | Grand Architect · unrecorded | **LANDED** 2026-08-02 |
 | 001 | [Composition model](plans/001-composition-model.md) | 000 | Architect · fable-max | **LANDED** 2026-08-02 |
 | 002 | [Work doctrine](plans/002-work-doctrine.md) | 000 | Architect · fable-max | **LANDED** 2026-08-03 → `canon/work/` |
-| 003 | [Global CLAUDE.md](plans/003-global-claude-md.md) | 001; 002; ⬡-gate: 02's D-entries countersigned | Architect · fable-max | **LANDED** 2026-08-03 |
+| 003 | [Global CLAUDE.md](plans/003-global-claude-md.md) | 001; 002; ⬡-gate: 002's D-entries countersigned | Architect · fable-max | **LANDED** 2026-08-03 |
 | 004 | [Sync](plans/004-sync.md) | 001; 002; 003 | Digger · opus-high (→ Builder · opus-high for Stage B) | **LANDED** 2026-08-03 |
 | 005 | [Saturation harvest — snappy batch-1 → canon](plans/005-saturation-harvest.md) | — | Grand Architect · fable-max | **LANDED** 2026-08-05 |
 | 006 | [hexwright retrofit](plans/006-hexwright-retrofit.md) | ⬡-gate: D32 ✓ 2026-08-06 | Architect · fable-high | **LANDED** 2026-08-06 → [findings](plans/006-hexwright-retrofit.md) |
@@ -19,7 +19,7 @@ account choice is quota arbitrage.
 | 008 | [summon rig](plans/008-summon-rig.md) | ⬡-gate: D34 ✓ 2026-08-06 | Builder · opus-high | **LANDED** 2026-08-06 → [findings](plans/008-summon-rig.md) |
 | 009 | [summon rig v1.1](plans/009-summon-rig-v11.md) | 008; ⬡-gate: D36 (dispatch countersigns) | Builder · opus-high | **LANDED** 2026-08-06 → [findings](plans/009-summon-rig-v11.md) |
 | 010 | [summon rig v1.2 — the usage panel](plans/010-summon-rig-v12-usage.md) | 009; ⬡-gate: D41 ✓ 2026-08-07 | Builder · opus-high | **LANDED** 2026-08-07 → [findings](plans/010-summon-rig-v12-usage.md) |
-| 011 | [summon rig v1.3 — the live table](plans/011-summon-rig-v13-live-refresh.md) | 010; ⬡-gate: blessing (never paid) | Builder · opus-high | **KILLED** 2026-08-31 (⬡) — deferred since 08-08, nobody waiting; killed with 22 at the rig re-scope; the doc keeps the lay's rulings and rebase notes for any re-lay |
+| 011 | [summon rig v1.3 — the live table](plans/011-summon-rig-v13-live-refresh.md) | 010; ⬡-gate: blessing (never paid) | Builder · opus-high | **KILLED** 2026-08-31 (⬡) — deferred since 08-08, nobody waiting; killed with 022 at the rig re-scope; the doc keeps the lay's rulings and rebase notes for any re-lay |
 | 012 | [the dispatch guard](plans/012-dispatch-guard.md) | — | Builder · opus-high | **LANDED** 2026-08-08 → [findings](plans/012-dispatch-guard.md); **the hole, proven:** workflow-script `agent(…, {model, effort})` calls never fire `PreToolUse` (F2) — README names it, arm 4 watches it; adoption anywhere is still its own row |
 | 013 | [summon rig — the name-stamp](plans/013-summon-rig-name-stamp.md) | — | Builder · opus-high | **LANDED** 2026-08-22 → [findings](plans/013-summon-rig-name-stamp.md); F7 parked: the 32-key runaway guard caps one panel's seed at ~28 ordinals |
 | 014 | [summon rig — the theater cycle](plans/014-summon-rig-theater-cycle.md) | 013 | Builder · opus-high | **LANDED** 2026-08-24 → [findings](plans/014-summon-rig-theater-cycle.md); smoke ⬡✓ 2026-08-29; F5 parked: the 32-key runaway guard caps one panel's cycle at ~28 positions, and no cap is placed on the list itself |

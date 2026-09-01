@@ -3,7 +3,7 @@
 import { readFileSync, writeFileSync } from 'fs';
 
 const AGENTS = '/Users/felix/code/agents';
-const rows = readFileSync(`${AGENTS}/lab/21/manifest.tsv`, 'utf8').trim().split('\n')
+const rows = readFileSync(`${AGENTS}/lab/021/manifest.tsv`, 'utf8').trim().split('\n')
 	.map(l => { const [w, t, cls, path] = l.split('\t'); return { tier: t![0]!, cls: cls!, path: path! }; });
 
 const PAIRS: [string, string][] = [
@@ -67,5 +67,5 @@ if (dates.monthName.length) lines.push('month-name dates (sample):', ...dates.mo
 lines.push('## Units seen (count)', '', ...top(units, 30).map(([u, c]) => `- ${u}: ${c}`), '');
 lines.push(`## Imperial sniff: ${imperial.length}`, ...imperial.slice(0, 20).map(s => `- ${s}`), '');
 lines.push('## Structural symbols', '', ...[...symbols.entries()].map(([s, c]) => `- \`${s}\`: ${c}`));
-writeFileSync(`${AGENTS}/lab/21/ortho-report.md`, lines.join('\n') + '\n');
+writeFileSync(`${AGENTS}/lab/021/ortho-report.md`, lines.join('\n') + '\n');
 console.log(`ortho-report.md written · pairs with hits: ${[...pair.values()].filter(([a, b]) => a + b > 0).length} · ize/ise ${ize}/${ise} · iso dates ${dates.iso}`);

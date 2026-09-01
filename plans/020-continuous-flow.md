@@ -1,7 +1,7 @@
 # 020 — the continuous flow: the cornerstone session
 
 **Status:** LANDED 2026-08-29 — the cornerstone laid at grand-architect-15, D73 + D74 ⬡✓
-in-session; design + findings below the stub · **Depends on:** 17 · ⬡-gate: his call
+in-session; design + findings below the stub · **Depends on:** 017 · ⬡-gate: his call
 to sit — paid 2026-08-29, this summons · **Staffing:** Grand Architect · fable-max
 
 *A cornerstone stub, not a design — this file preserves the commission and the case

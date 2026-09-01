@@ -86,13 +86,13 @@ for (const c of CLUSTERS) {
 	}
 	flush();
 }
-rows.push({ path: `${AGENTS}/lab/21/commitlog.txt`, w: words(`${AGENTS}/lab/21/commitlog.txt`), territory: 'A13', cls: 'commit-log' });
+rows.push({ path: `${AGENTS}/lab/021/commitlog.txt`, w: words(`${AGENTS}/lab/021/commitlog.txt`), territory: 'A13', cls: 'commit-log' });
 
 // ---------- emit ----------
-writeFileSync(`${AGENTS}/lab/21/manifest.tsv`, rows.map(r => `${r.w}\t${r.territory}\t${r.cls}\t${r.path}`).join('\n') + '\n');
+writeFileSync(`${AGENTS}/lab/021/manifest.tsv`, rows.map(r => `${r.w}\t${r.territory}\t${r.cls}\t${r.path}`).join('\n') + '\n');
 const byT = new Map<string, Row[]>();
 rows.forEach(r => byT.set(r.territory, [...(byT.get(r.territory) ?? []), r]));
-for (const [t, rs] of byT) writeFileSync(`${AGENTS}/lab/21/territories/${t}.txt`, rs.map(r => r.path).join('\n') + '\n');
+for (const [t, rs] of byT) writeFileSync(`${AGENTS}/lab/021/territories/${t}.txt`, rs.map(r => r.path).join('\n') + '\n');
 
 const order = (t: string) => (t[0] === 'A' ? 0 : 1000) + parseInt(t.slice(1), 10);
 for (const [t, rs] of [...byT.entries()].sort((a, b) => order(a[0]) - order(b[0])))

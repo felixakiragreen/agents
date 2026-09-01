@@ -3,7 +3,7 @@
 import { readFileSync, writeFileSync } from 'fs';
 
 const AGENTS = '/Users/felix/code/agents';
-const paths = readFileSync(`${AGENTS}/lab/21/manifest.tsv`, 'utf8').trim().split('\n').map(l => l.split('\t')[3]!);
+const paths = readFileSync(`${AGENTS}/lab/021/manifest.tsv`, 'utf8').trim().split('\n').map(l => l.split('\t')[3]!);
 
 const STOP = new Set(('the a an and or but if then else for while of in on at to from by with without into onto over under ' +
 'is are was were be been being am do does did done have has had having will would shall should can could may might must ' +
@@ -41,5 +41,5 @@ const out = {
 	bold: top(bold, 400), backticks: top(ticks, 300), italics: top(ital, 300), allcaps: top(caps, 200),
 	frequency: top(freq, 500, 10).map(([w, c]) => [w, c, spread.get(w)?.size ?? 0]),
 };
-writeFileSync(`${AGENTS}/lab/21/candidates.json`, JSON.stringify(out, null, '\t'));
+writeFileSync(`${AGENTS}/lab/021/candidates.json`, JSON.stringify(out, null, '\t'));
 console.log(`candidates.json written · bold ${out.bold.length} · ticks ${out.backticks.length} · italics ${out.italics.length} · caps ${out.allcaps.length} · freq ${out.frequency.length}`);

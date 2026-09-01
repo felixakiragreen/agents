@@ -199,7 +199,7 @@ line, and the reconstructed screen is exact through all of it.
 **F4 — a harness bug inherited from 08: `stty columns` does not update zsh's `$COLUMNS`.**
 Probe in a spawned interactive zsh: `stty columns 60 rows 60` then `print
 AFTER=$COLUMNS stty=$(stty size)` → `AFTER=80 stty=60 60`. zsh caches its terminal size and
-only re-reads it on SIGWINCH, which nothing delivers here. So 08's `stty columns 200` never
+only re-reads it on SIGWINCH, which nothing delivers here. So 008's `stty columns 200` never
 widened the shell — **every v1 panel assertion actually ran at 80 columns** (harmless there:
 v1's rows fit in 80). `lab/008/rc.zsh` now sets both, and `SUMMON_COLUMNS=60` drives the
 narrow arm, which is what made the 60-column pty test real rather than nominal.
@@ -225,11 +225,11 @@ unchanged in meaning. The field set stays ten:
 `{ts, mode, n, account, mantle, model, effort, color, cmd, keys}`. `keys` is written
 **last** deliberately: it is the one field carrying arbitrary keystrokes, and
 `summon-stats`' builtin parser finds a field by its first `"name":`, so nothing a
-fat-finger types into it can shadow a real field (08's F8 hazard, now bounded rather than
+fat-finger types into it can shadow a real field (008's F8 hazard, now bounded rather than
 just noted). `⏎`, `⎋` and `^G` are recorded as glyphs because raw control bytes are not
 legal inside a JSON string.
 
-**F7 — one 08 ruling simplified: eject no longer has its own defaults.** 08's F6(c) let
+**F7 — one 08 ruling simplified: eject no longer has its own defaults.** 008's F6(c) let
 eject fall back to the first preset × first account because it launches nothing. With
 sticky state that fallback is dead weight — the panel always has a configuration once
 anything has fired, so eject now ejects exactly what the footer promises and refuses

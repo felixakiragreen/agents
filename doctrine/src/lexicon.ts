@@ -30,7 +30,7 @@ export type Dead =
 export const GRAVEYARD: readonly Dead[] = [
 	{
 		dead: 'row (unit)', successor: 'charge',
-		// Narrowed to a REFERENCE — `row 026`, `the row-01 Digger`, `rows 3–7`. Bare "row" is the
+		// Narrowed to a REFERENCE — `row 26`, `the row-01 Digger`, `rows 3–7`. Bare "row" is the
 		// city's most collided word (lexicon.json's first entry: a settings-panel row, an outliner
 		// row, a Swing table row), and M13 narrowed the same word the same way for the same reason.
 		forms: /\brows?[-–— ]\d+\b/gi,

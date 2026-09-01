@@ -106,25 +106,25 @@ example #1 of it. Local physics:
 
 - Master doc = this file; the board = `BOARD.md` (D78); work docs in `plans/`; the coda =
   `plans/CODA.md`; a bulletin only while a parallel batch runs (`plans/BULLETIN.md`,
-  the 18 wave's, stands archival where it lies).
+  the 018 wave's, stands archival where it lies).
 - `doctrine/` is the reference reader for the doctrine itself: `doctrine lint` is the
   drift alarm for the format the way `sync/check` is for the mirrors. Run it before
   claiming a board or a ledger is reconciled.
 - `ISSUES.md` is the incident inbox — swept by the Grand Architect at every summons.
-- Charge docs 0–04 predate the templates and are grandfathered; new work docs
+- Charge docs 000–004 predate the templates and are grandfathered; new work docs
   instantiate `canon/work/templates/`.
 
 ## 8. Done when — canon v1
 
 **Keystone set 2026-08-03** — canon complete, `deploy`/`check` green ×3, all three
 accounts serving canon live, this repo conforming to its own doctrine; evidence in
-[04's](plans/004-sync.md) Stage B checklist (its one PENDING — Max `/login` — struck
+[004's](plans/004-sync.md) Stage B checklist (its one PENDING — Max `/login` — struck
 2026-08-08 with evidence).
 
 ## 9. Done when — canon v2
 
-**Keystone set 2026-08-06** — both parents' live surfaces speak canon (06 hexwright ·
-07 simmy), blessings recorded in each charge's findings; hexwright's one PENDING —
+**Keystone set 2026-08-06** — both parents' live surfaces speak canon (006 hexwright ·
+007 simmy), blessings recorded in each charge's findings; hexwright's one PENDING —
 Felix's Phase-1 acceptance ruling — rides hexwright's own board.
 
 ## 10. The horizon — the Architect line

@@ -5,7 +5,7 @@ any Agent call carrying `model` or `effort`, so simmy batch 11 — every dispatc
 `subagent_type: "claude", model: "opus"`, the effort binding silently lost — cannot happen
 again by hand.
 
-Venue tooling, not canon law (05's rejection terms: canon states the law, venues enforce
+Venue tooling, not canon law (005's rejection terms: canon states the law, venues enforce
 their own physics). It rides project repos; it never touches `~/.claude*` or the sync set.
 
 ## Install

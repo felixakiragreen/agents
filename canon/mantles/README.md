@@ -106,7 +106,7 @@ from GUILD.md's closing section. Nobody edits a kickoff beyond appending the cod
 ## The coda — the canon core
 
 The **coda** (the standard §4) is the fixed closing passage of every ignition's
-kickoff. Canon core below; ⟨slots⟩ are filled by project doctrine (02's turf). The
+kickoff. Canon core below; ⟨slots⟩ are filled by project doctrine (002's turf). The
 instantiated coda is a project doctrine doc — `plans/CODA.md`, written once per
 project, appended verbatim to every ignition.
 

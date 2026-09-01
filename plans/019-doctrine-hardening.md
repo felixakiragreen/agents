@@ -2,11 +2,11 @@
 
 **Status:** LANDED 2026-08-28 — all 18 items + the seam export built to DoD; one
 escalation standing (bob's 3 inline ledger heads, item 10's new visibility — see
-findings §E) · **Depends on:** 17 · **Staffing:** Builder · opus-high
+findings §E) · **Depends on:** 017 · **Staffing:** Builder · opus-high
 
 ## Mission
 
-The 18-wave ran one parser over 22 buildings and filed **fifteen tool defects with
+The 018-wave ran one parser over 22 buildings and filed **fifteen tool defects with
 evidence** — the largest single harvest of parser truth the city has produced. This row
 folds them into `doctrine/`: every fix lands with a fixture that reproduces the defect,
 every fixture stays in the suite. The corpus work (re-running whiteboardy, snappy,
@@ -331,7 +331,7 @@ building, which this row's fence reserves for the continuation wave.
   (blessed)`) that D63e independently forbids: the id now RESOLVES into the graph
   while the segment correctly keeps its lint fail for the wave's hand. Unknown ids
   (X8/W1/R1/B1 — rows on no board) still fail, as they must.
-- **cornerizer PARKED:** 3 `status.parked` edits respell C8/C22/034 to
+- **cornerizer PARKED:** 3 `status.parked` edits respell C8/C22/C34 to
   `OPEN — PARKED …`, board 5 → 2, round-trip []; the residual pair is `staffed
   when unparked` → `unstaffed`, D63's own birthplace citation — the wave's respell.
 - **spacex decisions:** both files 7 `decision.head` → **0**, decisions 0 → 7 per

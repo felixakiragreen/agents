@@ -3,7 +3,7 @@
 **Status:** LANDED 2026-08-29 — reconciled at canon 025's landing, which carried the
 continuation whole (batch 1 closed 2026-08-26 at 7/8 LANDED, one partial, 18c BLOCKED;
 all four standing sanctions executed at 025 and city lint went 349 → 8) ·
-**Depends on:** 16 · **Staffing:** Dispatcher · sonnet-medium (tended the batch below)
+**Depends on:** 016 · **Staffing:** Dispatcher · sonnet-medium (tended the batch below)
 
 ## Mission
 
@@ -451,7 +451,7 @@ Per building: **units 4 → 0** · **advanced-naming-system 26 → 0** ·
 All **7 residual failures are the typed-absence vocabulary gap** — the linter has no
 `unrecorded` (18a/18d's bulletin entry) and D63 has no token for a deliberately unstaffed
 row (18f's own, filed). `unrecorded` counts written: **4** (3 tiers on waypoint-stepper
-rows 12–14, 1 staffing on ch2 row 005, all cited below). No hand-patching of `doctrine/`.
+rows 12–14, 1 staffing on ch2 row 05, all cited below). No hand-patching of `doctrine/`.
 
 **DoD 2 — migration entries.** None of the four buildings carries a `LEDGER.md`, so per
 §method step 5 the **board annotation carries the date**: one dated `> **D63 migration
@@ -507,18 +507,18 @@ bulletined for the other rows.
   rulings likewise. **No new gate rows were cut**: every prose precondition sat on an
   already-LANDED row, where a retroactive gate row would be fiction. Scheduling and
   qualifying prose moved verbatim into the Status annotation (§method step 3's sanctioned
-  home) — e.g. units row 003's "(07 gates suite evidence only)", ch2 row 002's bands
-  parenthetical, waypoint-stepper row 011's "(icons landed)".
-- **`01–03 ✓` → `01 · 02 · 03`** (ch2 row 004). 18c parked en-dash ranges as ambiguous
+  home) — e.g. units row 03's "(07 gates suite evidence only)", ch2 row 02's bands
+  parenthetical, waypoint-stepper row 11's "(icons landed)".
+- **`01–03 ✓` → `01 · 02 · 03`** (ch2 row 04). 18c parked en-dash ranges as ambiguous
   across sub-boards; this one is unambiguous — all three ids sit on the same board — so it
   was expanded rather than parked. If the Grand Architect rules ranges legal, this is a
   no-op.
 - **Verdict-led statuses → `LANDED — <verdict>`** (13 rows): 12 in `advanced-naming-system`,
-  1 in ch2 (row 012's `MERGED to feature/snappy (D42)`, visible only after the table was
+  1 in ch2 (row 12's `MERGED to feature/snappy (D42)`, visible only after the table was
   reunited).
 - **Non-lifecycle leads → the state leads** (3): waypoint-stepper FG1 `PART-LANDED` →
-  `OPEN — **PART-LANDED …**` (its own Status names remaining bench items); row 024 `RUN` →
-  `LANDED — **RUN …**` (the run happened; its verdict is E1's job); ch2 row 004 `RULED in
+  `OPEN — **PART-LANDED …**` (its own Status names remaining bench items); row 24 `RUN` →
+  `LANDED — **RUN …**` (the run happened; its verdict is E1's job); ch2 row 04 `RULED in
   part` → `OPEN — **RULED in part …**` (the budget-blessing leg is still owed). In all
   three the annotation is byte-preserved — only the leading state was added.
 - **Absent tiers → `unrecorded`** (waypoint-stepper 12/13/14). Evidence was sought first:
@@ -526,7 +526,7 @@ bulletined for the other rows.
   a *model*, not one of D63's tier tokens — so no cited fill was available. Mantle kept,
   rider kept: `Architect · unrecorded (in-session; Felix released the mantle's no-code rule
   for this arc, 2026-08-13)`.
-- **`—` staffing → `unrecorded`** (ch2 row 005, KILLED at D34 before it was ever staffed).
+- **`—` staffing → `unrecorded`** (ch2 row 05, KILLED at D34 before it was ever staffed).
 - **`unstaffed` left verbatim** (waypoint-stepper 18/19/23) — a recorded fact, not an
   absent record; see the escalation.
 - **Decision titles → bold labels** (ch2 D34, D43). The doc's own words were promoted into
@@ -537,7 +537,7 @@ bulletined for the other rows.
   D42–D45 (§13). Re-adding it would be adding a row, so the dependency reads `—` and the
   Status annotation carries "(after row A, landed and audited off-board — §13)".
 
-**Untouched, by law:** snappy's `README.md:653` row 013 (`CHARTERED` + `Felix (bench) +
+**Untouched, by law:** snappy's `README.md:653` row 13 (`CHARTERED` + `Felix (bench) +
 keyboard session TBD`), its `README.md:1229` D19 head, and its `ISSUES.md` `##` entries —
 all inside the BLOCKED building and all judgment for snappy's own Architect; noted in
 `snappy/ISSUES.md`. No meaning edited, no row added or removed, no re-staffing, no writes
@@ -587,7 +587,7 @@ columns were fixed. Any column re-cut must sweep for it in the same pass.
 | branch | commit | what |
 |---|---|---|
 | `task/motion-migration` | `869ea98` | schema-migration: `Felix (named gate)` → `Felix-gate`; M2's `(staffed there)` filled `Builder · opus-high (staffed there — row V-B …)` from `docs/node-global-parameters.md`:1525 |
-| `feature/tig-avc` | `d166d29` | tig-avc: 4× `Felix` → `Felix-gate`; row 007's struck `~~Builder · opus-medium~~ Felix, by hand`; row 008's struck `~~05~~`; row 006 `OPEN (PENDING …)` → `OPEN — PENDING …`; row 005's `EXECUTED` |
+| `feature/tig-avc` | `d166d29` | tig-avc: 4× `Felix` → `Felix-gate`; row 07's struck `~~Builder · opus-medium~~ Felix, by hand`; row 08's struck `~~05~~`; row 06 `OPEN (PENDING …)` → `OPEN — PENDING …`; row 005's `EXECUTED` |
 | `feature/cornerizer` | `f19a413` | cornerizer: the canonical five columns + the blank-line split |
 | `feature/cornerizer` | `b17bb15` | cornerizer: 91 `board.depends` → 0; 028's state token |
 | `feature/user-manual` | `f6d4edc` | manny: `doctrine migrate --write` (2 edits) |
@@ -600,12 +600,12 @@ columns were fixed. Any column re-cut must sweep for it in the same pass.
   overrode the merge, and the cell's own words end "merge waits on 06 + 11 + 12". A merge
   gate that has not merged is not LANDED; OPEN is the row's state and every byte of the
   verdict rides the annotation unchanged.
-- **`WEDGED` (cornerizer 028) → `**LANDED** — **WEDGED** …`.** Determinate: the same cell
+- **`WEDGED` (cornerizer C28) → `**LANDED** — **WEDGED** …`.** Determinate: the same cell
   ends `MERGED 2026-08-18`. Only the state token was added.
-- **`PARKED` (cornerizer C8/C22/034) → untouched, escalated.** Not determinate — §4's
+- **`PARKED` (cornerizer C8/C22/C34) → untouched, escalated.** Not determinate — §4's
   lifecycle is five words, `PARKED` is none of them and is not a retired synonym either,
   yet the Architect mantle uses the verb as doctrine. Three candidate rulings that are not
-  equivalent; filed to the canon inbox. Same for `staffed when unparked` (C8/034), which
+  equivalent; filed to the canon inbox. Same for `staffed when unparked` (C8/C34), which
   is a *recorded* fact, not an absent record — 18f drew the same line on snappy's
   `unstaffed`, independently.
 - **Depends-on: `✓` and `merged` are not information.** The depended row's own Status
@@ -630,7 +630,7 @@ columns were fixed. Any column re-cut must sweep for it in the same pass.
 
 **The `migrate` warning did not fire here.** The BULLETIN's `ledger.pre-doctrine-head`
 defect needs an unbolded pre-D63 head; manny's were already `**<date> · <mantle> …**`, so
-`migrate` produced exactly 2 correct edits (row 028's leading `PENDING`, row 012's tier
+`migrate` produced exactly 2 correct edits (row 28's leading `PENDING`, row 12's tier
 slot) and the post-write lint confirmed it. Every other repo-side edit in this row was by
 hand.
 

@@ -588,7 +588,7 @@
     {
       "mantle": "Architect",
       "tier": "fable-max",
-      "text": "You are an Architect at fable-max.\nWearing the mantle, read GENESIS.md, then\nplans/01-composition-model.md, and execute the brief.",
+      "text": "You are an Architect at fable-max.\nWearing the mantle, read GENESIS.md, then\nplans/001-composition-model.md, and execute the brief.",
       "line": 109,
       "doc": "/Users/felix/code/agents/plans/001-composition-model.md"
     },

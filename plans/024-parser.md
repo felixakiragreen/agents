@@ -30,7 +30,7 @@ parser in the city reads the blessed tongue and writes nothing else.
    renumbered (D18). `⬡✓` beside `✓ Felix` — both parse, neither migrates (the
    historical-marks migration is DEFERRED by the standard §7). Baton instruments
    accept `ignite <charge-ids>` beside historical `fire <row-ids>`. The ledger head's
-   parens accept charge ids (`(C23)`).
+   parens accept charge ids (`(023)`).
 2. **migrate.ts** — form-only, the round-trip law per 016-F1's reading: `Felix-gate:` →
    `⬡-gate:` in both columns; `PARKED` → `DEFERRED` wherever it annotates;
    `unstaffed` → `—` where the Status cell carries DEFERRED, surfaced as a residue
@@ -81,7 +81,7 @@ Ran 49 tests across 1 file. [42.00ms]
 
 41 → 49 tests, 127 → 180 assertions. New fixtures, one per token, both directions:
 `conforming/board-standard.md` (⬡-gate in Staffing *and* Depends-on, C‹n› ids, `OPEN —
-DEFERRED`, the dissolved `—`), `conforming/ledger-standard.md` (`(C23)` in the head,
+DEFERRED`, the dissolved `—`), `conforming/ledger-standard.md` (`(023)` in the head,
 `ignite 025, 026` as two instruments), `conforming/decisions-standard.md` (`· ⬡✓ <date>`
 and `proposed, pending ⬡✓`), `pre-d71/board.md` (the molt: `Felix-gate` in both columns,
 a bare `Felix`, `unstaffed` + `PARKED`), `defects/unstaffed.md` (the hard failure's three

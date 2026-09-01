@@ -1,9 +1,9 @@
 # 014 — summon rig: the theater cycle
 
 **Status:** LANDED 2026-08-24 (Builder · opus-high) — DoD green, one box open (Felix's
-smoke). · **Depends on:** 13 LANDED; **serial
-with 11** (shared files: `summon/summon.zsh`, `lab/008` — never both in flight; 11 is
-deferred, so 14 is dispatchable) · **Staffing:** Builder · opus-high · **Blessed:**
+smoke). · **Depends on:** 013 LANDED; **serial
+with 011** (shared files: `summon/summon.zsh`, `lab/008` — never both in flight; 011 is
+deferred, so 014 is dispatchable) · **Staffing:** Builder · opus-high · **Blessed:**
 Felix's ask 2026-08-22 (campaign theaters inside one repo — `architect-pods-NN` fired
 from bob); both design forks ruled by him 2026-08-24: the `t` key, sticky per
 directory.
@@ -16,7 +16,7 @@ firing from a campaign subdirectory is the wrong fix: Claude Code keys history,
 `/resume`, and auto-memory to the launch cwd, so deep-firing fragments the project
 silo even though parent CLAUDE.mds still load. Felix fires at repo roots; the rig
 must let the *stamp* carry the campaign. Eject can't — hand-edits never pass
-`_summon_resolve`, so the lineage counter goes blind (13's asymmetry, confirmed by
+`_summon_resolve`, so the lineage counter goes blind (013's asymmetry, confirmed by
 Felix: "that kills the summon index"). The cycle goes through resolve, so every
 campaign session is stamped, logged, and counted.
 
@@ -25,7 +25,7 @@ campaign session is stamped, logged, and counted.
 - `summon/summon.zsh` — `_summon_resolve`, the name-stamp and ordinal scan (13,
   commit `0cf4f0f`), the reserved-key handling for `+`/`-`, the state file law
   (four fields persist **on fire only**).
-- `lab/008/run` + `name.exp` — 13's harness arms; 013-F8 binds: only a panel's *first*
+- `lab/008/run` + `name.exp` — 013's harness arms; 013-F8 binds: only a panel's *first*
   paint can be asserted from a pty.
 - `summon/README.md` §the name-stamp — extend, don't fork.
 - `plans/013-summon-rig-name-stamp.md` findings F1, F7–F9.
@@ -47,7 +47,7 @@ campaign session is stamped, logged, and counted.
   the file falls back to the default (first line). The map grows one entry per
   directory ever fired from — bounded by real use; if it ever needs trimming, that's
   a future one-liner, noted not built.
-- **Grand Architect unchanged:** GA stamps no theater (one office — 13's ruling), so
+- **Grand Architect unchanged:** GA stamps no theater (one office — 013's ruling), so
   with GA selected the cycle changes nothing visible; the footer tells the truth.
   No special case in the cycle itself.
 - **Counter unchanged:** lineages key the full prefix, so `architect-pods-NN` and
@@ -66,7 +66,7 @@ Evidence: `lab/008/run` extended, green, **no regressions**, byte assertions. Bu
 
 - [x] Cycle order and wrap asserted byte-level against a fixture `.summon-theaters`
       (bob → lunchbox → pods → bob); default is the first line; missing file falls
-      back to `${PWD:t}` (13's arms stay green untouched)
+      back to `${PWD:t}` (013's arms stay green untouched)
       → `lab/008/run` §*the theater cycle: the campaign the stamp carries*, whole-line
       assertions on the composed command:
       ```

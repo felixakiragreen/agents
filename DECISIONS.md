@@ -91,7 +91,7 @@ register.
   the tools owe, not a tax the reader pays. The law binds what a converter carries totally
   — forms; speech (a dead word in running prose) is not form and stays fenced, because
   there judgment, not a rule, decides (025/030 stand). Ancestors: the molt clause (D63 —
-  form migrates freely, meaning appends; DOCTRINE §8), 18's re-cut (the full corpus,
+  form migrates freely, meaning appends; DOCTRINE §8), 018's re-cut (the full corpus,
   history included), D80's total respell, the drift alarm (edit the law and the mirror
   goes red until the data follows — the converter is the mirror's third leg). First act:
   the `✓ Felix` → `⬡✓` mark respell rides 040 (185 marks in 30 files), ending a deferral

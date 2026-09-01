@@ -160,7 +160,7 @@ span, a board's machine columns, a finished charge's row, `canon/`, `LOG.md`, `S
 `dream.md`. The linter wrote nothing: **not one byte of the city moved.**
 
 **5. Precision — 96.9% over n = 131, two audits.** Sample B, the record: every 66th hit of
-the final report, n = **30**, **30/30 true** — dead charges (`row 003`, `Row 025`), dead
+the final report, n = **30**, **30/30 true** — dead charges (`row 03`, `Row 25`), dead
 gestures (`cut`, `PARKED`, `RATIFIED`, `countersign`), dead names (`Felix-gate`,
 `Dispatcher`, `work order`, `DoD`, `rider`, `the glass`) and one real BrE spelling
 (`SI-metre`). Sample A, n = **101** stratified per pattern (5–8 each), drove the narrowing
@@ -169,7 +169,7 @@ below and left four known false-positive shapes standing, each measured and name
 | shape | example | rate |
 |---|---|---|
 | a product name | "Fire TV" (bob/lunchbox) | 1 site |
-| a UI row in a fuzz log | "`suppress` of row 003" (snappy) | rare |
+| a UI row in a fuzz log | "`suppress` of row 3" (snappy) | rare |
 | the clipboard verb | "copy, cut, paste" (whiteboardy) | rare |
 | harvest-as-data-collection | "harvest mtimes", "harvest-write flake" | 4 of 15 |
 
@@ -195,7 +195,7 @@ notation) · `pass` (formula 11 IS "Passing = finished."; the law bans and bless
 one breath) · the four-slot waggle (a document shape, not a word). **A documented kill is a
 win** — eight times.
 
-**Three rows are narrowed, not dropped:** `row` → a reference (`row 026`, `the row-01
+**Three rows are narrowed, not dropped:** `row` → a reference (`row 26`, `the row-01
 Digger`), which is M13's own trick for the same word · `true` → `trued`/`truing` only, the
 inflections that can only be the verb · `fire` → the bare word only. That last one is
 measured: `fire` scored **8/8** Guild-sense on the corpus, `fires` **0/5**, `firing` **1/8**,
@@ -269,8 +269,8 @@ them is real:
 - **13 in MAP.md** — 4 `Dispatcher` tombstone mentions · `the keel sitting` and `the glass` in
   two OPEN charges' own titles (20 and 027) · `the glass` again in a batch note · a bare `the
   register` · a `PARKED` mention · a `fire` · `colour` ×3.
-- **31 in OPEN charge docs** — 18's eleven (`Row 016`, `cut`, `DoD`, `the register`) · 20's five
-  `keel`s and its `Dispatcher` · 22's five · 11's three `fire`s · 027's two `the glass` ·
+- **31 in OPEN charge docs** — 018's eleven (`Row 016`, `cut`, `DoD`, `the register`) · 020's five
+  `keel`s and its `Dispatcher` · 022's five · 011's three `fire`s · 027's two `the glass` ·
   028's and 030's `Dispatcher`s.
 - **0 in CLAUDE.md** — the one prose-only surface the arm reads here, and it is clean.
 
