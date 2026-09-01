@@ -1,7 +1,8 @@
 # 040 — the id respell
 
 **Status:** OPEN — laid 2026-09-01 · **Depends on:** — · **Staffing:** Builder · opus-high ·
-**Blessed:** Felix, 2026-09-01 — D80 (⬡✓ in-session); the spec below is D80 built. **Sole
+**Blessed:** Felix, 2026-09-01 — D80 and D81 (⬡✓ in-session); the spec below is D80 built,
+and D81's first act. **Sole
 occupant:** nothing else ignites in this building while this runs — it renames files under
 every other session's feet.
 
@@ -15,7 +16,8 @@ any building can run; lint reads 0 and the suite is green. **Zero stray ids** �
 
 ## Inputs — read before working
 
-- [DECISIONS.md](../DECISIONS.md) D80 — the ruling, whole. [STANDARD.md](../canon/work/STANDARD.md)
+- [DECISIONS.md](../DECISIONS.md) D80 — the ruling, whole — and D81, the currency law:
+  history is respelled, never rewritten; this charge is its first act. [STANDARD.md](../canon/work/STANDARD.md)
   §2 (‹nnn›), §7 (the namespace, `:`), §9 (the four new graveyard rows).
   [DOCTRINE.md](../canon/work/DOCTRINE.md) §3 (padding), §4 (ID), §7 (the head's slot).
 - `doctrine/src/migrate.ts` — the converter's rule shape and its round-trip law (total,
@@ -34,6 +36,7 @@ any building can run; lint reads 0 and the suite is green. **Zero stray ids** �
   | `C‹nn›` tokens · files carrying them | 897 · 76 |
   | lowercase `c‹nn›-` in paths and slugs | 186 |
   | `GA-‹nn›` · `FC-‹n›` | 133 · 14 |
+  | `✓ Felix` marks · files (6 of them in `doctrine/`, where the historical reading lives) | 185 · 30 |
   | findings `‹nn›-F‹n›` (dash) · `C‹nn› F‹n›` (space) | 147 · 19 |
   | `plans/‹id›-…` path mentions · distinct targets | 690 · 141 |
   | `lab/‹id›` path mentions | 304 |
@@ -52,7 +55,9 @@ any building can run; lint reads 0 and the suite is green. **Zero stray ids** �
    anything is written; a dry run is the default and `--write` applies. Beyond the board,
    the standard's dead compounds: `GA-‹nn›` → `grand-architect-‹nn›` (two digits, the
    stamp's form); `FC-‹n›` → `distillation candidate ‹n›` (the acronym expanded to its
-   concept's living word — 14 hits, each hand-checked). Path forms ride the same table:
+   concept's living word — 14 hits, each hand-checked); `✓ Felix` → `⬡✓` (D81's first
+   act — `BLESSED_MARK` reads both forever, the converter emits only the new, and the date
+   behind the mark stays where it stands). Path forms ride the same table:
    `c‹nn›-` → `0nn-`, `plans/‹nn›-` → `plans/0nn-`, `lab/‹nn›` → `lab/0nn`, `lab/c28` →
    `lab/028`. The rule carries a fixture and a round-trip test like its siblings.
 2. **Scope: every tracked text file in the building**, history and voice included (D80, his
@@ -102,6 +107,9 @@ any building can run; lint reads 0 and the suite is green. **Zero stray ids** �
 - [ ] `ls plans` pasted: `001-…` through `040-…`, `g1-flow-close.md`, `g2-029-merge.md`, and
       the six non-id docs unchanged.
 - [ ] Ledger heads: `grep -cE '^\*\*20.*\((C?[0-9]{1,2}|GA-[0-9]+)\)' LEDGER.md` → 0.
+- [ ] The mark: `grep -rl '✓ Felix' --include='*.md' --include='*.ts' --exclude-dir=belvedere --exclude-dir=node_modules .`
+      → only the doctrine fixtures, tests and grammar that exercise the historical reading,
+      each named in findings; 0 elsewhere.
 - [ ] The stigmergon dry run pasted — the table, and `0 files written`.
 - [ ] The supervised layer's exemption list is in findings, every line with its reason.
 
