@@ -1,6 +1,6 @@
 # C29 — the summon harness, after the dispatcher preset
 
-**Status:** OPEN — laid 2026-08-29 · **Depends on:** — · **Staffing:** Builder · opus-high ·
+**Status:** LANDED 2026-08-31 — the mission met on master by later hands, E1 ruled 2026-08-31, closed at C37 (the board is the record; header reconciled 2026-09-01) · **Depends on:** — · **Staffing:** Builder · opus-high ·
 **Branch:** `bv/c29-summon-harness` (D74 — joined agents-flow-1 as a worktree lane, GA-15; G1 merges)
 
 ## Mission
