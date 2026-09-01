@@ -7,9 +7,11 @@ import { describe, expect, test } from 'bun:test';
 import { readFileSync } from 'fs';
 import { basename, join } from 'path';
 import {
-	batonFails, classifyBaton, parseBoards, parseDecisions, parseIssues, parseKickoffs, parseLedger,
+	batonFails, boardIds, classifyBaton, parseBoards, parseDecisions, parseIssues, parseKickoffs, parseLedger,
 } from '../src/parse';
 import { migrateText, roundTrip } from '../src/migrate';
+import { renderTable, respellTable } from '../src/respell';
+import { isId } from '../src/grammar';
 import { guardRegressions, isLiveWorkDoc, lint } from '../src/lint';
 import { discover, lastWalk, parse, staffsSessions } from '../src/building';
 import { crossingFails, parseRegister, walkRegister } from '../src/register';
@@ -292,7 +294,7 @@ describe('the silence family — defects that once reported clean', () => {
 		expect(r.queue.map(d => d.id)).toEqual(['D68']);
 	});
 
-	test('the id form §7 mandates parses — `‹prefix›-D‹n›` was a silent zero (031 item 3)', () => {
+	test('every decision id the city ever wrote parses — `‹prefix›-D‹n›` is history now (D80; 031 item 3)', () => {
 		const r = parseDecisions(fx('vocab', 'DECISIONS.md'));
 		expect(r.candidates).toBe(3);                                              // 2 before the widening
 		expect(r.decisions.map(d => d.id)).toEqual(['D1', 'C4', 'VX-D2']);
@@ -734,5 +736,76 @@ describe('the building register', () => {
 			['board.crossing', 'C3: "stigmergon:S1"'],
 		]);
 		expect(fails[0]!.file).toBe(join(FX, 'register', 'good', 'alpha', 'BOARD.md'));
+	});
+});
+
+// ---------- §7's id namespace: the respell (D80, D81's first act) ----------
+
+describe('the id respell', () => {
+	const board = fx('respell', 'BOARD.md');
+	const table = respellTable(boardIds(board), 'agents');
+	const run = (name: string) =>
+		migrateText(join(FX, 'respell', name), fx('respell', name), { respell: table, passes: ['respell'] });
+
+	test('the table derives from the board — a charge pads, a KIND keeps its letter', () => {
+		expect([...table.ids]).toEqual([['7', '007'], ['08', '008'], ['C23', '023'], ['C24', '024']]);
+		expect(table.ids.has('G2')).toBe(false);                 // G is a kind (STANDARD §7)
+		expect(renderTable(table).split('\n')[0]).toBe('  7   → 007');
+		expect(renderTable(respellTable(['001', 'G1']))).toContain('already conforms');
+	});
+
+	test('the board respells whole: the ID cell, Depends-on, the link and the path', () => {
+		const rows = parseBoards(run('BOARD.md').after).boards[0]!.rows;
+		expect(rows.map(r => r.id)).toEqual(['007', '008', '023', '024', 'G2']);
+		expect(rows.map(r => r.workDoc)).toEqual([
+			'plans/007-first.md', 'plans/008-rig.md', 'plans/023-law-book.md',
+			'plans/024-parser.md', 'plans/g2-024-merge.md',
+		]);
+		expect(rows[3]!.dependsOn).toEqual(['023', '008']);      // `,` is a separator the parser reads
+		expect(rows[1]!.annotation).toContain('lab/008');
+	});
+
+	test('the dead compounds and the mark go with the ids (D80, D81)', () => {
+		const after = run('BOARD.md').after;
+		expect(after).toContain('⬡✓, ruled at grand-architect-19');
+		expect(after).toContain('023-F2 cleared, distillation candidate 1 folded');
+	});
+
+	test('the ledger head, the baton and the typed prose slots respell', () => {
+		const r = parseLedger(run('LEDGER.md').after);
+		expect(r.entries.map(e => e.row)).toEqual(['023', '008']);
+		expect(r.entries[0]!.next).toBe('ignite 024 — kickoff in [plans/024-parser.md](024-parser.md).');
+		expect(r.entries[1]!.next).toBe('row 007 is closed; charge 023\'s findings are filed.');
+		expect(r.entries[0]!.decided).toBe('D71 ⬡✓');
+	});
+
+	test('what the respell must NOT reach: a named form, a kind, another building', () => {
+		const after = run('BOARD.md').after;
+		expect(after).toContain('The historical forms `C23`, `GA-19` and\n`✓ Felix` are named here');
+		expect(after).toContain('| G2 | [the merge gate](plans/g2-024-merge.md)');
+		expect(after).toContain('/Users/felix/code/whiteboardy/plans/08-far.md');
+	});
+
+	test('the round-trip law, and the converter is a fixed point on its own output', () => {
+		for (const name of ['BOARD.md', 'LEDGER.md']) {
+			const m = run(name);
+			expect(roundTrip(m)).toEqual([]);
+			const again = migrateText(m.file, m.after, { respell: respellTable(boardIds(m.after), 'agents'), passes: ['respell'] });
+			expect(again.edits).toEqual([]);
+		}
+	});
+
+	test('the padded id and the name-stamp are ids the parser reads (§7, D80)', () => {
+		for (const id of ['000', '007', '040', 'G2', 'grand-architect-21', 'mentat-02', 'C23'])
+			expect(isId(id)).toBe(true);
+		for (const word of ['the', 'Builder', '—']) expect(isId(word)).toBe(false);
+	});
+
+	test('a name-stamp in the ledger head\'s id slot parses (the Mentat\'s precedent)', () => {
+		for (const stamp of ['grand-architect-21', 'mentat-02']) {
+			const r = parseLedger(`# L\n\n---\n\n**2026-09-01 · Grand Architect · fable-max (${stamp})** — x. Decided: y. Next: z.\n`);
+			expect(codes(r.fails)).toEqual([]);
+			expect(r.tail!.row).toBe(stamp);
+		}
 	});
 });

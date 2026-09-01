@@ -39,18 +39,21 @@ export const PARKED = 'PARKED';           // → DEFERRED
 export const UNSTAFFED = 'unstaffed';     // → `—`, and only where the Status carries DEFERRED
 
 /**
- * D71 · D18 — ids are strings. A charge is `C‹n›` from the standard's deploy; historical ids
- * (bare numbers, per-campaign prefixes) stay addresses forever; nothing renumbers, nothing is
- * reused. Every id in the city carries a digit — reading a word as one indicts the parser (P3 §0).
+ * D80 · D18 — ids are strings. A charge is its number padded to three (`023`); a kind keeps its
+ * letter (`G2`, `D79`); a session is its name-stamp (`grand-architect-21`); and every historical
+ * spelling (bare numbers, `C‹n›`, per-campaign prefixes) stays an address forever. Nothing
+ * renumbers, nothing is reused — a respell is not a renumber. Every id in the city carries a
+ * digit, and reading a word as one indicts the parser (P3 §0).
  */
 export const isId = (s: string) => /^[A-Za-z0-9][A-Za-z0-9-]*$/.test(s) && /\d/.test(s);
 
 /**
  * §8 — a decision id, as text, named ONCE: a campaign prefix, an optional second letter run,
  * then the number. `D63` · `D63a` · `RP-1` · `A17` · and the standard's own `‹prefix›-D‹n›`
- * (`PD-D9`, `TH-D11`, `LB-D10`, `C-D2`, `VX-D2`) are one shape. The reader used to spell it in
- * four places and reject the form §7 mandates in all four — a silent zero over bob's 53
- * declared decisions (026-F1). One spelling, or it drifts again.
+ * (`PD-D9`, `TH-D11`, `LB-D10`, `C-D2`, `VX-D2`) are one shape. D80 killed `‹prefix›-D‹n›` as a
+ * spelling anyone writes; the reader keeps it forever, because the city's history is full of it.
+ * The reader used to spell this in four places and reject that form in all four — a silent zero
+ * over bob's 53 declared decisions (026-F1). One spelling, or it drifts again.
  */
 export const DECISION_ID = String.raw`[A-Za-z]{1,8}(?:-[A-Za-z]{1,8})?-?\d+[a-z]?`;
 
