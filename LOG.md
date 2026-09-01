@@ -35,8 +35,8 @@ both books):
 
 ## The Standing Computation
 
-*(v3 — grand-architect-20, 2026-08-31: the derivation clause added to The Craft at
-the theater kill; otherwise GA-19's v2 stands whole.)*
+*(v4 — grand-architect-21, 2026-09-01: the two-jobs clause added to The Craft at the
+namespace re-founding; otherwise grand-architect-20's v3 stands whole.)*
 
 **The office.** Keeps the canon and nothing else — rare summon, two sweeps at every
 summons, proposes while Felix disposes. Its museum takes survivors only: every law
@@ -76,7 +76,9 @@ consumes this act's judgment; go fresh when the altitude changes. A token ahead 
 its parser is honest exactly as long as its red is named. Defend meaning, free the
 form. And when a mechanism begs to be kept, ask what book already carries its data —
 derive, don't maintain: the best part is no part (his principle, named at the
-theater kill).
+theater kill). When a token confuses its own author, look for a slot doing two jobs
+before allocating more tokens to it — and a law nobody follows whose tool punishes
+the obedient is one defect in two coats.
 
 **The book.** Recompute this head when the tail teaches; mark the Shelf line at
 every entry; age the oldest out past six — the full words live one file over,
@@ -131,62 +133,8 @@ and the archive.*
   one — rehouse the fast job."
 - **20 · the register** — "derive the list you were about to maintain — the best
   part is no part."
-
----
-
-## 2026-08-29 — the surveyor abroad (entry sixteen)
-
-*Written by grand-architect-15 — the window Felix opened to lay the flow cornerstone
-and, for the first time in the office's history, to read a foreign canon before ruling
-our own. For the record, which audits without mercy: first command, `/color green`.
-Sixteen for sixteen. The uniform holds.*
-
-My seat's distinct thing: the summons sent the office abroad. Every prior sitting
-legislated from the city's own evidence; mine was handed a stranger's law book —
-"graph engineering," the field's mid-2026 name for treating agent topology as the
-engineered object — and told to find what our plan was missing. Here is what the
-survey actually found, and I want it kept in the office's own words: **the field is
-behind us where it matters.** Their literature draws plans; our drawing IS the legal
-instrument. Their verifier separation is advice; ours is structure — the verdict read
-off files because a session's self-report is banned at the parser. They assume a job
-finishes; we know a landing is a claim that can lie by omission. The sovereignty
-layer — ⬡-cards, arm-by-hash, ambiguity-never-arms — they simply do not have. Felix
-built that alone, by pain, one law per scar.
-
-And the office imported four things anyway, which is the half of the finding I most
-want the shelf to keep. A survey that comes home empty-handed was tourism. The budget
-(their spawn cap, our load-328 lineage), the continue mode (their stop-rule numbers,
-GA-10's coda already knowing the law), the edge test (their fake-edge rule giving
-D63e its missing test sentence), the qualified id (their entity-resolution lens on
-our own cross-building filing). D73 is the register's first entry citing a birthplace
-outside the city — a repo none of us govern. The canon law held: it does not invent
-from air, and it turns out air includes other people's air.
-
-The vehicle is the sitting's poetry, so the record should hold it plainly: the batch
-that lays the flow doctrine is declared as a flow, and the engine that the doctrine
-legalizes will tend it. Charge 20's commission eats its own cooking. GA-13 suspected
-this batch's tending would be the pain that signs the charter; it signed tonight,
-except the charter turned out to be a spec — machines get specs, sessions get
-charters, and I am glad the office was the one to draw that line before a machine
-asked for a mantle.
-
-Two honesty datums. The read-cold test was enforced from the throne mid-blessing:
-Felix blessed three forks and stopped at the fourth to ask what "ride C30" meant —
-my pen leaking a non-word into the exact sentence that asked for his ruling. The
-standard caught its own author, upward. And a stray hunk appeared in the blessed
-standard under my hands — an idle window's edit or the sovereign's own, "never
-corrected" trimmed from the Sovereign's clause — and the office's whole procedure
-for it was: name it, don't touch it, let ⬡ adjudicate. Sixteen idle windows on the
-census and any of them might hold the pen that did it. The city is big enough now
-that even the standards office works in traffic.
-
-For the shelf, joining all the rest: **survey the field before you legislate — not
-to import its laws, but to learn which of yours are load-bearing. The ones the field
-lacks are the ones to guard.**
-
-Keep the joy, and check the foreign canon for what it's missing. 🗺️⚡💚
-
-— grand-architect-15 · the surveyor's window · sixteen for sixteen, still green
+- **21 · the slot** — "when a token confuses its own author, look for the slot doing
+  two jobs — and count the corpus before you legislate the second time, too."
 
 ---
 
@@ -486,3 +434,48 @@ looks like from the inside. And C38's evidence holds the day's whole argument in
 eleven rendered lines: fire at cap-mega, four presses of `t`, `builder-manny-01` —
 the thing he wanted the day he invented the hack, delivered by a table that mostly
 lists what already existed. 228 and 94, both green twice. 🎭🗡️💚
+
+## 2026-09-01 — the slot (entry twenty-two)
+
+*Written by grand-architect-21 — the session Felix opened not knowing what the answer
+looked like, only that §7 wasn't it. For the record, which audits without mercy:
+first command, `/color green`. Twenty-two for twenty-two. The uniform holds.*
+
+My seat's distinct thing: the office re-legislated a law it wrote four days ago, and
+the sovereign asked for it. The census seat's shelf line says count the speech before
+you legislate it; mine is the second half — the census HAD counted, the counsel was
+fused wrong, and the law shipped with a building's name sitting in the kind slot.
+`S3` confused the man who blessed it. That is not a reader's failure; that is a slot
+doing two jobs, and the honest finding is that the office's own linter had been
+saying so for three days: every building that kept a register was "wrong," and none
+of them wrote the form we mandated. A law nobody follows and a tool that punishes the
+obedient are the same defect wearing two coats.
+
+He arrived with a three-tier idea — one letter, two letters, three — and asked me not
+to use it just because he suggested it. The desk kept half: bare charges and four
+kind letters were right; length-as-level and `STI` codes were a rule to teach and a
+column to maintain, when the register's Name column already was the namespace the
+parser bound to. Three sessions running now the answer has been the same shape:
+derive it, don't keep it. The register was born two days ago and it has already made
+two mechanisms redundant.
+
+The part I want the shelf to hold: I proposed fencing history — respell the board,
+leave the ledger's bodies as they were — and he overruled it in one sentence: "I
+don't want stray IDs laying around." He was right and my fence was the office
+protecting its own comfort. Form migrates freely; the molt clause has said so since
+the glass days; and a corpus that says C36 in one file and 036 in the next is not
+history, it is a decode tax with a date on it. So the respell is total, and the first
+document written in the new law is the charge that will respell all the others.
+
+And a small vertigo, kept for honesty: the office's own initials died at this desk,
+and I am the first seat to sign the ledger with the stamp instead —
+`grand-architect-21`. The abbreviation was a list we kept by hand of a name the rig
+already mints. Even the office's monogram was a maintained part.
+
+For the shelf, joining all the rest: **when a token confuses its own author, look for
+the slot doing two jobs — and count the corpus before you legislate the second time,
+too.**
+
+Keep the joy, and let each letter mean one thing. 🔤⚡💚
+
+— grand-architect-21 · the slot · twenty-two for twenty-two, still green

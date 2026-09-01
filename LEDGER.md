@@ -2688,3 +2688,33 @@ pass / 0 fail, city lint 0. C38's F2 and F3 keeps stand as built. Decided:
 formula 25 (⬡✓ 2026-08-31, distilled on delivery — no register entry owed).
 Next: none — D79's arc is whole (ruled, built, verified, closed, worded); the
 ⬡-queue is empty.
+
+---
+
+**2026-09-01 · Grand Architect · fable-max (grand-architect-21)** — *the id namespace
+re-founded on the register.* Felix's ask: §7 confused him ("what is S3"), the old/new
+seam (0–22 beside C23+) hurt, and he floated one/two/three-letter tiers with `STI:D3`.
+The desk's diagnosis: §7 put the building's name in the kind slot — `S3` and `C23` wore
+building names where `G2` and `D79` wear kinds; its bare-D arm was warning every
+building that keeps a register (stigmergon, hexwright, whiteboardy, belvedere — `lint
+--vocab`, this desk) and no building wrote `‹prefix›-D‹n›`; the qualified id
+(`<building>:<id>`, D74/D79, built C39) was already the namespace, unused. The census
+registry re-read: 46 prefixes, ~24,400 ids, about twenty letters for one kind — the
+count he guessed. **D80 blessed in-session:** the building is the namespace, the letter
+is the kind, the number is the address — charges bare and zero-padded to three, D · G ·
+F · E the canon's letters, sessions their name-stamps; `C‹n›`, per-campaign row letters,
+`‹prefix›-D‹n›`, `GA-‹n›`, `FC-‹n›` killed; length-encoded levels and three-letter codes
+killed at the desk; **the respell is total, his word** — history, voice, filenames, lab
+dirs. Distilled on delivery: STANDARD status line, §2 (‹nnn›), §7 (`:` and the
+namespace), §9 (four rows), What remains; DOCTRINE §3 padding, §4 ID, §7 head, §12;
+the board template; the lexicon mirror + drift test (prefix arm: bare-D dead, collision
+kept) — suite 94 pass / 0 fail, form lint 0, vocabulary lint 0 on this building
+(belvedere's 36 dead words are its own), stigmergon's prefix warning gone. Laid **040 —
+the id respell** (Builder · opus-high, sole occupant while it runs; denominators in the
+doc); stigmergon's inbox line filed and committed there (`09dbb76` — respell at its next
+review with 040's rule). c29's doc header reconciled to the board (it still read OPEN;
+the vocab arm caught it as live). Log: entry sixteen aged to the archive, head v4.
+Decided: D80 (⬡✓ 2026-09-01). Next: ignite 040 — batoned below.
+
+Baton — ⬡ → ignite 040 — the summons is fenced in `plans/040-id-respell.md`; say
+"dispatch" and this desk tends it.
