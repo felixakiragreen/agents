@@ -5,11 +5,12 @@ field already selected — mantle, model, effort, account — exactly like the C
 model selector: change what you want, Enter fires it, and what fired is what the panel
 promised. Every invocation is logged, so `presets.tsv` is only the hypothesis and
 `log/invocations.jsonl` is the evidence. Every session it fires is born
-named. Designed in [D34/D35/D36/D41](../DECISIONS.md), built to
+named. Designed in [D34/D35/D36/D41/D79](../DECISIONS.md), built to
 [plans/08](../plans/08-summon-rig.md), [plans/09](../plans/09-summon-rig-v11.md),
 [plans/10](../plans/10-summon-rig-v12-usage.md),
 [plans/13](../plans/13-summon-rig-name-stamp.md) and
-[plans/14](../plans/14-summon-rig-theater-cycle.md).
+[C38](../plans/c38-stamp-cycle.md), which superseded row 14 — the cycle's first
+build, filed against per-directory list files (the board keeps its link).
 
 ## Install — one line, Felix's own repo
 
@@ -31,18 +32,18 @@ mantle   ● [g]rand-architect  ● [a]rchitect·high ✓  ● [A]rchitect·max 
 model    [f]able ✓  [o]pus  [s]onnet  hai[k]u
 effort   [l]ow  [m]edium  [h]igh ✓  [x]high  [M]ax
 account  [0] personal  [1] thg-fgreen ✓  [2] thg-doorbell
-[t]heater agents ✓  belvedere
+s[t]amp  cap-mega ✓  simmy  snappy  spacex-dashboard  manny
          [y]ank  [.] eject  [Esc] close  [Enter] invoke
-⏎  architect-agents-05 · fable-high @ thg-fgreen · green · keys: 2
+⏎  architect-cap-mega-05 · fable-high @ thg-fgreen · green · keys: 2
 ```
 
 Brackets and unselected items are grey; the selected item is bold and carries the ✓
 inline. The header and the row labels run a gradient — summon blue · mantle green ·
-model yellow · effort orange · account red · theater pink · usage purple — and each
+model yellow · effort orange · account red · stamp pink · usage purple — and each
 mantle's ● *and its label* wear its session colour, all through the S0 slot map (see
-Data); the selected mantle's ● and brackets brighten to the foreground. The `theater`
-row appears only where the fire directory files a campaign list, its cycle key riding
-the label itself (`[t]heater`) since a campaign name may carry no t.
+Data); the selected mantle's ● and brackets brighten to the foreground. The `stamp`
+row appears only where the building register offers more than one building to choose
+from, its cycle key riding the label itself (`s[t]amp`) since a Name may carry no t.
 The panel measures `$COLUMNS` on every render and wraps at item boundaries only, never
 mid-item — clean down to 60 columns, where a mantle appears with two presets on it.
 
@@ -56,7 +57,7 @@ side-effect.
 | `^G <preset> <account> ⏎` | 4 | a fresh mantle on a named account |
 | `^G n ⏎` | 3 | **bare** — model + effort only, no mantle, colour or prompt |
 | `^G + / -` | +1 | bump the lineage ordinal the name-stamp will carry |
-| `^G t` | +1 | cycle the theater the stamp will carry (where the directory files a list) |
+| `^G t` | +1 | cycle the stamp over the buildings at or under this directory |
 | `^G <preset> y … ⏎` | +1 | `y` yanks the derived summons to the clipboard on the way past |
 | `^G .` | 2 | **eject** — the resolved command lands in the line, editable, unlaunched |
 | `^G <esc>` / `^G ^G` | 2 | close, discarding this panel's changes |
@@ -83,17 +84,19 @@ Enter is pressed.
 ## The name-stamp — every session born named
 
 The peer roster lists sessions by name and nothing else, so an unnamed session is an
-anonymous door. The rig knows the mantle, the theater and the whole lineage's history at
-fire time, so it names the session itself: `--name <mantle>-<theater>-<NN>`.
+anonymous door. The rig knows the mantle, the building and the whole lineage's history at
+fire time, so it names the session itself: `--name <mantle>-<stamp>-<NN>`.
 
 ```
-architect-agents-05     mantle · theater · the fifth architect this theater has seen
-grand-architect-09      the Grand Architect keeps no theater — there is only one office
-agents-03               a bare launch keeps no mantle: the theater counts on its own
+architect-agents-05     mantle · stamp · the fifth architect this building has seen
+grand-architect-09      the Grand Architect carries no stamp — there is only one office
+agents-03               a bare launch keeps no mantle: the stamp counts on its own
 ```
 
-- **theater** is the working directory's own name at fire time — Felix summons at repo
-  roots, so it reads as the project.
+- **stamp** is the building register's Name for the directory you fire from, and that
+  directory's own name where the register does not know it — Felix summons at building
+  roots, so it reads as the project either way. The cycle below is how one root offers
+  several.
 - **NN** is the lineage ordinal: one more than the highest ever fired under that same
   prefix, counted from `log/invocations.jsonl` in a single pass when the panel opens (never
   per keystroke — the panel stays a builtins-only render). A lineage the log has never seen
@@ -116,39 +119,55 @@ back into that session. The ordinal is what keeps it unique.
 This is rig convention, not canon: it returns to canon by harvest if tools ever start
 parsing session names ([quartermaster §5](../plans/quartermaster.md)).
 
-### The theater cycle — one repo, several campaigns
+### The stamp cycle — one root, several buildings
 
-A campaign is not always a directory: `bob` hosts bob, lunchbox and pods. Firing from a
-subdirectory is the wrong fix — Claude Code keys history, `/resume` and auto-memory to the
-launch cwd, so deep-firing fragments the project silo — and eject cannot do it either,
-because a hand-edited name never reaches the lineage counter. So the *stamp* carries the
-campaign, and Felix goes on firing at repo roots.
+A building is not always a directory's name, and one root can host several: cap-mega hosts
+simmy, snappy, spacex-dashboard and manny. Firing from a subdirectory is the wrong fix —
+Claude Code keys history, `/resume` and auto-memory to the launch cwd, so deep-firing
+fragments the project silo — and eject cannot do it either, because a hand-edited name never
+reaches the lineage counter. So the *stamp* carries the building, and Felix goes on firing at
+roots.
+
+The list is derived, never filed. The rig reads
+[`canon/BUILDINGS.md`](../canon/BUILDINGS.md) — the Guild's own declaration of membership,
+`Name · Kind · Root` (D79) — and takes the row whose Root **is** the fire directory, then
+every row whose Root sits **under** it.
 
 ```
-bob/.summon-theaters       bob          the default: the first line
-                           lunchbox     ^G t
-                           pods         ^G t t
+~/code/universal_robots_sdk/cap-mega    cap-mega            its own row leads: the default
+                                        simmy               ^G t
+                                        snappy              ^G t t
+                                        spacex-dashboard    ^G t t t
+                                        manny               ...checked out as `user-manual`
 ```
 
-- **`.summon-theaters` in the fire directory** — one theater per line, blank lines ignored,
-  the first line the default. Commit it: the campaign list is repo truth. **cwd only**,
-  no parent walk. No file, and the theater is the directory's own name exactly as above.
-- **`t` cycles** through the list in filed order, wrapping. The panel's `[t]heater` row
-  shows the whole list with the ✓ on the selected campaign, and the footer shows the
-  re-stamped name on the next paint, so what fires is never a surprise. `t` is a reserved
-  key, on the same terms as `+`/`-`.
-- **Sticky per directory.** The fired theater is remembered against the fire directory in
-  `log/theaters`, under the same on-fire-only law as the four fields: an abort or an Esc
-  after cycling persists nothing. The next panel opened there preselects it; a sticky
-  theater the file no longer lists falls back to the default.
-- **The lineage follows the campaign, not the directory** — `architect-pods-NN` and
-  `architect-bob-NN` count independently, for free, because the counter keys the whole
-  prefix. The `+`/`-` seed path works per theater.
-- **The Grand Architect is unchanged:** it carries no theater, so with GA selected the
-  cycle changes nothing that fires. The footer says so.
-- A theater must be a plain name (`A-Z a-z 0-9 . _ -`, not leading `-`): it becomes argv as
-  `-n <mantle>-<theater>-NN`, so a space would split the launch in two. A line that is not
-  one makes the panel refuse to open, naming the line.
+- **The stamp is the row's Name, not the directory's.** manny stamps `manny` from a worktree
+  whose directory is called `user-manual`: the register is the authority on what a building
+  is called, and a rename there is a rename everywhere.
+- **`t` cycles** through the list, wrapping — the cwd's own Name first, then the rest in
+  register order. The panel's `s[t]amp` row shows the whole list with the ✓ on the selection,
+  and the footer shows the re-stamped name on the next paint, so what fires is never a
+  surprise. `t` is a reserved key, on the same terms as `+`/`-`.
+- **One building is no choice**, so a root with nothing under it paints no row at all — the
+  footer is already carrying the stamp. **cwd only**, no parent walk: a directory the
+  register does not name stamps its own basename exactly as before, and `t` is inert there.
+  Buildings *under* an unregistered directory do not register it.
+- **Sticky per directory.** The fired stamp is remembered against the fire directory in
+  `log/stamps`, under the same on-fire-only law as the four fields: an abort or an Esc after
+  cycling persists nothing. The next panel opened there preselects it; a sticky stamp the
+  register no longer derives falls back to the default.
+- **The lineage follows the building, not the directory** — `architect-simmy-NN` and
+  `architect-cap-mega-NN` count independently, for free, because the counter keys the whole
+  prefix. The `+`/`-` seed path works per stamp.
+- **The Grand Architect is unchanged:** it carries no stamp, so with GA selected the cycle
+  changes nothing that fires. The footer says so.
+- **Roots are `~`-relative** in the register and expand against `$HOME`. The whole file is
+  read once, at panel open — the keystroke loop only indexes the list it produced.
+- A row must be three cells and its Name a plain name (`A-Z a-z 0-9 . _ -`, not leading `-`):
+  the stamp becomes argv as `-n <mantle>-<stamp>-NN`, so a space would split the launch in
+  two. A row that is not one makes the panel refuse to open, naming it — from any directory,
+  because a broken register is broken for the whole city. **No register at all is the
+  fallback, not an error:** every directory then stamps its own name.
 
 ## Usage — the quota table
 
@@ -265,8 +284,8 @@ the rig spends the positional on the colour and Felix speaks the summons himself
 - `log/state` — the four fields of the last launch, tab-separated `field<TAB>value` lines.
   Delete it and the next panel opens empty. (`log/last` is retired; a leftover file is
   inert.)
-- `log/theaters` — `directory<TAB>theater`, one line per directory ever fired from that
-  files a `.summon-theaters`. Delete it and every such directory opens on its default.
+- `log/stamps` — `directory<TAB>stamp`, one line per registered directory ever fired from.
+  Delete it and every such directory opens on its default.
 - `summon-stats` — counts by mantle × account, the mode split, and keys spent against the
   chars-of-command baseline.
 
@@ -278,7 +297,7 @@ the panel's own key loop, and the entries are dropped the moment it closes.
 
 ## Tests
 
-`../lab/08/run` — 200 assertions, 0 failures. The gestures run in a real pty against a
+`../lab/08/run` — 228 assertions, 0 failures. The gestures run in a real pty against a
 sandbox copy with `claude` and `pbcopy` shims; the panel's text, wrap and palette spans are
 asserted without a pty (`render.zsh`, a pure function of the selection, `$COLUMNS`, `$PWD`
 and the sandbox's log); and `preview.exp` / `narrow.exp` prove one whole paint on a real
@@ -286,19 +305,30 @@ screen — the footer against the launch it promised, and the 60-column wrap.
 
 The name-stamp is asserted on the composed command, byte for byte, against a hand-written
 fixture log: the ordinal past the highest ever fired rather than the last, records predating
-the `name` field skipped, theaters counted apart, the Grand Architect counted together, the
+the `name` field skipped, stamps counted apart, the Grand Architect counted together, the
 bump and its floor. `name.exp` drives the seed path live — a virgin lineage bumped to
 Felix's own count, carried forward by the log, floored, and left untouched by an abort — and
 the counter is proved to read the log once by taking the file away after the panel opens and
 watching 500 repaints keep the ordinal.
 
-The theater cycle is asserted the same way: the order and the wrap on the composed command
-against a fixture `.summon-theaters`, three campaigns counted apart from one fixture log,
-the missing-file fallback, the GA no-op, and `.summon-theaters` proved read-once by the same
-take-the-file-away trick. `theater.exp` drives the stickiness live — cycle, fire, reopen
-preselected, refire; a second directory unmoved; an aborted cycle byte-compared out of
-`log/theaters`; and a sticky theater dropped from the file falling back to the default.
-The harness now **derives** the mantle row and the panel's bracket count from `presets.tsv`
+The stamp cycle runs against a **fixture register over a fixture city**, never the live
+`canon/BUILDINGS.md`: every sandbox lives under `lab/08/out/`, and the rig reads
+`${SUMMON_HOME:h}/canon/BUILDINGS.md`, so one generated fixture serves them all. Asserted on
+the composed command: the derived cap-mega cycle (the host's own Name leading its four
+buildings, though its row is filed last, as the real register has it), Name over
+directory-name at manny's worktree root, the unregistered fallback, buildings under an
+unregistered directory leaving it unregistered, a lone row painting no row at all, the GA
+no-op, the 60-column fit, and `~`-rooted paths expanding against a rewritten `$HOME` — that
+last from a directory whose Name and basename differ, since a `~` that failed to expand
+would otherwise be indistinguishable from an unregistered directory. Prose above and below
+the table is proved to be prose: a table-shaped line under the closing prose names `hive`,
+the directory the whole drive fires from, so a parser reading past it takes ~20 assertions
+down with it. `stamp.exp` drives the stickiness live — cycle, fire, reopen preselected,
+refire; a second registered root unmoved; an aborted cycle byte-compared out of `log/stamps`;
+and a sticky stamp the register no longer derives falling back to the default. The register
+is proved read-once by the take-the-file-away trick, and three malformed rows (a Name with a
+space, a leading dash, a row that is not three cells) are proved to refuse the panel by name.
+The harness **derives** the mantle row and the panel's bracket count from `presets.tsv`
 and `accounts.tsv` rather than typing them (13-F1): a data-file edit can no longer rot it.
 
 The usage arms never touch a real credential store or the network: `security` and `curl`
