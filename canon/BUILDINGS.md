@@ -17,7 +17,10 @@ living in a worktree registers its worktree path).
 - **The stamp cycle derives from this table** (C38): at a fire root, the summons
   cycles the row matching the cwd plus every row whose root sits under it; the
   cwd's own Name is the default. The rig machine-reads this table — format
-  changes ride C38's harness.
+  changes ride C38's harness. The read contract (C38 F7): the table opens at its
+  `|---|` separator and ends where the pipes stop; every data row is exactly
+  three cells; the Name is a plain name (`A-Z a-z 0-9 . _ -`); Kind is parsed,
+  never validated.
 
 | Name | Kind | Root |
 |---|---|---|

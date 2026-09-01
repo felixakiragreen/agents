@@ -51,16 +51,13 @@ account choice is quota arbitrage.
 | C38 | [the stamp cycle](plans/c38-stamp-cycle.md) — `summon.zsh` derives the cycle from the register (rows at-or-under the fire cwd; Name over dir-name; sticky law kept); `.summon-theaters` support removed, bob's file deleted at landing; the word "theater" dies in the rig's surfaces; lab/08 arms extended | — | Builder · opus-high | **LANDED** 2026-08-31 → [findings F1–F9](plans/c38-stamp-cycle.md); harness **228 PASS · 0 failure(s)** (control 215), every new arm mutation-proved. Rulings the next reader inherits: the cycle is host + **four** tenants, not three — the spec's parenthetical miscounted, the rule won (F1) · the stamp row paints only where there is a choice, so a lone-row root is byte-identical to today's panel (F2) · an unregistered cwd has no cycle even with buildings under it (F3). **F4 is the trap worth carrying:** `${${~root}:A}` returns a path with zsh's glob tokens still in it — every `-` a raw 0x9B — so the whole feature silently no-op'd until the expansion was split in two. bob's file was never tracked (F5): `b399bc0` deletes the dead `.gitignore` rule instead |
 | C39 | [the register arm](plans/c39-register-arm.md) — the doctrine parser reads `canon/BUILDINGS.md`; `discover()` roots from it (buildings walked, hosts listed); qualified-id resolution binds to Names; JSON surface stigmergon consumes (their D15 unblocks) | — | Builder · opus-high | **LANDED** 2026-08-31 — `doctrine buildings`, suite 87 → 94; F5 filed a latent worktree-dedup hole |
 
-**Batch note — 2026-08-31 · the register batch:** C38 · C39, parallel ×2 — disjoint
-trees (`summon/` · `doctrine/`), both reading `canon/BUILDINGS.md` read-only; no
-live-resource contention; a transient `index.lock` collision on commit is retried,
-never escalated. Tender: the GA-20 session, at Felix's word ("can you dispatch them
-for me?") — the office tending, GA-14's precedent; the flow engine still owes its
-first real batch. Bulletin: none — the coda runs serial-instantiated (GA-19), the
-trees are disjoint, and a discovery affecting the other charge files to `ISSUES.md`,
-which outlives the batch.
-
 **Deferred (tracked, not lost):**
+
+- doctrine residue — one charge when the parser next opens: the worktree-dedup
+  split-search hole — a branch-only `<checkout>/<dir>/LEDGER.md` under a mainline
+  repo that is itself a building is eaten as a twin; repro + fix sketch in C39's F5
+  and the 2026-08-31 inbox entry (committed `36f9550`); latent today, C36 item 5's
+  arm.
 
 - The peer-messaging experiment (SendMessage taps between live sessions —
   gate-delivery pokes, cross-account bulletin pokes; pointers-not-payloads,
