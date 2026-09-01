@@ -11,7 +11,8 @@ import {
 } from '../src/parse';
 import { migrateText, roundTrip } from '../src/migrate';
 import { guardRegressions, isLiveWorkDoc, lint } from '../src/lint';
-import { parse, staffsSessions } from '../src/building';
+import { discover, lastWalk, parse, staffsSessions } from '../src/building';
+import { crossingFails, parseRegister, walkRegister } from '../src/register';
 
 const FX = join(import.meta.dir, '..', 'fixtures');
 const fx = (kind: string, name: string) => readFileSync(join(FX, kind, name), 'utf8');
@@ -660,5 +661,78 @@ describe('the register', () => {
 			const p = join(FX, n);
 			expect(roundTrip(migrateText(p, readFileSync(p, 'utf8')))).toEqual([]);
 		}
+	});
+});
+
+// ---------- the building register (C39, D79) ----------
+
+describe('the building register', () => {
+	const REG = (kind: string) => join(FX, 'register', kind, 'canon', 'BUILDINGS.md');
+
+	test('a clean register lints clean, and hangs off the building that keeps it', () => {
+		const r = lint([join(FX, 'register', 'good')]);
+		expect(codes(r.fails)).toEqual([]);
+		expect(r.buildings.map(b => b.files.register)).toEqual([join(FX, 'register', 'good', 'canon', 'BUILDINGS.md'), null]);
+	});
+
+	test('every defect class fails at its own line — a dead Root names the row', () => {
+		const r = lint([join(FX, 'register', 'defects')]);
+		expect(r.fails.map(f => [f.code, f.line])).toEqual([
+			['register.name', 8],      // duplicate Name — qualified ids demand one root per Name
+			['register.kind', 10],     // "tenant" is neither building nor host
+			['register.row', 11],      // Name | Kind, no Root
+			['register.root', 9],      // `../ghost` is no directory on disk
+		]);
+		expect(r.fails[3]!.excerpt).toBe(`ghost: ${join(FX, 'register', 'defects', 'ghost')}`);
+	});
+
+	test('a file that carries no Name | Kind | Root table is not a register at all', () => {
+		const r = parseRegister('# The book\n\nProse, and a table of something else.\n\n| a | b |\n|---|---|\n| 1 | 2 |\n', FX);
+		expect(r.rows).toEqual([]);
+		expect(codes(r.fails)).toEqual(['register.table']);
+	});
+
+	test('discovery\'s universe is the register: buildings walked, hosts listed, a bare root warned', () => {
+		const { entries, fails } = walkRegister(REG('good'));
+		expect(entries.map(e => [e.name, e.kind, e.exists, e.buildings.length])).toEqual([
+			['alpha', 'building', true, 1],
+			['bare', 'building', true, 0],      // registered, founding not yet run
+			['campus', 'host', true, 0],        // listed, never walked
+		]);
+		expect(fails.map(f => [f.code, f.severity])).toEqual([['register.empty', 'warn']]);
+	});
+
+	test('a declared worktree root is entered directly: the mainline twin dedupes away, the branch-only building surfaces (D79)', () => {
+		const { entries, fails } = walkRegister(REG('worktree'));
+		const checkout = join(FX, 'register', 'worktree', 'repo', '.claude', 'worktrees', 'user-manual');
+		expect(entries.map(e => [e.name, e.buildings.map(b => b.path)])).toEqual([
+			['mainline', []],                                     // the host is never walked
+			['manny', [join(checkout, 'manny')]],                 // the tenant's twin is not a building here
+		]);
+		expect(fails).toEqual([]);
+
+		const b = discover([checkout]);
+		expect(lastWalk.suppressed).toBe(1);                     // `tenant/LEDGER.md`, the mainline's copy
+		expect(b[0]!.board.flatMap(x => x.rows).map(r => r.id)).toEqual(['C1', 'C2']);
+	});
+
+	test('Depends-on\'s third form: the qualified id parses beside the local id and the gate', () => {
+		const rows = parseBoards(readFileSync(join(FX, 'register', 'good', 'alpha', 'BOARD.md'), 'utf8')).boards[0]!.rows;
+		expect(rows.map(r => [r.dependsOn, r.crossings, r.gates])).toEqual([
+			[[], [], []],
+			[[], ['stigmergon:S1'], []],
+			[['C1'], ['stigmergon:S1'], ['his read of the diff']],
+		]);
+	});
+
+	test('the crossing resolves against register Names — an unregistered building half is a failure', () => {
+		const alpha = parse(join(FX, 'register', 'good', 'alpha'));
+		expect(crossingFails(alpha, new Set(['stigmergon']))).toEqual([]);
+		const fails = crossingFails(alpha, new Set(['somewhere-else']));
+		expect(fails.map(f => [f.code, f.excerpt])).toEqual([
+			['board.crossing', 'C2: "stigmergon:S1"'],
+			['board.crossing', 'C3: "stigmergon:S1"'],
+		]);
+		expect(fails[0]!.file).toBe(join(FX, 'register', 'good', 'alpha', 'BOARD.md'));
 	});
 });

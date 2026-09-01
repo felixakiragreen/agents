@@ -1,0 +1,2 @@
+A host: listed, never walked. Whatever lands here stays invisible to discovery until a
+founding converts the row to a building. This file exists so git keeps the directory.
