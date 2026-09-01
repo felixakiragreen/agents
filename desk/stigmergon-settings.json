@@ -1,0 +1,19 @@
+{
+	"v": 1,
+	"keymap": {},
+	"layout": {
+		"ratios": [
+			7,
+			20,
+			5
+		]
+	},
+	"focus": {
+		"pane": "context",
+		"space": null,
+		"session": "976372cf-e9b3-41ea-9d53-42d9539f1dd3"
+	},
+	"hive": {
+		"homes": {}
+	}
+}
