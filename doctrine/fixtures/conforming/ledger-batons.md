@@ -1,4 +1,4 @@
-# Ledger — §11's written holders and §7's null close (C36 items 2 + 3)
+# Ledger — §11's written holders and §7's null close (036 items 2 + 3)
 
 ---
 

@@ -1,4 +1,4 @@
-# kickoff — the stale-kickoff fixtures (C31 item 4)
+# kickoff — the stale-kickoff fixtures (031 item 4)
 
 The parser counted kickoffs and never read them. This building holds tonight's seven in
 both states plus the two exemptions, so the arm's fence is a fixture, not a claim.

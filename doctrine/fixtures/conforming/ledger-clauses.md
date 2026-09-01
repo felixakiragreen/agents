@@ -1,4 +1,4 @@
-# Ledger — the clause splitter's control (C36 item 4)
+# Ledger — the clause splitter's control (036 item 4)
 
 Every entry here is conforming §7. What the old splitter got wrong was not the docs: it
 read the first `Next:` anywhere in the flattened body, so a mention split the entry.

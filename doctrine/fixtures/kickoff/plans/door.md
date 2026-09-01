@@ -23,7 +23,7 @@ then execute the charge at ~/code/agents/plans/022-summon-argv.md.
 You are a Builder at opus-high.
 Enter by the door — read ~/code/agents/canon/GUILD.md,
 wear ~/code/agents/canon/mantles/builder.md,
-then execute the charge at ~/code/agents/plans/c29-summon-harness.md —
+then execute the charge at ~/code/agents/plans/029-summon-harness.md —
 the harness follows the presets file, additions and removals alike.
 ```
 
@@ -32,7 +32,7 @@ You are an Architect at opus-high.
 Enter by the door — read ~/code/agents/canon/GUILD.md,
 wear ~/code/agents/canon/mantles/architect.md,
 then read ~/code/agents/canon/work/STANDARD.md
-and execute the charge at ~/code/agents/plans/c30-master-doc-prose.md —
+and execute the charge at ~/code/agents/plans/030-master-doc-prose.md —
 the city's master docs speak the standard in prose too.
 ```
 
@@ -41,7 +41,7 @@ You are a Builder at opus-high.
 Enter by the door — read ~/code/agents/canon/GUILD.md,
 wear ~/code/agents/canon/mantles/builder.md,
 then read ~/code/agents/MAP.md §7
-and execute the charge at ~/code/agents/plans/c31-doctrine-defects.md.
+and execute the charge at ~/code/agents/plans/031-doctrine-defects.md.
 ```
 
 ```
@@ -49,7 +49,7 @@ You are a Builder at opus-high.
 Enter by the door — read ~/code/agents/canon/GUILD.md,
 wear ~/code/agents/canon/mantles/builder.md,
 then read ~/code/agents/canon/work/STANDARD.md §7
-and execute the charge at ~/code/agents/plans/c32-flow-grammar.md.
+and execute the charge at ~/code/agents/plans/032-flow-grammar.md.
 ```
 
 ```
