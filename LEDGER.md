@@ -2609,3 +2609,13 @@ Baton — ⬡ → batch: ignite C38 · C39 (kickoffs verbatim in
 [plans/c38-stamp-cycle.md](plans/c38-stamp-cycle.md) ·
 [plans/c39-register-arm.md](plans/c39-register-arm.md)); parallel-safe,
 independent, both ignitable now.
+
+---
+
+**2026-08-31 · Grand Architect · fable-max (GA-20)** — *(second act; supersedes the
+baton above.)* **The register batch dispatched at his word** ("can you dispatch them
+for me?") — C38 · C39 ignited parallel, Builder · opus-high ×2, kickoff + coda
+verbatim; the office tending (GA-14's precedent). Board IN FLIGHT ×2, batch note
+laid — bulletin none (serial coda, disjoint trees; discoveries route to the inbox).
+Decided: nothing. Next: the tender verifies both landings, reconciles the board,
+closes the batch.
