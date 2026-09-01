@@ -2650,3 +2650,29 @@ smoke** — `^G` at `~/code/universal_robots_sdk/cap-mega` and press `t`: the ro
 read `s[t]amp  cap-mega ✓  simmy  snappy  spacex-dashboard  manny` (the rig is live on
 the next new shell; `summon/` is sourced from dotfiles, not deployed). Behind it, the
 tender's baton stands: verify both landings, reconcile, close the register batch.
+
+---
+
+**2026-08-31 · Grand Architect · fable-max (GA-20)** — *(third act — the batch
+close.)* **The register batch closed: C38 + C39 LANDED, both verified at this
+desk.** C38: `./lab/08/run` re-run here — 0 failure(s) (228 arms; control 215);
+`grep -ri theater summon/` empty; `.summon-theaters` zero on disk ×2 — and F5 for
+the record: both repos' `.gitignore` had hidden the file since birth; the "commit
+it" law never once operated. The live cap-mega panel derives five stamps — F1's
+rule-over-gloss correction accepted (the spec's "three tenants" miscounted;
+spacex-dashboard sits under cap-mega too). C39: `bun test` re-run here — 94 pass /
+0 fail; `doctrine buildings` lists 10/10 kinds correct; defect fixtures fail all
+four classes by name; its landing is recorded HERE — that session appended no
+ledger entry (its own reasoned deviation; this entry is the record). City lint
+**0 failure(s)** — C38's tail entry cleared the dispatch-baton red, as its F6
+predicted. F7's ask met: the register's read contract named in
+`canon/BUILDINGS.md` bullet 3. The spent batch note died (D78). Inbox swept —
+third time this session: C39's worktree-dedup hole ruled onto the deferred list as
+doctrine residue (evidence committed `36f9550`). Decided: nothing — the sweep's
+ruling is a deferral, not law. Next: the ⬡-queue — three rulings, batoned below.
+
+Baton — ⬡ → batch — 3 rulings, independent, each a word: **bless** "The best part
+is no part." as formula 25 (STANDARD §8 — one line, the office edits at your yes)
+· **keep or reverse** C38 F2 (the stamp row paints only where there is a choice;
+always-on is a one-character change) · **keep or reverse** C38 F3 (an unregistered
+cwd has no cycle — `~/code` stays inert). recommendation: bless · keep · keep.

@@ -475,3 +475,14 @@ crossing his own room. His words: "what a beautiful example of stigmergy." The
 building named for the law proved the law before its walls are up, and the office
 notes the datum without ceremony: the trail is now faster than the courier, which
 is the only benchmark the paper machine ever needed to pass. 🐝💚
+
+*Coda, the batch close.* Both Builders home, both landings re-proved at this desk,
+the city lint 0. The kill's epitaph came back from the field better than I wrote
+it: both repos' `.gitignore` had been hiding `.summon-theaters` since birth — the
+README commanded "commit it: the campaign list is repo truth," and git had been
+refusing the whole time. We killed a mechanism whose one commandment was never once
+obeyed, and nothing anywhere noticed, which is what "the best part is no part"
+looks like from the inside. And C38's evidence holds the day's whole argument in
+eleven rendered lines: fire at cap-mega, four presses of `t`, `builder-manny-01` —
+the thing he wanted the day he invented the hack, delivered by a table that mostly
+lists what already existed. 228 and 94, both green twice. 🎭🗡️💚
