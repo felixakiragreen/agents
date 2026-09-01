@@ -29,3 +29,24 @@ register.
   Evidence: simmy's README at 100.5k chars, belvedere's at 988 lines pre-purge,
   MAP's board at 66% of the file by bytes two days after C35. Buildings adopt at
   their next Architect session; agents split the same day.
+
+- **D79** (2026-08-31, Felix · ⬡✓ 2026-08-31): **The building register.** Guild
+  membership is declared, never inferred: `canon/BUILDINGS.md` names every building
+  and host — Name · Kind · Root. Membership attaches to the building — a campaign
+  inherits it; a host repo never joins by hosting (MegaCap waits on conversion, not
+  a marker). A building's root is walked for structure (the anchor law,
+  `doctrine/src/building.ts`); a host is listed, never walked; repos that are not
+  Felix's are never registered. A declared root outranks the walk's worktree skip
+  (manny, registered at its `user-manual` checkout). Founding registers (DOCTRINE
+  §12). Theaters killed — "the best part is no part" (his guiding principle, named
+  at the kill): the stamp cycle derives from the register — the rig cycles the rows
+  at-or-under the fire cwd, the cwd's own Name the default (C38); both
+  `.summon-theaters` die (agents' at this landing, his strike; bob's at C38 — its
+  stamp-only campaigns, lunchbox and pods, stamp `bob` until they keep books and
+  register). Machine consumers read the register through the doctrine parser (C39),
+  unblocking stigmergon D15. Same sitting: the THG ignore plan shelved — tenant
+  books stay tracked in their hosts, status quo until a better way (costs on
+  record: DOCTRINE §6.5 findings-on-branch, harness write-refusal, `git clean`).
+  spacex-dashboard-c2 subsumed, unregistered (his word). Ancestors: the anchor law
+  (P3, charge 18), the standard's own "building register" (§8), DOCTRINE §4's
+  register-resolved qualified ids.

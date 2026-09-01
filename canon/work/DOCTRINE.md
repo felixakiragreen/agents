@@ -167,8 +167,9 @@ exempt by its venue (D45).
 - **Work** — one line: the question or the mission. It opens with the
   **encapsulation** — the ≤6-word linked name (D74); qualifiers follow after `—`.
 - **Depends on** — exactly three forms (D63; D74): charge ids that must be LANDED
-  first, the qualified cross-building id `<building>:<id>` (register-resolved at lint;
-  a real crossing, used sparingly), and `⬡-gate: <text>` for a named gate (a blessing,
+  first, the qualified cross-building id `<building>:<id>` (resolved against the
+  building register — `canon/BUILDINGS.md`, D79 — at lint; a real crossing, used
+  sparingly), and `⬡-gate: <text>` for a named gate (a blessing,
   a ruling); "—" when none. Anything else is not a dependency: a physical precondition
   becomes a gate charge (D44), a scheduling note rides the batch note (D28) or the
   Status annotation. This column exists to compute the dependency graph; prose breaks
@@ -584,7 +585,9 @@ A new project boots onto the doctrine in one founding session:
    `canon/work/templates/`: `CLAUDE.md`, the master doc with its board (first charges
    laid and staffed), `LEDGER.md` (entry one), `DECISIONS.md` (the day-one blessings:
    name, scope, non-goals — there are always some), `ISSUES.md` (empty, header only —
-   D53). Subproject scale: `README.md` alone (§3).
+   D53), and the register line — the building declared in `canon/BUILDINGS.md`
+   (D79): membership is never inferred; the tenant/subproject nuance rides the
+   register's own header. Subproject scale: `README.md` alone (§3).
 4. **Hand off:** first batch laid, its tender named (§10) — or the first summons
    handed verbatim; ledger appended; committed.
 

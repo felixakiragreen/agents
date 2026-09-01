@@ -202,9 +202,11 @@ replaces.
   campaign declares its letter prefix at founding; bare D# outside the canon register
   is a lint warning; one letter never serves two kinds in one building.
 
-- **building** · noun · one repo — one structure in the city; ruled into daily
-  speech beside campaign. Boards outside their own building are named ("the snappy
-  board") — bare "board" only at home. Ruled.
+- **building** · noun · one structure in the city — a directory keeping its own
+  books, declared in the building register (`canon/BUILDINGS.md`, D79); usually a
+  whole repo, sometimes a tenant subtree of a host repo that is not itself Guild
+  land (simmy in cap-mega). Boards outside their own building are named ("the
+  snappy board") — bare "board" only at home. Ruled; amended D79.
 - **waggle** · verb · "waggle me X" → the shortest possible plain-speech explanation,
   one sentence per thing — that's all it ever wanted to be. · *instead of:* the
   four-slot Problem/Move/Stakes/Dig anatomy (killed; D51's contract molts).
