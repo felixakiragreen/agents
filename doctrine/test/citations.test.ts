@@ -27,7 +27,12 @@ describe('control — the canon page converts to its expected text', () => {
 			'D56 whole → home',
 			'D62 trails → home',
 			'D71 whole strip',
+			'D74 trails strip',
 		]);
+	});
+
+	test('a fence is a document to the respell, and its marker resets the tick parity', () => {
+		expect(run().after).toContain('runs in a worktree)\n`D25` stays a form');
 	});
 
 	test('the fixed-point law — the second run writes nothing', () => {

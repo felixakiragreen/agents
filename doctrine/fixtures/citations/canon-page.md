@@ -21,3 +21,12 @@ citation, and every other one crosses.
   line is left standing for the hand — both citations with it, all or nothing.
 - A shape split by a hard wrap is a hand edit, so the tail of this sentence stands
   (D48).
+
+A fenced block is a QUOTE to a structural rule and a DOCUMENT to a respell, so a citation
+inside one is still a citation — and a fence marker resets the inline-tick parity rather than
+opening one span the width of the block:
+
+```
+(· **Branch:** ⟨name⟩ — when the charge runs in a worktree, D74)
+`D25` stays a form being shown, fence or no fence.
+```

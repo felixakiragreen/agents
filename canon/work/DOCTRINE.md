@@ -281,7 +281,7 @@ The skeleton:
 # <ID> — <title>
 **Status:** OPEN — laid <date> · **Depends on:** … · **Staffing:** <mantle · tier>
    (· **Parallel-safe with:** <charges> — when laid into a parallel batch)
-   (· **Branch:** <name> — when the charge runs in a worktree, D74)
+   (· **Branch:** <name> — when the charge runs in a worktree)
 ## Mission | Question(s)
 ## Inputs — read before working      ← incl. what's known: "do not re-derive"
 <the genre core — below>

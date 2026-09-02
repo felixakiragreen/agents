@@ -215,6 +215,12 @@ export function respellCitations(rel: string, md: string, homes: Home[] = HOMES)
 
 	for (let i = 0; i < lines.length; i++) {
 		const line = lines[i]!;
+		// A fence marker resets the inline-tick parity, exactly as migrate.ts does: a fenced line
+		// is a QUOTE to a structural rule and a DOCUMENT to a respell. Without the reset a ```
+		// opened one tick span three hundred lines wide, and `DOCTRINE.md:284`'s citation — a real
+		// one, inside the charge-doc skeleton — was invisible to both the rules and the census.
+		const marker = /^\s*```/.test(line);
+		if (marker) { open = false; out.push(line); continue; }
 		const { to, rules, left } = respellLine(rel, line, open, byId);
 		open = ticksLeftOpen(line, open);
 		if (rules.length) edits.push({ line: i + 1, from: line, to, rule: rules.reverse().join(' + ') });
