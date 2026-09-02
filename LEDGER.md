@@ -2945,3 +2945,18 @@ amended ⬡✓. Next: the batch resumes — batoned below; the tender resumes on
 a fresh one ignites from `plans/TENDER.md` + the batch note.
 
 Baton — the dispatch → reignite 043, then G3.
+
+---
+
+**2026-09-02 · Architect · fable-high (G3)** — **the tender's first batch reviewed: 041 · 042 ·
+043 verified and kept.** Changed: `LIVE_STATES` gains BLOCKED (041-F3, `adf9c5e`); `--live`
+keeps the register (041-F10, `7998e14`, red then green) — suite 121 → 122; `haiku-low` retired
+(042-F4, `9d765df`), eleven stand, wire green ×3; the D78 prune (`9186f1c`) — fourteen cells
+compressed, three stories moved into their docs, 030's header reconciled, the spent batch note
+dead — lint 33 → **19, all belvedere's**. 043's rules are homed already (DOCTRINE §8, STANDARD
+§7); nothing added to canon. Decided: three rulings, cited — [G3](plans/g3-tender-review.md)
+F4 · F5 · F6. Next: ⬡ verifies this close; behind it D87, two inbox entries (F9), 043-F15's
+per-clause `Home:` line (F8).
+
+Baton — ⬡ → verify G3's close: [its findings](plans/g3-tender-review.md), rulings F4 · F5 · F6,
+the prune at `9186f1c`.
