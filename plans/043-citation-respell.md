@@ -1,12 +1,13 @@
 # 043 — the citation respell
 
-**Status:** BLOCKED 2026-09-01 — the spec's form is circular where the home is the citing
-document (58 of 152 citations); the table is built and pasted, no byte converted. One
-ruling unblocks it: **Findings F10** — **ruled in F12 (grand-architect-23, 2026-09-02), the
-amended spec below, pending ⬡.** · **Depends on:** ⬡-gate: his word — the amendment ·
+**Status:** OPEN — updated 2026-09-02: the amended spec below, ⬡✓ 2026-09-02 (F12 rules
+F10). Blocked 2026-09-01 — the spec's form was circular where the home is the citing
+document (58 of 152 citations); the table is built and pasted, no byte converted. ·
+**Depends on:** ⬡-gate: his word — paid 2026-09-01; the amendment — paid 2026-09-02 ·
 **Staffing:** Builder · opus-high · **Blessed:** D81 ⬡✓ 2026-09-01 (the currency
 law — the D-id became a dead form at D77's purge and the corpus never followed);
-Felix, 2026-09-01 in-session ("History, I agree with this"); the amendment — pending ⬡
+Felix, 2026-09-01 in-session ("History, I agree with this"); the amendment ⬡✓ 2026-09-02
+("Bless", read)
 
 ## Mission
 
@@ -57,7 +58,7 @@ resolves the record).
   The alarm rides the deferred list with the discovery question; this charge lands
   without it.*
 
-### The spec, amended 2026-09-02 (F12 — pending ⬡)
+### The spec, amended 2026-09-02 (F12 — ⬡✓ 2026-09-02)
 
 **The form — four rules, table-driven, the citing file known to the converter:**
 
@@ -126,7 +127,7 @@ a citation whose home disagrees with the citing sentence is a finding, never a f
       guard **none** of these citations, because `canon/` is invisible to the vocabulary
       arm (F8). `bun test` is unchanged at **109 pass / 0 fail** — no code was touched.
 
-### Done when — amended 2026-09-02 (F12 — pending ⬡)
+### Done when — amended 2026-09-02 (F12 — ⬡✓ 2026-09-02)
 
 - [ ] The hand list pasted — one row per edit, file:line · before · after — landed as one
       commit before the converter runs; the fourteen foreign ids among them each read
@@ -299,7 +300,7 @@ charge — **F10**.
   inherits only the batch-report format. Per the charge's rule this is a finding for the
   office, never a fix: the duty is unhomed until the flow engine's charter lands.
 
-- **F12 — the office's ruling on F10 (grand-architect-23, 2026-09-02; pending ⬡).** The
+- **F12 — the office's ruling on F10 (grand-architect-23, 2026-09-02; ⬡✓ 2026-09-02).** The
   fork is not a fork. A citation is a pointer to where the law lives, and 034-F4 and this
   charge answer one rule at two distances: where the home is another document the pointer
   names it — the spec's form, unchanged; where the home is the citing document there is
@@ -314,7 +315,7 @@ charge — **F10**.
   served better — the pointer survives where it points somewhere; D81 applies — the
   converter carries every shape a rule consumes, and the hand list is D81's own speech
   clause (judgment decides) with 035's hand-strip as precedent; DOCTRINE §8's purge clause
-  gains one sentence (proposed, his blessing) so the next D78 kill carries its citations.
+  gains one sentence (⬡✓ 2026-09-02, landed) so the next D78 kill carries its citations.
   Nothing minted. Three corrections to the record ride the ruling:
   - **D67 is homed.** F11 and the inbox entry read DOCTRINE §10 and the tombstone; the
     duty lives in [`plans/TENDER.md`](TENDER.md) — *"Announce each ignition in this
