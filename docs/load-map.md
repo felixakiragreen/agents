@@ -16,7 +16,7 @@ everyone is; this one says what's in their heads.
    ones along the path (cap-mega's root file loads for a worktree session, for
    example).
 3. **The tier grid** — the 20 agent definitions' names and descriptions, loaded at
-   session start so dispatch works (D8's whole reason: mid-session minting is
+   session start so dispatch works (the tier grid's whole reason: mid-session minting is
    invisible).
 4. **Harness furniture** — skills roster, memory index. Per-account comb, not canon.
 
@@ -29,10 +29,10 @@ summons and work doc name.
 
 | Session | Loads | Doctrine? |
 |---|---|---|
-| Grand Architect | charter + MAP + LEDGER + DECISIONS + LOG + ISSUES (the D49 sweep), then birthplaces per the canonization law | Yes — owns it |
+| Grand Architect | charter + MAP + LEDGER + DECISIONS + LOG + ISSUES (the ISSUES.md sweep), then birthplaces per the canonization law | Yes — owns it |
 | Mentat | charter + `SAPHO.md` (the Standing Computation + recent entries), then whatever the thought needs — no standing city boot | No |
 | Architect (founding) | charter + DOCTRINE + `dream.md` | Yes — the summons names it |
-| Architect (review) | charter + master doc/board + ledger tail + landed findings + the inbox (the D53 sweep) | §-reads as the work demands — the charter points at §4 |
+| Architect (review) | charter + master doc/board + ledger tail + landed findings + the inbox (the ISSUES.md sweep) | §-reads as the work demands — the charter points at §4 |
 | The tender (the dispatch) | the board + batch note + kickoffs (relayed verbatim) + coda + bulletin | No |
 | Digger / Builder | charter + their one charge doc + coda + the doc's Inputs list | No |
 | Fixer | the two CLAUDE.mds only | No — no charter either |
@@ -55,7 +55,7 @@ taxed" is a DOCTRINE §1 principle, and DOCTRINE obeys it about itself.)
 Law that must bind a session at the moment of writing has to live in a file that
 session provably has open — the charter (always, if worn), the work doc (always),
 CLAUDE.md (always). DOCTRINE is a sometimes-file — precisely the crack node-param
-fell through, and why D45 (2026-08-08) moved the rigid formats into `architect.md`
+fell through, and why the single-glance test (2026-08-08) moved the rigid formats into `architect.md`
 rather than into more doctrine prose. When you see drift, ask first: was the law in
 a file that session had actually loaded? Nine times in ten, the law was sound and
 somewhere else.

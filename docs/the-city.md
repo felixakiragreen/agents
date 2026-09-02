@@ -30,13 +30,13 @@ hives' work looks like one city and not three.
 | A programme of works | a campaign — all the batches of charges toward one keystone |
 | The works schedule | the board; a charge = one job = one crew's shift (a session) |
 | A job ticket | the charge doc — survey or construction; the mantle says which |
-| Survey crew · build crew | Digger · Builder — the foreman's office stands empty: the Dispatcher is dead (D71), and the flow engine (charge 020) will hold the clipboard |
+| Survey crew · build crew | Digger · Builder — the foreman's office stands empty: the Dispatcher is dead, and the flow engine (charge 020) will hold the clipboard |
 | The site diary | `LEDGER.md` — real sites keep one daily; it is legally significant there too |
 | The change-order register | `DECISIONS.md` — no change order executes without the owner's signature |
 | The site noticeboard | the bulletin — up only while crews overlap |
 | Inspection reports | findings — evidence-grade, filed under the job that produced them |
 | Scaffolding | `lab/` — comes down when the works close |
-| Working without a permit | the Fixer (D26/D71) — session-sized, the sovereign's own two hands |
+| Working without a permit | the Fixer (the mantles README, the null mantle) — session-sized, the sovereign's own two hands |
 | The reserved groundbreaking | the substrate (D39) — the metro: city infrastructure, its cornerstone laid by the standards office at the sovereign's call |
 | Two empty rooms uptown | the Royal and Imperial thrones (D39) — kept empty until the city can give them eyes |
 
@@ -56,7 +56,7 @@ Who to summon, in six clauses:
 3. **Works on a standing building** — outlives a shift, or coordinates several crews
    → **that building's own Architect** lays it on the works schedule.
 4. **A repair with the toolbox in your hand** — session-sized, sovereign present →
-   **no permit needed** (the Fixer, D26/D71).
+   **no permit needed** (the Fixer — the mantles README, the null mantle).
 5. The standing exception: **the metro** (the substrate) is the standards office's
    groundbreaking, at the sovereign's call, when it comes (D39).
 6. **Thinking beside the sovereign** — cross-project, no works, no permit → **the
@@ -88,7 +88,7 @@ strangers who never meet can build one city.
 A scout compresses a distant field — direction, distance, quality — into a tiny
 repeatable signal, so the hive can decide cheaply whether to fly out and verify.
 
-The contract (D71, remaking D51): **"waggle me X" → the shortest possible plain-speech
+The contract: **"waggle me X" → the shortest possible plain-speech
 explanation — one sentence per thing.** That is all it ever wanted to be. The four-slot
 anatomy (Problem / Move / Stakes / Dig) is dead — killed at the choosing, 2026-08-29;
 digging past a waggle stays native to the mechanism — scouts dance, the hive flies out

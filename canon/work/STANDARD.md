@@ -25,8 +25,8 @@ replaces.
 
 - **bless** · verb · the yes from Felix when he has looked: the verdict, and the
   assent that rides it — a thing, an option in a fork, the sign. Noun: **blessing**.
-  Blessing a flow's drawn plan authorizes the dispatch to run it (D11/D73) — a
-  re-blessing covers an edit; the blessing covers the scope (D12). · *instead of:*
+  Blessing a flow's drawn plan authorizes the dispatch to run it (belvedere:D11; DOCTRINE §10, the flow) — a
+  re-blessing covers an edit; the blessing covers the scope (belvedere:D12). · *instead of:*
   countersign (as a verb), approve, greenlight, arm (a flow — killed 2026-08-29, the
   gun family's last word). The record token is **`⬡✓`**, machine-parsed — speech
   unified, grammar typed (`✓ Felix` is its history, §7); the checkmark is the act of
@@ -88,8 +88,8 @@ replaces.
   *instead of:* keel, keel-note, GENESIS (already dead). **Foundation is RESERVED** —
   named, unminted, waiting for its Terminus.
 - **keystone** · noun · campaign completion: **set the keystone** — the last stone
-  that makes the arch stand. · *instead of:* CLOSED at campaign altitude (illegal
-  since D18; now has a legal successor).
+  that makes the arch stand. · *instead of:* CLOSED at campaign altitude (illegal;
+  now has a legal successor).
 - **Done when:** · header · the completion contract, self-defining ("Done when: 200
   assertions green ×3"). Spoken form: *the bar* ("does it clear the bar?"). ·
   *instead of:* DoD, Definition of Done, "Acceptance criteria" headers.
@@ -110,7 +110,7 @@ replaces.
 - **dispatch** · noun · the machinery that turns a laid charge into a running
   session. Survives as the system noun only; the act is ignite. The **Dispatcher
   mantle is absent from the ruled roster** — its hole belongs to row 020 (the flow
-  engine's shadow). Also a legal baton holder (D74): `Baton — the dispatch →
+  engine's shadow). Also a legal baton holder (DOCTRINE §11, the holder is written): `Baton — the dispatch →
   ‹action›` — a batch the machinery tends, no hand waited on.
 - **baton** · noun · the handoff a session ends with, addressed to one holder. It
   hands an **action**; the shapes are **single / batch / fork**. · *instead of:*
@@ -237,7 +237,7 @@ replaces.
   snappy board") — bare "board" only at home. Ruled; amended D79.
 - **waggle** · verb · "waggle me X" → the shortest possible plain-speech explanation,
   one sentence per thing — that's all it ever wanted to be. · *instead of:* the
-  four-slot Problem/Move/Stakes/Dig anatomy (killed; D51's contract molts).
+  four-slot Problem/Move/Stakes/Dig anatomy (killed; the waggle contract molts).
 
 ## 8. Language law
 
@@ -333,7 +333,7 @@ replaces.
 | unstaffed | Fixer (staffing) · `—` (dissolved staffing on DEFERRED charges) |
 | the four-slot waggle | one plain sentence per thing |
 | bare "register" | a named register |
-| arm (a flow) | bless (D11 — the review is the authorization) |
+| arm (a flow) | bless (belvedere:D11 — the review is the authorization) |
 | C‹n› · per-campaign row letters (S, B, P, WO-…) | the padded number — `023` |
 | ‹prefix›-D‹n› | bare `D‹n›` at home · `‹building›:D‹n›` abroad |
 | GA-‹n› | the name-stamp — `grand-architect-20` |

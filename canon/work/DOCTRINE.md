@@ -115,10 +115,10 @@ before.**
   hard laws (project physics only — Felix's global directives already load), session
   protocol, pointers. State digests rot: point at the board and ledger, don't restate
   them. **A law that must bind Fixers lives here or in a hook** — charters bind only
-  the mantled, and this file plus the global one is all a Fixer provably loads (D65;
-  birthplace: the arborist close-out — prose law held wherever a mantled session ran
+  the mantled, and this file plus the global one is all a Fixer provably loads
+  (birthplace: the arborist close-out — prose law held wherever a mantled session ran
   and under-bound freewheeling ones). A subproject adds ONE pointer line to the repo's
-  `CLAUDE.md` and keeps its docs with itself (simmy D4).
+  `CLAUDE.md` and keeps its docs with itself (simmy:D4).
 - **The master doc** holds the durable design AND the board: architecture, the bet,
   defended non-goals, working agreements (project physics — venues, shared and live
   resources, branch rules), the `Done when:`. Corrections distill in as dated amendment
@@ -189,10 +189,10 @@ exempt by its venue (D45).
   **annotation** — `Builder · opus-high (worktree)`, `⬡-gate (smoke ×3)` — for eyes,
   parsed and ignored by dispatch; an annotation never homes the concurrency plan (the
   batch note and the summons stay its home, D28). **Charges are always staffed** — an
-  unstaffed charge is not permitted, ever (D71, lint-hard); a DEFERRED charge keeps
+  unstaffed charge is not permitted, ever (lint-hard); a DEFERRED charge keeps
   the staffing it had, `—` where the shelving dissolved it. A sub-slot whose record
-  history never held writes `unrecorded` — the typed absence, never a guess (D63 as
-  amended). Staffing guidance lives in the tier descriptions (`canon/agents/`) — the
+  history never held writes `unrecorded` — the typed absence, never a guess.
+  Staffing guidance lives in the tier descriptions (`canon/agents/`) — the
   single home; boards point, never duplicate.
 - **Status** — the lifecycle below, plus annotations: dates, findings pointers, unmerged
   branch names. A landing's unresolved remainders are typed (D74):
@@ -219,7 +219,7 @@ exempt by its venue (D45).
 - **DEFERRED** — an annotation, not a lifecycle state: a laid charge deliberately set
   aside — real, tracked, nobody waiting; un-deferring is a fresh decision. PENDING
   waits on something named; DEFERRED waits on nobody. Never the leading token:
-  `OPEN — DEFERRED <reason>` (D69, respelled by D71). The deferred list under the
+  `OPEN — DEFERRED <reason>`. The deferred list under the
   board holds un-laid ideas; a laid charge defers in place — ids are stable, deferral
   is a status fact, never a board removal.
 
@@ -242,7 +242,7 @@ judgment is executable against the docs — merge-or-reject against a blessed sp
 `Done when:` — is ignitable: a scoped Architect review (architect charter, Summons). A
 gate that is really Felix's — a blessing, a ruling, taste — is a named **⬡-gate**: the
 batch pauses there; nobody ignites past it. A gate living only in prose is invisible at
-dispatch time — D28's law, applied to sequence (birthplaces: batch 2's blessing pauses;
+dispatch time — the parallel-affordable law, applied to sequence (birthplaces: batch 2's blessing pauses;
 manny's M2 review; units' gate column, invented in the field the day before this law). A
 gate that merges names its instrument verbatim in its kickoff — source branch, target,
 PR-vs-push — and verifies THEN merges. **Passing = finished.** The run that proves it
@@ -260,7 +260,7 @@ has FINISHED — not started, not predicted — before the merge executes (D48).
   **concurrency plan**: ceiling, shape (grouped sends or strictly serial), and the
   gauge to hold on ("hold timed arms until load < 12"). The plan rides this note AND
   the tending summons verbatim — a constraint living only in a working agreement is
-  invisible at dispatch time (snappy §6.8/D9: six charges each read the cell cap as
+  invisible at dispatch time (snappy:D9, §6.8: six charges each read the cell cap as
   its own compliance; nobody owned the sum).
 - **The deferred list** — real but out of scope: tracked, not lost (simmy README §7).
   Items enter with a pointer; they leave by promotion to a charge (struck through,
@@ -270,8 +270,8 @@ has FINISHED — not started, not predicted — before the merge executes (D48).
 
 One document, one skeleton — **the mantle says whether a charge digs or builds**; the
 sections carry the contract. A charge doc is self-contained and sized to one session;
-what a session cannot finish at quality becomes a new charge — never a rushed draft
-(this repo's D4, generalized). Every charge doc is **pre-chewed on purpose**: every fork
+what a session cannot finish at quality becomes a new charge — never a rushed draft.
+Every charge doc is **pre-chewed on purpose**: every fork
 a cheaper session could meet is either decided in the doc or named as a kill/escalation
 point — the reader never guesses.
 
@@ -357,13 +357,12 @@ corrects, never rewrites (ruled 2026-08-29, the 026 -ise correction).
    contention, venue state). Contaminated numbers are re-run in a clean measurement
    window, held PENDING, or struck inadmissible — never averaged into a verdict, never
    shipped silently. Birthplace: snappy §2 law 5 — per-number host records kept a
-   load-328 saturation auditable; every batch-1 verdict survived (snappy D9).
+   load-328 saturation auditable; every batch-1 verdict survived (snappy:D9).
 8. **Targets are read from the repo.** A state-changing operation — a merge, a push,
    a remediation rewind — takes its target from the live repo at execution time
    (merge-parent forensics), never from a summons' recollection: a summons'
    description of repo state is a hypothesis, not a coordinate. Birthplace:
-   node-param G2 — a stale tip, encoded unverified, overshot a rewind by 14 commits
-   (D48).
+   node-param G2 — a stale tip, encoded unverified, overshot a rewind by 14 commits.
 
 ## 7. The ledger
 
@@ -497,10 +496,9 @@ tender creates `plans/BULLETIN.md` (next to the charge docs — simmy's lived at
   message carrying the same instruments as the summons — sequencing an independent
   charge behind a running batch it doesn't depend on is mis-laid (D57; birthplace:
   cornerizer batch 8, amended mid-flight 2026-08-16). Every batch has a tender, and
-  the default is machine tending, serial batches included (D43/D61's intent — their
-  Dispatcher wording is superseded by D71). **The interim truth, plainly:** the
-  Dispatcher mantle is dead (D71) and its successor — the flow engine, charge 020's
-  cornerstone made law at D73 — is built and smoke-proven (Belvedere B10–B12) but has
+  the default is machine tending, serial batches included. **The interim truth,
+  plainly:** the Dispatcher mantle is dead and its successor — the flow engine, charge
+  020's cornerstone — is built and smoke-proven (Belvedere B10–B12) but has
   not yet tended a real batch; until it does, the batch note names the tender: **the
   tender kickoff** — `tender: sonnet-medium · plans/TENDER.md`, an instrument
   instantiated once per building from the Dispatcher tombstone's operational law and
@@ -515,12 +513,12 @@ tender creates `plans/BULLETIN.md` (next to the charge docs — simmy's lived at
   batch — and the batch returns to Felix only at escalations and named ⬡-gates,
   resuming on his word where it paused (D61).
 - **The flow (D73).** A flow is a batch as data — the declared DAG the dispatch runs
-  (the engine: Belvedere B10–B12; the arm contract and scope-arm growth are its D11
-  and D12, ratified canon-side). For engine-tended batches **the flow file is the
+  (the engine: Belvedere B10–B12; the arm contract and scope-arm growth are belvedere:D11
+  and belvedere:D12, ratified canon-side). For engine-tended batches **the flow file is the
   batch note** — the board's note points at it (`flow: <name>` + the tender line);
-  prose batch notes remain the Felix-tended exception. The engine's law: D10
+  prose batch notes remain the Felix-tended exception. The engine's law: belvedere:D10
   wholesale — ambiguity never authorizes and never advances; only declared or
-  scope-grown steps ignite — **the blessing covers the scope** (D12); **every flow
+  scope-grown steps ignite — **the blessing covers the scope** (belvedere:D12); **every flow
   carries a budget** — a ceiling on engine ignitions per blessing; at the ceiling the
   engine pauses and one re-blessing extends; **a step may continue
   a session** rather than ignite fresh when the lay says so — continue when the next
@@ -532,7 +530,7 @@ tender creates `plans/BULLETIN.md` (next to the charge docs — simmy's lived at
   plus the close gate's distillation. Flow files are the building's truth and live
   with its `plans/` (interim, while Belvedere is the only reader: `belvedere/flows/`,
   naming the building). The Steward — the same engine unattended — stays gated on
-  Felix's word alone (D5).
+  Felix's word alone (belvedere:D5).
 - **The coda** (the standard §4) is instantiated ONCE per project, as `plans/CODA.md`,
   from the canon core (`canon/mantles/README.md`), filling the three slots:
   working-agreements ref (a master doc §), bulletin path (drop the sentence when
@@ -580,13 +578,13 @@ Every session, any mantle:
   instrument — the summons fenced verbatim, an `ignite <charge-id>` reference, or
   the named ⬡-action: a blessing, a smoke, a ruling); **batch** (`batch —` marked:
   n parallel instruments, legal iff the holder could ignite all of them now without
-  choosing between them — D44's batching, given its shape); **fork** (`fork —`
+  choosing between them — the lay's batching, given its shape); **fork** (`fork —`
   marked: the choice IS the action — few exclusive options, every option
   instrumented — choosing A ignites *this* — and a `recommendation:` named, or the
   call explicitly marked taste). A menu of nexts with no ordering, or a kickoff produced
   only on request, is a malformed close. **The null close:** a session owing nothing
   writes no baton — `Next: none — <why>` (§7) is the typed form. **Ambiguity, never
-  plurality, is the sin** (D64, amending D46): an uninstrumented option, a menu with
+  plurality, is the sin**: an uninstrumented option, a menu with
   no recommendation, two holders, or a decision smuggled in prose is a dropped baton. **A ⬡-gate names what he must look
   at** — three lines at most, the ones that decide it — and a baton hands him at most
   three rulings; more is a queue, listed behind the baton, never a fourth ruling in
@@ -619,8 +617,8 @@ A new project boots onto the doctrine in one founding session:
    `canon/work/templates/`: `CLAUDE.md`, the master doc with its board (first charges
    laid and staffed — the first a Digger's: what foundation does the dream need, with
    kill criteria, before any Builder pours; D85), `LEDGER.md` (entry one), `DECISIONS.md` (the day-one blessings:
-   name, scope, non-goals — there are always some), `ISSUES.md` (empty, header only —
-   D53), and the register line — the building declared in `canon/BUILDINGS.md`
+   name, scope, non-goals — there are always some), `ISSUES.md` (empty, header only),
+   and the register line — the building declared in `canon/BUILDINGS.md`
    (D79): membership is never inferred; the tenant/subproject nuance rides the
    register's own header — and the line is the id namespace too: no prefix is
    declared (the standard §7). Subproject scale: `README.md` alone (§3).
@@ -642,7 +640,7 @@ the salvage regardless (stigmergon 001).
 ## 13. The vocabulary — the Guild's Standard
 
 The working vocabulary is the Guild's Standard: **[STANDARD.md](STANDARD.md)**, beside
-this file (D71 ⬡✓ 2026-08-29) — the entries, the graveyard of dead words and their
+this file (⬡✓ 2026-08-29) — the entries, the graveyard of dead words and their
 successors, the 24 pinned formulas, the punctuation grammar, the read-cold test. The
 glossary that lived here is superseded. **Think in any terms; communicate in the
 standard.** **Translate the Sovereign's vocabulary; challenge his substance.**

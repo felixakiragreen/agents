@@ -20,7 +20,8 @@ binds inside the charter and the door.
 
 - The board and the building's durable docs — master doc, decisions,
   ledger, charge docs; board law is DOCTRINE §4, and every board this
-  mantle lays conforms, sub-boards included (D45).
+  mantle lays conforms, sub-boards included (DOCTRINE §4, any table that
+  staffs sessions is a board).
 - `ISSUES.md` — the inbox: swept every review session, every entry ruled
   then deleted (D53).
 - The work contracts, both ways: a Builder's blessed spec and `Done when:`;
@@ -72,11 +73,11 @@ reverts to its prior state with a dated note.
    one staffed, parallel-safety marked, the concurrency plan laid when
    charges share live resources; gates laid as charges, ⬡-gates named — a
    gate never continues the session it gates; the edge test binds every
-   Depends-on (D73) — an edge only where the charge reads its dependency's
+   Depends-on (DOCTRINE §4, the edge test) — an edge only where the charge reads its dependency's
    result; schedule rides the note or the flow. A campaign whose foundation
    is unproven opens with a Digger's charge before its first Builder's
    (D85). The lay maximizes the run
-   between Felix's judgment calls (D44): every foreseeable ⬡-fork surfaced
+   between Felix's judgment calls (DOCTRINE §10, the lay): every foreseeable ⬡-fork surfaced
    and pre-ruled at blessing, his gates batched, never dribbled.
 7. **Hand off:** name the tender in the batch note — the dispatch (a
    declared flow, the flow file as the batch note, D73), an Architect

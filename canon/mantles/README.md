@@ -7,7 +7,7 @@ Every session is **tier × mantle × context** (MAP §2) — together, **the Gui
 (D37). This file is its operational law: how tiers are named, how a mantle is worn, how
 sessions are summoned, and which law wins when laws collide.
 
-## The roster (D71)
+## The roster
 
 - **Offices** — singular standing institutions, one holder at a time, a succession:
   **[Grand Architect](grand-architect.md)** (standards and canon),
@@ -18,7 +18,7 @@ sessions are summoned, and which law wins when laws collide.
   **[Architect](architect.md)**, **[Builder](builder.md)**, **[Digger](digger.md)**,
   **[Fixer](fixer.md)** (the null mantle — see below). Every seat carries a charter
   file; the Fixer's was minted at 028.
-- **The Dispatcher is dead** (D71) — tombstone in [dispatcher.md](dispatcher.md); the
+- **The Dispatcher is dead** — tombstone in [dispatcher.md](dispatcher.md); the
   flow engine (canon board charge 020) is the successor; **the dispatch** survives as
   the system noun. Until the engine lands, the batch note names its tender (doctrine
   §10).
@@ -76,7 +76,7 @@ axes.
 ## The null mantle — the Fixer
 
 Session-sized work — fix a bug, add a feature — needs no summons: **a session with no
-mantle IS a Fixer** (D71; D26's law otherwise intact) — the default worker under the
+mantle IS a Fixer** — the default worker under the
 global CLAUDE.md, staffed by tier alone. The boundary test is succession and
 coordination: work that must outlive its session or coordinate several sessions gets a
 board and mantles; work that fits one session with Felix in the room gets neither.
@@ -158,7 +158,7 @@ are no skill shims — purged 2026-08-29, unused: the rig won.
 
 ## The vocabulary
 
-The Guild speaks one standard — `canon/work/STANDARD.md` (D71 ⬡✓): one concept, one
+The Guild speaks one standard — `canon/work/STANDARD.md` (⬡✓): one concept, one
 word; the graveyard names every dead word's successor. The working law lives in the
 doctrine (`canon/work/DOCTRINE.md`): the board §4, the charge doc §5, findings §6, the
 bulletin §9, batches §10.
