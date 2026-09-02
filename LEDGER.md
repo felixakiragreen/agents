@@ -2881,7 +2881,7 @@ live surface with its interest — the LANDED charges whose chain reaches it, of
 graph, never kept — and `lint` prints its one line. D78 is enforceable: a resolved row's
 Status cell over 200 characters fails, a ledger entry over 150 words warns. Suite
 **102 → 109**; agents reads 33 over-cap cells and 166 entry warnings, stigmergon 4 and 30 —
-red on purpose. Nine findings in [041](plans/041-statement-caps.md); two the office's: BLOCKED
+red on purpose. Ten findings in [041](plans/041-statement-caps.md); two the office's: BLOCKED
 is off the statement by D82's list (F3), and 19 of the 33 cells are retired belvedere's, whose
 prune has no owner (F8). Decided: nothing new. Next: ignite 042.
 

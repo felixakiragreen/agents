@@ -190,6 +190,16 @@ landed the same day and nothing respells behind it. The first real mark lands th
 session writes one — the tool is ready and the corpus has not spoken yet, which is exactly
 what an empty statement should mean.
 
+**F10 — `--live` drops the decision register, so it drops a credit failure there.** Probed:
+a building whose `DECISIONS.md` carries `(2026-09-01, Architect · ⬡ go)` reports
+`credit.undated` twice in a full lint and **zero** times under `--live`, while the same defect
+on a board row survives. `liveFails` (`src/lint.ts`) has kept `board`, `prose`, `register` and
+the ledger tail since 025 and has never kept `decisions` — pre-existing, inherited rather than
+introduced here. It reads wrong now: D82 makes the register the surface a credit mark sits on
+"until he reads it", so the one arm named for what a session reads today is blind to it. One
+`f.artifact === 'decisions'` clause fixes it — the Architect's call, since `--live`'s
+definition is 025's.
+
 ---
 
 Kickoff (verbatim):
