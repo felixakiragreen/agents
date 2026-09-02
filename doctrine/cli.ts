@@ -6,10 +6,12 @@
 //   doctrine parse --json <building>                      one building, P3 §5's shapes
 //   doctrine buildings [--json]                           the building register, walked
 //   doctrine migrate [--write] <building>                 re-emit in the current grammar
+//   doctrine citations [--write] <building>               respell citations of killed D-ids
 
 import { existsSync, mkdtempSync, rmSync } from 'fs';
 import { tmpdir } from 'os';
 import { join, relative, resolve } from 'path';
+import { citationTargets, diffRun, renderHomes, respellBuilding, writeRun } from './src/citations';
 import { execSync } from 'child_process';
 import { discover, parse } from './src/building';
 import { byInterest, renderStatement } from './src/credit';
@@ -54,7 +56,15 @@ const USAGE = `doctrine — the reference reader for the work doctrine (canon/wo
       Form-only re-emission in the current grammar, across every tracked text file the
       building keeps. Prints the id respell table (D80, derived from the building's own
       board) first, then the diff and the round-trip verdict per file; --write is required
-      to touch a single byte on disk.`;
+      to touch a single byte on disk.
+
+  doctrine citations [--write] <building>
+      The citation respell (043, DOCTRINE §8's purge clause): on the canon repo's live law
+      surfaces, a citation of a killed register entry names the home that now carries the
+      law, and strips where it stands in that home. Prints the hand-kept home table first,
+      then the diff, then the census — every bare D-id still standing, the table's own
+      separated from the rest. A citation the shapes do not consume is a HAND edit: the run
+      lists it and refuses to guess. --write is required to touch a byte.`;
 
 const argv = process.argv.slice(2);
 const flag = (f: string) => argv.includes(f);
@@ -161,6 +171,38 @@ if (cmd === 'migrate') {
 	for (const m of migrations) write(m);
 	console.log(`\nWrote ${migrations.length} file(s).`);
 	process.exit(0);
+}
+
+if (cmd === 'citations') {
+	if (paths.length !== 1) die('doctrine citations: exactly one building path per call.');
+	const root = resolve(paths[0]!);
+	// The table is this repo's own register, so the fence is this repo's own surfaces: pointed
+	// anywhere else the run would read a stranger's ids as if they were ours (D80).
+	if (!existsSync(join(root, 'canon', 'work', 'DOCTRINE.md')))
+		die(`doctrine citations: ${paths[0]} is not the canon repo — the home table is its register's (043).`);
+
+	const runs = respellBuilding(root);
+	console.log(`the citation homes (043's table, hand-kept — DOCTRINE §8, the purge clause):\n${renderHomes()}\n`);
+	for (const r of runs.filter(x => x.edits.length)) console.log(diffRun(r) + '\n');
+
+	const bare = runs.flatMap(r => r.bare.map(b => ({ ...b, file: r.file })));
+	const owned = bare.filter(b => b.owned);
+	console.log(`census — bare D-ids still standing on the fence (${citationTargets(root).length} surfaces read):`);
+	console.log(`  the table's own, unconsumed — each a HAND edit: ${owned.length}`);
+	for (const b of owned) console.log(`     ${b.file}:${b.line}: ${b.id} — ${b.text.trim()}`);
+	const rest = new Map<string, number>();
+	for (const b of bare) if (!b.owned) rest.set(b.id, (rest.get(b.id) ?? 0) + 1);
+	console.log(`  outside the table — live ids and the forms rule 4 fences: ${bare.length - owned.length}`
+		+ (rest.size ? `\n     ${[...rest].sort((a, b) => +a[0].slice(1) - +b[0].slice(1)).map(([id, n]) => `${id}×${n}`).join(' ')}` : ''));
+
+	const edits = runs.reduce((a, r) => a + r.edits.length, 0);
+	if (!flag('--write')) {
+		console.log(`\nDry run: ${edits} edit(s) across ${runs.filter(r => r.edits.length).length} file(s) — 0 files written. Re-run with --write to apply.`);
+		process.exit(owned.length ? 1 : 0);
+	}
+	for (const r of runs.filter(x => x.edits.length)) writeRun(root, r);
+	console.log(`\nWrote ${runs.filter(r => r.edits.length).length} file(s), ${edits} edit(s).`);
+	process.exit(owned.length ? 1 : 0);
 }
 
 die(`doctrine: unknown command "${cmd}".\n\n${USAGE}`);
