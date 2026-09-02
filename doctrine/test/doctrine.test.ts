@@ -823,9 +823,10 @@ describe('the statement — every ⬡ go on a live surface, with its interest (D
 			['001', 'board', '2026-09-01', 2],            // 002 and 003 landed on top; 004 is OPEN
 			['D2', 'decisions', '2026-09-01', 0],
 			['005', 'board', '2026-09-02', 0],            // the gate paid on credit, nothing landed yet
+			['008', 'board', '2026-09-02', 0],            // BLOCKED is transient and owes its review — live (041-F3)
 			['the tail', 'ledger', '2026-09-02', 0],
 		]);
-		expect([r.totals.credits, r.totals.maxInterest]).toEqual([4, 2]);
+		expect([r.totals.credits, r.totals.maxInterest]).toEqual([5, 2]);
 	});
 
 	test('the interest is derived from the graph, never kept — unland 003 and it falls to 1', () => {
@@ -833,7 +834,7 @@ describe('the statement — every ⬡ go on a live surface, with its interest (D
 			'| 003 | [the top](plans/003-top.md) | 002 | Builder · opus-high | OPEN — laid 2026-09-01 |');
 		const rows = parseBoards(md).boards[0]!.rows;
 		const c = scanCredits({ boards: [{ file: '/x/BOARD.md', md, rows }], decisions: null, ledgerTail: null });
-		expect(c.credits.map(x => [x.where, x.interest])).toEqual([['001', 1], ['005', 0]]);
+		expect(c.credits.map(x => [x.where, x.interest])).toEqual([['001', 1], ['005', 0], ['008', 0]]);
 	});
 
 	test('what is NOT on the statement: a spent row, a quoted token, a ledger entry behind the tail', () => {
@@ -848,7 +849,7 @@ describe('the statement — every ⬡ go on a live surface, with its interest (D
 		const rows = parseBoards(md).boards[0]!.rows;
 		const scan = (file: string) => scanCredits({ boards: [{ file, md, rows }], decisions: null, ledgerTail: null }).credits;
 		expect(scan('/x/canon/work/STANDARD.md')).toEqual([]);
-		expect(scan('/x/BOARD.md')).toHaveLength(2);                 // the control: the same bytes, off the law book
+		expect(scan('/x/BOARD.md')).toHaveLength(3);                 // the control: the same bytes, off the law book
 	});
 
 	test('⬡ go is not a blessing and not the queue — it is the statement (D82, STANDARD §1)', () => {
@@ -866,7 +867,7 @@ describe('the statement — every ⬡ go on a live surface, with its interest (D
 		expect(renderStatement([], '~/code/agents')).toBe('the statement (D82) — nothing on credit: no ⬡ go on a live surface under ~/code/agents.');
 		const out = renderStatement(credit().buildings[0]!.credits, 'the fixture').split('\n');
 		expect(out[2]).toContain('2  ⬡ go 2026-09-01  001');
-		expect(out.at(-1)).toBe('  4 on credit · max interest 2');
+		expect(out.at(-1)).toBe('  5 on credit · max interest 2');
 	});
 
 	test('the three defects D78 and D82 make visible: an undated mark, an over-cap cell, an over-cap entry', () => {

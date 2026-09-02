@@ -39,7 +39,8 @@ export type CreditSources = {
  * D82's live surfaces: a board's OPEN / IN FLIGHT / LANDED rows (KILLED is spent and BLOCKED is
  * not in the ruling's list), every entry of the decision register, and the ledger's tail.
  */
-const LIVE_STATES: readonly (string | null)[] = ['OPEN', 'IN FLIGHT', 'LANDED'];
+// BLOCKED is transient by law (DOCTRINE §4) and still owes its review — a mark on it is live (041-F3, G3 2026-09-02)
+const LIVE_STATES: readonly (string | null)[] = ['OPEN', 'IN FLIGHT', 'LANDED', 'BLOCKED'];
 
 function sites(src: CreditSources): Site[] {
 	const out: Site[] = [];
