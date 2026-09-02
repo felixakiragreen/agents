@@ -2896,7 +2896,7 @@ the `git rm`, `sync/check` green ×3. The mantles README's grid law is now
 **mint-at-the-lay**: the cross product is the namespace, `canon/agents/` is the
 inventory, and a tier a new charge names is minted by the Architect before the batch
 ignites. `TIERS` untouched, so every historical board still parses. Suite 977/0, lint
-identical to a HEAD worktree (33/167, all belvedere). Nine findings in
+identical to a HEAD worktree (33/167, all belvedere). Ten findings in
 [042](plans/042-grid-prune.md) — **F4 is the open one:** `haiku-low` fails the blessed
 rule (probe mentions only, zero fires) but the spec's partition presumes it survives, and
 killing it retires Haiku entirely — the Architect's call, not the Builder's. F8: a

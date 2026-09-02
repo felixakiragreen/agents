@@ -245,6 +245,15 @@ it; probes ship with a control)*
   a defect, but the rig's picker still offers all four models × five efforts with no hint
   that eight of the twenty have no dispatch counterpart.
 
+- **F10 — beyond the fence, for whoever owns `desk/`: `git add -A` in this repo is a
+  trap.** `desk/stigmergon-settings.json` and `desk/stigmergon-spaces.json` are tracked
+  and are live console state — they went dirty during this build with no hand on them
+  (a focus-session id, a pane ratio, a `collapsed: true`), and the first `git add -A`
+  swept both into 042's commit. Backed out (`git reset --soft` + `git restore --staged`);
+  the commit is clean and the files are left modified in the working tree, untouched.
+  Not this charge's to fix, and not filed to `ISSUES.md` — the inbox takes Felix's hand
+  or a session at his word, and this Builder had neither.
+
 ---
 
 Kickoff (verbatim):
