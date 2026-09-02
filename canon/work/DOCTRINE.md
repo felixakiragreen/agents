@@ -6,7 +6,7 @@
 How work is represented in any project: the doc pattern that lets a session start cold in
 two minutes, agents run in parallel without collisions, and truth survive every context
 wipe. The charters (`canon/mantles/`) say who does what, the Guild's Standard
-([STANDARD.md](STANDARD.md), D71) says what the words mean; this file says what the files
+([STANDARD.md](STANDARD.md)) says what the words mean; this file says what the files
 are. Distilled from two proven implementations — hexwright (`~/code/hexwright`) and
 simmy (`~/code/universal_robots_sdk/cap-mega/simmy`) — birthplaces cited inline; new law
 only where evidence forced it.
@@ -90,17 +90,17 @@ before.**
   protocol already bounds the read. Birthplace: 034/035's blades, run once each;
   made standing 2026-08-31 (belvedere's README hit 988 lines, simmy's 100k chars —
   the bloat recurs wherever the sweep isn't scheduled).
-- **Naming law (D25):** **ALLCAPS for protocol singletons; lowercase-kebab for
+- **Naming law:** **ALLCAPS for protocol singletons; lowercase-kebab for
   addressable siblings.** A file is ALLCAPS when both tests pass: only one of it can
   exist in its scope, AND sessions are told to read it as protocol — `CLAUDE.md`,
   `MAP.md`, `README.md`, `LEDGER.md`, `DECISIONS.md`, `ISSUES.md`, `DOCTRINE.md`,
   `STANDARD.md`, `CODA.md`, `BULLETIN.md`, `SKILL.md`. One of many addressable siblings
   is lowercase-kebab — charge docs (`plans/004-sync.md` — the id leads, zero-padded
   to three so the directory sorts; the standard §7), mantle charters, tiers,
-  templates. `dream.md` (né `initial.md` — D33) stays lowercase by the second test: a
+  templates. `dream.md` (né `initial.md`) stays lowercase by the second test: a
   singleton, but an artifact interpreted once at founding, not a protocol followed.
   Practiced since hexwright/simmy; codified 2026-08-03.
-- **Linking law (D58):** durable docs link the files they reference at first mention —
+- **Linking law:** durable docs link the files they reference at first mention —
   `[plans/004-sync.md](plans/004-sync.md)`, `[D19](DECISIONS.md)` — one click beats a
   minute's hunt. Anchors only onto real headings: a bold list item resolves no anchor —
   the file link is the value. Boards link their charge docs (this repo's board, since
@@ -133,8 +133,8 @@ before.**
   amended 2026-08-31 ⬡✓: hexwright's dream arrived mature by his own hours and the
   law generalized from that accident; Belvedere's froze half-refined and the
   foundation failed on the details. Co-development's ancestors: the standard's nine
-  live rounds, the charters' probe forge. Renamed from `initial.md`, D33.)
-- **ISSUES.md law (D53):** the project's incident inbox — field reports and
+  live rounds, the charters' probe forge. Renamed from `initial.md`.)
+- **ISSUES.md law:** the project's incident inbox — field reports and
   distillation candidates land there mid-work: Felix's hand, or a session's at his word
   (a Fixer told to file does so and moves on). The project's Architect sweeps at every
   review session: each entry ruled — distilled into the docs, laid as a charge,
@@ -143,8 +143,8 @@ before.**
   rejections, git keeps the bytes (entries are committed before they are cleared).
   A cleared inbox is empty — it never becomes a second ledger; protocol rides the
   file's header. Minted at founding; a subproject adopts on first need. Birthplace:
-  the canon repo's own inbox (D49, three sweeps run) + simmy's, in daily use.
-  **Entry format (D63):** `- <YYYY-MM-DD> · <who> · <what>` — one bullet per entry;
+  the canon repo's own inbox (three sweeps run) + simmy's, in daily use.
+  **Entry format:** `- <YYYY-MM-DD> · <who> · <what>` — one bullet per entry;
   an entry that needs evidence becomes a `---`-separated block opening with that same
   line, evidence lines under it (bob's invention, canonized). No `Open`/`Harvested`
   sectioning — a sectioned inbox is a second ledger; the clear law stands.
@@ -160,7 +160,7 @@ design (D78; amended 2026-08-31 — the old board-in-master-doc law optimized aw
 hop and bought a 25k-token wade: one function, one home). A subproject README carries
 its board inline until the split rule triggers (§3). **Any table that staffs sessions
 is a board**, and this section is its law — a build board inside a contract doc is not
-exempt by its venue (D45).
+exempt by its venue.
 
 **A charge is one ignitable unit of work = one charge doc = one session.**
 
@@ -172,30 +172,30 @@ exempt by its venue (D45).
   declared at founding — the building is the namespace, and the namespace law is the
   standard's (`STANDARD.md` §7, D80).
 - **Work** — one line: the question or the mission. It opens with the
-  **encapsulation** — the ≤6-word linked name (D74); qualifiers follow after `—`.
-- **Depends on** — exactly three forms (D63; D74): charge ids that must be LANDED
+  **encapsulation** — the ≤6-word linked name; qualifiers follow after `—`.
+- **Depends on** — exactly three forms: charge ids that must be LANDED
   first, the qualified cross-building id `<building>:<id>` (resolved against the
   building register — `canon/BUILDINGS.md`, D79 — at lint; a real crossing, used
   sparingly), and `⬡-gate: <text>` for a named gate (a blessing,
   a ruling); "—" when none. Anything else is not a dependency: a physical precondition
-  becomes a gate charge (D44), a scheduling note rides the batch note (D28) or the
+  becomes a gate charge, a scheduling note rides the batch note or the
   Status annotation. This column exists to compute the dependency graph; prose breaks
-  it. **The edge test (D73):** an edge exists only where the charge reads its
+  it. **The edge test:** an edge exists only where the charge reads its
   dependency's result — ordering preference is schedule, and schedule rides the batch
   note or the flow.
 - **Staffing** — mantle · tier, both verbatim (`Digger · opus-high`), **or the literal
-  token `⬡-gate`** for a gate charge that is really Felix's (D63) — Belvedere renders
+  token `⬡-gate`** for a gate charge that is really Felix's — Belvedere renders
   his card and never auto-ignites it. Either form may carry a parenthetical
   **annotation** — `Builder · opus-high (worktree)`, `⬡-gate (smoke ×3)` — for eyes,
   parsed and ignored by dispatch; an annotation never homes the concurrency plan (the
-  batch note and the summons stay its home, D28). **Charges are always staffed** — an
+  batch note and the summons stay its home). **Charges are always staffed** — an
   unstaffed charge is not permitted, ever (lint-hard); a DEFERRED charge keeps
   the staffing it had, `—` where the shelving dissolved it. A sub-slot whose record
   history never held writes `unrecorded` — the typed absence, never a guess.
   Staffing guidance lives in the tier descriptions (`canon/agents/`) — the
   single home; boards point, never duplicate.
 - **Status** — the lifecycle below, plus annotations: dates, findings pointers, unmerged
-  branch names. A landing's unresolved remainders are typed (D74):
+  branch names. A landing's unresolved remainders are typed:
   `LANDED <date> — holds: <list>` — each hold an `E‹n›` or a `⬡ <text>`; unresolved
   holds pause dependent charges, and clearing is written on the row. Escalations are
   ids: born `E‹n› — <what>`, dead `E‹n› ruled <date>`.
@@ -214,7 +214,7 @@ exempt by its venue (D45).
 - **PENDING** — an annotation, not a lifecycle state: a named remainder waiting on an
   external precondition (a login, hardware reach). Recorded, not blocking; nobody
   ignites PENDING (simmy's Pi cells; this campaign's Max `/login`). **Never the
-  leading token** (D63): write `OPEN — PENDING <precondition>` — **The state leads,
+  leading token**: write `OPEN — PENDING <precondition>` — **The state leads,
   the annotation follows.**
 - **DEFERRED** — an annotation, not a lifecycle state: a laid charge deliberately set
   aside — real, tracked, nobody waiting; un-deferring is a fresh decision. PENDING
@@ -228,13 +228,13 @@ completed campaign **sets the keystone**, the standard §2), WIP (→ IN FLIGHT)
 (→ OPEN), AUTHORED (a filed design is LANDED; its blessing gates the NEXT charge). The
 graveyard of dead words and their successors is the standard's (`STANDARD.md` §9).
 
-**Resolution vocabulary (D63):** gate, merge, and design charges resolve into the five
+**Resolution vocabulary:** gate, merge, and design charges resolve into the five
 states, the verdict riding the annotation — `LANDED — PASSED <evidence>`,
 `LANDED — MERGED <sha>`, `LANDED — BLESSED <date>` — or `LANDED — ⬡ go <date>` where
 Felix authorized without looking (D82; the standard §1). The lifecycle stays five words;
 PASSED / MERGED / BLESSED never lead.
 
-**Gates are charges (D44).** A judgment step between charges — a merge review, a landing
+**Gates are charges.** A judgment step between charges — a merge review, a landing
 verification, a blessing checkpoint — is itself a charge: ID'd, staffed (mantle · tier),
 dependencies naming what it gates, kickoff verbatim (riding the batch note or the gated
 charge's doc — a gate needs a kickoff, not necessarily its own doc). A gate whose
@@ -246,7 +246,7 @@ dispatch time — the parallel-affordable law, applied to sequence (birthplaces:
 manny's M2 review; units' gate column, invented in the field the day before this law). A
 gate that merges names its instrument verbatim in its kickoff — source branch, target,
 PR-vs-push — and verifies THEN merges. **Passing = finished.** The run that proves it
-has FINISHED — not started, not predicted — before the merge executes (D48).
+has FINISHED — not started, not predicted — before the merge executes.
 
 **Under the board:**
 
@@ -305,11 +305,11 @@ a bug.** (hexwright WO anatomy).
 **Kickoff law:** every charge doc ends with its kickoff prompt, fenced, verbatim, in the
 canon summons grammar (`canon/mantles/README.md`). Nobody edits a kickoff except the
 Architect replacing an un-ignited charge — nothing re-lays. Ignition = kickoff + the
-project coda, nothing else. The single-glance test (D45): a kickoff's first line is the
+project coda, nothing else. The single-glance test: a kickoff's first line is the
 summons line — `You are a <Mantle> at <tier>.` — a kickoff that doesn't open by naming
 both is malformed; fix it before ignition.
 
-**Pre-authorization (D54, generalized 2026-08-31):** fetching, vendoring, installing
+**Pre-authorization (generalized 2026-08-31):** fetching, vendoring, installing
 beyond the repo's existing dependencies, or executing anything pulled from the network
 happens only when the charge doc names it — an unnamed need is a stop-and-escalate
 fork, never an after-the-fact review. A vendored tree records its exact upstream
@@ -373,13 +373,13 @@ corrects, never rewrites (ruled 2026-08-29, the 026 -ise correction).
 outcomes + pointers>. Decided: <D-ids, or "nothing">. Next: <the handoff>.
 ```
 
-The head's bold run holds those four things and nothing else (D63) — annotations,
-session titles, and color go in the body. **The Next law (D63):** when the baton hands
+The head's bold run holds those four things and nothing else — annotations,
+session titles, and color go in the body. **The Next law:** when the baton hands
 a session, `Next:` carries the summons — fenced verbatim in the entry when it lives
 nowhere else, or by naming the board charge(s) whose docs carry the fences
 (`ignite <charge-ids>`; the old `fire` verb stays legal in history) — never re-typed
 from memory: a kickoff the Architect replaces must not leave a stale twin here. A
-`Next:` that names a next session without its instrument is a dropped baton (D46/D64).
+`Next:` that names a next session without its instrument is a dropped baton.
 A session owing nothing writes the typed close **`Next: none — <why>`** — never bare
 prose ("nothing waits") that no parser can tell from a dropped baton (amended
 2026-08-31, B26 F2 — the fourth filing of this ask).
@@ -465,8 +465,8 @@ tender creates `plans/BULLETIN.md` (next to the charge docs — simmy's lived at
   refuses the write; reads pass) — each appends to its own worktree's bulletin copy
   (created if absent), entries headed `→ relay`, left uncommitted; the tender relays
   flagged entries verbatim into the main bulletin as part of tending — everything else
-  rides their branch (D50; birthplace: arborist A8, rooted `ec1a6a1`).
-- **Late relocation (D50):** when a batch's parallel-isolation window closes and every
+  rides their branch (birthplace: arborist A8, rooted `ec1a6a1`).
+- **Late relocation:** when a batch's parallel-isolation window closes and every
   remaining consumer shares one worktree, the bulletin may relocate into that worktree
   (still uncommitted), two conditions mandatory: distillation-completeness verified
   first — every entry has a committed home or pointer — and a never-`git add` line in
@@ -485,7 +485,7 @@ tender creates `plans/BULLETIN.md` (next to the charge docs — simmy's lived at
   with it (§4). A campaign whose foundation is unproven opens with a Digger's charge —
   what to build on, with kill criteria — before its first Builder's; its findings are
   the first sitting's inputs (D85). Gates are laid as charges (§4), ⬡-gates named — and **the lay
-  maximizes the run between Felix's judgment calls** (D44): every foreseeable ⬡-fork
+  maximizes the run between Felix's judgment calls**: every foreseeable ⬡-fork
   in the arc is surfaced and ruled at blessing time so his rulings travel in the docs;
   what remains of him is the named gates, batched, never dribbled. A batch that stops
   for something the lay could have pre-ruled was mis-laid.
@@ -494,7 +494,7 @@ tender creates `plans/BULLETIN.md` (next to the charge docs — simmy's lived at
   to emerge from individually compliant charges. A running batch is amendable: the
   Architect commits the amended batch note and hands the tender the new charges as a
   message carrying the same instruments as the summons — sequencing an independent
-  charge behind a running batch it doesn't depend on is mis-laid (D57; birthplace:
+  charge behind a running batch it doesn't depend on is mis-laid (birthplace:
   cornerizer batch 8, amended mid-flight 2026-08-16). Every batch has a tender, and
   the default is machine tending, serial batches included. **The interim truth,
   plainly:** the Dispatcher mantle is dead and its successor — the flow engine, charge
@@ -511,8 +511,8 @@ tender creates `plans/BULLETIN.md` (next to the charge docs — simmy's lived at
   smoke); batch size is never the reason. The lay composes the longest
   machine-runnable arc — building charges and dispatched review gates in one serial
   batch — and the batch returns to Felix only at escalations and named ⬡-gates,
-  resuming on his word where it paused (D61).
-- **The flow (D73).** A flow is a batch as data — the declared DAG the dispatch runs
+  resuming on his word where it paused.
+- **The flow.** A flow is a batch as data — the declared DAG the dispatch runs
   (the engine: Belvedere B10–B12; the arm contract and scope-arm growth are belvedere:D11
   and belvedere:D12, ratified canon-side). For engine-tended batches **the flow file is the
   batch note** — the board's note points at it (`flow: <name>` + the tender line);
@@ -541,8 +541,8 @@ tender creates `plans/BULLETIN.md` (next to the charge docs — simmy's lived at
   live there (simmy §8). Work that needs a branch runs in a worktree, and its charge
   doc says so; the board records unmerged branches until the Architect merges or
   rejects. A shared branch is never rewound: no force-push, planned or contingent —
-  red after a premature merge is an escalation, not a rewind (D48).
-- **Venue law (D55):** a charge that mints a disposable live venue — a VM, a
+  red after a premature merge is an escalation, not a rewind.
+- **Venue law:** a charge that mints a disposable live venue — a VM, a
   container, a machine — deletes it at landing; pausing is for mid-work, never for
   done. A teardown the permission guard refuses is reported in the charge's report for
   the Architect's sweep at batch close: a refused delete reported is fine, a venue
@@ -567,14 +567,14 @@ Every session, any mantle:
   Felix's git style. **The test for whether a context wipe is free: everything the
   next session needs lives in the repo, not the conversation** — if it doesn't yet,
   write it down first; that's the signal you weren't at a clean boundary (hexwright
-  CLAUDE.md, canonized). Suggest the break, and end with **the baton** (D42): open
+  CLAUDE.md, canonized). Suggest the break, and end with **the baton**: open
   escalations and the decision queue first, then exactly one action — ready by
   definition — addressed to one holder, any further work explicitly ordered behind
   it. **A baton must read cold** (the standard's acceptance test), and it takes one
-  shape — `Baton — <one holder> → <action>` — **the holder is written** (D74): `⬡`,
+  shape — `Baton — <one holder> → <action>` — **the holder is written**: `⬡`,
   a named session, or **the dispatch** (a batch the machinery tends says so — no
   hand is waited on, the flow runs); the parser reads the written holder, never
-  infers it. The action takes one of three shapes (D64): **single** (one
+  infers it. The action takes one of three shapes: **single** (one
   instrument — the summons fenced verbatim, an `ignite <charge-id>` reference, or
   the named ⬡-action: a blessing, a smoke, a ruling); **batch** (`batch —` marked:
   n parallel instruments, legal iff the holder could ignite all of them now without

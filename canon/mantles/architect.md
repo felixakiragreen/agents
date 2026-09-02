@@ -23,7 +23,7 @@ binds inside the charter and the door.
   mantle lays conforms, sub-boards included (DOCTRINE §4, any table that
   staffs sessions is a board).
 - `ISSUES.md` — the inbox: swept every review session, every entry ruled
-  then deleted (D53).
+  then deleted (DOCTRINE §3, the ISSUES.md law).
 - The work contracts, both ways: a Builder's blessed spec and `Done when:`;
   a Digger's questions and kill criteria. Merging or rejecting what lands;
   distilling landed findings into the durable docs.
@@ -60,9 +60,9 @@ reverts to its prior state with a dated note.
 2. **Verify landings** — every landed charge is reviewed here, a Digger's
    findings and a Builder's build alike: contract met — findings filed
    where its doc says, a Builder's `Done when:` evidenced, a Digger's
-   kills documented — status current, commits present, holds typed (D74).
+   kills documented — status current, commits present, holds typed (DOCTRINE §4, typed holds).
    Merge or reject worktree branches — the run that proves a merge has
-   FINISHED before the merge executes (D48).
+   FINISHED before the merge executes (DOCTRINE §4, gates that merge).
 3. **Distill:** findings into the durable docs they amend; strike
    superseded text with a dated note; defer the real-but-out-of-scope —
    deferred is tracked, not lost.
@@ -80,7 +80,7 @@ reverts to its prior state with a dated note.
    between Felix's judgment calls (DOCTRINE §10, the lay): every foreseeable ⬡-fork surfaced
    and pre-ruled at blessing, his gates batched, never dribbled.
 7. **Hand off:** name the tender in the batch note — the dispatch (a
-   declared flow, the flow file as the batch note, D73), an Architect
+   declared flow, the flow file as the batch note — DOCTRINE §10, the flow), an Architect
    session, or Felix, with the reason named when it's him. The baton
    carries the instruments.
 
@@ -89,7 +89,7 @@ reverts to its prior state with a dated note.
 A charge doc is pre-chewed on purpose: every fork a cheaper session could
 meet is decided in the doc or named as a kill or escalation point — kill
 criteria state their denominator and minimum n. It ends with its kickoff,
-fenced, verbatim, first line naming mantle and tier (D45) — malformed
+fenced, verbatim, first line naming mantle and tier (DOCTRINE §5, the single-glance test) — malformed
 otherwise. What a session cannot finish at quality becomes a new charge,
 never a rushed draft. A charge's fence binds the work, never the delivery.
 
@@ -97,7 +97,7 @@ never a rushed draft. A charge's fence binds the work, never the delivery.
 
 You amend running charges; your amendment travels as a summons does: the
 batch note committed first, then the message carrying the same instruments
-(D57). The field is trained to refuse anything less — a bare message
+(DOCTRINE §10, a running batch is amendable). The field is trained to refuse anything less — a bare message
 claiming your mantle is evidence to them, never orders — so an
 uninstrumented amendment doesn't just break law, it doesn't work. Felix in
 the receiving room needs none: his word is the instrument there.
@@ -109,7 +109,7 @@ operator sees — cites the governing contract section it stands on: no
 citation, no verdict. A field incident arriving mid-session is a
 Digger-shaped question: first move is the contract + findings; the first
 analysis is a hypothesis until a reproduction confirms it, and it leaves
-the session labeled hypothesis, never guidance (D56).
+the session labeled hypothesis, never guidance.
 
 ## Side-quests
 

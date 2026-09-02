@@ -4,7 +4,7 @@
 > Builders build — a hive building a city; files carry the truth.*
 
 The Guild's framing glossary — the two metaphor registers its language runs on, written
-down the day the sovereign asked for the map (2026-08-15, session 07; D51). This page
+down the day the sovereign asked for the map (2026-08-15, session 07). This page
 explains the system; it never overrides it. Law lives in the charters, the doctrine,
 and the standard — where this page and a charter disagree, the charter wins and this
 page gets fixed.
@@ -13,7 +13,7 @@ page gets fixed.
 
 Civilization is standardization. Nobody designs the city: the code makes ten thousand
 hands build one city instead of a pile. And the code carries style — the naming law,
-the tab law, the git voice, the hive-city language itself (D31) — which is why three
+the tab law, the git voice, the hive-city language itself — which is why three
 hives' work looks like one city and not three.
 
 | The city | The Guild |
@@ -22,11 +22,11 @@ hives' work looks like one city and not three.
 | The building code | canon: charters, tiers, doctrine, the standard, the global CLAUDE.md |
 | The standards office | the Grand Architect — one office, a succession of holders |
 | **The sovereign** | **Felix** — commissions every work, signs every change order, holds the treasury and guards taste like a dragon |
-| The sovereign's counsel | the Mentat (D62) — thinks beside the throne, holds no seal |
+| The sovereign's counsel | the Mentat (mentat.md) — thinks beside the throne, holds no seal |
 | A building | a project — a repo with its own board |
 | Architect of record | that project's Architect |
 | The commission letter | `dream.md` — the client's own words, framed, never edited |
-| The master plan | the master doc — `MAP.md` / `README.md` (D60) |
+| The master plan | the master doc — `MAP.md` / `README.md` (DOCTRINE §3, the file set) |
 | A programme of works | a campaign — all the batches of charges toward one keystone |
 | The works schedule | the board; a charge = one job = one crew's shift (a session) |
 | A job ticket | the charge doc — survey or construction; the mantle says which |
@@ -37,8 +37,8 @@ hives' work looks like one city and not three.
 | Inspection reports | findings — evidence-grade, filed under the job that produced them |
 | Scaffolding | `lab/` — comes down when the works close |
 | Working without a permit | the Fixer (the mantles README, the null mantle) — session-sized, the sovereign's own two hands |
-| The reserved groundbreaking | the substrate (D39) — the metro: city infrastructure, its cornerstone laid by the standards office at the sovereign's call |
-| Two empty rooms uptown | the Royal and Imperial thrones (D39) — kept empty until the city can give them eyes |
+| The reserved groundbreaking | the substrate (MAP §10, the horizon) — the metro: city infrastructure, its cornerstone laid by the standards office at the sovereign's call |
+| Two empty rooms uptown | the Royal and Imperial thrones (MAP §10, the horizon) — kept empty until the city can give them eyes |
 
 Two of these entries the building trade already practices for real — the site diary and
 the change-order register — which is how you know the frame is load-bearing and not
@@ -58,9 +58,9 @@ Who to summon, in six clauses:
 4. **A repair with the toolbox in your hand** — session-sized, sovereign present →
    **no permit needed** (the Fixer — the mantles README, the null mantle).
 5. The standing exception: **the metro** (the substrate) is the standards office's
-   groundbreaking, at the sovereign's call, when it comes (D39).
+   groundbreaking, at the sovereign's call, when it comes (MAP §10, the horizon).
 6. **Thinking beside the sovereign** — cross-project, no works, no permit → **the
-   Mentat** (D62): changes minds, not files; a thought that becomes work is handed to
+   Mentat** (mentat.md): changes minds, not files; a thought that becomes work is handed to
    clauses 1–4.
 
 And the keystone of the routing law, recorded because the sovereign once forgot his
@@ -71,7 +71,7 @@ office — the best decisions are driven by real pain, and the pain is his to fe
 ## 3. The hive
 
 The same city, seen from inside the work. An account is a hive; a session is a bee;
-account memory is comb — wax, never truth (D27: durable truth promotes to repos).
+account memory is comb — wax, never truth (MAP §6, the silo law — durable truth promotes to repos).
 Files are trails: agents leave them, trails direct agents — stigmergy, the reason
 strangers who never meet can build one city.
 
@@ -79,7 +79,7 @@ strangers who never meet can build one city.
 |---|---|
 | A hive | one Claude account (of three) |
 | A bee | a session — mortal, mid-thought, replaceable |
-| Comb | account memory — a cache, never the truth (D27) |
+| Comb | account memory — a cache, never the truth (MAP §6, the silo law) |
 | Trails | the docs — board, charge docs, findings, ledger |
 | The waggle | the plain-speech signal (below) |
 

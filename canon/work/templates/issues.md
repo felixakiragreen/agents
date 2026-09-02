@@ -1,4 +1,4 @@
-# Issues — the incident inbox (D53)
+# Issues — the incident inbox (DOCTRINE §3, the ISSUES.md law)
 
 Field reports and distillation candidates land here mid-work — Felix's hand, or a
 session's at his word. Entry format: `- ⟨YYYY-MM-DD⟩ · ⟨who⟩ · ⟨what⟩` — one

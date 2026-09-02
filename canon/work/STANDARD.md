@@ -1,6 +1,6 @@
 # The Guild's Standard
 
-**Status:** BLESSED ⬡✓ 2026-08-29 (D71 — "I bless the standard") — laid 2026-08-28
+**Status:** BLESSED ⬡✓ 2026-08-29 ("I bless the standard") — laid 2026-08-28
 by the 21 census session, chosen with Felix across nine live rounds. This document
 supersedes DOCTRINE §13; the deploy batch carries it into the law book, the parser,
 the city, and the glass. Amended 2026-09-01 (D80 — the id namespace: §2 ‹nnn›, §7, §9; D82 — the go-mark:
@@ -71,10 +71,10 @@ replaces.
   to run between ⬡-gates; the batch note carries the shape and concurrency. ·
   *instead of:* wave, chain (a serial batch is a description, not a term).
 - **flow** · noun · a batch as data — the declared DAG the dispatch runs; for
-  engine-tended batches the flow file is the batch note (D73). Nothing dies — new
+  engine-tended batches the flow file is the batch note (DOCTRINE §10, the flow). Nothing dies — new
   machinery.
 - **hold** · noun · a named remainder on a landing that pauses dependent charges —
-  `LANDED — holds: ‹list›`; absent = clean; clearing is written on the charge (D74).
+  `LANDED — holds: ‹list›`; absent = clean; clearing is written on the charge (DOCTRINE §4, typed holds).
 - **campaign** · noun · all the batches of charges toward one keystone. The
   hierarchy: **charge < batch < campaign** — no mid-level (chapter/milestone retire
   to prose).

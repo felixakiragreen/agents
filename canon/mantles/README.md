@@ -4,7 +4,7 @@
 > Builders build — a hive building a city; files carry the truth.*
 
 Every session is **tier × mantle × context** (MAP §2) — together, **the Guild**
-(D37). This file is its operational law: how tiers are named, how a mantle is worn, how
+(the global CLAUDE.md, THE AGENTS CANON). This file is its operational law: how tiers are named, how a mantle is worn, how
 sessions are summoned, and which law wins when laws collide.
 
 ## The roster
@@ -12,7 +12,7 @@ sessions are summoned, and which law wins when laws collide.
 - **Offices** — singular standing institutions, one holder at a time, a succession:
   **[Grand Architect](grand-architect.md)** (standards and canon),
   **[Mentat](mentat.md)** (the Sovereign's thinking partner) — each charter titled as
-  an office. Reserved: Imperial and Royal Architect (D39), Hand of the King /
+  an office. Reserved: Imperial and Royal Architect (MAP §10, the horizon), Hand of the King /
   Quartermaster, Steward.
 - **Mantles** — plural role charters, many wearers at once:
   **[Architect](architect.md)**, **[Builder](builder.md)**, **[Digger](digger.md)**,
@@ -126,14 +126,14 @@ project, appended verbatim to every ignition.
 > uncommitted — the tender relays flagged entries verbatim; everything else of
 > yours rides your branch. Third-party code — fetch, vendor, install beyond existing
 > deps, or execute from the network — only where your charge doc names it; otherwise
-> STOP and escalate (D54). Before your last commit: reconcile your charge's Status in
+> STOP and escalate (DOCTRINE §5, pre-authorization). Before your last commit: reconcile your charge's Status in
 > the surface you can write — a landing that marks no row is invisible. Your findings
 > file and commits are the deliverable. Your final report is logistics only: status
 > (LANDED / KILLED / BLOCKED), a one-line outcome, and pointers to findings + commits.
 
 Universal core (never varies): the dispatched framing · files-are-the-deliverable ·
 status reconciliation (D78's sitting — 029's invisible landing is the birthplace) ·
-report-is-logistics-only · third-party pre-authorization (D54). Project slots:
+report-is-logistics-only · third-party pre-authorization (DOCTRINE §5, pre-authorization). Project slots:
 agreements ref, bulletin path (projects with no bulletin drop that sentence), worktree
 specifics.
 
@@ -179,5 +179,5 @@ charter and the door."; the Builder alone appends the precedence-bites sentences
 reason to exist. The Fixer carries none — **The license** stands in its place. Wrapping
 is not normalized between the two families, so the lint is word-level, not byte-level.
 
-A charter that can't be finished at this quality becomes a bounded charge (D4), never a
+A charter that can't be finished at this quality becomes a bounded charge (DOCTRINE §5, the charge doc), never a
 rushed draft.
