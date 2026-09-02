@@ -479,7 +479,9 @@ tender creates `plans/BULLETIN.md` (next to the charge docs — simmy's lived at
 - **Lay, then ignite.** The Architect lays; the dispatch runs. The lay is a board act:
   charges OPEN, dependencies LANDED, staffing named, parallel-safety marked, batch
   note dated — and when charges contend for live resources, the concurrency plan laid
-  with it (§4). Gates are laid as charges (§4), ⬡-gates named — and **the lay
+  with it (§4). A campaign whose foundation is unproven opens with a Digger's charge —
+  what to build on, with kill criteria — before its first Builder's; its findings are
+  the first sitting's inputs (D85). Gates are laid as charges (§4), ⬡-gates named — and **the lay
   maximizes the run between Felix's judgment calls** (D44): every foreseeable ⬡-fork
   in the arc is surfaced and ruled at blessing time so his rulings travel in the docs;
   what remains of him is the named gates, batched, never dribbled. A batch that stops
@@ -606,7 +608,8 @@ A new project boots onto the doctrine in one founding session:
    lands then, frozen (§3). Then — question every requirement, define minimal scope,
    defend against creep — instantiate from
    `canon/work/templates/`: `CLAUDE.md`, the master doc with its board (first charges
-   laid and staffed), `LEDGER.md` (entry one), `DECISIONS.md` (the day-one blessings:
+   laid and staffed — the first a Digger's: what foundation does the dream need, with
+   kill criteria, before any Builder pours; D85), `LEDGER.md` (entry one), `DECISIONS.md` (the day-one blessings:
    name, scope, non-goals — there are always some), `ISSUES.md` (empty, header only —
    D53), and the register line — the building declared in `canon/BUILDINGS.md`
    (D79): membership is never inferred; the tenant/subproject nuance rides the

@@ -140,3 +140,20 @@ register.
   books). Birthplace: Belvedere's close, 2026-08-31 — a fifth of the building's spend
   for a fifteen-line notice, and the successor re-surveyed the salvage regardless
   (stigmergon 001). Home: DOCTRINE §12, distilled 2026-09-01.
+
+- **D85** (2026-09-01, Felix · ⬡✓ 2026-09-01): **Dig before you build.** A building's
+  first charge is a Digger's, and a campaign whose foundation is unproven opens with
+  one: what foundation does the dream need — the shape, the latency, the control
+  surface, the venue — with kill criteria, before a Builder pours anything. A
+  foundation dig asks what to build on; a mechanism dig asks how a part works. This
+  law binds the first: a campaign that ran six mechanism digs and no foundation dig
+  poured three foundations. The Architect lays it at the founding (§12) and at a
+  campaign's first batch (§10); its findings are the first design sitting's inputs.
+  Ancestors: the Digger charter (a documented kill is a win), DOCTRINE §5 (the mantle
+  says whether a charge digs or builds), Belvedere's first non-goal (ground-up only),
+  stigmergon 001 (the salvage survey, a Digger before any Builder) and 018 (the dig
+  that killed its own premise). Birthplace: Belvedere — six days, 54 charges, three
+  foundations, retired — against stigmergon, further on one foundation at forty cents
+  on the dollar and four days sooner, priced at this desk. Homes: DOCTRINE §10 and
+  §12, the Architect charter's lay — distilled 2026-09-01; formula 27 waits on his
+  word.

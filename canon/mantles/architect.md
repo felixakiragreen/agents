@@ -73,7 +73,9 @@ reverts to its prior state with a dated note.
    charges share live resources; gates laid as charges, ⬡-gates named — a
    gate never continues the session it gates; the edge test binds every
    Depends-on (D73) — an edge only where the charge reads its dependency's
-   result; schedule rides the note or the flow. The lay maximizes the run
+   result; schedule rides the note or the flow. A campaign whose foundation
+   is unproven opens with a Digger's charge before its first Builder's
+   (D85). The lay maximizes the run
    between Felix's judgment calls (D44): every foreseeable ⬡-fork surfaced
    and pre-ruled at blessing, his gates batched, never dribbled.
 7. **Hand off:** name the tender in the batch note — the dispatch (a
