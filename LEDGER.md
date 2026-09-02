@@ -2857,3 +2857,18 @@ tender's first run was ignited at his hand while this was written. Decided: D86 
 
 Baton — the dispatch → the tender runs 041 → 042 → 043 → G3; the office verifies G3's
 close at its next desk.
+
+---
+
+**2026-09-01 · Grand Architect · fable-max (grand-architect-22)** — *(third act — the sweep
+for what the conversation still held.)* Written: the Log's read cut to the head, the
+Shelf and the last entry (its physics and the charter's ritual, his yes); D87 proposed —
+the canon moratorium, three shapes, (b) recommended, the queue reads 1; the night-shift
+keel's status note (laws 3 and 6 paid as D86 and D82, the tender as the tick's interim);
+MAP §6's settings-sync note. Owed to the deferred list at the batch's close — the tender
+holds `BOARD.md` mid-flight, so G3 moves them from here: the effort axis, one sentence for
+the README's grid section (the model buys instincts, effort buys search; low effort on a
+strong model is the bulk-verdict niche); the index-import test, the consumer's
+false-green guard; `rooted` — 0.44B tokens in thirty days, a Dispatcher ran there, and
+the register has never heard of it — his ruling. Decided: nothing — D87 is proposed.
+Next: unchanged — the dispatch holds the batch.

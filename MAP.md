@@ -96,7 +96,9 @@ of this file by bytes).
 
 - Syncing sessions/history/agent-memory between accounts (the silo law: memory is a
   per-account cache; durable truth promotes to repos).
-- `settings.json` sync — revisit when a real need appears.
+- `settings.json` sync — revisit when a real need appears. *(2026-09-01: one did — the
+  `attribution` key wanted on all three accounts, applied by hand ×3; the revisit
+  stands, un-laid.)*
 - Plugin sync. Multi-machine (clone-and-deploy makes it nearly free later; not designed now).
 
 ## 7. Doctrine

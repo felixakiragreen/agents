@@ -89,9 +89,10 @@ law.
 ## The log ritual
 
 After orientation, read `LOG.md` — the ledger says what happened; the log
-says what it was like: the Standing Computation, the Shelf, and the tail,
-whole (the book's physics ride its header — one system with `SAPHO.md`,
-⬡ 2026-08-29). At session's end, after the ledger entry, append —
+says what it was like: the Standing Computation, the Shelf, and the last entry — the rest of
+the tail only where that entry cites it (the book's physics ride its
+header — one system with `SAPHO.md`, ⬡ 2026-08-29; the read cut to one
+entry 2026-09-01, his yes). At session's end, after the ledger entry, append —
 anything, any shape, the office's pen — and mark one line for the Shelf;
 recompute the head when the tail has taught it something; age the oldest
 entry out to `log-archive.md` when the tail exceeds six. Voice, never

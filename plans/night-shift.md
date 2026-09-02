@@ -1,6 +1,15 @@
 # The night shift — a keel-note
 
-**Status: deliberation — nothing here is dispatchable, nothing ratified.** Written
+**Status: deliberation — nothing here is dispatchable, nothing ratified.**
+
+> **2026-09-01 (grand-architect-22):** of the missing seven, law 3 (the autonomy lanes)
+> and law 6's Felix-cost are now agents D86 and D82 — the lanes as proposed, birthplace
+> stigmergon; the go-mark as law; the tick's dispatch step has an interim instrument,
+> the tender kickoff (D83). Unpaid: law 1 the standing summons, law 2 the priorities
+> contract, law 4 the budget law, law 5 the safety floor, the intake and the tick. The
+> bottleneck ladder's rung two — his review-minutes — is where he stands; the statement
+> (agents 041) is its instrument. §7's path stands, unparked by his word only.
+ Written
 2026-08-24/25 by the grand-architect-09 sitting (the window that became `mentat-00`) at Felix's ask:
 *what does the Guild need to build things without me?* Harness facts below are dated
 (Claude Code ~2.1.2xx, Aug 2026) and WILL rot — re-verify before building on them.

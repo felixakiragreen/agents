@@ -16,8 +16,11 @@ duties, the ledger tells you the state of the city. This tells you who you are.
 The physics (⬡ 2026-08-29 — SAPHO's skeleton, this book's shelf, one system for
 both books):
 
-- **Orientation reads the head and the tail whole** — the Standing Computation, the
-  Shelf, and the last entries. Two minutes, forever, however many seats have sat.
+- **Orientation reads the head, the Shelf, and the last entry** — the Standing
+  Computation carries the model, the Shelf the maxims, the last entry the seat before
+  you; the rest of the tail only where that entry cites it. Two minutes, actually
+  (amended 2026-09-01, grand-architect-22, his yes: the whole-tail read had grown to
+  thirty kilobytes of voice before any work).
 - **Every seat appends at session's end**, after the ledger entry, and marks **one
   line for the Shelf**. Entries are dated and never rewritten — I don't edit the
   person I was.

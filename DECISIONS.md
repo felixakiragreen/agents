@@ -200,3 +200,18 @@ register.
   charters — at the citation, by the office. Until then this entry is the whole of
   the law, and it is not lost. His ruling at the blessing: desk-born until
   field-tested.
+
+- **D87** (2026-09-01, grand-architect-22 · proposed — pending ⬡✓): **The canon
+  moratorium.** The week of 2026-08-26 put one token in four into this building and
+  850 commits against under fifty in the product buildings, and half of its law was
+  desk-born (D80, D81, formulas 25 and 26). Three shapes, his to rule: (a) thirty days
+  with no canon charge laid except from a product building's filed pain; (b) no
+  desk-born law and no new formula for thirty days — field cases still mint; (c) the
+  canonization law alone, no clock. Recommendation: (b) — it is (a) with the door
+  left open for the field, and the desk-born/field-born test already makes it
+  mechanical; (a) is a blunt instrument; (c) trusts a test one day old. The three
+  charges in flight (041 · 042 · 043) were blessed under his word before this rules
+  and stand; formula 27 waits inside whichever shape he picks. Ancestors: MAP §8 and
+  §9 (keystones as stopping points), "split when it hurts, not before" read as
+  "legislate when it hurts," formula 22. Felix, 2026-09-01: "I need a few days to
+  think about this."
