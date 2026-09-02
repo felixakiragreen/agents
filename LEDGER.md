@@ -2935,15 +2935,13 @@ On his word the converter is one Builder run — the table is done.
 
 **2026-09-02 · Grand Architect · fable-max (grand-architect-23)** — **043 unblocked.** F10
 ruled (043-F12, ⬡✓): a dead citation is a pointer — cross spells the home, self strips, a
-bare foreign id qualifies, no dead id survives on a live surface; the amendment clause
-struck, the hand list inside the fence, the lint arm deferred (F8). DOCTRINE §8's purge
-clause carries the kill's citations (⬡✓). Record corrected: D67 is homed in
-`plans/TENDER.md`; DOCTRINE:531's D5 is Belvedere's. G3 got its doc — the bar attainable
-(lint names only belvedere), 042-F4 · 041-F3 · 041-F10 pre-chewed, two one-line grants.
-Inbox swept: the announce duty rejected (homed); the discovery gap deferred with the alarm.
-Deferred list: the effort axis, the index-import test. Calibration: D87 pending, unchanged.
-Decided: nothing minted — 043-F12 ⬡✓, DOCTRINE §8 amended ⬡✓. Next: the batch resumes —
-batoned below; the tender resumes on his word, or a fresh tender ignites from
-`plans/TENDER.md` + the batch note.
+bare foreign id qualifies; no dead id survives on a live surface. The amendment clause
+struck, the hand list inside the fence, the lint arm deferred (F8). DOCTRINE §8 carries
+the kill's citations (⬡✓). Corrected: D67 is homed in `plans/TENDER.md`; DOCTRINE:531's
+D5 is Belvedere's. G3 got its doc — the bar attainable, 042-F4 · 041-F3 · 041-F10
+pre-chewed, two grants. Inbox swept: the announce duty rejected (homed), the discovery gap
+deferred. D87 pending, unchanged. Decided: nothing minted — 043-F12 ⬡✓, DOCTRINE §8
+amended ⬡✓. Next: the batch resumes — batoned below; the tender resumes on his word, or
+a fresh one ignites from `plans/TENDER.md` + the batch note.
 
 Baton — the dispatch → reignite 043, then G3.
