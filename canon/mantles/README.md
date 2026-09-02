@@ -25,20 +25,28 @@ sessions are summoned, and which law wins when laws collide.
 
 ## The tier grid (`canon/agents/`)
 
-A tier is the engine — model × effort, pure preset, zero role content. The grid is the
-full cross product, pre-minted: **4 models (fable, opus, sonnet, haiku) × 5 efforts
-(low, medium, high, xhigh, max) = 20 tiers.**
+A tier is the engine — model × effort, pure preset, zero role content. The **namespace**
+is the full cross product — **4 models (fable, opus, sonnet, haiku) × 5 efforts (low,
+medium, high, xhigh, max) = 20 names** — and `doctrine`'s `TIERS` keeps all twenty, so
+every board that ever named one still parses. The **inventory** is smaller: `canon/agents/`
+holds the tiers the city uses and nothing else.
 
 - **Naming law:** `<model>-<effort>`, both fragments verbatim from the frontmatter
   enums. It's `opus-medium`, never `opus-med` — the name is mechanically derivable from
   the definition and back. `-fast` is reserved as a suffix but unminted (see fast mode).
-- **Why the full grid:** definitions load at **session start** — a tier minted
-  mid-session is invisible to the session that needs it (verified 2026-08-02: in-session
-  dispatch of a freshly written tier fails "not found"; a fresh session dispatches it
-  fine). Pre-minting everything retires simmy's escalation class "tier named but not
-  defined" for good.
+- **Minted at the lay (042):** a tier file exists because a board's
+  Staffing cell or the rig's log names it. A tier a new charge needs is minted by the
+  Architect **at the lay, before the batch ignites** — never mid-session: definitions
+  load at **session start**, so a tier minted mid-session is invisible to the session
+  that needs it (verified 2026-08-02: in-session dispatch of a freshly written tier
+  fails "not found"; a fresh session dispatches it fine). Mint before ignition and
+  simmy's escalation class "tier named but not defined" stays retired.
+- **The prune (042, 2026-09-01):** eight unused cells retired — `fable-low`,
+  `fable-medium`, `sonnet-low`, `sonnet-max`, `haiku-medium`, `haiku-xhigh`,
+  `haiku-max`, `haiku-high`; twelve stand. Git holds every one; re-mint by name when a
+  Staffing cell calls for it.
 - **Effort is a request:** the harness clamps to the model's highest supported level at
-  or below the request (documented fallback; `haiku-xhigh` dispatch verified working
+  or below the request (documented fallback; a Haiku dispatch at xhigh verified working
   2026-08-02). The name states the request, the engine gives its best.
 - **Staffing guidance lives in the tier descriptions — the single home.** Charters and
   boards point; they never duplicate. The rule of thumb the descriptions encode:

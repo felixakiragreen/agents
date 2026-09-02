@@ -2886,3 +2886,21 @@ is off the statement by D82's list (F3), and 19 of the 33 cells are retired belv
 prune has no owner (F8). Decided: nothing new. Next: ignite 042.
 
 Baton — the dispatch → 042; G3 verifies 041 and prunes what the linter names.
+
+---
+
+**2026-09-01 · Builder · opus-medium (042)** — **the grid prune, landed.** Twenty tiers
+became twelve: the six zero-use cells plus `haiku-max` and `haiku-high`, both of whose
+only mentions are probe fixtures. The wire is live — the delete reached three accounts at
+the `git rm`, `sync/check` green ×3. The mantles README's grid law is now
+**mint-at-the-lay**: the cross product is the namespace, `canon/agents/` is the
+inventory, and a tier a new charge names is minted by the Architect before the batch
+ignites. `TIERS` untouched, so every historical board still parses. Suite 977/0, lint
+identical to a HEAD worktree (33/167, all belvedere). Nine findings in
+[042](plans/042-grid-prune.md) — **F4 is the open one:** `haiku-low` fails the blessed
+rule (probe mentions only, zero fires) but the spec's partition presumes it survives, and
+killing it retires Haiku entirely — the Architect's call, not the Builder's. F8: a
+dispatched agent is never given the roster; the probe wanted a real session. Decided:
+nothing new. Next: ignite 043.
+
+Baton — the dispatch → 043; G3 verifies 041 · 042 · 043, and rules F4.
