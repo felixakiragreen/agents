@@ -1,8 +1,9 @@
 # 043 — the citation respell
 
-**Status:** OPEN — updated 2026-09-02: the amended spec below, ⬡✓ 2026-09-02 (F12 rules
-F10). Blocked 2026-09-01 — the spec's form was circular where the home is the citing
-document (58 of 152 citations); the table is built and pasted, no byte converted. ·
+**Status:** LANDED 2026-09-02 — the hand list (42 edits, `cea0648`) then the converter
+(66 edits over 9 surfaces, `9b1c3d1` + `c70ce9e`); the census reads **0** unconsumed dead
+citations on the fence; `bun test doctrine` 109 → 121; lint unchanged, line for line.
+Blocked 2026-09-01 and re-cut by F12 (⬡✓ 2026-09-02) — the block's record stands below. ·
 **Depends on:** ⬡-gate: his word — paid 2026-09-01; the amendment — paid 2026-09-02 ·
 **Staffing:** Builder · opus-high · **Blessed:** D81 ⬡✓ 2026-09-01 (the currency
 law — the D-id became a dead form at D77's purge and the corpus never followed);
@@ -107,6 +108,9 @@ a citation whose home disagrees with the citing sentence is a finding, never a f
 
 ## Done when:
 
+*The three unmet boxes below are the BLOCK's record, 2026-09-01. The bar this charge landed
+against is the amended list under them (F12, ⬡✓ 2026-09-02).*
+
 - [x] The table, 39 rows, pasted under Findings, each home verified by a quote from it.
       **Met** — the table below; 39 rows, every home quoted with its file and line, every
       quote re-read at the desk. Its id set is not the census's: see F6.
@@ -129,20 +133,98 @@ a citation whose home disagrees with the citing sentence is a finding, never a f
 
 ### Done when — amended 2026-09-02 (F12 — ⬡✓ 2026-09-02)
 
-- [ ] The hand list pasted — one row per edit, file:line · before · after — landed as one
+- [x] The hand list pasted — one row per edit, file:line · before · after — landed as one
       commit before the converter runs; the fourteen foreign ids among them each read
       `‹Name›:D‹n›`.
-- [ ] The converter's run: the table printed before a byte moves, the diff read whole; the
+      **Met** — F13's table, **42 rows**, one commit (`cea0648`), landed before the run
+      (`9b1c3d1`). The foreign ids inside the fence are **eleven**, not fourteen: the
+      office's count included `BOARD.md`'s three, which rule 4 fences out (F14). Each now
+      reads `‹Name›:D‹n›` — `simmy:D4` · `snappy:D9` ×2 · `belvedere:D5` · `belvedere:D10` ·
+      `belvedere:D11` ×3 · `belvedere:D12` ×3.
+- [x] The converter's run: the table printed before a byte moves, the diff read whole; the
       census re-run on the fence minus the tombstone reads **0** bare dead ids outside the
       two forms shown — the command and the count pasted.
-- [ ] Round-trip: the converter run twice, the second diff empty, the third run silent;
+      **Met** — the CLI prints the 39-row home table before any diff, by construction (the
+      table, then the diffs, then the census). **66 edits over 9 surfaces** — 65 in the first
+      run (`9b1c3d1`, 114 diff lines) and one more after the mask defect F16(c) was fixed
+      (`c70ce9e`) — every diff line read at the desk before its write.
+
+      ```
+      $ bun doctrine/cli.ts citations .
+      census — bare D-ids still standing on the fence (34 surfaces read):
+        the table's own, unconsumed — each a HAND edit: 0
+        outside the table — live ids and the forms rule 4 fences: 41
+           D1×1 D78×8 D79×7 D80×6 D81×5 D82×9 D83×1 D84×1 D85×3
+
+      Dry run: 0 edit(s) across 0 file(s) — 0 files written. Re-run with --write to apply.
+      ```
+
+      **0** unconsumed. The 41 outside the table are the live entries D78–D85 (40) and
+      `templates/decisions.md:9`'s `**D1**` — the register template's entry shape, rule 4's
+      first form shown. The second, `DOCTRINE.md:104`'s `` `[D19](DECISIONS.md)` ``, sits in
+      ticks and the mask never offers it to a rule, so the census does not count it bare.
+- [x] Round-trip: the converter run twice, the second diff empty, the third run silent;
       pasted.
-- [ ] `bun test doctrine` green with a fixture — a canon page carrying a self citation
+      **Met**:
+
+      ```
+      run 1  citations . --write   →  Wrote 9 file(s), 65 edit(s).
+      run 2  citations . --write   →  Wrote 0 file(s), 0 edit(s).
+      run 3  citations .           →  Dry run: 0 edit(s) across 0 file(s) — 0 files written.
+      ```
+
+      `git status --porcelain` after runs 2 and 3 listed exactly the nine files run 1 wrote
+      (plus `BOARD.md` and the desk's own JSON, neither this charge's) — no byte moved twice.
+      The mask fix re-opened one line, so the law was re-run on it and holds there too:
+
+      ```
+      run 1  citations . --write   →  Wrote 1 file(s), 1 edit(s).
+      run 2  citations . --write   →  Wrote 0 file(s), 0 edit(s).
+      run 3  citations .           →  Dry run: 0 edit(s) across 0 file(s) — 0 files written.
+      ```
+- [x] `bun test doctrine` green with a fixture — a canon page carrying a self citation
       bare and one leading a parenthetical, a cross citation bare and one with its home
       already on the line, a foreign id, a form shown in ticks, a live id — and its
       expected text; pasted.
-- [ ] `doctrine lint ~/code/agents` reads what a HEAD worktree reads, line for line
+      **Met** — [`doctrine/fixtures/citations/canon-page.md`](../doctrine/fixtures/citations/canon-page.md)
+      and its `canon-page.expected.md`, read as `canon/work/DOCTRINE.md` so half its citations
+      are self ones. It carries every shape the rules consume — self bare (D25), self leading
+      a parenthetical (D63), a self pair joined by `/` (D46/D64), cross bare (D56), cross
+      trailing a parenthetical (D62), cross with its home already on the line (D71) — and
+      every shape they must refuse: a foreign qualified id (`belvedere:D11`, `simmy:D4`), two
+      forms in ticks, a live id (D82), a possessive that blocks its own line (D28 beside a
+      bare D44), a shape split by a hard wrap (D48), and a fenced block whose citation is a
+      citation while the ticked token beside it is a form.
+      [`doctrine/test/citations.test.ts`](../doctrine/test/citations.test.ts) — 12 tests,
+      including the byte-for-byte control, the rule names in order, and the fixed-point law.
+
+      ```
+      $ bun test doctrine
+       121 pass
+       0 fail
+       583 expect() calls
+      Ran 121 tests across 3 files. [102.00ms]
+      ```
+
+      **109 → 121.** Nothing was weakened: one standing assertion — the graveyard mirror —
+      went red at a hand edit and the data followed it (F17).
+- [x] `doctrine lint ~/code/agents` reads what a HEAD worktree reads, line for line
       (042's reading — F9); pasted.
+      **Met** — the pre-work tree materialized read-only (`git archive 5213771`, the last
+      commit of grand-architect-23's sitting) and linted against the worktree: same failure
+      classes, same `file:line`, same excerpts, same totals. The only differing lines are the
+      Name column (`agents` vs the temp path) — the register resolves a building's Name from
+      its declared Root, which a copy cannot be.
+
+      ```
+      $ bun doctrine/cli.ts lint . --guard 5213771
+        33 failure(s) in 1 class(es) · 168 warning(s) in 1 class(es)
+      guard ok — no entity total decreased vs 5213771
+      ```
+
+      Both sides read `33 failure(s) in 1 class(es) · 168 warning(s) in 1 class(es)` — the 33
+      `board.cell-cap` 041 landed on purpose; the prune is G3's. `--vocab` is unaffected by
+      construction: `canon/` and `docs/` are invisible to the vocabulary arm (F8, unchanged).
 
 ## Findings
 
@@ -334,6 +416,134 @@ charge — **F10**.
     hits — 83 inside shapes a regex consumes whole, 42 on 41 lines outside them, the hand
     list's ceiling; three or four more shapes (an id trailing a parenthetical, an id at a
     line boundary) bring it under thirty. The Builder re-runs at build.
+
+- **F13 — LANDED 2026-09-02 (Builder · opus-high): the hand list, 42 edits, one commit.**
+  Landed as `cea0648` **before** the converter's run (`9b1c3d1`), per the amended spec. Each
+  row is one of the two sanctioned moves and no third: **(a)** the id and its connective go —
+  legislative history is the ledger's; **(b)** where the id is a noun the sentence needs, the
+  table's short name or the qualified id replaces it. Three rows deserve their reasoning named:
+  `DOCTRINE.md:583`'s `D44's batching` takes **the lay's** batching, because the clause it
+  leans on is §10's `the lay maximizes the run`, not §4's `gates are charges` (F15);
+  `STANDARD.md:240`'s `D51's contract` takes **the waggle contract**, the thing D51 set and
+  this very entry now carries; `docs/load-map.md:58`'s `why D45 (2026-08-08) moved` keeps the
+  date and takes the row's short name as its subject. Nothing else was reworded.
+
+  | file:line (at `b19d5fa`) | before | after |
+  |---|---|---|
+  | `canon/mantles/README.md:10` | `## The roster (D71)` | `## The roster` |
+  | `canon/mantles/README.md:21` | - **The Dispatcher is dead** (D71) — tombstone | - **The Dispatcher is dead** — tombstone |
+  | `canon/mantles/README.md:79` | mantle IS a Fixer** (D71; D26's law otherwise intact) — the default | mantle IS a Fixer** — the default |
+  | `canon/mantles/README.md:161` | `canon/work/STANDARD.md` (D71 ⬡✓): one concept | `canon/work/STANDARD.md` (⬡✓): one concept |
+  | `canon/mantles/architect.md:23` | sub-boards included (D45). | sub-boards included (DOCTRINE §4, any table that ⏎ staffs sessions is a board). |
+  | `canon/mantles/architect.md:74` | binds every ⏎ Depends-on (D73) — an edge only | binds every ⏎ Depends-on (DOCTRINE §4, the edge test) — an edge only |
+  | `canon/mantles/architect.md:79` | between Felix's judgment calls (D44): every foreseeable | between Felix's judgment calls (DOCTRINE §10, the lay): every foreseeable |
+  | `canon/work/DOCTRINE.md:118` | is all a Fixer provably loads (D65; ⏎ birthplace: the arborist | is all a Fixer provably loads ⏎ (birthplace: the arborist |
+  | `canon/work/DOCTRINE.md:121` | keeps its docs with itself (simmy D4). | keeps its docs with itself (simmy:D4). |
+  | `canon/work/DOCTRINE.md:192` | is not permitted, ever (D71, lint-hard); | is not permitted, ever (lint-hard); |
+  | `canon/work/DOCTRINE.md:194` | the typed absence, never a guess (D63 as ⏎ amended). Staffing guidance | the typed absence, never a guess. ⏎ Staffing guidance |
+  | `canon/work/DOCTRINE.md:222` | `OPEN — DEFERRED <reason>` (D69, respelled by D71). The deferred | `OPEN — DEFERRED <reason>`. The deferred |
+  | `canon/work/DOCTRINE.md:245` | dispatch time — D28's law, applied to sequence | dispatch time — the parallel-affordable law, applied to sequence |
+  | `canon/work/DOCTRINE.md:263` | at dispatch time (snappy §6.8/D9: six charges | at dispatch time (snappy:D9, §6.8: six charges |
+  | `canon/work/DOCTRINE.md:273` | becomes a new charge — never a rushed draft ⏎ (this repo's D4, generalized). Every charge doc | becomes a new charge — never a rushed draft. ⏎ Every charge doc |
+  | `canon/work/DOCTRINE.md:360` | every batch-1 verdict survived (snappy D9). | every batch-1 verdict survived (snappy:D9). |
+  | `canon/work/DOCTRINE.md:365` | overshot a rewind by 14 commits ⏎ (D48). | overshot a rewind by 14 commits. *(the wrapped line deleted)* |
+  | `canon/work/DOCTRINE.md:500` | the default is machine tending, serial batches included (D43/D61's intent — their ⏎ Dispatcher wording is superseded by D71). **The interim truth, plainly:** the ⏎ Dispatcher mantle is dead (D71) and its successor — the flow engine, charge 020's ⏎ cornerstone made law at D73 — is built | the default is machine tending, serial batches included. **The interim truth, ⏎ plainly:** the Dispatcher mantle is dead and its successor — the flow engine, charge ⏎ 020's cornerstone — is built |
+  | `canon/work/DOCTRINE.md:518` | scope-arm growth are its D11 ⏎ and D12, ratified canon-side) | scope-arm growth are belvedere:D11 ⏎ and belvedere:D12, ratified canon-side) |
+  | `canon/work/DOCTRINE.md:521` | The engine's law: D10 ⏎ wholesale | The engine's law: belvedere:D10 ⏎ wholesale |
+  | `canon/work/DOCTRINE.md:523` | the blessing covers the scope** (D12); | the blessing covers the scope** (belvedere:D12); |
+  | `canon/work/DOCTRINE.md:534` | stays gated on ⏎ Felix's word alone (D5). | stays gated on ⏎ Felix's word alone (belvedere:D5). |
+  | `canon/work/DOCTRINE.md:583` | — D44's batching, given its shape) | — the lay's batching, given its shape) |
+  | `canon/work/DOCTRINE.md:589` | is the sin** (D64, amending D46): an uninstrumented | is the sin**: an uninstrumented |
+  | `canon/work/DOCTRINE.md:622` | `ISSUES.md` (empty, header only — ⏎ D53), and the register line | `ISSUES.md` (empty, header only), ⏎ and the register line |
+  | `canon/work/DOCTRINE.md:645` | this file (D71 ⬡✓ 2026-08-29) — | this file (⬡✓ 2026-08-29) — |
+  | `canon/work/STANDARD.md:28` | the dispatch to run it (D11/D73) — a | the dispatch to run it (belvedere:D11; DOCTRINE §10, the flow) — a |
+  | `canon/work/STANDARD.md:29` | the blessing covers the scope (D12). · | the blessing covers the scope (belvedere:D12). · |
+  | `canon/work/STANDARD.md:91` | illegal ⏎ since D18; now has a legal successor | illegal; ⏎ now has a legal successor |
+  | `canon/work/STANDARD.md:113` | Also a legal baton holder (D74): | Also a legal baton holder (DOCTRINE §11, the holder is written): |
+  | `canon/work/STANDARD.md:240` | anatomy (killed; D51's contract molts) | anatomy (killed; the waggle contract molts) |
+  | `canon/work/STANDARD.md:336` | \| bless (D11 — the review is the authorization) \| | \| bless (belvedere:D11 — the review is the authorization) \| |
+  | `canon/work/templates/issues.md:4` | Entry format (D63): | Entry format: |
+  | `canon/work/templates/ledger.md:10` | carry the fences (D63)⟩. | carry the fences (DOCTRINE §7, the Next law)⟩. |
+  | `docs/load-map.md:19` | so dispatch works (D8's whole reason: | so dispatch works (the tier grid's whole reason: |
+  | `docs/load-map.md:32` | ISSUES (the D49 sweep), then birthplaces | ISSUES (the ISSUES.md sweep), then birthplaces |
+  | `docs/load-map.md:35` | the inbox (the D53 sweep) \| | the inbox (the ISSUES.md sweep) \| |
+  | `docs/load-map.md:58` | and why D45 (2026-08-08) moved the rigid | and why the single-glance test (2026-08-08) moved the rigid |
+  | `docs/the-city.md:33` | the Dispatcher is dead (D71), and the flow engine | the Dispatcher is dead, and the flow engine |
+  | `docs/the-city.md:39` | \| the Fixer (D26/D71) — session-sized | \| the Fixer (the mantles README, the null mantle) — session-sized |
+  | `docs/the-city.md:59` | **no permit needed** (the Fixer, D26/D71). | **no permit needed** (the Fixer — the mantles README, the null mantle). |
+  | `docs/the-city.md:91` | The contract (D71, remaking D51): **"waggle me X" | The contract: **"waggle me X" |
+
+  `⏎` marks a hard wrap the edit crossed. Verbatim anchors, each asserted unique before it was
+  written — 42 anchors, 0 failures — so the list is auditable against `b19d5fa` line for line.
+
+- **F14 — the counts, reconciled; the office's "fourteen" was eleven.** The census on the
+  charge's fence reproduces F6 exactly: **152** dead hits over 53 ids. Minus the tombstone (11)
+  and minus `BOARD.md`'s records (16), the working fence is **125** — F12's own number. Of those
+  125 the table owns **114** (the 39 rows), and the remaining 11 are ids no row names: `D1` (a
+  form shown), `D9` ×2, `D10`, `D11` ×3, `D12` ×3 (other buildings'), `D19` (a form shown, in
+  ticks). Of the table's 114: the hand list took **45** (42 edits, three of them carrying two or
+  three citations each), leaving **69**, which the converter consumed in 66 edits — measured at
+  each stage, `b19d5fa` **114** → `cea0648` **69** → HEAD **0**. The **foreign**
+  occurrences inside the fence are **eleven**, not fourteen: F12 computed 13 − 3 + 1 = 14, but
+  13 already included `BOARD.md`'s three. Arithmetic, not a ruling — the Done-when's word is
+  corrected here rather than met falsely.
+
+- **F15 — a row names ONE home, and five entries legislated two.** The table's spine is right
+  for most citations of an id and wrong for some, because a purged entry could carry clauses
+  that now live in different sections. Five cases, all caught by reading the diff and all moved
+  to the hand list before the run: **D45** (§5's single-glance test vs §4's *any table that
+  staffs sessions is a board* — `architect.md:23`), **D73** (§10's flow vs §4's edge test —
+  `architect.md:74`), **D44** (§4's gates are charges vs §10's *the lay maximizes the run* —
+  `architect.md:79`, `DOCTRINE.md:583`), **D74** (§4's typed holds vs §11's *the holder is
+  written* — `STANDARD.md:113`), **D63** (§4's board grammar vs §3's ISSUES entry format and
+  §7's Next law — both templates). The converter cannot read which clause a sentence leans on,
+  and it must not guess: **for the office** — the next D78 kill should record one `Home:` line
+  **per clause**, not per entry, and the table's row type already has room for it. Two more
+  citations the spine served badly were left machine-converted rather than reworded, because
+  the pointer is right and the prose is not this charge's: `canon/mantles/README.md:136` now
+  reads `third-party pre-authorization (DOCTRINE §5, pre-authorization)` — the pointer repeats
+  the clause's own name — and `canon/mantles/README.md:7` opens a line with
+  `(the global CLAUDE.md, THE AGENTS CANON).` A prose sweep is the office's, not a
+  converter's.
+
+- **F16 — the fixture caught two converter defects; both are now refusals with tests.**
+  (a) **The partial line.** `(D69, respelled by D71)` has one shape the rules consume (D69
+  leads) and one they do not (D71 behind `by`), so the first pass emitted `(respelled by D71)` —
+  half a respell, which reads as finished work and is not. The rule now is **all or nothing per
+  line**: a line carrying any unconsumed citation is reverted whole and *every* citation on it
+  is reported, including the ones a shape did consume — a consumed citation on a reverted line
+  is as unconverted as its neighbour, and a census that forgets it reads zero while the id
+  stands. (b) **The wrapped strip.** `DOCTRINE.md:366` was the line `   (D48).` — the sentence
+  it closed opened above it — and the strip left a line holding one full stop. A strip whose
+  parenthetical opens the line is now refused. Both are pinned in the fixture. A third guard
+  rides them: every seam a strip can leave (`  `, `( `, ` )`, ` .`, `()`) is **compared, not
+  counted** against the source line and throws on an increase — a converter bug, not a doc
+  defect (migrate.ts's own law), tested by handing the rules a home that spells to nothing.
+  (c) **The masked fence.** The tick mask threaded backtick parity across lines and a ```
+  fence marker is three backticks, so one fence opened a tick span the width of its block:
+  `DOCTRINE.md:284`'s `(· **Branch:** <name> — when the charge runs in a worktree, D74)` — a
+  real self citation inside the charge-doc skeleton — was invisible to the rules **and to the
+  census**, which is the worse half: the bar read `0 unconsumed` while the id stood. Found by
+  counting the fence's dead ids two ways (124 by the converter's own token regex, 114 owned +
+  10 unowned) and chasing the one the CLI would not name. A fence marker now resets the parity,
+  exactly as `migrate.ts` does — *a fenced line is a QUOTE to a structural rule and a DOCUMENT
+  to a respell* — and the fixture carries a fenced citation beside a ticked form.
+
+- **F17 — the drift alarm fired, on cue.** `STANDARD.md:336`'s graveyard row is mirrored
+  verbatim in `doctrine/src/lexicon.ts` (`GRAVEYARD`), and `vocabulary.test.ts` asserts the two
+  match row for row. Qualifying the row's `D11` to `belvedere:D11` turned that test red until
+  the mirror followed. This is D81's third leg working exactly as written — *edit the law and
+  the mirror goes red until the data follows* — and it is the reason the suite was allowed to go
+  red mid-charge and the fix was the data, never the assertion.
+
+- **F18 — two rows never fired, and no live config was touched.** **D67**'s only occurrence
+  inside the fence is in the tombstone, which rule 4 never touches; **D5**'s only occurrence was
+  Belvedere's (F12's correction) and qualified by hand. Both rows stand as record for the next
+  kill, not as dead weight — the table is the register's memory now that D77 deleted the
+  entries. Separately: of the 34 surfaces read, **none is in the sync set**. `canon/CLAUDE.md`
+  and `canon/agents/*.md` — the paths that are live ×3 — carry zero dead citations, so this
+  landing reached no account's config dir. `canon/mantles/` and `canon/work/` are read by path
+  (MAP §4).
 
 ### The table — 39 rows, one per dead id the live law surfaces cite
 
