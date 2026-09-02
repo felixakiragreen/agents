@@ -433,7 +433,11 @@ queue and the staging ground, never the archive: git is.
   commit.
 - **The purge:** at a blessed purge, an entry whose law is fully distilled into its
   canon home is killed whole — deleted, never tombstoned; a gap in the numbering is
-  a killed entry, and git holds every byte.
+  a killed entry, and git holds every byte. **The kill carries its citations** (§1's
+  currency law): on a live surface a citation of a killed id names the home that now
+  carries the law, and strips where it stands in that home; history keeps its numbers
+  (⬡✓ 2026-09-02, 043-F12 — birthplace: 043's block, a respell form circular on its own
+  worked example, 58 of 152).
 - **The decision queue** is not a file: it is the set of proposed-not-yet-blessed
   entries plus open escalations. The tending session surfaces it to Felix at every
   boundary — batch reports list it, ledger entries name it in Next.
