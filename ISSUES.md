@@ -79,3 +79,14 @@ is cleared). A cleared inbox is empty.
   staffed `Architect · <tier>` whose id is named by no fence in the board's notes or
   in any charge doc named in its Depends-on. ⬡-gate rows are exempt (nobody ignites
   them). Field-born: 029's lay, 2026-09-02.
+- 2026-09-02 · stigmergon's G6 Architect (fable-max) · **The verdict law's first move
+  should name the registry.** `canon/mantles/architect.md`, the verdict law: *"A field
+  incident arriving mid-session is a Digger-shaped question: first move is the contract +
+  findings."* At stigmergon's phase-3 pass the Architect read the contract (hive.md §6, the
+  move gesture), and still drew two design options for a report `session.move` already
+  answered; Felix caught it: *"I forgot about 'move session to another space' command…
+  Feel free to push back if it seems I forgot something obvious like this."* Asked: the
+  first move is the contract, the findings **and the building's command registry** — does a
+  gesture already do this — and the first answer to a report is *you have this* when it
+  does. Field-born: stigmergon MAP §5 carries the building's line; this is the canon-side
+  half.
