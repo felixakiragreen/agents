@@ -15,6 +15,7 @@ bun doctrine/cli.ts statement [--json] <path…>   # every ⬡ go on a live surf
 bun doctrine/cli.ts parse --json <building>
 bun doctrine/cli.ts buildings [--json]     # the building register, walked
 bun doctrine/cli.ts migrate [--write] <building>
+bun doctrine/cli.ts citations [--write] <building>   # citations of killed D-ids (043)
 bun test                                   # from doctrine/ — the §6.2 control + the round-trip law
 ```
 
@@ -32,6 +33,7 @@ const b = parse('~/code/agents/belvedere');   // → Building: board[] · ledger
 five artifact parsers · `src/building.ts` discovery + `parse()` · `src/register.ts` the building
 register · `src/lint.ts` the walk and the report · `src/credit.ts` the statement (D82) ·
 `src/migrate.ts` the form-only converter ·
+`src/citations.ts` the citation respell and its home table (043) ·
 `src/lexicon.ts` the standard's §§7–9 as data · `src/vocabulary.ts` the speech arm and its
 fence · `cli.ts` the arm.
 
@@ -258,3 +260,35 @@ Deliberate refusals, because the alternative is a converter inventing meaning:
 - **another building's address** — `/…/whiteboardy/plans/18-…` and `cornerizer C34` are
   foreign ids (D80: hosts keep their forms). The path rules bind to the building's own
   directory name; a foreign id in prose is a session's call, never a rule's.
+
+## `doctrine citations` — the purge's citations (043)
+
+DOCTRINE §8's purge clause, executed. When a register entry is killed whole, the live law
+surfaces still cite it: labels that name a rule, links that lead nowhere. A citation is a
+**pointer**, so it follows one rule read at two distances — where the home is another
+document the pointer names it (`(D44)` → `(DOCTRINE §4, gates are charges)`); where the home
+is the citing document there is nothing to point at and the pointer **strips**
+(`**Gates are charges (D44).**` → `**Gates are charges.**`). A bare foreign id qualifies
+(`belvedere:D11`), and history keeps its numbers: the ledger, the Log, the closed findings and
+`BOARD.md`'s records are out of the fence, because there a `D44` records what was decided that
+day and respelling it would change meaning, not form.
+
+**The table is hand-kept** — D77 deleted the entries, so `src/citations.ts` is where their
+homes live or nowhere. One row per killed id: the entry's title (the record), the home
+document (the self test), and what a cross-citation writes. No row, no edit: an id the table
+does not name — another building's, a form being shown, a live entry — is untouchable by
+construction. It prints before a byte moves.
+
+**Three shapes per class, line-scoped:** a citation alone in a parenthetical, one leading a
+parenthetical (`(D65; birthplace: …)`), one trailing it (`(… the message, D57)`). Everything
+else is a **hand edit** and the run says so instead of guessing — a possessive (`D28's law`),
+a narrative event (`made law at D73`), a shape split by a hard wrap. Two guards earn their
+keep: a line the shapes consume only PARTLY is reverted whole and reported (half a respell
+reads as finished work and is not), and a strip that would leave a seam — `( `, ` )`, a line
+holding one full stop — throws, because that is the shape being wrong about its own edges.
+
+**A row names ONE home, the spine.** Where an entry legislated two clauses that now live in
+two sections (D45, D63, D73, D74), a citation leaning on the other section is a hand edit too:
+the converter cannot read which clause a sentence leans on. The census closes the loop — every
+bare `D‹n›` still standing, the table's own separated from the rest, and the table's own must
+read **0**.
