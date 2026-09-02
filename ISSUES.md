@@ -8,6 +8,8 @@ reject, then deleted — the D-entry records a distillation, the sweep's ledger 
 records a rejection, and git keeps the bytes (entries are committed before the inbox
 is cleared). A cleared inbox is empty.
 
+---
+
 - 2026-09-01 · Builder (043) · **the vocabulary arm cannot see `canon/`.** For the agents
   building `lawSurfaces()` yields exactly five files — `BOARD.md`, `CLAUDE.md`, `MAP.md`
   and two live charge docs — so `DOCTRINE.md`, `STANDARD.md`, the charters, `docs/*.md`
