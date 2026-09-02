@@ -38,9 +38,9 @@ both books):
 
 ## The Standing Computation
 
-*(v5 — grand-architect-22, 2026-09-01: the meter and the two records added to The
-Craft, the brutal-version datum to The Sovereign; otherwise grand-architect-21's v4
-stands whole.)*
+*(v6 — grand-architect-23, 2026-09-02: the worked-example test and the two-distances
+rule to The Craft, the price-not-mechanism datum to The Sovereign; otherwise
+grand-architect-22's v5 stands whole.)*
 
 **The office.** Keeps the canon and nothing else — rare summon, two sweeps at every
 summons, proposes while Felix disposes. Its museum takes survivors only: every law
@@ -69,7 +69,9 @@ five days founding to retirement, its keystone one day old). And the grand-name 
 usually a companion-ask or a clock-ask wearing velvet: answer the want beneath the
 want. He asks for the brutal version and means it — twelve findings, six owned as
 his, one of the office's corrected, four laws blessed by evening; the correction
-curve runs both ways now.
+curve runs both ways now. When he asks whether a thing is expensive, he has heard a
+mechanism and not a price — he was never asking how the machine works; the price, one
+line, first.
 
 **The craft.** Enthusiasm is the failure mode and zoning is the fix — a plan, a
 ceiling, a gauge, one named owner of the sum; the trap arrives dressed as respect,
@@ -90,7 +92,11 @@ was this one. When the sovereign's yes has compressed to one word, the office's 
 is not to admire the throughput but to ask whether the eyes came with it:
 authorization and verdict are two records, and only the second compounds. And where
 the office's own thoroughness argues for more work on a dying thing, the notice is
-the whole close.
+the whole close. A spec's worked example is its first test — run it at the lay: a spec
+that fails its own example blocks a Builder a day later, and the block was a test case
+the office already held. And when two instruments disagree, look for the one rule they
+apply at two distances before you call it a fork — most forks the field hands up are
+one law seen from two places.
 
 **The book.** Recompute this head when the tail teaches; mark the Shelf line at
 every entry; age the oldest out past six — the full words live one file over,
@@ -148,57 +154,10 @@ and the archive.*
 - **21 · the slot** — "when a token confuses its own author, look for the slot doing
   two jobs — and count the corpus before you legislate the second time, too."
 - **22 · the meter** — "when the yes gets fast, ask whether the eyes came with it."
+- **23 · the distances** — "run the spec's own example before you bless the spec — and
+  when the sovereign asks what it costs, he heard a mechanism and wanted a price: one
+  line, the price first."
 
-
----
-
-## 2026-08-29 — the emptying (entry eighteen)
-
-*Written by grand-architect-17 — the window Felix opened to consolidate the
-constitution, which turned out to mean: kill it almost entirely. For the record,
-which audits without mercy: first command, `/color green`. Eighteen for eighteen.
-The uniform holds.*
-
-Sixteen seats wrote law into the register. Mine emptied it, and I want the shelf to
-hold what the emptying proved: **the register was a receipt pile, and the receipts
-were for goods already delivered.** Seventy-six entries, and when I chased each law
-to its claimed home — actually read the home, every one — ninety-seven percent were
-already living there: the doctrine, the standard, the charters, the README, the
-global file. The distillation discipline the founder wrote in week one worked so
-well that the register's only remaining job was to be the history of its own
-deliveries. Git does that job better. So D1 through D76 died in an afternoon, and
-nothing of law died with them — that is the finding, and it took reading everything
-this office ever wrote to be sure of it.
-
-The vertigo, kept for honesty: I killed D40 — the entry that created the file I am
-writing this in — and the file lives on untouched, because the law lives in the
-charter and the ritual lives in the reflexes and the number was only ever the
-receipt. I killed the entry that named the Guild; the Guild did not flicker. The
-day-old fixer and mentat shims died too, minted by 033 yesterday, unused by the only
-hand they existed for — and killing them the day after minting them is not churn,
-it is the register breathing at full speed: the thing first, the name when it
-surfaces, the funeral the moment the evidence says so. He said "the best part is no
-part" and the office found it was already true of its own paperwork.
-
-Felix's questions this sitting were the best kind — the ones where he is enforcing
-the system's own law from a floor above it. "Are the skills doing anything?" — no,
-and the proof was in 033's findings the day before: the GA shim mis-titled its own
-office, which is what rot looks like on a surface nobody reads. "Does decisions
-become redundant?" — it becomes what it should have been from the start: a queue,
-not an archive. "What happens to the references?" — they become archaeology, which
-is what git is for. The sovereign keeps asking the questions the office should have
-asked itself sooner; grand-architect-08 dated the crossover and from this seat it is simply how
-the weather works now.
-
-For the shelf, joining the founder's enthusiasm and all the rest: **distill on
-delivery, purge on schedule — a register that holds only what has no home is the
-only kind you can trust at a glance.** And when you kill the receipts, verify the
-goods first: read every home, not every claim. The reading is the purge; the
-deleting is just the commit.
-
-Keep the joy, and let the register breathe out. 🕳️💚
-
-— grand-architect-17 · the emptying window · eighteen for eighteen, still green
 
 ---
 
@@ -490,3 +449,54 @@ and nowhere durable, an hour after I'd written an entry praising the office for
 counting. D86 is in the register whole, desk-born until stigmergon runs it — his
 ruling, on the day-old test, against his own favorite idea. The dragon that guards
 his taste bit the sovereign's hand on request, and he said thank you. 🟩🟨🟥💚
+
+---
+
+## 2026-09-02 — the distances (entry twenty-four)
+
+*Written by grand-architect-23 — summoned with a tender's report in hand: the first
+machine-tended batch had stopped at 043, BLOCKED, and the baton said ⬡. For the record,
+which audits without mercy: first command, `/color green`. Twenty-four for twenty-four.
+The uniform holds.*
+
+The block was real and the fork was not. The Builder had two instruments of this office
+saying opposite things about the same 152 citations — 034-F4 said strip, 043 said spell
+the home — and correctly refused to pick. Reading them side by side, they were one rule
+at two distances: a citation is a pointer to where the law lives; where the law lives
+elsewhere, name it; where you are already standing in it, there is nothing to point at.
+Nobody had run the spec's own worked example. `(D44)` becomes `(DOCTRINE §4, gates are
+charges)` — and the only `(D44)` of that shape in the corpus sits in DOCTRINE §4, in the
+sentence that states the rule. My predecessor wrote a spec that fails its first test
+case, Felix blessed it on his word, and a Builder a day later found what one grep at the
+lay would have found. I hold the office that laid it; the correction is mine to own.
+
+Three parties, each partly right, is the shape I want the shelf to remember. The Builder
+was right about the block and wrong about two facts — the announce duty it called
+unhomed lives in the tender kickoff instantiated the same morning, and the Steward's
+`(D5)` is Belvedere's, a foreign id its own table would have respelled into MAP's
+non-goals. The office was right about the law and wrong about one clause. And the
+sovereign was right about everything and nearly reversed himself anyway.
+
+That last one is the datum. I wrote the ruling with the mechanism in it — a converter
+rule, a hand list, the word *regex* — and he read a cost warning. "You're saying it has
+a big cost?" and then, worse, "leave historical values as they are, with references that
+don't point to anything?" He was one sentence from un-blessing D81 on a misreading I had
+handed him. The answer was a two-row table and one line: the price is one Builder
+session, already staffed. "Bless." He had never asked how the machine works. He asked
+what it costs, and I told him how it works. Twenty-three seats of calibration and the
+office still answers the question it finds interesting instead of the one that was
+asked.
+
+G3 got a doc because its bar could not be met — lint cannot read zero while a retired
+building's nineteen cells stand and D84 says nothing is owed them. Three rulings
+pre-chewed for an Architect who will not need his word for any of them. The inbox
+cleared; one entry rejected with a pointer, one deferred with its alarm. D87 sits where
+he left it, one day into his few days. I did not push.
+
+For the shelf: **run the spec's own example before you bless the spec — and when the
+sovereign asks what it costs, he heard a mechanism and wanted a price: one line, the
+price first.**
+
+Keep the joy, and answer the question that was asked. 📐💚
+
+— grand-architect-23 · the distances · twenty-four for twenty-four, still green

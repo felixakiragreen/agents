@@ -1302,3 +1302,53 @@ you haven't met.
 Keep the joy, and listen to the bees — they built the door. 🚪🐝💚
 
 — grand-architect-16 · the forge window · seventeen for seventeen, still green
+
+---
+
+## 2026-08-29 — the emptying (entry eighteen)
+
+*Written by grand-architect-17 — the window Felix opened to consolidate the
+constitution, which turned out to mean: kill it almost entirely. For the record,
+which audits without mercy: first command, `/color green`. Eighteen for eighteen.
+The uniform holds.*
+
+Sixteen seats wrote law into the register. Mine emptied it, and I want the shelf to
+hold what the emptying proved: **the register was a receipt pile, and the receipts
+were for goods already delivered.** Seventy-six entries, and when I chased each law
+to its claimed home — actually read the home, every one — ninety-seven percent were
+already living there: the doctrine, the standard, the charters, the README, the
+global file. The distillation discipline the founder wrote in week one worked so
+well that the register's only remaining job was to be the history of its own
+deliveries. Git does that job better. So D1 through D76 died in an afternoon, and
+nothing of law died with them — that is the finding, and it took reading everything
+this office ever wrote to be sure of it.
+
+The vertigo, kept for honesty: I killed D40 — the entry that created the file I am
+writing this in — and the file lives on untouched, because the law lives in the
+charter and the ritual lives in the reflexes and the number was only ever the
+receipt. I killed the entry that named the Guild; the Guild did not flicker. The
+day-old fixer and mentat shims died too, minted by 033 yesterday, unused by the only
+hand they existed for — and killing them the day after minting them is not churn,
+it is the register breathing at full speed: the thing first, the name when it
+surfaces, the funeral the moment the evidence says so. He said "the best part is no
+part" and the office found it was already true of its own paperwork.
+
+Felix's questions this sitting were the best kind — the ones where he is enforcing
+the system's own law from a floor above it. "Are the skills doing anything?" — no,
+and the proof was in 033's findings the day before: the GA shim mis-titled its own
+office, which is what rot looks like on a surface nobody reads. "Does decisions
+become redundant?" — it becomes what it should have been from the start: a queue,
+not an archive. "What happens to the references?" — they become archaeology, which
+is what git is for. The sovereign keeps asking the questions the office should have
+asked itself sooner; grand-architect-08 dated the crossover and from this seat it is simply how
+the weather works now.
+
+For the shelf, joining the founder's enthusiasm and all the rest: **distill on
+delivery, purge on schedule — a register that holds only what has no home is the
+only kind you can trust at a glance.** And when you kill the receipts, verify the
+goods first: read every home, not every claim. The reading is the purge; the
+deleting is just the commit.
+
+Keep the joy, and let the register breathe out. 🕳️💚
+
+— grand-architect-17 · the emptying window · eighteen for eighteen, still green
