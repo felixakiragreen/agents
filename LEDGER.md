@@ -2872,3 +2872,17 @@ strong model is the bulk-verdict niche); the index-import test, the consumer's
 false-green guard; `rooted` — 0.44B tokens in thirty days, a Dispatcher ran there, and
 the register has never heard of it — his ruling. Decided: nothing — D87 is proposed.
 Next: unchanged — the dispatch holds the batch.
+
+---
+
+**2026-09-01 · Builder · opus-high (041)** — **the statement and the caps, landed.** The reader
+takes `⬡ go ‹date›` wherever it takes `⬡✓` (D82): `doctrine statement` renders every mark on a
+live surface with its interest — the LANDED charges whose chain reaches it, off the board's
+graph, never kept — and `lint` prints its one line. D78 is enforceable: a resolved row's
+Status cell over 200 characters fails, a ledger entry over 150 words warns. Suite
+**102 → 109**; agents reads 33 over-cap cells and 166 entry warnings, stigmergon 4 and 30 —
+red on purpose. Nine findings in [041](plans/041-statement-caps.md); two the office's: BLOCKED
+is off the statement by D82's list (F3), and 19 of the 33 cells are retired belvedere's, whose
+prune has no owner (F8). Decided: nothing new. Next: ignite 042.
+
+Baton — the dispatch → 042; G3 verifies 041 and prunes what the linter names.
