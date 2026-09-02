@@ -583,7 +583,12 @@ Every session, any mantle:
   only on request, is a malformed close. **The null close:** a session owing nothing
   writes no baton — `Next: none — <why>` (§7) is the typed form. **Ambiguity, never
   plurality, is the sin** (D64, amending D46): an uninstrumented option, a menu with
-  no recommendation, two holders, or a decision smuggled in prose is a dropped baton.
+  no recommendation, two holders, or a decision smuggled in prose is a dropped baton. **A ⬡-gate names what he must look
+  at** — three lines at most, the ones that decide it — and a baton hands him at most
+  three rulings; more is a queue, listed behind the baton, never a fourth ruling in
+  it. A one-word yes gets the calibration question before the mark is written: read,
+  or go — `⬡✓` or `⬡ go` (D82). Birthplace: D80 re-legislated a section blessed
+  unread four days earlier.
 
 ## 12. Founding a project — the founding ritual
 

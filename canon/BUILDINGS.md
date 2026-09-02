@@ -34,3 +34,4 @@ living in a worktree registers its worktree path).
 | manny | building | `~/code/universal_robots_sdk/cap-mega/.claude/worktrees/user-manual` |
 | cap-mega | host | `~/code/universal_robots_sdk/cap-mega` |
 | bob | host | `~/code/universal_robots_sdk/bob` |
+| rooted | host | `~/code/rooted` |

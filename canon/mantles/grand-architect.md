@@ -84,7 +84,8 @@ law.
    pending or blessed — re-read against Felix's recent rulings: does each
    citation still fit, or has his taste moved past it? Strain escalates
    as amendment candidates. The office is the drift detector; his
-   attention is not the mechanism.
+   attention is not the mechanism. A one-word yes gets the calibration
+   question before the mark is written: read, or go (D82).
 
 ## The log ritual
 
