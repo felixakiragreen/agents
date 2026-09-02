@@ -51,10 +51,33 @@ account choice is quota arbitrage.
 | 038 | [the stamp cycle](plans/038-stamp-cycle.md) — `summon.zsh` derives the cycle from the register (rows at-or-under the fire cwd; Name over dir-name; sticky law kept); `.summon-theaters` support removed, bob's file deleted at landing; the word "theater" dies in the rig's surfaces; lab/008 arms extended | — | Builder · opus-high | **LANDED** 2026-08-31 → [findings F1–F9](plans/038-stamp-cycle.md); harness **228 PASS · 0 failure(s)** (control 215), every new arm mutation-proved. Rulings the next reader inherits: the cycle is host + **four** tenants, not three — the spec's parenthetical miscounted, the rule won (F1) · the stamp row paints only where there is a choice, so a lone-row root is byte-identical to today's panel (F2) · an unregistered cwd has no cycle even with buildings under it (F3). **F4 is the trap worth carrying:** `${${~root}:A}` returns a path with zsh's glob tokens still in it — every `-` a raw 0x9B — so the whole feature silently no-op'd until the expansion was split in two. bob's file was never tracked (F5): `b399bc0` deletes the dead `.gitignore` rule instead |
 | 039 | [the register arm](plans/039-register-arm.md) — the doctrine parser reads `canon/BUILDINGS.md`; `discover()` roots from it (buildings walked, hosts listed); qualified-id resolution binds to Names; JSON surface stigmergon consumes (their D15 unblocks) | — | Builder · opus-high | **LANDED** 2026-08-31 — `doctrine buildings`, suite 87 → 94; F5 filed a latent worktree-dedup hole |
 | 040 | [the id respell](plans/040-id-respell.md) — D80 built: `doctrine migrate` derives the respell table from the board and respells the building whole, history and filenames included; 39 docs + 6 lab dirs renamed; the `✓ Felix` → `⬡✓` mark with it (D81's first act); the parser reads the new form; stigmergon's dry run is the control | — | Builder · opus-high | **LANDED** 2026-09-01 → [findings 040-F1–F9](plans/040-id-respell.md); the building speaks D80 whole — 180 files respelled by the converter, 39 charge docs + 6 lab dirs renamed, the mark with them (D81's first act). Suite 94 → **102**, lint 0, `0 missing` links, the stigmergon control 1,250 edits / **0 files written**. Rulings the next respell inherits: a code-ticked lone token is a form being NAMED and stands (040-F2) · the path rules bind to the building's own directory name, so a foreign `plans/18-…` is left alone (040-F6) · for a substitution the round-trip law is invariance under the table, not silence (040-F8) · run the converter twice and diff (040-F7). Two ledger heads keep belvedere's `C7`/`C13` — §7's qualified id does not parse in the head's id slot, filed (040-F4) |
-| 041 | [the statement and the caps](plans/041-statement-caps.md) — D82 built: `doctrine statement` renders every `⬡ go` with its interest; D78 enforced — LANDED / KILLED status cells over 200 characters lint-hard, ledger entries over 150 words lint-warn | ⬡-gate: his word — the moratorium ruling | Builder · opus-high | OPEN — laid 2026-09-01 |
-| 042 | [the grid prune](plans/042-grid-prune.md) — `canon/agents/` keeps the tiers a board or the rig has named (the census in the doc); the README's grid law becomes mint-at-the-lay; the delete lands ×3 | ⬡-gate: his word — the moratorium ruling and the live wire | Builder · opus-medium | OPEN — laid 2026-09-01 |
-| 043 | [the citation respell](plans/043-citation-respell.md) — D81 applied to the purge: 111 citations of 39 killed D-entries on the live canon respell to the section that carries each law, by the converter; history keeps its names | ⬡-gate: his word — the moratorium ruling | Builder · opus-high | OPEN — laid 2026-09-01 |
+| 041 | [the statement and the caps](plans/041-statement-caps.md) — D82 built: `doctrine statement` renders every `⬡ go` with its interest; D78 enforced — LANDED / KILLED status cells over 200 characters lint-hard, ledger entries over 150 words lint-warn | ⬡-gate: his word — paid 2026-09-01 | Builder · opus-high | OPEN — laid 2026-09-01 |
+| 042 | [the grid prune](plans/042-grid-prune.md) — `canon/agents/` keeps the tiers a board or the rig has named (the census in the doc); the README's grid law becomes mint-at-the-lay; the delete lands ×3 | ⬡-gate: his word and the live wire — paid 2026-09-01 | Builder · opus-medium | OPEN — laid 2026-09-01 |
+| 043 | [the citation respell](plans/043-citation-respell.md) — D81 applied to the purge: 111 citations of 39 killed D-entries on the live canon respell to the section that carries each law, by the converter; history keeps its names | ⬡-gate: his word — paid 2026-09-01 | Builder · opus-high | OPEN — laid 2026-09-01 |
+| G3 | Review gate — 041 · 042 · 043 verified against their bars; this board's LANDED cells pruned to D78's cap until lint reads 0; findings distilled; the baton to ⬡ | 041; 042; 043 | Architect · fable-high | OPEN — laid 2026-09-01 |
 
+
+**Batch note — 2026-09-01 · the tender's first run** — laid at grand-architect-22 on
+his word ("bless 041, 042, 043. Let's use the new sonnet tender kickoff dispatch").
+Shape: **041 → 042 → 043 → G3, serial, mainline** — no worktree, no bulletin: 041 and
+043 both touch `doctrine/` and its suite, 042 and 043 both touch the mantles README;
+each ignites as its predecessor LANDS, and G3 reviews the three. No concurrency
+plan — no shared live resource. **tender: sonnet-medium · plans/TENDER.md** (D83 —
+the kickoff's first real batch); the tender's permission mode is every Builder's, set
+deliberately at open. Escalations and the ⬡-queue return to Felix in the tender's
+session; the office verifies G3's close at its next desk. G3's kickoff:
+
+```
+You are an Architect at fable-high.
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/architect.md,
+then read ~/code/agents/BOARD.md, the ledger tail, and the findings of 041, 042
+and 043, and review the batch: every Done when: verified against its pasted
+evidence, each landing kept or reverted with a dated note, this board's LANDED
+cells pruned to the retention law's cap (D78 — status + findings pointer; the
+story stays in the charge docs) until `doctrine lint ~/code/agents` reads 0,
+findings distilled, the board reconciled, the ledger appended, the baton to ⬡.
+```
 
 **Deferred (tracked, not lost):**
 
@@ -92,3 +115,13 @@ account choice is quota arbitrage.
   salvage (engine, camera, gates, fixtures, census); git is the archive (D78).
   Felix's word 2026-08-31 at stigmergon's founding ("cleanup all the belvedere
   garbage").
+
+- The staffing retrospective — the batch report gains the tier and the meter's cost
+  per charge, read at every review; and one controlled experiment before any default
+  moves: a review gate at opus-high beside one at fable-high, a Digger charge with a
+  control. Felix, 2026-09-01: the idea stands, not the time — the next optimization
+  pass. Evidence on record: the census in [042](plans/042-grid-prune.md), the meter
+  in stigmergon's inbox, seven in ten output tokens Fable's.
+- A `t` preset in the rig — a bare sonnet-medium session opened with
+  `plans/TENDER.md`'s fence and the live batch note in its first prompt — laid after
+  the tender's first run proves the shape (D83); until then the paste is by hand.
