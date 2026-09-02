@@ -43,8 +43,9 @@ holds the tiers the city uses and nothing else.
   simmy's escalation class "tier named but not defined" stays retired.
 - **The prune (042, 2026-09-01):** eight unused cells retired — `fable-low`,
   `fable-medium`, `sonnet-low`, `sonnet-max`, `haiku-medium`, `haiku-xhigh`,
-  `haiku-max`, `haiku-high`; twelve stand. Git holds every one; re-mint by name when a
-  Staffing cell calls for it.
+  `haiku-max`, `haiku-high`; a ninth, `haiku-low`, at G3 (2026-09-02 — probe mentions
+  only, zero fires; the rule, not the roster's shape, decides). Eleven stand. Git holds
+  every one; re-mint by name when a Staffing cell calls for it.
 - **Effort is a request:** the harness clamps to the model's highest supported level at
   or below the request (documented fallback; a Haiku dispatch at xhigh verified working
   2026-08-02). The name states the request, the engine gives its best.
