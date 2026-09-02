@@ -172,6 +172,12 @@ wants the parenthetical to hold a row id and nothing else. Filed to `ISSUES.md`,
 fixed — it is Felix's entry and beyond this fence. The board rows this charge wrote parse
 clean (48/48 typed); both failures are ledger-side.
 
+**Reviewed and verified 2026-08-31 (G2's Architect; moved from the board row at G3's prune,
+2026-09-02):** `./lab/008/run` re-run at the desk reads **215 PASS · 0 failure(s)**, the arm's
+four PASS lines byte-identical to the pre-verification; `bv/029-summon-harness` confirmed
+deleted (`f160ec1` still reachable). F2's arithmetic correction accepted and propagated to
+[G2's F1](g2-029-merge.md).
+
 ---
 
 **Kickoff (verbatim):**

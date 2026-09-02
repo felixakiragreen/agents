@@ -1,7 +1,7 @@
 # 014 — summon rig: the theater cycle
 
-**Status:** LANDED 2026-08-24 (Builder · opus-high) — DoD green, one box open (Felix's
-smoke). · **Depends on:** 013 LANDED; **serial
+**Status:** LANDED 2026-08-24 (Builder · opus-high) — DoD green; the smoke ⬡✓ 2026-08-29
+(moved from the board row at G3's prune, 2026-09-02). · **Depends on:** 013 LANDED; **serial
 with 011** (shared files: `summon/summon.zsh`, `lab/008` — never both in flight; 011 is
 deferred, so 014 is dispatchable) · **Staffing:** Builder · opus-high · **Blessed:**
 Felix's ask 2026-08-22 (campaign theaters inside one repo — `architect-pods-NN` fired
@@ -170,8 +170,9 @@ Evidence: `lab/008/run` extended, green, **no regressions**, byte assertions. Bu
       → `summon/README.md` §*The theater cycle — one repo, several campaigns*, plus the
       gesture-table row, the reserved-key list, `log/theaters` in the telemetry section
       and the test count.
-- [ ] Felix's smoke: drop `.summon-theaters` in bob, cycle to pods, fire, read
-      `architect-pods-NN` in the title; reopen the panel and find pods preselected
+- [x] Felix's smoke: drop `.summon-theaters` in bob, cycle to pods, fire, read
+      `architect-pods-NN` in the title; reopen the panel and find pods preselected —
+      ⬡✓ 2026-08-29 (the board's record, moved here 2026-09-02)
 
 ## Out of scope — defended
 

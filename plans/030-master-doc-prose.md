@@ -1,6 +1,7 @@
 # 030 — the master-doc prose sweep
 
-**Status:** OPEN — laid 2026-08-29 · **Depends on:** 025 · **Staffing:** Architect · opus-high
+**Status:** LANDED 2026-08-29 — findings F1–F11 below (header reconciled to the board row at
+G3's prune, 2026-09-02) · **Depends on:** 025 · **Staffing:** Architect · opus-high
 
 ## Mission
 

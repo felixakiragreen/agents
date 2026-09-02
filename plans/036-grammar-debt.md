@@ -212,6 +212,11 @@ ignitable**` (a real bold opening, no space) is untouched. Sixteen hexwright and
 entries in the wider city read their clauses honestly for the first time; none of them is under
 this lint root.
 
+**Reviewed and verified 2026-08-31 (G2's Architect; moved from the board row at G3's prune,
+2026-09-02):** `bun test` 87 pass / 0 fail re-run at the desk; the one unmet bar confirmed a
+genuine doc defect, not a tool failure — `belvedere/LEDGER.md:3129` truly carries no `Next:`
+clause — in a building this charge fences. Its three field reports went to `ISSUES.md`.
+
 ---
 
 **Kickoff (verbatim):**
