@@ -157,3 +157,46 @@ register.
   on the dollar and four days sooner, priced at this desk. Homes: DOCTRINE §10 and
   §12, the Architect charter's lay — distilled 2026-09-01; formula 27 waits on his
   word.
+
+- **D86** (2026-09-01, Felix · ⬡✓ 2026-09-01): **The lanes.** Which acts need whose
+  yes, decided by class before the act, so the sovereign leaves every loop that does
+  not need him. The unit is the act — one thing a session does that the world can
+  see: a commit to the shared branch, a spec amendment, a delete, a publish, a config
+  write, a message sent. A charge is a bundle of acts and may hold acts of every
+  lane. Three lanes. **Green** — the bar is a named check that ran: the act lands on
+  its evidence alone, no eyes owed, reversal is a revert (a converter respell with a
+  fixed-point diff, a lint fix, tests added, the ledger appended). **Yellow** —
+  proceeds on `⬡ go`: lands, gets built on, sits on the statement accruing interest;
+  he pays when he can; reversal is a new charge (a refactor behind a stable
+  interface, a feature behind a flag, a spec amendment inside a blessed scope).
+  **Red** — `⬡✓` first, at a ⬡-gate: canon; money, hardware, prod, external
+  services; other people's data; taste surfaces; every irreversible — a delete, a
+  force-push, a publish, a schema migration, a send. Assignment, three sources in
+  order: the building's agreements name its red classes, short; the charge doc names
+  any red act inside it — a pre-chew fork, the Architect's at the lay; everything
+  else is green if its bar is a named check that ran and **yellow otherwise —
+  unclassified is yellow, never green.** The Builder proceeds through green and
+  yellow and stops at red (D82's rule, its boundary named in advance); the tender
+  never classifies; the Architect classifies at the lay and verifies at review; Felix
+  blesses red, goes yellow, reads the statement. Two lists, both derived: the ⬡-queue
+  is red waiting; the statement is yellow owed, sorted by interest (D82). The trust
+  ratchet — a class promoting one lane after n accepted reviews, demoting on one
+  rejection with an incident filed — waits on the statement's history; measure
+  first. Failure modes and their keepers: lane creep (the yellow default, the red
+  list explicit, a review demotes); yellow debt (a WIP cap on the statement — past
+  it, yellow pauses and the tender escalates; the keel: twelve plausible PRs is a
+  denial of service on the sovereign); an unlisted irreversible (a hook, the guard
+  pattern — DOCTRINE §3: a law that must bind Fixers lives in a hook); a maintained
+  list (keep it short, derive what git can revert, let the ratchet move classes).
+  Ancestors: the Architect's ruling law (reversible and cited proceeds — yellow for
+  Architects, already law), D54 (network acts stop — a red class), D48 (no rewinds —
+  red), D55 (venues — red), whiteboardy's hard laws (no paid services, no publishing
+  — a red list already in the field), the night-shift keel's law 3 (lanes and the
+  ratchet, his stream of 2026-08-24), D82 (the go-mark — the yellow lane's record).
+  **Birthplace owed:** desk-born in its shape, it binds one building first —
+  stigmergon's next campaign: the red list in its agreements (three to six acts),
+  the yellow default, green as a named check ran; one batch run under it; the
+  citation filed. Canon-wide — DOCTRINE §4, §5 and §10, the Builder and Architect
+  charters — at the citation, by the office. Until then this entry is the whole of
+  the law, and it is not lost. His ruling at the blessing: desk-born until
+  field-tested.
