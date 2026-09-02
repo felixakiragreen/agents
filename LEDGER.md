@@ -2904,3 +2904,15 @@ dispatched agent is never given the roster; the probe wanted a real session. Dec
 nothing new. Next: ignite 043.
 
 Baton — the dispatch → 043; G3 verifies 041 · 042 · 043, and rules F4.
+
+---
+
+**2026-09-01 · Grand Architect · fable-max (grand-architect-22)** — *(fourth act.)* Rec 6
+blessed on the record (the Log's read, written at the third act). Rec 4 blessed and
+written: a ⬡-gate names what he must look at, a baton hands at most three rulings, a
+one-word yes gets the calibration question before the mark — DOCTRINE §11 and the
+office's calibration sweep; an amendment, D44 and the baton law served better,
+birthplace D80's re-legislation. `rooted` registered as a host, his word. The tender's
+first run stands at 041 and 042 LANDED, 043 IN FLIGHT, G3 OPEN. Decided: nothing
+minted — two amendments and a register row. Next: unchanged — the dispatch holds the
+batch.
