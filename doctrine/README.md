@@ -11,6 +11,7 @@ normative per D65 ([belvedere/plans/p3-parse-coverage.md](../belvedere/plans/p3-
 
 ```
 bun doctrine/cli.ts lint [--live] [--vocab] [--verbose] [--json] <path…>
+bun doctrine/cli.ts statement [--json] <path…>   # every ⬡ go on a live surface (D82)
 bun doctrine/cli.ts parse --json <building>
 bun doctrine/cli.ts buildings [--json]     # the building register, walked
 bun doctrine/cli.ts migrate [--write] <building>
@@ -23,12 +24,14 @@ bun test                                   # from doctrine/ — the §6.2 contro
 import { parse, lint, migrate } from './doctrine';
 
 const b = parse('~/code/agents/belvedere');   // → Building: board[] · ledgerTail · baton
-                                              //   · decisionQueue · issues · kickoffs · fails
+                                              //   · decisionQueue · issues · kickoffs
+                                              //   · credits · fails
 ```
 
 `src/grammar.ts` names every mantle, tier, state, verdict and dead word **once** · `src/parse.ts` the
 five artifact parsers · `src/building.ts` discovery + `parse()` · `src/register.ts` the building
-register · `src/lint.ts` the walk and the report · `src/migrate.ts` the form-only converter ·
+register · `src/lint.ts` the walk and the report · `src/credit.ts` the statement (D82) ·
+`src/migrate.ts` the form-only converter ·
 `src/lexicon.ts` the standard's §§7–9 as data · `src/vocabulary.ts` the speech arm and its
 fence · `cli.ts` the arm.
 
@@ -70,6 +73,37 @@ nothing writes one again.
 **Charges are always staffed** (D71, lint-hard): an empty Staffing cell, the dead token
 `unstaffed`, or a dissolved `—` on a charge whose Status carries no `DEFERRED` is a failure,
 never a typed absence. `unrecorded` still answers for a record that never held.
+
+## The statement and the caps (D82 · D78)
+
+**`⬡ go ‹date›` is the credit mark** — Felix authorized without looking, the review owed; `⬡✓`
+is the blessing, and the checkmark is the act of checking (STANDARD §1, §7). The reader takes it
+wherever it takes `⬡✓`: a Status annotation, a gate paid on credit in Depends-on, a decision's
+attribution. **The date is part of the token and is never inferred** — an undated mark is
+`credit.undated` and authorizes nothing.
+
+`doctrine statement` renders every mark on a **live surface** — a board's OPEN / IN FLIGHT /
+LANDED rows, the decision register whole, the ledger's tail — with its **interest**: the count of
+charges whose Depends-on chain reaches the marked charge and which have since LANDED. The
+interest is **derived from the board's graph at every call, never kept**; `lint` prints its one
+line (`n on credit · max interest m`). A mark on a KILLED row is spent and off the statement, and
+a decision or a ledger entry names no charge, so its interest is 0.
+
+**The mask — a quoted token is a mention, not a mark.** Code spans and fences are masked, and
+`canon/` is fenced whole as the vocabulary arm fences it: STANDARD §7 defines the mark by writing
+one, and a definition is not a debt.
+
+**The retention caps, D78 made enforceable** — law since 2026-08-31, unenforced until 041, so the
+first run is meant to be red and the prune follows at the next Architect review:
+
+| Cap | Measure | Code |
+|---|---|---|
+| a LANDED or KILLED Status cell | 200 characters, the cell as written | `board.cell-cap` |
+| a ledger entry | 150 words | `ledger.entry-cap` (**warn**) |
+
+The cell cap is hard because the fix is the law: status + findings pointer, the story in the
+charge doc. The entry cap warns because the ledger's *reads* are D78-exempt — the tail-read
+protocol already bounds them — and its writes are not.
 
 ## Parser-as-lint
 

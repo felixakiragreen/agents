@@ -11,14 +11,16 @@ export {
 	type BoardRow, type LedgerEntry, type Decision, type Issue, type Kickoff, type Baton, type Instrument,
 } from './src/parse';
 export { lint, render, guardRegressions, isLiveWorkDoc, type LintReport, type Totals } from './src/lint';
+export { scanCredits, renderStatement, byInterest, type Credit, type Surface, type CreditSources } from './src/credit';
 export {
 	REGISTER, parseRegister, readRegister, walkRegister, buildingNames, crossingFails,
 	type Kind, type RegisterRow, type RegisteredBuilding,
 } from './src/register';
 export {
 	MANTLES, MODELS, EFFORTS, TIERS, STATES, VERDICTS, RETIRED, HEX_GATE, PENDING, DEFERRED, UNRECORDED,
-	FELIX_GATE, PARKED, UNSTAFFED,
-	isMantle, isTier, isState, isId, type Fail, type Mantle, type State, type Artifact, type Severity,
+	FELIX_GATE, PARKED, UNSTAFFED, CELL_CAP, ENTRY_CAP, BLESSED_MARK, CREDIT_MARK,
+	isMantle, isTier, isState, isId, isLawBook, creditDate, maskCode,
+	type Fail, type Mantle, type State, type Artifact, type Severity,
 } from './src/grammar';
 export { GRAVEYARD, FORMULAS, SPELLING_PAIRS, SPELLING_EXCEPTIONS, ISE_STOPLIST, CANON_PREFIXES, type Dead } from './src/lexicon';
 export { mask, vocabularyFails, prefixFails } from './src/vocabulary';

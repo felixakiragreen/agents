@@ -21,6 +21,7 @@ import {
 	type Baton, type BoardRow, type Decision, type Issue, type Kickoff, type LedgerEntry,
 } from './parse';
 import { strip, type Fail } from './grammar';
+import { scanCredits, type Credit, type CreditSources } from './credit';
 
 /** Everything has a limit (directive 3.1) — a walk that runs away is a bug, not a slow tool. */
 export const LIMITS = { files: 40_000, bytes: 8 << 20, depth: 24 } as const;
@@ -56,6 +57,7 @@ export type Building = {
 	decisionQueue: Decision[];
 	issues: Issue[];
 	kickoffs: (Kickoff & { doc: string })[];
+	credits: Credit[];                // D82's statement, derived from this building's own graph
 	files: { boards: string[]; ledger: string | null; decisions: string | null; issues: string | null; workDocs: string[]; prose: string[]; register: string | null };
 	fails: Fail[];
 };
@@ -272,10 +274,13 @@ export function parseFiles(e: { building: string; path: string; files: Building[
 	for (const f of e.files.boards) for (const id of boardIds(read(f))) knownIds.add(id);
 
 	const board: Board[] = [];
+	const sources: CreditSources = { boards: [], decisions: null, ledgerTail: null };
 	for (const f of e.files.boards) {
-		const r = parseBoards(read(f), knownIds);
+		const md = read(f);
+		const r = parseBoards(md, knownIds);
 		fails.push(...stamp(r.fails, f));
 		for (const b of r.boards) board.push({ heading: b.heading, file: f, line: b.line, rows: b.rows });
+		sources.boards.push({ file: f, md, rows: r.boards.flatMap(b => b.rows) });
 	}
 
 	let ledgerTail: LedgerEntry | null = null, ledgerEntries = 0, baton: Baton | null = null;
@@ -292,14 +297,17 @@ export function parseFiles(e: { building: string; path: string; files: Building[
 		ledgerEntries = r.entries.length;
 		baton = classifyBaton(r.tail);
 		fails.push(...stamp(batonFails(baton, r.tail?.line ?? 0), e.files.ledger));
+		if (r.tail) sources.ledgerTail = { file: e.files.ledger, line: r.tail.line, block: r.tail.block };
 	}
 
 	let decisionQueue: Decision[] = [], decisions = 0;
 	if (e.files.decisions) {
-		const r = parseDecisions(read(e.files.decisions));
+		const md = read(e.files.decisions);
+		const r = parseDecisions(md);
 		fails.push(...stamp(r.fails, e.files.decisions));
 		decisionQueue = r.queue;
 		decisions = r.decisions.length;
+		sources.decisions = { file: e.files.decisions, md, entries: r.decisions.map(d => ({ id: d.id, line: d.line })) };
 	}
 
 	let issues: Issue[] = [];
@@ -317,9 +325,12 @@ export function parseFiles(e: { building: string; path: string; files: Building[
 		for (const k of r.kickoffs) kickoffs.push({ ...k, doc: f });
 	}
 
+	const credit = scanCredits(sources);
+	fails.push(...credit.fails);
+
 	return {
 		building: e.building, path: e.path, board, ledgerTail, ledgerEntries, baton,
-		decisions, decisionQueue, issues, kickoffs, files: e.files, fails,
+		decisions, decisionQueue, issues, kickoffs, credits: credit.credits, files: e.files, fails,
 	};
 }
 

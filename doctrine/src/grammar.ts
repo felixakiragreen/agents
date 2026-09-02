@@ -1,3 +1,5 @@
+import { sep } from 'path';
+
 // The doctrine's vocabulary and its text primitives.
 // Law: canon/work/DOCTRINE.md §§3, 4, 5, 7, 8, 11 as amended by D63 (the schema fold),
 // D64 (the baton grammar) and D71 (the standard: canon/work/STANDARD.md). One parser in the
@@ -57,16 +59,35 @@ export const isId = (s: string) => /^[A-Za-z0-9][A-Za-z0-9-]*$/.test(s) && /\d/.
  */
 export const DECISION_ID = String.raw`[A-Za-z]{1,8}(?:-[A-Za-z]{1,8})?-?\d+[a-z]?`;
 
-/** §7 — the blessing mark. `✓ Felix` is the historical spelling: read forever, never emitted. */
+/** §7 — the blessing mark: he looked. `✓ Felix` is the historical spelling: read forever, never emitted. */
 export const BLESSED_MARK = /⬡\s*✓|✓\s*Felix/;
 /**
- * The mark rides the END of an attribution, behind §8's `·` — `(2026-08-29, Grand Architect ·
- * ⬡✓ 2026-08-29)`. The separator is required: without it "proposed, pending ⬡✓" reads as a
- * blessing already given, and the decider loses half its name to the strip.
+ * §7 — the credit mark (D82): the hexagon without the check, so its absence says he has not
+ * looked. Authorization on credit, the review owed. The date is part of the token and is never
+ * inferred, so the bare token matches too — an undated mark is the statement's failure, and
+ * `creditDate` hands back null for it because a mark with no date authorizes nothing.
  */
-export const BLESSED_TAIL = /\s*·\s*(?:⬡\s*✓|✓\s*Felix)(?:\s*\d{4}-\d{2}-\d{2})?\s*$/;
+export const CREDIT_MARK = /⬡\s*go\b[ \t]*(\d{4}-\d{2}-\d{2})?/;
+export const creditDate = (s: string) => s.match(CREDIT_MARK)?.[1] ?? null;
+/**
+ * A mark rides the END of an attribution, behind §8's `·` — `(2026-08-29, Grand Architect ·
+ * ⬡✓ 2026-08-29)`, `(2026-09-01, Architect · ⬡ go 2026-09-01)`. The separator is required:
+ * without it "proposed, pending ⬡✓" reads as a blessing already given, and the decider loses
+ * half its name to the strip.
+ */
+export const MARK_TAIL = /\s*·\s*(?:⬡\s*✓|✓\s*Felix|⬡\s*go)(?:\s*\d{4}-\d{2}-\d{2})?\s*$/;
+
 /** §8 — a dispatched session marks its entry proposed, in either spelling. */
 export const PROPOSED_MARK = /proposed[\s,]*(?:[—–-]\s*)?pending\s+(?:⬡\s*✓|Felix countersign)/i;
+
+/**
+ * D78's retention law, unenforced from its blessing to 041: a LANDED or KILLED Status cell is
+ * capped in characters (lint-hard — the fix is the law: status + findings pointer, the story in
+ * the charge doc), a ledger entry in words (a warning — the ledger's READS are D78-exempt, its
+ * writes are not).
+ */
+export const CELL_CAP = 200;
+export const ENTRY_CAP = 150;
 
 export type Mantle = typeof MANTLES[number];
 export type State = typeof STATES[number];
@@ -134,6 +155,27 @@ export function trailingParen(s: string): { head: string; inner: string | null }
 	}
 	return { head: t, inner: null };
 }
+
+const blankRun = (s: string) => s.replace(/[^\n]/g, ' ');
+
+/**
+ * Fenced blocks and inline ticks, blanked in place — every offset stays the real one. A doc that
+ * quotes a token is naming it, not carrying it: this is what tells a mention from a mark.
+ */
+export function maskCode(md: string): string {
+	let fence = false;
+	return md.split('\n')
+		.map(l => /^\s*```/.test(l) ? (fence = !fence, blankRun(l)) : fence ? blankRun(l) : l)
+		.join('\n')
+		.replace(/`[^`\n]*`/g, blankRun);
+}
+
+/**
+ * The law book itself. `canon/` prints the graveyard — STANDARD §9 IS a table of dead words —
+ * and §7 spells the credit mark by writing one. A book that may not name a form cannot define
+ * it, so every arm that reads forms as data fences this directory (025; 041).
+ */
+export const isLawBook = (f: string) => f.split(sep).includes('canon');
 
 /** A leading ALLCAPS token, as a whole word — the Status cell's lifecycle slot. */
 export function leadingToken(s: string): string {

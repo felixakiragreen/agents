@@ -2,9 +2,9 @@
 // Parser-as-lint (Belvedere README §1): a doc that will not parse is a doc that is lying.
 
 import { readFileSync } from 'fs';
-import { basename, sep } from 'path';
+import { basename } from 'path';
 import { discover, lastWalk, type Building } from './building';
-import { STATES, type Fail } from './grammar';
+import { isLawBook, STATES, type Fail } from './grammar';
 import { boardIds, isLiveWorkDoc, isSpentWorkDoc, parseDecisions } from './parse';
 import { buildingNames, crossingFails, readRegister } from './register';
 
@@ -15,7 +15,8 @@ export type Totals = {
 	buildings: number; boardDocs: number; boardDocsWithBoard: number; boards: number;
 	rows: number; typedRows: number; ledgers: number; ledgerEntries: number; tails: number;
 	fireableBatons: number; workDocs: number; kickoffs: number; decisions: number;
-	decisionQueue: number; issues: number; worktreeCopiesSkipped: number;
+	decisionQueue: number; issues: number; credits: number; maxInterest: number;
+	worktreeCopiesSkipped: number;
 };
 
 export type LintReport = { buildings: Building[]; fails: Fail[]; totals: Totals };
@@ -45,12 +46,8 @@ function liveFails(b: Building): Fail[] {
 
 const VOICE = ['LOG.md', 'SAPHO.md', 'dream.md'];
 
-/**
- * The law book itself. `canon/` prints the graveyard — §9 IS a table of dead words — and 023
- * respelled it under Felix's own sign-off; 025 fenced it for the same reason. A book that may
- * not name the dead cannot bury them.
- */
-const isLawBook = (f: string) => f.split(sep).includes('canon');
+// The law book's own fence — `isLawBook` (grammar.ts): 023 respelled the graveyard under Felix's
+// own sign-off, 025 fenced it, and 041's statement reads the same fence for the credit mark.
 
 /**
  * 025's live list: a building's own master doc and CLAUDE.md, its boards, its OPEN charge docs.
@@ -99,6 +96,7 @@ export function lint(roots: string[], opts: { live?: boolean; vocab?: boolean } 
 	const fails = buildings.flatMap(b => b.fails);
 
 	const rows = buildings.flatMap(b => b.board.flatMap(x => x.rows));
+	const credits = buildings.flatMap(b => b.credits);
 	const totals: Totals = {
 		buildings: buildings.length,
 		boardDocs: buildings.reduce((a, b) => a + b.files.boards.length, 0),
@@ -115,6 +113,8 @@ export function lint(roots: string[], opts: { live?: boolean; vocab?: boolean } 
 		decisions: buildings.reduce((a, b) => a + b.decisions, 0),
 		decisionQueue: buildings.reduce((a, b) => a + b.decisionQueue.length, 0),
 		issues: buildings.reduce((a, b) => a + b.issues.length, 0),
+		credits: credits.length,
+		maxInterest: credits.reduce((a, c) => Math.max(a, c.interest), 0),
 		worktreeCopiesSkipped: lastWalk.suppressed,
 	};
 	return { buildings, fails, totals };
@@ -163,6 +163,8 @@ export function render(r: LintReport, opts: { verbose?: boolean } = {}): string 
 		`${t.rows} rows · ${t.typedRows} fully typed (${t.rows ? (100 * t.typedRows / t.rows).toFixed(0) : 0}%)`);
 	out.push(`  ${t.tails}/${t.ledgers} ledgers parsed a tail (${t.ledgerEntries} entries) · ${t.fireableBatons} fireable baton(s) · ` +
 		`${t.kickoffs} kickoffs in ${t.workDocs} work docs · ${t.decisions} decisions (queue ${t.decisionQueue}) · ${t.issues} inbox entries`);
+	// The statement's one line here — the whole of it is `doctrine statement` (D82).
+	out.push(`  ${t.credits} on credit · max interest ${t.maxInterest}`);
 	out.push(`  ${t.worktreeCopiesSkipped} worktree checkout(s) skipped as branch copies · per-repo special cases: 0`);
 	const failed = r.fails.filter(f => f.severity === 'fail').length;
 	out.push(`  ${failed} failure(s) in ${classes.length} class(es)`

@@ -2,6 +2,7 @@
 // `doctrine` — the CLI arm of the Standards Office's reader.
 //
 //   doctrine lint [--live] [--verbose] [--json] <path…>   walk and report; non-zero on any fail
+//   doctrine statement [--json] <path…>                   every ⬡ go on a live surface (D82)
 //   doctrine parse --json <building>                      one building, P3 §5's shapes
 //   doctrine buildings [--json]                           the building register, walked
 //   doctrine migrate [--write] <building>                 re-emit in the current grammar
@@ -10,7 +11,8 @@ import { existsSync, mkdtempSync, rmSync } from 'fs';
 import { tmpdir } from 'os';
 import { join, relative, resolve } from 'path';
 import { execSync } from 'child_process';
-import { parse } from './src/building';
+import { discover, parse } from './src/building';
+import { byInterest, renderStatement } from './src/credit';
 import { guardRegressions, lint, render } from './src/lint';
 import { REGISTER, walkRegister } from './src/register';
 import { diff, migrate, roundTrip, write } from './src/migrate';
@@ -32,9 +34,15 @@ const USAGE = `doctrine — the reference reader for the work doctrine (canon/wo
                      DECREASE in the entity totals — the silence family's mechanical net.
                      Intentional deletions override by running without the flag, visibly.
 
+  doctrine statement [--json] <path…>
+      The statement (D82): every "⬡ go ‹date›" on a live surface — a board's OPEN / IN FLIGHT /
+      LANDED rows, the decision register, the ledger tail — with its interest, the count of
+      charges whose Depends-on chain reaches the marked charge and which have since LANDED.
+      Derived from the board's graph at every call, never kept. Sorted by interest, descending.
+
   doctrine parse --json <building>
       Emit one building's parsed shapes (Building, BoardRow, LedgerEntry, Baton,
-      Decision, Kickoff, Issue).
+      Decision, Kickoff, Issue, Credit).
 
   doctrine buildings [--json]
       The building register (canon/BUILDINGS.md, D79) walked: every row — Name · Kind ·
@@ -91,6 +99,15 @@ if (cmd === 'lint') {
 	}
 	// Warnings are reported, never enforced (§7's own word) — only failures move the exit code.
 	process.exit(report.fails.some(f => f.severity === 'fail') ? 1 : 0);
+}
+
+if (cmd === 'statement') {
+	if (!paths.length) die('doctrine statement: give me at least one path to walk.');
+	for (const p of paths) if (!existsSync(p)) die(`doctrine statement: ${p} does not exist.`);
+	const credits = discover(paths).flatMap(b => b.credits);
+	if (flag('--json')) console.log(JSON.stringify([...credits].sort(byInterest), null, 2));
+	else console.log(renderStatement(credits, paths.join(' ')));
+	process.exit(0);
 }
 
 if (cmd === 'parse') {

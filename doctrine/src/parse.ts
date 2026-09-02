@@ -6,9 +6,10 @@
 // verbatim excerpt — never a parser branch. The shapes below are P3 §5's, normative per D65.
 
 import {
-	BLESSED_MARK, BLESSED_TAIL, DECISION_ID, DEFERRED, FELIX_GATE, HEX_GATE, MANTLES, PARKED, PENDING, PROPOSED_MARK,
-	RETIRED, STATES, UNRECORDED, UNSTAFFED, VERDICTS,
-	delink, fail, isId, isMantle, isState, isTier, leadingToken, linkTarget, strip, topSplit, trailingParen,
+	BLESSED_MARK, CELL_CAP, DECISION_ID, DEFERRED, ENTRY_CAP, FELIX_GATE, HEX_GATE, MANTLES, MARK_TAIL, PARKED,
+	PENDING, PROPOSED_MARK, RETIRED, STATES, UNRECORDED, UNSTAFFED, VERDICTS,
+	creditDate, delink, fail, isId, isMantle, isState, isTier, leadingToken, linkTarget, maskCode, strip, topSplit,
+	trailingParen,
 	type Fail, type State,
 } from './grammar';
 
@@ -111,6 +112,11 @@ function parseStatus(cell: string, id: string, line: number) {
 	if (isState(lead)) {
 		if ((lead === 'OPEN' || lead === 'IN FLIGHT') && STALE_LEAD.test(cell))
 			fails.push(fail('board', 'board.stale-lead', `the ${lead} lead is outrun by its own annotation's landing (row 017 C2) — the state leads with the truth, history rides the annotation`, `${id}: ${JSON.stringify(st.slice(0, 160))}`, line));
+		// D78's retention law, lint-hard: a resolved row's cell is the state and where to read the
+		// rest. The cell is measured as written — a reader reads the markdown too.
+		const written = cell.trim().length;
+		if ((lead === 'LANDED' || lead === 'KILLED') && written > CELL_CAP)
+			fails.push(fail('board', 'board.cell-cap', `a LANDED or KILLED Status cell is capped at ${CELL_CAP} characters (D78) — compress to status + findings pointer, and let the charge doc carry the story`, `${id} (${written} chars): ${JSON.stringify(st.slice(0, 140))}…`, line));
 		return { state: lead as State, annotation: st.slice(lead.length).replace(/^[\s—–-]+/, ''), fails };
 	}
 
@@ -277,17 +283,6 @@ export type LedgerEntry = {
  */
 const CLAUSE_MARKER = /\b(Decided|Next):/g;
 
-const blankRun = (s: string) => s.replace(/[^\n]/g, ' ');
-
-/** Fenced blocks and inline ticks, blanked in place — every offset stays the real one. */
-function maskCode(md: string): string {
-	let fence = false;
-	return md.split('\n')
-		.map(l => /^\s*```/.test(l) ? (fence = !fence, blankRun(l)) : fence ? blankRun(l) : l)
-		.join('\n')
-		.replace(/`[^`\n]*`/g, blankRun);
-}
-
 function clauses(body: string): { decided: string | null; next: string | null } {
 	const masked = maskCode(body);
 	const marks: { name: string; at: number; end: number }[] = [];
@@ -380,6 +375,12 @@ export function parseLedger(md: string): { entries: LedgerEntry[]; tail: LedgerE
 		const { decided, next } = clauses(rawHead ? raw.slice(rawHead[0]!.length) : raw);
 		if (!decided) fails.push(fail('ledger', 'ledger.decided', 'no "Decided:" clause (§7)', flat.slice(0, 220), b.line));
 		if (!next) fails.push(fail('ledger', 'ledger.next', 'no "Next:" clause — the baton (§7)', flat.slice(0, 220), b.line));
+
+		// D78, as a warning: the ledger's tail-read protocol bounds what anyone READS, so the cap
+		// binds the writer and never the reader. The office rules whether to harden after a sweep.
+		const words = b.text.trim().split(/\s+/).length;
+		if (words > ENTRY_CAP)
+			fails.push(fail('ledger', 'ledger.entry-cap', `a ledger entry is capped at ${ENTRY_CAP} words (D78) — the entry is date · mantle · changed · decided · next, and the story lives in the charge doc`, `(${words} words) ${flat.slice(0, 200)}`, b.line, 'warn'));
 
 		entries.push({ date, mantle, tier, row, body, decided, next, line: b.line, block: b.text });
 	}
@@ -544,7 +545,7 @@ export function batonFails(baton: Baton | null, line: number): Fail[] {
 
 export type Decision = {
 	id: string; date: string; decider: string; title: string; body: string;
-	blessed: boolean; pending: boolean; line: number;
+	blessed: boolean; pending: boolean; credit: string | null; line: number;
 };
 
 // A project's decision ids carry its own prefix — RP-1, A1, D63 (item 11) and §7's mandated
@@ -589,7 +590,7 @@ export function parseDecisions(md: string): { decisions: Decision[]; queue: Deci
 
 		decisions.push({
 			id: head[1]!, date: pm ? pm[1]! : '',
-			decider: (pm ? pm[2]! : paren).replace(BLESSED_TAIL, '').trim(),
+			decider: (pm ? pm[2]! : paren).replace(MARK_TAIL, '').trim(),
 			title: tm ? tm[1]! : rest.split('.')[0]!, body: tm ? tm[2]! : rest,
 			// D71 §7 — `⬡✓` is the mark; `⬡✓` is the history the record still carries. The
 			// respell put the mark inside the WAITING form too ("proposed, pending ⬡✓"), where the
@@ -599,11 +600,16 @@ export function parseDecisions(md: string): { decisions: Decision[]; queue: Deci
 			// The marker lives in the ATTRIBUTION; a body that merely quotes the phrase — D21, the
 			// entry that DEFINES it — never counts (item 12).
 			pending: PROPOSED_MARK.test(paren),
+			// D82 — the third resolution: authorized without his eyes, dated, the review owed. It
+			// is not a blessing (the checkmark is the act of checking) and it is not the queue:
+			// nobody waits on it, it sits on the statement until he reads it.
+			credit: creditDate(paren),
 			line: at,
 		});
 	}
-	// A decision Felix made needs no countersign; the queue is what waits on his pen (P3 §5).
-	const queue = decisions.filter(d => d.pending || (!d.blessed && !/^Felix\b/.test(d.decider)));
+	// A decision Felix made needs no countersign; the queue is what waits on his pen (P3 §5) —
+	// and an entry paid on credit waits on nobody: it proceeds, and the statement carries it (D82).
+	const queue = decisions.filter(d => d.pending || (!d.blessed && !d.credit && !/^Felix\b/.test(d.decider)));
 	return { decisions, queue, fails, candidates };
 }
 

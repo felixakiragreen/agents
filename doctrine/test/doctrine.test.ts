@@ -12,6 +12,7 @@ import {
 import { migrateText, roundTrip } from '../src/migrate';
 import { renderTable, respellTable } from '../src/respell';
 import { isId } from '../src/grammar';
+import { byInterest, renderStatement, scanCredits } from '../src/credit';
 import { guardRegressions, isLiveWorkDoc, lint } from '../src/lint';
 import { discover, lastWalk, parse, staffsSessions } from '../src/building';
 import { crossingFails, parseRegister, walkRegister } from '../src/register';
@@ -807,5 +808,78 @@ describe('the id respell', () => {
 			expect(codes(r.fails)).toEqual([]);
 			expect(r.tail!.row).toBe(stamp);
 		}
+	});
+});
+
+// ---------- the statement and the caps (041; D82 · D78) ----------
+
+describe('the statement — every ⬡ go on a live surface, with its interest (D82)', () => {
+	const credit = () => lint([join(FX, 'credit')]);
+
+	test('the credit fixture lints clean, and its known interest is 2', () => {
+		const r = credit();
+		expect(codes(r.fails)).toEqual([]);
+		expect(r.buildings[0]!.credits.sort(byInterest).map(c => [c.where, c.surface, c.date, c.interest])).toEqual([
+			['001', 'board', '2026-09-01', 2],            // 002 and 003 landed on top; 004 is OPEN
+			['D2', 'decisions', '2026-09-01', 0],
+			['005', 'board', '2026-09-02', 0],            // the gate paid on credit, nothing landed yet
+			['the tail', 'ledger', '2026-09-02', 0],
+		]);
+		expect([r.totals.credits, r.totals.maxInterest]).toEqual([4, 2]);
+	});
+
+	test('the interest is derived from the graph, never kept — unland 003 and it falls to 1', () => {
+		const md = fx('credit', 'BOARD.md').replace('| 003 | [the top](plans/003-top.md) | 002 | Builder · opus-high | LANDED 2026-09-01 |',
+			'| 003 | [the top](plans/003-top.md) | 002 | Builder · opus-high | OPEN — laid 2026-09-01 |');
+		const rows = parseBoards(md).boards[0]!.rows;
+		const c = scanCredits({ boards: [{ file: '/x/BOARD.md', md, rows }], decisions: null, ledgerTail: null });
+		expect(c.credits.map(x => [x.where, x.interest])).toEqual([['001', 1], ['005', 0]]);
+	});
+
+	test('what is NOT on the statement: a spent row, a quoted token, a ledger entry behind the tail', () => {
+		const c = credit().buildings[0]!.credits;
+		expect(c.map(x => x.where)).not.toContain('006');            // KILLED is spent, mark and all
+		expect(c.map(x => x.where)).not.toContain('007');            // a code span names the token
+		expect(c.filter(x => x.surface === 'ledger').map(x => x.line)).toEqual([10]);   // the tail, not entry 1
+	});
+
+	test('the law book is fenced: STANDARD §7 defines the mark by writing one (the mask)', () => {
+		const md = fx('credit', 'BOARD.md');
+		const rows = parseBoards(md).boards[0]!.rows;
+		const scan = (file: string) => scanCredits({ boards: [{ file, md, rows }], decisions: null, ledgerTail: null }).credits;
+		expect(scan('/x/canon/work/STANDARD.md')).toEqual([]);
+		expect(scan('/x/BOARD.md')).toHaveLength(2);                 // the control: the same bytes, off the law book
+	});
+
+	test('⬡ go is not a blessing and not the queue — it is the statement (D82, STANDARD §1)', () => {
+		const r = parseDecisions(fx('credit', 'DECISIONS.md'));
+		expect(codes(r.fails)).toEqual([]);
+		expect(r.decisions.map(d => [d.id, d.decider, d.blessed, d.credit])).toEqual([
+			['D1', 'Felix', true, null],
+			['D2', 'Architect', false, '2026-09-01'],   // the checkmark is the act of checking — absent
+			['D3', 'Architect', false, null],
+		]);
+		expect(r.queue.map(d => d.id)).toEqual(['D3']);
+	});
+
+	test('an empty statement says so; a full one leads with the deepest debt', () => {
+		expect(renderStatement([], '~/code/agents')).toBe('the statement (D82) — nothing on credit: no ⬡ go on a live surface under ~/code/agents.');
+		const out = renderStatement(credit().buildings[0]!.credits, 'the fixture').split('\n');
+		expect(out[2]).toContain('2  ⬡ go 2026-09-01  001');
+		expect(out.at(-1)).toBe('  4 on credit · max interest 2');
+	});
+
+	test('the three defects D78 and D82 make visible: an undated mark, an over-cap cell, an over-cap entry', () => {
+		const r = lint([join(FX, 'credit-defects')]);
+		expect(r.fails.map(f => [f.code, f.severity]).sort()).toEqual([
+			['board.cell-cap', 'fail'], ['credit.undated', 'fail'], ['ledger.entry-cap', 'warn'],
+		]);
+		// the cap is measured, and the row that conforms is silent
+		expect(r.fails.find(f => f.code === 'board.cell-cap')!.excerpt).toStartWith('C2 (379 chars):');
+		expect(r.fails.find(f => f.code === 'ledger.entry-cap')!.excerpt).toStartWith('(237 words)');
+		expect(r.fails.map(f => f.excerpt.split(':')[0])).toContain('C1');
+		expect(r.fails.some(f => f.excerpt.startsWith('C3'))).toBe(false);
+		// an undated mark authorizes nothing: it is a failure, never a credit with a guessed date
+		expect(r.buildings[0]!.credits).toEqual([]);
 	});
 });
