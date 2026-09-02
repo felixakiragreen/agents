@@ -2824,3 +2824,22 @@ Suite 102 pass / 0 fail, lint 0. Decided: formula 26 (⬡✓ 2026-09-01, distill
 delivery — no register entry owed). Next: none — the ⬡-queue is empty; D80 and D81's arc
 is whole (ruled, built, verified, closed, worded); stigmergon's respell is its
 Architect's, at their desk, with the instrument built.
+
+---
+
+**2026-09-01 · Grand Architect · fable-max (grand-architect-22)** — The factory evaluated
+at Felix's ask, from the transcripts: one token in four went to this repo, 850 canon
+commits against under 50 product commits in the week, the office's blessings half
+credit by his own count; Belvedere priced against stigmergon — 1,800 vs 700 harness
+dollars, six days vs two, three foundations vs one. Blessed and distilled the same
+day: D82 the go-mark (STANDARD §1/§7, DOCTRINE §4/§8, builder.md), D83 the tender
+kickoff (`plans/TENDER.md`, DOCTRINE §10), D84 retiring a building (§12), D85 dig
+before you build (§10, §12, architect.md), the canonization law's desk-born/field-born
+test. Laid 041 · 042 · 043 + G3 on his word — the tender's first batch; the meter
+filed to stigmergon's inbox; inbox swept — the index defect landed by
+architect-stigmergon-04, D22's citation recorded, the migrate notes deferred.
+Decided: D82–D85 (⬡✓ 2026-09-01); formula 27 waits on his word. Next: the tender's
+first run — batoned below.
+
+Baton — ⬡ → ignite the tender: `^G n s m ⏎` opens a bare sonnet-medium session; its
+first prompt is `plans/TENDER.md`'s fence, then the batch note in `BOARD.md`, verbatim.
