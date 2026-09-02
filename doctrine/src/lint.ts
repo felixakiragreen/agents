@@ -34,6 +34,8 @@ function liveFails(b: Building): Fail[] {
 		|| f.artifact === 'prose'
 		// the building register is read by every discovery — no surface is more live (D79)
 		|| f.artifact === 'register'
+		// the decision register is the surface a credit mark sits on until he reads it (D82; 041-F10, G3 2026-09-02)
+		|| f.artifact === 'decisions'
 		|| (f.artifact === 'ledger' && b.ledgerTail !== null && f.line === b.ledgerTail.line)
 		|| (f.artifact === 'kickoff' && openDocs.has(f.file)));
 }

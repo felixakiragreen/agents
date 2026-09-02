@@ -873,7 +873,7 @@ describe('the statement — every ⬡ go on a live surface, with its interest (D
 	test('the three defects D78 and D82 make visible: an undated mark, an over-cap cell, an over-cap entry', () => {
 		const r = lint([join(FX, 'credit-defects')]);
 		expect(r.fails.map(f => [f.code, f.severity]).sort()).toEqual([
-			['board.cell-cap', 'fail'], ['credit.undated', 'fail'], ['ledger.entry-cap', 'warn'],
+			['board.cell-cap', 'fail'], ['credit.undated', 'fail'], ['credit.undated', 'fail'], ['ledger.entry-cap', 'warn'],
 		]);
 		// the cap is measured, and the row that conforms is silent
 		expect(r.fails.find(f => f.code === 'board.cell-cap')!.excerpt).toStartWith('C2 (379 chars):');
@@ -882,5 +882,10 @@ describe('the statement — every ⬡ go on a live surface, with its interest (D
 		expect(r.fails.some(f => f.excerpt.startsWith('C3'))).toBe(false);
 		// an undated mark authorizes nothing: it is a failure, never a credit with a guessed date
 		expect(r.buildings[0]!.credits).toEqual([]);
+	});
+
+	test('--live keeps the register: a credit failure in DECISIONS.md survives the live filter (041-F10)', () => {
+		const live = lint([join(FX, 'credit-defects')], { live: true });
+		expect(live.fails.filter(f => f.code === 'credit.undated').map(f => f.artifact).sort()).toEqual(['board', 'decisions']);
 	});
 });
