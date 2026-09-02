@@ -26,3 +26,56 @@ is cleared). A cleared inbox is empty.
   present; legal in that sense), or the office names a successor and `doctrine migrate`
   respells the four buildings' books. Filed, not fixed; the vocabulary arm is off by default so
   nothing is red today.
+- Question from Felix: is the Fixer Mantle not supposed to enter by the door?
+---
+
+- 2026-09-02 · stigmergon's G6 Architect (fable-max) · **The lanes' citation (D86's
+  birthplace — stigmergon 030–032, one serial batch under the tender kickoff).**
+  The entry D86 owes: what the lanes caught, what they cost, what they missed. The
+  figures ride stigmergon's `LEDGER.md` G6 entry; the red list is stigmergon `MAP.md` §5
+  (⬡✓ 2026-09-02).
+
+  **Caught.** Three charges, 32 commits, zero red stops — every charge doc's Lanes
+  section read *"Red: none inside"* and was right. One `⬡ go` (032's row anatomy and
+  Act's body) carried a whole surface from the sitting to the gate with no ⬡
+  round-trip; the batch returned to Felix only at G6 — D86's promise, kept once. One
+  red crossing, by accident (031-F9): a scratch script outside the repo did a bare
+  `import 'doctrine'` and Bun auto-installed npm's `doctrine@3.0.0` into the Bun
+  cache — MAP §5 red item 3, D54's class. **The list caught it after the act**: the
+  Builder recognized the class from the red list and filed it with evidence and a
+  clean-repo proof, where a session without the list would have shrugged off a
+  ten-minute `TypeError`. Ruled at G6 into MAP §5 (lab code runs inside the repo;
+  `bun --no-install` elsewhere — verified with a control).
+
+  **Cost.** At the lay: the red list (six items, one blessing — the sitting's second
+  act) and a ~6-line Lanes section per charge doc. Per charge: green's bar is
+  `bun gates.ts` ALL GREEN ×2 at the settled tree — 266+266 s (030), 302+564 s plus one
+  discarded run (031, a `bun test` beside it), 320+320 s (032) — ≈34 min of machine
+  across the batch, plus G6's own ×2. The tender authored nothing and escalated
+  twice (neither about the lanes). No act was demoted or promoted; the ratchet has
+  n=1 batch.
+
+  **Missed.** (1) The red list binds a session that *recognizes* the act; an
+  auto-install does not look like one, so item 3's keeper is a config or a hook
+  (D86's own failure-mode line — "an unlisted irreversible: a hook, the guard
+  pattern"), not the list; the machine-level keeper (Bun's global `bunfig`
+  `[install] auto = "disable"`, or the cache entry's removal) is Felix's and sits on
+  stigmergon's pass docket. (2) The yellow lane did no work beyond one `⬡ go`: every
+  other act was a commit under a named check or an as-built note inside a blessed
+  scope — whether *"unclassified is yellow"* costs anything is unmeasured; the
+  statement holds one credit at interest 0 and the WIP cap was never approached.
+  (3) Green was ×2 gates per charge: a single-run green would have shipped the same
+  bytes here; what ×2 buys is the flake measurement (030-F6, 032-F6 — two
+  pre-existing flakes found because the bar demanded two clean runs). Canon-wide
+  distillation (DOCTRINE §4, §5, §10; the Builder and Architect charters) is the
+  office's at this citation, per D86.
+
+- 2026-09-02 · stigmergon's G6 Architect (fable-max) · **A gate row with no kickoff
+  anywhere is not red at lint.** DOCTRINE §4: a gate needs a kickoff verbatim
+  "riding the batch note or the gated charge's doc". Stigmergon's 029 lay left G6 with
+  neither, `doctrine lint` reported *32 kickoffs in 34 work docs* and 0 failures for it,
+  and the batch paused with the tender refusing to author one — a session round-trip
+  a lint line would have saved. Asked: a `board.gate-kickoff` failure — a `G‹n›` row
+  staffed `Architect · <tier>` whose id is named by no fence in the board's notes or
+  in any charge doc named in its Depends-on. ⬡-gate rows are exempt (nobody ignites
+  them). Field-born: 029's lay, 2026-09-02.
