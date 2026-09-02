@@ -2916,3 +2916,17 @@ birthplace D80's re-legislation. `rooted` registered as a host, his word. The te
 first run stands at 041 and 042 LANDED, 043 IN FLIGHT, G3 OPEN. Decided: nothing
 minted — two amendments and a register row. Next: unchanged — the dispatch holds the
 batch.
+
+---
+
+**2026-09-01 · Builder · opus-high (043)** — **the citation respell, BLOCKED — the
+converter never ran.** The spec's form — a dead citation reads as the home that carries
+the law — is circular wherever the home is the citing document: **58 of the 152** dead
+citations in the fence, its own worked example included. Only 55 are cross-citations the
+form fits; 39 may not be touched — other buildings' ids, the tombstone, board records,
+forms shown. 034-F4 ruled it the other way once, and 035 stripped 88 out of MAP
+(`898ddf2`). Built anyway: the **39-row home table**, every home quoted. Eleven findings
+in [043](plans/043-citation-respell.md). Decided: nothing. Next: ⬡ rules F10.
+
+Baton — ⬡ → rule F10: does a self-citation strip (034-F4, 035) or spell its home (043)?
+On his word the converter is one Builder run — the table is done.
