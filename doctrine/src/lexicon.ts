@@ -140,7 +140,7 @@ export const GRAVEYARD: readonly Dead[] = [
 		forms: /\b(?:the|a|this|its|our) registers?\b/gi,
 	},
 	{
-		dead: 'arm (a flow)', successor: 'bless (D11 — the review is the authorization)', forms: null,
+		dead: 'arm (a flow)', successor: 'bless (belvedere:D11 — the review is the authorization)', forms: null,
 		dropped: 'no pattern separates the dead flow sense from live engineering prose — mechanism '
 			+ 'arms (lint arms, a research arm), Belvedere\'s D10 title and its run-state history all '
 			+ 'carry legal senses. The flow sense retires by respell, not by lint (⬡ 2026-08-29).',

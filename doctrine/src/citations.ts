@@ -142,11 +142,13 @@ function respellLine(rel: string, line: string, open: boolean, byId: Map<string,
 	const hits = [...line.matchAll(TOKEN)].filter(m => !flags[m.index]);
 	const rules: string[] = [];
 	const left: { id: string; owned: boolean }[] = [];
+	const owned: { id: string; owned: boolean }[] = [];
 	let out = line;
 
 	for (const m of hits.reverse()) {
 		const row = byId.get(m[0]);
 		if (!row) { left.push({ id: m[0], owned: false }); continue; }
+		owned.push({ id: row.id, owned: true });
 		// The home is the citing file, or it is already named on this line: either way the
 		// pointer points at where it stands, so it strips (F12's ruling; rule 2's redundancy).
 		const strip = row.file === rel || (!!row.file && line.includes(basename(row.file)));
@@ -180,8 +182,10 @@ function respellLine(rel: string, line: string, open: boolean, byId: Map<string,
 	}
 	// All or nothing per line. A line the shapes consume only PARTLY is the green-but-wrong
 	// genus: half a citation respelled reads as finished work and is not. The hand list lands
-	// before this run, so a blocked line here means a hand edit was missed — say so, edit nothing.
-	if (left.length) return { to: line, rules: [], left };
+	// before this run, so a blocked line here means a hand edit was missed — say so, edit
+	// nothing, and report the line's OTHER citations too: a consumed one on a reverted line is
+	// as unconverted as its neighbour, and a census that forgets it reads zero while it stands.
+	if (left.length) return { to: line, rules: [], left: [...owned, ...left.filter(b => !b.owned)] };
 	if (rules.length) assertClean(line, out, rules);
 	return { to: out, rules, left };
 }
