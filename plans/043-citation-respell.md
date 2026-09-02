@@ -1,6 +1,8 @@
 # 043 — the citation respell
 
-**Status:** OPEN — laid 2026-09-01 · **Depends on:** ⬡-gate: his word — the moratorium
+**Status:** BLOCKED 2026-09-01 — the spec's form is circular where the home is the citing
+document (58 of 152 citations); the table is built and pasted, no byte converted. One
+ruling unblocks it: **Findings F10**. · **Depends on:** ⬡-gate: his word — the moratorium
 ruling · **Staffing:** Builder · opus-high · **Blessed:** D81 ⬡✓ 2026-09-01 (the currency
 law — the D-id became a dead form at D77's purge and the corpus never followed);
 Felix, 2026-09-01 in-session ("History, I agree with this")
@@ -58,19 +60,241 @@ a citation whose home disagrees with the citing sentence is a finding, never a f
 
 ## Done when:
 
-- [ ] The table, 39 rows, pasted under Findings, each home verified by a quote from it.
+- [x] The table, 39 rows, pasted under Findings, each home verified by a quote from it.
+      **Met** — the table below; 39 rows, every home quoted with its file and line, every
+      quote re-read at the desk. Its id set is not the census's: see F6.
 - [ ] The census re-run after the converter → only live ids and amendment citations on
       the live surfaces; the count pasted; the run's diff read whole.
+      **Not met — no converter was run.** The census IS re-run and pasted (F6): 111 dead
+      over 39 ids on the census's file list, 152 over 53 on the charge's fence. The form
+      rule that would consume them is circular on 58 of the 152 (F1, F2) and forbidden on
+      39 more (F4, F5, F7), so the run would have written nonsense into the canon.
 - [ ] Round-trip: the converter run twice, the second diff empty, the third run silent;
-      pasted.
+      pasted. **Not met** — nothing to round-trip.
 - [ ] `bun test` green with a fixture — a canon page citing three dead ids, one
       amendment, one live id; `doctrine lint ~/code/agents` 0 failures; `lint --vocab`
       warns on the fixture and not on agents; pasted.
+      **Not met, and two thirds of it is unattainable as written:** `doctrine lint
+      ~/code/agents` reads **34 failures** today and 041 landed it red on purpose — G3
+      prunes it (F9); and the arm, built on the surfaces the linter actually reads, would
+      guard **none** of these citations, because `canon/` is invisible to the vocabulary
+      arm (F8). `bun test` is unchanged at **109 pass / 0 fail** — no code was touched.
 
 ## Findings
 
-*(append here — evidence-grade: every claim carries the command and output that proved
-it; probes ship with a control)*
+**BLOCKED 2026-09-01 (Builder · opus-high).** The table is built and pasted; no byte was
+converted and `doctrine/` is untouched. The spec's form rule — a citation reads as the
+home that now carries the law — is **circular on 58 of the 152 citations inside the
+charge's own fence**, because on those the home IS the citing sentence; it is forbidden
+on 39 more (other buildings' ids, a tombstone, board records, forms being shown); and it
+contradicts a landed ruling of this same office, which answered this exact question the
+other way and executed it on 88 citations three days ago. One ruling unblocks the whole
+charge — **F10**.
+
+- **F1 — the worked example is circular on its own source.** The spec's illustration is
+  `(D44)` becomes `(DOCTRINE §4, gates are charges)`. There is exactly one `(D44)` of
+  that shape in the corpus, and it is
+  `canon/work/DOCTRINE.md:237: **Gates are charges (D44).** A judgment step between charges — a merge review, a landing`
+  — inside `## 4. The board` (its heading is line 154, §5's is line 269). The rule applied
+  to its own example emits `**Gates are charges (DOCTRINE §4, gates are charges).**` The
+  same shape recurs the length of the file: `- **Naming law (D25):**` at :93 sits in §3
+  and D25's home is DOCTRINE §3; `- **Linking law (D58):**` at :103, `- **Venue law
+  (D55):**` at :543, `- **Late relocation (D50):**` at :466 — each is the home citing
+  itself. Independent confirmation: the two research hands that built the table below were
+  asked to verify each home by quoting it, and for D25, D42, D44, D46, D50, D53, D54, D55
+  and D58 the quote they returned **is the citing line**.
+
+- **F2 — the shape census: only a third of the corpus fits the spec's form.** Every dead
+  citation inside the fence, classified by where its law lives against where it is
+  written (152 occurrences, 53 ids):
+
+  | class | n | what it is | the spec's rule applied |
+  |---|---|---|---|
+  | self-citation | 58 | the home is the citing document | circular (F1) |
+  | cross-citation | 55 | the home is another document | works as written |
+  | foreign id | 13 | another building's register (F4) | corrupts an address |
+  | tombstone | 11 | `dispatcher.md`, "preserved as history, unedited" (F7) | edits history |
+  | board record | 13 | `BOARD.md` — a paid gate, a landing's reasoning (F6) | destroys the record |
+  | form shown | 2 | an id displayed as a form, not cited (F5) | breaks the example |
+
+  Self-citations by file: DOCTRINE 52 · docs/the-city.md 3 · STANDARD 1 · the mantles
+  README 1 · architect.md 1. The 55 cross-citations — `architect.md` citing DOCTRINE §4,
+  `docs/the-city.md` citing the charters, the templates citing DOCTRINE §3 — are the
+  charge's real customers, and they are the minority.
+
+- **F3 — this office already ruled the question, the other way, and executed it.**
+  [034-F4](034-register-purge.md) (⬡ at the purge sitting): *"Law files keep their
+  D-parentheticals as lineage marks: whichever sweep next touches a file **strips its dead
+  numbers** (035 does MAP; the charters' ride the next charter sweep)."* 035 did exactly
+  that, in commit `898ddf2` — `git show 898ddf2 -- MAP.md | grep -E '^-' | grep -coE
+  '\bD([1-9]|[1-6][0-9]|7[0-6])\b'` → **88**. The strip, not a respell: MAP's opening line
+  went from `— **the Guild** (D37):` to `— **the Guild**: the` (MAP.md:6 today), and
+  `## 3. The roster (D71)` to `## 3. The roster`. Two canon instruments now say opposite
+  things about the same 152 citations: 034-F4 says strip, 043 says respell to the home.
+  Given F1, they are reconcilable — strip is what "respell to the home" **means** when the
+  home is the citing sentence — but that is a spec amendment, not a Builder's licence.
+
+- **F4 — thirteen of the citations are other buildings' ids, and three are inside the
+  charge's own "111".** They are bare, unqualified, and a table keyed on the number would
+  rewrite every one into this building's law:
+  `canon/work/DOCTRINE.md:121` (`simmy D4`) · `:263` (`snappy §6.8/D9`) · `:360`
+  (`snappy D9`) · `:514`, `:515`, `:517`, `:519` and `canon/work/STANDARD.md:28`, `:29`,
+  `:336` — all six of those last are **belvedere's** D10/D11/D12, verified in
+  `belvedere/README.md:415` ("**D10** … **Ambiguity never arms.**"), `:457` ("**D11** …
+  **The arm contract.**"), `:465` ("**D12** … **Scope-arm.**"); plus `BOARD.md:43`, `:44`
+  (`belvedere D22`) and `:52` (stigmergon's `D15`). The charge fences these out — "the
+  buildings' own dead citations — their Architects" — but the census counted them in, so
+  the "111 over 39 ids" includes at least ten citations of four ids this charge may not
+  touch (D9, D10, D11, D12 have **no** agents-side occurrence at all).
+
+- **F5 — two occurrences are forms being shown, and the converter's existing mask does not
+  protect one of them.** `canon/work/DOCTRINE.md:104` is the linking law's own worked
+  example — ``  `[plans/004-sync.md](plans/004-sync.md)`, `[D19](DECISIONS.md)` — one click beats a`` —
+  and `canon/work/templates/decisions.md:9` is the register template's entry shape,
+  `- **D1** (⟨date⟩, ⟨decider⟩⟨ · ⬡✓ ⟨date⟩⟩): **⟨title⟩.** ⟨body⟩`. The first is inside
+  code ticks, but `respell.ts`'s `NAMED_FORM` reads a ticked span carrying `/` or `.` as an
+  **address**, not a named form (040-F2's exclusion), so the tick mask hands it straight to
+  the rules. Any respell rule must fence both by hand.
+
+- **F6 — the census and the fence disagree, and both were re-run.** The charge's own
+  command, re-run 2026-09-01 over its own file list, reproduces the charge exactly:
+  `distinct ids: 47 · dead hits (<=D76): 111 · dead ids: 39`. The same grep over the
+  charge's **fence** (`canon/**/*.md`, `MAP.md`, `BOARD.md`, `docs/*.md`, the templates):
+  `dead hits (<=D76): 152 · dead ids: 53`. The 41 the census missed are
+  `docs/the-city.md` 17, `BOARD.md` 16, `docs/load-map.md` 4, the templates 4 — and
+  `MAP.md` contributes **zero** dead citations, because 035 already stripped it (F3).
+  `docs/*.md` and the templates are genuine law-surface citations and belong in the
+  charge. `BOARD.md` does not: all 13 of its non-foreign dead citations are records of
+  what was decided that day — `⬡-gate: D32 ✓ 2026-08-06` (rows 006, 007), `⬡-gate: D34 ✓`,
+  `⬡-gate: D36`, `⬡-gate: D41 ✓`, `venue D2 ⬡✓ via keel §11`, `the D76-blessed roster`,
+  `D1–D76 killed whole`, `so D48 forbids the merge`, `D74 built`, `the D64 grammar asks` —
+  the class the charge's own mission exempts ("there a `D44` records what was decided that
+  day, and respelling it would change meaning, not form"). The fence names `BOARD.md`; the
+  mission's rule takes it back out. Both cannot stand.
+
+- **F7 — the fence names a tombstone.** `canon/mantles/dispatcher.md` holds 11 of the 152,
+  and its own head says why they must stay: *"The body below is preserved as history,
+  unedited (simmy's DISPATCHER.md precedent)"* (`canon/mantles/dispatcher.md:11-13`). The
+  fence is `canon/**/*.md`; the file is history by declaration.
+
+- **F8 — the linter arm, built as specified, would guard none of these citations.** The
+  vocabulary arm reads `lawSurfaces()` — a building's prose docs, its boards, its live
+  charge docs — and for `agents` that list is exactly five files:
+  ```
+  law surfaces the vocabulary arm reads for `agents`:
+    /Users/felix/code/agents/BOARD.md
+    /Users/felix/code/agents/CLAUDE.md
+    /Users/felix/code/agents/MAP.md
+    /Users/felix/code/agents/plans/030-master-doc-prose.md
+    /Users/felix/code/agents/plans/043-citation-respell.md
+    total: 5
+  ```
+  Not one is under `canon/`, where 111 of the 152 live. Two independent mechanisms put
+  them out of reach: `grammar.ts`'s `isLawBook = (f) => f.split(sep).includes('canon')`
+  fences the whole directory from every arm that reads forms as data ("A book that may not
+  name a form cannot define it"), and `building.ts`'s walk classifies `DOCTRINE.md`,
+  `STANDARD.md`, the charters and `docs/*.md` as no artifact at all — `PROSE_DOCS` is
+  `MAP.md`/`GENESIS.md`/`README.md`/`CLAUDE.md` **at the anchor's own directory**, and
+  `SKIP_DIRS` skips `templates/`. Widening either is a change to the linter's discovery,
+  not "the vocabulary arm gains a warning". As written the arm would satisfy its bar —
+  warn on a fixture, silent on agents — while watching an empty room. That is
+  green-but-wrong, so it is named rather than built.
+
+- **F9 — the lint bar is unattainable, and the batch made it so.** `doctrine lint
+  ~/code/agents` reads `34 failure(s) in 2 class(es) · 168 warning(s)` — 33
+  `board.cell-cap` and 1 `ledger.baton`; 041 landed those on purpose ("lint red on
+  purpose — 33 cells, 166 entries; the prune is G3's") and G3 owns the prune. `--vocab`
+  adds 38 `vocab.dead-word` failures on top (2 of them the agents building's). No landing
+  of 043 can read 0. 042 met the same wall and measured "lint unchanged"; that is the
+  reading this bar wants.
+
+- **F10 — the fork, and the re-cut it needs.** One question for the office: **when a
+  citation's home is the document that carries it, does the citation strip (034-F4, 035)
+  or does it spell the home (043)?** Everything else follows mechanically. The re-cut this
+  Builder would build, if it is blessed:
+  1. **Self-citation → strip.** The home file equals the citing file: the parenthetical
+     goes, the sentence keeps its bytes. This is 034-F4's ruling, 035's landed act, and the
+     only non-circular reading of "respells to the home". 58 occurrences.
+  2. **Cross-citation → the home.** `(D‹n›)` reads `(‹home›)`, a pair reads
+     `‹home›; ‹home›` — the spec's own form, unchanged. 55 occurrences.
+  3. **Amendment or event citation → keep the id, gain the home.** `(D64, amending D46)`,
+     `(D69, respelled by D71)`, `made law at D73`, `since D18`, `the D49 sweep`, `D28's
+     law` — the id is the subject, not a pointer, so it stays and the home rides behind
+     it. This is the spec's amendment clause, widened to the possessive and narrative
+     shapes the corpus actually writes; it is a subset of rules 1–2 above, not a sixth.
+  4. **Never touched:** another building's id (13), `dispatcher.md`'s preserved body (11),
+     `BOARD.md`'s records (13), an id shown as a form (2) — 39 occurrences, each named in
+     F4, F5, F6, F7.
+  Rules 1 and 2 need the home *file* per id, which the table below supplies, and the
+  citing file — both mechanical, so the converter stays table-driven. Rule 3 needs the
+  citation's shape, which is a regex over the sentence, not a judgment. The table is
+  therefore complete for whichever way the ruling goes; only `migrate.ts` waits.
+
+- **F11 — one law has no live home.** D67 (dispatch visibility — the announce duty)
+  survives only inside the tombstone (`canon/mantles/dispatcher.md:82`), which is history
+  by declaration (F7). No live document carries "announce every dispatch"; DOCTRINE §10
+  inherits only the batch-report format. Per the charge's rule this is a finding for the
+  office, never a fix: the duty is unhomed until the flow engine's charter lands.
+
+### The table — 39 rows, one per dead id the live law surfaces cite
+
+Every home re-read at the desk; the quote is the sentence that carries the law today. The
+id set is the census's 39 **minus** D9, D10, D11, D12 (belvedere's and snappy's, F4) and
+D19 (a form shown, F5), **plus** D8, D27, D31, D60, D62 (cited only on `docs/*.md`, which
+the census's file list omitted, F6). Not listed, and why: D1 and D19 are forms shown;
+D2, D32, D34, D36, D41, D76 appear only as `BOARD.md` records; D15 and D22 are other
+buildings'. A row's home is where the law lives — whether the citation strips or spells
+it is F10's ruling.
+
+| id | the entry | its home today | the home, quoted |
+|---|---|---|---|
+| D4 | composition model — what a session can't finish becomes a charge | `DOCTRINE §5, the charge doc` | "what a session cannot finish at quality becomes a new charge — never a rushed draft" (DOCTRINE.md:273) |
+| D5 | non-goals v1 | `MAP §6, non-goals` | "Plugin sync. Multi-machine (clone-and-deploy makes it nearly free later; not designed now)." (MAP.md:102) |
+| D8 | the full pre-minted grid | `the mantles README, the tier grid` | "load at **session start**, so a tier minted mid-session is invisible to the session" (README.md:40) |
+| D18 | board law | `DOCTRINE §4, one ignitable unit` | "**A charge is one ignitable unit of work = one charge doc = one session.**" (DOCTRINE.md:165) |
+| D25 | the naming law | `DOCTRINE §3, the naming law` | "**ALLCAPS for protocol singletons; lowercase-kebab for addressable siblings.**" (DOCTRINE.md:93) |
+| D26 | the null mantle | `the mantles README, the null mantle` | "**a session with no mantle IS a Fixer** … the default worker under the global CLAUDE.md, staffed by tier alone" (README.md:79) |
+| D27 | the silo law | `MAP §6, the silo law` | "Syncing sessions/history/agent-memory between accounts (the silo law: memory is a per-account cache…)" (MAP.md:97) |
+| D28 | the parallel-affordable law | `DOCTRINE §4, parallel-safe is not parallel-affordable` | "**Parallel-safe is not parallel-affordable:** safety is correctness…; affordability is physics" (DOCTRINE.md:256) |
+| D31 | the hive and the city — canon voice | `docs/the-city.md, the framing glossary` | "Law lives in the charters, the doctrine, and the standard — where this page and a charter disagree, the charter wins" (the-city.md:8-10) |
+| D33 | the dream (`initial.md` → `dream.md`) | `DOCTRINE §3, the file set` | "dream.md       Felix's dream, when one exists — IMMUTABLE: never edited, only read" (DOCTRINE.md:62) |
+| D37 | the Guild | `the global CLAUDE.md, THE AGENTS CANON` | "The canon repo `~/code/agents` defines the Guild — how Felix works with Claude" (canon/CLAUDE.md:77) |
+| D39 | the Architect line — reserved, unminted | `MAP §10, the horizon` | "Until then the names are **reserved and unminted**: no charter, no summons, no preset may claim them." (MAP.md:148) |
+| D42 | the baton law | `DOCTRINE §11, the baton` | "end with **the baton**: open escalations and the decision queue first, then exactly one action" (DOCTRINE.md:568) |
+| D43 | serial chains are the tender's | `DOCTRINE §10, every batch has a tender` | "Every batch has a tender, and the default is machine tending, serial batches included" (DOCTRINE.md:495) |
+| D44 | gates are charges | `DOCTRINE §4, gates are charges` | "A judgment step between charges — a merge review, a landing verification, a blessing checkpoint — is itself a charge" (DOCTRINE.md:237) |
+| D45 | the summons line is load-bearing | `DOCTRINE §5, the single-glance test` | "a kickoff's first line is the summons line — `You are a <Mantle> at <tier>.`" (DOCTRINE.md:308) |
+| D46 | the baton has one holder | `DOCTRINE §11, ambiguity is the sin` | "**Ambiguity, never plurality, is the sin** … an uninstrumented option, a menu with no recommendation, two holders" (DOCTRINE.md:584) |
+| D48 | the merge-gate laws | `DOCTRINE §4, gates that merge` | "A gate that merges names its instrument verbatim in its kickoff — source branch, target, PR-vs-push — and verifies THEN merges." (DOCTRINE.md:247) |
+| D49 | ISSUES.md — the canon repo's inbox | `DOCTRINE §3, the ISSUES.md law` | "the project's incident inbox — field reports and distillation candidates land there mid-work" (DOCTRINE.md:137) |
+| D50 | the bulletin's worktree law | `DOCTRINE §9, late relocation` | "when a batch's parallel-isolation window closes … the bulletin may relocate into that worktree" (DOCTRINE.md:466) |
+| D51 | the city, the hive, and the waggle | `docs/the-city.md, the framing glossary` | "This page explains the system; it never overrides it." (the-city.md:8) |
+| D53 | ISSUES.md generalizes | `DOCTRINE §3, the ISSUES.md law` | "**ISSUES.md law:** the project's incident inbox — field reports and distillation candidates land there mid-work" (DOCTRINE.md:137) |
+| D54 | the pre-authorization law | `DOCTRINE §5, pre-authorization` | "fetching, vendoring, installing beyond the repo's existing dependencies … only when the charge doc names it" (DOCTRINE.md:312) |
+| D55 | the venue law | `DOCTRINE §10, the venue law` | "a charge that mints a disposable live venue — a VM, a container, a machine — deletes it at landing" (DOCTRINE.md:543) |
+| D56 | the verdict law | `architect.md, the verdict law` | "A verdict about the system's behavior … cites the governing contract section it stands on: no citation, no verdict." (architect.md:106) |
+| D57 | the batch is amendable mid-flight | `DOCTRINE §10, a running batch is amendable` | "the Architect commits the amended batch note and hands the tender the new charges as a message carrying the same instruments as the summons" (DOCTRINE.md:491) |
+| D58 | the linking law | `DOCTRINE §3, the linking law` | "durable docs link the files they reference at first mention … one click beats a minute's hunt" (DOCTRINE.md:103) |
+| D60 | GENESIS becomes MAP | `DOCTRINE §3, the file set` | "MAP.md         master doc: architecture, the bet, non-goals, agreements, Done when" (DOCTRINE.md:63) |
+| D61 | the tending default | `DOCTRINE §10, every batch has a tender` | "the batch returns to Felix only at escalations and named ⬡-gates, resuming on his word where it paused" (DOCTRINE.md:512) |
+| D62 | the Mentat — the sixth mantle | `mentat.md` | "The Mentat thinks beside the sovereign — the cross-project thinking partner, summoned to explore, never to produce." (mentat.md:3) |
+| D63 | the schema fold + the molt clause | `DOCTRINE §4, the board grammar` | "**Resolution vocabulary:** gate, merge, and design charges resolve into the five states, the verdict riding the annotation" (DOCTRINE.md:231) |
+| D64 | the baton grammar | `DOCTRINE §11, the three shapes` | "The action takes one of three shapes: **single** … **batch** … **fork**" (DOCTRINE.md:575) |
+| D65 | v3 — the molt (the serialization ruling) | `DOCTRINE §3, the serialization law` | "prose artifacts are schema-markdown; field artifacts are data (flows); a field a machine consumer needs enters the doctrine grammar" (DOCTRINE.md:111) |
+| D67 | dispatch visibility — the announce duty | **no live home** — F11 | "- **Announce every dispatch (D67):** as each agent fires, post one line in this session" (dispatcher.md:82 — tombstone, history) |
+| D69 | PARKED is an annotation | `DOCTRINE §4, the DEFERRED annotation` | "**DEFERRED** — an annotation, not a lifecycle state: a laid charge deliberately set aside" (DOCTRINE.md:219) |
+| D71 | the Guild's Standard | `STANDARD.md` (the whole book) | "One concept, one word, one part of speech; where an old word died, its entry names the successor." (STANDARD.md:13) |
+| D73 | the flow doctrine | `DOCTRINE §10, the flow` | "A flow is a batch as data — the declared DAG the dispatch runs" (DOCTRINE.md:513) |
+| D74 | the flow fold — the grammar | `DOCTRINE §4, typed holds` | "A landing's unresolved remainders are typed: `LANDED <date> — holds: <list>` — each hold an `E‹n›` or a `⬡ <text>`" (DOCTRINE.md:198) |
+| D75 | the directives' scope splits on lifetime | `the global CLAUDE.md, ## SCOPE` | "Code built to last answers to all of this; code built to die … answers to §3 and the git conventions alone." (canon/CLAUDE.md:40) |
+
+Six entries are split across two homes and the table names the spine; the second home, for
+whoever builds the converter: **D5** MAP.md:97 (the sessions/history half) · **D28**
+DOCTRINE §10:488 (the scheduling half) · **D45** DOCTRINE §4:161 (the venue clause, "any
+table that staffs sessions is a board") · **D48** DOCTRINE §6:361 and §10:541 (targets are
+read from the repo; a shared branch is never rewound) · **D63** DOCTRINE §§3/7/8 (the entry
+format, the ledger head and the Next law, the molt clause) · **D74** DOCTRINE §11:571 and
+STANDARD §7:216 (the written holder, the qualified id).
 
 ---
 
