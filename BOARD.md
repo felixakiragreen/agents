@@ -54,7 +54,7 @@ account choice is quota arbitrage.
 | 041 | [the statement and the caps](plans/041-statement-caps.md) — D82 built: `doctrine statement` renders every `⬡ go` with its interest; D78 enforced — LANDED / KILLED status cells over 200 characters lint-hard, ledger entries over 150 words lint-warn | ⬡-gate: his word — paid 2026-09-01 | Builder · opus-high | LANDED 2026-09-01 → [findings F1–F10](plans/041-statement-caps.md); the statement and the caps live; suite 102 → 109; lint red on purpose — 33 cells, 166 entries; the prune is G3's |
 | 042 | [the grid prune](plans/042-grid-prune.md) — `canon/agents/` keeps the tiers a board or the rig has named (the census in the doc); the README's grid law becomes mint-at-the-lay; the delete lands ×3 | ⬡-gate: his word and the live wire — paid 2026-09-01 | Builder · opus-medium | LANDED 2026-09-01 → [findings F1–F10](plans/042-grid-prune.md); 8 retired, 12 stand, wire green ×3, lint unchanged. F4 escalates: `haiku-low` fails the rule, is the last Haiku |
 | 043 | [the citation respell](plans/043-citation-respell.md) — D81 applied to the purge: 111 citations of 39 killed D-entries on the live canon respell to the section that carries each law, by the converter; history keeps its names | ⬡-gate: his word — paid 2026-09-01 | Builder · opus-high | **BLOCKED** 2026-09-01 — the form is circular where the home is the citing document (58 of 152 citations, F1/F2); the 39-row home table and the shape census are pasted, no byte converted. [F10](plans/043-citation-respell.md) is one ruling for the office: does a self-citation strip (034-F4, 035) or spell its home? |
-| G3 | Review gate — 041 · 042 · 043 verified against their bars; this board's LANDED cells pruned to D78's cap until lint reads 0; findings distilled; the baton to ⬡ | 041; 042; 043 | Architect · fable-high | OPEN — laid 2026-09-01 |
+| G3 | [Review gate — the tender's first batch](plans/g3-tender-review.md) — 041 · 042 · 043 verified against their bars; the board pruned to D78's cap; three rulings pre-chewed (042-F4 · 041-F3 · 041-F10); the baton to ⬡ | 041; 042; 043 | Architect · fable-high | OPEN — laid 2026-09-01; updated 2026-09-02 — the bar made attainable (grand-architect-23) |
 
 
 **Batch note — 2026-09-01 · the tender's first run** — laid at grand-architect-22 on
@@ -65,19 +65,11 @@ each ignites as its predecessor LANDS, and G3 reviews the three. No concurrency
 plan — no shared live resource. **tender: sonnet-medium · plans/TENDER.md** (D83 —
 the kickoff's first real batch); the tender's permission mode is every Builder's, set
 deliberately at open. Escalations and the ⬡-queue return to Felix in the tender's
-session; the office verifies G3's close at its next desk. G3's kickoff:
-
-```
-You are an Architect at fable-high.
-Enter by the door — read ~/code/agents/canon/GUILD.md,
-wear ~/code/agents/canon/mantles/architect.md,
-then read ~/code/agents/BOARD.md, the ledger tail, and the findings of 041, 042
-and 043, and review the batch: every Done when: verified against its pasted
-evidence, each landing kept or reverted with a dated note, this board's LANDED
-cells pruned to the retention law's cap (D78 — status + findings pointer; the
-story stays in the charge docs) until `doctrine lint ~/code/agents` reads 0,
-findings distilled, the board reconciled, the ledger appended, the baton to ⬡.
-```
+session; the office verifies G3's close at its next desk. **Paused 2026-09-01 at 043
+BLOCKED** (043-F10: strip or spell a self-citing dead reference); ruled 2026-09-02 at
+grand-architect-23 (043-F12 — one rule at two distances; the amended spec in the doc),
+pending ⬡. G3's kickoff rides [its doc](plans/g3-tender-review.md) (2026-09-02 — the bar
+made attainable: lint names only belvedere's red; three rulings pre-chewed).
 
 **Deferred (tracked, not lost):**
 
@@ -98,6 +90,21 @@ findings distilled, the board reconciled, the ledger appended, the baton to ⬡.
   address only as a slug (`(?<=lab/)‹key›|‹key›(?=-)` would say so); and the walk's
   fence is silent — a skipped non-text file or fenced directory should be named in
   the run's output, so the supervised layer can see what the machine kept out.
+  — and the dead-citation alarm (043-F8; inbox 2026-09-01, ruled at grand-architect-23):
+  a `D‹n›` on a live surface that `DECISIONS.md` no longer carries warns — the live set,
+  never a floor, since D78 kills leave gaps. It cannot be built where the linter stands:
+  `building.ts` classifies `DOCTRINE.md`, `STANDARD.md`, the charters, `docs/*.md` and
+  the templates as no artifact, and `isLawBook` fences `canon/` from every arm that reads
+  forms as data — so the canon's own law surfaces are read by no arm. The alarm needs a
+  law-surface class in discovery that the form arms read and the vocabulary arm stays
+  fenced from (STANDARD §8) — a discovery charge, when the parser next opens.
+
+- The effort axis — one sentence for the mantles README's grid section: the model buys
+  instincts, effort buys search; low effort on a strong model is the bulk-verdict niche
+  (grand-architect-22, 2026-09-01; evidence in 042's census).
+- The index-import test — the consumer's false-green guard on the doctrine package's
+  index (grand-architect-22, 2026-09-01; the index defect landed by
+  architect-stigmergon-04, inbox cleared at 22c1696).
 
 - The peer-messaging experiment (SendMessage taps between live sessions —
   gate-delivery pokes, cross-account bulletin pokes; pointers-not-payloads,
