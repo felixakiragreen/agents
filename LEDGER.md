@@ -2843,3 +2843,17 @@ first run — batoned below.
 
 Baton — ⬡ → ignite the tender: `^G n s m ⏎` opens a bare sonnet-medium session; its
 first prompt is `plans/TENDER.md`'s fence, then the batch note in `BOARD.md`, verbatim.
+
+---
+
+**2026-09-01 · Grand Architect · fable-max (grand-architect-22)** — *(second act.)* D86
+blessed — the lanes: which acts need whose yes, by class, before the act; green (a named
+check ran), yellow (proceeds on `⬡ go`), red (`⬡✓` first); unclassified is yellow, never
+green. The whole design sits in the register, desk-born until field-tested — his ruling
+on the day-old test, against his own favorite idea: stigmergon's next campaign is the
+birthplace, the canon homes come at the citation. Filed to stigmergon's inbox. The
+tender's first run was ignited at his hand while this was written. Decided: D86 (⬡✓
+2026-09-01 — as proposed, birthplace owed). Next: the batch runs — batoned below.
+
+Baton — the dispatch → the tender runs 041 → 042 → 043 → G3; the office verifies G3's
+close at its next desk.
