@@ -2,10 +2,11 @@
 
 **Status:** BLOCKED 2026-09-01 — the spec's form is circular where the home is the citing
 document (58 of 152 citations); the table is built and pasted, no byte converted. One
-ruling unblocks it: **Findings F10**. · **Depends on:** ⬡-gate: his word — the moratorium
-ruling · **Staffing:** Builder · opus-high · **Blessed:** D81 ⬡✓ 2026-09-01 (the currency
+ruling unblocks it: **Findings F10** — **ruled in F12 (grand-architect-23, 2026-09-02), the
+amended spec below, pending ⬡.** · **Depends on:** ⬡-gate: his word — the amendment ·
+**Staffing:** Builder · opus-high · **Blessed:** D81 ⬡✓ 2026-09-01 (the currency
 law — the D-id became a dead form at D77's purge and the corpus never followed);
-Felix, 2026-09-01 in-session ("History, I agree with this")
+Felix, 2026-09-01 in-session ("History, I agree with this"); the amendment — pending ⬡
 
 ## Mission
 
@@ -44,13 +45,58 @@ resolves the record).
   `docs/*.md`, the templates. Never `LEDGER.md`, `LOG.md`, `log-archive.md`, the
   findings in `plans/*.md`, the live entries of `DECISIONS.md` (their "Ancestors:"
   name ids as history), or `belvedere/`.
-- **The form:** `(D‹n›)` reads `(‹home›)`; a `D‹n›/D‹m›` pair reads `‹home›; ‹home›`; a
+- ~~**The form:** `(D‹n›)` reads `(‹home›)`; a `D‹n›/D‹m›` pair reads `‹home›; ‹home›`; a
   citation naming an amendment ("amended at D52") keeps the id and gains the home.
   The converter never paraphrases. The fixed-point law: run twice, diff empty, then a
-  third time.
-- **The linter:** the vocabulary arm gains a warning — a bare `D‹n›` on a live canon
+  third time.~~ *Struck 2026-09-02 — circular on 58 of 152 (F1); the amendment clause
+  kept dead ids on live surfaces. The form is F12's, below.*
+- ~~**The linter:** the vocabulary arm gains a warning — a bare `D‹n›` on a live canon
   surface whose number is below the register's lowest live id is a dead citation; the
-  floor is derived from `DECISIONS.md` itself, never kept.
+  floor is derived from `DECISIONS.md` itself, never kept.~~ *Struck 2026-09-02 — built as
+  written it guards nothing (F8), and a floor is the wrong test once D78 kills leave gaps.
+  The alarm rides the deferred list with the discovery question; this charge lands
+  without it.*
+
+### The spec, amended 2026-09-02 (F12 — pending ⬡)
+
+**The form — four rules, table-driven, the citing file known to the converter:**
+
+1. **Self — strip.** The home file is the citing file: the id and its joining punctuation
+   go; the sentence keeps its bytes. `**Gates are charges (D44).**` → `**Gates are
+   charges.**` · `(D63; D74)` → gone · `(D54, generalized 2026-08-31)` → `(generalized
+   2026-08-31)` · `(D65; birthplace: …)` → `(birthplace: …)`. Same file, any section: the
+   doctrine writes its own section pointers as `(§10)`, and a D-id never was one.
+2. **Cross — spell the home.** Another file: `D‹n›` → the table's home, joined to a
+   neighbor by ` — ` (the standard §7): `(D44)` in `architect.md` → `(DOCTRINE §4, gates
+   are charges)` · `(…the message, D57)` in `builder.md` → `(…the message — DOCTRINE §10,
+   a running batch is amendable)`. Where the home file is already named on the citing
+   line the pointer is redundant and strips: `([STANDARD.md](STANDARD.md), D71)` →
+   `([STANDARD.md](STANDARD.md))`.
+3. **Foreign — qualify.** Another building's id reads `‹Name›:D‹n›` (D80, the register's
+   Name): `simmy:D4` · `snappy:D9` · `belvedere:D5` · `belvedere:D10`. The citing prose
+   says which building. Fourteen — F4's thirteen minus `BOARD.md`'s three, plus
+   `DOCTRINE.md:531` (F12). By hand.
+4. **Never touched:** `canon/mantles/dispatcher.md` (history by declaration, F7) ·
+   `BOARD.md` (records, F6 — out of the fence) · an id shown as a form, in ticks or a
+   template slot (F5: `DOCTRINE.md:104`, `templates/decisions.md:9`) · the live entries,
+   D77 and up.
+
+**The hand list.** Every dead id the converter's shapes do not consume is a hand edit
+with two moves and no third: **(a)** delete the id and its connective so the sentence
+reads — `(D69, respelled by D71)` → gone · `made law at D73` → gone · `(D43/D61's intent —
+their Dispatcher wording is superseded by D71)` → gone: legislative history, the ledger's;
+**(b)** where the id is a noun the sentence needs, the table's short name or the qualified
+id replaces it — `D28's law` → `the parallel-affordable law` · `D10 wholesale` →
+`belvedere:D10 wholesale`. A sentence that needs a third move is a finding, never a fix.
+D71's row names a whole book, so its cross-citations are hand edits — `the standard`, or
+the section the sentence leans on. Every hand edit is one row under Findings — file:line ·
+before · after — and the hand edits ride one commit of their own, landed before the
+converter runs.
+
+**The converter.** Line-based like 040's rules; a shape split by a hard wrap is a hand
+edit. The table is data in `doctrine/`, one row per killed id; the next D78 kill appends
+its rows from the killed entries' `Home:` lines. The fixed-point law stands: run twice,
+diff empty, then a third time. The converter never paraphrases.
 
 ## Out of scope
 
@@ -79,6 +125,23 @@ a citation whose home disagrees with the citing sentence is a finding, never a f
       prunes it (F9); and the arm, built on the surfaces the linter actually reads, would
       guard **none** of these citations, because `canon/` is invisible to the vocabulary
       arm (F8). `bun test` is unchanged at **109 pass / 0 fail** — no code was touched.
+
+### Done when — amended 2026-09-02 (F12 — pending ⬡)
+
+- [ ] The hand list pasted — one row per edit, file:line · before · after — landed as one
+      commit before the converter runs; the fourteen foreign ids among them each read
+      `‹Name›:D‹n›`.
+- [ ] The converter's run: the table printed before a byte moves, the diff read whole; the
+      census re-run on the fence minus the tombstone reads **0** bare dead ids outside the
+      two forms shown — the command and the count pasted.
+- [ ] Round-trip: the converter run twice, the second diff empty, the third run silent;
+      pasted.
+- [ ] `bun test doctrine` green with a fixture — a canon page carrying a self citation
+      bare and one leading a parenthetical, a cross citation bare and one with its home
+      already on the line, a foreign id, a form shown in ticks, a live id — and its
+      expected text; pasted.
+- [ ] `doctrine lint ~/code/agents` reads what a HEAD worktree reads, line for line
+      (042's reading — F9); pasted.
 
 ## Findings
 
@@ -235,6 +298,41 @@ charge — **F10**.
   by declaration (F7). No live document carries "announce every dispatch"; DOCTRINE §10
   inherits only the batch-report format. Per the charge's rule this is a finding for the
   office, never a fix: the duty is unhomed until the flow engine's charter lands.
+
+- **F12 — the office's ruling on F10 (grand-architect-23, 2026-09-02; pending ⬡).** The
+  fork is not a fork. A citation is a pointer to where the law lives, and 034-F4 and this
+  charge answer one rule at two distances: where the home is another document the pointer
+  names it — the spec's form, unchanged; where the home is the citing document there is
+  nothing to point at, and the pointer strips — 034-F4's word, 035's act on MAP's 88. F3's
+  reading is the ruling: strip is what "respells to the home" *means* when the home is the
+  sentence. Two amendments ride it. **The amendment clause dies:** a dead id in narrative
+  (`since D18`, `made law at D73`, `D28's law`) points at nothing — the ledger holds the
+  event, and where the sentence needs the noun the table's short name replaces it; no dead
+  id survives on a live surface (his word at D80: no stray ids). **A bare foreign id
+  qualifies** (D80's form): the census cannot tell a dead id from a live foreign one
+  without the table, and a bare foreign id would ring the alarm forever. Ancestry: 034-F4
+  served better — the pointer survives where it points somewhere; D81 applies — the
+  converter carries every shape a rule consumes, and the hand list is D81's own speech
+  clause (judgment decides) with 035's hand-strip as precedent; DOCTRINE §8's purge clause
+  gains one sentence (proposed, his blessing) so the next D78 kill carries its citations.
+  Nothing minted. Three corrections to the record ride the ruling:
+  - **D67 is homed.** F11 and the inbox entry read DOCTRINE §10 and the tombstone; the
+    duty lives in [`plans/TENDER.md`](TENDER.md) — *"Announce each ignition in this
+    session as one line: charge · tier · isolation"* — the instrument D83 instantiated
+    2026-09-01, and the pre-purge D73 bound it to the engine's spec ("the announce duty …
+    binds the engine's spec", `git show d26bf37^:DECISIONS.md`). The table's D67 row
+    reads `plans/TENDER.md, announce each ignition`; the inbox entry is rejected with this
+    pointer.
+  - **`DOCTRINE.md:531`'s `(D5)` is Belvedere's.** The pre-purge D73 wrote "the Steward
+    gate unchanged (D5 — unparked by Felix's word only)", citing Belvedere's non-goals
+    (`belvedere/README.md:176`, "**Non-goals, named (D5):** … the Steward"); agents' D5
+    (non-goals v1) has no live citation. A fourteenth foreign id F4 did not list — and the
+    one the table would have respelled wrong, to MAP §6. The row stands as record; the
+    citation qualifies by hand.
+  - **The count.** The office's census on the fence minus the tombstone: **125** dead
+    hits — 83 inside shapes a regex consumes whole, 42 on 41 lines outside them, the hand
+    list's ceiling; three or four more shapes (an id trailing a parenthetical, an id at a
+    line boundary) bring it under thirty. The Builder re-runs at build.
 
 ### The table — 39 rows, one per dead id the live law surfaces cite
 
