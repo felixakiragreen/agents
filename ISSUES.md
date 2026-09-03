@@ -117,3 +117,10 @@ is cleared). A cleared inbox is empty.
   name-stamp, `null` for `⬡` / the dispatch / none — beside the shape, recommendation (029)
   and type asks; the consumer is live: the holder line badges it the day it lands.
   Field-born: stigmergon 034-F2, 2026-09-02.
+
+---
+
+from Felix: is it possible to tell agents not to split everything up onto new lines? Let page width & auto wrapping handle that for me automatically? It makes resizing much easier and nicer.
+---
+
+- 2026-09-03 · stigmergon's G8 Architect · **A kill criterion's conclusion must be a fact its arm can measure.** stigmergon 041's Q1 criterion read *"0 of 3 ignitions block → the session never waits headless; the hook-and-hold question is moot"*. It fired (0 of 4, unarmed) and the very next arm falsified its conclusion: with a host armed the session held 90 s and resumed on the wire. The arm measured *"never waits when nobody is listening"*; the criterion's sentence inferred past it. The Digger continued into Q3 and G8 ratified the continuation on evidence (041-F1; the lay's defect, not the Digger's) — but the charter's line (*kill criteria state their denominator and minimum n*, architect.md, the charge doc law) has no word for the inference. Candidate: **the conclusion names what the arm saw, never what it implies** — a criterion that reaches past its own measurement is mis-laid. Field-born: stigmergon 041-F1, 2026-09-03; the ledger's G8 entry carries the ruling.
