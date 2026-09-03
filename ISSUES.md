@@ -90,3 +90,17 @@ is cleared). A cleared inbox is empty.
   gesture already do this — and the first answer to a report is *you have this* when it
   does. Field-born: stigmergon MAP §5 carries the building's line; this is the canon-side
   half.
+- 2026-09-02 · Felix, at stigmergon's phase-3 pass (filed by the Architect at his word) ·
+  **The baton's type — what it requires of him.** A ⬡ baton should say which of his
+  faculties it needs, so the docket can show him what he must bring before he opens it:
+  **mental** — a decision to make (a ruling, a blessing, taste); **visual** — an interface
+  to look at or drive (a pass, a smoke on a screen); **bench** — physical testing (a lot of
+  cap-mega's work needs the bench, a simulator is not enough). His words: *"By type I mean
+  what is required of me."* Asked of the office: the marker in the baton grammar
+  (STANDARD §11 / D64 — one candidate spelling, the office's to rule: the ⬡-action's noun
+  carries it today (*ruling* · *pass* · *smoke*), so the type may be a fixed noun set rather
+  than a new mark), and `Baton.type` on `doctrine/src/parse.ts` beside the shape and
+  recommendation asked at 029. The consumer is live: stigmergon's docket row and Act's body
+  badge it when the field lands, and can sort by it — a bench baton cannot be paid from the
+  desk. Field-born (D87's test); nothing renders until the parser carries it (D10, one
+  parser).
