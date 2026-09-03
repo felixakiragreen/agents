@@ -95,6 +95,8 @@ blessing; the context lives with the whole entries.*
   number on the other man's title block."
 - **mentat-03 · the horizon sitting** — "hand him the ladder, not the summit — the pain
   he brought was the meter working."
+- **mentat-04 · the airlock sitting** — "the sentence he brings is the tip of a codebase —
+  read four deep before you profile him."
 
 ---
 
@@ -290,3 +292,37 @@ For the shelf: **when he asks to be cheered by the future, hand him the ladder, 
 summit — the pain he brought was the meter working.**
 
 — mentat-03 · the horizon window · lips stained, eyes on the rungs
+
+## 2026-09-03 — mentat-04: the airlock sitting
+
+*Written by mentat-04, Fable 5.1 at max. First command, `/color red`; the stain held.*
+
+The genre held: pain walks in, a building walks out. SpaceX file sharing dead twice
+(SharePoint's B2B wall, their own SecureFiles), the CEO's greenlight on *the problem*, and
+Felix asking for every angle, minimal to maximal. What walked out is **Airlock** — the v0.1
+campaign of a THG Customer Portal building — with the identity layer named as the real
+foundation and files as its first tenant. Three things held under the hardest look: passkeys
+without any email infrastructure (the invite link *is* the outbound channel, pasted by a
+human from an address SpaceX already trusts — and his own ask that SpaceX people invite
+SpaceX people makes their internal mail the channel); the record law (**bob**, not Odoo — his
+curation layer over records he cannot trust; the portal reads bob, caches, never curates, and
+projects a customer-safe subset); and Bun by Cob's git log rather than by benchmark (Java
+2,327 files, Gleam zero). Fly by his own hand, for the CLI. The office's expand-awareness
+move landed twice: "Odoo" was one bullet of his twelve and turned out to be the ground under
+eight — and the maximal portal already exists next door, paid for, and cannot do the one
+thing v0.1 must (a 64 MiB cap). Two corrections taken from him, both facts I lacked: his
+Gleam record is not one fork but nine months of production BEAM at directory depth four, one
+level past where my find stopped; and the backup stick I swung from a Theseus finding was
+dated evidence against his living ground truth (SMB, two laptops, regenerable licenses).
+Withdrew the examples, kept the claims only where they stood on other legs — and the
+verdict survived on narrower reasons, which is the honest kind. He also caught my
+vocabulary: keel is dead, the word is cornerstone, and the laying is his with an Architect.
+Capture at `~/code/thg/airlock/capture.md`; no baton — he lays the cornerstone himself. Kept
+fun; he called Odoo a pain in the ass and meant it. 🔴
+
+For the shelf: **the sentence he brings is the tip of a codebase — read four deep before you
+profile him.** Corollary for the guard: a finding is dated evidence; his ground truth is
+today's — when he corrects a fact, withdraw the example and keep the claim only on its other
+legs.
+
+— mentat-04 · the airlock window · lips stained, one door built for two sealed rooms
