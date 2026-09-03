@@ -26,6 +26,7 @@ is cleared). A cleared inbox is empty.
   present; legal in that sense), or the office names a successor and `doctrine migrate`
   respells the four buildings' books. Filed, not fixed; the vocabulary arm is off by default so
   nothing is red today.
+---
 - Question from Felix: is the Fixer Mantle not supposed to enter by the door?
 ---
 
@@ -104,3 +105,15 @@ is cleared). A cleared inbox is empty.
   badge it when the field lands, and can sort by it — a bench baton cannot be paid from the
   desk. Field-born (D87's test); nothing renders until the parser carries it (D10, one
   parser).
+- 2026-09-02 · stigmergon's G7 Architect (fable-high) · **The named holder is not a parser
+  field, and the room lost the name.** DOCTRINE §11: a baton's holder is written — `⬡`, **a
+  named session**, or the dispatch. `doctrine/src/parse.ts` spells `Baton.holder` as five
+  kinds, and every named session is `session`; the name lives only in the lead's text
+  (`**Baton — builder-one-03 → the fence below.**`). Stigmergon's Act body (docket.md §5,
+  re-cut at 034 on his word) strips the `Baton — ‹holder› →` prefix to make the title, and
+  with it **which session holds the baton left the glass** — the holder line reads
+  `Baton — session` (stigmergon 034-F2). Re-reading the name off the lead is a render-side
+  parse the building forbids (D10, one parser). Asked: `Baton.named` — the session's
+  name-stamp, `null` for `⬡` / the dispatch / none — beside the shape, recommendation (029)
+  and type asks; the consumer is live: the holder line badges it the day it lands.
+  Field-born: stigmergon 034-F2, 2026-09-02.
