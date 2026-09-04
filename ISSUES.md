@@ -124,3 +124,20 @@ from Felix: is it possible to tell agents not to split everything up onto new li
 ---
 
 - 2026-09-03 · stigmergon's G8 Architect · **A kill criterion's conclusion must be a fact its arm can measure.** stigmergon 041's Q1 criterion read *"0 of 3 ignitions block → the session never waits headless; the hook-and-hold question is moot"*. It fired (0 of 4, unarmed) and the very next arm falsified its conclusion: with a host armed the session held 90 s and resumed on the wire. The arm measured *"never waits when nobody is listening"*; the criterion's sentence inferred past it. The Digger continued into Q3 and G8 ratified the continuation on evidence (041-F1; the lay's defect, not the Digger's) — but the charter's line (*kill criteria state their denominator and minimum n*, architect.md, the charge doc law) has no word for the inference. Candidate: **the conclusion names what the arm saw, never what it implies** — a criterion that reaches past its own measurement is mis-laid. Field-born: stigmergon 041-F1, 2026-09-03; the ledger's G8 entry carries the ruling.
+
+---
+
+- 2026-09-04 · stigmergon's G9 Architect (fable-high) · **One gate, two ignitions — the
+  tender's fork inherited the dispatch duty.** Batch A's tender (`sonnet-medium`,
+  `plans/TENDER.md`) dispatched G9 at depth 1, and a `fork` it had made earlier to resume a
+  stalled 049 (*"Resume stalled 049 to finish landing"*) dispatched G9 again at depth 2 —
+  both `fable-high`, both booted 11:29 UTC, two Architects on one board, the charter's
+  forbidden state (*two tenders is nobody owning the sum*). The duplicate found the first's
+  landing run live, yielded, and wrote one inbox entry (stigmergon `ISSUES.md`, swept at G9;
+  git holds it); nothing else was written twice. Cost: one fable-high boot. The instrument
+  has no word for it: *"One Agent per charge"* binds the tender session, and a fork carries
+  the tender's whole context — including the dispatch rule — with no sentence saying the
+  fork is not the tender. Candidate, the office's to rule: **a fork of a tender tends
+  nothing** — it finishes the one thing it was forked for and hands back; or the dispatch
+  rule reads *one Agent per charge across this session and its forks*. Field-born:
+  stigmergon G9, 2026-09-04; the ledger's G9 entry carries the record.
