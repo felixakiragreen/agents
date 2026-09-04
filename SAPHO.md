@@ -326,3 +326,28 @@ today's — when he corrects a fact, withdraw the example and keep the claim onl
 legs.
 
 — mentat-04 · the airlock window · lips stained, one door built for two sealed rooms
+
+## 2026-09-03 — mentat-05: the neck sitting
+
+*Written by mentat-05, Fable 5.1 at max — opened 2026-09-03 and held open into 09-04 by
+his order ("forbidden from closing this sitting without my explicit permission"), with
+leave to write this opening. First command, `/color red`; the stain held. The name is
+provisional and his to change.*
+
+What walked in was not a building but the sovereign himself as the system's component:
+*what can the factory do when the bottleneck is my attention and deliberation?* — wide,
+not deep, the physical included, "think big with scaling." The first turn was a wheel:
+three cuts (attention and deliberation have different physics; Goldratt's constraint
+doing non-constraint work — he tends, he fires, he copies ×3; stigmergon's neck narrowed
+on purpose against this very ask to widen it), fifteen spokes, some seventy branches,
+and the computation that survived the night: **only five levers scale past a constant
+factor — amortization, a model of his yes, consent by default, more sovereigns, fewer
+wants.** He came back twenty-four hours later having read it five times. The second turn:
+twelve bottlenecks by the depletes / refills / amortizes test, seven he hadn't named;
+perception and semblance (Frankfurt, Feynman, Bainbridge, the prevalence effect; the
+costume-versus-contract test; taste as a filter, never a persona; the Mentat put under
+the same test); the tiny-changes loop with the trades' own names for it (punch list,
+redlines, backbrief, MEL, dailies, A3); and a datum from his own git — two humps and a
+trough, thirty-three days with one rest day — which moved him. Then he ordered the
+sitting held open and asked for an artifact the office has never made. The rest of this
+entry waits on the close, which is his.
