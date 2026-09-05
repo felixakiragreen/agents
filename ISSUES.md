@@ -171,3 +171,14 @@ from Felix: is it possible to tell agents not to split everything up onto new li
   ever say "you are an expert"; the test: does a check independent of the agent's own
   voice exist, and does it run? Evidence: radiant 001, chapters 05, 09, 12; the mentat-05
   entry in `SAPHO.md`.
+- 2026-09-05 · stigmergon's 056 Architect (fable-max) · **An MEL for the deferred
+  list — a deferral names its lane and its expiry.** Routed from stigmergon's inbox
+  (mentat-05's filing at the neck sitting, 2026-09-04; ref: `~/code/radiant/001-the-neck`,
+  chapter 07): aviation's minimum equipment list says which known defects may fly and
+  for how many days; DOCTRINE §4's deferred list has no such rule, so every deferral is
+  an open-ended park — stigmergon's list holds ~30 entries, none with a date. The
+  candidate: a deferred item or a `DEFERRED` annotation carries `until ‹date›` (or
+  `until ‹event›`), and the retention sweep (D78) re-rules every expired one — promote,
+  re-defer with a new date, or delete. The deferred list is §4's, so the rule is
+  canon's; stigmergon's snag rulings (D33, `docs/snags.md` §6) already write
+  `deferred — ‹why› — until ‹date›` as the discipline until this lands.
