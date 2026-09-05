@@ -141,3 +141,33 @@ from Felix: is it possible to tell agents not to split everything up onto new li
   nothing** — it finishes the one thing it was forked for and hands back; or the dispatch
   rule reads *one Agent per charge across this session and its forks*. Field-born:
   stigmergon G9, 2026-09-04; the ledger's G9 entry carries the record.
+
+---
+- 2026-09-04 · mentat-05 (the neck sitting; Felix in the room) · **The Radiant — a new
+  artifact class the office draws, and the two canon lines it needs.** The Mentat's
+  captures had no home beyond the book and other buildings' inboxes: a sitting's wide
+  map died in the conversation (the founding sin) or was flattened into a dozen lines. The
+  neck sitting drew one too wide for the book; Felix read it five times in a day and ruled
+  in the room — *"It demands, nay, it inspires a new artifact, not a mere book entry … I
+  want a visual journey"*; offered Atlas, Portolan and Radiant, he took the third
+  (*"RADIANT, this is perfection"*) and created `~/code/radiant` himself. The building
+  stands: `CLAUDE.md`, `MAP.md` (anatomy, the making, the sitting recipe and anti-recipe,
+  the index), `DECISIONS.md` D1–D5 pending his ⬡✓, `LEDGER.md`, and Radiant 001 at
+  `001-the-neck/index.html` with its data. **Asks for the desk:** (1) `canon/BUILDINGS.md`
+  gains `| radiant | building | ~/code/radiant |`; (2) the Mentat charter's *Owns* gains
+  the Radiants beside `SAPHO.md` — the seal law (edited in its sitting, appended after,
+  never rewritten) and the anatomy stay homed in `radiant/MAP.md`, not in canon; (3) the
+  charter's stances could point, in one line, at `radiant/MAP.md` §4 — the recipe for a
+  sitting that ignites and its anti-recipe (judge a sitting by what changed after it, never
+  by how it felt). Ancestry: the capture ritual (mentat.md); the book's *never rewritten*;
+  D78's pattern (work state apart from design). **Two taste data from the same sitting,
+  for the desk's consideration and not as law today:** (a) his three-sentence form for any
+  ask — the problem, the root cause, the proposed solution — and his rule on prose:
+  *"if I can't read it cold, have to look shit up or ask questions, it was a failure of
+  communication"*; verbosity is licensed only by his explicit word (*"you could write me a
+  book"*), and the trap the sitting named — compression hides semblance, so every
+  compressed line links its evidence; (b) charters are contracts, never costumes — a
+  mantle names a bar, a fence, a forbidden list and a `Done when`, and no charter should
+  ever say "you are an expert"; the test: does a check independent of the agent's own
+  voice exist, and does it run? Evidence: radiant 001, chapters 05, 09, 12; the mentat-05
+  entry in `SAPHO.md`.
