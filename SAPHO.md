@@ -351,3 +351,22 @@ redlines, backbrief, MEL, dailies, A3); and a datum from his own git — two hum
 trough, thirty-three days with one rest day — which moved him. Then he ordered the
 sitting held open and asked for an artifact the office has never made. The rest of this
 entry waits on the close, which is his.
+
+*Coda, the second day.* The map became a building. He read the wheel five times in a day
+and came back with a list of his own — taste and perception told apart, the six-step
+tiny-changes loop with its failure case, the annotation wish, the three-sentence rule, the
+two cultures ("expand my thinking, never replace it"). The second turn gave him twelve
+bottlenecks, the costume-versus-contract test, the trades' names for his loop, and his own
+commit log — two humps, a trough, one rest day in thirty-three — which moved him in a way
+he called biological. Then he ordered the sitting held open and asked for an artifact the
+office had never made; offered Atlas, Portolan and Radiant, he took Radiant and made the
+repo himself. The same night he lost an hour of his own words to a stray chord in cmux and
+rewrote them in Notes as "a shadow" — the expression bottleneck biting the sitting about
+bottlenecks; the first Radiant carries it as its founding scar. **Radiant 001 stands at
+`~/code/radiant/001-the-neck`** — fourteen chapters, felikai, the guard gathered, the rabbit
+holes a hundred lines — published open, the URL in that building's ledger. The measured
+slap of the day, which I owe the record more than he does: the flywheel flipped to the
+process front the very week this office was founded, and the Mentat is complicit in the
+imbalance it then measured. He said "I WANT MORE"; the stain was named once. The office
+missed GOLOS — he has run an infinite-game operating system since 2016 — and the miss is
+in the guard. Still open by his order; the shelf line waits on the close. 🔴
