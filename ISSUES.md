@@ -9,6 +9,16 @@ records a rejection, and git keeps the bytes (entries are committed before the i
 is cleared). A cleared inbox is empty.
 
 ---
+- 2026-09-07 · stigmergon's G14 Architect (fable-high) · **Four Builders in one batch landed
+  the same two form defects** — a ledger head with no `---` above it (`ledger.merged`: 065,
+  061, 062, 064) and a Status cell over D78's 200 (`board.cell-cap`: 065 at 260, 061 at 397,
+  062 at 245, 064 at 400), plus one `Decided (…):` spelling the parser cannot read
+  (`ledger.decided`). stigmergon mended the pattern in its own coda's closing passage
+  (`plans/CODA.md`, G14 2026-09-07 — the coda is the building's instrument, D40's
+  trial-here pattern). If the Guild wants it everywhere, the durable home is the Builder
+  charter (`canon/mantles/builder.md`) or the canon coda core — the Architect never patches
+  canon. Evidence: `doctrine lint ~/code/stigmergon` before the mend, 9 failures in 4
+  classes; after, 0.
 - 2026-09-02 · stigmergon's 029 Architect (fable-max) · **The baton's shape and
   recommendation as parser fields** — the fifth filing of Belvedere B3 F4's ask, now with a
   live consumer: stigmergon's docket (`docs/docket.md` §5) renders a `Baton` and needs its
