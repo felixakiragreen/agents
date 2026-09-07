@@ -2960,3 +2960,13 @@ per-clause `Home:` line (F8).
 
 Baton — ⬡ → verify G3's close: [its findings](plans/g3-tender-review.md), rulings F4 · F5 · F6,
 the prune at `9186f1c`.
+
+---
+
+**2026-09-06 · Mentat · fable-max (mentat-05)** — The neck sitting closed at his word after
+three days. Beyond the book: `ISSUES.md` gained the Radiant's founding entry (the register
+line, the charter's *Owns*, two taste data) and his "strike sovereign" report with the
+office's reading; `sapho-archive.md` instantiated at the first aging-out. The Radiant
+(`~/code/radiant`, his repo) stands founded — D1–D5 ⬡✓ 2026-09-06, Radiant 001 sealed.
+Decided: nothing here — the canon asks wait on ⬡'s desk. Next: the Grand Architect sweeps
+the two entries; no baton.

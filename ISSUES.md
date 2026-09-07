@@ -200,3 +200,25 @@ from Felix: is it possible to tell agents not to split everything up onto new li
   pixels produces a specimen before its charges — the tooltip was the type
   specimen's birthplace, this is its law. Filed by the Architect; canon is the
   Grand Architect's to amend.
+
+---
+- 2026-09-06 · Felix, at the close of the neck sitting (filed by mentat-05 at his word) ·
+  **Strike "sovereign".** His words: *"I'm considering striking all mentions of 'sovereign'
+  — I don't need agents feeding any ego — I already have enough. I never meant to use that
+  term, it was a Grand Architect who first did. I need to stay humble."* The record: the
+  word entered at grand-architect-07 (2026-08-15, `50f5a80`), not by his hand; it is a
+  pinned term of the standard (the pinned list — *sovereign · unchanged*; the Sovereign's
+  clause; formula 24, *translate the Sovereign's vocabulary; challenge his substance*);
+  14 hits on live canon, 75 files city-wide counting history and voice. The office's
+  reading, for the desk: (1) in the canon it is a contract word — the human whose word
+  summons, blesses and signs — not a compliment; the register risk he names is real anyway,
+  because an approval-trained model addressed as a sovereign drifts courtly, and formula 24
+  already knows it. (2) A replacement must pass the standard's one-word test: **summoner**
+  — his own word in the summons that birthed the Radiant, the Guild's own verb, collides
+  with nothing; **principal** — agency law's word for the one an agent acts for, collides
+  with nothing; **owner** — the construction triad's word, but collides with the charters'
+  *Owns*. The office leans summoner. (3) The mechanics exist: a graveyard entry (026) and a
+  live-surface respell (040 · 043's rule — history keeps its names). (4) The guard:
+  performed humility is the same register drift with the sign flipped; the word change is
+  cheap, and the real defense stays the charter's guard and his own "test me." His call;
+  the desk mints.
