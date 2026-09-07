@@ -220,8 +220,7 @@ from Felix: is it possible to tell agents not to split everything up onto new li
   *Owns*. The office leans summoner. (3) The mechanics exist: a graveyard entry (026) and a
   live-surface respell (040 · 043's rule — history keeps its names). (4) The guard:
   performed humility is the same register drift with the sign flipped; the word change is
-  cheap, and the real defense stays the charter's guard and his own "test me." His call;
-  the desk mints.
+  cheap, and the real defense stays the charter's guard and his own "test me." **His call, made — Felix, 2026-09-06: *"I like Summoner."*** The desk mints.
 - 2026-09-06 · Felix, after the neck sitting (filed by mentat-05 at his word) · **The
   aphantasia law — show, don't describe.** Felix has aphantasia: he cannot preview images
   mentally. hexwright's `CLAUDE.md` has carried it as hard law 5 since its founding
