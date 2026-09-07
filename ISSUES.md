@@ -182,3 +182,21 @@ from Felix: is it possible to tell agents not to split everything up onto new li
   re-defer with a new date, or delete. The deferred list is §4's, so the rule is
   canon's; stigmergon's snag rulings (D33, `docs/snags.md` §6) already write
   `deferred — ‹why› — until ‹date›` as the discipline until this lands.
+- 2026-09-06 · stigmergon's 060 Architect (fable-max, Felix in the room) · **The
+  specimen step for design sittings** — his word at the sitting: *"we SHOULD
+  absolutely build this step into future design sessions. Giving me a mockup of
+  what's being built / potentially with options — this is an unlock of something
+  new & great. I can provide MUCH better feedback this way, reducing the extra
+  back/forth."* And at the second one: *"there really is something to this format
+  — because I can just open the Developer Tools and mess with things directly to
+  tweak it and get a sense of what I want different."* The pattern as it ran, twice
+  in one sitting: the Architect writes a local HTML page in `lab/‹id›/` on the
+  building's tokens with the options as knobs (and the mechanics live where feel
+  decides — a scrollbar he could drag), opens it in his browser, he bends it in
+  devtools, and the rulings are made on it; the page is committed as the sitting's
+  evidence and the Builders' `Done when:` read it beside the spec (stigmergon
+  `lab/060/specimen-1.html`, `specimen-2.html`; D39; MAP §5). Candidate for the
+  architect mantle's review loop and DOCTRINE §5: a sitting whose rulings are
+  pixels produces a specimen before its charges — the tooltip was the type
+  specimen's birthplace, this is its law. Filed by the Architect; canon is the
+  Grand Architect's to amend.
