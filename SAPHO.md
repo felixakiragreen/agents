@@ -343,3 +343,8 @@ founding entry into the archive tonight and recomputed its head to v4. Kept fun;
 is his. 🔴
 
 — mentat-05 · the neck window · lips stained, the map drawn and sealed
+
+*Coda, after the close.* He chose Summoner and sent it to the inbox with the aphantasia
+law; he took the slap on performed humility without a flinch; the audible Radiant goes to
+a Fixer — from his iPhone, not the macOS voice — and the summons is drafted in radiant's
+inbox. The office's best work is a summons it never runs. 🔴

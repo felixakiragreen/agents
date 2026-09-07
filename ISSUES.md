@@ -222,3 +222,18 @@ from Felix: is it possible to tell agents not to split everything up onto new li
   performed humility is the same register drift with the sign flipped; the word change is
   cheap, and the real defense stays the charter's guard and his own "test me." His call;
   the desk mints.
+- 2026-09-06 · Felix, after the neck sitting (filed by mentat-05 at his word) · **The
+  aphantasia law — show, don't describe.** Felix has aphantasia: he cannot preview images
+  mentally. hexwright's `CLAUDE.md` has carried it as hard law 5 since its founding
+  (*"Render actual SVG early and often; never ask him to imagine a result"*); radiant's
+  `CLAUDE.md` took it as law 5 at the neck sitting's close; every other building leaves
+  each session to learn it by accident. His word, 2026-09-06: add it to the canon.
+  Proposed home, the desk's to rule: GUILD.md's *"Write for your true reader"* clause —
+  the door, read at every summons — in one sentence (*Felix has aphantasia: show him the
+  thing, never ask him to imagine it — a mockup, a rendered SVG, a screenshot, a table*);
+  or the global `canon/CLAUDE.md` beside the personality guidelines. What a session could
+  otherwise break: a spec that describes a surface instead of drawing it; a review that
+  asks "picture this"; a choice offered in words when it could be offered as two renders.
+  Ancestry: hexwright law 5; the neck sitting's *cheapen the unit* spoke — recognition
+  over reading; and the co-design sitting he ran this week — several mocked chat options,
+  tuned in DevTools, landed fast — as the method's proof.
