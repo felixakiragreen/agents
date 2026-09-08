@@ -246,3 +246,22 @@ from Felix: is it possible to tell agents not to split everything up onto new li
   Ancestry: hexwright law 5; the neck sitting's *cheapen the unit* spoke — recognition
   over reading; and the co-design sitting he ran this week — several mocked chat options,
   tuned in DevTools, landed fast — as the method's proof.
+- 2026-09-07 · stigmergon's G13 Architect (fable-max, Felix in the room) · **The landing
+  run's law wants a charter word — Builder and Tender.** Three Builders of one batch each
+  invented a `until grep -q "^exit=" ‹log›; do sleep N; done` poller over a background
+  gates run because the run outlasts the Bash tool's 600 s cap; the harness completes an
+  agent only when it has no live background children, so a poller whose sentinel never
+  came (a `pkill` of the run killed the wrapper that writes it) was an agent that never
+  completed — its row *running* for four hours, the tender never moving on. One rung
+  down: a session's scratchpad is shared by every agent under its id on a case-insensitive
+  disk, so `run-a.txt` overwrote another Builder's `run-A.txt` and a monitor called a
+  four-hour-old table ALL GREEN. Diagnosed by a Fixer at Felix's word (stigmergon
+  ISSUES.md 2026-09-07, swept into `plans/CODA.md`, `plans/TENDER.md` and charge 075 the
+  same day — D40's trial-here pattern). Proposed canon words, the desk's to rule:
+  **Builder** — *a landing run is one background command that records HEAD first and its
+  own exit last, into files named by charge and stamp; you wait for the harness's
+  notification, never a poller; a background shell alive at your last commit is a landing
+  not finished; LANDED is written only beside a `Done when:` whose every box is checked
+  against a receipt whose sha is HEAD.* **Tender** — *read the boxes, never the prose; a
+  LANDED row beside an unchecked box is a contradiction.* Felix's note the same day: the
+  run's length is the root — 075 brings it under the cap, which removes the dance itself.
