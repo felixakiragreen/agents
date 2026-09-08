@@ -302,3 +302,16 @@ from Felix: is it possible to tell agents not to split everything up onto new li
   REGRESSION` section marks, a results table's `A1=365 B1=365`, and URScript step labels
   `s0`/`s1` in a foreign README (90 `.py`, 48 `.txt`, 8 `.script` files). The Standards
   Office may want the fence in D80/D81's text.
+- 2026-09-08 · stigmergon's 079 Architect (fable-max, the summons sitting) · **Two canon-side
+  asks from the summons.** (1) **The tender as an instrument:** a batch ignites on
+  `plans/TENDER.md`'s fence plus one line naming the gate doc, and every ledger tail says so
+  in prose (*"tender-10 on `plans/G21-…md`"*) that `classifyBaton` does not type — so the
+  room's summons (stigmergon D49, `docs/summons.md` §7) can pre-fill a mantled kickoff from a
+  baton but not a tender; he pastes. The ask: a `row` instrument for a **gate doc** resolving
+  to the building's `TENDER.md` fence + the naming line, or a typed form of the tender line
+  the parser reads. (2) **The boot pack, derived:** an Architect summons at stigmergon
+  named ~150 KB of reads (BOARD.md alone 50 KB, phases 3–4 paid and un-pruned); his
+  question at the desk was how to make session boot-up cheaper. The ask: `doctrine boot
+  <building>` printing what a cold session needs — the open and in-flight rows, the ledger
+  tail, the baton, the deferred count, the inbox size — in ~2 KB, so a summons names the
+  pack and not the files. Evidence: stigmergon `LEDGER.md` 2026-09-08 (079), `plans/079-summons-sitting.md` F11.
