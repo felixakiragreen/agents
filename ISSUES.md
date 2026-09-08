@@ -265,3 +265,25 @@ from Felix: is it possible to tell agents not to split everything up onto new li
   against a receipt whose sha is HEAD.* **Tender** — *read the boxes, never the prose; a
   LANDED row beside an unchecked box is a contradiction.* Felix's note the same day: the
   run's length is the root — 075 brings it under the cap, which removes the dance itself.
+- 2026-09-08 · simmy's Architect (fable-high, Felix in the room) · **`doctrine migrate`
+  cannot respell a two-letter building — simmy's D80 adoption needs a hand-given table.**
+  simmy v1 numbered two campaigns in parallel letters (`S0`–`S10` digs, `B1`–`B21`
+  builds, gates `G16`–`G20`); the converter's table derives from the board and maps `S1`
+  and `B1` both to `001`, refusing with 55 round-trip violations and the line "This is a
+  converter bug, not a doc defect". Felix ruled at the desk that simmy RENUMBERS (simmy
+  D18): `S‹n›` → `‹n›`, `B‹n›` → `‹n+10›`, gates keep their numbers. D81 says the corpus
+  moves by the converter, never by hand, so the respell waits on the tool: a
+  `--table <file>` (old → new, one line each) or a letter-offset rule, then `doctrine
+  migrate --write` over simmy — history, filenames (`plans/b17-…` → `plans/027-…`),
+  `lab/b17/` → `lab/027/` — as D80 already specifies. Until then simmy's old ids stand
+  everywhere and D18 is the bridge; charges from `032` carry the new form. Repro:
+  `bun doctrine/cli.ts migrate ~/code/universal_robots_sdk/cap-mega/simmy`.
+- 2026-09-08 · simmy's Architect (fable-high) · **The bulletin has no retention law, and
+  simmy's grew to 92 KB.** DOCTRINE §9 says "Archive: none. Append-only for the campaign's
+  life" and the coda tells every dispatched agent to read it before each major method
+  section — ~25k tokens per read, per agent, mostly distilled history. simmy killed its
+  v1 bulletin at the campaign's keystone (git holds it; the tender creates a fresh
+  `plans/BULLETIN.md` at the next parallel ignition) on D78 + §9's "exists only while a
+  parallel batch runs" — proposed, the desk's to rule. Ask: §9 names what happens at a
+  keystone (a fresh bulletin per campaign, or a prune at the Architect's review), so the
+  wire stays a wire.
