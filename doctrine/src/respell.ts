@@ -45,6 +45,35 @@ export function respellTable(boardIds: Iterable<string>, dir = ''): Respell {
 	return { ids, charges, dir };
 }
 
+/**
+ * A HAND-GIVEN table (D80 as ruled at the desk, simmy D18 — 2026-09-08): a building that
+ * numbered two campaigns in parallel letters (`S1` and `B1`) cannot be derived — the derivation
+ * maps both to `001` — so its Architect writes the table and Felix rules it. One line per id,
+ * `OLD → NEW` (or `OLD NEW`), `#` comments and blanks skipped; NEW is a padded charge number.
+ * `charges` stays EMPTY on purpose: under an offset a bare number is ambiguous by construction,
+ * so the number-keyed rules fall silent and only the lettered ids move.
+ */
+export function tableFromText(text: string, dir = ''): Respell {
+	const ids = new Map<string, string>(), seen = new Map<string, string>();
+	for (const raw of text.split('\n')) {
+		const line = raw.replace(/#.*$/, '').trim();
+		if (!line) continue;
+		const m = line.match(/^(\S+)\s*(?:→|->|\s)\s*(\d{3})$/);
+		if (!m) throw new Error(`--table: cannot read "${raw}" — one "OLD → NEW" per line, NEW a three-digit charge number`);
+		const [, from, to] = m;
+		if (seen.has(to!) && seen.get(to!) !== from) throw new Error(`--table: ${seen.get(to!)} and ${from} both map to ${to}`);
+		seen.set(to!, from!); ids.set(from!.toUpperCase(), to!);
+	}
+	return { ids, charges: new Map(), dir };
+}
+
+/** Two old ids landing on one address: the derivation cannot be trusted, the desk must rule. */
+export function collisions(t: Respell): string[] {
+	const by = new Map<string, string[]>();
+	for (const [from, to] of t.ids) by.set(to, [...(by.get(to) ?? []), from]);
+	return [...by].filter(([, froms]) => froms.length > 1).map(([to, froms]) => `${froms.join(' and ')} → ${to}`);
+}
+
 /** The table as a reader sees it before a byte moves — old → new, the addresses in order. */
 export function renderTable(t: Respell): string {
 	if (isEmpty(t)) return '  (every id already conforms — nothing to respell)';
@@ -72,7 +101,17 @@ const ownPath = (t: Respell) =>
 	`(?:(?<![\\w/~.-])|(?<=\\.{1,2}/)${t.dir ? `|(?<=(?<![\\w-])${esc(t.dir)}/)` : ''})`;
 
 /** Every substitution the respell makes, in the order it makes them. */
-function rules(t: Respell): [RegExp, (m: string, ...g: string[]) => string][] {
+/**
+ * Where a rule may write. A DOCUMENT is a `.md` file: there a bare lettered id is an address.
+ * Everywhere else — code, data, transcripts — `S1` and `B1` are identifiers and arm labels
+ * (cornerizer's `S0 REGRESSION` section marks, a results table's `A1=365 B1=365`), and only
+ * the PATH forms (`plans/b17-…`, `lab/b17`) are simmy's addresses. Measured 2026-09-08 on
+ * simmy's first hand-table run: 90 `.py`, 48 `.txt` and 8 `.script` files would have moved
+ * under the document rule, every one a false positive.
+ */
+export type Scope = 'document' | 'path';
+
+function rules(t: Respell, scope: Scope = 'document'): [RegExp, (m: string, ...g: string[]) => string][] {
 	const charge = (n: string, whole: string) => t.charges.get(+n) ?? whole;
 	const mine = ownPath(t);
 	const out: [RegExp, (m: string, ...g: string[]) => string][] = [
@@ -93,9 +132,15 @@ function rules(t: Respell): [RegExp, (m: string, ...g: string[]) => string][] {
 	// The lettered ids, table-driven and case-folded: the slug form (`c23-law-book.md`,
 	// `lab/c28`) is the same address in lower case, and only the table's own keys can match.
 	const keys = lettered(t);
-	if (keys.length) out.push([
+	const lookup = (m: string) => t.ids.get(m.toUpperCase()) ?? t.ids.get(m) ?? m;
+	if (keys.length && scope === 'document') out.push([
 		new RegExp(`\\b(${keys.map(esc).join('|')})\\b`, 'gi'),
-		m => t.ids.get(m.toUpperCase()) ?? t.ids.get(m) ?? m,
+		lookup,
+	]);
+	// The slug paths carry the address in every file type: `plans/b17-…`, `lab/b17`, `spike/b17-…`.
+	if (keys.length) out.push([
+		new RegExp(`${mine}(plans|lab|spike)/(${keys.map(esc).join('|')})(?=[-/]|$|[^\\w])`, 'gi'),
+		(m, d, id) => `${d}/${lookup(id)}`,
 	]);
 	out.push(
 		// The paths — charge docs lead with their id, lab dirs are named by it.
@@ -143,10 +188,10 @@ export const ticksLeftOpen = (line: string, open: boolean) =>
 	((line.match(/`/g)?.length ?? 0) % 2 === 1) !== open;
 
 /** The respell applied to one string. Total, order-fixed, and a fixed point on its own output. */
-export function respellText(s: string, t: Respell, open = false): string {
+export function respellText(s: string, t: Respell, open = false, scope: Scope = 'document'): string {
 	return outsideTicks(s, open, part => {
 		let out = part;
-		for (const [rx, fn] of rules(t)) out = out.replace(rx, fn as (m: string, ...a: unknown[]) => string);
+		for (const [rx, fn] of rules(t, scope)) out = out.replace(rx, fn as (m: string, ...a: unknown[]) => string);
 		return out;
 	});
 }

@@ -8,7 +8,7 @@
 //   doctrine migrate [--write] <building>                 re-emit in the current grammar
 //   doctrine citations [--write] <building>               respell citations of killed D-ids
 
-import { existsSync, mkdtempSync, rmSync } from 'fs';
+import { existsSync, mkdtempSync, readFileSync, rmSync } from 'fs';
 import { tmpdir } from 'os';
 import { join, relative, resolve } from 'path';
 import { citationTargets, diffRun, renderHomes, respellBuilding, writeRun } from './src/citations';
@@ -18,7 +18,7 @@ import { byInterest, renderStatement } from './src/credit';
 import { guardRegressions, lint, render } from './src/lint';
 import { REGISTER, walkRegister } from './src/register';
 import { diff, migrate, roundTrip, write } from './src/migrate';
-import { renderTable } from './src/respell';
+import { collisions, renderTable, tableFromText } from './src/respell';
 
 const USAGE = `doctrine — the reference reader for the work doctrine (canon/work/DOCTRINE.md)
 
@@ -52,7 +52,9 @@ const USAGE = `doctrine — the reference reader for the work doctrine (canon/wo
       listed only. --json emits the rows plus each building's parse: the machine surface.
       Exits 1 on a defect in the building register (a malformed row, a dead Root).
 
-  doctrine migrate [--write] <building>
+  doctrine migrate [--write] [--table <file>] <building>
+      --table <file>  a hand-given id table, one "OLD → NEW" per line, where the board's own
+                     derivation collides (two campaign letters sharing numbers — simmy D18)
       Form-only re-emission in the current grammar, across every tracked text file the
       building keeps. Prints the id respell table (D80, derived from the building's own
       board) first, then the diff and the round-trip verdict per file; --write is required
@@ -71,7 +73,10 @@ const flag = (f: string) => argv.includes(f);
 const guardAt = argv.indexOf('--guard');
 const guardRef = guardAt >= 0 ? argv[guardAt + 1] ?? null : null;
 if (guardAt >= 0 && !guardRef) { console.error('doctrine lint: --guard needs a git ref.'); process.exit(2); }
-const positional = argv.filter((a, i) => !a.startsWith('-') && (guardAt < 0 || i !== guardAt + 1));
+const tableAt = argv.indexOf('--table');
+const tableFile = tableAt >= 0 ? argv[tableAt + 1] ?? null : null;
+if (tableAt >= 0 && !tableFile) { console.error('doctrine migrate: --table needs a file.'); process.exit(2); }
+const positional = argv.filter((a, i) => !a.startsWith('-') && (guardAt < 0 || i !== guardAt + 1) && (tableAt < 0 || i !== tableAt + 1));
 const paths = positional.slice(1);
 const cmd = positional[0] ?? '';
 
@@ -147,10 +152,15 @@ if (cmd === 'buildings') {
 
 if (cmd === 'migrate') {
 	if (paths.length !== 1) die('doctrine migrate: exactly one building path per call.');
-	const { building, table, migrations } = migrate(paths[0]!);
+	const given = tableFile ? tableFromText(readFileSync(tableFile, 'utf8')) : undefined;
+	const { building, table, migrations } = migrate(paths[0]!, given);
 	// The table is printed before a byte moves — the respell is derived from the board, and a
 	// derivation nobody can read is a rule nobody can refuse (D80).
-	console.log(`${building.building} — the id respell table (D80), derived from the board:\n${renderTable(table)}\n`);
+	console.log(`${building.building} — the id respell table (D80), ${given ? `hand-given (${tableFile})` : 'derived from the board'}:\n${renderTable(table)}\n`);
+	// Two old ids on one address: the board numbered campaigns in parallel letters and the
+	// derivation cannot know the offset — the desk rules it and hands the table (simmy D18).
+	const clash = collisions(table);
+	if (clash.length) die(`${clash.length} id collision(s) in the derived table — ${clash.join('; ')}. A renumber is a ruling, not a derivation: pass --table <file>.`);
 	if (!migrations.length) { console.log(`${building.building}: already in the current grammar — nothing to migrate.`); process.exit(0); }
 
 	let violations = 0;

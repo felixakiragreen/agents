@@ -889,3 +889,38 @@ describe('the statement — every ⬡ go on a live surface, with its interest (D
 		expect(live.fails.filter(f => f.code === 'credit.undated').map(f => f.artifact).sort()).toEqual(['board', 'decisions']);
 	});
 });
+
+// ---------- the hand-given table (D80 at the desk — simmy D18, 2026-09-08) ----------
+
+import { collisions, tableFromText } from '../src/respell';
+
+describe('respell — the hand-given table', () => {
+	test('two campaign letters sharing numbers collide in the derivation, and the collision is named', () => {
+		const t = respellTable(['S1', 'B1', 'S2', 'G16']);
+		expect(collisions(t)).toEqual(['S1 and B1 → 001']);
+	});
+	test('a hand table parses, case-folds, and refuses a duplicate address', () => {
+		const t = tableFromText('# simmy D18\nS0 → 000\nS1 → 001\nB1 -> 011\nb21 031\n');
+		expect(t.ids.get('B1')).toBe('011'); expect(t.ids.get('B21')).toBe('031'); expect(t.charges.size).toBe(0);
+		expect(collisions(t)).toEqual([]);
+		expect(() => tableFromText('S1 → 001\nB1 → 001\n')).toThrow(/both map to 001/);
+		expect(() => tableFromText('S1 → 1\n')).toThrow(/cannot read/);
+	});
+	test('the table moves lettered ids and their slug paths, and leaves a kind and a bare number alone', () => {
+		const t = { ...tableFromText('S3 → 003\nB17 → 027\n'), dir: 'simmy' };
+		const m = migrateText('README.md', 'S3 proved it; see plans/b17-jar-identity.md and lab/b17, G16 stands, row 17 is prose\n', { ids: new Set(), respell: t, passes: ['respell'] });
+		expect(m.after).toBe('003 proved it; see plans/027-jar-identity.md and lab/027, G16 stands, row 17 is prose\n');
+	});
+	test('outside a document a bare lettered id is an identifier and stays; the path forms still move', () => {
+		const t = { ...tableFromText('S1 → 001\nB17 → 027\n'), dir: 'simmy' };
+		const m = migrateText('lab/x/run.py', '# S1 THE ORACLE; b1 = 365; open("lab/b17/out.txt"); see plans/b17-jar-identity.md\n', { ids: new Set(), respell: t, passes: ['respell'] });
+		expect(m.after).toBe('# S1 THE ORACLE; b1 = 365; open("lab/027/out.txt"); see plans/027-jar-identity.md\n');
+	});
+	test('a lab dir the table does not name is another record: its markdown takes path forms only', () => {
+		const t = { ...tableFromText('S1 → 001\nB17 → 027\n'), dir: 'simmy' };
+		const foreign = migrateText('/x/simmy/lab/reset-home/README.md', 'thgrh s1 group added (lab/b17 rig)\n', { ids: new Set(), respell: t, passes: ['respell'] });
+		expect(foreign.after).toBe('thgrh s1 group added (lab/027 rig)\n');
+		const own = migrateText('/x/simmy/lab/b17/README.md', 'B17 ran here\n', { ids: new Set(), respell: t, passes: ['respell'] });
+		expect(own.after).toBe('027 ran here\n');
+	});
+});

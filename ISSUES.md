@@ -287,3 +287,18 @@ from Felix: is it possible to tell agents not to split everything up onto new li
   parallel batch runs" — proposed, the desk's to rule. Ask: §9 names what happens at a
   keystone (a fresh bulletin per campaign, or a prune at the Architect's review), so the
   wire stays a wire.
+- 2026-09-08 · simmy's Architect (fable-high, Felix in the room) · **D83's hold was news to
+  Felix — "I wasn't aware of that strange exception" — and he lifted it for simmy at the
+  desk.** D83 restricts the tender kickoff to agents and stigmergon "until stigmergon's
+  keystone"; simmy's batch 13 is tender-shaped (pre-chewed, no ⬡-gates, its close gate a
+  charge), so `simmy/plans/TENDER.md` was instantiated from this repo's and the batch note
+  names it. The desk's to rule: does the hold stand for the other buildings, or does D83's
+  clause move to "any building whose batch note names the instrument"? Same session: the
+  converter-table entry above is EXECUTED — `doctrine migrate --table` landed here
+  (`doctrine/src/respell.ts` `tableFromText`/`collisions`, `migrate.ts` `scopeOf`, cli, 3
+  tests), and one measured fence rode it: a bare lettered id respells only in a `.md` of the
+  building's own; code, data, transcripts and lab dirs the table does not name take the
+  path forms only — simmy's first run would otherwise have rewritten cornerizer's `S0
+  REGRESSION` section marks, a results table's `A1=365 B1=365`, and URScript step labels
+  `s0`/`s1` in a foreign README (90 `.py`, 48 `.txt`, 8 `.script` files). The Standards
+  Office may want the fence in D80/D81's text.

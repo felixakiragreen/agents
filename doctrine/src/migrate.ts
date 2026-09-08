@@ -21,7 +21,7 @@ import { boardIds, isBoardHeader, parseBoards, parseDecisions, parseLedger, tabl
 import { LIMITS, discover, parse as parseBuilding, type Building } from './building';
 import {
 	EMPTY, respellDepends, respellIdCell, respellNormal, respellTable, respellText, ticksLeftOpen,
-	type Respell,
+	type Respell, type Scope,
 } from './respell';
 
 /**
@@ -43,6 +43,8 @@ export type LineCtx = {
 	respell: Respell;
 	/** A code-tick span the lines above left open — the respell's mask reads it (respell.ts). */
 	openTick: boolean;
+	/** `.md` is a document (bare ids are addresses); anything else takes the path forms only. */
+	scope: Scope;
 };
 type LineResult = string | { to: string; eat: number } | null;
 
@@ -398,7 +400,7 @@ const respellDependsColumn: Rule = {
 /** Every other surface: tokens, paths, typed slots — wherever they are written. */
 const respellLine: Rule = {
 	id: ID_RESPELL, pass: 'respell', changes: [],
-	line: { run: (t, ctx) => { const next = respellText(t, ctx.respell, ctx.openTick); return next === t ? null : next; } },
+	line: { run: (t, ctx) => { const next = respellText(t, ctx.respell, ctx.openTick, ctx.scope); return next === t ? null : next; } },
 };
 
 // Order is load-bearing in one place: the PARKED respell runs before the leading-annotation
@@ -440,6 +442,21 @@ function boardRowLines(md: string): Set<number> {
  */
 export type MigrateOpts = { ids?: Set<string>; respell?: Respell; passes?: Pass[] };
 
+/**
+ * A `.md` is a document — unless it sits in a lab dir the table does not name: `lab/s4/` is
+ * this building's (a key), `lab/012/` too (a padded number), but `lab/reset-home/` and
+ * `lab/cornerizer-inside/` are another campaign's record squatting in this tree, and their
+ * `s0`/`S4` are URScript step labels and cornerizer's own ids (measured 2026-09-08). Those
+ * take the path forms only, like code.
+ */
+function scopeOf(file: string, t: Respell): Scope {
+	if (!file.endsWith('.md')) return 'path';
+	const m = file.match(/(?:^|\/)lab\/([^/]+)\//);
+	if (!m) return 'document';
+	const dir = m[1]!;
+	return /^\d{3}$/.test(dir) || t.ids.has(dir.toUpperCase()) ? 'document' : 'path';
+}
+
 export function migrateText(file: string, md: string, opts: MigrateOpts = {}): Migration {
 	const name = basename(file);
 	const lines = md.split('\n');
@@ -477,7 +494,7 @@ export function migrateText(file: string, md: string, opts: MigrateOpts = {}): M
 				fired.push(rule.id);
 			}
 		}
-		const ctx: LineCtx = { prev: lastNonEmpty, ahead: k => lines[i + k] ?? null, respell, openTick };
+		const ctx: LineCtx = { prev: lastNonEmpty, ahead: k => lines[i + k] ?? null, respell, openTick, scope: scopeOf(file, respell) };
 		if (!marker) openTick = ticksLeftOpen(original, openTick);
 		for (const rule of RULES) {
 			if (!rule.line || !active.has(rule.pass)) continue;
@@ -627,7 +644,7 @@ function respellTargets(buildingPath: string): string[] {
 		.filter(isText);
 }
 
-export function migrate(buildingPath: string): { building: Building; table: Respell; migrations: Migration[] } {
+export function migrate(buildingPath: string, given?: Respell): { building: Building; table: Respell; migrations: Migration[] } {
 	const building = parseBuilding(buildingPath);
 	const artifacts = new Set([
 		...building.files.boards,
@@ -636,7 +653,8 @@ export function migrate(buildingPath: string): { building: Building; table: Resp
 	]);
 	const ids = new Set<string>();
 	for (const f of building.files.boards) for (const id of boardIds(readFileSync(f, 'utf8'))) ids.add(id);
-	const table = respellTable(ids, basename(resolve(buildingPath)));
+	// A hand-given table (D80 at the desk) replaces the derivation; its `dir` is still this building's.
+	const table = given ? { ...given, dir: basename(resolve(buildingPath)) } : respellTable(ids, basename(resolve(buildingPath)));
 
 	const seen = new Set<string>();
 	const targets = [...artifacts, ...respellTargets(buildingPath)].filter(f => !seen.has(f) && seen.add(f));
