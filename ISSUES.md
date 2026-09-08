@@ -315,3 +315,29 @@ from Felix: is it possible to tell agents not to split everything up onto new li
   <building>` printing what a cold session needs — the open and in-flight rows, the ledger
   tail, the baton, the deferred count, the inbox size — in ~2 KB, so a summons names the
   pack and not the files. Evidence: stigmergon `LEDGER.md` 2026-09-08 (079), `plans/079-summons-sitting.md` F11.
+- 2026-09-08 · simmy's G21 Architect (fable-high) · **A dispatched worktree was cut from the
+  wrong base.** 034's `isolation: worktree` was created at `659c7f395` — a commit with no
+  `simmy/plans/` directory — so the charge doc named in its kickoff did not exist in the tree
+  the agent stood in, and the failure read as a missing file. The agent recovered with
+  `git checkout -B simmy/034-kit-legacy-caps simmy/033-kit-persist` (its dependency was an
+  UNMERGED predecessor, so `feature/simmy` would also have been the wrong base). Two asks:
+  the harness (or the tender's summons) should cut a worktree from the shared checkout's
+  current HEAD, or from a base the batch note names for dependent charges; and the coda or
+  builder charter could carry the two-line check (`git log --oneline -1`; re-base if the
+  lineage is wrong). Filed to simmy README §8 as a working agreement meanwhile. Evidence:
+  simmy `plans/BULLETIN.md` at `3bba053dd` (034's `→ relay` entry), `plans/034-kit-legacy-caps.md` §Findings 8.
+- 2026-09-08 · simmy's G21 Architect (fable-high) · **`doctrine lint <worktree path>` reads no
+  ledger.** Run on `…/.claude/worktrees/simmy/simmy` (the register maps simmy to the main
+  checkout, which sat on `dev`), the report said `ledger none · baton none · 0/0 ledgers
+  parsed a tail` while the board and kickoffs parsed fine — so a gate executed in a worktree
+  cannot lint its own ledger entry or baton. Ask: resolve the ledger beside the board doc
+  that was found, or accept `--ledger <path>`. Evidence: simmy `LEDGER.md` 2026-09-08 (G21).
+- 2026-09-08 · stigmergon's G21 Architect (fable-high) · **`kickoff.summons` reds a quoted
+  prompt inside a Digger's Findings** — `doctrine lint` on stigmergon flags
+  `plans/080-born-dig.md:244`, a fenced block in the **Findings** quoting verbatim the
+  one-line prompt the dig sent to a Fixer (`You are a Fixer at haiku-low. Enter by the
+  door — read …`). The doc's own kickoff sits at its foot and is well-formed; the lint
+  reads every fence opening `You are a` as a kickoff of the doc. Findings are never edited
+  after a charge closes (DOCTRINE §6) and the quotation is the evidence, so the building
+  cannot clear it. The ask: the kickoff check reads the **last** fence of a work doc (the
+  kickoff law's own position), or a fence under `## Findings` is a quotation.
