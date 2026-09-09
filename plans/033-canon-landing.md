@@ -130,6 +130,8 @@ fixer      —              no summons paragraph; **The license** stands in its 
 
 The **core** ("worn by explicit summons only … always apply.") is word-for-word in all five that have one — but the *line wrapping* differs between the mantle family and the office family, so a byte-level lint written off item 9's phrasing would red on day one. The README template section is written to what is true (word-level), and says so. **A ruling is owed:** normalize the wrap and get the cheap byte lint, or keep the wrap and write the lint word-level. Not fixed here — that is a wording change to blessed text.
 
+*Settled 2026-09-09 (grand-architect-25): D88's unwrap (047) made each family byte-identical — architect = digger, mentat = grand-architect; the Builder's differs by a sentence, not a wrap, and the Fixer has none. The wrap question is moot; a lint, if ever wanted, is byte-level and free.*
+
 **F4 — `## The precedence law` is now stale, and I left it.** README lines ~121–137 still open *"Canonical clause, carried verbatim by every charter:"* and quote a `**Precedence:**` block. No 028 charter carries that clause any more — it was folded into `**The summons:**` (a fact the section immediately below it now describes correctly). Untouched: unlike F2, item 9 gave no ruling here and the Done-when fences the file to three sections. Next canon sweep should fold or retire it. Related residue in the same class: `canon/skills/grand-architect/SKILL.md` still says *"Wear the Grand Architect **mantle**"* for what D71 and the landed charter both call an office — the new `mentat` shim says "office", so the two now disagree. Both are 034-adjacent.
 
 ---
