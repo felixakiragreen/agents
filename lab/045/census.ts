@@ -8,8 +8,8 @@
 // One parser: every field here is read by `doctrine`'s own reader — the census counts, it never
 // re-implements. History is counted, never linted (the `ledger.baton` arm reads tails alone).
 
-import { readFileSync } from 'fs';
-import { batonSlots, batonTypeWord, classifyBaton, parseLedger } from '../../doctrine/src/parse';
+import { existsSync, readFileSync } from 'fs';
+import { batonSlots, batonTypeWord, classifyBaton, parseLedgerPair } from '../../doctrine/src/parse';
 
 /** What the parser's own `BATON_LINE` requires and this does not: that the line START with it. */
 const MENTIONS_BATON = /\*{0,2}Baton\*{0,2}\s*[—–-]/;
@@ -35,8 +35,8 @@ const shapes: Tally = new Map(), recs: Tally = new Map(), types: Tally = new Map
 const totals = { entries: 0, batons: 0, written: 0, lines: 0 };
 
 for (const [name, path] of LEDGERS) {
-	const md = readFileSync(path, 'utf8');
-	const { entries } = parseLedger(md);
+	const archive = path.replace(/LEDGER\.md$/, 'ledger-archive.md');   // 048: one record, two files — the census counts both
+	const { entries } = parseLedgerPair(existsSync(archive) ? readFileSync(archive, 'utf8') : null, readFileSync(path, 'utf8'));
 	let batons = 0, written = 0, lines = 0, felix = 0, shaped = 0;
 	for (const e of entries) {
 		const b = classifyBaton(e);
