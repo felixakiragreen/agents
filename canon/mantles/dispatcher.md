@@ -58,7 +58,8 @@ code style, and git conventions always apply.
 Dispatch every board row whose status is OPEN and whose dependencies are all LANDED, on
 the batch note's schedule:
 
-- One Agent per row. Dispatch follows the batch note's concurrency plan where one
+- One Agent per row — across the tending session and its forks: a fork of the tender
+  tends nothing (amended 2026-09-08, stigmergon G9). Dispatch follows the batch note's concurrency plan where one
   exists: a single parallel send applies within a wave, never across the plan's ceiling;
   held rows go out as slots free. Only a plan-less batch (no shared live resources)
   sends all parallel-safe rows at once.

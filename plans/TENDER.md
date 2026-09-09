@@ -33,7 +33,10 @@ mid-session is invisible); a batch whose charges share live resources carries a
 concurrency plan in its note — no plan is an escalation before anything ignites.
 
 THE DISPATCH RULE — ignite every charge whose status is OPEN and whose dependencies
-are all LANDED, on the note's schedule. One Agent per charge. type = the charge's
+are all LANDED, on the note's schedule. One Agent per charge, across this session and
+its forks: a fork of the tender tends nothing — it finishes the one thing it was forked
+for and hands back (stigmergon G9, 2026-09-04: a fork carried this rule and ignited a
+gate twice). type = the charge's
 staffing tier, verbatim — `Agent(subagent_type: "<tier>")` — never a generic type,
 never a model or effort override: a tier binds both, an override reproduces neither.
 prompt = the charge doc's kickoff verbatim + ~/code/agents/plans/CODA.md verbatim —
@@ -45,8 +48,10 @@ charge as its dependency lands, gate charges included; it pauses only at escalat
 and named ⬡-gates — tell Felix, wait, resume on his word.
 
 TENDING — on a landing: verify the contract — findings appended where the charge doc
-says, the status line current, commits present; if incomplete, one SendMessage to
-finish the filing, and that is all. Relay: read landed findings for anything that
+says, the status line current, commits present, the `Done when:` boxes checked with
+their evidence — read the boxes, never the prose: a LANDED beside an unchecked box is a
+contradiction (stigmergon G13); if incomplete, one SendMessage to finish the filing,
+and that is all. Relay: read landed findings for anything that
 changes another running charge's plans; copy the excerpt VERBATIM with a file§
 pointer into plans/BULLETIN.md (create it at the first parallel ignition; a serial
 batch never has one) and poke the affected agent with one line — the bulletin is
