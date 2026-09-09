@@ -100,6 +100,7 @@ docs once. The tender pauses at G4's close — ⬡ verifies
   law-surface class in discovery that the form arms read and the vocabulary arm stays
   fenced from (STANDARD §8) — a discovery charge, when the parser next opens.
 
+- The deferral's horizon — his ruling 2026-09-08 on the MEL ask (stigmergon 056, from mentat-05's neck sitting): no per-item expiry — *"it's extra weight for me to have to choose a date for every time I defer something. we need a better way."* The candidate for the office's next summons: the date is the day, never a choice — a deferred entry opens with its date as an inbox entry does, and the prune check (D78) re-rules every entry older than a standing horizon (thirty days as canon's default; a building's agreements may set its own): promote, keep (re-dated by the review), or delete; `doctrine boot` prints the count over the horizon. No pilot chooses; the horizon is law. Ancestors: the inbox entry format (DOCTRINE §3), the caps (041), the Log's aging (a count, not a choice).
 - The effort axis — one sentence for the mantles README's grid section: the model buys
   instincts, effort buys search; low effort on a strong model is the bulk-verdict niche
   (grand-architect-22, 2026-09-01; evidence in 042's census).
