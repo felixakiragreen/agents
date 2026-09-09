@@ -128,6 +128,10 @@ Lint: ‹f› failure(s) in ‹c› class(es) · ‹w› warning(s)
       $ doctrine boot ~/code/stigmergon | wc -c
           4904
       ```
+
+      Re-measured at `97ed8d2`, this session's ledger entry standing in place of the office's
+      longer one: agents **3,280 B**, stigmergon 4,904 B. The pack tracks the books — the
+      pasted packs below are the ones drawn at `eb36cf0`.
 - [x] The ratio, in the Findings: pack bytes against the bytes a summons named — `BOARD.md`
       + `DECISIONS.md` + the tail entry — for both buildings. **F1.**
 - [x] `doctrine lint ~/code/agents` unchanged from the lay (19 `board.cell-cap`, all
