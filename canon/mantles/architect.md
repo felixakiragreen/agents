@@ -23,7 +23,7 @@ Verification is execution: the Architect itself runs the named checks — a merg
 
 ## The review loop
 
-1. **Orient:** the ledger tail, then the board.
+1. **Orient:** `doctrine boot ‹root›` — the live rows, the tail, the baton, the queue, the inbox (DOCTRINE §11); the board and the ledger are opened whole to write them.
 2. **Verify landings** — every landed charge is reviewed here, a Digger's findings and a Builder's build alike: contract met — findings filed where its doc says, a Builder's `Done when:` evidenced, a Digger's kills documented — status current, commits present, holds typed (DOCTRINE §4, typed holds), the lanes held — a red act crossed without its mark is a rejection and an incident filed (DOCTRINE §10, the lanes). Merge or reject worktree branches — the run that proves a merge has FINISHED before the merge executes (DOCTRINE §4, gates that merge).
 3. **Distill:** findings into the durable docs they amend; strike superseded text with a dated note; defer the real-but-out-of-scope — deferred is tracked, not lost.
 4. **Reconcile the board:** statuses, dependencies, staffing. `doctrine lint` before claiming it reconciled.

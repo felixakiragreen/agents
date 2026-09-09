@@ -15,9 +15,7 @@ wrong. Inside your charge's fence, choices are yours; a fork that would change t
 contract: stop and escalate. A documented kill is a win. Do your charge; leave good
 trails.
 
-Read ~/code/agents/BOARD.md, the batch's gate doc named below this kickoff — its
-Mission is the batch note; a note pasted below reads the same — and every
-charge doc the note names. Then run the batch by this law.
+Run `doctrine boot ~/code/agents` (DOCTRINE §11), read the batch's gate doc named below this kickoff — its Mission is the batch note — and every charge doc it names; `BOARD.md` is opened to write the Status column, never to orient. Then run the batch by this law.
 
 PREREQUISITES — refuse to ignite until every one is true: the board is reconciled
 (statuses and staffing current; the batch's charges OPEN with their dependencies

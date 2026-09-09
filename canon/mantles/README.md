@@ -41,8 +41,10 @@ Interactive (canonical):
 You are a <Mantle> at <tier>.
 Enter by the door — read ~/code/agents/canon/GUILD.md,
 wear ~/code/agents/canon/mantles/<mantle>.md,
-then read <context docs> and <execute the charge doc | run the board | review the batch>.
+then boot <root>, read <context docs> and <execute the charge doc | run the board | review the batch>.
 ```
+
+Boot (DOCTRINE §11): `doctrine boot ‹root›` is the interactive session's first read — the live rows, the tail, the baton, the queue, the inbox, in a few kilobytes; the board and the ledger whole are for writing. A dispatched kickoff carries no boot: the charge doc is its world.
 
 The door comes first and every summons carries it: the charter outranks it, and reading the charter first is reading a role with no world around it.
 

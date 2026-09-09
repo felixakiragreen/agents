@@ -2,7 +2,7 @@
 
 The operating system for how Felix works with Claude across three accounts and every repo — **the Guild**: mantles, capability tiers, work doctrine, global CLAUDE.md — canonized here, mirrored into `~/.claude*` config dirs.
 
-**Read `MAP.md` and `BOARD.md` before any work** — the master architecture and the campaign board (D78: design and work state live apart). `DECISIONS.md` is the decision register — the queue, plus rulings not yet distilled into their homes; the tail of `LEDGER.md` tells you where we are; field reports land in `ISSUES.md` — file and move on.
+**Run `doctrine boot .` and read `MAP.md` before any work** — the boot pack (DOCTRINE §11) and the master architecture; `BOARD.md` holds the work state whole (D78) and is opened to write it. `DECISIONS.md` is the decision register — the queue, plus rulings not yet distilled into their homes; the tail of `LEDGER.md` tells you where we are; field reports land in `ISSUES.md` — file and move on.
 
 Subproject: `belvedere/` — RETIRED 2026-08-31; the books stand as the record (`belvedere/README.md`). The successor is its own repo: `~/code/stigmergon`.
 
