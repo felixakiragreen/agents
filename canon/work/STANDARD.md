@@ -124,7 +124,9 @@ Entry format: **word** · part · definition · *instead of* — the dead words 
   23. Think in any terms; communicate in the standard.
   24. Translate the Summoner's vocabulary; challenge his substance.
   25. The best part is no part.
-  26. History is respelled, never rewritten. Procedural rules stay entries, not formulas ("Charges are always staffed", "The mantle says whether a charge digs or builds") — the list carries speech, entries carry law; restating law in the list is redundancy carrying no information.
+  26. History is respelled, never rewritten.
+
+  Procedural rules stay entries, not formulas ("Charges are always staffed", "The mantle says whether a charge digs or builds") — the list carries speech, entries carry law; restating law in the list is redundancy carrying no information.
 - **Spelling — ruled: American, with the exception list: grey** (greys, greyed). The lexicon enforces word-by-word; -ize with it.
 - **Enforcement — the vocabulary arm's contract** (`doctrine lint --vocab`, ⬡✓ 2026-08-29): a flag, never the exit-code default — the form arms gate, the vocabulary arm reports; §7's prefix findings warn only. A mention is spelled in ticks or quotes — the arm cannot tell use from mention, and that, not a per-file exemption, is the cure for tombstone prose. A LANDED or KILLED charge is history whole — its Work cell as well as its annotation; `canon/` is fenced: a law book must name the dead to bury them. A pattern that cannot be written without false positives is dropped in writing, never weakened — the drop reasons live in `doctrine/src/lexicon.ts`, the mirror the drift alarm binds to §§7–9. The converter is the mirror's third leg (D81, the currency law — DOCTRINE §1): a form change to this standard lands with its `doctrine migrate` rule and the corpus respelled, history included — the law and the city never disagree on a name.
 
