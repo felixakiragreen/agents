@@ -7,11 +7,11 @@ import { describe, expect, test } from 'bun:test';
 import { readFileSync } from 'fs';
 import { basename, join } from 'path';
 import {
-	batonFails, batonTypeWord, boardIds, classifyBaton, parseBoards, parseDecisions, parseIssues, parseKickoffs,
-	parseLedger,
+	batonFails, batonSlots, batonTypeWord, boardIds, classifyBaton, parseBoards, parseDecisions, parseIssues,
+	parseKickoffs, parseLedger,
 } from '../src/parse';
 import { migrateText, roundTrip } from '../src/migrate';
-import { renderTable, respellTable } from '../src/respell';
+import { renderTable, respellIdCell, respellTable } from '../src/respell';
 import { isId } from '../src/grammar';
 import { byInterest, renderStatement, scanCredits } from '../src/credit';
 import { guardRegressions, isLiveWorkDoc, lint } from '../src/lint';
@@ -164,7 +164,8 @@ describe('control — conforming fixtures parse with zero failures', () => {
 		const b = parseLedger(fx('conforming', 'ledger-baton-fields.md')).entries.map(e => classifyBaton(e)!);
 		expect(b.map(x => x.shape)).toEqual(['single', 'batch', 'fork', 'fork', 'fork', 'single', 'batch', null, 'fork']);
 		// the eighth is the record before the markers: no shape, and nothing inferred from `ignite`
-		expect(b[7]).toMatchObject({ holder: 'felix', shape: null, recommendation: null, type: null, named: null });
+		// (its TYPE is the word's own, 049 item 1 — `ignite` is what the record asks him for most)
+		expect(b[7]).toMatchObject({ holder: 'felix', shape: null, recommendation: null, type: 'mental', named: null });
 		expect(b[7]!.instruments).toEqual([{ kind: 'row', row: '010' }]);
 	});
 
@@ -184,14 +185,15 @@ describe('control — conforming fixtures parse with zero failures', () => {
 
 	test('baton — a ⬡-action types what it asks of him; anything else stays untyped (045)', () => {
 		const b = parseLedger(fx('conforming', 'ledger-baton-fields.md')).entries.map(e => classifyBaton(e)!);
-		expect(b.map(x => x.type)).toEqual(['mental', 'visual', null, 'bench', null, null, null, null, null]);
+		expect(b.map(x => x.type)).toEqual(['mental', 'visual', 'mental', 'bench', null, null, null, 'mental', 'mental']);
 		// the two words the table names as one, and the word it does not name at all
 		const typed = (action: string) => classifyBaton({ next: 'x', block: `Baton — ⬡ → ${action}` } as never)!;
 		expect([typed('single — visual pass of the deck').type, typed('batch — smoke the arm').type]).toEqual(['visual', 'visual']);
 		expect(typed('single — convene the sitting')).toMatchObject({ type: null });
 		expect(batonTypeWord('single — convene the sitting')).toBe('convene');
-		// an id is not a noun: `G6 — the docket batch's review gate` types off `the`, never off `g`
-		expect(batonTypeWord('single — G6 — the review gate is the next act')).toBe('the');
+		// an id is not a noun, and a determiner is not one either: `G6 — the docket batch's review
+		// gate` types off `docket` — never off `g` (045-F6), and never off `the` (049 item 2)
+		expect(batonTypeWord("single — G6 — the docket batch's review gate is the next act")).toBe('docket');
 		// the type is what a ⬡-baton asks of Felix — a session's action asks nothing of him
 		expect(typed('single — bless it').type).toBe('mental');
 		expect(classifyBaton({ next: 'x', block: 'Baton — tender-09 → single — bless it' } as never)!.type).toBeNull();
@@ -1070,5 +1072,98 @@ describe('respell — the hand-given table', () => {
 		expect(foreign.after).toBe('thgrh s1 group added (lab/027 rig)\n');
 		const own = migrateText('/x/simmy/lab/b17/README.md', 'B17 ran here\n', { ids: new Set(), respell: t, passes: ['respell'] });
 		expect(own.after).toBe('027 ran here\n');
+	});
+});
+
+// ---------- 049: the reader's residue, and the two converter bugs ----------
+//
+// One law test per spec item, each with its control in the same test. Every one of them reds on
+// the pre-049 source (`git archive abdc3ad doctrine canon`, this charge's Findings) and nothing
+// else does — that run is the fixture set's other half, and it is pasted on the charge's bar.
+
+describe('the residue — what the reader was not reading (049)', () => {
+	const entriesOf = (name: string) => parseLedger(fx('residue', name)).entries;
+	const batons = (name: string) => entriesOf(name).map(e => classifyBaton(e)!);
+
+	test('item 1 — the seven words the record writes most all type mental; a word off the table does not', () => {
+		const b = batons('ledger-baton-words.md');
+		// ignite · summon · tell · paste · resume · review · rulings, one baton each
+		expect(b.slice(0, 7).map(x => x.type)).toEqual(Array(7).fill('mental'));
+		expect(entriesOf('ledger-baton-words.md').slice(0, 7).map(e => batonTypeWord(batonSlots(e.block)!.action)))
+			.toEqual(['ignite', 'summon', 'tell', 'paste', 'resume', 'review', 'rulings']);
+		// the control: `convene` is a word the record writes and the table does not name
+		expect(b[7]!.type).toBeNull();
+		expect(batonTypeWord('single — convene the sitting, whenever the day allows.')).toBe('convene');
+	});
+
+	test('item 2 — a determiner is skipped once, and only the noun behind it types', () => {
+		const b = batons('ledger-baton-forms.md');
+		expect([b[0]!.type, b[1]!.type]).toEqual(['visual', 'visual']);   // "your visual pass", "the visual pass"
+		// the control: a determiner in front of a noun the table does not name types nothing —
+		// `the docket batch's review gate` reads `docket`, and the skip is ONE word, never a hunt
+		expect(b[2]!.type).toBeNull();
+		expect(batonTypeWord('the polish batch runs on')).toBe('polish');
+		expect(batonTypeWord('your pass of the panes')).toBe('pass');
+	});
+
+	test('item 3 — the colon closes a shape marker, and the fork it marks resolves its recommendation', () => {
+		const b = batons('ledger-baton-forms.md');
+		expect([b[3]!.shape, b[4]!.shape]).toEqual(['batch', 'fork']);
+		expect(b[4]!.recommendation).toEqual({ kind: 'text', text: '(a) — the cheaper hand, and the cell is a week out' });
+		expect(batonFails(b[4]!, 0)).toEqual([]);
+		// the control: the em-dash forms still mark, and a word that is not a shape still marks none
+		expect([b[5]!.shape, b[6]!.shape, b[8]!.shape]).toEqual(['batch', 'batch', 'single']);
+		expect(b[2]!.shape).toBeNull();
+	});
+
+	test('item 4 — a baton opening after `Next:` is read, and its written holder is the one it writes', () => {
+		const b = batons('ledger-baton-forms.md');
+		expect([b[5]!.holder, b[6]!.holder]).toEqual(['felix', 'dispatch']);
+		// the holder slot ends at its separator — an em-dash closes it, and the action behind it
+		// is not part of the name (stigmergon's chat-batch dialect, `066, the chat batch's sixth`)
+		expect(b[7]).toMatchObject({ holder: 'session', named: "009, the chat batch's second" });
+		// … and the arrow that opens an ACTION is the baton's own, never the next one the prose
+		// writes: this entry's paragraph carries `13 px → 1rem` four words later
+		expect(batonSlots(entriesOf('ledger-baton-forms.md')[7]!.block)!.action).toBeNull();
+		// the control: a `Baton —` the prose merely quotes is a mention, and the baton under it wins
+		expect(b[8]).toMatchObject({ holder: 'felix', shape: 'single', type: 'mental' });
+	});
+
+	test('item 5 — a table in the law book is shown, never parsed as a board (044-F5)', () => {
+		const b = parse(join(FX, 'residue'));
+		expect(b.files.boards.map(f => basename(f))).toEqual(['BOARD.md']);
+		expect(b.board.map(x => x.rows.length)).toEqual([1]);
+		// the control: the page STAFFS SESSIONS by the md test — it is the path that fences it,
+		// so `canon/` cannot lose its power to print the form it legislates
+		expect(staffsSessions(fx('residue', join('canon', 'work', 'DOCTRINE.md')))).toBe(true);
+	});
+
+	test('item 6 — the structural ledger rules read the pair; the Log\'s archive is not the ledger\'s', () => {
+		const run = (name: string) => migrateText(join(FX, 'pair', name), fx('pair', name));
+		const archive = run('ledger-archive.md');
+		expect(archive.edits.map(e => e.rule)).toEqual(['ledger.tier-slot']);
+		expect(parseLedger(archive.after).entries.map(e => [e.tier, e.row])).toEqual([['opus-high', '01']]);
+		expect(roundTrip(archive)).toEqual([]);
+		// the control: the same head, the same defect, a different record — untouched
+		expect(run('log-archive.md').edits).toEqual([]);
+		// and the building hands the archive to the structural pass, because it is one record
+		expect(basename(parse(join(FX, 'pair')).files.ledgerArchive!)).toBe('ledger-archive.md');
+	});
+
+	test('item 7 — a board that LINKS its id respells the id, and a fenced summons is a document', () => {
+		const board = fx('linked-id', 'BOARD.md');
+		const table = respellTable(boardIds(board), 'linked-id');
+		const run = (name: string) => migrateText(join(FX, 'linked-id', name), fx('linked-id', name),
+			{ ids: boardIds(board), respell: table, passes: ['respell'] });
+		const b = run('BOARD.md');
+		expect(b.after).toContain('| [001](plans/001-perf-rig.md) |');
+		expect(b.after).toContain('| [011](plans/011-boot-completion.md) | Boot completion | 001 |');
+		expect(roundTrip(b)).toEqual([]);                      // the row is found, not "vanished"
+		const l = run('LEDGER.md');
+		expect(l.after).toContain('run batch 2: row 011 first, then row 001');
+		expect(roundTrip(l)).toEqual([]);                      // the fence respells on BOTH sides of the law
+		// the control: a cell the table does not name is declined, link or no link
+		expect(respellIdCell('[G2](plans/g2-merge.md)', table)).toBeNull();
+		expect(respellIdCell('[01](plans/01-perf-rig.md)', table)).toBe('[001](plans/01-perf-rig.md)');
 	});
 });

@@ -16,6 +16,9 @@ const fx = (name: string) => readFileSync(join(FX, name), 'utf8');
 const PAIRS = [
 	'paragraph', 'list-continuation', 'nested-list', 'blockquote', 'hard-break',
 	'fence', 'table', 'heading', 'thematic-break', 'reference-link',
+	// 049-F8's live repro, cut verbatim from manny's `review-core-system.md:55-71`: an HTML
+	// comment, four list lines and a ```markdown opener. Nothing here may move.
+	'html-comment-fence',
 ];
 
 describe('the unwrap — one pair per construct', () => {
@@ -77,6 +80,17 @@ describe('the unwrap — the fence is structural', () => {
 	test('a fence swallows every construct inside it, verbatim', () => {
 		const md = '```\n| a | b |\n\n- item\n  wrapped\n```\n';
 		expect(flow(md)).toBe(md);
+	});
+
+	test('an HTML block runs to its blank line — or to the fence marker, whichever comes first (049)', () => {
+		// The opener a run may never swallow: eat the ``` and every fence below it re-pairs
+		// opener-to-closer, so what was code is reflowed as prose (manny, 15 word-law violations).
+		const md = '<!-- a note -->\n- Proposed:\n```\ncode\n\n> quoted\n```\ntail that\nwraps.\n';
+		expect(flow(md)).toBe('<!-- a note -->\n- Proposed:\n```\ncode\n\n> quoted\n```\ntail that wraps.\n');
+		expect(wordLaw(md, flow(md))).toEqual([]);
+		// the control: with no fence in the way the run still ends at its blank line
+		expect(flow('<!-- a note -->\n- Surfaces: one\n\ntail that\nwraps.\n'))
+			.toBe('<!-- a note -->\n- Surfaces: one\n\ntail that wraps.\n');
 	});
 });
 
