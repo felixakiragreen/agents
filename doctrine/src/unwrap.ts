@@ -102,7 +102,13 @@ function reflow(lines: string[], depth: number): Group[] {
 			continue;
 		}
 		if (!isItem(lines[i]!) && (isHtml(lines[i]!) || isIndented(lines[i]!))) {
-			while (i < lines.length && !isBlank(lines[i]!)) i++;       // an HTML or indented block, to its blank line
+			// an HTML or indented block, to its blank line — or to the next FENCE MARKER, which is
+			// the one line no run may swallow. A `<!-- … -->` comment followed by four list lines
+			// and a ```markdown opener ran to the blank line INSIDE the fence, so every fence
+			// below it re-paired opener-to-closer and its contents were reflowed as prose
+			// (049-F8; `review-core-system.md:56`, 15 word-law violations across manny).
+			i++;
+			while (i < lines.length && !isBlank(lines[i]!) && !isFence(lines[i]!)) i++;
 			keep(i - start);
 			continue;
 		}
