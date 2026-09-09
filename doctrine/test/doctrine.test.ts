@@ -190,6 +190,8 @@ describe('control — conforming fixtures parse with zero failures', () => {
 		expect([typed('single — visual pass of the deck').type, typed('batch — smoke the arm').type]).toEqual(['visual', 'visual']);
 		expect(typed('single — convene the sitting')).toMatchObject({ type: null });
 		expect(batonTypeWord('single — convene the sitting')).toBe('convene');
+		// an id is not a noun: `G6 — the docket batch's review gate` types off `the`, never off `g`
+		expect(batonTypeWord('single — G6 — the review gate is the next act')).toBe('the');
 		// the type is what a ⬡-baton asks of Felix — a session's action asks nothing of him
 		expect(typed('single — bless it').type).toBe('mental');
 		expect(classifyBaton({ next: 'x', block: 'Baton — tender-09 → single — bless it' } as never)!.type).toBeNull();

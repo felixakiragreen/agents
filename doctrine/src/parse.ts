@@ -560,9 +560,14 @@ const SHAPE_MARK = /^(single|batch|fork)\s*[—–]\s*/i;
 const shapeOf = (action: string | null): BatonShape | null =>
 	action?.match(SHAPE_MARK)?.[1]?.toLowerCase() as BatonShape ?? null;
 
-/** The action's leading `n` words, case-folded — punctuation and a `(1)` numbering are not words. */
+/**
+ * The action's leading `n` words, case-folded. A token carrying a digit is an id or a numbering
+ * — `G6`, `(1)`, `022` — and an id is not a noun: it is skipped, never spelled down to its
+ * letters, or a baton opening `G6 —` would report its type word as `g`.
+ */
 const leadWords = (s: string, n: number) =>
-	s.split(/[^A-Za-z]+/).filter(Boolean).slice(0, n).join(' ').toLowerCase();
+	s.split(/\s+/).filter(w => !/\d/.test(w)).map(w => w.replace(/[^A-Za-z]/g, ''))
+		.filter(Boolean).slice(0, n).join(' ').toLowerCase();
 
 /**
  * The word `BATON_TYPES` is read by: the action's leading noun once the shape marker is off it,
