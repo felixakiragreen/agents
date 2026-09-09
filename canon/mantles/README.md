@@ -11,7 +11,7 @@ sessions are summoned, and which law wins when laws collide.
 
 - **Offices** — singular standing institutions, one holder at a time, a succession:
   **[Grand Architect](grand-architect.md)** (standards and canon),
-  **[Mentat](mentat.md)** (the Sovereign's thinking partner) — each charter titled as
+  **[Mentat](mentat.md)** (the Summoner's thinking partner) — each charter titled as
   an office. Reserved: Imperial and Royal Architect (MAP §10, the horizon), Hand of the King /
   Quartermaster, Steward.
 - **Mantles** — plural role charters, many wearers at once:
@@ -128,12 +128,15 @@ project, appended verbatim to every ignition.
 > yours rides your branch. Third-party code — fetch, vendor, install beyond existing
 > deps, or execute from the network — only where your charge doc names it; otherwise
 > STOP and escalate (DOCTRINE §5, pre-authorization). Before your last commit: reconcile your charge's Status in
-> the surface you can write — a landing that marks no row is invisible. Your findings
-> file and commits are the deliverable. Your final report is logistics only: status
+> the surface you can write — a landing that marks no row is invisible — and run
+> `doctrine lint ‹root›`: it reads no new failure of yours, or you fix the form before
+> you file. Your findings file and commits are the deliverable. Your final report is logistics only: status
 > (LANDED / KILLED / BLOCKED), a one-line outcome, and pointers to findings + commits.
 
 Universal core (never varies): the dispatched framing · files-are-the-deliverable ·
 status reconciliation (D78's sitting — 029's invisible landing is the birthplace) ·
+the lint line (stigmergon G14, 2026-09-07: four Builders in one batch, nine form
+failures in four classes; the coda mended there first, D40's trial-here pattern) ·
 report-is-logistics-only · third-party pre-authorization (DOCTRINE §5, pre-authorization). Project slots:
 agreements ref, bulletin path (projects with no bulletin drop that sentence), worktree
 specifics.
