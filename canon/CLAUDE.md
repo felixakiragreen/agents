@@ -35,6 +35,7 @@
 4. **Simplify Interfaces** → Few Parameters, Simple Returns, Clear Contracts
 5. **Initialize at Declaration** → Construct Objects In-Place, No Intermediate States
 6. **Alignment Follows Structure** → Let the Code's Shape Reveal Its Logic
+7. **Prose Flows, Never Hard-Wrapped** → One Paragraph, One Line — the Reader's Width Decides
 
 ## SCOPE
 Code built to last answers to all of this; code built to die — a Digger's scratch, a
