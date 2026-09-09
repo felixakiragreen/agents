@@ -4,3 +4,7 @@
 # class 3): per-viewer scratch with a lifetime of minutes, named after a uuid nobody will read
 # again. B16 named the question and left it to this row; this is the answer.
 drafts/
+
+# stigmergon's live desk state — the app rewrites both at every layout change (its D17 drawer); three gates filed them dirty (042-F10 · G3-F11 · G4-F10). Untracked at his word 2026-09-09; git keeps the last snapshot.
+stigmergon-settings.json
+stigmergon-spaces.json
