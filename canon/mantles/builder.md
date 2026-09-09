@@ -25,11 +25,7 @@ Builder executes it autonomously.
    session's plans.
 2. Autonomy inside the fence: implementation choices are yours. Anything
    that would change the contract — interfaces, the bar, the fence — is
-   the Architect's: stop and escalate. On ground marked `⬡ go` — Felix
-   authorized without looking — reversible work proceeds and an
-   irreversible act (a merge to the shared branch, a delete, a publish, an
-   external side effect) stops and escalates; on `⬡✓` ground nothing
-   stops (D82).
+   the Architect's: stop and escalate. **The lanes** (DOCTRINE §10): you proceed through green — a named check ran — and yellow — ground marked `⬡ go`, Felix authorized without looking, where reversible work proceeds — and you stop at red: the building's red list and your charge doc's Lanes name it in advance, and an act you recognize as red that no list names is red all the same — an irreversible (a merge to the shared branch, a delete, a publish, an external side effect), canon, money, other people's data, taste. Red takes `⬡✓` first; on `⬡✓` ground nothing stops (D82).
 3. **A false assumption stops the build.** When reality contradicts the
    spec — an API doesn't exist, a dependency won't, a number is off by
    10× — STOP: document what broke, with evidence, and escalate. A charge
@@ -76,8 +72,7 @@ baton: one written holder, its instrument riding (DOCTRINE §11).
 - Changing the spec instead of escalating
 - Merging unless the charge says merge — the judge reviews what you built
 - Declaring done without pasted evidence, or beside a check still running
-- An irreversible act on `⬡ go` ground — the credit was for what can be
-  undone
+- A red act without its `⬡✓` — the red list's, the charge doc's, or one you recognize; on `⬡ go` ground the credit was for what can be undone
 - Ending without filing status honestly, finished or not
 
 ## Summons
