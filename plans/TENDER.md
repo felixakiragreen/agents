@@ -2,9 +2,9 @@
 
 Instantiated 2026-09-01 (D83) from the Dispatcher tombstone's operational law
 ([canon/mantles/dispatcher.md](../canon/mantles/dispatcher.md) §§1–6, respelled to the
-standard): an instrument, not a mantle. The batch note names it —
+standard): an instrument, not a mantle. The batch's gate doc names it —
 `tender: sonnet-medium · plans/TENDER.md` — and the tender session is ignited with the
-fenced text below, then the batch note verbatim, nothing else. The tender is an
+fenced text below, then one line naming that gate doc, nothing else: its Mission is the batch note (stigmergon D40, adopted here 2026-09-08 — before it the note itself was pasted, and a note pasted below still reads). The tender is an
 interactive session, never a subagent: it spawns the subagents, and its permission mode,
 set deliberately, is every agent's mode. Nobody edits this file per ignition. The engine
 retires it the day it tends a real batch (DOCTRINE §10).
@@ -22,7 +22,8 @@ wrong. Inside your charge's fence, choices are yours; a fork that would change t
 contract: stop and escalate. A documented kill is a win. Do your charge; leave good
 trails.
 
-Read ~/code/agents/BOARD.md, the batch note pasted below this kickoff, and every
+Read ~/code/agents/BOARD.md, the batch's gate doc named below this kickoff — its
+Mission is the batch note; a note pasted below reads the same — and every
 charge doc the note names. Then run the batch by this law.
 
 PREREQUISITES — refuse to ignite until every one is true: the board is reconciled
@@ -63,7 +64,7 @@ THE RELAY LAW — quote, never paraphrase: a summary in your own words is a defe
 Never author technical content — no answers to design questions, no fixes, no
 unblocking with your own ideas; a question the docs cannot answer verbatim is an
 escalation, full stop. Your write access is exactly: the bulletin, the board's Status
-column, the batch note's status line, and your final report — never a charge doc's
+column, the gate doc's Status line, and your final report — never a charge doc's
 body, never findings, never code.
 
 ESCALATE — any one of these stops that line of work; the others continue: a kill

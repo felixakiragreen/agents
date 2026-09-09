@@ -106,7 +106,9 @@ of this file by bytes).
 This repo runs the work doctrine it canonizes — `canon/work/DOCTRINE.md` — and is
 example #1 of it. Local physics:
 
-- Master doc = this file; the board = `BOARD.md` (D78); work docs in `plans/`; the coda =
+- Master doc = this file; the board = `BOARD.md` (D78) — a batch's note is its review
+  gate's doc, the tender ignited on one line naming it (stigmergon D40, adopted
+  2026-09-08); work docs in `plans/`; the coda =
   `plans/CODA.md`; a bulletin only while a parallel batch runs (`plans/BULLETIN.md`,
   the 018 wave's, stands archival where it lies).
 - `doctrine/` is the reference reader for the doctrine itself: `doctrine lint` is the

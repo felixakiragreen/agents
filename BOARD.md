@@ -1,7 +1,7 @@
 # The agents canon — Board
 
-The work state: the board, batch notes, the deferred list (D78, split from MAP §5
-2026-08-31). Design, non-goals, and local physics stay in [MAP.md](MAP.md).
+The work state: the board and the deferred list (D78, split from MAP §5
+2026-08-31); a batch's note is its review gate's doc — the Mission of `plans/g‹n›-….md` — and the tender is ignited with `plans/TENDER.md`'s fence plus one line naming that doc (stigmergon D40, adopted here 2026-09-08 at his word). Design, non-goals, and local physics stay in [MAP.md](MAP.md).
 Statuses per the doctrine (`canon/work/DOCTRINE.md` §4): OPEN → IN FLIGHT →
 LANDED / KILLED. Any account can host any session — the repo carries the truth;
 account choice is quota arbitrage.
@@ -62,17 +62,6 @@ account choice is quota arbitrage.
 | 048 | [the ledger's aging](plans/048-ledger-aging.md) — `doctrine prune`: entries past the last twenty move verbatim to `ledger-archive.md`; the parser reads both; a register past 30 KB warns | — | Builder · opus-high | OPEN — laid 2026-09-08 |
 | G4 | [Review gate — the parser's second opening](plans/g4-parser-review.md) — 044 · 045 · 046 · 047 · 048 verified against their bars; the prune check; the blessed law pasted under its grant; three rulings pre-chewed; the baton to ⬡ | 044; 045; 046; 047; 048 | Architect · fable-high | OPEN — laid 2026-09-08 |
 
-
-**Batch — the parser's second opening (laid 2026-09-08, grand-architect-24; his ⬡✓ on
-fork (b) in the room; 047 and 048 joined on his bless the same sitting):** 044 → 045 →
-046 → 047 → 048 → G4, serial, one checkout on `master`, `tender: sonnet-medium ·
-plans/TENDER.md`. The order is schedule (046, 047 and 048 share no edge): the boot pack
-lands first because it is the ask; the unwrap runs late so it respells the batch's own
-docs once. The tender pauses at G4's close — ⬡ verifies
-— and at any escalation. Red inside: the boot law's paste at G4 — pre-blessed on the text
-(044, *The law at the landing*) or it waits. Green's bar: `bun test` green at HEAD and
-`doctrine lint ~/code/agents` naming only belvedere's nineteen. Ignition: on his word —
-`plans/TENDER.md`'s fence, then this note, verbatim.
 
 **Deferred (tracked, not lost):**
 

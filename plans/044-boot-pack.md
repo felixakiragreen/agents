@@ -142,7 +142,7 @@ tool lands. The Builder touches none of them.
 3. **`canon/mantles/architect.md`**, the review loop's first step:
    `1. **Orient:** \`doctrine boot ‹root›\` — the live rows, the tail, the baton, the queue, the inbox (DOCTRINE §11); the board and the ledger are opened whole to write them.`
 4. **`plans/TENDER.md`**, the read line: *Run `doctrine boot ~/code/agents` (DOCTRINE §11),
-   read the batch note pasted below this kickoff and every charge doc the note names;
+   read the batch's gate doc named below this kickoff — its Mission is the batch note — and every charge doc it names;
    `BOARD.md` is opened to write the Status column, never to orient.*
 5. **This repo's `CLAUDE.md`**, the read line: *Run `doctrine boot .` and read `MAP.md`
    before any work — the boot pack (DOCTRINE §11) and the master architecture; `BOARD.md`

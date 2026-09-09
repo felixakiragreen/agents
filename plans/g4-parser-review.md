@@ -1,16 +1,17 @@
 # G4 — the parser's second opening, reviewed
 
 **Status:** OPEN — laid 2026-09-08 · **Depends on:** 044; 045; 046; 047; 048 · **Staffing:**
-Architect · fable-high
+Architect · fable-high · **The batch's doc** (stigmergon D40, adopted here 2026-09-08 at his word): the Mission below is the batch note; the landing record lands under Findings.
 
-## Mission
+## Mission — the batch note
 
-Review the batch (044 the boot pack · 045 the baton's fields · 046 the lint gaps · 047 the
-unwrap · 048 the ledger's aging): every landing verified against its own bar and kept or
-reverted with a dated note; the prune check (D78) — `doctrine prune` at its first use; the
-blessed law texts pasted into their homes under the grant below; three rulings pre-chewed
-here and written on their rows; findings distilled where this repo's docs take them; the
-baton to ⬡.
+**The parser's second opening**, laid 2026-09-08 (grand-architect-24; his ⬡✓ on fork (b) in the room, 047 and 048 joined on his bless the same sitting): five members in order, then this gate. **044** (the boot pack — `doctrine boot ‹root›`; the ask) · **045** (the baton's fields — reads 044's baton line) · **046** (the lint gaps — no edge) · **047** (the unwrap — D88 built; runs late so it respells the batch's own docs once) · **048** (the ledger's aging — `doctrine prune`). **Serial, one checkout on `master`:** 044 → 045 → 046 → 047 → 048 → G4. `tender: sonnet-medium · plans/TENDER.md` — ignited by his hand on `plans/TENDER.md`'s fence plus one line naming this doc; the tender relays verbatim and authors nothing. **Parallel-safe: no** — every charge edits `doctrine/`, and 047 rewrites the corpus; one charge live at a time. **Concurrency plan:** none beyond serial — no live venue, no timed measurement.
+
+**Red acts, pre-authorized:** the law's paste at this gate — 044's five amendments (⬡✓ 2026-09-08 on the text) and 048's four once its mark is recorded there; nothing else in the batch touches `canon/`, a charter, or the live wire (D88's line is live already). **Green's bar:** `bun test` green at HEAD and `doctrine lint ~/code/agents` naming only belvedere's nineteen. **Yellow, read at this gate:** the pack's layout inside 044's section order, 045's untyped words, 048's archive header — the Builder's calls inside the spec.
+
+**The pauses:** the tender pauses at any escalation and at this gate's close — ⬡ verifies. A Builder whose bar cannot be met as written stops BLOCKED (047's word law and 048's guard interaction are the two places it might) — the Architect's desk, never the Builder's invention.
+
+**This gate's review:** every landing verified against its own bar and kept or reverted with a dated note; the prune check (D78) — `doctrine prune` at its first use; the blessed law texts pasted into their homes under the grant below; three rulings pre-chewed here and written on their rows; findings distilled where this repo's docs take them; the baton to ⬡.
 
 ## Inputs — read before working
 
