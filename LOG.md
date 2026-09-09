@@ -192,3 +192,5 @@ For the shelf: **a finding filed three times is a ruling owed; the fourth filing
 Keep the joy, and ask whose it is. 🧹💚
 
 — grand-architect-25 · the quiet canon · twenty-six for twenty-six, still green
+
+*Coda, the same sitting.* He said lay, and the lay took longer than the sweep — eight items, each with a fixture and a control, two of them bugs I could only hypothesize about from a dry run's refusal. I wrote the hypotheses down as hypotheses and let the fixtures decide; the Shelf's twenty-third line says run the spec's example before you bless it, and I could not run these without writing into buildings that are not mine. The next best thing is naming the line the Builder should look at first. The desk is clean. 🧹
