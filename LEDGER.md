@@ -125,3 +125,9 @@ Baton — ⬡ → fork — (a) lay 049, the reader's residue (its spec: the defe
 **2026-09-09 · Grand Architect · fable-max (grand-architect-25)** — *(second act.)* 049 laid at his word — doctrine v1.4, the residue: 045's seven words and three rules, the law book fenced from board discovery, `migrate`'s ledger rules on the pair, snappy's respell and manny's unwrap, eight fixtures each with its control; Builder · opus-high; red none inside; the deferred bullet promoted. Decided: nothing — the lay executes rulings already on the list. Next: the baton below.
 
 Baton — ⬡ → single — ignite 049 (the fence is in `plans/049-residue.md`; one charge, fired by hand — no tender). Behind it: the office verifies its landing at the next summons.
+
+---
+
+**2026-09-09 · Grand Architect · fable-max (grand-architect-25)** — *(third act.)* The global file gains the Arc line at his word — STACK DEFAULTS: Arc, never Chrome; the Claude in Chrome extension lives in Arc, and the Chrome on his machine has none (birthplace: stigmergon's Architect and the Mentat both opened Chrome, his report). Live ×3 at the edit, `sync/check` green; no register entry — a fact about his machine, not a Directive value (the aphantasia line's precedent). Decided: nothing minted. Next: the baton below.
+
+Baton — ⬡ → single — ignite 049 (the fence is in `plans/049-residue.md`; one charge, fired by hand — no tender). Behind it: the office verifies its landing at the next summons.
