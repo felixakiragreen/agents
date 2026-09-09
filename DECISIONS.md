@@ -206,4 +206,31 @@ register.
   citation filed. Canon-wide — DOCTRINE §4, §5 and §10, the Builder and Architect
   charters — at the citation, by the office. Until then this entry is the whole of
   the law, and it is not lost. His ruling at the blessing: desk-born until
-  field-tested.
+  field-tested. **Distilled 2026-09-08** (grand-architect-24) at the citation — stigmergon
+  G6, one batch of three charges under the tender kickoff: homes DOCTRINE §3 (the red
+  list in the agreements), §4 (a red act is a ⬡-gate), §5 (the charge doc's Lanes), §10
+  (the whole law), the Builder and Architect charters, `plans/TENDER.md`. The field's
+  three caveats ride the §10 text: the list binds only an act a session recognizes (a
+  hook or a config keeps the rest); yellow's cost is unmeasured at n=1; ×2 green buys
+  the flake measurement, not the bytes.
+
+- **D88** (2026-09-08, Felix · ⬡✓ 2026-09-08): **Soft-wrapped prose.** Prose in the
+  Guild's documents flows: one paragraph, one line; the reader's width decides where it
+  breaks. Hard-wrapping at a column is dead — it fights every resize, costs the writer
+  effort and the corpus newline tokens, and splits the shapes a converter reads (043's
+  hand-edit class "a shape split by a hard wrap" dies with it). Fences, tables, headings,
+  list markers and blockquote markers keep their lines; a hard break (two trailing
+  spaces) stays a break. The law is the global file's (§5 Style, item 7 — it must bind
+  bare sessions too); the corpus follows by the converter (D81): 047 lands the unwrap
+  rule in `doctrine migrate` and runs it over agents — history, voice and the retired
+  subtree included, `doctrine/fixtures/` and `lab/` excluded as not corpus (§3) — and
+  every other building adopts at its next Architect session with one command. Between
+  this mark and 047's landing new writing is soft-wrapped and old files are not; the gap
+  is named and costs the reader nothing — wrapping is not decoded. Birthplace: his word
+  in the inbox — *"is it possible to tell agents not to split everything up onto new
+  lines? Let page width & auto wrapping handle that for me automatically? It makes
+  resizing much easier and nicer."* — desk-born by the test; a Directives value change,
+  D-entry-governed by this register's header. Ancestors: formula 21 (auto-loaded bytes
+  are taxed — newlines are bytes), the Standard's read-cold test (he reads at recognition
+  speed in a resizable room), D81 (the converter carries forms). Priced at the desk: one
+  opus-high Builder session, then one command per building.
