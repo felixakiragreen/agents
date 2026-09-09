@@ -67,7 +67,9 @@ const USAGE = `doctrine — the reference reader for the work doctrine (canon/wo
                      derivation collides (two campaign letters sharing numbers — simmy D18)
       --summary      per file, the edit count by rule and the round-trip verdict — no diff.
                      The unwrap (D88) reflows nearly every prose line, and its two laws say
-                     more than the whitespace does.
+                     more than the whitespace does. The HAND list rides under the table: a
+                     line the converter consumes only partly is reverted whole and named
+                     there, never written (047-F3).
       Form-only re-emission in the current grammar, across every tracked text file the
       building keeps. Prints the id respell table (D80, derived from the building's own
       board) first, then the diff and the round-trip verdict per file; --write is required
@@ -192,9 +194,10 @@ if (cmd === 'migrate') {
 	if (summary) console.log(`  edits  rule(s)                                     round-trip  file`);
 	let violations = 0;
 	for (const m of migrations) {
-		if (!summary) console.log(diff(m));
+		if (!summary && m.edits.length) console.log(diff(m));
 		const bad = roundTrip(m);
 		violations += bad.length;
+		if (summary && !m.edits.length) continue;             // a hand-only file rides the hand list
 		if (summary) {
 			const by = new Map<string, number>();
 			for (const e of m.edits) by.set(e.rule, (by.get(e.rule) ?? 0) + 1);
@@ -206,15 +209,24 @@ if (cmd === 'migrate') {
 			? `!! round-trip FAILED (${bad.length}):\n   ${bad.join('\n   ')}`
 			: `   round-trip ok — ${m.edits.length} edit(s), every meaning-bearing field unchanged or exactly respelled\n`);
 	}
-	if (summary) console.log(`\n${migrations.reduce((a, m) => a + m.edits.length, 0)} edit(s) across ${migrations.length} file(s) · ${violations} round-trip violation(s)`);
+	const pending = migrations.filter(m => m.edits.length);
+	const edits = pending.reduce((a, m) => a + m.edits.length, 0);
+	if (summary) console.log(`\n${edits} edit(s) across ${pending.length} file(s) · ${violations} round-trip violation(s)`);
+
+	// The hand list (047-F3): a line the respell consumes only PARTLY is reverted whole and named
+	// here, never written. It is not a pending edit — the run stays a fixed point around it.
+	const hand = migrations.flatMap(m => m.hand.map(h => `  ${relative(root, m.file)}:${h.line}: ${h.rule} — ${h.spans.join(' · ')}`));
+	if (hand.length) console.log(`\n${hand.length} HAND edit(s) — a line the converter consumes only partly, reverted whole. A human names the form:\n${hand.join('\n')}`);
+
 	if (violations) die(`\n${violations} round-trip violation(s) — refusing to write. This is a converter bug, not a doc defect.`);
+	if (!pending.length) { console.log(`\n${building.building}: nothing to write.`); process.exit(0); }
 
 	if (!flag('--write')) {
-		console.log(`\nDry run: ${migrations.reduce((a, m) => a + m.edits.length, 0)} edit(s) across ${migrations.length} file(s) — 0 files written. Re-run with --write to apply.`);
+		console.log(`\nDry run: ${edits} edit(s) across ${pending.length} file(s) — 0 files written. Re-run with --write to apply.`);
 		process.exit(0);
 	}
-	for (const m of migrations) write(m);
-	console.log(`\nWrote ${migrations.length} file(s).`);
+	for (const m of pending) write(m);
+	console.log(`\nWrote ${pending.length} file(s).`);
 	process.exit(0);
 }
 

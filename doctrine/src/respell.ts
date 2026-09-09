@@ -163,37 +163,133 @@ function rules(t: Respell, scope: Scope = 'document'): [RegExp, (m: string, ...g
 	return out;
 }
 
-/**
- * A code-ticked LONE TOKEN is a form being NAMED, not an address being used: the graveyard's
- * rows, §7's `C23` · `GA-20` · `FC-1` historical-forms list, D80's own `c36-…` → `036-…` line,
- * this converter's comments. Naming a dead form is how the law records it, so the converter
- * leaves it standing (the same instinct as topSplit's tick mask). Three exclusions, each earned:
- * a span carrying `/` or `.` is an ADDRESS (`plans/023-…`, `037-removal-arm.md`) and rots if it
- * does not follow; a span with whitespace is a phrase, not a form (`ignite 029` is a command);
- * and `✓ Felix` is the one dead form the standard spells with a space.
- */
-const NAMED_FORM = (inner: string) => !/[/.]/.test(inner) && (!/\s/.test(inner) || /^✓\s*Felix$/.test(inner));
+/** One piece of a line: a code span with its delimiters, or the plain text between two. */
+type Part = { code: boolean; open: string; text: string; close: string };
 
 /**
- * Apply `f` everywhere the converter may write. `open` says a tick span was left open by an
- * earlier line — the mask is per-line and the corpus wraps its spans, so the parity is threaded
- * in rather than re-guessed, which is how ``a collision `✓ Felix` could not have`` came to be
- * read as unticked text and respelled into a sentence that no longer said anything.
+ * The delimiter, spelled as an escape. A lone backtick in this file's own source would open a
+ * span in the mask below and swallow every comment under it — measured, not feared: the first
+ * cut of `parts` wrote three of them and the converter offered to respell four doc comments.
  */
-const outsideTicks = (s: string, open: boolean, f: (part: string) => string) =>
-	s.split('`').map((p, i) => (i + (open ? 1 : 0)) % 2 === 1 && NAMED_FORM(p) ? p : f(p)).join('`');
+const TICK = '\x60';
 
-/** Does this line leave a tick span open for the next one? */
+/** The next run of EXACTLY `n` delimiters at or after `from` — a longer run closes nothing. */
+function closingRun(s: string, from: number, n: number): number {
+	for (let i = from; i < s.length; i++) {
+		if (s[i] !== TICK) continue;
+		let k = 1;
+		while (s[i + k] === TICK) k++;
+		if (k === n) return i;
+		i += k - 1;
+	}
+	return -1;
+}
+
+/**
+ * A line split into its code spans and the plain text between them. A run of n delimiters opens
+ * a span and the next run of EXACTLY n closes it (CommonMark), so a double-ticked span is ONE
+ * span holding a backtick and not three — 047-F3, where the parity model read the inner half of
+ * one as a span of its own and respelled it. An unclosed run of two or more is literal text, as
+ * CommonMark reads it; an unclosed LONE tick opens a span to the end of the line, because the
+ * corpus wraps its spans — which is how ``a collision `✓ Felix` could not have`` came to be read
+ * as unticked text and respelled into a sentence that no longer said anything.
+ *
+ * `open` says a lone tick left a span open on an earlier line. Crossing lines stays a PARITY
+ * question (`ticksLeftOpen`): a run this line cannot close is a fact about the line, and the
+ * count is what the corpus has been read by since 040.
+ */
+function parts(s: string, open: boolean): Part[] {
+	const out: Part[] = [];
+	let i = 0;
+	if (open) {
+		const end = s.indexOf(TICK);
+		out.push({ code: true, open: '', text: end < 0 ? s : s.slice(0, end), close: end < 0 ? '' : TICK });
+		i = end < 0 ? s.length : end + 1;
+	}
+	const plain = (text: string) => out.push({ code: false, open: '', text, close: '' });
+	while (i < s.length) {
+		const start = s.indexOf(TICK, i);
+		if (start < 0) { plain(s.slice(i)); break; }
+		if (start > i) plain(s.slice(i, start));
+		let n = 1;
+		while (s[start + n] === TICK) n++;
+		const end = closingRun(s, start + n, n);
+		if (end < 0 && n > 1) { plain(s.slice(start, start + n)); i = start + n; continue; }
+		const delim = s.slice(start, start + n);
+		out.push({ code: true, open: delim, text: s.slice(start + n, end < 0 ? s.length : end), close: end < 0 ? '' : delim });
+		i = end < 0 ? s.length : end + n;
+	}
+	return out;
+}
+
+/**
+ * A code span the converter must leave standing — a form being NAMED, not an address being used:
+ * the graveyard's rows, §7's `C23` · `GA-20` · `FC-1` historical-forms list, D80's own
+ * `c36-…` → `036-…` line, this converter's comments. Naming a dead form is how the law records
+ * it. Three clauses, each earned:
+ *
+ * · a LONE TOKEN — no whitespace, and not an ADDRESS (a span carrying `/` or `.` is
+ *   `plans/023-…` or `037-removal-arm.md` and rots if it does not follow). A span with
+ *   whitespace is a phrase, not a form: `ignite 029` is a command. `✓ Felix` is the one dead
+ *   form the standard spells with a space.
+ * · a span BESIDE `→` — whatever it contains. `→` is the record's own grammar for a form change
+ *   (STANDARD §7) and both sides of it quote forms as they were written, so the phrase test has
+ *   no business there: `(GA-19, continued)` → `(GA-19)` records a repair, and expanding its left
+ *   half writes a repair nobody made (047-F3).
+ * · a span opened by MORE THAN ONE backtick — CommonMark's spelling for a span that holds a
+ *   backtick, which the record reaches for only when it quotes markup as written.
+ */
+const namedForm = (p: Part, before: string, after: string) =>
+	p.open.length > 1
+	|| /→[\s(]*$/.test(before) || /^\s*→/.test(after)
+	|| (!/[/.]/.test(p.text) && (!/\s/.test(p.text) || /^✓\s*Felix$/.test(p.text)));
+
+/** Every rule applied to one piece of text, in the order they are declared. */
+function substitute(part: string, t: Respell, scope: Scope): string {
+	let out = part;
+	for (const [rx, fn] of rules(t, scope)) out = out.replace(rx, fn as (m: string, ...a: unknown[]) => string);
+	return out;
+}
+
+/** The line's pieces, each carrying what `f` would make of it and whether the converter may. */
+function spans(s: string, open: boolean, f: (part: string) => string) {
+	const ps = parts(s, open);
+	const whole = ps.map(p => p.open + p.text + p.close);
+	return ps.map((p, i) => ({
+		...p,
+		named: p.code && namedForm(p, whole.slice(0, i).join(''), whole.slice(i + 1).join('')),
+		next: f(p.text),
+	}));
+}
+
+/** The line back, with every piece the converter may write replaced. */
+const render = (ps: ReturnType<typeof spans>) =>
+	ps.map(p => p.open + (p.named ? p.text : p.next) + p.close).join('');
+
+/** Does this line leave a code span open for the next one? The count, as it has always been. */
 export const ticksLeftOpen = (line: string, open: boolean) =>
-	((line.match(/`/g)?.length ?? 0) % 2 === 1) !== open;
+	((line.match(new RegExp(TICK, 'g'))?.length ?? 0) % 2 === 1) !== open;
 
 /** The respell applied to one string. Total, order-fixed, and a fixed point on its own output. */
-export function respellText(s: string, t: Respell, open = false, scope: Scope = 'document'): string {
-	return outsideTicks(s, open, part => {
-		let out = part;
-		for (const [rx, fn] of rules(t, scope)) out = out.replace(rx, fn as (m: string, ...a: unknown[]) => string);
-		return out;
-	});
+export const respellText = (s: string, t: Respell, open = false, scope: Scope = 'document'): string =>
+	render(spans(s, open, part => substitute(part, t, scope)));
+
+/** A line the respell consumed only PARTLY: reverted whole, and the spans that made it so. */
+export type LineRespell = { to: string; hand: string[] };
+
+/**
+ * The partial guard, carried over from `citations.ts` (043): a line where the respell rewrites
+ * one code span and leaves ANOTHER standing as a named form the rules can still reach is
+ * reverted whole and reported — half a respell reads as finished work and is not. The live case
+ * is 047-F3's ledger line, which recorded a form repair and would have had its left half
+ * expanded into a name nobody wrote. A change in PLAIN text beside a named form is not the
+ * genus: naming `GA-19` in a sentence that also says `charge 08` is how the law is written.
+ */
+export function respellLine(s: string, t: Respell, open = false, scope: Scope = 'document'): LineRespell {
+	const ps = spans(s, open, part => substitute(part, t, scope));
+	const reached = ps.filter(p => p.code && p.next !== p.text);
+	const hand = reached.some(p => !p.named) && reached.some(p => p.named);
+	return { to: hand ? s : render(ps), hand: hand ? reached.map(p => p.open + p.text + p.close) : [] };
 }
 
 /** The board's own ID cell — the table's key, exactly, and nothing else. */
@@ -220,4 +316,4 @@ export const respellDepends = (cell: string, t: Respell) =>
  * a typed slot that wrapped mid-line are supervised hits, not converter bugs.
  */
 export const respellNormal = (s: string, t: Respell) =>
-	outsideTicks(respellText(s, t), false, p => p.replace(BARE, (m, n: string) => t.charges.get(+n) ?? m));
+	render(spans(respellText(s, t), false, p => p.replace(BARE, (m, n: string) => t.charges.get(+n) ?? m)));

@@ -20,8 +20,8 @@ import {
 import { boardIds, isBoardHeader, parseBoards, parseDecisions, parseLedger, tables } from './parse';
 import { LIMITS, discover, parse as parseBuilding, type Building } from './building';
 import {
-	EMPTY, respellDepends, respellIdCell, respellNormal, respellTable, respellText, ticksLeftOpen,
-	type Respell, type Scope,
+	EMPTY, respellDepends, respellIdCell, respellLine, respellNormal, respellTable, respellText,
+	ticksLeftOpen, type Respell, type Scope,
 } from './respell';
 import { UNWRAP, unwrapText, wordLaw } from './unwrap';
 
@@ -35,7 +35,9 @@ const D63_LANDED = '2026-08-26';
 const preD63 = (date: string) => date < D63_LANDED;
 
 export type Edit = { line: number; from: string; to: string; rule: string };
-export type Migration = { file: string; before: string; after: string; edits: Edit[]; respell: Respell };
+/** A line a rule refused to write whole — a human's duty, listed instead of guessed (043, 047-F3). */
+export type Hand = { line: number; rule: string; spans: string[] };
+export type Migration = { file: string; before: string; after: string; edits: Edit[]; hand: Hand[]; respell: Respell };
 
 /** What a line rule can see beyond its own line, and what it can return beyond a rewrite. */
 export type LineCtx = {
@@ -47,7 +49,7 @@ export type LineCtx = {
 	/** `.md` is a document (bare ids are addresses); anything else takes the path forms only. */
 	scope: Scope;
 };
-type LineResult = string | { to: string; eat: number } | null;
+type LineResult = string | { to: string; eat: number } | { hand: string[] } | null;
 
 /** What a cell rule can see beyond its own cell: the building's ids, its own row, the table. */
 export type CellCtx = { ids: Set<string>; cells: string[]; respell: Respell };
@@ -398,10 +400,19 @@ const respellDependsColumn: Rule = {
 	cell: { column: 2, run: (t, ctx) => { const next = respellDepends(t.trim(), ctx.respell); return next === t.trim() ? null : next; } },
 };
 
-/** Every other surface: tokens, paths, typed slots — wherever they are written. */
-const respellLine: Rule = {
+/**
+ * Every other surface: tokens, paths, typed slots — wherever they are written. A line the
+ * respell consumes only partly returns its spans and no rewrite: the hand list, never a byte.
+ */
+const respellLineRule: Rule = {
 	id: ID_RESPELL, pass: 'respell', changes: [],
-	line: { run: (t, ctx) => { const next = respellText(t, ctx.respell, ctx.openTick, ctx.scope); return next === t ? null : next; } },
+	line: {
+		run: (t, ctx) => {
+			const { to, hand } = respellLine(t, ctx.respell, ctx.openTick, ctx.scope);
+			if (hand.length) return { hand };
+			return to === t ? null : to;
+		},
+	},
 };
 
 // Order is load-bearing in one place: the PARKED respell runs before the leading-annotation
@@ -412,7 +423,7 @@ export const RULES: Rule[] = [
 	ledgerTierSlot, ledgerHeading, ledgerBareHead, clauseScopedColon, clauseDashHead,
 	decisionHead, decisionInlineAttribution,
 	ledgerUnrecordedClauses,
-	respellIdColumn, respellDependsColumn, respellLine,
+	respellIdColumn, respellDependsColumn, respellLineRule,
 ];
 
 // ---------- the engine ----------
@@ -465,7 +476,7 @@ export function migrateText(file: string, md: string, opts: MigrateOpts = {}): M
 	const ids = opts.ids ?? boardIds(md);
 	const respell = opts.respell ?? EMPTY;
 	const active = new Set<Pass>(opts.passes ?? (opts.respell ? ['structural', 'respell'] : ['structural']));
-	const edits: Edit[] = [];
+	const edits: Edit[] = [], hand: Hand[] = [];
 
 	let inFence = false, openTick = false, lastNonEmpty: string | null = null;
 	for (let i = 0; i < lines.length; i++) {
@@ -503,6 +514,7 @@ export function migrateText(file: string, md: string, opts: MigrateOpts = {}): M
 			if (rule.line.files && !rule.line.files.test(name)) continue;
 			const r = rule.line.run(text, ctx);
 			if (r === null) continue;
+			if (typeof r === 'object' && 'hand' in r) { hand.push({ line: i + 1, rule: rule.id, spans: r.hand }); continue; }
 			const next = typeof r === 'string' ? r : r.to;
 			if (typeof r === 'object') consumed += r.eat;
 			if (next === text && consumed === 1) continue;
@@ -529,7 +541,7 @@ export function migrateText(file: string, md: string, opts: MigrateOpts = {}): M
 		if (e) { out.push(e.to); i += e.from.split('\n').length; }
 		else { out.push(lines[i]!); i++; }
 	}
-	return { file, before: md, after: out.join('\n'), edits, respell };
+	return { file, before: md, after: out.join('\n'), edits, hand, respell };
 }
 
 /**
@@ -666,7 +678,7 @@ function unwrapTargets(buildingPath: string): string[] {
 
 /** One document's unwrap as a Migration — the shape `diff`, `roundTrip` and `write` already read. */
 export const unwrapMigration = (file: string, before: string): Migration =>
-	({ file, before, ...unwrapText(before), respell: EMPTY });
+	({ file, before, ...unwrapText(before), hand: [], respell: EMPTY });
 
 export function migrate(buildingPath: string, given?: Respell): { building: Building; table: Respell; migrations: Migration[] } {
 	const building = parseBuilding(buildingPath);
@@ -687,7 +699,7 @@ export function migrate(buildingPath: string, given?: Respell): { building: Buil
 			ids, respell: table,
 			passes: artifacts.has(f) ? ['structural', 'respell'] : ['respell'],
 		}))
-		.filter(m => m.edits.length);
+		.filter(m => m.edits.length || m.hand.length);
 
 	// Structure first, reflow second, and never both on one file in one run. The rules above are
 	// line-scoped and read their neighbours — a ledger head reads the line below it for a
