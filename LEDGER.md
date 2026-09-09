@@ -2990,3 +2990,9 @@ Baton — ⬡ → single — ignite the tender: `^G n s m ⏎` opens a bare sonn
 **2026-09-08 · Builder · opus-high (044)** — the boot pack landed: `doctrine boot ‹root›` prints the live rows, the tail, the baton, the queue, the inbox, the statement and the lint line, derived at every call and never kept. New `doctrine/src/boot.ts`, the CLI arm, a README section, two fixtures, a 12-test suite whose verbatim law reds under one spliced authored line. agents 4,606 B, stigmergon 4,904 B — 9.5× and 21.6× less than a summons named; suite 127 → 139; lint unchanged (19 `board.cell-cap`); `boot .` ≡ the absolute root. Six findings for G4, two of them board defects the pack exposed. Decided: nothing — findings only. Next: the baton below.
 
 Baton — the dispatch → ignite 045 (the tender's batch runs 044 → 045 → 046 → 047 → 048 → G4; the fence is in `plans/045-baton-fields.md`).
+
+---
+
+**2026-09-08 · Builder · opus-high (045)** — §11's baton typed on the parser: `shape` (`single —` · `batch —` · `fork —`), `recommendation` (a fork's option — an instrument it carries, text, or taste), `type` (what a ⬡-baton asks of him — mental · visual · bench), `named` (the holder slot's session). No new mark; an unmarked baton types four nulls. New lint `ledger.baton`: a fork tail naming no recommendation. `doctrine boot`'s line carries shape and type. Suite 139 → 143; lint identical to `3284d58`'s, diffed against a scratch worktree; census over 265 entries (`lab/045/census.ts`). Seven findings, four for the office's table — F1 the big one: 28 baton lines the line rule never reaches. Decided: nothing — findings only. Next: the baton below.
+
+Baton — the dispatch → single — ignite 046 (the fence is in `plans/046-lint-gaps.md`).
