@@ -11,7 +11,8 @@ export {
 	type BoardRow, type LedgerEntry, type Decision, type Issue, type Kickoff, type Baton, type Instrument,
 } from './src/parse';
 export { lint, render, guardRegressions, isLiveWorkDoc, type LintReport, type Totals } from './src/lint';
-export { scanCredits, renderStatement, byInterest, type Credit, type Surface, type CreditSources } from './src/credit';
+export { bootPack } from './src/boot';
+export { scanCredits, renderStatement, statementLine, byInterest, type Credit, type Surface, type CreditSources } from './src/credit';
 export {
 	REGISTER, parseRegister, readRegister, walkRegister, buildingNames, crossingFails,
 	type Kind, type RegisterRow, type RegisteredBuilding,

@@ -1,6 +1,7 @@
 #!/usr/bin/env bun
 // `doctrine` — the CLI arm of the Standards Office's reader.
 //
+//   doctrine boot <root>                                  the boot pack — a cold session's orient
 //   doctrine lint [--live] [--verbose] [--json] <path…>   walk and report; non-zero on any fail
 //   doctrine statement [--json] <path…>                   every ⬡ go on a live surface (D82)
 //   doctrine parse --json <building>                      one building, P3 §5's shapes
@@ -13,6 +14,7 @@ import { tmpdir } from 'os';
 import { join, relative, resolve } from 'path';
 import { citationTargets, diffRun, renderHomes, respellBuilding, writeRun } from './src/citations';
 import { execSync } from 'child_process';
+import { bootPack } from './src/boot';
 import { discover, parse } from './src/building';
 import { byInterest, renderStatement } from './src/credit';
 import { guardRegressions, lint, render } from './src/lint';
@@ -21,6 +23,14 @@ import { diff, migrate, roundTrip, write } from './src/migrate';
 import { collisions, renderTable, tableFromText } from './src/respell';
 
 const USAGE = `doctrine — the reference reader for the work doctrine (canon/work/DOCTRINE.md)
+
+  doctrine boot <root>
+      The boot pack (044; DOCTRINE §11's Start): what a cold session needs to orient — the
+      board's live rows, the ledger tail, the baton, the decision queue, the inbox, the
+      statement and the lint line. Derived from the building's books at every call and never
+      kept, and nothing in it is authored: every line that is not a count is a byte from a
+      file. Exactly one root ("." legal); the building at that root, never its sub-buildings.
+      Exits 2 when the root is no building.
 
   doctrine lint [--live] [--vocab] [--verbose] [--json] [--guard <git-ref>] <path…>
       Walk every building under <path…> and report each failure class with file:line and
@@ -83,6 +93,15 @@ const cmd = positional[0] ?? '';
 function die(msg: string): never { console.error(msg); process.exit(2); }
 
 if (!cmd || flag('--help') || flag('-h')) { console.log(USAGE); process.exit(cmd ? 0 : 2); }
+
+if (cmd === 'boot') {
+	if (paths.length !== 1) die('doctrine boot: exactly one root per call.');
+	const root = paths[0]!;
+	if (!existsSync(root)) die(`doctrine boot: ${root} does not exist.`);
+	try { console.log(bootPack(root)); }
+	catch (e) { die(`doctrine boot: ${root} — ${(e as Error).message}`); }
+	process.exit(0);
+}
 
 if (cmd === 'lint') {
 	if (!paths.length) die('doctrine lint: give me at least one path to walk.');
