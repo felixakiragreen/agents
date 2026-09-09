@@ -60,8 +60,9 @@ function deferredCount(md: string): number | null {
 }
 
 /**
- * §11's baton as the parser knows it TODAY — the written holder and what is fireable.
- * 045 extends this line with the move's shape, its type and the named session.
+ * §11's baton, every field the parser types off the line (045): who holds it and by what name,
+ * the shape of the move, what a ⬡-baton asks of him, and what is fireable. Each marked part
+ * prints only where the record marked it — an absent shape is an unmarked baton, not a `single`.
  */
 function batonLine(baton: Baton | null): string {
 	if (!baton) return 'Baton — unrecorded';
@@ -71,7 +72,9 @@ function batonLine(baton: Baton | null): string {
 	const summons = baton.instruments.filter(i => i.kind === 'summons').length;
 	const rows = baton.instruments.flatMap(i => i.kind === 'row' ? [i.row] : []);
 	const parts = [...summons ? [`${summons} summons`] : [], ...rows.length ? [`ignite ${rows.join(', ')}`] : []];
-	return `Baton — ${holder} · ${parts.join(', ') || 'no instrument'}`;
+	const who = baton.named ? `${holder} ${baton.named}` : holder;
+	const marks = [who, ...baton.shape ? [baton.shape] : [], ...baton.type ? [baton.type] : []];
+	return `Baton — ${marks.join(' · ')} → ${parts.join(', ') || 'no instrument'}`;
 }
 
 /** One board: its counts, then its live rows verbatim. A board with none prints the counts alone. */

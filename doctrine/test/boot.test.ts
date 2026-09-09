@@ -60,7 +60,7 @@ describe('boot — the pack a cold session reads', () => {
 		const pack = bootPack(BOOT);
 		expect(pack).toContain(tail.block.replace(/^\n+|\n+$/g, ''));
 		expect(has(BOOT, '## Ledger — LEDGER.md: 2 entries')).toBe(true);
-		expect(has(BOOT, 'Baton — ⬡ · ignite 003')).toBe(true);
+		expect(has(BOOT, 'Baton — ⬡ · single · mental → ignite 003')).toBe(true);
 	});
 
 	test('the queue is the decisions waiting on his pen, id and title', () => {

@@ -41,6 +41,25 @@ export const PARKED = 'PARKED';           // → DEFERRED
 export const UNSTAFFED = 'unstaffed';     // → `—`, and only where the Status carries DEFERRED
 
 /**
+ * §11's ⬡-baton types — what the baton REQUIRES of the hand it waits on, ruled by Felix at
+ * stigmergon's phase-3 pass (2026-09-02): **mental** (a decision to make), **visual** (an
+ * interface to look at or drive), **bench** (physical testing — *"a bench baton cannot be paid
+ * from the desk"*; a simulator is not enough). The type is the ⬡-action's own leading noun, so
+ * this is a word table and not a branch: STANDARD §1's three verdicts (bless · rule · kill) are
+ * mental by definition, §6's **visual pass** and **bench** name their own. Every word here is a
+ * word the record already writes; the office extends the table from 045's census, and an action
+ * this table does not name types `null` and is listed there.
+ */
+export type BatonType = 'mental' | 'visual' | 'bench';
+export const BATON_TYPES: Readonly<Record<string, BatonType>> = {
+	rule: 'mental', ruling: 'mental', bless: 'mental', blessing: 'mental', kill: 'mental',
+	choose: 'mental', choice: 'mental', read: 'mental', verify: 'mental', decide: 'mental',
+	pass: 'visual', 'visual pass': 'visual', smoke: 'visual', look: 'visual',
+	watch: 'visual', open: 'visual', drive: 'visual',
+	bench: 'bench',
+};
+
+/**
  * D80 · D18 — ids are strings. A charge is its number padded to three (`023`); a kind keeps its
  * letter (`G2`, `D79`); a session is its name-stamp (`grand-architect-21`); and every historical
  * spelling (bare numbers, `C‹n›`, per-campaign prefixes) stays an address forever. Nothing

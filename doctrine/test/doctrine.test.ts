@@ -7,7 +7,8 @@ import { describe, expect, test } from 'bun:test';
 import { readFileSync } from 'fs';
 import { basename, join } from 'path';
 import {
-	batonFails, boardIds, classifyBaton, parseBoards, parseDecisions, parseIssues, parseKickoffs, parseLedger,
+	batonFails, batonTypeWord, boardIds, classifyBaton, parseBoards, parseDecisions, parseIssues, parseKickoffs,
+	parseLedger,
 } from '../src/parse';
 import { migrateText, roundTrip } from '../src/migrate';
 import { renderTable, respellTable } from '../src/respell';
@@ -155,6 +156,52 @@ describe('control — conforming fixtures parse with zero failures', () => {
 		expect(batonFails(b, 0)).toEqual([]);                       // a typed close is not a dropped baton
 		// and the untyped prose it replaces still is
 		expect(codes(batonFails(classifyBaton({ next: 'nothing waits.', block: '' } as never), 0))).toEqual(['ledger.baton']);
+	});
+
+	// ---------- 045: the four fields §11 already writes into a baton ----------
+
+	test('baton — the shape is the marked word, and an unmarked baton stays unmarked (§11)', () => {
+		const b = parseLedger(fx('conforming', 'ledger-baton-fields.md')).entries.map(e => classifyBaton(e)!);
+		expect(b.map(x => x.shape)).toEqual(['single', 'batch', 'fork', 'fork', 'fork', 'single', 'batch', null, 'fork']);
+		// the eighth is the record before the markers: no shape, and nothing inferred from `ignite`
+		expect(b[7]).toMatchObject({ holder: 'felix', shape: null, recommendation: null, type: null, named: null });
+		expect(b[7]!.instruments).toEqual([{ kind: 'row', row: '010' }]);
+	});
+
+	test('baton — a fork names an instrument, a text, or taste; naming none is the drop (§11)', () => {
+		const r = parseLedger(fx('conforming', 'ledger-baton-fields.md'));
+		expect(codes(r.fails)).toEqual([]);
+		const b = r.entries.map(e => classifyBaton(e)!);
+		expect(b[2]!.recommendation).toEqual({ kind: 'instrument', index: 0 });   // "Recommendation: 004 — …"
+		expect(b[2]!.instruments).toEqual([{ kind: 'row', row: '004' }]);
+		expect(b[3]!.recommendation).toEqual({ kind: 'text', text: 'the cell — a simulator is not enough for this one' });
+		expect(b[4]!.recommendation).toEqual({ kind: 'taste' });
+		expect(b.filter(x => x.shape !== 'fork').every(x => x.recommendation === null)).toBe(true);
+		// the tail is a menu with no recommendation — a dropped baton, and the control is its own file
+		expect(codes(batonFails(classifyBaton(r.tail!), 0))).toEqual(['ledger.baton']);
+		for (const control of [b[2]!, b[3]!, b[4]!]) expect(batonFails(control, 0)).toEqual([]);
+	});
+
+	test('baton — a ⬡-action types what it asks of him; anything else stays untyped (045)', () => {
+		const b = parseLedger(fx('conforming', 'ledger-baton-fields.md')).entries.map(e => classifyBaton(e)!);
+		expect(b.map(x => x.type)).toEqual(['mental', 'visual', null, 'bench', null, null, null, null, null]);
+		// the two words the table names as one, and the word it does not name at all
+		const typed = (action: string) => classifyBaton({ next: 'x', block: `Baton — ⬡ → ${action}` } as never)!;
+		expect([typed('single — visual pass of the deck').type, typed('batch — smoke the arm').type]).toEqual(['visual', 'visual']);
+		expect(typed('single — convene the sitting')).toMatchObject({ type: null });
+		expect(batonTypeWord('single — convene the sitting')).toBe('convene');
+		// the type is what a ⬡-baton asks of Felix — a session's action asks nothing of him
+		expect(typed('single — bless it').type).toBe('mental');
+		expect(classifyBaton({ next: 'x', block: 'Baton — tender-09 → single — bless it' } as never)!.type).toBeNull();
+	});
+
+	test('baton — the named session is the holder slot the line writes (034-F2, D74)', () => {
+		const b = parseLedger(fx('conforming', 'ledger-baton-fields.md')).entries.map(e => classifyBaton(e)!);
+		expect(b.map(x => x.named)).toEqual([null, null, null, null, null, 'builder-one-03', null, null, null]);
+		expect(b[5]!.holder).toBe('session');
+		expect([b[6]!.holder, b[0]!.holder]).toEqual(['dispatch', 'felix']);
+		// a session INFERRED from an instrument has no holder slot to be named by (pre-D74 history)
+		expect(classifyBaton({ next: 'ignite 024.', block: '' } as never)).toMatchObject({ holder: 'session', named: null });
 	});
 
 	test('ledger — a charge id in the head, `ignite <charge-ids>` in the baton (D71)', () => {

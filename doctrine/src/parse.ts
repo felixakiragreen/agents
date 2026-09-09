@@ -6,11 +6,11 @@
 // verbatim excerpt — never a parser branch. The shapes below are P3 §5's, normative per D65.
 
 import {
-	BLESSED_MARK, CELL_CAP, DECISION_ID, DEFERRED, ENTRY_CAP, FELIX_GATE, HEX_GATE, MANTLES, MARK_TAIL, PARKED,
-	PENDING, PROPOSED_MARK, RETIRED, STATES, UNRECORDED, UNSTAFFED, VERDICTS,
+	BATON_TYPES, BLESSED_MARK, CELL_CAP, DECISION_ID, DEFERRED, ENTRY_CAP, FELIX_GATE, HEX_GATE, MANTLES, MARK_TAIL,
+	PARKED, PENDING, PROPOSED_MARK, RETIRED, STATES, UNRECORDED, UNSTAFFED, VERDICTS,
 	creditDate, delink, fail, isId, isMantle, isState, isTier, leadingToken, linkTarget, maskCode, strip, topSplit,
 	trailingParen,
-	type Fail, type State,
+	type BatonType, type Fail, type State,
 } from './grammar';
 
 // ---------- §4 the board ----------
@@ -493,7 +493,27 @@ export type Instrument =
  * is the typed nothing-owed close, `prose` a dropped baton.
  */
 export type BatonHolder = 'felix' | 'session' | 'dispatch' | 'none' | 'prose';
-export type Baton = { holder: BatonHolder; text: string; instruments: Instrument[] };
+/** §11's three moves, each written into the line as its own marker — never inferred (045). */
+export type BatonShape = 'single' | 'batch' | 'fork';
+/**
+ * §11: a fork names a `recommendation:` or marks the call taste — *a menu with no
+ * recommendation is a dropped baton*. The named option is an instrument the baton already
+ * carries where the text says so, and otherwise the text itself: the reader points, it never
+ * paraphrases.
+ */
+export type Recommendation =
+	| { kind: 'instrument'; index: number }
+	| { kind: 'text'; text: string }
+	| { kind: 'taste' };
+export type Baton = {
+	holder: BatonHolder;
+	text: string;
+	instruments: Instrument[];
+	shape: BatonShape | null;
+	recommendation: Recommendation | null;
+	type: BatonType | null;
+	named: string | null;
+};
 
 /** §7's typed nothing-owed close — `Next: none — <why>`: the session owes no baton (§11). */
 const NONE_CLOSE = /^none\b/i;
@@ -506,17 +526,85 @@ const NONE_CLOSE = /^none\b/i;
  */
 const BATON_LINE = /^[ \t]*\**Baton\**\s*[—–-]\s*([^\n]*?)\s*(?:→|->|:|\()/m;
 
+/**
+ * The baton line's two slots (045). The holder is the text before the separator; the action is
+ * what the arrow hands it, with the entry's hard wraps folded in — the record wraps a baton over
+ * four lines and the shape marker can sit on the second — and ending at the blank line, because
+ * the next paragraph is the next thing the entry says. The pre-D74 separators (`:` and `(`) hand
+ * back a holder and NO action: the shape markers postdate them, and inventing one would type a
+ * move its writer never marked.
+ */
+export function batonSlots(block: string): { holder: string; action: string | null } | null {
+	const m = block.match(BATON_LINE);
+	if (!m) return null;
+	const lines = block.split('\n');
+	const at = lines.findIndex(l => BATON_LINE.test(l));
+	let end = at + 1;
+	while (end < lines.length && lines[end]!.trim()) end++;
+	const para = strip(lines.slice(at, end).join(' ').replace(/\s+/g, ' '));
+	const arrow = para.match(/(?:→|->)\s*/);
+	return { holder: strip(m[1]!), action: arrow ? para.slice(arrow.index! + arrow[0]!.length) : null };
+}
+
 function writtenHolder(block: string): BatonHolder | null {
-	const who = strip(block.match(BATON_LINE)?.[1] ?? '');
+	const who = batonSlots(block)?.holder;
 	if (!who) return null;
 	if (who.includes('⬡') || /^Felix\b/i.test(who)) return 'felix';
 	if (/^the dispatch\b/i.test(who)) return 'dispatch';
 	return 'session';
 }
 
+/** §11's marker: the shape word opens the action and an em-dash closes it (`**… → batch —** …`). */
+const SHAPE_MARK = /^(single|batch|fork)\s*[—–]\s*/i;
+
+const shapeOf = (action: string | null): BatonShape | null =>
+	action?.match(SHAPE_MARK)?.[1]?.toLowerCase() as BatonShape ?? null;
+
+/** The action's leading `n` words, case-folded — punctuation and a `(1)` numbering are not words. */
+const leadWords = (s: string, n: number) =>
+	s.split(/[^A-Za-z]+/).filter(Boolean).slice(0, n).join(' ').toLowerCase();
+
+/**
+ * The word `BATON_TYPES` is read by: the action's leading noun once the shape marker is off it,
+ * two words where the table names two (`visual pass`). Exported because the census counts what
+ * the table does NOT name, and it must count the parser's own word.
+ */
+export function batonTypeWord(action: string | null): string | null {
+	if (action === null) return null;
+	const rest = action.replace(SHAPE_MARK, '');
+	const two = leadWords(rest, 2);
+	return two in BATON_TYPES ? two : leadWords(rest, 1) || null;
+}
+
+/** The clause §11 gives a fork whose call is Felix's taste alone — an alternative to naming one. */
+const TASTE_CLAUSE = /\bthe call is taste\b|\bmarked taste\b/i;
+
+/**
+ * §11's `recommendation:`, read from the entry (the record writes it under the baton as often as
+ * in it) and never beyond the marker's own paragraph. It runs to the end of its sentence, so a
+ * hard wrap does not cut it in half. The named option resolves to an instrument the baton carries
+ * — a row id, or a fenced summons's mantle — and otherwise stays the writer's own text.
+ */
+function readRecommendation(block: string, instruments: Instrument[]): Recommendation | null {
+	const masked = maskCode(block);
+	const m = masked.match(/recommendation:/i);
+	if (!m) return TASTE_CLAUSE.test(masked) ? { kind: 'taste' } : null;
+	const para = block.slice(m.index! + m[0]!.length).split(/\n[ \t]*\n/)[0]!;
+	const text = strip((para.match(/^[^.!?]*[.!?](?=\s|$)/)?.[0] ?? para).replace(/\s+/g, ' '))
+		.replace(/[.!?]+$/, '').trim();
+	if (!text) return null;
+	if (/^taste$/i.test(text) || TASTE_CLAUSE.test(text)) return { kind: 'taste' };
+	const named = (i: Instrument) => i.kind === 'row'
+		? new RegExp(`\\b${i.row}\\b`).test(text)
+		: i.mantle !== null && new RegExp(`\\b${i.mantle}\\b`, 'i').test(text);
+	const index = instruments.findIndex(named);
+	return index < 0 ? { kind: 'text', text } : { kind: 'instrument', index };
+}
+
 export function classifyBaton(entry: LedgerEntry | null): Baton | null {
 	if (!entry?.next) return null;
-	if (NONE_CLOSE.test(entry.next.trim())) return { holder: 'none', text: entry.next, instruments: [] };
+	const unmarked = { shape: null, recommendation: null, type: null, named: null };
+	if (NONE_CLOSE.test(entry.next.trim())) return { holder: 'none', text: entry.next, instruments: [], ...unmarked };
 	const instruments: Instrument[] = [];
 
 	// (a) the summons fenced verbatim in the entry (D63g)
@@ -528,17 +616,33 @@ export function classifyBaton(entry: LedgerEntry | null): Baton | null {
 		for (const id of topSplit(m[1]!, [',', '+'])) if (isId(id)) instruments.push({ kind: 'row', row: id });
 
 	const written = writtenHolder(entry.block);
-	if (written) return { holder: written, text: entry.next, instruments };
 	// No baton line: the record before D74 wrote its holder into the clause's prose, so this is
 	// the one place the holder is inferred — and the entries it reads are history, all of them.
-	if (instruments.length) return { holder: 'session', text: entry.next, instruments };
-	if (/\bFelix\b/.test(entry.next)) return { holder: 'felix', text: entry.next, instruments };
-	return { holder: 'prose', text: entry.next, instruments };
+	const holder: BatonHolder = written
+		?? (instruments.length ? 'session' : /\bFelix\b/.test(entry.next) ? 'felix' : 'prose');
+
+	// The four marked fields (045). Each is read where §11 writes it and is null everywhere else:
+	// the shape off its marker, the recommendation off a fork alone, the type off a ⬡-action's
+	// noun, the name off the holder slot the line actually carries.
+	const action = batonSlots(entry.block)?.action ?? null;
+	const shape = shapeOf(action);
+	return {
+		holder, text: entry.next, instruments, shape,
+		recommendation: shape === 'fork' ? readRecommendation(entry.block, instruments) : null,
+		type: holder === 'felix' ? BATON_TYPES[batonTypeWord(action) ?? ''] ?? null : null,
+		named: written === 'session' ? batonSlots(entry.block)!.holder : null,
+	};
 }
 
 export function batonFails(baton: Baton | null, line: number): Fail[] {
-	if (baton?.holder !== 'prose') return [];
-	return [fail('ledger', 'ledger.baton', 'the Next clause carries no instrument and names no Felix-action — a dropped baton (D63g/D64)', baton.text.slice(0, 200), line)];
+	if (!baton) return [];
+	if (baton.holder === 'prose')
+		return [fail('ledger', 'ledger.baton', 'the Next clause carries no instrument and names no Felix-action — a dropped baton (D63g/D64)', baton.text.slice(0, 200), line)];
+	// §11, the fork's half of the same law: ambiguity is the sin, and a menu with no recommendation
+	// hands the choice back unmade. `taste` marked IS an answer — the call is his by name.
+	if (baton.shape === 'fork' && baton.recommendation === null)
+		return [fail('ledger', 'ledger.baton', 'a fork naming no `recommendation:` and marking no taste — a menu with no recommendation is a dropped baton (§11)', baton.text.slice(0, 200), line)];
+	return [];
 }
 
 // ---------- §8 decisions ----------
