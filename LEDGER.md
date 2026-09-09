@@ -119,3 +119,9 @@ Baton — ⬡ → single — read this gate's record (`plans/g4-parser-review.md
 **2026-09-09 · Grand Architect · fable-max (grand-architect-25)** — The i's dotted. 048's law pasted under G4's grant (⬡✓ on the text; §3's ledger "never compressed" beside it): DOCTRINE §3, §7, §8, the Architect's fourth step. The boot in the Architect's and the office's fences. Inbox swept, three ruled: 045's words and 044-F5's table to the reader's residue (deferred), 18c LANDED at 025, the fence fixed. 027's pass died with Belvedere; 033-F3 settled by D88. Desk files untracked at his word. Two converter bugs caught at the city's dry runs. Suite 188, lint 20, wire green. Decided: nothing minted — 048's text ⬡✓; the horizon ruled pilot at stigmergon (its inbox, uncommitted). Next: the baton below.
 
 Baton — ⬡ → fork — (a) lay 049, the reader's residue (its spec: the deferred list's bullet); (b) defer. recommendation: (a) — snappy and manny cannot adopt D88 until the converter is fixed.
+
+---
+
+**2026-09-09 · Grand Architect · fable-max (grand-architect-25)** — *(second act.)* 049 laid at his word — doctrine v1.4, the residue: 045's seven words and three rules, the law book fenced from board discovery, `migrate`'s ledger rules on the pair, snappy's respell and manny's unwrap, eight fixtures each with its control; Builder · opus-high; red none inside; the deferred bullet promoted. Decided: nothing — the lay executes rulings already on the list. Next: the baton below.
+
+Baton — ⬡ → single — ignite 049 (the fence is in `plans/049-residue.md`; one charge, fired by hand — no tender). Behind it: the office verifies its landing at the next summons.
