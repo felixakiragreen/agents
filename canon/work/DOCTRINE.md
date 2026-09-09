@@ -281,7 +281,8 @@ The skeleton:
 # <ID> — <title>
 **Status:** OPEN — laid <date> · **Depends on:** … · **Staffing:** <mantle · tier>
    (· **Parallel-safe with:** <charges> — when laid into a parallel batch)
-   (· **Branch:** <name> — when the charge runs in a worktree)
+   (· **Branch:** <name> from <base> — when the charge runs in a worktree; the base is
+      the branch the worktree is cut from)
 ## Mission | Question(s)
 ## Inputs — read before working      ← incl. what's known: "do not re-derive"
 <the genre core — below>
@@ -473,9 +474,13 @@ tender creates `plans/BULLETIN.md` (next to the charge docs — simmy's lived at
   the bulletin's own header, because inside a mergeable branch's worktree one careless
   `-A` ships the relay channel into mainline as durable truth (birthplace: cap-mega
   `feature/tig-avc` @ `9538e14b`, Felix-directed).
-- **Archive:** none. Append-only for the campaign's life; the Architect's distillation
-  makes entries archival where they stand; findings sections remain the archive of
-  record.
+- **Retention:** one bulletin per batch — created at the batch's first parallel
+  ignition, killed at the batch's close once the Architect's distillation has given
+  every entry a committed home (D78: git is the archive); findings sections remain the
+  archive of record. Amended 2026-09-08: the old clause read "append-only for the
+  campaign's life" against this section's own "exists only while a parallel batch
+  runs", and simmy's grew to 92 KB — some 25k tokens per read, per agent, mostly
+  distilled history.
 
 ## 10. Batches — how the docs run agents
 
@@ -484,7 +489,13 @@ tender creates `plans/BULLETIN.md` (next to the charge docs — simmy's lived at
   note dated — and when charges contend for live resources, the concurrency plan laid
   with it (§4). A campaign whose foundation is unproven opens with a Digger's charge —
   what to build on, with kill criteria — before its first Builder's; its findings are
-  the first sitting's inputs (D85). Gates are laid as charges (§4), ⬡-gates named — and **the lay
+  the first sitting's inputs (D85). **The specimen:** a sitting whose rulings are pixels
+  produces one before its charges — a local page in `lab/‹id›/` on the building's
+  tokens with the options as knobs, opened in his browser, bent in his devtools, the
+  rulings made on it; the page is committed as the sitting's evidence and the Builders'
+  `Done when:` read it beside the spec (birthplace: stigmergon 060, two specimens in
+  one sitting; his word: "this is an unlock"; the aphantasia law in the global file is
+  why). Gates are laid as charges (§4), ⬡-gates named — and **the lay
   maximizes the run between Felix's judgment calls**: every foreseeable ⬡-fork
   in the arc is surfaced and ruled at blessing time so his rulings travel in the docs;
   what remains of him is the named gates, batched, never dribbled. A batch that stops
@@ -503,8 +514,8 @@ tender creates `plans/BULLETIN.md` (next to the charge docs — simmy's lived at
   tender kickoff** — `tender: sonnet-medium · plans/TENDER.md`, an instrument
   instantiated once per building from the Dispatcher tombstone's operational law and
   ignited as an unmantled cheap-tier kickoff; it relays verbatim and authors nothing
-  (D83 — agents and stigmergon first, every other building holding until
-  stigmergon's keystone) — an Architect session, or Felix. The engine retires the
+  (D83 — any building whose batch note names it; the agents-and-stigmergon hold
+  died 2026-09-08 at simmy's desk, eleven batches in) — an Architect session, or Felix. The engine retires the
   kickoff the day it tends a real batch: the successor runs before the ancestor
   dies. Felix-tended stays the exception with its reason
   named in the batch note (his own eyes gate each landing — a visual pass, a live
@@ -539,7 +550,11 @@ tender creates `plans/BULLETIN.md` (next to the charge docs — simmy's lived at
   per-ignition.
 - **Worktree law:** the shared checkout's branch is NEVER switched — parallel sessions
   live there (simmy §8). Work that needs a branch runs in a worktree, and its charge
-  doc says so; the board records unmerged branches until the Architect merges or
+  doc says so and names the base it is cut from (§5, `Branch: ‹name› from ‹base›`);
+  the session checks its lineage against that base before its first commit — a
+  worktree on the wrong base is a false assumption, the Builder's stop (simmy G21: a
+  worktree cut at a commit with no `plans/` read as a missing charge doc); the board
+  records unmerged branches until the Architect merges or
   rejects. A shared branch is never rewound: no force-push, planned or contingent —
   red after a premature merge is an escalation, not a rewind.
 - **Venue law:** a charge that mints a disposable live venue — a VM, a
@@ -586,7 +601,8 @@ Every session, any mantle:
   writes no baton — `Next: none — <why>` (§7) is the typed form. **Ambiguity, never
   plurality, is the sin**: an uninstrumented option, a menu with
   no recommendation, two holders, or a decision smuggled in prose is a dropped baton. **A ⬡-gate names what he must look
-  at** — three lines at most, the ones that decide it — and a baton hands him at most
+  at** — three lines at most, the ones that decide it: the problem, the root cause,
+  the proposed fix (his form, the neck sitting) — and a baton hands him at most
   three rulings; more is a queue, listed behind the baton, never a fourth ruling in
   it. A one-word yes gets the calibration question before the mark is written: read,
   or go — `⬡✓` or `⬡ go` (D82). Birthplace: D80 re-legislated a section blessed
@@ -643,7 +659,7 @@ The working vocabulary is the Guild's Standard: **[STANDARD.md](STANDARD.md)**, 
 this file (⬡✓ 2026-08-29) — the entries, the graveyard of dead words and their
 successors, the 24 pinned formulas, the punctuation grammar, the read-cold test. The
 glossary that lived here is superseded. **Think in any terms; communicate in the
-standard.** **Translate the Sovereign's vocabulary; challenge his substance.**
+standard.** **Translate the Summoner's vocabulary; challenge his substance.**
 
 ## Templates
 
