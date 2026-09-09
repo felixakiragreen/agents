@@ -75,7 +75,12 @@ register.
   building, history and voice included, plus filenames and lab dirs — `01-…` →
   `001-…`, `c36-…` → `036-…`; `doctrine migrate` carries the rule (040) and the
   respell table derives from the building's own board; hosts that are never walked
-  (bob) keep their forms as addresses. Ancestors: the census §6/§13a (46 prefixes,
+  (bob) keep their forms as addresses. **The document fence** (amended 2026-09-08,
+  grand-architect-24 — birthplace simmy's D80 adoption at `d90778e`): a bare lettered
+  id respells only in a `.md` of the building's own; code, data, transcripts and lab
+  dirs the table does not name take the path forms only — simmy's first run would
+  otherwise have rewritten cornerizer's `S0 REGRESSION` marks, a results table's
+  `A1=365 B1=365`, and URScript labels in a foreign README. Ancestors: the census §6/§13a (46 prefixes,
   ~24,400 ids, about twenty letters for one kind), D79 (the register makes the
   namespace derivable — the best part is no part), the qualified id (D73/D74, built
   039), hexwright's three-digit plans, this repo's bare 01–22. Buildings adopt at
@@ -121,8 +126,10 @@ register.
   dispatch rule, tending, the relay law, escalation triggers, the batch report and
   the baton), ignited as an unmantled cheap-tier kickoff (the mantles README). The
   tender relays verbatim and authors nothing; the Architect lays, reviews and rules.
-  Scope at blessing: agents and stigmergon; every other building holds until
-  stigmergon's keystone. The engine retires the kickoff the day it tends a real
+  ~~Scope at blessing: agents and stigmergon; every other building holds until
+  stigmergon's keystone.~~ The hold died 2026-09-08 at simmy's desk, his word ("I
+  wasn't aware of that strange exception") — eleven batches tended at stigmergon and
+  one here had proven the instrument: any building whose batch note names it. The engine retires the kickoff the day it tends a real
   batch — the successor runs before the ancestor dies. Ancestors: 96 Dispatcher runs
   at sonnet-medium (the rig's log), the tombstone's own clause (its law passes to the
   engine's charter), the coda (an instrument instantiated per building). Birthplace:
@@ -200,18 +207,3 @@ register.
   charters — at the citation, by the office. Until then this entry is the whole of
   the law, and it is not lost. His ruling at the blessing: desk-born until
   field-tested.
-
-- **D87** (2026-09-01, grand-architect-22 · proposed — pending ⬡✓): **The canon
-  moratorium.** The week of 2026-08-26 put one token in four into this building and
-  850 commits against under fifty in the product buildings, and half of its law was
-  desk-born (D80, D81, formulas 25 and 26). Three shapes, his to rule: (a) thirty days
-  with no canon charge laid except from a product building's filed pain; (b) no
-  desk-born law and no new formula for thirty days — field cases still mint; (c) the
-  canonization law alone, no clock. Recommendation: (b) — it is (a) with the door
-  left open for the field, and the desk-born/field-born test already makes it
-  mechanical; (a) is a blunt instrument; (c) trusts a test one day old. The three
-  charges in flight (041 · 042 · 043) were blessed under his word before this rules
-  and stand; formula 27 waits inside whichever shape he picks. Ancestors: MAP §8 and
-  §9 (keystones as stopping points), "split when it hurts, not before" read as
-  "legislate when it hurts," formula 22. Felix, 2026-09-01: "I need a few days to
-  think about this."
