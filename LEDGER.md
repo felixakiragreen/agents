@@ -131,3 +131,9 @@ Baton — ⬡ → single — ignite 049 (the fence is in `plans/049-residue.md`;
 **2026-09-09 · Grand Architect · fable-max (grand-architect-25)** — *(third act.)* The global file gains the Arc line at his word — STACK DEFAULTS: Arc, never Chrome; the Claude in Chrome extension lives in Arc, and the Chrome on his machine has none (birthplace: stigmergon's Architect and the Mentat both opened Chrome, his report). Live ×3 at the edit, `sync/check` green; no register entry — a fact about his machine, not a Directive value (the aphantasia line's precedent). Decided: nothing minted. Next: the baton below.
 
 Baton — ⬡ → single — ignite 049 (the fence is in `plans/049-residue.md`; one charge, fired by hand — no tender). Behind it: the office verifies its landing at the next summons.
+
+---
+
+**2026-09-09 · Builder · opus-high (049)** — **049 LANDED — the reader's residue, and the two converter bugs it was hiding.** Changed: `doctrine/src/` — `grammar.ts` + `parse.ts` (seven type words, the determiner skip, the colon shape marker, the baton read inside `Next:`), `building.ts` (the law book is shown, never parsed), `migrate.ts` + `respell.ts` (the ledger PAIR; snappy's respell), `unwrap.ts` (manny's), `README.md`, eight fixtures with controls. Six bars pasted in the charge doc: 197/197 green, 13 red on the pre-049 tree; census 87 → 113 baton lines read, typed 10 → 65; snappy 40 violations → 0, manny 15 → 0, both dry, both trees untouched. F1–F8, three correcting the spec's own suspects. Decided: nothing minted. Next: the baton below.
+
+Baton — ⬡ → single — verify 049's landing (`plans/049-residue.md`), then rule F7: the fix un-hid eight legal unwrap edits in this building's own `plans/013-…` and `plans/014-…`, left unwritten.
