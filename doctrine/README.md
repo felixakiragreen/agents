@@ -10,6 +10,7 @@ Tooling, not canon-law — a peer of [`sync/`](../sync). The law it reads lives 
 normative per D65 ([belvedere/plans/p3-parse-coverage.md](../belvedere/plans/p3-parse-coverage.md)).
 
 ```
+bun doctrine/cli.ts boot <building>        # the boot pack — a cold session's orient (044)
 bun doctrine/cli.ts lint [--live] [--vocab] [--verbose] [--json] <path…>
 bun doctrine/cli.ts statement [--json] <path…>   # every ⬡ go on a live surface (D82)
 bun doctrine/cli.ts parse --json <building>
@@ -36,6 +37,16 @@ register · `src/lint.ts` the walk and the report · `src/credit.ts` the stateme
 `src/citations.ts` the citation respell and its home table (043) ·
 `src/lexicon.ts` the standard's §§7–9 as data · `src/vocabulary.ts` the speech arm and its
 fence · `cli.ts` the arm.
+
+## `doctrine boot` — the cold session's orient (044)
+
+`doctrine boot ‹root›` prints what a session needs to start: the board's live rows, the ledger tail, the baton, the decision queue, the inbox, the statement and the lint line — a few kilobytes where a summons named 150 KB of files. It is DOCTRINE §11's Start, mechanized, and §2's questions answered by the books that hold them.
+
+**Derived at every call, never kept.** The pack is a render of `parse()` and nothing else, so it cannot go stale and nothing in the city stores it. **And nothing in it is authored:** every line that is not a count is a byte from a file — a board row is the document's own line, the tail is the entry's `block`, an inbox entry is its first line. A paraphrase in a pack read cold is a lie the reader cannot see, and `test/boot.test.ts` holds the law as a test.
+
+The live question is why it scales: a board grows with the campaign however hard anyone prunes — 108 rows of which 4 are workable is 60 KB read to learn four lines — while the pack tracks the live set. The retention caps (D78) bound each cell, not the row count.
+
+One root, `.` legal; the building at that root, never its sub-buildings — except the lint line, which is the drift alarm for the root and everything under it. Text only: the room reads `parse()` directly (D10, one parser). Typed absences are printed, never invented — `## Ledger — none`, `deferred —` — and a root the walk finds no artifact in is refused with one line and exit 2.
 
 ## The building register (D79)
 
