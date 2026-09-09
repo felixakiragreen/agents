@@ -12,6 +12,7 @@ bun doctrine/cli.ts parse --json <building>
 bun doctrine/cli.ts buildings [--json]     # the building register, walked
 bun doctrine/cli.ts migrate [--write] [--summary] <building>
 bun doctrine/cli.ts citations [--write] <building>   # citations of killed D-ids (043)
+bun doctrine/cli.ts prune [--write] <root>           # the ledger's aging (048)
 bun test                                   # from doctrine/ — the §6.2 control + the round-trip law
 ```
 
@@ -25,7 +26,7 @@ const b = parse('~/code/agents/belvedere');   // → Building: board[] · ledger
                                               //   · credits · fails
 ```
 
-`src/grammar.ts` names every mantle, tier, state, verdict and dead word **once** · `src/parse.ts` the five artifact parsers · `src/building.ts` discovery + `parse()` · `src/register.ts` the building register · `src/lint.ts` the walk and the report · `src/credit.ts` the statement (D82) · `src/migrate.ts` the form-only converter · `src/citations.ts` the citation respell and its home table (043) · `src/lexicon.ts` the standard's §§7–9 as data · `src/vocabulary.ts` the speech arm and its fence · `cli.ts` the arm.
+`src/grammar.ts` names every mantle, tier, state, verdict and dead word **once** · `src/parse.ts` the five artifact parsers · `src/building.ts` discovery + `parse()` · `src/register.ts` the building register · `src/lint.ts` the walk and the report · `src/credit.ts` the statement (D82) · `src/prune.ts` the ledger's aging (048) · `src/migrate.ts` the form-only converter · `src/citations.ts` the citation respell and its home table (043) · `src/lexicon.ts` the standard's §§7–9 as data · `src/vocabulary.ts` the speech arm and its fence · `cli.ts` the arm.
 
 ## `doctrine boot` — the cold session's orient (044)
 
@@ -80,6 +81,16 @@ The reader speaks the standard and reads its history. Every dead word stays pars
 | a ledger entry | 150 words | `ledger.entry-cap` (**warn**) |
 
 The cell cap is hard because the fix is the law: status + findings pointer, the story in the charge doc. The entry cap warns because the ledger's *reads* are D78-exempt — the tail-read protocol already bounds them — and its writes are not.
+
+## `doctrine prune` — the ledger's aging (048)
+
+The ledger's growth is by design and the retention law exempts it, because sessions read its tail — so it is the one file that must relocate rather than die. `doctrine prune ‹root›` moves every entry older than the last **`LIMITS.ledgerTail` = 20** out of `LEDGER.md` into **`ledger-archive.md`** beside it: verbatim, in order, oldest first, append-only, created at the first aging-out with a header naming the law. Dry run by default; `--write` to touch a byte. Run it at the prune check D78 already names — every Architect review, every close gate. Ancestor: the Log's and SAPHO's aging (⬡ 2026-08-29) — six entries kept, the rest one file over, forever.
+
+**The parser reads both.** The archive is bound to its `LEDGER.md` (same directory) and anchors no building of its own — half a record is no place to work. `parseLedgerPair` yields ONE sequence, archive first, so `ledgerEntries` counts the pair and `lint --guard` never reads an aging as a decrease; the tail and the baton stay `LEDGER.md`'s, because the archive is what nobody reboots from. The first run here moved 99 entries and 197,683 bytes, `boot`'s `## Ledger` block came back byte-identical, and the guard reported nothing lost.
+
+**The cut is made in lines, so what moves is bytes** — never a re-emission. The only byte the ledger loses beyond the aged region is the `---` that separated it from the tail, which the archive re-uses as its joining separator. The **round-trip law** is asserted at every run and a violation aborts before anything is written: the entries the pair yields do not change when one of them moves house, block for block, in order. A ledger at or under the count writes nothing, and a second run over a pruned pair writes nothing — the fixed point. The archive lands first: a run that dies between the two writes leaves the record whole twice, which a reader can see and fix.
+
+**The register's nudge**, beside the caps: a `DECISIONS.md` past **30 KB** on disk warns (`decisions.size`, never a failure) — §8's purge is due, and a purge is a blessed act no lint may force. stigmergon's register was 41.7 KB at the landing.
 
 ## Parser-as-lint
 
