@@ -63,6 +63,8 @@ The reader speaks the standard and reads its history. Every dead word stays pars
 | `ignite <charge-ids>` — the baton's instrument | `fire <row-ids>` |
 | `⬡✓` — the blessing mark | `✓ Felix` (respelled at 040 — D81; the reader keeps it forever) |
 
+**049 extends the table from the record** — `ignite` · `summon` · `tell` · `paste` · `resume` · `review` · `rulings`, all **mental**: a decision to spend or to read, made at a desk with nothing to look at, and `ignite` alone is 28 of the city's ⬡-actions. Three reading rules ride with them, each a rule and not a row: a leading **determiner** is skipped once before the noun (*"your visual pass"*, *"the visual pass"* — 8 of them), a **colon** closes a shape marker beside the em-dash (`batch: ignite 038 · 039`), and the baton line is found where the record writes it — **inside `Next:`** as often as under it, 26 lines the anchor could not reach. The holder slot ends at ITS separator, the em-dash included, and the arrow that opens an action is the baton's own.
+
 **Charges are always staffed** (D71, lint-hard): an empty Staffing cell, the dead token `unstaffed`, or a dissolved `—` on a charge whose Status carries no `DEFERRED` is a failure, never a typed absence. `unrecorded` still answers for a record that never held.
 
 ## The statement and the caps (D82 · D78)
@@ -85,6 +87,8 @@ The cell cap is hard because the fix is the law: status + findings pointer, the 
 ## `doctrine prune` — the ledger's aging (048)
 
 The ledger's growth is by design and the retention law exempts it, because sessions read its tail — so it is the one file that must relocate rather than die. `doctrine prune ‹root›` moves every entry older than the last **`LIMITS.ledgerTail` = 20** out of `LEDGER.md` into **`ledger-archive.md`** beside it: verbatim, in order, oldest first, append-only, created at the first aging-out with a header naming the law. Dry run by default; `--write` to touch a byte. Run it at the prune check D78 already names — every Architect review, every close gate. Ancestor: the Log's and SAPHO's aging (⬡ 2026-08-29) — six entries kept, the rest one file over, forever.
+
+**The converter reads both too (049).** The five structural ledger rules and the clause pass are keyed on the PAIR, so an aged-out entry is no longer reachable by a respell and a reflow and unreachable by a grammar repair (048-F2). The archive is named, never matched by shape: a `log-archive.md` beside it is the Log's, and the Log's physics are not the ledger's.
 
 **The parser reads both.** The archive is bound to its `LEDGER.md` (same directory) and anchors no building of its own — half a record is no place to work. `parseLedgerPair` yields ONE sequence, archive first, so `ledgerEntries` counts the pair and `lint --guard` never reads an aging as a decrease; the tail and the baton stay `LEDGER.md`'s, because the archive is what nobody reboots from. The first run here moved 99 entries and 197,683 bytes, `boot`'s `## Ledger` block came back byte-identical, and the guard reported nothing lost.
 
@@ -140,6 +144,7 @@ A **warning** is reported and never enforced — §7's own word — and never mo
 ## The register — how a building is found
 
 - A directory is a **building** when it directly carries `LEDGER.md`, `DECISIONS.md`, `ISSUES.md`, or a master doc (`MAP.md` / `GENESIS.md` / `README.md`) that staffs sessions.
+- **The law book is shown, never parsed (049).** A board is a table that staffs sessions in a file that CAN: `canon/` prints the five columns to legislate them — DOCTRINE §4's example is a header and no rows — and a page that shows a form staffs nobody. `isLawBook` fences board discovery as it already fences the vocabulary arm and the statement; until 049 every `doctrine boot` and every lint total counted the law book as a board (044-F5). `canon/BUILDINGS.md` is untouched: the register is named before the board test is reached.
 - Every other artifact file belongs to its **nearest ancestor building**; a board with no ancestor promotes its own directory (that is how `cap-mega/docs`' contract boards get a home).
 - `lab/`, `fixtures/` and `templates/` are not corpus (DOCTRINE §3, §6.2, and ⟨placeholders⟩); they stay lintable when named as an explicit root.
 - **Worktrees are walked** — four of the city's boards live only under `.claude/worktrees/`. A checkout whose mainline twin exists at the same size IS that twin and is skipped; a branch that put a board in a doc the mainline has none in survives; one representative per `(repo, relative path)`. The count skipped is printed, never hidden.
