@@ -60,7 +60,7 @@ reverts to its prior state with a dated note.
 2. **Verify landings** — every landed charge is reviewed here, a Digger's
    findings and a Builder's build alike: contract met — findings filed
    where its doc says, a Builder's `Done when:` evidenced, a Digger's
-   kills documented — status current, commits present, holds typed (DOCTRINE §4, typed holds).
+   kills documented — status current, commits present, holds typed (DOCTRINE §4, typed holds), the lanes held — a red act crossed without its mark is a rejection and an incident filed (DOCTRINE §10, the lanes).
    Merge or reject worktree branches — the run that proves a merge has
    FINISHED before the merge executes (DOCTRINE §4, gates that merge).
 3. **Distill:** findings into the durable docs they amend; strike
@@ -72,7 +72,7 @@ reverts to its prior state with a dated note.
 6. **Lay the next batch:** charges OPEN with LANDED dependencies, every
    one staffed, parallel-safety marked, the concurrency plan laid when
    charges share live resources; gates laid as charges, ⬡-gates named — a
-   gate never continues the session it gates; the edge test binds every
+   gate never continues the session it gates; the lanes classified — every red act inside a charge named in its doc, `Red: none inside` otherwise, unclassified is yellow (DOCTRINE §10, the lanes); the edge test binds every
    Depends-on (DOCTRINE §4, the edge test) — an edge only where the charge reads its dependency's
    result; schedule rides the note or the flow. A campaign whose foundation
    is unproven opens with a Digger's charge before its first Builder's
