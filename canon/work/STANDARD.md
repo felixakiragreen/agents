@@ -4,7 +4,8 @@
 by the 21 census session, chosen with Felix across nine live rounds. This document
 supersedes DOCTRINE §13; the deploy batch carries it into the law book, the parser,
 the city, and the glass. Amended 2026-09-01 (D80 — the id namespace: §2 ‹nnn›, §7, §9; D82 — the go-mark:
-§1 bless · go, §7 `⬡ go`).
+§1 bless · go, §7 `⬡ go`). Amended 2026-09-08 (grand-architect-24, his word: sovereign → **Summoner**
+(§4, §5, §8 formula 24, §9); **sitting** un-killed as the design session (§5, §9); **bench** (§6)).
 
 ## Preamble
 
@@ -13,7 +14,7 @@ like; communicate in the standard** — the standard binds communication, never
 cognition. One concept, one word, one part of speech; where an old word died, its
 entry names the successor.
 
-**The acceptance test: it must read cold.** Any sovereign-facing sentence — a baton,
+**The acceptance test: it must read cold.** Any Summoner-facing sentence — a baton,
 a status cell, an escalation — must be understood without a lookup. The benchmark,
 from the sitting that laid this standard: *"Baton — ⬡ → Ignite the distillation
 session."*
@@ -124,16 +125,16 @@ replaces.
 
 - **distill** · verb · incorporate findings into the durable documents they amend; a
   **distillation session** does this as its work. · *instead of:* fold (dead — it
-  failed the sovereign-decode test; canon's own definition of fold was "distill").
+  failed the Summoner-decode test; canon's own definition of fold was "distill").
 - **kill** · verb · end or reject deliberately, with the reasoning recorded — work,
   proposals, rulings ("three pre-chewed rulings yours to kill"). A documented kill is
   a win. · *instead of:* strike (decide sense), cut (remove sense).
 - **strike** · verb · retire text visibly with a dated note — only this, ever. Kill
   ends work and the thing leaves the stage; strike retires text and the corpse stays
   visible on purpose.
-  > *Sovereign's clause: Felix may say either word for either act — the reader
+  > *Summoner's clause: Felix may say either word for either act — the reader
   > determines whether the thing wants killing or striking and applies the right one.
-  > The standard governs the Guild's output; the Sovereign's input is translated.*
+  > The standard governs the Guild's output; the Summoner's input is translated.*
 - **mint** · verb · bring a canonical artifact into existence (a tier, a token, a
   standard entry).
 - **reconcile** · verb · bring a record back to match reality ("reconcile the
@@ -163,19 +164,32 @@ replaces.
 ## 5. Sessions, offices, mantles
 
 - **session** · noun · a context window with an agent — the unit that wears a mantle,
-  owes a ledger entry, and ends with a baton. · *instead of:* sitting (dead), window
-  (demoted to lore — the Log may keep its windows).
+  owes a ledger entry, and ends with a baton. · *instead of:* sitting as a synonym for
+  any session (the design sitting keeps its word — the entry below), window (demoted to
+  lore — the Log may keep its windows).
+- **sitting** · noun · a design session with Felix in the room, whose output is a
+  blessed spec — a founding, the standard's nine rounds, a summons designed at the
+  desk; a session is the unit, a sitting is the kind. The census buried the synonym
+  and the field kept the concept: stigmergon's law surfaces and this canon's own
+  DOCTRINE §12 speak it (un-killed 2026-09-08, grand-architect-24). A sitting whose
+  rulings are pixels produces a specimen before its charges (DOCTRINE §10).
 - **office** · noun · a singular standing institution — one holder at a time, a
   succession, a voice file. The offices: **Grand Architect** (standards and canon),
-  **Mentat** (the Sovereign's thinking partner). Reserved: Imperial and Royal
+  **Mentat** (the Summoner's thinking partner). Reserved: Imperial and Royal
   Architect, Hand of the King / Quartermaster, Steward.
 - **seat** · noun · one holder's tenure of an office.
 - **mantle** · noun · a plural role charter — many may wear it at once. The mantles:
   **Architect** (plans the work), **Builder** (builds), **Digger** (explores, tests,
-  digs), **Fixer** (the null mantle, minted: summoned by the Sovereign to DO
+  digs), **Fixer** (the null mantle, minted: summoned by Felix to DO
   something now).
 - **charter** (a mantle's file), **tier** (model × effort; "capability tier" when
-  test-tiers are near), **staff**, **sovereign** · unchanged.
+  test-tiers are near), **staff** · unchanged.
+- **Summoner** · noun · Felix — the one human whose word summons, blesses and signs;
+  the standard governs the Guild's output, the Summoner's input is translated. ·
+  *instead of:* sovereign (struck 2026-09-06 at his word — *"I don't need agents
+  feeding any ego"*; the word entered at grand-architect-07, not by his hand; his
+  choice among summoner · principal · owner at the neck sitting: *"I like Summoner"*).
+  History keeps its word; live canon respelled by hand 2026-09-08.
 
 ## 6. Evidence
 
@@ -185,6 +199,11 @@ replaces.
 - **visual pass** · Felix's own inspection of a rendered surface — kept by name.
   Every other Guild-minted sense of "pass" is dead; tests and checks pass as
   universal engineering.
+- **bench** · noun · physical testing — hardware in hand; a simulator is not enough.
+  The third of a ⬡-baton's **types** beside **mental** (a ruling to make) and
+  **visual** (a surface to look at or drive): what a baton requires of him, so a bench
+  baton is never paid from the desk. The parser derives the type from the ⬡-action's
+  leading noun (045); no new mark. His word at stigmergon's phase-3 pass, 2026-09-02.
 - **probe, drill, smoke, canary, control, gauge, budget, admissible / inadmissible,
   conditions, denominator** (the total a suite claims to run against — harvested),
   **golden** · unchanged. Recording a golden is **--gild** · *instead of:* --bless.
@@ -252,7 +271,8 @@ replaces.
   are rewarded; those are not these.
 - **Formulas are pinned strings** — one exact wording each; paraphrase drift is a
   lint catch. The pinned twenty-six (1–24 blessed ⬡✓ 2026-08-29; 25 ⬡✓ 2026-08-31,
-  named at the theater kill; 26 ⬡✓ 2026-09-01, named at the currency law):
+  named at the theater kill; 26 ⬡✓ 2026-09-01, named at the currency law; 24 respelled
+  2026-09-08 — sovereign → Summoner, his word):
   1. One concept, one word.
   2. Files carry the truth.
   3. Lay, then ignite.
@@ -276,7 +296,7 @@ replaces.
   21. Auto-loaded bytes are taxed.
   22. Creep is a bug.
   23. Think in any terms; communicate in the standard.
-  24. Translate the Sovereign's vocabulary; challenge his substance.
+  24. Translate the Summoner's vocabulary; challenge his substance.
   25. The best part is no part.
   26. History is respelled, never rewritten.
   Procedural rules stay entries, not formulas ("Charges are always staffed", "The
@@ -317,7 +337,7 @@ replaces.
 | dispatchable · fire-now · ready-now | ignitable (or nothing — batons are ready by definition) |
 | wave | batch |
 | move (baton) | action; shapes single / batch / fork |
-| sitting | session |
+| sitting (any session) | session |
 | window (law surfaces) | session (lore keeps its windows) |
 | keel · keel-note | cornerstone · cornerstone note |
 | CLOSED (campaign altitude) | set the keystone |
@@ -338,6 +358,7 @@ replaces.
 | ‹prefix›-D‹n› | bare `D‹n›` at home · `‹building›:D‹n›` abroad |
 | GA-‹n› | the name-stamp — `grand-architect-20` |
 | FC-‹n› | an inbox entry |
+| sovereign | Summoner |
 
 ## What remains
 

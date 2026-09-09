@@ -88,7 +88,12 @@ export const GRAVEYARD: readonly Dead[] = [
 			+ 'slot is typed by the parser already (`classifyBaton`), so a lexical pattern would be all '
 			+ 'noise and no new signal.',
 	},
-	{ dead: 'sitting', successor: 'session', forms: /\bsittings\b|\bthe sitting\b|\bthis sitting\b|\bone sitting\b/gi },
+	{
+		dead: 'sitting (any session)', successor: 'session',
+		forms: null,
+		dropped: 'the design sitting — Felix in the room, a blessed spec out — is a live §5 entry since '
+			+ '2026-09-08, and no pattern separates the kept kind from the dead synonym: "the sitting" names either.',
+	},
 	{
 		dead: 'window (law surfaces)', successor: 'session (lore keeps its windows)', forms: null,
 		dropped: 'a window is a real object in every UI building in the city (and lore keeps its windows '
@@ -155,6 +160,9 @@ export const GRAVEYARD: readonly Dead[] = [
 	{ dead: '‹prefix›-D‹n›', successor: 'bare `D‹n›` at home · `‹building›:D‹n›` abroad', forms: /\b[A-Z]{1,3}-D\d+[a-z]?\b/g },
 	{ dead: 'GA-‹n›', successor: 'the name-stamp — `grand-architect-20`', forms: /\bGA-\d{1,2}\b/g },
 	{ dead: 'FC-‹n›', successor: 'an inbox entry', forms: /\bFC-\d+\b/g },
+	// Struck at his word 2026-09-06 — the register risk, not the meaning: the Summoner is the
+	// same contract word (the human whose word summons, blesses and signs), spelled without the ego.
+	{ dead: 'sovereign', successor: 'Summoner', forms: /\bsovereigns?\b/gi },
 ];
 
 // ---------- §8, the spelling lexicon ----------
@@ -235,7 +243,7 @@ export const FORMULAS: readonly string[] = [
 	'Auto-loaded bytes are taxed.',
 	'Creep is a bug.',
 	'Think in any terms; communicate in the standard.',
-	'Translate the Sovereign\'s vocabulary; challenge his substance.',
+	'Translate the Summoner\'s vocabulary; challenge his substance.',
 	'The best part is no part.',
 	'History is respelled, never rewritten.',
 ];
