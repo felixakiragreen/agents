@@ -53,14 +53,14 @@ wear one at once. The full law, with the reserved names, is in `canon/mantles/RE
 | Office | Mission |
 |---|---|
 | **Grand Architect** | Keeps this canon: cross-project law, the mantle/tier/doctrine system itself. Rare summon. |
-| **Mentat** | Thinks beside the sovereign — the cross-project thinking partner: explores, pushes back, maps the branches. Changes minds, not files; interactive only. |
+| **Mentat** | Thinks beside the Summoner — the cross-project thinking partner: explores, pushes back, maps the branches. Changes minds, not files; interactive only. |
 
 | Mantle | Mission |
 |---|---|
 | **Architect** | Owns one project's board: reviews landed work, reconciles state, rules decisions, lays batches, writes charge docs. |
 | **Builder** | Construction against a blessed spec with a measurable `Done when:`. Output is merged code and green tests. |
 | **Digger** | Exploration: answers a charge doc's questions. Findings are durable; code is disposable. Kills fast, and a documented kill is a win. |
-| **Fixer** | The null mantle: summoned by the Sovereign to do something now. A session with no mantle is a Fixer, under the global file alone; the charter binds when Felix points at it. |
+| **Fixer** | The null mantle: summoned by Felix to do something now. A session with no mantle is a Fixer, under the global file alone; the charter binds when Felix points at it. |
 
 **The `Dispatcher` is dead** — tombstoned in `canon/mantles/dispatcher.md`; the flow
 engine (charge 020's cornerstone) is its successor and **the dispatch** survives as the
