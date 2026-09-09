@@ -96,7 +96,8 @@ named: string | null
       Four new cases in `test/doctrine.test.ts`, one new fixture
       (`fixtures/conforming/ledger-baton-fields.md`, nine entries — every shape, every
       recommendation kind, every type, a named session, the dispatch, an unmarked baton,
-      and a fork with no recommendation as the tail). At HEAD `00aa1e0`, from `doctrine/`:
+      and a fork with no recommendation as the tail). Run at `00aa1e0` — the last commit
+      that touches code; everything after it is this document. From `doctrine/`:
 
       ```
       $ bun test
@@ -145,7 +146,7 @@ named: string | null
       `Baton — the dispatch · single → ignite 046`.
 
 - [x] The census pasted (the table and the untyped words). `lab/045/census.ts`, run at
-      HEAD `00aa1e0`:
+      `00aa1e0`:
 
       ```
       $ bun lab/045/census.ts
