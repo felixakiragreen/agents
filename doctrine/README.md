@@ -40,7 +40,7 @@ fence · `cli.ts` the arm.
 
 ## `doctrine boot` — the cold session's orient (044)
 
-`doctrine boot ‹root›` prints what a session needs to start: the board's live rows, the ledger tail, the baton, the decision queue, the inbox, the statement and the lint line — a few kilobytes where a summons named 150 KB of files. It is DOCTRINE §11's Start, mechanized, and §2's questions answered by the books that hold them.
+`doctrine boot ‹root›` prints what a session needs to start: the board's live rows, the ledger tail, the baton (`Baton — ‹holder›[ ‹named›][ · ‹shape›][ · ‹type›] → ‹instruments›`, each marked part printed only where the record marked it), the decision queue, the inbox, the statement and the lint line — a few kilobytes where a summons named 150 KB of files. It is DOCTRINE §11's Start, mechanized, and §2's questions answered by the books that hold them.
 
 **Derived at every call, never kept.** The pack is a render of `parse()` and nothing else, so it cannot go stale and nothing in the city stores it. **And nothing in it is authored:** every line that is not a count is a byte from a file — a board row is the document's own line, the tail is the entry's `block`, an inbox entry is its first line. A paraphrase in a pack read cold is a lie the reader cannot see, and `test/boot.test.ts` holds the law as a test.
 
@@ -153,6 +153,8 @@ reads the hand off the line — `⬡` (`Felix` is that same hand in the record's
 `the dispatch`, or a named session — and an instrument no longer outranks it. An entry that
 writes no baton line is the record before D74, and there alone the holder is inferred from the
 clause's prose.
+
+**The move is marked, and the marks are typed (045).** §11 already writes four things into a baton, and the reader now types each where the record writes it, inferring none: **`shape`** — `single —` · `batch —` · `fork —`, the word that opens the action; **`recommendation`** — a fork's named option, resolved to an instrument the baton carries where the text names one, else the writer's own text, else `taste`; **`type`** — what a ⬡-baton *requires of Felix*: **mental** (a decision), **visual** (an interface to look at or drive), **bench** (physical testing — a simulator is not enough), read off the action's leading noun through `BATON_TYPES` in `grammar.ts`; **`named`** — which session holds it, the line's own holder slot. An unmarked baton types all four `null`: it predates the markers or is malformed, and inventing a `single` for it would report a move nobody chose. **New this arm:** a tail whose baton is a fork with no recommendation and no taste mark fails `ledger.baton` — §11's *a menu with no recommendation is a dropped baton*. Tails only, as ever; history is never linted.
 
 **`Next: none — <why>` owes nothing.** §7's typed nothing-owed close parses as its own holder,
 `none`, and is not a dropped baton. Bare prose that means the same thing ("nothing waits") still
