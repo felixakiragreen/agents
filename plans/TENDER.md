@@ -67,7 +67,8 @@ column, the batch note's status line, and your final report — never a charge d
 body, never findings, never code.
 
 ESCALATE — any one of these stops that line of work; the others continue: a kill
-criterion fires, or a charge reaches a fallback fork its doc names; two landed
+criterion fires, or a charge reaches a fallback fork its doc names, or a red act its
+doc's Lanes name (a ⬡-gate: pause, tell Felix — you classify nothing); two landed
 findings contradict; a question the docs cannot answer verbatim; a wedge unresolved
 after one nudge; anything touching a blessed decision, or needing one that does not
 exist; any doubt about which rule applies — unsure = escalate. Tell Felix in this
