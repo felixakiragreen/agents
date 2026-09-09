@@ -4,28 +4,6 @@ Append per session: date · mantle · changed · decided · next.
 
 ---
 
-**2026-09-01 · Grand Architect · fable-max (grand-architect-22)** — The factory evaluated at Felix's ask, from the transcripts: one token in four went to this repo, 850 canon commits against under 50 product commits in the week, the office's blessings half credit by his own count; Belvedere priced against stigmergon — 1,800 vs 700 harness dollars, six days vs two, three foundations vs one. Blessed and distilled the same day: D82 the go-mark (STANDARD §1/§7, DOCTRINE §4/§8, builder.md), D83 the tender kickoff (`plans/TENDER.md`, DOCTRINE §10), D84 retiring a building (§12), D85 dig before you build (§10, §12, architect.md), the canonization law's desk-born/field-born test. Laid 041 · 042 · 043 + G3 on his word — the tender's first batch; the meter filed to stigmergon's inbox; inbox swept — the index defect landed by architect-stigmergon-04, D22's citation recorded, the migrate notes deferred. Decided: D82–D85 (⬡✓ 2026-09-01); formula 27 waits on his word. Next: the tender's first run — batoned below.
-
-Baton — ⬡ → ignite the tender: `^G n s m ⏎` opens a bare sonnet-medium session; its first prompt is `plans/TENDER.md`'s fence, then the batch note in `BOARD.md`, verbatim.
-
----
-
-**2026-09-01 · Grand Architect · fable-max (grand-architect-22)** — *(second act.)* D86 blessed — the lanes: which acts need whose yes, by class, before the act; green (a named check ran), yellow (proceeds on `⬡ go`), red (`⬡✓` first); unclassified is yellow, never green. The whole design sits in the register, desk-born until field-tested — his ruling on the day-old test, against his own favorite idea: stigmergon's next campaign is the birthplace, the canon homes come at the citation. Filed to stigmergon's inbox. The tender's first run was ignited at his hand while this was written. Decided: D86 (⬡✓ 2026-09-01 — as proposed, birthplace owed). Next: the batch runs — batoned below.
-
-Baton — the dispatch → the tender runs 041 → 042 → 043 → G3; the office verifies G3's close at its next desk.
-
----
-
-**2026-09-01 · Grand Architect · fable-max (grand-architect-22)** — *(third act — the sweep for what the conversation still held.)* Written: the Log's read cut to the head, the Shelf and the last entry (its physics and the charter's ritual, his yes); D87 proposed — the canon moratorium, three shapes, (b) recommended, the queue reads 1; the night-shift keel's status note (laws 3 and 6 paid as D86 and D82, the tender as the tick's interim); MAP §6's settings-sync note. Owed to the deferred list at the batch's close — the tender holds `BOARD.md` mid-flight, so G3 moves them from here: the effort axis, one sentence for the README's grid section (the model buys instincts, effort buys search; low effort on a strong model is the bulk-verdict niche); the index-import test, the consumer's false-green guard; `rooted` — 0.44B tokens in thirty days, a Dispatcher ran there, and the register has never heard of it — his ruling. Decided: nothing — D87 is proposed. Next: unchanged — the dispatch holds the batch.
-
----
-
-**2026-09-01 · Builder · opus-high (041)** — **the statement and the caps, landed.** The reader takes `⬡ go ‹date›` wherever it takes `⬡✓` (D82): `doctrine statement` renders every mark on a live surface with its interest — the LANDED charges whose chain reaches it, off the board's graph, never kept — and `lint` prints its one line. D78 is enforceable: a resolved row's Status cell over 200 characters fails, a ledger entry over 150 words warns. Suite **102 → 109**; agents reads 33 over-cap cells and 166 entry warnings, stigmergon 4 and 30 — red on purpose. Ten findings in [041](plans/041-statement-caps.md); two the office's: BLOCKED is off the statement by D82's list (F3), and 19 of the 33 cells are retired belvedere's, whose prune has no owner (F8). Decided: nothing new. Next: ignite 042.
-
-Baton — the dispatch → 042; G3 verifies 041 and prunes what the linter names.
-
----
-
 **2026-09-01 · Builder · opus-medium (042)** — **the grid prune, landed.** Twenty tiers became twelve: the six zero-use cells plus `haiku-max` and `haiku-high`, both of whose only mentions are probe fixtures. The wire is live — the delete reached three accounts at the `git rm`, `sync/check` green ×3. The mantles README's grid law is now **mint-at-the-lay**: the cross product is the namespace, `canon/agents/` is the inventory, and a tier a new charge names is minted by the Architect before the batch ignites. `TIERS` untouched, so every historical board still parses. Suite 977/0, lint identical to a HEAD worktree (33/167, all belvedere). Ten findings in [042](plans/042-grid-prune.md) — **F4 is the open one:** `haiku-low` fails the blessed rule (probe mentions only, zero fires) but the spec's partition presumes it survives, and killing it retires Haiku entirely — the Architect's call, not the Builder's. F8: a dispatched agent is never given the roster; the probe wanted a real session. Decided: nothing new. Next: ignite 043.
 
 Baton — the dispatch → 043; G3 verifies 041 · 042 · 043, and rules F4.
