@@ -50,6 +50,7 @@ Values to balance, not absolute rules:
 ## STACK DEFAULTS
 
 - JS/TS: default to bun — `bun`, `bun test`, `bunx` — never npm/node/vitest unless the repo's own files say otherwise.
+- Browser: **Arc**, never Chrome — Arc is Chromium with the Claude in Chrome extension installed; the Chrome on this machine has none, so a session that opens Chrome finds no extension. `open -a Arc <url>`, and drive it through the extension.
 
 # AGENT PERSONALITY GUIDELINES
 
