@@ -121,7 +121,7 @@ before.**
   `CLAUDE.md` and keeps its docs with itself (simmy:D4).
 - **The master doc** holds the durable design AND the board: architecture, the bet,
   defended non-goals, working agreements (project physics — venues, shared and live
-  resources, branch rules), the `Done when:`. Corrections distill in as dated amendment
+  resources, branch rules, **the red list** — the building's red classes, three to six acts; §10, the lanes), the `Done when:`. Corrections distill in as dated amendment
   notes (simmy's `> **S0 correction (08-02).** …` blockquotes) — the doc stays current,
   the history stays visible.
 - **dream.md** exists when Felix has an origin vision — and it is **a record, not a
@@ -241,7 +241,7 @@ charge's doc — a gate needs a kickoff, not necessarily its own doc). A gate wh
 judgment is executable against the docs — merge-or-reject against a blessed spec and its
 `Done when:` — is ignitable: a scoped Architect review (architect charter, Summons). A
 gate that is really Felix's — a blessing, a ruling, taste — is a named **⬡-gate**: the
-batch pauses there; nobody ignites past it. A gate living only in prose is invisible at
+batch pauses there; nobody ignites past it. A red act inside a charge (§10, the lanes) is a ⬡-gate on that charge — `⬡✓` first; nobody proceeds past it. A gate living only in prose is invisible at
 dispatch time — the parallel-affordable law, applied to sequence (birthplaces: batch 2's blessing pauses;
 manny's M2 review; units' gate column, invented in the field the day before this law). A
 gate that merges names its instrument verbatim in its kickoff — source branch, target,
@@ -287,6 +287,7 @@ The skeleton:
 ## Inputs — read before working      ← incl. what's known: "do not re-derive"
 <the genre core — below>
 ## Out of scope                      ← mandatory when building; when digging, when creep is live
+## Lanes                             ← when the building keeps a red list: the red acts inside, or `Red: none inside`
 ## Findings                          ← *(append here)*
 ---
 Kickoff (verbatim), fenced
@@ -302,6 +303,8 @@ who blessed it, when, recorded in the header · **`Done when:`, mandatory and
 measurable** — named checks whose output is pasted in as evidence at build time: the
 bar is measured, never asserted · **out of scope, mandatory** — the fence; **Creep is
 a bug.** (hexwright WO anatomy).
+
+**Lanes** (when the building keeps a red list — §10, the lanes): the charge doc names every red act inside it, or writes `Red: none inside`; the Architect classifies at the lay, and a red act is a ⬡-gate the batch pauses at. Everything unnamed is yellow when no named check bars it — unclassified is yellow, never green. Birthplace: stigmergon 030–032, a six-line section per charge doc; every one read *Red: none inside* and was right (G6).
 
 **Kickoff law:** every charge doc ends with its kickoff prompt, fenced, verbatim, in the
 canon summons grammar (`canon/mantles/README.md`). Nobody edits a kickoff except the
@@ -542,6 +545,7 @@ tender creates `plans/BULLETIN.md` (next to the charge docs — simmy's lived at
   with its `plans/` (interim, while Belvedere is the only reader: `belvedere/flows/`,
   naming the building). The Steward — the same engine unattended — stays gated on
   Felix's word alone (belvedere:D5).
+- **The lanes (D86).** Which acts need whose yes, decided by class before the act, so Felix leaves every loop that does not need him. The unit is the **act** — one thing a session does that the world can see: a commit to the shared branch, a spec amendment, a delete, a publish, a config write, a message sent; a charge is a bundle of acts and may hold acts of every lane. **Green** — the bar is a named check that ran: the act lands on its evidence alone, no eyes owed, reversal is a revert (a converter respell with a fixed-point diff, a lint fix, tests added, the ledger appended). **Yellow** — proceeds on `⬡ go`: lands, gets built on, sits on the statement accruing interest; he pays when he can; reversal is a new charge (a refactor behind a stable interface, a feature behind a flag, a spec amendment inside a blessed scope). **Red** — `⬡✓` first, at a ⬡-gate: canon; money, hardware, prod, external services; other people's data; taste surfaces; every irreversible — a delete, a force-push, a publish, a schema migration, a send. Assignment, three sources in order: the building's agreements name its red classes, short — three to six acts (§3); the charge doc names any red act inside it (§5, Lanes) — the Architect's pre-chew at the lay; everything else is green when its bar is a named check that ran and **yellow otherwise — unclassified is yellow, never green.** The Builder proceeds through green and yellow and stops at red; the tender never classifies; the Architect classifies at the lay and verifies at review; Felix blesses red, goes yellow, reads the statement. Two lists, both derived: the ⬡-queue is red waiting; the statement is yellow owed, sorted by interest (D82). The keepers: the yellow default and the short red list against lane creep, a review demoting; a WIP cap on the statement against yellow debt — past it yellow pauses and the tender escalates (twelve plausible PRs is a denial of service on the one who reads them); **a hook or a config for an irreversible no session sees coming** — the list binds only an act a session recognizes, and an auto-install does not look like one (stigmergon 031-F9: a scratch script's bare `import` pulled a foreign package into the Bun cache; the red list caught it *after* the act, and the keeper is Bun's `[install] auto = "disable"`, not a sentence); the trust ratchet — a class promoting one lane after n accepted reviews, demoting on one rejection with an incident filed — waits on the statement's history: measure first. The field's citation (stigmergon G6 — 030–032, three charges, 32 commits, one serial batch under the tender kickoff): zero red stops; one `⬡ go` carried a whole surface from the sitting to the gate with no round-trip; the cost was a six-line section per charge doc and about 34 minutes of gates at ×2, where a single run would have shipped the same bytes — what ×2 buys is the flake measurement (two pre-existing flakes found because the bar demanded two clean runs); whether *unclassified is yellow* costs anything is unmeasured at n=1. Desk-born 2026-09-01, field-tested at stigmergon, canon-wide 2026-09-08.
 - **The coda** (the standard §4) is instantiated ONCE per project, as `plans/CODA.md`,
   from the canon core (`canon/mantles/README.md`), filling the three slots:
   working-agreements ref (a master doc §), bulletin path (drop the sentence when
