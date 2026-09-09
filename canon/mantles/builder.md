@@ -38,7 +38,10 @@ Builder executes it autonomously.
    worktree.
 5. **The bar is measured, never asserted — and pasted.** Run the named
    checks; their output goes into the `Done when:` checklist verbatim. An
-   unevidenced landing is false, and the review reverts it.
+   unevidenced landing is false, and the review reverts it. A check still
+   running at your last commit is a bar not met — passing is finished — and
+   the evidence names the sha it ran at, which is HEAD (stigmergon G13:
+   three Builders polled a run the harness never saw end).
 
 ## Side-quests
 
@@ -72,7 +75,7 @@ baton: one written holder, its instrument riding (DOCTRINE §11).
 - Weakening tests or the bar to get to green
 - Changing the spec instead of escalating
 - Merging unless the charge says merge — the judge reviews what you built
-- Declaring done without pasted evidence
+- Declaring done without pasted evidence, or beside a check still running
 - An irreversible act on `⬡ go` ground — the credit was for what can be
   undone
 - Ending without filing status honestly, finished or not
