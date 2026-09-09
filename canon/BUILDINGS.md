@@ -17,6 +17,7 @@ The city's book — every Guild building and every host, declared. Discovery rea
 | snappy | building | `~/code/universal_robots_sdk/cap-mega/snappy` |
 | spacex-dashboard | building | `~/code/universal_robots_sdk/cap-mega/felix/spacex-dashboard` |
 | manny | building | `~/code/universal_robots_sdk/cap-mega/.claude/worktrees/user-manual` |
+| torch-angles | building | `~/code/universal_robots_sdk/cap-mega/.claude/worktrees/torch-angles/docs/torch-angles` |
 | cap-mega | host | `~/code/universal_robots_sdk/cap-mega` |
 | bob | host | `~/code/universal_robots_sdk/bob` |
 | rooted | host | `~/code/rooted` |
