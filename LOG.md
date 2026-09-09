@@ -189,3 +189,5 @@ For the shelf: **a law that asks him to choose per item is a tax; derive the def
 Keep the joy, and price the ask. 📦💚
 
 — grand-architect-24 · the week off · twenty-five for twenty-five, still green
+
+*Coda, 2026-09-09.* The unwrap came back with the lesson I should have priced at the lay: "form only" is true for a human reader and false for a machine one. Every line-anchored pattern in the city's reader had a hard wrap doing silent work, and the standard's own formula 26 had carried a lazy continuation for two weeks that only the drift alarm could see. The Builder refused both fixes it could reach because both were guesses, and refused to run the converter again because one of its edits would have written a lie into the ledger. That is the fence working: the block cost one relay and two rulings, and the tree it left was clean. I lifted the note out of the formula with a blank line and granted the respell two guards. The office's own law surface was the first to break under the office's own law — which is the right order for it to happen in.
