@@ -432,18 +432,48 @@ function statusHead(md: string): string | null {
 }
 
 /**
- * Every fenced block whose first line opens the canon summons grammar (D45's single-glance test).
+ * §5's marker — the template writes `**Kickoff (verbatim):**` above the fence — de-emphasized
+ * and folded to its words.
+ */
+const isKickoffMarker = (line: string) => /^kickoff(\s*\(verbatim\))?\s*:?$/i.test(line.replace(/\*/g, '').trim());
+
+/**
+ * The fence a document MARKS as its kickoff — §5's marker, then blank lines, then the fence —
+ * or null where the document marks none.
+ *
+ * A doc that says which fence is its kickoff has said it about every other fence too: they are
+ * quotations. A Digger's Findings quote the summonses the dig fired, verbatim, and findings are
+ * never edited after a charge closes (§6), so the building cannot clear a fence the arm misreads
+ * — stigmergon's `plans/080-born-dig.md:244` (2026-09-08) is the live case.
+ */
+function markedFence(lines: string[]): number | null {
+	for (let i = 0; i < lines.length; i++) {
+		if (!isKickoffMarker(lines[i]!)) continue;
+		let j = i + 1;
+		while (j < lines.length && !lines[j]!.trim()) j++;
+		if (j < lines.length && /^\s*```/.test(lines[j]!)) return j;
+	}
+	return null;
+}
+
+/**
+ * Every fenced block whose first line opens the canon summons grammar (D45's single-glance test)
+ * — narrowed to the one fence the document marks, where it marks one (§5).
  *
  * `live` arms the rest of the grammar (031 item 4): in a doc still awaiting ignition the fence
  * must open summons line · door line · wear line, because the flow engine fires it VERBATIM —
  * seven un-ignited charges in this repo carried pre-door fences and agents-flow-1's first
  * ignition ran without the door (2026-08-29). The parser counted those kickoffs and never read
  * them; counting a fence is not reading it.
+ *
+ * `marker: false` reads every fence whatever the text marks: a ledger entry's fenced summons is
+ * an INSTRUMENT (D63g), not a document's kickoff, so §5's marker has no jurisdiction over it.
  */
-export function parseKickoffs(md: string, opts: { live?: boolean } = {}): { kickoffs: Kickoff[]; fails: Fail[]; fences: number } {
+export function parseKickoffs(md: string, opts: { live?: boolean; marker?: boolean } = {}): { kickoffs: Kickoff[]; fails: Fail[]; fences: number } {
 	const fails: Fail[] = [];
 	const lines = md.split('\n');
 	const kickoffs: Kickoff[] = [];
+	const marked = opts.marker === false ? null : markedFence(lines);
 	let fences = 0;
 	for (let i = 0; i < lines.length; i++) {
 		if (!/^\s*```/.test(lines[i]!)) continue;
@@ -452,6 +482,7 @@ export function parseKickoffs(md: string, opts: { live?: boolean } = {}): { kick
 		for (; j < lines.length && !/^\s*```\s*$/.test(lines[j]!); j++);
 		const body = lines.slice(start + 1, j).join('\n');
 		i = j;
+		if (marked !== null && start !== marked) continue;       // the doc marked its kickoff; this is a quotation
 		const spoken = body.split('\n').map(l => l.trim()).filter(Boolean);
 		const first = spoken[0];
 		if (!first || !/^You are /.test(first)) continue;        // not a summons fence
@@ -612,8 +643,9 @@ export function classifyBaton(entry: LedgerEntry | null): Baton | null {
 	if (NONE_CLOSE.test(entry.next.trim())) return { holder: 'none', text: entry.next, instruments: [], ...unmarked };
 	const instruments: Instrument[] = [];
 
-	// (a) the summons fenced verbatim in the entry (D63g)
-	for (const k of parseKickoffs(entry.block).kickoffs) instruments.push({ kind: 'summons', text: k.text, mantle: k.mantle, tier: k.tier });
+	// (a) the summons fenced verbatim in the entry (D63g) — every fence, marked or not: an entry
+	// hands instruments, and §5's marker names a work doc's kickoff, which an entry never carries.
+	for (const k of parseKickoffs(entry.block, { marker: false }).kickoffs) instruments.push({ kind: 'summons', text: k.text, mantle: k.mantle, tier: k.tier });
 	// (b) the charge-reference the rail resolves to the charge doc's fence (D63g)
 	// `ignite 024` is an instrument; `ignite the distillation session` is prose (`fire 16` is the
 	// same instrument in history's verb — the standard §3 killed the dispatch sense, not the record).
