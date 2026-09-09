@@ -28,6 +28,7 @@ living in a worktree registers its worktree path).
 | stigmergon | building | `~/code/stigmergon` |
 | hexwright | building | `~/code/hexwright` |
 | whiteboardy | building | `~/code/whiteboardy` |
+| radiant | building | `~/code/radiant` |
 | simmy | building | `~/code/universal_robots_sdk/cap-mega/simmy` |
 | snappy | building | `~/code/universal_robots_sdk/cap-mega/snappy` |
 | spacex-dashboard | building | `~/code/universal_robots_sdk/cap-mega/felix/spacex-dashboard` |
