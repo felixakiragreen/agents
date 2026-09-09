@@ -20,11 +20,17 @@ register.
 
 - **D78** (2026-08-31, Felix · ⬡✓ in-session): **The board file and the retention
   law.** The board leaves the master doc: at full-project scale `BOARD.md` holds the
-  board, batch notes, and the deferred list; a subproject README keeps its board
+  board and the deferred list; a subproject README keeps its board
   inline until the split rule triggers. Retention is standing law: every Architect
   review and close gate carries the prune check — LANDED rows compress to status +
-  findings pointer, spent batch notes die, fully-distilled register entries are
-  killed whole; git is the archive, no ARCHIVE.md. Law distilled same day into
+  findings pointer, a spent batch's gate row with them, fully-distilled register entries are
+  killed whole; git is the archive, no ARCHIVE.md. **Amended 2026-09-08 (⬡✓ canon-wide):
+  the batch note rides its review gate's doc** — the gate's Mission is the note, its
+  Findings the landing record, the tender ignited on one line naming the doc; the board
+  holds the table and the deferred list alone. Birthplace stigmergon D40 (2026-09-07, ten
+  batches), then agents at his word — *"it can be quite a struggle to find the batch
+  notes, and it decreases the board size too."* Home: DOCTRINE §4, the board and charge
+  templates. Buildings adopt at their next Architect session. Law distilled same day into
   DOCTRINE §§2–4/§11 + templates; the reference law rides the linking law (§3).
   Evidence: simmy's README at 100.5k chars, belvedere's at 988 lines pre-purge,
   MAP's board at 66% of the file by bytes two days after 035. Buildings adopt at
