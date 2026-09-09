@@ -1,6 +1,6 @@
 # G4 — the parser's second opening, reviewed
 
-**Status:** LANDED 2026-09-09 → findings F1–F10; five kept, three rulings recorded, 044's law pasted (`bf3c04b`), 048's waits on its mark · **Depends on:** 044; 045; 046; 047; 048 · **Staffing:** Architect · fable-high · **The batch's doc** (stigmergon D40, adopted here 2026-09-08 at his word): the Mission below is the batch note; the landing record lands under Findings.
+**Status:** LANDED 2026-09-09 → findings F1–F10; five kept, three rulings recorded, 044's law pasted (`bf3c04b`), 048's pasted 2026-09-09 by the office on its mark · **Depends on:** 044; 045; 046; 047; 048 · **Staffing:** Architect · fable-high · **The batch's doc** (stigmergon D40, adopted here 2026-09-08 at his word): the Mission below is the batch note; the landing record lands under Findings.
 
 ## Mission — the batch note
 

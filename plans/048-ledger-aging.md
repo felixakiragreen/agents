@@ -22,7 +22,7 @@ Ancestors: the Log's and SAPHO's aging physics (`LOG.md` header, `SAPHO.md` head
 
 **The register warn.** `decisions.size` (warn, never fail): a `DECISIONS.md` over 30 KB on disk — the excerpt is the size and the line count, the reason names §8's purge. A constant beside the caps.
 
-**The law at the landing** — the office's text, pasted by G4 under its grant on the mark (proposed — pending ⬡✓ on the text; the design ⬡✓ 2026-09-08):
+**The law at the landing** — the office's text, pasted by G4 under its grant on the mark (⬡✓ 2026-09-09 on the text, his word at the office's desk; the design ⬡✓ 2026-09-08; pasted by grand-architect-25 — §3's older "is exempt" reads "is never compressed" beside the new sentence, his yes on the seam):
 
 1. **DOCTRINE §3**, the retention bullet, appended: *The ledger ages (048): `LEDGER.md` keeps its last twenty entries; older entries move, verbatim and in order, to `ledger-archive.md` beside it — append-only, created at the first aging-out — by `doctrine prune` at the prune check. The parser reads both, so counts never drop and the tail is where it was; the read stays bounded by the tail law, the file by this. Ancestor: the Log's and SAPHO's aging (⬡ 2026-08-29); birthplace: his question at the 2026-09-08 desk, 278 KB at stigmergon.*
 2. **DOCTRINE §7**, after the acceptance test: *One record, two files: the last twenty entries live here, the rest in `ledger-archive.md`, verbatim (§3, the aging).*
