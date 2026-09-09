@@ -8,7 +8,7 @@
 
 **Red acts, pre-authorized:** the law's paste at this gate — 044's five amendments (⬡✓ 2026-09-08 on the text) and 048's four once its mark is recorded there; nothing else in the batch touches `canon/`, a charter, or the live wire (D88's line is live already). **Green's bar:** `bun test` green at HEAD and `doctrine lint ~/code/agents` naming only belvedere's nineteen. **Yellow, read at this gate:** the pack's layout inside 044's section order, 045's untyped words, 048's archive header — the Builder's calls inside the spec.
 
-**The pauses:** the tender pauses at any escalation and at this gate's close — ⬡ verifies. A Builder whose bar cannot be met as written stops BLOCKED (047's word law and 048's guard interaction are the two places it might) — the Architect's desk, never the Builder's invention.
+**The pauses:** the tender pauses at any escalation and at this gate's close — ⬡ verifies. 047 paused BLOCKED 2026-09-08 on two rulings and re-ignites 2026-09-09 on the desk's — F2a done by the office (`246851b`), F3's fix granted inside its fence (047 §Ruled at the desk); 048 follows it. A Builder whose bar cannot be met as written stops BLOCKED (047's word law and 048's guard interaction are the two places it might) — the Architect's desk, never the Builder's invention.
 
 **This gate's review:** every landing verified against its own bar and kept or reverted with a dated note; the prune check (D78) — `doctrine prune` at its first use; the blessed law texts pasted into their homes under the grant below; three rulings pre-chewed here and written on their rows; findings distilled where this repo's docs take them; the baton to ⬡.
 

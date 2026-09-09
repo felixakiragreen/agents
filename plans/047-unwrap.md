@@ -1,6 +1,6 @@
 # 047 — the unwrap
 
-**Status:** BLOCKED 2026-09-08 — the rule and the run landed (`7660c30`, 5792 joins across 180 files); three bar lines wait on two rulings that are not a Builder's: **F2a** (canon `STANDARD.md` §8's formula 26 — the drift alarm is red by design) and **F3** (the respell's named-form fence — one pending wrong edit; **do not `doctrine migrate --write ~/code/agents` until it is ruled**). Findings F1–F7. · **Depends on:** — · **Staffing:** Builder · opus-high · **Blessed:** Felix, 2026-09-08, in the room (D88 ⬡✓): the rule, the run over agents, the global file's line already live.
+**Status:** OPEN — re-ignitable 2026-09-09 on the desk's rulings (*Ruled at the desk*, below): the rule and the run landed (`7660c30`, 5792 joins across 180 files); F2a done by the office (`246851b`), F3's fix granted inside this fence; the bar's waiting lines and one new line remain. *(was: BLOCKED 2026-09-08 — two rulings owed, neither a Builder's; findings F1–F7.)* · **Depends on:** — · **Staffing:** Builder · opus-high · **Blessed:** Felix, 2026-09-08, in the room (D88 ⬡✓): the rule, the run over agents, the global file's line already live.
 
 ## Mission
 
@@ -342,12 +342,22 @@ stigmergon — the id respell table (D80), derived from the board:
 Dry run: 4077 edit(s) across 131 file(s) — 0 files written. Re-run with --write to apply.
 ```
 
+- [ ] **The acceptance test (F3, ruled 2026-09-09):** `doctrine migrate --summary ~/code/agents` reports 0 pending edits and 0 hand edits — the three quoted spans (`LEDGER.md`, this doc, the inbox's now-cleared entry) respell to nothing — and the building reads *already in the current grammar*; pasted. No `--write` runs again in this charge.
+
 ## Out of scope
 
 - Writing anything but whitespace — a word moved, dropped or added is a rejection.
 - Any other building's files; `doctrine/fixtures/**`; `lab/**`; non-markdown files.
 - The global file's line — live already (D88); canon text of any kind.
 - A column limit of any size — the law is no limit.
+
+## Ruled at the desk — 2026-09-09 (grand-architect-24), the amendment
+
+Two rulings the Builder correctly refused to make, ruled here and granted into this charge's fence; the charge re-ignites on its kickoff below and finishes its own bar.
+
+**F2a — ruled and done by the office.** §8's procedural note was a lazy continuation of item 26 in CommonMark and a sibling in its author's eye; the unwrap sided with CommonMark and the drift alarm did its job. The office lifted the note out of the numbered list — one blank line, the note standing as the bullet's own continuation paragraph — canon text, the office's hand, form only (`246851b`). `bun test` reads 172/172; nothing here for the Builder but to re-run it.
+
+**F3 — ruled: two changes to `respell.ts`, both inside this fence now.** (1) **The arrow rule.** A ticked span adjacent to `→` — the text before its opening tick ends in `→` (spaces and an opening parenthesis allowed between), or the text after its closing tick begins with `→` — is a form being NAMED whatever it contains: `→` is the record's own grammar for a form change (STANDARD §7), and both sides of it quote forms as they were written. `NAMED_FORM` gains the neighbours as inputs and `outsideTicks` passes them; a span opened by two backticks (CommonMark's spelling for a span that holds a backtick — the inbox entry wrote `` `(GA-19, continued)` `` that way) is one span. (2) **The partial guard**, carried over from `citations.ts`: on any line where the respell would change one ticked span and leave another standing as a named form that carries a form the table knows, the line is reverted whole and reported as a HAND edit — never written. `--summary` prints the hand list (file:line and the excerpt) under its table; a hand edit is not a pending edit and does not break the fixed point. Tests: the `(GA-19, continued)` → `(GA-19)` line respells to nothing (the rule); a fixture line with a named lone token beside a respellable phrase reverts and reports (the guard), with a control where both respell and nothing fires. The acceptance test stands as F3 wrote it and is the bar's new line above. Ancestors: D80's rule 4 (040-F2 — a ticked lone token names a form), 043's partial-consumption guard, D81 (a converter never writes a lie).
 
 ## Findings
 
