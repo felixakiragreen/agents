@@ -14,7 +14,8 @@
 					"id": "s:c8bcef93-bbde-4d12-8e9e-15ad57608cfd",
 					"children": [],
 					"color": "purple",
-					"cwd": "stigmergon"
+					"cwd": "stigmergon",
+					"collapsed": true
 				},
 				{
 					"id": "s:3b10bc0d1013",
@@ -24,6 +25,11 @@
 				{
 					"id": "s:47579e19595d",
 					"cwd": "hexwright",
+					"children": []
+				},
+				{
+					"id": "s:b75f231c-5ff6-467f-9582-21a20d23b3b1",
+					"cwd": "/Users/felix/code/radiant",
 					"children": []
 				},
 				{
@@ -76,7 +82,8 @@
 							"children": [],
 							"cwd": "docs/campaigns/lunchbox"
 						}
-					]
+					],
+					"collapsed": true
 				},
 				{
 					"id": "s:7617eaf38e9a",
@@ -95,13 +102,18 @@
 							"id": "s:a556547b49f9",
 							"children": [],
 							"name": "waystep",
-							"cwd": "docs/waypoint-stepper"
+							"cwd": "docs/waypoint-stepper",
+							"worktrees": [
+								".claude/worktrees/waypoint-stepper"
+							],
+							"collapsed": true
 						},
 						{
 							"id": "s:a8deddc96d31",
 							"children": [],
 							"name": "cornerizer",
-							"cwd": ".claude/worktrees/cornerizer"
+							"cwd": ".claude/worktrees/cornerizer",
+							"collapsed": true
 						},
 						{
 							"id": "s:f24d50c80305",
@@ -123,7 +135,10 @@
 						{
 							"id": "s:275adf64930e",
 							"children": [],
-							"cwd": "simmy"
+							"cwd": "simmy",
+							"worktrees": [
+								".claude/worktrees/simmy"
+							]
 						},
 						{
 							"id": "s:f317b70d168e",
@@ -134,7 +149,8 @@
 									"cwd": "ch2"
 								}
 							],
-							"cwd": "snappy"
+							"cwd": "snappy",
+							"collapsed": true
 						},
 						{
 							"id": "s:35a9ea97f8d5",
@@ -146,7 +162,8 @@
 								}
 							],
 							"name": "felix",
-							"cwd": "felix"
+							"cwd": "felix",
+							"collapsed": true
 						}
 					],
 					"name": "mega",
@@ -155,7 +172,13 @@
 				}
 			],
 			"name": "THG",
-			"color": "red"
+			"color": "red",
+			"collapsed": true
 		}
+	],
+	"docket": [
+		"s:275adf64930e",
+		"s:7617eaf38e9a",
+		"s:c8bcef93-bbde-4d12-8e9e-15ad57608cfd"
 	]
 }

@@ -1,19 +1,54 @@
 {
 	"v": 1,
-	"keymap": {},
+	"keymap": {
+		"help.toggle": "Shift+?",
+		"pane.grow": "Shift+ArrowUp",
+		"pane.shrink": "Shift+ArrowDown",
+		"pane.focus-context": "1",
+		"pane.focus-focus": "2",
+		"pane.focus-act": "3",
+		"pane.prev": "ArrowLeft",
+		"pane.next": "ArrowRight",
+		"macro.focus-next": "ArrowRight",
+		"space.expand": "Shift+ArrowRight",
+		"space.collapse": "Shift+ArrowLeft",
+		"turn.expand": "Shift+ArrowRight",
+		"turn.collapse": "Shift+ArrowLeft"
+	},
 	"layout": {
 		"ratios": [
-			7,
-			20,
-			5
-		]
+			6,
+			15,
+			4
+		],
+		"open": "none",
+		"tab": "city",
+		"colors": {
+			"context": "purple",
+			"focus": "red",
+			"act": "orange"
+		}
 	},
+	"size": 13,
 	"focus": {
-		"pane": "context",
+		"pane": "focus",
 		"space": null,
-		"session": "976372cf-e9b3-41ea-9d53-42d9539f1dd3"
+		"session": "7aa99594-616d-4628-9409-55bf53541a34"
 	},
 	"hive": {
-		"homes": {}
+		"homes": {
+			"7d97d9b5-a254-4cd1-ade7-b3edea60ade5": "s:a556547b49f9"
+		},
+		"dismissed": {}
+	},
+	"macros": {
+		"macro.focus-next": {
+			"title": "focus the selected space, then the next pane",
+			"steps": [
+				"space.focus",
+				"pane.next"
+			],
+			"pane": "context"
+		}
 	}
 }
