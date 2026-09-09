@@ -96,7 +96,7 @@ named: string | null
       Four new cases in `test/doctrine.test.ts`, one new fixture
       (`fixtures/conforming/ledger-baton-fields.md`, nine entries — every shape, every
       recommendation kind, every type, a named session, the dispatch, an unmarked baton,
-      and a fork with no recommendation as the tail). At `8861d71`, from `doctrine/`:
+      and a fork with no recommendation as the tail). At HEAD `00aa1e0`, from `doctrine/`:
 
       ```
       $ bun test
@@ -104,7 +104,7 @@ named: string | null
        143 pass
        0 fail
        664 expect() calls
-      Ran 143 tests across 4 files. [247.00ms]
+      Ran 143 tests across 4 files. [245.00ms]
 
       $ bun test -t "baton"
        12 pass
@@ -136,15 +136,16 @@ named: string | null
       $ bun doctrine/cli.ts boot ~/code/stigmergon | grep '^Baton'
       Baton — ⬡ · single · visual → no instrument
 
-      $ bun doctrine/cli.ts boot ~/code/agents | grep '^Baton'
+      $ bun doctrine/cli.ts boot ~/code/agents | grep '^Baton'      # before this entry
       Baton — the dispatch → ignite 045
       ```
 
-      The second is the contrast the render owes: an unmarked baton prints no shape and no
-      type, because the record marked none.
+      The second is the contrast the render owes: 044's tail marked no shape, so the line
+      prints none. This session's own entry marks one, and the same command now reads
+      `Baton — the dispatch · single → ignite 046`.
 
 - [x] The census pasted (the table and the untyped words). `lab/045/census.ts`, run at
-      `8861d71`:
+      HEAD `00aa1e0`:
 
       ```
       $ bun lab/045/census.ts
