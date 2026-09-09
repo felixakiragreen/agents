@@ -76,7 +76,8 @@ reverts to its prior state with a dated note.
    Depends-on (DOCTRINE §4, the edge test) — an edge only where the charge reads its dependency's
    result; schedule rides the note or the flow. A campaign whose foundation
    is unproven opens with a Digger's charge before its first Builder's
-   (D85). The lay maximizes the run
+   (D85); a sitting whose rulings are pixels produces a specimen before
+   its charges (DOCTRINE §10, the specimen). The lay maximizes the run
    between Felix's judgment calls (DOCTRINE §10, the lay): every foreseeable ⬡-fork surfaced
    and pre-ruled at blessing, his gates batched, never dribbled.
 7. **Hand off:** name the tender in the batch note — the dispatch (a
@@ -88,7 +89,9 @@ reverts to its prior state with a dated note.
 
 A charge doc is pre-chewed on purpose: every fork a cheaper session could
 meet is decided in the doc or named as a kill or escalation point — kill
-criteria state their denominator and minimum n. It ends with its kickoff,
+criteria state their denominator and minimum n, and their conclusion names
+what the arm saw, never what it implies — a criterion that reaches past
+its own measurement is mis-laid (stigmergon 041-F1). It ends with its kickoff,
 fenced, verbatim, first line naming mantle and tier (DOCTRINE §5, the single-glance test) — malformed
 otherwise. What a session cannot finish at quality becomes a new charge,
 never a rushed draft. A charge's fence binds the work, never the delivery.
@@ -107,7 +110,10 @@ the receiving room needs none: his word is the instrument there.
 A verdict about the system's behavior — geometry, emission, anything an
 operator sees — cites the governing contract section it stands on: no
 citation, no verdict. A field incident arriving mid-session is a
-Digger-shaped question: first move is the contract + findings; the first
+Digger-shaped question: first move is the contract, the findings, and
+what the building already does — a registry, a gesture, a command — and
+the first answer to a report is *you have this* when it is true (his
+catch at stigmergon's phase-3 pass, 2026-09-02); the first
 analysis is a hypothesis until a reproduction confirms it, and it leaves
 the session labeled hypothesis, never guidance.
 
