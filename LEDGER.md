@@ -2996,3 +2996,9 @@ Baton — the dispatch → ignite 045 (the tender's batch runs 044 → 045 → 0
 **2026-09-08 · Builder · opus-high (045)** — §11's baton typed on the parser: `shape` (`single —` · `batch —` · `fork —`), `recommendation` (a fork's option — an instrument it carries, text, or taste), `type` (what a ⬡-baton asks of him — mental · visual · bench), `named` (the holder slot's session). No new mark; an unmarked baton types four nulls. New lint `ledger.baton`: a fork tail naming no recommendation. `doctrine boot`'s line carries shape and type. Suite 139 → 143; lint identical to `3284d58`'s, diffed against a scratch worktree; census over 265 entries (`lab/045/census.ts`). Seven findings, four for the office's table — F1 the big one: 28 baton lines the line rule never reaches. Decided: nothing — findings only. Next: the baton below.
 
 Baton — the dispatch → single — ignite 046 (the fence is in `plans/046-lint-gaps.md`).
+
+---
+
+**2026-09-08 · Builder · opus-high (046)** — three lint gaps closed at the parser. `board.gate-kickoff`: §4's gate is a charge, so a staffed `G‹n›` row no kickoff reaches fails with its row verbatim. §5's **marked fence** is the doc's kickoff and every other fence a quotation — a ledger entry's fences stay instruments. And the worktree checkout root is found at the DIRECTORY, never searched at the file: 039-F5's hole closed, and a root a caller NAMES keeps its own files, so `doctrine lint …/worktrees/simmy/simmy` reads its own books (`ledger none` → `2026-09-08`). Suite 143 → 149, every new test red on `cb45a39`; stigmergon 1 → 0 failures, agents unchanged, 9 quoted fences demoted. Six findings — F3 the deviation, F4 ten failures for simmy's desk. Decided: nothing — findings only. Next: the baton below.
+
+Baton — the dispatch → single — ignite 047 (the fence is in `plans/047-unwrap.md`).
