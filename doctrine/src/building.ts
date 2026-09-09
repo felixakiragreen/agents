@@ -20,7 +20,7 @@ import {
 	isBoardHeader, tables,
 	type Baton, type BoardRow, type Decision, type Issue, type Kickoff, type LedgerEntry,
 } from './parse';
-import { strip, type Fail } from './grammar';
+import { fail, strip, type Fail } from './grammar';
 import { scanCredits, type Credit, type CreditSources } from './credit';
 
 /** Everything has a limit (directive 3.1) — a walk that runs away is a bug, not a slow tool. */
@@ -77,25 +77,45 @@ export const staffsSessions = (md: string) =>
 	/^\s*\|.*\bStaffing\b.*\|\s*$/m.test(md)
 	&& tables(md).some(t => isBoardHeader(t.header) || t.header.some(h => /^staffing$/i.test(strip(h))));
 
-type FoundFile = { path: string; dir: string; kind: 'ledger' | 'decisions' | 'issues' | 'board' | 'workdoc' | 'prose' | 'register' };
+// `named` — the caller pointed at this file's own directory, so the twin skip does not touch it.
+type FoundFile = { path: string; dir: string; kind: 'ledger' | 'decisions' | 'issues' | 'board' | 'workdoc' | 'prose' | 'register'; named: boolean };
+
+/** One readdir per directory per walk — the checkout-root search asks the same directories often. */
+const entryCache = new Map<string, string[]>();
+function entriesOf(dir: string): string[] {
+	const hit = entryCache.get(dir);
+	if (hit) return hit;
+	let names: string[];
+	try { names = readdirSync(dir); } catch { names = []; }
+	entryCache.set(dir, names);
+	return names;
+}
 
 /**
  * `<repo>/.claude/worktrees/<branch…>/<rest>` — the branch checkout's coordinates, or null.
  *
- * A branch name carries as many path segments as it has slashes, so where the checkout root
- * ends is FOUND, never assumed: the split is the shallowest one whose remainder's own directory
- * exists in the mainline. Keyed on being a worktree, never on a name shape — one segment was
- * assumed until `bv/029-summon-harness` took two, and every total doubled (2 buildings → 4,
- * 84 rows → 168) because no file under it ever resolved to its twin.
+ * A branch name carries as many path segments as it has slashes, so where the checkout root ends
+ * is FOUND, never assumed — and it is found at the DIRECTORY, never at the file. A file-level
+ * search cannot find it: a one-segment remainder's own dirname is `.`, which always exists, so
+ * the search always "succeeded", and a branch-only `<checkout>/<dir>/LEDGER.md` was matched
+ * against `<repo>/LEDGER.md` and skipped as its twin — the building vanished (039-F5).
+ *
+ * A checkout is a copy of the repo, so its root holds names the repo's root holds; a branch-name
+ * prefix directory (`bv/` of `bv/029-summon-harness`) holds only the next segment, which is a
+ * branch's word and not the repo's. The shallowest directory sharing a name with the mainline
+ * root is the checkout — dot-entries excluded, because `.claude` is under every worktrees path
+ * by construction.
  */
 function worktreePath(p: string): { repo: string; rest: string } | null {
 	const i = p.indexOf(sep + WORKTREES + sep);
 	if (i < 0) return null;
 	const repo = p.slice(0, i);
 	const segs = p.slice(i + WORKTREES.length + 2).split(sep);
+	const mainline = new Set(entriesOf(repo).filter(n => !n.startsWith('.')));
+	let at = join(repo, WORKTREES);
 	for (let k = 1; k < segs.length; k++) {
-		const rest = segs.slice(k).join(sep);
-		if (existsSync(join(repo, dirname(rest)))) return { repo, rest };
+		at = join(at, segs[k - 1]!);
+		if (entriesOf(at).some(n => mainline.has(n))) return { repo, rest: segs.slice(k).join(sep) };
 	}
 	return null;
 }
@@ -127,7 +147,7 @@ function worktreeRepresentatives(files: FoundFile[]): FoundFile[] {
 	const best = new Map<string, FoundFile>();
 	const kept: FoundFile[] = [];
 	for (const f of files) {
-		const w = worktreePath(f.path);
+		const w = f.named ? null : worktreePath(f.path);
 		if (!w) { kept.push(f); continue; }
 		const key = `${w.repo}\u0000${w.rest}`;
 		const prev = best.get(key);
@@ -138,7 +158,16 @@ function worktreeRepresentatives(files: FoundFile[]): FoundFile[] {
 	return [...kept, ...best.values()];
 }
 
-function walk(root: string, out: FoundFile[], seen: Set<string>, depth = 0): void {
+/**
+ * `named` is true for the directory the CALLER pointed at, and false for everything the walk
+ * finds under it: the twin skip is for checkouts a walk DISCOVERS, never for a root someone
+ * named. Pointed at a checkout, the reader reads that checkout's own books — or a gate running
+ * in a worktree cannot lint its own ledger entry or its baton (simmy G21, 2026-09-08: `ledger
+ * none · baton none · 0/0 ledgers parsed a tail` on a checkout whose board and kickoffs parsed).
+ * The root's own files only: the twins deeper under it still dedupe, which is exactly what a
+ * declared worktree root asks for (D79 — manny's checkout carries the mainline's books too).
+ */
+function walk(root: string, out: FoundFile[], seen: Set<string>, named: boolean, depth = 0): void {
 	if (depth > LIMITS.depth) return;
 	// withFileTypes spares one statSync per entry — 2.5× on the full-city walk (B2 §E1, item 15)
 	let entries: import('fs').Dirent[];
@@ -153,13 +182,13 @@ function walk(root: string, out: FoundFile[], seen: Set<string>, depth = 0): voi
 			if (SKIP_DIRS.has(name)) continue;
 			if (name.startsWith('.') && name !== '.claude') continue;
 			if (basename(root) === '.claude' && name !== 'worktrees') continue;
-			walk(p, out, seen, depth + 1);
+			walk(p, out, seen, false, depth + 1);
 			continue;
 		}
 		if (!name.endsWith('.md') || seen.has(p)) continue;
 		if (out.length >= LIMITS.files) throw new Error(`walk exceeded the ${LIMITS.files}-file limit at ${p}`);
 		seen.add(p);
-		if (branchOnlyBoard(p, name) === 'skip') { lastWalk.suppressed++; continue; }
+		if (!named && branchOnlyBoard(p, name) === 'skip') { lastWalk.suppressed++; continue; }
 		const kind: FoundFile['kind'] | null =
 			name === 'LEDGER.md' ? 'ledger'
 			: name === 'DECISIONS.md' ? 'decisions'
@@ -169,7 +198,7 @@ function walk(root: string, out: FoundFile[], seen: Set<string>, depth = 0): voi
 			: inPlans ? 'workdoc'
 			: PROSE_DOCS.includes(name) ? 'prose'
 			: null;
-		if (kind) out.push({ path: p, dir: root, kind });
+		if (kind) out.push({ path: p, dir: root, kind, named });
 	}
 }
 
@@ -189,10 +218,11 @@ export function discover(roots: string[], extraAnchors: string[] = []): Building
 	const found: FoundFile[] = [];
 	const seen = new Set<string>();
 	lastWalk.suppressed = 0;
+	entryCache.clear();
 	for (const r of roots) {
 		const abs = resolve(r);
-		if (statSync(abs).isDirectory()) walk(abs, found, seen);
-		else { seen.add(abs); found.push({ path: abs, dir: dirname(abs), kind: classifyFile(abs) }); }
+		if (statSync(abs).isDirectory()) walk(abs, found, seen, true);
+		else { seen.add(abs); found.push({ path: abs, dir: dirname(abs), kind: classifyFile(abs), named: true }); }
 	}
 	const live = worktreeRepresentatives(found);
 
@@ -261,6 +291,61 @@ function assemble(path: string, files: FoundFile[]): Building {
 	});
 }
 
+// ---------- §4's gates: a gate is a charge, and a charge is ignited from a kickoff ----------
+
+/** A review gate's id — `G‹n›` on every board in the city (§7's id namespace). */
+const GATE_ID = /^G\d+$/;
+
+type BoardSource = { file: string; md: string; rows: BoardRow[] };
+
+/**
+ * Every summons fence a document carries, whatever the document marks: this arm asks whether a
+ * kickoff EXISTS and which charge it names, and a fence quoting a gate's summons into a batch
+ * note is that gate's ignition, not the note's own kickoff (§5's marker is the work doc's law).
+ * Form is the kickoff arm's business — the count is candidates, the texts the well-formed ones.
+ */
+function summonsFences(file: string | null): { count: number; texts: string[] } {
+	if (!file || !existsSync(file)) return { count: 0, texts: [] };
+	const r = parseKickoffs(read(file), { marker: false });
+	return { count: r.fences, texts: r.kickoffs.map(k => k.text) };
+}
+
+/**
+ * DOCTRINE §4 — *gates are charges*: a gate is ignited from a kickoff riding the batch note or
+ * the gated charge's doc, so a staffed gate row no kickoff anywhere reaches is a charge nobody
+ * can fire. stigmergon's 029 lay left G6 with neither, `doctrine lint` reported 32 kickoffs in
+ * 34 work docs and 0 failures for it, and the batch paused with its tender refusing to author
+ * one — a session round-trip a lint line would have saved (2026-09-02).
+ *
+ * Two ways to reach it: the row's own Work doc carries a fence, or a fence — in the board doc's
+ * own notes, or in the doc of a charge the row Depends on — NAMES the gate, by id or by its
+ * doc's path. A `⬡-gate` is never ignited (§4) and history is never re-ignited, so both are
+ * exempt; so is a row whose Staffing is no mantle · tier, which fails as its own defect.
+ */
+function gateKickoffFails(boards: BoardSource[]): Fail[] {
+	const fails: Fail[] = [];
+	const docOf = new Map<string, string>();
+	for (const b of boards) for (const r of b.rows) if (r.workDoc) docOf.set(r.id, join(dirname(b.file), r.workDoc));
+
+	for (const b of boards) {
+		const lines = b.md.split('\n');
+		const notes = summonsFences(b.file).texts;
+		for (const r of b.rows) {
+			if (!GATE_ID.test(r.id) || r.hexGate || !r.mantle || !r.tier) continue;
+			if (r.state === 'LANDED' || r.state === 'KILLED') continue;
+			if (summonsFences(docOf.get(r.id) ?? null).count) continue;
+			const namesGate = (text: string) =>
+				new RegExp(`\\b${r.id}\\b`).test(text) || (r.workDoc !== null && text.includes(r.workDoc));
+			const deps = r.dependsOn.flatMap(id => summonsFences(docOf.get(id) ?? null).texts);
+			if ([...notes, ...deps].some(namesGate)) continue;
+			const f = fail('board', 'board.gate-kickoff', 'a gate is a charge and a charge is ignited from its kickoff (DOCTRINE §4) — no fence in this row\'s Work doc, and none in the board\'s notes or a charge it Depends on names it', (lines[r.line - 1] ?? '').trim().slice(0, 300), r.line);
+			f.file = b.file;
+			fails.push(f);
+		}
+	}
+	return fails;
+}
+
 /**
  * The re-read half — one building, parsed from its file list. THE seam the glass imports
  * (B3's ask): `discover()` chooses the files, this parses them, nobody hand-mirrors either.
@@ -282,6 +367,7 @@ export function parseFiles(e: { building: string; path: string; files: Building[
 		for (const b of r.boards) board.push({ heading: b.heading, file: f, line: b.line, rows: b.rows });
 		sources.boards.push({ file: f, md, rows: r.boards.flatMap(b => b.rows) });
 	}
+	fails.push(...gateKickoffFails(sources.boards));
 
 	let ledgerTail: LedgerEntry | null = null, ledgerEntries = 0, baton: Baton | null = null;
 	if (e.files.ledger) {
