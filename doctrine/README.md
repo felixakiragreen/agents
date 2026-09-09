@@ -15,7 +15,7 @@ bun doctrine/cli.ts lint [--live] [--vocab] [--verbose] [--json] <path…>
 bun doctrine/cli.ts statement [--json] <path…>   # every ⬡ go on a live surface (D82)
 bun doctrine/cli.ts parse --json <building>
 bun doctrine/cli.ts buildings [--json]     # the building register, walked
-bun doctrine/cli.ts migrate [--write] <building>
+bun doctrine/cli.ts migrate [--write] [--summary] <building>
 bun doctrine/cli.ts citations [--write] <building>   # citations of killed D-ids (043)
 bun test                                   # from doctrine/ — the §6.2 control + the round-trip law
 ```
@@ -246,6 +246,18 @@ the same pass: `GA-‹nn›` → the name-stamp, `FC-‹n›` → its concept's 
 INVARIANT UNDER THE TABLE — `respell(before) ≡ respell(after)` — so a paraphrase, a drop or a
 wrong address still fails, while a bare number no noun types stays a session's call. A
 building that already conforms gets an empty table and a run that writes nothing.
+
+**The unwrap (D88, 047) — prose flows.** One paragraph, one line; the reader's width decides where it breaks. A paragraph's hard-wrapped lines join with one space, which is what CommonMark renders a soft line break as, so the rendered page does not move — the rule writes no character, it only moves whitespace. Its fence is one idea: **a construct whose LINES ARE ITS MEANING is untouched** — fenced code, front matter, tables, headings, thematic breaks, HTML blocks, indented blocks, reference-link definitions, and every line the Guild's own parsers find at line start (a list marker, a blockquote marker, §11's baton — `BATON_LINE` is anchored, so a baton joined into the prose above it would stop being a baton). **A line that OPENS a block is guarded; a line that CONTINUES a paragraph is not** — CommonMark's own asymmetry, and it is what keeps a wrapped sentence beginning `| curl)` or `< 500 ms` from being read as a table row or a tag.
+
+Two laws, both asserted at every run, and a violation aborts the write as any round-trip violation does. The **round-trip law** takes its usual shape with a new normal form: every parsed field must be INVARIANT UNDER WHITESPACE COLLAPSE, so the unwrap buys no license to differ. The **word law** reads what no parser typed — outside fences, the whole text collapsed to single spaces must be equal, so a word moved, dropped or added fails; a fence is compared byte for byte, because there the bytes are the meaning. A leading blockquote marker is stripped on both sides before the collapse: `> ` is line structure exactly as a continuation line's indentation is, and the rule drops both by design.
+
+The unwrap's fence is **not** the respell's. The respell stops at a nested building because an id is namespaced and a sub-building's `007` is its own; whitespace is namespaced by nobody, so a sub-building's prose is this building's bytes and reflows with them. Markdown only — a `.ts` line break is syntax — minus `fixtures/` (a control set's bytes ARE the form it exercises) and minus `lab/` (disposable, not corpus — DOCTRINE §3).
+
+**Structure first, reflow second, and never both on one file in one run.** The structural rules are line-scoped and read their neighbours — a ledger head reads the line below it for a `Changed:` label — so a reflow that joined those lines in the same pass would hand a repair rule bytes its author never wrote. A building that has adopted takes ONE run and the second writes nothing (040-F7's fixed point); a building mid-molt takes two, and the second moves only whitespace.
+
+**`--summary`** prints, per file, the edit count by rule and the round-trip verdict, and no diff. An unwrap diff is the whole corpus, and the two laws say more about it than the whitespace does. The dry run is still the default; `--write` is still required to touch a byte.
+
+**Blame survives the respell.** A whitespace commit that touched 180 files would otherwise put its own sha on every line of the city. `.git-blame-ignore-revs` at the repo root names the respell commits, and `git config --local blame.ignoreRevsFile .git-blame-ignore-revs` makes `git blame` read it — set once per checkout, and a fresh clone sets it again.
 
 **The clause pass re-reads (031).** The rules run in two classes: structure and field rules
 first, then the document is re-read and `ledger.unrecorded-clauses` decides its typed absences
