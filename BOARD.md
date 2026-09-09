@@ -55,15 +55,28 @@ account choice is quota arbitrage.
 | 042 | [the grid prune](plans/042-grid-prune.md) — `canon/agents/` keeps the tiers a board or the rig has named (the census in the doc); the README's grid law becomes mint-at-the-lay; the delete lands ×3 | ⬡-gate: his word and the live wire — paid 2026-09-01 | Builder · opus-medium | LANDED 2026-09-01 → [findings F1–F10](plans/042-grid-prune.md); 8 retired, 12 stand, wire green ×3, lint unchanged. F4 escalates: `haiku-low` fails the rule, is the last Haiku |
 | 043 | [the citation respell](plans/043-citation-respell.md) — D81 applied to the purge: 111 citations of 39 killed D-entries on the live canon respell to the section that carries each law, by the converter; history keeps its names | ⬡-gate: his word — paid 2026-09-01 and the amendment 2026-09-02 | Builder · opus-high | LANDED 2026-09-02 → [findings F13–F18](plans/043-citation-respell.md); 114 citations respelled on the fence — 45 by hand, 69 by `doctrine citations`; census 0, suite 109 → 121, lint unchanged |
 | G3 | [Review gate — the tender's first batch](plans/g3-tender-review.md) — 041 · 042 · 043 verified against their bars; the board pruned to D78's cap; three rulings pre-chewed (042-F4 · 041-F3 · 041-F10); the baton to ⬡ | 041; 042; 043 | Architect · fable-high | **LANDED** 2026-09-02 → [findings F1–F11](plans/g3-tender-review.md); three kept, three rulings, two grants; lint 19 (belvedere only), suite 122 |
+| 044 | [the boot pack](plans/044-boot-pack.md) — `doctrine boot ‹root›`: what a cold session needs, derived from the books at every call, verbatim where it quotes; the law follows at G4 | — | Builder · opus-high | OPEN — laid 2026-09-08 |
+| 045 | [the baton's fields](plans/045-baton-fields.md) — `Baton.shape` · `recommendation` · `type` · `named` typed on the parser; `boot` and the docket read them; a fork with no recommendation lints | 044 | Builder · opus-high | OPEN — laid 2026-09-08 |
+| 046 | [the lint gaps](plans/046-lint-gaps.md) — `board.gate-kickoff`; the kickoff arm reads the marked fence; an explicit root keeps its own ledger (039-F5's hole, simmy G21's case) | — | Builder · opus-high | OPEN — laid 2026-09-08 |
+| G4 | [Review gate — the parser's second opening](plans/g4-parser-review.md) — 044 · 045 · 046 verified against their bars; the prune check; the boot law pasted under its grant; three rulings pre-chewed; the baton to ⬡ | 044; 045; 046 | Architect · fable-high | OPEN — laid 2026-09-08 |
 
+
+**Batch — the parser's second opening (laid 2026-09-08, grand-architect-24; his ⬡✓ on
+fork (b) in the room):** 044 → 045 → 046 → G4, serial, one checkout on `master`,
+`tender: sonnet-medium · plans/TENDER.md`. The order is schedule (046 shares no edge): the
+boot pack lands first because it is the ask. The tender pauses at G4's close — ⬡ verifies
+— and at any escalation. Red inside: the boot law's paste at G4 — pre-blessed on the text
+(044, *The law at the landing*) or it waits. Green's bar: `bun test` green at HEAD and
+`doctrine lint ~/code/agents` naming only belvedere's nineteen. Ignition: on his word —
+`plans/TENDER.md`'s fence, then this note, verbatim. If he blesses D88 (soft-wrapped
+prose) or the ledger's aging law, 047 and 048 join behind 046 and this note is amended
+before the tender ignites.
 
 **Deferred (tracked, not lost):**
 
-- doctrine residue — one charge when the parser next opens: the worktree-dedup
-  split-search hole — a branch-only `<checkout>/<dir>/LEDGER.md` under a mainline
-  repo that is itself a building is eaten as a twin; repro + fix sketch in 039's F5
-  and the 2026-08-31 inbox entry (committed `36f9550`); latent today, 036 item 5's
-  arm — and the currency alarm (D81): the vocabulary arm's history fence narrows to
+- doctrine residue — one charge when the parser next opens: ~~the worktree-dedup
+  split-search hole~~ promoted to 046 (2026-09-08, with simmy G21's live case) — and
+  the currency alarm (D81): the vocabulary arm's history fence narrows to
   speech, so token rows (dead ids, marks, compounds) read history too and a respell
   that missed a form is caught.
   — and the qualified id in the ledger head's slot (040-F4): `isId` rejects `:`, so
