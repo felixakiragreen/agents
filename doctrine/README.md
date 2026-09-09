@@ -129,6 +129,8 @@ defect.
 tail, and the kickoffs of work docs whose own `**Status:**` is still OPEN / IN FLIGHT /
 BLOCKED.
 
+**A gate is a charge, and a charge is ignited from a kickoff (046).** DOCTRINE §4's gate clause, mechanized: a live board row whose id is `G‹n›` and whose Staffing is a mantle · tier must be **kickoff-reachable** — its Work cell links a doc that carries a fence, or a fence naming the gate (its id or its doc's path) rides the board doc's own notes or the doc of a charge it Depends on. Otherwise `board.gate-kickoff`, with the row verbatim. A `⬡-gate` is never ignited and LANDED / KILLED rows are history, so both are exempt. Birthplace: stigmergon's 029 lay left G6 with neither, the lint reported 32 kickoffs in 34 work docs and **0 failures**, and the batch paused with its tender refusing to author one.
+
 **The kickoff arm (031).** Counting a fence is not reading it. In a work doc whose own
 `**Status:**` is still unfinished the fenced kickoff must open in the summons grammar — the
 summons line (`kickoff.summons`), then 033's door line (`kickoff.door`), then the wear line
@@ -137,6 +139,8 @@ those bytes verbatim. LANDED and KILLED docs are history and are never read. The
 cheap-tier ignition carries GUILD.md's closing stanza inline instead of a path read
 (`canon/mantles/README.md`) — it names no mantle and wears no charter, so it passes on its
 opening line and is no more a kickoff candidate than a Personal-Log letter is.
+
+**The marked fence is the kickoff; every other fence is a quotation (046).** §5's template writes `**Kickoff (verbatim):**` above the fence, so a doc that marks its kickoff has said what its other fences are — and a Digger's Findings quote the summonses the dig fired, which §6 forbids anyone to edit afterwards (stigmergon `plans/080-born-dig.md:244`, the live case). Where a doc marks none the arm reads every fence, as it always did (the grandfathered docs). A ledger entry is exempt whole: its fenced summons is an **instrument** (D63g), not a document's kickoff. The demotion is a de-duplication — 9 quoted fences across the city, 7 of them a gate's own kickoff quoted into its batch note — so the entity counts fall with it and a `--guard` run across this change reports `kickoffs` decreasing, deliberately.
 
 ## The ledger's clauses and the baton (§7, §11)
 
@@ -218,11 +222,8 @@ second time against a mutated copy of the standard's text and asserting that it 
   A checkout whose mainline twin exists at the same size IS that twin and is skipped; a
   branch that put a board in a doc the mainline has none in survives; one representative per
   `(repo, relative path)`. The count skipped is printed, never hidden.
-- **Where the checkout root ends is found, not assumed (036).** A branch name carries as many
-  path segments as it has slashes, so the split is the shallowest one whose remainder's own
-  directory exists in the mainline — keyed on *being a worktree*, never on a `worktree-agent-*`
-  name shape. One segment was assumed until `bv/029-summon-harness` took two: no file under it
-  resolved to its twin, and every total doubled (2 buildings → 4, 84 rows → 168).
+- **Where the checkout root ends is found, not assumed (036), and it is found at the DIRECTORY (046).** A branch name carries as many path segments as it has slashes — one segment was assumed until `bv/029-summon-harness` took two, and every total doubled (2 buildings → 4, 84 rows → 168). A *file*-level search cannot find the split either: a one-segment remainder's own dirname is `.`, which always exists, so the search always "succeeded" and a branch-only `<checkout>/<dir>/LEDGER.md` was matched against `<repo>/LEDGER.md` and skipped as its twin — the building vanished (039-F5). A checkout is a copy of the repo, so **the checkout root is the shallowest directory under `.claude/worktrees/` that shares a name with the mainline root**; a branch-name prefix directory holds only the next segment, which is a branch's word and not the repo's. Keyed on *being a worktree*, never on a name shape — `feature/simmy` is checked out at `worktrees/simmy` on this machine, and the directory name is nobody's evidence.
+- **An explicit root keeps its own files (046).** The twin skip is for checkouts a walk *discovers*, never for the root a caller names: `doctrine lint <a worktree path>` parses that checkout's own ledger and baton. The root's own files only — the twins deeper under it still dedupe, which is what a declared worktree root asks for. Birthplace: a gate running in `…/worktrees/simmy/simmy` read `ledger none · baton none · 0/0 ledgers parsed a tail` while its board and kickoffs parsed fine (2026-09-08).
 
 ## `doctrine migrate` — form only
 
