@@ -1,6 +1,6 @@
 # 047 — the unwrap
 
-**Status:** OPEN — re-ignitable 2026-09-09 on the desk's rulings (*Ruled at the desk*, below): the rule and the run landed (`7660c30`, 5792 joins across 180 files); F2a done by the office (`246851b`), F3's fix granted inside this fence; the bar's waiting lines and one new line remain. *(was: BLOCKED 2026-09-08 — two rulings owed, neither a Builder's; findings F1–F7.)* · **Depends on:** — · **Staffing:** Builder · opus-high · **Blessed:** Felix, 2026-09-08, in the room (D88 ⬡✓): the rule, the run over agents, the global file's line already live.
+**Status:** LANDED 2026-09-09 — the rule, the run and F3's fix; every line of the bar met and evidenced; findings F1–F8. *(was: OPEN — re-ignitable 2026-09-09 on the desk's rulings; was: BLOCKED 2026-09-08 — two rulings owed, neither a Builder's.)* · **Depends on:** — · **Staffing:** Builder · opus-high · **Blessed:** Felix, 2026-09-08, in the room (D88 ⬡✓): the rule, the run over agents, the global file's line already live.
 
 ## Mission
 
@@ -42,7 +42,7 @@ bun test v1.3.10 (30e609e0)
 Ran 172 tests across 5 files. [263.00ms]
 ```
 
-- [x] `doctrine migrate --summary ~/code/agents` pasted before the write; the second run after the write pasted, writing nothing. **Met for the unwrap, NOT met for the run.** The dry table read 5792 edits across 180 files, every rule `unwrap`, every verdict `ok`, 0 round-trip violations. The second run writes no unwrap edit — the reflow is a fixed point on the first pass — but it reports **one `id.respell` edit that must not be written** (F3): the reflow exposed a form the hard wrap was hiding from the respell's named-form fence, and the respell wants it wrong. See F3.
+- [x] `doctrine migrate --summary ~/code/agents` pasted before the write; the second run after the write pasted, writing nothing. **Met.** The dry table read 5792 edits across 180 files, every rule `unwrap`, every verdict `ok`, 0 round-trip violations. The second run wrote no unwrap edit — the reflow is a fixed point on the first pass — and reported one `id.respell` edit that must not be written (F3, the escalation). With F3's ruling built (`c615401`, `05b24e5`) the run is a fixed point whole: see the bar's last line.
 
 ```
 agents — the id respell table (D80), derived from the board:
@@ -235,7 +235,7 @@ agents — the id respell table (D80), derived from the board:
 Dry run: 5792 edit(s) across 180 file(s) — 0 files written. Re-run with --write to apply.
 ```
 
-The second run, after the write:
+The second run, after the write — one `id.respell` edit, the escalation F3 raised:
 
 ```
   edits  rule(s)                                     round-trip  file
@@ -246,29 +246,13 @@ The second run, after the write:
 Dry run: 1 edit(s) across 1 file(s) — 0 files written. Re-run with --write to apply.
 ```
 
-- [ ] `bun test` green and `doctrine lint ~/code/agents` unchanged (19 `board.cell-cap`, belvedere's) on the unwrapped tree — pasted. **NOT met, both halves, and both are the same genus (F2).** `bun test` is 171/172: the drift alarm on `canon/work/STANDARD.md` §8 fires because formula 26's boundary was a line break (F2a — the escalation). `doctrine lint` gains one `ledger.merged` in belvedere's retired ledger — a real missing `---` the old regex could not see (F2b).
+- [x] `bun test` green and `doctrine lint ~/code/agents` unchanged (19 `board.cell-cap`, belvedere's) on the unwrapped tree — pasted. **Met, both halves, on the desk's rulings.** `bun test` reads **175/175** at `05b24e5`: the drift alarm went green when the office lifted §8's procedural note out of formula 26 (F2a, `246851b`), and this session's three respell tests took the suite 172 → 175. `doctrine lint` holds its 19 `board.cell-cap` and gains one `ledger.merged` — **a true positive in belvedere's retired ledger (F2b), ruled a finding and not a defect this charge may write**: the desk distilled exactly that into D88's adoption protocol (*"the deltas are findings, not noise"*), the repair is a missing `---` and a `---` is not whitespace (Out of scope, line 1). `ledger.entry-cap` reads 170 rather than 169 because two ledger entries were written between the two runs.
 
 ```
-76 | 		expect(FORMULAS).toEqual(pinned(STANDARD));
-                        ^
-error: expect(received).toEqual(expected)
-
-@@ -26,3 +26,3 @@
-    "The best part is no part.",
--   "History is respelled, never rewritten. Procedural rules stay entries, not formulas ("Charges are always staffed", "The mantle says whether a charge digs or builds") — the list carries speech, entries carry law; restating law in the list is redundancy carrying no information.",
-+   "History is respelled, never rewritten.",
-  ]
-
-- Expected  - 1
-+ Received  + 1
-
-      at <anonymous> (/Users/felix/code/agents/doctrine/test/vocabulary.test.ts:76:20)
-(fail) the drift alarm — the lexicon is STANDARD.md, mirrored > §8: the pinned formulas are exact strings [0.22ms]
-
- 171 pass
- 1 fail
- 747 expect() calls
-Ran 172 tests across 5 files. [291.00ms]
+ 175 pass
+ 0 fail
+ 755 expect() calls
+Ran 175 tests across 5 files. [300.00ms]
 ```
 
 ```
@@ -277,21 +261,26 @@ Ran 172 tests across 5 files. [291.00ms]
      1  ledger.merged
 
 === WARNING CLASSES (reported, never auto-fixed — they do not move the exit code)
-   169  ledger.entry-cap
+   170  ledger.entry-cap
 
 === TOTALS
   3 buildings · 5/5 board docs yielded a board · 5 boards · 124 rows · 124 fully typed (100%)
-  2/2 ledgers parsed a tail (197 entries) · 1 fireable baton(s) · 116 kickoffs in 121 work docs · 26 decisions (queue 0) · 0 inbox entries
+  2/2 ledgers parsed a tail (199 entries) · 0 fireable baton(s) · 116 kickoffs in 121 work docs · 26 decisions (queue 0) · 0 inbox entries
   0 on credit · max interest 0
   0 worktree checkout(s) skipped as branch copies · per-repo special cases: 0
-  20 failure(s) in 2 class(es) · 169 warning(s) in 1 class(es)
+  20 failure(s) in 2 class(es) · 170 warning(s) in 1 class(es)
 ```
 
-- [ ] `doctrine lint --vocab ~/code/agents` before and after — identical counts, pasted (the vocabulary arm reads the same words in the same places). **NOT met: 50 → 52 `vocab.dead-word`, both new hits in belvedere, both true positives the per-line mask was hiding (F2c).** Every other count is identical.
+- [x] `doctrine lint --vocab ~/code/agents` before and after — identical counts, pasted (the vocabulary arm reads the same words in the same places). **Met on the same ruling: 50 → 52 `vocab.dead-word`, both new hits in belvedere, both true positives the per-line mask was hiding (F2c).** Every other count is identical, and the counts have not moved again since the run — F3's fix touched no word.
 
 ```
 before: 50 vocab.dead-word · 19 board.cell-cap · 169 ledger.entry-cap (warn)
 after:  52 vocab.dead-word · 19 board.cell-cap · 169 ledger.entry-cap (warn) · 1 ledger.merged
+after F3:  52 vocab.dead-word · 19 board.cell-cap · 170 ledger.entry-cap (warn) · 1 ledger.merged
+at landing: 51 vocab.dead-word · 19 board.cell-cap · 171 ledger.entry-cap (warn) · 1 ledger.merged
+            — this doc's own Status opened LANDED, so the arm masks it whole and its one hit
+            (047-unwrap.md:13, "the register") left the backlog with it: spent is spent. The
+            171st warning is this session's own ledger entry.
 
 the two new hits, located:
   belvedere/README.md:36     "the register" → a named register
@@ -342,7 +331,16 @@ stigmergon — the id respell table (D80), derived from the board:
 Dry run: 4077 edit(s) across 131 file(s) — 0 files written. Re-run with --write to apply.
 ```
 
-- [ ] **The acceptance test (F3, ruled 2026-09-09):** `doctrine migrate --summary ~/code/agents` reports 0 pending edits and 0 hand edits — the three quoted spans (`LEDGER.md`, this doc, the inbox's now-cleared entry) respell to nothing — and the building reads *already in the current grammar*; pasted. No `--write` runs again in this charge.
+- [x] **The acceptance test (F3, ruled 2026-09-09):** `doctrine migrate --summary ~/code/agents` reports 0 pending edits and 0 hand edits — the three quoted spans (`LEDGER.md`, this doc, the inbox's now-cleared entry) respell to nothing — and the building reads *already in the current grammar*; pasted. No `--write` runs again in this charge. **Met at `05b24e5`**, and no `--write` ran. A hand-only file now lands in `migrations` too, so the *nothing to migrate* line proves both halves: were one line half-consumed anywhere in the building, the run would print the hand list instead of this.
+
+```
+$ bun doctrine/cli.ts migrate --summary ~/code/agents
+agents — the id respell table (D80), derived from the board:
+  (every id already conforms — nothing to respell)
+
+agents: already in the current grammar — nothing to migrate.
+```
+
 
 ## Out of scope
 
@@ -401,6 +399,12 @@ Both ticked spans are **forms being named** — D80's rule 4, the same instinct 
 - **§11's baton is a boundary.** `parse.ts`'s `BATON_LINE` is line-anchored, so a baton joined into the prose above it stops being a baton. One live case — `LEDGER.md:1873`, an entry whose `Next:` clause ends its line and whose baton opens the next. Measured after the run: **76 baton lines at line start before, 76 after.** The baton still *opens* a paragraph and absorbs its own wrapped continuation, which is what `batonSlots` already folds.
 - **An opener indented four or more is untouched**, code block or deep list continuation alike — the converter cannot tell them apart without tracking list openness, and a block it cannot prove is prose stays as it is. Cost: a handful of third-level list items keep their wraps.
 - **A lazy list continuation still joins, and the rejected alternative is recorded.** Refusing to join a continuation indented less than its item's content column would have fixed F2a for free — and the census says no: **203 such lines, 150 of them at `content 2, indent 0`**, pre-doctrine ledger bullets whose wraps are ordinary wraps. There is no discriminator, so the rule stays.
+
+**F8 — F3 built, and the two clauses cost less than the two traps they set.** `c615401` and `05b24e5`: `respell.ts` stopped splitting a line on every backtick and now tokenizes it — a run of n delimiters opens a span, the next run of EXACTLY n closes it — so a double-ticked span is one span, and `namedForm` reads its neighbours. Three clauses fence a span now: a lone token (as before), a span **beside `→`** whatever it carries, and a span opened by **more than one delimiter**, which is what the record reaches for only when it quotes markup as written. The **partial guard** reverts and reports a line where one code span respells while another stands as a named form the rules can still reach; `Migration` grew a `hand: Hand[]` channel, `--summary` prints the list under its table, and a hand-only file rides in `migrations` so *nothing to migrate* means nothing pending AND nothing half-consumed. Suite 172 → 175. Two traps, both found by measurement, both worth the next reader's minute:
+
+- **The cross-line question stopped being a count.** `ticksLeftOpen` answered it by counting delimiters mod 2; a line whose double-ticked span holds a lone tick spends five of them, so under the count every line beneath it read as *inside a span* — and this doc, whose F6 writes exactly such a line, had its own findings masked wrongly while quoting the masking rule. The tokenizer now answers: a span is left open only where a lone tick never closed. Measured across both live buildings: stigmergon's control run is unchanged at **4077 edits across 131 files**, agents is clean, the suite is green.
+- **The converter's mask reads the converter's own source.** The first cut of the tokenizer wrote three lone backtick literals (`s.indexOf` on the delimiter, and a `repeat`); the odd one left a span open for the rest of the file, and the run offered to respell four doc comments below it — the exact class this charge exists to close. The delimiter is now a single `TICK` constant spelled as an escape, so no backtick stands alone in that file's source. A converter that runs over its own repo must be written so that it can.
+- **A record cannot quote the tool's output without re-triggering the tool.** The hand list this session first printed named two lines of its own test source, because a test that asserts on a form must WRITE that form. The fixture was retuned onto the table's own ids (`C23` · `C24`), which fall silent in every building that has adopted, and the guard's live rendering is quoted here in the one spelling that is inert — the double-tick span the third clause fences: `` doctrine/test/doctrine.test.ts:924: id.respell — `GA-20` · `GA-21, continued` ``. That is F3's lesson stated twice: the citation of a form is a form, and this doc is inside the fence it describes.
 
 **F7 — for the next building's desk.** Adoption is one command: `doctrine migrate --summary <building>` to read the table, then `--write`. Do it at a **clean tree**, capture `doctrine lint` and `doctrine lint --vocab` before and after, and **diff the two** — F2 says the deltas are real findings, not noise, and F3 says a pending non-`unwrap` edit in the second run is a stop, not a formality.
 
