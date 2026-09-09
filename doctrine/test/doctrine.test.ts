@@ -910,6 +910,31 @@ describe('the id respell', () => {
 		expect(after).toContain('/Users/felix/code/whiteboardy/plans/08-far.md');
 	});
 
+	// 047-F3: the unwrap joined a ledger's two quoted forms onto one line, the phrase test read the
+	// left one as prose, and the converter offered to record a repair that EXPANDED a name.
+	test('the arrow rule — a span beside → names a form, whatever it carries (047-F3)', () => {
+		const after = run('BOARD.md').after;
+		expect(after).toContain('The arrow rule: `(GA-19, continued)` → `(GA-19)` names a form on both sides');
+		expect(after).toContain('spelled with two — `` `(GA-19, continued)` `` — and is one span');
+	});
+
+	test('the partial guard — a line consumed only partly reverts whole and is reported', () => {
+		const m = run('BOARD.md');
+		expect(m.hand).toEqual([{ line: 22, rule: 'id.respell', spans: ['`C23`', '`C24, continued`'] }]);
+		expect(m.after).toContain('The partial guard: `C23` is named beside the phrase `C24, continued`,');
+		// The controls: two phrases and no named form standing is a whole respell, not a hand edit;
+		// two lone tokens are two named forms and fire nothing at all.
+		expect(m.after).toContain('The first control: `023, continued` and `024, continued` are both phrases');
+		expect(m.after).toContain('The second control: `C23` beside `C24` fires nothing');
+	});
+
+	test('a change in PLAIN text beside a named form is not a hand edit', () => {
+		// The fixture's own `Charge 08 is the rig; row 7 came first. The historical forms `C23` …`
+		// line: the prose respells, the named forms stand, and that is how the law is written.
+		const after = run('BOARD.md').after;
+		expect(after).toContain('Charge 008 is the rig; row 007 came first. The historical forms `C23`,');
+	});
+
 	test('the round-trip law, and the converter is a fixed point on its own output', () => {
 		for (const name of ['BOARD.md', 'LEDGER.md']) {
 			const m = run(name);

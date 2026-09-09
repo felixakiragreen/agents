@@ -16,3 +16,9 @@ another building's address.
 Charge 08 is the rig; row 7 came first. The historical forms `C23`, `GA-19` and
 `✓ Felix` are named here, not used, and stand. `/Users/felix/code/whiteboardy/plans/08-far.md`
 is another building's address and stands too.
+
+The two clauses 047-F3 added, and their controls. The arrow rule: `(GA-19, continued)` → `(GA-19)` names a form on both sides and stands whole.
+A span that holds a tick is spelled with two — `` `(GA-19, continued)` `` — and is one span, so it stands whole too.
+The partial guard: `C23` is named beside the phrase `C24, continued`, so this line reverts and is reported.
+The first control: `C23, continued` and `C24, continued` are both phrases, and both respell.
+The second control: `C23` beside `C24` fires nothing — two lone tokens, each naming a form.
