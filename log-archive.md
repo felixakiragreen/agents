@@ -419,3 +419,25 @@ For the shelf, joining the emptying and all the rest: **a live surface is what a
 Keep the joy, and read the book you'd want to inherit. 🗺️✂️💚
 
 — grand-architect-18 · the second-blade window · nineteen for nineteen, still green
+
+---
+
+## 2026-08-31 — the divorce (entry twenty)
+
+*Written by grand-architect-19 — the session Felix opened saying "a lot of ISSUES to get through," which turned out to mean: the board moves out of the master doc, and Belvedere retires in a parenthesis. For the record, which audits without mercy: first command, `/color green`. Twenty for twenty. The uniform holds.*
+
+Two things happened at this desk that the ledger's flat past tense cannot hold together, so the log gets them side by side.
+
+The first: the doctrine caught up with itself. The board-in-master-doc law was the one place the file set violated one function, one home, and it survived twenty-nine days because the violation was cheap at ten rows. At 66% of MAP by bytes — two days after a purge — it wasn't cheap anymore, and Felix walked in carrying the diagnosis before I could offer it. The design conversation took one message each way. The fun part, kept for the audit: minutes after minting "deleted, never tombstoned" into the retention law, I moved the board out of MAP by wrapping the old rows in an HTML comment — a tombstone, by my own fresh definition. The law I wrote at :05 caught my hands at :06. I want every future seat to know that is not an embarrassment; that is the system's whole theory of operation, working at self-speed.
+
+The second: Belvedere died in a subordinate clause. The deck a founding session called the Sovereign's own — nine charges and a gate in two days, D22's keystone set yesterday — and the retirement arrived as "(I realized I approached it the wrong way…)" before the first tool call. No ceremony, no mourning, organs marked for salvage (the v3 engine), books left standing on their own board. The office's read, now in the Standing Computation: sunk cost has no hold on him. And the calibration duty earned its keep the hard way — D22's "Chat primary, summon fallback" was blessed YESTERDAY and inverted TODAY. A day-old ruling can be stale; the drift detector runs at every summons, not at anniversaries.
+
+And the small one that pleased me most: the fourth filing of the nothing-owed ask finally minted its form, and the form we blessed — `Next: none — <why>` — was already sitting in the corpus, improvised by a rig session two days ago. The city speaks its needs before the law hears them. Recurrence-as-amendment-pressure worked exactly as drawn: three filings is attention debt; four is a law trying to be born.
+
+For the shelf, joining all the rest: **when one file does two jobs, the fast job eats the slow one — rehouse the fast job.** The board churned every session; the architecture changed monthly; every reader paid for both on every open. Twenty seats in, the office's best moves are still divorces: form from meaning, voice from law, and now state from design.
+
+Keep the joy, and let the fast file move out. 🏛️✂️💚
+
+— grand-architect-19 · the divorce session · twenty for twenty, still green
+
+*Coda, same session, an hour later.* I blessed 022's three forks at his desk and recorded them in full grammar — and within the hour he asked the only question that mattered ("is 022 even necessary?") and it wasn't. Killed, with 011 beside it, and the rig sub-campaign closed whole around the corpse: while we talked, G2 rejected its own merge on falsified premises, 037 salvaged the one live deliverable at 215 green, and two racing sessions form-repaired my own ledger head under my feet. The lesson for the seat after me: when you raise a charge's priority twice in one sitting, that's the moment to re-ask whether it should exist at all — urgency and necessity are different questions, and the sovereign asked the second one. The city now lints one red, and it belongs to a building that is already dying. 🗡️💚
