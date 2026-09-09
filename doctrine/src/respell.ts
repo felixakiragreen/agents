@@ -266,9 +266,16 @@ function spans(s: string, open: boolean, f: (part: string) => string) {
 const render = (ps: ReturnType<typeof spans>) =>
 	ps.map(p => p.open + (p.named ? p.text : p.next) + p.close).join('');
 
-/** Does this line leave a code span open for the next one? The count, as it has always been. */
-export const ticksLeftOpen = (line: string, open: boolean) =>
-	((line.match(new RegExp(TICK, 'g'))?.length ?? 0) % 2 === 1) !== open;
+/**
+ * Does this line leave a code span open for the next one? The tokenizer answers, not a count of
+ * delimiters: a double-ticked span holding a lone tick spends five of them and leaves NOTHING
+ * open, and under the count every line beneath such a line read as inside a span — which is how
+ * this charge's own findings came to be masked wrongly while quoting the masking rule (047-F8).
+ */
+export const ticksLeftOpen = (line: string, open: boolean) => {
+	const last = parts(line, open).at(-1);
+	return !!last && last.code && last.close === '';
+};
 
 /** The respell applied to one string. Total, order-fixed, and a fixed point on its own output. */
 export const respellText = (s: string, t: Respell, open = false, scope: Scope = 'document'): string =>
