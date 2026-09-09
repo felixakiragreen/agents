@@ -2968,12 +2968,13 @@ three days. Beyond the book: `ISSUES.md` gained the Radiant's founding entry (th
 line, the charter's *Owns*, two taste data) and his "strike sovereign" report with the
 office's reading; `sapho-archive.md` instantiated at the first aging-out. The Radiant
 (`~/code/radiant`, his repo) stands founded — D1–D5 ⬡✓ 2026-09-06, Radiant 001 sealed.
-Decided: nothing here — the canon asks wait on ⬡'s desk. Next: the Grand Architect sweeps
-the two entries; no baton.
+Decided: nothing here — the canon asks wait on ⬡'s desk. Next: none — the Grand Architect
+sweeps the two entries.
 
-**2026-09-06 · Mentat · fable-max (mentat-05, after the close)** — Two more inbox entries at
+---
+
+**2026-09-06 · Mentat · fable-max (mentat-05)** — *(after the close.)* Two more inbox entries at
 his word: *Summoner* chosen for "sovereign" (recorded on the standing entry), and the
 aphantasia law — show, don't describe — proposed for the door or the global file. The
 audible Radiant's Fixer summons is drafted in `~/code/radiant/ISSUES.md` (iPhone, not the
-macOS voice). Decided: nothing here. Next: the Grand Architect sweeps three entries; no
-baton.
+macOS voice). Decided: nothing here. Next: none — the Grand Architect sweeps three entries.
