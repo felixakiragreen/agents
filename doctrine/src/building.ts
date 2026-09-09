@@ -20,7 +20,7 @@ import {
 	isBoardHeader, tables,
 	type Baton, type BoardRow, type Decision, type Issue, type Kickoff, type LedgerEntry,
 } from './parse';
-import { fail, strip, type Fail } from './grammar';
+import { fail, isLawBook, strip, type Fail } from './grammar';
 import { scanCredits, type Credit, type CreditSources } from './credit';
 
 /**
@@ -87,6 +87,15 @@ export const staffsSessions = (md: string) =>
 	/^\s*\|.*\bStaffing\b.*\|\s*$/m.test(md)
 	&& tables(md).some(t => isBoardHeader(t.header) || t.header.some(h => /^staffing$/i.test(strip(h))));
 
+/**
+ * A board is a table that staffs sessions IN A FILE THAT CAN. The law book cannot: `canon/`
+ * SHOWS the board's five columns — DOCTRINE §4's example table is a header and no rows — and a
+ * page that prints a form staffs nobody. Every arm that reads forms as data already fences this
+ * directory (the vocabulary arm, the statement); board discovery was the one that did not, so
+ * every `doctrine boot` and every lint total counted the law book as a board (044-F5).
+ */
+const isBoardFile = (p: string) => !isLawBook(p) && staffsSessions(read(p));
+
 // `named` — the caller pointed at this file's own directory, so the twin skip does not touch it.
 type FoundFile = { path: string; dir: string; kind: 'ledger' | 'decisions' | 'issues' | 'board' | 'workdoc' | 'prose' | 'register'; named: boolean };
 
@@ -145,7 +154,7 @@ function branchOnlyBoard(p: string, name: string): 'skip' | 'keep' {
 	try { twinSize = statSync(twin).size; } catch { return 'keep'; }   // branch-only file
 	if (name !== 'LEDGER.md' && name !== 'DECISIONS.md' && name !== 'ISSUES.md'
 		&& twinSize !== statSync(p).size
-		&& staffsSessions(read(p)) && !staffsSessions(read(twin))) return 'keep';
+		&& isBoardFile(p) && !isBoardFile(twin)) return 'keep';
 	return 'skip';
 }
 
@@ -204,7 +213,7 @@ function walk(root: string, out: FoundFile[], seen: Set<string>, named: boolean,
 			: name === 'DECISIONS.md' ? 'decisions'
 			: name === 'ISSUES.md' ? 'issues'
 			: name === REGISTER_FILE ? 'register'
-			: staffsSessions(read(p)) ? 'board'
+			: isBoardFile(p) ? 'board'
 			: inPlans ? 'workdoc'
 			: PROSE_DOCS.includes(name) ? 'prose'
 			: null;
@@ -257,7 +266,7 @@ function classifyFile(p: string): FoundFile['kind'] {
 	if (n === 'DECISIONS.md') return 'decisions';
 	if (n === 'ISSUES.md') return 'issues';
 	if (n === REGISTER_FILE) return 'register';
-	return staffsSessions(read(p)) ? 'board' : 'workdoc';
+	return isBoardFile(p) ? 'board' : 'workdoc';
 }
 
 const CODE = join(homedir(), 'code');
