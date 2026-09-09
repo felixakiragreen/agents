@@ -131,6 +131,10 @@ export const byInterest = (a: Credit, b: Credit) =>
 
 const rel = (p: string) => p.replace(process.env.HOME + '/', '~/');
 
+/** The statement in one line — the whole of it is `doctrine statement`; the boot pack prints this. */
+export const statementLine = (credits: Credit[]) =>
+	`${credits.length} on credit · max interest ${credits.reduce((a, c) => Math.max(a, c.interest), 0)}`;
+
 export function renderStatement(credits: Credit[], where: string): string {
 	if (!credits.length) return `the statement (D82) — nothing on credit: no ⬡ go on a live surface under ${where}.`;
 
@@ -139,6 +143,6 @@ export function renderStatement(credits: Credit[], where: string): string {
 	const out = ['the statement (D82) — every ⬡ go on a live surface, with the charges landed on top of it', ''];
 	for (const c of sorted)
 		out.push(`  ${String(c.interest).padStart(4)}  ⬡ go ${c.date}  ${c.where.padEnd(pad)}  ${c.surface.padEnd(9)}  ${rel(c.file)}:${c.line}`);
-	out.push('', `  ${sorted.length} on credit · max interest ${sorted[0]!.interest}`);
+	out.push('', `  ${statementLine(sorted)}`);
 	return out.join('\n');
 }
