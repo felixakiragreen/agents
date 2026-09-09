@@ -58,29 +58,10 @@ Evidence: `lab/008/run` extended, green, **no regressions** — byte assertions 
       PASS  the counter is the highest ever fired, not the last one fired: 11 follows that 01 (1)
       PASS  and every fired stamp landed in its own record, for the next open to count
       ```
-- [x] The full derived name is visible in the panel footer before firing
-      → `⏎  architect-agents-09 · fable-high @ thg-fgreen · green · keys: 2` (bumped
-      render, byte-exact), the floored twin beside it, and on a real screen:
-      `⏎  architect-hive-09 · opus-max @ thg-fgreen · green · keys: 1` (`preview.exp`,
-      whose next assertion is the launch that footer promised) plus
-      `⏎  foundry-02 · fable-max @ personal · keys: 1` (`name.exp` G8). **F8** — a
-      mid-gesture footer cannot be asserted from a pty at all; only a panel's first
-      paint survives zle's character-level repaint.
-- [x] Only fired records (pick, eject) advance the counter; aborts asserted inert
-      → `PASS  an abort in between is inert — it fires nothing, so it counts for nothing: 12 (1)`,
-      `PASS  every abort stamps null — nothing fired, so nothing counted`,
-      `PASS  while the abort stamped null (1)`. Refire counts too — it launches a new
-      session, so it takes a new ordinal (see F5).
-- [x] Bare launch (`[n]one`) stamps `<theater>-<NN>`; eject shows the stamp in
-      the buffer
-      → `PASS  [n]one → bare launch: the theater stamp alone, no colour, no prompt (1)`
-      (`… --effort high -n hive-01`), `PASS  a bare launch counts its own theater lineage,
-      from 01 (1)`, and the ejects:
-      `CLAUDE_CONFIG_DIR=~/.claude-thg-fgreen claude --model opus --effort max -n architect-hive-07 "/color green"`
-      `CLAUDE_CONFIG_DIR=~/.claude claude --model fable --effort max -n grand-architect-01 "/color green"`
-- [x] `--name` verified against the live `claude --help` (one grep, pasted here) —
-      the probe's facts re-checked, not trusted
-      → `claude --help | grep -iE -- '--name|--resume|--session'`, 2026-08-22:
+- [x] The full derived name is visible in the panel footer before firing → `⏎  architect-agents-09 · fable-high @ thg-fgreen · green · keys: 2` (bumped render, byte-exact), the floored twin beside it, and on a real screen: `⏎  architect-hive-09 · opus-max @ thg-fgreen · green · keys: 1` (`preview.exp`, whose next assertion is the launch that footer promised) plus `⏎  foundry-02 · fable-max @ personal · keys: 1` (`name.exp` G8). **F8** — a mid-gesture footer cannot be asserted from a pty at all; only a panel's first paint survives zle's character-level repaint.
+- [x] Only fired records (pick, eject) advance the counter; aborts asserted inert → `PASS  an abort in between is inert — it fires nothing, so it counts for nothing: 12 (1)`, `PASS  every abort stamps null — nothing fired, so nothing counted`, `PASS  while the abort stamped null (1)`. Refire counts too — it launches a new session, so it takes a new ordinal (see F5).
+- [x] Bare launch (`[n]one`) stamps `<theater>-<NN>`; eject shows the stamp in the buffer → `PASS  [n]one → bare launch: the theater stamp alone, no colour, no prompt (1)` (`… --effort high -n hive-01`), `PASS  a bare launch counts its own theater lineage, from 01 (1)`, and the ejects: `CLAUDE_CONFIG_DIR=~/.claude-thg-fgreen claude --model opus --effort max -n architect-hive-07 "/color green"` `CLAUDE_CONFIG_DIR=~/.claude claude --model fable --effort max -n grand-architect-01 "/color green"`
+- [x] `--name` verified against the live `claude --help` (one grep, pasted here) — the probe's facts re-checked, not trusted → `claude --help | grep -iE -- '--name|--resume|--session'`, 2026-08-22:
       ```
         -n, --name <name>                     Set a display name for this session
         -r, --resume [value]                  Resume a conversation by session ID, or
@@ -104,9 +85,7 @@ Evidence: `lab/008/run` extended, green, **no regressions** — byte assertions 
       per keystroke  (full panel render + resolve):   1.689 ms (unchanged arm)
       per keystroke,  usage configured (3 caches):    2.699 ms (unchanged arm)
       ```
-- [x] `lab/008/run` fully green, count pasted here
-      → **170 assertions, 0 failures**, exit 0 — three consecutive runs, to catch the
-      flake in F3:
+- [x] `lab/008/run` fully green, count pasted here → **170 assertions, 0 failures**, exit 0 — three consecutive runs, to catch the flake in F3:
       ```
       run 1: exit=0 · 170 PASS · 0 failure(s)
       run 2: exit=0 · 170 PASS · 0 failure(s)

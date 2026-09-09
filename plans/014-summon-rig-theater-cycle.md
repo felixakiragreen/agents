@@ -54,18 +54,8 @@ Evidence: `lab/008/run` extended, green, **no regressions**, byte assertions. Bu
       PASS  ...and the other directory kept its own entry (1)
       PASS  nothing else is in it: two directories were fired from, two lines (2)
       ```
-- [x] On-fire-only law: an abort after cycling persists nothing
-      → `log/theaters` copied either side of a `^G t t Esc` and byte-compared:
-      `PASS  an abort after cycling persists nothing: the map is byte-identical across it`,
-      and the next fire proves it behaviourally too —
-      `PASS  and the fire after that abort still carries what the last fire made sticky (1)`
-      (`architect-lunchbox-03`, not the `bob` two presses would have left).
-- [x] `t` reserved: a `presets.tsv` row keyed `t` gets the existing reserved-key
-      treatment, asserted
-      → ```
-      PASS  a preset claiming the theater key gets the reserved-key treatment, not the panel
-      PASS  and it never reaches the mantle row (0)
-      PASS  the reserved set is the whole panel: models, efforts, n, y, ., t, digits, the ± bumps
+- [x] On-fire-only law: an abort after cycling persists nothing → `log/theaters` copied either side of a `^G t t Esc` and byte-compared: `PASS  an abort after cycling persists nothing: the map is byte-identical across it`, and the next fire proves it behaviourally too — `PASS  and the fire after that abort still carries what the last fire made sticky (1)` (`architect-lunchbox-03`, not the `bob` two presses would have left).
+- [x] `t` reserved: a `presets.tsv` row keyed `t` gets the existing reserved-key treatment, asserted → ``` PASS  a preset claiming the theater key gets the reserved-key treatment, not the panel PASS  and it never reaches the mantle row (0) PASS  the reserved set is the whole panel: models, efforts, n, y, ., t, digits, the ± bumps
       ```
       the last being `(reserved: f o s k l m h x M n y . t 0 1 2 3 4 5 6 7 8 9 + -)`.
 - [x] The re-stamped name is visible in the panel footer (first-paint pty assertion
@@ -114,8 +104,7 @@ Evidence: `lab/008/run` extended, green, **no regressions**, byte assertions. Bu
       FAIL  every opening bracket grey — one per item — expected 23, got 24
       FAIL  every closing bracket too — expected 23, got 24
       ```
-- [x] `lab/008/run` fully green, count pasted here
-      → **200 assertions, 0 failures**, exit 0 — four consecutive runs:
+- [x] `lab/008/run` fully green, count pasted here → **200 assertions, 0 failures**, exit 0 — four consecutive runs:
       ```
       run 1: exit=0 · 200 PASS · 0 failure(s)
       run 2: exit=0 · 200 PASS · 0 failure(s)
