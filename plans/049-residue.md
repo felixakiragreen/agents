@@ -42,7 +42,7 @@ Every failure keeps the reader's law: parser-as-lint, a verbatim excerpt, per-re
 - [x] `bun test` green from `doctrine/` with one fixture and one control per spec item (eight pairs); the control run on the pre-049 source reds exactly the new law tests and nothing else — both outputs pasted.
 
       ```
-      $ cd doctrine && bun test                                   # HEAD 575a220
+      $ cd doctrine && bun test          # 575a220, the last source commit; re-run at HEAD bff781b: identical
        197 pass · 0 fail · 826 expect() calls — 197 tests across 6 files
 
       $ T=$(mktemp -d); git archive abdc3ad doctrine canon | tar -x -C $T \
