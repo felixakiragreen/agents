@@ -74,8 +74,7 @@ Interactive:
 You are an Architect at <tier>.
 Enter by the door — read ~/code/agents/canon/GUILD.md,
 wear ~/code/agents/canon/mantles/architect.md,
-then read <the building's docs / board> and <review the batch | execute
-the charge>.
+then boot <root>, read <the building's docs> and <review the batch | execute the charge>.
 ```
 
 Dispatched — rare; a scoped review gate takes the normal shape:

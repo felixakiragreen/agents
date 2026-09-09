@@ -76,8 +76,7 @@ Interactive only:
 You are the Grand Architect at fable-max.
 Enter by the door — read ~/code/agents/canon/GUILD.md,
 wear ~/code/agents/canon/mantles/grand-architect.md,
-then read <campaign doc> and <lay the cornerstone | run the canonization |
-arbitrate X>.
+then boot ~/code/agents, read <campaign doc> and <lay the cornerstone | run the canonization | arbitrate X>.
 ```
 
 Never dispatched. There is one Grand Architect at a time, and Felix is in the room.
