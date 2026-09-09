@@ -745,3 +745,9 @@ Baton — the dispatch → single — ignite 046 (the fence is in `plans/046-lin
 **2026-09-08 · Builder · opus-high (046)** — three lint gaps closed at the parser. `board.gate-kickoff`: §4's gate is a charge, so a staffed `G‹n›` row no kickoff reaches fails with its row verbatim. §5's **marked fence** is the doc's kickoff and every other fence a quotation — a ledger entry's fences stay instruments. And the worktree checkout root is found at the DIRECTORY, never searched at the file: 039-F5's hole closed, and a root a caller NAMES keeps its own files, so `doctrine lint …/worktrees/simmy/simmy` reads its own books (`ledger none` → `2026-09-08`). Suite 143 → 149, every new test red on `cb45a39`; stigmergon 1 → 0 failures, agents unchanged, 9 quoted fences demoted. Six findings — F3 the deviation, F4 ten failures for simmy's desk. Decided: nothing — findings only. Next: the baton below.
 
 Baton — the dispatch → single — ignite 047 (the fence is in `plans/047-unwrap.md`).
+
+---
+
+**2026-09-08 · Builder · opus-high (047)** — the unwrap landed: `doctrine migrate` reflows prose under two laws — round-trip under whitespace collapse, and the **word law** (no word moved outside fences) — with `--summary`, ten fixture pairs and `.git-blame-ignore-revs`. The run: 5792 joins across 180 files, **−26,596 newlines**, 0 violations; `sync/check` green; suite 149 → 172. **BLOCKED on two rulings, neither a Builder's:** canon §8's formula 26 lost the line break that bounded it, so `bun test` reads 171/172 by design (F2a); and the respell leaves one pending WRONG edit — **do not `migrate --write` agents** (F3). Seven findings, three inbox entries. Decided: nothing — findings only. Next: the baton below.
+
+Baton — the dispatch → single — ignite 048 (the fence is in `plans/048-ledger-aging.md`). `bun test` is 171/172 by design — 047-F2a waits on a ruling, not on you.
