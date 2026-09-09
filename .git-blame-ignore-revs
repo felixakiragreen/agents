@@ -1,0 +1,10 @@
+# Respell commits — form-only runs of `doctrine migrate` (D81). A whitespace or
+# spelling sweep that touched the city would otherwise put its own sha on every
+# line of it, and `git blame` would stop answering the only question it is asked:
+# who wrote these words.
+#
+# `git config --local blame.ignoreRevsFile .git-blame-ignore-revs` makes blame read
+# this file. It is per checkout, so a fresh clone sets it again.
+
+# the unwrap (D88, charge 047) — 5792 joins across 180 files, whitespace only
+7660c30476afa2bf462be22de8aca93f8cb3b3c1
