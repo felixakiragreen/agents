@@ -6,7 +6,7 @@
 // verbatim excerpt — never a parser branch. The shapes below are P3 §5's, normative per D65.
 
 import {
-	BATON_TYPES, BLESSED_MARK, CELL_CAP, DECISION_ID, DEFERRED, ENTRY_CAP, FELIX_GATE, HEX_GATE, MANTLES, MARK_TAIL,
+	BATON_TYPES, BLESSED_MARK, CELL_CAP, DECISION_ID, DEFERRED, DETERMINERS, ENTRY_CAP, FELIX_GATE, HEX_GATE, MANTLES, MARK_TAIL,
 	PARKED, PENDING, PROPOSED_MARK, REGISTER_CAP, RETIRED, STATES, UNRECORDED, UNSTAFFED, VERDICTS,
 	creditDate, delink, fail, isId, isMantle, isState, isTier, leadingToken, linkTarget, maskCode, strip, topSplit,
 	trailingParen,
@@ -569,29 +569,48 @@ const NONE_CLOSE = /^none\b/i;
 /**
  * §11's baton line as D74 wrote it: `Baton — <one holder> → <action>`. **The holder is
  * written and the parser reads it, never infers it** — `⬡` (`Felix` is the same hand in the
- * record's older spelling), `the dispatch`, or a named session. The separator is the arrow, or
- * the colon and parenthesis the pre-D74 record used.
+ * record's older spelling), `the dispatch`, or a named session. The separator is the arrow, the
+ * colon and parenthesis the pre-D74 record used, or the em-dash the chat-batch dialect writes
+ * (`Baton — 066, the chat batch's sixth — the follow reaches …`) — the holder slot ENDS at its
+ * separator, and one the alternation does not name runs the slot into the action behind it.
+ *
+ * The baton opens a line OR opens directly after `Next:` — the record writes it inside the
+ * clause as often as under it, and 28 of the city's batons were invisible to a `^` alone
+ * (045-F1). Reading them is D74 SERVED, not changed: those lines wrote `⬡` or `the dispatch`
+ * and the reader ignored it. A `Baton —` the prose merely mentions mid-body is still unread.
  */
-const BATON_LINE = /^[ \t]*\**Baton\**\s*[—–-]\s*([^\n]*?)\s*(?:→|->|:|\()/m;
+const BATON_LINE = /(?:^[ \t]*|\bNext:[ \t]*)\**Baton\**\s*[—–-]\s*([^\n]*?)\**\s*(?:→|->|:|\(|[—–])/m;
+/**
+ * Where a baton OPENS. The separator that closes its holder slot may land a hard wrap later —
+ * `**Next: Baton — 063, the chat\nbatch's fourth —**` — so the opener is found at the LINE and
+ * the slots are read from the folded paragraph. Two expressions of one grammar, and the second
+ * is the first without its separator.
+ */
+const BATON_OPEN = /(?:^[ \t]*|\bNext:[ \t]*)\**Baton\**\s*[—–-]/m;
 
 /**
  * The baton line's two slots (045). The holder is the text before the separator; the action is
- * what the arrow hands it, with the entry's hard wraps folded in — the record wraps a baton over
+ * what THE ARROW hands it, with the entry's hard wraps folded in — the record wraps a baton over
  * four lines and the shape marker can sit on the second — and ending at the blank line, because
- * the next paragraph is the next thing the entry says. The pre-D74 separators (`:` and `(`) hand
- * back a holder and NO action: the shape markers postdate them, and inventing one would type a
- * move its writer never marked.
+ * the next paragraph is the next thing the entry says. The other separators (`:` and `(`, the
+ * pre-D74 record's; `—`, the chat-batch dialect's) hand back a holder and NO action: the shape
+ * markers postdate them all, and inventing one would type a move its writer never marked.
+ *
+ * The paragraph is read whole and the baton found IN it — the arrow that opens the action is the
+ * baton's OWN separator, never the next arrow the prose happens to write (`13 px → 1rem`, a live
+ * entry whose baton closes on an em-dash and whose paragraph carries an arrow four words later).
  */
 export function batonSlots(block: string): { holder: string; action: string | null } | null {
-	const m = block.match(BATON_LINE);
-	if (!m) return null;
 	const lines = block.split('\n');
-	const at = lines.findIndex(l => BATON_LINE.test(l));
+	const at = lines.findIndex(l => BATON_OPEN.test(l));
+	if (at < 0) return null;
 	let end = at + 1;
 	while (end < lines.length && lines[end]!.trim()) end++;
-	const para = strip(lines.slice(at, end).join(' ').replace(/\s+/g, ' '));
-	const arrow = para.match(/(?:→|->)\s*/);
-	return { holder: strip(m[1]!), action: arrow ? para.slice(arrow.index! + arrow[0]!.length) : null };
+	const para = lines.slice(at, end).join(' ').replace(/\s+/g, ' ');
+	const m = para.match(BATON_LINE);
+	if (!m) return null;
+	const arrow = /(?:→|->)$/.test(m[0]!);
+	return { holder: strip(m[1]!), action: arrow ? strip(para.slice(m.index! + m[0]!.length)) : null };
 }
 
 function writtenHolder(block: string): BatonHolder | null {
@@ -602,8 +621,12 @@ function writtenHolder(block: string): BatonHolder | null {
 	return 'session';
 }
 
-/** §11's marker: the shape word opens the action and an em-dash closes it (`**… → batch —** …`). */
-const SHAPE_MARK = /^(single|batch|fork)\s*[—–]\s*/i;
+/**
+ * §11's marker: the shape word opens the action and its closer follows — an em-dash
+ * (`**… → batch —** …`) or the colon the record writes just as often (`batch: ignite 038 · 039`,
+ * `fork: (a) …`). Both predate D74's grammar settling and both are unambiguous (045-F2).
+ */
+const SHAPE_MARK = /^(single|batch|fork)\s*[—–:]\s*/i;
 
 const shapeOf = (action: string | null): BatonShape | null =>
 	action?.match(SHAPE_MARK)?.[1]?.toLowerCase() as BatonShape ?? null;
@@ -613,20 +636,22 @@ const shapeOf = (action: string | null): BatonShape | null =>
  * — `G6`, `(1)`, `022` — and an id is not a noun: it is skipped, never spelled down to its
  * letters, or a baton opening `G6 —` would report its type word as `g`.
  */
-const leadWords = (s: string, n: number) =>
+const leadWords = (s: string) =>
 	s.split(/\s+/).filter(w => !/\d/.test(w)).map(w => w.replace(/[^A-Za-z]/g, ''))
-		.filter(Boolean).slice(0, n).join(' ').toLowerCase();
+		.filter(Boolean).map(w => w.toLowerCase());
 
 /**
  * The word `BATON_TYPES` is read by: the action's leading noun once the shape marker is off it,
- * two words where the table names two (`visual pass`). Exported because the census counts what
- * the table does NOT name, and it must count the parser's own word.
+ * two words where the table names two (`visual pass`), and one determiner later where the record
+ * wrote one (`your visual pass`). Exported because the census counts what the table does NOT
+ * name, and it must count the parser's own word.
  */
 export function batonTypeWord(action: string | null): string | null {
 	if (action === null) return null;
-	const rest = action.replace(SHAPE_MARK, '');
-	const two = leadWords(rest, 2);
-	return two in BATON_TYPES ? two : leadWords(rest, 1) || null;
+	const words = leadWords(action.replace(SHAPE_MARK, ''));
+	const rest = DETERMINERS.includes(words[0] ?? '') ? words.slice(1) : words;
+	const two = rest.slice(0, 2).join(' ');
+	return two in BATON_TYPES ? two : rest[0] ?? null;
 }
 
 /** The clause §11 gives a fork whose call is Felix's taste alone — an alternative to naming one. */

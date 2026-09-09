@@ -52,12 +52,25 @@ export const UNSTAFFED = 'unstaffed';     // → `—`, and only where the Statu
  */
 export type BatonType = 'mental' | 'visual' | 'bench';
 export const BATON_TYPES: Readonly<Record<string, BatonType>> = {
-	rule: 'mental', ruling: 'mental', bless: 'mental', blessing: 'mental', kill: 'mental',
+	rule: 'mental', ruling: 'mental', rulings: 'mental', bless: 'mental', blessing: 'mental', kill: 'mental',
 	choose: 'mental', choice: 'mental', read: 'mental', verify: 'mental', decide: 'mental',
+	// 049's seven, extended from the census over 271 entries (045-F4, G4-F4 ruling iii): the
+	// record's commonest ⬡-actions, `ignite` 25 of them. Each is a decision to spend or to read,
+	// made at a desk with nothing to look at — `summon` is `ignite` in the older spelling.
+	ignite: 'mental', summon: 'mental', tell: 'mental', paste: 'mental', resume: 'mental',
+	review: 'mental',
 	pass: 'visual', 'visual pass': 'visual', smoke: 'visual', look: 'visual',
 	watch: 'visual', open: 'visual', drive: 'visual',
 	bench: 'bench',
 };
+
+/**
+ * A determiner the record writes in front of the noun — *"your visual pass"*, *"the visual
+ * pass"*. §6 names **visual pass**; the record reaches for an article or a possessive first, so
+ * the type word is read one word later. ONE word, once: the skip finds the noun, it never hunts
+ * for one (045-F3 — 8 visual passes hidden behind these five words).
+ */
+export const DETERMINERS: readonly string[] = ['a', 'an', 'the', 'your', 'his'];
 
 /**
  * D80 · D18 — ids are strings. A charge is its number padded to three (`023`); a kind keeps its
