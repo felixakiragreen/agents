@@ -58,19 +58,21 @@ account choice is quota arbitrage.
 | 044 | [the boot pack](plans/044-boot-pack.md) — `doctrine boot ‹root›`: what a cold session needs, derived from the books at every call, verbatim where it quotes; the law follows at G4 | — | Builder · opus-high | OPEN — laid 2026-09-08 |
 | 045 | [the baton's fields](plans/045-baton-fields.md) — `Baton.shape` · `recommendation` · `type` · `named` typed on the parser; `boot` and the docket read them; a fork with no recommendation lints | 044 | Builder · opus-high | OPEN — laid 2026-09-08 |
 | 046 | [the lint gaps](plans/046-lint-gaps.md) — `board.gate-kickoff`; the kickoff arm reads the marked fence; an explicit root keeps its own ledger (039-F5's hole, simmy G21's case) | — | Builder · opus-high | OPEN — laid 2026-09-08 |
-| G4 | [Review gate — the parser's second opening](plans/g4-parser-review.md) — 044 · 045 · 046 verified against their bars; the prune check; the boot law pasted under its grant; three rulings pre-chewed; the baton to ⬡ | 044; 045; 046 | Architect · fable-high | OPEN — laid 2026-09-08 |
+| 047 | [the unwrap](plans/047-unwrap.md) — D88 built: `doctrine migrate` joins a paragraph's hard-wrapped lines; the word law and the fixed point asserted; run over agents whole, `--summary` for the reader | — | Builder · opus-high | OPEN — laid 2026-09-08 |
+| 048 | [the ledger's aging](plans/048-ledger-aging.md) — `doctrine prune`: entries past the last twenty move verbatim to `ledger-archive.md`; the parser reads both; a register past 30 KB warns | — | Builder · opus-high | OPEN — laid 2026-09-08 |
+| G4 | [Review gate — the parser's second opening](plans/g4-parser-review.md) — 044 · 045 · 046 · 047 · 048 verified against their bars; the prune check; the blessed law pasted under its grant; three rulings pre-chewed; the baton to ⬡ | 044; 045; 046; 047; 048 | Architect · fable-high | OPEN — laid 2026-09-08 |
 
 
 **Batch — the parser's second opening (laid 2026-09-08, grand-architect-24; his ⬡✓ on
-fork (b) in the room):** 044 → 045 → 046 → G4, serial, one checkout on `master`,
-`tender: sonnet-medium · plans/TENDER.md`. The order is schedule (046 shares no edge): the
-boot pack lands first because it is the ask. The tender pauses at G4's close — ⬡ verifies
+fork (b) in the room; 047 and 048 joined on his bless the same sitting):** 044 → 045 →
+046 → 047 → 048 → G4, serial, one checkout on `master`, `tender: sonnet-medium ·
+plans/TENDER.md`. The order is schedule (046, 047 and 048 share no edge): the boot pack
+lands first because it is the ask; the unwrap runs late so it respells the batch's own
+docs once. The tender pauses at G4's close — ⬡ verifies
 — and at any escalation. Red inside: the boot law's paste at G4 — pre-blessed on the text
 (044, *The law at the landing*) or it waits. Green's bar: `bun test` green at HEAD and
 `doctrine lint ~/code/agents` naming only belvedere's nineteen. Ignition: on his word —
-`plans/TENDER.md`'s fence, then this note, verbatim. If he blesses D88 (soft-wrapped
-prose) or the ledger's aging law, 047 and 048 join behind 046 and this note is amended
-before the tender ignites.
+`plans/TENDER.md`'s fence, then this note, verbatim.
 
 **Deferred (tracked, not lost):**
 

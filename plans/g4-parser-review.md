@@ -1,24 +1,27 @@
 # G4 — the parser's second opening, reviewed
 
-**Status:** OPEN — laid 2026-09-08 · **Depends on:** 044; 045; 046 · **Staffing:**
+**Status:** OPEN — laid 2026-09-08 · **Depends on:** 044; 045; 046; 047; 048 · **Staffing:**
 Architect · fable-high
 
 ## Mission
 
-Review the batch (044 the boot pack · 045 the baton's fields · 046 the lint gaps — and
-047 · 048 if the note names them): every landing verified against its own bar and kept or
-reverted with a dated note; the prune check (D78); the boot law pasted into its five homes
-under the grant below; three rulings pre-chewed here and written on their rows; findings
-distilled where this repo's docs take them; the baton to ⬡.
+Review the batch (044 the boot pack · 045 the baton's fields · 046 the lint gaps · 047 the
+unwrap · 048 the ledger's aging): every landing verified against its own bar and kept or
+reverted with a dated note; the prune check (D78) — `doctrine prune` at its first use; the
+blessed law texts pasted into their homes under the grant below; three rulings pre-chewed
+here and written on their rows; findings distilled where this repo's docs take them; the
+baton to ⬡.
 
 ## Inputs — read before working
 
 - [BOARD.md](../BOARD.md) — the batch note and the rows; the ledger tail from 2026-09-08 on.
 - The charge docs and their Findings: [044](044-boot-pack.md) · [045](045-baton-fields.md) ·
-  [046](046-lint-gaps.md) — each `Done when:` with its pasted evidence.
+  [046](046-lint-gaps.md) · [047](047-unwrap.md) · [048](048-ledger-aging.md) — each
+  `Done when:` with its pasted evidence.
 - The retention law — DOCTRINE §3 (D78): a resolved row compresses to status + findings
   pointer; the story stays in the charge doc; a LANDED cell over 200 characters lints.
-- The office's grant and the blessed text — 044, *The law at the landing*.
+- The office's grant and the blessed texts — 044 and 048, each *The law at the landing*;
+  D88 (the global file's line is live already — nothing to paste for 047).
 
 ## The bar
 
@@ -40,15 +43,19 @@ distilled where this repo's docs take them; the baton to ⬡.
   - **(iii) A ⬡-action noun the type table does not know.** 045's census lists it; the
     Architect proposes the words for the office to add at its next summons, and adds none
     — the table is the standard's mirror, extended at the desk from data.
-- **The grant — the boot law's paste.** When 044's *The law at the landing* carries ⬡✓
-  (his mark on the text, recorded there), paste its five amendments verbatim into
-  DOCTRINE §11, `canon/mantles/README.md`, `canon/mantles/architect.md`,
-  `plans/TENDER.md` and this repo's `CLAUDE.md` — one commit, a paste, not a patch: the
-  red act is canon (D86) and the mark is the payment. Without the mark the paste waits,
-  the finding says so, and the baton carries it to ⬡. `canon/CLAUDE.md` (the live wire)
-  is touched by nobody here.
-- **The prune check:** the four rows compress to status + findings pointer under the cap;
-  the batch note dies at the close (D78).
+- **The grant — the law's paste.** 044's *The law at the landing* carries ⬡✓ 2026-09-08:
+  paste its five amendments verbatim into DOCTRINE §11, `canon/mantles/README.md`,
+  `canon/mantles/architect.md`, `plans/TENDER.md` and this repo's `CLAUDE.md` — one
+  commit, a paste, not a patch: the red act is canon (D86) and the mark is the payment.
+  048's text pastes the same way the day its mark is recorded there; without a mark a
+  paste waits, the finding says so, and the baton carries it to ⬡. `canon/CLAUDE.md`
+  (the live wire) is touched by nobody here — D88's line is live already.
+- **047's respell** is verified as a respell: the word law and the fixed point re-run at
+  HEAD (`doctrine migrate --summary ~/code/agents` writes nothing), the suite green on the
+  unwrapped tree; a word moved is a rejection.
+- **The prune check:** the six rows compress to status + findings pointer under the cap;
+  the batch note dies at the close (D78); `doctrine prune --write ~/code/agents` runs here
+  for the first time, its dry run pasted first.
 
 ## Findings
 

@@ -118,7 +118,7 @@ Lint: ‹f› failure(s) in ‹c› class(es) · ‹w› warning(s)
 - Trimming the tail entry to make the size bar — an over-long entry is `ledger.entry-cap`'s
   defect, and the pack prints it whole (G4's ruling (i)).
 
-## The law at the landing — the office's text (proposed — pending ⬡✓; G4 pastes only on the mark)
+## The law at the landing — the office's text (⬡✓ 2026-09-08, his word in the room; G4 pastes at the landing)
 
 Amendments, not a D-entry: the ancestor is DOCTRINE §1's two-minute start and formula 17,
 served better. Five homes, pasted verbatim by G4 under its grant, one commit, the day the
