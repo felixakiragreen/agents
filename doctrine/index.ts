@@ -5,13 +5,14 @@
 // D64 (the baton grammar) and D71 (the standard — canon/work/STANDARD.md).
 // Shapes: belvedere/plans/p3-parse-coverage.md §5, normative (D65).
 
-export { parse, parseFiles, discover, slug, LIMITS, lastWalk, type Building, type Board } from './src/building';
+export { parse, parseFiles, discover, slug, LEDGER_ARCHIVE, LIMITS, lastWalk, type Building, type Board } from './src/building';
 export {
-	parseBoards, parseLedger, parseDecisions, parseIssues, parseKickoffs, classifyBaton, batonFails,
-	batonSlots, batonTypeWord,
-	type BoardRow, type LedgerEntry, type Decision, type Issue, type Kickoff, type Baton, type Instrument,
+	parseBoards, parseLedger, parseLedgerPair, parseDecisions, parseIssues, parseKickoffs, classifyBaton, batonFails,
+	batonSlots, batonTypeWord, registerSizeFails,
+	type BoardRow, type Ledger, type LedgerEntry, type Decision, type Issue, type Kickoff, type Baton, type Instrument,
 	type BatonShape, type Recommendation,
 } from './src/parse';
+export { planPrune, planBuilding, write as writePrune, type Plan, type Prune } from './src/prune';
 export { lint, render, guardRegressions, isLiveWorkDoc, type LintReport, type Totals } from './src/lint';
 export { bootPack } from './src/boot';
 export { scanCredits, renderStatement, statementLine, byInterest, type Credit, type Surface, type CreditSources } from './src/credit';
@@ -21,7 +22,7 @@ export {
 } from './src/register';
 export {
 	MANTLES, MODELS, EFFORTS, TIERS, STATES, VERDICTS, RETIRED, HEX_GATE, PENDING, DEFERRED, UNRECORDED,
-	FELIX_GATE, PARKED, UNSTAFFED, CELL_CAP, ENTRY_CAP, BLESSED_MARK, CREDIT_MARK, BATON_TYPES,
+	FELIX_GATE, PARKED, UNSTAFFED, CELL_CAP, ENTRY_CAP, REGISTER_CAP, BLESSED_MARK, CREDIT_MARK, BATON_TYPES,
 	isMantle, isTier, isState, isId, isLawBook, creditDate, maskCode,
 	type Fail, type Mantle, type State, type Artifact, type Severity, type BatonType,
 } from './src/grammar';

@@ -8,6 +8,7 @@
 //   doctrine buildings [--json]                           the building register, walked
 //   doctrine migrate [--write] <building>                 re-emit in the current grammar
 //   doctrine citations [--write] <building>               respell citations of killed D-ids
+//   doctrine prune [--write] <root>                       age the ledger's oldest entries out
 
 import { existsSync, mkdtempSync, readFileSync, rmSync } from 'fs';
 import { tmpdir } from 'os';
@@ -15,7 +16,8 @@ import { join, relative, resolve } from 'path';
 import { citationTargets, diffRun, renderHomes, respellBuilding, writeRun } from './src/citations';
 import { execSync } from 'child_process';
 import { bootPack } from './src/boot';
-import { discover, parse } from './src/building';
+import { discover, parse, LIMITS } from './src/building';
+import { planBuilding, write as writePrune } from './src/prune';
 import { byInterest, renderStatement } from './src/credit';
 import { guardRegressions, lint, render } from './src/lint';
 import { REGISTER, walkRegister } from './src/register';
@@ -81,7 +83,14 @@ const USAGE = `doctrine — the reference reader for the work doctrine (canon/wo
       law, and strips where it stands in that home. Prints the hand-kept home table first,
       then the diff, then the census — every bare D-id still standing, the table's own
       separated from the rest. A citation the shapes do not consume is a HAND edit: the run
-      lists it and refuses to guess. --write is required to touch a byte.`;
+      lists it and refuses to guess. --write is required to touch a byte.
+
+  doctrine prune [--write] <root>
+      The ledger's aging (048, DOCTRINE §3): every entry older than the last ${LIMITS.ledgerTail}
+      moves out of LEDGER.md into ledger-archive.md beside it — verbatim, in order, oldest
+      first, append-only, created at the first aging-out. Nothing is deleted and the parser
+      reads both, so no count drops and the tail stays where it was. Run it at the prune check
+      (D78) — every Architect review and every close gate. --write is required to touch a byte.`;
 
 const argv = process.argv.slice(2);
 const flag = (f: string) => argv.includes(f);
@@ -260,6 +269,36 @@ if (cmd === 'citations') {
 	for (const r of runs.filter(x => x.edits.length)) writeRun(root, r);
 	console.log(`\nWrote ${runs.filter(r => r.edits.length).length} file(s), ${edits} edit(s).`);
 	process.exit(owned.length ? 1 : 0);
+}
+
+if (cmd === 'prune') {
+	if (paths.length !== 1) die('doctrine prune: exactly one root per call.');
+	const root = paths[0]!;
+	if (!existsSync(root)) die(`doctrine prune: ${root} does not exist.`);
+	const run = planBuilding(root);
+	if (!run) die(`doctrine prune: ${root} keeps no LEDGER.md — the aging is that file's (DOCTRINE §3).`);
+	const tilde = (p: string) => p.replace(process.env.HOME + '/', '~/');
+	// Nothing authored: the head printed is the entry's own first line, as boot prints a tail.
+	const head = (block: string) => (block.split('\n').find(l => l.trim()) ?? '').slice(0, 120);
+
+	if (!run.plan) {
+		console.log(`${tilde(run.ledger)}: at or under the last ${LIMITS.ledgerTail} entries — nothing ages out. The fixed point.`);
+		process.exit(0);
+	}
+	const p = run.plan;
+	const n = (x: number) => x.toLocaleString('en-US');
+	console.log(`${tilde(run.ledger)} — ${p.moved.length} entr(ies) age out to ${tilde(run.archive)}${p.created ? ' (new)' : ''}, keeping the last ${p.kept}:`);
+	console.log(`  first  ${head(p.moved[0]!.block)}`);
+	console.log(`  last   ${head(p.moved.at(-1)!.block)}`);
+	console.log(`  bytes  ${n(p.bytes)} move · LEDGER.md ${n(Buffer.byteLength(readFileSync(run.ledger, 'utf8')))} → ${n(Buffer.byteLength(p.ledger))}`);
+
+	if (!flag('--write')) {
+		console.log(`\nDry run — 0 files written. Re-run with --write to apply.`);
+		process.exit(0);
+	}
+	writePrune(run);
+	console.log(`\nWrote ${tilde(run.archive)} and ${tilde(run.ledger)} — the record relocated, not one byte deleted.`);
+	process.exit(0);
 }
 
 die(`doctrine: unknown command "${cmd}".\n\n${USAGE}`);

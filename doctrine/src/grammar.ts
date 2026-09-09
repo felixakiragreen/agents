@@ -107,6 +107,12 @@ export const PROPOSED_MARK = /proposed[\s,]*(?:[—–-]\s*)?pending\s+(?:⬡\s*
  */
 export const CELL_CAP = 200;
 export const ENTRY_CAP = 150;
+/**
+ * §8's purge, nudged (048): the register is the queue and the staging ground, never the archive
+ * — past this it has become one. A warning, because a purge is a blessed act and no lint's to
+ * force; the cure is the kill, and git holds every byte.
+ */
+export const REGISTER_CAP = 30 << 10;
 
 export type Mantle = typeof MANTLES[number];
 export type State = typeof STATES[number];

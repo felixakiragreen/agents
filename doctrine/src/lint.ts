@@ -36,7 +36,9 @@ function liveFails(b: Building): Fail[] {
 		|| f.artifact === 'register'
 		// the decision register is the surface a credit mark sits on until he reads it (D82; 041-F10, G3 2026-09-02)
 		|| f.artifact === 'decisions'
-		|| (f.artifact === 'ledger' && b.ledgerTail !== null && f.line === b.ledgerTail.line)
+		// the tail, and the tail's own file: a ledger and its archive both file `ledger` fails
+		// (048), and a line number alone cannot tell the tail from an aged-out entry's twin line
+		|| (f.artifact === 'ledger' && b.ledgerTail !== null && f.file === b.files.ledger && f.line === b.ledgerTail.line)
 		|| (f.artifact === 'kickoff' && openDocs.has(f.file)));
 }
 

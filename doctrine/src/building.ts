@@ -16,15 +16,19 @@ import { basename, dirname, join, relative, resolve, sep } from 'path';
 import { homedir } from 'os';
 import {
 	batonFails, boardIds, classifyBaton, isLiveWorkDoc, parseBoards, parseDecisions, parseIssues,
-	parseKickoffs, parseLedger,
+	parseKickoffs, parseLedgerPair, registerSizeFails,
 	isBoardHeader, tables,
 	type Baton, type BoardRow, type Decision, type Issue, type Kickoff, type LedgerEntry,
 } from './parse';
 import { fail, strip, type Fail } from './grammar';
 import { scanCredits, type Credit, type CreditSources } from './credit';
 
-/** Everything has a limit (directive 3.1) — a walk that runs away is a bug, not a slow tool. */
-export const LIMITS = { files: 40_000, bytes: 8 << 20, depth: 24 } as const;
+/**
+ * Everything has a limit (directive 3.1) — a walk that runs away is a bug, not a slow tool.
+ * `ledgerTail` is the other kind: the count of entries `LEDGER.md` keeps before the rest age out
+ * to `ledger-archive.md` (048, DOCTRINE §3 — one constant for the city, his to tune).
+ */
+export const LIMITS = { files: 40_000, bytes: 8 << 20, depth: 24, ledgerTail: 20 } as const;
 
 // `lab/` is disposable code by DOCTRINE §3, `fixtures/` is a §6.2 control set, and
 // `templates/` holds ⟨placeholders⟩, not filled artifacts: none of the three is corpus. All
@@ -39,6 +43,12 @@ const WORKTREES = join('.claude', 'worktrees');
 // The building register (D79) — an artifact of the building that keeps it, never an anchor:
 // the city's register lives at `canon/BUILDINGS.md`, and canon is not a building.
 const REGISTER_FILE = 'BUILDINGS.md';
+/**
+ * The ledger's archive (048) — bound to its `LEDGER.md`, never walked for. It is lowercase by
+ * §3's naming law (an artifact read by nobody as protocol) and it anchors no building of its
+ * own: the record is the pair, and a directory holding half a record is not a place to work.
+ */
+export const LEDGER_ARCHIVE = 'ledger-archive.md';
 
 export type Board = { heading: string; file: string; line: number; rows: BoardRow[] };
 
@@ -58,7 +68,7 @@ export type Building = {
 	issues: Issue[];
 	kickoffs: (Kickoff & { doc: string })[];
 	credits: Credit[];                // D82's statement, derived from this building's own graph
-	files: { boards: string[]; ledger: string | null; decisions: string | null; issues: string | null; workDocs: string[]; prose: string[]; register: string | null };
+	files: { boards: string[]; ledger: string | null; ledgerArchive: string | null; decisions: string | null; issues: string | null; workDocs: string[]; prose: string[]; register: string | null };
 	fails: Fail[];
 };
 
@@ -273,13 +283,18 @@ function assemble(path: string, files: FoundFile[]): Building {
 	const pick = (k: FoundFile['kind']) => files.filter(f => f.kind === k).map(f => f.path).sort();
 	const boards = pick('board');
 	const master = boards.find(f => MASTER_DOCS.includes(basename(f)));
+	const ledger = pick('ledger')[0] ?? (master && ledgerSection(read(master)) ? master : null);
+	// The archive is the LEDGER's, so it is found beside it and nowhere else: an inline ledger
+	// (a §3 subproject's master-doc section) ages nothing, and a stray archive anchors nothing.
+	const archive = ledger && basename(ledger) === 'LEDGER.md' ? join(dirname(ledger), LEDGER_ARCHIVE) : null;
 	return parseFiles({
 		building: slug(path), path,
 		files: {
 			boards,
 			// The register's fallbacks are symmetric (item 10): a §3 subproject's decisions AND
 			// ledger live inline in the master doc until they earn a file — silence was the bug.
-			ledger: pick('ledger')[0] ?? (master && ledgerSection(read(master)) ? master : null),
+			ledger,
+			ledgerArchive: archive && existsSync(archive) ? archive : null,
 			decisions: pick('decisions')[0] ?? master ?? null,
 			issues: pick('issues')[0] ?? null,
 			workDocs: [...pick('workdoc'), ...boards.filter(f => /(?:^|\/)(plans|spikes)\//.test(f))].sort(),
@@ -373,14 +388,18 @@ export function parseFiles(e: { building: string; path: string; files: Building[
 	if (e.files.ledger) {
 		// An inline ledger is the section, at its offset — a LEDGER.md is the whole file.
 		const inline = basename(e.files.ledger) === 'LEDGER.md' ? null : ledgerSection(read(e.files.ledger));
-		const r = parseLedger(inline ? inline.text : read(e.files.ledger));
+		// One record, two files (048): the count is over the pair, so an aging is no decrease;
+		// the tail and the baton are the LEDGER's, because the archive is what nobody reboots from.
+		const pair = parseLedgerPair(e.files.ledgerArchive ? read(e.files.ledgerArchive) : null, inline ? inline.text : read(e.files.ledger));
+		const r = pair.ledger;
 		if (inline) {
 			for (const f of r.fails) f.line += inline.offset;
 			for (const en of r.entries) en.line += inline.offset;
 		}
 		fails.push(...stamp(r.fails, e.files.ledger));
+		if (pair.archive) fails.push(...stamp(pair.archive.fails, e.files.ledgerArchive!));
 		ledgerTail = r.tail;
-		ledgerEntries = r.entries.length;
+		ledgerEntries = pair.entries.length;
 		baton = classifyBaton(r.tail);
 		fails.push(...stamp(batonFails(baton, r.tail?.line ?? 0), e.files.ledger));
 		if (r.tail) sources.ledgerTail = { file: e.files.ledger, line: r.tail.line, block: r.tail.block };
@@ -391,6 +410,9 @@ export function parseFiles(e: { building: string; path: string; files: Building[
 		const md = read(e.files.decisions);
 		const r = parseDecisions(md);
 		fails.push(...stamp(r.fails, e.files.decisions));
+		// The size nudge reads a REGISTER, and a §3 subproject's register is a section of its
+		// master doc — that doc's size is the master doc's business, not §8's purge (048).
+		if (basename(e.files.decisions) === 'DECISIONS.md') fails.push(...stamp(registerSizeFails(md), e.files.decisions));
 		decisionQueue = r.queue;
 		decisions = r.decisions.length;
 		sources.decisions = { file: e.files.decisions, md, entries: r.decisions.map(d => ({ id: d.id, line: d.line })) };

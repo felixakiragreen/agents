@@ -7,7 +7,7 @@
 
 import {
 	BATON_TYPES, BLESSED_MARK, CELL_CAP, DECISION_ID, DEFERRED, ENTRY_CAP, FELIX_GATE, HEX_GATE, MANTLES, MARK_TAIL,
-	PARKED, PENDING, PROPOSED_MARK, RETIRED, STATES, UNRECORDED, UNSTAFFED, VERDICTS,
+	PARKED, PENDING, PROPOSED_MARK, REGISTER_CAP, RETIRED, STATES, UNRECORDED, UNSTAFFED, VERDICTS,
 	creditDate, delink, fail, isId, isMantle, isState, isTier, leadingToken, linkTarget, maskCode, strip, topSplit,
 	trailingParen,
 	type BatonType, type Fail, type State,
@@ -316,7 +316,9 @@ function blocks(md: string): { text: string; line: number }[] {
 	return out;
 }
 
-export function parseLedger(md: string): { entries: LedgerEntry[]; tail: LedgerEntry | null; fails: Fail[]; blocks: number } {
+export type Ledger = { entries: LedgerEntry[]; tail: LedgerEntry | null; fails: Fail[]; blocks: number };
+
+export function parseLedger(md: string): Ledger {
 	const fails: Fail[] = [];
 	const bs = blocks(md);
 	const entries: LedgerEntry[] = [];
@@ -385,6 +387,21 @@ export function parseLedger(md: string): { entries: LedgerEntry[]; tail: LedgerE
 		entries.push({ date, mantle, tier, row, body, decided, next, line: b.line, block: b.text });
 	}
 	return { entries, tail: entries.at(-1) ?? null, fails, blocks: bs.length };
+}
+
+/**
+ * One record, two files (048; DOCTRINE §3, the ledger ages). `ledger-archive.md` is the
+ * ledger's ARCHIVE, never a second ledger: the pair yields one sequence, archive first, so a
+ * count over it never drops when an entry ages out. The tail is `LEDGER.md`'s, as ever — the
+ * archive is what nobody reads to reboot — and each half keeps its own fails, because a fail
+ * is stamped with the file it was found in.
+ */
+export function parseLedgerPair(archiveMd: string | null, ledgerMd: string): {
+	archive: Ledger | null; ledger: Ledger; entries: LedgerEntry[];
+} {
+	const archive = archiveMd === null ? null : parseLedger(archiveMd);
+	const ledger = parseLedger(ledgerMd);
+	return { archive, ledger, entries: [...archive?.entries ?? [], ...ledger.entries] };
 }
 
 // ---------- §5 kickoffs · §11 the baton ----------
@@ -752,6 +769,22 @@ export function parseDecisions(md: string): { decisions: Decision[]; queue: Deci
 	// and an entry paid on credit waits on nobody: it proceeds, and the statement carries it (D82).
 	const queue = decisions.filter(d => d.pending || (!d.blessed && !d.credit && !/^Felix\b/.test(d.decider)));
 	return { decisions, queue, fails, candidates };
+}
+
+/**
+ * §8's purge, nudged (048). The register is the queue and the staging ground, never the archive
+ * — past `REGISTER_CAP` it has become one, and entries fully distilled into their homes are due
+ * the kill. A warning: a purge is a blessed act, and no lint forces his hand. Read off the
+ * BYTES, so it is the file on disk and not a character count of it — and only ever over a
+ * `DECISIONS.md`, because a §3 subproject's register is a section of a master doc whose size is
+ * that doc's business (the caller binds it — `building.ts`).
+ */
+export function registerSizeFails(md: string): Fail[] {
+	const bytes = Buffer.byteLength(md);
+	if (bytes <= REGISTER_CAP) return [];
+	return [fail('decisions', 'decisions.size',
+		`a decision register past ${REGISTER_CAP >> 10} KB is due a purge (DOCTRINE §8) — an entry fully distilled into its canon home is killed whole, and git holds every byte`,
+		`${(bytes / 1024).toFixed(1)} KB in ${md.split('\n').length} lines`, 1, 'warn')];
 }
 
 // ---------- §3 ISSUES — the inbox ----------
