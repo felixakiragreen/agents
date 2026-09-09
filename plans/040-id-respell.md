@@ -1,35 +1,18 @@
 # 040 — the id respell
 
-**Status:** LANDED 2026-09-01 — ignited 2026-09-01, laid 2026-09-01 · **Depends on:** — · **Staffing:** Builder · opus-high ·
-**Blessed:** Felix, 2026-09-01 — D80 and D81 (⬡✓ in-session); the spec below is D80 built,
-and D81's first act. **Sole
-occupant:** nothing else ignites in this building while this runs — it renames files under
-every other session's feet.
+**Status:** LANDED 2026-09-01 — ignited 2026-09-01, laid 2026-09-01 · **Depends on:** — · **Staffing:** Builder · opus-high · **Blessed:** Felix, 2026-09-01 — D80 and D81 (⬡✓ in-session); the spec below is D80 built, and D81's first act. **Sole occupant:** nothing else ignites in this building while this runs — it renames files under every other session's feet.
 
 ## Mission
 
-When this lands, the agents building speaks D80 whole: every id in every document — board,
-ledger, register, plans, lab, canon, the Log, the rig's docs, the doctrine's own docs — wears
-the new form; charge docs and lab dirs are renamed; every link resolves; the parser reads the
-new form as its own and the old forms as foreign history; `doctrine migrate` carries the rule
-any building can run; lint reads 0 and the suite is green. **Zero stray ids** — his word.
+When this lands, the agents building speaks D80 whole: every id in every document — board, ledger, register, plans, lab, canon, the Log, the rig's docs, the doctrine's own docs — wears the new form; charge docs and lab dirs are renamed; every link resolves; the parser reads the new form as its own and the old forms as foreign history; `doctrine migrate` carries the rule any building can run; lint reads 0 and the suite is green. **Zero stray ids** — his word.
 
 ## Inputs — read before working
 
-- [DECISIONS.md](../DECISIONS.md) D80 — the ruling, whole — and D81, the currency law:
-  history is respelled, never rewritten; this charge is its first act. [STANDARD.md](../canon/work/STANDARD.md)
-  §2 (‹nnn›), §7 (the namespace, `:`), §9 (the four new graveyard rows).
-  [DOCTRINE.md](../canon/work/DOCTRINE.md) §3 (padding), §4 (ID), §7 (the head's slot).
-- `doctrine/src/migrate.ts` — the converter's rule shape and its round-trip law (total,
-  line-scoped, never paraphrases). `doctrine/src/grammar.ts` — `isId`, `DECISION_ID`.
-- Precedents: [18](018-great-recut.md) (the corpus-wide form migration, history included);
-  [025 — the respell sweep](025-respell-sweep.md) (the fence method); [030 — the master-doc
-  prose sweep](030-master-doc-prose.md) (hits adjudicated by hand, exemptions named);
-  [031](031-doctrine-defects.md) item 3 (the parser reads `‹prefix›-D‹n›` — it keeps reading it).
-- The lexicon mirror and the bare-D lint arm are already done (this desk, 2026-09-01) —
-  do not re-derive: `CANON_PREFIXES` is `D G F E`, `prefixFails` warns on collisions only.
-- **The denominators** (2026-09-01, `belvedere/` excluded — the Builder re-counts before and
-  after; a count that moves unexpectedly is a finding):
+- [DECISIONS.md](../DECISIONS.md) D80 — the ruling, whole — and D81, the currency law: history is respelled, never rewritten; this charge is its first act. [STANDARD.md](../canon/work/STANDARD.md) §2 (‹nnn›), §7 (the namespace, `:`), §9 (the four new graveyard rows). [DOCTRINE.md](../canon/work/DOCTRINE.md) §3 (padding), §4 (ID), §7 (the head's slot).
+- `doctrine/src/migrate.ts` — the converter's rule shape and its round-trip law (total, line-scoped, never paraphrases). `doctrine/src/grammar.ts` — `isId`, `DECISION_ID`.
+- Precedents: [18](018-great-recut.md) (the corpus-wide form migration, history included); [025 — the respell sweep](025-respell-sweep.md) (the fence method); [030 — the master-doc prose sweep](030-master-doc-prose.md) (hits adjudicated by hand, exemptions named); [031](031-doctrine-defects.md) item 3 (the parser reads `‹prefix›-D‹n›` — it keeps reading it).
+- The lexicon mirror and the bare-D lint arm are already done (this desk, 2026-09-01) — do not re-derive: `CANON_PREFIXES` is `D G F E`, `prefixFails` warns on collisions only.
+- **The denominators** (2026-09-01, `belvedere/` excluded — the Builder re-counts before and after; a count that moves unexpectedly is a finding):
 
   | What | Count |
   |---|---|
@@ -49,51 +32,12 @@ any building can run; lint reads 0 and the suite is green. **Zero stray ids** �
 
 ## Spec
 
-1. **The rule derives its table from the board.** `doctrine migrate` gains the id respell:
-   it reads the building's board(s) and derives old → new for every row id — bare `n`/`nn`
-   → `nnn`; `C‹nn›` → `0nn`; `G‹n›` unchanged (G is a kind). The table is printed before
-   anything is written; a dry run is the default and `--write` applies. Beyond the board,
-   the standard's dead compounds: `GA-‹nn›` → `grand-architect-‹nn›` (two digits, the
-   stamp's form); `FC-‹n›` → `distillation candidate ‹n›` (the acronym expanded to its
-   concept's living word — 14 hits, each hand-checked); `✓ Felix` → `⬡✓` (D81's first
-   act — `BLESSED_MARK` reads both forever, the converter emits only the new, and the date
-   behind the mark stays where it stands). Path forms ride the same table:
-   `c‹nn›-` → `0nn-`, `plans/‹nn›-` → `plans/0nn-`, `lab/‹nn›` → `lab/0nn`, `lab/028` →
-   `lab/028`. The rule carries a fixture and a round-trip test like its siblings.
-2. **Scope: every tracked text file in the building**, history and voice included (D80, his
-   word) — `LEDGER.md` whole, `LOG.md` + `log-archive.md` + `SAPHO.md`, every `plans/` doc
-   including landed ones and their kickoff fences, `DECISIONS.md`, `MAP.md`, `BOARD.md`,
-   `ISSUES.md`, `canon/` (STANDARD, DOCTRINE, the charters, README, BUILDINGS), `doctrine/`
-   (src comments, README, cli, tests), `summon/` (README, `presets.tsv`, the harness), `lab/`.
-   **The fence:** `belvedere/` whole — retired, the purge on the deferred list deletes it; its
-   B/P ids are its own building's, and agents-side references to them (`belvedere D22`,
-   `B10–B12`, `B26 F2`) are foreign historical addresses, untouched. The live wire —
-   `canon/CLAUDE.md`, `canon/agents/` — verified id-free 2026-09-01: if a hit appears there,
-   file it, never edit. **A fixture keeps the form it exists to exercise:** fixtures that model
-   a foreign building's history (`fixtures/worktree/…/bv/029-harness/`, `fixtures/defects/`,
-   `fixtures/vocab/` — its C-collision is the point, 031's `VX-D2` reproduction) keep their
-   forms and the parser goes on reading them; fixtures that model THE conforming form
-   (`fixtures/conforming/`, `fixtures/kickoff/`, `fixtures/board-file/`) respell to the new
-   form. Every fixture's ruling is listed in findings.
-3. **Two layers.** *Machine:* every lettered token (`C‹nn›`, `c‹nn›-`, `GA-‹nn›`, `FC-‹n›`),
-   every path (`plans/`, `lab/`), every typed slot — board ID cells, ledger head
-   parentheticals, `ignite ‹id›`, `charge ‹n›`, `row ‹n›`, `‹id›-F‹n›` and `‹id› F‹n›` → `0nn-F‹n›`.
-   *Supervised:* bare-number mentions the machine cannot prove — possessives (`18's`), ranges
-   (`0–04`), lists (`06 hexwright · 07 simmy`), "the 18 wave" — the Builder adjudicates each hit
-   against the table and its context; every mention left as-is is listed in findings with its
-   reason (030's method). **Form only** — nothing is paraphrased, no sentence is reworded.
-4. **Renames via `git mv`:** the 39 `plans/` docs and 6 lab dirs — `01-…` → `001-…`, `c23-…`
-   → `023-…`, `lab/028` → `lab/028`; slugs carrying an old id respell too (`g2-029-merge.md`
-   → `g2-029-merge.md`). The renames ride one commit so history follows; links respell in the
-   same landing.
-5. **The parser:** `isId` already accepts the padded form — prove it with a test; the ledger
-   head reads a name-stamp in the id slot — prove `(grand-architect-21)` and `(mentat-02)`
-   parse (the Mentat's precedent); `DECISION_ID` keeps reading `‹prefix›-D‹n›` (bob's history)
-   — the tests that call it "the form §7 mandates" are retitled; conforming fixtures move to
-   the new form.
-6. **The control — a second building:** the dry run on `~/code/stigmergon` prints `S1 → 001`
-   … `S28 → 028`, `G1`–`G5` unchanged, and writes nothing. stigmergon's Architect runs it at
-   their review — never this charge.
+1. **The rule derives its table from the board.** `doctrine migrate` gains the id respell: it reads the building's board(s) and derives old → new for every row id — bare `n`/`nn` → `nnn`; `C‹nn›` → `0nn`; `G‹n›` unchanged (G is a kind). The table is printed before anything is written; a dry run is the default and `--write` applies. Beyond the board, the standard's dead compounds: `GA-‹nn›` → `grand-architect-‹nn›` (two digits, the stamp's form); `FC-‹n›` → `distillation candidate ‹n›` (the acronym expanded to its concept's living word — 14 hits, each hand-checked); `✓ Felix` → `⬡✓` (D81's first act — `BLESSED_MARK` reads both forever, the converter emits only the new, and the date behind the mark stays where it stands). Path forms ride the same table: `c‹nn›-` → `0nn-`, `plans/‹nn›-` → `plans/0nn-`, `lab/‹nn›` → `lab/0nn`, `lab/028` → `lab/028`. The rule carries a fixture and a round-trip test like its siblings.
+2. **Scope: every tracked text file in the building**, history and voice included (D80, his word) — `LEDGER.md` whole, `LOG.md` + `log-archive.md` + `SAPHO.md`, every `plans/` doc including landed ones and their kickoff fences, `DECISIONS.md`, `MAP.md`, `BOARD.md`, `ISSUES.md`, `canon/` (STANDARD, DOCTRINE, the charters, README, BUILDINGS), `doctrine/` (src comments, README, cli, tests), `summon/` (README, `presets.tsv`, the harness), `lab/`. **The fence:** `belvedere/` whole — retired, the purge on the deferred list deletes it; its B/P ids are its own building's, and agents-side references to them (`belvedere D22`, `B10–B12`, `B26 F2`) are foreign historical addresses, untouched. The live wire — `canon/CLAUDE.md`, `canon/agents/` — verified id-free 2026-09-01: if a hit appears there, file it, never edit. **A fixture keeps the form it exists to exercise:** fixtures that model a foreign building's history (`fixtures/worktree/…/bv/029-harness/`, `fixtures/defects/`, `fixtures/vocab/` — its C-collision is the point, 031's `VX-D2` reproduction) keep their forms and the parser goes on reading them; fixtures that model THE conforming form (`fixtures/conforming/`, `fixtures/kickoff/`, `fixtures/board-file/`) respell to the new form. Every fixture's ruling is listed in findings.
+3. **Two layers.** *Machine:* every lettered token (`C‹nn›`, `c‹nn›-`, `GA-‹nn›`, `FC-‹n›`), every path (`plans/`, `lab/`), every typed slot — board ID cells, ledger head parentheticals, `ignite ‹id›`, `charge ‹n›`, `row ‹n›`, `‹id›-F‹n›` and `‹id› F‹n›` → `0nn-F‹n›`. *Supervised:* bare-number mentions the machine cannot prove — possessives (`18's`), ranges (`0–04`), lists (`06 hexwright · 07 simmy`), "the 18 wave" — the Builder adjudicates each hit against the table and its context; every mention left as-is is listed in findings with its reason (030's method). **Form only** — nothing is paraphrased, no sentence is reworded.
+4. **Renames via `git mv`:** the 39 `plans/` docs and 6 lab dirs — `01-…` → `001-…`, `c23-…` → `023-…`, `lab/028` → `lab/028`; slugs carrying an old id respell too (`g2-029-merge.md` → `g2-029-merge.md`). The renames ride one commit so history follows; links respell in the same landing.
+5. **The parser:** `isId` already accepts the padded form — prove it with a test; the ledger head reads a name-stamp in the id slot — prove `(grand-architect-21)` and `(mentat-02)` parse (the Mentat's precedent); `DECISION_ID` keeps reading `‹prefix›-D‹n›` (bob's history) — the tests that call it "the form §7 mandates" are retitled; conforming fixtures move to the new form.
+6. **The control — a second building:** the dry run on `~/code/stigmergon` prints `S1 → 001` … `S28 → 028`, `G1`–`G5` unchanged, and writes nothing. stigmergon's Architect runs it at their review — never this charge.
 
 ## Done when:
 
@@ -104,9 +48,7 @@ any building can run; lint reads 0 and the suite is green. **Zero stray ids** �
       416 expect() calls
       Ran 102 tests across 2 files. [73.00ms]
 
-- [x] `bun doctrine/cli.ts lint --vocab ~/code/agents` — the agents building 0 failure(s),
-      0 warning(s) (`agents/belvedere` reports its own 36 and is fenced — the same 36 it
-      reported before this charge):
+- [x] `bun doctrine/cli.ts lint --vocab ~/code/agents` — the agents building 0 failure(s), 0 warning(s) (`agents/belvedere` reports its own 36 and is fenced — the same 36 it reported before this charge):
 
       ok   agents  —  3 board(s) · 51/51 rows typed · ledger 2026-09-01 · baton dispatch · 50 kickoff(s) · queue 0
       === TOTALS
@@ -115,10 +57,7 @@ any building can run; lint reads 0 and the suite is green. **Zero stray ids** �
         0 worktree checkout(s) skipped as branch copies · per-repo special cases: 0
         36 failure(s) in 1 class(es)
 
-- [x] The stray sweep carries **no id of this building** — 1,402 hits remain and every one is
-      classified in 040-F3, with counts. Run over TRACKED files: the sweep's `--include` list
-      reaches `lab/*/out/` and `summon/log/`, which `.gitignore` keeps out of the building's
-      record, and this charge's scope is "every tracked text file".
+- [x] The stray sweep carries **no id of this building** — 1,402 hits remain and every one is classified in 040-F3, with counts. Run over TRACKED files: the sweep's `--include` list reaches `lab/*/out/` and `summon/log/`, which `.gitignore` keeps out of the building's record, and this charge's scope is "every tracked text file".
 
       git ls-files -z | grep -zvE '^belvedere/' | xargs -0 grep -cE '\bC[0-9]{2}\b|\bGA-[0-9]{1,2}\b|\bFC-[0-9]\b|\bc[0-9]{2}-|plans/[0-9]{2}-|\blab/c?[0-9]{2}\b' | grep -v ':0$'
 
@@ -128,13 +67,7 @@ any building can run; lint reads 0 and the suite is green. **Zero stray ids** �
       lab/017/** 5 · BOARD.md · DECISIONS.md · ISSUES.md · canon/work/STANDARD.md 5
       → foreign addresses 1,329 · named forms 51 · control fixtures 22 (040-F3)
 
-- [x] Every `plans/…` and `lab/…` path a tracked `.md` USES resolves — **326 checked, 0
-      missing.** The one-liner archives the pre-charge tree and counts only the misses whose
-      old spelling existed there, so a control set's invented `plans/01-thing.md` is not read
-      as a break (118 such invented addresses at the baseline, unchanged by this charge); and
-      it strips code-ticked spans first (`\x60` is the tick, kept out of the line so the line's
-      own tick parity stays even), the same fence the converter reads (040-F2), because
-      this document's own findings QUOTE the two old spellings the machine could not see:
+- [x] Every `plans/…` and `lab/…` path a tracked `.md` USES resolves — **326 checked, 0 missing.** The one-liner archives the pre-charge tree and counts only the misses whose old spelling existed there, so a control set's invented `plans/01-thing.md` is not read as a break (118 such invented addresses at the baseline, unchanged by this charge); and it strips code-ticked spans first (`\x60` is the tick, kept out of the line so the line's own tick parity stays even), the same fence the converter reads (040-F2), because this document's own findings QUOTE the two old spellings the machine could not see:
 
       BASE=ec6a0b3; TMP=$(mktemp -d); git archive $BASE | tar -x -C "$TMP"; n=0; c=0
       while IFS= read -r f; do
@@ -153,8 +86,7 @@ any building can run; lint reads 0 and the suite is green. **Zero stray ids** �
       exactly the three real breaks (`plans/11-…`, `plans/18-…`, `plans/19-…` in
       `lab/021/ortho-report.md`) out of 136 raw misses.
 
-- [x] `ls plans` — every charge doc `001-…` through `040-…`, both gates, the six non-id docs
-      unchanged:
+- [x] `ls plans` — every charge doc `001-…` through `040-…`, both gates, the six non-id docs unchanged:
 
       001-composition-model.md    014-summon-rig-theater-cycle.md  027-glass.md             039-register-arm.md
       002-work-doctrine.md        016-doctrine-linter.md           028-charters.md          040-id-respell.md
@@ -173,17 +105,9 @@ any building can run; lint reads 0 and the suite is green. **Zero stray ids** �
       No `015-` and two `021-`: charge 15's doc is `belvedere.md`, the cornerstone the fence
       leaves alone, and charge 21 has led two docs since it landed.
 
-- [x] Ledger heads: `grep -cE '^\*\*20.*\((C?[0-9]{1,2}|GA-[0-9]+)\)' LEDGER.md` → **2**, not
-      0, and both are foreign by construction — **040-F4**. Of 59 heads carrying an id slot,
-      57 respelled; the two left name belvedere's `C7` and `C13`, and §7's qualified form
-      (`belvedere:C7`) does not parse in the head's id slot. Filed to `ISSUES.md`.
+- [x] Ledger heads: `grep -cE '^\*\*20.*\((C?[0-9]{1,2}|GA-[0-9]+)\)' LEDGER.md` → **2**, not 0, and both are foreign by construction — **040-F4**. Of 59 heads carrying an id slot, 57 respelled; the two left name belvedere's `C7` and `C13`, and §7's qualified form (`belvedere:C7`) does not parse in the head's id slot. Filed to `ISSUES.md`.
 
-- [x] The mark — `grep -rl` for `✓ Felix` across `--include='*.md' --include='*.ts'`, with
-      `--exclude-dir=belvedere --exclude-dir=node_modules` (the pattern rides its own tick span
-      so the converter reads it as the named form it is — 040-F7):
-      → 20 files, 38 occurrences, **every one inside code ticks: a form being named, never a
-      mark being given.** Zero marks remain in the record. Each class named in **040-F5**; the
-      converter's own fence (040-F2) is why they stand and why a re-run leaves them standing.
+- [x] The mark — `grep -rl` for `✓ Felix` across `--include='*.md' --include='*.ts'`, with `--exclude-dir=belvedere --exclude-dir=node_modules` (the pattern rides its own tick span so the converter reads it as the named form it is — 040-F7): → 20 files, 38 occurrences, **every one inside code ticks: a form being named, never a mark being given.** Zero marks remain in the record. Each class named in **040-F5**; the converter's own fence (040-F2) is why they stand and why a re-run leaves them standing.
 
 - [x] The stigmergon dry run — the table, and `0 files written`:
 
@@ -201,60 +125,34 @@ any building can run; lint reads 0 and the suite is green. **Zero stray ids** �
 
       Control: `git -C ~/code/stigmergon status --porcelain | wc -l` → `0`, before and after.
 
-- [x] **The converter is a fixed point on its own landing** (not a bar the charge named — the
-      currency law's own precondition, and it took three re-runs to reach; 040-F7):
+- [x] **The converter is a fixed point on its own landing** (not a bar the charge named — the currency law's own precondition, and it took three re-runs to reach; 040-F7):
 
       bun doctrine/cli.ts migrate .   →  agents: already in the current grammar — nothing to migrate.
 
-- [x] The supervised layer's exemption list is in findings — **040-F3** (what stands and why,
-      with counts) and **040-F6** (every line the machine over-reached into and this hand
-      restored, and every one it could not see and this hand fixed).
+- [x] The supervised layer's exemption list is in findings — **040-F3** (what stands and why, with counts) and **040-F6** (every line the machine over-reached into and this hand restored, and every one it could not see and this hand fixed).
 
 ## Out of scope
 
 - `belvedere/` — the purge (deferred list) deletes it; git is the archive.
-- Other buildings' respells — stigmergon's inbox line is filed; the rest adopt at their next
-  Architect session (D78's precedent).
-- ~~The `✓ Felix` → `⬡✓` mark respell — deferred, STANDARD "What remains".~~ **Struck
-  2026-09-01 at the landing (040-F1):** stale when this doc was laid — the Mission, Spec 1,
-  the bar and D81 all ride it here, and the standard's "What remains" was struck the same
-  morning. The mark respelled.
+- Other buildings' respells — stigmergon's inbox line is filed; the rest adopt at their next Architect session (D78's precedent).
+- ~~The `✓ Felix` → `⬡✓` mark respell — deferred, STANDARD "What remains".~~ **Struck 2026-09-01 at the landing (040-F1):** stale when this doc was laid — the Mission, Spec 1, the bar and D81 all ride it here, and the standard's "What remains" was struck the same morning. The mark respelled.
 - Any rewording. New lint arms. The sync set. The worktree-dedup hole (deferred list).
 
 ## Findings
 
 ### 040-F1 — the charge contradicted itself on the mark; the ruling won
 
-Out of scope read "The `✓ Felix` → `⬡✓` mark respell — deferred, STANDARD 'What remains'", while
-the Mission, Spec 1, the Done-when's own mark bullet, D81's text ("First act: the `✓ Felix` →
-`⬡✓` mark respell rides 040") and STANDARD's struck "What remains" all say it rides here. One
-stale line against five instruments: the mark respelled. The line is struck above with a dated
-note rather than deleted (D63's molt clause). **No escalation was raised** — the fork was not
-live: the same document's Mission and bar already overrode the line, and a ruling blessed the
-same morning outranks it.
+Out of scope read "The `✓ Felix` → `⬡✓` mark respell — deferred, STANDARD 'What remains'", while the Mission, Spec 1, the Done-when's own mark bullet, D81's text ("First act: the `✓ Felix` → `⬡✓` mark respell rides 040") and STANDARD's struck "What remains" all say it rides here. One stale line against five instruments: the mark respelled. The line is struck above with a dated note rather than deleted (D63's molt clause). **No escalation was raised** — the fork was not live: the same document's Mission and bar already overrode the line, and a ruling blessed the same morning outranks it.
 
 ### 040-F2 — a converter that respells its own law needs one fence: the named form
 
-A total substitution over a whole building walks into the sentences that DEFINE the dead forms.
-Uncaught, the first run produced `` the `⬡✓` → `⬡✓` mark `` (BOARD row 040), `` `036-…` →
-`036-…` `` (D80's own line) and `` Historical forms (`023`, `S3`, …) `` (STANDARD §7) — the
-law's statements destroyed by the law.
+A total substitution over a whole building walks into the sentences that DEFINE the dead forms. Uncaught, the first run produced `` the `⬡✓` → `⬡✓` mark `` (BOARD row 040), `` `036-…` → `036-…` `` (D80's own line) and `` Historical forms (`023`, `S3`, …) `` (STANDARD §7) — the law's statements destroyed by the law.
 
-The fence lives in `respell.ts`, not in this session's hands: **a code-ticked LONE TOKEN is a
-form being named, not an address being used.** Three exclusions, each earned by a real hit — a
-span carrying `/` or `.` is an ADDRESS and must follow the rename (`` `plans/023-…` ``,
-`` `037-removal-arm.md` ``); a span with whitespace is a phrase, not a form (`` `ignite 029` ``
-is a command and respells); `✓ Felix` is the one dead form the standard spells with a space.
+The fence lives in `respell.ts`, not in this session's hands: **a code-ticked LONE TOKEN is a form being named, not an address being used.** Three exclusions, each earned by a real hit — a span carrying `/` or `.` is an ADDRESS and must follow the rename (`` `plans/023-…` ``, `` `037-removal-arm.md` ``); a span with whitespace is a phrase, not a form (`` `ignite 029` `` is a command and respells); `✓ Felix` is the one dead form the standard spells with a space.
 
-Its own defect, found and fixed: the mask is per-line and the corpus wraps its tick spans, so
-``a collision `✓ Felix` could not have`` (LEDGER 1554, the span opened on 1553) read as unticked
-text and was respelled into a sentence that no longer said anything. Parity is now threaded
-through the engine (`LineCtx.openTick`, `ticksLeftOpen`), reset at every fence marker. The
-fixture asserts both halves.
+Its own defect, found and fixed: the mask is per-line and the corpus wraps its tick spans, so ``a collision `✓ Felix` could not have`` (LEDGER 1554, the span opened on 1553) read as unticked text and was respelled into a sentence that no longer said anything. Parity is now threaded through the engine (`LineCtx.openTick`, `ticksLeftOpen`), reset at every fence marker. The fixture asserts both halves.
 
-**Why it matters past today:** the mark, `GA-‹n›` and `FC-‹n›` have no table to extinguish
-them, so without the fence they re-fire on every run forever. With it they stand. That is half
-of what makes the converter re-runnable; 040-F7 is the other half.
+**Why it matters past today:** the mark, `GA-‹n›` and `FC-‹n›` have no table to extinguish them, so without the fence they re-fire on every run forever. With it they stand. That is half of what makes the converter re-runnable; 040-F7 is the other half.
 
 ### 040-F3 — the stray sweep's 1,402 remaining hits, classified
 
@@ -272,42 +170,22 @@ Not one is an id of this building.
 | `DECISIONS.md` 2 · `canon/work/STANDARD.md` 1 | 3 | D80's own `` `c36-…` → `036-…` `` line, its `` `S3` and `C23` `` diagnosis, §7's historical-forms list. Naming a dead form is how the law records it. |
 | This landing's own record — `plans/040-id-respell.md` 23 · `LEDGER.md` +2 · `BOARD.md` 1 · `ISSUES.md` 1 | 27 | The findings below, the board row, the inbox entry and the ledger entry NAME the forms this charge killed and the foreign ids it left standing. A report on a respell cannot be written without them. |
 
-**Fixtures that DID move** (they model THE conforming form, spec §2): `fixtures/conforming/`
-(11 files, 52 edits), `fixtures/board-file/` (2), `fixtures/kickoff/` (4). `fixtures/defects/`,
-`fixtures/vocab/`, `fixtures/live/`, `fixtures/guard/`, `fixtures/subproject/` carry no id in
-the respell's reach. Nine test expectations followed the conforming fixtures; two
-(`defects/unstaffed.md`, `worktree/`) were deliberately left on `C1`–`C3`, and a blanket
-string replace that moved them was caught by the suite and reverted.
+**Fixtures that DID move** (they model THE conforming form, spec §2): `fixtures/conforming/` (11 files, 52 edits), `fixtures/board-file/` (2), `fixtures/kickoff/` (4). `fixtures/defects/`, `fixtures/vocab/`, `fixtures/live/`, `fixtures/guard/`, `fixtures/subproject/` carry no id in the respell's reach. Nine test expectations followed the conforming fixtures; two (`defects/unstaffed.md`, `worktree/`) were deliberately left on `C1`–`C3`, and a blanket string replace that moved them was caught by the suite and reverted.
 
 ### 040-F4 — §7's qualified id cannot be written in the ledger head's id slot
 
-Two ledger heads keep a foreign id: `**2026-08-30 · Architect · fable-high (C7)**` (LEDGER 2086)
-and `(C13)` (2151) — sessions this desk ran on belvedere's board. D80 says an id abroad is
-qualified (`belvedere:C7`), but `isId` is `/^[A-Za-z0-9][A-Za-z0-9-]*$/` and rejects `:`, so
-`splitParen` would drop a qualified id out of the row slot and into the body: a stray traded for
-a lint failure and a lost field. Left as the foreign addresses they are; **filed to `ISSUES.md`**,
-because every building that tends another's charge meets this.
+Two ledger heads keep a foreign id: `**2026-08-30 · Architect · fable-high (C7)**` (LEDGER 2086) and `(C13)` (2151) — sessions this desk ran on belvedere's board. D80 says an id abroad is qualified (`belvedere:C7`), but `isId` is `/^[A-Za-z0-9][A-Za-z0-9-]*$/` and rejects `:`, so `splitParen` would drop a qualified id out of the row slot and into the body: a stray traded for a lint failure and a lost field. Left as the foreign addresses they are; **filed to `ISSUES.md`**, because every building that tends another's charge meets this.
 
 ### 040-F5 — where `✓ Felix` still stands, and why every one is right
 
 38 mentions in 20 files, all inside code ticks. Four classes:
 
-- **The law naming its own graveyard** — STANDARD §7 (`instead of:`) and the struck "What
-  remains", DOCTRINE §7 ("historical `✓ Felix` marks parse"), DECISIONS D81, BOARD row 040,
-  this charge's own spec.
-- **The reader's contract** — `grammar.ts`'s `BLESSED_MARK` comment, `respell.ts`'s fence,
-  `doctrine/README.md`'s successor table, the suite's fence assertion, `fixtures/respell/*`.
-- **The census counting the token** — `plans/021-census.md` (266 marks),
-  `plans/021-vocabulary.md`, `lab/021/ortho-report.md`, `lab/021/PROTOCOL.md`.
-- **History narrating the form** — `LEDGER.md` ×4, `plans/{019,024,034}`,
-  `lab/017/rendered/LEDGER.md`.
+- **The law naming its own graveyard** — STANDARD §7 (`instead of:`) and the struck "What remains", DOCTRINE §7 ("historical `✓ Felix` marks parse"), DECISIONS D81, BOARD row 040, this charge's own spec.
+- **The reader's contract** — `grammar.ts`'s `BLESSED_MARK` comment, `respell.ts`'s fence, `doctrine/README.md`'s successor table, the suite's fence assertion, `fixtures/respell/*`.
+- **The census counting the token** — `plans/021-census.md` (266 marks), `plans/021-vocabulary.md`, `lab/021/ortho-report.md`, `lab/021/PROTOCOL.md`.
+- **History narrating the form** — `LEDGER.md` ×4, `plans/{019,024,034}`, `lab/017/rendered/LEDGER.md`.
 
-Three claims this landing falsified were repaired in the same act, because the currency law
-binds the converter's own documentation: `doctrine/README.md`'s "neither mark migrates" and
-"the record's marks — `✓ Felix` stays `✓ Felix`", and STANDARD §1's "The record token
-**`✓ Felix`** is unchanged". The README's refusal list also lost "kickoff fences" as a blanket
-refusal — the respell reads fences, because a kickoff naming a renamed charge doc is a dead
-address. **STANDARD.md is canon: that touch rides D81 and is named here for the review.**
+Three claims this landing falsified were repaired in the same act, because the currency law binds the converter's own documentation: `doctrine/README.md`'s "neither mark migrates" and "the record's marks — `✓ Felix` stays `✓ Felix`", and STANDARD §1's "The record token **`✓ Felix`** is unchanged". The README's refusal list also lost "kickoff fences" as a blanket refusal — the respell reads fences, because a kickoff naming a renamed charge doc is a dead address. **STANDARD.md is canon: that touch rides D81 and is named here for the review.**
 
 ### 040-F6 — the supervised layer, line by line
 
@@ -315,18 +193,10 @@ The machine ran; then this hand read every hit its risky rules produced.
 
 **Rules narrowed after the corpus falsified them:**
 
-1. **`gate ‹n›` dropped from the typed prose slots**, though the spec named it. Every occurrence
-   in this corpus is another building's row (whiteboardy's `gate 25`/`gate 26`, six sites) or a
-   count (`type gate 0`, LEDGER 1652). A noun that types nothing is noise.
-2. **Depends-on reads SEGMENTS, not digits.** "A Depends-on cell holds ids and no prose" is
-   false: `lab/017/rendered/board.md` row 17's ⬡-gate carries a paragraph, and a digit rule
-   turned `v0 §8 DoD 7/7, 14 rows` into `007/007, 014 rows`. Only a segment that IS a bare
-   number now respells, split on the parser's own separators (`·` `,` `;`).
-3. **`plans/…` and `lab/…` bind to the building's own directory name.** Without it, ~300
-   `/Users/felix/code/whiteboardy/plans/18-…` in the census data became `018-`. With it,
-   `../plans/`, `./lab/` and bare `agents/plans/` all still respell.
-4. **A trailing `.` no longer blocks a slot** (`row 08.` in a decision title was invisible) and
-   a decimal still does (`v1.2`).
+1. **`gate ‹n›` dropped from the typed prose slots**, though the spec named it. Every occurrence in this corpus is another building's row (whiteboardy's `gate 25`/`gate 26`, six sites) or a count (`type gate 0`, LEDGER 1652). A noun that types nothing is noise.
+2. **Depends-on reads SEGMENTS, not digits.** "A Depends-on cell holds ids and no prose" is false: `lab/017/rendered/board.md` row 17's ⬡-gate carries a paragraph, and a digit rule turned `v0 §8 DoD 7/7, 14 rows` into `007/007, 014 rows`. Only a segment that IS a bare number now respells, split on the parser's own separators (`·` `,` `;`).
+3. **`plans/…` and `lab/…` bind to the building's own directory name.** Without it, ~300 `/Users/felix/code/whiteboardy/plans/18-…` in the census data became `018-`. With it, `../plans/`, `./lab/` and bare `agents/plans/` all still respell.
+4. **A trailing `.` no longer blocks a slot** (`row 08.` in a decision title was invisible) and a decimal still does (`v1.2`).
 
 **Restored by hand — foreign addresses the machine reached:**
 
@@ -358,65 +228,32 @@ The machine ran; then this hand read every hit its risky rules produced.
 | `lab/021/{ortho,candidates,build-manifest}.ts`, 8 paths | `${AGENTS}/lab/21/` → `lab/021/` | the path is built from a variable, so the building's name is not in the text |
 | `lab/017/{twin/kickoffs.json, parse-baseline.json}` | `\nplans/01-composition-model.md` | a JSON-escaped newline: the `n` of `\n` is a word character and blocked the path rule |
 
-**Left as-is, with reasons** (beyond F3's table): every `‹noun› ‹n›'s` whose noun is
-`requirement · clause · contract · drill · probe · finding · escalation · entry · formula ·
-item · batch · round · arm · law · step · phase · scenario · question · Rev · leg · waypoint ·
-sitting · bulletin · Pi` — word-numbered things stay words (STANDARD §7). `LEDGER.md` 2696's
-"the seam (0–22 beside 023+)": the sentence is ABOUT the old numbering, and padding it erases
-its subject. `DECISIONS.md` 81's "this repo's bare 01–22": D80's own ancestor list, naming the
-form it killed. `bv/029-summon-harness` (LEDGER ×6): a deleted git branch, respelled with the
-rest — history gains the present's names (D81), and the sha `f160ec1` beside it is the address
-that still resolves.
+**Left as-is, with reasons** (beyond F3's table): every `‹noun› ‹n›'s` whose noun is `requirement · clause · contract · drill · probe · finding · escalation · entry · formula · item · batch · round · arm · law · step · phase · scenario · question · Rev · leg · waypoint · sitting · bulletin · Pi` — word-numbered things stay words (STANDARD §7). `LEDGER.md` 2696's "the seam (0–22 beside 023+)": the sentence is ABOUT the old numbering, and padding it erases its subject. `DECISIONS.md` 81's "this repo's bare 01–22": D80's own ancestor list, naming the form it killed. `bv/029-summon-harness` (LEDGER ×6): a deleted git branch, respelled with the rest — history gains the present's names (D81), and the sha `f160ec1` beside it is the address that still resolves.
 
 ### 040-F7 — the converter must be a fixed point, and it was not; two defects, both closed
 
-D81 asks a building to run its converter as a matter of course. A converter that re-breaks the
-corpus on its second pass cannot be run that way. **`migrate` was run again after `--write`
-three times, and each run found a defect the first could not have shown.**
+D81 asks a building to run its converter as a matter of course. A converter that re-breaks the corpus on its second pass cannot be run that way. **`migrate` was run again after `--write` three times, and each run found a defect the first could not have shown.**
 
-1. **6 edits, `lab/021/ortho-report.md`** — `agents/plans/11-…`, the building's own name with
-   no leading slash, which the new foreign-path guard had refused. Rule widened.
-2. **37 edits across 9 files — the whole supervised layer, re-broken.** The number-keyed rules
-   (`plans/‹n›-`, `lab/‹n›`, `‹n›-F‹k›`, `charge|row|ignite ‹n›`, the head's id slot) key on
-   `charges`, which survives the respell: after the board reads `005`, the table still maps
-   `5 → 005`, so `ch2 row 05` — cornerizer's, restored by hand an hour earlier — padded again.
-   **The fix is one line and it is the right law: a number is an address only while the
-   building still writes an old spelling on its own board.** `if (isEmpty(t)) return out;` —
-   once `ids` is empty, every number rule falls silent and the respell is the one-time
-   migration act it always was. Prose after adoption is a session's business, and a malformed
-   new id is the linter's.
-3. **1 edit, this document** — the mark bullet above wrote its whole `grep` command, pattern
-   and `--include` globs, inside ONE ticked span. A span carrying a path is an ADDRESS by
-   040-F2's second exclusion, so the fence let go and the pattern respelled. The bar now gives
-   the pattern its own span, where it reads as the named form it is.
+1. **6 edits, `lab/021/ortho-report.md`** — `agents/plans/11-…`, the building's own name with no leading slash, which the new foreign-path guard had refused. Rule widened.
+2. **37 edits across 9 files — the whole supervised layer, re-broken.** The number-keyed rules (`plans/‹n›-`, `lab/‹n›`, `‹n›-F‹k›`, `charge|row|ignite ‹n›`, the head's id slot) key on `charges`, which survives the respell: after the board reads `005`, the table still maps `5 → 005`, so `ch2 row 05` — cornerizer's, restored by hand an hour earlier — padded again. **The fix is one line and it is the right law: a number is an address only while the building still writes an old spelling on its own board.** `if (isEmpty(t)) return out;` — once `ids` is empty, every number rule falls silent and the respell is the one-time migration act it always was. Prose after adoption is a session's business, and a malformed new id is the linter's.
+3. **1 edit, this document** — the mark bullet above wrote its whole `grep` command, pattern and `--include` globs, inside ONE ticked span. A span carrying a path is an ADDRESS by 040-F2's second exclusion, so the fence let go and the pattern respelled. The bar now gives the pattern its own span, where it reads as the named form it is.
 
 The proof, at the landing:
 
     bun doctrine/cli.ts migrate .            → agents: already in the current grammar — nothing to migrate.
     bun doctrine/cli.ts migrate ~/code/stigmergon → 1250 edit(s) across 122 file(s) — 0 files written
 
-An adopted building is inert; an unadopted one is not. **The lesson for the next converter: run
-it twice and diff — and then a third time.** Every one of the three defects was invisible on
-the first pass and obvious on the next.
+An adopted building is inert; an unadopted one is not. **The lesson for the next converter: run it twice and diff — and then a third time.** Every one of the three defects was invisible on the first pass and obvious on the next.
 
 ### 040-F8 — for a substitution, the round-trip law is invariance, not silence
 
-The inherited law ("a field a fired rule declared may change; everything else identical") is
-vacuous for a rule that touches every field: declaring the respell's `changes` as the union of
-all fields buys silence over the whole document.
+The inherited law ("a field a fired rule declared may change; everything else identical") is vacuous for a rule that touches every field: declaring the respell's `changes` as the union of all fields buys silence over the whole document.
 
-Built instead: where the respell fired, **every parsed field must be INVARIANT UNDER THE TABLE**
-— `respell(before) ≡ respell(after)`. A paraphrase, a drop, a wrong address or a vanished row
-still fails; a form the line-scoped rules could not reach passes. It is equality UNDER the table
-and not equality WITH it because a parsed field is not a line: `plans/021-vocabulary.md` writes
-`…, row\n14);` and no line rule can see across that wrap. The law earned its keep three times in
-this build — it caught the key-lookup gap (`row C23: vanished from the migrated document`), the
-ledger comparison still on raw equality, and the wrapped-tick defect of F2.
+Built instead: where the respell fired, **every parsed field must be INVARIANT UNDER THE TABLE** — `respell(before) ≡ respell(after)`. A paraphrase, a drop, a wrong address or a vanished row still fails; a form the line-scoped rules could not reach passes. It is equality UNDER the table and not equality WITH it because a parsed field is not a line: `plans/021-vocabulary.md` writes `…, row\n14);` and no line rule can see across that wrap. The law earned its keep three times in this build — it caught the key-lookup gap (`row C23: vanished from the migrated document`), the ledger comparison still on raw equality, and the wrapped-tick defect of F2.
 
 ### 040-F9 — the denominators moved, and every movement is explained
 
-The charge's counts predate its own doc and used a wider file set. Re-counted before the run
-over `*.md *.ts *.zsh *.exp *.tsv *.txt`, `belvedere` excluded:
+The charge's counts predate its own doc and used a wider file set. Re-counted before the run over `*.md *.ts *.zsh *.exp *.tsv *.txt`, `belvedere` excluded:
 
 | What | Charge | Measured | Why |
 |---|---|---|---|
@@ -428,8 +265,7 @@ over `*.md *.ts *.zsh *.exp *.tsv *.txt`, `belvedere` excluded:
 | findings `‹nn›-F‹n›` (dash) | 147 | 129 | the charge's pattern reached `\d{2}-F\d` inside foreign compounds |
 | files to rename | 39 + `g2-c29-merge.md`'s slug · 6 lab dirs | the same | **exact** |
 
-No count moved unexpectedly. The run wrote **180 files / 3,734 edits**; then 1 file / 6 edits
-(F7); then 52 edits by hand into the conforming fixtures; then the supervised layer.
+No count moved unexpectedly. The run wrote **180 files / 3,734 edits**; then 1 file / 6 edits (F7); then 52 edits by hand into the conforming fixtures; then the supervised layer.
 
 ---
 

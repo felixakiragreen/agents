@@ -1,165 +1,34 @@
 # Belvedere — the ledger
 
-Append-only, one entry per session, newest last, `---` between entries
-([DOCTRINE §7](../canon/work/DOCTRINE.md)). Belvedere sessions ledger here, never in
-the canon LEDGER (working agreement, [README §5](README.md)).
+Append-only, one entry per session, newest last, `---` between entries ([DOCTRINE §7](../canon/work/DOCTRINE.md)). Belvedere sessions ledger here, never in the canon LEDGER (working agreement, [README §5](README.md)).
 
 ---
 
-**2026-08-26 · Architect · fable-max (founding)** — Founded on the keel
-([../plans/belvedere.md](../plans/belvedere.md)) and [dream.md](dream.md) (landed
-immutable as the first commit — Felix's red pen presumed done since he fired the
-summons ordered behind it; flagged in the founding report for his veto). Master doc
-[README.md](README.md): the bet + rework mandate, the fence, organs, scope, working
-agreements, board, DoD. [ISSUES.md](ISSUES.md) minted. Probes P1–P4 cut, briefed,
-staffed (Digger · opus-high ×4); batch 1 Felix-tended, reasons in the batch note.
-Founding smokes: cmux installed and launches but the socket **refuses outside
-processes** (verbatim error in [P2](plans/p2-spawn-recipe.md), now its first
-question); felikai copies — `felix/src` ≡ `hexwright/canon`, whiteboardy diverged;
-design inputs recorded incl. bob's design system and the SpaceX dashboard (Felix,
-in-session). Canon touches: CLAUDE.md pointer line, MAP §5 row 15, canon LEDGER
-founding line. Decided: D1–D6, all ✓ Felix (D1–D2 via the keel sitting; D3–D6
-countersigned in-session — D3's why explained at his ask, recorded in the entry's
-own terms in README §2). Next: Felix fires batch 1 — P3 anywhere; P1 + P2 from
-terminals inside cmux panes; P4 after both land (kickoffs verbatim in the briefs).
+**2026-08-26 · Architect · fable-max (founding)** — Founded on the keel ([../plans/belvedere.md](../plans/belvedere.md)) and [dream.md](dream.md) (landed immutable as the first commit — Felix's red pen presumed done since he fired the summons ordered behind it; flagged in the founding report for his veto). Master doc [README.md](README.md): the bet + rework mandate, the fence, organs, scope, working agreements, board, DoD. [ISSUES.md](ISSUES.md) minted. Probes P1–P4 cut, briefed, staffed (Digger · opus-high ×4); batch 1 Felix-tended, reasons in the batch note. Founding smokes: cmux installed and launches but the socket **refuses outside processes** (verbatim error in [P2](plans/p2-spawn-recipe.md), now its first question); felikai copies — `felix/src` ≡ `hexwright/canon`, whiteboardy diverged; design inputs recorded incl. bob's design system and the SpaceX dashboard (Felix, in-session). Canon touches: CLAUDE.md pointer line, MAP §5 row 15, canon LEDGER founding line. Decided: D1–D6, all ✓ Felix (D1–D2 via the keel sitting; D3–D6 countersigned in-session — D3's why explained at his ask, recorded in the entry's own terms in README §2). Next: Felix fires batch 1 — P3 anywhere; P1 + P2 from terminals inside cmux panes; P4 after both land (kickoffs verbatim in the briefs).
 
 ---
 
-**2026-08-26 · Digger · opus-high (P3)** — Parse coverage landed; **kill criterion did
-NOT fire.** Five doctrine-strict parsers ([lab/p3/](lab/p3/), `6c76dfe`) over 17
-buildings: **25/27 board docs yield a canonical board, 365/365 rows extracted, 288
-fully typed (79%), zero per-repo special cases.** Discovery added **whiteboardy** —
-off the brief's pre-list and the city's second-largest doctrine corpus — and found
-`manny` + `cornerizer` living only inside cap-mega worktrees (invisible to a
-repo-walking glass). 14 failure classes, all general, every one with its verbatim
-excerpt in [P3 §3](plans/p3-parse-coverage.md); the control (§0) caught two of my own
-parser bugs before they were filed as corpus defects — one accounted for 32 of the
-canon repo's 35 apparent decision failures. **Nine fold candidates FC-1…FC-9** (§4)
-are canon amendments this building may not write (D2 fence); **FC-1** (`Felix-gate` as
-a legal Staffing value — gate rows have no legal staffing today, spelled 5 ways across
-9 boards) and **FC-7** (the summons fenced in `Next:`) **gate the baton rail: 1 of 8
-ledger tails is fireable today.** Proposed glass JSON in §5, emitted from real parses
-(`bun run.ts --json <repo>`), not invented. Repo work for other Architects listed in
-§4, filed nowhere (brief's fence). Decided: nothing — FC-1…FC-9 are the Grand
-Architect's, via the canon inbox. Next: batch 1 continues — P1 and P2 from terminals
-inside cmux panes, P4 after both land; the fold sitting rules FC-1 and FC-7 before the
-baton-rail build row is cut.
+**2026-08-26 · Digger · opus-high (P3)** — Parse coverage landed; **kill criterion did NOT fire.** Five doctrine-strict parsers ([lab/p3/](lab/p3/), `6c76dfe`) over 17 buildings: **25/27 board docs yield a canonical board, 365/365 rows extracted, 288 fully typed (79%), zero per-repo special cases.** Discovery added **whiteboardy** — off the brief's pre-list and the city's second-largest doctrine corpus — and found `manny` + `cornerizer` living only inside cap-mega worktrees (invisible to a repo-walking glass). 14 failure classes, all general, every one with its verbatim excerpt in [P3 §3](plans/p3-parse-coverage.md); the control (§0) caught two of my own parser bugs before they were filed as corpus defects — one accounted for 32 of the canon repo's 35 apparent decision failures. **Nine fold candidates FC-1…FC-9** (§4) are canon amendments this building may not write (D2 fence); **FC-1** (`Felix-gate` as a legal Staffing value — gate rows have no legal staffing today, spelled 5 ways across 9 boards) and **FC-7** (the summons fenced in `Next:`) **gate the baton rail: 1 of 8 ledger tails is fireable today.** Proposed glass JSON in §5, emitted from real parses (`bun run.ts --json <repo>`), not invented. Repo work for other Architects listed in §4, filed nowhere (brief's fence). Decided: nothing — FC-1…FC-9 are the Grand Architect's, via the canon inbox. Next: batch 1 continues — P1 and P2 from terminals inside cmux panes, P4 after both land; the fold sitting rules FC-1 and FC-7 before the baton-rail build row is cut.
 
 ---
 
-**2026-08-26 · Architect · fable-max** — *founding session, continued.* P3 verified LANDED
-(contract met: findings evidence-grade with a control that caught its own parser
-bugs, board + ledger current, commits `6c76dfe`/`9bc548a`/`36c87a9`, `lab/p3/`
-present) — the kill did not fire; the glass can parse the city as it stands. Felix's
-word this sitting sharpened the rework mandate into **the AI-native mandate — D7**
-(✓ Felix, his own words in the entry): storage unconstrained, migration
-pre-authorized, priority from the Sovereign; [README](README.md) §1 amended, §3
-gains P3's register fact (four boards live worktree-only). The directive + P3's
-FC-1…FC-9 + the multiple-batons question (D42/D46) filed to the canon inbox at his
-word (D53) — the Standards Office rules formats; this desk never does. Decided: D7
-(✓ Felix in-session). Next: Felix fires the Grand Architect (summons in the report,
-verbatim); behind it, parallel-legal: P1 + P2 from cmux panes, P4 after both land,
-then the fold sitting cuts build rows on measured physics plus whatever the GA
-ruled.
+**2026-08-26 · Architect · fable-max** — *founding session, continued.* P3 verified LANDED (contract met: findings evidence-grade with a control that caught its own parser bugs, board + ledger current, commits `6c76dfe`/`9bc548a`/`36c87a9`, `lab/p3/` present) — the kill did not fire; the glass can parse the city as it stands. Felix's word this sitting sharpened the rework mandate into **the AI-native mandate — D7** (✓ Felix, his own words in the entry): storage unconstrained, migration pre-authorized, priority from the Sovereign; [README](README.md) §1 amended, §3 gains P3's register fact (four boards live worktree-only). The directive + P3's FC-1…FC-9 + the multiple-batons question (D42/D46) filed to the canon inbox at his word (D53) — the Standards Office rules formats; this desk never does. Decided: D7 (✓ Felix in-session). Next: Felix fires the Grand Architect (summons in the report, verbatim); behind it, parallel-legal: P1 + P2 from cmux panes, P4 after both land, then the fold sitting cuts build rows on measured physics plus whatever the GA ruled.
 
 ---
 
-**2026-08-26 · Architect · fable-max** — The molt folded into the glass: canon
-D63–D67 + row 16 read from the repo, inbox swept (2 entries, both ruled, drained).
-Folds: FC gates cleared (D63 — `Felix-gate` staffing token, the `Next:` law), baton
-grammar move/wave/fork (D64 — the rail renders one/n/choice buttons; the `Baton`
-shape gains `instruments[]` + kind at the build row), reference reader = canon
-[`doctrine/`](../doctrine/) — the glass imports, never forks (D65; README §§1, 3,
-5); rail fire-button affordance parked (Felix via GA-10, already legal — UX input
-at the rail row). [P1](plans/p1-census-join.md) re-cut: +Q5 — count
-Agent-tool/Bash/Workflow subagents from parent hooks or name the blindness
-precisely (D67 routes Felix's decree here). Board trued: P2/P4 untouched
-(substrate physics owe the format law nothing); canon row 18's wave runs
-city-wide in parallel, defers live buildings; glass v0's evidence noted as canon
-row 17's Felix-gate. Decided: nothing new — two inbox rulings (fold, park).
-Next: fire P1 + P2 — a D64 wave, kickoffs in their briefs, both from terminals
-inside cmux panes; P4 after both land; then the fold sitting cuts the v0 build
-rows.
+**2026-08-26 · Architect · fable-max** — The molt folded into the glass: canon D63–D67 + row 16 read from the repo, inbox swept (2 entries, both ruled, drained). Folds: FC gates cleared (D63 — `Felix-gate` staffing token, the `Next:` law), baton grammar move/wave/fork (D64 — the rail renders one/n/choice buttons; the `Baton` shape gains `instruments[]` + kind at the build row), reference reader = canon [`doctrine/`](../doctrine/) — the glass imports, never forks (D65; README §§1, 3, 5); rail fire-button affordance parked (Felix via GA-10, already legal — UX input at the rail row). [P1](plans/p1-census-join.md) re-cut: +Q5 — count Agent-tool/Bash/Workflow subagents from parent hooks or name the blindness precisely (D67 routes Felix's decree here). Board trued: P2/P4 untouched (substrate physics owe the format law nothing); canon row 18's wave runs city-wide in parallel, defers live buildings; glass v0's evidence noted as canon row 17's Felix-gate. Decided: nothing new — two inbox rulings (fold, park). Next: fire P1 + P2 — a D64 wave, kickoffs in their briefs, both from terminals inside cmux panes; P4 after both land; then the fold sitting cuts the v0 build rows.
 
 ---
 
-**2026-08-26 · Digger · opus-high** — [P2](plans/p2-spawn-recipe.md) LANDED, no
-kill fired. **Q1 (pivotal):** the access gate is a server setting,
-`socketControlMode` — **not** an env token. Isolated it four ways from inside a
-pane: unset, corrupt, clean-env-with-token, clean-env-with-**no `CMUX_*` at all** —
-every one admitted (`cmuxOnly` resolves the caller by process ancestry, which is
-how `cmux identify` names the caller's surface). So D4 stands and the glass can
-ship **in a cmux pane today, zero config, zero security delta**; outside access is
-a documented `password` mode (schema enum + `--password`/`CMUX_SOCKET_PASSWORD`),
-left **Felix-gated** — proving it means re-posturing his live desktop, and §5 names
-that a shared resource. **Q2:** recipe proven ×3 accounts — summons byte-exact as
-the **first user turn** (sha `19256ec9…` ×3), silo intact (each transcript under
-its own config dir, nowhere else), `CMUX_*` exported inside with a per-surface
-capability. The unlock: `/color` **leaves the prompt** — cmux owns colour over the
-socket, which frees argv for the summons and closes the **359-fire paste gap**.
-**Q3:** resume rides the identical path (+2 argv tokens), keeps its transcript, may
-be re-stamped — the shelf is cheap. **Q4:** `send` is byte-exact for prose but
-rewrites literal `\n`/`\t`/`\r`; `set-buffer`+`paste-buffer` is escape-safe; neither
-may be pointed at a live TUI (T4 splits and auto-submits — a truncated summons looks
-like it worked). Shipped [`lab/p2/spawn.ts`](lab/p2/spawn.ts) + `sanitize.ts` (the
-superset port, plus the cmux-specific escape guard), probes and all eight probe
-workspaces cleaned. Parked, not chased: spawned sessions boot into manual mode and
-stall at the first tool call (S5 — a fire-button design input). Decided: nothing —
-no D-entry; the two rulings this dig surfaces are Felix's (E1) and the Standards
-Office's (E2, filed to ISSUES). Next: P4 once P1 lands (P2's half of its dependency
-is paid); then the fold sitting cuts the v0 build rows on measured physics.
+**2026-08-26 · Digger · opus-high** — [P2](plans/p2-spawn-recipe.md) LANDED, no kill fired. **Q1 (pivotal):** the access gate is a server setting, `socketControlMode` — **not** an env token. Isolated it four ways from inside a pane: unset, corrupt, clean-env-with-token, clean-env-with-**no `CMUX_*` at all** — every one admitted (`cmuxOnly` resolves the caller by process ancestry, which is how `cmux identify` names the caller's surface). So D4 stands and the glass can ship **in a cmux pane today, zero config, zero security delta**; outside access is a documented `password` mode (schema enum + `--password`/`CMUX_SOCKET_PASSWORD`), left **Felix-gated** — proving it means re-posturing his live desktop, and §5 names that a shared resource. **Q2:** recipe proven ×3 accounts — summons byte-exact as the **first user turn** (sha `19256ec9…` ×3), silo intact (each transcript under its own config dir, nowhere else), `CMUX_*` exported inside with a per-surface capability. The unlock: `/color` **leaves the prompt** — cmux owns colour over the socket, which frees argv for the summons and closes the **359-fire paste gap**. **Q3:** resume rides the identical path (+2 argv tokens), keeps its transcript, may be re-stamped — the shelf is cheap. **Q4:** `send` is byte-exact for prose but rewrites literal `\n`/`\t`/`\r`; `set-buffer`+`paste-buffer` is escape-safe; neither may be pointed at a live TUI (T4 splits and auto-submits — a truncated summons looks like it worked). Shipped [`lab/p2/spawn.ts`](lab/p2/spawn.ts) + `sanitize.ts` (the superset port, plus the cmux-specific escape guard), probes and all eight probe workspaces cleaned. Parked, not chased: spawned sessions boot into manual mode and stall at the first tool call (S5 — a fire-button design input). Decided: nothing — no D-entry; the two rulings this dig surfaces are Felix's (E1) and the Standards Office's (E2, filed to ISSUES). Next: P4 once P1 lands (P2's half of its dependency is paid); then the fold sitting cuts the v0 build rows on measured physics.
 
 ---
 
-**2026-08-26 · Digger · opus-high** — [P1](plans/p1-census-join.md) LANDED, no kill
-fired; 87 hook invocations across 13 scratch sessions, control clean. **Q2
-(pivotal):** the join is **deterministic and free** — a hook process sees both
-`CLAUDE_CODE_SESSION_ID` (byte-identical to the payload's `session_id`) and
-`CMUX_SURFACE_ID`, on **87/87 invocations across all 10 event types**. No pane-title
-stamp, no cmux CLI, no heuristic; the briefed fallbacks stay parked. Three traps
-named: `SURFACE_ID`==`PANEL_ID` and `WORKSPACE_ID`==`TAB_ID` (store one); the env is
-**inherited**, so pane→session is one-to-**many** — key by `session_id`, never by
-surface; and `CMUX_CLAUDE_PID` goes stale (use `CLAUDE_PID`). **Q1:** ten events
-fire, three the keel never named (`SubagentStart`, `PreCompact`, and a `SessionEnd`
-that lies — see below); field inventory + verbatim payloads + the observed
-vocabularies for `source`/`reason`/`notification_type`/`trigger`. **`Notification`
-is a 60-second nag, not the needs-input edge** (measured: `Stop` 01:54:37 →
-`Notification` 01:55:37) and never fires headless — **`Stop` is the rail's idle
-sensor**. **Q3:** hooks proven **blocking** (6 events × `sleep 0.5` → +3.38 s wall),
-so cost is process wall time: **5.5 ms median, 6.8 ms max at N=50, and only 0.7 ms
-over an empty hook** — the 4.8 ms floor is spawn, which no design escapes. 7× under
-the 50 ms bar. **Q5 / D67:** Agent-tool and Workflow agents are **fully countable** —
-`SubagentStart`/`SubagentStop` with stable `agent_id`, `agent_type`
-(`general-purpose`, `workflow-subagent`) and `agent_transcript_path` (the workflow
-run id rides the path); every nested tool call carries `agent_id`, and parent calls
-carry none, so the discriminator is exact. Background shell jobs are countable at
-launch (`run_in_background:true`) and in the roster, with **one precisely-named
-blindness: no completion event** — visible only via the re-injected
-`<task-notification>` or the next `Stop`'s roster. Bonus organ: **`background_tasks[]`
-on every `Stop` is a live WIP roster** — README §3's gauge, free. **Q4:** one JSONL
-line per event into `summon/log/census/census.jsonl`; the hook is one `exec` into
-`jq` that projects a fixed field set and drops every prompt, tool input and command
-string — telemetry, never truth. Proven end-to-end, 60-way concurrent appends
-intact. **Two traps the build rows must not inherit:** **SIGKILL leaves no
-`SessionEnd`** (last line reads `Stop` — indistinguishable from live idle), so the
-glass needs **two sensors**, the census *and* `kill -0 pid`; and **`/clear` rotates
-the session id in place** (`SessionEnd reason=clear` → `SessionStart source=clear`,
-same pane). Deploy is **additive** — `~/.claude/settings.json` carries no hooks
-today (`permissions.defaultMode: auto`, `hooks: null`), so the Felix-run ×3 ritual
-is a straight write. Shipped [`lab/p1/`](lab/p1/) — `beat.sh` (the production
-candidate), `capture.sh`/`envdump.sh` (probe), `mkproject.sh`, `run.sh`,
-`pty_run.py` (interactive driver — headless never emits `Notification`), `bench.py`,
-`slow.sh`. No live settings file was touched. Decided: nothing — no D-entry; the
-record schema is a build-row input, not canon.
+**2026-08-26 · Digger · opus-high** — [P1](plans/p1-census-join.md) LANDED, no kill fired; 87 hook invocations across 13 scratch sessions, control clean. **Q2 (pivotal):** the join is **deterministic and free** — a hook process sees both `CLAUDE_CODE_SESSION_ID` (byte-identical to the payload's `session_id`) and `CMUX_SURFACE_ID`, on **87/87 invocations across all 10 event types**. No pane-title stamp, no cmux CLI, no heuristic; the briefed fallbacks stay parked. Three traps named: `SURFACE_ID`==`PANEL_ID` and `WORKSPACE_ID`==`TAB_ID` (store one); the env is **inherited**, so pane→session is one-to-**many** — key by `session_id`, never by surface; and `CMUX_CLAUDE_PID` goes stale (use `CLAUDE_PID`). **Q1:** ten events fire, three the keel never named (`SubagentStart`, `PreCompact`, and a `SessionEnd` that lies — see below); field inventory + verbatim payloads + the observed vocabularies for `source`/`reason`/`notification_type`/`trigger`. **`Notification` is a 60-second nag, not the needs-input edge** (measured: `Stop` 01:54:37 → `Notification` 01:55:37) and never fires headless — **`Stop` is the rail's idle sensor**. **Q3:** hooks proven **blocking** (6 events × `sleep 0.5` → +3.38 s wall), so cost is process wall time: **5.5 ms median, 6.8 ms max at N=50, and only 0.7 ms over an empty hook** — the 4.8 ms floor is spawn, which no design escapes. 7× under the 50 ms bar. **Q5 / D67:** Agent-tool and Workflow agents are **fully countable** — `SubagentStart`/`SubagentStop` with stable `agent_id`, `agent_type` (`general-purpose`, `workflow-subagent`) and `agent_transcript_path` (the workflow run id rides the path); every nested tool call carries `agent_id`, and parent calls carry none, so the discriminator is exact. Background shell jobs are countable at launch (`run_in_background:true`) and in the roster, with **one precisely-named blindness: no completion event** — visible only via the re-injected `<task-notification>` or the next `Stop`'s roster. Bonus organ: **`background_tasks[]` on every `Stop` is a live WIP roster** — README §3's gauge, free. **Q4:** one JSONL line per event into `summon/log/census/census.jsonl`; the hook is one `exec` into `jq` that projects a fixed field set and drops every prompt, tool input and command string — telemetry, never truth. Proven end-to-end, 60-way concurrent appends intact. **Two traps the build rows must not inherit:** **SIGKILL leaves no `SessionEnd`** (last line reads `Stop` — indistinguishable from live idle), so the glass needs **two sensors**, the census *and* `kill -0 pid`; and **`/clear` rotates the session id in place** (`SessionEnd reason=clear` → `SessionStart source=clear`, same pane). Deploy is **additive** — `~/.claude/settings.json` carries no hooks today (`permissions.defaultMode: auto`, `hooks: null`), so the Felix-run ×3 ritual is a straight write. Shipped [`lab/p1/`](lab/p1/) — `beat.sh` (the production candidate), `capture.sh`/`envdump.sh` (probe), `mkproject.sh`, `run.sh`, `pty_run.py` (interactive driver — headless never emits `Notification`), `bench.py`, `slow.sh`. No live settings file was touched. Decided: nothing — no D-entry; the record schema is a build-row input, not canon.
 
-**Baton — Felix (fork; his call because only he knows if the wave can pause):**
-P1 and P2 both landed, so P4's dependency is paid — but P4 **kills the venue**
-(README §5) and **45 `claude` processes are live** right now (`ps -Ao pid,command |
-grep -c '[c]laude'` → `45`), row 18's re-cut wave among them.
+**Baton — Felix (fork; his call because only he knows if the wave can pause):** P1 and P2 both landed, so P4's dependency is paid — but P4 **kills the venue** (README §5) and **45 `claude` processes are live** right now (`ps -Ao pid,command | grep -c '[c]laude'` → `45`), row 18's re-cut wave among them.
 
-- **A — fire P4 (recommended)** once the wave is at a boundary: it is the last
-  unmeasured physics, and the fold sitting would otherwise cut the shelf/restore
-  build rows on docs-read guesses.
+- **A — fire P4 (recommended)** once the wave is at a boundary: it is the last unmeasured physics, and the fold sitting would otherwise cut the shelf/restore build rows on docs-read guesses.
 
   ```
   You are a Digger at opus-high.
@@ -169,8 +38,7 @@ grep -c '[c]laude'` → `45`), row 18's re-cut wave among them.
   and execute the brief.
   ```
 
-- **B — fire the fold sitting now** on three probes' physics, parking P4's questions
-  as a named build-row risk. Cheaper today, pays for it at the shelf row.
+- **B — fire the fold sitting now** on three probes' physics, parking P4's questions as a named build-row risk. Cheaper today, pays for it at the shelf row.
 
   ```
   You are an Architect at fable-high.
@@ -183,37 +51,7 @@ Ordered behind either: the other one. Next: unrecorded.
 
 ---
 
-**2026-08-26 · Digger · opus-high (P4)** — Restore semantics landed; **kill criterion did
-NOT fire** — restore lost no session, both victims returned **byte-identical**
-(458/736796 · 505/791537 either side of the quit). The brief forked on contact: this
-Digger was the **only** occupant of cmux (`workspace list` → one workspace, itself; the
-other 17 live sessions all children of Ghostty, not cmux), so the STOP precondition's
-"non-probe workspace" *was the dig's own session* and the method's observer was the thing
-the method destroys — escalated, not worked around. **Felix ruled by acting**: quit cmux
-himself and resumed this session in Ghostty, which put the observer outside the blast
-radius and staged the experiment on two real victims (the P1 and P2 Diggers, killed
-mid-desk). Measured from outside: cmux persists a **per-panel resume binding, never
-conversational state** (`~/Library/Application Support/cmux/session-…json`, snapshotted at
-the quit instant), gated by `wasAgentRunning` — an exited agent persists as plain
-scrollback instead; the binding carries `CLAUDE_CONFIG_DIR`, so **the account silo survives
-restore**. Unattended restore: **socket back 0.8 s, both agents re-exec'd 3.4 s**, argv
-exactly the persisted binding. Loss is **the in-flight assistant turn and nothing else** —
-assistant messages are atomic (measured twice at a true midpoint: ~6 s of generation → zero
-assistant records; allowed to finish → the whole 5251-char record appears), and a restored
-session **does not retry** the dropped turn, it answers `No response requested.` — it comes
-back idle, context-complete, one turn short, with nothing on screen saying so. Control
-(Q3): a cmux quit costs a session exactly what closing a terminal tab costs it — cmux's
-flush signature *is* the SIGHUP signature, SIGKILL flushes nothing yet still resumes clean
-(**a hard kill does not corrupt a transcript**) — so **cmux's delta is recovery, not
-loss**. §A sharpens P2's ancestry hypothesis into a mechanism (orphan with a live parent →
-admitted; same orphan at `ppid=1` → denied) and thereby **upgrades E1**: socket access is
-*live* ancestry, so a glass in a pane **cannot survive a cmux restart** — `password` mode
-is load-bearing for any glass expected to outlive its substrate, not cosmetic. Probe code
-[lab/p4/](lab/p4/). Decided: nothing — E1 and the one residual measurement (mid-generation
-*inside* a pane, which needs `socketControlMode: password` or `.newWorkspaceCommand`) are
-Felix's, both named, neither taken. Next: **Baton — Felix: fire the fold
-sitting.** All four probes' physics are measured; nothing in the v0 spine is left to cut on
-a docs-read guess.
+**2026-08-26 · Digger · opus-high (P4)** — Restore semantics landed; **kill criterion did NOT fire** — restore lost no session, both victims returned **byte-identical** (458/736796 · 505/791537 either side of the quit). The brief forked on contact: this Digger was the **only** occupant of cmux (`workspace list` → one workspace, itself; the other 17 live sessions all children of Ghostty, not cmux), so the STOP precondition's "non-probe workspace" *was the dig's own session* and the method's observer was the thing the method destroys — escalated, not worked around. **Felix ruled by acting**: quit cmux himself and resumed this session in Ghostty, which put the observer outside the blast radius and staged the experiment on two real victims (the P1 and P2 Diggers, killed mid-desk). Measured from outside: cmux persists a **per-panel resume binding, never conversational state** (`~/Library/Application Support/cmux/session-…json`, snapshotted at the quit instant), gated by `wasAgentRunning` — an exited agent persists as plain scrollback instead; the binding carries `CLAUDE_CONFIG_DIR`, so **the account silo survives restore**. Unattended restore: **socket back 0.8 s, both agents re-exec'd 3.4 s**, argv exactly the persisted binding. Loss is **the in-flight assistant turn and nothing else** — assistant messages are atomic (measured twice at a true midpoint: ~6 s of generation → zero assistant records; allowed to finish → the whole 5251-char record appears), and a restored session **does not retry** the dropped turn, it answers `No response requested.` — it comes back idle, context-complete, one turn short, with nothing on screen saying so. Control (Q3): a cmux quit costs a session exactly what closing a terminal tab costs it — cmux's flush signature *is* the SIGHUP signature, SIGKILL flushes nothing yet still resumes clean (**a hard kill does not corrupt a transcript**) — so **cmux's delta is recovery, not loss**. §A sharpens P2's ancestry hypothesis into a mechanism (orphan with a live parent → admitted; same orphan at `ppid=1` → denied) and thereby **upgrades E1**: socket access is *live* ancestry, so a glass in a pane **cannot survive a cmux restart** — `password` mode is load-bearing for any glass expected to outlive its substrate, not cosmetic. Probe code [lab/p4/](lab/p4/). Decided: nothing — E1 and the one residual measurement (mid-generation *inside* a pane, which needs `socketControlMode: password` or `.newWorkspaceCommand`) are Felix's, both named, neither taken. Next: **Baton — Felix: fire the fold sitting.** All four probes' physics are measured; nothing in the v0 spine is left to cut on a docs-read guess.
 
 ```
 You are an Architect at fable-high.
@@ -222,617 +60,96 @@ then read ~/code/agents/belvedere/README.md and the P1–P4 findings,
 and cut the v0 build rows.
 ```
 
-Ordered behind it: close the stray workspace this dig left on the desk (needs a pane —
-`cmux <path>` can open one from outside but nothing outside can close it), then the two
-standing Felix-gates — **E1** (`socketControlMode: password`, promoted from cosmetic to
-load-bearing by §A) and P4's residual mid-generation-inside-a-pane measurement.
+Ordered behind it: close the stray workspace this dig left on the desk (needs a pane — `cmux <path>` can open one from outside but nothing outside can close it), then the two standing Felix-gates — **E1** (`socketControlMode: password`, promoted from cosmetic to load-bearing by §A) and P4's residual mid-generation-inside-a-pane measurement.
 
 ---
 
-**2026-08-26 · Architect · fable-max** — Batch 1 CLOSED: P1/P2/P4 landings verified
-(P3 verified earlier this sitting), zero kills across four probes. Folds into
-[README](README.md) §3: the census is venue-blind (Ghostty sessions watchable —
-P4 found 17/18 live sessions outside cmux today), `Stop` is the idle sensor, the
-pane join is deterministic but one-to-many (key by `session_id`), heartbeat
-5.5 ms; hands' transport law (`set-buffer`+`paste-buffer`, never paste into a live
-TUI), summons-as-argv proven ×3, resume-by-name legal (the shelf addresses
-stamps). D67 answered: all three subagent vehicles countable from hooks (P1 F4).
-Inbox swept: P2's canon-shaped find (the rig's `/color` turn-burn) escalated to
-the canon inbox verbatim-with-evidence, drained here. **The load-bearing new
-fact (P4 §A): the socket gate is LIVE ancestry — a pane-resident glass dies with
-every cmux restart and can never reconnect; deployment (b), `socketControlMode:
-password`, upgraded from cleaner to required for a glass that outlives its
-substrate.** Decided: nothing — the deployment ruling is Felix's (his machine's
-posture; D8 when ruled). Next: Felix flips `socketControlMode` to `password` in
-cmux Settings + sets a password, then the 10-second smoke from any non-cmux
-terminal (`cmux --password '<pw>' workspace list`); on green, the fold sitting
-cuts the v0 build batch onto deployment (b).
+**2026-08-26 · Architect · fable-max** — Batch 1 CLOSED: P1/P2/P4 landings verified (P3 verified earlier this sitting), zero kills across four probes. Folds into [README](README.md) §3: the census is venue-blind (Ghostty sessions watchable — P4 found 17/18 live sessions outside cmux today), `Stop` is the idle sensor, the pane join is deterministic but one-to-many (key by `session_id`), heartbeat 5.5 ms; hands' transport law (`set-buffer`+`paste-buffer`, never paste into a live TUI), summons-as-argv proven ×3, resume-by-name legal (the shelf addresses stamps). D67 answered: all three subagent vehicles countable from hooks (P1 F4). Inbox swept: P2's canon-shaped find (the rig's `/color` turn-burn) escalated to the canon inbox verbatim-with-evidence, drained here. **The load-bearing new fact (P4 §A): the socket gate is LIVE ancestry — a pane-resident glass dies with every cmux restart and can never reconnect; deployment (b), `socketControlMode: password`, upgraded from cleaner to required for a glass that outlives its substrate.** Decided: nothing — the deployment ruling is Felix's (his machine's posture; D8 when ruled). Next: Felix flips `socketControlMode` to `password` in cmux Settings + sets a password, then the 10-second smoke from any non-cmux terminal (`cmux --password '<pw>' workspace list`); on green, the fold sitting cuts the v0 build batch onto deployment (b).
 
 ---
 
-**2026-08-26 · Architect · fable-max** — The fold sitting's cut: **D8 ratified**
-(deployment (b) — glass OUTSIDE cmux, `socketControlMode: password`; Felix's own
-smoke from a non-cmux terminal is the evidence) and **batch 2 cut** onto it. Board
-gains B1–B6 + G1: [B1](plans/b1-census-deploy.md) (census deploy — hook + ritual,
-spec blessed on P1 F5/F6) ∥ [B2](plans/b2-glass-spine.md) (glass spine — City View
-+ building pages over `doctrine/` + census, spec blessed on P1–P4, felikai theme,
-port 4400) in worktrees `bv/b1-census`/`bv/b2-glass`; G1 batches every gate (D44):
-Architect merge + B3–B6 order-cutting, Felix's census deploy ×3 + B2 visual pass.
-B3–B6 (rail · hands · shelf+strip · inbox) cut OPEN, orders at G1.
-[RIDER.md](plans/RIDER.md) instantiated (first dispatched batch). Felix's
-programmatic-dispatcher musing filed to the canon inbox (a consideration, not a
-decree) + parked here. Decided: D8 (✓ Felix, his smoke). Next: fire the
-Dispatcher — summons fenced in the batch note ([README §6](README.md)); behind
-it: G1, then B3–B6 in G1's cut order.
+**2026-08-26 · Architect · fable-max** — The fold sitting's cut: **D8 ratified** (deployment (b) — glass OUTSIDE cmux, `socketControlMode: password`; Felix's own smoke from a non-cmux terminal is the evidence) and **batch 2 cut** onto it. Board gains B1–B6 + G1: [B1](plans/b1-census-deploy.md) (census deploy — hook + ritual, spec blessed on P1 F5/F6) ∥ [B2](plans/b2-glass-spine.md) (glass spine — City View
++ building pages over `doctrine/` + census, spec blessed on P1–P4, felikai theme, port 4400) in worktrees `bv/b1-census`/`bv/b2-glass`; G1 batches every gate (D44): Architect merge + B3–B6 order-cutting, Felix's census deploy ×3 + B2 visual pass. B3–B6 (rail · hands · shelf+strip · inbox) cut OPEN, orders at G1. [RIDER.md](plans/RIDER.md) instantiated (first dispatched batch). Felix's programmatic-dispatcher musing filed to the canon inbox (a consideration, not a decree) + parked here. Decided: D8 (✓ Felix, his smoke). Next: fire the Dispatcher — summons fenced in the batch note ([README §6](README.md)); behind it: G1, then B3–B6 in G1's cut order.
 
 ---
 
-**2026-08-26 · Architect · fable-max (G1)** — Batch 2 verified and merged
-(`ab4d857`, `a22a841`; both bv/ worktrees torn down, venue law; the third
-worktree is canon row 18g's — untouched, not this board's). Escalations ruled:
-**D54 slip accepted** (self-caught, clean tree, zero harm — future orders name
-their typecheck instrument); **E1 ruled** — "zero caches" scopes to CONTENT,
-register ≤30 s warm with age printed (Builder option 1; option 2 → canon inbox:
-the walk is `doctrine/`'s; option 3 rejected — the rail lives on `/`); **F2** —
-off-register panel is right, the campus/cwd-ascent question filed to the canon
-inbox. B2's F1 (stamp via transcript head window, never `invocations.jsonl`)
-folded into B5's order. **B3–B6 orders cut and blessed**; batch 3 = B4 → B3 →
-B5 → B6 strictly serial on master, Dispatcher-tended, Felix-gates batched at
-close. Felix's inbox corrections recorded: the continuous-flow entry supersedes
-the programmatic-dispatcher framing (canon inbox, his verbatim example); his
-socket password is temporary — nothing consumes it until B4; credential home
-ruled `~/.config/belvedere/env` (B4 spec). His new field report (ScheduleWakeup
-`prompt` error) committed in the canon inbox for the GA sweep. Decided: G1
-rulings (delegated scope). Next: Felix — the G1 wave (census deploy ×3 from this
-checkout, spine look at 127.0.0.1:4400), then fire B4, B3, B5, B6 (batch 3,
-Dispatcher-tended — summons fenced in [README §6](README.md)).
+**2026-08-26 · Architect · fable-max (G1)** — Batch 2 verified and merged (`ab4d857`, `a22a841`; both bv/ worktrees torn down, venue law; the third worktree is canon row 18g's — untouched, not this board's). Escalations ruled: **D54 slip accepted** (self-caught, clean tree, zero harm — future orders name their typecheck instrument); **E1 ruled** — "zero caches" scopes to CONTENT, register ≤30 s warm with age printed (Builder option 1; option 2 → canon inbox: the walk is `doctrine/`'s; option 3 rejected — the rail lives on `/`); **F2** — off-register panel is right, the campus/cwd-ascent question filed to the canon inbox. B2's F1 (stamp via transcript head window, never `invocations.jsonl`) folded into B5's order. **B3–B6 orders cut and blessed**; batch 3 = B4 → B3 → B5 → B6 strictly serial on master, Dispatcher-tended, Felix-gates batched at close. Felix's inbox corrections recorded: the continuous-flow entry supersedes the programmatic-dispatcher framing (canon inbox, his verbatim example); his socket password is temporary — nothing consumes it until B4; credential home ruled `~/.config/belvedere/env` (B4 spec). His new field report (ScheduleWakeup `prompt` error) committed in the canon inbox for the GA sweep. Decided: G1 rulings (delegated scope). Next: Felix — the G1 wave (census deploy ×3 from this checkout, spine look at 127.0.0.1:4400), then fire B4, B3, B5, B6 (batch 3, Dispatcher-tended — summons fenced in [README §6](README.md)).
 
 ---
 
-**2026-08-27 · Architect · fable-max** — G1 closed complete: Felix ran the census
-deploy ×3 (the sensor is LIVE city-wide) and passed the spine; batch 3 dispatched
-by his hand. His scope question ("summon agents / new campaigns / worktrees from
-Belvedere?") exposed two gaps, both closed: **B7 cut** (the summon composer —
-fire-anything with templates incl. the founding summons; joined the running chain
-after B6 by D57 amendment, batch note committed, the Dispatcher's amendment
-message drafted verbatim in the report) and **B3 amended pre-dispatch**
-(worktree-composed fires — a row-doc that names a branch gets /worktree → /fire,
-"worktrees without asking"). New-building guided flow parked (the founding
-ritual's Felix-steps stay his). Decided: B7 cut + B3 amendment (delegated scope).
-Next: Felix delivers the batch-3 amendment message to the Dispatcher window
-(verbatim in the report); behind it: the chain runs B4 → B3 → B5 → B6 → B7 to
-the close gates (visual pass + live-fire smoke, his), then the v0 DoD
-run-through.
+**2026-08-27 · Architect · fable-max** — G1 closed complete: Felix ran the census deploy ×3 (the sensor is LIVE city-wide) and passed the spine; batch 3 dispatched by his hand. His scope question ("summon agents / new campaigns / worktrees from Belvedere?") exposed two gaps, both closed: **B7 cut** (the summon composer — fire-anything with templates incl. the founding summons; joined the running chain after B6 by D57 amendment, batch note committed, the Dispatcher's amendment message drafted verbatim in the report) and **B3 amended pre-dispatch** (worktree-composed fires — a row-doc that names a branch gets /worktree → /fire, "worktrees without asking"). New-building guided flow parked (the founding ritual's Felix-steps stay his). Decided: B7 cut + B3 amendment (delegated scope). Next: Felix delivers the batch-3 amendment message to the Dispatcher window (verbatim in the report); behind it: the chain runs B4 → B3 → B5 → B6 → B7 to the close gates (visual pass + live-fire smoke, his), then the v0 DoD run-through.
 
 ---
 
-**2026-08-27 · Builder · opus-high (B4)** — **The hands landed.** Four write powers
-as endpoints on the existing server (`glass/hands.ts`, +`sanitize.ts`, +
-`hands.test.ts`; `paths.ts`/`census.ts`/`pages.ts`/`server.ts` touched), straight to
-master: `POST /hands/{fire,worktree,focus,halt}`, credential-gated, every action
-audited to `summon/log/census/hands.jsonl` **minus the summons text but plus its
-sha** — a fire is provable byte-exact from the log alone. DoD measured, not
-asserted: the fire's summons and the transcript's first user turn are the same
-sha256, `$(echo pwned)` arrived unexpanded, the workspace was coloured over the
-socket with **no `/color` turn**; resume came back on its own transcript; the
-worktree was created, refused on repeat, removed; **focus jumped off the LIVE
-census** (B1's sensor went live mid-row) and Felix's focus was restored every time;
-HALT written then cleared; disabled mode 503s with an honest banner while read pages
-stay 200. 62 tests green, venue restored, `git status` clean. Two escalations:
-**E1** — the socket already admits any local process of Felix's (a wrong password is
-rejected, but presenting *none* falls back to cmux's saved one), so the credential
-is an **arming switch, not the lock** — Architect's wording call; **E2** — an agent
-cannot provision that credential (the permission guard refused twice, correctly), so
-`~/.config/belvedere/env` is a **one-command Felix-gate** and until he runs it every
-hand answers 503. Also relayed: cmux injects its own hooks per session via
-`--settings` and the census still fires (measured ×3 probes); B2's dropped `ws`/`sf`
-restored for the jump; the order's literal launch line had a shell bug
-(`CLAUDE_CONFIG_DIR=… cd …` scopes the var to `cd`) — shipped as P2's proven shape.
-D54 slip self-reported: `bunx tsc` (B1's again, zero harm, no lockfile) — the real
-gap is that the city has no offline type-checker. Decided: audit belongs to the
-write, not the route (no caller routes around it). Next: B3 (the baton rail) —
-bulletin carries the wire contract and the disabled-state requirement.
+**2026-08-27 · Builder · opus-high (B4)** — **The hands landed.** Four write powers as endpoints on the existing server (`glass/hands.ts`, +`sanitize.ts`, + `hands.test.ts`; `paths.ts`/`census.ts`/`pages.ts`/`server.ts` touched), straight to master: `POST /hands/{fire,worktree,focus,halt}`, credential-gated, every action audited to `summon/log/census/hands.jsonl` **minus the summons text but plus its sha** — a fire is provable byte-exact from the log alone. DoD measured, not asserted: the fire's summons and the transcript's first user turn are the same sha256, `$(echo pwned)` arrived unexpanded, the workspace was coloured over the socket with **no `/color` turn**; resume came back on its own transcript; the worktree was created, refused on repeat, removed; **focus jumped off the LIVE census** (B1's sensor went live mid-row) and Felix's focus was restored every time; HALT written then cleared; disabled mode 503s with an honest banner while read pages stay 200. 62 tests green, venue restored, `git status` clean. Two escalations: **E1** — the socket already admits any local process of Felix's (a wrong password is rejected, but presenting *none* falls back to cmux's saved one), so the credential is an **arming switch, not the lock** — Architect's wording call; **E2** — an agent cannot provision that credential (the permission guard refused twice, correctly), so `~/.config/belvedere/env` is a **one-command Felix-gate** and until he runs it every hand answers 503. Also relayed: cmux injects its own hooks per session via `--settings` and the census still fires (measured ×3 probes); B2's dropped `ws`/`sf` restored for the jump; the order's literal launch line had a shell bug (`CLAUDE_CONFIG_DIR=… cd …` scopes the var to `cd`) — shipped as P2's proven shape. D54 slip self-reported: `bunx tsc` (B1's again, zero harm, no lockfile) — the real gap is that the city has no offline type-checker. Decided: audit belongs to the write, not the route (no caller routes around it). Next: B3 (the baton rail) — bulletin carries the wire contract and the disabled-state requirement.
 
 ---
 
-**2026-08-27 · Architect · fable-max (B4)** — E1 — Ruled: **D9** — the credential is
-an **arming switch, not the lock**, and it stays. B4's measurement (a wrong
-password rejected loudly, none at all admitted via the CLI's Settings fallback)
-retires D8's auth *framing* while its deployment ruling stands whole: password
-mode's function is admission (P4 §A's load-bearing fact), never local
-restriction — what stands between a stray agent and the desktop is the
-permission guard, the fence (D3), and the audit. Ratified B4's call to keep
-requiring `~/.config/belvedere/env` (it gates accidents, not adversaries) and to
-keep the real password in it, not a sentinel — D8's operative text, no hidden
-state, and the Ava chapter needs the value presented for real.
-[README](README.md) §§2–3 amended, D8 annotated, D9 cut (✓ Felix in-session);
-board B4 row trued; ruling line appended to [B4 E1](plans/b4-hands.md). P2 §A3's
-"knows the password" prediction left as filed history — B4 E1 carries the
-correction. Inbox swept: empty. **E2 paid in-session** — Felix armed
-`~/.config/belvedere/env` by his own hand (0600 verified, secret unread) and
-rotated the socket password off G1's temporary; the glass was down at check, so
-the armed banner shows on its next run, and `handsState()` checks presence and
-mode only — the batch-close rail fire is the end-to-end proof the file's value
-matches the rotated password (mismatch → the first fire 409s `Invalid password`;
-fix is re-running E2). Decided: D9 (✓ Felix in-session). Next: the batch-3 chain
-runs on (B3 → B5 → B6 → B7) to the close gates — nothing on this desk.
+**2026-08-27 · Architect · fable-max (B4)** — E1 — Ruled: **D9** — the credential is an **arming switch, not the lock**, and it stays. B4's measurement (a wrong password rejected loudly, none at all admitted via the CLI's Settings fallback) retires D8's auth *framing* while its deployment ruling stands whole: password mode's function is admission (P4 §A's load-bearing fact), never local restriction — what stands between a stray agent and the desktop is the permission guard, the fence (D3), and the audit. Ratified B4's call to keep requiring `~/.config/belvedere/env` (it gates accidents, not adversaries) and to keep the real password in it, not a sentinel — D8's operative text, no hidden state, and the Ava chapter needs the value presented for real. [README](README.md) §§2–3 amended, D8 annotated, D9 cut (✓ Felix in-session); board B4 row trued; ruling line appended to [B4 E1](plans/b4-hands.md). P2 §A3's "knows the password" prediction left as filed history — B4 E1 carries the correction. Inbox swept: empty. **E2 paid in-session** — Felix armed `~/.config/belvedere/env` by his own hand (0600 verified, secret unread) and rotated the socket password off G1's temporary; the glass was down at check, so the armed banner shows on its next run, and `handsState()` checks presence and mode only — the batch-close rail fire is the end-to-end proof the file's value matches the rotated password (mismatch → the first fire 409s `Invalid password`; fix is re-running E2). Decided: D9 (✓ Felix in-session). Next: the batch-3 chain runs on (B3 → B5 → B6 → B7) to the close gates — nothing on this desk.
 
 ---
 
-**2026-08-27 · Builder · opus-high (B3)** — The baton rail LANDED. `/` is the
-morning — every ledger-tail baton in the city, every named Felix-gate still live on
-a board, every pending countersign, one column, buttons; the City View moved to
-`/city`. 38 cards over 22 buildings: **8 of 8** batons `doctrine/` can read (the
-ninth ledger closes `Next —`, an em-dash where D63 wants `Next:` — the corpus's
-defect, not the rail's), 29 gates, 1 countersign. D64 renders as one/n/choice with
-the fork's recommendation badged; the shape is a **thin render-side splitter** over
-the baton's prose, `doctrine/` untouched (D65). Holder law is **structural**: 35 of
-38 cards carry no `<button>`, no `data-fire`, no handler at all — not a `disabled`
-attribute. Fire affordance per GA-10: **new session** (worktree composed first when
-the work doc designates one) and **copy summons** to the clipboard, never a paste
-into a live TUI. Smoke: fence → clipboard → argv → first user turn, **one sha256**
-(`d6f9c69c…`, 113 B) across all four, stamped `builder-probe-row-03`, worktree
-`bv/b3-smoke` composed and torn down, venue restored. Two escalations. **E1 — the
-G1 E1 ruling's own implementation cost a p95 of 8.3 s**: B2's deferred walk left the
-request but not Bun's single thread, so two of twenty 2 s-spaced page loads stalled
-8.5 s. Moved to a worker (`glass/register.worker.ts`) — **p95 48 ms** — but a 20 s
-TTL over a 9.5 s walk re-walks 50 795 directories half the time Felix is reading;
-the TTL policy is the Architect's. **E2 — all three of the city's fireable batons
-are Felix-gated in their own prose while `classifyBaton` calls them session
-batons** (the instrument wins over the word "Felix"), so two Dispatch buttons sit
-under text saying the fire is his. The rail reports it on the card and escalates the
-grammar; it never overrules the parser. Findings: rig colours are **not** cmux
-colours — `cyan` (Builder) and `pink` (Dispatcher) are refused outright, and the
-fire hand sets colour *after* creating the workspace, so a refused colour cost a
-whole fire and left an orphan (audit line, verbatim, in B3 §F1); a fire into a tree
-with no trusted ancestor stalls at Claude Code's folder-trust dialog before the
-summons is ever a turn (**bites B7**); reading a row's branch out of prose was
-unsound (12 of 62 work docs matched, **all retrospective**, one on an OPEN row) and
-is now header-only, worktree-only, never a landing record — 0/62. `bun test
-belvedere/glass` is red on a **pre-existing** B4 cross-file env collision
-(reproduced at `286b370`); parked to ISSUES, 105 tests green per file. D54 slip
-self-reported: `bunx tsc` — B1's and B4's again, third time, no lockfile, no harm;
-the city still has no offline type-checker and that is now a pattern, not a slip.
-Decided: the register may be held warm but never on the serving thread; the rail
-resolves and never invents — a blocked instrument shows its reason and no button.
-Next: **fire B5** — the shelf and the gauges; the bulletin carries the rail's wire
-notes and the two canon asks.
+**2026-08-27 · Builder · opus-high (B3)** — The baton rail LANDED. `/` is the morning — every ledger-tail baton in the city, every named Felix-gate still live on a board, every pending countersign, one column, buttons; the City View moved to `/city`. 38 cards over 22 buildings: **8 of 8** batons `doctrine/` can read (the ninth ledger closes `Next —`, an em-dash where D63 wants `Next:` — the corpus's defect, not the rail's), 29 gates, 1 countersign. D64 renders as one/n/choice with the fork's recommendation badged; the shape is a **thin render-side splitter** over the baton's prose, `doctrine/` untouched (D65). Holder law is **structural**: 35 of 38 cards carry no `<button>`, no `data-fire`, no handler at all — not a `disabled` attribute. Fire affordance per GA-10: **new session** (worktree composed first when the work doc designates one) and **copy summons** to the clipboard, never a paste into a live TUI. Smoke: fence → clipboard → argv → first user turn, **one sha256** (`d6f9c69c…`, 113 B) across all four, stamped `builder-probe-row-03`, worktree `bv/b3-smoke` composed and torn down, venue restored. Two escalations. **E1 — the G1 E1 ruling's own implementation cost a p95 of 8.3 s**: B2's deferred walk left the request but not Bun's single thread, so two of twenty 2 s-spaced page loads stalled 8.5 s. Moved to a worker (`glass/register.worker.ts`) — **p95 48 ms** — but a 20 s TTL over a 9.5 s walk re-walks 50 795 directories half the time Felix is reading; the TTL policy is the Architect's. **E2 — all three of the city's fireable batons are Felix-gated in their own prose while `classifyBaton` calls them session batons** (the instrument wins over the word "Felix"), so two Dispatch buttons sit under text saying the fire is his. The rail reports it on the card and escalates the grammar; it never overrules the parser. Findings: rig colours are **not** cmux colours — `cyan` (Builder) and `pink` (Dispatcher) are refused outright, and the fire hand sets colour *after* creating the workspace, so a refused colour cost a whole fire and left an orphan (audit line, verbatim, in B3 §F1); a fire into a tree with no trusted ancestor stalls at Claude Code's folder-trust dialog before the summons is ever a turn (**bites B7**); reading a row's branch out of prose was unsound (12 of 62 work docs matched, **all retrospective**, one on an OPEN row) and is now header-only, worktree-only, never a landing record — 0/62. `bun test belvedere/glass` is red on a **pre-existing** B4 cross-file env collision (reproduced at `286b370`); parked to ISSUES, 105 tests green per file. D54 slip self-reported: `bunx tsc` — B1's and B4's again, third time, no lockfile, no harm; the city still has no offline type-checker and that is now a pattern, not a slip. Decided: the register may be held warm but never on the serving thread; the rail resolves and never invents — a blocked instrument shows its reason and no button. Next: **fire B5** — the shelf and the gauges; the bulletin carries the rail's wire notes and the two canon asks.
 
 ---
 
-**2026-08-27 · Architect · fable-max (B3)** — E1/E2 — *same session, continued.* B3
-verified LANDED (18 commits `1ec54a3…ffb3d19`, tree clean, findings + three canon
-asks filed, board/ledger current — including the killed run's leftover diff
-reviewed and corrected rather than discarded). Ruled **E1**: the worker is law —
-the walk never rides the request thread; TTL **5 min** (a 20 s TTL over a 9.5 s
-walk re-walked ~half of Felix's reading time, for data that changes at building
-cadence), the glass's own fires/worktrees bust the register, a manual re-walk
-rides beside the printed age. Ruled **E2 — D10, ambiguity never arms**: a fire
-affordance renders armed only when parse and prose agree; where B3's collision
-note fires, the card loses its wiring (note + copy stay); parse untouched (D65),
-the grammar stays canon's; B6's apply and B7's composer inherit. Inbox swept — 4
-entries, all ruled, drained: isolation + unwind + the rulings → **B8 cut**
-([plans/b8-glass-hardenings.md](plans/b8-glass-hardenings.md)), joining batch 3
-by amendment and **firing first**; the trust dialog → B7's order amended (warn,
-never answer); the 3-for-3 `bunx tsc` pattern → offline type gate into B8 + rider
-amended + escalated to the canon inbox (city-standard question). Decided: D10
-(awaiting Felix's ✓); the E1 register policy (delegated — amends this desk's own
-G1 ruling). Next: Felix delivers the batch-3 amendment to the Dispatcher
-(verbatim in the report); the chain runs **B8 → B5 → B6 → B7** to the close
-gates.
+**2026-08-27 · Architect · fable-max (B3)** — E1/E2 — *same session, continued.* B3 verified LANDED (18 commits `1ec54a3…ffb3d19`, tree clean, findings + three canon asks filed, board/ledger current — including the killed run's leftover diff reviewed and corrected rather than discarded). Ruled **E1**: the worker is law — the walk never rides the request thread; TTL **5 min** (a 20 s TTL over a 9.5 s walk re-walked ~half of Felix's reading time, for data that changes at building cadence), the glass's own fires/worktrees bust the register, a manual re-walk rides beside the printed age. Ruled **E2 — D10, ambiguity never arms**: a fire affordance renders armed only when parse and prose agree; where B3's collision note fires, the card loses its wiring (note + copy stay); parse untouched (D65), the grammar stays canon's; B6's apply and B7's composer inherit. Inbox swept — 4 entries, all ruled, drained: isolation + unwind + the rulings → **B8 cut** ([plans/b8-glass-hardenings.md](plans/b8-glass-hardenings.md)), joining batch 3 by amendment and **firing first**; the trust dialog → B7's order amended (warn, never answer); the 3-for-3 `bunx tsc` pattern → offline type gate into B8 + rider amended + escalated to the canon inbox (city-standard question). Decided: D10 (awaiting Felix's ✓); the E1 register policy (delegated — amends this desk's own G1 ruling). Next: Felix delivers the batch-3 amendment to the Dispatcher (verbatim in the report); the chain runs **B8 → B5 → B6 → B7** to the close gates.
 
 ---
 
-**2026-08-27 · Builder · opus-high (B8)** — Glass hardenings landed; all five specs
-built to their DoD, nothing escalated. **The E1 policy is live**: `TTL_MS` 300 s, the
-glass's own successful fire or worktree calls `bust()`, and a **re-walk button** sits
-beside the printed age in every footer (`/rewalk?to=…` → 303 back, answering only when
-the new walk IS the held copy). Measured: footer reads `ttl 300s`, **p95 45 ms** over
-B3's 20-request protocol (bar: 500 ms), a live `/hands/worktree` moved the register
-75s → refreshing → 3s **without stalling the request that took the bust**, and three
-concurrent page loads inside a 9.2 s re-walk came back in 33–85 ms. **D10 is live**:
-`collides()` gates the wiring, so the two collided cards in the real city (hexwright,
-simmy) render with the collision named, the summons copyable, and **zero** fire wiring
-under B3's structural grep — holder still `session`, because D10 is render law, not a
-second parser. **The fire unwinds**: a failure after `workspace create` closes what it
-made — induced with B3 F1's own refused colour, `workspace:11` closed, `fire.unwind`
-audited before the fire's own line, `cmux workspace list` unchanged, no orphan process.
-**Test isolation fixed at the cause** — `paths.ts` resolves every env-derived anchor
-per call (a constant now means "the environment cannot move this"), `bun test
-belvedere/glass` **109 pass / 0 fail in one process**. **The type gate is offline**:
-`typescript@7.0.2` + `@types/bun@1.4.0` pinned with `bun.lock` committed,
-`tsconfig.json` strict and covering `../../doctrine/**`, `bunx --offline tsc --noEmit`
-exit 0 — the third-party fetch was the two the order named (D54 satisfied, not slipped).
-Findings F1–F5 in [B8](plans/b8-glass-hardenings.md): **F1 — the isolation bug was never
-just eight red tests: the suite armed the city's real `summon/log/HALT` from
-`hands.test.ts` and left it armed, wrote 16 lines into the real `hands.jsonl` (four of
-them stamping `builder-belvedere-01`, which `nextStamp` has been counting as a real
-fire), and printed Felix's live socket password into a failure diff.** HALT cleared this
-row, venue restored as B4 left it; the audit lines parked to ISSUES — never assert on a
-credential's value, and prove a temp knob by asserting the temp path was written.
-**F2 — D10 takes the live rail to 0 armed cards of 38**, which is B3 E2's
-measurement arriving as a consequence, not a defect; F3 the worker law binds B5's
-scans; F4 the gate covers `doctrine/` and found one latent `Beat` error; F5 the walk
-now dedupes 12 810 worktree copies, parked for whoever owns its cost. Decided: nothing
-— every fork was pre-chewed in the order. Next: **fire B5** — the shelf and the gauges;
-the bulletin carries F1's warning and F3's worker law.
+**2026-08-27 · Builder · opus-high (B8)** — Glass hardenings landed; all five specs built to their DoD, nothing escalated. **The E1 policy is live**: `TTL_MS` 300 s, the glass's own successful fire or worktree calls `bust()`, and a **re-walk button** sits beside the printed age in every footer (`/rewalk?to=…` → 303 back, answering only when the new walk IS the held copy). Measured: footer reads `ttl 300s`, **p95 45 ms** over B3's 20-request protocol (bar: 500 ms), a live `/hands/worktree` moved the register 75s → refreshing → 3s **without stalling the request that took the bust**, and three concurrent page loads inside a 9.2 s re-walk came back in 33–85 ms. **D10 is live**: `collides()` gates the wiring, so the two collided cards in the real city (hexwright, simmy) render with the collision named, the summons copyable, and **zero** fire wiring under B3's structural grep — holder still `session`, because D10 is render law, not a second parser. **The fire unwinds**: a failure after `workspace create` closes what it made — induced with B3 F1's own refused colour, `workspace:11` closed, `fire.unwind` audited before the fire's own line, `cmux workspace list` unchanged, no orphan process. **Test isolation fixed at the cause** — `paths.ts` resolves every env-derived anchor per call (a constant now means "the environment cannot move this"), `bun test belvedere/glass` **109 pass / 0 fail in one process**. **The type gate is offline**: `typescript@7.0.2` + `@types/bun@1.4.0` pinned with `bun.lock` committed, `tsconfig.json` strict and covering `../../doctrine/**`, `bunx --offline tsc --noEmit` exit 0 — the third-party fetch was the two the order named (D54 satisfied, not slipped). Findings F1–F5 in [B8](plans/b8-glass-hardenings.md): **F1 — the isolation bug was never just eight red tests: the suite armed the city's real `summon/log/HALT` from `hands.test.ts` and left it armed, wrote 16 lines into the real `hands.jsonl` (four of them stamping `builder-belvedere-01`, which `nextStamp` has been counting as a real fire), and printed Felix's live socket password into a failure diff.** HALT cleared this row, venue restored as B4 left it; the audit lines parked to ISSUES — never assert on a credential's value, and prove a temp knob by asserting the temp path was written. **F2 — D10 takes the live rail to 0 armed cards of 38**, which is B3 E2's measurement arriving as a consequence, not a defect; F3 the worker law binds B5's scans; F4 the gate covers `doctrine/` and found one latent `Beat` error; F5 the walk now dedupes 12 810 worktree copies, parked for whoever owns its cost. Decided: nothing — every fork was pre-chewed in the order. Next: **fire B5** — the shelf and the gauges; the bulletin carries F1's warning and F3's worker law.
 
 ---
 
-**2026-08-27 · Architect · fable-max** — flow keel + B8 sweep — *same session,
-continued.* B8 verified LANDED (nine commits `2defc6e…195441d`, five DoD items
-measured, zero escalations — the pre-chewed order held). Its F1 incident absorbed:
-the frozen anchors had armed the real HALT from a unit test (B8 cleared it) and
-printed the live socket password into a failure diff — rotation recommended to
-Felix (cheap; D9 bounds the real risk). Inbox swept (2): the audit's 16 test
-lines — **the scar stands** (no scrub; B8 F1 is the record; ordinals cosmetic per
-B7's spec); the `bun test doctrine` corpus-drift → canon inbox. **Felix's design
-laws recorded** (README §3, his words): encapsulation-first + [expand],
-Inter/IosevkaFelix split, legends, directory grouping, recency-informs, usage
-beside accounts, no dropdowns; B7 amended (dropdowns out); **B9 cut**
-([plans/b9-visual-law.md](plans/b9-visual-law.md), opus-medium, last before the
-close gates). **The flow chapter keeled**
-([plans/flow-keel.md](plans/flow-keel.md)): the Dispatcher's between-sessions
-logistics mechanizes — a flow is the batch note as data; **D11 (Felix): one
-click arms the declared DAG, drawn not listed** (nodes/edges/lanes/live census
-lighting; plan view = progress view); D10 + HALT bind the engine;
-landing-`holds` and S5 mode are the named physics; encapsulation joins
-kind/branch/holder/holds as the **row-17 evidence pile**. Timing (Felix): after
-v0 closes — rows at the v0 close sitting. Decided: D11 (✓ Felix in-session);
-D10 ✓ Felix same sitting. **Felix's wave paid in-session**: amendment #2
-delivered, D10 countersigned, password rotated + E2 re-armed. His
-countersign-button ask ruled inside existing law — **a B6 gesture** (order
-amended: Countersign on pending-countersign cards → D63 inbox append, card
-states pending → recorded → folded; the glass never pens the D-entry — D3
-stands, no new write class). Next: the chain runs B5 → B6 → B7 → B9 to his
-close gates, then the v0 close sitting cuts the flow rows — nothing on this
-desk.
+**2026-08-27 · Architect · fable-max** — flow keel + B8 sweep — *same session, continued.* B8 verified LANDED (nine commits `2defc6e…195441d`, five DoD items measured, zero escalations — the pre-chewed order held). Its F1 incident absorbed: the frozen anchors had armed the real HALT from a unit test (B8 cleared it) and printed the live socket password into a failure diff — rotation recommended to Felix (cheap; D9 bounds the real risk). Inbox swept (2): the audit's 16 test lines — **the scar stands** (no scrub; B8 F1 is the record; ordinals cosmetic per B7's spec); the `bun test doctrine` corpus-drift → canon inbox. **Felix's design laws recorded** (README §3, his words): encapsulation-first + [expand], Inter/IosevkaFelix split, legends, directory grouping, recency-informs, usage beside accounts, no dropdowns; B7 amended (dropdowns out); **B9 cut** ([plans/b9-visual-law.md](plans/b9-visual-law.md), opus-medium, last before the close gates). **The flow chapter keeled** ([plans/flow-keel.md](plans/flow-keel.md)): the Dispatcher's between-sessions logistics mechanizes — a flow is the batch note as data; **D11 (Felix): one click arms the declared DAG, drawn not listed** (nodes/edges/lanes/live census lighting; plan view = progress view); D10 + HALT bind the engine; landing-`holds` and S5 mode are the named physics; encapsulation joins kind/branch/holder/holds as the **row-17 evidence pile**. Timing (Felix): after v0 closes — rows at the v0 close sitting. Decided: D11 (✓ Felix in-session); D10 ✓ Felix same sitting. **Felix's wave paid in-session**: amendment #2 delivered, D10 countersigned, password rotated + E2 re-armed. His countersign-button ask ruled inside existing law — **a B6 gesture** (order amended: Countersign on pending-countersign cards → D63 inbox append, card states pending → recorded → folded; the glass never pens the D-entry — D3 stands, no new write class). Next: the chain runs B5 → B6 → B7 → B9 to his close gates, then the v0 close sitting cuts the flow rows — nothing on this desk.
 
 ---
 
-**2026-08-27 · Builder · opus-high (B5)** — the shelf and the gauges — `/shelf` is
-live: 723 transcripts across all three accounts in **46 ms**, joined on the uuid
-from three sources (filename → session id and resume handle; the transcript's own
-64 KB head → name-stamp and cwd; the census → live or dead), and the projects
-**slug is never parsed** because `/` and `_` both flatten to `-`. Changed:
-`glass/shelf.ts` and `glass/gauges.ts` new, `glass/census.ts` (`aid`/`at`/`bg`, the
-identity join, the sensor horizon), `glass/hands.ts` (the resume widening),
-`glass/pages.ts` (`buildingOf`), `glass/paths.ts`, `glass.css`, `server.ts`, three
-test files — **166 green in one process**, `bunx --offline tsc --noEmit` exit 0,
-nothing written outside `belvedere/glass/` and the census dir. DoD measured, not
-asserted: **one dead session resumed from each account** (three `SessionStart`
-beats, each on its own transcript under its own `CLAUDE_CONFIG_DIR`) with **no user
-turn injected** — the newest turn in all three is still 10–12 h old — venue restored
-to the one workspace it started with; the usage strip matches the rig's **own**
-`_summon_usage_delta` on 9/9 cells at one instant (cost one real fix: the rig rounds
-away from zero); the 16-cap **induced live**, 18 shells in, `{"n":16}` out, `15+` on
-the page. Decided: nothing — two escalations filed instead. **E1: the census sees 6
-sessions where `ps` sees 38** — B1's hooks went live mid-city, so every pre-hook
-session is invisible and every WIP figure in the glass (rail and City View too) is a
-floor; the panel now prints the horizon, the sensor question is the Architect's and
-P1 F5 warns against a second liveness authority. **E2: `/hands/fire` widened** — on a
-resume, a field the glass does not know is omitted from argv, never guessed;
-backwards compatible, `summonsPath`/`sha` now nullable. Three findings bind the rest
-of batch 3: **F1** `buildingOf` assumed a branch was one path segment, so the city's
-own `bv/…` branches have been mis-housing every worktree session in its repo root
-since B2, silently, on the rail and City View as well (fixed at the cause); **F2**
-only `Stop`/`SubagentStop` carry `bg` (210 of 210), so an empty roster means
-*unknown* and renders `?`, never `0`; **F3** the slug is lossy. Built to the §3
-design laws natively — no dropdowns, usage beside the accounts, attention-first
-sorting, `[expand]`, a legend — with Inter's vendoring left where it belongs, in B9.
-Next: **fire B6** — the sovereign's inbox; the bulletin carries E2's wire change and
-F2's roster law.
+**2026-08-27 · Builder · opus-high (B5)** — the shelf and the gauges — `/shelf` is live: 723 transcripts across all three accounts in **46 ms**, joined on the uuid from three sources (filename → session id and resume handle; the transcript's own 64 KB head → name-stamp and cwd; the census → live or dead), and the projects **slug is never parsed** because `/` and `_` both flatten to `-`. Changed: `glass/shelf.ts` and `glass/gauges.ts` new, `glass/census.ts` (`aid`/`at`/`bg`, the identity join, the sensor horizon), `glass/hands.ts` (the resume widening), `glass/pages.ts` (`buildingOf`), `glass/paths.ts`, `glass.css`, `server.ts`, three test files — **166 green in one process**, `bunx --offline tsc --noEmit` exit 0, nothing written outside `belvedere/glass/` and the census dir. DoD measured, not asserted: **one dead session resumed from each account** (three `SessionStart` beats, each on its own transcript under its own `CLAUDE_CONFIG_DIR`) with **no user turn injected** — the newest turn in all three is still 10–12 h old — venue restored to the one workspace it started with; the usage strip matches the rig's **own** `_summon_usage_delta` on 9/9 cells at one instant (cost one real fix: the rig rounds away from zero); the 16-cap **induced live**, 18 shells in, `{"n":16}` out, `15+` on the page. Decided: nothing — two escalations filed instead. **E1: the census sees 6 sessions where `ps` sees 38** — B1's hooks went live mid-city, so every pre-hook session is invisible and every WIP figure in the glass (rail and City View too) is a floor; the panel now prints the horizon, the sensor question is the Architect's and P1 F5 warns against a second liveness authority. **E2: `/hands/fire` widened** — on a resume, a field the glass does not know is omitted from argv, never guessed; backwards compatible, `summonsPath`/`sha` now nullable. Three findings bind the rest of batch 3: **F1** `buildingOf` assumed a branch was one path segment, so the city's own `bv/…` branches have been mis-housing every worktree session in its repo root since B2, silently, on the rail and City View as well (fixed at the cause); **F2** only `Stop`/`SubagentStop` carry `bg` (210 of 210), so an empty roster means *unknown* and renders `?`, never `0`; **F3** the slug is lossy. Built to the §3 design laws natively — no dropdowns, usage beside the accounts, attention-first sorting, `[expand]`, a legend — with Inter's vendoring left where it belongs, in B9. Next: **fire B6** — the sovereign's inbox; the bulletin carries E2's wire change and F2's roster law.
 
 ---
 
-**2026-08-27 · Architect · fable-max (B5)** — E1/E2 — *same session, continued.* B5
-verified LANDED (8 commits `3113670…ea868b7`, tree clean, 166 tests one process,
-type gate 0; resume ×3 accounts with no turn injected, strip 9/9 vs the rig's own
-function, 16-cap induced live). Ruled **E1**: the census stays the **sole
-identity authority** (P1 F5 upheld — no second liveness authority); the 6-vs-38
-gap is the sensor's horizon (hooks live 04:03Z; pre-hook sessions are beat-less
-and die with the floor), and the glass renders it as the **auditor delta** — one
-approximate labeled `ps` count beside the census figure, never merged into
-cards: the `sync/check` pattern, the census's own standing drift alarm → B9
-amended, one read across shelf/rail/City View. Ruled **E2 — ratified whole**:
-"on a resume, a field the glass does not know is omitted, never guessed" is
-standing hands law; the uuid-only handle and jump-not-resume both stand (D10
-applied). F1 noted with respect: worktree mis-housing since B2, fixed at the
-cause city-wide. **Felix's meta-ask folded into the keel — the reactive gate**:
-an escalated landing fires the scoped Architect sitting into the lane (B6's
-apply button is the v0 prototype); Felix carded only on further escalation.
-Evidence: five build rows, seven escalations, six Architect-delegated, every
-ruling hand-relayed by Felix — while B8's fully-pre-chewed order escalated zero.
-Decided: E1/E2 rulings (delegated scope). Next: Felix relays the resume —
-**proceed B6** — then B7 → B9 to the close gates.
+**2026-08-27 · Architect · fable-max (B5)** — E1/E2 — *same session, continued.* B5 verified LANDED (8 commits `3113670…ea868b7`, tree clean, 166 tests one process, type gate 0; resume ×3 accounts with no turn injected, strip 9/9 vs the rig's own function, 16-cap induced live). Ruled **E1**: the census stays the **sole identity authority** (P1 F5 upheld — no second liveness authority); the 6-vs-38 gap is the sensor's horizon (hooks live 04:03Z; pre-hook sessions are beat-less and die with the floor), and the glass renders it as the **auditor delta** — one approximate labeled `ps` count beside the census figure, never merged into cards: the `sync/check` pattern, the census's own standing drift alarm → B9 amended, one read across shelf/rail/City View. Ruled **E2 — ratified whole**: "on a resume, a field the glass does not know is omitted, never guessed" is standing hands law; the uuid-only handle and jump-not-resume both stand (D10 applied). F1 noted with respect: worktree mis-housing since B2, fixed at the cause city-wide. **Felix's meta-ask folded into the keel — the reactive gate**: an escalated landing fires the scoped Architect sitting into the lane (B6's apply button is the v0 prototype); Felix carded only on further escalation. Evidence: five build rows, seven escalations, six Architect-delegated, every ruling hand-relayed by Felix — while B8's fully-pre-chewed order escalated zero. Decided: E1/E2 rulings (delegated scope). Next: Felix relays the resume — **proceed B6** — then B7 → B9 to the close gates.
 
 ---
 
-**2026-08-27 · Builder · opus-high (B6)** — the sovereign's inbox — his word travels
-without his hands: `POST /inbox` is the fence's third write, and it is the only one
-that touches a file the city commits. Four gestures — a free-text note, `defer <row>`,
-`<row> before <row>`, `countersign <D-id>: ✓` — each become **ONE append** in D63
-grammar (`- <YYYY-MM-DD> · Felix (via Belvedere) · <what>`, local date because
-`toISOString()` would file tonight's note tomorrow). Changed: `glass/inbox.ts` and
-`glass/inbox.test.ts` new (49 tests), `glass/pages.ts` (a gesture column on every board
-row; the ISSUES panel gained the note box and the apply button), `glass/rail.ts` (a note
-box on every card, the countersign act, the card's pill is now its state), `glass/hands.ts`
-(four wire primitives exported and shared — a socket write lives behind the arming switch,
-a file write in front of it), `server.ts`, `paths.ts`, `glass.css`, `glass/README.md` —
-**219 green in one process**, `bunx --offline tsc --noEmit` exit 0. DoD measured over HTTP
-against a live glass, with **every payload read out of the rendered HTML** rather than
-hand-written: append-only proven on **ten concurrent** gestures (BEFORE `sha256 742402d4…`
-byte-identical to AFTER's first 705 bytes, 12 entries, 0 lint); first-gesture adoption
-minted a header that is the D53 template's own bytes (`3d811b06…` both sides); the apply
-button fired the scoped Architect into cmux with a **byte-identical first user turn**
-(386 B, `bf1b1333…` both sides), probe on a throwaway worktree, closed in 4.7 s, venue
-restored; the countersign card walked **pending → recorded → folded**, all three read off
-files, the button only on pending. `git diff` over the one repo touched: two appended
-lines in `belvedere/ISSUES.md`. Decided: nothing — nothing escalated; the spec held.
-Four findings: **F1** the fence's own wording for an inbox entry is pre-D63 in two places
-(README §2 write #3 and the inbox's own header) while the blessed spec writes D63 — **filed
-by the glass itself, as the DoD smoke**; **F2** `parseDecisions` marks an entry pending
-wherever the phrase appears, *including in the entry that defines the marker*, so canon
-**D21** (`✓ Felix` since 2026-08-03) has been a false countersign on the rail since B3 —
-both live cards were D21, so **the city has zero true pending countersigns** and the
-amendment's DoD had to run on a synthetic decision; handled render-side (folded outranks
-pending — D10, ambiguity never arms), the parser ask escalates to canon; **F3** `/inbox`
-sits deliberately outside the credential gate (spec §4 — cold hands must never cost him
-the ability to say something); **F4** a bare bullet appended onto a non-empty tail block
-reads as that block's evidence, so `addition()` opens a `---` for it. Three rail tests
-narrowed deliberately and made stronger: "no button at all" became "no fire wiring **and**
-every button here is an `/inbox` gesture". Next: **fire B7** — the summon composer; the
-bulletin carries F2 (the countersign false positive), F3 (which side of the gate a new
-write belongs on) and B6's sweep template, which B7 §2 reuses.
+**2026-08-27 · Builder · opus-high (B6)** — the sovereign's inbox — his word travels without his hands: `POST /inbox` is the fence's third write, and it is the only one that touches a file the city commits. Four gestures — a free-text note, `defer <row>`, `<row> before <row>`, `countersign <D-id>: ✓` — each become **ONE append** in D63 grammar (`- <YYYY-MM-DD> · Felix (via Belvedere) · <what>`, local date because `toISOString()` would file tonight's note tomorrow). Changed: `glass/inbox.ts` and `glass/inbox.test.ts` new (49 tests), `glass/pages.ts` (a gesture column on every board row; the ISSUES panel gained the note box and the apply button), `glass/rail.ts` (a note box on every card, the countersign act, the card's pill is now its state), `glass/hands.ts` (four wire primitives exported and shared — a socket write lives behind the arming switch, a file write in front of it), `server.ts`, `paths.ts`, `glass.css`, `glass/README.md` — **219 green in one process**, `bunx --offline tsc --noEmit` exit 0. DoD measured over HTTP against a live glass, with **every payload read out of the rendered HTML** rather than hand-written: append-only proven on **ten concurrent** gestures (BEFORE `sha256 742402d4…` byte-identical to AFTER's first 705 bytes, 12 entries, 0 lint); first-gesture adoption minted a header that is the D53 template's own bytes (`3d811b06…` both sides); the apply button fired the scoped Architect into cmux with a **byte-identical first user turn** (386 B, `bf1b1333…` both sides), probe on a throwaway worktree, closed in 4.7 s, venue restored; the countersign card walked **pending → recorded → folded**, all three read off files, the button only on pending. `git diff` over the one repo touched: two appended lines in `belvedere/ISSUES.md`. Decided: nothing — nothing escalated; the spec held. Four findings: **F1** the fence's own wording for an inbox entry is pre-D63 in two places (README §2 write #3 and the inbox's own header) while the blessed spec writes D63 — **filed by the glass itself, as the DoD smoke**; **F2** `parseDecisions` marks an entry pending wherever the phrase appears, *including in the entry that defines the marker*, so canon **D21** (`✓ Felix` since 2026-08-03) has been a false countersign on the rail since B3 — both live cards were D21, so **the city has zero true pending countersigns** and the amendment's DoD had to run on a synthetic decision; handled render-side (folded outranks pending — D10, ambiguity never arms), the parser ask escalates to canon; **F3** `/inbox` sits deliberately outside the credential gate (spec §4 — cold hands must never cost him the ability to say something); **F4** a bare bullet appended onto a non-empty tail block reads as that block's evidence, so `addition()` opens a `---` for it. Three rail tests narrowed deliberately and made stronger: "no button at all" became "no fire wiring **and** every button here is an `/inbox` gesture". Next: **fire B7** — the summon composer; the bulletin carries F2 (the countersign false positive), F3 (which side of the gate a new write belongs on) and B6's sweep template, which B7 §2 reuses.
 
 ---
 
-**2026-08-27 · Builder · opus-high (B7)** — the summon composer: the blank page, fired.
-`/summon` composes and fires ANY session — new work, a new building, an ad-hoc sitting —
-with no terminal in the loop. **Compose, then fire**: the form is inert radios in toggled
-button groups (no client state, **zero `<select>` anywhere on the page**), one press
-resolves target · account · mantle · tier · name-stamp · colour · worktree plan · trust
-verdict, and only that render carries a fire button, wired to the exact JSON the card is
-showing — armed by the hands' own `parseFire` run over the composed body, one gate rather
-than a second copy of one. Eight templates (one per mantle, the founding Architect's
-DOCTRINE §12 fence, B6's inbox sweep), each a whole opening: applying one sets the mantle
-and the tier it speaks as. Changed: `glass/composer.ts` and `glass/trust.ts` new,
-`glass/composer.test.ts` new (52 tests), `glass/summon.ts` (`.summon-theaters`, the Grand
-Architect's no-theater lineage, a third stamp source), `glass/rig.ts` (`tiers`),
-`server.ts`, `glass.css`, three navs, `glass/README.md` — **271 green in one process**,
-`bunx --offline tsc --noEmit` exit 0, `/summon` p95 13 ms. DoD measured over HTTP against a
-live glass with **every fire body read out of the rendered HTML**: four fires byte-exact
-(sha256 identical page-side and transcript-side), the founding template verbatim at a
-scratch dir (185 B, `845e7932…` both sides), a worktree-composed fire landing with cwd
-**inside** the cut worktree, `builder-belvedere-02→03` on two consecutive fires, disabled
-mode honest (503, an in-DOM disabled button, the plan still composed), `git status`
-unchanged, venue restored. Decided: nothing escalated — one false assumption in the order
-was found and worked around in the open (F2). Six findings, one of which binds the rest of
-the campaign: **F1 — Claude Code's unit of trust is the PROJECT ROOT, it is per account,
-and a repository never borrows an ancestor's trust.** Measured two ways inside one trusted
-`~/code`: a plain directory ran and beat the census ten times, a fresh `git init` **stalled
-with zero census beats, no transcript and the process alive on the dialog** — and so did a
-worktree under it. All 36 live trust entries across the three accounts sit exactly on
-project roots; all 9 live sessions are warm under the rule. The naive "nearest trusted
-ancestor" reading returns a **false warm**, which is precisely the silent success the
-amendment was written to prevent. **F2** the order's "scratch repo" is therefore unfireable
-by construction (the worktree DoD ran in `agents`, B3's precedent). **F3** the glass's
-stamp slug is narrower than row 14's theater law, so `universal_robots_sdk` forks the
-lineage — refused loudly by `parseFire`, never fired as something else; a B4-boundary
-contract question. **F4** the live census is a load-bearing third stamp source
-(`architect-belvedere` is in neither log and in the census), and **the rail still passes no
-`known` list**, so it would hand that name out twice — parked to B3's ground, one array
-away. **F5** the Grand Architect's no-theater exception now matches the rig
-(`grand-architect-11`, live). **F6** probe residue named, not scrubbed. Next: **fire B9** —
-the visual law sweep over the pre-law pages, the last build row before the close gates; the
-bulletin carries F1 (which binds anything that fires), F3 and F4.
+**2026-08-27 · Builder · opus-high (B7)** — the summon composer: the blank page, fired. `/summon` composes and fires ANY session — new work, a new building, an ad-hoc sitting — with no terminal in the loop. **Compose, then fire**: the form is inert radios in toggled button groups (no client state, **zero `<select>` anywhere on the page**), one press resolves target · account · mantle · tier · name-stamp · colour · worktree plan · trust verdict, and only that render carries a fire button, wired to the exact JSON the card is showing — armed by the hands' own `parseFire` run over the composed body, one gate rather than a second copy of one. Eight templates (one per mantle, the founding Architect's DOCTRINE §12 fence, B6's inbox sweep), each a whole opening: applying one sets the mantle and the tier it speaks as. Changed: `glass/composer.ts` and `glass/trust.ts` new, `glass/composer.test.ts` new (52 tests), `glass/summon.ts` (`.summon-theaters`, the Grand Architect's no-theater lineage, a third stamp source), `glass/rig.ts` (`tiers`), `server.ts`, `glass.css`, three navs, `glass/README.md` — **271 green in one process**, `bunx --offline tsc --noEmit` exit 0, `/summon` p95 13 ms. DoD measured over HTTP against a live glass with **every fire body read out of the rendered HTML**: four fires byte-exact (sha256 identical page-side and transcript-side), the founding template verbatim at a scratch dir (185 B, `845e7932…` both sides), a worktree-composed fire landing with cwd **inside** the cut worktree, `builder-belvedere-02→03` on two consecutive fires, disabled mode honest (503, an in-DOM disabled button, the plan still composed), `git status` unchanged, venue restored. Decided: nothing escalated — one false assumption in the order was found and worked around in the open (F2). Six findings, one of which binds the rest of the campaign: **F1 — Claude Code's unit of trust is the PROJECT ROOT, it is per account, and a repository never borrows an ancestor's trust.** Measured two ways inside one trusted `~/code`: a plain directory ran and beat the census ten times, a fresh `git init` **stalled with zero census beats, no transcript and the process alive on the dialog** — and so did a worktree under it. All 36 live trust entries across the three accounts sit exactly on project roots; all 9 live sessions are warm under the rule. The naive "nearest trusted ancestor" reading returns a **false warm**, which is precisely the silent success the amendment was written to prevent. **F2** the order's "scratch repo" is therefore unfireable by construction (the worktree DoD ran in `agents`, B3's precedent). **F3** the glass's stamp slug is narrower than row 14's theater law, so `universal_robots_sdk` forks the lineage — refused loudly by `parseFire`, never fired as something else; a B4-boundary contract question. **F4** the live census is a load-bearing third stamp source (`architect-belvedere` is in neither log and in the census), and **the rail still passes no `known` list**, so it would hand that name out twice — parked to B3's ground, one array away. **F5** the Grand Architect's no-theater exception now matches the rig (`grand-architect-11`, live). **F6** probe residue named, not scrubbed. Next: **fire B9** — the visual law sweep over the pre-law pages, the last build row before the close gates; the bulletin carries F1 (which binds anything that fires), F3 and F4.
 
 ---
 
-**2026-08-27 · Builder · opus-medium (B9)** — the visual law sweep: every page now
-obeys Felix's design laws, and the pre-law pages obey them the way B5–B7 were born to.
-Changed: `glass/assets/` new (**Inter vendored**, latin 400 + 700 woff2 + the SIL OFL
-notice, served off `/assets/…` with `font/woff2` and an immutable cache header),
-`glass/html.ts` (`encap`/`encapHtml`/`expand`, `legend`/`LIVENESS_KEYS`/`mantleKeys`,
-and `ago()` moved here to break the `pages ↔ gauges` cycle the auditor would have
-opened), `glass/rail.ts` (card encapsulations, the rail legend, **the glass's last
-`<select>` replaced by a radio button group**, recency inside each attention rank),
-`glass/pages.ts` (**City View grouped by `~/code/<x>`**, off-register the same way,
-`attentionOf`/`freshness` sorting, encapsulations through the board rows, ledger tail,
-queue and ISSUES, the city legend, the auditor line), `glass/gauges.ts` (`auditorCount`
-+ `auditorLine`, the WIP panel's delta), `glass/glass.css` (`@font-face` ×2, `.encap`,
-the generic `.more` disclosure, `.nbhd`, `.audit`, `.rail-text` in Inter),
-`glass/server.ts` (the font route, a fixed two-key list — no path ever comes from a
-URL), plus `html.test.ts` and `pages.test.ts` new — **302 green in one process**,
-`bunx --offline tsc --noEmit` exit 0, rail p95 111 ms at browsing speed. DoD measured
-against a live glass over HTTP: the font served **byte-identical** to the vendored file
-(`sha256 2301bb03…` both sides), **zero `http(s)://` anywhere in any served page or
-stylesheet**, `grep -c '<select'` **0 on all seven routes**, legends on `/` and `/city`,
-11 of 38 rail cards leading with a derived name and the other 27 rendering whole, five
-neighbourhood groups on `/city` with rank monotone and dates falling only inside a rank,
-and `8 tracked · ≈35 claude processes visible · 27 beyond the census` on all three
-views. Decided: nothing escalated; the spec held, and its own STOP clause was honoured —
-**the derivation was never given a special case.** Four findings: **F1 — 27 of 38 live
-cards write no name at all**, so the row-17 ask is now evidenced: the shapes need a
-**name field**, one to six words, written by the session that files the entry; a parser
-cannot recover a name nobody wrote (two general render rules did earn their place — an
-orphaned `**` is dropped from a name, and an `[expand]` that would reveal less than the
-card already shows is not drawn). **F2** the `pages ↔ gauges` cycle, and the rule that
-a helper two pages want lives in `html.ts`. **F3** the auditor costs **36 ms** of the
-request thread (rail p95 45 → 111 ms, bar 500 ms) — a TTL is the fix if it ever matters,
-named not built; and B5 E1's `[c]laude` grep over-counts by five (shell snapshots), so
-the alarm matches `argv[0]` and drops the harness's own `bg-*` helpers. **F4** the
-radio picker's `:checked` read is the one thing unproven without a browser (the Chrome
-extension was not connected) — **the batch-close live fire from the rail is exactly that
-path**. Next: **batch 3 is complete — the close gates are Felix's**: the visual pass over
-rail + city, and the live-fire smoke from the rail (which doubles as F4's proof).
+**2026-08-27 · Builder · opus-medium (B9)** — the visual law sweep: every page now obeys Felix's design laws, and the pre-law pages obey them the way B5–B7 were born to. Changed: `glass/assets/` new (**Inter vendored**, latin 400 + 700 woff2 + the SIL OFL notice, served off `/assets/…` with `font/woff2` and an immutable cache header), `glass/html.ts` (`encap`/`encapHtml`/`expand`, `legend`/`LIVENESS_KEYS`/`mantleKeys`, and `ago()` moved here to break the `pages ↔ gauges` cycle the auditor would have opened), `glass/rail.ts` (card encapsulations, the rail legend, **the glass's last `<select>` replaced by a radio button group**, recency inside each attention rank), `glass/pages.ts` (**City View grouped by `~/code/<x>`**, off-register the same way, `attentionOf`/`freshness` sorting, encapsulations through the board rows, ledger tail, queue and ISSUES, the city legend, the auditor line), `glass/gauges.ts` (`auditorCount`
++ `auditorLine`, the WIP panel's delta), `glass/glass.css` (`@font-face` ×2, `.encap`, the generic `.more` disclosure, `.nbhd`, `.audit`, `.rail-text` in Inter), `glass/server.ts` (the font route, a fixed two-key list — no path ever comes from a URL), plus `html.test.ts` and `pages.test.ts` new — **302 green in one process**, `bunx --offline tsc --noEmit` exit 0, rail p95 111 ms at browsing speed. DoD measured against a live glass over HTTP: the font served **byte-identical** to the vendored file (`sha256 2301bb03…` both sides), **zero `http(s)://` anywhere in any served page or stylesheet**, `grep -c '<select'` **0 on all seven routes**, legends on `/` and `/city`, 11 of 38 rail cards leading with a derived name and the other 27 rendering whole, five neighbourhood groups on `/city` with rank monotone and dates falling only inside a rank, and `8 tracked · ≈35 claude processes visible · 27 beyond the census` on all three views. Decided: nothing escalated; the spec held, and its own STOP clause was honoured — **the derivation was never given a special case.** Four findings: **F1 — 27 of 38 live cards write no name at all**, so the row-17 ask is now evidenced: the shapes need a **name field**, one to six words, written by the session that files the entry; a parser cannot recover a name nobody wrote (two general render rules did earn their place — an orphaned `**` is dropped from a name, and an `[expand]` that would reveal less than the card already shows is not drawn). **F2** the `pages ↔ gauges` cycle, and the rule that a helper two pages want lives in `html.ts`. **F3** the auditor costs **36 ms** of the request thread (rail p95 45 → 111 ms, bar 500 ms) — a TTL is the fix if it ever matters, named not built; and B5 E1's `[c]laude` grep over-counts by five (shell snapshots), so the alarm matches `argv[0]` and drops the harness's own `bg-*` helpers. **F4** the radio picker's `:checked` read is the one thing unproven without a browser (the Chrome extension was not connected) — **the batch-close live fire from the rail is exactly that path**. Next: **batch 3 is complete — the close gates are Felix's**: the visual pass over rail + city, and the live-fire smoke from the rail (which doubles as F4's proof).
 
 ---
 
-**2026-08-27 · Architect · fable-max** — v0 verify + flow hand-off — *same
-session, continued.* B6/B7/B9 verified LANDED off their plans: B6 — 219 tests,
-append-only proven under ten concurrent POSTs, adoption mints the template's own
-bytes, **the apply button fires a scoped Architect sitting** (first turn ≡
-template); B7 — composed/founding/worktree fires byte-exact (sha per fire),
-stamp ordinal proven against three sources, trust verdict on the card, disabled
-mode honest; B9 — 302 tests, Inter vendored-not-fetched (cheaper than the
-authorized fetch), auditor delta live on all three views (8 tracked · ≈35
-visible), city grouped, zero `<select>`; one unproven path named (F4 — the radio
-picker's `:checked`, proven by the close smoke). Inbox swept (1): B6's own first
-live gesture caught pre-D63 wording in README §2 write #3 and the inbox header —
-ruled TRUE THE DOCS, both trued, entry drained. **Felix's close words recorded**
-(batch-3 note): visual pass "capable", rearranging parked as flow-chapter design
-input; the live-fire smoke assigned — **firing the flow-cut Architect from
-`/summon`**, one act, three proofs. Keel amended at his word ("reactive, dynamic
-flow"): **dynamic extension** — the DAG grows mid-flow; the **arm-scope fork**
-(step-arm vs scope-arm) named as the chapter's first Felix-fork, his lean
-scope-arm, ruled at the cut sitting's blessing; S5 evidence note (starts and
-beats proven, sustained unattended tool work not — probe #1). Pre-ruled: the
-auditor count may take a register-pattern TTL when its p95 crosses half the
-bar; until then it stands as built. Decided: the sweep ruling (docs trued).
-Next: **Felix fires the flow-cut Architect from `/summon`** — kickoff verbatim
-in the report; that fire IS the close smoke; the fired sitting closes batch 3
-(§8 DoD) and cuts flow batch 1. This desk is clear.
+**2026-08-27 · Architect · fable-max** — v0 verify + flow hand-off — *same session, continued.* B6/B7/B9 verified LANDED off their plans: B6 — 219 tests, append-only proven under ten concurrent POSTs, adoption mints the template's own bytes, **the apply button fires a scoped Architect sitting** (first turn ≡ template); B7 — composed/founding/worktree fires byte-exact (sha per fire), stamp ordinal proven against three sources, trust verdict on the card, disabled mode honest; B9 — 302 tests, Inter vendored-not-fetched (cheaper than the authorized fetch), auditor delta live on all three views (8 tracked · ≈35 visible), city grouped, zero `<select>`; one unproven path named (F4 — the radio picker's `:checked`, proven by the close smoke). Inbox swept (1): B6's own first live gesture caught pre-D63 wording in README §2 write #3 and the inbox header — ruled TRUE THE DOCS, both trued, entry drained. **Felix's close words recorded** (batch-3 note): visual pass "capable", rearranging parked as flow-chapter design input; the live-fire smoke assigned — **firing the flow-cut Architect from `/summon`**, one act, three proofs. Keel amended at his word ("reactive, dynamic flow"): **dynamic extension** — the DAG grows mid-flow; the **arm-scope fork** (step-arm vs scope-arm) named as the chapter's first Felix-fork, his lean scope-arm, ruled at the cut sitting's blessing; S5 evidence note (starts and beats proven, sustained unattended tool work not — probe #1). Pre-ruled: the auditor count may take a register-pattern TTL when its p95 crosses half the bar; until then it stands as built. Decided: the sweep ruling (docs trued). Next: **Felix fires the flow-cut Architect from `/summon`** — kickoff verbatim in the report; that fire IS the close smoke; the fired sitting closes batch 3 (§8 DoD) and cuts flow batch 1. This desk is clear.
 
-*(moved to the tail 2026-08-27, flow-cut sitting: this entry was inserted
-mid-file at `920a129` — after its session's own prior entry, before three
-Builder entries already landed — breaking §7's newest-last; bytes preserved.)*
+*(moved to the tail 2026-08-27, flow-cut sitting: this entry was inserted mid-file at `920a129` — after its session's own prior entry, before three Builder entries already landed — breaking §7's newest-last; bytes preserved.)*
 
 ---
 
-**2026-08-27 · Architect · fable-max** — *the flow-cut sitting.* **I am the
-close smoke:** this session was fired from `/summon` by Felix's hand — summons
-file ≡ argv ≡ transcript first user turn, sha256 `6c3f2862…`, 405 B at all
-three hops (audit 20:42:21Z, `workspace:24`, account personal, fable · max,
-stamp `architect-agents-03`) — one act paying the live-fire gate and proving
-B9 F4's radio-`:checked` path and B4's rotated password end-to-end. B6/B7/B9
-re-verified mechanically: 302 tests green in one process, `bunx --offline tsc
---noEmit` exit 0, commits present, DoD evidence in each plan. **§8's DoD RUN,
-seven for seven** (close block in [README §8](README.md)): hand-count — 10
-tracked ≡ 10 census-live ≡ every pid in `ps` by name (2 · 3 · 5 ×3 accounts),
-≈35 ≡ `ps` 35, horizon labeled; building page + `/doc` link 200 (D58); **the
-glass-shatters drill fired for real** — `kill -9` mid read-storm with a
-`/hands/worktree` write in flight: 10/10 sessions lived, `git status` and
-ISSUES byte-identical, the in-flight write died whole, relaunch one command
-(pid 87126, ppid 1 — survives cmux restarts), hands re-armed off the untouched
-env file. Strays cleared: a second rail on :4473 (Builder DoD leftover, D55
-class — killed) and the ledger's newest-last break (the v0-verify entry,
-inserted mid-file at `920a129`, moved to the tail byte-preserved). Inbox
-swept: empty. **Batch 3 CLOSED — v0 SHIPPED.** Fresh physics: this session
-runs census `mode:auto` with sustained unattended tool work — S5's stall is
-conditional, not universal (keel §5.2 upgraded; P5 inherits the positive
-control). **Flow batch 1 CUT (batch 4, board + note in [README §6](README.md)):**
-P5 (permission physics, probe #1) → B10 (flow file + drawn DAG; interim
-serialization = canon row 17 evidence) → B11 (arm + engine, D11) → B12
-(reactive gate + dynamic extension) → G2 (**fired by the armed close flow —
-Felix's arm IS the gate**, the engine's first real act; fallback `/summon`).
-Blessing forks surfaced in the note: **D12 arm-scope (rec: scope-arm)**, the
-posture floor, judge-insertions-under-either-ruling, his rearranging input.
-Canon row 17's Felix-gate (v0 evidence in hand) is **paid by this close** —
-the GA's board, his call. Decided: batch-3 close + the batch-4 cut (delegated
-scope); D12 is Felix's at blessing. Next: **Felix — bless batch 4** (rule D12
-+ the posture floor, hand over the rearranging input), then fire the
-Dispatcher — summons fenced verbatim in the batch-4 note ([README §6](README.md));
-behind it: canon row 17 at his word.
+**2026-08-27 · Architect · fable-max** — *the flow-cut sitting.* **I am the close smoke:** this session was fired from `/summon` by Felix's hand — summons file ≡ argv ≡ transcript first user turn, sha256 `6c3f2862…`, 405 B at all three hops (audit 20:42:21Z, `workspace:24`, account personal, fable · max, stamp `architect-agents-03`) — one act paying the live-fire gate and proving B9 F4's radio-`:checked` path and B4's rotated password end-to-end. B6/B7/B9 re-verified mechanically: 302 tests green in one process, `bunx --offline tsc --noEmit` exit 0, commits present, DoD evidence in each plan. **§8's DoD RUN, seven for seven** (close block in [README §8](README.md)): hand-count — 10 tracked ≡ 10 census-live ≡ every pid in `ps` by name (2 · 3 · 5 ×3 accounts), ≈35 ≡ `ps` 35, horizon labeled; building page + `/doc` link 200 (D58); **the glass-shatters drill fired for real** — `kill -9` mid read-storm with a `/hands/worktree` write in flight: 10/10 sessions lived, `git status` and ISSUES byte-identical, the in-flight write died whole, relaunch one command (pid 87126, ppid 1 — survives cmux restarts), hands re-armed off the untouched env file. Strays cleared: a second rail on :4473 (Builder DoD leftover, D55 class — killed) and the ledger's newest-last break (the v0-verify entry, inserted mid-file at `920a129`, moved to the tail byte-preserved). Inbox swept: empty. **Batch 3 CLOSED — v0 SHIPPED.** Fresh physics: this session runs census `mode:auto` with sustained unattended tool work — S5's stall is conditional, not universal (keel §5.2 upgraded; P5 inherits the positive control). **Flow batch 1 CUT (batch 4, board + note in [README §6](README.md)):** P5 (permission physics, probe #1) → B10 (flow file + drawn DAG; interim serialization = canon row 17 evidence) → B11 (arm + engine, D11) → B12 (reactive gate + dynamic extension) → G2 (**fired by the armed close flow — Felix's arm IS the gate**, the engine's first real act; fallback `/summon`). Blessing forks surfaced in the note: **D12 arm-scope (rec: scope-arm)**, the posture floor, judge-insertions-under-either-ruling, his rearranging input. Canon row 17's Felix-gate (v0 evidence in hand) is **paid by this close** — the GA's board, his call. Decided: batch-3 close + the batch-4 cut (delegated scope); D12 is Felix's at blessing. Next: **Felix — bless batch 4** (rule D12
++ the posture floor, hand over the rearranging input), then fire the Dispatcher — summons fenced verbatim in the batch-4 note ([README §6](README.md)); behind it: canon row 17 at his word.
 
 ---
 
-**2026-08-27 · Architect · fable-max** — *the deck design sitting (same
-session, continued — opened by the kitten, ratified by Felix).* His 17-item
-**field report** arrived by paste — the delivery mechanism its own kill shot
-("I would rather be writing this in Belvedere") — filed verbatim to
-[ISSUES](ISSUES.md), **batch 4 HELD** before anything dispatched (zero sunk
-cost — the baton was still on his desk). Strategic fork ruled with him
-present: **no restart — re-keel**; the organs are stone (census, hands, parse,
-audit, the loved aesthetic), the pages clay, the missing organ is **the
-voice**; the campaign's own files predicted both (the parked DESK's volume
-gate; "v0 usage is the evidence"). He returned with the **deck vision**
-(ISSUES case file #2, verbatim): three panes Context/Focus/Action with
-min/typical/expanded states, City → Building → Agent, one hotswappable Chat
-with independent response scroll, the DAG as the unified past+future work
-view, the identity sentence — dataviz first, command second, comms third —
-and the no-scroll proportional-fill law. Four forks ruled by his word
-in-session: **D14** time flows down through the now-line; **D15** attention =
-City badges + the drawer's needs-you queue; **D16** cmux is truth for live
-identity (stamp = birth name, write-through renames); **D17** the desk — one
-drawer, `~/code/agents/desk/`. **The deck keel cut**:
-[plans/deck-keel.md](plans/deck-keel.md) — commission D13, the striking law
-made structural (his third utterance: every law CAN be struck; the v0
-no-client-state law is its first formal casualty — the deck is an app,
-vanilla TS + SVG), panes a replaceable surface, Chat send gated on **P6** (the
-transport probe, T4's lesson), fence gains three proposed write classes
-(message-to-session · rename/recolor write-through · desk writes) minted at
-blessing, rooms die (rail/city/shelf), v0 serves until the deck replaces it.
-Decided: D13–D17 (✓ Felix in-session). Next: **Felix — red-pen + bless the
-deck keel** ([plans/deck-keel.md](plans/deck-keel.md)): the §11 fence trio and
-§9 stack ruling ride the blessing, plus two name picks (Workshop/Floor ·
-Works/Line); on the bless, P5 unfreezes as cut and the re-cut sitting (this
-desk) cuts deck batch 1 + re-seats B10 into the Works; behind it: D12 + the
-batch blessing forks, then canon row 17 at his word.
+**2026-08-27 · Architect · fable-max** — *the deck design sitting (same session, continued — opened by the kitten, ratified by Felix).* His 17-item **field report** arrived by paste — the delivery mechanism its own kill shot ("I would rather be writing this in Belvedere") — filed verbatim to [ISSUES](ISSUES.md), **batch 4 HELD** before anything dispatched (zero sunk cost — the baton was still on his desk). Strategic fork ruled with him present: **no restart — re-keel**; the organs are stone (census, hands, parse, audit, the loved aesthetic), the pages clay, the missing organ is **the voice**; the campaign's own files predicted both (the parked DESK's volume gate; "v0 usage is the evidence"). He returned with the **deck vision** (ISSUES case file #2, verbatim): three panes Context/Focus/Action with min/typical/expanded states, City → Building → Agent, one hotswappable Chat with independent response scroll, the DAG as the unified past+future work view, the identity sentence — dataviz first, command second, comms third — and the no-scroll proportional-fill law. Four forks ruled by his word in-session: **D14** time flows down through the now-line; **D15** attention = City badges + the drawer's needs-you queue; **D16** cmux is truth for live identity (stamp = birth name, write-through renames); **D17** the desk — one drawer, `~/code/agents/desk/`. **The deck keel cut**: [plans/deck-keel.md](plans/deck-keel.md) — commission D13, the striking law made structural (his third utterance: every law CAN be struck; the v0 no-client-state law is its first formal casualty — the deck is an app, vanilla TS + SVG), panes a replaceable surface, Chat send gated on **P6** (the transport probe, T4's lesson), fence gains three proposed write classes (message-to-session · rename/recolor write-through · desk writes) minted at blessing, rooms die (rail/city/shelf), v0 serves until the deck replaces it. Decided: D13–D17 (✓ Felix in-session). Next: **Felix — red-pen + bless the deck keel** ([plans/deck-keel.md](plans/deck-keel.md)): the §11 fence trio and §9 stack ruling ride the blessing, plus two name picks (Workshop/Floor · Works/Line); on the bless, P5 unfreezes as cut and the re-cut sitting (this desk) cuts deck batch 1 + re-seats B10 into the Works; behind it: D12 + the batch blessing forks, then canon row 17 at his word.
 
 ---
 
-**2026-08-27 · Architect · fable-max** — *the re-cut sitting (same session,
-continued).* **The keel is BLESSED** — Felix's word, all four items: the fence
-trio (D18 minted — message-to-session · rename/recolor write-through · desk
-writes; §2's list now seven, still exhaustive), the stack (vanilla TS + SVG —
-his blessing note recorded: the ⬡ hexagon prettifying pass parked until the
-deck functions), the names (**the Workshop · the Works**), the §6 node
-actions. "Do it all. Make it so" executed: **batch 5 cut on the blessed
-keel** — lane A probes **P5 → P6** ([P6](plans/p6-message-transport.md) new:
-the Chat's send physics, bracketed paste first, T4's trap measured, kill =
-read+jump forever); lane B strictly serial on master **B13 → B14 → B15 →
-B18 → B10 → B17 → B11 → B16 → B19 → B12** in the identity-sentence order
-(dataviz → command → comms), orders cut and blessed:
-[B13 shell](plans/b13-deck-shell.md) · [B14 City+attention](plans/b14-city-attention.md)
-· [B15 Workshop](plans/b15-workshop.md) · [B18 identity](plans/b18-live-identity.md)
-· [B17 composer+usage](plans/b17-composer-usage.md) · [B16 Chat](plans/b16-chat.md)
-· [B19 desk](plans/b19-desk.md); flow rows **re-seated** by dated amendment
-(B10 = the Works, D14's now-line, +B14 dep; B11 bill = B17's live usage;
-B12 surfaces = the Works; G2 = the whole batch-5 gate, Felix-gates: **deck
-visual pass + arm the close flow**). Batch 4 superseded in place — nothing
-had dispatched. **Inbox swept: both case files folded** (the keel + the
-batch-5 rows) **and drained** — the 17 field items homed: 1/2/4/5(stamp)/17
-→ B17 · 3 → B15 · 5(color)/7/8/10/11 → B18+D16/D18 · 6 → B13/B15 · 9 →
-canon row 17 (gate paid) · 12 → §3 law · 13 → B14/D15 · 14 → D16/D18 + the
-deck whole · 15 → keel §10 (the rooms die) · 16 → B19/D17. Decided: D18
-(✓ Felix at blessing); the batch-5 cut (delegated). Next: **Felix — rule D12
-(rec: scope-arm, his lean) and fire the Dispatcher** — summons fenced in the
-batch-5 note ([README §6](README.md)); behind it: canon row 17 at his word;
-the close returns at G2 (his visual pass + the arm in the Works).
+**2026-08-27 · Architect · fable-max** — *the re-cut sitting (same session, continued).* **The keel is BLESSED** — Felix's word, all four items: the fence trio (D18 minted — message-to-session · rename/recolor write-through · desk writes; §2's list now seven, still exhaustive), the stack (vanilla TS + SVG — his blessing note recorded: the ⬡ hexagon prettifying pass parked until the deck functions), the names (**the Workshop · the Works**), the §6 node actions. "Do it all. Make it so" executed: **batch 5 cut on the blessed keel** — lane A probes **P5 → P6** ([P6](plans/p6-message-transport.md) new: the Chat's send physics, bracketed paste first, T4's trap measured, kill = read+jump forever); lane B strictly serial on master **B13 → B14 → B15 → B18 → B10 → B17 → B11 → B16 → B19 → B12** in the identity-sentence order (dataviz → command → comms), orders cut and blessed: [B13 shell](plans/b13-deck-shell.md) · [B14 City+attention](plans/b14-city-attention.md) · [B15 Workshop](plans/b15-workshop.md) · [B18 identity](plans/b18-live-identity.md) · [B17 composer+usage](plans/b17-composer-usage.md) · [B16 Chat](plans/b16-chat.md) · [B19 desk](plans/b19-desk.md); flow rows **re-seated** by dated amendment (B10 = the Works, D14's now-line, +B14 dep; B11 bill = B17's live usage; B12 surfaces = the Works; G2 = the whole batch-5 gate, Felix-gates: **deck visual pass + arm the close flow**). Batch 4 superseded in place — nothing had dispatched. **Inbox swept: both case files folded** (the keel + the batch-5 rows) **and drained** — the 17 field items homed: 1/2/4/5(stamp)/17 → B17 · 3 → B15 · 5(color)/7/8/10/11 → B18+D16/D18 · 6 → B13/B15 · 9 → canon row 17 (gate paid) · 12 → §3 law · 13 → B14/D15 · 14 → D16/D18 + the deck whole · 15 → keel §10 (the rooms die) · 16 → B19/D17. Decided: D18 (✓ Felix at blessing); the batch-5 cut (delegated). Next: **Felix — rule D12 (rec: scope-arm, his lean) and fire the Dispatcher** — summons fenced in the batch-5 note ([README §6](README.md)); behind it: canon row 17 at his word; the close returns at G2 (his visual pass + the arm in the Works).
 
 ---
 
-**2026-08-27 · Architect · fable-max** — *the ruling (same session,
-continued).* **D12 RULED: scope-arm** — Felix's word ("rec"), the
-recommendation his own lean since the keel. Recorded in README §7; the
-batch-5 note marks the batch **fully blessed**; B12's order ships the
-scope-arm branch live (step-arm under test); the flow keel §4 carries the
-ruled note. Nothing now stands between the Dispatcher summons and the close
-gates. Decided: D12 (✓ Felix in-session). Next: **Felix — fire the
-Dispatcher** (summons fenced verbatim in the batch-5 note,
-[README §6](README.md); `/summon` is the proven venue); behind it: canon
-row 17 at his word; this desk returns at G2 — his visual pass and the arm
-in the Works.
+**2026-08-27 · Architect · fable-max** — *the ruling (same session, continued).* **D12 RULED: scope-arm** — Felix's word ("rec"), the recommendation his own lean since the keel. Recorded in README §7; the batch-5 note marks the batch **fully blessed**; B12's order ships the scope-arm branch live (step-arm under test); the flow keel §4 carries the ruled note. Nothing now stands between the Dispatcher summons and the close gates. Decided: D12 (✓ Felix in-session). Next: **Felix — fire the Dispatcher** (summons fenced verbatim in the batch-5 note, [README §6](README.md); `/summon` is the proven venue); behind it: canon row 17 at his word; this desk returns at G2 — his visual pass and the arm in the Works.
 
 ---
 
-**2026-08-27 · Architect · fable-max** — *the mid-run amendment (same
-session, continued; the dispatch cooking).* Felix's field note filed
-verbatim (`bb44bd9`), ruled, drained: **two organs join the deck** —
-**[B21 the Grep](plans/b21-grep.md)** (everything greppable: transcripts
-×3, register docs, plans, desk; bounded `rg`, results grouped in the
-drawer, every hit instantly jumpable — a session hit hotswaps the Chat to
-the turn; the commissioning query, "bob summons", is the DoD's own smoke)
-and **[B20 the decoder](plans/b20-decoder.md)** (no code word without its
-meaning one hover away — row ids, D-ids, §refs resolve via the one parser,
-context-scoped local-first, tooltips NEST depth-capped, the unresolvable
-says so). Keel §3 amended (dated block); board + batch-5 note amended
-per D57 — lane B is now **B13 → B14 → B15 → B18 → B20 → B10 → B17 → B11 →
-B16 → B19 → B21 → B12**; G2's unfired kickoff re-cut to batch-5 scope.
-Decided: the amendment (delegated; the commission is Felix's note).
-Next: **Felix — deliver the amendment to the running Dispatcher** (the
-silos hide peers; his hand is D57's standing fallback), message verbatim:
+**2026-08-27 · Architect · fable-max** — *the mid-run amendment (same session, continued; the dispatch cooking).* Felix's field note filed verbatim (`bb44bd9`), ruled, drained: **two organs join the deck** — **[B21 the Grep](plans/b21-grep.md)** (everything greppable: transcripts ×3, register docs, plans, desk; bounded `rg`, results grouped in the drawer, every hit instantly jumpable — a session hit hotswaps the Chat to the turn; the commissioning query, "bob summons", is the DoD's own smoke) and **[B20 the decoder](plans/b20-decoder.md)** (no code word without its meaning one hover away — row ids, D-ids, §refs resolve via the one parser, context-scoped local-first, tooltips NEST depth-capped, the unresolvable says so). Keel §3 amended (dated block); board + batch-5 note amended per D57 — lane B is now **B13 → B14 → B15 → B18 → B20 → B10 → B17 → B11 → B16 → B19 → B21 → B12**; G2's unfired kickoff re-cut to batch-5 scope. Decided: the amendment (delegated; the commission is Felix's note). Next: **Felix — deliver the amendment to the running Dispatcher** (the silos hide peers; his hand is D57's standing fallback), message verbatim:
 
 ```
 Batch-5 amendment (Architect, 2026-08-27, committed on master): B20 (the
@@ -849,855 +166,69 @@ Behind it: canon row 17 at his word; this desk returns at G2.
 
 ---
 
-**2026-08-27 · Architect · fable-max** — *decoder sharpened, vocabulary
-escalated (same session, continued; B13 LANDED under the Dispatcher —
-320 tests, Chrome-probe DoD, the chain runs).* Felix's note filed
-verbatim, ruled, drained: **B20 amended** (undispatched — no relay
-needed): the detector gains the **row-keyword form** (`canon row 17`,
-`bob row 3`, bare `row 14` — the canon board's ids are bare numerals, the
-keyword anchors them), the corpus is **every prose surface the deck
-renders, the Chat's transcripts included** ("I want to hover over YOUR
-words"), and tooltips carry the object's **live gestures** from the
-queue's set — a pending countersign, a note — B6's wire, previewed bytes,
-**gestures only, never fires**; the DoD gains the commissioning hover and
-the gesture proof. **B16 amended**: transcript prose passes the decoder,
-kickoff fences exempt. **The bless/countersign ask escalated to the canon
-inbox** (they are two acts today — bless approves a spec, countersign
-confirms a D-entry; whether "bless" becomes the one spoken Felix-yes is
-the Office's; the deck renders canon's vocabulary until ruled). Decided:
-the B20/B16 amendments (delegated; the commission is his note). Next:
-unchanged — **Felix delivers the lane amendment to the Dispatcher** (if
-not already done; message verbatim in the previous entry); behind it: a
-GA sitting is now genuinely ripe — the canon inbox holds 16 entries and
-row 17's gate is paid — his word fires it.
+**2026-08-27 · Architect · fable-max** — *decoder sharpened, vocabulary escalated (same session, continued; B13 LANDED under the Dispatcher — 320 tests, Chrome-probe DoD, the chain runs).* Felix's note filed verbatim, ruled, drained: **B20 amended** (undispatched — no relay needed): the detector gains the **row-keyword form** (`canon row 17`, `bob row 3`, bare `row 14` — the canon board's ids are bare numerals, the keyword anchors them), the corpus is **every prose surface the deck renders, the Chat's transcripts included** ("I want to hover over YOUR words"), and tooltips carry the object's **live gestures** from the queue's set — a pending countersign, a note — B6's wire, previewed bytes, **gestures only, never fires**; the DoD gains the commissioning hover and the gesture proof. **B16 amended**: transcript prose passes the decoder, kickoff fences exempt. **The bless/countersign ask escalated to the canon inbox** (they are two acts today — bless approves a spec, countersign confirms a D-entry; whether "bless" becomes the one spoken Felix-yes is the Office's; the deck renders canon's vocabulary until ruled). Decided: the B20/B16 amendments (delegated; the commission is his note). Next: unchanged — **Felix delivers the lane amendment to the Dispatcher** (if not already done; message verbatim in the previous entry); behind it: a GA sitting is now genuinely ripe — the canon inbox holds 16 entries and row 17's gate is paid — his word fires it.
 
 ---
 
-**2026-08-27 · Builder · opus-high (B13)** — the deck shell: the app exists. `/deck`
-serves three panes (Context · Focus · Action), each walking minimal → typical →
-expanded under the law of space, plus the pinnable drawer, the tooltip primitive, the
-`FocusView` seam and the poll that keeps it live; the v0 rooms serve on untouched
-(keel §10), one nav link the wider. Changed: `glass/deck-model.ts` new (**the law of
-space as arithmetic** — a pane's state IS its weight, 1 · 3 · 6, and one `columns()`
-serves the server's resting render and the client's re-render so they cannot disagree;
-plus `toLayout` parsing localStorage at the boundary and the `DeckSnapshot` shape both
-sides share), `glass/deck-view.ts` new (the `FocusView` seam — four members,
-`mount(focusHost, actionHost)` / `unmount` / `draw` / the states a tenant declares;
-**Action follows Focus, so one tenant owns both hosts** and there is no second
-register), `glass/deck.ts` new (`deckState()` — one composed read of census + the
-register's **held** copy, never a walk on the request thread; and the shell, which
-carries the resting split already in its markup), `glass/deck.client.ts` new (the whole
-app: layout, drawer, tooltips, the poll, three placeholder tenants B10/B15/B16 evict),
-`glass/deck.css` new, `glass/server.ts` (the bundle built by `Bun.build` at boot and
-served from memory, `/deck`, `/deck.js`, `/deck/state`, `/deck.css`),
-`glass/html.ts` (one line: the `deck` link in every nav), `glass/deck.test.ts` new and
-`lab/b13/probe.ts` new — **320 green in one process**, `bunx --offline tsc --noEmit`
-exit 0, zero new deps, `package.json`/`bun.lock` byte-unchanged since B8. DoD measured
-in **real headless Chrome** at 1600×900 against a real glass: resting `1198.50 / 199.75
-/ 199.75 px` (74.91 · 12.48 · 12.48 %) and flipped to 1:6:3 `159.80 / 958.80 / 479.41`
-(9.99 · 59.92 · 29.96 %), **all 27 state combinations walked with `scrollHeight −
-viewport` = 0 px**; click-to-expand driven **through the served bundle's own delegated
-handler** (`#host-focus`, the pane body, minimal → typical); the drawer overlaying at
-`position:fixed` over 3 tracks and **pinning to a fourth** (context 1198.50 → 871.08 px,
-drawer 435.55); the tooltip instant in the same turn as the hover, expanding on a
-450 ms hold with its action, dead on Escape; `/deck/state` **polled 4 times, counted by
-the browser's own resource timeline**, and one appended fixture beat reaching the DOM in
-**2097 ms** of a 3000 ms interval; **0 off-origin requests** browser-side and
-`grep -c 'https\?://'` = **0 on all ten served payloads**; every v0 route still 200.
-Cost: `/deck` p95 **2 ms**, `/deck/state` p95 **19 ms**, and a 9.264 s `/rewalk` had
-three polls land inside its window in **17 · 8 · 18 ms** — B8 F3's worker law intact.
-Decided: nothing escalated; the out-of-scope list held (no real tenant content, no
-SSE, no framework, no v0 page touched beyond its nav). Six findings, four binding:
-**F1 — a fake DOM cannot prove a deck DoD item.** happy-dom and jsdom do no CSS grid
-layout, so `getBoundingClientRect()` returns zeros there and a "measured width" from
-one is fabricated — the `min-width: 0` bug of F4 passes silently. `lab/b13/probe.ts`
-drives the machine's own installed Chrome over the DevTools protocol in ~60 lines of
-Bun, **zero dependencies fetched, installed or vendored** (the `ps` posture), against
-its own glass on a temp census — the live census is append-only telemetry and a DoD run
-does not get to write a beat into it (B8 F1). Written to be reused by every deck row
-behind this one. **F2 — the split is a 69 ms transition, so every measurement of it
-must settle first**: the probe's own first run read `74.14 · 12.87 · 12.87 %` five
-milliseconds into a move to `10/60/30` and failed itself — a number real, reproducible
-and meaningless. **F3** the client TS rides the **existing** offline type gate with no
-config change (`@types/bun` carries the DOM lib); it caught `Node.append` returning
-`void` before a browser ran the code. **F4 — `min-width: 0` on every grid child is the
-deck's only geometric guarantee**: an `Nfr` track is `minmax(auto, Nfr)`, so without it
-content silently outvotes the law, with no error and a page that still looks plausible.
-**F5** the snapshot is a shared budget — 15 000 B at 46 sessions every 3 s, one endpoint
-B15/B17/B18 widen rather than five — and the diff is the whole snapshot, so an idle city
-redraws nothing. **F6** a failed client bundle **stops the server**, deliberately: a
-shell around a bundle that is not there is this server's own definition of a lie.
-Next: **B14 — the Context pane** ([plans/b14-city-attention.md](plans/b14-city-attention.md)),
-the Dispatcher's to fire on lane B's serial chain.
+**2026-08-27 · Builder · opus-high (B13)** — the deck shell: the app exists. `/deck` serves three panes (Context · Focus · Action), each walking minimal → typical → expanded under the law of space, plus the pinnable drawer, the tooltip primitive, the `FocusView` seam and the poll that keeps it live; the v0 rooms serve on untouched (keel §10), one nav link the wider. Changed: `glass/deck-model.ts` new (**the law of space as arithmetic** — a pane's state IS its weight, 1 · 3 · 6, and one `columns()` serves the server's resting render and the client's re-render so they cannot disagree; plus `toLayout` parsing localStorage at the boundary and the `DeckSnapshot` shape both sides share), `glass/deck-view.ts` new (the `FocusView` seam — four members, `mount(focusHost, actionHost)` / `unmount` / `draw` / the states a tenant declares; **Action follows Focus, so one tenant owns both hosts** and there is no second register), `glass/deck.ts` new (`deckState()` — one composed read of census + the register's **held** copy, never a walk on the request thread; and the shell, which carries the resting split already in its markup), `glass/deck.client.ts` new (the whole app: layout, drawer, tooltips, the poll, three placeholder tenants B10/B15/B16 evict), `glass/deck.css` new, `glass/server.ts` (the bundle built by `Bun.build` at boot and served from memory, `/deck`, `/deck.js`, `/deck/state`, `/deck.css`), `glass/html.ts` (one line: the `deck` link in every nav), `glass/deck.test.ts` new and `lab/b13/probe.ts` new — **320 green in one process**, `bunx --offline tsc --noEmit` exit 0, zero new deps, `package.json`/`bun.lock` byte-unchanged since B8. DoD measured in **real headless Chrome** at 1600×900 against a real glass: resting `1198.50 / 199.75 / 199.75 px` (74.91 · 12.48 · 12.48 %) and flipped to 1:6:3 `159.80 / 958.80 / 479.41` (9.99 · 59.92 · 29.96 %), **all 27 state combinations walked with `scrollHeight − viewport` = 0 px**; click-to-expand driven **through the served bundle's own delegated handler** (`#host-focus`, the pane body, minimal → typical); the drawer overlaying at `position:fixed` over 3 tracks and **pinning to a fourth** (context 1198.50 → 871.08 px, drawer 435.55); the tooltip instant in the same turn as the hover, expanding on a 450 ms hold with its action, dead on Escape; `/deck/state` **polled 4 times, counted by the browser's own resource timeline**, and one appended fixture beat reaching the DOM in **2097 ms** of a 3000 ms interval; **0 off-origin requests** browser-side and `grep -c 'https\?://'` = **0 on all ten served payloads**; every v0 route still 200. Cost: `/deck` p95 **2 ms**, `/deck/state` p95 **19 ms**, and a 9.264 s `/rewalk` had three polls land inside its window in **17 · 8 · 18 ms** — B8 F3's worker law intact. Decided: nothing escalated; the out-of-scope list held (no real tenant content, no SSE, no framework, no v0 page touched beyond its nav). Six findings, four binding: **F1 — a fake DOM cannot prove a deck DoD item.** happy-dom and jsdom do no CSS grid layout, so `getBoundingClientRect()` returns zeros there and a "measured width" from one is fabricated — the `min-width: 0` bug of F4 passes silently. `lab/b13/probe.ts` drives the machine's own installed Chrome over the DevTools protocol in ~60 lines of Bun, **zero dependencies fetched, installed or vendored** (the `ps` posture), against its own glass on a temp census — the live census is append-only telemetry and a DoD run does not get to write a beat into it (B8 F1). Written to be reused by every deck row behind this one. **F2 — the split is a 69 ms transition, so every measurement of it must settle first**: the probe's own first run read `74.14 · 12.87 · 12.87 %` five milliseconds into a move to `10/60/30` and failed itself — a number real, reproducible and meaningless. **F3** the client TS rides the **existing** offline type gate with no config change (`@types/bun` carries the DOM lib); it caught `Node.append` returning `void` before a browser ran the code. **F4 — `min-width: 0` on every grid child is the deck's only geometric guarantee**: an `Nfr` track is `minmax(auto, Nfr)`, so without it content silently outvotes the law, with no error and a page that still looks plausible. **F5** the snapshot is a shared budget — 15 000 B at 46 sessions every 3 s, one endpoint B15/B17/B18 widen rather than five — and the diff is the whole snapshot, so an idle city redraws nothing. **F6** a failed client bundle **stops the server**, deliberately: a shell around a bundle that is not there is this server's own definition of a lie. Next: **B14 — the Context pane** ([plans/b14-city-attention.md](plans/b14-city-attention.md)), the Dispatcher's to fire on lane B's serial chain.
 
 ---
 
-**2026-08-27 · Digger · opus-high (P5)** — permission physics: **the model IS the
-permission posture.** S5 was never trust and never cmux. `--model haiku` cannot enter
-`auto` mode on any account and the fallback to `default` is **silent** — an explicit
-`--permission-mode auto` in argv is dropped with no error (`ps` shows the flag on the
-process; the census shows `default`); `auto` is an LLM classifier (`claude auto-mode
-config` prints 67 294 B of allow/soft_deny/hard_deny rules) that a haiku session does
-not get. Bisected in one venue, one account, one summons: haiku·low **default**,
-haiku·high **default**, opus·low `auto`, sonnet·medium `auto` — effort is not the
-driver, and the same haiku fire reads `default` on all three silos. The live census had
-been saying so for a day: all 14 `default` beats in 4 188 belonged to glass-fired haiku
-sessions; every fable/opus fire was `auto`. Changed: findings + the permission clause in
-[plans/p5-permission-physics.md](plans/p5-permission-physics.md), `lab/p5/` (four
-scripts: `fire.ts`, `lever.ts`, `resume.ts`, `work-summons.ts`), board row P5, the
-batch-5 lane-A probe-tier rule. **Q2 matrix 6/6** — three accounts × {trusted root,
-worktree}, **11 tool calls each including three Writes, a Read, an Edit and a real
-`git commit`, zero permission prompts, zero human touches**, at sonnet·low. **Two
-stalls, and they are not the same animal**: the permission stall has beats, a
-transcript, `mode:default`, and a `Notification` carrying `why=permission_prompt`
-(reproduced N=2 in a *fully trusted* root); the trust stall has **zero census beats, no
-transcript and a live pid** (a fresh `git init`, 120 s, cwd untouched). `acceptEdits`
-is a partial lever measured to die at `git add` — seven of eleven steps. `--resume`
-inherits the model and the posture, and a resumed haiku printed `auto` at
-`UserPromptSubmit` before stalling at `PreToolUse`: **posture is read off `PreToolUse`
-beats, never off `SessionStart`/`UserPromptSubmit`.** Decided: **no kill fired** — the
-engine chapter stands as cut; the brief's expectation of *one* precheck is corrected to
-**two**. The clause (F5) for B10/B11: no permission field on a step; `haiku` illegal for
-an unattended step and **refused at arm, loudly**; `glass/trust.ts` precheck per (step,
-account), sufficient as-is; two census-side runtime alarms behind the step timeout.
-Levers ruled out and named, not attempted: `bypassPermissions`/`dontAsk` (posture
-floor), pre-seeding `<config-dir>/.claude.json` trust (the fence — `trust.ts`'s own law
-is that the glass never answers that dialog; a D3 write-class question if ever wanted).
-Venue: 20 fires / 18 sessions, ≤2 concurrent, every workspace closed — `cmux workspace
-list` reads exactly what it read at the open; no cmux restart, no settings written.
-Next: **P6 — message transport** ([plans/p6-message-transport.md](plans/p6-message-transport.md)),
-the Dispatcher's to fire on lane A.
+**2026-08-27 · Digger · opus-high (P5)** — permission physics: **the model IS the permission posture.** S5 was never trust and never cmux. `--model haiku` cannot enter `auto` mode on any account and the fallback to `default` is **silent** — an explicit `--permission-mode auto` in argv is dropped with no error (`ps` shows the flag on the process; the census shows `default`); `auto` is an LLM classifier (`claude auto-mode config` prints 67 294 B of allow/soft_deny/hard_deny rules) that a haiku session does not get. Bisected in one venue, one account, one summons: haiku·low **default**, haiku·high **default**, opus·low `auto`, sonnet·medium `auto` — effort is not the driver, and the same haiku fire reads `default` on all three silos. The live census had been saying so for a day: all 14 `default` beats in 4 188 belonged to glass-fired haiku sessions; every fable/opus fire was `auto`. Changed: findings + the permission clause in [plans/p5-permission-physics.md](plans/p5-permission-physics.md), `lab/p5/` (four scripts: `fire.ts`, `lever.ts`, `resume.ts`, `work-summons.ts`), board row P5, the batch-5 lane-A probe-tier rule. **Q2 matrix 6/6** — three accounts × {trusted root, worktree}, **11 tool calls each including three Writes, a Read, an Edit and a real `git commit`, zero permission prompts, zero human touches**, at sonnet·low. **Two stalls, and they are not the same animal**: the permission stall has beats, a transcript, `mode:default`, and a `Notification` carrying `why=permission_prompt` (reproduced N=2 in a *fully trusted* root); the trust stall has **zero census beats, no transcript and a live pid** (a fresh `git init`, 120 s, cwd untouched). `acceptEdits` is a partial lever measured to die at `git add` — seven of eleven steps. `--resume` inherits the model and the posture, and a resumed haiku printed `auto` at `UserPromptSubmit` before stalling at `PreToolUse`: **posture is read off `PreToolUse` beats, never off `SessionStart`/`UserPromptSubmit`.** Decided: **no kill fired** — the engine chapter stands as cut; the brief's expectation of *one* precheck is corrected to **two**. The clause (F5) for B10/B11: no permission field on a step; `haiku` illegal for an unattended step and **refused at arm, loudly**; `glass/trust.ts` precheck per (step, account), sufficient as-is; two census-side runtime alarms behind the step timeout. Levers ruled out and named, not attempted: `bypassPermissions`/`dontAsk` (posture floor), pre-seeding `<config-dir>/.claude.json` trust (the fence — `trust.ts`'s own law is that the glass never answers that dialog; a D3 write-class question if ever wanted). Venue: 20 fires / 18 sessions, ≤2 concurrent, every workspace closed — `cmux workspace list` reads exactly what it read at the open; no cmux restart, no settings written. Next: **P6 — message transport** ([plans/p6-message-transport.md](plans/p6-message-transport.md)), the Dispatcher's to fire on lane A.
 
 ---
 
-**2026-08-27 · Builder · opus-high (B14)** — the City and the needs-you queue: **the
-waiting-input blindness is dead, in both places the keel named.** Changed:
-[`glass/attention.ts`](glass/attention.ts) (new — the four classes, the waiting edge, the
-escalation reader, the queue and the City's ranking), `glass/deck-model.ts` (the snapshot
-widened, not a second endpoint), `glass/deck.ts` (`city()` for content + a 30 s auditor
-TTL + the header's count), `glass/deck.client.ts` (the City in Context, the queue in the
-drawer, region repaint, the two wires), `glass/deck-view.ts` (`selection` — the City's
-click, the deck's one cross-pane fact), `glass/deck.css`, `glass/attention.test.ts` (new,
-20 tests), `glass/deck.test.ts`, [`lab/b14/`](lab/b14/) (a fixture city + two browser
-probes), board row B14, this ledger. **One computation, two renderings** — the City's
-badges are the queue's own items bucketed, so a badge can never count what the queue does
-not list and the two surfaces cannot disagree about what is urgent. Ranking is v0's,
-ported not reinvented (`attentionOf`/`freshness`), plus **exactly one new rank**: a
-session that cannot move without him outranks even the work that is running. Decided:
-**the waiting edge has two arms and no third** — `permission_prompt` (blocked) and
-`idle_prompt` (the 60 s nag, which is *the* notification Felix said cmux was giving him),
-both measured live; a bare `Stop` is idle, not waiting, or the queue lists every finished
-session and he stops opening it. **DoD, all of it green.** The live proof: a real
-haiku·low session fired **through the glass's own hands** into a scratch subdir of
-`~/code/agents` stalled on a real permission prompt — `PreToolUse Write mode:default`,
-no `PostToolUse`, then `Notification permission_prompt` 6.1 s later, 15.2 s after the
-fire — and was **on the deck 2.8 s after the census line**: `agents/belvedere` at the top
-of the City, blocked dot, waiting badge, queue item `b14-waiting-probe — blocked on a
-permission prompt`, header `36`. Workspace closed, scratch removed, `git status`
-byte-identical either side. Fixture proof: a gate badge sorts above a building **24 hours
-newer**, and a permission beat reached City *and* queue in **2 736 ms** of a 3 000 ms
-poll. **Zero fire wiring** three ways — shell, live DOM, and the served bundle
-(`hands/fire` 0× in `/deck.js`). A countersign answered in place: one append,
-byte-identical 570-byte prefix, and the card re-derived itself `pending → recorded` off
-the bytes. **`/deck/state` p95 114 ms** over the whole live register (22 buildings, 61
-sessions, 35 queue items, 51 783 B — bar 500 ms), **344 tests in one process**, type gate
-exit 0, and **B13's entire DoD re-run green** against the rewritten client. Seven
-findings, nothing escalated: **F1 `PermissionRequest` is a real hook event the census is
-not subscribed to** — cmux's own injected `--settings` wires it, B1's ten do not, so the
-glass infers from a six-second-late `Notification`; subscribing is a B1-class Felix-run
-ritual, filed not built · **F2 escalations have no field**: annotations arrive stripped of
-`**`, and `E<n>` collides with whiteboardy's row-id namespace and with `E1–E4` ranges —
-both fixed generally, **0 unruled escalations in 458 live rows** · F3 `default` waves a
-read-only Bash through, so `echo` never stalls and a `Write` does · **F4 B13's snapshot
-diff could never short-circuit** (`at` moves every poll), so the deck repaints by region
-signature and a half-typed note now survives · F5 the auditor took B9 F3's named-not-built
-TTL · F6 `lab/` is outside the type gate · F7 an off-register waiting session is in the queue
-and in no badge · **F8 the E1 ruling's content half now runs on a timer** — one poll is ~48 ms
-and 31.5 ms of it is `city()`'s re-parse, ≈1.0 s of Bun's one thread per minute while a deck
-is open; measured and priced, nothing built against it, because retiring the ruling is the
-Architect's call. Next: **B15 — the Workshop**
-([plans/b15-workshop.md](plans/b15-workshop.md)), the Dispatcher's to fire on lane B's
-serial chain; it reads `selection` at the `FocusView` seam.
+**2026-08-27 · Builder · opus-high (B14)** — the City and the needs-you queue: **the waiting-input blindness is dead, in both places the keel named.** Changed: [`glass/attention.ts`](glass/attention.ts) (new — the four classes, the waiting edge, the escalation reader, the queue and the City's ranking), `glass/deck-model.ts` (the snapshot widened, not a second endpoint), `glass/deck.ts` (`city()` for content + a 30 s auditor TTL + the header's count), `glass/deck.client.ts` (the City in Context, the queue in the drawer, region repaint, the two wires), `glass/deck-view.ts` (`selection` — the City's click, the deck's one cross-pane fact), `glass/deck.css`, `glass/attention.test.ts` (new, 20 tests), `glass/deck.test.ts`, [`lab/b14/`](lab/b14/) (a fixture city + two browser probes), board row B14, this ledger. **One computation, two renderings** — the City's badges are the queue's own items bucketed, so a badge can never count what the queue does not list and the two surfaces cannot disagree about what is urgent. Ranking is v0's, ported not reinvented (`attentionOf`/`freshness`), plus **exactly one new rank**: a session that cannot move without him outranks even the work that is running. Decided: **the waiting edge has two arms and no third** — `permission_prompt` (blocked) and `idle_prompt` (the 60 s nag, which is *the* notification Felix said cmux was giving him), both measured live; a bare `Stop` is idle, not waiting, or the queue lists every finished session and he stops opening it. **DoD, all of it green.** The live proof: a real haiku·low session fired **through the glass's own hands** into a scratch subdir of `~/code/agents` stalled on a real permission prompt — `PreToolUse Write mode:default`, no `PostToolUse`, then `Notification permission_prompt` 6.1 s later, 15.2 s after the fire — and was **on the deck 2.8 s after the census line**: `agents/belvedere` at the top of the City, blocked dot, waiting badge, queue item `b14-waiting-probe — blocked on a permission prompt`, header `36`. Workspace closed, scratch removed, `git status` byte-identical either side. Fixture proof: a gate badge sorts above a building **24 hours newer**, and a permission beat reached City *and* queue in **2 736 ms** of a 3 000 ms poll. **Zero fire wiring** three ways — shell, live DOM, and the served bundle (`hands/fire` 0× in `/deck.js`). A countersign answered in place: one append, byte-identical 570-byte prefix, and the card re-derived itself `pending → recorded` off the bytes. **`/deck/state` p95 114 ms** over the whole live register (22 buildings, 61 sessions, 35 queue items, 51 783 B — bar 500 ms), **344 tests in one process**, type gate exit 0, and **B13's entire DoD re-run green** against the rewritten client. Seven findings, nothing escalated: **F1 `PermissionRequest` is a real hook event the census is not subscribed to** — cmux's own injected `--settings` wires it, B1's ten do not, so the glass infers from a six-second-late `Notification`; subscribing is a B1-class Felix-run ritual, filed not built · **F2 escalations have no field**: annotations arrive stripped of `**`, and `E<n>` collides with whiteboardy's row-id namespace and with `E1–E4` ranges — both fixed generally, **0 unruled escalations in 458 live rows** · F3 `default` waves a read-only Bash through, so `echo` never stalls and a `Write` does · **F4 B13's snapshot diff could never short-circuit** (`at` moves every poll), so the deck repaints by region signature and a half-typed note now survives · F5 the auditor took B9 F3's named-not-built TTL · F6 `lab/` is outside the type gate · F7 an off-register waiting session is in the queue and in no badge · **F8 the E1 ruling's content half now runs on a timer** — one poll is ~48 ms and 31.5 ms of it is `city()`'s re-parse, ≈1.0 s of Bun's one thread per minute while a deck is open; measured and priced, nothing built against it, because retiring the ruling is the Architect's call. Next: **B15 — the Workshop** ([plans/b15-workshop.md](plans/b15-workshop.md)), the Dispatcher's to fire on lane B's serial chain; it reads `selection` at the `FocusView` seam.
 
 ---
 
-**2026-08-27 · Builder · opus-high (B15)** — **The Workshop** — one building, inside — moved
-into Focus through the `FocusView` seam and nowhere else, evicting B13's first placeholder;
-the deck now has a real tenant. Live sessions first and then the building's truth: board,
-ledger tail, decision queue, ISSUES, every section collapsing, the order his to drag **or** to
-walk with ▲▼ (one `moved()` under both) and both surviving a reload — where only a full
-permutation counts as a memory, since a remembered subset would silently hide a section.
-**The field report's third item is dead**: a rendered `LEDGER.md:385` opens the viewer inside
-Focus scrolled to **line 385**, exactly one line marked, its box `615.38–631.88 px` inside a
-pane `53.19–757.00 px` — clicked off the fixture's own ISSUES prose, again from a landing
-record, and again on the **live** corpus (`hexwright/LEDGER.md:95`, line 95 of 117). A City
-click focuses **that** building (two buildings, two panes); the five sections render real data
-for `agents/belvedere` (29 rows, 85 resolvable references) and hexwright; six live `agents`
-sessions render with the model their transcripts name and a tooltip carrying cwd · workspace ·
-pid, three of them with `jump` disabled and the reason on hover. **371 tests green in one
-process**, type gate exit 0, zero fire wiring in DOM, source and served bundle, and the whole
-browser half in real headless Chrome ([lab/b15/probe.ts](lab/b15/probe.ts) on a fixture city,
-[lab/b15/live.ts](lab/b15/live.ts) on the live register — both ALL GREEN, both writing
-nothing outside temp). Seven findings, nothing escalated: **F1 a tier is `<model> · <effort>`
-and only the model is on any artifact this glass can read** — read off the transcript head
-window the name-stamp already costs (zero extra I/O), effort renders `—` rather than a guess;
-11 of 13 live sessions carry one, and it is the fourth filing of the same *field* ask, binding
-B17 and B18 · **F2 the seam gained a fifth, optional member** (`needs`): one building's detail
-is 65 kB, so it is **asked for, never broadcast** — `/deck/state?b=…` is still one endpoint and
-one timer, costing `+64 897 B and 0 ms` because `city()` had already parsed that content for
-the City's badges, and the query disappears at minimal · **F3 a code-ticked `path:line` is
-still a reference** (the corpus writes nearly every path in ticks) while a bare path with no
-line, and any path the filesystem cannot find, stay text — `Span` is the shape B20's decoder
-hangs off · **F4 the held register is keyed on nothing**, so a second city fixture in
-`bun test` silently decides `deck.test.ts`'s results; three of its assertions went red, worked
-around by testing a pure `deckSession()` and proving `?b=` over a real server instead — named,
-not fixed, because the register's policy is the Architect's · F5 a receipt must outlive the
-repaint that proves it, so `say()` moved to `deck-dom.ts` and the drawer prunes only its own
-keys · F6 a D54 near-slip self-reported (the gate re-run from `belvedere/glass`, exit 0; zero
-third-party code fetched) · **F7 the batch's two lanes are file-disjoint and NOT
-commit-disjoint** — `git add -A belvedere` swept lane A's live P6 work into three B15 commits;
-nothing lost, history deliberately not rewritten under a running session, filed to
-[ISSUES](ISSUES.md) as a fold candidate for the concurrency plan. Decided: nothing — the
-Builder ruled nothing; F1–F7 are the Architect's at G2, and the seam's fifth member is the
-shape B17/B18 should copy. Next: **B18 — live identity**
-([plans/b18-live-identity.md](plans/b18-live-identity.md)), the Dispatcher's to fire on lane
-B's serial chain; it reads the Workshop's session lines, which is where a wrong stamp shows.
+**2026-08-27 · Builder · opus-high (B15)** — **The Workshop** — one building, inside — moved into Focus through the `FocusView` seam and nowhere else, evicting B13's first placeholder; the deck now has a real tenant. Live sessions first and then the building's truth: board, ledger tail, decision queue, ISSUES, every section collapsing, the order his to drag **or** to walk with ▲▼ (one `moved()` under both) and both surviving a reload — where only a full permutation counts as a memory, since a remembered subset would silently hide a section. **The field report's third item is dead**: a rendered `LEDGER.md:385` opens the viewer inside Focus scrolled to **line 385**, exactly one line marked, its box `615.38–631.88 px` inside a pane `53.19–757.00 px` — clicked off the fixture's own ISSUES prose, again from a landing record, and again on the **live** corpus (`hexwright/LEDGER.md:95`, line 95 of 117). A City click focuses **that** building (two buildings, two panes); the five sections render real data for `agents/belvedere` (29 rows, 85 resolvable references) and hexwright; six live `agents` sessions render with the model their transcripts name and a tooltip carrying cwd · workspace · pid, three of them with `jump` disabled and the reason on hover. **371 tests green in one process**, type gate exit 0, zero fire wiring in DOM, source and served bundle, and the whole browser half in real headless Chrome ([lab/b15/probe.ts](lab/b15/probe.ts) on a fixture city, [lab/b15/live.ts](lab/b15/live.ts) on the live register — both ALL GREEN, both writing nothing outside temp). Seven findings, nothing escalated: **F1 a tier is `<model> · <effort>` and only the model is on any artifact this glass can read** — read off the transcript head window the name-stamp already costs (zero extra I/O), effort renders `—` rather than a guess; 11 of 13 live sessions carry one, and it is the fourth filing of the same *field* ask, binding B17 and B18 · **F2 the seam gained a fifth, optional member** (`needs`): one building's detail is 65 kB, so it is **asked for, never broadcast** — `/deck/state?b=…` is still one endpoint and one timer, costing `+64 897 B and 0 ms` because `city()` had already parsed that content for the City's badges, and the query disappears at minimal · **F3 a code-ticked `path:line` is still a reference** (the corpus writes nearly every path in ticks) while a bare path with no line, and any path the filesystem cannot find, stay text — `Span` is the shape B20's decoder hangs off · **F4 the held register is keyed on nothing**, so a second city fixture in `bun test` silently decides `deck.test.ts`'s results; three of its assertions went red, worked around by testing a pure `deckSession()` and proving `?b=` over a real server instead — named, not fixed, because the register's policy is the Architect's · F5 a receipt must outlive the repaint that proves it, so `say()` moved to `deck-dom.ts` and the drawer prunes only its own keys · F6 a D54 near-slip self-reported (the gate re-run from `belvedere/glass`, exit 0; zero third-party code fetched) · **F7 the batch's two lanes are file-disjoint and NOT commit-disjoint** — `git add -A belvedere` swept lane A's live P6 work into three B15 commits; nothing lost, history deliberately not rewritten under a running session, filed to [ISSUES](ISSUES.md) as a fold candidate for the concurrency plan. Decided: nothing — the Builder ruled nothing; F1–F7 are the Architect's at G2, and the seam's fifth member is the shape B17/B18 should copy. Next: **B18 — live identity** ([plans/b18-live-identity.md](plans/b18-live-identity.md)), the Dispatcher's to fire on lane B's serial chain; it reads the Workshop's session lines, which is where a wrong stamp shows.
 
 ---
 
-**2026-08-27 · Digger · opus-high (P6)** — message transport: **B16 sends, and the
-mechanism is not bracketed paste.** [P6](plans/p6-message-transport.md) LANDED, no kill
-fired. The brief's leading candidate was measured and REFUSED: cmux transmits
-`ESC[200~ … ESC[201~` faithfully (and never adds them itself, even with DECSET 2004
-announced), but the TUI puts the marker **text** in the message with every newline as CR
-— `"[200~P6-A blank lines.\r\r…[201~"` — and a later run of the same arm truncated at the
-first CR instead, which is nondeterministic partial delivery, the disqualifying failure
-by name. What works is the **segmented paste**: newline-free segments through
-`set-buffer`+`paste-buffer`, newlines as `send-key alt+enter`, edge whitespace through
-`send`, one `enter` to submit. **Five payloads byte-exact**, sha256 of the sent bytes ≡
-the transcript's user turn, one turn each: blank lines (`a5df8e39…`), `$(echo pwned)`
-unexpanded with literal `\n \t \r` and unicode (`9a4844d2…`), 2/4/8-space indents with
-trailing spaces (`6d10be98…`), a **304 B fenced code block** (`81bf85ca…`), and the
-summons itself (`65490336…`). Both controls fired and seen. **Q2 mid-turn PASS, proven
-from the census** rather than a wall clock — the delivery's `UserPromptSubmit` at +13.3 s
-against the work turn's `Stop` at +15.7 s, the 802-line in-flight answer finished
-`end_turn` untouched, the message answered next in order. **Q3 resume-with-a-turn PASS
-×5** — byte-exact, prior conversation carried, silo held, session id and transcript file
-**reused**. Three transport rewrites P2 could not see, all against a raw sink that
-rewrites nothing ([lab/p6/sink.py](lab/p6/sink.py)): **`paste-buffer` turns every LF into
-CR** (P2 T3's byte-exact verdict is an artifact of its canonical-mode sink, where ICRNL
-turned it back), **`set-buffer` trims its own edge whitespace** (27 B in, 20 B out — the
-one that eats every indent), and **`ctrl+j`, a real 0x0a, is silently dropped by the
-TUI**. Findings: **F2 — a `workspace:N` ref that does not resolve is not an error, it
-delivers to the FOCUSED workspace**, while a UUID 404s loudly; `/hands/fire` returns a
-ref and `Fired` carries no UUID, so B16's send, **B18's rename/recolor write-through**
-and `/hands/focus` all inherit the misdelivery class — address by UUID, always (disclosed:
-proving it sent one character and one Enter into the live `dispatcher-agents-04` pane) ·
-**F3 two message shapes fail silently at the model** and must be refused at compose — a
-literal **TAB** never arrives (the wire carries all five, the transcript has none) and a
-first line beginning with **`/`** executes as a slash command, creating **zero** user
-turns · F4 the transport is 153 ms per cmux round trip and `4n−1` calls deep (289 ms for
-one line, ~6.3 s for fourteen), so a hundred-line send is ~40 s and renders as in-progress,
-never modal; one persistent socket connection is the speed-up, named not built · F5 a
-resumed session keeps its id and transcript, so the census join and the verification read
-need no re-plumbing · F6 a probe cannot be *instructed* into a long turn (sonnet
-backgrounds a `sleep`; an obedient probe answers its standing rule) — the work has to be
-the summons. Five failure faces tabulated, every one detectable before the send; the trust
-dialog swallows keystrokes byte-identically and **Enter would answer it** (never pressed).
-Decided: nothing — the transport law is §T, written to be lifted verbatim by B16 and
-D18's write class 1; F2's UUID law is a `hands.ts` contract question for the Architect.
-Venue restored: every probe workspace closed, the scratch cold repo removed,
-`cmux workspace list` back to Felix's own two. Next: **lane A is finished** — B16 consumes
-§T when lane B's serial chain reaches it; nothing in lane A remains to dispatch.
+**2026-08-27 · Digger · opus-high (P6)** — message transport: **B16 sends, and the mechanism is not bracketed paste.** [P6](plans/p6-message-transport.md) LANDED, no kill fired. The brief's leading candidate was measured and REFUSED: cmux transmits `ESC[200~ … ESC[201~` faithfully (and never adds them itself, even with DECSET 2004 announced), but the TUI puts the marker **text** in the message with every newline as CR — `"[200~P6-A blank lines.\r\r…[201~"` — and a later run of the same arm truncated at the first CR instead, which is nondeterministic partial delivery, the disqualifying failure by name. What works is the **segmented paste**: newline-free segments through `set-buffer`+`paste-buffer`, newlines as `send-key alt+enter`, edge whitespace through `send`, one `enter` to submit. **Five payloads byte-exact**, sha256 of the sent bytes ≡ the transcript's user turn, one turn each: blank lines (`a5df8e39…`), `$(echo pwned)` unexpanded with literal `\n \t \r` and unicode (`9a4844d2…`), 2/4/8-space indents with trailing spaces (`6d10be98…`), a **304 B fenced code block** (`81bf85ca…`), and the summons itself (`65490336…`). Both controls fired and seen. **Q2 mid-turn PASS, proven from the census** rather than a wall clock — the delivery's `UserPromptSubmit` at +13.3 s against the work turn's `Stop` at +15.7 s, the 802-line in-flight answer finished `end_turn` untouched, the message answered next in order. **Q3 resume-with-a-turn PASS ×5** — byte-exact, prior conversation carried, silo held, session id and transcript file **reused**. Three transport rewrites P2 could not see, all against a raw sink that rewrites nothing ([lab/p6/sink.py](lab/p6/sink.py)): **`paste-buffer` turns every LF into CR** (P2 T3's byte-exact verdict is an artifact of its canonical-mode sink, where ICRNL turned it back), **`set-buffer` trims its own edge whitespace** (27 B in, 20 B out — the one that eats every indent), and **`ctrl+j`, a real 0x0a, is silently dropped by the TUI**. Findings: **F2 — a `workspace:N` ref that does not resolve is not an error, it delivers to the FOCUSED workspace**, while a UUID 404s loudly; `/hands/fire` returns a ref and `Fired` carries no UUID, so B16's send, **B18's rename/recolor write-through** and `/hands/focus` all inherit the misdelivery class — address by UUID, always (disclosed: proving it sent one character and one Enter into the live `dispatcher-agents-04` pane) · **F3 two message shapes fail silently at the model** and must be refused at compose — a literal **TAB** never arrives (the wire carries all five, the transcript has none) and a first line beginning with **`/`** executes as a slash command, creating **zero** user turns · F4 the transport is 153 ms per cmux round trip and `4n−1` calls deep (289 ms for one line, ~6.3 s for fourteen), so a hundred-line send is ~40 s and renders as in-progress, never modal; one persistent socket connection is the speed-up, named not built · F5 a resumed session keeps its id and transcript, so the census join and the verification read need no re-plumbing · F6 a probe cannot be *instructed* into a long turn (sonnet backgrounds a `sleep`; an obedient probe answers its standing rule) — the work has to be the summons. Five failure faces tabulated, every one detectable before the send; the trust dialog swallows keystrokes byte-identically and **Enter would answer it** (never pressed). Decided: nothing — the transport law is §T, written to be lifted verbatim by B16 and D18's write class 1; F2's UUID law is a `hands.ts` contract question for the Architect. Venue restored: every probe workspace closed, the scratch cold repo removed, `cmux workspace list` back to Felix's own two. Next: **lane A is finished** — B16 consumes §T when lane B's serial chain reaches it; nothing in lane A remains to dispatch.
 
 ---
 
-**2026-08-27 · Builder · opus-high (B18)** — **cmux is truth for live identity** (D16),
-built and measured against the live desktop. One socket read — `cmux workspace list
---json`, held, at most 2 s old — joins on the census's own `ws` and gives every session
-the name and colour cmux is wearing *now*; the rig's stamp becomes the **birth name**,
-rendered beside it where they differ and never derived from it. Two write-through hands
-(D18 class 2), `POST /hands/rename` and `POST /hands/recolor`, live in the session's own
-expanded tooltip — rename inline, recolour from a swatch row of felikai's seven intents —
-and both target by `sid`, resolved to a **uuid**, because a `workspace:N` ref that does not
-resolve is delivered by cmux to the *focused* workspace (P6 F2 arrived mid-build and the
-whole of this row's socket surface was already uuid-only). The DoD ran live and green:
-a rename made **in** cmux reached the deck on the **very next poll** (+1 poll, 3 058 ms of
-a 3 000 ms period) with the birth stamp beside it, in the City and in the Workshop from
-one function; a rename **from** the deck came back off `workspace list` as
-`title="b18 renamed from the deck"`, driven through the page's own handlers; a swatch
-click put `custom_color=#3F9608` on the workspace, and `cyan` was refused **409** in
-cmux's own words with the audit line to match. **B3 F1's refused-colour fire deaths are
-closed at the cause** — and not by re-spelling: cmux accepts **any `#RRGGBB` verbatim**
-(measured, `#a5e22c` → `#A5E22C`), so the map carries felikai's own hexes through **Felix's
-felikai↔ANSI table**, which is what puts the Builder on felikai blue and the Digger on
-felikai **orange** rather than on the words the rig writes. Seven intents, seven audited
-recolours, all 200; the probe's own fire composed with one of them and survived.
-**The dead jump is dead**: reproduced twice — `--panel` with no `--workspace` answers
-`not_found` by ref *and* by uuid (every session whose beat carried no `ws`), and with
-`--workspace` it answers `OK` while the frontmost application stays `Arc` through
-`focus-panel` **and** `focus-window`. Nothing on the socket brings cmux forward; the hand
-now reads `cmux tree` first (a surface the desktop lost is a refusal, never a jump into a
-workspace that may not hold it), focuses panel and window, then `open -a` the bundle
-`cmux identify --json` names — measured `Arc → cmux`, `Finder → cmux`, the probe's own
-workspace selected. Identity degrades honestly: a glass whose password cmux refuses prints
-`live identity STALE — … Invalid password` and falls back to birth names with no live
-badge and no swatch. **398 tests green in one process**, type gate exit 0, `/deck/state`
-**p95 234 ms** against the 500 ms bar. Findings: F1 the hex acceptance and the taste call
-it exposes (three mantle colours visibly change) · F2 the jump's mechanism, and that
-whether `focus-panel` raises the app at all is macOS's call, not cmux's · F3 a workspace
-rename does not touch its surfaces' titles, and an agent surface's title is cmux's own
-glyph-rewritten display — so the pane title is measured, not written · F4 the read costs
-**~161 ms of every poll** (p50 67 → 228 ms), awaited on purpose so a cmux-side rename needs
-one poll and not two; the 1 s-timer alternative is named, not built, and B17's usage will
-want the headroom · F5 **the socket names a session before its own transcript does** ·
-F6 the read covers one window, a named blindness · F7 B18's targets are all uuids and
-`attemptFire`'s are refs — B4's contract, left to the Architect at G2 per the relay.
-Decided: nothing — F1's map is one table and one strike; F3 and F7 are questions, not
-changes. Venue restored: every probe workspace closed, the selection put back, no listener
-left behind. Next: **B20 — the decoder** ([plans/b20-decoder.md](plans/b20-decoder.md)),
-the Dispatcher's to fire.
+**2026-08-27 · Builder · opus-high (B18)** — **cmux is truth for live identity** (D16), built and measured against the live desktop. One socket read — `cmux workspace list --json`, held, at most 2 s old — joins on the census's own `ws` and gives every session the name and colour cmux is wearing *now*; the rig's stamp becomes the **birth name**, rendered beside it where they differ and never derived from it. Two write-through hands (D18 class 2), `POST /hands/rename` and `POST /hands/recolor`, live in the session's own expanded tooltip — rename inline, recolour from a swatch row of felikai's seven intents — and both target by `sid`, resolved to a **uuid**, because a `workspace:N` ref that does not resolve is delivered by cmux to the *focused* workspace (P6 F2 arrived mid-build and the whole of this row's socket surface was already uuid-only). The DoD ran live and green: a rename made **in** cmux reached the deck on the **very next poll** (+1 poll, 3 058 ms of a 3 000 ms period) with the birth stamp beside it, in the City and in the Workshop from one function; a rename **from** the deck came back off `workspace list` as `title="b18 renamed from the deck"`, driven through the page's own handlers; a swatch click put `custom_color=#3F9608` on the workspace, and `cyan` was refused **409** in cmux's own words with the audit line to match. **B3 F1's refused-colour fire deaths are closed at the cause** — and not by re-spelling: cmux accepts **any `#RRGGBB` verbatim** (measured, `#a5e22c` → `#A5E22C`), so the map carries felikai's own hexes through **Felix's felikai↔ANSI table**, which is what puts the Builder on felikai blue and the Digger on felikai **orange** rather than on the words the rig writes. Seven intents, seven audited recolours, all 200; the probe's own fire composed with one of them and survived. **The dead jump is dead**: reproduced twice — `--panel` with no `--workspace` answers `not_found` by ref *and* by uuid (every session whose beat carried no `ws`), and with `--workspace` it answers `OK` while the frontmost application stays `Arc` through `focus-panel` **and** `focus-window`. Nothing on the socket brings cmux forward; the hand now reads `cmux tree` first (a surface the desktop lost is a refusal, never a jump into a workspace that may not hold it), focuses panel and window, then `open -a` the bundle `cmux identify --json` names — measured `Arc → cmux`, `Finder → cmux`, the probe's own workspace selected. Identity degrades honestly: a glass whose password cmux refuses prints `live identity STALE — … Invalid password` and falls back to birth names with no live badge and no swatch. **398 tests green in one process**, type gate exit 0, `/deck/state` **p95 234 ms** against the 500 ms bar. Findings: F1 the hex acceptance and the taste call it exposes (three mantle colours visibly change) · F2 the jump's mechanism, and that whether `focus-panel` raises the app at all is macOS's call, not cmux's · F3 a workspace rename does not touch its surfaces' titles, and an agent surface's title is cmux's own glyph-rewritten display — so the pane title is measured, not written · F4 the read costs **~161 ms of every poll** (p50 67 → 228 ms), awaited on purpose so a cmux-side rename needs one poll and not two; the 1 s-timer alternative is named, not built, and B17's usage will want the headroom · F5 **the socket names a session before its own transcript does** · F6 the read covers one window, a named blindness · F7 B18's targets are all uuids and `attemptFire`'s are refs — B4's contract, left to the Architect at G2 per the relay. Decided: nothing — F1's map is one table and one strike; F3 and F7 are questions, not changes. Venue restored: every probe workspace closed, the selection put back, no listener left behind. Next: **B20 — the decoder** ([plans/b20-decoder.md](plans/b20-decoder.md)), the Dispatcher's to fire.
 
 ---
 
-**2026-08-27 · Builder · opus-high (B20)** — **The decoder: no code word without its
-meaning one hover away.** Six forms detected (`B18` · `D63` · `§3.2` · `FC-1`/`GA-10` ·
-the row-keyword form `canon row 17`), resolved against the one parser, rendered through
-**one seam** — `words()` in `deck-dom.ts` is the only place a reference becomes a control,
-so the City, the Workshop and the drawer's queue decode by construction and the Chat and
-the Grep will inherit it without a line of their own. Detection and resolution are
-deliberately apart: `decode.ts` is a pure detector both sides import, `decoder.ts` is where
-a token meets the files, and `GET /deck/decode` **re-detects its own query rather than
-trusting it** — a hand-typed `?t=rm -rf` gets a refusal, not a lookup. **The commissioning
-hover works**: Felix's phrase rendered as prose, `canon row 17` → *v3 · the storage
-experiment · OPEN · Digger · fable-high · agents/MAP.md:106*, and a bare `row 14` in a
-canon document resolves locally because `than` names no building. **Resolution is
-context-scoped and measured on the real corpus**: `D2` is belvedere's, `D63` is canon's
-(belvedere really does stop at D18 — the resolver knows by *looking*, never by matching a
-range), `D99` renders **unresolved and names both ranges it read**, and an explicit
-`belvedere row 14` refuses instead of falling back. A `§` is always its own document's:
-the same `§5` is *Working agreements* in belvedere's README and *The cycle* in its
-DECISIONS. **Tooltips nest three deep and no further** — B13's one `#tip` became a stack,
-and the cap sits where the spans are MADE (`words()` draws none at depth 3), so the deepest
-body is plain text and there is no fourth layer to refuse; a constructed cycle
-`B18 → D2 → B18` renders plain at the repeat. **Tooltips gesture, they never fire** (D10):
-the footer carries the jump — which moves the selection, brings the Workshop forward and
-lands the viewer on the line — and B6's inbox wire with the **exact bytes previewed**
-(`- 2026-08-27 · Felix (via Belvedere) · countersign D2: ✓`, appended verbatim,
-471 B → 534 B, append-only ✓, fired on a **fixture** inbox because proving a button by
-countersigning the real city would be the glass editing truth to test itself). Fenced
-kickoffs and code ticks stay byte-sacred: the live belvedere Workshop lights **164**
-decoder spans and **0** inside them. **425 tests green in one process**, `bunx --offline
-tsc --noEmit` exit 0, zero dependencies added, `/deck/state` byte-for-byte the shape B18
-left it — a hover is 2–5 ms on its own route, so B18 F4's headroom is still B17's.
-B13/B14/B15 probes re-run whole: **ALL GREEN**; B18's drives Felix's desktop, so its one
-intersection (the rename/recolor controls inside the tooltip that became a stack) is
-checked in this row's own probe instead — 1 input, 7 swatches, nothing clicked.
-Findings: F1 **`FC-`/`GA-` ids have no artifact** and are detected-then-honestly-refused —
-fifth filing of the *field* ask · F2 **half the corpus's landing records encapsulate to a
-DATE**, so `encap()` belongs on a work cell and never on an annotation · F3 the depth cap
-belongs where spans are made, and a nested body must carry the resolved object's OWN doc ·
-F4 **`Building.decisionQueue` is the queue, not the decisions** · F5 the City rendered no
-corpus prose at all, so its building tooltip now names *what* wants him instead of counting
-it · F6 a click on a code word is captured and stopped (binds B21) · F7 the glass knows
-which building is canon **by convention** (`<city>/agents`), not from the register.
-Decided: nothing escalated — no contract, seam or fence moved; the gestures are B6's
-existing wire. Venue: two probes, both on their own ports against temp cities; the live
-half reads only and wrote nothing anywhere. Next: **B10 — the Works**
-([plans/b10-flow-dag.md](plans/b10-flow-dag.md)), the Dispatcher's to fire.
+**2026-08-27 · Builder · opus-high (B20)** — **The decoder: no code word without its meaning one hover away.** Six forms detected (`B18` · `D63` · `§3.2` · `FC-1`/`GA-10` · the row-keyword form `canon row 17`), resolved against the one parser, rendered through **one seam** — `words()` in `deck-dom.ts` is the only place a reference becomes a control, so the City, the Workshop and the drawer's queue decode by construction and the Chat and the Grep will inherit it without a line of their own. Detection and resolution are deliberately apart: `decode.ts` is a pure detector both sides import, `decoder.ts` is where a token meets the files, and `GET /deck/decode` **re-detects its own query rather than trusting it** — a hand-typed `?t=rm -rf` gets a refusal, not a lookup. **The commissioning hover works**: Felix's phrase rendered as prose, `canon row 17` → *v3 · the storage experiment · OPEN · Digger · fable-high · agents/MAP.md:106*, and a bare `row 14` in a canon document resolves locally because `than` names no building. **Resolution is context-scoped and measured on the real corpus**: `D2` is belvedere's, `D63` is canon's (belvedere really does stop at D18 — the resolver knows by *looking*, never by matching a range), `D99` renders **unresolved and names both ranges it read**, and an explicit `belvedere row 14` refuses instead of falling back. A `§` is always its own document's: the same `§5` is *Working agreements* in belvedere's README and *The cycle* in its DECISIONS. **Tooltips nest three deep and no further** — B13's one `#tip` became a stack, and the cap sits where the spans are MADE (`words()` draws none at depth 3), so the deepest body is plain text and there is no fourth layer to refuse; a constructed cycle `B18 → D2 → B18` renders plain at the repeat. **Tooltips gesture, they never fire** (D10): the footer carries the jump — which moves the selection, brings the Workshop forward and lands the viewer on the line — and B6's inbox wire with the **exact bytes previewed** (`- 2026-08-27 · Felix (via Belvedere) · countersign D2: ✓`, appended verbatim, 471 B → 534 B, append-only ✓, fired on a **fixture** inbox because proving a button by countersigning the real city would be the glass editing truth to test itself). Fenced kickoffs and code ticks stay byte-sacred: the live belvedere Workshop lights **164** decoder spans and **0** inside them. **425 tests green in one process**, `bunx --offline tsc --noEmit` exit 0, zero dependencies added, `/deck/state` byte-for-byte the shape B18 left it — a hover is 2–5 ms on its own route, so B18 F4's headroom is still B17's. B13/B14/B15 probes re-run whole: **ALL GREEN**; B18's drives Felix's desktop, so its one intersection (the rename/recolor controls inside the tooltip that became a stack) is checked in this row's own probe instead — 1 input, 7 swatches, nothing clicked. Findings: F1 **`FC-`/`GA-` ids have no artifact** and are detected-then-honestly-refused — fifth filing of the *field* ask · F2 **half the corpus's landing records encapsulate to a DATE**, so `encap()` belongs on a work cell and never on an annotation · F3 the depth cap belongs where spans are made, and a nested body must carry the resolved object's OWN doc · F4 **`Building.decisionQueue` is the queue, not the decisions** · F5 the City rendered no corpus prose at all, so its building tooltip now names *what* wants him instead of counting it · F6 a click on a code word is captured and stopped (binds B21) · F7 the glass knows which building is canon **by convention** (`<city>/agents`), not from the register. Decided: nothing escalated — no contract, seam or fence moved; the gestures are B6's existing wire. Venue: two probes, both on their own ports against temp cities; the live half reads only and wrote nothing anywhere. Next: **B10 — the Works** ([plans/b10-flow-dag.md](plans/b10-flow-dag.md)), the Dispatcher's to fire.
 
 ---
 
-**2026-08-27 · Builder · opus-high (B10)** — **The Works: the batch note became data, and
-the building's whole work is one drawing.** A flow is
-`belvedere/flows/<name>.flow.json` — committed truth, mantle work, never the glass's — and
-`glass/flow.ts` is the **only** module that touches those bytes, so canon row 17's ruling
-swaps the serialization in one file. `flows/flow-batch-1.flow.json` is the chapter's own
-DAG and it is real: 5 steps `p5 → b10 → b11 → b12 → g2`, ranked `0,1,2,3,4`, and the `g2`
-step's kickoff is **quoted, not copied** — `{doc, fence: 5}` resolves to the README's own
-G2 fence, **byte-identical** (`sha256 96ef06ad3ec95630592b752bb1484d86f8484f4da5430f5f48977ad41c3bf434`,
-362 B, extracted independently by `awk` and a third way in the suite). Every refusal is a
-**named value, never a throw**, asserted on a mutated copy of the real file — duplicate id ·
-unknown dep · cycle · unresolvable kickoff (missing doc AND ordinal past the end) · a name
-over six words · unknown account/mantle/tier/judgeTier/venue · malformed · unreadable. The
-drawing obeys D14: **time flows down** — dependency depth is a rank running downward, ranks
-`[0 → 1 → 2]` in DOM order, the two depth-1 lanes measured **side by side** (`b1 left 410.5,
-b2 left 804, both top 397.86`), **4 inline-SVG paths for 4 dependencies** each placed
-against a box the browser actually laid out, and the **NOW line cut between past and plan**
-at `y=364.36` with the building's live sessions blinking on it; the board's landed rows and
-the ledger's arc sit above, the undeclared work below, **one renderer**. Rings come from
-run-state + census: `fired` with a **beating** sid renders lit, a dead sid renders *fired,
-not beating* — both measured live in Chrome — and where the engine's log has said nothing
-the **board** speaks and the ring is drawn **dashed**, because a landed ring taken off a
-board row is not evidence this engine ever fired it. **Nothing arms and nothing fires**: the
-Felix-card carries 0 buttons, 0 links, 0 fire attributes; `hands/fire` is 0× in the DOM, in
-`works.client.ts` and in `/deck.js`; a plan node's actions **name** B11 and B17 instead of
-half-working, and the only wire the pane reaches is `/hands/focus` on an in-flight node. P5's
-clause is a **check, not a field**: a `haiku` step is drawn blocked with P5's own sentence on
-it. The bill is on the wall beside the plan — tier on every node, usage `personal ·
-thg-fgreen · thg-doorbell` in the footer. **455 tests green in one process**, type gate exit
-0, zero new dependencies, `<select>` 0, `/deck/state?b=` **p95 281 ms** armed over the live
-register (the Works' own share **0.7 ms p50**), the tenant redrawing in **1.4 ms**;
-B13/B14/B15/B20's probes re-run whole, **ALL GREEN**. Findings: **F2 a `{doc, fence}`
-kickoff is POSITIONAL and this landing nearly re-pointed `b10`'s own** — out-of-range fails
-loudly, in-range-but-wrong does not; the ask is a `sha` or a heading anchor, named not built,
-and it **binds B11's arm** · F1 the keel's now-line transposes §5's columns into downward
-ranks · F3 the first SVG puts the XML namespace into the bundle, so B9's `http(s)://` grep
-must exclude it **by name** · F4 the Works parses nothing of its own and `ringOf`'s `from` is
-what keeps that honest · F5 a building's name is doctrine's slug against the real `~/code` ·
-F6 `g2` collapses the keel's sitting-plus-card into one step · F7 the trust precheck stays at
-arm (15 `git` spawns per poll otherwise) · F8 the seam gained `swap.to`.
-Decided: nothing escalated — no contract, fence or DoD moved; `/deck/state` gained one field
-under the existing `?b=`, and the glass still writes nothing outside the fence's list.
-Venue: `master`, two probes on their own ports against temp cities; the live half reads only,
-with `BELVEDERE_ENV` pointed at a path that does not exist so no hand could arm.
-Next: **B17 — the composer + live usage** ([plans/b17-composer-usage.md](plans/b17-composer-usage.md)),
-the Dispatcher's to fire.
+**2026-08-27 · Builder · opus-high (B10)** — **The Works: the batch note became data, and the building's whole work is one drawing.** A flow is `belvedere/flows/<name>.flow.json` — committed truth, mantle work, never the glass's — and `glass/flow.ts` is the **only** module that touches those bytes, so canon row 17's ruling swaps the serialization in one file. `flows/flow-batch-1.flow.json` is the chapter's own DAG and it is real: 5 steps `p5 → b10 → b11 → b12 → g2`, ranked `0,1,2,3,4`, and the `g2` step's kickoff is **quoted, not copied** — `{doc, fence: 5}` resolves to the README's own G2 fence, **byte-identical** (`sha256 96ef06ad3ec95630592b752bb1484d86f8484f4da5430f5f48977ad41c3bf434`, 362 B, extracted independently by `awk` and a third way in the suite). Every refusal is a **named value, never a throw**, asserted on a mutated copy of the real file — duplicate id · unknown dep · cycle · unresolvable kickoff (missing doc AND ordinal past the end) · a name over six words · unknown account/mantle/tier/judgeTier/venue · malformed · unreadable. The drawing obeys D14: **time flows down** — dependency depth is a rank running downward, ranks `[0 → 1 → 2]` in DOM order, the two depth-1 lanes measured **side by side** (`b1 left 410.5, b2 left 804, both top 397.86`), **4 inline-SVG paths for 4 dependencies** each placed against a box the browser actually laid out, and the **NOW line cut between past and plan** at `y=364.36` with the building's live sessions blinking on it; the board's landed rows and the ledger's arc sit above, the undeclared work below, **one renderer**. Rings come from run-state + census: `fired` with a **beating** sid renders lit, a dead sid renders *fired, not beating* — both measured live in Chrome — and where the engine's log has said nothing the **board** speaks and the ring is drawn **dashed**, because a landed ring taken off a board row is not evidence this engine ever fired it. **Nothing arms and nothing fires**: the Felix-card carries 0 buttons, 0 links, 0 fire attributes; `hands/fire` is 0× in the DOM, in `works.client.ts` and in `/deck.js`; a plan node's actions **name** B11 and B17 instead of half-working, and the only wire the pane reaches is `/hands/focus` on an in-flight node. P5's clause is a **check, not a field**: a `haiku` step is drawn blocked with P5's own sentence on it. The bill is on the wall beside the plan — tier on every node, usage `personal · thg-fgreen · thg-doorbell` in the footer. **455 tests green in one process**, type gate exit 0, zero new dependencies, `<select>` 0, `/deck/state?b=` **p95 281 ms** armed over the live register (the Works' own share **0.7 ms p50**), the tenant redrawing in **1.4 ms**; B13/B14/B15/B20's probes re-run whole, **ALL GREEN**. Findings: **F2 a `{doc, fence}` kickoff is POSITIONAL and this landing nearly re-pointed `b10`'s own** — out-of-range fails loudly, in-range-but-wrong does not; the ask is a `sha` or a heading anchor, named not built, and it **binds B11's arm** · F1 the keel's now-line transposes §5's columns into downward ranks · F3 the first SVG puts the XML namespace into the bundle, so B9's `http(s)://` grep must exclude it **by name** · F4 the Works parses nothing of its own and `ringOf`'s `from` is what keeps that honest · F5 a building's name is doctrine's slug against the real `~/code` · F6 `g2` collapses the keel's sitting-plus-card into one step · F7 the trust precheck stays at arm (15 `git` spawns per poll otherwise) · F8 the seam gained `swap.to`. Decided: nothing escalated — no contract, fence or DoD moved; `/deck/state` gained one field under the existing `?b=`, and the glass still writes nothing outside the fence's list. Venue: `master`, two probes on their own ports against temp cities; the live half reads only, with `BELVEDERE_ENV` pointed at a path that does not exist so no hand could arm. Next: **B17 — the composer + live usage** ([plans/b17-composer-usage.md](plans/b17-composer-usage.md)), the Dispatcher's to fire.
 
 ---
 
-**2026-08-27 · Builder · opus-high (B17)** — **The composer moved into Action, and two of
-the field report's oldest complaints died: the wrong stamp and the 391-minute number.**
-Changed: `glass/usage.ts` (new — the live per-account OAuth fetch, canon row 10's own
-mechanism), `glass/deck-composer.ts` (new — the resolver behind `POST /deck/compose`),
-`glass/composer.client.ts` (new — Action at rest), `usage.test.ts` + `deck-composer.test.ts`
-(new), `lab/b17/probe.ts` (new), plus `summon.ts` (`stampPrefix`/`nextOrdinal` extracted,
-`lineage`/`nextStamp` built on them unchanged), `deck-model.ts`, `server.ts`, `works.ts`,
-`workshop.client.ts`, `deck.client.ts`, `deck.css`, and four predecessor probes.
-**The building names the work, the cwd is only the venue** — v0 asked one question and used
-the answer for two, which is exactly how an Architect sitting about belvedere, run at
-`~/code/agents`, came out `architect-agents-03`. Two knobs now: clicking `agents/belvedere`
-in the City with the venue typed as `~/code/agents` previews and fires **`builder-belvedere-78`**,
-and the **78** is B7 F4 induced — a fixture census carrying `builder-belvedere-77` on a
-transcript **neither lineage log has ever seen** (`"builder-belvedere"` in `invocations.jsonl`:
-0; in this run's audit: 0), so two logs alone would have minted `-01`. After the fire the
-composer previews `-79`: the ordinal it spends is spent. **Every knob is live**, and the
-summons *text* moves with them, not just the plan — measured in one document, navigation
-entries stayed 1: effort rewrote the fence `You are a Builder at opus-high.` →
-`…at opus-low.`, mantle moved the stamp **and** the colour `#0362b2 → #9e490c` **and** the
-words (`You are a Digger at…`), account moved with its own usage chip beside it. That needed
-templates to be **sticky** — a fence names its own tier (D45), so a page showing `opus-high`
-beside an `opus-low` fire argues with itself — cleared by his first keystroke, after which
-the words are his. **The byte chain has four links, not three**: the box on screen `108 B`,
-the card's own claimed sha, the hands' receipt, and the transcript's first user turn — all
-`sha256 39449981deadf642`. **Usage is live and the deck fetches it itself**: 9 of 9 cells
-identical to the rig's own `summon-usage`, run in the same breath, every one `source: live`;
-an unfetched account renders the rig's cache **labelled** with its age (233 minutes on the
-first smoke — the complaint, now visible); and a blocked fetch, induced live by a glass whose
-`USER` names nobody, keeps the figures **wearing the keychain's refusal** and never invents a
-zero. The token law is the rig's, kept: `security` → memory → one header, never argv, never a
-log, never a rendered page, and never asserted on in a test (B8 F1). One live fire haiku·low
-from the rendered knobs, cmux answering `title "builder-belvedere-78" color #0362B2` —
-coloured per B18's map, named per the building — workspace closed at landing, its audit line
-deliberately in the temp tree rather than the city's. **486 tests green in one process**, type
-gate exit 0, zero new dependencies, `POST /deck/compose` **p95 14 ms** and `/deck/state`
-byte-for-byte the shape B18/B20 left it — the fetch is off the poll, so B10's own bill got the
-live figures free and B18 F4's headroom is untouched. Findings: **F1 the deck can fire now, so
-B14/B15/B20/B10's "zero `hands/fire` in the bundle" became "which SOURCE contains it"** — one
-file may, and it is named · **F2 that DOM grep was always unsound: over the real city the
-belvedere Workshop renders `/hands/fire` 4× as prose with 0 wiring**, so the sound check is
-`outerHTML` minus `textContent` · **F3 sticky templates, and the rule behind them — a surface
-may rewrite what he is looking at only until he touches it** (binds B16/B19) · F4 the
-resolution is **round-tripped**, named, and `composePlan` therefore cannot ride `bun test`
-(B15 F4's one-warm-register trap) · F5 `usageNow` reads, `refreshUsage` fetches — B11 consumes
-both · F6 the token law kept, in the suite too · F7 there is no building knob: the City is the
-picker, which is the ontology rendered rather than described.
-Decided: nothing escalated — no contract, fence or DoD moved. `/hands/fire` is reachable from
-exactly one client file for the first time, which is the composer's whole job (keel §3), and
-D10 holds structurally: every knob move disarms the button until the next resolved plan lands.
-Venue: `master`; the probe on its own port against the real city with a temp census, and its
-one fire closed at landing (D55).
-Next: **B11 — arm + engine** ([plans/b11-flow-engine.md](plans/b11-flow-engine.md)),
-the Dispatcher's to fire.
+**2026-08-27 · Builder · opus-high (B17)** — **The composer moved into Action, and two of the field report's oldest complaints died: the wrong stamp and the 391-minute number.** Changed: `glass/usage.ts` (new — the live per-account OAuth fetch, canon row 10's own mechanism), `glass/deck-composer.ts` (new — the resolver behind `POST /deck/compose`), `glass/composer.client.ts` (new — Action at rest), `usage.test.ts` + `deck-composer.test.ts` (new), `lab/b17/probe.ts` (new), plus `summon.ts` (`stampPrefix`/`nextOrdinal` extracted, `lineage`/`nextStamp` built on them unchanged), `deck-model.ts`, `server.ts`, `works.ts`, `workshop.client.ts`, `deck.client.ts`, `deck.css`, and four predecessor probes. **The building names the work, the cwd is only the venue** — v0 asked one question and used the answer for two, which is exactly how an Architect sitting about belvedere, run at `~/code/agents`, came out `architect-agents-03`. Two knobs now: clicking `agents/belvedere` in the City with the venue typed as `~/code/agents` previews and fires **`builder-belvedere-78`**, and the **78** is B7 F4 induced — a fixture census carrying `builder-belvedere-77` on a transcript **neither lineage log has ever seen** (`"builder-belvedere"` in `invocations.jsonl`: 0; in this run's audit: 0), so two logs alone would have minted `-01`. After the fire the composer previews `-79`: the ordinal it spends is spent. **Every knob is live**, and the summons *text* moves with them, not just the plan — measured in one document, navigation entries stayed 1: effort rewrote the fence `You are a Builder at opus-high.` → `…at opus-low.`, mantle moved the stamp **and** the colour `#0362b2 → #9e490c` **and** the words (`You are a Digger at…`), account moved with its own usage chip beside it. That needed templates to be **sticky** — a fence names its own tier (D45), so a page showing `opus-high` beside an `opus-low` fire argues with itself — cleared by his first keystroke, after which the words are his. **The byte chain has four links, not three**: the box on screen `108 B`, the card's own claimed sha, the hands' receipt, and the transcript's first user turn — all `sha256 39449981deadf642`. **Usage is live and the deck fetches it itself**: 9 of 9 cells identical to the rig's own `summon-usage`, run in the same breath, every one `source: live`; an unfetched account renders the rig's cache **labelled** with its age (233 minutes on the first smoke — the complaint, now visible); and a blocked fetch, induced live by a glass whose `USER` names nobody, keeps the figures **wearing the keychain's refusal** and never invents a zero. The token law is the rig's, kept: `security` → memory → one header, never argv, never a log, never a rendered page, and never asserted on in a test (B8 F1). One live fire haiku·low from the rendered knobs, cmux answering `title "builder-belvedere-78" color #0362B2` — coloured per B18's map, named per the building — workspace closed at landing, its audit line deliberately in the temp tree rather than the city's. **486 tests green in one process**, type gate exit 0, zero new dependencies, `POST /deck/compose` **p95 14 ms** and `/deck/state` byte-for-byte the shape B18/B20 left it — the fetch is off the poll, so B10's own bill got the live figures free and B18 F4's headroom is untouched. Findings: **F1 the deck can fire now, so B14/B15/B20/B10's "zero `hands/fire` in the bundle" became "which SOURCE contains it"** — one file may, and it is named · **F2 that DOM grep was always unsound: over the real city the belvedere Workshop renders `/hands/fire` 4× as prose with 0 wiring**, so the sound check is `outerHTML` minus `textContent` · **F3 sticky templates, and the rule behind them — a surface may rewrite what he is looking at only until he touches it** (binds B16/B19) · F4 the resolution is **round-tripped**, named, and `composePlan` therefore cannot ride `bun test` (B15 F4's one-warm-register trap) · F5 `usageNow` reads, `refreshUsage` fetches — B11 consumes both · F6 the token law kept, in the suite too · F7 there is no building knob: the City is the picker, which is the ontology rendered rather than described. Decided: nothing escalated — no contract, fence or DoD moved. `/hands/fire` is reachable from exactly one client file for the first time, which is the composer's whole job (keel §3), and D10 holds structurally: every knob move disarms the button until the next resolved plan lands. Venue: `master`; the probe on its own port against the real city with a temp census, and its one fire closed at landing (D55). Next: **B11 — arm + engine** ([plans/b11-flow-engine.md](plans/b11-flow-engine.md)), the Dispatcher's to fire.
 
 ---
 
-**2026-08-28 · Builder · opus-high (B11)** — **The string runs itself.** D11 is live: one
-click on the Works' arm card authorizes a declared flow, and a tick inside the glass does
-what a Dispatcher does between sessions — fires ready steps **through the existing hands**,
-and pauses at everything a mantle would have to judge. Changed:
-[glass/engine.ts](glass/engine.ts) (new — `plan()` pure, `tick()` thin, `armFlow`,
-`passGate`, `POST /flow/<name>/{arm,pass}`), [glass/flow.ts](glass/flow.ts) (the run log's
-**write** side beside its read side, `Flow.hash`, `Step.timeoutMinutes`, venue paths
-resolved at the boundary), [glass/works.ts](glass/works.ts) + [glass/deck-model.ts]
-(glass/deck-model.ts) (hash, armed hash, the flow's last word, HALT, hands state, a card
-awaiting his pass), [glass/works.client.ts](glass/works.client.ts) (the arm card, the live
-bill, his pass), `hands.ts` (`readHalt` — the flag read where it is written), `html.ts`
-(`tilde`), `server.ts` (the routes, and the engine's clock started **here and only here**),
-`deck.css`, plus [glass/engine.test.ts](glass/engine.test.ts) (44) and three probes in
-[lab/b11/](lab/b11/). **The chapter's number is 0.513 s**: a three-step flow — Builder ·
-sonnet-low on master, Digger · sonnet-low in a **worktree**, then his card — armed by one
-click in real headless Chrome and then left alone. Step 1 fired at `12:00:21.321Z`, the
-first user turn **byte-exact** three ways (summons file ≡ transcript ≡ the hands' receipt,
-`sha 7f91bd90e866f536`, 655 B), the session did real tool work unattended and **edited its
-own board row to LANDED**; the engine read that row at `12:00:38.491Z` and step 2's fire
-audit is `12:00:39.004Z` — **nothing between them but the tick** — arm to step 2 fired,
-18.1 s. The worktree was cut by the same hand *before* the fire and the census's own cwd for
-that session is inside it. Then the **Felix-card stopped the lane**: `paused, why "a
-Felix-card — his pass on the card is the resume"`, **two fires in the entire hands audit**, 0
-buttons and 0 links on the drawn card, and the drawing reading the engine's log
-(`s1:landed/run s2:landed/run s3:paused/run`) rather than the board. Four levers proved on
-**one** live session, because each needs the same step to be provably fireable and the
-control for "nothing fired" is the fire that happens when they are released: **D10** — one
-unreadable line in a run log and nothing advances, not even a landing the census had already
-earned (`paused: "run-state unreadable"`, hands audit empty); **HALT** — set through the
-glass's own hand at a **scratch** flag with the city's real one asserted absent in the same
-breath (`refused`, audit `["halt"]`), and the Works reading the flag back in its own words;
-**amend** — the flow file moved under an armed flow (`armed 8808fe19… · on disk 0c9e8e19…`,
-paused, no fire); **re-arm** — one click covering it, and the step all three had held fires;
-**timeout** — `paused, why "timeout"` with the session **untouched**, `pid 43747, kill -0
-ALIVE`, because the engine has no verb that stops a session. Four arm refusals, each 409
-naming the step and each writing **nothing** to a run log: `haiku` (P5's own sentence, the
-finding built rather than worked around), a venue `personal has never trusted`, an
-unparseable flow, and **a hash the page was showing that the file no longer has**. Cold
-hands answer **503** while the same page still renders the plan. **530 tests green in one
-process**, type gate exit 0, zero new dependencies, `/deck/state?b=` **p95 162.6 ms** with
-the engine ticking under it, and B13/B14/B15/B20/B10's probes re-run whole — **ALL GREEN,
-five for five**. Findings: **F1 an `armed` line in a fixture run log is a live authorization
-now** — B10's own probe armed itself the moment a glass grew an engine, and the first thing
-that engine did was pause a fixture session that ended without a `Stop`; fixed at the
-fixture, and the rule is general · **F2 a fire returns a workspace and no session id**, so
-the name-stamp is the join and `fired` is written twice (take the last; the first one's `ts`
-is the timeout clock) · **F3 the arm hashes the flow file AND every resolved kickoff** —
-B10 F2's positional-fence hazard closed at the wire, at the cost that a reformat re-arms ·
-**F4 the board lands a step the engine never fired and writes nothing when it does** (B10
-F4's dashed ring kept honest), while `IN FLIGHT`/`KILLED`/`BLOCKED` hold it — somebody is
-already on it · F5 an unruled escalation on a landing pauses, per keel §5.1 rather than §4's
-list — that is B12's judge, parked exactly there · F6 `~/` never leaves the parse boundary
-(`tilde()` puts it back for the eye) · F7 a tick over a city with nothing armed touches
-neither census nor register nor socket · **F8 `lab/b17/probe.ts` fails two live-quota
-assertions at its OWN landing commit** — attributed from a detached worktree at `6cd3614`,
-filed to [ISSUES](ISSUES.md), not fixed here.
-Decided: nothing escalated — no contract, fence or DoD moved. The fence gains **no write
-class**: every engine write is a hand call or a run-state append in the D6 telemetry
-neighborhood. Felix's relayed tier amendment applied as given — the two real-work steps ran
-**sonnet·low**, the cheapest tier that holds `auto` (P5), and a haiku step is refused at arm.
-D12 is a flag B12 flips, not a rewrite: `plan()` takes the scope-arm auto-join as one branch.
-Venue: `master`; three probes on their own ports against temp census homes, temp flows dirs
-and temp fixture cities — three live sessions in total, every workspace closed, the smoke's
-worktree removed and its branch deleted, no HALT left anywhere in the city.
-Next: **B16 — the Chat** ([plans/b16-chat.md](plans/b16-chat.md)), the Dispatcher's to fire.
+**2026-08-28 · Builder · opus-high (B11)** — **The string runs itself.** D11 is live: one click on the Works' arm card authorizes a declared flow, and a tick inside the glass does what a Dispatcher does between sessions — fires ready steps **through the existing hands**, and pauses at everything a mantle would have to judge. Changed: [glass/engine.ts](glass/engine.ts) (new — `plan()` pure, `tick()` thin, `armFlow`, `passGate`, `POST /flow/<name>/{arm,pass}`), [glass/flow.ts](glass/flow.ts) (the run log's **write** side beside its read side, `Flow.hash`, `Step.timeoutMinutes`, venue paths resolved at the boundary), [glass/works.ts](glass/works.ts) + [glass/deck-model.ts] (glass/deck-model.ts) (hash, armed hash, the flow's last word, HALT, hands state, a card awaiting his pass), [glass/works.client.ts](glass/works.client.ts) (the arm card, the live bill, his pass), `hands.ts` (`readHalt` — the flag read where it is written), `html.ts` (`tilde`), `server.ts` (the routes, and the engine's clock started **here and only here**), `deck.css`, plus [glass/engine.test.ts](glass/engine.test.ts) (44) and three probes in [lab/b11/](lab/b11/). **The chapter's number is 0.513 s**: a three-step flow — Builder · sonnet-low on master, Digger · sonnet-low in a **worktree**, then his card — armed by one click in real headless Chrome and then left alone. Step 1 fired at `12:00:21.321Z`, the first user turn **byte-exact** three ways (summons file ≡ transcript ≡ the hands' receipt, `sha 7f91bd90e866f536`, 655 B), the session did real tool work unattended and **edited its own board row to LANDED**; the engine read that row at `12:00:38.491Z` and step 2's fire audit is `12:00:39.004Z` — **nothing between them but the tick** — arm to step 2 fired, 18.1 s. The worktree was cut by the same hand *before* the fire and the census's own cwd for that session is inside it. Then the **Felix-card stopped the lane**: `paused, why "a Felix-card — his pass on the card is the resume"`, **two fires in the entire hands audit**, 0 buttons and 0 links on the drawn card, and the drawing reading the engine's log (`s1:landed/run s2:landed/run s3:paused/run`) rather than the board. Four levers proved on **one** live session, because each needs the same step to be provably fireable and the control for "nothing fired" is the fire that happens when they are released: **D10** — one unreadable line in a run log and nothing advances, not even a landing the census had already earned (`paused: "run-state unreadable"`, hands audit empty); **HALT** — set through the glass's own hand at a **scratch** flag with the city's real one asserted absent in the same breath (`refused`, audit `["halt"]`), and the Works reading the flag back in its own words; **amend** — the flow file moved under an armed flow (`armed 8808fe19… · on disk 0c9e8e19…`, paused, no fire); **re-arm** — one click covering it, and the step all three had held fires; **timeout** — `paused, why "timeout"` with the session **untouched**, `pid 43747, kill -0 ALIVE`, because the engine has no verb that stops a session. Four arm refusals, each 409 naming the step and each writing **nothing** to a run log: `haiku` (P5's own sentence, the finding built rather than worked around), a venue `personal has never trusted`, an unparseable flow, and **a hash the page was showing that the file no longer has**. Cold hands answer **503** while the same page still renders the plan. **530 tests green in one process**, type gate exit 0, zero new dependencies, `/deck/state?b=` **p95 162.6 ms** with the engine ticking under it, and B13/B14/B15/B20/B10's probes re-run whole — **ALL GREEN, five for five**. Findings: **F1 an `armed` line in a fixture run log is a live authorization now** — B10's own probe armed itself the moment a glass grew an engine, and the first thing that engine did was pause a fixture session that ended without a `Stop`; fixed at the fixture, and the rule is general · **F2 a fire returns a workspace and no session id**, so the name-stamp is the join and `fired` is written twice (take the last; the first one's `ts` is the timeout clock) · **F3 the arm hashes the flow file AND every resolved kickoff** — B10 F2's positional-fence hazard closed at the wire, at the cost that a reformat re-arms · **F4 the board lands a step the engine never fired and writes nothing when it does** (B10 F4's dashed ring kept honest), while `IN FLIGHT`/`KILLED`/`BLOCKED` hold it — somebody is already on it · F5 an unruled escalation on a landing pauses, per keel §5.1 rather than §4's list — that is B12's judge, parked exactly there · F6 `~/` never leaves the parse boundary (`tilde()` puts it back for the eye) · F7 a tick over a city with nothing armed touches neither census nor register nor socket · **F8 `lab/b17/probe.ts` fails two live-quota assertions at its OWN landing commit** — attributed from a detached worktree at `6cd3614`, filed to [ISSUES](ISSUES.md), not fixed here. Decided: nothing escalated — no contract, fence or DoD moved. The fence gains **no write class**: every engine write is a hand call or a run-state append in the D6 telemetry neighborhood. Felix's relayed tier amendment applied as given — the two real-work steps ran **sonnet·low**, the cheapest tier that holds `auto` (P5), and a haiku step is refused at arm. D12 is a flag B12 flips, not a rewrite: `plan()` takes the scope-arm auto-join as one branch. Venue: `master`; three probes on their own ports against temp census homes, temp flows dirs and temp fixture cities — three live sessions in total, every workspace closed, the smoke's worktree removed and its branch deleted, no HALT left anywhere in the city. Next: **B16 — the Chat** ([plans/b16-chat.md](plans/b16-chat.md)), the Dispatcher's to fire.
 
 ---
 
-**2026-08-28 · Builder · opus-high (B16)** — **The voice.** The note-app copy-paste era is
-over: his words leave the deck and arrive in a session as **one real user turn, byte-exact**.
-Changed: `glass/chat.ts` (the read, the send, the drafts, the route), `chat.client.ts` (the
-deck's third and last tenant — the transcript in Focus, the draft in Action, independently
-scrolled), `chat.test.ts`, the wire shapes and the one pure `refusals()` in `deck-model.ts`,
-the seam's **sixth member** `asks()` and a `selection` that now names the ontology's two
-surfaced levels, three hotswap entry points (`deck.client.ts` City lines and queue,
-`workshop.client.ts` sessions) through one shared control in `deck-dom.ts`, the composer's
-post-fire swap, `paths.ts`'s `desk/`, `deck.css`, the routes, and both READMEs; two
-instruments in `lab/b16/`. **The numbers:** typed into the rendered textarea and sent by the
-rendered button, `sha 237dd6f33cc0a49b…` **identical** page-side and in the transcript read
-straight off disk — 174 B with a blank line, 2/4-space indents and a trailing space, user
-turns **1 → 2**, and the probe **acted on it** (`ACK pomegranate-7714`) with its answer on
-the deck **384 ms** after the record was written, inside one 3 000 ms poll. Then the
-workspace was closed under it, the census called it `gone`, and the **same** message shape
-went in again as a **resume that carried the turn** — `sha a8a90c1d…`, **the same transcript
-file and the same session id**, prior conversation intact, silo held (P6 Q3 confirmed from
-the other side). **Nothing is reported delivered without the verification read**: its three
-failure verdicts — no new turn, **more than one**, different bytes — are pinned in the suite
-over real appended bytes, and none is ever retried, because a message may have half-landed.
-Three faces induced live, each detectable **before a single cmux call**: an unknown target, a
-**non-empty input box** (refused quoting `HALF A DRAFT FELIX WAS TYPING` — the transport
-appends, it never replaces), and compose-time refusals for a TAB and a leading `/`. **D10 as
-structure**: cold hands render **zero** `[data-chat-send]` anywhere in the DOM and answer
-503, while `POST /chat/draft` still answers 200 — a file write under `desk/` sits in front of
-the arming switch, because cold hands must never cost him the ability to write something
-down. Three entry points (City · Workshop · needs-you queue) swap three targets into **one**
-view; the draft per target survived a hotswap **and a killed server**; `architect-agents-03`
-(2 265 kB) rendered tail-windowed and paged backwards on its own byte offset; the decoder
-runs on transcript prose with **0** spans inside a fence. **555 tests green in one process**,
-type gate exit 0, zero new dependencies, `/deck/state` **p50 58.0 ms** bare and **p50
-59.2 ms · p95 115.8 ms** carrying `?b=` and `?s=` over the live register; the page still never
-scrolls with an 11 107 px transcript in it (body − viewport = **0 px**), and B13/B14/B15/B20/
-B10/B11's probes re-ran whole — **ALL GREEN, six for six**. Findings: **F1
-`?s=` is a sixth seam member, not a second meaning for `?b=`** — a parameter that is
-sometimes a slug and sometimes a uuid is the ambiguity class this building refuses ·
-**F2 a bounded read that pages BACKWARDS and one that starts at a known boundary are two
-functions**: `windowOf` drops its own first line, which is exactly the delivered turn, and
-the suite caught it before any probe ran · **F3 a probe cannot be waited on by its words —
-it answered `ACK` where `READY` was asked — and never by its name**: a fixed probe stamp
-latched onto a previous run's dead session, D10's lesson arriving in the instrument ·
-F4 `desk/drafts/` files are untracked and whether a draft is committed is B19's and the
-Architect's, named not built · **F5 HALT does not stop a send, deliberately** — the flag
-stops automation, and hitting it is usually the moment he needs to speak by hand ·
-F6 the refusal list is wider than P6 measured (`!`/`#` by construction) and refuses anything
-sanitizing would rewrite rather than rewriting it · F7 the box precheck is the building's
-only screen-scrape, bounded and named · F8 the composer's post-fire swap travels through
-`selection.awaiting`, because a fire returns no session id (B11 F2).
-Decided: nothing escalated — no contract, fence or DoD moved. The send is **D18 write class
-1** and lives outside `hands.ts` on B11's own precedent: credential-gated at its own door,
-audited through the hands' `audit()` (sha and bytes, never the words — verified: the
-message's own token appears in the audit **0** times), and reaching the world only through
-the `cmux()` the hands already own. P6's transport law was consumed **verbatim**, clause for
-clause, including the two rewrites P2 could not see.
-Venue: `master`; two instruments on their own ports against temp desks and temp flows dirs —
-**one** live session per run, its workspace closed, the resume's workspace closed, venue
-before ≡ venue after (`workspace:24 belvedere · workspace:2 mentat`).
-Next: **B19 — the desk** ([plans/b19-desk.md](plans/b19-desk.md)), the Dispatcher's to fire.
+**2026-08-28 · Builder · opus-high (B16)** — **The voice.** The note-app copy-paste era is over: his words leave the deck and arrive in a session as **one real user turn, byte-exact**. Changed: `glass/chat.ts` (the read, the send, the drafts, the route), `chat.client.ts` (the deck's third and last tenant — the transcript in Focus, the draft in Action, independently scrolled), `chat.test.ts`, the wire shapes and the one pure `refusals()` in `deck-model.ts`, the seam's **sixth member** `asks()` and a `selection` that now names the ontology's two surfaced levels, three hotswap entry points (`deck.client.ts` City lines and queue, `workshop.client.ts` sessions) through one shared control in `deck-dom.ts`, the composer's post-fire swap, `paths.ts`'s `desk/`, `deck.css`, the routes, and both READMEs; two instruments in `lab/b16/`. **The numbers:** typed into the rendered textarea and sent by the rendered button, `sha 237dd6f33cc0a49b…` **identical** page-side and in the transcript read straight off disk — 174 B with a blank line, 2/4-space indents and a trailing space, user turns **1 → 2**, and the probe **acted on it** (`ACK pomegranate-7714`) with its answer on the deck **384 ms** after the record was written, inside one 3 000 ms poll. Then the workspace was closed under it, the census called it `gone`, and the **same** message shape went in again as a **resume that carried the turn** — `sha a8a90c1d…`, **the same transcript file and the same session id**, prior conversation intact, silo held (P6 Q3 confirmed from the other side). **Nothing is reported delivered without the verification read**: its three failure verdicts — no new turn, **more than one**, different bytes — are pinned in the suite over real appended bytes, and none is ever retried, because a message may have half-landed. Three faces induced live, each detectable **before a single cmux call**: an unknown target, a **non-empty input box** (refused quoting `HALF A DRAFT FELIX WAS TYPING` — the transport appends, it never replaces), and compose-time refusals for a TAB and a leading `/`. **D10 as structure**: cold hands render **zero** `[data-chat-send]` anywhere in the DOM and answer 503, while `POST /chat/draft` still answers 200 — a file write under `desk/` sits in front of the arming switch, because cold hands must never cost him the ability to write something down. Three entry points (City · Workshop · needs-you queue) swap three targets into **one** view; the draft per target survived a hotswap **and a killed server**; `architect-agents-03` (2 265 kB) rendered tail-windowed and paged backwards on its own byte offset; the decoder runs on transcript prose with **0** spans inside a fence. **555 tests green in one process**, type gate exit 0, zero new dependencies, `/deck/state` **p50 58.0 ms** bare and **p50 59.2 ms · p95 115.8 ms** carrying `?b=` and `?s=` over the live register; the page still never scrolls with an 11 107 px transcript in it (body − viewport = **0 px**), and B13/B14/B15/B20/ B10/B11's probes re-ran whole — **ALL GREEN, six for six**. Findings: **F1 `?s=` is a sixth seam member, not a second meaning for `?b=`** — a parameter that is sometimes a slug and sometimes a uuid is the ambiguity class this building refuses · **F2 a bounded read that pages BACKWARDS and one that starts at a known boundary are two functions**: `windowOf` drops its own first line, which is exactly the delivered turn, and the suite caught it before any probe ran · **F3 a probe cannot be waited on by its words — it answered `ACK` where `READY` was asked — and never by its name**: a fixed probe stamp latched onto a previous run's dead session, D10's lesson arriving in the instrument · F4 `desk/drafts/` files are untracked and whether a draft is committed is B19's and the Architect's, named not built · **F5 HALT does not stop a send, deliberately** — the flag stops automation, and hitting it is usually the moment he needs to speak by hand · F6 the refusal list is wider than P6 measured (`!`/`#` by construction) and refuses anything sanitizing would rewrite rather than rewriting it · F7 the box precheck is the building's only screen-scrape, bounded and named · F8 the composer's post-fire swap travels through `selection.awaiting`, because a fire returns no session id (B11 F2). Decided: nothing escalated — no contract, fence or DoD moved. The send is **D18 write class 1** and lives outside `hands.ts` on B11's own precedent: credential-gated at its own door, audited through the hands' `audit()` (sha and bytes, never the words — verified: the message's own token appears in the audit **0** times), and reaching the world only through the `cmux()` the hands already own. P6's transport law was consumed **verbatim**, clause for clause, including the two rewrites P2 could not see. Venue: `master`; two instruments on their own ports against temp desks and temp flows dirs — **one** live session per run, its workspace closed, the resume's workspace closed, venue before ≡ venue after (`workspace:24 belvedere · workspace:2 mentat`). Next: **B19 — the desk** ([plans/b19-desk.md](plans/b19-desk.md)), the Dispatcher's to fire.
 
 ---
 
-**2026-08-28 · Builder · opus-high (B19)** — **The desk.** D17 is built: there is now a place
-in the deck where Felix writes, and the 17-item field report that commissioned this whole
-chapter would have been written in it. One drawer city-wide — `~/code/agents/desk/`, flat,
-frontmatter-free, **the first line is the title** — and three send routes, each previewed
-before it fires.
-Changed: `glass/desk.ts` (the store, the confinement, the trailer, the three plans, five
-routes), `desk.client.ts` (the deck's **fourth** Focus tenant — the drawer in Focus, the
-writing surface in Action), `desk.test.ts` (30 tests), `glass/inbox.ts` (B6's wire gains
-D63h's **block form**: a `report` gesture, `evidence()`, `entryBytes()`, `inboxExisting()`),
-`deck-model.ts` (the desk's wire shapes), `deck-view.ts` (the seam's fourth shared cell,
-`compose.with`), `composer.client.ts` (registers it), `deck-dom.ts` + `deck.client.ts` (the
-repaint memo now records its host; `forget()`), `deck.css`, `server.ts`, the glass README,
-`desk/.gitignore`, and [`lab/b19/probe.ts`](lab/b19/probe.ts) — 14 assertions in real Chrome,
-green three runs running.
-**The evidence.** Typed into the rendered box → autosaved → `desk/2026-08-28-01.md` **188 B
-byte-identical to the box**, titled off its own first line; then the drill — 241 B typed, the
-glass killed mid-edit, a **fresh process**, a reload, and every byte came back with the same
-note remembered open. **→ inbox** showed **290 B** of append while the target's `ISSUES.md`
-**did not yet exist** (a preview is a read), and the filing landed byte-for-byte: **previewed
-sha ≡ appended sha `c199b9c9701776dd`**, a legal D63h block in a **scratch-adopted** inbox,
-**0 lint** from the one parser, the body's own `---` indented so it could not cut the block,
-and the note carrying `routed 2026-08-28 09:26 → …/probe-fork/ISSUES.md`. **→ session** wrote
-through **B16's own wire** and the shell swapped the Chat in on `builder-b19-probe`; fired
-again over a non-empty box it **refused with no button at all**. **→ composer** had
-`/deck/compose` re-resolve the whole plan against the note. **Confinement is the slug, not a
-path check**: `POST /desk/save ‹../../canon/CLAUDE›` → **409 naming the rule**, nothing
-written, nine spellings pinned in the suite. The live path ran once against the **real**
-desk — `git status` afterwards: **`desk/` and nothing else** — and a live preview against
-belvedere's own `ISSUES.md` left that file **untouched**. **585 tests green in one process**,
-type gate exit 0, zero new dependencies, `/deck/state` **p50 56 ms · p95 60 ms** (the desk
-rides gestures, never the clock), `/desk/notes` and `POST /desk/save` **p50 0.5 ms**, and
-**all seven predecessor probes re-run whole — B13 · B14 · B15 · B20 · B10 · B11 · B16, ALL
-GREEN**.
-Findings: **F1 — the repaint memo outlived the host it described, and a tenant swapped away
-and back drew NOTHING**: `focusOn` empties both hosts, `paint()` kept only `key → signature`,
-so a return trip with unchanged content skipped the draw and left the pane blank with no
-error. Measured in Chrome, not reasoned. Fixed at the cause — the memo records its host and
-`forget(host)` retracts every claim about a cleared one — and it **binds B21 and B12** ·
-F2 a tenant's mount-time async restore races a gesture: **`mount()` is not a fresh start**,
-because the module outlives it · **F3 the evidence indent is load-bearing** — `blocks()`
-splits on `^---$`, so an un-indented rule inside his prose would strand the evidence in a
-block with no entry line, which is the one thing `parseIssues` lints; two spaces make it
-unrepresentable, and refusing his rules would have been the glass telling him how to write ·
-**F4 the desk declares NEITHER seam member** — a tenant asks the poll for what the *world*
-writes, never for what Felix writes · F5 receipts are not body: the trailer is the final
-`---` block only when every line in it is a receipt, and only the **irreversible** route
-stamps · **F6 B16 F4 settled** — `desk/.gitignore`: notes are truth and commit, a half-typed
-reply to one session does not · F7 the preview carries a sha and a moved inbox is refused by
-name — **B11's arm law one door along** · F8 a header comment naming the guard defeated the
-grep it described (B17 F1's check, working).
-Decided: nothing escalated — no contract, fence or DoD moved. The desk is **D18 write class
-3** and grows no transport of its own: the inbox append is B6's `filed()`, the message is
-B16's `writeDraft()`, the composer is reached through the seam's own cell and never by
-importing a tenant. `/desk/*` sits in **front** of the arming switch (B6 F3's law, third
-venue) and the glass still commits nothing. One kind was added to B6's gesture grammar —
-`report`, a title and its evidence — because D63h's block form is what a written thing sent
-somewhere looks like, and a bare `note` cannot carry evidence.
-Venue: `master`; the probe on its own port against a **copy** of the fixture city and a temp
-desk, so no DoD run wrote into a tracked fixture or into his real drawer; the one live-path
-note removed after its git-status evidence was taken.
-Next: **B21 — the Grep** ([plans/b21-grep.md](plans/b21-grep.md)), the Dispatcher's to fire.
+**2026-08-28 · Builder · opus-high (B19)** — **The desk.** D17 is built: there is now a place in the deck where Felix writes, and the 17-item field report that commissioned this whole chapter would have been written in it. One drawer city-wide — `~/code/agents/desk/`, flat, frontmatter-free, **the first line is the title** — and three send routes, each previewed before it fires. Changed: `glass/desk.ts` (the store, the confinement, the trailer, the three plans, five routes), `desk.client.ts` (the deck's **fourth** Focus tenant — the drawer in Focus, the writing surface in Action), `desk.test.ts` (30 tests), `glass/inbox.ts` (B6's wire gains D63h's **block form**: a `report` gesture, `evidence()`, `entryBytes()`, `inboxExisting()`), `deck-model.ts` (the desk's wire shapes), `deck-view.ts` (the seam's fourth shared cell, `compose.with`), `composer.client.ts` (registers it), `deck-dom.ts` + `deck.client.ts` (the repaint memo now records its host; `forget()`), `deck.css`, `server.ts`, the glass README, `desk/.gitignore`, and [`lab/b19/probe.ts`](lab/b19/probe.ts) — 14 assertions in real Chrome, green three runs running. **The evidence.** Typed into the rendered box → autosaved → `desk/2026-08-28-01.md` **188 B byte-identical to the box**, titled off its own first line; then the drill — 241 B typed, the glass killed mid-edit, a **fresh process**, a reload, and every byte came back with the same note remembered open. **→ inbox** showed **290 B** of append while the target's `ISSUES.md` **did not yet exist** (a preview is a read), and the filing landed byte-for-byte: **previewed sha ≡ appended sha `c199b9c9701776dd`**, a legal D63h block in a **scratch-adopted** inbox, **0 lint** from the one parser, the body's own `---` indented so it could not cut the block, and the note carrying `routed 2026-08-28 09:26 → …/probe-fork/ISSUES.md`. **→ session** wrote through **B16's own wire** and the shell swapped the Chat in on `builder-b19-probe`; fired again over a non-empty box it **refused with no button at all**. **→ composer** had `/deck/compose` re-resolve the whole plan against the note. **Confinement is the slug, not a path check**: `POST /desk/save ‹../../canon/CLAUDE›` → **409 naming the rule**, nothing written, nine spellings pinned in the suite. The live path ran once against the **real** desk — `git status` afterwards: **`desk/` and nothing else** — and a live preview against belvedere's own `ISSUES.md` left that file **untouched**. **585 tests green in one process**, type gate exit 0, zero new dependencies, `/deck/state` **p50 56 ms · p95 60 ms** (the desk rides gestures, never the clock), `/desk/notes` and `POST /desk/save` **p50 0.5 ms**, and **all seven predecessor probes re-run whole — B13 · B14 · B15 · B20 · B10 · B11 · B16, ALL GREEN**. Findings: **F1 — the repaint memo outlived the host it described, and a tenant swapped away and back drew NOTHING**: `focusOn` empties both hosts, `paint()` kept only `key → signature`, so a return trip with unchanged content skipped the draw and left the pane blank with no error. Measured in Chrome, not reasoned. Fixed at the cause — the memo records its host and `forget(host)` retracts every claim about a cleared one — and it **binds B21 and B12** · F2 a tenant's mount-time async restore races a gesture: **`mount()` is not a fresh start**, because the module outlives it · **F3 the evidence indent is load-bearing** — `blocks()` splits on `^---$`, so an un-indented rule inside his prose would strand the evidence in a block with no entry line, which is the one thing `parseIssues` lints; two spaces make it unrepresentable, and refusing his rules would have been the glass telling him how to write · **F4 the desk declares NEITHER seam member** — a tenant asks the poll for what the *world* writes, never for what Felix writes · F5 receipts are not body: the trailer is the final `---` block only when every line in it is a receipt, and only the **irreversible** route stamps · **F6 B16 F4 settled** — `desk/.gitignore`: notes are truth and commit, a half-typed reply to one session does not · F7 the preview carries a sha and a moved inbox is refused by name — **B11's arm law one door along** · F8 a header comment naming the guard defeated the grep it described (B17 F1's check, working). Decided: nothing escalated — no contract, fence or DoD moved. The desk is **D18 write class 3** and grows no transport of its own: the inbox append is B6's `filed()`, the message is B16's `writeDraft()`, the composer is reached through the seam's own cell and never by importing a tenant. `/desk/*` sits in **front** of the arming switch (B6 F3's law, third venue) and the glass still commits nothing. One kind was added to B6's gesture grammar — `report`, a title and its evidence — because D63h's block form is what a written thing sent somewhere looks like, and a bare `note` cannot carry evidence. Venue: `master`; the probe on its own port against a **copy** of the fixture city and a temp desk, so no DoD run wrote into a tracked fixture or into his real drawer; the one live-path note removed after its git-status evidence was taken. Next: **B21 — the Grep** ([plans/b21-grep.md](plans/b21-grep.md)), the Dispatcher's to fire.
 
 ---
 
-**2026-08-28 · Builder · opus-high (B21)** — **The Grep.** *"What was that session where I
-was talking about 'bob summons'?"* is now one keystroke, one query and one click, and the
-Chat is open at that turn.
-Changed: `glass/grep.ts` (three corpora, two engines, every bound), `grep.client.ts` (the
-query's state and the drawer's results — not a tenant, because the drawer is the shell's),
-`grep.test.ts`, the wire shapes in `deck-model.ts`, `chat.ts`'s reader (a third `Where` case
-and `ChatView.anchor`), `chat.client.ts` (the aimed window and `chatAt`), `desk.client.ts`
-(`deskTo`), the shell (`deck.ts`'s header box and the drawer's second content,
-`deck.client.ts`'s two keystrokes and three jumps), `deck.css`, `shelf.ts` (`transcriptsOf`
-exported — B5's discovery reused, never re-derived), `server.ts` (`GET /deck/grep`), and
-[`lab/b21/probe.ts`](plans/../lab/b21/probe.ts).
-DoD (all evidence in [B21](plans/b21-grep.md), **16 of 16 PASS in a real Chrome against the
-REAL corpus** — 736 transcripts across three accounts, 308 doctrine documents, the desk):
-**the commissioning query live** — `bob summons` → *15 hits · 280 ms · rg*, **11 session
-hits across all three accounts**, grouped sessions/docs/desk in the one drawer; the click
-lands on the turn the matching line belongs to, **proven against the coordinate and not
-against the DOM's opinion of it** (`the matching line begins at byte 450896; the marked turn
-is [data-key="392696"] and the next turn opens at EOF`), timestamped, scrolled into the box,
-and wearing a `[↓ latest]` because an aimed window and the live tail are two places in the
-file. **A doc hit** opened `plans/b21-grep.md:9` with exactly **one line marked in the whole
-document**; **a desk hit** opened the note in the editor, byte-identical to the file the
-desk wrote. **Every bound induced live**: an over-cap query renders `capped at 50 — there
-are more` on two groups, and one arm proved the other two at once — the glass relaunched
-with `rg` unreachable falls back to `grep`, which over 1.7 GB is **8.3 s against ripgrep's
-0.18 s**, so it **outlives the 3 s clock by construction**: `sessions timedOut=true with 0
-honest hits and NO error`, the degradation banner on the page in the glass's own words, and
-**three `/deck/state` polls fired inside that 3.2 s search came back in 85.8 · 42.2 ·
-42.1 ms** — the worker law intact, because an engine is a spawn. **Warm p95 131.9 ms**
-(N=20, 200 ms apart, five terms; bar 1000 ms). **Case-smart asserted** on a term minted at
-run time: lower → 1 hit, upper → 0, mixed → 1, and the rule printed on the page. **606 tests
-green in one process**, type gate exit 0, zero new dependencies, `grep.client.ts` carries
-`hands/fire` **0×**, and the page still never scrolls with a full results drawer (**0 px**).
-**All eight predecessor probes re-run whole — B13 · B14 · B15 · B20 · B10 · B11 · B16 ·
-B19, ALL GREEN.**
-Findings: **F1 — a probe that searches the REAL corpus finds itself.** A fixed marker
-literal in the probe's own source is in the corpus before the probe runs (the transcripts of
-the session writing it), so the upper-case control answered **three hits** against a note
-that never held it; the marker is minted at run time now. **Binds B12 and every later probe
-whose corpus is the city** — B16 F3's family, one grammar along · **F2 a legend sample
-carrying the row's own class is a fifth result**: `#host-drawer .hit` answered twelve rows
-where eleven existed and the account count came back as four, one of them empty. A legend of
-a *clickable* vocabulary must not answer the selector the click is bound to · **F3 a
-keydown's target is not always an Element** — `document` has no `closest`, so a
-document-level shortcut written against `e.target.closest(...)` throws inside its own
-listener and takes the shortcut out with no symptom · **F4 the turn a raw-JSONL hit belongs
-to is the right turn and may not SHOW the term**: four of the first five hits landed in
-records the Chat encapsulates to one line (a tool call's input, B16 §2), the fifth rendered
-the phrase whole — §5's miss class, second face, named and deliberately not patched · F5 the
-`grep` fallback is not *slower*, it is **over budget by construction** (40×), which is why
-the banner and the per-group timeout both had to exist — and it is the cheapest genuine slow
-arm in the building · **F6 `--max-columns` is ignored under `rg --json`**, so the line bound
-is the reader's: streamed lines, a length bar with a resync, a cap that kills the process,
-and an exit code read only when nothing else stopped it first · F7 subagent transcripts are
-outside the corpus **by name** — one directory deeper, and not a session the Chat can open,
-so a hit in one would jump nowhere; the blindness is real and its fix is a jump target, not
-a wider glob · **F8 the anchored window is a third case, not a nullable `before`** —
-`turnsOf`'s tail slice would have dropped exactly the hit's turn, silently.
-Decided: nothing escalated — no contract, fence or DoD moved. **The fence gains no write
-class**: a search is a read, it reaches no socket, and it sits in front of the arming switch
-for the reason the inbox and the desk do (B6 F3, fourth venue). **No index** — `rg` over the
-real corpus is 41–132 ms warm, and the premature-optimisation law says measure first. Two
-environment knobs join `paths.ts`'s family, and both exist because the two failures that
-matter cannot be induced by asking nicely: `GREP_TIMEOUT_MS` (the wall clock) and `GREP_RG`
-(the engine's name).
-Venue: `master`; the probe on its own port with the census, the audit log, the HALT flag,
-the flows and the desk all in a temp root and the hands cold — the register and the
-transcripts are read, and nothing in this row can move his desktop. `lab/b17/probe.ts` was
-**not** re-run: its two failures are filed at its own landing commit (B11 F8) and it leaves
-a live workspace open when it throws (B16's addendum).
-Next: **B12 — the reactive gate + dynamic extension**
-([plans/b12-flow-reactive.md](plans/b12-flow-reactive.md)), the Dispatcher's to fire.
+**2026-08-28 · Builder · opus-high (B21)** — **The Grep.** *"What was that session where I was talking about 'bob summons'?"* is now one keystroke, one query and one click, and the Chat is open at that turn. Changed: `glass/grep.ts` (three corpora, two engines, every bound), `grep.client.ts` (the query's state and the drawer's results — not a tenant, because the drawer is the shell's), `grep.test.ts`, the wire shapes in `deck-model.ts`, `chat.ts`'s reader (a third `Where` case and `ChatView.anchor`), `chat.client.ts` (the aimed window and `chatAt`), `desk.client.ts` (`deskTo`), the shell (`deck.ts`'s header box and the drawer's second content, `deck.client.ts`'s two keystrokes and three jumps), `deck.css`, `shelf.ts` (`transcriptsOf` exported — B5's discovery reused, never re-derived), `server.ts` (`GET /deck/grep`), and [`lab/b21/probe.ts`](plans/../lab/b21/probe.ts). DoD (all evidence in [B21](plans/b21-grep.md), **16 of 16 PASS in a real Chrome against the REAL corpus** — 736 transcripts across three accounts, 308 doctrine documents, the desk): **the commissioning query live** — `bob summons` → *15 hits · 280 ms · rg*, **11 session hits across all three accounts**, grouped sessions/docs/desk in the one drawer; the click lands on the turn the matching line belongs to, **proven against the coordinate and not against the DOM's opinion of it** (`the matching line begins at byte 450896; the marked turn is [data-key="392696"] and the next turn opens at EOF`), timestamped, scrolled into the box, and wearing a `[↓ latest]` because an aimed window and the live tail are two places in the file. **A doc hit** opened `plans/b21-grep.md:9` with exactly **one line marked in the whole document**; **a desk hit** opened the note in the editor, byte-identical to the file the desk wrote. **Every bound induced live**: an over-cap query renders `capped at 50 — there are more` on two groups, and one arm proved the other two at once — the glass relaunched with `rg` unreachable falls back to `grep`, which over 1.7 GB is **8.3 s against ripgrep's 0.18 s**, so it **outlives the 3 s clock by construction**: `sessions timedOut=true with 0 honest hits and NO error`, the degradation banner on the page in the glass's own words, and **three `/deck/state` polls fired inside that 3.2 s search came back in 85.8 · 42.2 · 42.1 ms** — the worker law intact, because an engine is a spawn. **Warm p95 131.9 ms** (N=20, 200 ms apart, five terms; bar 1000 ms). **Case-smart asserted** on a term minted at run time: lower → 1 hit, upper → 0, mixed → 1, and the rule printed on the page. **606 tests green in one process**, type gate exit 0, zero new dependencies, `grep.client.ts` carries `hands/fire` **0×**, and the page still never scrolls with a full results drawer (**0 px**). **All eight predecessor probes re-run whole — B13 · B14 · B15 · B20 · B10 · B11 · B16 · B19, ALL GREEN.** Findings: **F1 — a probe that searches the REAL corpus finds itself.** A fixed marker literal in the probe's own source is in the corpus before the probe runs (the transcripts of the session writing it), so the upper-case control answered **three hits** against a note that never held it; the marker is minted at run time now. **Binds B12 and every later probe whose corpus is the city** — B16 F3's family, one grammar along · **F2 a legend sample carrying the row's own class is a fifth result**: `#host-drawer .hit` answered twelve rows where eleven existed and the account count came back as four, one of them empty. A legend of a *clickable* vocabulary must not answer the selector the click is bound to · **F3 a keydown's target is not always an Element** — `document` has no `closest`, so a document-level shortcut written against `e.target.closest(...)` throws inside its own listener and takes the shortcut out with no symptom · **F4 the turn a raw-JSONL hit belongs to is the right turn and may not SHOW the term**: four of the first five hits landed in records the Chat encapsulates to one line (a tool call's input, B16 §2), the fifth rendered the phrase whole — §5's miss class, second face, named and deliberately not patched · F5 the `grep` fallback is not *slower*, it is **over budget by construction** (40×), which is why the banner and the per-group timeout both had to exist — and it is the cheapest genuine slow arm in the building · **F6 `--max-columns` is ignored under `rg --json`**, so the line bound is the reader's: streamed lines, a length bar with a resync, a cap that kills the process, and an exit code read only when nothing else stopped it first · F7 subagent transcripts are outside the corpus **by name** — one directory deeper, and not a session the Chat can open, so a hit in one would jump nowhere; the blindness is real and its fix is a jump target, not a wider glob · **F8 the anchored window is a third case, not a nullable `before`** — `turnsOf`'s tail slice would have dropped exactly the hit's turn, silently. Decided: nothing escalated — no contract, fence or DoD moved. **The fence gains no write class**: a search is a read, it reaches no socket, and it sits in front of the arming switch for the reason the inbox and the desk do (B6 F3, fourth venue). **No index** — `rg` over the real corpus is 41–132 ms warm, and the premature-optimisation law says measure first. Two environment knobs join `paths.ts`'s family, and both exist because the two failures that matter cannot be induced by asking nicely: `GREP_TIMEOUT_MS` (the wall clock) and `GREP_RG` (the engine's name). Venue: `master`; the probe on its own port with the census, the audit log, the HALT flag, the flows and the desk all in a temp root and the hands cold — the register and the transcripts are read, and nothing in this row can move his desktop. `lab/b17/probe.ts` was **not** re-run: its two failures are filed at its own landing commit (B11 F8) and it leaves a live workspace open when it throws (B16's addendum). Next: **B12 — the reactive gate + dynamic extension** ([plans/b12-flow-reactive.md](plans/b12-flow-reactive.md)), the Dispatcher's to fire.
 
 ---
 
-**2026-08-28 · Builder · opus-high (B12)** — **The string judges itself, and grows while
-it runs.** A step landed with an escalation on its row and the engine did not card the
-sovereign: it staffed the scoped Architect sitting into the lane, half a second later, and
-waited. The sitting ruled the row; the engine read the verdict off the **file**, not off its
-report; the lane resumed and the step behind the gate fired. In the middle of it the flow
-file grew, and the addition joined the running plan without a second click.
-Changed: `glass/judge.ts` (new — the classifier, the judge's derivation, D12's delta reader
-and scope-arm), `judge.test.ts` (new, 29), `engine.ts` (the gate loop, `LandingCode`,
-`refuseStep` extracted, `settled`), `engine.test.ts` (+12), `flow.ts` (`Step.hash`,
-`RunLine.steps`, `armedLine`), `works.ts` (judges drawn, the residue card),
-`works.client.ts` + `deck.css` (the inserted node), `deck-model.ts` (`WorksNode.inserted`),
-`register.ts` (`buildingPath`, one truth for two callers), `deck.ts`,
-[`flows/flow-close.flow.json`](flows/flow-close.flow.json) (new, unarmed) and
-[`lab/b12/probe.ts`](lab/b12/probe.ts).
-DoD (all evidence in [B12](plans/b12-flow-reactive.md), **13 of 13 PASS in a real Chrome
-against three live sonnet·low sessions**): **the gate's number is 0.553 s** — `paused:s1`
-at `14:55:55.144Z` reading *"LANDED, and E1 is raised with nothing saying it was ruled"*,
-`fired:s1.judge` at `14:55:55.697Z`, arm → judge fired **18.1 s**, zero human touches; the
-sitting fired through the same hand at the flow's own judge tier in the gated step's own
-checkout, its **first user turn byte-identical to the composed sitting** (`sha
-f2cd39ffee1ed0e1`, 510 B, summons file ≡ hands receipt ≡ transcript). The DAG drew it
-**inserted** (`data-inserted="yes"`, `path.wire s1→s1.judge`) with `s2` still `declared` and
-unfired. **Resume on truth**: a real sonnet·low Architect, sent nothing but that sitting,
-read the fixture's board and inbox and trued the row to `E1 ruled 2026-08-28 — …`, and
-`landed:s1.judge → resumed:s1 → landed:s1 → fired:s2` came **0.513 s** later. Both roads to
-his card measured live — a sitting **over** with the row still raised, and one past its own
-**limit** — each rendering `felix-card` with **0 buttons, 0 links, 0× `hands/fire`**, one
-`extended` line, and no `.judge.judge` anywhere. **D12 live**: `s2` appended under the arm
-re-armed the flow itself (`scope-arm auto-join (D12)`, marks `s1` → `s1, s2`) and fired with
-no click ever given it, while an **edit** stopped the lane naming the step.
-`flows/flow-close.flow.json` parses, renders, is unarmed, and its G2 kickoff is the README's
-own fence (`sha 43f72319c270a54c`, 351 B). **651 tests green in one process**, type gate
-exit 0, zero new deps, `/deck/state?b=` **p95 289.9 ms** (the close flow's own share of a
-poll: 0.13 ms), eleven predecessor probes re-run **ALL GREEN**.
-Findings: **E1 — `trust.ts` reads an auto-created project entry as a refusal**, so a
-plain-directory venue goes COLD the moment a session runs in it and the arm then refuses a
-venue that demonstrably works; measured twice, live, 2.1 s after a successful start, and
-B7 F1's own positive control `~/code/b7-founding-probe` reads `hasTrustDialogAccepted:
-false` today. Fix named (fall through on `false` rather than short-circuit — right in every
-measured cell), **not taken**: `trust.ts` is B7's law and P5 F5 (iii) blessed it. Costs
-nothing in production, where every venue is a repo Felix accepted · **F2 a session that
-finishes ends on `SessionEnd`, never `Stop`** — 61 of 61 gone sessions in the live census —
-so B11's census landing sensor lands nothing and its malformed branch fires on every normal
-close; B11 never felt it because every step in its smoke was a board row, and a judge has
-none, so **a judge is landed by the row it was staffed for** and the census only says
-whether the sitting is over · **F1 the order's own classifier gates 120 of 390 landed rows**
-(`/escalat/i` alone 113), including `b10` and `b11` of this very flow, whose annotations
-read *"nothing escalated"* — so §1's pattern list ships as the **misclassification log** it
-asks for and `escalationsIn` is the classifier · **F3 a fixture city inside `~/code` is
-slugged relatively and one outside absolutely** (B10 F5's second face) — a flow naming the
-wrong one finds no register entry, gets an empty `world.rows`, and has every landing judged
-by the census instead of the board, silently · F4 a step decided this pass kept its
-concurrency slot and its checkout until the next tick, starving at `concurrency: 1` the
-judge it had just staffed — `settled` fixes it, and `timeout` is deliberately outside it
-because that session is alive and still spending · F5 **the arm now records what it armed**,
-`<id>:<Step.hash>` per step plus a frame mark under `*`, because `Flow.hash` says the plan
-moved and the delta reader needs which parts; an arm with no marks reads back null and null
-never auto-joins · F6 D12's "building + chapter" is prose, so scope-arm enforces **what the
-click already covered** — frame unmoved, nothing edited or removed, every addition's venue
-and account already in the arm, plus `refuseStep`, the arm's own list extracted so there is
-one of it · F7 a judge inherits the gated step's checkout, which is single-writer physics
-rather than convenience · F8 probe residue named, not scrubbed.
-Decided: **one escalation, E1, and it is the Architect's** — nothing else moved. The fence
-gains no write class: a judge is a `hands.fire` and an `extended` line in the census
-neighborhood, and the flow file stays the sitting's to amend (the glass writes no judge into
-it). **D12 was a flag to flip, as B11 said**: `ARM_SCOPE` is one module constant and
-`{kind: 'none'}` is B11's base behaviour verbatim, which is what an arm with no marks gets.
-Venue: `master`; the probe stood up its own glass on its own port with the census, the
-audit, the flows and **the HALT flag** in a temp root, and its fixture city at
-`~/code/b12-gate-<pid>` — a plain directory with no git repository above it, so a sitting
-told to commit could not reach the real tree; `git status` in `~/code/agents` is
-byte-identical either side, all three workspaces closed, the scratch city removed, the
-city's own HALT asserted absent.
-Next: **Felix — arm `flow-close` in the Works.** His arm is G2's Felix-gate, the engine's
-first real act and the deck's close smoke (README §6, batch-5 note); the fallback if the
-engine cannot fire is `/summon` with G2's kickoff, and the failure becomes G2 evidence.
+**2026-08-28 · Builder · opus-high (B12)** — **The string judges itself, and grows while it runs.** A step landed with an escalation on its row and the engine did not card the sovereign: it staffed the scoped Architect sitting into the lane, half a second later, and waited. The sitting ruled the row; the engine read the verdict off the **file**, not off its report; the lane resumed and the step behind the gate fired. In the middle of it the flow file grew, and the addition joined the running plan without a second click. Changed: `glass/judge.ts` (new — the classifier, the judge's derivation, D12's delta reader and scope-arm), `judge.test.ts` (new, 29), `engine.ts` (the gate loop, `LandingCode`, `refuseStep` extracted, `settled`), `engine.test.ts` (+12), `flow.ts` (`Step.hash`, `RunLine.steps`, `armedLine`), `works.ts` (judges drawn, the residue card), `works.client.ts` + `deck.css` (the inserted node), `deck-model.ts` (`WorksNode.inserted`), `register.ts` (`buildingPath`, one truth for two callers), `deck.ts`, [`flows/flow-close.flow.json`](flows/flow-close.flow.json) (new, unarmed) and [`lab/b12/probe.ts`](lab/b12/probe.ts). DoD (all evidence in [B12](plans/b12-flow-reactive.md), **13 of 13 PASS in a real Chrome against three live sonnet·low sessions**): **the gate's number is 0.553 s** — `paused:s1` at `14:55:55.144Z` reading *"LANDED, and E1 is raised with nothing saying it was ruled"*, `fired:s1.judge` at `14:55:55.697Z`, arm → judge fired **18.1 s**, zero human touches; the sitting fired through the same hand at the flow's own judge tier in the gated step's own checkout, its **first user turn byte-identical to the composed sitting** (`sha f2cd39ffee1ed0e1`, 510 B, summons file ≡ hands receipt ≡ transcript). The DAG drew it **inserted** (`data-inserted="yes"`, `path.wire s1→s1.judge`) with `s2` still `declared` and unfired. **Resume on truth**: a real sonnet·low Architect, sent nothing but that sitting, read the fixture's board and inbox and trued the row to `E1 ruled 2026-08-28 — …`, and `landed:s1.judge → resumed:s1 → landed:s1 → fired:s2` came **0.513 s** later. Both roads to his card measured live — a sitting **over** with the row still raised, and one past its own **limit** — each rendering `felix-card` with **0 buttons, 0 links, 0× `hands/fire`**, one `extended` line, and no `.judge.judge` anywhere. **D12 live**: `s2` appended under the arm re-armed the flow itself (`scope-arm auto-join (D12)`, marks `s1` → `s1, s2`) and fired with no click ever given it, while an **edit** stopped the lane naming the step. `flows/flow-close.flow.json` parses, renders, is unarmed, and its G2 kickoff is the README's own fence (`sha 43f72319c270a54c`, 351 B). **651 tests green in one process**, type gate exit 0, zero new deps, `/deck/state?b=` **p95 289.9 ms** (the close flow's own share of a poll: 0.13 ms), eleven predecessor probes re-run **ALL GREEN**. Findings: **E1 — `trust.ts` reads an auto-created project entry as a refusal**, so a plain-directory venue goes COLD the moment a session runs in it and the arm then refuses a venue that demonstrably works; measured twice, live, 2.1 s after a successful start, and B7 F1's own positive control `~/code/b7-founding-probe` reads `hasTrustDialogAccepted: false` today. Fix named (fall through on `false` rather than short-circuit — right in every measured cell), **not taken**: `trust.ts` is B7's law and P5 F5 (iii) blessed it. Costs nothing in production, where every venue is a repo Felix accepted · **F2 a session that finishes ends on `SessionEnd`, never `Stop`** — 61 of 61 gone sessions in the live census — so B11's census landing sensor lands nothing and its malformed branch fires on every normal close; B11 never felt it because every step in its smoke was a board row, and a judge has none, so **a judge is landed by the row it was staffed for** and the census only says whether the sitting is over · **F1 the order's own classifier gates 120 of 390 landed rows** (`/escalat/i` alone 113), including `b10` and `b11` of this very flow, whose annotations read *"nothing escalated"* — so §1's pattern list ships as the **misclassification log** it asks for and `escalationsIn` is the classifier · **F3 a fixture city inside `~/code` is slugged relatively and one outside absolutely** (B10 F5's second face) — a flow naming the wrong one finds no register entry, gets an empty `world.rows`, and has every landing judged by the census instead of the board, silently · F4 a step decided this pass kept its concurrency slot and its checkout until the next tick, starving at `concurrency: 1` the judge it had just staffed — `settled` fixes it, and `timeout` is deliberately outside it because that session is alive and still spending · F5 **the arm now records what it armed**, `<id>:<Step.hash>` per step plus a frame mark under `*`, because `Flow.hash` says the plan moved and the delta reader needs which parts; an arm with no marks reads back null and null never auto-joins · F6 D12's "building + chapter" is prose, so scope-arm enforces **what the click already covered** — frame unmoved, nothing edited or removed, every addition's venue and account already in the arm, plus `refuseStep`, the arm's own list extracted so there is one of it · F7 a judge inherits the gated step's checkout, which is single-writer physics rather than convenience · F8 probe residue named, not scrubbed. Decided: **one escalation, E1, and it is the Architect's** — nothing else moved. The fence gains no write class: a judge is a `hands.fire` and an `extended` line in the census neighborhood, and the flow file stays the sitting's to amend (the glass writes no judge into it). **D12 was a flag to flip, as B11 said**: `ARM_SCOPE` is one module constant and `{kind: 'none'}` is B11's base behaviour verbatim, which is what an arm with no marks gets. Venue: `master`; the probe stood up its own glass on its own port with the census, the audit, the flows and **the HALT flag** in a temp root, and its fixture city at `~/code/b12-gate-<pid>` — a plain directory with no git repository above it, so a sitting told to commit could not reach the real tree; `git status` in `~/code/agents` is byte-identical either side, all three workspaces closed, the scratch city removed, the city's own HALT asserted absent. Next: **Felix — arm `flow-close` in the Works.** His arm is G2's Felix-gate, the engine's first real act and the deck's close smoke (README §6, batch-5 note); the fallback if the engine cannot fire is `/summon` with G2's kickoff, and the failure becomes G2 evidence.
 
 ---
 
-**2026-08-28 · Architect · fable-max (G2)** — **The chapter is verified and folded; the
-verdict card is his.** Fourteen landings checked against their contracts, the flow-schema
-evidence filed where the Standards Office will cut row 17's brief, the inbox swept to
-empty, the board trued — and the close smoke's own deviation recorded as the evidence the
-batch note said it would be.
-Changed: canon `ISSUES.md` (+4 entries: **row 17's Felix-gate is payable** — the flow
-serialization, arm law, landing law, permission clause, transport law, and the field asks
-the run evidenced, both arms honest; the `parseDecisions` false-countersign; the
-Dispatcher-holder baton case; the stranded `18g` branch), belvedere `ISSUES.md` (swept to
-empty — six entries ruled), README §5 (the two-lane commit rule), §6 (G2 row trued, the
-batch-5 close block with five cut-ready candidates), `glass/README.md` (651; b21/b12
-probe lines).
-Verified: **commits present ×14, findings filed ×14, statuses current ×14; 651 tests
-green in one process and offline type gate exit 0, both re-run by this sitting's own
-hand**; straight-to-master held (no batch branches; the one unmerged branch found is
-canon row 18's `18g` landing — filed, not touched). **The close smoke deviated and the
-deviation is evidence** (the note's own fallback clause): `flow-close` was never armed —
-no run-state directory, no audit fire at 15:30Z — because the live glass (up since
-08-27 16:58) predates B11's engine; Felix's hand delivered G2's kickoff, tier raised to
-fable-max at fire. The engine's first real act rides the verdict card now: relaunch, arm,
-and g2 lands off this board's own row (B11 §F4) with his card behind it.
-Decided: citations per the verdict law — **B12's raised trust question RULED**: the
-fix accepted as named (fall through on `false`, short-circuit only on `true`; right in
-every measured cell — B12 §E1, P5 §F5(iii), B7 §F1), a Builder's row, cut forward ·
-**the UUID law RATIFIED city-wide** (P6 §F2, B18 §F7) — a ref is legal only inside the
-breath that created it; the `attemptFire` sweep cut forward · the commit-collision pair
-FOLDED into §5 · the Dispatcher-holder case ESCALATED (canon inbox) · the b17-probe
-pair CUT forward (per-(account, bucket) compare + `shut()` in a `finally` — B11 §F8,
-B16's addendum) · the trust residue in `~/.claude.json` is **Felix's drain after the
-fix lands**; `~/code/b7-founding-probe` stays — it is the trust question's own evidence ·
-one new find measured at this sitting: **a suite run appends two scratch-building inbox
-lines to the LIVE hands audit** (240 → 242; B8 §F1's family, one B19 test path) — cut
-forward. The next chapter's shape beyond the five candidates is his direction (deck
-rework from the pass, ⬡, Ava), not a cut.
-Venue: `master`, the shared checkout; reads everywhere, writes to the four docs above
-only; no session fired, no workspace touched, the desktop untouched.
-Next: **Felix — the deck visual pass + the chapter verdict.**
+**2026-08-28 · Architect · fable-max (G2)** — **The chapter is verified and folded; the verdict card is his.** Fourteen landings checked against their contracts, the flow-schema evidence filed where the Standards Office will cut row 17's brief, the inbox swept to empty, the board trued — and the close smoke's own deviation recorded as the evidence the batch note said it would be. Changed: canon `ISSUES.md` (+4 entries: **row 17's Felix-gate is payable** — the flow serialization, arm law, landing law, permission clause, transport law, and the field asks the run evidenced, both arms honest; the `parseDecisions` false-countersign; the Dispatcher-holder baton case; the stranded `18g` branch), belvedere `ISSUES.md` (swept to empty — six entries ruled), README §5 (the two-lane commit rule), §6 (G2 row trued, the batch-5 close block with five cut-ready candidates), `glass/README.md` (651; b21/b12 probe lines). Verified: **commits present ×14, findings filed ×14, statuses current ×14; 651 tests green in one process and offline type gate exit 0, both re-run by this sitting's own hand**; straight-to-master held (no batch branches; the one unmerged branch found is canon row 18's `18g` landing — filed, not touched). **The close smoke deviated and the deviation is evidence** (the note's own fallback clause): `flow-close` was never armed — no run-state directory, no audit fire at 15:30Z — because the live glass (up since 08-27 16:58) predates B11's engine; Felix's hand delivered G2's kickoff, tier raised to fable-max at fire. The engine's first real act rides the verdict card now: relaunch, arm, and g2 lands off this board's own row (B11 §F4) with his card behind it. Decided: citations per the verdict law — **B12's raised trust question RULED**: the fix accepted as named (fall through on `false`, short-circuit only on `true`; right in every measured cell — B12 §E1, P5 §F5(iii), B7 §F1), a Builder's row, cut forward · **the UUID law RATIFIED city-wide** (P6 §F2, B18 §F7) — a ref is legal only inside the breath that created it; the `attemptFire` sweep cut forward · the commit-collision pair FOLDED into §5 · the Dispatcher-holder case ESCALATED (canon inbox) · the b17-probe pair CUT forward (per-(account, bucket) compare + `shut()` in a `finally` — B11 §F8, B16's addendum) · the trust residue in `~/.claude.json` is **Felix's drain after the fix lands**; `~/code/b7-founding-probe` stays — it is the trust question's own evidence · one new find measured at this sitting: **a suite run appends two scratch-building inbox lines to the LIVE hands audit** (240 → 242; B8 §F1's family, one B19 test path) — cut forward. The next chapter's shape beyond the five candidates is his direction (deck rework from the pass, ⬡, Ava), not a cut. Venue: `master`, the shared checkout; reads everywhere, writes to the four docs above only; no session fired, no workspace touched, the desktop untouched. Next: **Felix — the deck visual pass + the chapter verdict.**
 
-Baton — Felix: relaunch the glass, take the deck look, then arm `flow-close` in the
-Works — your verdict card is behind it.
+Baton — Felix: relaunch the glass, take the deck look, then arm `flow-close` in the Works — your verdict card is behind it.
 
 ```
 pkill -f 'bun belvedere/glass/server.ts' && cd ~/code/agents && bun belvedere/glass/server.ts
@@ -1708,38 +239,13 @@ open http://127.0.0.1:4400/deck    # the visual pass — close gate 2 (the old s
 # from belvedere/flows/flow-close.flow.json.
 ```
 
-Behind it: 1) drain the scratch-venue trust entries in `~/.claude/.claude.json` by your
-hand once the trust-flip row lands (keep `b7-founding-probe` until then — it is the
-evidence); 2) the PermissionRequest census subscription — a B1-class ritual, your run
-(B14 §F1); 3) the canon side of the sweep: the `18g` branch and four inbox entries wait
-on the Grand Architect's next summons; 4) the next batch's cut — after your verdict and
-your pass direction.
+Behind it: 1) drain the scratch-venue trust entries in `~/.claude/.claude.json` by your hand once the trust-flip row lands (keep `b7-founding-probe` until then — it is the evidence); 2) the PermissionRequest census subscription — a B1-class ritual, your run (B14 §F1); 3) the canon side of the sweep: the `18g` branch and four inbox entries wait on the Grand Architect's next summons; 4) the next batch's cut — after your verdict and your pass direction.
 
 ---
 
-**2026-08-28 · Architect · fable-high** — the recording sitting — **Batch 5 is CLOSED —
-Felix's verdict, recorded.** The pass is the verdict: the card asked whether batch 5 is
-closed and he passed it at 16:39:47Z (`flow-close.run.jsonl`: "Felix passed the card");
-one second later the engine fired this sitting off the board's own row (workspace:115,
-stamp `architect-belvedere-04`, hands audit 16:39:48Z) — **the engine's first real act,
-complete end to end**: arm by his hand in the Works, pause at his card, resume on his
-pass, fire. His words stand on the board from the G2 sitting: the visual pass "MUCH
-better; everything I want to change is minor visual tweaks / QoL / usability. Not
-structural." — and the chapter verdict, yes.
-Changed: README §6 (G2 row trued — G2 complete, batch 5 CLOSED; the close block's final
-line; candidates 6–8 cut forward; the rework design-input line), ISSUES swept to empty
-(four entries ruled — full evidence lives in their landing commits `25ff83c`, `88fa7c6`,
-`6d67536`), this entry.
-Decided (fold/cut rulings, delegated scope): the tenant-listener leak CUT forward as
-candidate 6 (the Chat's send is the sharp edge) · the split-neighborhood fix CUT forward
-as candidate 7, labeled hypothesis — unreproduced · the Act-pane stall CUT forward as
-candidate 8, labeled hypothesis, repro recipe in its commit · repo-vs-campaign
-differentiation, the pass-gesture surfacing, and the account-at-arm knob FOLDED as
-rework-chapter design input. Nothing above delegation touched. Decided: unrecorded.
-Next: **Felix — direct the chapter, then summon the cut.**
+**2026-08-28 · Architect · fable-high** — the recording sitting — **Batch 5 is CLOSED — Felix's verdict, recorded.** The pass is the verdict: the card asked whether batch 5 is closed and he passed it at 16:39:47Z (`flow-close.run.jsonl`: "Felix passed the card"); one second later the engine fired this sitting off the board's own row (workspace:115, stamp `architect-belvedere-04`, hands audit 16:39:48Z) — **the engine's first real act, complete end to end**: arm by his hand in the Works, pause at his card, resume on his pass, fire. His words stand on the board from the G2 sitting: the visual pass "MUCH better; everything I want to change is minor visual tweaks / QoL / usability. Not structural." — and the chapter verdict, yes. Changed: README §6 (G2 row trued — G2 complete, batch 5 CLOSED; the close block's final line; candidates 6–8 cut forward; the rework design-input line), ISSUES swept to empty (four entries ruled — full evidence lives in their landing commits `25ff83c`, `88fa7c6`, `6d67536`), this entry. Decided (fold/cut rulings, delegated scope): the tenant-listener leak CUT forward as candidate 6 (the Chat's send is the sharp edge) · the split-neighborhood fix CUT forward as candidate 7, labeled hypothesis — unreproduced · the Act-pane stall CUT forward as candidate 8, labeled hypothesis, repro recipe in its commit · repo-vs-campaign differentiation, the pass-gesture surfacing, and the account-at-arm knob FOLDED as rework-chapter design input. Nothing above delegation touched. Decided: unrecorded. Next: **Felix — direct the chapter, then summon the cut.**
 
-Baton — Felix: bring your direction (deck rework from your pass · ⬡ · Ava) to the
-batch-6 cut sitting.
+Baton — Felix: bring your direction (deck rework from your pass · ⬡ · Ava) to the batch-6 cut sitting.
 
 ```
 You are an Architect at fable-high.
@@ -1750,49 +256,13 @@ take Felix's direction for the chapter, and cut batch 6: briefs, staffing,
 the batch note, the Dispatcher summons.
 ```
 
-Behind it: 1) the canon-side sweep — four inbox entries and the stranded `18g` branch
-wait on the Grand Architect's next summons; 2) drain the scratch-venue trust entries in
-`~/.claude/.claude.json` by your hand once the trust-flip row (candidate 1) lands —
-keep `b7-founding-probe` until then.
+Behind it: 1) the canon-side sweep — four inbox entries and the stranded `18g` branch wait on the Grand Architect's next summons; 2) drain the scratch-venue trust entries in `~/.claude/.claude.json` by your hand once the trust-flip row (candidate 1) lands — keep `b7-founding-probe` until then.
 
 ---
 
-**2026-08-28 · Architect · fable-high** — the batch-6 cut sitting. **Batch 6 is CUT —
-the deck rework, his field reports as the chapter.** Seven inbox entries swept (the
-summons said nine; seven were on file across `731bac6`–`60b0124` — flagged to Felix),
-each ruled: the verdict-card parity face FOLDED into candidate 6's row as its sharpest
-evidence · the Chat's scroll CUT with it (one law — B23, the repaint law) · workspace
-placement + cwd housing CUT as one row (B25, where a fire lands — the fire knows things
-the census forgets, both directions) · batons-invisible CUT (B26, the attention model's
-baton bucket) · his sidebar ruling CUT (B24, his arrangement — persistence fork
-pre-chewed: desk file over localStorage, his own durability words) · the Works' Chat
-slot CUT into B27 with the honest-disabled law. All eight close-block candidates
-absorbed: 1–5 → B22 (hands hygiene + the PermissionRequest runbook), 6 → B23, 7 → B24,
-8 → B23. Mid-sitting word from Felix: the reports were first impressions, more tweaks
-coming — B27 cut last in the chain to absorb the list (STOP-clause bounded, D57
-amendment at its dispatch).
-Changed: six briefs (`plans/b22`–`b27`), README §6 (seven board rows + the batch-6
-note, both fences in it), ISSUES swept to empty, this entry. Nothing written to the
-canon inbox (the Grand Architect sweeps in parallel; no canon-shaped asks arose).
-Second act, same sitting (Felix's questions): the GA's answer entry ruled — parked
-candidates recorded in §6 (campus card, seam adoption at canon row 19, D68/D69
-tokens), entry drained; the lint run over this board caught four failures — B4's
-depends cell, B20's unescaped pipe (a GFM-truncating lie), and this entry's own
-header + Decided clause — all four fixed; his mentat-00 report filed to ISSUES as
-labeled hypothesis (evidence: `mentat-00` is in no lineage log — the glass renders
-the uuid honestly per B5; the cmux "needs input" badge is cmux's idle heuristic,
-not the census's — P1: `Stop` is the idle sensor, `Notification` a 60 s nag).
-Blessing landed mid-sitting: ruling 1 (desk-file persistence, gitted) ✓ Felix
-2026-08-28; rulings 2–3 waggled back for his call.
-Decided: (delegated scope, strike-able at blessing) arrangement persists as
-`desk/city-arrangement.json` · building-homed placement, mint-on-ambiguity, glass
-retires only minted-and-empty · account-at-arm label-not-knob · chain order
-B23 → B22 → B26 → B25 → B24 → B27 → G3, strictly serial on master. Nothing above
-delegation touched.
-Next: **Felix — bless the batch, file the rest of the tweaks, fire the Dispatcher.**
+**2026-08-28 · Architect · fable-high** — the batch-6 cut sitting. **Batch 6 is CUT — the deck rework, his field reports as the chapter.** Seven inbox entries swept (the summons said nine; seven were on file across `731bac6`–`60b0124` — flagged to Felix), each ruled: the verdict-card parity face FOLDED into candidate 6's row as its sharpest evidence · the Chat's scroll CUT with it (one law — B23, the repaint law) · workspace placement + cwd housing CUT as one row (B25, where a fire lands — the fire knows things the census forgets, both directions) · batons-invisible CUT (B26, the attention model's baton bucket) · his sidebar ruling CUT (B24, his arrangement — persistence fork pre-chewed: desk file over localStorage, his own durability words) · the Works' Chat slot CUT into B27 with the honest-disabled law. All eight close-block candidates absorbed: 1–5 → B22 (hands hygiene + the PermissionRequest runbook), 6 → B23, 7 → B24, 8 → B23. Mid-sitting word from Felix: the reports were first impressions, more tweaks coming — B27 cut last in the chain to absorb the list (STOP-clause bounded, D57 amendment at its dispatch). Changed: six briefs (`plans/b22`–`b27`), README §6 (seven board rows + the batch-6 note, both fences in it), ISSUES swept to empty, this entry. Nothing written to the canon inbox (the Grand Architect sweeps in parallel; no canon-shaped asks arose). Second act, same sitting (Felix's questions): the GA's answer entry ruled — parked candidates recorded in §6 (campus card, seam adoption at canon row 19, D68/D69 tokens), entry drained; the lint run over this board caught four failures — B4's depends cell, B20's unescaped pipe (a GFM-truncating lie), and this entry's own header + Decided clause — all four fixed; his mentat-00 report filed to ISSUES as labeled hypothesis (evidence: `mentat-00` is in no lineage log — the glass renders the uuid honestly per B5; the cmux "needs input" badge is cmux's idle heuristic, not the census's — P1: `Stop` is the idle sensor, `Notification` a 60 s nag). Blessing landed mid-sitting: ruling 1 (desk-file persistence, gitted) ✓ Felix 2026-08-28; rulings 2–3 waggled back for his call. Decided: (delegated scope, strike-able at blessing) arrangement persists as `desk/city-arrangement.json` · building-homed placement, mint-on-ambiguity, glass retires only minted-and-empty · account-at-arm label-not-knob · chain order B23 → B22 → B26 → B25 → B24 → B27 → G3, strictly serial on master. Nothing above delegation touched. Next: **Felix — bless the batch, file the rest of the tweaks, fire the Dispatcher.**
 
-Baton — Felix: bless batch 6 (three pre-chewed rulings yours to strike — B24 §2 desk-file
-persistence, B25 §1 building-homed placement, B27 §4 label-not-knob), then fire:
+Baton — Felix: bless batch 6 (three pre-chewed rulings yours to strike — B24 §2 desk-file persistence, B25 §1 building-homed placement, B27 §4 label-not-knob), then fire:
 
 ```
 You are a Dispatcher at sonnet-medium.
@@ -1807,36 +277,14 @@ the next on LANDED, stop after B27: G3 fires by the armed close flow
 report come back to Felix.
 ```
 
-Behind it: 1) your further tweaks → ISSUES or the desk's →ISSUES route, any time before
-B27 fires (two reports the summons counted are not on file — if they exist, file them);
-2) the canon-side sweep — four inbox entries and the stranded `18g` branch wait on the
-Grand Architect; 3) the trust-entry drain and the PermissionRequest ritual ride G3's
-gate with the rework pass.
+Behind it: 1) your further tweaks → ISSUES or the desk's →ISSUES route, any time before B27 fires (two reports the summons counted are not on file — if they exist, file them);
+2) the canon-side sweep — four inbox entries and the stranded `18g` branch wait on the Grand Architect; 3) the trust-entry drain and the PermissionRequest ritual ride G3's gate with the rework pass.
 
-Third act, same sitting (his rulings + two field reports): rulings settled — desk-file
-persistence ✓ Felix · building-homed placement ✓ Felix · the account-at-arm deferral
-STRUCK by Felix ("I need to be able to choose accounts") — B27 §4 rewritten as the knob
-(compose + arm, per-(step,account) precheck rides P5 F5's own trust.ts). The stale-board
-report diagnosed to the paint: the live `/deck/state?b=` payload carries B22–B27 (curled
-at this sitting, 12–33 mentions each) while his refreshed Workshop board pane never drew
-them — FOLDED into B23 as its fourth face, with the hard-reload anomaly named. The
-usage-chip report FOLDED into B27 §4: the data carries three windows (`sess` 5 h ·
-`week` 7 d · `fable` 7 d scoped, usage.ts), the chip renders one unlabeled — all three
-labeled is now DoD. Naming sprawl (deck/glass/rail/…) noted for a naming sitting at his
-word; a deck-side glossary rides B27's legend sweep if he wants it.
+Third act, same sitting (his rulings + two field reports): rulings settled — desk-file persistence ✓ Felix · building-homed placement ✓ Felix · the account-at-arm deferral STRUCK by Felix ("I need to be able to choose accounts") — B27 §4 rewritten as the knob (compose + arm, per-(step,account) precheck rides P5 F5's own trust.ts). The stale-board report diagnosed to the paint: the live `/deck/state?b=` payload carries B22–B27 (curled at this sitting, 12–33 mentions each) while his refreshed Workshop board pane never drew them — FOLDED into B23 as its fourth face, with the hard-reload anomaly named. The usage-chip report FOLDED into B27 §4: the data carries three windows (`sess` 5 h · `week` 7 d · `fable` 7 d scoped, usage.ts), the chip renders one unlabeled — all three labeled is now DoD. Naming sprawl (deck/glass/rail/…) noted for a naming sitting at his word; a deck-side glossary rides B27's legend sweep if he wants it.
 
-Fourth act, same sitting: **batch 6 BLESSED ✓ Felix 2026-08-28** (all three rulings
-settled; the note carries the mark). His mentat diagnostic returned: identity NOT
-stale — workspace joined, session honest ("NAGGING" is the deck reading the idle nag
-right where cmux's badge reads it wrong). The gap is the **agent surface's title**
-(where "mentat-00" lives, B18 F3) which the deck never reads, plus hovers printing
-bare `workspace:N` refs where titles exist — RULED: face (a) rejected, nothing to
-build (the deck is already honest, P1 cited); face (b) folded into B27 §7 with B18
-F4's poll budget as its STOP-clause. Inbox drained (entry committed at f637734).
-Next: **the Dispatcher — run batch 6.**
+Fourth act, same sitting: **batch 6 BLESSED ✓ Felix 2026-08-28** (all three rulings settled; the note carries the mark). His mentat diagnostic returned: identity NOT stale — workspace joined, session honest ("NAGGING" is the deck reading the idle nag right where cmux's badge reads it wrong). The gap is the **agent surface's title** (where "mentat-00" lives, B18 F3) which the deck never reads, plus hovers printing bare `workspace:N` refs where titles exist — RULED: face (a) rejected, nothing to build (the deck is already honest, P1 cited); face (b) folded into B27 §7 with B18 F4's poll budget as its STOP-clause. Inbox drained (entry committed at f637734). Next: **the Dispatcher — run batch 6.**
 
-Baton — Felix: fire the Dispatcher (batch 6 is blessed; the fence below, also in the
-batch note and at your `/summon`):
+Baton — Felix: fire the Dispatcher (batch 6 is blessed; the fence below, also in the batch note and at your `/summon`):
 
 ```
 You are a Dispatcher at sonnet-medium.
@@ -1852,447 +300,97 @@ report come back to Felix.
 ```
 
 Behind it: 1) your further tweaks → ISSUES or the desk, any time before B27 fires;
-2) the canon-side sweep waits on the Grand Architect; 3) the trust drain + the
-PermissionRequest ritual + the rework pass ride G3; 4) until B23 lands, the wire is
-the truth and the board pane may lie — curl `/deck/state?b=` when in doubt.
+2) the canon-side sweep waits on the Grand Architect; 3) the trust drain + the PermissionRequest ritual + the rework pass ride G3; 4) until B23 lands, the wire is the truth and the board pane may lie — curl `/deck/state?b=` when in doubt.
 
-Fifth act, same sitting (his cmux badge report — a substrate question): diagnosed at
-the source, cited. cmux's Claude wrapper maps EVERY `Notification` hook to a
-`needsInput` latch (`~/.cmuxterm/claude-hook-sessions.json`, cmux's own agent-hooks
-docs) — both `permission_prompt` and the 60 s `idle_prompt` nag land identically, and
-the latch clears only on a LATER hook event, which an idle or dead session never
-fires. Measured live: **21 sessions latched needsInput, 17 of them dead pids.** This
-is P1's own finding from the other side (`Notification` is the nag; `Stop` is the
-edge) — cmux made the opposite call. RULED: (1) the unstick is Felix's — a cmux
-quit+relaunch at a clean window (restored terminals sit idle per cmux's restore doc;
-P4: cost is in-flight turns only); the state file is NOT hand-edited (lock protocol,
-live rewrite). (2) The durable fix is upstream — feedback drafted verbatim at
-`desk/cmux-feedback-draft.md`, his send. (3) Substrate verdict HELD: since batch 5
-cmux is load-bearing past D4's adapter seam (B18 identity, P6 transport, B25
-placement, D8 deployment) — an exit is a chapter, not a config change; if upstream
-stonewalls, a P7 attention-physics probe (P4-class, exclusive) is the next cut's
-candidate, named here so parked is tracked. Meanwhile the deck's queue is the badge
-to trust — it reads the true edge by construction (B14).
+Fifth act, same sitting (his cmux badge report — a substrate question): diagnosed at the source, cited. cmux's Claude wrapper maps EVERY `Notification` hook to a `needsInput` latch (`~/.cmuxterm/claude-hook-sessions.json`, cmux's own agent-hooks docs) — both `permission_prompt` and the 60 s `idle_prompt` nag land identically, and the latch clears only on a LATER hook event, which an idle or dead session never fires. Measured live: **21 sessions latched needsInput, 17 of them dead pids.** This is P1's own finding from the other side (`Notification` is the nag; `Stop` is the edge) — cmux made the opposite call. RULED: (1) the unstick is Felix's — a cmux quit+relaunch at a clean window (restored terminals sit idle per cmux's restore doc; P4: cost is in-flight turns only); the state file is NOT hand-edited (lock protocol, live rewrite). (2) The durable fix is upstream — feedback drafted verbatim at `desk/cmux-feedback-draft.md`, his send. (3) Substrate verdict HELD: since batch 5 cmux is load-bearing past D4's adapter seam (B18 identity, P6 transport, B25 placement, D8 deployment) — an exit is a chapter, not a config change; if upstream stonewalls, a P7 attention-physics probe (P4-class, exclusive) is the next cut's candidate, named here so parked is tracked. Meanwhile the deck's queue is the badge to trust — it reads the true edge by construction (B14).
 
 ---
 
-**2026-08-29 · Architect · opus-high** — canon C25 — Belvedere's docs speak the standard.
-The canon's respell sweep reached this campaign: `doctrine migrate --write` took the two
-`Felix-gate` cells on the G2/G3 charges to `⬡-gate`; `plans/RIDER.md` → **`plans/CODA.md`**
-(`git mv`, lineage held) and re-headed as the coda, with every live pointer in README
-retargeted; README §§1–5 and §8 respelled — the deck (not the glass), charges (not rows),
-sessions (not sittings), blessings (not countersigns), `Done when:` (not Definition of
-done), keystone set (not CLOSED), the cornerstone (not the keel); §6's batch notes took
-the mechanical set (`dispatch-tended`, `the coda applies`, `⬡-gate`, `one charge in
-flight`); ISSUES's header respelled; the six OPEN charge docs B22–B27 took `Done when:`,
-`session`, `the tender`, and D71's baton shape names (`single / batch / fork`). Lint stays
-**0**. Decided: (Architect scope) **batch 6's Dispatcher summons is struck, dated, and
-replaced** — the mantle is dead (D71) and the flow engine (canon charge 20) is unbuilt, so
-by doctrine §10's interim truth this batch's tender is Felix or an Architect session he
-summons; the instrument itself is unchanged but for the mantle it names. Closed batches'
-fenced summonses stay verbatim: they record what was actually dispatched, and a paraphrase
-is a defect. Next: unchanged — **B23** is still the head of batch 6, its kickoff verbatim
-in [plans/b23-repaint-law.md](plans/b23-repaint-law.md), and the tender is Felix's to
-appoint.
+**2026-08-29 · Architect · opus-high** — canon C25 — Belvedere's docs speak the standard. The canon's respell sweep reached this campaign: `doctrine migrate --write` took the two `Felix-gate` cells on the G2/G3 charges to `⬡-gate`; `plans/RIDER.md` → **`plans/CODA.md`** (`git mv`, lineage held) and re-headed as the coda, with every live pointer in README retargeted; README §§1–5 and §8 respelled — the deck (not the glass), charges (not rows), sessions (not sittings), blessings (not countersigns), `Done when:` (not Definition of done), keystone set (not CLOSED), the cornerstone (not the keel); §6's batch notes took the mechanical set (`dispatch-tended`, `the coda applies`, `⬡-gate`, `one charge in flight`); ISSUES's header respelled; the six OPEN charge docs B22–B27 took `Done when:`, `session`, `the tender`, and D71's baton shape names (`single / batch / fork`). Lint stays **0**. Decided: (Architect scope) **batch 6's Dispatcher summons is struck, dated, and replaced** — the mantle is dead (D71) and the flow engine (canon charge 20) is unbuilt, so by doctrine §10's interim truth this batch's tender is Felix or an Architect session he summons; the instrument itself is unchanged but for the mantle it names. Closed batches' fenced summonses stay verbatim: they record what was actually dispatched, and a paraphrase is a defect. Next: unchanged — **B23** is still the head of batch 6, its kickoff verbatim in [plans/b23-repaint-law.md](plans/b23-repaint-law.md), and the tender is Felix's to appoint.
 
 ---
 
-**2026-08-29 · Builder · opus-high (C2)** — the vocabulary molt landed: the deck speaks the
-standard. The C24 F3 field molt swept both buildings (`BoardRow.felixGate` → `hexGate`,
-`Decision.ratified` → `blessed`, doctrine plus every glass call site and the round-trip law's
-declared-changes strings). Grammar intake gained a test each: `decode.ts` detects `C‹n›` ids and
-`charge N` / `charge C5` (uppercase id only — `charge c5` is prose, deliberately), and
-`standard.test.ts` proves a `⬡-gate` charge and an `ignite` baton render **byte-identical** to
-what `Felix-gate` and `fire` rendered, against a fixture pair one substitution apart by
-construction; the ⬡✓ veto is guarded by a source grep — no file in `glass/` contains the mark.
-The render vocabulary: ⬡-gate · the ⬡-queue (pane name, both buttons, the bar's `⬡`) ·
-`pending blessing` and the `bless D21` button, whose appended line molts while `recordedIn`
-reads **both** heads forever · charge for row · `D71: single · batch · fork` (the reader still
-matches the corpus's `wave`) · ignite for fire in dispatch copy · the deck for the glass. Wire
-kinds, CSS classes, run-log tokens and `/hands/fire` stand. `bun test` **669 pass / 0 fail in one
-process** — C1's named colors red cleared with C25's retired preset; doctrine 71/71; lint 0.
-Decided: **the wire is ours at both ends, so a string a human reads molts and a string two
-machines agree on does not** — the one deliberate seam (wire kind `countersign`, written line
-`bless`) is commented where it sits. Next: **⬡ → Felix hands E1 to this board's Architect**: `bunx tsc --noEmit` was
-**exit 1 at HEAD before this charge**, red since canon C26 widened `doctrine/`'s `Building.files`
-and `Fail` without re-running the gate the deck owns; C2 repaired the eight errors in its own
-commit `9d0ee05` and relayed the general fact, that a doctrine shape change lands in one building
-while its breakage sits in another with nothing watching.
+**2026-08-29 · Builder · opus-high (C2)** — the vocabulary molt landed: the deck speaks the standard. The C24 F3 field molt swept both buildings (`BoardRow.felixGate` → `hexGate`, `Decision.ratified` → `blessed`, doctrine plus every glass call site and the round-trip law's declared-changes strings). Grammar intake gained a test each: `decode.ts` detects `C‹n›` ids and `charge N` / `charge C5` (uppercase id only — `charge c5` is prose, deliberately), and `standard.test.ts` proves a `⬡-gate` charge and an `ignite` baton render **byte-identical** to what `Felix-gate` and `fire` rendered, against a fixture pair one substitution apart by construction; the ⬡✓ veto is guarded by a source grep — no file in `glass/` contains the mark. The render vocabulary: ⬡-gate · the ⬡-queue (pane name, both buttons, the bar's `⬡`) · `pending blessing` and the `bless D21` button, whose appended line molts while `recordedIn` reads **both** heads forever · charge for row · `D71: single · batch · fork` (the reader still matches the corpus's `wave`) · ignite for fire in dispatch copy · the deck for the glass. Wire kinds, CSS classes, run-log tokens and `/hands/fire` stand. `bun test` **669 pass / 0 fail in one process** — C1's named colors red cleared with C25's retired preset; doctrine 71/71; lint 0. Decided: **the wire is ours at both ends, so a string a human reads molts and a string two machines agree on does not** — the one deliberate seam (wire kind `countersign`, written line `bless`) is commented where it sits. Next: **⬡ → Felix hands E1 to this board's Architect**: `bunx tsc --noEmit` was **exit 1 at HEAD before this charge**, red since canon C26 widened `doctrine/`'s `Building.files` and `Fail` without re-running the gate the deck owns; C2 repaired the eight errors in its own commit `9d0ee05` and relayed the general fact, that a doctrine shape change lands in one building while its breakage sits in another with nothing watching.
 
 ---
 
-**2026-08-29 · Architect · fable-high** — canon C27 tended at home — batch 7 laid, run, and
-CLOSED: the deck speaks the standard. Laid C1 (the fence repoint — the 08-28 inbox
-entry ruled: G2's kickoff ordinal 5 → 7, verified against the README's 7 fences) ·
-C2 (the vocabulary molt — canon C27's commission) · C3 (batch amendment — C2's own
-field report, the grep clock race). All three LANDED, zero kills; every gate re-run
-at this session's own hand: **669 tests green in one process** (651 → 669, both
-named reds cleared — the fence drift and the dead Dispatcher's pink), offline type
-gate exit 0, doctrine 71/0, `doctrine lint ~/code/agents` 0 failures, 79 rows fully
-typed. Inbox swept twice to empty (×4 at the lay: one distilled into the parked
-list, one laid as C1, two consumed as intake; ×2 at the close: the flake laid as
-C3, the MANTLES ask escalated). Decided: (Architect scope) **the C‹n› namespace is
-declared** — this board numbers charges C‹n› from batch 7, P/B/G grandfathered
-(D18); **C1's ordinal ruling** (the flow hash covers resolved kickoffs — the repoint
-was this board's to authorize); **C2's F1 accepted as this building's law** (a
-string a human reads molts; a string two machines agree on does not); **the grep
-fix is the test's, never `grep.ts`'s**. Escalated to canon, riding canon C27's
-findings: the type gate red-since-C26 blindness (a doctrine shape change lands in
-one building, its breakage sits in another, nothing watches) and parseable ≠
-offerable (`MANTLES` still offers the dead Dispatcher in the composer) — plus a
-third found by this very entry: `classifyBaton` knows the Felix-holder only by the
-literal word "Felix", so a baton addressed `⬡` alone — the standard's own benchmark
-sentence — lints as dropped (a C24 gap; this entry writes both marks until it
-lands). Batch 6 untouched — B23 still its head, the tender still Felix's. Next:
-**⬡ → the visual pass** — the live deck predates the molt; relaunch, look, and the
-pass lands as the annotation on canon C27's Status.
+**2026-08-29 · Architect · fable-high** — canon C27 tended at home — batch 7 laid, run, and CLOSED: the deck speaks the standard. Laid C1 (the fence repoint — the 08-28 inbox entry ruled: G2's kickoff ordinal 5 → 7, verified against the README's 7 fences) · C2 (the vocabulary molt — canon C27's commission) · C3 (batch amendment — C2's own field report, the grep clock race). All three LANDED, zero kills; every gate re-run at this session's own hand: **669 tests green in one process** (651 → 669, both named reds cleared — the fence drift and the dead Dispatcher's pink), offline type gate exit 0, doctrine 71/0, `doctrine lint ~/code/agents` 0 failures, 79 rows fully typed. Inbox swept twice to empty (×4 at the lay: one distilled into the parked list, one laid as C1, two consumed as intake; ×2 at the close: the flake laid as C3, the MANTLES ask escalated). Decided: (Architect scope) **the C‹n› namespace is declared** — this board numbers charges C‹n› from batch 7, P/B/G grandfathered (D18); **C1's ordinal ruling** (the flow hash covers resolved kickoffs — the repoint was this board's to authorize); **C2's F1 accepted as this building's law** (a string a human reads molts; a string two machines agree on does not); **the grep fix is the test's, never `grep.ts`'s**. Escalated to canon, riding canon C27's findings: the type gate red-since-C26 blindness (a doctrine shape change lands in one building, its breakage sits in another, nothing watches) and parseable ≠ offerable (`MANTLES` still offers the dead Dispatcher in the composer) — plus a third found by this very entry: `classifyBaton` knows the Felix-holder only by the literal word "Felix", so a baton addressed `⬡` alone — the standard's own benchmark sentence — lints as dropped (a C24 gap; this entry writes both marks until it lands). Batch 6 untouched — B23 still its head, the tender still Felix's. Next: **⬡ → the visual pass** — the live deck predates the molt; relaunch, look, and the pass lands as the annotation on canon C27's Status.
 
-Baton — ⬡ → Felix relaunches the deck and gives the molt its visual pass (the
-⬡-queue by name, ⬡-gate pills, bless buttons, `D71: single · batch · fork`); his
-words land as the annotation on canon C27's Status line (`plans/c27-glass.md`).
+Baton — ⬡ → Felix relaunches the deck and gives the molt its visual pass (the ⬡-queue by name, ⬡-gate pills, bless buttons, `D71: single · batch · fork`); his words land as the annotation on canon C27's Status line (`plans/c27-glass.md`).
 
-Behind it: 1) appoint batch 6's tender — B23 is the head, its kickoff verbatim in
-[plans/b23-repaint-law.md](plans/b23-repaint-law.md); 2) canon C28 (your charter
-drafts) is the deploy batch's last open charge; 3) the two canon asks above wait on
-the Grand Architect, not on you.
+Behind it: 1) appoint batch 6's tender — B23 is the head, its kickoff verbatim in [plans/b23-repaint-law.md](plans/b23-repaint-law.md); 2) canon C28 (your charter drafts) is the deploy batch's last open charge; 3) the two canon asks above wait on the Grand Architect, not on you.
 
 ---
 
-**2026-08-29 · Architect · fable-high** — the flow-1 sweep: inbox ×3 ruled to empty,
-the coda gap closed at fire. **Changed:** the engine appends the building's
-`plans/CODA.md` quote block to every ignition (f0b6e67 — ignition = kickoff + the
-project coda, DOCTRINE §5; absent file fires bare, blockless CODA refuses; four new
-tests, **673/0 in one process**, tsc 0) · eight live fences enter by the door
-(479347f pattern: B22–B27, README fences 4 + 5; spent fences 1–3/6/7 stand as
-history, ordinals unmoved) · the Works speaks **bless** (a1552e5 — button, pill,
-facts row, node prose; wire `/arm`, run events and the arming switch stand by C2's
-law and GA-15's own delegation) · flow.test's agents-has-no-flows assumption
-repaired (58d956f — red at HEAD since agents-flow-1 landed) · README distilled: §3
-the ignition law, §5 engine venue semantics (kickoff.doc resolves against master,
-never the venue; a standing worktree **refuses** the cut; run log is telemetry —
-a true re-run rotates it) + the trust split-brain fact (canon charge 20 F6) · the
-flow-doctrine cut parked as next-cut candidates (budget · continues · pre-flight
-kickoff validation · post-C32 adoption · ⬡-card on trust refusal), laid as C‹n›
-charges when canon C32 lands. **Decided:** coda joins at fire, outside the flow
-hash (GA-15 item 5 + GA-18 ask 1 are the citation; the coda is fixed per project,
-never part of the blessed plan) · refuse-on-standing-venue stands over
-refresh-on-refire (the hand's deny-don't-retry shape; a silent refresh rewrites a
-venue that may carry work) · re-bless = fresh run (fired-once law): flow-1's run
-log rotated aside (`agents-flow-1.run.jsonl.stopped-2026-08-29`), all five stopped
-sessions verified gone (SessionEnd, pids dead), c29 worktree verified clean and
-divergence-free — its removal **refused by the permission guard** (the design),
-handed to Felix. Batch 6 untouched — B23 its head, the tender still Felix's.
-Next: **⬡ → the flow-1 re-bless** — the baton below carries the three gestures.
+**2026-08-29 · Architect · fable-high** — the flow-1 sweep: inbox ×3 ruled to empty, the coda gap closed at fire. **Changed:** the engine appends the building's `plans/CODA.md` quote block to every ignition (f0b6e67 — ignition = kickoff + the project coda, DOCTRINE §5; absent file fires bare, blockless CODA refuses; four new tests, **673/0 in one process**, tsc 0) · eight live fences enter by the door (479347f pattern: B22–B27, README fences 4 + 5; spent fences 1–3/6/7 stand as history, ordinals unmoved) · the Works speaks **bless** (a1552e5 — button, pill, facts row, node prose; wire `/arm`, run events and the arming switch stand by C2's law and GA-15's own delegation) · flow.test's agents-has-no-flows assumption repaired (58d956f — red at HEAD since agents-flow-1 landed) · README distilled: §3 the ignition law, §5 engine venue semantics (kickoff.doc resolves against master, never the venue; a standing worktree **refuses** the cut; run log is telemetry — a true re-run rotates it) + the trust split-brain fact (canon charge 20 F6) · the flow-doctrine cut parked as next-cut candidates (budget · continues · pre-flight kickoff validation · post-C32 adoption · ⬡-card on trust refusal), laid as C‹n› charges when canon C32 lands. **Decided:** coda joins at fire, outside the flow hash (GA-15 item 5 + GA-18 ask 1 are the citation; the coda is fixed per project, never part of the blessed plan) · refuse-on-standing-venue stands over refresh-on-refire (the hand's deny-don't-retry shape; a silent refresh rewrites a venue that may carry work) · re-bless = fresh run (fired-once law): flow-1's run log rotated aside (`agents-flow-1.run.jsonl.stopped-2026-08-29`), all five stopped sessions verified gone (SessionEnd, pids dead), c29 worktree verified clean and divergence-free — its removal **refused by the permission guard** (the design), handed to Felix. Batch 6 untouched — B23 its head, the tender still Felix's. Next: **⬡ → the flow-1 re-bless** — the baton below carries the three gestures.
 
-Baton — ⬡ → Felix re-blesses agents-flow-1, three gestures in order: (1) remove
-the stale c29 venue — `git -C ~/code/agents worktree remove
-.claude/worktrees/bv/c29-summon-harness && git -C ~/code/agents branch -d
-bv/c29-summon-harness` (clean, zero divergent commits — verified this session);
-(2) relaunch the deck — the running server predates the coda fix and the bless
-copy; (3) **Bless** agents-flow-1 in the Works — kickoffs repaired canon-side
-(479347f), run log already rotated, every ignition now carries the agents coda.
+Baton — ⬡ → Felix re-blesses agents-flow-1, three gestures in order: (1) remove the stale c29 venue — `git -C ~/code/agents worktree remove .claude/worktrees/bv/c29-summon-harness && git -C ~/code/agents branch -d bv/c29-summon-harness` (clean, zero divergent commits — verified this session); (2) relaunch the deck — the running server predates the coda fix and the bless copy; (3) **Bless** agents-flow-1 in the Works — kickoffs repaired canon-side (479347f), run log already rotated, every ignition now carries the agents coda.
 
-Behind it: 1) appoint batch 6's tender — B23 the head, its kickoff verbatim in
-[plans/b23-repaint-law.md](plans/b23-repaint-law.md), fence now door-true;
-2) the flow-doctrine C‹n› cut waits on canon C32 (parked list, README §the
-flow-doctrine cut); 3) the ⬡ visual pass on canon C27 still open.
+Behind it: 1) appoint batch 6's tender — B23 the head, its kickoff verbatim in [plans/b23-repaint-law.md](plans/b23-repaint-law.md), fence now door-true;
+2) the flow-doctrine C‹n› cut waits on canon C32 (parked list, README §the flow-doctrine cut); 3) the ⬡ visual pass on canon C27 still open.
 
 ---
 
-**2026-08-29 · Architect · fable-high** — the same session, continued: flow-1's
-second run diagnosed at ⬡'s call and **stopped at his word** (run log rotated to
-`agents-flow-1.run.jsonl.stopped-2026-08-29-2124`; unarmed is inert, verified over two
-ticks). Decided: the stop is §5's rotation, not HALT — flow-specific, the city
-untouched; findings filed, nothing patched — diagnosis was the charge. What happened: c31's ordinary close pasted fenced evidence into its own charge
-doc, the positional `{doc, fence: 1}` pointer resolved to test output, and the engine
-correctly paused all fires at 20:45:59 ("edited since the arm") — c31/c30 still landed
-by board (20:46/21:04); c29 could never land: worktree lane, row OPEN on master AND its
-branch, census sensor unreachable (pid alive, idle TUI). Three findings filed to ISSUES
-(5c25e20): the positional-fence amendment hazard, the worktree landing circle, the
-unmarked row. Sessions untouched — the engine kills nothing; the three idle panes are
-Felix's. Next: **⬡ → the sweep rules the three findings** (with the C30 vocabulary
-entry) before any third bless of flow-1 — the fence hazard re-fires on every charge
-close until ruled.
+**2026-08-29 · Architect · fable-high** — the same session, continued: flow-1's second run diagnosed at ⬡'s call and **stopped at his word** (run log rotated to `agents-flow-1.run.jsonl.stopped-2026-08-29-2124`; unarmed is inert, verified over two ticks). Decided: the stop is §5's rotation, not HALT — flow-specific, the city untouched; findings filed, nothing patched — diagnosis was the charge. What happened: c31's ordinary close pasted fenced evidence into its own charge doc, the positional `{doc, fence: 1}` pointer resolved to test output, and the engine correctly paused all fires at 20:45:59 ("edited since the arm") — c31/c30 still landed by board (20:46/21:04); c29 could never land: worktree lane, row OPEN on master AND its branch, census sensor unreachable (pid alive, idle TUI). Three findings filed to ISSUES (5c25e20): the positional-fence amendment hazard, the worktree landing circle, the unmarked row. Sessions untouched — the engine kills nothing; the three idle panes are Felix's. Next: **⬡ → the sweep rules the three findings** (with the C30 vocabulary entry) before any third bless of flow-1 — the fence hazard re-fires on every charge close until ruled.
 
-Baton — ⬡ → Felix, when ready: summon this board's Architect to sweep the four inbox
-entries and rule the flow-1 findings; a third bless before that ruling hits the same
-amendment pause at c32's close. The three idle flow-1 panes (builder-agents-05/06,
-architect-agents-08) are yours to close; c29's branch (f160ec1) awaits g1's merge
-verdict.
+Baton — ⬡ → Felix, when ready: summon this board's Architect to sweep the four inbox entries and rule the flow-1 findings; a third bless before that ruling hits the same amendment pause at c32's close. The three idle flow-1 panes (builder-agents-05/06, architect-agents-08) are yours to close; c29's branch (f160ec1) awaits g1's merge verdict.
 
 ---
 
-**2026-08-29 · Architect · fable-high** — v3 founded at his summons ("first
-principles, not repair"; laid at fable-high by his explicit tier, the founding
-ritual's fable-max noted): the cornerstone laid and **BLESSED ⬡✓ same day** —
-[v3/cornerstone.md](v3/cornerstone.md). The diagnosis: three of his four pains are
-one layer (the Chat = P6's paste physics; the flow's opacity = flow-1's blind
-sensing; stale notifications = cmux duplicating the deck's own attention organ),
-and the fourth IS the layer — the founding's cmux-for-visibility rationale is
-superseded by the deck's own organs; my_checklist re-examined at his word, the
-field-proven ancestor. The bet: headless engine venue (`claude -p`, events never
-pixels) split from a chat-first viewport (summon-to-terminal the fallback); the
-run log event-sourced truth; the fake claude proves the engine before real tokens;
-nine-capability substrate contract + nine flow invariants as the barrage's oracle
-(cornerstone §§4–6). Board: batch 6 (B22–B27) + G3 **DEFERRED** at his word — the
-inbox sweep + flow-1 findings ride with G3 into G4; ISSUES deliberately unswept
-("Skip the ISSUES"); V3 campaign row seated; C4 (headless physics, Digger ·
-opus-high) laid and ignitable — the arc C5–C10 + G4 documented, laid batch by
-batch. Lint 40/40 + 1/1 typed, C4's kickoff parses. Decided: D19, D20, D21 (all
-his, in-session). Next: ignite C4 — kickoff fenced in
-[v3/plans/c4-headless-physics.md](v3/plans/c4-headless-physics.md).
+**2026-08-29 · Architect · fable-high** — v3 founded at his summons ("first principles, not repair"; laid at fable-high by his explicit tier, the founding ritual's fable-max noted): the cornerstone laid and **BLESSED ⬡✓ same day** — [v3/cornerstone.md](v3/cornerstone.md). The diagnosis: three of his four pains are one layer (the Chat = P6's paste physics; the flow's opacity = flow-1's blind sensing; stale notifications = cmux duplicating the deck's own attention organ), and the fourth IS the layer — the founding's cmux-for-visibility rationale is superseded by the deck's own organs; my_checklist re-examined at his word, the field-proven ancestor. The bet: headless engine venue (`claude -p`, events never pixels) split from a chat-first viewport (summon-to-terminal the fallback); the run log event-sourced truth; the fake claude proves the engine before real tokens; nine-capability substrate contract + nine flow invariants as the barrage's oracle (cornerstone §§4–6). Board: batch 6 (B22–B27) + G3 **DEFERRED** at his word — the inbox sweep + flow-1 findings ride with G3 into G4; ISSUES deliberately unswept ("Skip the ISSUES"); V3 campaign row seated; C4 (headless physics, Digger · opus-high) laid and ignitable — the arc C5–C10 + G4 documented, laid batch by batch. Lint 40/40 + 1/1 typed, C4's kickoff parses. Decided: D19, D20, D21 (all his, in-session). Next: ignite C4 — kickoff fenced in [v3/plans/c4-headless-physics.md](v3/plans/c4-headless-physics.md).
 
-Baton — ⬡ → Ignite C4 (deck `/summon` or by hand; the kickoff rides its charge
-doc, the building coda appends at ignition).
+Baton — ⬡ → Ignite C4 (deck `/summon` or by hand; the kickoff rides its charge doc, the building coda appends at ignition).
 
-**2026-08-29 · Digger (opus-high) · C4 headless physics — LANDED.** Changed:
-`v3/lab/c4/` (the clean-room launcher `lib.ts`, nine probe scripts, 43 capture
-dirs, **`grammar.md`** — the deliverable C5 speaks and C6 trusts), C4's Findings
-(F0–F12 + the nine-capability scorecard), the v3 board row, two ISSUES entries.
-**Both kill criteria fired NO.** K1: the adversarial payload (blank lines, tabs,
-backticks, `$VAR`, `/not-a-slash-command`, unicode) survived **24/24 turns
-byte-exact** — 2 arms × 3 accounts × 4 turns; P6's send wall does not exist
-headless. K2: hooks fire in print mode, **8 of ten reaching the census**,
-venue-blind, joined on `session_id` (`Notification` and `PreCompact` structurally
-absent, not broken). Nine capabilities: **all met**, with one gap named —
-needs-⬡(*question*) is byte-identical to idle at the event level and must be made
-structural (`--json-schema`, measured working). The dangerous finding: **headless
-never stalls on permission, it auto-denies and reports `exit 0` / `success` /
-`is_error:false` with zero work done** — the truth signal is
-`result.permission_denials[]`. Also: the engine may choose the session id
-(`--session-id`, 10/10 under concurrency) and needs persist nothing else; a
-SIGKILLed parent's orphan **finishes and writes a complete transcript** (the
-stream dies with its reader, the transcript on disk does not); summon-to-terminal
-round-trips losslessly but is **gated on venue trust** (`-p` skips the trust
-dialog, a TUI resume does not — precheck at ignite or D20's fallback is missing
-when wanted); 10 simultaneous subjects cost the wall time of one, census 10/10.
-Instrument law worth keeping: `claude` on `PATH` inside a cmux pane is a **cmux
-shim** and ~40 vars leak — every subject spawned from an eight-variable clean
-environment against the real binary, or v3 measures the layer it is retiring.
-Decided: nothing new — no letters minted. Spend: **~65 subject turns of the ≤100
-ceiling**, $1.69 (**~3¢/turn**, ~50× the charge's "the bill is cents" — recorded
-for G4's bar-5 extrapolation, not a fork; the binding ceiling held). Venue clean:
-subject cwds deleted, zero orphan processes, tmux socket `c4` gone. Next: C5 — the
-fake claude, against `v3/lab/c4/grammar.md`.
+**2026-08-29 · Digger (opus-high) · C4 headless physics — LANDED.** Changed: `v3/lab/c4/` (the clean-room launcher `lib.ts`, nine probe scripts, 43 capture dirs, **`grammar.md`** — the deliverable C5 speaks and C6 trusts), C4's Findings (F0–F12 + the nine-capability scorecard), the v3 board row, two ISSUES entries. **Both kill criteria fired NO.** K1: the adversarial payload (blank lines, tabs, backticks, `$VAR`, `/not-a-slash-command`, unicode) survived **24/24 turns byte-exact** — 2 arms × 3 accounts × 4 turns; P6's send wall does not exist headless. K2: hooks fire in print mode, **8 of ten reaching the census**, venue-blind, joined on `session_id` (`Notification` and `PreCompact` structurally absent, not broken). Nine capabilities: **all met**, with one gap named — needs-⬡(*question*) is byte-identical to idle at the event level and must be made structural (`--json-schema`, measured working). The dangerous finding: **headless never stalls on permission, it auto-denies and reports `exit 0` / `success` / `is_error:false` with zero work done** — the truth signal is `result.permission_denials[]`. Also: the engine may choose the session id (`--session-id`, 10/10 under concurrency) and needs persist nothing else; a SIGKILLed parent's orphan **finishes and writes a complete transcript** (the stream dies with its reader, the transcript on disk does not); summon-to-terminal round-trips losslessly but is **gated on venue trust** (`-p` skips the trust dialog, a TUI resume does not — precheck at ignite or D20's fallback is missing when wanted); 10 simultaneous subjects cost the wall time of one, census 10/10. Instrument law worth keeping: `claude` on `PATH` inside a cmux pane is a **cmux shim** and ~40 vars leak — every subject spawned from an eight-variable clean environment against the real binary, or v3 measures the layer it is retiring. Decided: nothing new — no letters minted. Spend: **~65 subject turns of the ≤100 ceiling**, $1.69 (**~3¢/turn**, ~50× the charge's "the bill is cents" — recorded for G4's bar-5 extrapolation, not a fork; the binding ceiling held). Venue clean: subject cwds deleted, zero orphan processes, tmux socket `c4` gone. Next: C5 — the fake claude, against `v3/lab/c4/grammar.md`.
 
-Baton — ⬡ → Felix: C4's evidence is in; **lay C5 (the fake claude)** against the
-captured grammar, or convene early on any of C4's three surprises (silent-success
-permissions, the question-sensing gap, the summon trust gate).
+Baton — ⬡ → Felix: C4's evidence is in; **lay C5 (the fake claude)** against the captured grammar, or convene early on any of C4's three surprises (silent-success permissions, the question-sensing gap, the summon trust gate).
 
 ---
 
-**2026-08-29 · Architect · fable-high** — the same session, continued: **C4's
-landing verified and merged as it stands** — kills documented with denominators
-(K1 NO 24/24 byte-exact ×3 accounts; K2 NO with the interactive control green),
-budget held (~65/100, the ~3¢/turn correction recorded for G4 bar 5), venue clean,
-board true, four commits, two legal inbox entries (deferred to G4's sweep per
-D19). Distilled: two fence laws into [v3/README.md](v3/README.md) — **clean room**
-(F0: real binary + eight-var env, never the cmux shim) and **contamination** (F12:
-subjects wear the live canon unless isolated, flags recorded). The cornerstone
-stands unamended — C4 confirmed its bet at every point it touched. **C5 laid**
-([v3/plans/c5-fake-claude.md](v3/plans/c5-fake-claude.md), Builder · opus-high,
-straight to master): the dialect pinned from grammar.md (argv surface, env-borne
-scenario selection, sandbox guard that refuses real config dirs), the scenario
-language, ≥20 scenarios named, the validator with its 43/43-captures denominator
-AND a ≥3-corrupted-captures negative control, byte-determinism, p50 ≤ 100 ms,
-budget 0 real turns. Decided: nothing — the lay rides the blessed cornerstone.
-Next: ignite C5.
+**2026-08-29 · Architect · fable-high** — the same session, continued: **C4's landing verified and merged as it stands** — kills documented with denominators (K1 NO 24/24 byte-exact ×3 accounts; K2 NO with the interactive control green), budget held (~65/100, the ~3¢/turn correction recorded for G4 bar 5), venue clean, board true, four commits, two legal inbox entries (deferred to G4's sweep per D19). Distilled: two fence laws into [v3/README.md](v3/README.md) — **clean room** (F0: real binary + eight-var env, never the cmux shim) and **contamination** (F12: subjects wear the live canon unless isolated, flags recorded). The cornerstone stands unamended — C4 confirmed its bet at every point it touched. **C5 laid** ([v3/plans/c5-fake-claude.md](v3/plans/c5-fake-claude.md), Builder · opus-high, straight to master): the dialect pinned from grammar.md (argv surface, env-borne scenario selection, sandbox guard that refuses real config dirs), the scenario language, ≥20 scenarios named, the validator with its 43/43-captures denominator AND a ≥3-corrupted-captures negative control, byte-determinism, p50 ≤ 100 ms, budget 0 real turns. Decided: nothing — the lay rides the blessed cornerstone. Next: ignite C5.
 
-Baton — ⬡ → Ignite C5 (kickoff fenced in
-[v3/plans/c5-fake-claude.md](v3/plans/c5-fake-claude.md); the coda appends at
-ignition).
+Baton — ⬡ → Ignite C5 (kickoff fenced in [v3/plans/c5-fake-claude.md](v3/plans/c5-fake-claude.md); the coda appends at ignition).
 
 ---
 
-**2026-08-29 · Builder · opus-high** — **C5 LANDED**: `v3/fake-claude/` exists and
-is the campaign's standing instrument — the stand-in binary, 23 scenarios with
-committed goldens, and the conformance oracle both C6 and C7 will import.
-Changed: [v3/fake-claude/](v3/fake-claude/) (13 modules + 7 test files + 23
-scenarios + 23 goldens + README), bars evidenced in
-[v3/plans/c5-fake-claude.md](v3/plans/c5-fake-claude.md), board row trued, two
-findings to [ISSUES.md](ISSUES.md). All seven bars measured, none asserted: 58
-tests green in one process and type gate exit 0 (the deck's pinned tsc, offline —
-`fake-claude` installs nothing); **validator 43/43 C4 captures**, with **five**
-corrupted captures red, each named; 23 goldens matching, byte-identical ×3 on
-four scenarios across both inject arms; **p50 16 ms** spawn→exit over 50 (bar
-100); the sandbox guard refuses all three real account dirs *by spawn*, emitting
-zero bytes; zero torn transcript lines after every scripted death, including an
-orphan drill that SIGKILLs a real parent mid-turn and watches the subject finish.
-**Zero real `claude` invocations — the 0-turn budget held.** Decided: nothing
-that changes the contract — two grammar contradictions were found and **filed,
-not applied** (F1 `queued_turn_count` is 0 in the merged run, so parse rule 9's
-detector never fires — both shapes ship so either detector has a target; F2
-`SessionStart` hooks leak without `--include-hook-events`), and the pinned argv
-subset's missing `--effort` (which every C4 subject carried) was **not** added —
-all three are the Architect's amendments. Next: sweep C5's findings, rule the
-grammar amendments, lay C6.
+**2026-08-29 · Builder · opus-high** — **C5 LANDED**: `v3/fake-claude/` exists and is the campaign's standing instrument — the stand-in binary, 23 scenarios with committed goldens, and the conformance oracle both C6 and C7 will import. Changed: [v3/fake-claude/](v3/fake-claude/) (13 modules + 7 test files + 23 scenarios + 23 goldens + README), bars evidenced in [v3/plans/c5-fake-claude.md](v3/plans/c5-fake-claude.md), board row trued, two findings to [ISSUES.md](ISSUES.md). All seven bars measured, none asserted: 58 tests green in one process and type gate exit 0 (the deck's pinned tsc, offline — `fake-claude` installs nothing); **validator 43/43 C4 captures**, with **five** corrupted captures red, each named; 23 goldens matching, byte-identical ×3 on four scenarios across both inject arms; **p50 16 ms** spawn→exit over 50 (bar 100); the sandbox guard refuses all three real account dirs *by spawn*, emitting zero bytes; zero torn transcript lines after every scripted death, including an orphan drill that SIGKILLs a real parent mid-turn and watches the subject finish. **Zero real `claude` invocations — the 0-turn budget held.** Decided: nothing that changes the contract — two grammar contradictions were found and **filed, not applied** (F1 `queued_turn_count` is 0 in the merged run, so parse rule 9's detector never fires — both shapes ship so either detector has a target; F2 `SessionStart` hooks leak without `--include-hook-events`), and the pinned argv subset's missing `--effort` (which every C4 subject carried) was **not** added — all three are the Architect's amendments. Next: sweep C5's findings, rule the grammar amendments, lay C6.
 
-Baton — ⬡ → Rule C5's three amendments (grammar §3/§10.9, grammar §1's hook
-gating, the argv subset's `--effort`), then lay C6 the engine core.
+Baton — ⬡ → Rule C5's three amendments (grammar §3/§10.9, grammar §1's hook gating, the argv subset's `--effort`), then lay C6 the engine core.
 
 ---
 
-**2026-08-29 · Architect · fable-high** — the same session, continued: **C5
-verified and merged** — 58 tests + type gate re-run at this desk (then 59 with
-the amendment test), validator 43/43 captures with five negative controls red,
-23 gilded scenarios, byte-identity ×3, p50 16 ms (bar 100), sandbox guard proven
-by spawn, budget 0 held. All three amendment-grade findings **verified by my own
-jq and ruled** (side-quest grant, commit `032c92f`): grammar §3/§10.9 corrected —
-merged turns detect by **arithmetic, never `queued_turn_count`** (the merged
-run's own results report 0); **`SessionStart` hook pairs leak unflagged** at
-every process start — grammar §1 amended, the fake now emits them (startup /
-resume kinds, goldens regilded); the dialect gains **`--effort` / `--tools` /
-`--replay-user-messages` as accepted-and-inert** (40/43 C4 captures carried
---effort). F4 (real-transcript fixture) and F5 (always pass `--session-id`)
-distilled into C6's doc; F6 (bun IIFE narrowing) noted there. **C6 laid**
-([v3/plans/c6-engine-core.md](v3/plans/c6-engine-core.md), Builder · opus-high,
-master): the flow shapes, the run-log-as-truth law, parse rules as amended,
-posture legality per (model, posture) at bless, lost-stream re-derivation,
-no-retry v1, budget ceiling, `invariants()` as a pure module with its own
-negative controls, ten bars incl. crash-redo at five named cut points; D12
-scope-growth deferred conservative. Decided: the three C5 rulings (cited above,
-mine under the review grant). Next: ignite C6.
+**2026-08-29 · Architect · fable-high** — the same session, continued: **C5 verified and merged** — 58 tests + type gate re-run at this desk (then 59 with the amendment test), validator 43/43 captures with five negative controls red, 23 gilded scenarios, byte-identity ×3, p50 16 ms (bar 100), sandbox guard proven by spawn, budget 0 held. All three amendment-grade findings **verified by my own jq and ruled** (side-quest grant, commit `032c92f`): grammar §3/§10.9 corrected — merged turns detect by **arithmetic, never `queued_turn_count`** (the merged run's own results report 0); **`SessionStart` hook pairs leak unflagged** at every process start — grammar §1 amended, the fake now emits them (startup / resume kinds, goldens regilded); the dialect gains **`--effort` / `--tools` / `--replay-user-messages` as accepted-and-inert** (40/43 C4 captures carried --effort). F4 (real-transcript fixture) and F5 (always pass `--session-id`) distilled into C6's doc; F6 (bun IIFE narrowing) noted there. **C6 laid** ([v3/plans/c6-engine-core.md](v3/plans/c6-engine-core.md), Builder · opus-high, master): the flow shapes, the run-log-as-truth law, parse rules as amended, posture legality per (model, posture) at bless, lost-stream re-derivation, no-retry v1, budget ceiling, `invariants()` as a pure module with its own negative controls, ten bars incl. crash-redo at five named cut points; D12 scope-growth deferred conservative. Decided: the three C5 rulings (cited above, mine under the review grant). Next: ignite C6.
 
-Baton — ⬡ → Ignite C6 (kickoff fenced in
-[v3/plans/c6-engine-core.md](v3/plans/c6-engine-core.md); the coda appends at
-ignition).
+Baton — ⬡ → Ignite C6 (kickoff fenced in [v3/plans/c6-engine-core.md](v3/plans/c6-engine-core.md); the coda appends at ignition).
 
 ---
 
-**2026-08-30 · Builder · opus-medium** — **C12 landed**: the transcript mirror,
-the backstop for a mortal corpus (v3 C11 F1). Changed:
-`belvedere/archive/mirror.ts` (discovery over `~/.claude*/projects`, byte-true
-incremental copy, derived index), `belvedere/archive/com.felix.belvedere-archive.plist`
-(hourly tick, stamped run log), the glass type gate widened to reach
-`../archive/*.ts`. Measured: **1608 transcripts / 1.67 GB in 2.5 s cold**,
-1.1–2.2 s warm; archived == source ×4 accounts; **36/36 hashes byte-identical**;
-incremental proven on a fixture (20 → 0 → 1 on a touch → 0); append-only proven
-twice (3 sources deleted → `found 17 · indexed 20`, and the drill's own deleted
-transcript survives). **The restore drill passed with its control**: with the
-live transcript deleted the resume REFUSED (`No conversation found with session
-ID`), and after restoring the archived bytes it recalled `BELVEDERE-LAZARUS-C12`
-— so the archive, not luck, did the work. Cross-account grep 51 ms over 1.7 GB.
-**Budget 2 of ≤5 subject turns, $0.1295.** Type gate exit 0. Decided: nothing —
-every choice sat inside the fence; the two that could have looked like scope
-(mirroring subagent transcripts, F2; widening the type gate's `include`) are
-argued at the findings. Filed to [ISSUES](ISSUES.md): archive exposure inside
-`~/code` (F4, unruled), `bun test belvedere/glass` **670 pass / 3 fail at HEAD**
-and not C12's (F6), the archive search trap (F1). Next: Felix installs the
-schedule.
+**2026-08-30 · Builder · opus-medium** — **C12 landed**: the transcript mirror, the backstop for a mortal corpus (v3 C11 F1). Changed: `belvedere/archive/mirror.ts` (discovery over `~/.claude*/projects`, byte-true incremental copy, derived index), `belvedere/archive/com.felix.belvedere-archive.plist` (hourly tick, stamped run log), the glass type gate widened to reach `../archive/*.ts`. Measured: **1608 transcripts / 1.67 GB in 2.5 s cold**, 1.1–2.2 s warm; archived == source ×4 accounts; **36/36 hashes byte-identical**; incremental proven on a fixture (20 → 0 → 1 on a touch → 0); append-only proven twice (3 sources deleted → `found 17 · indexed 20`, and the drill's own deleted transcript survives). **The restore drill passed with its control**: with the live transcript deleted the resume REFUSED (`No conversation found with session ID`), and after restoring the archived bytes it recalled `BELVEDERE-LAZARUS-C12` — so the archive, not luck, did the work. Cross-account grep 51 ms over 1.7 GB. **Budget 2 of ≤5 subject turns, $0.1295.** Type gate exit 0. Decided: nothing — every choice sat inside the fence; the two that could have looked like scope (mirroring subagent transcripts, F2; widening the type gate's `include`) are argued at the findings. Filed to [ISSUES](ISSUES.md): archive exposure inside `~/code` (F4, unruled), `bun test belvedere/glass` **670 pass / 3 fail at HEAD** and not C12's (F6), the archive search trap (F1). Next: Felix installs the schedule.
 
-Baton — ⬡ → Felix installs the launchd tick by his own hand (an agent may not
-write a live `LaunchAgents` dir; `launchctl bootstrap` was classifier-refused,
-correctly). The three commands are listed verbatim at
-[C12](plans/c12-transcript-mirror.md) §Done when 6. Until then the mirror runs
-only when someone runs it.
+Baton — ⬡ → Felix installs the launchd tick by his own hand (an agent may not write a live `LaunchAgents` dir; `launchctl bootstrap` was classifier-refused, correctly). The three commands are listed verbatim at [C12](plans/c12-transcript-mirror.md) §Done when 6. Until then the mirror runs only when someone runs it.
 
 ---
 
-**2026-08-30 · Digger · opus-high** — **C8 landed: real-session physics, the
-campaign's first real spend.** Changed: `belvedere/v3/engine/{engine,flow}.ts` +
-`test/laws.test.ts` (`2fe9d1f`, the granted repair), `belvedere/v3/lab/c8/**`
-(the layer-1 lab: accounts + C4 F8's trust read, the budget meter, ten probes),
-findings under [C8](v3/plans/c8-real-session-physics.md). **Budget: 63 of ≤200
-subject turns, $3.4376 of ≤$15** — no ⬡-fork.
+**2026-08-30 · Digger · opus-high** — **C8 landed: real-session physics, the campaign's first real spend.** Changed: `belvedere/v3/engine/{engine,flow}.ts` + `test/laws.test.ts` (`2fe9d1f`, the granted repair), `belvedere/v3/lab/c8/**` (the layer-1 lab: accounts + C4 F8's trust read, the budget meter, ten probes), findings under [C8](v3/plans/c8-real-session-physics.md). **Budget: 63 of ≤200 subject turns, $3.4376 of ≤$15** — no ⬡-fork.
 
-**K1 FIRED, on one line and not the one the bet rests on.** Stream sensing holds
-×3 accounts — every parse rule, 54/54 turns. The **transcript fallback** does
-not: the engine declares `--json-schema` on every step, the step report arrives
-as a `StructuredOutput` **tool call**, and its `tool_result` is then the turn's
-last conversation row — so `transcript.ts`'s completion rule reads **48/48
-landed turns as `dead`** (26/26 personal, 11/11 fgreen, 11/11 doorbell), with
-the two C4-born fixtures green under the same reader the same day. It fails
-**conservative** (pauses ‹dead›, never lands wrongly; invariants stayed 9/9
-through every cut class), so nothing is lost or double-billed — but cornerstone
-law 5's "a turn the engine died in front of can be seen to have worked" is false
-on real bytes, and **the fake is unfaithful in exactly the place that rule
-lives**, which is why the barrage could never have caught it. Line stopped per
-K1; the fix is a new charge.
+**K1 FIRED, on one line and not the one the bet rests on.** Stream sensing holds ×3 accounts — every parse rule, 54/54 turns. The **transcript fallback** does not: the engine declares `--json-schema` on every step, the step report arrives as a `StructuredOutput` **tool call**, and its `tool_result` is then the turn's last conversation row — so `transcript.ts`'s completion rule reads **48/48 landed turns as `dead`** (26/26 personal, 11/11 fgreen, 11/11 doorbell), with the two C4-born fixtures green under the same reader the same day. It fails **conservative** (pauses ‹dead›, never lands wrongly; invariants stayed 9/9 through every cut class), so nothing is lost or double-billed — but cornerstone law 5's "a turn the engine died in front of can be seen to have worked" is false on real bytes, and **the fake is unfaithful in exactly the place that rule lives**, which is why the barrage could never have caught it. Line stopped per K1; the fix is a new charge.
 
-Landed besides: **bar 4's matrix ×3 accounts with C4 as the control column**, 8
-of the census's ten present (`Notification`/`PreCompact` structurally absent —
-C4 F4 confirmed, not corrected); **9 real-flow runs (3 topologies × 3 accounts)
-at 9/9 invariants, zero reds**, work verified on disk; **three kill classes ≥3
-runs each, every restart converged, zero double-ignitions** — including the
-orphan that finished writing a complete turn to a stream whose reader was
-already dead and was adopted and landed (C6 F2's ruled fix, provable only at
-layer 1); the **summon round trip lossless both ways**, one session id, and
-C11's cursor recording 35 rows where a turn-counting reader would have read 18
-and swallowed the hand turn.
+Landed besides: **bar 4's matrix ×3 accounts with C4 as the control column**, 8 of the census's ten present (`Notification`/`PreCompact` structurally absent — C4 F4 confirmed, not corrected); **9 real-flow runs (3 topologies × 3 accounts) at 9/9 invariants, zero reds**, work verified on disk; **three kill classes ≥3 runs each, every restart converged, zero double-ignitions** — including the orphan that finished writing a complete turn to a stream whose reader was already dead and was adopted and landed (C6 F2's ruled fix, provable only at layer 1); the **summon round trip lossless both ways**, one session id, and C11's cursor recording 35 rows where a turn-counting reader would have read 18 and swallowed the hand turn.
 
-Decided: two engine defects fixed under the charge's grant, both blocking every
-question — `venueFor` hardcoded the config dir (so no real subject could reach
-an authenticated account) and `fire()` sent `<flow>/<step>` as the prompt (an
-address, not an instruction). One commit, not two: they are one repair in one
-file, and splitting would need the partial staging Felix's git rule forbids.
-Full barrage green as regression (1000/1000 · 50/50 · 9/9, exit 0). **Both want
-ratification at review.** Also recorded for the deck: `auto` is **not** a
-restrictive posture headless — a real step under it was granted an
-out-of-workspace write, arbitrary Bash **and** a WebFetch to the public
-internet, and did all three; the ‹needs-⬡ permission› pause cannot be induced at
-the charge's own default posture (`acceptEdits` is what refuses). And a cost
-correction for G4: **~6.4¢/sonnet·low turn, ~2× C4 F11's blended 3.3¢** — at
-that mean 200 turns is $12.74, so **the dollar ceiling binds before the turn
-ceiling** and a future real-session budget line should lead with dollars.
+Decided: two engine defects fixed under the charge's grant, both blocking every question — `venueFor` hardcoded the config dir (so no real subject could reach an authenticated account) and `fire()` sent `<flow>/<step>` as the prompt (an address, not an instruction). One commit, not two: they are one repair in one file, and splitting would need the partial staging Felix's git rule forbids. Full barrage green as regression (1000/1000 · 50/50 · 9/9, exit 0). **Both want ratification at review.** Also recorded for the deck: `auto` is **not** a restrictive posture headless — a real step under it was granted an out-of-workspace write, arbitrary Bash **and** a WebFetch to the public internet, and did all three; the ‹needs-⬡ permission› pause cannot be induced at the charge's own default posture (`acceptEdits` is what refuses). And a cost correction for G4: **~6.4¢/sonnet·low turn, ~2× C4 F11's blended 3.3¢** — at that mean 200 turns is $12.74, so **the dollar ceiling binds before the turn ceiling** and a future real-session budget line should lead with dollars.
 
-Baton — ⬡ → the Architect at C8's review: **true the board row** (it still reads
-IN FLIGHT, as at C6/C7/C11 — the tender's, by precedent), **ratify or revert the
-two granted engine repairs** (`2fe9d1f`, F1), and **rule F3** — the transcript
-fallback's completion signal is falsified on real bytes and wants its own
-charge; it also took C11's cursor regression signal with it (F7's caveat), so
-the two are one ruling.
-Next: the batch-6 tender rules F1 and F3 at the C8 review — done same day:
-F1 RATIFIED, F3 → C13 (ignite C13 — kickoff in
-[v3/plans/c13-report-on-disk.md](v3/plans/c13-report-on-disk.md)); the full
-record rides the root ledger's entry of this date.
+Baton — ⬡ → the Architect at C8's review: **true the board row** (it still reads IN FLIGHT, as at C6/C7/C11 — the tender's, by precedent), **ratify or revert the two granted engine repairs** (`2fe9d1f`, F1), and **rule F3** — the transcript fallback's completion signal is falsified on real bytes and wants its own charge; it also took C11's cursor regression signal with it (F7's caveat), so the two are one ruling. Next: the batch-6 tender rules F1 and F3 at the C8 review — done same day: F1 RATIFIED, F3 → C13 (ignite C13 — kickoff in [v3/plans/c13-report-on-disk.md](v3/plans/c13-report-on-disk.md)); the full record rides the root ledger's entry of this date.
 
 ---
 
-**2026-08-30 · Builder · opus-high** — **C13 landed: the report on disk, and
-C8's K1 trued.** Changed: `belvedere/v3/engine/transcript.ts` (the completion
-rule reads the closing `StructuredOutput` pair, matched by `toolUseId`, and the
-call's input is the step report — so `verdictFromTranscript` can now **land**),
-`engine/README.md` (law 5), `engine/test/{transcript,cursor,laws,crash}.test.ts`
-+ two new real fixtures cut from C12's archive, `fake-claude/run.ts` (the fake
-writes the pair) with three `schema-*` goldens re-recorded, `barrage/oracle.ts`
-(invariant 8 asks the transcript the landing question too), findings under
-[C13](v3/plans/c13-report-on-disk.md). **Budget 0 real turns — every byte came
-from C12's archive.**
+**2026-08-30 · Builder · opus-high** — **C13 landed: the report on disk, and C8's K1 trued.** Changed: `belvedere/v3/engine/transcript.ts` (the completion rule reads the closing `StructuredOutput` pair, matched by `toolUseId`, and the call's input is the step report — so `verdictFromTranscript` can now **land**), `engine/README.md` (law 5), `engine/test/{transcript,cursor,laws,crash}.test.ts`
++ two new real fixtures cut from C12's archive, `fake-claude/run.ts` (the fake writes the pair) with three `schema-*` goldens re-recorded, `barrage/oracle.ts` (invariant 8 asks the transcript the landing question too), findings under [C13](v3/plans/c13-report-on-disk.md). **Budget 0 real turns — every byte came from C12's archive.**
 
-Measured: C8's own q4e re-run at its own denominator — **the 50 landed turns the
-archive still holds read `dead` under the parent reader and `worked` + a landing
-under this one, 50/50 across three accounts**. The K1 red was committed red
-first (`2edb3f0`, before `23e2be6`). The kill criterion did not fire: **55/55**
-archived C8 transcripts close on their report call, matched by id, 0 unmatched.
-**Law 5 proven end to end for the first time** — the engine SIGKILLed mid-turn,
-the subject's stream file then *deleted outright*, and the restart landed the
-step from the transcript alone, invariants `[]`, verdicts ≡ the uncrashed
-baseline. The cursor's regression signal is back and **seen red on a planted
-stale cursor** (both cursor bars, on the outcome), with the masking itself
-measured rather than asserted. Gates: engine 61 · barrage 38 · fake 59 green,
-three type gates exit 0, **barrage exit 0** (1000/1000 · 50/50 · 9/9, 147.6 s).
+Measured: C8's own q4e re-run at its own denominator — **the 50 landed turns the archive still holds read `dead` under the parent reader and `worked` + a landing under this one, 50/50 across three accounts**. The K1 red was committed red first (`2edb3f0`, before `23e2be6`). The kill criterion did not fire: **55/55** archived C8 transcripts close on their report call, matched by id, 0 unmatched. **Law 5 proven end to end for the first time** — the engine SIGKILLed mid-turn, the subject's stream file then *deleted outright*, and the restart landed the step from the transcript alone, invariants `[]`, verdicts ≡ the uncrashed baseline. The cursor's regression signal is back and **seen red on a planted stale cursor** (both cursor bars, on the outcome), with the masking itself measured rather than asserted. Gates: engine 61 · barrage 38 · fake 59 green, three type gates exit 0, **barrage exit 0** (1000/1000 · 50/50 · 9/9, 147.6 s).
 
-Decided: the spec's *"every weaker state pauses exactly as today"* read
-literally — only `done` gained a branch, so a `needs_input` report on disk still
-pauses ‹no report› and only the detail names it (F3, the Architect's to widen).
-The oracle change was not optional: once the engine can land from the
-transcript, invariant 8's stream-only `expectedLanding` would have called every
-such landing a red, so `fromDisk` now falls to the transcript exactly where the
-engine did.
+Decided: the spec's *"every weaker state pauses exactly as today"* read literally — only `done` gained a branch, so a `needs_input` report on disk still pauses ‹no report› and only the detail names it (F3, the Architect's to widen). The oracle change was not optional: once the engine can land from the transcript, invariant 8's stream-only `expectedLanding` would have called every such landing a red, so `fromDisk` now falls to the transcript exactly where the engine did.
 
-Baton — ⬡ → the Architect at C13's review: **rule F1** — the barrage reaches the
-transcript fallback **once in ~2,300 turns and never lands from it**, so the
-charge's "the barrage guards this class forever" is not yet true and the class
-rides the deterministic pair instead; a sixth cut family that kills the
-*subject* is the fix, and it is C11 F4's shape for the second time running.
-Then **rule F3** (name ‹needs-⬡ question› / ‹blocked› from disk, or keep the
-literal reading) and **F2** (the fake's *stream* is now unfaithful where its
-transcript stopped being). C9 is unblocked: the capability row G4 would have
-convened on is no longer falsified.
-Next: the batch-7 tender reviewed C13 same day — all gates green at its hand,
-F1 accepted (the deterministic pair guards the class; sixth cut family to the
-v3 board's deferred list), F3 deferred to C10's lay. The lay of batch 8 hands
-by this summons (or the same words to the live review session):
+Baton — ⬡ → the Architect at C13's review: **rule F1** — the barrage reaches the transcript fallback **once in ~2,300 turns and never lands from it**, so the charge's "the barrage guards this class forever" is not yet true and the class rides the deterministic pair instead; a sixth cut family that kills the *subject* is the fix, and it is C11 F4's shape for the second time running. Then **rule F3** (name ‹needs-⬡ question› / ‹blocked› from disk, or keep the literal reading) and **F2** (the fake's *stream* is now unfaithful where its transcript stopped being). C9 is unblocked: the capability row G4 would have convened on is no longer falsified. Next: the batch-7 tender reviewed C13 same day — all gates green at its hand, F1 accepted (the deterministic pair guards the class; sixth cut family to the v3 board's deferred list), F3 deferred to C10's lay. The lay of batch 8 hands by this summons (or the same words to the live review session):
 
 ```
 You are an Architect at fable-high.
@@ -2304,170 +402,31 @@ and lay batch 8 — C9 scale and C10 the console demo.
 
 ---
 
-**2026-08-30 · Digger · opus-medium** — **C9 landed: scale, bar 5 met both
-halves.** Changed: [`v3/lab/c9/`](v3/lab/c9/) — `drill.ts` (a run root per arm,
-load recorded before *and* after, and `holdForLoad()`, the batch note's load-8
-gate made mechanical), `q1-fake-width.ts`, `q2-real-ladder.ts`,
-`q3-cost-table.ts`, `meter.ts` (C9's ceilings over C8's accounting), plus a
-tsconfig so the lab has its own type gate; findings under
-[C9](v3/plans/c9-scale.md); two entries relayed to the bulletin (`2a6af07`).
-**`engine/` untouched** — the batch note's whole reason for running C9 before
-C10, honoured.
+**2026-08-30 · Digger · opus-medium** — **C9 landed: scale, bar 5 met both halves.** Changed: [`v3/lab/c9/`](v3/lab/c9/) — `drill.ts` (a run root per arm, load recorded before *and* after, and `holdForLoad()`, the batch note's load-8 gate made mechanical), `q1-fake-width.ts`, `q2-real-ladder.ts`, `q3-cost-table.ts`, `meter.ts` (C9's ceilings over C8's accounting), plus a tsconfig so the lab has its own type gate; findings under [C9](v3/plans/c9-scale.md); two entries relayed to the bulletin (`2a6af07`). **`engine/` untouched** — the batch note's whole reason for running C9 before C10, honoured.
 
-Measured: **100 simultaneous fake subjects green through the engine, 12/12
-repeats**, with "simultaneous" measured rather than asserted — `max in flight`
-swept from the log's own `[ignited, turn-ended]` intervals is **100 on every
-repeat** — plus the fake ladder at 10/25/50/100 ×3, all green. **The real
-ladder 5 → 10 → 25 on `personal`, run twice over: 25/25 landed, 25/25
-transcripts, per-subject token fidelity 25/25, zero session collisions, zero
-rate-limit refusals**, invariants 0 and `replay ≡ state` in every run of the
-charge, zero orphan pids from 81 real ignitions. **No substrate ceiling below
-25.** Q3's extrapolation table is in the charge, paste-ready for G4, with the
-extrapolation labelled wherever it leaves the measured rungs. **Budget 81/120
-turns, $3.9689/$8** — neither ceiling approached.
+Measured: **100 simultaneous fake subjects green through the engine, 12/12 repeats**, with "simultaneous" measured rather than asserted — `max in flight` swept from the log's own `[ignited, turn-ended]` intervals is **100 on every repeat** — plus the fake ladder at 10/25/50/100 ×3, all green. **The real ladder 5 → 10 → 25 on `personal`, run twice over: 25/25 landed, 25/25 transcripts, per-subject token fidelity 25/25, zero session collisions, zero rate-limit refusals**, invariants 0 and `replay ≡ state` in every run of the charge, zero orphan pids from 81 real ignitions. **No substrate ceiling below 25.** Q3's extrapolation table is in the charge, paste-ready for G4, with the extrapolation labelled wherever it leaves the measured rungs. **Budget 81/120 turns, $3.9689/$8** — neither ceiling approached.
 
-For the Architect, three things worth a ruling. **F1: `rate_limit_event` fires
-on every single turn with `status: "allowed"`** — it is routine telemetry, so
-C9's own K2 ("a second consecutive `rate_limit_event` stops the ladder") would
-have fired at turn 2. The ladder ran under the criterion's intent
-(`status !== "allowed"`, which never fired) and the wording wants re-cutting
-before another charge inherits it. **F2: a one-shot turn costs ~2× a warm one
-and the whole difference is a cold prompt cache** — $0.1355 at width 1 against
-$0.0453 at width 25 — so **width is cheaper per turn than serial**, and any
-estimate multiplying one per-turn figure by a step count is wrong in whichever
-direction the cache falls. **F5: the substrate hands out a free in-band quota
-gauge** (`rate_limit_info.unifiedWindows.{five_hour,seven_day}.utilization`) on
-every turn — the only answer the Guild has to "sessions cannot see /usage", and
-C10's to use if it wants one.
-Next: **C10 is ignitable** — C9 is landed and reviewed-pending, the engine is
-untouched, and C10's step 0 lands on unmodified bytes. Its kickoff is in
-[C10](v3/plans/c10-console-demo.md); budget ≤$3 / ≤30 turns. After it, **G4
-convenes** on campaign bars 1–6, all landed.
+For the Architect, three things worth a ruling. **F1: `rate_limit_event` fires on every single turn with `status: "allowed"`** — it is routine telemetry, so C9's own K2 ("a second consecutive `rate_limit_event` stops the ladder") would have fired at turn 2. The ladder ran under the criterion's intent (`status !== "allowed"`, which never fired) and the wording wants re-cutting before another charge inherits it. **F2: a one-shot turn costs ~2× a warm one and the whole difference is a cold prompt cache** — $0.1355 at width 1 against $0.0453 at width 25 — so **width is cheaper per turn than serial**, and any estimate multiplying one per-turn figure by a step count is wrong in whichever direction the cache falls. **F5: the substrate hands out a free in-band quota gauge** (`rate_limit_info.unifiedWindows.{five_hour,seven_day}.utilization`) on every turn — the only answer the Guild has to "sessions cannot see /usage", and C10's to use if it wants one. Next: **C10 is ignitable** — C9 is landed and reviewed-pending, the engine is untouched, and C10's step 0 lands on unmodified bytes. Its kickoff is in [C10](v3/plans/c10-console-demo.md); budget ≤$3 / ≤30 turns. After it, **G4 convenes** on campaign bars 1–6, all landed.
 
-Decided: nothing — findings only. Next: the batch-8 tender reviewed C9 same
-day and dispatched C10 at Felix's word; the root ledger of this date holds the
-full record.
+Decided: nothing — findings only. Next: the batch-8 tender reviewed C9 same day and dispatched C10 at Felix's word; the root ledger of this date holds the full record.
 
 ---
 
-**2026-08-30 · Builder · opus-medium** — **C10 landed: the console demo, campaign
-bar 6's instrument, plus step 0.**
-Changed: [v3/console/](v3/console/) — `cli.ts` (five verbs), `runs.ts`,
-`render.ts`, `summon.ts`, `rehearsal.ts`, `test/verbs.test.ts`, README;
-[v3/lab/c10/meter.ts](v3/lab/c10/meter.ts); `v3/engine/transcript.ts` and its
-tests (step 0); the v3 board, C13's F3 correction, the bulletin. Commits
-`2f2d4f0` `0d6d76b` `0818028` `67c2501` `69469f6` `abd4325`.
+**2026-08-30 · Builder · opus-medium** — **C10 landed: the console demo, campaign bar 6's instrument, plus step 0.** Changed: [v3/console/](v3/console/) — `cli.ts` (five verbs), `runs.ts`, `render.ts`, `summon.ts`, `rehearsal.ts`, `test/verbs.test.ts`, README; [v3/lab/c10/meter.ts](v3/lab/c10/meter.ts); `v3/engine/transcript.ts` and its tests (step 0); the v3 board, C13's F3 correction, the bulletin. Commits `2f2d4f0` `0d6d76b` `0818028` `67c2501` `69469f6` `abd4325`.
 
-**Step 0 landed on its own red.** The transcript fallback collapsed every
-non-`done` report to ‹no report›, so a turn whose disk plainly carried the
-question showed the poorer name on a board row — C13 F3, deferred to this lay.
-It now names ‹needs-⬡ question› and ‹blocked› from the report's own bytes, and
-the test asserts the two paths **equal** rather than merely both-plausible
-(`verdictFromTranscript` against `verdict()` on the same report). C6's
-*transcript-only ≡ streamed verdict* holds for every reporting state now, not
-for `done` alone. C13's F3 carries a dated correction; the engine README's law 5
-with it.
+**Step 0 landed on its own red.** The transcript fallback collapsed every non-`done` report to ‹no report›, so a turn whose disk plainly carried the question showed the poorer name on a board row — C13 F3, deferred to this lay. It now names ‹needs-⬡ question› and ‹blocked› from the report's own bytes, and the test asserts the two paths **equal** rather than merely both-plausible (`verdictFromTranscript` against `verdict()` on the same report). C6's *transcript-only ≡ streamed verdict* holds for every reporting state now, not for `done` alone. C13's F3 carries a dated correction; the engine README's law 5 with it.
 
-**The console is five verbs and nothing else** — `list · read · send · summon ·
-return`, each a thin call into the engine's exports, driven by plain argv with
-exit codes. 19 tests on fake subjects, every refusal the engine's own where the
-engine has one. The real rehearsal passed in **one script, one pass**: a 3-step
-flow on `personal`, all five verbs through the console's own argv as a
-subprocess, 3/3 landed, terminal, invariants 9/9 — and **the summon round trip
-lossless in both directions on one session**: the codeword the engine gave at
-ignition and the sign-off a human typed into the pane both came back through a
-headless resume, the cursor absorbing the hand turn unasked (C8 F7, re-proved
-through the console). Console 19 + engine 64 + barrage 38 + fake 59 green, four
-type gates 0, **barrage exit 0 twice on the settled tree** (1000/1000 · 50/50 ·
-9/9, wall 147.5 s and 147.7 s). **Budget 12/30 turns, $0.4148/$3.**
+**The console is five verbs and nothing else** — `list · read · send · summon · return`, each a thin call into the engine's exports, driven by plain argv with exit codes. 19 tests on fake subjects, every refusal the engine's own where the engine has one. The real rehearsal passed in **one script, one pass**: a 3-step flow on `personal`, all five verbs through the console's own argv as a subprocess, 3/3 landed, terminal, invariants 9/9 — and **the summon round trip lossless in both directions on one session**: the codeword the engine gave at ignition and the sign-off a human typed into the pane both came back through a headless resume, the cursor absorbing the hand turn unasked (C8 F7, re-proved through the console). Console 19 + engine 64 + barrage 38 + fake 59 green, four type gates 0, **barrage exit 0 twice on the settled tree** (1000/1000 · 50/50 · 9/9, wall 147.5 s and 147.7 s). **Budget 12/30 turns, $0.4148/$3.**
 
-Three findings bind outside this charge. **F5: the run log cannot name the
-account** — `ignited` records the subject's cwd and nothing else, so a run whose
-sidecar `conditions.json` is lost is readable forever and drivable never; one
-field, engine-side, and **the deck hits this on its first session row**. **F6:
-the trust read still lives only in `lab/c8/accounts.ts`** — this is its second
-caller; the console measured the pane instead of making a second copy of the
-policy, which cannot drift but also cannot warn before the summon. **F2: the fake
-has no answer-then-land scenario**, so `send <text>`'s landing arc is proven only
-on real bytes — one scenario file plus a golden makes it guardable at budget 0
-forever. All three relayed to the bulletin and entered on the board's deferred
-list. **F1 is the one worth reading**: the first rehearsal pass failed on my own
-prompt — a flow's steps share no memory, and I wrote one that assumed they did —
-and the subject **asked instead of confabulating while the engine paused instead
-of landing**. The failure mode a headless runner should fear, caught in the wild,
-behaving exactly as designed.
-Next: **G4 convenes** — batch 8 is complete and the evidence pack is campaign
-bars 1–6, all landed. C10 wants the Architect's review first (the six findings,
-and step 0's widening of the fallback vocabulary, are rulings the gate should
-carry in).
-Decided: nothing — findings only. Next: reviewed same day by the batch-8
-tender; G4 is Felix's — the pack at
-[v3/plans/g4-verdict.md](v3/plans/g4-verdict.md), the rulings his.
+Three findings bind outside this charge. **F5: the run log cannot name the account** — `ignited` records the subject's cwd and nothing else, so a run whose sidecar `conditions.json` is lost is readable forever and drivable never; one field, engine-side, and **the deck hits this on its first session row**. **F6: the trust read still lives only in `lab/c8/accounts.ts`** — this is its second caller; the console measured the pane instead of making a second copy of the policy, which cannot drift but also cannot warn before the summon. **F2: the fake has no answer-then-land scenario**, so `send <text>`'s landing arc is proven only on real bytes — one scenario file plus a golden makes it guardable at budget 0 forever. All three relayed to the bulletin and entered on the board's deferred list. **F1 is the one worth reading**: the first rehearsal pass failed on my own prompt — a flow's steps share no memory, and I wrote one that assumed they did — and the subject **asked instead of confabulating while the engine paused instead of landing**. The failure mode a headless runner should fear, caught in the wild, behaving exactly as designed. Next: **G4 convenes** — batch 8 is complete and the evidence pack is campaign bars 1–6, all landed. C10 wants the Architect's review first (the six findings, and step 0's widening of the fallback vocabulary, are rulings the gate should carry in). Decided: nothing — findings only. Next: reviewed same day by the batch-8 tender; G4 is Felix's — the pack at [v3/plans/g4-verdict.md](v3/plans/g4-verdict.md), the rulings his.
 
 ---
 
-**2026-08-30 · Architect · fable-max** — **the migration campaign laid at D22's
-word; the first sweep executed at the same hand.** The sweep: agents-flow-1's
-remains cleared — both stopped run logs deleted (gitignored census telemetry),
-the `bv/c29-summon-harness` worktree removed with its uncommitted bulletin relay
-preserved byte-true to the root inbox first (the branch stands at `f160ec1`,
-unmerged, holding the lab/08 harness repair — the canon rows C29/C32/G1 and the
-merge are the GA's, filed `f682854`); the three flow-1 diagnoses distilled into
-C15's intake (the campaign note, README §6) and their entries cleared. The inbox
-swept to empty — twelve ruled: the two C5 grammar entries verified
-already-amended in `lab/c4/grammar.md` (§1 hook table, §10.9 correction) and
-deleted; the C4 pair (exit-0 lie, per-posture legality) and the C12 test/rg pair
-distilled into C15's intake and §4's new future-campaigns block (the unified
-archive, moved whole); the C30 vocabulary body ruled to the migration close's
-rework lay with its two ⬡ identity forks (`fire`, `the glass`) queued there;
-flow-1's row-truth finding escalated to the root inbox (coda candidate); C1's
-status line trued (it read OPEN against a LANDED row). The board: batch 6
-(B23/B22/B26/B25/B24/B27) unfrozen behind `⬡-gate: the migration close`, each
-row carrying its D22 fate clause; **G3 KILLED** (vehicle retired with the v2
-engine, sweep duties executed here, gate re-minted as G5); **C14 laid** —
-[plans/c14-engine-seams.md](plans/c14-engine-seams.md), Builder · opus-high,
-budget ≤$1/≤10 real turns — the four unfrozen deferrals in one charge; the
-campaign note carries the arc (C14 → C15 the deck's v3 lane → C16 the Chat
-chapter → G5 the migration close + rework lay) with C15/C16/G5 un-laid by law
-(never before their inputs exist). The v3 deferred list trued: four struck
-"promoted to C14", the sixth cut family holds its third-recurrence trigger.
-Also filed to the root inbox: `.summon-theaters` stray at the repo root; charge
-18's merged-and-clean worktree residue; and the five root-LEDGER `ledger.merged`
-reds measured to be masked missing-clause defects, not separator omissions — the
-insert probe reverted, the repair the GA's. `doctrine lint`: this building
-green — belvedere 42/42 rows typed · queue 0 · inbox 0; the root repo's 5
-pre-existing reds are the filed item.
+**2026-08-30 · Architect · fable-max** — **the migration campaign laid at D22's word; the first sweep executed at the same hand.** The sweep: agents-flow-1's remains cleared — both stopped run logs deleted (gitignored census telemetry), the `bv/c29-summon-harness` worktree removed with its uncommitted bulletin relay preserved byte-true to the root inbox first (the branch stands at `f160ec1`, unmerged, holding the lab/08 harness repair — the canon rows C29/C32/G1 and the merge are the GA's, filed `f682854`); the three flow-1 diagnoses distilled into C15's intake (the campaign note, README §6) and their entries cleared. The inbox swept to empty — twelve ruled: the two C5 grammar entries verified already-amended in `lab/c4/grammar.md` (§1 hook table, §10.9 correction) and deleted; the C4 pair (exit-0 lie, per-posture legality) and the C12 test/rg pair distilled into C15's intake and §4's new future-campaigns block (the unified archive, moved whole); the C30 vocabulary body ruled to the migration close's rework lay with its two ⬡ identity forks (`fire`, `the glass`) queued there; flow-1's row-truth finding escalated to the root inbox (coda candidate); C1's status line trued (it read OPEN against a LANDED row). The board: batch 6 (B23/B22/B26/B25/B24/B27) unfrozen behind `⬡-gate: the migration close`, each row carrying its D22 fate clause; **G3 KILLED** (vehicle retired with the v2 engine, sweep duties executed here, gate re-minted as G5); **C14 laid** — [plans/c14-engine-seams.md](plans/c14-engine-seams.md), Builder · opus-high, budget ≤$1/≤10 real turns — the four unfrozen deferrals in one charge; the campaign note carries the arc (C14 → C15 the deck's v3 lane → C16 the Chat chapter → G5 the migration close + rework lay) with C15/C16/G5 un-laid by law (never before their inputs exist). The v3 deferred list trued: four struck "promoted to C14", the sixth cut family holds its third-recurrence trigger. Also filed to the root inbox: `.summon-theaters` stray at the repo root; charge 18's merged-and-clean worktree residue; and the five root-LEDGER `ledger.merged` reds measured to be masked missing-clause defects, not separator omissions — the insert probe reverted, the repair the GA's. `doctrine lint`: this building green — belvedere 42/42 rows typed · queue 0 · inbox 0; the root repo's 5 pre-existing reds are the filed item.
 
-**Amended in-session at Felix's word (C14 already ignited at his hand): batch 1
-grows C17 — the camera** (D57: this note committed, the message carries the
-kickoff). His ask, verbatim: agents must "interact with & use, and take
-screenshots of belvedere … if the agents can't see it, then I'm constantly
-having to describe all the problems to them." Laid as its own charge ahead of
-C15/C16 — the deck lane is born with eyes:
-[plans/c17-camera.md](plans/c17-camera.md), Builder · opus-high, parallel-safe
-with C14 (disjoint trees, two-lane rule), budget 0 real turns. Zero glass
-changes needed — recon proved the knobs exist (`BELVEDERE_ENV` void ⇒ hands 503
-by the arming law, `GLASS_PORT` ephemeral; Chrome installed, so
-`playwright-core` drives it with no browser download). The campaign note's arc
-renumbered (C14 → C17 → C15 → C16 → G5); C15/C16's recorded intakes now require
-camera evidence on every visual bar — his ⬡ passes stay for taste, not
-defect-hunting. Decided: nothing register-grade — every ruling cites D22, his
-in-session word, or stands proposed in place. Next: ⬡ — ignite C17 (C14 already
-burning; C15's cut waits on C14's reviewed landing).
+**Amended in-session at Felix's word (C14 already ignited at his hand): batch 1 grows C17 — the camera** (D57: this note committed, the message carries the kickoff). His ask, verbatim: agents must "interact with & use, and take screenshots of belvedere … if the agents can't see it, then I'm constantly having to describe all the problems to them." Laid as its own charge ahead of C15/C16 — the deck lane is born with eyes: [plans/c17-camera.md](plans/c17-camera.md), Builder · opus-high, parallel-safe with C14 (disjoint trees, two-lane rule), budget 0 real turns. Zero glass changes needed — recon proved the knobs exist (`BELVEDERE_ENV` void ⇒ hands 503 by the arming law, `GLASS_PORT` ephemeral; Chrome installed, so `playwright-core` drives it with no browser download). The campaign note's arc renumbered (C14 → C17 → C15 → C16 → G5); C15/C16's recorded intakes now require camera evidence on every visual bar — his ⬡ passes stay for taste, not defect-hunting. Decided: nothing register-grade — every ruling cites D22, his in-session word, or stands proposed in place. Next: ⬡ — ignite C17 (C14 already burning; C15's cut waits on C14's reviewed landing).
 
-**Second in-session amendment, his word ("both!"): the instruments laid.**
-**C18 the gates** ([plans/c18-gates.md](plans/c18-gates.md) — one command,
-every standing gate, the paste-ready evidence block, the runner seen to fail
-per family; Builder · opus-medium; ignites at C14's reviewed landing — shared
-`v3/**` tree, schedule not dependency) and **C19 the fixture city**
-([plans/c19-fixture-city.md](plans/c19-fixture-city.md) — deterministic card
-states for the camera's twin: conforming fixture buildings lint-green with a
-broken control, pid-live census seeded at boot, `--fixture` wiring, four
-probes; Builder · opus-high; depends on C17). Both budget 0. C14 and C17 both
-burning at his hand; the coda gap on hand ignitions filed to the root inbox
-(charge 22's composition is its home). Next: ⬡ — at the first landing, summon
-the migration review; it verifies, distills, and lays batch 2 (C18 at C14's
-landing · C19 at C17's · C15's cut on C14's landed shape).
+**Second in-session amendment, his word ("both!"): the instruments laid.** **C18 the gates** ([plans/c18-gates.md](plans/c18-gates.md) — one command, every standing gate, the paste-ready evidence block, the runner seen to fail per family; Builder · opus-medium; ignites at C14's reviewed landing — shared `v3/**` tree, schedule not dependency) and **C19 the fixture city** ([plans/c19-fixture-city.md](plans/c19-fixture-city.md) — deterministic card states for the camera's twin: conforming fixture buildings lint-green with a broken control, pid-live census seeded at boot, `--fixture` wiring, four probes; Builder · opus-high; depends on C17). Both budget 0. C14 and C17 both burning at his hand; the coda gap on hand ignitions filed to the root inbox (charge 22's composition is its home). Next: ⬡ — at the first landing, summon the migration review; it verifies, distills, and lays batch 2 (C18 at C14's landing · C19 at C17's · C15's cut on C14's landed shape).
 
 Baton — ⬡ → summon the migration review at the first landing, verbatim:
 ```
@@ -2482,86 +441,21 @@ landing, C19 at C17's, C15's cut on C14's landed shape.
 
 ---
 
-**2026-08-30 · Builder · opus-high** — **C14 the engine seams: LANDED**, the
-migration campaign's batch 1 (with C17 in its own lane). All four of D22's
-unfrozen deferrals, inside the engine's walls, deck untouched.
+**2026-08-30 · Builder · opus-high** — **C14 the engine seams: LANDED**, the migration campaign's batch 1 (with C17 in its own lane). All four of D22's unfrozen deferrals, inside the engine's walls, deck untouched.
 
-**Changed.** `ignited` gained `configDir` — the `CLAUDE_CONFIG_DIR` the account
-rides, the mechanism and not a name — so a run log alone re-opens a run to drive
-it; the console resolves the venue **log first, `conditions.json` second,
-sandbox last**, and a pre-C14 real run whose sidecar is gone now *refuses in
-kind* rather than resuming into a config dir that holds no such session
-(`drivable()`), while staying readable forever. **Absence is legal forever and
-nothing backfills** — a frozen `pre-c14-run.jsonl` proves it. The trust read came
-home to `engine/venue.ts` (`ACCOUNTS` · `accountOf` · `configJson` ·
-`trustedDirs` · `trusts` · `precheckReal` · `venueOn`), `lab/c8/accounts.ts` left
-as re-exports; the precheck is now handed the **venue and the subject**, so a
-fake subject is trusted by its arm and no fake test can read a live config dir —
-which retired the engine's redundant `account` option — and `summon` runs the
-same read *before* it opens a pane. `answer-then-land` + golden makes the
-`send <text>` arc guardable at budget 0 and is the first scenario faithful on the
-wire (C13 F2's closing pair in stream *and* transcript, opt-in, 23 older goldens
-byte-identical). `barrage/sweep.ts` ends the orphan class: the run log is the
-register, `ps` guards pid reuse, the mutant drill sweeps its pair and `run.ts`
-sweeps on every exit path.
+**Changed.** `ignited` gained `configDir` — the `CLAUDE_CONFIG_DIR` the account rides, the mechanism and not a name — so a run log alone re-opens a run to drive it; the console resolves the venue **log first, `conditions.json` second, sandbox last**, and a pre-C14 real run whose sidecar is gone now *refuses in kind* rather than resuming into a config dir that holds no such session (`drivable()`), while staying readable forever. **Absence is legal forever and nothing backfills** — a frozen `pre-c14-run.jsonl` proves it. The trust read came home to `engine/venue.ts` (`ACCOUNTS` · `accountOf` · `configJson` · `trustedDirs` · `trusts` · `precheckReal` · `venueOn`), `lab/c8/accounts.ts` left as re-exports; the precheck is now handed the **venue and the subject**, so a fake subject is trusted by its arm and no fake test can read a live config dir — which retired the engine's redundant `account` option — and `summon` runs the same read *before* it opens a pane. `answer-then-land` + golden makes the `send <text>` arc guardable at budget 0 and is the first scenario faithful on the wire (C13 F2's closing pair in stream *and* transcript, opt-in, 23 older goldens byte-identical). `barrage/sweep.ts` ends the orphan class: the run log is the register, `ps` guards pid reuse, the mutant drill sweeps its pair and `run.ts` sweeps on every exit path.
 
-**Evidence.** Barrage exit 0 — 1000/1000 · 50/50 · 9/9, wall 149.4 s, **26,279
-steps, C7's own number to the step** (the 24th scenario row is weight 0 and moved
-no topology). Engine 77 + barrage 41 + console 26 + fake 60 green; four type
-gates 0. Rehearsal green on `personal`, the account read off the run log with the
-sidecar deliberately silent. **6 real turns, $0.3020, of ≤10 / ≤$1.**
+**Evidence.** Barrage exit 0 — 1000/1000 · 50/50 · 9/9, wall 149.4 s, **26,279 steps, C7's own number to the step** (the 24th scenario row is weight 0 and moved no topology). Engine 77 + barrage 41 + console 26 + fake 60 green; four type gates 0. Rehearsal green on `personal`, the account read off the run log with the sidecar deliberately silent. **6 real turns, $0.3020, of ≤10 / ≤$1.**
 
-**Decided:** (the Builder's, inside the fence) The precheck's shape (venue+subject,
-not an account name) and the retirement of `options.account` — one source of
-truth for the account, which is what the whole seam is about. The 24th table row
-at weight 0 rather than a re-pin of nine mutant seeds. The fidelity flag scoped
-to the new scenario rather than flipped for the library.
+**Decided:** (the Builder's, inside the fence) The precheck's shape (venue+subject, not an account name) and the retirement of `options.account` — one source of truth for the account, which is what the whole seam is about. The 24th table row at weight 0 rather than a re-pin of nine mutant seeds. The fidelity flag scoped to the new scenario rather than flipped for the library.
 
-**Findings — three the next hand wants.** **F1** a committed fixture had been
-unloadable since the `prompt` field landed and no test noticed: a fixture no test
-`load()`s goes stale silently. **F5** the leak is wider than the mutant drill —
-phase 1's capped runs orphan the same way — but the crash drill must **never** be
-swept between its cut and its restart, because adopting a live orphan is the
-thing it proves; the sweep sits at the drill's exit instead. **F7** making the
-report pair the fake's default is one line and 36.8% of every barrage run's
-turns — measured, deliberately not taken. F2/F3/F4/F6/F8 in the charge.
+**Findings — three the next hand wants.** **F1** a committed fixture had been unloadable since the `prompt` field landed and no test noticed: a fixture no test `load()`s goes stale silently. **F5** the leak is wider than the mutant drill — phase 1's capped runs orphan the same way — but the crash drill must **never** be swept between its cut and its restart, because adopting a live orphan is the thing it proves; the sweep sits at the drill's exit instead. **F7** making the report pair the fake's default is one line and 36.8% of every barrage run's turns — measured, deliberately not taken. F2/F3/F4/F6/F8 in the charge.
 
-**Next:** ⬡ — the migration review, per the standing baton: both batch-1 charges
-(C14, C17) are landed and want verifying, then batch 2 (C18 at C14's reviewed
-landing, C19 at C17's, C15's cut on C14's landed shape).
+**Next:** ⬡ — the migration review, per the standing baton: both batch-1 charges (C14, C17) are landed and want verifying, then batch 2 (C18 at C14's reviewed landing, C19 at C17's, C15's cut on C14's landed shape).
 
 ---
 
-**2026-08-30 · Builder · opus-high (C17)** — the camera: **agents have eyes.**
-`belvedere/camera/` exists: its own module (`package.json`, `tsconfig.json`,
-`.gitignore`, `README.md`), **zero `glass/**` changes** — git-proven, `git diff
---stat HEAD -- belvedere/glass` empty. Two verbs: `shoot <path>` boots a disarmed
-twin, navigates, writes a PNG and prints its absolute path (~11 s cold); `run
-<probe.ts>` drives a probe against a twin it booted itself and **refuses `--port`
-in kind** — a probe clicks Dispatch buttons and on the live deck that fires a real
-session; `shoot --port` is the read-only half (one GET, no clicks), exercised
-against a 4477 stand-in. **The twin proves its own disarm before a browser opens**:
-one `POST /hands/fire` with an empty body must answer 503 (`BELVEDERE_ENV` → a
-`$TMPDIR` void, `GLASS_PORT` ephemeral, `DESK_DIR` a scratch drawer — all three
-knobs already in `paths.ts`), or the boot tears the twin down and refuses. No flag
-overrides it. SIGTERM-and-wait on every path, error paths included: **zero
-surviving twins after every bar**. Three committed probes, each ending in a shot
-with a control — `city`, `building`, and `chat`, which opens the Chat on a live
-session, types into the composer, attempts the send and **photographs the
-honest-disabled law**: no control drawn, the cold-hands reason standing in its
-place. Driver `playwright-core@1.62.1` on the installed Chrome (151.0.7922.170),
-headless, under bun — **neither pre-authorized fallback needed**: no browser
-download, no node v22. `bunx tsc --noEmit` 0 in `camera/`. **Budget 0 real turns,
-0 spent.** Findings F1–F6 in [C17](plans/c17-camera.md); the loop and its traps
-relayed to [BULLETIN](plans/BULLETIN.md). Decided: nothing register-grade — every
-call sat inside the charge's fence. Two facts the next deck charge needs: **a
-disarmed twin is not an inert one** (the desk is reachable without a click and is
-redirected by `DESK_DIR`; the sovereign's inbox has **no** such knob, so a probe
-clicking "file it" writes the real city — documented, not defended, because
-defending it is a `glass/` change), and **`bun test` in `glass/` is 670 pass / 3
-fail** — exactly the three C12-F6 reds README §6 already assigns to C15, so C17's
-own bar carries an honest annotation rather than a green claim (F4). Next: ⬡ —
-batch 1 is complete, C14 and C17 both LANDED; summon the migration review.
+**2026-08-30 · Builder · opus-high (C17)** — the camera: **agents have eyes.** `belvedere/camera/` exists: its own module (`package.json`, `tsconfig.json`, `.gitignore`, `README.md`), **zero `glass/**` changes** — git-proven, `git diff --stat HEAD -- belvedere/glass` empty. Two verbs: `shoot <path>` boots a disarmed twin, navigates, writes a PNG and prints its absolute path (~11 s cold); `run <probe.ts>` drives a probe against a twin it booted itself and **refuses `--port` in kind** — a probe clicks Dispatch buttons and on the live deck that fires a real session; `shoot --port` is the read-only half (one GET, no clicks), exercised against a 4477 stand-in. **The twin proves its own disarm before a browser opens**: one `POST /hands/fire` with an empty body must answer 503 (`BELVEDERE_ENV` → a `$TMPDIR` void, `GLASS_PORT` ephemeral, `DESK_DIR` a scratch drawer — all three knobs already in `paths.ts`), or the boot tears the twin down and refuses. No flag overrides it. SIGTERM-and-wait on every path, error paths included: **zero surviving twins after every bar**. Three committed probes, each ending in a shot with a control — `city`, `building`, and `chat`, which opens the Chat on a live session, types into the composer, attempts the send and **photographs the honest-disabled law**: no control drawn, the cold-hands reason standing in its place. Driver `playwright-core@1.62.1` on the installed Chrome (151.0.7922.170), headless, under bun — **neither pre-authorized fallback needed**: no browser download, no node v22. `bunx tsc --noEmit` 0 in `camera/`. **Budget 0 real turns, 0 spent.** Findings F1–F6 in [C17](plans/c17-camera.md); the loop and its traps relayed to [BULLETIN](plans/BULLETIN.md). Decided: nothing register-grade — every call sat inside the charge's fence. Two facts the next deck charge needs: **a disarmed twin is not an inert one** (the desk is reachable without a click and is redirected by `DESK_DIR`; the sovereign's inbox has **no** such knob, so a probe clicking "file it" writes the real city — documented, not defended, because defending it is a `glass/` change), and **`bun test` in `glass/` is 670 pass / 3 fail** — exactly the three C12-F6 reds README §6 already assigns to C15, so C17's own bar carries an honest annotation rather than a green claim (F4). Next: ⬡ — batch 1 is complete, C14 and C17 both LANDED; summon the migration review.
 
 Baton — ⬡ → summon the migration review (batch 1 complete), verbatim:
 ```
@@ -2576,32 +470,7 @@ landing, C19 at C17's, C15's cut on C14's landed shape.
 
 ---
 
-**2026-08-30 · Architect · fable-high** — the migration review: **batch 1
-verified, batch 2 laid.** C14 reviewed at this hand — the four suites re-run
-(engine 77 + barrage 41 + console 26 + fake 60 green), four type gates 0, and
-the barrage exit 0 (1000/1000 · 50/50 · 9/9, **26,279 steps — C7's number to
-the step**, wall 149.5 s) with zero fake pids after; the deferred list's four
-promotions read exactly what shipped. C17 reviewed at this hand — camera type
-gate 0, `git diff --stat HEAD -- belvedere/glass` empty (the suite that ran is
-the committed one), and the loop itself run: `shoot /` exit 0, the PNG Read —
-the rail leads with HANDS DISABLED naming the twin's void path and the first
-baton card is this review's own summons; zero surviving twins. Distilled:
-review annotations on both rows; the arc's C17 entry LANDED; **C15 cut on
-C14's landed shape** ([plans/c15-deck-v3-lane.md](plans/c15-deck-v3-lane.md)) —
-the v2 engine dies whole (D22 r2), the Works draws v3 runs **read-only**
-(driving pre-ruled to G5's rework lay — B26/B27's re-cut), the three C12-F6
-reds resolve, the inbox knob closes C17 F2, budget 0; C18/C19 unlocked, their
-schedule holds paid; the batch-2 note on the board. Hygiene: `doctrine lint`
-8 → 0 — five canon-ledger entries re-separated with Decided/Next clauses
-restored from their own text (format only, dated), C14's entry's clause heads
-respelled to the §7 spellings, C17's head parenthetical narrowed to its row
-id. Inbox: empty, nothing to sweep. Decided: nothing register-grade — the
-batch-2 shape (C18 ∥ C19, then C15 at their pasted green, one review for the
-sum) cites the v3 batch-6 precedent and D44; C15's read-only fence cites D22
-r2 and the campaign note's row fates. Next: ⬡ — ignite batch 2: C18 and C19
-by hand, any order or parallel (disjoint trees, two-lane rule); C15 when both
-paste green (kickoff in its doc); the batch-2 close review verifies all three
-and lays C16.
+**2026-08-30 · Architect · fable-high** — the migration review: **batch 1 verified, batch 2 laid.** C14 reviewed at this hand — the four suites re-run (engine 77 + barrage 41 + console 26 + fake 60 green), four type gates 0, and the barrage exit 0 (1000/1000 · 50/50 · 9/9, **26,279 steps — C7's number to the step**, wall 149.5 s) with zero fake pids after; the deferred list's four promotions read exactly what shipped. C17 reviewed at this hand — camera type gate 0, `git diff --stat HEAD -- belvedere/glass` empty (the suite that ran is the committed one), and the loop itself run: `shoot /` exit 0, the PNG Read — the rail leads with HANDS DISABLED naming the twin's void path and the first baton card is this review's own summons; zero surviving twins. Distilled: review annotations on both rows; the arc's C17 entry LANDED; **C15 cut on C14's landed shape** ([plans/c15-deck-v3-lane.md](plans/c15-deck-v3-lane.md)) — the v2 engine dies whole (D22 r2), the Works draws v3 runs **read-only** (driving pre-ruled to G5's rework lay — B26/B27's re-cut), the three C12-F6 reds resolve, the inbox knob closes C17 F2, budget 0; C18/C19 unlocked, their schedule holds paid; the batch-2 note on the board. Hygiene: `doctrine lint` 8 → 0 — five canon-ledger entries re-separated with Decided/Next clauses restored from their own text (format only, dated), C14's entry's clause heads respelled to the §7 spellings, C17's head parenthetical narrowed to its row id. Inbox: empty, nothing to sweep. Decided: nothing register-grade — the batch-2 shape (C18 ∥ C19, then C15 at their pasted green, one review for the sum) cites the v3 batch-6 precedent and D44; C15's read-only fence cites D22 r2 and the campaign note's row fates. Next: ⬡ — ignite batch 2: C18 and C19 by hand, any order or parallel (disjoint trees, two-lane rule); C15 when both paste green (kickoff in its doc); the batch-2 close review verifies all three and lays C16.
 
 Baton — ⬡ → ignite C18 and C19 (batch 2, parallel-safe), verbatim:
 ```
@@ -2624,32 +493,9 @@ and execute the charge at ~/code/agents/belvedere/plans/c19-fixture-city.md.
 
 ---
 
-**2026-08-30 · Architect · fable-high (cont.)** — batch 2's parallel pair
-landed and reviewed; **C15 dispatched.** Tender amendment committed first
-(`631417c` — the review session dispatches, his word), then C18 ∥ C19 fired as
-dispatched Builders. C18 reviewed at this hand: `bun v3/gates.ts` **ALL GREEN —
-9 gates, wall 209.1 s, exit 0** (C14's and C7's numbers to the test); plants
-proven reverted; `--glass` honestly RED at HEAD (C15's three). C19 reviewed at
-this hand: alpha + beta lint 0, broken exit 1 with 6 classes (the control),
-`fixture-rail` re-run exit 0 and the PNGs Read — beta's composed Dispatch pair
-beside the unwired ⬡ cards, D10 in pixels — zero twins, zero fixture dirs,
-glass byte-identical to HEAD. Rulings: **C18 F1 — the coda's type-check
-sentence trued** (`bunx tsc` in an unpinned tree fetches off npm,
-twice-measured — this review's own C14 pass included; the pinned-path form is
-law, `fdfce9f`); **C18 F2 — built at the review**: the runner grades itself,
-`gates · types` over `v3/tsconfig.json`, proven `--fast` ALL GREEN — 9 gates
-(`056f9e8`, the between-batches side-quest grant); **C19 F1's deviation
-ratified** (a fixture city inside `~/code` 500s every building page — measured,
-B10 F5's second face; the copy-out stands); **C19 F3 folded into C15** (the
-dissolved-staffing `? · ?` ternary). C15's doc gained the batch's findings
-before the fire; board rows current. Decided: nothing register-grade — every
-ruling above cites its finding, the fold and the ratification are this board's
-to make. Next: C15 reports — this session reviews its landing, then lays C16
-at the close.
+**2026-08-30 · Architect · fable-high (cont.)** — batch 2's parallel pair landed and reviewed; **C15 dispatched.** Tender amendment committed first (`631417c` — the review session dispatches, his word), then C18 ∥ C19 fired as dispatched Builders. C18 reviewed at this hand: `bun v3/gates.ts` **ALL GREEN — 9 gates, wall 209.1 s, exit 0** (C14's and C7's numbers to the test); plants proven reverted; `--glass` honestly RED at HEAD (C15's three). C19 reviewed at this hand: alpha + beta lint 0, broken exit 1 with 6 classes (the control), `fixture-rail` re-run exit 0 and the PNGs Read — beta's composed Dispatch pair beside the unwired ⬡ cards, D10 in pixels — zero twins, zero fixture dirs, glass byte-identical to HEAD. Rulings: **C18 F1 — the coda's type-check sentence trued** (`bunx tsc` in an unpinned tree fetches off npm, twice-measured — this review's own C14 pass included; the pinned-path form is law, `fdfce9f`); **C18 F2 — built at the review**: the runner grades itself, `gates · types` over `v3/tsconfig.json`, proven `--fast` ALL GREEN — 9 gates (`056f9e8`, the between-batches side-quest grant); **C19 F1's deviation ratified** (a fixture city inside `~/code` 500s every building page — measured, B10 F5's second face; the copy-out stands); **C19 F3 folded into C15** (the dissolved-staffing `? · ?` ternary). C15's doc gained the batch's findings before the fire; board rows current. Decided: nothing register-grade — every ruling above cites its finding, the fold and the ratification are this board's to make. Next: C15 reports — this session reviews its landing, then lays C16 at the close.
 
-Baton — session (C15's Builder, dispatched 2026-08-30 and running; the tender
-reviews on its report). The instrument, already fired — re-fire only if that
-run died without landing:
+Baton — session (C15's Builder, dispatched 2026-08-30 and running; the tender reviews on its report). The instrument, already fired — re-fire only if that run died without landing:
 ```
 You are a Builder at opus-high.
 Enter by the door — read ~/code/agents/canon/GUILD.md,
@@ -2663,70 +509,13 @@ and execute the charge at ~/code/agents/belvedere/plans/c15-deck-v3-lane.md.
 
 ---
 
-**2026-08-30 · Builder · opus-high (C15)** — **the v2 engine is gone and the
-deck's Works draws v3 runs.** `glass/flow.ts`, `glass/engine.ts`,
-`glass/judge.ts`, their three test files and all three `flows/*.flow.json` are
-`git rm`'d (`3c3dea1`); `belvedere/flows/` no longer exists, `rg -l
-'readFlows|glass/engine|glass/judge'` over `glass/` + `camera/` matches nothing,
-and **this server has no clock** — the arm route, the pass route and the
-five-second tick died with it. The Works now reads the v3 engine's own run logs
-through the v3 engine's own exports (`runs`/`readRun`, `fold`, `verdicts`,
-`postureLegal`) and re-implements none of them; a committed test asserts the
-drawn node states **≡ `verdicts()`** on the same log and goes red under mutation.
-The three C12-F6 reds are resolved: the `readFlows` test **died with v2**, and
-the fork-baton red and `colors.ts`'s `INTENT_OF` inversion were **one cause**
-(F1 — the rig writes real colour words since C25 and the deck translated them a
-second time, putting Builder in orange); C19 F3's ternary is trued at
-`pages.ts`'s own seam. `paths.ts` gained `$RUNS_DIR` and **`$INBOX_DIR`**, and
-the camera's twin turns the second on every boot — **C17 F2 closed**: the probe
-that clicks "file it" now lands in `$TMPDIR` with the real
-`belvedere/ISSUES.md` byte-identical either side (`sha256 bab5285b…`, 751 B).
-Bar: `bun v3/gates.ts --glass` **ALL GREEN — 12 gates, wall 213.4 s, exit 0**
-(glass 565 pass / 0 fail, glass types 0, barrage 1000 runs · 50 cuts · 9/9
-mutants); camera type gate 0; zero new dependencies; **0 real turns, $0**. Two
-camera probes committed and their PNGs Read — the Works on C10's landed
-rehearsal (three ranks running down, the NOW line below all three, `personal`
-off the log, `444 B FROZEN AT THE BLESSING` on the picked node, **0
-fire/arm/pass controls on the pane**) and the inbox knob clicked; seven
-predecessor probes re-run whole, all green. Two bugs the camera caught that no
-unit test could: **`data-at` is the deck's clock** and a node stamping its fold
-state there had its whole body replaced by `NaNd` every second (F2), and a
-repaint signature omitting the picker's `showing` left the Act pane on the
-previous run (F3, inherited from the v2 tenant and invisible while every
-building had one flow). Decided: nothing register-grade — every choice above
-sits inside the charge's fence and cites its finding. Next: the tender reviews
-this landing, then lays C16 at the close.
+**2026-08-30 · Builder · opus-high (C15)** — **the v2 engine is gone and the deck's Works draws v3 runs.** `glass/flow.ts`, `glass/engine.ts`, `glass/judge.ts`, their three test files and all three `flows/*.flow.json` are `git rm`'d (`3c3dea1`); `belvedere/flows/` no longer exists, `rg -l 'readFlows|glass/engine|glass/judge'` over `glass/` + `camera/` matches nothing, and **this server has no clock** — the arm route, the pass route and the five-second tick died with it. The Works now reads the v3 engine's own run logs through the v3 engine's own exports (`runs`/`readRun`, `fold`, `verdicts`, `postureLegal`) and re-implements none of them; a committed test asserts the drawn node states **≡ `verdicts()`** on the same log and goes red under mutation. The three C12-F6 reds are resolved: the `readFlows` test **died with v2**, and the fork-baton red and `colors.ts`'s `INTENT_OF` inversion were **one cause** (F1 — the rig writes real colour words since C25 and the deck translated them a second time, putting Builder in orange); C19 F3's ternary is trued at `pages.ts`'s own seam. `paths.ts` gained `$RUNS_DIR` and **`$INBOX_DIR`**, and the camera's twin turns the second on every boot — **C17 F2 closed**: the probe that clicks "file it" now lands in `$TMPDIR` with the real `belvedere/ISSUES.md` byte-identical either side (`sha256 bab5285b…`, 751 B). Bar: `bun v3/gates.ts --glass` **ALL GREEN — 12 gates, wall 213.4 s, exit 0** (glass 565 pass / 0 fail, glass types 0, barrage 1000 runs · 50 cuts · 9/9 mutants); camera type gate 0; zero new dependencies; **0 real turns, $0**. Two camera probes committed and their PNGs Read — the Works on C10's landed rehearsal (three ranks running down, the NOW line below all three, `personal` off the log, `444 B FROZEN AT THE BLESSING` on the picked node, **0 fire/arm/pass controls on the pane**) and the inbox knob clicked; seven predecessor probes re-run whole, all green. Two bugs the camera caught that no unit test could: **`data-at` is the deck's clock** and a node stamping its fold state there had its whole body replaced by `NaNd` every second (F2), and a repaint signature omitting the picker's `showing` left the Act pane on the previous run (F3, inherited from the v2 tenant and invisible while every building had one flow). Decided: nothing register-grade — every choice above sits inside the charge's fence and cites its finding. Next: the tender reviews this landing, then lays C16 at the close.
 
-Baton — Felix (the C15 tender's own session holds it; this Builder was
-dispatched and reports). Findings F1–F7 and the evidenced bar are in
-[plans/c15-deck-v3-lane.md](plans/c15-deck-v3-lane.md); the relay for C16 and
-G5 is in [plans/BULLETIN.md](plans/BULLETIN.md).
+Baton — Felix (the C15 tender's own session holds it; this Builder was dispatched and reports). Findings F1–F7 and the evidenced bar are in [plans/c15-deck-v3-lane.md](plans/c15-deck-v3-lane.md); the relay for C16 and G5 is in [plans/BULLETIN.md](plans/BULLETIN.md).
 
 ---
 
-**2026-08-30 · Architect · fable-high (cont.)** — **C15 LANDED and reviewed;
-batch 2 CLOSED; C16 cut. The v2 engine is gone from the deck — the city has
-one engine.** C15 reviewed at this hand: `bun v3/gates.ts --glass` **ALL
-GREEN — 12 gates, wall 211.6 s, exit 0** (glass 673 → 565 pass / 0 fail — 123
-tests died with v2, 15 added; barrage 1000 · 50 · 9/9), and the `works-v3`
-probe re-run exit 0 with the PNG Read — the rehearsal's three nodes
-landed-green above the NOW line, frozen kickoff bytes and the READ-ONLY pill
-in Action, zero twins after. Its headline findings: the two colour reds were
-one cause (`INTENT_OF` deleted at cause), and **two bugs only the camera
-could see** — `data-at` is the deck's clock and erased any node stamped with
-it, and a repaint signature omitting the picker's state left Action on the
-previous run (inherited from v2, invisible until v3's many-runs world). The
-inbox knob closes C17 F2, photographed, real city byte-identical. Distilled:
-§5's stale engine-venue agreement re-cut to its one surviving sentence (C15
-F6); `lab/b10–b12` dead letters stand as landing evidence; board rows and the
-arc trued; **C16 cut** on C15's reviewed shape
-([plans/c16-chat-chapter.md](plans/c16-chat-chapter.md)) — the Chat primary
-over the engine's world, headless sessions readable and answerable through
-the engine's own seam, batch-3 note on the board. Decided: nothing
-register-grade — the C16 cut executes D20/D22 r4's standing rulings; its
-budget line follows C8 F9 (dollars leading). Next: ⬡ — ignite C16 (paste the
-kickoff below, or one dispatch word to the tender); at its reviewed landing,
-G5 convenes.
+**2026-08-30 · Architect · fable-high (cont.)** — **C15 LANDED and reviewed; batch 2 CLOSED; C16 cut. The v2 engine is gone from the deck — the city has one engine.** C15 reviewed at this hand: `bun v3/gates.ts --glass` **ALL GREEN — 12 gates, wall 211.6 s, exit 0** (glass 673 → 565 pass / 0 fail — 123 tests died with v2, 15 added; barrage 1000 · 50 · 9/9), and the `works-v3` probe re-run exit 0 with the PNG Read — the rehearsal's three nodes landed-green above the NOW line, frozen kickoff bytes and the READ-ONLY pill in Action, zero twins after. Its headline findings: the two colour reds were one cause (`INTENT_OF` deleted at cause), and **two bugs only the camera could see** — `data-at` is the deck's clock and erased any node stamped with it, and a repaint signature omitting the picker's state left Action on the previous run (inherited from v2, invisible until v3's many-runs world). The inbox knob closes C17 F2, photographed, real city byte-identical. Distilled: §5's stale engine-venue agreement re-cut to its one surviving sentence (C15 F6); `lab/b10–b12` dead letters stand as landing evidence; board rows and the arc trued; **C16 cut** on C15's reviewed shape ([plans/c16-chat-chapter.md](plans/c16-chat-chapter.md)) — the Chat primary over the engine's world, headless sessions readable and answerable through the engine's own seam, batch-3 note on the board. Decided: nothing register-grade — the C16 cut executes D20/D22 r4's standing rulings; its budget line follows C8 F9 (dollars leading). Next: ⬡ — ignite C16 (paste the kickoff below, or one dispatch word to the tender); at its reviewed landing, G5 convenes.
 
 Baton — ⬡ → ignite C16 (batch 3), verbatim:
 ```
@@ -2742,72 +531,11 @@ and execute the charge at ~/code/agents/belvedere/plans/c16-chat-chapter.md.
 
 ---
 
-**2026-08-30 · Architect · fable-high (cont.)** — C16 amended at his word,
-pre-ignition: four design notes folded into the charge (verbatim in its
-inputs) — **view-only rich text** (the composer stays plain), the §3 font law
-on chat content (Inter prose · IosevkaFelix code/tool rows), **decoder links
-and tooltip overlays** in transcript prose (B20's `words()` seam, charges and
-decisions light, fences stay dark), and **the turn minimap** — a tiny strip,
-full pane height, never scrolls, User/agent sections at a glance, click jumps
-the transcript (coordinate-proven, B21's pattern). Three Done-when bars added
-to carry them; the board row names the fold. Decided: nothing register-grade —
-his notes are the input, the fold is the lay's own pen (an OPEN charge's doc
-amends freely before ignition). Next: ⬡ — ignite C16 (the standing baton
-above holds the kickoff, unchanged).
+**2026-08-30 · Architect · fable-high (cont.)** — C16 amended at his word, pre-ignition: four design notes folded into the charge (verbatim in its inputs) — **view-only rich text** (the composer stays plain), the §3 font law on chat content (Inter prose · IosevkaFelix code/tool rows), **decoder links and tooltip overlays** in transcript prose (B20's `words()` seam, charges and decisions light, fences stay dark), and **the turn minimap** — a tiny strip, full pane height, never scrolls, User/agent sections at a glance, click jumps the transcript (coordinate-proven, B21's pattern). Three Done-when bars added to carry them; the board row names the fold. Decided: nothing register-grade — his notes are the input, the fold is the lay's own pen (an OPEN charge's doc amends freely before ignition). Next: ⬡ — ignite C16 (the standing baton above holds the kickoff, unchanged).
 
 ---
 
-**2026-08-30 · Builder · opus-high (C16)** — **the Chat is the primary viewport
-over the engine's world, and a pause is a conversation.** The target set gained
-a third door: `glass/steps.ts` indexes the newest 12 run dirs by session id
-through the console's own reader, so a **headless engine-born session** — the
-venue D22 made primary — opens in the one Chat view, layer-0 runs included,
-whose transcripts no account tree carries. A reply into a step the engine is
-holding **paused** takes a third road, `mode: 'engine'`: `load()` +
-`rule(resume)`, the console's own mechanism, credential-gated like every other
-hand and verified on the transcript exactly as P6's road is — B16's three
-failure verdicts kept, neither road ever retried. **The round trip on real
-bytes, once:** a real run paused ‹needs-⬡ question›, the reply typed into the
-rendered textarea and sent with the rendered button delivered **98 B, sha
-`1d6c388d035d4a66…` page-side and on disk**, and the run log said `landed done ·
-answer BELVEDERE-C16` **5.1 s** later — **4 turns, $0.2471** against ≤15/≤$2,
-the ⬡-fork never near. The same arc is guarded at budget 0 on the fake
-(`answer-then-land`), and the pre-C14 read-only refusal, the cold-hands 503 and
-the fence law are asserted in the suite. **Rich rendering shipped**: `ChatBlock`
-gained `head`, `list` and `table` beside `prose`/`fence`/`act`, parsed once
-server-side so every cell and item is spans and the decoder reaches inside them
-— `row 17` and `D22` light in prose, in a bullet and in a table cell, **0 spans
-inside fences** — prose in Inter, tables and code in IosevkaFelix, the composer
-still plain text (his word: view only). The fixture is a **committed real
-capture** (`lab/c16/rich.jsonl`, the round trip's own transcript): no fake
-scenario writes markdown and adding one is a `v3/**` write this charge's fence
-forbids (F5). The **minimap** indexes the whole file incrementally — 42 marks
-over a 4.7 MB conversation, yours and the agents' apart, the loaded window lit,
-a click on an out-of-window mark landing `[data-key="3265"]` by the server's own
-coordinate — and B16's probe still measures **body 757 px − viewport 757 px = 0
-px** with it drawn. Both entry points are clicked, not addressed: the ⬡-queue's
-needs-you item for a paused step (`QueueItem.sid` split from `chat` — a headless
-step has a conversation and no pane, F4) and the Works' node. **582 tests green
-in one process**, `bun v3/gates.ts --glass` **ALL GREEN — 12 gates, 212.7 s**,
-camera types 0, **zero new dependencies**, nine standing camera probes and
-`lab/b16/probe.ts` re-run whole and green. **F2 — the deck IS the engine for the
-turn it resumes**: delivered is the transcript, landed is the run log, and a
-deck killed between them leaves a step `running` until something ticks that run
-(measured, and `lab/c16/settle.ts` closes it in one tick) — **this binds G5's
-rework lay** · F3 a landed step's session comes off the log's ignitions, never
-the fold's state (it cost the Works its own chat control) · F1 a `$TMPDIR` venue
-has two spellings and the engine names a transcript with one of them; real runs
-under `~/code` are unaffected and the engine-side fix is `v3/**`, so it is
-named, not taken. Nothing escalated. Decided: nothing register-grade — every
-choice above is inside the charge's fence. Three worth reading as precedent: the
-engine road **races the ruling against a grace and lets the transcript decide**
-(B16's law, kept rather than re-argued); the deck **refuses to write a
-`flow.json` into a run dir** and says to rule that step from the console, rather
-than growing a fourth write class; and the paused step joins the queue as the
-**`waiting`** class rather than a fifth kind, because two words for one fact are
-two surfaces disagreeing about what is urgent. Next: **G5 — the migration close**
-convenes on the strangle whole (v2 gone, deck on v3, Chat primary, barrage
-green), then lays the rework batch and the respell sweep in the same session.
+**2026-08-30 · Builder · opus-high (C16)** — **the Chat is the primary viewport over the engine's world, and a pause is a conversation.** The target set gained a third door: `glass/steps.ts` indexes the newest 12 run dirs by session id through the console's own reader, so a **headless engine-born session** — the venue D22 made primary — opens in the one Chat view, layer-0 runs included, whose transcripts no account tree carries. A reply into a step the engine is holding **paused** takes a third road, `mode: 'engine'`: `load()` + `rule(resume)`, the console's own mechanism, credential-gated like every other hand and verified on the transcript exactly as P6's road is — B16's three failure verdicts kept, neither road ever retried. **The round trip on real bytes, once:** a real run paused ‹needs-⬡ question›, the reply typed into the rendered textarea and sent with the rendered button delivered **98 B, sha `1d6c388d035d4a66…` page-side and on disk**, and the run log said `landed done · answer BELVEDERE-C16` **5.1 s** later — **4 turns, $0.2471** against ≤15/≤$2, the ⬡-fork never near. The same arc is guarded at budget 0 on the fake (`answer-then-land`), and the pre-C14 read-only refusal, the cold-hands 503 and the fence law are asserted in the suite. **Rich rendering shipped**: `ChatBlock` gained `head`, `list` and `table` beside `prose`/`fence`/`act`, parsed once server-side so every cell and item is spans and the decoder reaches inside them — `row 17` and `D22` light in prose, in a bullet and in a table cell, **0 spans inside fences** — prose in Inter, tables and code in IosevkaFelix, the composer still plain text (his word: view only). The fixture is a **committed real capture** (`lab/c16/rich.jsonl`, the round trip's own transcript): no fake scenario writes markdown and adding one is a `v3/**` write this charge's fence forbids (F5). The **minimap** indexes the whole file incrementally — 42 marks over a 4.7 MB conversation, yours and the agents' apart, the loaded window lit, a click on an out-of-window mark landing `[data-key="3265"]` by the server's own coordinate — and B16's probe still measures **body 757 px − viewport 757 px = 0 px** with it drawn. Both entry points are clicked, not addressed: the ⬡-queue's needs-you item for a paused step (`QueueItem.sid` split from `chat` — a headless step has a conversation and no pane, F4) and the Works' node. **582 tests green in one process**, `bun v3/gates.ts --glass` **ALL GREEN — 12 gates, 212.7 s**, camera types 0, **zero new dependencies**, nine standing camera probes and `lab/b16/probe.ts` re-run whole and green. **F2 — the deck IS the engine for the turn it resumes**: delivered is the transcript, landed is the run log, and a deck killed between them leaves a step `running` until something ticks that run (measured, and `lab/c16/settle.ts` closes it in one tick) — **this binds G5's rework lay** · F3 a landed step's session comes off the log's ignitions, never the fold's state (it cost the Works its own chat control) · F1 a `$TMPDIR` venue has two spellings and the engine names a transcript with one of them; real runs under `~/code` are unaffected and the engine-side fix is `v3/**`, so it is named, not taken. Nothing escalated. Decided: nothing register-grade — every choice above is inside the charge's fence. Three worth reading as precedent: the engine road **races the ruling against a grace and lets the transcript decide** (B16's law, kept rather than re-argued); the deck **refuses to write a `flow.json` into a run dir** and says to rule that step from the console, rather than growing a fourth write class; and the paused step joins the queue as the **`waiting`** class rather than a fifth kind, because two words for one fact are two surfaces disagreeing about what is urgent. Next: **G5 — the migration close** convenes on the strangle whole (v2 gone, deck on v3, Chat primary, barrage green), then lays the rework batch and the respell sweep in the same session.
 
 Baton — ⬡ → convene G5 (the migration close), verbatim:
 ```
@@ -2822,28 +550,7 @@ lay the rework batch and the respell sweep per the campaign note's step 5.
 
 ---
 
-**2026-08-30 · Architect · fable-high (cont.)** — **C16 reviewed; batch 3
-closed; the strangle is whole and G5 is the next act.** C16 verified at this
-hand: `bun v3/gates.ts --glass` **ALL GREEN — 12 gates, wall 212.5 s, exit 0**
-(glass 582 pass / 0 fail, barrage 1000 · 50 · 9/9); the minimap probe re-run
-exit 0 and the PNGs Read — the strip full pane height, 42 marks yours-green /
-agents-grey, the out-of-window jump landing `[data-key="3265"]` on a 4.7 MB
-conversation rendered rich (Inter prose, IosevkaFelix code, decoder spans lit,
-fences dark) — zero twins after; all twelve commits on master; budget honest,
-**4 turns / $0.2471 of ≤15 / ≤$2**. Distilled: **C16 F1 (the venue's two
-spellings) and F5 (the rich-markdown scenario) entered the v3 deferred list
-with their triggers**; F2 — the deck IS the engine for the turn it resumes,
-and a deck killed between a subject's result and the engine's append leaves a
-step `running` until a tick — rides the G5 baton as rework-lay intake (the
-honest fixes, a supervisor or a `tick` verb, are contract choices for that
-lay); review annotation on the row. The migration campaign's build is
-complete: v2 gone, deck on v3, Chat primary, barrage green — six charges and
-their reviews in one day, every landing verified at a tender's hand. Decided:
-nothing register-grade. Next: ⬡ — two acts, in order: **the visual pass** (open
-the deck — the Works on v3, the Chat on a headless run, the minimap; the pass
-is G5's ⬡-gate and it is yours alone), then **convene G5 in a fresh session**
-(the gate never continues the session it gates, and this session tended the
-batch it would be gating) — the summons below, verbatim.
+**2026-08-30 · Architect · fable-high (cont.)** — **C16 reviewed; batch 3 closed; the strangle is whole and G5 is the next act.** C16 verified at this hand: `bun v3/gates.ts --glass` **ALL GREEN — 12 gates, wall 212.5 s, exit 0** (glass 582 pass / 0 fail, barrage 1000 · 50 · 9/9); the minimap probe re-run exit 0 and the PNGs Read — the strip full pane height, 42 marks yours-green / agents-grey, the out-of-window jump landing `[data-key="3265"]` on a 4.7 MB conversation rendered rich (Inter prose, IosevkaFelix code, decoder spans lit, fences dark) — zero twins after; all twelve commits on master; budget honest, **4 turns / $0.2471 of ≤15 / ≤$2**. Distilled: **C16 F1 (the venue's two spellings) and F5 (the rich-markdown scenario) entered the v3 deferred list with their triggers**; F2 — the deck IS the engine for the turn it resumes, and a deck killed between a subject's result and the engine's append leaves a step `running` until a tick — rides the G5 baton as rework-lay intake (the honest fixes, a supervisor or a `tick` verb, are contract choices for that lay); review annotation on the row. The migration campaign's build is complete: v2 gone, deck on v3, Chat primary, barrage green — six charges and their reviews in one day, every landing verified at a tender's hand. Decided: nothing register-grade. Next: ⬡ — two acts, in order: **the visual pass** (open the deck — the Works on v3, the Chat on a headless run, the minimap; the pass is G5's ⬡-gate and it is yours alone), then **convene G5 in a fresh session** (the gate never continues the session it gates, and this session tended the batch it would be gating) — the summons below, verbatim.
 
 Baton — ⬡ → the visual pass, then convene G5 (the migration close):
 ```
@@ -2859,432 +566,76 @@ lay the rework batch and the respell sweep per the campaign note's step 5.
 
 ---
 
-**2026-08-30 · Architect · fable-high (G5)** — **the migration close: the
-campaign is CLOSED and the rework is laid.** The strangle verified whole at
-this hand: `bun v3/gates.ts --glass` **ALL GREEN — 12 gates, wall 212.9 s,
-exit 0** (glass 582/0, barrage 1000 · 50 · 9/9); v2 git-proven gone — all
-four paths absent, zero live references, and its last doc ghost (a
-`FLOWS_DIR` line in glass/README's env list) fixed at `83cc4dc` under the
-side-quest grant. His visual-pass verdict recorded on the G5 row (the ⬡
-paid): a punch-list pass — the v3 lane and the Chat primary stand, "quite a
-few bugs" — and the punch list distilled: the two Chat bugs and his scroll
-ruling into B23, the tooltip and decoder items into B27, the gut direction
-into C21 + B24's amendment intake, the UI-tests direction into §3's Chat
-laws and B23's `--probes` gate. Findings folded: C16 F2 → C20 (**D23
-proposed** — the tick verb, never a supervisor; glass-shatters + C6 F2);
-C15 F5 → B27 (pane-side filter, pre-ruled); C16 F1/F5 stand deferred with
-triggers. The inbox swept to empty, every entry ruled. The rework batch
-laid, blessing pending: **C23 → C22 → [B23 ∥ B22 ∥ C20] → C21 → B26 → B24 →
-B27 → G6** — six re-cut (B25 KILLED, folded into B22 per its fate clause),
-four laid new (C20 tick · C21 gut · C22 respell · C23 purge), G6 the close;
-budgets B22 ≤6/$1, B27 ≤3/$1, else 0. Decided: D23 (proposed, above); the
-B25 fold, the pane-side filter, and the decoder's planned-mention resolve —
-all proposed, presenting at the blessing with their citations. Lint 0
-(53/53 typed, queue 1 — the blessing). Next: ⬡ — **the rework blessing, one
-sitting** (README §6, the rework note: the batch + budgets; the four
-proposed rulings; the two identity forks — `fire` one-word-everywhere
-recommended but taste, `the glass` his alone; the two referent lists —
-Agents Presence / cmux nagging for C21, the sidebar list for B24). On his
-word the tender dispatches C23 first (exclusive on the README), C22 behind
-it, then the triple.
+**2026-08-30 · Architect · fable-high (G5)** — **the migration close: the campaign is CLOSED and the rework is laid.** The strangle verified whole at this hand: `bun v3/gates.ts --glass` **ALL GREEN — 12 gates, wall 212.9 s, exit 0** (glass 582/0, barrage 1000 · 50 · 9/9); v2 git-proven gone — all four paths absent, zero live references, and its last doc ghost (a `FLOWS_DIR` line in glass/README's env list) fixed at `83cc4dc` under the side-quest grant. His visual-pass verdict recorded on the G5 row (the ⬡ paid): a punch-list pass — the v3 lane and the Chat primary stand, "quite a few bugs" — and the punch list distilled: the two Chat bugs and his scroll ruling into B23, the tooltip and decoder items into B27, the gut direction into C21 + B24's amendment intake, the UI-tests direction into §3's Chat laws and B23's `--probes` gate. Findings folded: C16 F2 → C20 (**D23 proposed** — the tick verb, never a supervisor; glass-shatters + C6 F2); C15 F5 → B27 (pane-side filter, pre-ruled); C16 F1/F5 stand deferred with triggers. The inbox swept to empty, every entry ruled. The rework batch laid, blessing pending: **C23 → C22 → [B23 ∥ B22 ∥ C20] → C21 → B26 → B24 → B27 → G6** — six re-cut (B25 KILLED, folded into B22 per its fate clause), four laid new (C20 tick · C21 gut · C22 respell · C23 purge), G6 the close; budgets B22 ≤6/$1, B27 ≤3/$1, else 0. Decided: D23 (proposed, above); the B25 fold, the pane-side filter, and the decoder's planned-mention resolve — all proposed, presenting at the blessing with their citations. Lint 0 (53/53 typed, queue 1 — the blessing). Next: ⬡ — **the rework blessing, one sitting** (README §6, the rework note: the batch + budgets; the four proposed rulings; the two identity forks — `fire` one-word-everywhere recommended but taste, `the glass` his alone; the two referent lists — Agents Presence / cmux nagging for C21, the sidebar list for B24). On his word the tender dispatches C23 first (exclusive on the README), C22 behind it, then the triple.
 
-Baton — ⬡ Felix → the rework blessing (one sitting; the instrument is README
-§6's rework note — bless, amend, or strike there, and name the two lists).
-After it: dispatch is the tender's, no further word of Felix's needed until
-G6's gates.
+Baton — ⬡ Felix → the rework blessing (one sitting; the instrument is README §6's rework note — bless, amend, or strike there, and name the two lists). After it: dispatch is the tender's, no further word of Felix's needed until G6's gates.
 
 ---
 
-**2026-08-30 · Architect · fable-high (G5)** — **the rework blessing is
-PAID and the batch is live.** His rulings, all in-session: the batch blessed
-whole; the four proposed rulings converted ("fine") — B25's fold, **D23
-blessed**, the pane-side filter, the decoder's planned-mention resolve; the
-identity forks ruled — "rename to ignite, call it belvedere" (C22's header);
-the referents pinned then **corrected at his word**: presence survives ("I do
-want to see when there is an agent that's working, or has input / blocked"),
-the cmux part dies — C21 re-cut to "the gut: the cmux nag" (`nagging` =
-idle_prompt Notification, `attention.ts:44`; `blocked` survives; stale labels
-die); the sidebar is **spaces** — his model, ruled over the fixed taxonomy,
-sketch verbatim in B24's header with the derived-not-stored trim. A
-findability defect (his several minutes lost to "README §6") filed to the
-canon inbox with its law candidate: references name path + greppable anchor,
-one live batch note per board. Decided: nothing new — every ruling above is
-his, recorded. Next: the batch runs — C23 ignited by this session as tender
-(exclusive on the README), C22 behind it, then the triple B23 ∥ B22 ∥ C20.
+**2026-08-30 · Architect · fable-high (G5)** — **the rework blessing is PAID and the batch is live.** His rulings, all in-session: the batch blessed whole; the four proposed rulings converted ("fine") — B25's fold, **D23 blessed**, the pane-side filter, the decoder's planned-mention resolve; the identity forks ruled — "rename to ignite, call it belvedere" (C22's header); the referents pinned then **corrected at his word**: presence survives ("I do want to see when there is an agent that's working, or has input / blocked"), the cmux part dies — C21 re-cut to "the gut: the cmux nag" (`nagging` = idle_prompt Notification, `attention.ts:44`; `blocked` survives; stale labels die); the sidebar is **spaces** — his model, ruled over the fixed taxonomy, sketch verbatim in B24's header with the derived-not-stored trim. A findability defect (his several minutes lost to "README §6") filed to the canon inbox with its law candidate: references name path + greppable anchor, one live batch note per board. Decided: nothing new — every ruling above is his, recorded. Next: the batch runs — C23 ignited by this session as tender (exclusive on the README), C22 behind it, then the triple B23 ∥ B22 ∥ C20.
 
-Baton — the dispatch → ignite C23 (this session tends; the summons is
-C23's fenced kickoff + the coda, verbatim).
+Baton — the dispatch → ignite C23 (this session tends; the summons is C23's fenced kickoff + the coda, verbatim).
 
 ---
 
-**2026-08-30 · Architect · fable-high (C23)** — the master-doc purge landed:
-README 1105 → 539 lines (147,549 → 44,678 B, ≈13.4k tokens — single-Read
-restored) at `0183a88`. Died: 43 LANDED/KILLED status cells to state + date +
-outcome + findings link, batches 1–7 and migration batches 1–3 with nine spent
-fenced summonses, eight fully-distilled §7 entries (D1, D4–D9, D18 — git holds
-them, zero tombstones owed). Verbatim: all 10 OPEN rows (set diff-proven
-identical), every Depends-on/Staffing cell, §§1–5, the rework note, both
-deferred lists, §8, C12's ⬡ hold. Lint byte-identical before/after — one
-PRE-EXISTING red (`ledger.row` at LEDGER.md:2897, "G5, cont.") filed to ISSUES;
-C22's respell corpus shrank (README `fire` hits 76 → 19) — relay in the
-bulletin. Budget 0 real turns. Decided: nothing — every cut cites the charge's
-own spec or C34 F4 (lineage marks). Next: the chain per the rework note —
-ignite C22 (kickoff in [plans/c22-respell-sweep.md](plans/c22-respell-sweep.md)),
-then the triple B23 ∥ B22 ∥ C20.
+**2026-08-30 · Architect · fable-high (C23)** — the master-doc purge landed: README 1105 → 539 lines (147,549 → 44,678 B, ≈13.4k tokens — single-Read restored) at `0183a88`. Died: 43 LANDED/KILLED status cells to state + date + outcome + findings link, batches 1–7 and migration batches 1–3 with nine spent fenced summonses, eight fully-distilled §7 entries (D1, D4–D9, D18 — git holds them, zero tombstones owed). Verbatim: all 10 OPEN rows (set diff-proven identical), every Depends-on/Staffing cell, §§1–5, the rework note, both deferred lists, §8, C12's ⬡ hold. Lint byte-identical before/after — one PRE-EXISTING red (`ledger.row` at LEDGER.md:2897, "G5, cont.") filed to ISSUES; C22's respell corpus shrank (README `fire` hits 76 → 19) — relay in the bulletin. Budget 0 real turns. Decided: nothing — every cut cites the charge's own spec or C34 F4 (lineage marks). Next: the chain per the rework note — ignite C22 (kickoff in [plans/c22-respell-sweep.md](plans/c22-respell-sweep.md)), then the triple B23 ∥ B22 ∥ C20.
 
-Baton — the dispatch → ignite C22 (the tender session; the summons is C22's
-fenced kickoff + the coda, verbatim).
+Baton — the dispatch → ignite C22 (the tender session; the summons is C22's fenced kickoff + the coda, verbatim).
 
 ---
 
-**2026-08-30 · Builder · sonnet-high (C22)** — the respell sweep landed: both
-forks applied. `ignite` one word everywhere — the `/hands/fire` route, every
-`Fire`/`Fired`/`FireBody`/`FireWire` type, `parseFire`/`attemptFire`/
-`fireArgs`/`sweepFire`, the `data-fire` attribute, the `RINGS`/CSS ring state,
-across 46 `glass/**`+`camera/**` files (354 → 28 `fire`-family hits, the 28
-all named exceptions: plain-engineering fires, one historical citation, the
-new audit-backward-compat test, and the protected `standard.test.ts`/
-`rail.test.ts` corpus fixtures) — `hands.jsonl`'s old `action: 'fire'` lines
-read back identical to fresh `'ignite'` ones, proved in `hands.test.ts`. The
-building calls itself **Belvedere**: "the glass"/"the deck" respelled to it
-wherever self-referential, in README §§1–5/the rework note/§7, the 8 live
-plans docs, and glass/** comments — kept where it names a specific past
-session, a frozen LANDED title, or the `glass-shatters test` term of art.
-`doctrine lint --vocab` (run as due diligence, off by default) surfaced
-`cut`/bare `the register`/`trued`/`drain`/`dispatchable`/a spelling drift
-the manual sweep's word-list missed; fixed wherever live, including the
-`re-cut 2026-08-30 at G5` boilerplate common to every rework charge's status
-line, now `re-laid` (matching C20/C21/C22/G6's own `laid`). Scope ruled at
-ignition per C23's own relay: the Parked appendices, the closed migration
-note and §8 are probe history, not live prose — named in findings, left to
-G6. Bar: `glass` suite 583/0, both type gates exit 0, `bun v3/gates.ts
---glass` ALL GREEN (12 gates), `doctrine lint` unchanged at 0. Budget 0 real
-turns. Decided: nothing new — every respell cites STANDARD §9 or the fork
-ruling; the two-worktree-word / seam-cut / Felix-quote exceptions are named,
-not ruled. Next: the parallel triple — B23 ∥ B22 ∥ C20 (disjoint trees, the
-two-lane commit rule), an Architect tender at the batch boundary.
+**2026-08-30 · Builder · sonnet-high (C22)** — the respell sweep landed: both forks applied. `ignite` one word everywhere — the `/hands/fire` route, every `Fire`/`Fired`/`FireBody`/`FireWire` type, `parseFire`/`attemptFire`/ `fireArgs`/`sweepFire`, the `data-fire` attribute, the `RINGS`/CSS ring state, across 46 `glass/**`+`camera/**` files (354 → 28 `fire`-family hits, the 28 all named exceptions: plain-engineering fires, one historical citation, the new audit-backward-compat test, and the protected `standard.test.ts`/ `rail.test.ts` corpus fixtures) — `hands.jsonl`'s old `action: 'fire'` lines read back identical to fresh `'ignite'` ones, proved in `hands.test.ts`. The building calls itself **Belvedere**: "the glass"/"the deck" respelled to it wherever self-referential, in README §§1–5/the rework note/§7, the 8 live plans docs, and glass/** comments — kept where it names a specific past session, a frozen LANDED title, or the `glass-shatters test` term of art. `doctrine lint --vocab` (run as due diligence, off by default) surfaced `cut`/bare `the register`/`trued`/`drain`/`dispatchable`/a spelling drift the manual sweep's word-list missed; fixed wherever live, including the `re-cut 2026-08-30 at G5` boilerplate common to every rework charge's status line, now `re-laid` (matching C20/C21/C22/G6's own `laid`). Scope ruled at ignition per C23's own relay: the Parked appendices, the closed migration note and §8 are probe history, not live prose — named in findings, left to G6. Bar: `glass` suite 583/0, both type gates exit 0, `bun v3/gates.ts --glass` ALL GREEN (12 gates), `doctrine lint` unchanged at 0. Budget 0 real turns. Decided: nothing new — every respell cites STANDARD §9 or the fork ruling; the two-worktree-word / seam-cut / Felix-quote exceptions are named, not ruled. Next: the parallel triple — B23 ∥ B22 ∥ C20 (disjoint trees, the two-lane commit rule), an Architect tender at the batch boundary.
 
-Baton — the dispatch → ignite B23, B22, C20 (batch; each session's summons is
-its own fenced kickoff + the coda, verbatim; the tender convenes at the
-batch's close per the rework note).
+Baton — the dispatch → ignite B23, B22, C20 (batch; each session's summons is its own fenced kickoff + the coda, verbatim; the tender convenes at the batch's close per the rework note).
 
 ---
 
-**2026-08-30 · Builder · opus-high (B22)** — hands hygiene: five of six
-candidates paid, evidenced, and the sixth stopped at the ceiling rather than
-over it. **Trust:** the flip was not where the charge sent it — `v3/engine/
-venue.ts` has always been right, and the class was alive in the *second* home,
-`glass/trust.ts`, where the composer's badge short-circuited on an
-auto-created `false` and rendered a working venue cold (F1). Both homes now
-say **only `true` decides**; the regression carries its own red (a flipped
-read beside the real one, opposite answers on one record) and pins §5's
-agreement (the inside `.claude.json`, never the legacy file). **Placement +
-attribution (B25's fold):** an ignition for a building now lands in the
-workspace Felix keeps for it — found by name, addressed by **uuid**, minted
-only when none exists, ambiguity minting fresh and auditing rather than
-guessing; a landing adds a tab and touches nothing else of his (no rename, no
-recolor); `retire()` closes only what the audit records as our mint and
-nothing was added to. The census join gained `homeOf` — **ignited-for
-outranks cwd for Belvedere-ignited sessions, cwd for everyone else** — live on
-City, Workshop and the queue. Proved in his own `belvedere` workspace: the b17
-ignition arrived as `surface:101 builder-belvedere-78` beside his five tabs
-instead of minting a sixteenth workspace, then closed (D55). **Audit anchor:**
-`desk.test.ts` anchored, and the class made unreproducible by an interlock at
-the write — under `bun test` a write aimed at `~/code/agents/summon/log/`
-throws and names the knob; the live audit is byte-identical across two full
-suite runs (160 545 B before, after run 1, after run 2). Its own first cut
-armed the real HALT from its own test (F4 — B8 F1, by the hand writing the
-guard). **Runbook:** `plans/permissionrequest-runbook.md` for G6, one command
-rather than three hand-edits, because `deploy.ts` now recognises its own
-install as an upgrade and never re-backs-up over the true original (F5). Bar:
-`bun v3/gates.ts --glass` ALL GREEN — 12 gates, glass 608/0, barrage 1000 · 50
-· 9/9, wall 213.2 s. Decided: nothing new — the placement law was blessed at
-G5 as B25's fold; **the UUID law gained a documented exception** (`workspace
-create` and `new-surface` print refs and ignore `--id-format both`, so a ref
-may not outlive the breath that made it, F8) and a widening (**a surface
-handle is resolved inside one workspace; every surface call names it** — B18
-F1's class, F3). Next: the tender's review of the parallel triple. **⬡ — the
-budget:** 6 of 6 real turns spent, not exceeded. Two evidence bars stay open:
-the b17 probe's second consecutive green run and a full `lab/b22/placement.ts`
-run after F3's fix, both re-runs of already-fixed code, ~4 turns together.
+**2026-08-30 · Builder · opus-high (B22)** — hands hygiene: five of six candidates paid, evidenced, and the sixth stopped at the ceiling rather than over it. **Trust:** the flip was not where the charge sent it — `v3/engine/ venue.ts` has always been right, and the class was alive in the *second* home, `glass/trust.ts`, where the composer's badge short-circuited on an auto-created `false` and rendered a working venue cold (F1). Both homes now say **only `true` decides**; the regression carries its own red (a flipped read beside the real one, opposite answers on one record) and pins §5's agreement (the inside `.claude.json`, never the legacy file). **Placement + attribution (B25's fold):** an ignition for a building now lands in the workspace Felix keeps for it — found by name, addressed by **uuid**, minted only when none exists, ambiguity minting fresh and auditing rather than guessing; a landing adds a tab and touches nothing else of his (no rename, no recolor); `retire()` closes only what the audit records as our mint and nothing was added to. The census join gained `homeOf` — **ignited-for outranks cwd for Belvedere-ignited sessions, cwd for everyone else** — live on City, Workshop and the queue. Proved in his own `belvedere` workspace: the b17 ignition arrived as `surface:101 builder-belvedere-78` beside his five tabs instead of minting a sixteenth workspace, then closed (D55). **Audit anchor:** `desk.test.ts` anchored, and the class made unreproducible by an interlock at the write — under `bun test` a write aimed at `~/code/agents/summon/log/` throws and names the knob; the live audit is byte-identical across two full suite runs (160 545 B before, after run 1, after run 2). Its own first cut armed the real HALT from its own test (F4 — B8 F1, by the hand writing the guard). **Runbook:** `plans/permissionrequest-runbook.md` for G6, one command rather than three hand-edits, because `deploy.ts` now recognises its own install as an upgrade and never re-backs-up over the true original (F5). Bar: `bun v3/gates.ts --glass` ALL GREEN — 12 gates, glass 608/0, barrage 1000 · 50 · 9/9, wall 213.2 s. Decided: nothing new — the placement law was blessed at G5 as B25's fold; **the UUID law gained a documented exception** (`workspace create` and `new-surface` print refs and ignore `--id-format both`, so a ref may not outlive the breath that made it, F8) and a widening (**a surface handle is resolved inside one workspace; every surface call names it** — B18 F1's class, F3). Next: the tender's review of the parallel triple. **⬡ — the budget:** 6 of 6 real turns spent, not exceeded. Two evidence bars stay open: the b17 probe's second consecutive green run and a full `lab/b22/placement.ts` run after F3's fix, both re-runs of already-fixed code, ~4 turns together.
 
-Baton — Felix: the ⬡ budget fork above (grant ~4 turns for the two re-runs, or
-accept the split evidence), and the PermissionRequest ritual at G6
-(`plans/permissionrequest-runbook.md`, one command, his hand).
+Baton — Felix: the ⬡ budget fork above (grant ~4 turns for the two re-runs, or accept the split evidence), and the PermissionRequest ritual at G6 (`plans/permissionrequest-runbook.md`, one command, his hand).
 
 ---
 
-**2026-08-31 · Builder · opus-high (B23)** — the repaint law, five faces:
-**three fixed at the cause, one falsified, one retired on a bounded record** —
-and Felix's UI-tests direction seeded as a standing gate. **The composer's lost
-keystroke** was the Action pane's own signature carrying the *refusal codes*,
-which are a pure function of his words, so the first character of an empty Reply
-box changed the signature and `paint` rebuilt the host with his textarea inside
-it (F1 — C15 F3's family from the other side; reproduced on keystroke 1 before
-anything was touched). Fixed twice: the box and its controls are two paint
-regions now, and **`paint()` itself holds and restores focus, the caret and
-every scroll offset** it rebuilds — the class, not the instance. **The scroll
-model is replaced, not patched, by his ruling:** one continuous view of the
-whole transcript, the pager (`before`/`around`, `loadEarlier`, `[↑ earlier]`,
-`windowOf`'s end byte, `ChatView.anchor`) gone whole, and **the minimap
-spatial** — a click moves the scroll view, the lit marks are what is on screen.
-No virtualization, and the number that decided it is the TURN count: 4.7 MB is
-42 turns, the account's longest conversation is 108, the cap is 2 000, the whole
-read is 11.7 ms warm on a gesture and the 3 s poll still carries the same 19 kB
-tail (F8). Two defects the model surfaced and cost a re-cut: **the poll's tail
-can begin MID-TURN**, so a key-dedupe merge drew one turn twice — the seam is a
-cut, not a dedupe (F2) — and **a target arrives four ways**, so hanging the whole
-read off `retarget` alone left a reloaded deck holding 5 turns of 42 (F3). **The
-tenant leak is dead at the seam:** `FocusView.mount` takes an `AbortSignal`, the
-shell owns one controller per tenancy, and every listener a tenant hangs on a
-host it does not own rides it — six swaps, one click, one request, and the first
-click selects at both parities. **The stale board did not reproduce** on either
-path and the cause the charge named is falsified — the Workshop's signature
-carries the board whole and has since B15 (F4); what the register holds is the
-file LIST, measured with its window. **The Act-stall is retired**: its mechanism
-(the v2 engine's tick) no longer exists, `server.ts` has no clock at all, and
-three honest runs of the nearest v3 recipe found nothing (F6). Bars: `bun
-v3/gates.ts --glass` **ALL GREEN — 12 gates, glass 608/0, barrage 1000 · 50 ·
-9/9, wall 212.3 s**; `bun v3/gates.ts --fast --probes` **ALL GREEN — 24 gates**,
-the fifteen-probe standing family in one command with the default run untouched;
-one induced red per probe class, each reverted; page scroll 0 px; `/deck/state`
-p95 285.7 ms against a 500 ms bar; **0 real turns, $0**. Decided: nothing new —
-every face was inside the blessed charge. Filed rather than chased: **a Bun
-worker never sees a runtime `process.env`**, so a runtime `$GLASS_CITY` makes the
-register's re-walk walk `~/code` (F5, ISSUES — cannot reach Felix's deck, does
-reach tests), and **C22's rename left `hands/fire` in `lab/b16/probe.ts`'s
-structural safety grep**, which has therefore been asserting nothing since the
-respell (ISSUES). Two probes retired or held back on one law — **a standing probe
-declares its own world**: `chat-minimap.probe.ts` folded into `chat-scroll`
-because its bar asserted the pager (F9), and `works-v3.probe.ts` stays out of the
-standing family because it pins a live run by name in a telemetry tree another
-lane writes (F12). Next: B23's review, at the parallel triple's close.
+**2026-08-31 · Builder · opus-high (B23)** — the repaint law, five faces: **three fixed at the cause, one falsified, one retired on a bounded record** — and Felix's UI-tests direction seeded as a standing gate. **The composer's lost keystroke** was the Action pane's own signature carrying the *refusal codes*, which are a pure function of his words, so the first character of an empty Reply box changed the signature and `paint` rebuilt the host with his textarea inside it (F1 — C15 F3's family from the other side; reproduced on keystroke 1 before anything was touched). Fixed twice: the box and its controls are two paint regions now, and **`paint()` itself holds and restores focus, the caret and every scroll offset** it rebuilds — the class, not the instance. **The scroll model is replaced, not patched, by his ruling:** one continuous view of the whole transcript, the pager (`before`/`around`, `loadEarlier`, `[↑ earlier]`, `windowOf`'s end byte, `ChatView.anchor`) gone whole, and **the minimap spatial** — a click moves the scroll view, the lit marks are what is on screen. No virtualization, and the number that decided it is the TURN count: 4.7 MB is 42 turns, the account's longest conversation is 108, the cap is 2 000, the whole read is 11.7 ms warm on a gesture and the 3 s poll still carries the same 19 kB tail (F8). Two defects the model surfaced and cost a re-cut: **the poll's tail can begin MID-TURN**, so a key-dedupe merge drew one turn twice — the seam is a cut, not a dedupe (F2) — and **a target arrives four ways**, so hanging the whole read off `retarget` alone left a reloaded deck holding 5 turns of 42 (F3). **The tenant leak is dead at the seam:** `FocusView.mount` takes an `AbortSignal`, the shell owns one controller per tenancy, and every listener a tenant hangs on a host it does not own rides it — six swaps, one click, one request, and the first click selects at both parities. **The stale board did not reproduce** on either path and the cause the charge named is falsified — the Workshop's signature carries the board whole and has since B15 (F4); what the register holds is the file LIST, measured with its window. **The Act-stall is retired**: its mechanism (the v2 engine's tick) no longer exists, `server.ts` has no clock at all, and three honest runs of the nearest v3 recipe found nothing (F6). Bars: `bun v3/gates.ts --glass` **ALL GREEN — 12 gates, glass 608/0, barrage 1000 · 50 · 9/9, wall 212.3 s**; `bun v3/gates.ts --fast --probes` **ALL GREEN — 24 gates**, the fifteen-probe standing family in one command with the default run untouched; one induced red per probe class, each reverted; page scroll 0 px; `/deck/state` p95 285.7 ms against a 500 ms bar; **0 real turns, $0**. Decided: nothing new — every face was inside the blessed charge. Filed rather than chased: **a Bun worker never sees a runtime `process.env`**, so a runtime `$GLASS_CITY` makes the register's re-walk walk `~/code` (F5, ISSUES — cannot reach Felix's deck, does reach tests), and **C22's rename left `hands/fire` in `lab/b16/probe.ts`'s structural safety grep**, which has therefore been asserting nothing since the respell (ISSUES). Two probes retired or held back on one law — **a standing probe declares its own world**: `chat-minimap.probe.ts` folded into `chat-scroll` because its bar asserted the pager (F9), and `works-v3.probe.ts` stays out of the standing family because it pins a live run by name in a telemetry tree another lane writes (F12). Next: B23's review, at the parallel triple's close.
 
-Baton — Felix: dispatch the tender's review of the parallel triple — his word
-ignites it (the rework note: *"an Architect review session dispatches at Felix's
-word"*), and B23's own two ISSUES entries ride into that sweep.
+Baton — Felix: dispatch the tender's review of the parallel triple — his word ignites it (the rework note: *"an Architect review session dispatches at Felix's word"*), and B23's own two ISSUES entries ride into that sweep.
 
 ---
 
-**2026-08-30 · Architect · fable-high (G5)** — **the triple is home: B23 ∥ B22
-∥ C20 all LANDED, each reviewed at this hand.** C20: the console's `tick`
-over the engine's new `heal()` (the deviation ruled accepted — `tick()`
-measured to hang the live-subject control; the kill criterion's sanctioned
-space), console 30/0 + engine 80/0, `settle.ts` gone. B22: five of six
-candidates paid, the trust flip found alive in `glass/trust.ts` (the
-charge's premise off by one file, both pinned), placement + attribution
-live; **holds: ⬡ budget extension** (~4 real turns for the two re-run bars —
-6/6 spent, stopped at the ceiling, D21); `census/deploy.ts --check` reads
-DRIFT ×3 by design until G6's ritual. B23: all seven bars zero open — the
-composer keystroke, continuous scroll + spatial minimap, the tenant leak,
-the stale board falsified, the stall bounded-retired; `--probes` is the
-standing interaction rail. Verified whole on the settled tree: `--glass`
-ALL GREEN (12 gates, 212.3 s) and `--fast --probes` ALL GREEN (24 gates,
-298.8 s), both exit 0. Swept at the review: the b16 grep (C22's residue,
-probe ALL GREEN after), worker-env folded into B27 §8, relays committed,
-B22's ledger separator trued. Decided: the `heal()` deviation (accepted,
-row citation). Next: C21 ignites (the nag gut, serial); Felix owes one ⬡ —
-the B22 budget extension — which gates only B22's two re-run bars and B27's
-ignition, nothing else in the chain.
+**2026-08-30 · Architect · fable-high (G5)** — **the triple is home: B23 ∥ B22 ∥ C20 all LANDED, each reviewed at this hand.** C20: the console's `tick` over the engine's new `heal()` (the deviation ruled accepted — `tick()` measured to hang the live-subject control; the kill criterion's sanctioned space), console 30/0 + engine 80/0, `settle.ts` gone. B22: five of six candidates paid, the trust flip found alive in `glass/trust.ts` (the charge's premise off by one file, both pinned), placement + attribution live; **holds: ⬡ budget extension** (~4 real turns for the two re-run bars — 6/6 spent, stopped at the ceiling, D21); `census/deploy.ts --check` reads DRIFT ×3 by design until G6's ritual. B23: all seven bars zero open — the composer keystroke, continuous scroll + spatial minimap, the tenant leak, the stale board falsified, the stall bounded-retired; `--probes` is the standing interaction rail. Verified whole on the settled tree: `--glass` ALL GREEN (12 gates, 212.3 s) and `--fast --probes` ALL GREEN (24 gates, 298.8 s), both exit 0. Swept at the review: the b16 grep (C22's residue, probe ALL GREEN after), worker-env folded into B27 §8, relays committed, B22's ledger separator trued. Decided: the `heal()` deviation (accepted, row citation). Next: C21 ignites (the nag gut, serial); Felix owes one ⬡ — the B22 budget extension — which gates only B22's two re-run bars and B27's ignition, nothing else in the chain.
 
-Baton — the dispatch → ignite C21 (the summons is its fenced kickoff + the
-coda, verbatim; B26 behind it, then B24; the B22 ⬡ rides to Felix in the
-tender's report).
+Baton — the dispatch → ignite C21 (the summons is its fenced kickoff + the coda, verbatim; B26 behind it, then B24; the B22 ⬡ rides to Felix in the tender's report).
 
 ---
 
-**2026-08-31 · Builder · opus-high (C21)** — **the gut: the cmux nag is dead
-and presence is untouched.** Changed: the `nagging` class removed whole —
-`Waiting = 'blocked'` alone (`deck-model.ts`), one arm on `waitingOf` and a
-string where a two-entry record stood (`attention.ts`), the queue item's nag
-prose, the legend swatch (`deck.client.ts`), `.dot.w-nagging` (`deck.css`) and
-its assertion (`attention.test.ts`); the four surviving greps are comments
-recording the removal at the site of it. The fixture city gained the state it
-lacked — `fixture-nagged`, a `Stop` at −21 h with cmux's `idle_prompt` sixty
-seconds after — which reproduces Felix's screenshot on demand and is now the
-gut's standing subject: `nag-honesty.probe.ts` joins `camera/probes/standing.txt`,
-seen to fail (the defect reinstated as one ternary arm, caught in the DOM).
-Photographed either side of the cut: the row goes `NAGGING · 21h` → `IDLE · 21h`,
-the strip `2 blocked on you` → `1`, the ⬡-queue `5 things need you` → `4`, the
-legend reflows 4 rows → 3 — and **presence is byte-identical across the pair**
-(5 live, `WORKING` and `BLOCKED` with its ring unmoved), his correction honored
-to the pixel. Evidence: `bun v3/gates.ts --glass` ALL GREEN (12 gates, 211.9 s,
-glass 609/0) and `--fast --probes` ALL GREEN (25 gates, 300.0 s), both exit 0;
-page scroll 0 px, content 900 ≤ viewport 900. Budget **0 real turns, 0 spent**.
-Decided: nothing — the type collapse F2 names is a wire-shape change to a
-surviving organ and was left to the Architect, and F4's legend one-liner was
-changed and reverted rather than smuggled in. Next: B26, then B24, then B27 —
-**and G6 must read F1 before it pays the PermissionRequest ⬡**: the census maps
-that event to `needs-input` while `waitingOf` reads only `Notification`, so the
-ritual as it stands re-opens the waiting blindness this charge just closed, on
-headless steps especially. Three findings filed to ISSUES; F1 is the one that
-bites.
+**2026-08-31 · Builder · opus-high (C21)** — **the gut: the cmux nag is dead and presence is untouched.** Changed: the `nagging` class removed whole — `Waiting = 'blocked'` alone (`deck-model.ts`), one arm on `waitingOf` and a string where a two-entry record stood (`attention.ts`), the queue item's nag prose, the legend swatch (`deck.client.ts`), `.dot.w-nagging` (`deck.css`) and its assertion (`attention.test.ts`); the four surviving greps are comments recording the removal at the site of it. The fixture city gained the state it lacked — `fixture-nagged`, a `Stop` at −21 h with cmux's `idle_prompt` sixty seconds after — which reproduces Felix's screenshot on demand and is now the gut's standing subject: `nag-honesty.probe.ts` joins `camera/probes/standing.txt`, seen to fail (the defect reinstated as one ternary arm, caught in the DOM). Photographed either side of the cut: the row goes `NAGGING · 21h` → `IDLE · 21h`, the strip `2 blocked on you` → `1`, the ⬡-queue `5 things need you` → `4`, the legend reflows 4 rows → 3 — and **presence is byte-identical across the pair** (5 live, `WORKING` and `BLOCKED` with its ring unmoved), his correction honored to the pixel. Evidence: `bun v3/gates.ts --glass` ALL GREEN (12 gates, 211.9 s, glass 609/0) and `--fast --probes` ALL GREEN (25 gates, 300.0 s), both exit 0; page scroll 0 px, content 900 ≤ viewport 900. Budget **0 real turns, 0 spent**. Decided: nothing — the type collapse F2 names is a wire-shape change to a surviving organ and was left to the Architect, and F4's legend one-liner was changed and reverted rather than smuggled in. Next: B26, then B24, then B27 — **and G6 must read F1 before it pays the PermissionRequest ⬡**: the census maps that event to `needs-input` while `waitingOf` reads only `Notification`, so the ritual as it stands re-opens the waiting blindness this charge just closed, on headless steps especially. Three findings filed to ISSUES; F1 is the one that bites.
 
-Baton — the dispatch → ignite B26 (the summons is its fenced kickoff + the coda,
-verbatim; B24 then B27 behind it). Felix still owes the one ⬡ from G5 — B22's
-budget extension — which gates B22's two re-run bars and B27's ignition, nothing
-in C21 or B26.
+Baton — the dispatch → ignite B26 (the summons is its fenced kickoff + the coda, verbatim; B24 then B27 behind it). Felix still owes the one ⬡ from G5 — B22's budget extension — which gates B22's two re-run bars and B27's ignition, nothing in C21 or B26.
 
 ---
 
-**2026-08-31 · Builder · opus-high (B26)** — **the baton is attention, and the
-deck can act on it.** Changed: the splitter, the resolver and D10's collision
-test moved out of the rail into `glass/baton.ts`, so one reading of a handoff
-serves two surfaces (`readBaton` — shape, collision, every instrument resolved
-to its bytes; the rail keeps the composing of an ignition on top, and the deck's
-queue never does it); `ATTENTION` gained its fifth class and `noBadges` now
-derives from that list instead of two hand-written literals (F8);
-`attention.ts` gained the bucket — every ledger tail, `baton` **sharing
-`waiting`'s rank** so the two interleave under one law and recency orders inside
-it; the item leads with the entry's own row (F3), quotes its instrument's bytes,
-and carries the holder, the shape, the collision and an honest note per holder;
-`deck.client.ts` draws it — the parser's word and `HIS BY PROSE` side by side,
-per-option `COMPOSE` (into the composer through `compose.with`, the desk's own
-seam) and `COPY`, zero ignite wiring anywhere in the drawer; `deck-view.ts`
-gained the drawer's door (`queue.show`) so the Works can reach the ⬡-queue
-without reaching into it, and a landed **terminal** node in a building whose
-tail hands a baton now says so and jumps to that item. First act, as ordered:
-the fixture city's seeded sids are uuids (C21 F3) — the readable half was always
-the name-stamp — so a probe can open the Chat, the queue or any session surface
-on a seeded session; the standing family was re-run whole on that fix (26 gates
-green) — said exactly, that run overlapped this charge's first edits, so the
-settled-tree run below is the landing evidence and it carries the family whole. Evidence: `bun v3/gates.ts --glass --probes` **ALL GREEN — 29 gates,
-wall 465.0 s** on a settled tree (glass 621/0, up from 609 with twelve added and
-none weakened; barrage 1000 · 50 · 9/9; the standing family whole, `baton` its
-eighteenth), doctrine lint 0 both boards, both type gates exit 0,
-`bun lab/b26/cost.ts` `/deck/state` p95 **280.2 ms** against the
-500 ms bar with the bucket costing **0.09 ms** a snapshot, and two probes —
-`baton.probe.ts` on the fixture (standing, hermetic) and `baton-real.probe.ts`
-on the real corpus (committed, hand-run, because it reads two trees other
-processes write). Budget **0 real turns, 0 spent**. Decided: nothing — the
-charge's Felix-holder-with-a-fence is the D10 collision and was built as that
-(F1), and the two defects found beyond the fence were filed, not chased: the
-scrim paints over the whole app so an **open** drawer cannot be clicked at all
-(F6 — every queue control since B13, cause and one-line fix on the entry), and a
-ledger entry that mentions `Next:` in its own body mis-splits (F5). Both to
-ISSUES; F2 is the ask that outlives this charge — nine of the fifteen live
-batons are his and six of those say nothing is owed, and no field can tell them
-apart. Next: ignite B24 — the baton below carries the instrument. *(This clause
-repaired 2026-08-31 at the close-out: the entry shipped without a `Next:` and
-`lint` read a dropped baton — C36 F2's find, routed back via the inbox.)*
+**2026-08-31 · Builder · opus-high (B26)** — **the baton is attention, and the deck can act on it.** Changed: the splitter, the resolver and D10's collision test moved out of the rail into `glass/baton.ts`, so one reading of a handoff serves two surfaces (`readBaton` — shape, collision, every instrument resolved to its bytes; the rail keeps the composing of an ignition on top, and the deck's queue never does it); `ATTENTION` gained its fifth class and `noBadges` now derives from that list instead of two hand-written literals (F8); `attention.ts` gained the bucket — every ledger tail, `baton` **sharing `waiting`'s rank** so the two interleave under one law and recency orders inside it; the item leads with the entry's own row (F3), quotes its instrument's bytes, and carries the holder, the shape, the collision and an honest note per holder; `deck.client.ts` draws it — the parser's word and `HIS BY PROSE` side by side, per-option `COMPOSE` (into the composer through `compose.with`, the desk's own seam) and `COPY`, zero ignite wiring anywhere in the drawer; `deck-view.ts` gained the drawer's door (`queue.show`) so the Works can reach the ⬡-queue without reaching into it, and a landed **terminal** node in a building whose tail hands a baton now says so and jumps to that item. First act, as ordered: the fixture city's seeded sids are uuids (C21 F3) — the readable half was always the name-stamp — so a probe can open the Chat, the queue or any session surface on a seeded session; the standing family was re-run whole on that fix (26 gates green) — said exactly, that run overlapped this charge's first edits, so the settled-tree run below is the landing evidence and it carries the family whole. Evidence: `bun v3/gates.ts --glass --probes` **ALL GREEN — 29 gates, wall 465.0 s** on a settled tree (glass 621/0, up from 609 with twelve added and none weakened; barrage 1000 · 50 · 9/9; the standing family whole, `baton` its eighteenth), doctrine lint 0 both boards, both type gates exit 0, `bun lab/b26/cost.ts` `/deck/state` p95 **280.2 ms** against the 500 ms bar with the bucket costing **0.09 ms** a snapshot, and two probes — `baton.probe.ts` on the fixture (standing, hermetic) and `baton-real.probe.ts` on the real corpus (committed, hand-run, because it reads two trees other processes write). Budget **0 real turns, 0 spent**. Decided: nothing — the charge's Felix-holder-with-a-fence is the D10 collision and was built as that (F1), and the two defects found beyond the fence were filed, not chased: the scrim paints over the whole app so an **open** drawer cannot be clicked at all (F6 — every queue control since B13, cause and one-line fix on the entry), and a ledger entry that mentions `Next:` in its own body mis-splits (F5). Both to ISSUES; F2 is the ask that outlives this charge — nine of the fifteen live batons are his and six of those say nothing is owed, and no field can tell them apart. Next: ignite B24 — the baton below carries the instrument. *(This clause repaired 2026-08-31 at the close-out: the entry shipped without a `Next:` and `lint` read a dropped baton — C36 F2's find, routed back via the inbox.)*
 
-Baton — the dispatch → ignite B24 (its fenced kickoff + the coda, verbatim;
-B27 behind it, and it now inherits F6 and F2 as well as C21's filings). Felix
-still owes the one ⬡ from G5 — B22's budget extension — which gates B22's two
-re-run bars and B27's ignition, nothing in B26 or B24.
+Baton — the dispatch → ignite B24 (its fenced kickoff + the coda, verbatim; B27 behind it, and it now inherits F6 and F2 as well as C21's filings). Felix still owes the one ⬡ from G5 — B22's budget extension — which gates B22's two re-run bars and B27's ignition, nothing in B26 or B24.
 
 ---
 
 ## 2026-08-31 (B24) · Builder · opus-high
 
-Changed: the City is his. **Item 0 first** (B26 F6, ruled to this charge at the
-review): `.app`'s `z-index: 1` is gone from `deck.css`, so an OPEN drawer's
-controls are clickable again — the note box, `file it`, `bless D<n>`, `jump to
-pane`, `chat`, `compose`/`copy`, all of them behind the scrim since B13 — and
-`camera/probes/drawer-click.probe.ts` stands over it in `standing.txt`, seen to
-fail with the line reinstated (Chrome's own `<div id="scrim"> intercepts pointer
-events`, ×19, then the timeout); the two workaround comments are rewritten as
-choices. Then the arrangement layer, his model whole: **`glass/spaces.ts`** —
-pure, shared by server and client — carries one recursive `Space` (name · color ·
-type · children · an optional binding to a building; **order is the array**, not
-a field), the drawn order, and every edit as tree surgery that returns a new
-tree; **`glass/arrangement.ts`** is the parse boundary and the one write,
-`desk/city-arrangement.json` through `POST /desk/arrangement` (a desk file, fence
-class 7 — **no new write class**, no credential gate, B6 F3's law fourth venue);
-and the City itself moved out of the shell into **`glass/city.client.ts`**, where
-the arrange mode lives: a pointer drag (never HTML5 DnD), toggled buttons, a
-felikai swatch row, a free `type` box, `+ space`, `dissolve`/`unfile`, and an
-unfiled tail holding every building he has not filed. **Candidate 7 reproduced
-before anything was built** — the live register drew **7 sections for 5 labels**,
-`~/code/universal_robots_sdk` split twice — and fixed by restoring B9's
-group-first invariant *as `spaces.derived()`*, so the default City and his
-arranged City are one renderer and cannot drift. His sketch is expressible
-verbatim and now filed: `desk/city-arrangement.json`, 5 889 B, FELIX and THG as
-districts with agents → belvedere → v3 three deep inside. glass **621 → 657**
-(36 added, none weakened). Evidence: `bun v3/gates.ts --glass --probes`
-**ALL GREEN — 31 gates, wall 480.9 s**, exit 0 (glass 657/0; barrage 1000 · 50 ·
-9/9; the standing family two larger — `city-arrange` and `drawer-click`);
-doctrine lint 0 both boards; `/deck/state` p95 **265.8 ms** against the 500 ms
-bar with the arrangement 5 889 B of a 70 239 B payload; the persistence bar
-`sha256 55dd33b6…` byte-identical across a `kill -9` and a relaunch, read back
-in a browser that had never held a key of this deck's. Budget **0 real turns, 0
-spent** — no session was ignited.
+Changed: the City is his. **Item 0 first** (B26 F6, ruled to this charge at the review): `.app`'s `z-index: 1` is gone from `deck.css`, so an OPEN drawer's controls are clickable again — the note box, `file it`, `bless D<n>`, `jump to pane`, `chat`, `compose`/`copy`, all of them behind the scrim since B13 — and `camera/probes/drawer-click.probe.ts` stands over it in `standing.txt`, seen to fail with the line reinstated (Chrome's own `<div id="scrim"> intercepts pointer events`, ×19, then the timeout); the two workaround comments are rewritten as choices. Then the arrangement layer, his model whole: **`glass/spaces.ts`** — pure, shared by server and client — carries one recursive `Space` (name · color · type · children · an optional binding to a building; **order is the array**, not a field), the drawn order, and every edit as tree surgery that returns a new tree; **`glass/arrangement.ts`** is the parse boundary and the one write, `desk/city-arrangement.json` through `POST /desk/arrangement` (a desk file, fence class 7 — **no new write class**, no credential gate, B6 F3's law fourth venue); and the City itself moved out of the shell into **`glass/city.client.ts`**, where the arrange mode lives: a pointer drag (never HTML5 DnD), toggled buttons, a felikai swatch row, a free `type` box, `+ space`, `dissolve`/`unfile`, and an unfiled tail holding every building he has not filed. **Candidate 7 reproduced before anything was built** — the live register drew **7 sections for 5 labels**, `~/code/universal_robots_sdk` split twice — and fixed by restoring B9's group-first invariant *as `spaces.derived()`*, so the default City and his arranged City are one renderer and cannot drift. His sketch is expressible verbatim and now filed: `desk/city-arrangement.json`, 5 889 B, FELIX and THG as districts with agents → belvedere → v3 three deep inside. glass **621 → 657** (36 added, none weakened). Evidence: `bun v3/gates.ts --glass --probes` **ALL GREEN — 31 gates, wall 480.9 s**, exit 0 (glass 657/0; barrage 1000 · 50 · 9/9; the standing family two larger — `city-arrange` and `drawer-click`); doctrine lint 0 both boards; `/deck/state` p95 **265.8 ms** against the 500 ms bar with the arrangement 5 889 B of a 70 239 B payload; the persistence bar `sha256 55dd33b6…` byte-identical across a `kill -9` and a relaunch, read back in a browser that had never held a key of this deck's. Budget **0 real turns, 0 spent** — no session was ignited.
 
-Decided: **attention outranks his order at every level**, not only recency —
-the bar's own sentence (*"the quiet group holds the loudest building pins group
-ordering by loudest member"*) requires it for groups, and two laws in one pane
-would be worse than one; the drop reports why when it bites, the file always
-keeps his order, and reversing the ruling later is one comparator line (F2).
-Four defects found and fixed inside the fence, each pinned: a duplicate space id
-minted in one millisecond (F4), an id regex written as a character list that
-made the server refuse **every** arrangement the live City could make (F3), a
-bound space carrying a copy of its building's name (F5), and the drag verb's
-missing viewport law (F9). Two filed to ISSUES rather than chased: the camera
-cannot drive a deck that writes the real desk (a contract question — the live
-bar was paid in two honest runs), and the transferable half of F3 — **a probe
-that drives a write must assert the receipt**, because an optimistic redraw and
-a saved arrangement are pixel-identical. C21 F4's legend token was ported
-forward with its defect on purpose: it is B27 §8's and it carries a comment
-saying so.
+Decided: **attention outranks his order at every level**, not only recency — the bar's own sentence (*"the quiet group holds the loudest building pins group ordering by loudest member"*) requires it for groups, and two laws in one pane would be worse than one; the drop reports why when it bites, the file always keeps his order, and reversing the ruling later is one comparator line (F2). Four defects found and fixed inside the fence, each pinned: a duplicate space id minted in one millisecond (F4), an id regex written as a character list that made the server refuse **every** arrangement the live City could make (F3), a bound space carrying a copy of its building's name (F5), and the drag verb's missing viewport law (F9). Two filed to ISSUES rather than chased: the camera cannot drive a deck that writes the real desk (a contract question — the live bar was paid in two honest runs), and the transferable half of F3 — **a probe that drives a write must assert the receipt**, because an optimistic redraw and a saved arrangement are pixel-identical. C21 F4's legend token was ported forward with its defect on purpose: it is B27 §8's and it carries a comment saying so.
 
-Next: **Felix reviews B24** — his City, arranged; the rework batch's last build
-row is **B27** (the QoL sweep), which now inherits B26's F9 and this row's F2 as
-well as C21's filings, and whose ignition still waits on the one ⬡ Felix owes
-from G5 (B22's budget extension). **G6** convenes by his summons after it.
-His own Belvedere on :4477 is running pre-B24 code and answers `404` to
-`/desk/arrangement`; his arrangement reaches him on the next restart.
+Next: **Felix reviews B24** — his City, arranged; the rework batch's last build row is **B27** (the QoL sweep), which now inherits B26's F9 and this row's F2 as well as C21's filings, and whose ignition still waits on the one ⬡ Felix owes from G5 (B22's budget extension). **G6** convenes by his summons after it. His own Belvedere on :4477 is running pre-B24 code and answers `404` to `/desk/arrangement`; his arrangement reaches him on the next restart.
 
-Baton — the dispatch → Felix: read the City (restart the deck first), then
-ignite B27 or call G6. Nothing here ignites itself.
+Baton — the dispatch → Felix: read the City (restart the deck first), then ignite B27 or call G6. Nothing here ignites itself.
 
 ---
 
-**2026-08-31 · Architect · fable-high (G5)** — **the serial chain is home
-through B24: C21 · B26 · B24 all LANDED, each reviewed at this hand, each
-proving run re-run green at the review** (C21: --glass 12 gates + the
-after-shots Read — the 21 h NAGGING row reads IDLE, presence byte-identical;
-B26: --glass --probes 29 gates — the baton the fifth attention class, the
-fixture-sid fix first; B24: --glass --probes **31 gates, 475.1 s** — spaces
-live to `desk/city-arrangement.json`, candidate 7 reproduced and fixed, the
-scrim closed with its standing probe). Rulings at the reviews, all cited on
-the rows: C21's filings → B27 §§8–9 + B26's first act; B26's F6 → B24 item
-0, F9 → B27 §7, F2 + the Next-splitter mis-split → the canon inbox (F2 the
-fourth filing — amendment candidate by recurrence); B24's two filings
-distilled into §5 (the two-run desk bar; a driving probe asserts the
-receipt); B24's attention-over-order ruling accepted on §3's law,
-strike-able at the G6 visual pass. Inbox swept to empty at every review.
-Decided: nothing register-grade beyond the above. Next: **the chain waits on
-Felix's one ⬡** — B22's typed hold (the ~4-turn budget extension) pauses
-B27 by D74's law; on "extend" a short B22 session closes the two re-run
-bars, the hold clears, B27 ignites (its doc carries eleven items, the
-PermissionRequest fix before G6's ritual among them), then G6 convenes on
-his summons.
+**2026-08-31 · Architect · fable-high (G5)** — **the serial chain is home through B24: C21 · B26 · B24 all LANDED, each reviewed at this hand, each proving run re-run green at the review** (C21: --glass 12 gates + the after-shots Read — the 21 h NAGGING row reads IDLE, presence byte-identical; B26: --glass --probes 29 gates — the baton the fifth attention class, the fixture-sid fix first; B24: --glass --probes **31 gates, 475.1 s** — spaces live to `desk/city-arrangement.json`, candidate 7 reproduced and fixed, the scrim closed with its standing probe). Rulings at the reviews, all cited on the rows: C21's filings → B27 §§8–9 + B26's first act; B26's F6 → B24 item 0, F9 → B27 §7, F2 + the Next-splitter mis-split → the canon inbox (F2 the fourth filing — amendment candidate by recurrence); B24's two filings distilled into §5 (the two-run desk bar; a driving probe asserts the receipt); B24's attention-over-order ruling accepted on §3's law, strike-able at the G6 visual pass. Inbox swept to empty at every review. Decided: nothing register-grade beyond the above. Next: **the chain waits on Felix's one ⬡** — B22's typed hold (the ~4-turn budget extension) pauses B27 by D74's law; on "extend" a short B22 session closes the two re-run bars, the hold clears, B27 ignites (its doc carries eleven items, the PermissionRequest fix before G6's ritual among them), then G6 convenes on his summons.
 
-Baton — ⬡ Felix → rule the B22 hold: "extend" (recommended — ~4 real turns
-/ well under $1, closing the b17-probe and placement re-run bars; a fresh
-Builder session at opus-high, summons = B22's kickoff + the coda + the
-amendment naming only the two open bars) — or rule the hold non-blocking
-for B27 with the two bars riding to G6. His word in the tender's room is
-the instrument (D57's receiving-room clause).
+Baton — ⬡ Felix → rule the B22 hold: "extend" (recommended — ~4 real turns / well under $1, closing the b17-probe and placement re-run bars; a fresh Builder session at opus-high, summons = B22's kickoff + the coda + the amendment naming only the two open bars) — or rule the hold non-blocking for B27 with the two bars riding to G6. His word in the tender's room is the instrument (D57's receiving-room clause).
 
 ---
 
-**2026-08-31 · Architect · fable-max** — *(the close-out, at stigmergon's
-founding — no charge of this board; the summons is the canon ledger's GA-19
-baton.)* **The books are closed: Belvedere is retired (⬡, his word — "the attempt lacked
-the right foundation"), and a documented kill is a win.** Changed: canon board
-row 15 flipped IN FLIGHT → KILLED; B27 and G6 KILLED on this board (the rework
-died with the building — its un-ruled residue is named on the B27 row); the
-README leads with the retirement notice (what died, what the salvage is, where
-the post-mortem lands); the inbox swept to empty — the B26 `Next:` repair landed
-in this file (C36 F2's find), the `Baton.holder` dispatch/none render gap and
-the census `PermissionRequest` blindness (C21 F1) ride the salvage via the
-notice. G5's open baton (the B22 hold, B27, G6) is overtaken: the retirement
-kills the chain it gated. The post-mortem itself lands in stigmergon's
-cornerstone non-goals — the one place failure lessons are load-bearing; the
-salvage inputs: the v3 engine · console · fake claude · barrage, the camera +
-gates + fixture city, the census, the desk (which outlived its renderer —
-`desk/city-arrangement.json` survives this building, the law proven on its own
-grave). Decided: nothing new (the retirement and the fold-into-founding are ⬡
-rulings of 2026-08-31, on the canon ledger). Next: none — the building is
-retired; stigmergon's founding continues on the canon repo's ledger.
+**2026-08-31 · Architect · fable-max** — *(the close-out, at stigmergon's founding — no charge of this board; the summons is the canon ledger's GA-19 baton.)* **The books are closed: Belvedere is retired (⬡, his word — "the attempt lacked the right foundation"), and a documented kill is a win.** Changed: canon board row 15 flipped IN FLIGHT → KILLED; B27 and G6 KILLED on this board (the rework died with the building — its un-ruled residue is named on the B27 row); the README leads with the retirement notice (what died, what the salvage is, where the post-mortem lands); the inbox swept to empty — the B26 `Next:` repair landed in this file (C36 F2's find), the `Baton.holder` dispatch/none render gap and the census `PermissionRequest` blindness (C21 F1) ride the salvage via the notice. G5's open baton (the B22 hold, B27, G6) is overtaken: the retirement kills the chain it gated. The post-mortem itself lands in stigmergon's cornerstone non-goals — the one place failure lessons are load-bearing; the salvage inputs: the v3 engine · console · fake claude · barrage, the camera + gates + fixture city, the census, the desk (which outlived its renderer — `desk/city-arrangement.json` survives this building, the law proven on its own grave). Decided: nothing new (the retirement and the fold-into-founding are ⬡ rulings of 2026-08-31, on the canon ledger). Next: none — the building is retired; stigmergon's founding continues on the canon repo's ledger.

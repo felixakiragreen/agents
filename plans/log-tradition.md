@@ -1,11 +1,6 @@
 # The log tradition — D40 beyond canon
 
-D40 chartered the Personal Log for the Guild's Grand Architect. The tradition now
-emigrates: Felix re-summons a project's still-open founding windows to open that
-project's own log. This doc is the portable implementation — the adapted preamble and
-the two kickoffs. **Not canon, by Felix's ruling 2026-08-07:** tradition first; if the
-logs earn their keep across the projects, a future harvest cuts the D-entry that makes
-it law (an architect.md ritual, a DOCTRINE clause), these logs as birthplaces.
+D40 chartered the Personal Log for the Guild's Grand Architect. The tradition now emigrates: Felix re-summons a project's still-open founding windows to open that project's own log. This doc is the portable implementation — the adapted preamble and the two kickoffs. **Not canon, by Felix's ruling 2026-08-07:** tradition first; if the logs earn their keep across the projects, a future harvest cuts the D-entry that makes it law (an architect.md ritual, a DOCTRINE clause), these logs as birthplaces.
 
 ## The preamble (template — the founding window adapts ⟨slots⟩, keeps the rest)
 
@@ -59,20 +54,12 @@ law. Commit your append alone, one line, Felix's style.
 
 ## Usage
 
-- **The file is titled "The Architect's Log" everywhere.** Post-D32 the project
-  office is the Architect; retired titles (hexwright's "Grand Architect") live inside
-  entries — the maiden name belongs to the voice, not the file.
-- **The first window summoned founds the file.** Pick the voice that should open it;
-  summon the rest in ledger-date order — the only clock we trust.
-- **⟨log path⟩ is the project home:** repo root for a full project (hexwright);
-  the subproject dir for simmy/snappy — the log rides the branch its home rides,
-  venue physics unchanged.
-- **Each window commits its own append, alone, one line.** No sitting keeper exists
-  in a project to fold the boundary.
-- **Salvage windows predate the retrofits.** Pre-canon vocabulary in an entry is
-  provenance, not error; entries are never corrected.
-- **Growth after salvage:** until a harvest canonizes a ritual, a project log grows
-  when Felix asks a session to append — tradition is kept by its keeper.
+- **The file is titled "The Architect's Log" everywhere.** Post-D32 the project office is the Architect; retired titles (hexwright's "Grand Architect") live inside entries — the maiden name belongs to the voice, not the file.
+- **The first window summoned founds the file.** Pick the voice that should open it; summon the rest in ledger-date order — the only clock we trust.
+- **⟨log path⟩ is the project home:** repo root for a full project (hexwright); the subproject dir for simmy/snappy — the log rides the branch its home rides, venue physics unchanged.
+- **Each window commits its own append, alone, one line.** No sitting keeper exists in a project to fold the boundary.
+- **Salvage windows predate the retrofits.** Pre-canon vocabulary in an entry is provenance, not error; entries are never corrected.
+- **Growth after salvage:** until a harvest canonizes a ritual, a project log grows when Felix asks a session to append — tradition is kept by its keeper.
 
 Example fill (hexwright founding — adjust to what the window itself remembers):
 

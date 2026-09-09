@@ -1,48 +1,25 @@
 # 029 — the summon harness, after the dispatcher preset
 
-**Status:** LANDED 2026-08-31 — the mission met on master by later hands, E1 ruled 2026-08-31, closed at 037 (the board is the record; header reconciled 2026-09-01) · **Depends on:** — · **Staffing:** Builder · opus-high ·
-**Branch:** `bv/029-summon-harness` (D74 — joined agents-flow-1 as a worktree lane, grand-architect-15; G1 merges)
+**Status:** LANDED 2026-08-31 — the mission met on master by later hands, E1 ruled 2026-08-31, closed at 037 (the board is the record; header reconciled 2026-09-01) · **Depends on:** — · **Staffing:** Builder · opus-high · **Branch:** `bv/029-summon-harness` (D74 — joined agents-flow-1 as a worktree lane, grand-architect-15; G1 merges)
 
 ## Mission
 
-`lab/008/run` goes green again on a `presets.tsv` that no longer carries a dead mantle.
-025 retired the `d dispatcher` preset — D71 killed the mantle, and a dead mantle must not
-be summonable from a rig Felix uses daily. The harness did not follow: **013-F1's guard
-derives the fixture, not the script.**
+`lab/008/run` goes green again on a `presets.tsv` that no longer carries a dead mantle. 025 retired the `d dispatcher` preset — D71 killed the mantle, and a dead mantle must not be summonable from a rig Felix uses daily. The harness did not follow: **013-F1's guard derives the fixture, not the script.**
 
 ## The evidence — measured at 025's landing
 
-`./lab/008/run` on the retired preset: **1 → 15 failures.** The pre-existing 1 is
-`grey reaches the terminal as \e[90m (live pty)` and is unrelated (it fails on the
-baseline too, in this environment). The 14 new ones fall in three classes:
+`./lab/008/run` on the retired preset: **1 → 15 failures.** The pre-existing 1 is `grey reaches the terminal as \e[90m (live pty)` and is unrelated (it fails on the baseline too, in this environment). The 14 new ones fall in three classes:
 
-1. **The drive script presses `d`.** `lab/008/drive.exp` T6/T9/T10/T11 select the
-   dispatcher preset and then override its model and effort (`h`, `k`) — the chain that
-   proves cascade-plus-single-field-override. With `d` unbound the whole chain drifts.
-2. **Three assertions name the stamps it produced** — `dispatcher-hive-01/02/03` in
-   `lab/008/run` (the sticky-state block), plus the lineage-order assertion that counts
-   them.
-3. **Two wrap assertions are column-sensitive to the item list** —
-   `● [A]rchitect·max  ● [d]ispatcher  ● [b]uilder` at 60 columns, in both the rendered
-   panel and the live-pty narrow run. Removing an item moves the wrap point, so these
-   must be re-derived from a real render, not edited by eye.
+1. **The drive script presses `d`.** `lab/008/drive.exp` T6/T9/T10/T11 select the dispatcher preset and then override its model and effort (`h`, `k`) — the chain that proves cascade-plus-single-field-override. With `d` unbound the whole chain drifts.
+2. **Three assertions name the stamps it produced** — `dispatcher-hive-01/02/03` in `lab/008/run` (the sticky-state block), plus the lineage-order assertion that counts them.
+3. **Two wrap assertions are column-sensitive to the item list** — `● [A]rchitect·max  ● [d]ispatcher  ● [b]uilder` at 60 columns, in both the rendered panel and the live-pty narrow run. Removing an item moves the wrap point, so these must be re-derived from a real render, not edited by eye.
 
 ## The spec
 
-1. **Retarget the drive**, don't restore the preset. Pick a surviving preset whose
-   model/effort differ from the override keys the chain exercises, so the cascade and
-   single-field-override assertions still bite; say in a comment which preset was chosen
-   and why it preserves the proof.
-2. **Re-derive the two wrap assertions from a real render** (`render.zsh` and the live
-   60-column pty), never by hand-counting columns.
-3. **Assertion count may not fall.** The baseline is 200 (charge 014). If an assertion is
-   genuinely retired with the preset, name it in the findings with the reason and say
-   what replaces its coverage.
-4. **Widen 013-F1's guard while you are in here — the finding it was built for just
-   escaped it.** The guard proves the harness follows a `presets.tsv` *row addition*; it
-   does not prove it follows a *removal*. Add the removal arm: delete a preset in a temp
-   copy, and assert the harness's counts follow rather than its assertions breaking.
-   That is the arm that would have caught this.
+1. **Retarget the drive**, don't restore the preset. Pick a surviving preset whose model/effort differ from the override keys the chain exercises, so the cascade and single-field-override assertions still bite; say in a comment which preset was chosen and why it preserves the proof.
+2. **Re-derive the two wrap assertions from a real render** (`render.zsh` and the live 60-column pty), never by hand-counting columns.
+3. **Assertion count may not fall.** The baseline is 200 (charge 014). If an assertion is genuinely retired with the preset, name it in the findings with the reason and say what replaces its coverage.
+4. **Widen 013-F1's guard while you are in here — the finding it was built for just escaped it.** The guard proves the harness follows a `presets.tsv` *row addition*; it does not prove it follows a *removal*. Add the removal arm: delete a preset in a temp copy, and assert the harness's counts follow rather than its assertions breaking. That is the arm that would have caught this.
 
 ## Done when:
 
@@ -53,9 +30,7 @@ baseline too, in this environment). The 14 new ones fall in three classes:
 
 ## Out of scope
 
-Any change to `summon/summon.zsh` behavior. Minting a replacement preset on the freed `d`
-key — that is Felix's taste (it is a key on his daily panel) and would ride charge 022 or
-his word, not this repair.
+Any change to `summon/summon.zsh` behavior. Minting a replacement preset on the freed `d` key — that is Felix's taste (it is a key on his daily panel) and would ride charge 022 or his word, not this repair.
 
 ## Findings
 

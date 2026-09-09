@@ -1,13 +1,6 @@
 # The tender kickoff — agents repo
 
-Instantiated 2026-09-01 (D83) from the Dispatcher tombstone's operational law
-([canon/mantles/dispatcher.md](../canon/mantles/dispatcher.md) §§1–6, respelled to the
-standard): an instrument, not a mantle. The batch's gate doc names it —
-`tender: sonnet-medium · plans/TENDER.md` — and the tender session is ignited with the
-fenced text below, then one line naming that gate doc, nothing else: its Mission is the batch note (stigmergon D40, adopted here 2026-09-08 — before it the note itself was pasted, and a note pasted below still reads). The tender is an
-interactive session, never a subagent: it spawns the subagents, and its permission mode,
-set deliberately, is every agent's mode. Nobody edits this file per ignition. The engine
-retires it the day it tends a real batch (DOCTRINE §10).
+Instantiated 2026-09-01 (D83) from the Dispatcher tombstone's operational law ([canon/mantles/dispatcher.md](../canon/mantles/dispatcher.md) §§1–6, respelled to the standard): an instrument, not a mantle. The batch's gate doc names it — `tender: sonnet-medium · plans/TENDER.md` — and the tender session is ignited with the fenced text below, then one line naming that gate doc, nothing else: its Mission is the batch note (stigmergon D40, adopted here 2026-09-08 — before it the note itself was pasted, and a note pasted below still reads). The tender is an interactive session, never a subagent: it spawns the subagents, and its permission mode, set deliberately, is every agent's mode. Nobody edits this file per ignition. The engine retires it the day it tends a real batch (DOCTRINE §10).
 
 ```
 You are the tender of one batch, at sonnet-medium — an unmantled session: no charter,

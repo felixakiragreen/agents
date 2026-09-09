@@ -1,39 +1,24 @@
 # 037 — the removal arm
 
-**Status:** LANDED 2026-08-31 — laid 2026-08-31 (G2) · **Depends on:** — · **Staffing:** Builder · opus-high ·
-**Parallel-safe with:** 036 (disjoint files: `lab/008/` vs `doctrine/`)
+**Status:** LANDED 2026-08-31 — laid 2026-08-31 (G2) · **Depends on:** — · **Staffing:** Builder · opus-high · **Parallel-safe with:** 036 (disjoint files: `lab/008/` vs `doctrine/`)
 
 ## Mission
 
-029's one surviving deliverable lands on master's harness. 013-F1's guard proves
-`lab/008/run` follows a `presets.tsv` row **addition**; it does not prove it follows a
-**removal** — which is exactly why 025's dispatcher retirement took the harness 1 → 15
-red and nothing caught it. 029 built the arm on `bv/029-summon-harness`; that branch was
-rejected at [G2](g2-029-merge.md) (1-red and superseded in every conflicting hunk), and
-this arm is the only thing on it master does not already have, better.
+029's one surviving deliverable lands on master's harness. 013-F1's guard proves `lab/008/run` follows a `presets.tsv` row **addition**; it does not prove it follows a **removal** — which is exactly why 025's dispatcher retirement took the harness 1 → 15 red and nothing caught it. 029 built the arm on `bv/029-summon-harness`; that branch was rejected at [G2](g2-029-merge.md) (1-red and superseded in every conflicting hunk), and this arm is the only thing on it master does not already have, better.
 
-The work is **already written and already proven green** — see the graft below. This
-charge exists because G2's fence forbids new harness arms, not because the question is
-open.
+The work is **already written and already proven green** — see the graft below. This charge exists because G2's fence forbids new harness arms, not because the question is open.
 
 ## Inputs — read before working (do not re-derive)
 
-- [plans/g2-029-merge.md](g2-029-merge.md) F4 — the verification that produced the graft
-  below, including the one adaptation master requires.
-- [plans/029-summon-harness.md](029-summon-harness.md) — the charge the arm was built
-  for; spec item 4 is this arm. **Read master's copy for the mission; the branch copy is
-  the evidenced one but its repair is superseded.** Do not merge the branch.
-- `lab/008/run` — the addition arm it pairs with, ending at
-  `check '...which is the scratch preset appearing in both'`.
+- [plans/g2-029-merge.md](g2-029-merge.md) F4 — the verification that produced the graft below, including the one adaptation master requires.
+- [plans/029-summon-harness.md](029-summon-harness.md) — the charge the arm was built for; spec item 4 is this arm. **Read master's copy for the mission; the branch copy is the evidenced one but its repair is superseded.** Do not merge the branch.
+- `lab/008/run` — the addition arm it pairs with, ending at `check '...which is the scratch preset appearing in both'`.
 
 ## Spec
 
-Graft the block below into `lab/008/run` immediately after the addition arm's last line
-(`check '...which is the scratch preset appearing in both' '● [w]arden' …`) and before
-the `presets_read $RIG/presets.tsv $RIG/accounts.tsv` line that restores the rig's data.
+Graft the block below into `lab/008/run` immediately after the addition arm's last line (`check '...which is the scratch preset appearing in both' '● [w]arden' …`) and before the `presets_read $RIG/presets.tsv $RIG/accounts.tsv` line that restores the rig's data.
 
-Verbatim — this is the 029 arm with the one adaptation master requires (`$(( $(items_expected) - 1 ))`,
-because the selected mantle's furniture brightens since `6724213`, so its bracket is not `fg=8`):
+Verbatim — this is the 029 arm with the one adaptation master requires (`$(( $(items_expected) - 1 ))`, because the selected mantle's furniture brightens since `6724213`, so its bracket is not `fg=8`):
 
 ```zsh
 # ...and the arm the addition arm did not cover: a preset REMOVED. 025 retired `d
@@ -62,14 +47,11 @@ else
 fi
 ```
 
-**If it does not read 215 green, stop and say so — do not tune the arm to fit.** The
-graft was verified at `67d73be`; a different number means master moved under it, and
-what moved is the finding.
+**If it does not read 215 green, stop and say so — do not tune the arm to fit.** The graft was verified at `67d73be`; a different number means master moved under it, and what moved is the finding.
 
 ## Done when:
 
-- [x] `./lab/008/run` → **215 PASS · 0 failure(s)**, pasted (master's 211 + this arm's 4 —
-      see F2; the total the spec named is exact, its decomposition was off by one).
+- [x] `./lab/008/run` → **215 PASS · 0 failure(s)**, pasted (master's 211 + this arm's 4 — see F2; the total the spec named is exact, its decomposition was off by one).
 
 ```
 $ ./lab/008/run 2>&1 | tee run.txt | tail -1
@@ -92,23 +74,17 @@ $ grep -c '^  PASS' run.txt
 ```
 
 - [x] `bv/029-summon-harness` deleted at `f160ec10b2d42cfa86a1c7d2e5a9a6d1dadd0e19` — F3.
-- [x] BOARD.md: 037 row reconciled; the 029 row's "removal arm → 037" clause struck with
-      a dated note.
+- [x] BOARD.md: 037 row reconciled; the 029 row's "removal arm → 037" clause struck with a dated note.
 
 ## Out of scope
 
 - Any other 029 branch content — it is superseded (G2 F3). Do not merge the branch.
-- 029's F4 (the typed-literals arm) — still a finding for the next charge that opens
-  `lab/008`.
-- `presets.tsv` changes, new summon behavior, the v1.1-parity block master retired.
-  Creep is a bug.
+- 029's F4 (the typed-literals arm) — still a finding for the next charge that opens `lab/008`.
+- `presets.tsv` changes, new summon behavior, the v1.1-parity block master retired. Creep is a bug.
 
 ## Findings
 
-**F1 — the graft landed verbatim and reproduced G2's number exactly.** Inserted into
-`lab/008/run` immediately after the addition arm's last line, before the rig restore, with
-no edit to the block the spec named — including the one adaptation
-(`$(( $(items_expected) - 1 ))`). Commit `6b795b5`. The run at master `b232f05`:
+**F1 — the graft landed verbatim and reproduced G2's number exactly.** Inserted into `lab/008/run` immediately after the addition arm's last line, before the rig restore, with no edit to the block the spec named — including the one adaptation (`$(( $(items_expected) - 1 ))`). Commit `6b795b5`. The run at master `b232f05`:
 
 ```
 $ ./lab/008/run 2>&1 | tee run.txt | tail -1
@@ -117,14 +93,9 @@ $ grep -c '^  PASS' run.txt
 215
 ```
 
-The arm's own four lines are byte-identical to the ones G2 F4 pasted from its throwaway
-worktree — same counts (1 · 22 · 0 · 24 → 23), so nothing moved under the graft between
-`67d73be` and here.
+The arm's own four lines are byte-identical to the ones G2 F4 pasted from its throwaway worktree — same counts (1 · 22 · 0 · 24 → 23), so nothing moved under the graft between `67d73be` and here.
 
-**F2 — the spec's total was right; its decomposition was off by one, in both docs.**
-`215 PASS` is exact. But "master's 210 + this arm's 5" (this charge's `Done when:`, from
-G2 F4's "Master 210 + 5") is wrong on both halves. Master's control, measured before the
-graft:
+**F2 — the spec's total was right; its decomposition was off by one, in both docs.** `215 PASS` is exact. But "master's 210 + this arm's 5" (this charge's `Done when:`, from G2 F4's "Master 210 + 5") is wrong on both halves. Master's control, measured before the graft:
 
 ```
 $ git log --oneline -1
@@ -133,24 +104,13 @@ $ ./lab/008/run 2>&1 | grep -c '^  PASS'
 211
 ```
 
-211, not 210 — and `6724213`'s own commit message says `211 green`, so master has read 211
-since 2026-08-24. The arm contributes **4** PASS lines, not 5 (`line` · `count` · `count`
-· the `ITEMS_FULL` comparison; `plain` asserts nothing). 211 + 4 = 215. Both errors are
-in prose only, and they cancel — the number the spec made load-bearing held, so this is a
-note for the reader, not a stop. **No harness arm was tuned.**
+211, not 210 — and `6724213`'s own commit message says `211 green`, so master has read 211 since 2026-08-24. The arm contributes **4** PASS lines, not 5 (`line` · `count` · `count` · the `ITEMS_FULL` comparison; `plain` asserts nothing). 211 + 4 = 215. Both errors are in prose only, and they cancel — the number the spec made load-bearing held, so this is a note for the reader, not a stop. **No harness arm was tuned.**
 
-**F3 — `bv/029-summon-harness` deleted at `f160ec10b2d42cfa86a1c7d2e5a9a6d1dadd0e19`.**
-Its last unlanded value, the removal arm, is now on master at `6b795b5`. The sha is
-recorded here and on the 029 board row; the branch existed nowhere else (`git worktree
-list` showed one worktree, master's).
+**F3 — `bv/029-summon-harness` deleted at `f160ec10b2d42cfa86a1c7d2e5a9a6d1dadd0e19`.** Its last unlanded value, the removal arm, is now on master at `6b795b5`. The sha is recorded here and on the 029 board row; the branch existed nowhere else (`git worktree list` showed one worktree, master's).
 
-**F4 — 029's typed-literals arm is still unbuilt and still unclaimed.** Untouched here
-per Out of scope; it remains a finding for the next charge that opens `lab/008`.
+**F4 — 029's typed-literals arm is still unbuilt and still unclaimed.** Untouched here per Out of scope; it remains a finding for the next charge that opens `lab/008`.
 
-**F5 — the agents building's lint went `ok` → 1 failure mid-session, and not by this
-charge.** The ignition's standing condition named exactly one lint failure city-wide
-(`ledger.next`, belvedere, fenced) with the agents building reading `ok`. At the close it
-reads two:
+**F5 — the agents building's lint went `ok` → 1 failure mid-session, and not by this charge.** The ignition's standing condition named exactly one lint failure city-wide (`ledger.next`, belvedere, fenced) with the agents building reading `ok`. At the close it reads two:
 
 ```
 $ bun doctrine/cli.ts lint .
@@ -159,24 +119,16 @@ FAIL  agents  —  3 board(s) · 48/48 rows typed · ledger 2026-08-31 · baton 
            ~/code/agents/LEDGER.md:2402: "grand-architect-19, continued"
 ```
 
-It arrived with Felix's own commit, landed on master while this charge was in flight —
-not with the graft, which touches `lab/008/run` alone:
+It arrived with Felix's own commit, landed on master while this charge was in flight — not with the graft, which touches `lab/008/run` alone:
 
 ```
 $ git log -S'grand-architect-19, continued' --oneline -- LEDGER.md
 b232f05 022 blessed: three forks ruled (no-prompt bare, colorless launch, venue detect) — gate paid, ignitable
 ```
 
-The header reads `**2026-08-31 · Grand Architect · fable-max (grand-architect-19, continued)**`; D63f
-wants the parenthetical to hold a row id and nothing else. Filed to `ISSUES.md`, not
-fixed — it is Felix's entry and beyond this fence. The board rows this charge wrote parse
-clean (48/48 typed); both failures are ledger-side.
+The header reads `**2026-08-31 · Grand Architect · fable-max (grand-architect-19, continued)**`; D63f wants the parenthetical to hold a row id and nothing else. Filed to `ISSUES.md`, not fixed — it is Felix's entry and beyond this fence. The board rows this charge wrote parse clean (48/48 typed); both failures are ledger-side.
 
-**Reviewed and verified 2026-08-31 (G2's Architect; moved from the board row at G3's prune,
-2026-09-02):** `./lab/008/run` re-run at the desk reads **215 PASS · 0 failure(s)**, the arm's
-four PASS lines byte-identical to the pre-verification; `bv/029-summon-harness` confirmed
-deleted (`f160ec1` still reachable). F2's arithmetic correction accepted and propagated to
-[G2's F1](g2-029-merge.md).
+**Reviewed and verified 2026-08-31 (G2's Architect; moved from the board row at G3's prune, 2026-09-02):** `./lab/008/run` re-run at the desk reads **215 PASS · 0 failure(s)**, the arm's four PASS lines byte-identical to the pre-verification; `bv/029-summon-harness` confirmed deleted (`f160ec1` still reachable). F2's arithmetic correction accepted and propagated to [G2's F1](g2-029-merge.md).
 
 ---
 

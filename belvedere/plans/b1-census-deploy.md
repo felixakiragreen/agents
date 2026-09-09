@@ -1,49 +1,23 @@
 # B1 — the census deploy
 
-**Status:** **LANDED** 2026-08-26 (branch `bv/b1-census`) — every DoD item measured
-and pasted below; the live ×3 deploy stays **PENDING Felix at G1**, by design ·
-**Depends on:** — · **Staffing:** Builder · opus-high ·
-**Parallel-safe with:** B2 (disjoint dirs; worktree `bv/b1-census`)
-**Spec blessed:** 2026-08-26, Architect (fold sitting), on P1's findings — the
-schema and hook are proven, this row hardens and packages them.
+**Status:** **LANDED** 2026-08-26 (branch `bv/b1-census`) — every DoD item measured and pasted below; the live ×3 deploy stays **PENDING Felix at G1**, by design · **Depends on:** — · **Staffing:** Builder · opus-high · **Parallel-safe with:** B2 (disjoint dirs; worktree `bv/b1-census`) **Spec blessed:** 2026-08-26, Architect (fold sitting), on P1's findings — the schema and hook are proven, this row hardens and packages them.
 
 ## Goal
 
-The city's liveness sensor, ready to go live on all three accounts: the heartbeat
-hook, its config, and the Felix-run deploy ritual. After G1 (Felix runs the
-ritual), every session on every account appends census lines from birth to death.
+The city's liveness sensor, ready to go live on all three accounts: the heartbeat hook, its config, and the Felix-run deploy ritual. After G1 (Felix runs the ritual), every session on every account appends census lines from birth to death.
 
 ## Spec
 
-1. **`belvedere/census/beat.sh`** — harden [`lab/p1/beat.sh`](../lab/p1/beat.sh):
-   the F6 record verbatim (fields: `t ev sid acct ws sf pid cwd tp pmt mode aid at
-   tool why bg` — [P1 F6](p1-census-join.md) is the schema, do not redesign),
-   appending to `$CENSUS_DIR` default `~/code/agents/summon/log/census/census.jsonl`
-   (D6). **Never harms the session:** stderr silenced, always `exit 0` (no `exec` —
-   a failing jq must not surface a nonzero), and the hook config carries a short
-   timeout. Census is telemetry: the dropped-field list in F6 (prompts, tool
-   inputs/outputs, command lines) stays dropped — secrets live there.
-2. **Hook config** — all ten P1 events → beat.sh by absolute path, as a JSON
-   fragment the deploy merges.
-3. **`belvedere/census/deploy.ts`** (bun) — **Felix-run, never agent-run** (D14's
-   pattern): for each config dir in `summon/accounts.tsv`, back up
-   `settings.json` once, MERGE the hooks fragment in. P1 measured the personal
-   account clean (`hooks: null`); the other two are unverified — **existing hooks
-   of any kind → refuse loudly and stop, never overwrite** (fail fast). `--check`
-   mode reports drift ×3 (the `sync/check` precedent), touches nothing.
+1. **`belvedere/census/beat.sh`** — harden [`lab/p1/beat.sh`](../lab/p1/beat.sh): the F6 record verbatim (fields: `t ev sid acct ws sf pid cwd tp pmt mode aid at tool why bg` — [P1 F6](p1-census-join.md) is the schema, do not redesign), appending to `$CENSUS_DIR` default `~/code/agents/summon/log/census/census.jsonl` (D6). **Never harms the session:** stderr silenced, always `exit 0` (no `exec` — a failing jq must not surface a nonzero), and the hook config carries a short timeout. Census is telemetry: the dropped-field list in F6 (prompts, tool inputs/outputs, command lines) stays dropped — secrets live there.
+2. **Hook config** — all ten P1 events → beat.sh by absolute path, as a JSON fragment the deploy merges.
+3. **`belvedere/census/deploy.ts`** (bun) — **Felix-run, never agent-run** (D14's pattern): for each config dir in `summon/accounts.tsv`, back up `settings.json` once, MERGE the hooks fragment in. P1 measured the personal account clean (`hooks: null`); the other two are unverified — **existing hooks of any kind → refuse loudly and stop, never overwrite** (fail fast). `--check` mode reports drift ×3 (the `sync/check` precedent), touches nothing.
 4. **`belvedere/census/README.md`** — 15 lines max: what, the record, the ritual.
 
 ## Acceptance criteria / DoD — evidence pasted here at build time
 
-Venue: scratch projects minted outside the repo
-(`…/scratchpad/venue-hooks`, `…/venue-control`), each carrying its own
-`.claude/settings.json`. **No live `~/.claude*/settings.json` was written** — the
-only live-dir contact was `deploy.ts --check`, which is read-only (DoD-6).
-Claude Code 2.1.247, macOS 15.7.3, bun 1.3.10, jq-1.7.1-apple at `/usr/bin/jq`.
+Venue: scratch projects minted outside the repo (`…/scratchpad/venue-hooks`, `…/venue-control`), each carrying its own `.claude/settings.json`. **No live `~/.claude*/settings.json` was written** — the only live-dir contact was `deploy.ts --check`, which is read-only (DoD-6). Claude Code 2.1.247, macOS 15.7.3, bun 1.3.10, jq-1.7.1-apple at `/usr/bin/jq`.
 
-- [x] **Scratch-venue proof.** One hooked headless session, prompt → parent Bash →
-      Agent tool → subagent Bash → stop → end. 14 records, the full lifecycle, the
-      subagent's tool call separated from the parent's by `aid`:
+- [x] **Scratch-venue proof.** One hooked headless session, prompt → parent Bash → Agent tool → subagent Bash → stop → end. 14 records, the full lifecycle, the subagent's tool call separated from the parent's by `aid`:
 
 ```
 $ jq -r '[(.t|todate),.ev,(.sid[0:8]),(.aid//"-"),(.at//"-"),(.tool//"-"),(.why//"-"),(.bg|length|tostring)]|@tsv' census-hooks/census.jsonl
@@ -87,9 +61,7 @@ IDENTICAL — F6 field list, in F6 order
  "status":"running","agent_type":"general-purpose"}]}
 ```
 
-- [x] **Control (DOCTRINE §6.2).** Identical scratch project, identical prompt,
-      `settings.json` = `{}`. Same three tool uses, same subagent, and the census
-      file was never even created:
+- [x] **Control (DOCTRINE §6.2).** Identical scratch project, identical prompt, `settings.json` = `{}`. Same three tool uses, same subagent, and the census file was never even created:
 
 ```
 $ sh venue.sh control
@@ -101,9 +73,7 @@ $ ls -la …/census-control
 total 0    (empty)
 ```
 
-- [x] **Bench: p95 6.46 ms ≤ 10 ms.** P1's `bench.py`, re-pointed at the hardened
-      script. Payload is the fattest of all 87 P1 captures (2158 B `UserPromptSubmit`
-      — fatter than P1's own 1028 B input, so this is the stricter run):
+- [x] **Bench: p95 6.46 ms ≤ 10 ms.** P1's `bench.py`, re-pointed at the hardened script. Payload is the fattest of all 87 P1 captures (2158 B `UserPromptSubmit` — fatter than P1's own 1028 B input, so this is the stricter run):
 
 ```
 $ python3 bench.py payload.json 50
@@ -129,9 +99,7 @@ lines that are valid JSON: 60
 widest line:               1720 bytes
 ```
 
-- [x] **Harm-proof, and every other failure mode.** Full matrix — in all seven
-      cases the hook exits 0 and writes nothing to either stream, so the session
-      cannot see it:
+- [x] **Harm-proof, and every other failure mode.** Full matrix — in all seven cases the hook exits 0 and writes nothing to either stream, so the session cannot see it:
 
 ```
 $ sh harm.sh belvedere/census/beat.sh
@@ -152,8 +120,7 @@ CENSUS_DIR unset -> $HOME default        exit=0  stdout=0B stderr=0B
       event** (the `[ -d ] || mkdir -p` guard; `[` is a shell builtin, so the
       common case costs no fork).
 
-- [x] **Failure-proof: jq absent.** Silent to the session, loud to the operator —
-      the two halves of the design:
+- [x] **Failure-proof: jq absent.** Silent to the session, loud to the operator — the two halves of the design:
 
 ```
 $ (copy of census/ with jq repointed at /nonexistent/jq)
@@ -171,13 +138,7 @@ REFUSED — the hook itself is broken: record is not F6-shaped:
           t ev sid acct ws sf pid cwd tp pmt mode aid at tool why EXTRA bg
 ```
 
-- [x] **`deploy.ts --check` green against scratch fixtures; every refusal path
-      shown.** Nine cases against seven fixtures — `clean`
-      (`{"permissions":…,"hooks":null}`, P1's measured live shape), `nosettings`
-      (no file), `clean2` (`{}`), `foreign` (a `Stop` hook), `halfway`
-      (`.pre-census` present, hooks gone), `stale` (**our own** hooks pointing at
-      a deleted worktree), `weird` (`"hooks": 5`). The `hook ok` line and the
-      banner are elided below for width; every run printed both.
+- [x] **`deploy.ts --check` green against scratch fixtures; every refusal path shown.** Nine cases against seven fixtures — `clean` (`{"permissions":…,"hooks":null}`, P1's measured live shape), `nosettings` (no file), `clean2` (`{}`), `foreign` (a `Stop` hook), `halfway` (`.pre-census` present, hooks gone), `stale` (**our own** hooks pointing at a deleted worktree), `weird` (`"hooks": 5`). The `hook ok` line and the banner are elided below for width; every run printed both.
 
 ```
 === A. --check, two unsensored fixtures ===                             exit=1
@@ -225,10 +186,7 @@ REFUSED — 1 account(s) above. Nothing written; resolve by hand, never by overw
       under the template design** — an install left pointing at a dead worktree
       refuses and names the dead path, rather than being silently re-merged.
 
-- [ ] **Live ×3 deploy: PENDING Felix at G1** — not this row's to run. Read-only
-      pre-flight of the live dirs (`--check` writes nothing) closes P1's open
-      question: **all three accounts are hook-free, so the merge is purely
-      additive on all three**, not just personal.
+- [ ] **Live ×3 deploy: PENDING Felix at G1** — not this row's to run. Read-only pre-flight of the live dirs (`--check` writes nothing) closes P1's open question: **all three accounts are hook-free, so the merge is purely additive on all three**, not just personal.
 
 ```
 $ bun belvedere/census/deploy.ts --check
@@ -246,62 +204,25 @@ DRIFT — 3 account(s) unsensored. Fix with deploy.ts (Felix-run).      exit=1
 
 ## Findings
 
-**Landed 2026-08-26 (Builder · opus-high), branch `bv/b1-census`.** Four files,
-exactly the four the spec named: [`census/beat.sh`](../census/beat.sh),
-[`census/hooks.json`](../census/hooks.json),
-[`census/deploy.ts`](../census/deploy.ts),
-[`census/README.md`](../census/README.md). No escalation fired — the spec was
-sound end to end; P1's schema and hook survived hardening unchanged in shape.
+**Landed 2026-08-26 (Builder · opus-high), branch `bv/b1-census`.** Four files, exactly the four the spec named: [`census/beat.sh`](../census/beat.sh), [`census/hooks.json`](../census/hooks.json), [`census/deploy.ts`](../census/deploy.ts), [`census/README.md`](../census/README.md). No escalation fired — the spec was sound end to end; P1's schema and hook survived hardening unchanged in shape.
 
 **Three implementation calls, all inside the fence:**
 
-1. **`hooks.json` is a template, not a hardcoded path.** The spec asked for
-   "beat.sh by absolute path"; a literal absolute path in the fragment duplicates
-   truth and silently lies from any worktree. `@CENSUS@` is substituted with
-   `deploy.ts`'s own directory at merge time — `lab/p1/settings.tmpl.json`'s
-   `@LAB@` precedent. What lands in `settings.json` is still an absolute path;
-   it just cannot disagree with the `beat.sh` sitting beside it. **Consequence for
-   G1: Felix must run the ritual from the MERGED checkout, not a worktree** —
-   otherwise the hooks point at a path that disappears. `--check` catches it
-   afterwards (a stale path fails the deep-equal and reports as foreign hooks).
+1. **`hooks.json` is a template, not a hardcoded path.** The spec asked for "beat.sh by absolute path"; a literal absolute path in the fragment duplicates truth and silently lies from any worktree. `@CENSUS@` is substituted with `deploy.ts`'s own directory at merge time — `lab/p1/settings.tmpl.json`'s `@LAB@` precedent. What lands in `settings.json` is still an absolute path; it just cannot disagree with the `beat.sh` sitting beside it. **Consequence for G1: Felix must run the ritual from the MERGED checkout, not a worktree** — otherwise the hooks point at a path that disappears. `--check` catches it afterwards (a stale path fails the deep-equal and reports as foreign hooks).
 
-2. **`bg` capped at 16 entries.** P1 F6 left this as the build row's choice
-   ("cap in the hook, or accept a lint-on-read"). Capped: a record must stay
-   inside the stdio buffer or one append becomes two `write()`s and concurrent
-   sessions interleave. Measured — 100 tasks in, 16 out, 1721 B, and the 60-way
-   race stayed 60/60 valid JSON. **The roster is now a sample, not a census**;
-   relayed to B2 on the bulletin.
+2. **`bg` capped at 16 entries.** P1 F6 left this as the build row's choice ("cap in the hook, or accept a lint-on-read"). Capped: a record must stay inside the stdio buffer or one append becomes two `write()`s and concurrent sessions interleave. Measured — 100 tasks in, 16 out, 1721 B, and the 60-way race stayed 60/60 valid JSON. **The roster is now a sample, not a census**; relayed to B2 on the bulletin.
 
-3. **`deploy.ts` plans all accounts before writing any.** The spec said "refuse
-   loudly and stop"; stopping mid-loop would leave the city half-sensored. It
-   inspects ×3 first, and a single refusal aborts the run with nothing written
-   (shown in DoD-6: the clean fixture beside a foreign one stayed `{}`).
+3. **`deploy.ts` plans all accounts before writing any.** The spec said "refuse loudly and stop"; stopping mid-loop would leave the city half-sensored. It inspects ×3 first, and a single refusal aborts the run with nothing written (shown in DoD-6: the clean fixture beside a foreign one stayed `{}`).
 
-**The loud end of a silent sensor.** `beat.sh` is stderr-silenced and always exits
-0 — hooks block, and a nonzero exit is a signal Claude Code acts on, so the sensor
-must be incapable of harming a session. That silence hides real breakage, so
-`deploy.ts` **runs the hook for real** on every invocation (`--check` included),
-feeds it a synthetic payload, and asserts the emitted record's key list equals
-F6's, in order. Missing jq, bad permissions, or schema drift all refuse the deploy
-by name. Silent in the hot path, loud at the gate.
+**The loud end of a silent sensor.** `beat.sh` is stderr-silenced and always exits 0 — hooks block, and a nonzero exit is a signal Claude Code acts on, so the sensor must be incapable of harming a session. That silence hides real breakage, so `deploy.ts` **runs the hook for real** on every invocation (`--check` included), feeds it a synthetic payload, and asserts the emitted record's key list equals F6's, in order. Missing jq, bad permissions, or schema drift all refuse the deploy by name. Silent in the hot path, loud at the gate.
 
 **Adjacent, parked (not fixed here):**
 
-- `lab/p1/beat.sh` is now superseded by `census/beat.sh` and still carries the
-  `exec` form. P1's lab is probe history; retiring it is the fold sitting's call,
-  not this row's.
-- The census file has no rotation. Out of scope by the order ("revisit when the
-  file earns it") — at ~450 B/event it will take a long while, but the glass
-  should not assume a small file forever.
-- `deploy.ts` has no uninstall. Not asked for; the `.pre-census` backup is the
-  manual path, and `--check` names it.
+- `lab/p1/beat.sh` is now superseded by `census/beat.sh` and still carries the `exec` form. P1's lab is probe history; retiring it is the fold sitting's call, not this row's.
+- The census file has no rotation. Out of scope by the order ("revisit when the file earns it") — at ~450 B/event it will take a long while, but the glass should not assume a small file forever.
+- `deploy.ts` has no uninstall. Not asked for; the `.pre-census` backup is the manual path, and `--check` names it.
 
-**One process slip, self-reported.** I ran `bunx tsc --noEmit` for a type check;
-that is a network fetch the work doc does not name, i.e. a D54 violation. Caught
-and stopped at the first command. **No residue:** bunx cached outside the repo,
-`git status --untracked-files=all` showed only the four intended files, and
-nothing was committed. The real check was the one that mattered anyway — `bun`
-executes the file, and it ran green across all nine fixture cases.
+**One process slip, self-reported.** I ran `bunx tsc --noEmit` for a type check; that is a network fetch the work doc does not name, i.e. a D54 violation. Caught and stopped at the first command. **No residue:** bunx cached outside the repo, `git status --untracked-files=all` showed only the four intended files, and nothing was committed. The real check was the one that mattered anyway — `bun` executes the file, and it ran green across all nine fixture cases.
 
 ---
 

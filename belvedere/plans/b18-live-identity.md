@@ -1,224 +1,58 @@
 # B18 — live identity (D16)
 
-**Status:** LANDED 2026-08-27 · **Depends on:** B15 · **Staffing:** Builder · opus-high ·
-**Blessed:** the deck keel, ✓ Felix 2026-08-27; this order applies §7 (D16)
-and D18 write class 2.
+**Status:** LANDED 2026-08-27 · **Depends on:** B15 · **Staffing:** Builder · opus-high · **Blessed:** the deck keel, ✓ Felix 2026-08-27; this order applies §7 (D16) and D18 write class 2.
 
 ## Goal
 
-cmux becomes the one truth for live names and colors: the deck reads them off
-the socket, rename/recolor in Belvedere write through to cmux, a cmux-side
-rename shows up in the deck, and the felikai↔cmux color map ends the
-refused-color fire deaths. The field report's drift class — wrong stamp
-shown, not-green, rename invisible, dead jump — is closed or precisely named
-here.
+cmux becomes the one truth for live names and colors: the deck reads them off the socket, rename/recolor in Belvedere write through to cmux, a cmux-side rename shows up in the deck, and the felikai↔cmux color map ends the refused-color fire deaths. The field report's drift class — wrong stamp shown, not-green, rename invisible, dead jump — is closed or precisely named here.
 
 ## Inputs — read before building
 
-- [deck-keel.md](deck-keel.md) §7; D16 + D18 (README §7); D9/D10 (the
-  password admits; ambiguity never arms).
-- P2 §A (socket access, the schema enumeration route); B4's hands (audit
-  law, the socket call wrapper — extend, don't fork).
-- B3 F1 (refused colors killed fires — the map's reason); Felix's
-  felikai↔ANSI table (ISSUES → keel §7 fold): green/green, yellow/yellow,
-  red/red, purple/magenta, blue/cyan, orange/blue — the glass-side map
-  targets **cmux's accepted color vocabulary**, measured, not assumed.
-- The field report's jump incident: "focused 01996229-…" reported ok, no
-  visible effect — a hypothesis until reproduced (verdict law).
+- [deck-keel.md](deck-keel.md) §7; D16 + D18 (README §7); D9/D10 (the password admits; ambiguity never arms).
+- P2 §A (socket access, the schema enumeration route); B4's hands (audit law, the socket call wrapper — extend, don't fork).
+- B3 F1 (refused colors killed fires — the map's reason); Felix's felikai↔ANSI table (ISSUES → keel §7 fold): green/green, yellow/yellow, red/red, purple/magenta, blue/cyan, orange/blue — the glass-side map targets **cmux's accepted color vocabulary**, measured, not assumed.
+- The field report's jump incident: "focused 01996229-…" reported ok, no visible effect — a hypothesis until reproduced (verdict law).
 
 ## Spec
 
-1. **The socket-read source.** The server polls cmux over the socket
-   (password from the env file, D9) for workspace/pane identity — names,
-   colors, surface ids — into `/deck/state`. Census `session_id` stays the
-   join key; the rig stamp becomes the **birth name**, shown as subtitle
-   where it differs from the live cmux name. Poll cadence ≤ the deck's
-   state poll; failures degrade honestly (identity marked stale, never
-   guessed — D10's family).
-2. **Write-through hands.** `POST /hands/rename` and `POST /hands/recolor`
-   — credential-gated, audited like every hand (D18 class 2), targeting by
-   session/surface join; refused values fail loudly with the reason on the
-   card. Controls live in the session tooltips (City, Workshop) — rename
-   inline, recolor from a swatch row of the *measured* legal vocabulary.
-3. **The color map.** One module: felikai intent → cmux accepted value,
-   derived by enumerating what the socket accepts (measure once, commit the
-   table with its evidence); `/hands/fire` consumes it so a composed fire
-   never dies on a refused color again (B3 F1 closed at the cause).
-4. **The jump, reproduced.** With socket identity in hand, reproduce the
-   dead jump-to-panel: fire a probe, jump to it from the deck, observe.
-   Fix it if the cause is the glass's (wrong id class, workspace-vs-panel,
-   stale surface) — or file the exact mechanism if it is cmux's, with the
-   repro script in `lab/b18/`.
+1. **The socket-read source.** The server polls cmux over the socket (password from the env file, D9) for workspace/pane identity — names, colors, surface ids — into `/deck/state`. Census `session_id` stays the join key; the rig stamp becomes the **birth name**, shown as subtitle where it differs from the live cmux name. Poll cadence ≤ the deck's state poll; failures degrade honestly (identity marked stale, never guessed — D10's family).
+2. **Write-through hands.** `POST /hands/rename` and `POST /hands/recolor` — credential-gated, audited like every hand (D18 class 2), targeting by session/surface join; refused values fail loudly with the reason on the card. Controls live in the session tooltips (City, Workshop) — rename inline, recolor from a swatch row of the *measured* legal vocabulary.
+3. **The color map.** One module: felikai intent → cmux accepted value, derived by enumerating what the socket accepts (measure once, commit the table with its evidence); `/hands/fire` consumes it so a composed fire never dies on a refused color again (B3 F1 closed at the cause).
+4. **The jump, reproduced.** With socket identity in hand, reproduce the dead jump-to-panel: fire a probe, jump to it from the deck, observe. Fix it if the cause is the glass's (wrong id class, workspace-vs-panel, stale surface) — or file the exact mechanism if it is cmux's, with the repro script in `lab/b18/`.
 
 ## Acceptance criteria — the DoD
 
-Everything below is one run of [`lab/b18/probe.ts`](../lab/b18/probe.ts) against the
-**live** desktop unless it says otherwise — one probe session fired through the glass's
-own hands, renamed and recoloured, jumped to, then closed and the selection put back.
+Everything below is one run of [`lab/b18/probe.ts`](../lab/b18/probe.ts) against the **live** desktop unless it says otherwise — one probe session fired through the glass's own hands, renamed and recoloured, jumped to, then closed and the selection put back.
 
-- [x] **Rename a probe session in cmux → the deck shows the new name within one poll;
-  the birth stamp renders as subtitle.** Renamed at `2026-08-28T02:17:02.416Z`
-  (`OK action=rename workspace=workspace:79 window=window:1`); the deck's City line read
-  `who="b18 renamed in cmux" birth="builder-b18-probe-406728"` **one poll later**
-  (`3 058 ms`; the period is 3 000 ms). Milliseconds are a phase accident — a rename lands
-  wherever it lands inside the cycle — so the measurement is the pulse's own poll counter:
-  **+1 poll, never two.** The Workshop drew the same line from the same function:
-  `{"who":"b18 renamed in cmux","birth":"builder-b18-probe-406728","controls":true}`.
-- [x] **Rename from the deck → cmux reports the new name.** Driven through the page's own
-  handlers (a real `mouseover`, the 450 ms hold, the input, the button):
-  `cmux workspace list` answered `title="b18 renamed from the deck"` (`workspace:79`), the
-  receipt on the card was cmux's own word — `cmux: b18 renamed from the deck` — and the
-  audit line is
-  `{"action":"rename","args":{"sid":"6f36daeb-…","title":"b18 renamed from the deck"},"ok":true,"result":{"workspace":"988D9CE4-…","title":"b18 renamed from the deck"}}`.
-  **The pane title is NOT renamed and deliberately so** — see F3: a cmux workspace rename
-  does not touch its surfaces' titles, and an agent surface's title is cmux's own derived
-  display (`✳ <stamp>` plus a status glyph it rewrites).
-- [x] **Recolor from the deck → visible cmux colour change; an illegal colour refused
-  loudly.** A swatch click put `custom_color=#3F9608` on the workspace in cmux (read back
-  off `workspace list --json`); `POST /hands/recolor {color:"cyan"}` answered **409**
-  `Error: invalid_params: Invalid color. Use a hex value (#RRGGBB) or a named color.`,
-  audited `{"action":"recolor","args":{…"color":"cyan"},"ok":false,"result":"cmux
-  workspace-action exited 1: Error: invalid_params: Invalid color…"}`. `cyan` cannot be
-  composed from the page at all — the swatch row offers the seven intents and nothing else.
-- [x] **The map: every felikai intent resolves to a measured-accepted cmux value.** Seven
-  `/hands/recolor` calls through the real hand, seven audit lines, all 200 — and the value
-  cmux resolved, echoed back:
-  `red #a11420 → #A11420 · orange #9e490c → #9E490C · yellow #c6930b → #C6930B ·
-  green #3f9608 → #3F9608 · blue #0362b2 → #0362B2 · purple #643bc0 → #643BC0 ·
-  grey #3e3f38 → #3E3F38`. The **fire** path is proven end to end by the probe's own
-  fire, composed with an intent hex and audited:
-  `{"action":"fire","args":{…"color":"#0362b2"…},"ok":true,"result":{"workspace":"workspace:79",…}}`
-  — no B3 F1 death, no orphan. The acceptance half of the table is
-  [`lab/b18/colors.ts`](../lab/b18/colors.ts), 29 candidates on a throwaway workspace.
-- [x] **The jump: reproduced, and fixed.** Reproduced twice over — (i) `focus-panel --panel
-  <surface uuid>` with no `--workspace` answers `Error: not_found: Surface not found`
-  (by ref *and* by uuid), which is what a session carrying no census `ws` used to get;
-  (ii) with `--workspace` it answers `OK surface:83 workspace:79` **and the application
-  never comes forward**: frontmost `Arc` before, `Arc` after `focus-panel`, `Arc` after
-  `focus-window` — an `ok` receipt over a screen that did not move, the field report's exact
-  symptom. Fixed: the hand reads `cmux tree` (a surface the desktop lost is a refusal), then
-  `focus-panel --panel <uuid> --workspace <uuid>`, then `focus-window`, then `open -a` the
-  bundle `cmux identify --json` names. Final state, measured: `frontmost now cmux, selected
-  workspace 988D9CE4-… (the probe's)`, audit
-  `{"action":"focus",…,"ok":true,"result":{"surface":"F262C2EA-…","workspace":"988D9CE4-…","window":"56ABCCBD-…"}}`.
-- [x] **Identity degradation: the socket refuses → the deck marks identity stale and
-  invents nothing.** A second glass on the same live city with a wrong password:
-  `/deck/state` → `identity.error = "cmux workspace exited 1: Error: ERROR: Invalid
-  password"`, and the City printed
-  `live identity STALE — cmux workspace exited 1: Error: ERROR: Invalid password (last read
-  0s ago; names below are that copy)`. The probe's line fell back to the **birth name** with
-  no live badge and no swatch — `{"who":"builder-b18-probe-406728","stale":false,"swatch":null}`
-  — because that glass never had a good copy to keep. (The `stale` badge marks a name that
-  *is* a last-good copy; proving it live would mean duplicating Felix's credential into a
-  second file, so that one line is honest-by-construction, named here rather than claimed.)
-  The unit half is pinned in `identity.test.ts`: an unarmed glass reads no identity, says
-  which file, and spawns nothing.
-- [x] **Suite green one process; type gate exit 0; probe workspaces closed.**
-  `bun test belvedere/glass` → **398 pass / 0 fail, 1 012 expect() calls, 15 files, one
-  process**; `bunx --offline tsc --noEmit` → exit 0. Venue: `workspace close` on the probe,
-  the previously-selected workspace re-selected, `cmux workspace list` back to
-  `belvedere [selected]` + `mentat`, no listener left on 4493–4496, `git status` carrying
-  only this row's files.
+- [x] **Rename a probe session in cmux → the deck shows the new name within one poll; the birth stamp renders as subtitle.** Renamed at `2026-08-28T02:17:02.416Z` (`OK action=rename workspace=workspace:79 window=window:1`); the deck's City line read `who="b18 renamed in cmux" birth="builder-b18-probe-406728"` **one poll later** (`3 058 ms`; the period is 3 000 ms). Milliseconds are a phase accident — a rename lands wherever it lands inside the cycle — so the measurement is the pulse's own poll counter: **+1 poll, never two.** The Workshop drew the same line from the same function: `{"who":"b18 renamed in cmux","birth":"builder-b18-probe-406728","controls":true}`.
+- [x] **Rename from the deck → cmux reports the new name.** Driven through the page's own handlers (a real `mouseover`, the 450 ms hold, the input, the button): `cmux workspace list` answered `title="b18 renamed from the deck"` (`workspace:79`), the receipt on the card was cmux's own word — `cmux: b18 renamed from the deck` — and the audit line is `{"action":"rename","args":{"sid":"6f36daeb-…","title":"b18 renamed from the deck"},"ok":true,"result":{"workspace":"988D9CE4-…","title":"b18 renamed from the deck"}}`. **The pane title is NOT renamed and deliberately so** — see F3: a cmux workspace rename does not touch its surfaces' titles, and an agent surface's title is cmux's own derived display (`✳ <stamp>` plus a status glyph it rewrites).
+- [x] **Recolor from the deck → visible cmux colour change; an illegal colour refused loudly.** A swatch click put `custom_color=#3F9608` on the workspace in cmux (read back off `workspace list --json`); `POST /hands/recolor {color:"cyan"}` answered **409** `Error: invalid_params: Invalid color. Use a hex value (#RRGGBB) or a named color.`, audited `{"action":"recolor","args":{…"color":"cyan"},"ok":false,"result":"cmux workspace-action exited 1: Error: invalid_params: Invalid color…"}`. `cyan` cannot be composed from the page at all — the swatch row offers the seven intents and nothing else.
+- [x] **The map: every felikai intent resolves to a measured-accepted cmux value.** Seven `/hands/recolor` calls through the real hand, seven audit lines, all 200 — and the value cmux resolved, echoed back: `red #a11420 → #A11420 · orange #9e490c → #9E490C · yellow #c6930b → #C6930B · green #3f9608 → #3F9608 · blue #0362b2 → #0362B2 · purple #643bc0 → #643BC0 · grey #3e3f38 → #3E3F38`. The **fire** path is proven end to end by the probe's own fire, composed with an intent hex and audited: `{"action":"fire","args":{…"color":"#0362b2"…},"ok":true,"result":{"workspace":"workspace:79",…}}` — no B3 F1 death, no orphan. The acceptance half of the table is [`lab/b18/colors.ts`](../lab/b18/colors.ts), 29 candidates on a throwaway workspace.
+- [x] **The jump: reproduced, and fixed.** Reproduced twice over — (i) `focus-panel --panel <surface uuid>` with no `--workspace` answers `Error: not_found: Surface not found` (by ref *and* by uuid), which is what a session carrying no census `ws` used to get; (ii) with `--workspace` it answers `OK surface:83 workspace:79` **and the application never comes forward**: frontmost `Arc` before, `Arc` after `focus-panel`, `Arc` after `focus-window` — an `ok` receipt over a screen that did not move, the field report's exact symptom. Fixed: the hand reads `cmux tree` (a surface the desktop lost is a refusal), then `focus-panel --panel <uuid> --workspace <uuid>`, then `focus-window`, then `open -a` the bundle `cmux identify --json` names. Final state, measured: `frontmost now cmux, selected workspace 988D9CE4-… (the probe's)`, audit `{"action":"focus",…,"ok":true,"result":{"surface":"F262C2EA-…","workspace":"988D9CE4-…","window":"56ABCCBD-…"}}`.
+- [x] **Identity degradation: the socket refuses → the deck marks identity stale and invents nothing.** A second glass on the same live city with a wrong password: `/deck/state` → `identity.error = "cmux workspace exited 1: Error: ERROR: Invalid password"`, and the City printed `live identity STALE — cmux workspace exited 1: Error: ERROR: Invalid password (last read 0s ago; names below are that copy)`. The probe's line fell back to the **birth name** with no live badge and no swatch — `{"who":"builder-b18-probe-406728","stale":false,"swatch":null}` — because that glass never had a good copy to keep. (The `stale` badge marks a name that *is* a last-good copy; proving it live would mean duplicating Felix's credential into a second file, so that one line is honest-by-construction, named here rather than claimed.) The unit half is pinned in `identity.test.ts`: an unarmed glass reads no identity, says which file, and spawns nothing.
+- [x] **Suite green one process; type gate exit 0; probe workspaces closed.** `bun test belvedere/glass` → **398 pass / 0 fail, 1 012 expect() calls, 15 files, one process**; `bunx --offline tsc --noEmit` → exit 0. Venue: `workspace close` on the probe, the previously-selected workspace re-selected, `cmux workspace list` back to `belvedere [selected]` + `mentat`, no listener left on 4493–4496, `git status` carrying only this row's files.
 
 ## Out of scope
 
-- Message delivery (P6/B16); any cmux *setting* change — display state
-  only; the stamp/theater derivation fix (B17's composer).
+- Message delivery (P6/B16); any cmux *setting* change — display state only; the stamp/theater derivation fix (B17's composer).
 
 ## Findings
 
-**F1 — cmux accepts any `#RRGGBB` verbatim, so the colour map is felikai's own theme and
-not a nearest-name approximation.** Measured on one throwaway workspace, 29 candidates
-([`lab/b18/colors.ts`](../lab/b18/colors.ts)): the sixteen documented names are accepted
-**case-insensitively** and each resolves to a fixed hex (Red `#C0392B` · Green `#196F3D` ·
-Aqua `#0E6B8C` · Charcoal `#3E4B5E` · …); `cyan`, `pink`, `grey`, `gray`, `yellow`, `white`,
-`black` and `#zzzzzz` are refused with `invalid_params: Invalid color`; **`#a5e22c` came
-back `color=#A5E22C`.** B3 F1 answered the refusals by picking cmux's nearest *name*
-(`cyan → Aqua`, `pink → Rose`); with hex accepted there is nothing to approximate, so
-`colors.ts` maps intents to `felikai.css`'s own 600 level — the register cmux's palette
-already sits in. **What changes on Felix's screen:** Builder was `Aqua #0E6B8C` and is now
-felikai blue `#0362b2`, Digger was `Blue #1565C0` and is now felikai **orange** `#9e490c`,
-Dispatcher was `Rose` and is now `#ed3467`. That is not a re-spelling, it is **Felix's
-felikai↔ANSI table applied**: the rig's `presets.tsv` writes ANSI slot names, and his table
-reads felikai blue as ANSI *cyan* and felikai orange as ANSI *blue*, so a naive
-word-for-word map had the Builder and the Digger backwards. `pink` is the one colour the
-rig spends that ANSI does not name and his table does not cover — it keeps `--red-400`
-rather than collapsing onto `red`, which mentat already holds. **Named loudly because it is
-a taste call wearing a measurement:** one table in `colors.ts`, one strike to change.
+**F1 — cmux accepts any `#RRGGBB` verbatim, so the colour map is felikai's own theme and not a nearest-name approximation.** Measured on one throwaway workspace, 29 candidates ([`lab/b18/colors.ts`](../lab/b18/colors.ts)): the sixteen documented names are accepted **case-insensitively** and each resolves to a fixed hex (Red `#C0392B` · Green `#196F3D` · Aqua `#0E6B8C` · Charcoal `#3E4B5E` · …); `cyan`, `pink`, `grey`, `gray`, `yellow`, `white`, `black` and `#zzzzzz` are refused with `invalid_params: Invalid color`; **`#a5e22c` came back `color=#A5E22C`.** B3 F1 answered the refusals by picking cmux's nearest *name* (`cyan → Aqua`, `pink → Rose`); with hex accepted there is nothing to approximate, so `colors.ts` maps intents to `felikai.css`'s own 600 level — the register cmux's palette already sits in. **What changes on Felix's screen:** Builder was `Aqua #0E6B8C` and is now felikai blue `#0362b2`, Digger was `Blue #1565C0` and is now felikai **orange** `#9e490c`, Dispatcher was `Rose` and is now `#ed3467`. That is not a re-spelling, it is **Felix's felikai↔ANSI table applied**: the rig's `presets.tsv` writes ANSI slot names, and his table reads felikai blue as ANSI *cyan* and felikai orange as ANSI *blue*, so a naive word-for-word map had the Builder and the Digger backwards. `pink` is the one colour the rig spends that ANSI does not name and his table does not cover — it keeps `--red-400` rather than collapsing onto `red`, which mentat already holds. **Named loudly because it is a taste call wearing a measurement:** one table in `colors.ts`, one strike to change.
 
-**F2 — nothing on the cmux socket brings the application forward, and that is the whole of
-*"JUMP TO PANEL … does nothing"*.** `focus-window`'s own help says *"Focus (bring to front)
-the specified window"*; it means the window inside the app. Measured with the deck in a
-browser and Arc frontmost: `focus-panel --panel <uuid> --workspace <uuid>` → `OK surface:80
-workspace:76`, frontmost **still Arc**; `focus-window --window <uuid>` → `OK`, frontmost
-**still Arc**. The workspace really was selected — cmux's own state moved — so the hand had
-every right to report `ok`, and the screen did not move. The application half belongs to the
-OS: `open -a <app_bundle_path from cmux identify --json>` took frontmost `Arc → cmux` and
-`Finder → cmux`. **Two second-order notes for anyone measuring this again:** (a) whether
-`focus-panel` *also* raises the app is macOS's call, not cmux's — the same script measured
-`Arc → Arc` and `Finder → cmux` on two runs, which is why the probe reports that transition
-and asserts only on the end state; (b) `--panel` is resolved **inside one workspace**, so
-the old hand's `--workspace`-less form (every session whose census beat carried no `ws`)
-answered `not_found: Surface not found` by ref *and* by uuid. Repro + fix, both green:
-[`lab/b18/probe.ts`](../lab/b18/probe.ts).
+**F2 — nothing on the cmux socket brings the application forward, and that is the whole of *"JUMP TO PANEL … does nothing"*.** `focus-window`'s own help says *"Focus (bring to front) the specified window"*; it means the window inside the app. Measured with the deck in a browser and Arc frontmost: `focus-panel --panel <uuid> --workspace <uuid>` → `OK surface:80 workspace:76`, frontmost **still Arc**; `focus-window --window <uuid>` → `OK`, frontmost **still Arc**. The workspace really was selected — cmux's own state moved — so the hand had every right to report `ok`, and the screen did not move. The application half belongs to the OS: `open -a <app_bundle_path from cmux identify --json>` took frontmost `Arc → cmux` and `Finder → cmux`. **Two second-order notes for anyone measuring this again:** (a) whether `focus-panel` *also* raises the app is macOS's call, not cmux's — the same script measured `Arc → Arc` and `Finder → cmux` on two runs, which is why the probe reports that transition and asserts only on the end state; (b) `--panel` is resolved **inside one workspace**, so the old hand's `--workspace`-less form (every session whose census beat carried no `ws`) answered `not_found: Surface not found` by ref *and* by uuid. Repro + fix, both green: [`lab/b18/probe.ts`](../lab/b18/probe.ts).
 
-**F3 — a workspace rename does not touch its surfaces' titles, and an agent surface's title
-is cmux's own derived display.** Measured: `workspace rename` on a scratch workspace moved
-the sidebar name `b18-name-a → b18-name-B` while its surface stayed `"Terminal"`;
-`rename-tab` moved the surface to `b18-tab-title` independently. The live desktop shows why
-that matters: agent surfaces are titled `✳ architect-belvedere-02` / `◐ dispatcher-agents-04`
-— the stamp with a **status glyph cmux rewrites as the session's state changes**. So this
-row renames the workspace only: writing a tab title would be a write cmux is expected to
-overwrite, and a rename that silently reverts is worse than one that never happened. The
-order's *"the pane title reflects it"* is therefore answered with a measurement rather than
-a build — **the sidebar name is what Felix renames and what the deck shows**; if he wants
-the tab title too, it is `rename-tab` plus a measurement of whether the glyph rewrite takes
-it back, which is a row, not a line.
+**F3 — a workspace rename does not touch its surfaces' titles, and an agent surface's title is cmux's own derived display.** Measured: `workspace rename` on a scratch workspace moved the sidebar name `b18-name-a → b18-name-B` while its surface stayed `"Terminal"`; `rename-tab` moved the surface to `b18-tab-title` independently. The live desktop shows why that matters: agent surfaces are titled `✳ architect-belvedere-02` / `◐ dispatcher-agents-04` — the stamp with a **status glyph cmux rewrites as the session's state changes**. So this row renames the workspace only: writing a tab title would be a write cmux is expected to overwrite, and a rename that silently reverts is worse than one that never happened. The order's *"the pane title reflects it"* is therefore answered with a measurement rather than a build — **the sidebar name is what Felix renames and what the deck shows**; if he wants the tab title too, it is `rename-tab` plus a measurement of whether the glyph rewrite takes it back, which is a row, not a line.
 
-**F4 — the identity read costs ~161 ms of every poll, and it is awaited on purpose.**
-`/deck/state` live: **p50 228 ms · p95 234 ms · 62 617 B** (N=12, 2 s apart, whole
-register); the same glass with the socket read off (no credential) is **p50 67 ms · p95
-137 ms** (N=10). It is a **spawn, not a walk** — `cmux` itself is ~150 ms of process
-startup — so B8 F3's law is not engaged: Bun's thread is yielded and requests arriving
-inside it are served. It is awaited rather than served warm because a held copy plus a
-timer costs two polls to show a cmux-side rename, and the DoD's bar is one. Against the
-500 ms bar this leaves **266 ms of headroom that B17's live usage ×3 will want**; the
-named-not-built alternative is a self-arming 1 s refresh while a deck polls, which trades
-the wait for a spawn per second. Priced, not touched (B14 F8's posture).
+**F4 — the identity read costs ~161 ms of every poll, and it is awaited on purpose.** `/deck/state` live: **p50 228 ms · p95 234 ms · 62 617 B** (N=12, 2 s apart, whole register); the same glass with the socket read off (no credential) is **p50 67 ms · p95 137 ms** (N=10). It is a **spawn, not a walk** — `cmux` itself is ~150 ms of process startup — so B8 F3's law is not engaged: Bun's thread is yielded and requests arriving inside it are served. It is awaited rather than served warm because a held copy plus a timer costs two polls to show a cmux-side rename, and the DoD's bar is one. Against the 500 ms bar this leaves **266 ms of headroom that B17's live usage ×3 will want**; the named-not-built alternative is a self-arming 1 s refresh while a deck polls, which trades the wait for a spawn per second. Priced, not touched (B14 F8's posture).
 
-**F5 — the socket names a session before its own transcript does.** In the probe's first
-snapshot the fired session read `live={"name":"builder-b18-probe-406728",…}` while
-`stamp=null`: cmux knows the workspace's name at spawn, and the census's birth name comes
-from the transcript's `agent-name` record, which had not landed in the 64 kB head window
-yet (`census.ts` §identify). So **live identity is available strictly earlier than the rig's
-own stamp** — which is an argument for D16 beyond drift, and a note for B17's composer and
-B20's decoder: a session with no stamp is not nameless any more.
+**F5 — the socket names a session before its own transcript does.** In the probe's first snapshot the fired session read `live={"name":"builder-b18-probe-406728",…}` while `stamp=null`: cmux knows the workspace's name at spawn, and the census's birth name comes from the transcript's `agent-name` record, which had not landed in the 64 kB head window yet (`census.ts` §identify). So **live identity is available strictly earlier than the rig's own stamp** — which is an argument for D16 beyond drift, and a note for B17's composer and B20's decoder: a session with no stamp is not nameless any more.
 
-**F6 — one window, and it is a named blindness.** The identity read is a single
-`cmux workspace list --json`, which answers for **one window** (`window_ref: window:1`);
-Felix runs one window today (`cmux list-windows` → one row, 4 workspaces). A session in a
-second window would show its birth name and no live identity — honest, never guessed — and
-its rename/recolor would still work, because those address a uuid and uuids are global. The
-fix is `list-windows` plus one call per window, i.e. one more spawn per poll against F4's
-budget: filed, not built.
+**F6 — one window, and it is a named blindness.** The identity read is a single `cmux workspace list --json`, which answers for **one window** (`window_ref: window:1`); Felix runs one window today (`cmux list-windows` → one row, 4 workspaces). A session in a second window would show its birth name and no live identity — honest, never guessed — and its rename/recolor would still work, because those address a uuid and uuids are global. The fix is `list-windows` plus one call per window, i.e. one more spawn per poll against F4's budget: filed, not built.
 
-**F8 — B13's, B14's and B15's probes were re-run whole and are green, and one of them had to
-be edited.** `lab/b14/probe.ts` asserted `legend keys === 9` — five dot states and four badges —
-and this row draws three more marks on those same session lines (the colour swatch, the birth
-name, the stale marker), each of which owes the legend a key under the design law. The count
-moved to 12 with the reason written at the assertion; the invariant it protects (nobody dropped
-one) is untouched. Named here rather than done quietly: **a bare count in a probe is a trap the
-next row inherits**, and B17/B20 will move it again.
+**F8 — B13's, B14's and B15's probes were re-run whole and are green, and one of them had to be edited.** `lab/b14/probe.ts` asserted `legend keys === 9` — five dot states and four badges — and this row draws three more marks on those same session lines (the colour swatch, the birth name, the stale marker), each of which owes the legend a key under the design law. The count moved to 12 with the reason written at the assertion; the invariant it protects (nobody dropped one) is untouched. Named here rather than done quietly: **a bare count in a probe is a trap the next row inherits**, and B17/B20 will move it again.
 
-**F7 — B18's own socket targets are all uuids, and `attemptFire`'s are not (P6 F2).** Every
-target this row writes — rename, recolor, the jump's panel, workspace and window — is a
-uuid, so a stale one answers `not_found` rather than landing on whatever is focused. The
-fire hand still resolves its own workspace from `parseRef(created.result)` → `workspace:N`
-and uses that ref for `set-color` and for `unwind`'s `workspace close`; both run
-milliseconds after the create, so the ref is fresh, but the class is real and it is B4's
-contract, not this row's. The probe demonstrates the discipline in passing: it resolves the
-fire's returned ref to a uuid once and addresses the uuid forever after. **Left to the
-Architect at G2**, per the Dispatcher's relay.
+**F7 — B18's own socket targets are all uuids, and `attemptFire`'s are not (P6 F2).** Every target this row writes — rename, recolor, the jump's panel, workspace and window — is a uuid, so a stale one answers `not_found` rather than landing on whatever is focused. The fire hand still resolves its own workspace from `parseRef(created.result)` → `workspace:N` and uses that ref for `set-color` and for `unwind`'s `workspace close`; both run milliseconds after the create, so the ref is fresh, but the class is real and it is B4's contract, not this row's. The probe demonstrates the discipline in passing: it resolves the fire's returned ref to a uuid once and addresses the uuid forever after. **Left to the Architect at G2**, per the Dispatcher's relay.
 
 ---
 

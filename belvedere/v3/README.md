@@ -1,57 +1,19 @@
 # Belvedere v3 — the proving ground
 
-The building's third campaign: substrate + engine rebuilt from first principles,
-proven by an agent-runnable barrage, judged at one verdict gate. **Campaign
-complete — G4 BLESSED ⬡✓ 2026-08-30, the keystone set** ([the verdict](plans/g4-verdict.md)).
-The migration campaign that inherits the engine runs on the parent board
-([../README.md](../README.md) §6, the campaign note of 2026-08-30).
-Founding record:
-[cornerstone.md](cornerstone.md) (BLESSED ⬡✓ 2026-08-29); where it
-and this doc diverge, this doc is current. Parent building:
-[../README.md](../README.md); decisions D19–D21 in its §7 register — **this
-campaign mints no letters**: C‹n›, G‹n›, D‹n› all continue the building's.
+The building's third campaign: substrate + engine rebuilt from first principles, proven by an agent-runnable barrage, judged at one verdict gate. **Campaign complete — G4 BLESSED ⬡✓ 2026-08-30, the keystone set** ([the verdict](plans/g4-verdict.md)). The migration campaign that inherits the engine runs on the parent board ([../README.md](../README.md) §6, the campaign note of 2026-08-30). Founding record: [cornerstone.md](cornerstone.md) (BLESSED ⬡✓ 2026-08-29); where it and this doc diverge, this doc is current. Parent building: [../README.md](../README.md); decisions D19–D21 in its §7 register — **this campaign mints no letters**: C‹n›, G‹n›, D‹n› all continue the building's.
 
-**The bet, one breath:** flow steps run headless (`claude -p` — events, never
-pixels); the Chat is the primary viewport, summon-to-terminal the fallback (D20);
-the run log is event-sourced truth (render = transparency, replay = redundancy);
-engine correctness is fuzzed against a scripted fake claude before a real token is
-spent (D21); the v2 deck serves daily, untouched, until G4.
+**The bet, one breath:** flow steps run headless (`claude -p` — events, never pixels); the Chat is the primary viewport, summon-to-terminal the fallback (D20); the run log is event-sourced truth (render = transparency, replay = redundancy); engine correctness is fuzzed against a scripted fake claude before a real token is spent (D21); the v2 deck serves daily, untouched, until G4.
 
 ## The fence
 
-- **Writes:** `belvedere/v3/**` and gitignored telemetry only. Never the live deck
-  (`glass/`), the v2 engine, `canon/**`, `sync/**`, `docs/**`, root protocol files
-  (D2, D19). Spawning subject sessions rides the building's write class 1.
-- **Venue:** digs commit straight to `master` touching only `v3/**` (building §5
-  extended); builds worktree per DOCTRINE §10 when they need a branch; the
-  two-lane commit rule binds — explicit paths, never `git add -A`.
-- **Subjects:** a charge that spawns real sessions kills them at landing or names
-  the standing set (D55's analog); resume ids filed in findings; subject work dirs
-  live in scratch and die at landing. Every real-session charge carries a **budget
-  line**; exceeding it is a ⬡-fork.
-- **Clean room (C4 F0):** every real subject spawns from the real binary
-  (`~/.local/bin/claude`) with `cleanEnv`'s eight variables — never the cmux shim,
-  never inherited env; `HOME` never overridden, `CLAUDE_CONFIG_DIR` selects the
-  account.
-- **Contamination (C4 F12):** a real subject wears the account's live config —
-  canon included, and the sync set is live ×3; a charge needing neutral subjects
-  names its isolation flags and records them.
-- **Step ownership (D23, ✓ Felix 2026-08-30):** **a surface that drives the
-  engine owns the turn it resumes** (C16 F2) — Belvedere's Chat as much as the
-  console, and "delivered" is not "landed": the transcript means delivered, the
-  run log means landed. The healer for a step a dead driver left `running` is the
-  console's **`tick` verb, never a supervising process** — a supervisor is one
-  more component whose death strands the same steps one level up (the
-  glass-shatters test, [../README.md](../README.md) §1), while a verb heals from
-  the log alone, and the mechanism it heals with is `adopt()`, which already
-  re-derives the turn from disk (C6 F2). The tick ignites nothing and never
-  touches a live subject, so a healthy or settled run moves zero bytes; the
-  drills stay exempt by that same rule — the crash drill's orphans are sacred
-  (`barrage/sweep.ts`), and nothing in `barrage/` ticks.
-- **The v2 engine never runs v3 charges** — independence, plus its unruled
-  amendment-hazard finding (ISSUES 2026-08-29).
-- Ignition = kickoff + the building's coda ([../plans/CODA.md](../plans/CODA.md)).
-  Stack: bun; tabs at width 3.
+- **Writes:** `belvedere/v3/**` and gitignored telemetry only. Never the live deck (`glass/`), the v2 engine, `canon/**`, `sync/**`, `docs/**`, root protocol files (D2, D19). Spawning subject sessions rides the building's write class 1.
+- **Venue:** digs commit straight to `master` touching only `v3/**` (building §5 extended); builds worktree per DOCTRINE §10 when they need a branch; the two-lane commit rule binds — explicit paths, never `git add -A`.
+- **Subjects:** a charge that spawns real sessions kills them at landing or names the standing set (D55's analog); resume ids filed in findings; subject work dirs live in scratch and die at landing. Every real-session charge carries a **budget line**; exceeding it is a ⬡-fork.
+- **Clean room (C4 F0):** every real subject spawns from the real binary (`~/.local/bin/claude`) with `cleanEnv`'s eight variables — never the cmux shim, never inherited env; `HOME` never overridden, `CLAUDE_CONFIG_DIR` selects the account.
+- **Contamination (C4 F12):** a real subject wears the account's live config — canon included, and the sync set is live ×3; a charge needing neutral subjects names its isolation flags and records them.
+- **Step ownership (D23, ✓ Felix 2026-08-30):** **a surface that drives the engine owns the turn it resumes** (C16 F2) — Belvedere's Chat as much as the console, and "delivered" is not "landed": the transcript means delivered, the run log means landed. The healer for a step a dead driver left `running` is the console's **`tick` verb, never a supervising process** — a supervisor is one more component whose death strands the same steps one level up (the glass-shatters test, [../README.md](../README.md) §1), while a verb heals from the log alone, and the mechanism it heals with is `adopt()`, which already re-derives the turn from disk (C6 F2). The tick ignites nothing and never touches a live subject, so a healthy or settled run moves zero bytes; the drills stay exempt by that same rule — the crash drill's orphans are sacred (`barrage/sweep.ts`), and nothing in `barrage/` ticks.
+- **The v2 engine never runs v3 charges** — independence, plus its unruled amendment-hazard finding (ISSUES 2026-08-29).
+- Ignition = kickoff + the building's coda ([../plans/CODA.md](../plans/CODA.md)). Stack: bun; tabs at width 3.
 
 ## The board
 
@@ -70,164 +32,41 @@ spent (D21); the v2 deck serves daily, untouched, until G4.
 
 **Deferred — tracked, not lost:**
 
-- ~~**The answer-then-land fake scenario** — two acts, `report needs_input` then
-  `report done`, plus its golden: the arc `send <text>` drives on a real subject
-  is unreachable on fakes today, so the console's most consequential verb is
-  guarded only by the real rehearsal (C10 F2 — the fake is C5's, so the scenario
-  and its golden want their own lay).~~ *Promoted to
-  [C14](../plans/c14-engine-seams.md), the migration campaign's batch 1,
-  2026-08-30 — **LANDED** the same day: `scenarios/answer-then-land.json` and its
-  golden, two acts, the arc driven end to end by the engine's and the console's
-  own tests at budget 0. It carries one thing the lay did not name: it is the
-  first scenario to write the report's closing pair into the **stream** as well
-  as the transcript (`streamsReport`, C13 F2's fidelity bar) — opt-in, so the 23
-  goldens recorded before it did not move a byte.*
-- ~~**The account on the `ignited` event** — the run log records the subject's cwd
-  and never the config dir that selects the account, so nothing that reads a log
-  alone can reopen the run to drive it; the console depends on a sidecar
-  `conditions.json` for `send`/`summon`/`return` (C10 F5). One field, engine-side,
-  and the deck hits it on its first session row.~~ *Promoted to
-  [C14](../plans/c14-engine-seams.md), 2026-08-30 — **LANDED** the same day:
-  `ignited` carries `configDir`, the console resolves the venue log-first and the
-  sidecar second, and **absence stays legal forever** — a pre-C14 log is
-  readable, replays to the same verdicts, and its driving verbs refuse in kind
-  rather than guess. Nothing backfills.*
-- ~~**The trust read's home** — the only real implementation is
-  `lab/c8/accounts.ts`, inside a dig's scratch, while `engine/venue.ts` ships a
-  stub with the slot reserved. Second caller now (C10 F6, which measured the pane
-  rather than making a second copy); wants promoting before a third.~~ *Promoted
-  to [C14](../plans/c14-engine-seams.md), 2026-08-30 — **LANDED** the same day in
-  `engine/venue.ts`, with `lab/c8/accounts.ts` left as re-exports. Two shapes
-  moved with it, beyond the lay's words: the precheck is handed the **venue and
-  the subject** rather than an account name — the config dir IS the account, and
-  a fake subject's sandbox is trusted without any file being read — so the
-  engine's `account` option retired as the redundant second source it was; and
-  the console's `summon` runs that same read before it opens a pane.*
+- ~~**The answer-then-land fake scenario** — two acts, `report needs_input` then `report done`, plus its golden: the arc `send <text>` drives on a real subject is unreachable on fakes today, so the console's most consequential verb is guarded only by the real rehearsal (C10 F2 — the fake is C5's, so the scenario and its golden want their own lay).~~ *Promoted to [C14](../plans/c14-engine-seams.md), the migration campaign's batch 1, 2026-08-30 — **LANDED** the same day: `scenarios/answer-then-land.json` and its golden, two acts, the arc driven end to end by the engine's and the console's own tests at budget 0. It carries one thing the lay did not name: it is the first scenario to write the report's closing pair into the **stream** as well as the transcript (`streamsReport`, C13 F2's fidelity bar) — opt-in, so the 23 goldens recorded before it did not move a byte.*
+- ~~**The account on the `ignited` event** — the run log records the subject's cwd and never the config dir that selects the account, so nothing that reads a log alone can reopen the run to drive it; the console depends on a sidecar `conditions.json` for `send`/`summon`/`return` (C10 F5). One field, engine-side, and the deck hits it on its first session row.~~ *Promoted to [C14](../plans/c14-engine-seams.md), 2026-08-30 — **LANDED** the same day: `ignited` carries `configDir`, the console resolves the venue log-first and the sidecar second, and **absence stays legal forever** — a pre-C14 log is readable, replays to the same verdicts, and its driving verbs refuse in kind rather than guess. Nothing backfills.*
+- ~~**The trust read's home** — the only real implementation is `lab/c8/accounts.ts`, inside a dig's scratch, while `engine/venue.ts` ships a stub with the slot reserved. Second caller now (C10 F6, which measured the pane rather than making a second copy); wants promoting before a third.~~ *Promoted to [C14](../plans/c14-engine-seams.md), 2026-08-30 — **LANDED** the same day in `engine/venue.ts`, with `lab/c8/accounts.ts` left as re-exports. Two shapes moved with it, beyond the lay's words: the precheck is handed the **venue and the subject** rather than an account name — the config dir IS the account, and a fake subject's sandbox is trusted without any file being read — so the engine's `account` option retired as the redundant second source it was; and the console's `summon` runs that same read before it opens a pane.*
 - ~~**The mutant drill sweeps its own subjects** — a mutant run that ends early leaves `hang`-scenario fakes alive (C10 F4 found 22, hours old; swept at the batch-8 close); the mutation check wants a SIGTERM of its spawned pids at exit.~~ *Promoted to [C14](../plans/c14-engine-seams.md), 2026-08-30 — **LANDED** the same day as `barrage/sweep.ts`: the run log is the register (the engine wrote every pid), a `ps` check refuses to kill a pid the kernel has since handed to somebody else, the mutant drill sweeps after each pair of runs, and `bun barrage/run.ts` sweeps on every exit path — a throw and a `^C` included. The crash drill stays exempt between its cut and its restart, because adopting a live orphan is the thing it proves.*
-- **The sixth cut family** — a crash cut that kills the *subject* in the window
-  between its transcript's closing pair and its `result` row, so the barrage can
-  reach the transcript-fallback landing path it never touches today (C11 F4 +
-  C13 F1 — the same shape twice; promoted to a charge if it recurs a third time).
-- ~~**The fallback's pause vocabulary** — `verdictFromTranscript` naming
-  `needs_input`/`blocked` from disk instead of ‹no report› (C13 F3, two lines;
-  rides C10's lay — the console demo is where the poorer name becomes a UX
-  lie).~~ *Promoted to [C10](plans/c10-console-demo.md) step 0, batch 8.*
-- **The venue's two spellings** — a `$TMPDIR` venue crosses a symlink, so the
-  engine names a subject's transcript with the log's spelling while the subject
-  writes under the kernel's resolved one (C16 F1, measured — the Chat's
-  transcript-at-log-path read was the first in the city to hit it); `fire()`'s
-  spawn cursor and `fromDisk`'s transcript fallback share the trap, masked on
-  the happy path by the stream-first read (C6 F2's order). Real runs under
-  `~/code` are unaffected. The fix is the engine's boundary — canonicalize the
-  venue at `load()`/ignite, parse-don't-validate — a small charge; the trigger:
-  any real venue that crosses a symlink, or a barrage transcript-fallback flake.
-- **The rich-markdown scenario** — no fake scenario emits a heading, table or
-  fence, so the Chat's rendering fixture is a committed real capture
-  (C16 F5, `lab/c16/rich.jsonl`); one `rich-markdown.json` plus its golden
-  would retire the capture. The trigger: the capture drifting from the
-  grammar, or a second consumer wanting deterministic rich turns.
+- **The sixth cut family** — a crash cut that kills the *subject* in the window between its transcript's closing pair and its `result` row, so the barrage can reach the transcript-fallback landing path it never touches today (C11 F4 + C13 F1 — the same shape twice; promoted to a charge if it recurs a third time).
+- ~~**The fallback's pause vocabulary** — `verdictFromTranscript` naming `needs_input`/`blocked` from disk instead of ‹no report› (C13 F3, two lines; rides C10's lay — the console demo is where the poorer name becomes a UX lie).~~ *Promoted to [C10](plans/c10-console-demo.md) step 0, batch 8.*
+- **The venue's two spellings** — a `$TMPDIR` venue crosses a symlink, so the engine names a subject's transcript with the log's spelling while the subject writes under the kernel's resolved one (C16 F1, measured — the Chat's transcript-at-log-path read was the first in the city to hit it); `fire()`'s spawn cursor and `fromDisk`'s transcript fallback share the trap, masked on the happy path by the stream-first read (C6 F2's order). Real runs under `~/code` are unaffected. The fix is the engine's boundary — canonicalize the venue at `load()`/ignite, parse-don't-validate — a small charge; the trigger: any real venue that crosses a symlink, or a barrage transcript-fallback flake.
+- **The rich-markdown scenario** — no fake scenario emits a heading, table or fence, so the Chat's rendering fixture is a committed real capture (C16 F5, `lab/c16/rich.jsonl`); one `rich-markdown.json` plus its golden would retire the capture. The trigger: the capture drifting from the grammar, or a second consumer wanting deterministic rich turns.
 
-**The arc** (cornerstone §8; laid batch by batch, never before its inputs exist):
-C5 the fake claude → C6 the engine core → C7 the fuzzer + the barrage → C11 the
-cursor + the real seam (minted at the C7 review, C7 F3's ruling) → C8
-real-session physics → C13 the report on disk (minted at the C8 review, C8 F3's
-ruling) · C9 scale · C10 the console demo → G4 the verdict (⬡-gate).
+**The arc** (cornerstone §8; laid batch by batch, never before its inputs exist): C5 the fake claude → C6 the engine core → C7 the fuzzer + the barrage → C11 the cursor + the real seam (minted at the C7 review, C7 F3's ruling) → C8 real-session physics → C13 the report on disk (minted at the C8 review, C8 F3's ruling) · C9 scale · C10 the console demo → G4 the verdict (⬡-gate).
 
-**Batch note — 2026-08-30 (batch 8):** two charges, **serial C9 → C10** —
-schedule, not dependency (the edge test, D73: neither reads the other's
-result; the order exists because **C10's step 0 edits the engine C9
-measures** — a moving target contaminates timed numbers). Laid at his word
-("lay batch 8"); tender: the review session on his dispatch word, or Felix
-ignites by hand — kickoffs in [C9](plans/c9-scale.md) and
-[C10](plans/c10-console-demo.md); C10 ignites when C9's landing is reviewed.
-Budgets, dollars leading (C8 F9): C9 **≤$8 / ≤120 turns**, C10 **≤$3 / ≤30
-turns** — either ceiling a ⬡-fork (D21). **Concurrency plan:** C9's timed
-arms run alone on the desktop — 1-min load recorded before and after each,
-the arm held while load > 8; **the 25-wide real burst is sanctioned for C9 Q2
-only** (raising C4 Q8's ≤10 ceiling for that arm alone, never above 25); the
-cmux desktop untouched; a second consecutive `rate_limit_event` stops the
-ladder (C9 K2). The deferred list's fallback-vocabulary item is promoted into
-C10 step 0 (struck above); the sixth cut family stays deferred. After batch
-8: **G4 convenes** — the evidence pack is campaign bars 1–6, all landed.
+**Batch note — 2026-08-30 (batch 8):** two charges, **serial C9 → C10** — schedule, not dependency (the edge test, D73: neither reads the other's result; the order exists because **C10's step 0 edits the engine C9 measures** — a moving target contaminates timed numbers). Laid at his word ("lay batch 8"); tender: the review session on his dispatch word, or Felix ignites by hand — kickoffs in [C9](plans/c9-scale.md) and [C10](plans/c10-console-demo.md); C10 ignites when C9's landing is reviewed. Budgets, dollars leading (C8 F9): C9 **≤$8 / ≤120 turns**, C10 **≤$3 / ≤30 turns** — either ceiling a ⬡-fork (D21). **Concurrency plan:** C9's timed arms run alone on the desktop — 1-min load recorded before and after each, the arm held while load > 8; **the 25-wide real burst is sanctioned for C9 Q2 only** (raising C4 Q8's ≤10 ceiling for that arm alone, never above 25); the cmux desktop untouched; a second consecutive `rate_limit_event` stops the ladder (C9 K2). The deferred list's fallback-vocabulary item is promoted into C10 step 0 (struck above); the sixth cut family stays deferred. After batch 8: **G4 convenes** — the evidence pack is campaign bars 1–6, all landed.
 
-**Batch note — 2026-08-30 (batch 7):** single charge, **C13**, ignitable now
-(C8 LANDED, reviewed; budget 0 — every real byte it needs is C8's, pinned by
-C12's archive). Serial, no flow, no bulletin. Tender: **the review session, his
-word 2026-08-30 ("Go ahead and dispatch C13")**; kickoff in
-[C13](plans/c13-report-on-disk.md). C13 precedes
-C9: G4 does not convene on a falsified capability row. Behind it, un-laid: C9
-scale (its budget line **leads with dollars** — C8 F9: ~6.4¢/sonnet·low turn,
-the dollar ceiling binds first) · C10 the console demo (its posture picker
-carries C8 F4: `auto` is not restrictive headless).
+**Batch note — 2026-08-30 (batch 7):** single charge, **C13**, ignitable now (C8 LANDED, reviewed; budget 0 — every real byte it needs is C8's, pinned by C12's archive). Serial, no flow, no bulletin. Tender: **the review session, his word 2026-08-30 ("Go ahead and dispatch C13")**; kickoff in [C13](plans/c13-report-on-disk.md). C13 precedes C9: G4 does not convene on a falsified capability row. Behind it, un-laid: C9 scale (its budget line **leads with dollars** — C8 F9: ~6.4¢/sonnet·low turn, the dollar ceiling binds first) · C10 the console demo (its posture picker carries C8 F4: `auto` is not restrictive headless).
 
-**Batch note — 2026-08-30 (batch 6):** two charges, serial — **C11 then C8**;
-Felix ignites; tender: Felix (the v2 engine never runs v3 charges; C8's real
-spend gates on his hand) — no flow, no bulletin. C11 is ignitable now (C7
-LANDED, re-proved at this review; budget 0). **C8 ignites when C11's five
-gates paste green** — they are all machine-checked (exit codes), so Felix's
-read of the pasted evidence suffices; the next Architect review (C8's landing)
-verifies both — the lay's schedule ruling, maximizing the run between his
-judgment calls (D44). C8 carries the campaign's first real budget line:
-**≤200 subject turns and ≤$15, either ceiling a ⬡-fork** (D21). Rulings at
-this review: C7 **F4 RATIFIED** (fix re-proved on current bytes), **F3 → C11**
-(the recorded row cursor); both texts under the findings in
-[C7](plans/c7-fuzzer-barrage.md).
+**Batch note — 2026-08-30 (batch 6):** two charges, serial — **C11 then C8**; Felix ignites; tender: Felix (the v2 engine never runs v3 charges; C8's real spend gates on his hand) — no flow, no bulletin. C11 is ignitable now (C7 LANDED, re-proved at this review; budget 0). **C8 ignites when C11's five gates paste green** — they are all machine-checked (exit codes), so Felix's read of the pasted evidence suffices; the next Architect review (C8's landing) verifies both — the lay's schedule ruling, maximizing the run between his judgment calls (D44). C8 carries the campaign's first real budget line: **≤200 subject turns and ≤$15, either ceiling a ⬡-fork** (D21). Rulings at this review: C7 **F4 RATIFIED** (fix re-proved on current bytes), **F3 → C11** (the recorded row cursor); both texts under the findings in [C7](plans/c7-fuzzer-barrage.md).
 
-> **Amended 2026-08-30, Felix's word at the review session ("dispatch both"):
-> tender is the reviewing Architect session** — it dispatches C11, itself
-> verifies C11's five gates at landing (the review), then dispatches C8.
-> Serial shape unchanged; C8's budget line and its ⬡-forks unchanged — a
-> ceiling hit still stops and escalates to Felix.
+> **Amended 2026-08-30, Felix's word at the review session ("dispatch both"): tender is the reviewing Architect session** — it dispatches C11, itself verifies C11's five gates at landing (the review), then dispatches C8. Serial shape unchanged; C8's budget line and its ⬡-forks unchanged — a ceiling hit still stops and escalates to Felix.
 
-**Batch note — 2026-08-30 (batch 5):** C7 LANDED; C8 is the next charge and is
-**not yet laid** — the arc's next stop is real-session physics, and it is the
-first charge in the campaign that spends real turns, so it wants an Architect's
-pre-chew and a budget line before it is ignitable. Two C7 findings are the
-Architect's to rule before or with it: **F4** (a fix taken beyond the charge's
-fence — ratify or revert) and **F3** (the transcript fallback is not
-turn-addressable; the fix is an engine change beyond step 0). ~~C6 F9's field
-report still wants filing to root `ISSUES.md` — the v3 fence forbids it from
-inside a charge.~~ *(Struck at the 2026-08-30 review: filed before C7 ignited —
-root `ISSUES.md`, commit `2de72d4`.)*
+**Batch note — 2026-08-30 (batch 5):** C7 LANDED; C8 is the next charge and is **not yet laid** — the arc's next stop is real-session physics, and it is the first charge in the campaign that spends real turns, so it wants an Architect's pre-chew and a budget line before it is ignitable. Two C7 findings are the Architect's to rule before or with it: **F4** (a fix taken beyond the charge's fence — ratify or revert) and **F3** (the transcript fallback is not turn-addressable; the fix is an engine change beyond step 0). ~~C6 F9's field report still wants filing to root `ISSUES.md` — the v3 fence forbids it from inside a charge.~~ *(Struck at the 2026-08-30 review: filed before C7 ignited — root `ISSUES.md`, commit `2de72d4`.)*
 
-**Batch note — 2026-08-30 (batch 4):** single charge, C7, ignitable now (C6
-LANDED — proving run re-run green at review: 45 tests, tsc exit 0, fixtures
-committed; F2 ruled and folded in as step 0; F9 filed to the root inbox). Felix
-ignites; tender: Felix — serial, no flow, no bulletin. Budget: 0 real turns; any
-real spawn is a ⬡-fork. The classifier may block fixture/red `git add`s (F9) —
-the charge says finish, list the paths, Felix runs the adds.
+**Batch note — 2026-08-30 (batch 4):** single charge, C7, ignitable now (C6 LANDED — proving run re-run green at review: 45 tests, tsc exit 0, fixtures committed; F2 ruled and folded in as step 0; F9 filed to the root inbox). Felix ignites; tender: Felix — serial, no flow, no bulletin. Budget: 0 real turns; any real spawn is a ⬡-fork. The classifier may block fixture/red `git add`s (F9) — the charge says finish, list the paths, Felix runs the adds.
 
-**Batch note — 2026-08-29 (batch 3):** single charge, C6, ignitable now (C5
-LANDED, its three amendments ruled and committed at review — grammar rule 9,
-SessionStart unflagged, the F3 flags). Felix ignites; serial, no flow, no
-bulletin. Budget: 0 real turns (≤3 only if the real-transcript fixture's C4
-source is gone).
+**Batch note — 2026-08-29 (batch 3):** single charge, C6, ignitable now (C5 LANDED, its three amendments ruled and committed at review — grammar rule 9, SessionStart unflagged, the F3 flags). Felix ignites; serial, no flow, no bulletin. Budget: 0 real turns (≤3 only if the real-transcript fixture's C4 source is gone).
 
-**Batch note — 2026-08-29 (batch 2):** single charge, C5, ignitable now (C4
-LANDED); Felix ignites; serial, no flow, no bulletin. No real sessions, no live
-resources — budget 0 subject turns; the fake's own tests spawn only the fake.
+**Batch note — 2026-08-29 (batch 2):** single charge, C5, ignitable now (C4 LANDED); Felix ignites; serial, no flow, no bulletin. No real sessions, no live resources — budget 0 subject turns; the fake's own tests spawn only the fake.
 
-**Batch note — 2026-08-29 (batch 1):** single charge, C4, ignitable on the cornerstone
-blessing; Felix ignites (deck `/summon` or by hand); no flow, no bulletin (serial).
-Concurrency: C4's Q8 spawns ≤10 simultaneous subjects, load conditions recorded —
-no other live-resource contention; the cmux desktop is untouched.
+**Batch note — 2026-08-29 (batch 1):** single charge, C4, ignitable on the cornerstone blessing; Felix ignites (deck `/summon` or by hand); no flow, no bulletin (serial). Concurrency: C4's Q8 spawns ≤10 simultaneous subjects, load conditions recorded — no other live-resource contention; the cmux desktop is untouched.
 
 ## Done when — the campaign bars
 
-1. **The barrage:** one command, agent-run, ≥1,000 seeded layer-0 runs, all nine
-   invariants (cornerstone §5) machine-checked — green, or every red filed to
-   ISSUES with its seed (via `barrage/reds/` — the fence keeps root files out of
-   a charge's hands; reds distill upward at review).
-2. **The crash-redo drill:** the engine killed mid-flow at randomized ticks, ≥50
-   runs; every restart converges, zero double-ignitions.
-3. **The mutation check:** a planted engine mutant caught per invariant class,
-   9/9 — the oracle has been seen to fail.
-4. **The real-session matrix:** the nine substrate capabilities measured ×3
-   accounts at sonnet·low, evidence tabled; the census's ten events accounted for
-   headless.
-5. **Scale:** 100 simultaneous fake subjects green; real-session scale measured to
-   ≥25 with a cost extrapolation table for G4.
-6. **The console demo, his hand:** list live v3 sessions, read one live, send a
-   turn, summon it to a terminal, return it headless — his visual pass.
-7. **G4 convened** on 1–6 as the evidence pack; his verdict recorded: substrate,
-   v2's fate, migration shape, viewport.
+1. **The barrage:** one command, agent-run, ≥1,000 seeded layer-0 runs, all nine invariants (cornerstone §5) machine-checked — green, or every red filed to ISSUES with its seed (via `barrage/reds/` — the fence keeps root files out of a charge's hands; reds distill upward at review).
+2. **The crash-redo drill:** the engine killed mid-flow at randomized ticks, ≥50 runs; every restart converges, zero double-ignitions.
+3. **The mutation check:** a planted engine mutant caught per invariant class, 9/9 — the oracle has been seen to fail.
+4. **The real-session matrix:** the nine substrate capabilities measured ×3 accounts at sonnet·low, evidence tabled; the census's ten events accounted for headless.
+5. **Scale:** 100 simultaneous fake subjects green; real-session scale measured to ≥25 with a cost extrapolation table for G4.
+6. **The console demo, his hand:** list live v3 sessions, read one live, send a turn, summon it to a terminal, return it headless — his visual pass.
+7. **G4 convened** on 1–6 as the evidence pack; his verdict recorded: substrate, v2's fate, migration shape, viewport.

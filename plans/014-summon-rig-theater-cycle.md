@@ -1,74 +1,33 @@
 # 014 — summon rig: the theater cycle
 
-**Status:** LANDED 2026-08-24 (Builder · opus-high) — DoD green; the smoke ⬡✓ 2026-08-29
-(moved from the board row at G3's prune, 2026-09-02). · **Depends on:** 013 LANDED; **serial
-with 011** (shared files: `summon/summon.zsh`, `lab/008` — never both in flight; 011 is
-deferred, so 014 is dispatchable) · **Staffing:** Builder · opus-high · **Blessed:**
-Felix's ask 2026-08-22 (campaign theaters inside one repo — `architect-pods-NN` fired
-from bob); both design forks ruled by him 2026-08-24: the `t` key, sticky per
-directory.
+**Status:** LANDED 2026-08-24 (Builder · opus-high) — DoD green; the smoke ⬡✓ 2026-08-29 (moved from the board row at G3's prune, 2026-09-02). · **Depends on:** 013 LANDED; **serial with 011** (shared files: `summon/summon.zsh`, `lab/008` — never both in flight; 011 is deferred, so 014 is dispatchable) · **Staffing:** Builder · opus-high · **Blessed:** Felix's ask 2026-08-22 (campaign theaters inside one repo — `architect-pods-NN` fired from bob); both design forks ruled by him 2026-08-24: the `t` key, sticky per directory.
 
 ## Mission
 
-A campaign is not always a directory. Row 013 stamps theater as `${PWD:t}`, which is
-right when the repo is the theater — but bob hosts three (bob, lunchbox, pods), and
-firing from a campaign subdirectory is the wrong fix: Claude Code keys history,
-`/resume`, and auto-memory to the launch cwd, so deep-firing fragments the project
-silo even though parent CLAUDE.mds still load. Felix fires at repo roots; the rig
-must let the *stamp* carry the campaign. Eject can't — hand-edits never pass
-`_summon_resolve`, so the lineage counter goes blind (013's asymmetry, confirmed by
-Felix: "that kills the summon index"). The cycle goes through resolve, so every
-campaign session is stamped, logged, and counted.
+A campaign is not always a directory. Row 013 stamps theater as `${PWD:t}`, which is right when the repo is the theater — but bob hosts three (bob, lunchbox, pods), and firing from a campaign subdirectory is the wrong fix: Claude Code keys history, `/resume`, and auto-memory to the launch cwd, so deep-firing fragments the project silo even though parent CLAUDE.mds still load. Felix fires at repo roots; the rig must let the *stamp* carry the campaign. Eject can't — hand-edits never pass `_summon_resolve`, so the lineage counter goes blind (013's asymmetry, confirmed by Felix: "that kills the summon index"). The cycle goes through resolve, so every campaign session is stamped, logged, and counted.
 
 ## Inputs — read before working
 
-- `summon/summon.zsh` — `_summon_resolve`, the name-stamp and ordinal scan (13,
-  commit `0cf4f0f`), the reserved-key handling for `+`/`-`, the state file law
-  (four fields persist **on fire only**).
-- `lab/008/run` + `name.exp` — 013's harness arms; 013-F8 binds: only a panel's *first*
-  paint can be asserted from a pty.
+- `summon/summon.zsh` — `_summon_resolve`, the name-stamp and ordinal scan (13, commit `0cf4f0f`), the reserved-key handling for `+`/`-`, the state file law (four fields persist **on fire only**).
+- `lab/008/run` + `name.exp` — 013's harness arms; 013-F8 binds: only a panel's *first* paint can be asserted from a pty.
 - `summon/README.md` §the name-stamp — extend, don't fork.
 - `plans/013-summon-rig-name-stamp.md` findings F1, F7–F9.
 
 ## The scheme — ruled at the cut
 
-- **`.summon-theaters`** in the fire directory (cwd only — no parent walk; Felix
-  fires at repo roots): one theater per line, non-empty lines only, first line the
-  default. Committed to each repo that wants it — the campaign list is repo truth.
-  No file → `${PWD:t}` exactly as row 013 (the `root` fallback at `/` — 013-F9 —
-  unchanged).
-- **`t` cycles** through the file's theaters in filed order, wrapping. `t` joins the
-  reserved key namespace (`+`/`-` precedent): `presets.tsv` may never claim it, and
-  a row that does gets the same treatment the existing reserved keys get. The footer
-  shows the re-stamped name on the next paint — Felix always sees what fires.
-- **Sticky per directory:** the fired theater persists in rig state keyed by the
-  fire directory, same on-fire-only law as the four fields — aborts and Esc discard
-  it. Next panel open in that directory preselects it. A sticky theater no longer in
-  the file falls back to the default (first line). The map grows one entry per
-  directory ever fired from — bounded by real use; if it ever needs trimming, that's
-  a future one-liner, noted not built.
-- **Grand Architect unchanged:** GA stamps no theater (one office — 013's ruling), so
-  with GA selected the cycle changes nothing visible; the footer tells the truth.
-  No special case in the cycle itself.
-- **Counter unchanged:** lineages key the full prefix, so `architect-pods-NN` and
-  `architect-bob-NN` count independently for free; the `+`/`-` seed path works per
-  theater.
+- **`.summon-theaters`** in the fire directory (cwd only — no parent walk; Felix fires at repo roots): one theater per line, non-empty lines only, first line the default. Committed to each repo that wants it — the campaign list is repo truth. No file → `${PWD:t}` exactly as row 013 (the `root` fallback at `/` — 013-F9 — unchanged).
+- **`t` cycles** through the file's theaters in filed order, wrapping. `t` joins the reserved key namespace (`+`/`-` precedent): `presets.tsv` may never claim it, and a row that does gets the same treatment the existing reserved keys get. The footer shows the re-stamped name on the next paint — Felix always sees what fires.
+- **Sticky per directory:** the fired theater persists in rig state keyed by the fire directory, same on-fire-only law as the four fields — aborts and Esc discard it. Next panel open in that directory preselects it. A sticky theater no longer in the file falls back to the default (first line). The map grows one entry per directory ever fired from — bounded by real use; if it ever needs trimming, that's a future one-liner, noted not built.
+- **Grand Architect unchanged:** GA stamps no theater (one office — 013's ruling), so with GA selected the cycle changes nothing visible; the footer tells the truth. No special case in the cycle itself.
+- **Counter unchanged:** lineages key the full prefix, so `architect-pods-NN` and `architect-bob-NN` count independently for free; the `+`/`-` seed path works per theater.
 - **Eject unchanged:** the index-blind one-off escape hatch, by design.
-- **Inherited from 013-F1 (ruled in 2026-08-24, moved off row 011's rebase):**
-  `lab/008/run` derives the mantle row and bracket counts from `presets.tsv` instead
-  of hard-coding them — a data-file edit can never silently rot the harness again.
+- **Inherited from 013-F1 (ruled in 2026-08-24, moved off row 011's rebase):** `lab/008/run` derives the mantle row and bracket counts from `presets.tsv` instead of hard-coding them — a data-file edit can never silently rot the harness again.
 
 ## Acceptance criteria — the DoD
 
-Evidence: `lab/008/run` extended, green, **no regressions**, byte assertions. Built
-2026-08-24 (Builder · opus-high), commits `70c96cf` (rig), `6092663` (harness),
-`ecba256` (README).
+Evidence: `lab/008/run` extended, green, **no regressions**, byte assertions. Built 2026-08-24 (Builder · opus-high), commits `70c96cf` (rig), `6092663` (harness), `ecba256` (README).
 
-- [x] Cycle order and wrap asserted byte-level against a fixture `.summon-theaters`
-      (bob → lunchbox → pods → bob); default is the first line; missing file falls
-      back to `${PWD:t}` (013's arms stay green untouched)
-      → `lab/008/run` §*the theater cycle: the campaign the stamp carries*, whole-line
-      assertions on the composed command:
+- [x] Cycle order and wrap asserted byte-level against a fixture `.summon-theaters` (bob → lunchbox → pods → bob); default is the first line; missing file falls back to `${PWD:t}` (013's arms stay green untouched) → `lab/008/run` §*the theater cycle: the campaign the stamp carries*, whole-line assertions on the composed command:
       ```
       PASS  no press: the default theater is the first line of .summon-theaters (1)
       PASS  one t: the second line (1)
@@ -177,74 +136,31 @@ Evidence: `lab/008/run` extended, green, **no regressions**, byte assertions. Bu
 ## Out of scope — defended
 
 - Walking parent directories for `.summon-theaters` — cwd only; fire at repo roots.
-- Concurrent campaigns needing *different* theaters from the same directory in the
-  same breath — the cycle is two keystrokes; eject remains the oddball hatch.
+- Concurrent campaigns needing *different* theaters from the same directory in the same breath — the cycle is two keystrokes; eject remains the oddball hatch.
 - Theater in Grand Architect stamps — ruled out at 13, stands.
-- Parsing session names anywhere; `presets.tsv`/`accounts.tsv` format changes;
-  `/rename` automation.
+- Parsing session names anywhere; `presets.tsv`/`accounts.tsv` format changes; `/rename` automation.
 - State-map trimming — noted in the scheme, not built.
 
 ## Findings
 
 *(append here — deviations from spec, discoveries, parked adjacents)*
 
-**F1 — a theater is argv, so a malformed list refuses the panel rather than firing.
-Spec extension, deliberate.** The scheme says "one theater per line, non-empty lines
-only". But the theater lands in `-n <mantle>-<theater>-NN`, which the widget puts in
-`BUFFER` for zsh to *run*: a line reading `my repo` composes
-`-n architect-my repo-01` and launches with two arguments, and a line reading `-pods`
-makes a bare launch's stamp `-pods-01` — an argv hazard, which is precisely 013-F9,
-arriving this time from a data file rather than from `/`. So `_summon_theaters_load`
-refuses a line that is not a plain name (`A-Z a-z 0-9 . _ -`, not leading `-`), loudly,
-naming the line, exactly as `_summon_load` refuses a reserved key. Silently skipping was
-the alternative and was rejected: a skipped line means `t` cycles past a campaign Felix
-filed and believes in. Nine lines of rig, and one `if` to delete if Felix wants the
-looser parse. Asserted live (`lab/008/badlist.exp`), because fail-fast code nothing
-exercises is a liability:
+**F1 — a theater is argv, so a malformed list refuses the panel rather than firing. Spec extension, deliberate.** The scheme says "one theater per line, non-empty lines only". But the theater lands in `-n <mantle>-<theater>-NN`, which the widget puts in `BUFFER` for zsh to *run*: a line reading `my repo` composes `-n architect-my repo-01` and launches with two arguments, and a line reading `-pods` makes a bare launch's stamp `-pods-01` — an argv hazard, which is precisely 013-F9, arriving this time from a data file rather than from `/`. So `_summon_theaters_load` refuses a line that is not a plain name (`A-Z a-z 0-9 . _ -`, not leading `-`), loudly, naming the line, exactly as `_summon_load` refuses a reserved key. Silently skipping was the alternative and was rejected: a skipped line means `t` cycles past a campaign Felix filed and believes in. Nine lines of rig, and one `if` to delete if Felix wants the looser parse. Asserted live (`lab/008/badlist.exp`), because fail-fast code nothing exercises is a liability:
 ```
 PASS  a theater that is not a plain name refuses the panel, and names the line
 PASS  and nothing is launched from it (0)
 PASS  a leading dash too — a bare launch would have stamped a name that reads as a flag
 ```
 
-**F2 — the sticky map lives in `log/theaters`, not `log/state`.** The order says "rig
-state keyed by the fire directory". `log/state` is four scalar `field<TAB>value` lines
-rewritten whole on each fire; the theater map is an unbounded directory→name map with a
-different lifetime, and folding it in would have meant a value containing a tab and a
-reader that special-cases one key. One file, one shape. Same on-fire-only law, written
-beside `_summon_state_save` in the widget. **Also, only a directory that files a
-`.summon-theaters` ever enters the map** — a directory with no list has no theater to
-remember, and storing `${PWD:t}` for every directory ever fired from would grow the file
-with noise that changes nothing. Observably identical; recorded because the order's
-"one entry per directory ever fired from" reads wider than what was built.
+**F2 — the sticky map lives in `log/theaters`, not `log/state`.** The order says "rig state keyed by the fire directory". `log/state` is four scalar `field<TAB>value` lines rewritten whole on each fire; the theater map is an unbounded directory→name map with a different lifetime, and folding it in would have meant a value containing a tab and a reader that special-cases one key. One file, one shape. Same on-fire-only law, written beside `_summon_state_save` in the widget. **Also, only a directory that files a `.summon-theaters` ever enters the map** — a directory with no list has no theater to remember, and storing `${PWD:t}` for every directory ever fired from would grow the file with noise that changes nothing. Observably identical; recorded because the order's "one entry per directory ever fired from" reads wider than what was built.
 
-**F3 — the harness had two assertions that only looked like assertions, and 013-F1's
-guard exposed both.** Deriving the mantle row from `presets.tsv` meant the old literal
-and the "one row per field at full width" check became the same string; the second was a
-`check` (substring) on the *first three items only*, so a wrap at 200 columns would have
-passed it. It is now a whole-line `line` assertion of the derived row — which is what its
-name always claimed. The bracket counts likewise now come from the data (presets +
-`[n]one` + the rig's own model/effort key namespaces + accounts + the four action keys),
-so the two numbers cannot drift from the panel again.
+**F3 — the harness had two assertions that only looked like assertions, and 013-F1's guard exposed both.** Deriving the mantle row from `presets.tsv` meant the old literal and the "one row per field at full width" check became the same string; the second was a `check` (substring) on the *first three items only*, so a wrap at 200 columns would have passed it. It is now a whole-line `line` assertion of the derived row — which is what its name always claimed. The bracket counts likewise now come from the data (presets + `[n]one` + the rig's own model/effort key namespaces + accounts + the four action keys), so the two numbers cannot drift from the panel again.
 
-**F4 — `local a=$1 b=${a}` does not see `a`.** `local key=$1 label=$2 cut=${${label:l}…}`
-silently produced an empty `cut` for every item (and, under `set -u`, said so: *label:
-parameter not set*). zsh sets a `local` statement's names one at a time but does not make
-them visible to that same statement's later initialisers. The rig's own `_summon_item`
-already splits the line for this reason; the harness's re-implementation now does too.
-Cost: one red run. Worth recording because the failure is silent without `set -u`.
+**F4 — `local a=$1 b=${a}` does not see `a`.** `local key=$1 label=$2 cut=${${label:l}…}` silently produced an empty `cut` for every item (and, under `set -u`, said so: *label: parameter not set*). zsh sets a `local` statement's names one at a time but does not make them visible to that same statement's later initialisers. The rig's own `_summon_item` already splits the line for this reason; the harness's re-implementation now does too. Cost: one red run. Worth recording because the failure is silent without `set -u`.
 
-**F5 — the cycle's reach is bounded by the panel's runaway guard, harmlessly.** The
-picker closes itself at 32 keystrokes, so one panel can cycle about 28 positions. A list
-longer than that cannot be walked end-to-end in a single open — the next panel resumes
-from wherever the last one fired, exactly like 013-F7's seed ceiling. No limit is imposed
-on the file's length: truncating a campaign list would be a lie, and a list that long is
-self-punishing. Parked, not fixed.
+**F5 — the cycle's reach is bounded by the panel's runaway guard, harmlessly.** The picker closes itself at 32 keystrokes, so one panel can cycle about 28 positions. A list longer than that cannot be walked end-to-end in a single open — the next panel resumes from wherever the last one fired, exactly like 013-F7's seed ceiling. No limit is imposed on the file's length: truncating a campaign list would be a lie, and a list that long is self-punishing. Parked, not fixed.
 
-**Adjacent, untouched:** `summon-stats` still counts mantle × account and now has a
-second dimension it says nothing about — theaters. A per-campaign report is the obvious
-next one, and it is the same parked adjacent 13 left behind (lineages), so they should
-land together or not at all.
+**Adjacent, untouched:** `summon-stats` still counts mantle × account and now has a second dimension it says nothing about — theaters. A per-campaign report is the obvious next one, and it is the same parked adjacent 13 left behind (lineages), so they should land together or not at all.
 
 ---
 

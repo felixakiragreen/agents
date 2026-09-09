@@ -1,42 +1,21 @@
 # B5 — the shelf and the gauges
 
-**Status:** LANDED 2026-08-27 · **Depends on:** B4 (resume fires through hands) · **Staffing:**
-Builder · opus-high · **Batch 3:** third row, strictly serial, straight to master
-**Spec blessed:** 2026-08-26, Architect (G1), on P4 §R + B2 F1/F3 + row-10's rig
-usage panel.
+**Status:** LANDED 2026-08-27 · **Depends on:** B4 (resume fires through hands) · **Staffing:** Builder · opus-high · **Batch 3:** third row, strictly serial, straight to master **Spec blessed:** 2026-08-26, Architect (G1), on P4 §R + B2 F1/F3 + row-10's rig usage panel.
 
 ## Goal
 
-Any session, any account, live or weeks dead — one click to stand in it. And the
-bill on the wall: usage ×3 and WIP, because a one-click dispatcher that hides the
-load is how a sovereign DoS's himself.
+Any session, any account, live or weeks dead — one click to stand in it. And the bill on the wall: usage ×3 and WIP, because a one-click dispatcher that hides the load is how a sovereign DoS's himself.
 
 ## Spec
 
-1. **Shelf** (`/shelf`): enumerate `~/.claude*/projects/<slug>/*.jsonl` across all
-   three accounts (dirs from `summon/accounts.tsv`). Identity per B2 F1: the
-   name-stamp comes from the transcript's `agent-name` line, scanned in a bounded
-   64 KB head window — **never joined out of `invocations.jsonl`** (carries no
-   session id). Show: stamp/unstamped, building (by cwd), account, age, live/dead
-   (census + `kill -0` where live). Filters: building, account, age. Resume =
-   `POST /hands/fire` with the P4-proven resume recipe (uuid; by-stamp where the
-   stamp is current).
-2. **Usage strip**: render `summon/log/usage/` ×3 (row-10 fetcher's files —
-   **render only, never fetch**; the rig owns fetching). Stale files → greyed
-   with age shown (the D41 palette law's spirit: staleness greys furniture, never
-   figures).
-3. **WIP gauges**: from census — live sessions per account and per building;
-   subagent counts (`aid`/`at`); background tasks from `bg` — **never rendered as
-   exhaustive** (B1 caps `bg` at 16; label "16+" at the cap). Per B2 F3: extend
-   `census.ts` to surface `ws sf aid at bg` (one line each; the tests name them).
-4. Everything degrades honestly: census absent → shelf still lists transcripts,
-   gauges say "census not deployed".
+1. **Shelf** (`/shelf`): enumerate `~/.claude*/projects/<slug>/*.jsonl` across all three accounts (dirs from `summon/accounts.tsv`). Identity per B2 F1: the name-stamp comes from the transcript's `agent-name` line, scanned in a bounded 64 KB head window — **never joined out of `invocations.jsonl`** (carries no session id). Show: stamp/unstamped, building (by cwd), account, age, live/dead (census + `kill -0` where live). Filters: building, account, age. Resume = `POST /hands/fire` with the P4-proven resume recipe (uuid; by-stamp where the stamp is current).
+2. **Usage strip**: render `summon/log/usage/` ×3 (row-10 fetcher's files — **render only, never fetch**; the rig owns fetching). Stale files → greyed with age shown (the D41 palette law's spirit: staleness greys furniture, never figures).
+3. **WIP gauges**: from census — live sessions per account and per building; subagent counts (`aid`/`at`); background tasks from `bg` — **never rendered as exhaustive** (B1 caps `bg` at 16; label "16+" at the cap). Per B2 F3: extend `census.ts` to surface `ws sf aid at bg` (one line each; the tests name them).
+4. Everything degrades honestly: census absent → shelf still lists transcripts, gauges say "census not deployed".
 
 ## Acceptance criteria / DoD — evidence pasted here at build time
 
-- [x] **Shelf resumes one dead session from EACH of the three accounts.** Three
-      `POST /hands/fire`, payloads lifted verbatim off the rendered buttons, each
-      against a session confirmed dead first (`kill -0` on its census pid):
+- [x] **Shelf resumes one dead session from EACH of the three accounts.** Three `POST /hands/fire`, payloads lifted verbatim off the rendered buttons, each against a session confirmed dead first (`kill -0` on its census pid):
 
       c6c6685a … pid=38990  last=SessionEnd  -> DEAD
       1ae93191 … (no census record at all)   -> DEAD
@@ -138,8 +117,7 @@ load is how a sovereign DoS's himself.
 
 ## Out of scope
 
-- The inbox (B6); fetching usage; historical charts (dessert feeds later);
-  deleting or editing transcripts (never).
+- The inbox (B6); fetching usage; historical charts (dessert feeds later); deleting or editing transcripts (never).
 
 ## Findings
 
@@ -161,133 +139,54 @@ $ ps -eo pid,command | grep -cE "[c]laude "
 38
 ```
 
-The gauges match the census **exactly** — that half of the DoD passes. But the census
-is not a census of sessions, it is a census of **hooked** sessions, and B1's hooks went
-live at `2026-08-27T04:03:16Z` (B4 F2). Every session Felix started before that runs on
-with no heartbeat and will never have one: `claude --model fable --effort high -n
-architect` ×6, `architect-cornerizer-10`, `architect-lunchbox-01`, `mentat-01`,
-`dispatcher-cornerizer-02` … all invisible. **A one-click dispatcher whose load gauge
-reads 6 against a machine running 38 is exactly the hidden bill this row was cut to
-prevent.**
+The gauges match the census **exactly** — that half of the DoD passes. But the census is not a census of sessions, it is a census of **hooked** sessions, and B1's hooks went live at `2026-08-27T04:03:16Z` (B4 F2). Every session Felix started before that runs on with no heartbeat and will never have one: `claude --model fable --effort high -n architect` ×6, `architect-cornerizer-10`, `architect-lunchbox-01`, `mentat-01`, `dispatcher-cornerizer-02` … all invisible. **A one-click dispatcher whose load gauge reads 6 against a machine running 38 is exactly the hidden bill this row was cut to prevent.**
 
-Built here, inside the fence: `CensusRead.since` (the earliest beat on record) and a
-panel that leads with *"Every figure here is a floor, not a total"* and prints the
-horizon's age. **The fix proper is the Architect's**, and it is a sensor question, not a
-render one — either a process sensor (`ps` for `claude` argv, which is reading, but it
-is a *second liveness authority* and P1 F5 warns exactly against those), or the ruling
-that the drift is temporary and dies with the pre-hook sessions. This binds the City
-View and the rail identically: both count live sessions off the same read.
+Built here, inside the fence: `CensusRead.since` (the earliest beat on record) and a panel that leads with *"Every figure here is a floor, not a total"* and prints the horizon's age. **The fix proper is the Architect's**, and it is a sensor question, not a render one — either a process sensor (`ps` for `claude` argv, which is reading, but it is a *second liveness authority* and P1 F5 warns exactly against those), or the ruling that the drift is temporary and dies with the pre-hook sessions. This binds the City View and the rail identically: both count live sessions off the same read.
 
-**Ruled 2026-08-27, Architect — both, because they answer different questions.** The
-census stays the **sole identity authority** (P1 F5 upheld: nothing else may claim a
-session, house it, or join it) and the drift is transitional — every invisible session
-pre-dates the 04:03Z horizon and dies with it. But `ps` enters as the **auditor
-delta**: one approximate, labeled count beside the census figure ("6 tracked · ≈38
-claude processes visible"), never merged into cards. A count is not an authority — it
-is the sensor's own standing drift alarm, the `sync/check` pattern: today the gap is
-the horizon's floor; once the floor decays, any reopening means a sensor is lying.
-Implementation → [B9](b9-visual-law.md) (amended), one read for shelf, rail, and City
-View.
+**Ruled 2026-08-27, Architect — both, because they answer different questions.** The census stays the **sole identity authority** (P1 F5 upheld: nothing else may claim a session, house it, or join it) and the drift is transitional — every invisible session pre-dates the 04:03Z horizon and dies with it. But `ps` enters as the **auditor delta**: one approximate, labeled count beside the census figure ("6 tracked · ≈38 claude processes visible"), never merged into cards. A count is not an authority — it is the sensor's own standing drift alarm, the `sync/check` pattern: today the gap is the horizon's floor; once the floor decays, any reopening means a sensor is lying. Implementation → [B9](b9-visual-law.md) (amended), one read for shelf, rail, and City View.
 
 ### E2 — a resume must not carry a summons, so `/hands/fire`'s contract widened
 
-B4's wire contract makes `summons`, `stamp`, `model` and `effort` all required. The
-shelf's whole job is standing in sessions that have been dead for weeks, and a resume
-that injected a first user turn would wake an agent **with no instruction** and set it
-working — self-inflicted DoS, from the row whose thesis is the opposite. So one rule
-was added to `parseFire`, and it is the only change to the hands:
+B4's wire contract makes `summons`, `stamp`, `model` and `effort` all required. The shelf's whole job is standing in sessions that have been dead for weeks, and a resume that injected a first user turn would wake an agent **with no instruction** and set it working — self-inflicted DoS, from the row whose thesis is the opposite. So one rule was added to `parseFire`, and it is the only change to the hands:
 
 > **On a resume, a field the glass does not know is omitted from argv, never guessed.**
 
-`resume !== null` ⇒ `stamp`, `model`, `effort` and `summons` may be empty, and each
-empty one drops its flag. A *fresh* fire still requires every one of them (pinned), and
-a malformed value is still refused whether resuming or not (pinned). The line ends at
-the last flag — which is the shape cmux's own restore binding re-execs (P4 §R):
+`resume !== null` ⇒ `stamp`, `model`, `effort` and `summons` may be empty, and each empty one drops its flag. A *fresh* fire still requires every one of them (pinned), and a malformed value is still refused whether resuming or not (pinned). The line ends at the last flag — which is the shape cmux's own restore binding re-execs (P4 §R):
 
 ```
 cd '/tmp' && CLAUDE_CONFIG_DIR='/Users/felix/.claude-thg-fgreen' claude '--resume' 'd285127e-…'
 ```
 
-Consequences the next rows inherit: `Fired.summonsPath` and `Fired.sha` are now
-`string | null` (null on a resume — there was no turn to write or to prove; the audit
-records `summonsBytes: 0`), and a resume of a session that never had a stamp names its
-workspace `resume-<uuid8>` rather than `""`. **Backwards compatible**: every existing
-caller sends all four fields and is unaffected. Widening an interface is the Architect's
-to bless — filed, not assumed.
+Consequences the next rows inherit: `Fired.summonsPath` and `Fired.sha` are now `string | null` (null on a resume — there was no turn to write or to prove; the audit records `summonsBytes: 0`), and a resume of a session that never had a stamp names its workspace `resume-<uuid8>` rather than `""`. **Backwards compatible**: every existing caller sends all four fields and is unaffected. Widening an interface is the Architect's to bless — filed, not assumed.
 
 Two narrowings inside the spec, both deliberate:
 
-- **The handle is always the uuid, never the stamp.** P4 §R proved `claude --resume
-  "digger-agents-04"` legal and the spec offers it "where the stamp is current" — but it
-  resolves through claude's own most-recent rule, which is a choice the glass would be
-  making blind while holding the exact handle it just read off the filename. D10's
-  spirit: ambiguity never arms.
-- **A live session gets `jump to panel`, not `resume`.** Resuming something already
-  running is not standing in it; `/hands/focus` is. A live session outside a cmux pane
-  says so instead of offering a button that cannot work (hooks are venue-blind, P1 F1).
+- **The handle is always the uuid, never the stamp.** P4 §R proved `claude --resume "digger-agents-04"` legal and the spec offers it "where the stamp is current" — but it resolves through claude's own most-recent rule, which is a choice the glass would be making blind while holding the exact handle it just read off the filename. D10's spirit: ambiguity never arms.
+- **A live session gets `jump to panel`, not `resume`.** Resuming something already running is not standing in it; `/hands/focus` is. A live session outside a cmux pane says so instead of offering a button that cannot work (hooks are venue-blind, P1 F1).
 
-**Ruled 2026-08-27, Architect — ratified whole.** The widening is blessed; "on a
-resume, a field the glass does not know is omitted from argv, never guessed" is
-standing hands law; both narrowings stand — the uuid-only handle is D10 applied (the
-stamp resolves through claude's most-recent rule, a blind choice while holding the
-exact handle), and jump-not-resume is the honest affordance. B7 inherits the widened
-contract via the bulletin.
+**Ruled 2026-08-27, Architect — ratified whole.** The widening is blessed; "on a resume, a field the glass does not know is omitted from argv, never guessed" is standing hands law; both narrowings stand — the uuid-only handle is D10 applied (the stamp resolves through claude's most-recent rule, a blind choice while holding the exact handle), and jump-not-resume is the honest affordance. B7 inherits the widened contract via the bulletin.
 
 ### F1 — for the whole glass: a branch is not one path segment, and `buildingOf` assumed it was
 
-`pages.ts` normalised a worktree cwd with `cwd.replace(/\/\.claude\/worktrees\/[^/]+/, '')`.
-The city's branches are `bv/b3-smoke`, `bv/b1-census`, `feat/x` at least as often as
-`naming`, so one segment came off and the rest of the branch stayed on as a bogus
-directory: `agents/.claude/worktrees/bv/b3-smoke/belvedere/lab/…` normalised to
-`agents/b3-smoke/belvedere/lab/…`, which still prefix-matches `agents` and so **housed
-in the repo root instead of the sub-building**, silently, with no lint. Caught by a
-shelf test against a real slug and confirmed on live data.
+`pages.ts` normalised a worktree cwd with `cwd.replace(/\/\.claude\/worktrees\/[^/]+/, '')`. The city's branches are `bv/b3-smoke`, `bv/b1-census`, `feat/x` at least as often as `naming`, so one segment came off and the rest of the branch stayed on as a bogus directory: `agents/.claude/worktrees/bv/b3-smoke/belvedere/lab/…` normalised to `agents/b3-smoke/belvedere/lab/…`, which still prefix-matches `agents` and so **housed in the repo root instead of the sub-building**, silently, with no lint. Caught by a shelf test against a real slug and confirmed on live data.
 
-Fixed at the cause: nothing in a path says where a branch ends, so every split is
-offered and **the register decides** — only it knows what a building is (D65). The live
-b3-smoke session now houses in `agents/belvedere`. **The City View and the rail read the
-same function**, so both were mis-housing worktree sessions too.
+Fixed at the cause: nothing in a path says where a branch ends, so every split is offered and **the register decides** — only it knows what a building is (D65). The live b3-smoke session now houses in `agents/belvedere`. **The City View and the rail read the same function**, so both were mis-housing worktree sessions too.
 
 ### F2 — for B6/B7 and for anyone reading `bg`: only two payloads carry the roster
 
-Over 1739 live census records, **every one of the 210 non-empty `bg` rosters arrived on
-`Stop` (7) or `SubagentStop` (203)** — not one on the 1820 `PreToolUse`/`PostToolUse`
-beats that outnumber them 9:1. `beat.sh` stamps `(.background_tasks // [])`, so an
-absent field arrives as `[]` and is indistinguishable from an empty roster.
+Over 1739 live census records, **every one of the 210 non-empty `bg` rosters arrived on `Stop` (7) or `SubagentStop` (203)** — not one on the 1820 `PreToolUse`/`PostToolUse` beats that outnumber them 9:1. `beat.sh` stamps `(.background_tasks // [])`, so an absent field arrives as `[]` and is indistinguishable from an empty roster.
 
-So the naive reading — "the last beat's `bg`" — answers **zero almost always**, because
-the last beat is overwhelmingly a tool-use one. `census.ts` now keys the roster off the
-latest beat whose event actually carries one (`ROSTER_EVENTS`), keeps its timestamp, and
-renders `?` rather than `0` where none was ever observed. Two further honesty bounds
-ride with it: the roster is an **observation, not a state** (a background shell's
-completion fires no event at all — P1 F4), so the page says *last seen N ago*; and the
-hook's `[0:16]` slice makes any full roster a floor.
+So the naive reading — "the last beat's `bg`" — answers **zero almost always**, because the last beat is overwhelmingly a tool-use one. `census.ts` now keys the roster off the latest beat whose event actually carries one (`ROSTER_EVENTS`), keeps its timestamp, and renders `?` rather than `0` where none was ever observed. Two further honesty bounds ride with it: the roster is an **observation, not a state** (a background shell's completion fires no event at all — P1 F4), so the page says *last seen N ago*; and the hook's `[0:16]` slice makes any full roster a floor.
 
 ### F3 — the project-directory slug is lossy and must never be parsed
 
-`~/.claude*/projects/-Users-felix-code-universal-robots-sdk` is what **both**
-`universal_robots_sdk` and `universal-robots-sdk` flatten to — `/` and `_` both become
-`-`, and the map does not invert. The shelf reads the cwd out of the transcript's own
-head window instead (and prefers the census's live cwd where there is one). 697 of 723
-transcripts carry a cwd in their first 64 KB; the other 26 render *"not recorded in the
-head window"* and offer no resume, because there is nowhere honest to land.
+`~/.claude*/projects/-Users-felix-code-universal-robots-sdk` is what **both** `universal_robots_sdk` and `universal-robots-sdk` flatten to — `/` and `_` both become `-`, and the map does not invert. The shelf reads the cwd out of the transcript's own head window instead (and prefers the census's live cwd where there is one). 697 of 723 transcripts carry a cwd in their first 64 KB; the other 26 render *"not recorded in the head window"* and offer no resume, because there is nowhere honest to land.
 
 ### F4 — for B9: `/shelf` is built to the design laws, and one law it cannot finish alone
 
-Native to §3 as built: **no dropdowns** (every filter is a toggled button group of
-links, so there is no client state to lose and the back button walks the filter
-history); **usage beside the accounts** (the quota table sits directly above the account
-group); **attention first, recency within** (`needs-input` → `working` → `resting` →
-`dead`, mtime inside each — a session waiting on Felix tops the shelf however old);
-**encapsulation-first** (each berth leads with its stamp and opens on a `<details>`
-`[expand]` — the browser's own disclosure, so it survives with no script); **a colour
-legend** naming every ring and the mantle fill.
+Native to §3 as built: **no dropdowns** (every filter is a toggled button group of links, so there is no client state to lose and the back button walks the filter history); **usage beside the accounts** (the quota table sits directly above the account group); **attention first, recency within** (`needs-input` → `working` → `resting` → `dead`, mtime inside each — a session waiting on Felix tops the shelf however old); **encapsulation-first** (each berth leads with its stamp and opens on a `<details>` `[expand]` — the browser's own disclosure, so it survives with no script); **a colour legend** naming every ring and the mantle fill.
 
-What B9 must still do here: the prose face. `.prose` is declared as
-`Inter, ui-sans-serif, system-ui, …` and used on every running-prose block, but **Inter
-is not vendored** — that woff2 fetch is B9's named third-party (D54), not this row's, so
-the stack degrades to the system sans until B9 lands. Nothing on this page reaches the
-network at serve time.
+What B9 must still do here: the prose face. `.prose` is declared as `Inter, ui-sans-serif, system-ui, …` and used on every running-prose block, but **Inter is not vendored** — that woff2 fetch is B9's named third-party (D54), not this row's, so the stack degrades to the system sans until B9 lands. Nothing on this page reaches the network at serve time.
 
 ---
 

@@ -1,51 +1,23 @@
 # B4 — the hands
 
-**Status:** LANDED 2026-08-27 · **Depends on:** G1 (Architect half ✓ 2026-08-26) ·
-**Staffing:** Builder · opus-high · **Batch 3:** first row, strictly serial, straight to
-master
-**Spec blessed:** 2026-08-26, Architect (G1), on P2/P4 + D8.
+**Status:** LANDED 2026-08-27 · **Depends on:** G1 (Architect half ✓ 2026-08-26) · **Staffing:** Builder · opus-high · **Batch 3:** first row, strictly serial, straight to master **Spec blessed:** 2026-08-26, Architect (G1), on P2/P4 + D8.
 
-**One residual, Felix-gated (E2 below):** the credential file
-`~/.config/belvedere/env` holds Felix's cmux socket password, and no agent can write it —
-the permission guard refuses to read that secret, twice, by design. Every socket-touching
-hand is proven end-to-end anyway (the library takes the password as an argument; cmux
-resolves an empty one to the password saved in its Settings), and the credential's own
-wiring is proven by a **deliberately wrong** password making the same call fail with
-`Invalid password`. One command from Felix arms the endpoints. **Paid ✓ Felix
-2026-08-27** — armed (0600, his hand), socket password rotated off the temporary;
-the batch-close rail fire is the end-to-end proof the file's value matches.
+**One residual, Felix-gated (E2 below):** the credential file `~/.config/belvedere/env` holds Felix's cmux socket password, and no agent can write it — the permission guard refuses to read that secret, twice, by design. Every socket-touching hand is proven end-to-end anyway (the library takes the password as an argument; cmux resolves an empty one to the password saved in its Settings), and the credential's own wiring is proven by a **deliberately wrong** password making the same call fail with `Invalid password`. One command from Felix arms the endpoints. **Paid ✓ Felix 2026-08-27** — armed (0600, his hand), socket password rotated off the temporary; the batch-close rail fire is the end-to-end proof the file's value matches.
 
 ## Goal
 
-The fence's four write powers as glass endpoints, plus the hardened spawn library.
-After this row, a button can do what 370 rig fires did by hand — with the summons
-riding as argv, never paste.
+The fence's four write powers as glass endpoints, plus the hardened spawn library. After this row, a button can do what 370 rig fires did by hand — with the summons riding as argv, never paste.
 
 ## Spec
 
 1. **`belvedere/glass/hands.ts`** + routes on the existing server:
-   - `POST /hands/fire` — body: kickoff text, account, cwd, name-stamp, mantle
-     color. Recipe (P2 §S, hardened from [`lab/p2/spawn.ts`](../lab/p2/spawn.ts)):
-     `workspace create` → compose cmd `CLAUDE_CONFIG_DIR=<dir> cd <cwd> && claude
-     --model <m> --effort <e> -n <stamp> "$(cat <summons-file>)"` — **no `/color`
-     in the prompt**: color via native `workspace-action --action set-color`
-     (P2's find; the summons is the first user turn, byte-exact). Summons file in
-     the census dir, sanitized (P2's `sanitize.ts` port).
-   - `POST /hands/worktree` — repo path + branch: `git worktree add` per
-     [DOCTRINE §10](../../canon/work/DOCTRINE.md); refuses if branch exists;
-     returns the worktree path for the fire's cwd.
+   - `POST /hands/fire` — body: kickoff text, account, cwd, name-stamp, mantle color. Recipe (P2 §S, hardened from [`lab/p2/spawn.ts`](../lab/p2/spawn.ts)): `workspace create` → compose cmd `CLAUDE_CONFIG_DIR=<dir> cd <cwd> && claude --model <m> --effort <e> -n <stamp> "$(cat <summons-file>)"` — **no `/color` in the prompt**: color via native `workspace-action --action set-color` (P2's find; the summons is the first user turn, byte-exact). Summons file in the census dir, sanitized (P2's `sanitize.ts` port).
+   - `POST /hands/worktree` — repo path + branch: `git worktree add` per [DOCTRINE §10](../../canon/work/DOCTRINE.md); refuses if branch exists; returns the worktree path for the fire's cwd.
    - `POST /hands/focus` — `focus-panel` by the census `sf` of a live session.
-   - `POST /hands/halt` — touches `summon/log/HALT` (gitignored zone). Dormant by
-     design: consumers arrive with the Steward chapter; the endpoint exists so
-     the button exists.
-2. **Credential:** reads `~/.config/belvedere/env` (`CMUX_SOCKET_PASSWORD=…`,
-   file mode 0600) at each hands call. Absent/unreadable → **hands disabled**,
-   honest banner served, read-only glass unaffected (glass-shatters). The
-   password never appears in logs, pages, or git.
-3. **Audit:** every hands action appends one line to
-   `summon/log/census/hands.jsonl` (ts, action, args-minus-summons-text, result).
-4. Third-party: none — bun stdlib + the installed `cmux` CLI + `git`. Anything
-   else is a STOP (D54).
+   - `POST /hands/halt` — touches `summon/log/HALT` (gitignored zone). Dormant by design: consumers arrive with the Steward chapter; the endpoint exists so the button exists.
+2. **Credential:** reads `~/.config/belvedere/env` (`CMUX_SOCKET_PASSWORD=…`, file mode 0600) at each hands call. Absent/unreadable → **hands disabled**, honest banner served, read-only glass unaffected (glass-shatters). The password never appears in logs, pages, or git.
+3. **Audit:** every hands action appends one line to `summon/log/census/hands.jsonl` (ts, action, args-minus-summons-text, result).
+4. Third-party: none — bun stdlib + the installed `cmux` CLI + `git`. Anything else is a STOP (D54).
 
 ## Acceptance criteria / DoD — evidence pasted here at build time
 
@@ -80,9 +52,7 @@ riding as argv, never paste.
       Probe workspace closed (`cmux workspace close workspace:3` → `OK`); venue back to
       its two original workspaces, focus back on `surface:3`.
 
-- [x] **Resume fire.** Against the now-dead probe (`kill -0 33131` → dead), the same call
-      with `resume` set → `workspace:4`, and the session came back on **its own
-      transcript**, the new summons landing as a second user turn:
+- [x] **Resume fire.** Against the now-dead probe (`kill -0 33131` → dead), the same call with `resume` set → `workspace:4`, and the session came back on **its own transcript**, the new summons landing as a second user turn:
 
       $ jq -r 'select(.type=="user"…) | .message.content[0:52]' <same transcript>
            1  You are a probe. Reply with exactly one line: SMOKE=
@@ -105,9 +75,7 @@ riding as argv, never paste.
 
       Also covered by `hands.test.ts` against a throwaway repo, plus the non-repo refusal.
 
-- [x] **Focus — off the live census.** B1's census went live mid-build (Felix's G1 half,
-      first beat `2026-08-27T04:03:16Z`), so this is real telemetry, not a fixture. Fired
-      `digger-belvedere-live`, then read its venue join straight out of `census.jsonl`:
+- [x] **Focus — off the live census.** B1's census went live mid-build (Felix's G1 half, first beat `2026-08-27T04:03:16Z`), so this is real telemetry, not a fixture. Fired `digger-belvedere-live`, then read its venue join straight out of `census.jsonl`:
 
       {"ev":"Stop","sid":"c6c6685a-…","acct":"/Users/felix/.claude",
        "ws":"E10E0591-541B-493A-B9ED-EF06BE42C9FA","sf":"A33FF326-5F63-4691-9DB6-01B5505EA9FD","pid":"38990"}
@@ -182,20 +150,17 @@ riding as argv, never paste.
       `summon/log/HALT` (removed), `~/.config/belvedere/env` (removed — see E2),
       and the scratch repo/worktree under the session scratchpad (removed).
 
-- [x] **Tests green.** `bun test` in `belvedere/glass/`: **62 pass · 0 fail · 99
-      expect() calls**, across `census.test.ts` and the new `hands.test.ts`.
+- [x] **Tests green.** `bun test` in `belvedere/glass/`: **62 pass · 0 fail · 99 expect() calls**, across `census.test.ts` and the new `hands.test.ts`.
 
 ## Out of scope
 
-- Rail UI (B3), any auto-flow/continuous dispatch (parked horizon), tmux/other
-  venue adapters (Ava chapter), password rotation UX (Settings is the home).
+- Rail UI (B3), any auto-flow/continuous dispatch (parked horizon), tmux/other venue adapters (Ava chapter), password rotation UX (Settings is the home).
 
 ## Findings
 
 ### E1 — the socket already admits any local process of Felix's; the credential is an arming switch, not the lock
 
-Measured from a **non-cmux Ghostty process with zero `CMUX_*` in its environment** (this
-Builder's own shell — ancestry `ghostty → login → zsh → claude → zsh`, no cmux anywhere):
+Measured from a **non-cmux Ghostty process with zero `CMUX_*` in its environment** (this Builder's own shell — ancestry `ghostty → login → zsh → claude → zsh`, no cmux anywhere):
 
 ```
 $ cmux workspace list                                    → * workspace:1 …  exit=0
@@ -206,30 +171,16 @@ $ CMUX_SOCKET_PASSWORD='definitely-not-…' cmux workspace list
 
 Two facts, both load-bearing:
 
-1. **D8 is live on the desktop** — the mode really is `password`, and the value we present
-   really is checked (a wrong one is rejected, and rejected *loudly*, exit 1).
-2. **…but the CLI's documented fallback chain ends at "the password saved in Settings"**,
-   so presenting *nothing* is already enough. The exposure P2 §A3 predicted is the state
-   of the machine today: any local process running as Felix can drive the socket.
+1. **D8 is live on the desktop** — the mode really is `password`, and the value we present really is checked (a wrong one is rejected, and rejected *loudly*, exit 1).
+2. **…but the CLI's documented fallback chain ends at "the password saved in Settings"**, so presenting *nothing* is already enough. The exposure P2 §A3 predicted is the state of the machine today: any local process running as Felix can drive the socket.
 
-So `~/.config/belvedere/env` is not what grants Belvedere its hands — it is the **arming
-switch Felix throws**, and that is still worth having (a glass that can fire by accident is
-worse than one that says "disabled"). But the fence should not be described as if the
-password were the lock. **Architect's call**, and it is a one-line doc question, not code:
-does the glass keep requiring a credential it does not strictly need? B4 says yes — an
-explicit arming gesture is the cheapest safety a one-click dispatcher can carry.
+So `~/.config/belvedere/env` is not what grants Belvedere its hands — it is the **arming switch Felix throws**, and that is still worth having (a glass that can fire by accident is worse than one that says "disabled"). But the fence should not be described as if the password were the lock. **Architect's call**, and it is a one-line doc question, not code: does the glass keep requiring a credential it does not strictly need? B4 says yes — an explicit arming gesture is the cheapest safety a one-click dispatcher can carry.
 
-**Ruled 2026-08-27, Architect — D9:** yes to both. The fence and deployment wording now
-say admission-not-restriction (README §§2–3; D8 annotated), and the credential stays
-required — the arming switch ratified — holding the real password, not a sentinel, so the
-glass outlives the CLI's courtesy fallback (Ava chapter included).
+**Ruled 2026-08-27, Architect — D9:** yes to both. The fence and deployment wording now say admission-not-restriction (README §§2–3; D8 annotated), and the credential stays required — the arming switch ratified — holding the real password, not a sentinel, so the glass outlives the CLI's courtesy fallback (Ava chapter included).
 
 ### E2 — an agent cannot provision the credential (Felix-gate, one command)
 
-Copying the socket password out of cmux's settings into `~/.config/belvedere/env` was
-refused by the permission guard twice — once as a `grep`, once as a script that never
-printed the value. **That refusal is correct** and B4 did not work around it. The
-consequence is that the credential is Felix's to write:
+Copying the socket password out of cmux's settings into `~/.config/belvedere/env` was refused by the permission guard twice — once as a `grep`, once as a script that never printed the value. **That refusal is correct** and B4 did not work around it. The consequence is that the credential is Felix's to write:
 
 ```
 mkdir -p ~/.config/belvedere && printf '# Belvedere hands credential (B4 §2)\nCMUX_SOCKET_PASSWORD=%s\n' \
@@ -237,13 +188,10 @@ mkdir -p ~/.config/belvedere && printf '# Belvedere hands credential (B4 §2)\nC
   && chmod 600 ~/.config/belvedere/env
 ```
 
-The glass reads it per call, so no restart is needed — the banner flips to
-`hands armed` on the next page load, and the endpoints start answering 200/409 instead of
-503. Everything downstream of that file is already proven (E1's `Invalid password` run is
-the proof that the file's value is what reaches the socket).
+The glass reads it per call, so no restart is needed — the banner flips to `hands armed` on the next page load, and the endpoints start answering 200/409 instead of
+503. Everything downstream of that file is already proven (E1's `Invalid password` run is the proof that the file's value is what reaches the socket).
 
-Note the file is refused if it is group- or world-readable: `…/env is mode 644 — must be
-600`. B4 chose to enforce the spec's `0600` rather than merely document it.
+Note the file is refused if it is group- or world-readable: `…/env is mode 644 — must be 600`. B4 chose to enforce the spec's `0600` rather than merely document it.
 
 ### F1 — for B3's rail: the hands' wire contract
 
@@ -256,77 +204,46 @@ Four `POST` endpoints, JSON in, JSON out, all shaped `{ok, result}` / `{ok, erro
 | `/hands/focus` | `sid` | `{surface, workspace}` | 409 |
 | `/hands/halt` | `requester` | `{path, at}` | 409 |
 
-Status codes the rail must render: **200** done · **400** the body was malformed (the parse
-boundary refused it — the message names the field and its rule) · **405** not a POST ·
-**409** the world said no (branch taken, invalid password, session not in a pane) · **413**
-body over 128 KB · **503** hands disabled, with the reason. `handsState()` is exported for
-the banner: `{armed: boolean, note: string}` — a **read-only** call, safe on every page.
+Status codes the rail must render: **200** done · **400** the body was malformed (the parse boundary refused it — the message names the field and its rule) · **405** not a POST · **409** the world said no (branch taken, invalid password, session not in a pane) · **413** body over 128 KB · **503** hands disabled, with the reason. `handsState()` is exported for the banner: `{armed: boolean, note: string}` — a **read-only** call, safe on every page.
 
-The stamp is the rail's identity for a fire and must match `^[a-z][a-z0-9-]{0,63}$` —
-`<mantle>-<theater>-<NN>`. The colour goes to cmux as a **name or `#rrggbb`**, never a
-`/color` turn; the rig's `presets.tsv` colour names map straight through.
+The stamp is the rail's identity for a fire and must match `^[a-z][a-z0-9-]{0,63}$` — `<mantle>-<theater>-<NN>`. The colour goes to cmux as a **name or `#rrggbb`**, never a `/color` turn; the rig's `presets.tsv` colour names map straight through.
 
 ### F2 — for B1 and B5: cmux injects its own hooks per session, and the census still fires
 
-Every session cmux spawns is launched with an inline `--settings '{"hooks":{…}}'` blob of
-cmux's own hooks (`cmux hooks claude session-start`, `stop`, `pre-tool-use`, …) — visible
-in the probe's argv. The obvious fear was that this replaces the account-level hooks B1
-deploys, blinding the census inside the very venue Belvedere drives.
+Every session cmux spawns is launched with an inline `--settings '{"hooks":{…}}'` blob of cmux's own hooks (`cmux hooks claude session-start`, `stop`, `pre-tool-use`, …) — visible in the probe's argv. The obvious fear was that this replaces the account-level hooks B1 deploys, blinding the census inside the very venue Belvedere drives.
 
-**It does not.** Measured on the live census, ×3 fired probes: every one of them is in
-`census.jsonl` with the venue join populated —
+**It does not.** Measured on the live census, ×3 fired probes: every one of them is in `census.jsonl` with the venue join populated —
 
 ```
 {"ev":"Stop","sid":"c6c6685a-…","acct":"/Users/felix/.claude",
  "ws":"E10E0591-…","sf":"A33FF326-…","pid":"38990","cwd":"/Users/felix/code/agents"}
 ```
 
-`--settings` merges with the account's settings; both hook sets run. The census organ is
-sound inside cmux.
+`--settings` merges with the account's settings; both hook sets run. The census organ is sound inside cmux.
 
 ### F3 — B2 dropped `ws`/`sf`; the focus hand needs them, and B5 will too
 
-`glass/census.ts`'s `Beat` deliberately projected P1 F6's record down and dropped the two
-cmux ids. `/hands/focus` is exactly the consumer that was waiting for them, so B4 restored
-`ws` and `sf` to `Beat` (nothing else changed; the empty-string→null boundary already
-handled them). They are pinned by a new test using B1's verbatim wire record: a Ghostty
-session's `""` must read as `null`, never as a panel named `""`.
+`glass/census.ts`'s `Beat` deliberately projected P1 F6's record down and dropped the two cmux ids. `/hands/focus` is exactly the consumer that was waiting for them, so B4 restored `ws` and `sf` to `Beat` (nothing else changed; the empty-string→null boundary already handled them). They are pinned by a new test using B1's verbatim wire record: a Ghostty session's `""` must read as `null`, never as a panel named `""`.
 
 ### F4 — the order's launch line has a shell bug; the recipe does not
 
-Spec §1 writes the fire as `CLAUDE_CONFIG_DIR=<dir> cd <cwd> && claude …`. That prefix
-scopes the variable to `cd` alone — `claude` would run with the **wrong account**. The
-proven P2 shape is what shipped:
+Spec §1 writes the fire as `CLAUDE_CONFIG_DIR=<dir> cd <cwd> && claude …`. That prefix scopes the variable to `cd` alone — `claude` would run with the **wrong account**. The proven P2 shape is what shipped:
 
 ```
 cd '<cwd>' && CLAUDE_CONFIG_DIR='<dir>' claude '--model' '…' '--effort' '…' '-n' '<stamp>' "$(cat '<summons file>')"
 ```
 
-Same recipe, same result, one working env assignment; `--cwd` is *also* passed to
-`workspace create` because the workspace's label and the process's directory are two
-different things. Implementation detail inside the fence, recorded so the next reader does
-not "fix" it back.
+Same recipe, same result, one working env assignment; `--cwd` is *also* passed to `workspace create` because the workspace's label and the process's directory are two different things. Implementation detail inside the fence, recorded so the next reader does not "fix" it back.
 
 ### F5 — D54 slip, self-reported: `bunx tsc`
 
-B4's spec says third-party is none. Reaching for a type-check, this Builder ran
-`bunx tsc --noEmit`, which fetched TypeScript from the network — **the same slip B1 made
-and G1 accepted**. Zero harm: it resolved into bun's global cache, wrote no lockfile and no
-`node_modules` into the repo (`git status` clean, above), and every error it printed was a
-missing ambient `@types/bun`/`@types/node`, not a defect. Not repeated after the second
-run. The city has no offline type-checker today — **that is the actual gap**, and it is a
-canon question (a pinned `typescript` dev dep, or a named exception in the D54 fence),
-not something a Builder should decide mid-row.
+B4's spec says third-party is none. Reaching for a type-check, this Builder ran `bunx tsc --noEmit`, which fetched TypeScript from the network — **the same slip B1 made and G1 accepted**. Zero harm: it resolved into bun's global cache, wrote no lockfile and no `node_modules` into the repo (`git status` clean, above), and every error it printed was a missing ambient `@types/bun`/`@types/node`, not a defect. Not repeated after the second run. The city has no offline type-checker today — **that is the actual gap**, and it is a canon question (a pinned `typescript` dev dep, or a named exception in the D54 fence), not something a Builder should decide mid-row.
 
 ### F6 — small things, parked not fixed
 
-- A body that fails the parse boundary is **not** audited: nothing was attempted, so
-  nothing was done. Deliberate; say so if the Architect wants attempted-and-refused
-  requests logged too.
-- The probe summons files stay in `summon/log/census/summons/` (gitignored). They are the
-  fire's record and the audit points at them by path.
-- `cmux` prints errors to stdout with a nonzero exit — `run()` merges both streams and
-  trusts the exit code only. Anything reading cmux output for meaning must do the same.
+- A body that fails the parse boundary is **not** audited: nothing was attempted, so nothing was done. Deliberate; say so if the Architect wants attempted-and-refused requests logged too.
+- The probe summons files stay in `summon/log/census/summons/` (gitignored). They are the fire's record and the audit points at them by path.
+- `cmux` prints errors to stdout with a nonzero exit — `run()` merges both streams and trusts the exit code only. Anything reading cmux output for meaning must do the same.
 
 ---
 

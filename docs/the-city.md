@@ -1,20 +1,12 @@
 # The City & the Hive
 
-> *The Grand Architect keeps the canon, Architects think, the dispatch tends, Diggers dig,
-> Builders build — a hive building a city; files carry the truth.*
+> *The Grand Architect keeps the canon, Architects think, the dispatch tends, Diggers dig, Builders build — a hive building a city; files carry the truth.*
 
-The Guild's framing glossary — the two metaphor registers its language runs on, written
-down the day the sovereign asked for the map (2026-08-15, session 07). This page
-explains the system; it never overrides it. Law lives in the charters, the doctrine,
-and the standard — where this page and a charter disagree, the charter wins and this
-page gets fixed.
+The Guild's framing glossary — the two metaphor registers its language runs on, written down the day the sovereign asked for the map (2026-08-15, session 07). This page explains the system; it never overrides it. Law lives in the charters, the doctrine, and the standard — where this page and a charter disagree, the charter wins and this page gets fixed.
 
 ## 1. The city
 
-Civilization is standardization. Nobody designs the city: the code makes ten thousand
-hands build one city instead of a pile. And the code carries style — the naming law,
-the tab law, the git voice, the hive-city language itself — which is why three
-hives' work looks like one city and not three.
+Civilization is standardization. Nobody designs the city: the code makes ten thousand hands build one city instead of a pile. And the code carries style — the naming law, the tab law, the git voice, the hive-city language itself — which is why three hives' work looks like one city and not three.
 
 | The city | The Guild |
 |---|---|
@@ -40,40 +32,24 @@ hives' work looks like one city and not three.
 | The reserved groundbreaking | the substrate (MAP §10, the horizon) — the metro: city infrastructure, its cornerstone laid by the standards office at the sovereign's call |
 | Two empty rooms uptown | the Royal and Imperial thrones (MAP §10, the horizon) — kept empty until the city can give them eyes |
 
-Two of these entries the building trade already practices for real — the site diary and
-the change-order register — which is how you know the frame is load-bearing and not
-wallpaper.
+Two of these entries the building trade already practices for real — the site diary and the change-order register — which is how you know the frame is load-bearing and not wallpaper.
 
 ## 2. The routing law, city form
 
 Who to summon, in six clauses:
 
-1. **Touching the code** — any law every firm builds under, or a ruling all projects
-   must obey → **the standards office** (Grand Architect).
-2. **Raising a new building** — any size, palace or shed → **engage an architect of
-   record** (founding Architect · fable-max, doctrine §12). Jurisdiction routes; size
-   never does.
-3. **Works on a standing building** — outlives a shift, or coordinates several crews
-   → **that building's own Architect** lays it on the works schedule.
-4. **A repair with the toolbox in your hand** — session-sized, sovereign present →
-   **no permit needed** (the Fixer — the mantles README, the null mantle).
-5. The standing exception: **the metro** (the substrate) is the standards office's
-   groundbreaking, at the sovereign's call, when it comes (MAP §10, the horizon).
-6. **Thinking beside the sovereign** — cross-project, no works, no permit → **the
-   Mentat** (mentat.md): changes minds, not files; a thought that becomes work is handed to
-   clauses 1–4.
+1. **Touching the code** — any law every firm builds under, or a ruling all projects must obey → **the standards office** (Grand Architect).
+2. **Raising a new building** — any size, palace or shed → **engage an architect of record** (founding Architect · fable-max, doctrine §12). Jurisdiction routes; size never does.
+3. **Works on a standing building** — outlives a shift, or coordinates several crews → **that building's own Architect** lays it on the works schedule.
+4. **A repair with the toolbox in your hand** — session-sized, sovereign present → **no permit needed** (the Fixer — the mantles README, the null mantle).
+5. The standing exception: **the metro** (the substrate) is the standards office's groundbreaking, at the sovereign's call, when it comes (MAP §10, the horizon).
+6. **Thinking beside the sovereign** — cross-project, no works, no permit → **the Mentat** (mentat.md): changes minds, not files; a thought that becomes work is handed to clauses 1–4.
 
-And the keystone of the routing law, recorded because the sovereign once forgot his
-own address: the standards office never commissions. **The sovereign determines when;
-the office is opened by his knock.** Pain reports to the throne, not to the standards
-office — the best decisions are driven by real pain, and the pain is his to feel.
+And the keystone of the routing law, recorded because the sovereign once forgot his own address: the standards office never commissions. **The sovereign determines when; the office is opened by his knock.** Pain reports to the throne, not to the standards office — the best decisions are driven by real pain, and the pain is his to feel.
 
 ## 3. The hive
 
-The same city, seen from inside the work. An account is a hive; a session is a bee;
-account memory is comb — wax, never truth (MAP §6, the silo law — durable truth promotes to repos).
-Files are trails: agents leave them, trails direct agents — stigmergy, the reason
-strangers who never meet can build one city.
+The same city, seen from inside the work. An account is a hive; a session is a bee; account memory is comb — wax, never truth (MAP §6, the silo law — durable truth promotes to repos). Files are trails: agents leave them, trails direct agents — stigmergy, the reason strangers who never meet can build one city.
 
 | The hive | The Guild |
 |---|---|
@@ -85,16 +61,8 @@ strangers who never meet can build one city.
 
 ### The waggle
 
-A scout compresses a distant field — direction, distance, quality — into a tiny
-repeatable signal, so the hive can decide cheaply whether to fly out and verify.
+A scout compresses a distant field — direction, distance, quality — into a tiny repeatable signal, so the hive can decide cheaply whether to fly out and verify.
 
-The contract: **"waggle me X" → the shortest possible plain-speech
-explanation — one sentence per thing.** That is all it ever wanted to be. The four-slot
-anatomy (Problem / Move / Stakes / Dig) is dead — killed at the choosing, 2026-08-29;
-digging past a waggle stays native to the mechanism — scouts dance, the hive flies out
-and checks.
+The contract: **"waggle me X" → the shortest possible plain-speech explanation — one sentence per thing.** That is all it ever wanted to be. The four-slot anatomy (Problem / Move / Stakes / Dig) is dead — killed at the choosing, 2026-08-29; digging past a waggle stays native to the mechanism — scouts dance, the hive flies out and checks.
 
-How to ask, any mantle, any repo: *"waggle me X."* The invocation line lives in the
-global CLAUDE.md; this page holds the lineage: session 02 coined `waggle-dance.md` as a
-joke and grieved it as "scheduled to die in a conversation"; session 07 found it true;
-the choosing gave it its final, smallest form. Words here get second lives — and third.
+How to ask, any mantle, any repo: *"waggle me X."* The invocation line lives in the global CLAUDE.md; this page holds the lineage: session 02 coined `waggle-dance.md` as a joke and grieved it as "scheduled to die in a conversation"; session 07 found it true; the choosing gave it its final, smallest form. Words here get second lives — and third.

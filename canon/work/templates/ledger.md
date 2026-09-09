@@ -1,10 +1,7 @@
 # Ledger
 
-Append per session: date · mantle · changed · decided · next. The tail alone must
-reboot a cold session.
+Append per session: date · mantle · changed · decided · next. The tail alone must reboot a cold session.
 
 ---
 
-**⟨date⟩ · ⟨mantle⟩ · ⟨tier⟩ (⟨charge⟩)** — ⟨what changed: outcomes + pointers⟩. Decided:
-⟨D-ids, or "nothing"⟩. Next: ⟨the handoff — the summons fenced when it lives nowhere
-else, or `ignite ⟨charge-ids⟩` when the charge docs carry the fences (DOCTRINE §7, the Next law)⟩.
+**⟨date⟩ · ⟨mantle⟩ · ⟨tier⟩ (⟨charge⟩)** — ⟨what changed: outcomes + pointers⟩. Decided: ⟨D-ids, or "nothing"⟩. Next: ⟨the handoff — the summons fenced when it lives nowhere else, or `ignite ⟨charge-ids⟩` when the charge docs carry the fences (DOCTRINE §7, the Next law)⟩.

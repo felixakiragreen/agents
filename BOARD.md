@@ -1,10 +1,6 @@
 # The agents canon — Board
 
-The work state: the board and the deferred list (D78, split from MAP §5
-2026-08-31); a batch's note is its review gate's doc — the Mission of `plans/g‹n›-….md` — and the tender is ignited with `plans/TENDER.md`'s fence plus one line naming that doc (stigmergon D40, adopted here 2026-09-08 at his word). Design, non-goals, and local physics stay in [MAP.md](MAP.md).
-Statuses per the doctrine (`canon/work/DOCTRINE.md` §4): OPEN → IN FLIGHT →
-LANDED / KILLED. Any account can host any session — the repo carries the truth;
-account choice is quota arbitrage.
+The work state: the board and the deferred list (D78, split from MAP §5 2026-08-31); a batch's note is its review gate's doc — the Mission of `plans/g‹n›-….md` — and the tender is ignited with `plans/TENDER.md`'s fence plus one line naming that doc (stigmergon D40, adopted here 2026-09-08 at his word). Design, non-goals, and local physics stay in [MAP.md](MAP.md). Statuses per the doctrine (`canon/work/DOCTRINE.md` §4): OPEN → IN FLIGHT → LANDED / KILLED. Any account can host any session — the repo carries the truth; account choice is quota arbitrage.
 
 | ID | Work | Depends on | Staffing | Status |
 |---|---|---|---|---|
@@ -58,68 +54,22 @@ account choice is quota arbitrage.
 | 044 | [the boot pack](plans/044-boot-pack.md) — `doctrine boot ‹root›`: what a cold session needs, derived from the books at every call, verbatim where it quotes; the law follows at G4 | — | Builder · opus-high | LANDED 2026-09-08 → [findings F1–F6](plans/044-boot-pack.md); packs of 4.6 KB (agents) and 4.9 KB (stigmergon) — 9.5× and 21.6× less than a summons named; suite 127 → 139, lint unchanged |
 | 045 | [the baton's fields](plans/045-baton-fields.md) — `Baton.shape` · `recommendation` · `type` · `named` typed on the parser; `boot` and the docket read them; a fork with no recommendation lints | 044 | Builder · opus-high | LANDED 2026-09-08 → [findings F1–F7](plans/045-baton-fields.md); the four fields typed off the record's own marks; census over 265 entries; suite 139 → 143, lint identical before/after |
 | 046 | [the lint gaps](plans/046-lint-gaps.md) — `board.gate-kickoff`; the kickoff arm reads the marked fence; an explicit root keeps its own ledger (039-F5's hole, simmy G21's case) | — | Builder · opus-high | LANDED 2026-09-08 → [findings F1–F6](plans/046-lint-gaps.md); `board.gate-kickoff`, the marked fence, the checkout root found at the directory; suite 143 → 149, stigmergon 1 → 0, agents unchanged |
-| 047 | [the unwrap](plans/047-unwrap.md) — D88 built: `doctrine migrate` joins a paragraph's hard-wrapped lines; the word law and the fixed point asserted; run over agents whole, `--summary` for the reader | — | Builder · opus-high | OPEN — laid 2026-09-08 |
+| 047 | [the unwrap](plans/047-unwrap.md) — D88 built: `doctrine migrate` joins a paragraph's hard-wrapped lines; the word law and the fixed point asserted; run over agents whole, `--summary` for the reader | — | Builder · opus-high | IN FLIGHT — 2026-09-08 |
 | 048 | [the ledger's aging](plans/048-ledger-aging.md) — `doctrine prune`: entries past the last twenty move verbatim to `ledger-archive.md`; the parser reads both; a register past 30 KB warns | — | Builder · opus-high | OPEN — laid 2026-09-08 |
 | G4 | [Review gate — the parser's second opening](plans/g4-parser-review.md) — 044 · 045 · 046 · 047 · 048 verified against their bars; the prune check; the blessed law pasted under its grant; three rulings pre-chewed; the baton to ⬡ | 044; 045; 046; 047; 048 | Architect · fable-high | OPEN — laid 2026-09-08 |
 
 
 **Deferred (tracked, not lost):**
 
-- doctrine residue — one charge when the parser next opens: ~~the worktree-dedup
-  split-search hole~~ promoted to 046 (2026-09-08, with simmy G21's live case) — and
-  the currency alarm (D81): the vocabulary arm's history fence narrows to
-  speech, so token rows (dead ids, marks, compounds) read history too and a respell
-  that missed a form is caught.
-  — and the qualified id in the ledger head's slot (040-F4): `isId` rejects `:`, so
-  `(belvedere:C7)` would fall out of the head into the body; the two belvedere heads
-  (`LEDGER.md` 2086, 2151) stand as a dead, unregistered building's addresses — open
-  the slot when a live building writes one.
-  — and 040's second adoption (stigmergon's Architect, inbox 2026-09-01, cleared at
-  grand-architect-22): the case-folded lettered rule reached a session-id fixture
-  (`'session:s1'` → `'session:001'`) and a scratch shot — the lowercase form is an
-  address only as a slug (`(?<=lab/)‹key›|‹key›(?=-)` would say so); and the walk's
-  fence is silent — a skipped non-text file or fenced directory should be named in
-  the run's output, so the supervised layer can see what the machine kept out.
-  — and the dead-citation alarm (043-F8; inbox 2026-09-01, ruled at grand-architect-23):
-  a `D‹n›` on a live surface that `DECISIONS.md` no longer carries warns — the live set,
-  never a floor, since D78 kills leave gaps. It cannot be built where the linter stands:
-  `building.ts` classifies `DOCTRINE.md`, `STANDARD.md`, the charters, `docs/*.md` and
-  the templates as no artifact, and `isLawBook` fences `canon/` from every arm that reads
-  forms as data — so the canon's own law surfaces are read by no arm. The alarm needs a
-  law-surface class in discovery that the form arms read and the vocabulary arm stays
-  fenced from (STANDARD §8) — a discovery charge, when the parser next opens.
+- doctrine residue — one charge when the parser next opens: ~~the worktree-dedup split-search hole~~ promoted to 046 (2026-09-08, with simmy G21's live case) — and the currency alarm (D81): the vocabulary arm's history fence narrows to speech, so token rows (dead ids, marks, compounds) read history too and a respell that missed a form is caught. — and the qualified id in the ledger head's slot (040-F4): `isId` rejects `:`, so `(belvedere:C7)` would fall out of the head into the body; the two belvedere heads (`LEDGER.md` 2086, 2151) stand as a dead, unregistered building's addresses — open the slot when a live building writes one. — and 040's second adoption (stigmergon's Architect, inbox 2026-09-01, cleared at grand-architect-22): the case-folded lettered rule reached a session-id fixture (`'session:s1'` → `'session:001'`) and a scratch shot — the lowercase form is an address only as a slug (`(?<=lab/)‹key›|‹key›(?=-)` would say so); and the walk's fence is silent — a skipped non-text file or fenced directory should be named in the run's output, so the supervised layer can see what the machine kept out. — and the dead-citation alarm (043-F8; inbox 2026-09-01, ruled at grand-architect-23): a `D‹n›` on a live surface that `DECISIONS.md` no longer carries warns — the live set, never a floor, since D78 kills leave gaps. It cannot be built where the linter stands: `building.ts` classifies `DOCTRINE.md`, `STANDARD.md`, the charters, `docs/*.md` and the templates as no artifact, and `isLawBook` fences `canon/` from every arm that reads forms as data — so the canon's own law surfaces are read by no arm. The alarm needs a law-surface class in discovery that the form arms read and the vocabulary arm stays fenced from (STANDARD §8) — a discovery charge, when the parser next opens.
 
 - The deferral's horizon — his ruling 2026-09-08 on the MEL ask (stigmergon 056, from mentat-05's neck sitting): no per-item expiry — *"it's extra weight for me to have to choose a date for every time I defer something. we need a better way."* The candidate for the office's next summons: the date is the day, never a choice — a deferred entry opens with its date as an inbox entry does, and the prune check (D78) re-rules every entry older than a standing horizon (thirty days as canon's default; a building's agreements may set its own): promote, keep (re-dated by the review), or delete; `doctrine boot` prints the count over the horizon. No pilot chooses; the horizon is law. Ancestors: the inbox entry format (DOCTRINE §3), the caps (041), the Log's aging (a count, not a choice).
-- The effort axis — one sentence for the mantles README's grid section: the model buys
-  instincts, effort buys search; low effort on a strong model is the bulk-verdict niche
-  (grand-architect-22, 2026-09-01; evidence in 042's census).
-- The index-import test — the consumer's false-green guard on the doctrine package's
-  index (grand-architect-22, 2026-09-01; the index defect landed by
-  architect-stigmergon-04, inbox cleared at 22c1696).
+- The effort axis — one sentence for the mantles README's grid section: the model buys instincts, effort buys search; low effort on a strong model is the bulk-verdict niche (grand-architect-22, 2026-09-01; evidence in 042's census).
+- The index-import test — the consumer's false-green guard on the doctrine package's index (grand-architect-22, 2026-09-01; the index defect landed by architect-stigmergon-04, inbox cleared at 22c1696).
 
-- The peer-messaging experiment (SendMessage taps between live sessions —
-  gate-delivery pokes, cross-account bulletin pokes; pointers-not-payloads,
-  message-never-summons; the plane is OS-user-scoped and crosses all three accounts,
-  ephemeral, no audit trail) — Felix 2026-08-08: canonize later; capability map,
-  probe spec, and the Quartermaster deliberation in
-  [plans/quartermaster.md](plans/quartermaster.md). The bulletin stands untouched.
-- lab/008 residue — one charge when the harness next opens: the typed-literals arm
-  (029-F4 — assert every `● [x]…` literal in `lab/008/run` names a live `PKEY`, plus
-  a sibling over `drive.exp`'s presses) · the `run:407` dead assertion (its subject
-  file is created at line 413, after it fires) · `count`'s silent-0 on a missing
-  file (G2's find, 2026-08-31).
-- The belvedere purge — delete the retired `belvedere/` subtree and prune the
-  belvedere-era `plans/` docs from this repo once stigmergon has extracted its
-  salvage (engine, camera, gates, fixtures, census); git is the archive (D78).
-  Felix's word 2026-08-31 at stigmergon's founding ("cleanup all the belvedere
-  garbage").
+- The peer-messaging experiment (SendMessage taps between live sessions — gate-delivery pokes, cross-account bulletin pokes; pointers-not-payloads, message-never-summons; the plane is OS-user-scoped and crosses all three accounts, ephemeral, no audit trail) — Felix 2026-08-08: canonize later; capability map, probe spec, and the Quartermaster deliberation in [plans/quartermaster.md](plans/quartermaster.md). The bulletin stands untouched.
+- lab/008 residue — one charge when the harness next opens: the typed-literals arm (029-F4 — assert every `● [x]…` literal in `lab/008/run` names a live `PKEY`, plus a sibling over `drive.exp`'s presses) · the `run:407` dead assertion (its subject file is created at line 413, after it fires) · `count`'s silent-0 on a missing file (G2's find, 2026-08-31).
+- The belvedere purge — delete the retired `belvedere/` subtree and prune the belvedere-era `plans/` docs from this repo once stigmergon has extracted its salvage (engine, camera, gates, fixtures, census); git is the archive (D78). Felix's word 2026-08-31 at stigmergon's founding ("cleanup all the belvedere garbage").
 
-- The staffing retrospective — the batch report gains the tier and the meter's cost
-  per charge, read at every review; and one controlled experiment before any default
-  moves: a review gate at opus-high beside one at fable-high, a Digger charge with a
-  control. Felix, 2026-09-01: the idea stands, not the time — the next optimization
-  pass. Evidence on record: the census in [042](plans/042-grid-prune.md), the meter
-  in stigmergon's inbox, seven in ten output tokens Fable's.
-- A `t` preset in the rig — a bare sonnet-medium session opened with
-  `plans/TENDER.md`'s fence and the live batch note in its first prompt — laid after
-  the tender's first run proves the shape (D83); until then the paste is by hand.
+- The staffing retrospective — the batch report gains the tier and the meter's cost per charge, read at every review; and one controlled experiment before any default moves: a review gate at opus-high beside one at fable-high, a Digger charge with a control. Felix, 2026-09-01: the idea stands, not the time — the next optimization pass. Evidence on record: the census in [042](plans/042-grid-prune.md), the meter in stigmergon's inbox, seven in ten output tokens Fable's.
+- A `t` preset in the rig — a bare sonnet-medium session opened with `plans/TENDER.md`'s fence and the live batch note in its first prompt — laid after the tender's first run proves the shape (D83); until then the paste is by hand.

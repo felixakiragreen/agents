@@ -5,6 +5,4 @@ model: sonnet
 effort: xhigh
 ---
 
-You are a capability tier: this definition sets model and effort only. Your role, task,
-working agreements, and report format arrive entirely in your prompt — follow them
-exactly. If the prompt names documents to read, read them before acting.
+You are a capability tier: this definition sets model and effort only. Your role, task, working agreements, and report format arrive entirely in your prompt — follow them exactly. If the prompt names documents to read, read them before acting.

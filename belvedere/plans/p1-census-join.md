@@ -1,96 +1,52 @@
 # P1 — the census join
 
-**Status:** **LANDED** 2026-08-26 — no kill fired; all five questions answered ·
-**Depends on:** — (batch note: fire inside a cmux pane) ·
-**Staffing:** Digger · opus-high · **Parallel-safe with:** P2, P3
-**Re-cut 2026-08-26 (Architect):** question 5 added — canon D67 routes Felix's
-visibility decree here.
+**Status:** **LANDED** 2026-08-26 — no kill fired; all five questions answered · **Depends on:** — (batch note: fire inside a cmux pane) · **Staffing:** Digger · opus-high · **Parallel-safe with:** P2, P3 **Re-cut 2026-08-26 (Architect):** question 5 added — canon D67 routes Felix's visibility decree here.
 
 ## Questions
 
-1. Which hook events fire across a session's life — SessionStart, UserPromptSubmit,
-   PreToolUse, Stop, Notification, SessionEnd — and what fields ride each payload
-   (session id, cwd, transcript path, …)? Captured verbatim, per event.
-2. Are `CMUX_WORKSPACE_ID` / `CMUX_SURFACE_ID` visible in the hook process env when
-   the session runs inside a cmux pane? This is the deterministic session↔pane join
-   (keel §4) — the glass's liveness sensor hangs on it.
-3. Heartbeat cost: what latency does a one-line-append hook add per event? Target
-   ≈ 0 — measured, not guessed.
-4. Propose the census record: one JSONL line per event — fields named, derived from
-   what (1) and (2) actually provide. Home: `summon/log/census/` (README D6,
-   gitignored — verified at founding).
-5. Subagent visibility (canon D67): when a session dispatches via the Agent tool, a
-   background Bash job, or a Workflow run, which of those lifecycles surface in the
-   PARENT session's hook events — and with what identifying fields? Deliverable per
-   vehicle: countable from hooks, or the blindness named precisely. The full
-   no-invisible-agents law is cut canon-side from what this census proves — the
-   mechanism signs the charter.
+1. Which hook events fire across a session's life — SessionStart, UserPromptSubmit, PreToolUse, Stop, Notification, SessionEnd — and what fields ride each payload (session id, cwd, transcript path, …)? Captured verbatim, per event.
+2. Are `CMUX_WORKSPACE_ID` / `CMUX_SURFACE_ID` visible in the hook process env when the session runs inside a cmux pane? This is the deterministic session↔pane join (keel §4) — the glass's liveness sensor hangs on it.
+3. Heartbeat cost: what latency does a one-line-append hook add per event? Target ≈ 0 — measured, not guessed.
+4. Propose the census record: one JSONL line per event — fields named, derived from what (1) and (2) actually provide. Home: `summon/log/census/` (README D6, gitignored — verified at founding).
+5. Subagent visibility (canon D67): when a session dispatches via the Agent tool, a background Bash job, or a Workflow run, which of those lifecycles surface in the PARENT session's hook events — and with what identifying fields? Deliverable per vehicle: countable from hooks, or the blindness named precisely. The full no-invisible-agents law is cut canon-side from what this census proves — the mechanism signs the charter.
 
 ## Inputs — read before working
 
-- [README](../README.md) §§1–3 (the bet, the fence, the organs) and the keel §5
-  (the missing sensor) — do not re-derive the design.
-- Hooks land **project-local**: a scratch project dir carrying its own
-  `.claude/settings.json`. The per-account `~/.claude*/settings.json` deploy is a
-  later **Felix-run** ritual (D14's pattern) — NOT this row's venue; touching a
-  live settings file is a STOP.
-- You are fired inside a cmux pane (batch note) precisely so the CMUX_* env is
-  measurable from your own session's hooks; a scratch session you spawn beside
-  yourself works too.
+- [README](../README.md) §§1–3 (the bet, the fence, the organs) and the keel §5 (the missing sensor) — do not re-derive the design.
+- Hooks land **project-local**: a scratch project dir carrying its own `.claude/settings.json`. The per-account `~/.claude*/settings.json` deploy is a later **Felix-run** ritual (D14's pattern) — NOT this row's venue; touching a live settings file is a STOP.
+- You are fired inside a cmux pane (batch note) precisely so the CMUX_* env is measurable from your own session's hooks; a scratch session you spawn beside yourself works too.
 
 ## Method
 
-Suggested route: scratch dir whose hooks append `ts · event · payload fields ·
-$CMUX_*` to a census file; drive a short session through prompt / tool-use / idle /
-notification / end; capture each payload verbatim; time the append overhead (N=20).
-Control (DOCTRINE §6.2): an identical session with NO hooks, same actions — prove
-the census file stays silent there and speaks under hooks.
+Suggested route: scratch dir whose hooks append `ts · event · payload fields · $CMUX_*` to a census file; drive a short session through prompt / tool-use / idle / notification / end; capture each payload verbatim; time the append overhead (N=20). Control (DOCTRINE §6.2): an identical session with NO hooks, same actions — prove the census file stays silent there and speaks under hooks.
 
 ## Kill criteria
 
-- Project-local hooks don't fire at all → STOP, escalate: the v0 deploy design
-  changes shape.
-- `CMUX_*` absent from hook env → NOT a kill: file the finding plus candidate
-  fallbacks (pane title stamp, tty, cmux CLI census) and continue questions 1/3/4.
-- Per-event overhead > 50 ms → STOP, escalate: the sensor would tax every session
-  in the city.
-- Subagent lifecycles invisible to every hook event → NOT a kill: the precisely
-  named blindness IS the finding (D67 — it shapes the canon law and the glass's
-  honest gaps).
+- Project-local hooks don't fire at all → STOP, escalate: the v0 deploy design changes shape.
+- `CMUX_*` absent from hook env → NOT a kill: file the finding plus candidate fallbacks (pane title stamp, tty, cmux CLI census) and continue questions 1/3/4.
+- Per-event overhead > 50 ms → STOP, escalate: the sensor would tax every session in the city.
+- Subagent lifecycles invisible to every hook event → NOT a kill: the precisely named blindness IS the finding (D67 — it shapes the canon law and the glass's honest gaps).
 
 ## Deliverables
 
-Findings below — verbatim payload excerpts per event, the control run, timings —
-plus the proposed census record schema, status current, commits (`lab/p1/`).
+Findings below — verbatim payload excerpts per event, the control run, timings — plus the proposed census record schema, status current, commits (`lab/p1/`).
 
 ## Findings
 
-*(append here — evidence-grade: every claim carries the command and output that
-proved it; probes ship with a control)*
+*(append here — evidence-grade: every claim carries the command and output that proved it; probes ship with a control)*
 
-**Landed 2026-08-26 (Digger · opus-high) — no kill criterion fired.** All five
-questions answered. Lab: [`../lab/p1/`](../lab/p1/). Raw captures (gitignored):
-`summon/log/census/p1/*.jsonl` — 87 hook invocations across 13 sessions, 10 event
-types. Claude Code 2.1.247 (`claude --version`), macOS 15.7.3, personal account
-(`CLAUDE_CONFIG_DIR=/Users/felix/.claude`).
+**Landed 2026-08-26 (Digger · opus-high) — no kill criterion fired.** All five questions answered. Lab: [`../lab/p1/`](../lab/p1/). Raw captures (gitignored): `summon/log/census/p1/*.jsonl` — 87 hook invocations across 13 sessions, 10 event types. Claude Code 2.1.247 (`claude --version`), macOS 15.7.3, personal account (`CLAUDE_CONFIG_DIR=/Users/felix/.claude`).
 
-**Venue.** Fired from a terminal inside a cmux pane per the batch note; scratch
-projects were minted outside the repo (`…/scratchpad/p1-hooks`, `…/p1-control`) by
-[`lab/p1/mkproject.sh`](../lab/p1/mkproject.sh). **No live settings file was
-touched** — every hook config lived in the scratch project's own
-`.claude/settings.json`. Read-only check of the live one:
+**Venue.** Fired from a terminal inside a cmux pane per the batch note; scratch projects were minted outside the repo (`…/scratchpad/p1-hooks`, `…/p1-control`) by [`lab/p1/mkproject.sh`](../lab/p1/mkproject.sh). **No live settings file was touched** — every hook config lived in the scratch project's own `.claude/settings.json`. Read-only check of the live one:
 
 ```
 $ jq '{permissions: .permissions, hooks: (.hooks|keys? // null)}' ~/.claude/settings.json
 { "permissions": { "defaultMode": "auto" }, "hooks": null }
 ```
 
-→ the deploy target is clean: **no account-level hooks exist today**, so the
-Felix-run ×3 ritual adds rather than merges. (It also explains why headless probes
-auto-approved tools: the account runs auto mode.)
+→ the deploy target is clean: **no account-level hooks exist today**, so the Felix-run ×3 ritual adds rather than merges. (It also explains why headless probes auto-approved tools: the account runs auto mode.)
 
-**Control (DOCTRINE §6.2).** Identical project, identical prompt, `settings.json`
-= `{}`:
+**Control (DOCTRINE §6.2).** Identical project, identical prompt, `settings.json` = `{}`:
 
 ```
 $ ./mkproject.sh …/p1-control control && cat …/p1-control/.claude/settings.json
@@ -103,16 +59,13 @@ $ ls -l …/census/p1/control.jsonl
 cannot access …/control.jsonl: No such file or directory
 ```
 
-Same three tool uses under hooks produced 10 census lines. **The sensor is the
-hooks, not ambient behaviour.**
+Same three tool uses under hooks produced 10 census lines. **The sensor is the hooks, not ambient behaviour.**
 
 ---
 
 ### F1 (Q1) — the event set and what rides each payload
 
-**Ten events fire.** Every one was observed at least once; the set is exactly what
-the keel assumed plus three the keel did not name (`SubagentStart`, `PreCompact`,
-and a `SessionEnd` that is *not* reliable — see F5).
+**Ten events fire.** Every one was observed at least once; the set is exactly what the keel assumed plus three the keel did not name (`SubagentStart`, `PreCompact`, and a `SessionEnd` that is *not* reliable — see F5).
 
 Field inventory, generated from the captures:
 
@@ -136,9 +89,7 @@ $ cat summon/log/census/p1/*.jsonl | jq -r 'select(.cfg_event and .payload!=null
 
 † only when the call belongs to a subagent (F4).
 
-**The common five, on every event without exception:** `session_id`,
-`transcript_path`, `cwd`, `hook_event_name`, and (all but `SessionStart`)
-`prompt_id`.
+**The common five, on every event without exception:** `session_id`, `transcript_path`, `cwd`, `hook_event_name`, and (all but `SessionStart`) `prompt_id`.
 
 Verbatim, the two that carry the design:
 
@@ -158,15 +109,10 @@ Verbatim, the two that carry the design:
 **Observed vocabularies** (what the glass may switch on):
 
 - `SessionStart.source` — `startup` · `resume` · `clear`
-- `SessionEnd.reason` — `other` (headless `-p`) · `prompt_input_exit` (`/exit`) ·
-  `clear` (`/clear`). `logout`/`exit` not observed.
+- `SessionEnd.reason` — `other` (headless `-p`) · `prompt_input_exit` (`/exit`) · `clear` (`/clear`). `logout`/`exit` not observed.
 - `Notification.notification_type` — `idle_prompt` · `permission_prompt`
 - `PreCompact.trigger` — `manual` (`/compact`). `auto` not observed.
-- `SessionStart.model` — present on interactive sessions only, absent headless and
-  on resume. Clean split across 12 runs:
-  `interactive/interactive2/lifecycle/perm → claude-haiku-4-5-20251001`;
-  `smoke1/tools/subagent/bgbash/workflow/workflow2/notify/resume → absent`.
-  **Do not depend on it** — read the model from the transcript instead.
+- `SessionStart.model` — present on interactive sessions only, absent headless and on resume. Clean split across 12 runs: `interactive/interactive2/lifecycle/perm → claude-haiku-4-5-20251001`; `smoke1/tools/subagent/bgbash/workflow/workflow2/notify/resume → absent`. **Do not depend on it** — read the model from the transcript instead.
 
 **Notification is a 60-second nag, not the needs-input edge.** Measured:
 
@@ -175,13 +121,9 @@ Verbatim, the two that carry the design:
 2026-08-27T01:55:37Z  Notification   idle_prompt   "Claude is waiting for your input"
 ```
 
-Exactly 60 s. And it only exists interactively — the headless probe (`notify.jsonl`)
-produced 6 events, none of them `Notification`. **For the baton rail, `Stop` is the
-idle sensor; `Notification` is a staleness signal on top of it.**
+Exactly 60 s. And it only exists interactively — the headless probe (`notify.jsonl`) produced 6 events, none of them `Notification`. **For the baton rail, `Stop` is the idle sensor; `Notification` is a staleness signal on top of it.**
 
-The permission variant fires ~6 s after the blocked `PreToolUse` and carries **no
-`tool_name`** — the glass must correlate by `prompt_id` with the last `PreToolUse`
-that never got a `PostToolUse`:
+The permission variant fires ~6 s after the blocked `PreToolUse` and carries **no `tool_name`** — the glass must correlate by `prompt_id` with the last `PreToolUse` that never got a `PostToolUse`:
 
 ```
 01:57:22Z  PreToolUse    Bash  toolu_01GceABtG6hrB4pKoBrMZq3W
@@ -190,9 +132,7 @@ that never got a `PostToolUse`:
 
 ### F2 (Q2) — the cmux join: YES, and it is deterministic
 
-**`CMUX_WORKSPACE_ID` and `CMUX_SURFACE_ID` are both present in the hook process
-env.** Full env dump taken from inside a live hook process
-([`lab/p1/envdump.sh`](../lab/p1/envdump.sh), 103 vars):
+**`CMUX_WORKSPACE_ID` and `CMUX_SURFACE_ID` are both present in the hook process env.** Full env dump taken from inside a live hook process ([`lab/p1/envdump.sh`](../lab/p1/envdump.sh), 103 vars):
 
 ```
 $ grep -E '^(CMUX_(WORKSPACE|SURFACE|PANEL|TAB)_ID|CLAUDE_(PID|CODE_SESSION_ID))' census/p1/smoke1.jsonl.hookenv
@@ -204,10 +144,7 @@ CMUX_TAB_ID=01B67603-C364-45B6-A54C-8BD878DF2F5B
 CMUX_WORKSPACE_ID=01B67603-C364-45B6-A54C-8BD878DF2F5B
 ```
 
-**The join closes on both ends in one process:** `CLAUDE_CODE_SESSION_ID` (env) is
-byte-identical to `session_id` (payload), and `CMUX_SURFACE_ID` (env) names the
-pane. No correlation heuristics, no pane-title stamps, no cmux CLI. The named
-fallbacks are **not needed** and stay parked.
+**The join closes on both ends in one process:** `CLAUDE_CODE_SESSION_ID` (env) is byte-identical to `session_id` (payload), and `CMUX_SURFACE_ID` (env) names the pane. No correlation heuristics, no pane-title stamps, no cmux CLI. The named fallbacks are **not needed** and stay parked.
 
 Coverage is total — all 87 captured invocations, all 10 event types:
 
@@ -223,13 +160,8 @@ $ cat census/p1/*.jsonl | jq -r 'select(.cfg_event) | [.cfg_event,
 
 **Three traps the glass must respect, all measured:**
 
-1. **`SURFACE_ID` == `PANEL_ID`, `WORKSPACE_ID` == `TAB_ID`** (byte-identical
-   above). Two names each; store one.
-2. **The env is inherited, so the join is pane → session one-to-**many**.** Every
-   probe session in this dig was spawned *from inside* another session in the same
-   pane and carried that pane's ids verbatim. A pane can therefore hold several
-   session_ids at once. Key the glass by `session_id`; treat `surface` as a grouping
-   attribute, never a session identity.
+1. **`SURFACE_ID` == `PANEL_ID`, `WORKSPACE_ID` == `TAB_ID`** (byte-identical above). Two names each; store one.
+2. **The env is inherited, so the join is pane → session one-to-**many**.** Every probe session in this dig was spawned *from inside* another session in the same pane and carried that pane's ids verbatim. A pane can therefore hold several session_ids at once. Key the glass by `session_id`; treat `surface` as a grouping attribute, never a session identity.
 3. **`/clear` rotates the session_id in place** — same pane, new session:
 
    ```
@@ -237,16 +169,11 @@ $ cat census/p1/*.jsonl | jq -r 'select(.cfg_event) | [.cfg_event,
    01:59:24Z  SessionStart  a3acad82…  source=clear
    ```
 
-   Resume, by contrast, **keeps** the id (`claude -c` → `SessionStart a3acad82…
-   source=resume`). Also inherited-but-stale: `CMUX_CLAUDE_PID=92798` was the
-   *pane's original* claude, not the running one — use payload-derived `CLAUDE_PID`
-   (96970), never `CMUX_CLAUDE_PID`.
+   Resume, by contrast, **keeps** the id (`claude -c` → `SessionStart a3acad82… source=resume`). Also inherited-but-stale: `CMUX_CLAUDE_PID=92798` was the *pane's original* claude, not the running one — use payload-derived `CLAUDE_PID` (96970), never `CMUX_CLAUDE_PID`.
 
 ### F3 (Q3) — heartbeat cost: 5.5 ms median, 0.7 ms over an empty hook
 
-**First, hooks are synchronous and blocking** — so "cost" is exactly the hook
-process's wall time. Proven by injecting a known delay
-([`lab/p1/slow.sh`](../lab/p1/slow.sh), `sleep 0.5`) into the same 6-event session:
+**First, hooks are synchronous and blocking** — so "cost" is exactly the hook process's wall time. Proven by injecting a known delay ([`lab/p1/slow.sh`](../lab/p1/slow.sh), `sleep 0.5`) into the same 6-event session:
 
 ```
 beat: 7.50s wall, 6 hook events
@@ -255,8 +182,7 @@ slow: 10.88s wall, 6 hook events
 
 +3.38 s observed against 6 × 0.5 s = 3.0 s injected. The tax is real and additive.
 
-**Measured cost** ([`lab/p1/bench.py`](../lab/p1/bench.py)), replaying the fattest
-captured payload (1028-byte `SubagentStop`), N=50, cache warmed:
+**Measured cost** ([`lab/p1/bench.py`](../lab/p1/bench.py)), replaying the fattest captured payload (1028-byte `SubagentStop`), N=50, cache warmed:
 
 ```
 $ python3 bench.py /tmp/p1-payload.json 50
@@ -268,28 +194,19 @@ beat.sh            5.05     5.52     6.47     6.77
 capture.sh         6.21     7.93     8.67     8.93
 ```
 
-- `noop.sh` = `cat >/dev/null`: the **irreducible** cost of Claude Code spawning
-  any hook at all — 4.8 ms.
+- `noop.sh` = `cat >/dev/null`: the **irreducible** cost of Claude Code spawning any hook at all — 4.8 ms.
 - `beat.sh` = the proposed heartbeat (F6): **5.5 ms median, 6.8 ms worst of 50**.
-- **Marginal cost of the census over an empty hook: 0.7 ms.** The 4.8 ms floor is
-  process spawn, and no hook design escapes it.
+- **Marginal cost of the census over an empty hook: 0.7 ms.** The 4.8 ms floor is process spawn, and no hook design escapes it.
 
-**Kill criterion (> 50 ms) did not fire — 7× margin at p95.** Whole-session tax:
-the busiest probe ran 16 events → ~88 ms across a session lasting minutes.
+**Kill criterion (> 50 ms) did not fire — 7× margin at p95.** Whole-session tax: the busiest probe ran 16 events → ~88 ms across a session lasting minutes.
 
-Caveat, stated honestly: the bench times `subprocess.run` from Python, which
-carries its own spawn overhead; the absolute floor is therefore an over-estimate.
-The `beat.sh` − `noop.sh` delta is the apples-to-apples number and is the one the
-design decision rests on.
+Caveat, stated honestly: the bench times `subprocess.run` from Python, which carries its own spawn overhead; the absolute floor is therefore an over-estimate. The `beat.sh` − `noop.sh` delta is the apples-to-apples number and is the one the design decision rests on.
 
 ### F4 (Q5) — subagent visibility: all three vehicles are countable
 
-Per the D67 deliverable — **countable from hooks, or the blindness named
-precisely**. Result: two of three vehicles are fully countable, the third is
-countable at launch with one precisely-named gap.
+Per the D67 deliverable — **countable from hooks, or the blindness named precisely**. Result: two of three vehicles are fully countable, the third is countable at launch with one precisely-named gap.
 
-**(a) Agent tool — fully countable.** Dedicated lifecycle events, and every tool
-call the subagent makes is attributed:
+**(a) Agent tool — fully countable.** Dedicated lifecycle events, and every tool call the subagent makes is attributed:
 
 ```
 $ jq -r '[.cfg_event, (.payload.tool_name//"-"), (.payload.agent_type//"-"),
@@ -308,13 +225,9 @@ Stop              -      -                -
 SessionEnd        -      -                -
 ```
 
-**The discriminator is exact:** parent-session tool calls carry no `agent_id`;
-subagent tool calls always do. `SubagentStop` adds `agent_transcript_path`:
-`…/<session_id>/subagents/agent-a124dce649c5977ea.jsonl` — the glass can open a
-running subagent's transcript.
+**The discriminator is exact:** parent-session tool calls carry no `agent_id`; subagent tool calls always do. `SubagentStop` adds `agent_transcript_path`: `…/<session_id>/subagents/agent-a124dce649c5977ea.jsonl` — the glass can open a running subagent's transcript.
 
-Completion re-enters the parent as a **`UserPromptSubmit` whose prompt is a
-`<task-notification>` block** — machine-readable, verbatim:
+Completion re-enters the parent as a **`UserPromptSubmit` whose prompt is a `<task-notification>` block** — machine-readable, verbatim:
 
 ```
 <task-notification>
@@ -326,9 +239,7 @@ Completion re-enters the parent as a **`UserPromptSubmit` whose prompt is a
 </task-notification>
 ```
 
-**(b) Workflow — fully countable, same machinery.** Workflow agents surface as
-`SubagentStart`/`SubagentStop` with `agent_type: "workflow-subagent"`, and their
-nested tool calls carry `agent_id` too:
+**(b) Workflow — fully countable, same machinery.** Workflow agents surface as `SubagentStart`/`SubagentStop` with `agent_type: "workflow-subagent"`, and their nested tool calls carry `agent_id` too:
 
 ```
 $ jq -r '[.cfg_event,(.payload.tool_name//"-"),(.payload.agent_type//"-"),
@@ -342,15 +253,9 @@ PostToolUse    Bash      workflow-subagent  ae6d6488b1b86e54d  echo WF-TOOL-XYZ
 SubagentStop   -         workflow-subagent  ae6d6488b1b86e54d  -
 ```
 
-The workflow **run id** is recoverable from `agent_transcript_path`:
-`…/subagents/workflows/wf_b48a1a06-913/agent-aa4acbb174a66dfdc.jsonl` — so agents
-group by run without any extra sensor.
+The workflow **run id** is recoverable from `agent_transcript_path`: `…/subagents/workflows/wf_b48a1a06-913/agent-aa4acbb174a66dfdc.jsonl` — so agents group by run without any extra sensor.
 
-**(c) Background Bash — countable at launch; one named blindness.** The launch is
-visible (`PreToolUse`/`PostToolUse` with `tool_input.run_in_background == true`),
-and the job appears in the roster (below). **But there is no `BackgroundTaskStop`
-event.** Completion is observable only indirectly, two ways: the re-injected
-`<task-notification>` (above), or the next `Stop`'s roster going empty:
+**(c) Background Bash — countable at launch; one named blindness.** The launch is visible (`PreToolUse`/`PostToolUse` with `tool_input.run_in_background == true`), and the job appears in the roster (below). **But there is no `BackgroundTaskStop` event.** Completion is observable only indirectly, two ways: the re-injected `<task-notification>` (above), or the next `Stop`'s roster going empty:
 
 ```
 $ jq -c 'select(.cfg_event=="Stop") | {prompt:(.payload.prompt_id[0:8]), bg:.payload.background_tasks}' census/p1/bgbash.jsonl
@@ -358,28 +263,15 @@ $ jq -c 'select(.cfg_event=="Stop") | {prompt:(.payload.prompt_id[0:8]), bg:.pay
 {"prompt":"3b0a7451","bg":[]}
 ```
 
-**Named blindness:** *a background shell job that completes while the session never
-reaches another `Stop` is invisible to the hook stream.* In practice the
-task-notification forces a turn, so the window is narrow — but it is real, and the
-glass must not claim a shell job is running purely because the last roster said so.
+**Named blindness:** *a background shell job that completes while the session never reaches another `Stop` is invisible to the hook stream.* In practice the task-notification forces a turn, so the window is narrow — but it is real, and the glass must not claim a shell job is running purely because the last roster said so.
 
-**Bonus organ — `background_tasks[]` is a live WIP roster** carried on every `Stop`
-and `SubagentStop`: `{id, type ("subagent"|"shell"), status, description,
-agent_type, command}`. This is the WIP gauge the README §3 demanded, free, with no
-extra sensor. It also carries `command` verbatim — the census projection drops it
-(F6).
+**Bonus organ — `background_tasks[]` is a live WIP roster** carried on every `Stop` and `SubagentStop`: `{id, type ("subagent"|"shell"), status, description, agent_type, command}`. This is the WIP gauge the README §3 demanded, free, with no extra sensor. It also carries `command` verbatim — the census projection drops it (F6).
 
-**Ordering caveat.** Hook arrival order is not causal order: in `workflow2` the
-subagent's `PostToolUse` landed *after* the parent's `Stop`, and `PostToolUse
-Agent` precedes the subagent's own tool calls. **Sort by the record's timestamp,
-never by file position** (F6 stamps sub-millisecond `t`; verified monotonic over a
-16-line real capture).
+**Ordering caveat.** Hook arrival order is not causal order: in `workflow2` the subagent's `PostToolUse` landed *after* the parent's `Stop`, and `PostToolUse Agent` precedes the subagent's own tool calls. **Sort by the record's timestamp, never by file position** (F6 stamps sub-millisecond `t`; verified monotonic over a 16-line real capture).
 
 ### F5 — two liveness traps (not asked; load-bearing for the glass)
 
-**1. `SessionEnd` does not survive a hard kill.** A pane closed, a laptop lid, a
-crash — the census's last line stays `Stop`, which is indistinguishable from a live
-idle session. Measured with SIGKILL on a live interactive session:
+**1. `SessionEnd` does not survive a hard kill.** A pane closed, a laptop lid, a crash — the census's last line stays `Stop`, which is indistinguishable from a live idle session. Measured with SIGKILL on a live interactive session:
 
 ```
 $ …SIGKILL -> pid 24189
@@ -389,8 +281,7 @@ $ …SIGKILL -> pid 24189
 02:04:57Z  Stop            ← last line. No SessionEnd.
 ```
 
-**2. The fix is already in the record.** `CLAUDE_PID` rides every heartbeat, so
-liveness is one syscall:
+**2. The fix is already in the record.** `CLAUDE_PID` rides every heartbeat, so liveness is one syscall:
 
 ```
 $ for p in $(jq -r '.pid' census.jsonl | sort -u); do kill -0 $p 2>/dev/null \
@@ -398,23 +289,13 @@ $ for p in $(jq -r '.pid' census.jsonl | sort -u); do kill -0 $p 2>/dev/null \
 pid 24189 DEAD -> census last line 'Stop' was a lie
 ```
 
-**Law for the glass: the census says what a session was doing; `kill -0 pid` says
-whether it still exists. Never render state without both.** This is the
-glass-shatters test applied to the sensor — a stale census must degrade to
-"unknown", never to "working".
+**Law for the glass: the census says what a session was doing; `kill -0 pid` says whether it still exists. Never render state without both.** This is the glass-shatters test applied to the sensor — a stale census must degrade to "unknown", never to "working".
 
 ### F6 (Q4) — the proposed census record
 
-**Shape: one JSONL line per hook event, appended to
-`summon/log/census/census.jsonl`** (D6's home, gitignored — verified
-`.gitignore:1  summon/log/`). One file, append-only; the glass tails it and indexes
-by `sid`. Sharding per session was designed and **rejected**: choosing the filename
-requires reading the payload, which costs a second process for a lookup the glass
-already holds in memory.
+**Shape: one JSONL line per hook event, appended to `summon/log/census/census.jsonl`** (D6's home, gitignored — verified `.gitignore:1  summon/log/`). One file, append-only; the glass tails it and indexes by `sid`. Sharding per session was designed and **rejected**: choosing the filename requires reading the payload, which costs a second process for a lookup the glass already holds in memory.
 
-**The hook does no logic.** [`lab/p1/beat.sh`](../lab/p1/beat.sh) is one `exec` into
-`jq`, which projects the payload and stamps the time in the process already being
-paid for — no `date`, no second fork:
+**The hook does no logic.** [`lab/p1/beat.sh`](../lab/p1/beat.sh) is one `exec` into `jq`, which projects the payload and stamps the time in the process already being paid for — no `date`, no second fork:
 
 ```sh
 dir="${CENSUS_DIR:-$HOME/code/agents/summon/log/census}"
@@ -444,13 +325,9 @@ exec /usr/bin/jq -c --arg ws "$CMUX_WORKSPACE_ID" --arg sf "$CMUX_SURFACE_ID" \
 | `why` | `source // reason // notification_type // trigger` | one column for every event's discriminator |
 | `bg` | `background_tasks[]`, projected | the WIP gauge (F4) |
 
-**Deliberately dropped:** `prompt` text, `tool_input`, `tool_response`,
-`last_assistant_message`, and `background_tasks[].command`. Census is telemetry,
-never truth (README §2) — and prompts and command lines are exactly where secrets
-live. Everything dropped is recoverable from `tp` when the glass genuinely needs it.
+**Deliberately dropped:** `prompt` text, `tool_input`, `tool_response`, `last_assistant_message`, and `background_tasks[].command`. Census is telemetry, never truth (README §2) — and prompts and command lines are exactly where secrets live. Everything dropped is recoverable from `tp` when the glass genuinely needs it.
 
-**Proven end-to-end**, not designed on paper — beat.sh wired to all ten events, one
-real session dispatching a subagent and a background job:
+**Proven end-to-end**, not designed on paper — beat.sh wired to all ten events, one real session dispatching a subagent and a background job:
 
 ```
 $ jq -r '[(.t|todate), .ev, (.sid[0:8]), (.aid//"-"), (.at//"-"), (.tool//"-"), (.why//"-"), (.bg|length|tostring)] | @tsv' census.jsonl
@@ -472,8 +349,7 @@ $ jq -r '[(.t|todate), .ev, (.sid[0:8]), (.aid//"-"), (.at//"-"), (.tool//"-"), 
 02:03:26Z  SessionEnd        1985d86f  -                  -                other    0
 ```
 
-Parent `Bash` and subagent `Bash` separated cleanly by `aid`. Timestamps verified
-monotonic in file order for this run (`awk` check over `.t`).
+Parent `Bash` and subagent `Bash` separated cleanly by `aid`. Timestamps verified monotonic in file order for this run (`awk` check over `.t`).
 
 **Concurrent appends are safe at this size.** 60 hook processes racing one file:
 
@@ -483,10 +359,7 @@ lines written: 60
 lines that are valid JSON: 60
 ```
 
-Records run ~400–600 bytes, under the atomic-append size where interleaving starts.
-**Guard for the build row:** `bg` is the only unbounded field — a session with a
-large roster could push a line past that threshold. Cap `bg` at a fixed length in
-the hook, or accept a lint-on-read (parser-as-lint, README §1).
+Records run ~400–600 bytes, under the atomic-append size where interleaving starts. **Guard for the build row:** `bg` is the only unbounded field — a session with a large roster could push a line past that threshold. Cap `bg` at a fixed length in the hook, or accept a lint-on-read (parser-as-lint, README §1).
 
 **Derived state machine for the glass** (from F1's vocabularies):
 
@@ -501,19 +374,12 @@ the hook, or accept a lint-on-read (parser-as-lint, README §1).
 
 ### What this row hands the build rows
 
-1. The census sensor is **cheap (0.7 ms marginal), total (10 events, 100 % join),
-   and honest about its gaps** (F5 hard-kill, F4 background-shell completion).
-2. `settings.json` deploy is **additive** — no account-level hooks exist to merge
-   with. The ×3 Felix-run ritual can be a straight write of one `hooks` block
-   pointing at a canon-side `beat.sh`.
+1. The census sensor is **cheap (0.7 ms marginal), total (10 events, 100 % join), and honest about its gaps** (F5 hard-kill, F4 background-shell completion).
+2. `settings.json` deploy is **additive** — no account-level hooks exist to merge with. The ×3 Felix-run ritual can be a straight write of one `hooks` block pointing at a canon-side `beat.sh`.
 3. The glass needs **two sensors, not one**: the census stream *and* `kill -0`.
-4. **No-invisible-agents (canon D67) is mechanically supportable** — Agent-tool and
-   Workflow agents are fully countable with stable ids, types, and transcripts;
-   background shell jobs are countable at launch with one narrow, named completion
-   gap. The mechanism signs the charter.
+4. **No-invisible-agents (canon D67) is mechanically supportable** — Agent-tool and Workflow agents are fully countable with stable ids, types, and transcripts; background shell jobs are countable at launch with one narrow, named completion gap. The mechanism signs the charter.
 
-**Escalations: none.** No unbriefed fork was hit; the `CMUX_*` fallback branch was
-not needed. Parked (not chased): the cmux CLI/socket surface — P2's ground.
+**Escalations: none.** No unbriefed fork was hit; the `CMUX_*` fallback branch was not needed. Parked (not chased): the cmux CLI/socket surface — P2's ground.
 
 ---
 
