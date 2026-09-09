@@ -18,8 +18,8 @@ dated amendment notes, never silent rewrites:⟩
 
 ## 3. The board
 
-The work state lives in **[BOARD.md](BOARD.md)** (D78) — the board, batch notes, the
-deferred list; instantiate `board.md` beside this file. Subproject scale: the board
+The work state lives in **[BOARD.md](BOARD.md)** (D78) — the board and the deferred
+list; a batch's note is its review gate's doc (DOCTRINE §4); instantiate `board.md` beside this file. Subproject scale: the board
 stays inline in the README until the split rule triggers (DOCTRINE §3).
 
 ## 4. Working agreements (project physics)

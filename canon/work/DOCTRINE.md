@@ -61,7 +61,7 @@ A **full project** (weeks+, multiple mantles) carries at its root:
 CLAUDE.md      orientation: what this is, hard laws, session protocol — auto-loaded
 dream.md       Felix's dream, when one exists — IMMUTABLE: never edited, only read
 MAP.md         master doc: architecture, the bet, non-goals, agreements, Done when
-BOARD.md       the work state: the board, batch notes, the deferred list
+BOARD.md       the work state: the board and the deferred list (a batch's note is its review gate's doc, §4)
 LEDGER.md      append-only session log
 DECISIONS.md   blessed choices — D-entries
 ISSUES.md      incident inbox: field reports await the Architect's sweep — cleared, never archived
@@ -83,7 +83,7 @@ before.**
 
 - **Retention law (D78):** master docs and boards are pruned at rhythm points —
   every Architect review and every close gate carries the prune check: LANDED rows
-  compress to status + findings pointer, spent batch notes die, register entries
+  compress to status + findings pointer, a spent batch's gate row compresses with them (its doc stays — the note is history there, §4), register entries
   fully distilled into their homes are killed whole, checklists every box of which
   is ticked die. **Git is the archive** — deleted, never tombstoned; no ARCHIVE.md,
   which is the bloat relocated plus a hop. The ledger is exempt: its tail-read
@@ -155,9 +155,9 @@ before.**
 
 The board is the project's single work-state table. At full-project scale it lives in
 **`BOARD.md`** beside the master doc, holding the fast-moving work state whole — the
-table, the batch notes, the deferred list — while the master doc keeps the slow-moving
+table and the deferred list; a batch's note rides its review gate's doc (below) — while the master doc keeps the slow-moving
 design (D78; amended 2026-08-31 — the old board-in-master-doc law optimized away one
-hop and bought a 25k-token wade: one function, one home). A subproject README carries
+hop and bought a 25k-token wade: one function, one home; amended 2026-09-08 — the notes left the board too: stigmergon D40, ten batches, then agents at his word — *"it can be quite a struggle to find the batch notes, and it decreases the board size too"*). A subproject README carries
 its board inline until the split rule triggers (§3). **Any table that staffs sessions
 is a board**, and this section is its law — a build board inside a contract doc is not
 exempt by its venue.
@@ -250,9 +250,7 @@ has FINISHED — not started, not predicted — before the merge executes.
 
 **Under the board:**
 
-- **Batch notes** — the Architect lays each batch as a dated note: which charges, the
-  shape (serial, parallel, any graph), who tends. One live note per running batch; a
-  spent note dies at the batch's close (D78). Parallel-safety is marked here and in
+- **The batch note rides its review gate** (⬡✓ 2026-09-08; birthplace stigmergon D40, 2026-09-07, then agents). The Architect lays each batch as a dated note, and the note is the batch's review gate's charge doc — `plans/G‹n›-‹name›.md`, the standard skeleton (§5): its **Mission** carries the members in order, the shape (serial, parallel, any graph), the tender line (§10), the concurrency plan, the red acts pre-authorized (§10, the lanes); its kickoff rides the foot as every charge's does; the landing record — the verdict, the rulings each cited, the yellow riding to his pass — lands under its **Findings**. One live note per running batch, and the board's one OPEN gate row is where it is found. The tender is ignited with `plans/TENDER.md`'s fence, then one line naming the gate doc — nothing pasted. At the close the gate row compresses to status + pointer and the doc stays: D78's "spent notes die" read as every landed charge doc is read. A batch that ends at his pass rides the review gate's doc; his pages stay his. Parallel-safety is marked here and in
   the charge-doc headers. **Parallel-safe is not parallel-affordable:** safety is
   correctness (no file/doc collisions); affordability is physics (the shared live
   resources bear the simultaneity). When charges contend for live resources — VMs,
@@ -513,7 +511,7 @@ tender creates `plans/BULLETIN.md` (next to the charge docs — simmy's lived at
   the default is machine tending, serial batches included. **The interim truth,
   plainly:** the Dispatcher mantle is dead and its successor — the flow engine, charge
   020's cornerstone — is built and smoke-proven (Belvedere B10–B12) but has
-  not yet tended a real batch; until it does, the batch note names the tender: **the
+  not yet tended a real batch; until it does, the batch note (the review gate's Mission, §4) names the tender: **the
   tender kickoff** — `tender: sonnet-medium · plans/TENDER.md`, an instrument
   instantiated once per building from the Dispatcher tombstone's operational law and
   ignited as an unmantled cheap-tier kickoff; it relays verbatim and authors nothing

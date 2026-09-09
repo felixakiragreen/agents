@@ -7,7 +7,9 @@
 ## Mission | Question⟨s⟩
 
 ⟨Digging: what this session must answer — sharp enough that LANDED is unambiguous.
-Building: what exists when this lands, one paragraph.⟩
+Building: what exists when this lands, one paragraph.
+A review gate: the batch note — the members in order, the shape, the tender line, the
+concurrency plan, the red acts pre-authorized — then the gate's own review (DOCTRINE §4).⟩
 
 ## Inputs — read before working
 
