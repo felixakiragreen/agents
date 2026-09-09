@@ -27,7 +27,8 @@ export {
 } from './src/grammar';
 export { GRAVEYARD, FORMULAS, SPELLING_PAIRS, SPELLING_EXCEPTIONS, ISE_STOPLIST, CANON_PREFIXES, type Dead } from './src/lexicon';
 export { mask, vocabularyFails, prefixFails } from './src/vocabulary';
-export { migrate, migrateText, RULES, roundTrip, type Migration, type Edit } from './src/migrate';
+export { migrate, migrateText, unwrapMigration, RULES, roundTrip, type Migration, type Edit } from './src/migrate';
+export { UNWRAP, unwrapText, wordLaw } from './src/unwrap';
 export {
 	HOMES, TOMBSTONE, onFence, respellCitations, respellBuilding, citationTargets, renderHomes, diffRun,
 	type Home, type CiteRun, type CiteEdit, type Bare,

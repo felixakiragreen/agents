@@ -23,6 +23,7 @@ import {
 	EMPTY, respellDepends, respellIdCell, respellNormal, respellTable, respellText, ticksLeftOpen,
 	type Respell, type Scope,
 } from './respell';
+import { UNWRAP, unwrapText, wordLaw } from './unwrap';
 
 /**
  * D63's typed-absence license is about HISTORY: where a pre-doctrine source never held a
@@ -633,16 +634,39 @@ function isText(p: string): boolean {
  */
 function respellTargets(buildingPath: string): string[] {
 	const root = resolve(buildingPath);
-	let tracked: string[];
-	try { tracked = execSync('git ls-files -z', { cwd: root, encoding: 'utf8', maxBuffer: 64 << 20 }).split('\0').filter(Boolean); }
-	catch { return []; }                              // no checkout, no record — nothing to respell
 	const nested = discover([root]).map(b => resolve(b.path)).filter(p => p !== root);
-	return tracked
+	return tracked(root)
 		.filter(rel => !rel.split(sep).some(s => s === 'fixtures' || s === 'node_modules'))
 		.map(rel => join(root, rel))
 		.filter(p => !nested.some(n => p === n || p.startsWith(n + sep)))
 		.filter(isText);
 }
+
+/** The building's record, as git keeps it — an ignored file is not the building's record. */
+function tracked(root: string): string[] {
+	try { return execSync('git ls-files -z', { cwd: root, encoding: 'utf8', maxBuffer: 64 << 20 }).split('\0').filter(Boolean); }
+	catch { return []; }                              // no checkout, no record — nothing to convert
+}
+
+/**
+ * The unwrap's fence (D88), and it is not the respell's. The respell stops at a NESTED BUILDING
+ * because an id is namespaced and a sub-building's `007` is its own; whitespace is namespaced by
+ * nobody, so a sub-building's prose is this building's bytes and reflows with them. Markdown
+ * only — a `.ts` line break is syntax. Minus `fixtures/`, whose bytes ARE the suite's contracts,
+ * and minus `lab/`, which is disposable and not corpus (DOCTRINE §3).
+ */
+function unwrapTargets(buildingPath: string): string[] {
+	const root = resolve(buildingPath);
+	return tracked(root)
+		.filter(rel => rel.endsWith('.md'))
+		.filter(rel => !rel.split(sep).some(s => s === 'fixtures' || s === 'lab' || s === 'node_modules'))
+		.map(rel => join(root, rel))
+		.filter(isText);
+}
+
+/** One document's unwrap as a Migration — the shape `diff`, `roundTrip` and `write` already read. */
+export const unwrapMigration = (file: string, before: string): Migration =>
+	({ file, before, ...unwrapText(before), respell: EMPTY });
 
 export function migrate(buildingPath: string, given?: Respell): { building: Building; table: Respell; migrations: Migration[] } {
 	const building = parseBuilding(buildingPath);
@@ -664,7 +688,19 @@ export function migrate(buildingPath: string, given?: Respell): { building: Buil
 			passes: artifacts.has(f) ? ['structural', 'respell'] : ['respell'],
 		}))
 		.filter(m => m.edits.length);
-	return { building, table, migrations };
+
+	// Structure first, reflow second, and never both on one file in one run. The rules above are
+	// line-scoped and read their neighbours — a ledger head reads the line below it for a
+	// `Changed:` label — so a reflow that joined those lines in the same pass would hand a repair
+	// rule bytes its author never wrote. A building that has adopted takes ONE run (nothing
+	// structural fires, so every file reflows); a building mid-molt takes two, and the second
+	// moves only whitespace.
+	const busy = new Set(migrations.map(m => m.file));
+	const unwrapped = unwrapTargets(buildingPath)
+		.filter(f => !busy.has(f))
+		.map(f => unwrapMigration(f, readFileSync(f, 'utf8')))
+		.filter(m => m.edits.length);
+	return { building, table, migrations: [...migrations, ...unwrapped].sort((a, b) => a.file.localeCompare(b.file)) };
 }
 
 export function write(m: Migration): void { writeFileSync(m.file, m.after, 'utf8'); }
@@ -688,8 +724,18 @@ export function roundTrip(m: Migration): string[] {
 	// is not: a typed slot that wrapped mid-line (`row\n14`) is a supervised hit, and the law
 	// must not demand of the converter what the converter can see.
 	const respelled = [...fired].some(id => id === ID_RESPELL || id.startsWith(ID_RESPELL + '.'));
+	// The unwrap buys no license either, and earns the same shape of law: every field must be
+	// INVARIANT UNDER WHITESPACE COLLAPSE. Put both sides through the only transform the rule is
+	// allowed to make and demand equality after — so a word moved, dropped or added still fails,
+	// and a newline that became a space does not.
+	const unwrapped = fired.has(UNWRAP);
 	const allowed = new Set([...fired].flatMap(id => RULES.find(r => r.id === id)?.changes ?? []));
-	const norm = (v: unknown) => respelled ? respellNormal(JSON.stringify(v), m.respell) : JSON.stringify(v);
+	const norm = (v: unknown) => {
+		let s = JSON.stringify(v);
+		if (respelled) s = respellNormal(s, m.respell);
+		if (unwrapped) s = s.replace(/(?:\\n|\\t|\\r|\s)+/g, ' ');
+		return s;
+	};
 	const key = (id: string) => respelled ? m.respell.ids.get(id) ?? respellText(id, m.respell) : id;
 	const bad: string[] = [];
 
@@ -731,6 +777,12 @@ export function roundTrip(m: Migration): string[] {
 		if (before[i] !== after[a]) { bad.push(`byte drift at line ${i + 1}: ${JSON.stringify(before[i])} → ${JSON.stringify(after[a])}`); break; }
 		a++; i++;
 	}
+
+	// The word law (D88): the field comparisons above read what a parser typed, and most of a
+	// document is not a typed field. Outside fences, the whole text must be equal under a
+	// whitespace collapse — only whitespace moved, no word did — and a fence is compared byte
+	// for byte, because there the bytes are the meaning.
+	if (unwrapped) bad.push(...wordLaw(m.before, m.after));
 	return bad;
 }
 

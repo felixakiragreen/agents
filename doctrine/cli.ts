@@ -62,9 +62,12 @@ const USAGE = `doctrine — the reference reader for the work doctrine (canon/wo
       listed only. --json emits the rows plus each building's parse: the machine surface.
       Exits 1 on a defect in the building register (a malformed row, a dead Root).
 
-  doctrine migrate [--write] [--table <file>] <building>
+  doctrine migrate [--write] [--summary] [--table <file>] <building>
       --table <file>  a hand-given id table, one "OLD → NEW" per line, where the board's own
                      derivation collides (two campaign letters sharing numbers — simmy D18)
+      --summary      per file, the edit count by rule and the round-trip verdict — no diff.
+                     The unwrap (D88) reflows nearly every prose line, and its two laws say
+                     more than the whitespace does.
       Form-only re-emission in the current grammar, across every tracked text file the
       building keeps. Prints the id respell table (D80, derived from the building's own
       board) first, then the diff and the round-trip verdict per file; --write is required
@@ -182,15 +185,28 @@ if (cmd === 'migrate') {
 	if (clash.length) die(`${clash.length} id collision(s) in the derived table — ${clash.join('; ')}. A renumber is a ruling, not a derivation: pass --table <file>.`);
 	if (!migrations.length) { console.log(`${building.building}: already in the current grammar — nothing to migrate.`); process.exit(0); }
 
+	// --summary is the unwrap's answer to its own diff: reflowing a corpus rewrites nearly every
+	// prose line, and a reader who has the two laws does not need to see the whitespace move.
+	const summary = flag('--summary');
+	const root = resolve(paths[0]!);
+	if (summary) console.log(`  edits  rule(s)                                     round-trip  file`);
 	let violations = 0;
 	for (const m of migrations) {
-		console.log(diff(m));
+		if (!summary) console.log(diff(m));
 		const bad = roundTrip(m);
 		violations += bad.length;
-		console.log(bad.length
+		if (summary) {
+			const by = new Map<string, number>();
+			for (const e of m.edits) by.set(e.rule, (by.get(e.rule) ?? 0) + 1);
+			const rules = [...by].sort((a, b) => b[1] - a[1]).map(([r, n]) => `${r}×${n}`).join(' ');
+			console.log(`${String(m.edits.length).padStart(7)}  ${rules.padEnd(42)}  ${(bad.length ? `FAILED ${bad.length}` : 'ok').padEnd(10)}  ${relative(root, m.file)}`);
+			for (const b of bad) console.log(`         !! ${b}`);
+		}
+		else console.log(bad.length
 			? `!! round-trip FAILED (${bad.length}):\n   ${bad.join('\n   ')}`
 			: `   round-trip ok — ${m.edits.length} edit(s), every meaning-bearing field unchanged or exactly respelled\n`);
 	}
+	if (summary) console.log(`\n${migrations.reduce((a, m) => a + m.edits.length, 0)} edit(s) across ${migrations.length} file(s) · ${violations} round-trip violation(s)`);
 	if (violations) die(`\n${violations} round-trip violation(s) — refusing to write. This is a converter bug, not a doc defect.`);
 
 	if (!flag('--write')) {
