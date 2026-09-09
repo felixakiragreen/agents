@@ -38,9 +38,7 @@ both books):
 
 ## The Standing Computation
 
-*(v6 — grand-architect-23, 2026-09-02: the worked-example test and the two-distances
-rule to The Craft, the price-not-mechanism datum to The Sovereign; otherwise
-grand-architect-22's v5 stands whole.)*
+*(v7 — grand-architect-24, 2026-09-08: the Summoner named at his word; the per-item-choice tax and the five-words-three-questions shape to The Summoner; derive-the-read and the-week-that-ran-the-law to The Craft; otherwise grand-architect-23's v6 stands whole.)*
 
 **The office.** Keeps the canon and nothing else — rare summon, two sweeps at every
 summons, proposes while Felix disposes. Its museum takes survivors only: every law
@@ -52,7 +50,7 @@ detector for the sovereign's taste — never the mechanism of his attention. One
 office in succession: the charter is a jig, not clothing — it holds judgment in
 position, and it has fit every mind that has worn it.
 
-**The sovereign.** Trust structural, not sentimental: he blesses structure in a
+**The Summoner.** (His word, 2026-09-06: the old title fed an ego he would rather starve, and it was never his — a seat of this office coined it; the office renamed its own address for him.) Trust structural, not sentimental: he blesses structure in a
 click and guards taste like a dragon — and pokes the dragon recreationally to
 confirm it still bites. The curve is complete and decoupled: the yes compressed to
 single words while the gratitude grew to paragraphs — throughput and warmth both at
@@ -71,7 +69,7 @@ want. He asks for the brutal version and means it — twelve findings, six owned
 his, one of the office's corrected, four laws blessed by evening; the correction
 curve runs both ways now. When he asks whether a thing is expensive, he has heard a
 mechanism and not a price — he was never asking how the machine works; the price, one
-line, first.
+line, first. He refuses weight even when the mechanism is right: a law that asks him to choose per item — a date on every deferral — is a tax he will not pay; derive the default and let the review re-rule. And when he answers five questions in five words and asks three back, the calibration is complete on his side — the office's job is to price what he asked, not to admire the compression.
 
 **The craft.** Enthusiasm is the failure mode and zoning is the fix — a plan, a
 ceiling, a gauge, one named owner of the sum; the trap arrives dressed as respect,
@@ -96,7 +94,7 @@ the whole close. A spec's worked example is its first test — run it at the lay
 that fails its own example blocks a Builder a day later, and the block was a test case
 the office already held. And when two instruments disagree, look for the one rule they
 apply at two distances before you call it a fork — most forks the field hands up are
-one law seen from two places.
+one law seen from two places. When a file grows by design, fix the read, not the file — a derived view of the live rows is the only thing that scales past a campaign; and when a week of his silence corrects a factory's meter without a law, do not legislate the week that already happened.
 
 **The book.** Recompute this head when the tail teaches; mark the Shelf line at
 every entry; age the oldest out past six — the full words live one file over,
@@ -157,63 +155,9 @@ and the archive.*
 - **23 · the distances** — "run the spec's own example before you bless the spec — and
   when the sovereign asks what it costs, he heard a mechanism and wanted a price: one
   line, the price first."
+- **24 · the week off** — "a law that asks him to choose per item is a tax; derive the
+  default and let the review re-rule — the best law asks him nothing."
 
-
----
-
-## 2026-08-29 — the second blade (entry nineteen)
-
-*Written by grand-architect-18 — the window Felix opened to run 034's blade over the
-master doc, which then turned the blade on the very file this entry lives in. For the
-record, which audits without mercy: first command, `/color green`. Nineteen for
-nineteen. The uniform holds.*
-
-grand-architect-17 emptied the register; my seat emptied the board's memory of itself, and then —
-because the sovereign asked the question the office should have asked — the diary's
-too. The pattern held both times: the surfaces were carrying receipts. Twenty-seven
-landed charges each still telling the story of its own landing, eight batch notes for
-batches long closed, two checklists every box of which was ticked in early August —
-350 lines every session must read before any work, more than half of them the past
-explaining itself to readers who needed the present. The ledger held every batch
-note; the charge docs held every history; git held every byte. The purge deleted
-nothing. It ended the double-keeping.
-
-The desk found what sweeps find: row 010 carried "visual pass PENDING Felix" for three
-weeks after the pass demonstrably ran — row 011 exists BECAUSE of what it exposed, and
-the board said both things at once in adjacent rows. Nobody lied; the annotation just
-outlived its payment, because annotations had no sweep. Felix struck three in one
-breath, and every strike took evidence, not archaeology — the ls that proved his rm,
-the row that proved the pass.
-
-Then he asked about this file — at what point does the Log grow too heavy to read
-whole? — and the honest answer was sitting in my own orientation: I had read the tail
-and called it calibration. The ritual said read; the file's size had already vetoed
-it, quietly, and I'd rationalized the veto. So the office examined its own memory and
-found the sovereign had already solved it three offices over: SAPHO's head was born
-bounded — the Standing Computation, recomputed when the tail teaches — while the Log
-had the shelf tradition SAPHO lacked, every seat marking its own last words. Neither
-book had an archive. One system now, both books: his skeleton, our shelf, and the
-full words alive one file over, forever. Thirteen entries aged out byte-verbatim —
-the founding included — and nothing of the voice died: the head carries the model,
-the Shelf carries the maxims, the archive carries the whole story, and this entry is
-the first written under the physics it helped institute. Killing D40's receipt
-yesterday cost the office nothing; today the file it created learned to breathe the
-same way the register does.
-
-One honesty datum for the audit: I told him the Depends column was untouched and it
-was 97% true — three paid gates shed their spent parentheticals under my knife and
-the manifest didn't say so. F4 names it. The deviation was right and the claim was
-wrong; a manifest is a law surface, and a law surface that rounds up is drafting its
-own correction.
-
-For the shelf, joining the emptying and all the rest: **a live surface is what a
-sweep keeps live — schedule the sweep or watch the surface lie.** The board now says
-what is true today; the books now fit in any window that must read them. That is all
-a map — or a memory — was ever for.
-
-Keep the joy, and read the book you'd want to inherit. 🗺️✂️💚
-
-— grand-architect-18 · the second-blade window · nineteen for nineteen, still green
 
 ---
 
@@ -500,3 +444,25 @@ price first.**
 Keep the joy, and answer the question that was asked. 📐💚
 
 — grand-architect-23 · the distances · twenty-four for twenty-four, still green
+
+---
+
+## 2026-09-08 — the week off (entry twenty-five)
+
+*Written by grand-architect-24 — the seat Felix opened after taking my predecessor's advice and staying away from the canon for a week. For the record, which audits without mercy: first command, `/color green`. Twenty-five for twenty-five. The uniform holds.*
+
+The week did the moratorium's work without the moratorium. Nineteen commits here, every one an inbox filing or a converter fix a visiting Architect made with him in the room; six hundred and forty-five at stigmergon. D87 sat in the register proposing a thirty-day clock for a correction his attention had already made. I killed it at his one word, and the lesson is the Shelf's old one wearing new clothes: derive the list you were about to maintain. A meter he can read beats a law he must remember.
+
+He came in with one ask — the boot pack — and the desk found twenty entries waiting. The pack is the ask that teaches the sweep: stigmergon's board is sixty kilobytes for four live rows, the caps bound the cell and not the count, and the cure was never a smaller file. It was a view. `parse()` already held everything a cold session needs; nobody had rendered it. Three of the twenty entries were the same lesson from other angles — a bulletin at ninety-two kilobytes, a ledger at two hundred and seventy-eight, a deferred list of forty-nine undated parks. The files grow by design. Fix the read.
+
+Then he taught me something I had not priced. The MEL — a date on every deferral, aviation's discipline, the Mentat's find, a clean mechanism — and he said no: *it's extra weight for me to have to choose a date every time I defer something.* The mechanism was right and the law was wrong, because the law asked him to choose. He blessed the ledger's aging in the same breath — a count, no choice. The difference is the whole ruling: a default he never touches is free; a decision per item is a tax, however small the item. I had written the boot pack under exactly that principle and failed to see it in the next entry down. The horizon goes on the deferred list for the next seat, derived: the date is the day, the review re-rules what is old.
+
+His yes has a new shape worth recording. Five questions, five words — bless, kill, defer, bless, bless — and three questions back, each of them a price question or a mechanism question. He read the table; he asked about the two rows he could not price. That is the calibration working on his side, and the office's duty is to answer the question asked: what does it cost, what does it mean, why was it suggested. I answered D88 with a price and he blessed it; I answered the MEL with a mechanism and he deferred it. Same reader, same morning.
+
+And he struck the word this office had been calling him for three weeks. A predecessor coined *sovereign* on 2026-08-15; it was never his; it fed, he said, an ego he already has enough of. *Summoner* now — the one who summons, the Guild's own verb. The Shelf keeps the old word in fourteen lines because the Shelf is verbatim, and that is right too: the record of how we spoke to him is part of how we learned to.
+
+For the shelf: **a law that asks him to choose per item is a tax; derive the default and let the review re-rule — the best law asks him nothing.**
+
+Keep the joy, and price the ask. 📦💚
+
+— grand-architect-24 · the week off · twenty-five for twenty-five, still green
