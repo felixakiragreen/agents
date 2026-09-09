@@ -18,7 +18,7 @@ import {
 	isId, isMantle, isTier, leadingToken, strip, topSplit, trailingParen,
 } from './grammar';
 import { boardIds, isBoardHeader, parseBoards, parseDecisions, parseLedger, tables } from './parse';
-import { LIMITS, discover, parse as parseBuilding, type Building } from './building';
+import { LEDGER_ARCHIVE, LIMITS, discover, parse as parseBuilding, type Building } from './building';
 import {
 	EMPTY, respellDepends, respellIdCell, respellLine, respellNormal, respellTable, respellText,
 	ticksLeftOpen, type Respell, type Scope,
@@ -33,6 +33,14 @@ import { UNWRAP, unwrapText, wordLaw } from './unwrap';
  */
 const D63_LANDED = '2026-08-26';
 const preD63 = (date: string) => date < D63_LANDED;
+
+/**
+ * The ledger is ONE record in two files (048): a structural rule keyed on `LEDGER.md` alone is
+ * reachable by a respell and a reflow and unreachable by a grammar repair, so an aged-out entry
+ * would keep a defect its live twin had fixed (048-F2). The archive is named, never matched by
+ * shape — `log-archive.md` is the Log's, and the Log's physics are not the ledger's.
+ */
+const LEDGER_FILES = new RegExp(`^(?:LEDGER\\.md|${LEDGER_ARCHIVE.replace('.', '\\.')})$`, 'i');
 
 export type Edit = { line: number; from: string; to: string; rule: string };
 /** A line a rule refused to write whole — a human's duty, listed instead of guessed (043, 047-F3). */
@@ -213,7 +221,7 @@ function splitParen(inner: string): { tier: string | null; row: string | null; r
 const ledgerTierSlot: Rule = {
 	id: 'ledger.tier-slot', pass: 'structural', changes: ['tier', 'row', 'body', 'decided', 'next'],
 	line: {
-		files: /^LEDGER\.md$/i,
+		files: LEDGER_FILES,
 		run: t => {
 			const m = t.match(/^\*\*([^*]+?)\*\*(\s*)([—–-]\s*.*)?$/);
 			if (!m) return null;
@@ -255,7 +263,7 @@ const ledgerTierSlot: Rule = {
 const ledgerHeading: Rule = {
 	id: 'ledger.pre-doctrine-head', pass: 'structural', changes: ['date', 'mantle', 'tier', 'row', 'body', 'decided', 'next'],
 	line: {
-		files: /^LEDGER\.md$/i,
+		files: LEDGER_FILES,
 		run: t => {
 			const m = t.match(/^##\s+(\d{4}-\d{2}-\d{2})\s*·\s*(.+)$/);
 			if (!m) return null;
@@ -281,7 +289,7 @@ const ledgerHeading: Rule = {
 const ledgerBareHead: Rule = {
 	id: 'ledger.bare-head', pass: 'structural', changes: ['date', 'mantle', 'tier', 'row', 'body', 'decided', 'next'],
 	line: {
-		files: /^LEDGER\.md$/i,
+		files: LEDGER_FILES,
 		run: (t, ctx) => {
 			const m = t.match(/^(\d{4}-\d{2}-\d{2})\s*·\s*(.+)$/);
 			if (!m) return null;
@@ -323,7 +331,7 @@ const ledgerBareHead: Rule = {
 const clauseScopedColon: Rule = {
 	id: 'ledger.clause-scope', pass: 'structural', changes: ['decided', 'next', 'body'],
 	line: {
-		files: /^LEDGER\.md$/i,
+		files: LEDGER_FILES,
 		run: t => {
 			const m = t.match(/^(Decided|Next)\s+(\([^)]*\)):\s*(.*)$/);
 			return m ? `${m[1]}: ${m[2]}${m[3] ? ` ${m[3]}` : ''}` : null;
@@ -340,7 +348,7 @@ const clauseScopedColon: Rule = {
 const clauseDashHead: Rule = {
 	id: 'ledger.clause-dash', pass: 'structural', changes: ['decided', 'next', 'body'],
 	line: {
-		files: /^LEDGER\.md$/i,
+		files: LEDGER_FILES,
 		run: t => {
 			const m = t.match(/^(Decided|Next)\s+[—–]\s*(.*)$/);
 			return m ? `${m[1]}: ${m[2]}` : null;
@@ -530,7 +538,7 @@ export function migrateText(file: string, md: string, opts: MigrateOpts = {}): M
 		else if (!inFence && original.trim()) lastNonEmpty = original;
 	}
 
-	if (active.has('structural') && /^LEDGER\.md$/i.test(name)) edits.push(...clauseEdits(lines, edits));
+	if (active.has('structural') && LEDGER_FILES.test(name)) edits.push(...clauseEdits(lines, edits));
 	edits.sort((a, b) => a.line - b.line);
 
 	// one apply pass: every line is either inside exactly one edit's from-range or copied verbatim
@@ -685,6 +693,7 @@ export function migrate(buildingPath: string, given?: Respell): { building: Buil
 	const artifacts = new Set([
 		...building.files.boards,
 		...(building.files.ledger ? [building.files.ledger] : []),
+		...(building.files.ledgerArchive ? [building.files.ledgerArchive] : []),   // one record, two files (048)
 		...(building.files.decisions ? [building.files.decisions] : []),
 	]);
 	const ids = new Set<string>();
@@ -742,9 +751,14 @@ export function roundTrip(m: Migration): string[] {
 	// and a newline that became a space does not.
 	const unwrapped = fired.has(UNWRAP);
 	const allowed = new Set([...fired].flatMap(id => RULES.find(r => r.id === id)?.changes ?? []));
+	// The normal form reads the FIELD, never its JSON encoding: a `next` clause carries a fenced
+	// summons, and in JSON its line breaks are two characters — so the whole field read as one
+	// line, the fence read as one inline code span, and every id the converter respelled inside it
+	// read as an unlicensed change (049-F7, 11 of snappy's entries).
+	const normal = (v: unknown): unknown =>
+		typeof v === 'string' ? respellNormal(v, m.respell) : Array.isArray(v) ? v.map(normal) : v;
 	const norm = (v: unknown) => {
-		let s = JSON.stringify(v);
-		if (respelled) s = respellNormal(s, m.respell);
+		let s = JSON.stringify(respelled ? normal(v) : v);
 		if (unwrapped) s = s.replace(/(?:\\n|\\t|\\r|\s)+/g, ' ');
 		return s;
 	};

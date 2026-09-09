@@ -9,6 +9,7 @@
 // stay words with numbers in them, and a bare number the machine cannot prove is a session's
 // call, never a rule's (STANDARD §7, "word-numbered things stay words").
 
+import { delink } from './grammar';
 import { CANON_PREFIXES } from './lexicon';
 
 /**
@@ -299,8 +300,19 @@ export function respellLine(s: string, t: Respell, open = false, scope: Scope = 
 	return { to: hand ? s : render(ps), hand: hand ? reached.map(p => p.open + p.text + p.close) : [] };
 }
 
-/** The board's own ID cell — the table's key, exactly, and nothing else. */
-export const respellIdCell = (id: string, t: Respell) => t.ids.get(id) ?? null;
+/**
+ * The board's own ID cell — the table's key, and the cell keeps its shape around it. A board
+ * that LINKS its id (`[01](plans/01-perf-rig.md)`, snappy's whole board) hands the table a cell
+ * the key does not equal, so the cell was declined and the id column stayed on the old spelling
+ * while the path beside it moved: half an address, and the round-trip check read the row as
+ * VANISHED because it looks the row up by its respelled id (049-F7). The id inside the cell is
+ * what moves; the link's target is the line rule's, one pass later.
+ */
+export function respellIdCell(cell: string, t: Respell): string | null {
+	const id = delink(cell).trim();
+	const to = t.ids.get(id);
+	return to ? cell.replace(new RegExp(`(?<![\\w-])${esc(id)}(?![\\w-])`), to) : null;
+}
 
 /**
  * DOCTRINE §4: a Depends-on cell is a list of ids, crossings and `⬡-gate: <free text>` segments,
@@ -322,5 +334,16 @@ export const respellDepends = (cell: string, t: Respell) =>
  * address — and stays silent where the rules must: a bare number no noun types (`batch 8`) and
  * a typed slot that wrapped mid-line are supervised hits, not converter bugs.
  */
-export const respellNormal = (s: string, t: Respell) =>
-	render(spans(respellText(s, t), false, p => p.replace(BARE, (m, n: string) => t.charges.get(+n) ?? m)));
+export const respellNormal = (s: string, t: Respell) => {
+	const bare = (p: string) => p.replace(BARE, (m, n: string) => t.charges.get(+n) ?? m);
+	// The normal form reads a FIELD, and a field is not a document: the parser flattens a clause's
+	// lines, so the ``` that opened a fenced summons has lost the line start that made it a fence
+	// marker. Read as an inline span it becomes a NAMED FORM and everything inside it is skipped —
+	// while the converter, which sees the lines, respells inside a fence by law (D80: a kickoff
+	// naming a renamed charge doc is a dead address). That one disagreement reported 11 of snappy's
+	// entries as preserving nothing, over a `row 11` inside a summons the converter had padded
+	// (049-F7). So a run of three or more delimiters is a marker here, and never a span.
+	return s.split(/(`{3,})/)
+		.map((piece, i) => i % 2 ? piece : render(spans(respellText(piece, t), false, bare)))
+		.join('');
+};
