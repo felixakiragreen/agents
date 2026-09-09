@@ -399,6 +399,32 @@ describe('the silence family — defects that once reported clean', () => {
 		expect([r.fails, r.kickoffs, r.fences]).toEqual([[], [], 0]);
 	});
 
+	test('the marked fence is the doc\'s kickoff, and every other fence a quotation (046)', () => {
+		// The live case: a dig's findings quote the prompt it fired, verbatim, and findings are
+		// never edited after a charge closes (§6) — so the building cannot clear a fence the arm
+		// misreads. The doc marks its own kickoff, which says what the quotation is.
+		const marked = parseKickoffs(fx('marked', 'marked.md'), { live: true });
+		expect([codes(marked.fails), marked.fences]).toEqual([[], 1]);
+		expect([marked.kickoffs[0]!.mantle, marked.kickoffs[0]!.tier]).toEqual(['Digger', 'opus-high']);
+
+		// the control — the same document with its marker struck: the grandfathered reading, and
+		// the quotation is a kickoff candidate again
+		const unmarked = parseKickoffs(fx('marked', 'unmarked.md'), { live: true });
+		expect([codes(unmarked.fails), unmarked.fences]).toEqual([['kickoff.summons'], 2]);
+		expect(unmarked.kickoffs).toHaveLength(1);
+	});
+
+	test('a ledger entry\'s fences are instruments, whatever the entry marks (D63g, untouched by 046)', () => {
+		const entry = '# Ledger\n\n---\n\n**2026-09-08 · Architect · fable-high (G4)** — the batch laid.\n'
+			+ 'Decided: both ride. Next: ignite 046, 047.\n\n**Kickoff (verbatim):**\n\n'
+			+ '```\nYou are a Builder at opus-high.\nEnter by the door — read ~/code/agents/canon/GUILD.md,\n'
+			+ 'wear ~/code/agents/canon/mantles/builder.md,\nthen build 046.\n```\n\n'
+			+ '```\nYou are a Builder at opus-medium.\nEnter by the door — read ~/code/agents/canon/GUILD.md,\n'
+			+ 'wear ~/code/agents/canon/mantles/builder.md,\nthen build 047.\n```\n';
+		const baton = classifyBaton(parseLedger(entry).tail)!;
+		expect(baton.instruments.filter(i => i.kind === 'summons')).toHaveLength(2);
+	});
+
 	test('a fence naming no mantle after the article is not a kickoff candidate (item 13)', () => {
 		const letters = [
 			'```\nYou are the founding ⟨title as the window knew it⟩ of ⟨project⟩ — the window that\n⟨founding act⟩ on ⟨date⟩.\n```',
@@ -666,6 +692,30 @@ describe('the guard — entity counts, not fail counts', () => {
 	});
 });
 
+// ---------- §4: gates are charges, and a charge is ignited from a kickoff ----------
+
+describe('the gate arm (046)', () => {
+	const report = () => lint([join(FX, 'gate')]);
+
+	test('a staffed gate row no kickoff reaches is the fixture\'s one failure, named verbatim', () => {
+		// stigmergon G6 (2026-09-02): the 029 lay left the gate with neither a doc nor a note,
+		// `doctrine lint` reported 32 kickoffs in 34 work docs and 0 failures for it, and the
+		// batch paused with its tender refusing to author one.
+		const fails = report().fails;
+		expect(codes(fails)).toEqual(['board.gate-kickoff']);
+		expect(fails[0]!.file).toBe(join(FX, 'gate', 'BOARD.md'));
+		expect(fails[0]!.excerpt).toBe('| G1 | Review gate — the keel, laid with no doc and no note | 001 | Architect · fable-high | OPEN — laid 2026-09-06 |');
+	});
+
+	test('reachable three ways, exempt two — the rows that pass, and why', () => {
+		// G2 its own Work doc · G3 the gated charge's doc, named by id · G4 the board's own batch
+		// note · G5 a ⬡-gate, never ignited (§4) · G6 LANDED, and history is never re-ignited.
+		const rows = report().buildings[0]!.board.flatMap(b => b.rows).map(r => r.id);
+		expect(rows).toEqual(['001', 'G1', 'G2', 'G3', 'G4', 'G5', 'G6']);
+		expect(report().fails.map(f => f.excerpt.split('|')[1]!.trim())).toEqual(['G1']);
+	});
+});
+
 // ---------- discovery: the traps the control caught ----------
 
 describe('the register', () => {
@@ -752,6 +802,30 @@ describe('the building register', () => {
 			['campus', 'host', true, 0],        // listed, never walked
 		]);
 		expect(fails.map(f => [f.code, f.severity])).toEqual([['register.empty', 'warn']]);
+	});
+
+	test('the twin skip never eats a branch-only building under a mainline that keeps root books (039-F5)', () => {
+		const main = join(FX, 'register', 'worktree', 'books');
+		const wt = join(main, '.claude', 'worktrees', 'wt');
+		const b = discover([main]);
+		// the mainline, and the building that exists only on the branch — the split search took
+		// `LEDGER.md` for a one-segment remainder (dirname `.`, which always exists) and skipped
+		// `wt/probe/LEDGER.md` as a twin of the mainline's own
+		expect(b.map(x => x.path)).toEqual([main, join(wt, 'probe')]);
+		expect(lastWalk.suppressed).toBe(1);                     // the true twin: the checkout's copy
+		expect(b[0]!.ledgerTail!.row).toBe('C2');                // the mainline's own tail, not the branch's
+	});
+
+	test('an explicit root keeps its own files: a checkout named as the root reads its own ledger (046)', () => {
+		const wt = join(FX, 'register', 'worktree', 'books', '.claude', 'worktrees', 'wt');
+		const b = discover([wt]);
+		// simmy G21 (2026-09-08): `ledger none · baton none · 0/0 ledgers parsed a tail` on a
+		// checkout whose board and kickoffs parsed fine — a gate in a worktree could not lint its
+		// own entry, because the root it was pointed at was deduped against the mainline.
+		expect(b.map(x => x.path)).toEqual([wt, join(wt, 'probe')]);
+		expect(b[0]!.ledgerTail!.row).toBe('C3');                // the entry only this checkout carries
+		expect(b[0]!.baton!.holder).toBe('none');
+		expect(lastWalk.suppressed).toBe(0);
 	});
 
 	test('a declared worktree root is entered directly: the mainline twin dedupes away, the branch-only building surfaces (D79)', () => {
