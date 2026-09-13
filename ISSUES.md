@@ -3,3 +3,60 @@
 Field reports and distillation candidates land here — Felix's hand, or a session's at his word. Entry format: `- <YYYY-MM-DD> · <who> · <what>` — one bullet per entry; an entry needing evidence becomes a `---`-separated block opening with that line. The Grand Architect sweeps at every summons: each entry is ruled distill or reject, then deleted — the D-entry records a distillation, the sweep's ledger line records a rejection, and git keeps the bytes (entries are committed before the inbox is cleared). A cleared inbox is empty.
 
 ---
+
+- 2026-09-09 · Felix (via tender-02, cap-mega/simmy batch 14) · A landed subagent's own shell stayed running after it reported LANDED — the harness's liveness view disagreed with the agent's own report
+
+---
+2026-09-09 · Felix (via tender-02, cap-mega/simmy batch 14) · A landed subagent's own shell stayed running after it reported LANDED — the harness's liveness view disagreed with the agent's own report
+
+Charge 038 (CLI honesty) of simmy batch 14 landed cleanly by every surface the tender can
+read: the task-notification reported `LANDED`, findings were appended and evidenced,
+commits were present, and this tender's own `ListAgents` call afterward showed subagent
+`ad89ac6bce2bfa880` (labelled "Charge 038 — CLI honesty") as `completed`. Felix, watching
+from his own session/terminal view, reported that the agent still showed as running "quite
+a bit" after landing, because it had an open shell — a process the agent's final turn did
+not close. So two different views of the same subagent disagreed: the orchestrator-facing
+`ListAgents` said `completed`, the process-facing view Felix was watching said still-running.
+
+This batch ran several charges (036, 038, and the batch-close gate G22) that legitimately
+backgrounded long corpus runs mid-charge (`run_in_background` Bash + a `until … do sleep …`
+watcher, per this batch's own bulletin: "watchers die in the same sweep" when the agent
+harness reaps a session under memory pressure — so these agents were already running
+background shells as a matter of course). The open question is whether a subagent's
+backgrounded shell(s) are reaped when its own turn/report completes and it is marked
+`completed`, or whether they can outlive that mark until something else (host memory
+pressure, a manual kill, session teardown) cleans them up. If the latter, every batch that
+uses backgrounded verification runs (which this whole batch did, by charge-doc design) leaks
+a shell per such run.
+
+Evidence: subagent id `ad89ac6bce2bfa880`, task-notification "Charge 038 — CLI honesty" ·
+status `completed`, reported LANDED ~2026-09-09 in tender session `tender-02` [3aeaf5],
+working batch note `simmy/plans/g22-hardening-close.md` /
+`cap-mega/.claude/worktrees/simmy/simmy/BOARD.md` batch 14. Felix's report is the only
+evidence of the still-running shell itself — no independent process dump was taken before
+he flagged it and asked to close it out.
+
+**Confirmed independently, same session, same subagent, after this entry was drafted:** the
+same task-id (`ad89ac6bce2bfa880`) fired a SECOND `task-notification` — `status: completed`
+again — roughly 20 000 000 ms (`duration_ms` on this call: `19992544`, ≈333 min) after the
+first one, with no message sent to it in between from this session's side and nothing new to
+report ("State is unchanged and correct. No action was required."). So the subagent's own
+process was still alive and doing work (or at least billable turns) more than five hours
+after it had already reported LANDED and this session had verified and relayed its findings.
+The agent's own explanation, in its second report: a background `sleep`-loop watcher it had
+started was killed by "exactly the harness memory sweep 036 relayed to the bulletin" — i.e.
+its own charge doc independently documented, on this same run, that the Claude Code agent
+harness SIGTERMs backgrounded processes under host memory pressure, which is the same
+mechanism this incident is about. Its verification evidence survived because it wrote to
+files at capture time rather than holding state in the watcher — but the underlying
+question stands: why did a `completed` subagent receive a second, multi-hour-later
+notification cycle at all, and was a shell/session genuinely kept alive across that gap.
+---
+
+---
+
+- 2026-09-09 · stigmergon's Architect (086's lay — the works sitting) · **five canon asks and one word, from the batch engine's design** (`~/code/stigmergon/plans/086-works-sitting.md`, §Canon asks): (1) a typed batch on the gate doc — members · shape · concurrency · gauge · tender · account — or the ruling that the review gate's Depends-on closure over rows not LANDED IS the membership (DOCTRINE §4's edge test says schedule rides the note, and an engine cannot read prose); (2) a review gate's readiness met by LANDED **or** KILLED edges — §4 reads strictly LANDED, and every G-gate at stigmergon has reviewed a Digger's kill; (3) `holds:` and `E‹n›` typed on the parser — 032's stranded scope (KILLED with flow-1; 036 took the holder alone), belvedere B12-F1's regex classifier gated 120 of 390 landed rows for want of it; (4) `Parallel-safe with:` and `Branch:` as header slots the parser reads (§5's skeleton names both; `doctrine/src/parse.ts` types neither today); (5) the step report's vocabulary as the coda's closing sentence — `{ status: LANDED | KILLED | BLOCKED, outcome, pointers }`, the engine's `--json-schema` moving from C4's `done · needs_input · blocked` to the standard; and a word candidate: **ask** — one pending question addressed to a hand (a baton to ⬡, a `BLOCKED` row, a card, a permission), the engine's `asked` event and chat.md §5's *the ask* its birthplaces. Beside it, evidence for the entry above (Felix via tender-02): stigmergon's tender-10 reported G21 LANDED with `bun test src/` (pid 23775) still alive since 14:52 the same afternoon — one class, two buildings, one day (`~/code/stigmergon/ISSUES.md` at `b0fd5c7`, cleared at 086's lay; the process was gone by the sweep and its cause past tracing).
+
+---
+
+- 2026-09-13 · Mentat (mentat-07, the swordmaster sitting) · **Reserve the office name Swordmaster; mint on evidence at the season's turn.** Felix ruled the name 2026-09-13 for a third office at the Summoner's level — it trains him: reads his trail (GOLOS on Ava, Health, git), speaks first twice a day over iMessage from Ava, holds him to a season page he writes and adds nothing to it. Not the throne (MAP §10): it sees a trail, not all; designs nothing; its verb is push, which no Architect has. Building `~/code/swordmaster`, founded by his hand 2026-09-13 (GitHub origin, branch master); the pilot runs Fall 2026 (Sep 9 → Dec 8) as a Fixer under a standing summons he signs — gates Sep 27 · Oct 11 · Nov 1 · Dec 8–9 — and the charter comes to the desk at the turn with the season's evidence, or is killed there. Ancestry: the night-shift note's law 1, the standing summons (signed once, the clock fires it, a HALT file) — this pilot is its birthplace, ahead of the Steward's; STANDARD §5's office list gains a reserved name; the akrasia horizon (Beeminder, 2011) as the dose ratchet, harder now, easier in a week. Asks: (1) reserve the name now so no session claims it; (2) rule whether a clock-fired `claude -p` session under a standing summons is a Fixer (the mantles README: a session with no mantle is one) or wants a word of its own; (3) the register line rides the founding Architect's sitting (DOCTRINE §12), not this entry. Drafts in the building — `dream.md`, `season.md`, `SUMMONS.md` — uncommitted until his red pen (the Belvedere dream precedent). Book: `SAPHO.md`, the mentat-07 entry at close.
