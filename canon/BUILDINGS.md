@@ -13,6 +13,7 @@ The city's book — every Guild building and every host, declared. Discovery rea
 | hexwright | building | `~/code/hexwright` |
 | whiteboardy | building | `~/code/whiteboardy` |
 | radiant | building | `~/code/radiant` |
+| swordmaster | building | `~/code/swordmaster` |
 | simmy | building | `~/code/universal_robots_sdk/cap-mega/simmy` |
 | snappy | building | `~/code/universal_robots_sdk/cap-mega/snappy` |
 | spacex-dashboard | building | `~/code/universal_robots_sdk/cap-mega/felix/spacex-dashboard` |
