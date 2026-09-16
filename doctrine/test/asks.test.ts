@@ -5,7 +5,7 @@
 import { describe, expect, test } from 'bun:test';
 import { readFileSync } from 'fs';
 import { join } from 'path';
-import { parseChargeHeader, parseDecisions } from '../src/parse';
+import { parseChargeHeader, parseDecisions, parseLedger } from '../src/parse';
 import { parse } from '../src/building';
 
 const FX = join(import.meta.dir, '..', 'fixtures');
@@ -118,5 +118,22 @@ describe('items 3 and 5 — typed holds, escalation ids, and a gate\'s readiness
 		expect(ready('003')).toEqual({ id: '003', ignitable: true, waitingOn: [] });
 		// nothing already ignited or finished is ignitable — the word is about firing it now
 		expect([ready('001').ignitable, ready('011').ignitable]).toEqual([false, false]);
+	});
+});
+
+describe('item 7 — the ledger cap counts the entry\'s prose (§7)', () => {
+	const r = parseLedger(fx('asks', 'LEDGER.md'));
+
+	test('a fenced instrument and the baton paragraph are uncounted; the prose is the cap', () => {
+		// the first entry is 162 words as written and under the cap as PROSE — the fenced summons
+		// is the baton's instrument (D63g) and the baton paragraph is §11's, not the writer's bloat
+		expect(r.entries[0]!.block.trim().split(/\s+/).length).toBeGreaterThan(150);
+		expect(r.fails.filter(f => f.line === r.entries[0]!.line)).toEqual([]);
+	});
+
+	test('the control: prose alone over the cap still warns, and the warning is still a warning', () => {
+		const over = parseLedger(fx('asks', 'LEDGER.md').split('---')[2]!);
+		expect(over.fails.map(f => [f.code, f.severity])).toEqual([['ledger.entry-cap', 'warn']]);
+		expect(over.fails[0]!.excerpt).toStartWith('(186 words)');
 	});
 });

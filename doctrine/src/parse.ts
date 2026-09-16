@@ -362,6 +362,30 @@ function clauses(body: string): { decided: string | null; next: string | null } 
 	return { decided: clause('Decided')?.replace(/[\s*_+-]+$/, '').replace(/\.$/, '') ?? null, next: clause('Next') };
 }
 
+/**
+ * §7's cap counts the entry's PROSE. Two things in an entry are not prose and are not counted:
+ * a **fenced instrument** — a summons fenced verbatim IS the baton's instrument (D63g), and a
+ * cap that counted it would price the handoff by its length — and the **baton paragraph**, which
+ * §11 governs and which a Felix-tended baton may fill with commands (golos's founding, 2026-09-14:
+ * the Ava checkout switch, four commands). Amended into DOCTRINE §7 at the sweep of 2026-09-15;
+ * the reader follows here.
+ */
+function proseWords(block: string): number {
+	const lines = block.split('\n');
+	const prose: string[] = [];
+	let fence = false;
+	for (let i = 0; i < lines.length; i++) {
+		const l = lines[i]!;
+		if (/^\s*```/.test(l)) { fence = !fence; continue; }
+		if (fence) continue;
+		// The baton runs from its opener to the blank line — `batonSlots`' own paragraph, so the
+		// cap and the baton reader never disagree about where the handoff begins and ends.
+		if (BATON_OPEN.test(l)) { while (i < lines.length && lines[i]!.trim()) i++; continue; }
+		prose.push(l);
+	}
+	return prose.join(' ').trim().split(/\s+/).filter(Boolean).length;
+}
+
 function blocks(md: string): { text: string; line: number }[] {
 	const lines = md.split('\n');
 	const out: { text: string; line: number }[] = [];
@@ -438,7 +462,7 @@ export function parseLedger(md: string): Ledger {
 
 		// D78, as a warning: the ledger's tail-read protocol bounds what anyone READS, so the cap
 		// binds the writer and never the reader. The office rules whether to harden after a sweep.
-		const words = b.text.trim().split(/\s+/).length;
+		const words = proseWords(b.text);
 		if (words > ENTRY_CAP)
 			fails.push(fail('ledger', 'ledger.entry-cap', `a ledger entry is capped at ${ENTRY_CAP} words (D78) — the entry is date · mantle · changed · decided · next, and the story lives in the charge doc`, `(${words} words) ${flat.slice(0, 200)}`, b.line, 'warn'));
 
