@@ -11,6 +11,7 @@ import { buildingNames, crossingFails, readRegister } from './register';
 
 export { isLiveWorkDoc, isSpentWorkDoc };
 import { prefixFails, vocabularyFails } from './vocabulary';
+import { EMPTY_REGISTER, parseWords } from './words';
 
 export type Totals = {
 	buildings: number; boardDocs: number; boardDocsWithBoard: number; boards: number;
@@ -64,15 +65,20 @@ const VOICE = ['LOG.md', 'SAPHO.md', 'dream.md'];
  */
 function lawSurfaces(b: Building): string[] {
 	const live = b.files.workDocs.filter(f => isLiveWorkDoc(readFileSync(f, 'utf8')));
-	return [...new Set([...b.files.prose, ...b.files.boards, ...live])]
+	// `docs/` joins the list at 050: DOCTRINE §3 makes it the home of durable distillations, which
+	// is what a law surface IS — the master doc's overflow, read as law and respelled as law.
+	return [...new Set([...b.files.prose, ...b.files.boards, ...b.files.docs, ...live])]
 		.filter(f => !VOICE.includes(basename(f)) && !isLawBook(f) && !isSpentWorkDoc(readFileSync(f, 'utf8')))
 		.sort();
 }
 
 function vocabFails(b: Building): Fail[] {
 	const out: Fail[] = [];
+	// The building's own register, read once — its graveyard joins §9's for this building alone,
+	// and its live words are the local kinds that keep a word of its own out of §9's reach.
+	const register = b.files.words ? parseWords(readFileSync(b.files.words, 'utf8')) : EMPTY_REGISTER;
 	for (const f of lawSurfaces(b)) {
-		for (const v of vocabularyFails(readFileSync(f, 'utf8'))) { v.file = f; out.push(v); }
+		for (const v of vocabularyFails(readFileSync(f, 'utf8'), register)) { v.file = f; out.push(v); }
 	}
 	// §7's namespace is a building-altitude fact, so it is reported once per building, at the
 	// register — never once per id.

@@ -6,10 +6,13 @@ import { describe, expect, test } from 'bun:test';
 import { execSync } from 'child_process';
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'fs';
 import { tmpdir } from 'os';
-import { join } from 'path';
+import { basename, join } from 'path';
 import { parseChargeHeader, parseDecisions, parseLedger } from '../src/parse';
 import { parse } from '../src/building';
 import { DEFAULT_HORIZON, datedEntries, deferredDropFails, deferredEntries, horizonOf, pastHorizon } from '../src/deferred';
+import { lint } from '../src/lint';
+import { vocabularyFails } from '../src/vocabulary';
+import { parseWords } from '../src/words';
 
 const FX = join(import.meta.dir, '..', 'fixtures');
 const fx = (kind: string, name: string) => readFileSync(join(FX, kind, name), 'utf8');
@@ -190,5 +193,34 @@ describe('item 6 — the deferred list: its day, its horizon, and the drop nobod
 			commit(shelf('the first', 'the fourth'), '# Ledger\n\nnothing was said.\n', '2026-07-04T12:00:00+0000');
 			expect(deferredDropFails(first, readFileSync(first, 'utf8'))).toEqual([]);
 		} finally { rmSync(root, { recursive: true, force: true }); }
+	});
+});
+
+describe('item 8 — the lexicon arm reads the building\'s WORDS.md, and walks docs/', () => {
+	const register = parseWords(fx('asks', 'WORDS.md'));
+	const city = fx('asks', join('docs', 'city.md'));
+	const local = (md: string) => vocabularyFails(md, register).filter(f => f.code === 'vocab.local-dead-word');
+
+	test('a building\'s graveyard rows join §9\'s for that building, and its entries are its own kinds', () => {
+		expect(register.graveyard.map(g => g.forms)).toEqual([['the rail'], ['the glass'], ['desk files']]);
+		// the control, three rows and three reasons, each structural and none a whitelist:
+		//   `fold`     — the register MINTS it live, so the building's own kind outranks its own row
+		//   `the paint` — a sense-kill, and a sense cannot be patterned
+		//   `WALL_MS`  — a code-ticked cell is an identifier, and a rename of a symbol is the compiler's
+		expect([...register.words]).toContain('fold');
+		expect(local(city).map(f => f.excerpt.slice(0, 13))).toEqual(['"The rail" → ', '"The glass" →']);
+		expect(local(city).every(f => f.severity === 'warn')).toBe(true);
+	});
+
+	test('the arm walks docs/ as a law surface, and the register is not one', () => {
+		const b = parse(join(FX, 'asks'));
+		expect(b.files.docs.map(f => basename(f))).toEqual(['city.md']);
+		expect(basename(b.files.words!)).toBe('WORDS.md');
+		const hits = lint([join(FX, 'asks')], { vocab: true }).fails.filter(f => f.code === 'vocab.local-dead-word');
+		expect(hits.map(f => basename(f.file))).toEqual(['city.md', 'city.md']);
+		// the control: a register must name the dead to bury them, so it is no law surface and the walk
+		// never hands it to the arm — pointed at it by hand the arm reports its every row, which is
+		// exactly why the fence is the SURFACE list and never a pattern (canon's law book, locally)
+		expect(local(fx('asks', 'WORDS.md')).length).toBe(3);
 	});
 });

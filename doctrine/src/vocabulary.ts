@@ -13,6 +13,7 @@
 import { isBoardHeader, tables } from './parse';
 import { fail, leadingToken, strip, type Fail } from './grammar';
 import { FORMULAS, GRAVEYARD, ISE_STOPLIST, SPELLING_EXCEPTIONS, SPELLING_PAIRS } from './lexicon';
+import { EMPTY_REGISTER, type Register } from './words';
 
 // ---------- the fence ----------
 
@@ -178,10 +179,33 @@ function formulaFails(text: string, raw: string): Fail[] {
 	return out;
 }
 
+/**
+ * §9 at the building's own altitude (050): a word the BUILDING buried, re-minted on its own live
+ * surfaces. A **warning**, and the severity is the whole difference from the row above it — the
+ * standard's graveyard is the city's law and a building's is its own ruling, which its Architect
+ * may re-rule at any sitting (D89). The fence is the same fence: the mask has already taken
+ * history and voice out of the text, and the register itself is no law surface, because a
+ * register must name the dead to bury them.
+ *
+ * Birthplace: stigmergon's *rail*, killed at D23 and re-minted twice with his blessing, with
+ * nothing in the city able to catch it (the words sitting, 2026-09-14).
+ */
+function localGraveyardFails(masked: string, raw: string, register: Register): Fail[] {
+	const out: Fail[] = [];
+	for (const g of register.graveyard) for (const form of g.forms)
+		for (const m of masked.matchAll(new RegExp(`\\b${form}\\b`, 'gi')))
+			out.push(fail('prose', 'vocab.local-dead-word', 'a word this building buried in its own register (WORDS.md; DOCTRINE §3) — the successor is named in the excerpt; reported, never enforced',
+				excerpt(raw, m.index, m[0], `${g.successor} (${g.when})`), lineOf(masked, m.index), 'warn'));
+	return out;
+}
+
 /** Every lexical arm, over one law surface. The caller decides whether the file is one. */
-export function vocabularyFails(md: string): Fail[] {
+export function vocabularyFails(md: string, register: Register = EMPTY_REGISTER): Fail[] {
 	const masked = mask(md);
-	return [...graveyardFails(masked, md), ...spellingFails(masked, md), ...formulaFails(masked, md)];
+	return [
+		...graveyardFails(masked, md), ...spellingFails(masked, md), ...formulaFails(masked, md),
+		...localGraveyardFails(masked, md, register),
+	];
 }
 
 // ---------- §7 — the id namespace, per building ----------

@@ -44,6 +44,8 @@ const WORKTREES = join('.claude', 'worktrees');
 // The building register (D79) — an artifact of the building that keeps it, never an anchor:
 // the city's register lives at `canon/BUILDINGS.md`, and canon is not a building.
 const REGISTER_FILE = 'BUILDINGS.md';
+/** A building's own word register (DOCTRINE §3) — an artifact of its building, never an anchor. */
+const WORDS_FILE = 'WORDS.md';
 /**
  * The ledger's archive (048) — bound to its `LEDGER.md`, never walked for. It is lowercase by
  * §3's naming law (an artifact read by nobody as protocol) and it anchors no building of its
@@ -75,7 +77,11 @@ export type Building = {
 	escalations: Escalation[];        // §4's E-ids, merged across the building's boards (032 (c))
 	readiness: Readiness[];           // §4's ignition rule, per row — what waits, and on what
 	credits: Credit[];                // D82's statement, derived from this building's own graph
-	files: { boards: string[]; ledger: string | null; ledgerArchive: string | null; decisions: string | null; issues: string | null; workDocs: string[]; prose: string[]; register: string | null };
+	files: {
+		boards: string[]; ledger: string | null; ledgerArchive: string | null; decisions: string | null;
+		issues: string | null; workDocs: string[]; docs: string[]; prose: string[];
+		register: string | null; words: string | null;
+	};
 	fails: Fail[];
 };
 
@@ -104,7 +110,7 @@ export const staffsSessions = (md: string) =>
 const isBoardFile = (p: string) => !isLawBook(p) && staffsSessions(read(p));
 
 // `named` — the caller pointed at this file's own directory, so the twin skip does not touch it.
-type FoundFile = { path: string; dir: string; kind: 'ledger' | 'decisions' | 'issues' | 'board' | 'workdoc' | 'prose' | 'register'; named: boolean };
+type FoundFile = { path: string; dir: string; kind: 'ledger' | 'decisions' | 'issues' | 'board' | 'workdoc' | 'docs' | 'prose' | 'register' | 'words'; named: boolean };
 
 /** One readdir per directory per walk — the checkout-root search asks the same directories often. */
 const entryCache = new Map<string, string[]>();
@@ -199,6 +205,9 @@ function walk(root: string, out: FoundFile[], seen: Set<string>, named: boolean,
 	let entries: import('fs').Dirent[];
 	try { entries = readdirSync(root, { withFileTypes: true }); } catch { return; }
 	const inPlans = /(?:^|\/)(plans|spikes)$/.test(root);
+	// `docs/` is durable distillation (DOCTRINE §3) — a law surface, and the speech arm reads it
+	// (050). Any depth: manny keeps `docs/description-sweep/` and the sweep's pages are law too.
+	const inDocs = root.split(sep).includes('docs');
 	for (const d of entries) {
 		const name = d.name;
 		const p = join(root, name);
@@ -220,8 +229,10 @@ function walk(root: string, out: FoundFile[], seen: Set<string>, named: boolean,
 			: name === 'DECISIONS.md' ? 'decisions'
 			: name === 'ISSUES.md' ? 'issues'
 			: name === REGISTER_FILE ? 'register'
+			: name === WORDS_FILE ? 'words'
 			: isBoardFile(p) ? 'board'
 			: inPlans ? 'workdoc'
+			: inDocs ? 'docs'
 			: PROSE_DOCS.includes(name) ? 'prose'
 			: null;
 		if (kind) out.push({ path: p, dir: root, kind, named });
@@ -273,6 +284,7 @@ function classifyFile(p: string): FoundFile['kind'] {
 	if (n === 'DECISIONS.md') return 'decisions';
 	if (n === 'ISSUES.md') return 'issues';
 	if (n === REGISTER_FILE) return 'register';
+	if (n === WORDS_FILE) return 'words';
 	return isBoardFile(p) ? 'board' : 'workdoc';
 }
 
@@ -314,10 +326,14 @@ function assemble(path: string, files: FoundFile[]): Building {
 			decisions: pick('decisions')[0] ?? master ?? null,
 			issues: pick('issues')[0] ?? null,
 			workDocs: [...pick('workdoc'), ...boards.filter(f => /(?:^|\/)(plans|spikes)\//.test(f))].sort(),
+			// `docs/` is the building's durable distillation (DOCTRINE §3) — a law surface at any
+			// depth under it, which is what the speech arm reads it as (050).
+			docs: pick('docs'),
 			// A building's own master doc and CLAUDE.md, and only its own: the anchor's directory,
 			// never a nested package's README.
 			prose: pick('prose').filter(f => dirname(f) === path),
 			register: pick('register')[0] ?? null,
+			words: pick('words')[0] ?? null,
 		},
 	});
 }
