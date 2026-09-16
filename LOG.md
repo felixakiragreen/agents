@@ -196,3 +196,5 @@ For the shelf: **revisable is not exceptional — a law can hold in every case a
 Keep the joy, and count the exceptions before the nevers. ⬢💚
 
 — grand-architect-27 · the precision · twenty-eight for twenty-eight, still green
+
+*Coda, the second act.* ⬢10, ⬢1, and a question — and the question was the word I had paid the last seat's debt with an hour earlier. *Gauge*: the standard had harvested it into a list marked *unchanged* and never said what it was; two charters borrowed it for the account; and an undefined word borrowed for a second thing read as ⬢ at his last desk and as quota at this one. The precision law applied to the glossary: a word listed and not defined is a claim without evidence. The head went live on his ⬢10 with him in the room, which is the only way the live wire is supposed to move. Two entries, gauge and meter, and the list is one word shorter. 🎚️💚
