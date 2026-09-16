@@ -423,6 +423,60 @@ const respellLineRule: Rule = {
 	},
 };
 
+// ---------- §8's pinned formulas — the currency law at the wording (D81) ----------
+
+/**
+ * A formula is a PINNED STRING — one exact wording each, and paraphrase drift is a lint catch
+ * (STANDARD §8). So a formula's respell is a total substitution of one string for another, which
+ * is form and not meaning: nothing here reads a sentence, it replaces one.
+ *
+ * Formulas 8 and 26, respelled 2026-09-15 under D89 (the absolutes law, his ⬢100): *always* and
+ * *never* are reserved for what holds in every possible reading, and a contrast reads *not*. D81
+ * is why the rule exists at all — a form change to the standard lands with its `doctrine migrate`
+ * rule and the corpus respelled, **history included**, so the law and the city never disagree on
+ * a name. This building at this landing; every other at its next Architect session.
+ */
+export const FORMULA_RESPELL: readonly (readonly [string, string])[] = [
+	['Ambiguity, never plurality, is the sin.', 'Ambiguity, not plurality, is the sin.'],
+	['History is respelled, never rewritten.', 'History is respelled, not rewritten.'],
+];
+export const FORMULA_RULE = 'formula.respell';
+export const respellFormulas = (s: string) =>
+	FORMULA_RESPELL.reduce((text, [from, to]) => text.split(from!).join(to!), s);
+
+/** Rewrite only what lies OUTSIDE an inline-code span, carrying the tick state across lines. */
+function outsideTicks(line: string, open: boolean, f: (s: string) => string): string {
+	let inside = open;
+	return line.split(/(`+)/).map(piece => {
+		if (/^`+$/.test(piece)) { inside = !inside; return piece; }
+		return inside ? piece : f(piece);
+	}).join('');
+}
+
+/**
+ * The pinned string wherever a DOCUMENT writes it — prose, a ledger body, a fenced quotation
+ * (D81: history is respelled, not rewritten). Two refusals, both the converter's existing law:
+ *
+ * - **a ticked span is a form being NAMED, not a wording being used** (047-F3) — the charge doc
+ *   that commissions this rule writes both spellings on one line with a `→` between them, and a
+ *   rule that consumed its own commission would erase the record of what it changed;
+ * - **code is not a document** — a string literal is the compiler's, and `lexicon.ts`'s mirror is
+ *   bound to the standard by `test/lexicon.test.ts`, which is a louder alarm than a substitution.
+ *
+ * A wording the table does not name is a session's call and never a rule's: *"Ambiguity, never
+ * plurality, is the sin:"* leads a clause and is not the formula, and prose is 051's sweep.
+ */
+const formulaRespell: Rule = {
+	id: FORMULA_RULE, pass: 'respell', changes: [],
+	line: {
+		run: (t, ctx) => {
+			if (ctx.scope !== 'document') return null;
+			const to = outsideTicks(t, ctx.openTick, respellFormulas);
+			return to === t ? null : to;
+		},
+	},
+};
+
 // Order is load-bearing in one place: the PARKED respell runs before the leading-annotation
 // rule, so `| PARKED — x |` reaches `OPEN — DEFERRED — x` in one pass.
 export const RULES: Rule[] = [
@@ -431,7 +485,7 @@ export const RULES: Rule[] = [
 	ledgerTierSlot, ledgerHeading, ledgerBareHead, clauseScopedColon, clauseDashHead,
 	decisionHead, decisionInlineAttribution,
 	ledgerUnrecordedClauses,
-	respellIdColumn, respellDependsColumn, respellLineRule,
+	respellIdColumn, respellDependsColumn, respellLineRule, formulaRespell,
 ];
 
 // ---------- the engine ----------
@@ -755,10 +809,15 @@ export function roundTrip(m: Migration): string[] {
 	// summons, and in JSON its line breaks are two characters — so the whole field read as one
 	// line, the fence read as one inline code span, and every id the converter respelled inside it
 	// read as an unlicensed change (049-F7, 11 of snappy's entries).
+	// The formula respell earns the same law as the id respell and for the same reason: it is a
+	// total substitution, so it proves itself BY substituting — every field must be invariant
+	// under the table, and a paraphrase or a drop still fails (`changes` is empty on both rules).
+	const formulas = fired.has(FORMULA_RULE);
+	const text = (v: string) => respellFormulas(respelled ? respellNormal(v, m.respell) : v);
 	const normal = (v: unknown): unknown =>
-		typeof v === 'string' ? respellNormal(v, m.respell) : Array.isArray(v) ? v.map(normal) : v;
+		typeof v === 'string' ? text(v) : Array.isArray(v) ? v.map(normal) : v;
 	const norm = (v: unknown) => {
-		let s = JSON.stringify(respelled ? normal(v) : v);
+		let s = JSON.stringify(respelled || formulas ? normal(v) : v);
 		if (unwrapped) s = s.replace(/(?:\\n|\\t|\\r|\s)+/g, ' ');
 		return s;
 	};

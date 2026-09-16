@@ -8,6 +8,7 @@ import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'fs';
 import { tmpdir } from 'os';
 import { basename, join } from 'path';
 import { parseChargeHeader, parseDecisions, parseLedger } from '../src/parse';
+import { FORMULA_RULE, RULES, migrateText, roundTrip } from '../src/migrate';
 import { parse } from '../src/building';
 import { DEFAULT_HORIZON, datedEntries, deferredDropFails, deferredEntries, horizonOf, pastHorizon } from '../src/deferred';
 import { lint } from '../src/lint';
@@ -222,5 +223,36 @@ describe('item 8 — the lexicon arm reads the building\'s WORDS.md, and walks d
 		// never hands it to the arm — pointed at it by hand the arm reports its every row, which is
 		// exactly why the fence is the SURFACE list and never a pattern (canon's law book, locally)
 		expect(local(fx('asks', 'WORDS.md')).length).toBe(3);
+	});
+});
+
+describe('item 9 — formulas 8 and 26 by the converter (D81, the currency law)', () => {
+	const file = join(FX, 'asks', 'formulas.md');
+	const m = migrateText(file, fx('asks', 'formulas.md'), { passes: ['respell'] });
+
+	test('the pinned string respells wherever a document writes it, history included', () => {
+		// one edit: a rule is line-scoped, and the entry writes both formulas on one line
+		expect(m.edits.map(e => e.rule)).toEqual([FORMULA_RULE]);
+		expect(m.after).toContain('"History is respelled, not rewritten."');
+		expect(m.after).toContain('In prose beside it: Ambiguity, not plurality, is the sin.');
+		expect(m.after).not.toContain('never plurality, is the sin.\n');
+		// the controls, both the converter's existing law:
+		//   a ticked span beside `→` is a form being NAMED — the charge doc that commissioned this
+		//   rule writes both spellings on one line, and the rule may not consume its own commission
+		expect(m.after).toContain('`Ambiguity, never plurality, is the sin.` → ');
+		//   a wording the table does not name is a session's call: this one leads a clause
+		expect(m.after).toContain('is the sin: the clause leads on');
+	});
+
+	test('the substitution proves itself by substituting — no rule buys a license to differ', () => {
+		// the entry's body DID change, and the round-trip law still holds: `changes` is empty on
+		// this rule, so the law is the stronger one — every field invariant under the table
+		const body = (md: string) => parseLedger(md).entries[0]!.body;
+		expect(body(m.before)).not.toBe(body(m.after));
+		expect(RULES.find(r => r.id === FORMULA_RULE)!.changes).toEqual([]);
+		expect(roundTrip(m)).toEqual([]);
+		// the control: a second pass is a fixed point, and code is not a document
+		expect(migrateText(file, m.after, { passes: ['respell'] }).edits).toEqual([]);
+		expect(migrateText('src/x.ts', 'const s = \'Ambiguity, never plurality, is the sin.\';', { passes: ['respell'] }).edits).toEqual([]);
 	});
 });
