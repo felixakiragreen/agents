@@ -16,7 +16,7 @@
 
 ## Kill criteria | Done when:
 
-- ⟨Digging — kill criteria, mandatory: what stops each line of work, recognizable without judgment. A documented kill is a win. Building — Done when:, mandatory and measurable: named checks whose output is pasted here at build time — the bar is measured, never asserted.⟩
+- ⟨Digging — kill criteria, mandatory: what stops each line of work, recognizable without judgment. A documented kill is a win. Building — Done when:, mandatory and measurable: named checks whose output is pasted here at build time — the bar is measured, not asserted.⟩
 
 ## Out of scope
 

@@ -2,7 +2,7 @@
 
 ⟨Two or three lines: the system, for whom, the bet. No history, no state — point.⟩
 
-**Read `MAP.md` before any work** — master architecture and the board.⟨ `dream.md` is Felix's dream for the project: immutable, never edit it.⟩ The tail of `LEDGER.md` says where we are; blessed choices live in `DECISIONS.md`; field reports go to `ISSUES.md` — file it and move on.
+**Read `MAP.md` before any work** — master architecture and the board.⟨ `dream.md` is Felix's dream for the project: immutable, not a session's to edit.⟩ The tail of `LEDGER.md` says where we are; blessed choices live in `DECISIONS.md`; field reports go to `ISSUES.md` — file it and move on.
 
 ## Hard laws (project physics; Felix's global directives also apply)
 
@@ -13,6 +13,6 @@
 - Declare your mantle; summons wear `~/code/agents/canon/mantles/<mantle>.md`. This project runs the work doctrine: `~/code/agents/canon/work/DOCTRINE.md`.
 - ⟨Standing staffing notes, if any — e.g. "design sessions run fable-max; the board names the rest."⟩
 - End every session: state written, `LEDGER.md` appended (date · mantle · changed · decided · next), commits in Felix's git style. Suggest a break at every clean boundary; end with the baton — one holder, one instrument, the next summons pasted verbatim (DOCTRINE §11).
-- Repo: branch `master`, never main. ⟨Other conventions: worktree rules, protected paths, what stays out of git.⟩
+- Repo: branch `master`, not main. ⟨Other conventions: worktree rules, protected paths, what stays out of git.⟩
 
 ⟨Keep this file ≤ ~60 lines — every byte here taxes every session, forever.⟩

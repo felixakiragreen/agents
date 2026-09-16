@@ -2,11 +2,11 @@
 
 > ⟨motto, if one exists⟩
 
-⟨What this is and why it exists — the vision distilled to a few paragraphs. If `dream.md` exists, this doc interprets it; never edit that file.⟩
+⟨What this is and why it exists — the vision distilled to a few paragraphs. If `dream.md` exists, this doc interprets it and leaves it unedited.⟩
 
 ## 1. The bet
 
-⟨The core hypothesis, the architecture, the shape of the system. Corrections land as dated amendment notes, never silent rewrites:⟩
+⟨The core hypothesis, the architecture, the shape of the system. Corrections land as dated amendment notes, not silent rewrites:⟩
 
 > **⟨ID⟩ correction (⟨date⟩).** ⟨What changed, evidence pointer.⟩
 
