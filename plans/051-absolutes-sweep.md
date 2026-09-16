@@ -102,7 +102,7 @@ This building's own `CLAUDE.md` is not in the surfaces and carried two: *unsigne
 
 ### F7 — the parallel state, noted
 
-`canon/CLAUDE.md` sat modified and uncommitted in the shared checkout through the session (the approval scale's rungs gaining the ⬢ mark — 050's item or his hand); left alone, added by no commit here. The office's Log commit `531621a` landed mid-session. No collision.
+`canon/CLAUDE.md` sat modified and uncommitted in the shared checkout through the session (the approval scale's rungs gaining the ⬢ mark — 050's item or his hand); left alone, added by no commit here. The office's Log commit `531621a` landed mid-session. At close, 050's Builder was live in the same checkout — five `doctrine/src` files modified, uncommitted, untouched here — so the after-lint and the suite ran against whatever parser source stood at that moment; the lint diff was empty regardless. No collision on any file this charge committed.
 
 ### F8 — the machine did not move
 
