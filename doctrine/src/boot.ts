@@ -14,15 +14,13 @@ import { readFileSync } from 'fs';
 import { basename, relative, resolve } from 'path';
 import { parse, type Board } from './building';
 import { statementLine } from './credit';
+import { datedEntries, horizonOf, pastHorizon } from './deferred';
 import { lint } from './lint';
 import type { Baton } from './parse';
 import { readRegister } from './register';
 
 /** The states a session can still act on — 031's live set, the board's half of it. */
 const LIVE: readonly (string | null)[] = ['OPEN', 'IN FLIGHT', 'BLOCKED'];
-
-/** The shelf's own line: a board doc's deferred list opens with it, or the doc keeps none. */
-const DEFERRED_LINE = '**Deferred (tracked, not lost):**';
 
 const tilde = (p: string) => p.replace(process.env.HOME + '/', '~/');
 
@@ -47,19 +45,6 @@ function registeredName(root: string): string {
 }
 
 /**
- * The shelf's size: top-level `- ` bullets under the deferred line, to the next heading or EOF.
- * Counted, never parsed — the pack says how much is shelved and the board says what (D78).
- */
-function deferredCount(md: string): number | null {
-	const lines = md.split('\n');
-	const at = lines.findIndex(l => l.startsWith(DEFERRED_LINE));
-	if (at < 0) return null;
-	let n = 0;
-	for (let i = at + 1; i < lines.length && !/^#{1,6} /.test(lines[i]!); i++) if (/^- /.test(lines[i]!)) n++;
-	return n;
-}
-
-/**
  * §11's baton, every field the parser types off the line (045): who holds it and by what name,
  * the shape of the move, what a ⬡-baton asks of him, and what is fireable. Each marked part
  * prints only where the record marked it — an absent shape is an unmarked baton, not a `single`.
@@ -77,14 +62,22 @@ function batonLine(baton: Baton | null): string {
 	return `Baton — ${marks.join(' · ')} → ${parts.join(', ') || 'no instrument'}`;
 }
 
-/** One board: its counts, then its live rows verbatim. A board with none prints the counts alone. */
-function boardBlock(b: Board, md: string, label: string): string[] {
+/**
+ * One board: its counts, then its live rows verbatim. A board with none prints the counts alone.
+ *
+ * The shelf is COUNTED, never listed — the pack says how much is shelved and the board says what
+ * (D78) — and the count carries how many stand past the building's horizon, because an entry past
+ * it is due a re-ruling at the next prune check and that is the one thing a cold session can act
+ * on without reading the shelf (§4, the pilot).
+ */
+function boardBlock(b: Board, md: string, label: string, file: string, horizon: number): string[] {
 	const lines = md.split('\n');
 	const count = (s: string) => b.rows.filter(r => r.state === s).length;
 	const live = b.rows.filter(r => LIVE.includes(r.state));
-	const deferred = deferredCount(md);
+	const shelf = datedEntries(file, md);
+	const deferred = shelf.length ? `${shelf.length} · ${pastHorizon(shelf, horizon, today())} past ${horizon} days` : '—';
 	const head = `## Board — ${label}: ${b.rows.length} charges · ${live.length} live · `
-		+ `${count('LANDED')} landed · ${count('KILLED')} killed · deferred ${deferred ?? '—'}`;
+		+ `${count('LANDED')} landed · ${count('KILLED')} killed · deferred ${deferred}`;
 	if (!live.length) return [head];
 	return [head, lines[b.line - 1]!, ...live.map(r => lines[r.line - 1]!)];
 }
@@ -107,8 +100,12 @@ export function bootPack(rootArg: string): string {
 	// there the file alone cannot say which table a block is.
 	const perDoc = new Map<string, number>();
 	for (const x of b.board) perDoc.set(x.file, (perDoc.get(x.file) ?? 0) + 1);
+	// The horizon is the BUILDING's, named once in its master doc's agreements (§4) — read here so
+	// two boards in one building cannot disagree about how old is old.
+	const master = b.files.prose.find(f => /^(MAP|GENESIS|README)\.md$/.test(basename(f)));
+	const horizon = horizonOf(master ? read(master) : null);
 	for (const x of b.board)
-		out.push('', ...boardBlock(x, read(x.file), perDoc.get(x.file)! > 1 ? `${rel(x.file)} · ${x.heading}` : rel(x.file)));
+		out.push('', ...boardBlock(x, read(x.file), perDoc.get(x.file)! > 1 ? `${rel(x.file)} · ${x.heading}` : rel(x.file), x.file, horizon));
 
 	out.push('');
 	if (!b.files.ledger) out.push('## Ledger — none');

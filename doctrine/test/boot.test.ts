@@ -46,9 +46,9 @@ describe('boot — the pack a cold session reads', () => {
 		for (const l of lines(BOOT).filter(x => x.startsWith('| '))) expect(board).toContain(l);
 	});
 
-	test('the count line reads the board, and the deferred count is the shelf', () => {
-		expect(has(BOOT, '## Board — BOARD.md · The campaign: 5 charges · 3 live · 1 landed · 1 killed · deferred 3')).toBe(true);
-		expect(has(BOOT, '## Board — BOARD.md · The gates: 2 charges · 1 live · 1 landed · 0 killed · deferred 3')).toBe(true);
+	test('the count line reads the board, and the deferred count is the shelf with its horizon', () => {
+		expect(has(BOOT, '## Board — BOARD.md · The campaign: 5 charges · 3 live · 1 landed · 1 killed · deferred 3 · 0 past 30 days')).toBe(true);
+		expect(has(BOOT, '## Board — BOARD.md · The gates: 2 charges · 1 live · 1 landed · 0 killed · deferred 3 · 0 past 30 days')).toBe(true);
 	});
 
 	test('two boards in one doc name their headings; one board names the file alone', () => {

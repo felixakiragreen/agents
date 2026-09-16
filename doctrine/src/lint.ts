@@ -4,6 +4,7 @@
 import { readFileSync } from 'fs';
 import { basename } from 'path';
 import { discover, lastWalk, type Building } from './building';
+import { deferredDropFails } from './deferred';
 import { isLawBook, STATES, type Fail } from './grammar';
 import { boardIds, isLiveWorkDoc, isSpentWorkDoc, parseDecisions } from './parse';
 import { buildingNames, crossingFails, readRegister } from './register';
@@ -92,10 +93,18 @@ function registerFails(b: Building, names: Set<string>): Fail[] {
 	return [...crossingFails(b, names), ...(b.files.register ? readRegister(b.files.register).fails : [])];
 }
 
+/**
+ * §4's drop alarm, here and not in `parseFiles`: it asks git what the board said one commit ago,
+ * and the parse is text in, values out — the glass and the engine read `parse()` on every draw
+ * and must never pay for a subprocess (D10, one parser; 044's *derived at every call*).
+ */
+const shelfFails = (b: Building): Fail[] =>
+	b.files.boards.flatMap(f => deferredDropFails(f, readFileSync(f, 'utf8')));
+
 export function lint(roots: string[], opts: { live?: boolean; vocab?: boolean } = {}): LintReport {
 	const names = buildingNames(readRegister().rows);
 	const buildings = discover(roots)
-		.map(b => ({ ...b, fails: [...b.fails, ...registerFails(b, names)] }))
+		.map(b => ({ ...b, fails: [...b.fails, ...registerFails(b, names), ...shelfFails(b)] }))
 		.map(b => opts.vocab ? { ...b, fails: [...b.fails, ...vocabFails(b)] } : b)
 		.map(b => opts.live ? { ...b, fails: liveFails(b) } : b);
 	const fails = buildings.flatMap(b => b.fails);

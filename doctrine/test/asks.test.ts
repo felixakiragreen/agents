@@ -3,10 +3,13 @@
 // (`git archive 778c9b6 doctrine canon`, this charge's Findings) and nothing else does.
 
 import { describe, expect, test } from 'bun:test';
-import { readFileSync } from 'fs';
+import { execSync } from 'child_process';
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'fs';
+import { tmpdir } from 'os';
 import { join } from 'path';
 import { parseChargeHeader, parseDecisions, parseLedger } from '../src/parse';
 import { parse } from '../src/building';
+import { DEFAULT_HORIZON, datedEntries, deferredDropFails, deferredEntries, horizonOf, pastHorizon } from '../src/deferred';
 
 const FX = join(import.meta.dir, '..', 'fixtures');
 const fx = (kind: string, name: string) => readFileSync(join(FX, kind, name), 'utf8');
@@ -135,5 +138,57 @@ describe('item 7 — the ledger cap counts the entry\'s prose (§7)', () => {
 		const over = parseLedger(fx('asks', 'LEDGER.md').split('---')[2]!);
 		expect(over.fails.map(f => [f.code, f.severity])).toEqual([['ledger.entry-cap', 'warn']]);
 		expect(over.fails[0]!.excerpt).toStartWith('(186 words)');
+	});
+});
+
+describe('item 6 — the deferred list: its day, its horizon, and the drop nobody named', () => {
+	const board = fx('asks', 'BOARD.md');
+
+	test('the shelf is its top-level bullets, and the horizon is the building\'s own word', () => {
+		expect(deferredEntries(board).map(e => e.line)).toEqual([25, 26, 27]);
+		expect(horizonOf(fx('asks', 'MAP.md'))).toBe(60);         // "sixty days", as the record spells it
+		// the control: a master doc that names none takes the doctrine's thirty, and so does none at all
+		expect([horizonOf(fx('asks', 'DECISIONS.md')), horizonOf(null)]).toEqual([DEFAULT_HORIZON, DEFAULT_HORIZON]);
+		expect(DEFAULT_HORIZON).toBe(30);
+	});
+
+	test('past the horizon is counted, never listed — the pack says how much, the board says what', () => {
+		const shelf = [{ text: '', line: 1, day: '2026-07-01' }, { text: '', line: 2, day: '2026-09-14' }, { text: '', line: 3, day: null }];
+		expect(pastHorizon(shelf, 30, '2026-09-15')).toBe(1);
+		expect(pastHorizon(shelf, 60, '2026-09-15')).toBe(1);
+		expect(pastHorizon(shelf, 120, '2026-09-15')).toBe(0);
+		// the control: an undated entry is a typed absence — nothing is past a horizon it cannot be measured against
+		expect(pastHorizon([{ text: '', line: 1, day: null }], 1, '2026-09-15')).toBe(0);
+	});
+
+	test('the day is git\'s, and a drop the ledger does not name warns (§4; stigmergon G23-F5)', () => {
+		const root = mkdtempSync(join(tmpdir(), 'doctrine-shelf-'));
+		const git = (args: string) => execSync(`git ${args}`, { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
+		const shelf = (...items: string[]) => `# Board\n\n**Deferred (tracked, not lost):**\n\n${items.map(x => `- ${x}\n`).join('')}`;
+		const commit = (body: string, ledger: string, when: string) => {
+			writeFileSync(join(root, 'BOARD.md'), body);
+			writeFileSync(join(root, 'LEDGER.md'), ledger);
+			git('add -A');
+			git(`-c user.name=t -c user.email=t@t commit -q -m x --date ${when}`);
+		};
+		try {
+			git('init -q');
+			commit(shelf('the first', 'the second', 'the third'), '# Ledger\n', '2026-07-01T12:00:00+0000');
+			const first = join(root, 'BOARD.md');
+			expect(datedEntries(first, readFileSync(first, 'utf8')).map(e => e.day)).toEqual(['2026-07-01', '2026-07-01', '2026-07-01']);
+
+			// a drop with no word for it — the loss class
+			commit(shelf('the first', 'the second'), '# Ledger\n\nthe sweep ran and the board was reconciled.\n', '2026-07-02T12:00:00+0000');
+			const dropped = deferredDropFails(first, readFileSync(first, 'utf8'));
+			expect(dropped.map(f => [f.code, f.severity, f.excerpt]))
+				.toEqual([['board.deferred-drop', 'warn', expect.stringContaining('3 → 2 deferred')]]);
+
+			// the control: the same drop, named in the ledger of that span — nothing to report
+			commit(shelf('the first'), '# Ledger\n\nthe second was promoted to 004.\n', '2026-07-03T12:00:00+0000');
+			expect(deferredDropFails(first, readFileSync(first, 'utf8'))).toEqual([]);
+			// … and a shelf that only grows is never the alarm's business
+			commit(shelf('the first', 'the fourth'), '# Ledger\n\nnothing was said.\n', '2026-07-04T12:00:00+0000');
+			expect(deferredDropFails(first, readFileSync(first, 'utf8'))).toEqual([]);
+		} finally { rmSync(root, { recursive: true, force: true }); }
 	});
 });
