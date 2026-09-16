@@ -14,7 +14,7 @@ Felix runs three Claude Code accounts to beat session limits (~$450/mo of capabi
 | `~/.claude-thg-fgreen` | `a-thg-0` | Team Premium |
 | `~/.claude-thg-doorbell` | `a-thg-1` | Team Premium |
 
-The aliases set `CLAUDE_CONFIG_DIR`. Consequence: `projects/`, history, and agent memory are **siloed per account** — nothing crosses; durable truth lives in repos, never in a conversation or an account's memory. This repo canonizes the conventions that run Felix's projects — pioneered in hexwright and simmy, proven before they were law — as one source of truth, deployed everywhere, versioned in git. Three hives, one city: the accounts are hives — each session a bee, its memory mere comb — and the repos are the city they raise, where truth lives in stone. The lineage is on the record: *Children of Time*, *Dune*, *Foundation* — canon is the Understandings, inherited at summons, never taught.
+The aliases set `CLAUDE_CONFIG_DIR`. Consequence: `projects/`, history, and agent memory are **siloed per account** — nothing crosses; durable truth lives in repos, not in a conversation or an account's memory. This repo canonizes the conventions that run Felix's projects — pioneered in hexwright and simmy, proven before they were law — as one source of truth, deployed everywhere, versioned in git. Three hives, one city: the accounts are hives — each session a bee, its memory mere comb — and the repos are the city they raise, where truth lives in stone. The lineage is on the record: *Children of Time*, *Dune*, *Foundation* — canon is the Understandings, inherited at summons, not taught.
 
 ## 2. The composition law
 
@@ -58,7 +58,7 @@ Offices are singular — one holder at a time, a succession. Mantles are plural 
 | `canon/BUILDINGS.md` | read by path | the building register — the city's book (D79); machines read it through `doctrine buildings` (039) |
 | `canon/work/` | not deployed | doctrine + standard + templates, referenced by projects |
 
-Mechanism: **symlink** — one inode of truth, one rule for every target; editing a live path IS deploying ×3, so unsigned canon never touches one. `keybindings.json` left the sync set (drift unobservable without a human in the loop; hand-copy if ever wanted). Tooling: **`sync/deploy`** (bootstrap + adopt, idempotent, backs up a displaced original once) and **`sync/check`** (the drift alarm — run it when something feels off; green + still broken ⇒ auth, not sync). `deploy` is **Felix-run**: displacing a live config file trips the agent permission guard by design.
+Mechanism: **symlink** — one inode of truth, one rule for every target; editing a live path IS deploying ×3, so unsigned canon does not touch one. `keybindings.json` left the sync set (drift unobservable without a human in the loop; hand-copy if ever wanted). Tooling: **`sync/deploy`** (bootstrap + adopt, idempotent, backs up a displaced original once) and **`sync/check`** (the drift alarm — run it when something feels off; green + still broken ⇒ auth, not sync). `deploy` is **Felix-run**: displacing a live config file trips the agent permission guard by design.
 
 ## 5. The campaign board
 
