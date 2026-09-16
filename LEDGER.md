@@ -126,3 +126,16 @@ Enter by the door — read ~/code/agents/canon/GUILD.md,
 wear ~/code/agents/canon/mantles/grand-architect.md,
 then boot ~/code/agents, read plans/051-absolutes-sweep.md §Findings and verify the landing — F4's restatements are the read, F5's candidates the sweep.
 ```
+
+---
+
+**2026-09-15 · Builder · opus-high (050)** — doctrine v1.5 LANDED: the nine field asks read — the ⬢ mark, the charge doc's header (batch slot · `Parallel-safe with:` · `Branch:` · the tender line), typed holds and E-ids, §4's readiness with a gate ready on a kill, the shelf dated by blame with its horizon and drop alarm, the cap counting prose, the lexicon arm on `WORDS.md` and `docs/`, and formulas 8 and 26 by the converter (run here, `e7cdfc1`). Suite 197 → 217; the city's failures and totals byte-identical, `ledger.entry-cap` 526 → 503. Ten findings, two correcting the bar's arithmetic (F2); F8 drafts §4's and §5's text for the office — canon is red inside this charge. Changed: `doctrine/` whole (+ `deferred.ts`, `words.ts`), its README, the suite, the `asks` fixtures, six respelled documents, 050, the board, the inbox. Decided: nothing. Next: the baton below.
+
+Baton — ⬡ → single — summon the office once for both landings: 051's fence stands in the entry above and 050 rides the same sitting. Its reads here: F2's two corrections to the bar's arithmetic, F8's owed doctrine text (§4's batch slot, §5's skeleton), and the inbox entry on blame versus hand-written deferral dates (F9), which is stigmergon's Architect's to hear.
+
+```
+You are the Grand Architect at fable-max.
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/grand-architect.md,
+then boot ~/code/agents, sweep the inbox, and verify both landings — plans/050-field-asks.md §Findings (F2's arithmetic, F8's owed §4/§5 text, F9's inbox entry) and plans/051-absolutes-sweep.md §Findings.
+```
