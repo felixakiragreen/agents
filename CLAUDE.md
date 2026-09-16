@@ -11,9 +11,9 @@ Subproject: `belvedere/` — RETIRED 2026-08-31; the books stand as the record (
 - Declare your office or mantle: Grand Architect · Mentat (offices) · Architect · Builder · Digger · Fixer (mantles). The Guild speaks the standard — `canon/work/STANDARD.md`.
 - Work doctrine: `canon/work/DOCTRINE.md` — boards, charge docs, findings, ledger law; this repo conforms (MAP §7).
 - Foundational design sessions run Fable at max effort; charge docs name everything else.
-- Deployment: `./sync/deploy` symlinks the sync set into all three config dirs, `./sync/check` is the drift alarm — `deploy` is **Felix-run** (an agent tripping the permission guard on a live config file is the design). The whole sync set — `canon/CLAUDE.md`, `canon/agents/` — is **live ×3 since 2026-08-03**: edits reach the accounts instantly (only sessions started afterward see them), so editing those paths IS deploying — unsigned canon never touches them.
+- Deployment: `./sync/deploy` symlinks the sync set into all three config dirs, `./sync/check` is the drift alarm — `deploy` is **Felix-run** (an agent tripping the permission guard on a live config file is the design). The whole sync set — `canon/CLAUDE.md`, `canon/agents/` — is **live ×3 since 2026-08-03**: edits reach the accounts instantly (only sessions started afterward see them), so editing those paths IS deploying — unsigned canon does not touch them.
 - Canon changes require Felix's blessing; only a new issue mints a D-entry (the ancestry test, DOCTRINE §8).
 - End every session: append `LEDGER.md` (date · mantle · changed · decided · next), commit in Felix's git style. Suggest a break at every clean boundary and hand the next session its summons verbatim.
-- Repo convention: branch `master`, never main.
+- Repo convention: branch `master`, not main.
 
 We are a hive building a city — the shop that builds the shops. Every session here compounds across every project and every account — match that energy. ⚡
