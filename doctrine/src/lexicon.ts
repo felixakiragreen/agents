@@ -132,7 +132,7 @@ export const GRAVEYARD: readonly Dead[] = [
 	{ dead: 'Dispatcher (mantle)', successor: 'the flow engine — 20 is the new dispatcher (ruled)', forms: /\bDispatchers?\b/g },
 	{ dead: 'unstaffed', successor: 'Fixer (staffing) · `—` (dissolved staffing on DEFERRED charges)', forms: /\bunstaffed\b/gi },
 	{
-		dead: 'the four-slot waggle', successor: 'one plain sentence per thing', forms: null,
+		dead: 'the four-slot waggle', successor: 'the plain-speech explanation, read cold', forms: null,
 		dropped: 'not a word — a document shape. The dead four slots (Problem / Move / Stakes / Dig) '
 			+ 'appear as ordinary headings all over the city; catching the anatomy needs a structural '
 			+ 'rule the standard has not asked for.',
