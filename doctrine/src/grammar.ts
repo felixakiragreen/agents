@@ -102,12 +102,36 @@ export const BLESSED_MARK = /⬡\s*✓|✓\s*Felix/;
 export const CREDIT_MARK = /⬡\s*go\b[ \t]*(\d{4}-\d{2}-\d{2})?/;
 export const creditDate = (s: string) => s.match(CREDIT_MARK)?.[1] ?? null;
 /**
+ * §1, §7 — the magnitude (D90): his yes with its SIZE, in orders of magnitude. `⬢100` · `⬢10` ·
+ * `⬢0.1` · `⬢-1`, every value between the rungs legal. The floor is the whole of the reading:
+ * at 1 and above he looked and the yes is a blessing; below it the thing proceeds unsatisfied —
+ * the go-mark's own rung (0.1), so it lands on the statement and the review is owed.
+ *
+ * The date is OPTIONAL here and that is not D82's laxity: the standard writes the mark dated
+ * "only when the yes came later than the entry", and the entry it rides carries its own date.
+ * A surface that carries no date of its own leaves the mark undated, which authorizes nothing.
+ */
+export const MAGNITUDE_MARK = /⬢\s*(-?\d+(?:\.\d+)?)[ \t]*(\d{4}-\d{2}-\d{2})?/;
+export const BLESSING_FLOOR = 1;
+/** At the floor and above he looked: the yes is a blessing. */
+export const isSizedBlessing = (n: number) => n >= BLESSING_FLOOR;
+/**
+ * Under the floor the thing proceeds and the review is owed — but only while the yes is a YES.
+ * The scale runs negative and a negative is a **no** (D90), which authorizes nothing and owes
+ * nothing: reading it as credit would put a refusal on the statement as a debt he must pay.
+ */
+export const isSizedCredit = (n: number) => n > 0 && n < BLESSING_FLOOR;
+export const magnitude = (s: string): { n: number; date: string | null } | null => {
+	const m = s.match(MAGNITUDE_MARK);
+	return m ? { n: Number(m[1]), date: m[2] ?? null } : null;
+};
+/**
  * A mark rides the END of an attribution, behind §8's `·` — `(2026-08-29, Grand Architect ·
  * ⬡✓ 2026-08-29)`, `(2026-09-01, Architect · ⬡ go 2026-09-01)`. The separator is required:
  * without it "proposed, pending ⬡✓" reads as a blessing already given, and the decider loses
  * half its name to the strip.
  */
-export const MARK_TAIL = /\s*·\s*(?:⬡\s*✓|✓\s*Felix|⬡\s*go)(?:\s*\d{4}-\d{2}-\d{2})?\s*$/;
+export const MARK_TAIL = /\s*·\s*(?:⬡\s*✓|✓\s*Felix|⬡\s*go|⬢\s*-?\d+(?:\.\d+)?)(?:\s*\d{4}-\d{2}-\d{2})?\s*$/;
 
 /** §8 — a dispatched session marks its entry proposed, in either spelling. */
 export const PROPOSED_MARK = /proposed[\s,]*(?:[—–-]\s*)?pending\s+(?:⬡\s*✓|Felix countersign)/i;

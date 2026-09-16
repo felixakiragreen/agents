@@ -65,6 +65,8 @@ export type Building = {
 	baton: Baton | null;
 	decisions: number;                // entity count — the guard's gauge (item 18)
 	decisionQueue: Decision[];
+	/** D90 — the register's entries his yes sized, in the register's own order. */
+	magnitudes: Decision[];
 	issues: Issue[];
 	kickoffs: (Kickoff & { doc: string })[];
 	credits: Credit[];                // D82's statement, derived from this building's own graph
@@ -414,7 +416,7 @@ export function parseFiles(e: { building: string; path: string; files: Building[
 		if (r.tail) sources.ledgerTail = { file: e.files.ledger, line: r.tail.line, block: r.tail.block };
 	}
 
-	let decisionQueue: Decision[] = [], decisions = 0;
+	let decisionQueue: Decision[] = [], magnitudes: Decision[] = [], decisions = 0;
 	if (e.files.decisions) {
 		const md = read(e.files.decisions);
 		const r = parseDecisions(md);
@@ -423,8 +425,9 @@ export function parseFiles(e: { building: string; path: string; files: Building[
 		// master doc — that doc's size is the master doc's business, not §8's purge (048).
 		if (basename(e.files.decisions) === 'DECISIONS.md') fails.push(...stamp(registerSizeFails(md), e.files.decisions));
 		decisionQueue = r.queue;
+		magnitudes = r.decisions.filter(d => d.magnitude !== null);
 		decisions = r.decisions.length;
-		sources.decisions = { file: e.files.decisions, md, entries: r.decisions.map(d => ({ id: d.id, line: d.line })) };
+		sources.decisions = { file: e.files.decisions, md, entries: r.decisions.map(d => ({ id: d.id, date: d.date, line: d.line, magnitude: d.magnitude, credit: d.credit })) };
 	}
 
 	let issues: Issue[] = [];
@@ -447,7 +450,7 @@ export function parseFiles(e: { building: string; path: string; files: Building[
 
 	return {
 		building: e.building, path: e.path, board, ledgerTail, ledgerEntries, baton,
-		decisions, decisionQueue, issues, kickoffs, credits: credit.credits, files: e.files, fails,
+		decisions, decisionQueue, magnitudes, issues, kickoffs, credits: credit.credits, files: e.files, fails,
 	};
 }
 

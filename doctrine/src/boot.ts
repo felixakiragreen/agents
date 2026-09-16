@@ -124,6 +124,11 @@ export function bootPack(rootArg: string): string {
 		out.push(`## Decisions — ${rel(b.files.decisions)}: ${b.decisions} entries · queue ${b.decisionQueue.length}`);
 		// The queue is what waits on his pen — the id and the title, both bytes from the register.
 		for (const d of b.decisionQueue) out.push(`- ${d.id} — ${d.title}`);
+		// And the sized yeses beside it (D90): the mark says what to do with the entry — below 1 the
+		// thing is owed a better version, at 100 and above the shape is proven and carried verbatim.
+		// The register is the queue and the staging ground, never the archive (§8), so its purge is
+		// this list's bound; every byte here is the register's own.
+		for (const d of b.magnitudes) out.push(`- ${d.id} ⬢${d.magnitude} — ${d.title}`);
 	}
 
 	out.push('');

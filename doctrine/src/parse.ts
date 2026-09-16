@@ -8,7 +8,8 @@
 import {
 	BATON_TYPES, BLESSED_MARK, CELL_CAP, DECISION_ID, DEFERRED, DETERMINERS, ENTRY_CAP, FELIX_GATE, HEX_GATE, MANTLES, MARK_TAIL,
 	PARKED, PENDING, PROPOSED_MARK, REGISTER_CAP, RETIRED, STATES, UNRECORDED, UNSTAFFED, VERDICTS,
-	creditDate, delink, fail, isId, isMantle, isState, isTier, leadingToken, linkTarget, maskCode, strip, topSplit,
+	creditDate, delink, fail, isId, isMantle, isSizedBlessing, isSizedCredit, isState, isTier, leadingToken, linkTarget, magnitude,
+	maskCode, strip, topSplit,
 	trailingParen,
 	type BatonType, type Fail, type State,
 } from './grammar';
@@ -728,7 +729,10 @@ export function batonFails(baton: Baton | null, line: number): Fail[] {
 
 export type Decision = {
 	id: string; date: string; decider: string; title: string; body: string;
-	blessed: boolean; pending: boolean; credit: string | null; line: number;
+	blessed: boolean; pending: boolean; credit: string | null;
+	/** D90 — the size of his yes, where he gave one; `null` where the mark carries no number. */
+	magnitude: number | null;
+	line: number;
 };
 
 // A project's decision ids carry its own prefix — RP-1, A1, D63 (item 11) and §7's mandated
@@ -771,6 +775,13 @@ export function parseDecisions(md: string): { decisions: Decision[]; queue: Deci
 		const pm = paren.match(/^(\d{4}-\d{2}-\d{2}),\s*(.+)$/s);
 		if (!pm) fails.push(fail('decisions', 'decision.attribution', 'attribution is not "(<ISO date>, <decider>)" (§8)', `${head[1]}: ${JSON.stringify(paren.slice(0, 160))}`, at));
 
+		// D90 — the magnitude rides the attribution beside the other marks, and it ANSWERS them: 1
+		// and above is the blessing (he looked, and sized what he saw), below 1 the credit (it
+		// proceeds, the review owed — 0.1 IS the go-mark's rung). Undated, the yes came with the
+		// entry, so the entry's own date is the mark's: the standard dates the token only where the
+		// yes came later, and a date the document already carries is read, never inferred.
+		const mag = magnitude(paren);
+		const owed = mag && isSizedCredit(mag.n) ? mag.date ?? (pm ? pm[1]! : null) : null;
 		decisions.push({
 			id: head[1]!, date: pm ? pm[1]! : '',
 			decider: (pm ? pm[2]! : paren).replace(MARK_TAIL, '').trim(),
@@ -779,14 +790,15 @@ export function parseDecisions(md: string): { decisions: Decision[]; queue: Deci
 			// respell put the mark inside the WAITING form too ("proposed, pending ⬡✓"), where the
 			// old spelling could not reach: a blessing awaited is not a blessing given, so the
 			// proposed mark vetoes. Without the veto every dispatched entry falls out of the queue.
-			blessed: BLESSED_MARK.test(paren) && !PROPOSED_MARK.test(paren),
+			blessed: (BLESSED_MARK.test(paren) || (mag !== null && isSizedBlessing(mag.n))) && !PROPOSED_MARK.test(paren),
 			// The marker lives in the ATTRIBUTION; a body that merely quotes the phrase — D21, the
 			// entry that DEFINES it — never counts (item 12).
 			pending: PROPOSED_MARK.test(paren),
 			// D82 — the third resolution: authorized without his eyes, dated, the review owed. It
 			// is not a blessing (the checkmark is the act of checking) and it is not the queue:
 			// nobody waits on it, it sits on the statement until he reads it.
-			credit: creditDate(paren),
+			credit: creditDate(paren) ?? owed,
+			magnitude: mag?.n ?? null,
 			line: at,
 		});
 	}
