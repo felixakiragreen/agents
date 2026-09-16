@@ -2,7 +2,7 @@
 
 ⟨Two or three lines: the system, for whom, the bet. No history, no state — point.⟩
 
-**Read `MAP.md` before any work** — master architecture and the board.⟨ `dream.md` is Felix's dream for the project: immutable, not a session's to edit.⟩ The tail of `LEDGER.md` says where we are; blessed choices live in `DECISIONS.md`; field reports go to `ISSUES.md` — file it and move on.
+**Read `MAP.md` before any work** — master architecture and the board.⟨ `dream.md` is Felix's dream for the project: versioned at his word, not a session's to edit (DOCTRINE §3).⟩ The tail of `LEDGER.md` says where we are; blessed choices live in `DECISIONS.md`; field reports go to `ISSUES.md` — file it and move on.
 
 ## Hard laws (project physics; Felix's global directives also apply)
 
