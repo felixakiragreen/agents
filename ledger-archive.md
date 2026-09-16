@@ -701,3 +701,19 @@ Baton — the dispatch → 043; G3 verifies 041 · 042 · 043, and rules F4.
 **2026-09-01 · Builder · opus-high (043)** — **the citation respell, BLOCKED — the converter never ran.** The spec's form — a dead citation reads as the home that carries the law — is circular wherever the home is the citing document: **58 of the 152** dead citations in the fence, its own worked example included. Only 55 are cross-citations the form fits; 39 may not be touched — other buildings' ids, the tombstone, board records, forms shown. 034-F4 ruled it the other way once, and 035 stripped 88 out of MAP (`898ddf2`). Built anyway: the **39-row home table**, every home quoted. Eleven findings in [043](plans/043-citation-respell.md). Decided: nothing. Next: ⬡ rules F10.
 
 Baton — ⬡ → rule F10: does a self-citation strip (034-F4, 035) or spell its home (043)? On his word the converter is one Builder run — the table is done.
+
+---
+
+**2026-09-02 · Grand Architect · fable-max (grand-architect-23)** — **043 unblocked.** F10 ruled (043-F12, ⬡✓): a dead citation is a pointer — cross spells the home, self strips, a bare foreign id qualifies; no dead id survives on a live surface. The amendment clause struck, the hand list inside the fence, the lint arm deferred (F8). DOCTRINE §8 carries the kill's citations (⬡✓). Corrected: D67 is homed in `plans/TENDER.md`; DOCTRINE:531's D5 is Belvedere's. G3 got its doc — the bar attainable, 042-F4 · 041-F3 · 041-F10 pre-chewed, two grants. Inbox swept: the announce duty rejected (homed), the discovery gap deferred. D87 pending, unchanged. Decided: nothing minted — 043-F12 ⬡✓, DOCTRINE §8 amended ⬡✓. Next: the batch resumes — batoned below; the tender resumes on his word, or a fresh one ignites from `plans/TENDER.md` + the batch note.
+
+Baton — the dispatch → reignite 043, then G3.
+
+---
+
+**2026-09-02 · Architect · fable-high (G3)** — **the tender's first batch reviewed: 041 · 042 · 043 verified and kept.** Changed: `LIVE_STATES` gains BLOCKED (041-F3, `adf9c5e`); `--live` keeps the register (041-F10, `7998e14`, red then green) — suite 121 → 122; `haiku-low` retired (042-F4, `9d765df`), eleven stand, wire green ×3; the D78 prune (`9186f1c`) — fourteen cells compressed, three stories moved into their docs, 030's header reconciled, the spent batch note dead — lint 33 → **19, all belvedere's**. 043's rules are homed already (DOCTRINE §8, STANDARD §7); nothing added to canon. Decided: three rulings, cited — [G3](plans/g3-tender-review.md) F4 · F5 · F6. Next: ⬡ verifies this close; behind it D87, two inbox entries (F9), 043-F15's per-clause `Home:` line (F8).
+
+Baton — ⬡ → verify G3's close: [its findings](plans/g3-tender-review.md), rulings F4 · F5 · F6, the prune at `9186f1c`.
+
+---
+
+**2026-09-06 · Mentat · fable-max (mentat-05)** — The neck sitting closed at his word after three days. Beyond the book: `ISSUES.md` gained the Radiant's founding entry (the register line, the charter's *Owns*, two taste data) and his "strike sovereign" report with the office's reading; `sapho-archive.md` instantiated at the first aging-out. The Radiant (`~/code/radiant`, his repo) stands founded — D1–D5 ⬡✓ 2026-09-06, Radiant 001 sealed. Decided: nothing here — the canon asks wait on ⬡'s desk. Next: none — the Grand Architect sweeps the two entries.

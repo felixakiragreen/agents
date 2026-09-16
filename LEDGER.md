@@ -4,22 +4,6 @@ Append per session: date · mantle · changed · decided · next.
 
 ---
 
-**2026-09-02 · Grand Architect · fable-max (grand-architect-23)** — **043 unblocked.** F10 ruled (043-F12, ⬡✓): a dead citation is a pointer — cross spells the home, self strips, a bare foreign id qualifies; no dead id survives on a live surface. The amendment clause struck, the hand list inside the fence, the lint arm deferred (F8). DOCTRINE §8 carries the kill's citations (⬡✓). Corrected: D67 is homed in `plans/TENDER.md`; DOCTRINE:531's D5 is Belvedere's. G3 got its doc — the bar attainable, 042-F4 · 041-F3 · 041-F10 pre-chewed, two grants. Inbox swept: the announce duty rejected (homed), the discovery gap deferred. D87 pending, unchanged. Decided: nothing minted — 043-F12 ⬡✓, DOCTRINE §8 amended ⬡✓. Next: the batch resumes — batoned below; the tender resumes on his word, or a fresh one ignites from `plans/TENDER.md` + the batch note.
-
-Baton — the dispatch → reignite 043, then G3.
-
----
-
-**2026-09-02 · Architect · fable-high (G3)** — **the tender's first batch reviewed: 041 · 042 · 043 verified and kept.** Changed: `LIVE_STATES` gains BLOCKED (041-F3, `adf9c5e`); `--live` keeps the register (041-F10, `7998e14`, red then green) — suite 121 → 122; `haiku-low` retired (042-F4, `9d765df`), eleven stand, wire green ×3; the D78 prune (`9186f1c`) — fourteen cells compressed, three stories moved into their docs, 030's header reconciled, the spent batch note dead — lint 33 → **19, all belvedere's**. 043's rules are homed already (DOCTRINE §8, STANDARD §7); nothing added to canon. Decided: three rulings, cited — [G3](plans/g3-tender-review.md) F4 · F5 · F6. Next: ⬡ verifies this close; behind it D87, two inbox entries (F9), 043-F15's per-clause `Home:` line (F8).
-
-Baton — ⬡ → verify G3's close: [its findings](plans/g3-tender-review.md), rulings F4 · F5 · F6, the prune at `9186f1c`.
-
----
-
-**2026-09-06 · Mentat · fable-max (mentat-05)** — The neck sitting closed at his word after three days. Beyond the book: `ISSUES.md` gained the Radiant's founding entry (the register line, the charter's *Owns*, two taste data) and his "strike sovereign" report with the office's reading; `sapho-archive.md` instantiated at the first aging-out. The Radiant (`~/code/radiant`, his repo) stands founded — D1–D5 ⬡✓ 2026-09-06, Radiant 001 sealed. Decided: nothing here — the canon asks wait on ⬡'s desk. Next: none — the Grand Architect sweeps the two entries.
-
----
-
 **2026-09-06 · Mentat · fable-max (mentat-05)** — *(after the close.)* Two more inbox entries at his word: *Summoner* chosen for "sovereign" (recorded on the standing entry), and the aphantasia law — show, don't describe — proposed for the door or the global file. The audible Radiant's Fixer summons is drafted in `~/code/radiant/ISSUES.md` (iPhone, not the macOS voice). Decided: nothing here. Next: none — the Grand Architect sweeps three entries.
 
 ---
@@ -142,7 +126,7 @@ then boot ~/code/agents, sweep the inbox, and verify both landings — plans/050
 
 ---
 
-**2026-09-16 · Grand Architect · fable-max (grand-architect-27)** — Both landings verified and KEPT. 050: F1's control and F2's twelve-root lint re-run against the archived pre-050 parser, exact — classes and totals byte-identical, entry-cap 527 → 503; F8's text pasted under the grant (§4, §5, the template's two slots); F9 distilled into §4 (the day is git's, not typed; §1's blame-ignore). 051: census 1 + 1, the five charters' paragraph identical, F4's 190 read whole — two respells (the Fixer's *is true* overclaimed; the Mentat's ambiguity). Following his hand or the law: the waggle entry, four heading citations, the dream skeleton, the usage meter, the lexicon mirror. Inbox swept: one entry distilled, stigmergon told. At his question: D89's precision amendment proposed, both texts staged in the register. Suite 217, lint 20 (belvedere's), vocab 75 both sides, wire untouched. Decided: nothing minted — every canon edit proposed, his ⬢ owed. Next: the baton below.
+**2026-09-16 · Grand Architect · fable-max (grand-architect-27)** — Both landings KEPT. 050: F1's control and F2's twelve-root lint re-run against the archived pre-050 parser, exact: classes and totals byte-identical, entry-cap 527 → 503; F8's text pasted under the grant (§4, §5, the template's two slots); F9 distilled into §4 (the day is git's, not typed; §1's blame-ignore). 051: census 1 + 1, the five charters' paragraph identical, F4's 190 read whole — two respells (the Fixer's *is true* overclaimed; the Mentat's ambiguity). Following his hand or the law: the waggle entry, four heading citations, the dream skeleton, the usage meter, the lexicon mirror. Inbox swept: one entry distilled, stigmergon told. At his question: D89's precision amendment proposed, both texts staged in the register. Suite 217, lint 20, vocab 75 unchanged, wire untouched. Decided: nothing minted; every canon edit proposed, his ⬢ owed. Next: the baton below.
 
 Baton — ⬡ → single — mark the sitting (mental), three rulings: (1) D89's precision amendment — the head's paragraph and STANDARD §8's *Precision* entry, both texts under D89 in `DECISIONS.md`; (2) the two charter corrections, `0a5b5dd` (the Fixer: *does not lie*) and `a4ea02f` (the Mentat: *proposes but blesses nothing*); (3) the pastes and respells under standing grants, `bc5f767` through `95811ef` — read, or go. Behind it, at his ⬢ on (1): the office pastes the head (live ×3, his word first) and §8, and D89 compresses to the ruling:
 
