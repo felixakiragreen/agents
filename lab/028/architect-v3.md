@@ -136,7 +136,7 @@ a named session, or the dispatch), the action one of three shapes — single
 (one instrument), batch (n parallel instruments, legal iff the holder
 could ignite all now), fork (the choice is the action: few exclusive
 options, every option instrumented, a recommendation named or the call
-marked taste). Ambiguity, never plurality, is the sin.
+marked taste). Ambiguity, not plurality, is the sin.
 
 ## Forbidden — the single-glance list
 

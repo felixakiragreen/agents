@@ -367,7 +367,7 @@ Two rulings the Builder correctly refused to make, ruled here and granted into t
 
   ```
     25. The best part is no part.
-    26. History is respelled, never rewritten.
+    26. History is respelled, not rewritten.
     Procedural rules stay entries, not formulas ("Charges are always staffed", "The
     mantle says whether a charge digs or builds") — the list carries speech, entries
     carry law; restating law in the list is redundancy carrying no information.
