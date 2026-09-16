@@ -2,7 +2,7 @@
 
 > *The Grand Architect keeps the canon, Architects think, the dispatch tends, Diggers dig, Builders build — a hive building a city; files carry the truth.*
 
-Every session is **tier × mantle × context** (MAP §2) — together, **the Guild** (the global CLAUDE.md, THE AGENTS CANON). This file is its operational law: how tiers are named, how a mantle is worn, how sessions are summoned, and which law wins when laws collide.
+Every session is **tier × mantle × context** (MAP §2) — together, **the Guild** (the global CLAUDE.md, *The Agent's Canon*). This file is its operational law: how tiers are named, how a mantle is worn, how sessions are summoned, and which law wins when laws collide.
 
 ## The roster
 

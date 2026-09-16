@@ -233,7 +233,7 @@ A new project boots onto the doctrine in one founding session:
 
 The Grand Architect founds nothing here — that office keeps the canon; every project is its own Architect's board.
 
-**Retiring a building (D84):** a retirement is a notice, not a close — one paragraph atop each entry point (`CLAUDE.md`, the master doc), the board row KILLED with the reason, the register line kept (D79). Nothing else is owed: the successor digs for its own salvage; git keeps the rest. The weight of an ending scales with what will be read — a retired building's books are documents built to die (the global file's SCOPE clause, extended from code to books). Birthplace: Belvedere's close, 2026-08-31 — a fifth of the building's spend for a fifteen-line notice, and the successor re-surveyed the salvage regardless (stigmergon 001).
+**Retiring a building (D84):** a retirement is a notice, not a close — one paragraph atop each entry point (`CLAUDE.md`, the master doc), the board row KILLED with the reason, the register line kept (D79). Nothing else is owed: the successor digs for its own salvage; git keeps the rest. The weight of an ending scales with what will be read — a retired building's books are documents built to die (the global file's Scope clause, extended from code to books). Birthplace: Belvedere's close, 2026-08-31 — a fifth of the building's spend for a fifteen-line notice, and the successor re-surveyed the salvage regardless (stigmergon 001).
 
 ## 13. The vocabulary — the Guild's Standard
 
