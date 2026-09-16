@@ -1,10 +1,10 @@
 # ⟨ID⟩ — ⟨title⟩
 
-**Status:** OPEN — laid ⟨date⟩ · **Depends on:** ⟨charge ids | ⬡-gate: ⟨text⟩ | —⟩ · **Staffing:** ⟨mantle · tier⟩⟨ · **Parallel-safe with:** ⟨charges⟩⟩⟨ · **Blessed:** ⟨who, date — building starts only after this is filled⟩⟩
+**Status:** OPEN — laid ⟨date⟩ · **Depends on:** ⟨charge ids | ⬡-gate: ⟨text⟩ | —⟩ · **Staffing:** ⟨mantle · tier⟩⟨ · **Parallel-safe with:** ⟨charges⟩⟩⟨ · **Branch:** ⟨name⟩ from ⟨base⟩⟩⟨ · **Batch:** ⟨serial | parallel⟩ · ceiling ⟨n⟩ · gauge ⟨text⟩ · account ⟨name⟩⟩⟨ · **Blessed:** ⟨who, date — building starts only after this is filled⟩⟩
 
 ## Mission | Question⟨s⟩
 
-⟨Digging: what this session must answer — sharp enough that LANDED is unambiguous. Building: what exists when this lands, one paragraph. A review gate: the batch note — the members in order, the shape, the tender line, the concurrency plan, the red acts pre-authorized — then the gate's own review (DOCTRINE §4).⟩
+⟨Digging: what this session must answer — sharp enough that LANDED is unambiguous. Building: what exists when this lands, one paragraph. A review gate: the batch note — the batch typed in the header, its members the Depends-on, the tender line, the red acts pre-authorized — then the gate's own review (DOCTRINE §4).⟩
 
 ## Inputs — read before working
 
