@@ -71,6 +71,8 @@ describe('items 2 and 4 — the batch slot, the two header slots, the tender lin
 	test('item 4 — `Parallel-safe with:` and `Branch: ‹name› from ‹base›` are typed slots', () => {
 		const h = header('003-branch.md').header!;
 		expect(h.parallelSafeWith).toEqual(['001', '002']);
+		// the ticks are markup and the trailing parenthetical is an annotation for eyes, as §4's
+		// staffing rider is — torch-angles writes `from \`feature/torch-angles\` (the G6-merged tip)`
 		expect(h.branch).toEqual({ name: 'asks/003-slots', base: 'master' });
 		expect(h.staffing).toBe('Builder · opus-high');
 		// the control: a charge in no batch and no worktree carries neither, and says so as absence

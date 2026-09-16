@@ -1040,7 +1040,9 @@ export function parseChargeHeader(md: string, opts: { live?: boolean } = {}): { 
 
 	let branch: ChargeHeader['branch'] = null;
 	if (branchText !== null) {
-		const m = strip(delink(branchText)).match(/^(\S+)\s+from\s+(\S+)$/);
+		// A trailing parenthetical is an annotation for eyes, as §4's staffing rider is — the field
+		// writes one where the base needs a word (`from \`feature/torch-angles\` (the G6-merged tip)`).
+		const m = trailingParen(strip(delink(branchText))).head.match(/^(\S+)\s+from\s+(\S+)$/);
 		if (m) branch = { name: m[1]!, base: m[2]! };
 		else fails.push(fail('charge', 'charge.branch', '§5\'s Branch slot is "‹name› from ‹base›" — the base is the branch the worktree is cut from, and a worktree on the wrong base is a false assumption (§10)', JSON.stringify(branchText.slice(0, 160)), line));
 	}

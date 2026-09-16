@@ -1,6 +1,6 @@
 # 003 — the two header slots
 
-**Status:** OPEN — laid 2026-09-15 · **Depends on:** 001 · **Staffing:** Builder · opus-high · **Parallel-safe with:** 001 · 002 · **Branch:** asks/003-slots from master
+**Status:** OPEN — laid 2026-09-15 · **Depends on:** 001 · **Staffing:** Builder · opus-high · **Parallel-safe with:** 001 · 002 · **Branch:** `asks/003-slots` from `master` (cut at the lay)
 
 ## Mission
 
