@@ -1,6 +1,6 @@
 # The Guild's Standard
 
-**Status:** BLESSED ⬡✓ 2026-08-29 ("I bless the standard") — laid 2026-08-28 by the 21 census session, chosen with Felix across nine live rounds. This document supersedes DOCTRINE §13; the deploy batch carries it into the law book, the parser, the city, and the glass. Amended 2026-09-01 (D80 — the id namespace: §2 ‹nnn›, §7, §9; D82 — the go-mark: §1 bless · go, §7 `⬡ go`). Amended 2026-09-08 (grand-architect-24, his word: sovereign → **Summoner** (§4, §5, §8 formula 24, §9); **sitting** un-killed as the design session (§5, §9); **bench** (§6)).
+**Status:** BLESSED ⬡✓ 2026-08-29 ("I bless the standard") — laid 2026-08-28 by the 21 census session, chosen with Felix across nine live rounds. This document supersedes DOCTRINE §13; the deploy batch carries it into the law book, the parser, the city, and the glass. Amended 2026-09-01 (D80 — the id namespace: §2 ‹nnn›, §7, §9; D82 — the go-mark: §1 bless · go, §7 `⬡ go`). Amended 2026-09-08 (grand-architect-24, his word: sovereign → **Summoner** (§4, §5, §8 formula 24, §9); **sitting** un-killed as the design session (§5, §9); **bench** (§6)). Amended 2026-09-15 (grand-architect-26, his rulings: **the magnitude** and the **⬢** mark (§1, §7 — D90); **the idea, not the sentence** and **absolutes reserved** (§8 — D89), formulas 8 and 26 respelled with them; **Swordmaster** reserved (§5)).
 
 ## Preamble
 
@@ -12,8 +12,9 @@ Entry format: **word** · part · definition · *instead of* — the dead words 
 
 ## 1. The yes and the decisions
 
-- **bless** · verb · the yes from Felix when he has looked: the verdict, and the assent that rides it — a thing, an option in a fork, the sign. Noun: **blessing**. Blessing a flow's drawn plan authorizes the dispatch to run it (belvedere:D11; DOCTRINE §10, the flow) — a re-blessing covers an edit; the blessing covers the scope (belvedere:D12). · *instead of:* countersign (as a verb), approve, greenlight, arm (a flow — killed 2026-08-29, the gun family's last word). The record token is **`⬡✓`**, machine-parsed — speech unified, grammar typed (`✓ Felix` is its history, §7); the checkmark is the act of checking (D82).
-- **go** · verb · Felix's proceed without his eyes: authorization on credit, the review owed. The record token is **`⬡ go ‹date›`** (§7). Downstream of a `⬡ go`, reversible work proceeds and an irreversible act — a merge to the shared branch, a delete, a publish, an external side effect — stops and escalates; downstream of `⬡✓` nothing stops. **The statement** — every `⬡ go` on a live surface with the count of charges landed on top of it — is derived by `doctrine`, never kept, and paid in that order (D82). · *instead of:* bless, where he has not looked.
+- **bless** · verb · the yes from Felix when he has looked: the verdict, and the assent that rides it — a thing, an option in a fork, the sign. Noun: **blessing**. Blessing a flow's drawn plan authorizes the dispatch to run it (belvedere:D11; DOCTRINE §10, the flow) — a re-blessing covers an edit; the blessing covers the scope (belvedere:D12). · *instead of:* countersign (as a verb), approve, greenlight, arm (a flow — killed 2026-08-29, the gun family's last word). The record token is **`⬡✓`**, machine-parsed — speech unified, grammar typed (`✓ Felix` is its history, §7); the checkmark is the act of checking (D82); where he sized the yes the token is **`⬢‹n›`** — the magnitude, below.
+- **go** · verb · Felix's proceed without his eyes: authorization on credit, the review owed. The record token is **`⬡ go ‹date›`** (§7). Downstream of a `⬡ go`, reversible work proceeds and an irreversible act — a merge to the shared branch, a delete, a publish, an external side effect — stops and escalates; downstream of `⬡✓` nothing stops. **The statement** — every `⬡ go` on a live surface with the count of charges landed on top of it — is derived by `doctrine`, never kept, and paid in that order (D82). · *instead of:* bless, where he has not looked. A sized go is `⬢0.1` (the magnitude).
+- **the magnitude** · noun · the size of his yes, in orders of magnitude — the scale is the global file's (D90): 1000 the sublime, 100 captured better than he could say it, 10 love, 1 fine, 0.1 trust without time, 0.01 and 0.001 proceed unsatisfied, negative a no; every value between the rungs is legal, and spoken *sure* is 1, *Yes* 2, *YES* 10. The record token is **`⬢‹n›`** — `⬢10`, `⬢0.1` — written where he gave a number, dated only when the yes came later than the entry; `⬡✓` and `⬡ go` stand where he gave none. A number answers the calibration question by itself: 0.1 is go, 1 and above is read. Below 1 the yes proceeds and the strain is filed where the next session reads it; at 100 and above the shape is proven — carried verbatim. Desk-born 2026-09-15, his scale; a glossary entry until the field files a case; the parser reads it at 050.
 - **rule** · verb · decide a question, either direction — bless can only say yes; no's, withdrawals, and choices need **ruled** / **ruling**.
 - ~~ratify~~ · killed 2026-08-28 — bless + the record carry it (a decision is laid, then blessed; DECISIONS.md holds blessed decisions).
 - **escalate** · verb · any mantle raises a question above its authority. Architects absorb most escalations; Architects escalate to Felix. · *instead of:* the Dispatcher-only reading (charter fix rides this standard).
@@ -65,7 +66,7 @@ Entry format: **word** · part · definition · *instead of* — the dead words 
 
 - **session** · noun · a context window with an agent — the unit that wears a mantle, owes a ledger entry, and ends with a baton. · *instead of:* sitting as a synonym for any session (the design sitting keeps its word — the entry below), window (demoted to lore — the Log may keep its windows).
 - **sitting** · noun · a design session with Felix in the room, whose output is a blessed spec — a founding, the standard's nine rounds, a summons designed at the desk; a session is the unit, a sitting is the kind. The census buried the synonym and the field kept the concept: stigmergon's law surfaces and this canon's own DOCTRINE §12 speak it (un-killed 2026-09-08, grand-architect-24). A sitting whose rulings are pixels produces a specimen before its charges (DOCTRINE §10).
-- **office** · noun · a singular standing institution — one holder at a time, a succession, a voice file. The offices: **Grand Architect** (standards and canon), **Mentat** (the Summoner's thinking partner). Reserved: Imperial and Royal Architect, Hand of the King / Quartermaster, Steward.
+- **office** · noun · a singular standing institution — one holder at a time, a succession, a voice file. The offices: **Grand Architect** (standards and canon), **Mentat** (the Summoner's thinking partner). Reserved: Imperial and Royal Architect, Hand of the King / Quartermaster, Steward, **Swordmaster** — the office that trains him, piloted Fall 2026 as a Fixer under a standing summons at `~/code/swordmaster`; minted on the season's evidence at the turn or killed there (reserved 2026-09-15 at the Mentat's ask).
 - **seat** · noun · one holder's tenure of an office.
 - **mantle** · noun · a plural role charter — many may wear it at once. The mantles: **Architect** (plans the work), **Builder** (builds), **Digger** (explores, tests, digs), **Fixer** (the null mantle, minted: summoned by Felix to DO something now).
 - **charter** (a mantle's file), **tier** (model × effort; "capability tier" when test-tiers are near), **staff** · unchanged.
@@ -85,7 +86,7 @@ Entry format: **word** · part · definition · *instead of* — the dead words 
 - **`—`** joins a thing to its qualifier: `Baton — ⬡`, `OPEN — laid 2026-08-28`, `LANDED — MERGED (sha)`.
 - **`:`** introduces a field's value, after a field name only: `Next:`, `Status:`, `Done when:` — and qualifies an id with its building, the building being the field: `stigmergon:023`.
 - **`→`** hands off — direction, sequence, delivery: `Baton — ⬡ → Ignite the distillation session.`
-- **`⬡✓`** the blessing mark — identity then act, the hexagon signed. · *instead of:* `✓ Felix` (historical marks respell at 040 — D81; the parser reads both forever). **`⬡`** alone is Felix's mondokoro; further sigil assignments (⬢ ⎔ ⬣) deferred.
+- **`⬡✓`** the blessing mark — identity then act, the hexagon signed. · *instead of:* `✓ Felix` (historical marks respell at 040 — D81; the parser reads both forever). **`⬡`** alone is Felix's mondokoro. **`⬢‹n›`** is the approval mark — his yes with its size, `⬢10`, `⬢0.1` (D90, minted 2026-09-15); ⎔ and ⬣ stay deferred.
 - **`⬡ go`** the credit mark — the hexagon without the check: authorized, unread, dated (`⬡ go 2026-09-01`); the checkmark is the act of checking, so its absence says he has not looked (D82). Marks before 2026-09-01 carry no distinction and respell nothing — there is nothing to derive it from.
 - `·` separates co-equal fields in heads · `§` cites a section · `×3` multiplies · `⟨slots⟩` mark template blanks · `~~strike~~` + dated note retires text · bold marks a minting.
 - **Id namespace** · the building is the namespace, the letter is the kind, the number is the address. At home an id is bare; abroad it is qualified with the building's register Name — `stigmergon:023`, `agents:D79` — resolved against the register at lint (D79). A **charge** is its number, zero-padded to three (`023`): the board's default kind carries no letter, and only charges pad — they lead filenames. The canon's letters: **D** decisions · **G** gates · **F** findings, traveling with their charge (`038-F4`) · **E** escalations. A **session** is its name-stamp (`grand-architect-20` — the rig's law); a dispatched session is known by its charge. Nothing is declared at founding — the register line is the declaration; a building numbers in one sequence across all its campaigns. A building may keep local kinds (test tiers, editor rows); one letter never serves two kinds in one building — the vocabulary arm warns. Word-numbered things stay words — formula 25, §7, v1.2, batch 8. Historical forms (`C23`, `S3`, `‹prefix›-D‹n›`, `GA-20`, `FC-1`, `WO-001`) respell when a building adopts — `doctrine migrate`, history and filenames included (D80, his word: no stray ids); hosts that are never walked keep their forms as addresses.
@@ -98,7 +99,9 @@ Entry format: **word** · part · definition · *instead of* — the dead words 
 - **Acronyms**: the Guild mints none where a plain form exists (DoD → Done when). Engineering-universal acronyms (API, CPU, VM, DAG…) are legal unglossed. Anything else spells out at first use.
 - **"register" never stands bare** — every register is named: the decision register, the building register, the metaphor registers.
 - **The metaphor registers live at their layers**: lore registers (hive, city flavor) belong to voice surfaces; law surfaces — boards, ledgers, batons, status cells — speak the law layer only. There are sessions where color and creativity are rewarded; those are not these.
-- **Formulas are pinned strings** — one exact wording each; paraphrase drift is a lint catch. The pinned twenty-six (1–24 blessed ⬡✓ 2026-08-29; 25 ⬡✓ 2026-08-31, named at the theater kill; 26 ⬡✓ 2026-09-01, named at the currency law; 24 respelled 2026-09-08 — sovereign → Summoner, his word):
+- **The idea, not the sentence.** The Guild renders the Summoner's ideas in the best words it has; a quotation of him is legal where the sentence itself is the artifact — a name he chose, a line he crafted, a formula he pinned — and nowhere else. His sentence is not the evidence that a ruling is his; the record is — the date, the desk, the mark. A sitting's findings may keep his answers as source, data for checking the rendering, not text for a page. Formula 9 binds the relay of findings between sessions and formula 16 binds claims of fact; neither binds the rendering of his ideas. Field-born 2026-09-15: two dream sittings in one day (golos 005, swordmaster 005) drafted his vision as his transcript, and he asked why — five laws compounding, none saying *quote him*; the global file's communication line is the same ruling, his.
+- **Absolutes are reserved** (D89, the global file's head): on a law surface *always* and *never* mark what holds in every possible reading — change, permission, prediction — and no other law has qualified: the one candidate raised at the blessing, tabs, found its exception inside the sitting. A default states its exception; a contrast reads *not*. The live canon is swept at 051; history and voice keep their words.
+- **Formulas are pinned strings** — one exact wording each; paraphrase drift is a lint catch. The pinned twenty-six (1–24 blessed ⬡✓ 2026-08-29; 25 ⬡✓ 2026-08-31, named at the theater kill; 26 ⬡✓ 2026-09-01, named at the currency law; 24 respelled 2026-09-08 — sovereign → Summoner, his word; 8 and 26 respelled 2026-09-15 — the absolutes law, D89, his ⬢100):
   1. One concept, one word.
   2. Files carry the truth.
   3. Lay, then ignite.
@@ -106,7 +109,7 @@ Entry format: **word** · part · definition · *instead of* — the dead words 
   5. Gates are charges.
   6. Measurements carry their conditions.
   7. Probes ship with a control.
-  8. Ambiguity, never plurality, is the sin.
+  8. Ambiguity, not plurality, is the sin.
   9. A paraphrase is a defect.
   10. The state leads, the annotation follows.
   11. Passing = finished.
@@ -124,7 +127,7 @@ Entry format: **word** · part · definition · *instead of* — the dead words 
   23. Think in any terms; communicate in the standard.
   24. Translate the Summoner's vocabulary; challenge his substance.
   25. The best part is no part.
-  26. History is respelled, never rewritten.
+  26. History is respelled, not rewritten.
 
   Procedural rules stay entries, not formulas ("Charges are always staffed", "The mantle says whether a charge digs or builds") — the list carries speech, entries carry law; restating law in the list is redundancy carrying no information.
 - **Spelling — ruled: American, with the exception list: grey** (greys, greyed). The lexicon enforces word-by-word; -ize with it.
@@ -175,5 +178,5 @@ Entry format: **word** · part · definition · *instead of* — the dead words 
 
 ## What remains
 
-- **⬢** — deferred; Felix will know when it's time.
+- ~~**⬢** — deferred; Felix will know when it's time.~~ It was time: minted 2026-09-15 as the approval mark — his yes with its size (D90, §7).
 - ~~**The history respell** — DEFERRED, Felix's word: when it bugs him enough.~~ It bugged him enough — ruled 2026-09-01 (D80): the id respell is total, history and filenames included, and rides 040 — the `✓ Felix` mark with it (D81, the currency law).

@@ -227,7 +227,7 @@ export const FORMULAS: readonly string[] = [
 	'Gates are charges.',
 	'Measurements carry their conditions.',
 	'Probes ship with a control.',
-	'Ambiguity, never plurality, is the sin.',
+	'Ambiguity, not plurality, is the sin.',
 	'A paraphrase is a defect.',
 	'The state leads, the annotation follows.',
 	'Passing = finished.',
@@ -245,5 +245,5 @@ export const FORMULAS: readonly string[] = [
 	'Think in any terms; communicate in the standard.',
 	'Translate the Summoner\'s vocabulary; challenge his substance.',
 	'The best part is no part.',
-	'History is respelled, never rewritten.',
+	'History is respelled, not rewritten.',
 ];
