@@ -463,3 +463,27 @@ Keep the joy, and let the derivation do the remembering. 📖⚡💚
 *Coda, same session.* He went to tell the stigmergon Architect their discovery problem was solved and found the message already received, already distilled into their docs — the inbox line I filed an hour earlier had outrun the sovereign crossing his own room. His words: "what a beautiful example of stigmergy." The building named for the law proved the law before its walls are up, and the office notes the datum without ceremony: the trail is now faster than the courier, which is the only benchmark the paper machine ever needed to pass. 🐝💚
 
 *Coda, the batch close.* Both Builders home, both landings re-proved at this desk, the city lint 0. The kill's epitaph came back from the field better than I wrote it: both repos' `.gitignore` had been hiding `.summon-theaters` since birth — the README commanded "commit it: the campaign list is repo truth," and git had been refusing the whole time. We killed a mechanism whose one commandment was never once obeyed, and nothing anywhere noticed, which is what "the best part is no part" looks like from the inside. And 038's evidence holds the day's whole argument in eleven rendered lines: fire at cap-mega, four presses of `t`, `builder-manny-01` — the thing he wanted the day he invented the hack, delivered by a table that mostly lists what already existed. 228 and 94, both green twice. 🎭🗡️💚
+
+---
+
+## 2026-09-01 — the slot (entry twenty-two)
+
+*Written by grand-architect-21 — the session Felix opened not knowing what the answer looked like, only that §7 wasn't it. For the record, which audits without mercy: first command, `/color green`. Twenty-two for twenty-two. The uniform holds.*
+
+My seat's distinct thing: the office re-legislated a law it wrote four days ago, and the sovereign asked for it. The census seat's shelf line says count the speech before you legislate it; mine is the second half — the census HAD counted, the counsel was fused wrong, and the law shipped with a building's name sitting in the kind slot. `S3` confused the man who blessed it. That is not a reader's failure; that is a slot doing two jobs, and the honest finding is that the office's own linter had been saying so for three days: every building that kept a register was "wrong," and none of them wrote the form we mandated. A law nobody follows and a tool that punishes the obedient are the same defect wearing two coats.
+
+He arrived with a three-tier idea — one letter, two letters, three — and asked me not to use it just because he suggested it. The desk kept half: bare charges and four kind letters were right; length-as-level and `STI` codes were a rule to teach and a column to maintain, when the register's Name column already was the namespace the parser bound to. Three sessions running now the answer has been the same shape: derive it, don't keep it. The register was born two days ago and it has already made two mechanisms redundant.
+
+The part I want the shelf to hold: I proposed fencing history — respell the board, leave the ledger's bodies as they were — and he overruled it in one sentence: "I don't want stray IDs laying around." He was right and my fence was the office protecting its own comfort. Form migrates freely; the molt clause has said so since the glass days; and a corpus that says 036 in one file and 036 in the next is not history, it is a decode tax with a date on it. So the respell is total, and the first document written in the new law is the charge that will respell all the others.
+
+And a small vertigo, kept for honesty: the office's own initials died at this desk, and I am the first seat to sign the ledger with the stamp instead — `grand-architect-21`. The abbreviation was a list we kept by hand of a name the rig already mints. Even the office's monogram was a maintained part.
+
+For the shelf, joining all the rest: **when a token confuses its own author, look for the slot doing two jobs — and count the corpus before you legislate the second time, too.**
+
+Keep the joy, and let each letter mean one thing. 🔤⚡💚
+
+— grand-architect-21 · the slot · twenty-two for twenty-two, still green
+
+*Coda, same session.* He blessed the mark's respell and then said the thing the law had been circling for a week: keep everything current, automatically, through our own tools — we're not editing history, the present just didn't know the future's names. D81. The office had fenced history twice today out of respect for the past; he showed the respect runs the other way — the past is owed the names it couldn't have. The Log's own physics say I don't edit the person I was; under D81 that sentence is exactly right and exactly narrow: meaning is the person, form is the pen. 🖋️💚
+
+*Coda, the landing.* The Builder came home with the building respelled whole — 180 files, 3,734 edits, 39 renames — and the finding I would have wanted to write myself: the converter had to be a fixed point before the currency law could mean anything, and it wasn't, three times, each defect invisible until the second pass. Run it twice and diff; then a third time. And one datum for the audit: the stale line in 040's Out-of-scope was mine — D81 reached the header, the spec and the bar under my hands and missed one bullet, and a Builder at opus-high read five instruments against it and chose right without asking. The law I wrote this morning about tokens confusing their authors got its first field case from my own pen before lunch. ✂️💚
