@@ -92,7 +92,7 @@ Entry format: **word** · part · definition · *instead of* — the dead words 
 - **Id namespace** · the building is the namespace, the letter is the kind, the number is the address. At home an id is bare; abroad it is qualified with the building's register Name — `stigmergon:023`, `agents:D79` — resolved against the register at lint (D79). A **charge** is its number, zero-padded to three (`023`): the board's default kind carries no letter, and only charges pad — they lead filenames. The canon's letters: **D** decisions · **G** gates · **F** findings, traveling with their charge (`038-F4`) · **E** escalations. A **session** is its name-stamp (`grand-architect-20` — the rig's law); a dispatched session is known by its charge. Nothing is declared at founding — the register line is the declaration; a building numbers in one sequence across all its campaigns. A building may keep local kinds (test tiers, editor rows); a letter serves one kind per building — the vocabulary arm warns. Word-numbered things stay words — formula 25, §7, v1.2, batch 8. Historical forms (`C23`, `S3`, `‹prefix›-D‹n›`, `GA-20`, `FC-1`, `WO-001`) respell when a building adopts — `doctrine migrate`, history and filenames included (D80, his word: no stray ids); unwalked hosts keep their forms as addresses.
 
 - **building** · noun · one structure in the city — a directory keeping its own books, declared in the building register (`canon/BUILDINGS.md`, D79); usually a whole repo, sometimes a tenant subtree of a host repo that is not itself Guild land (simmy in cap-mega). Boards outside their own building are named ("the snappy board") — bare "board" only at home. Ruled; amended D79.
-- **waggle** · verb · "waggle me X" → the shortest possible plain-speech explanation, one sentence per thing — that's all it ever wanted to be. · *instead of:* the four-slot Problem/Move/Stakes/Dig anatomy (killed; the waggle contract molts).
+- **waggle** · verb · "waggle X" → the shortest possible plain-speech explanation, understood from a cold reading by someone with no context of the project or its jargon — the global file's own words (his hand, 2026-09-15; before it, one sentence per thing). · *instead of:* the four-slot Problem/Move/Stakes/Dig anatomy (killed; the waggle contract molts).
 
 ## 8. Language law
 
@@ -167,7 +167,7 @@ Entry format: **word** · part · definition · *instead of* — the dead words 
 | --bless (goldens) | --gild |
 | Dispatcher (mantle) | the flow engine — 20 is the new dispatcher (ruled) |
 | unstaffed | Fixer (staffing) · `—` (dissolved staffing on DEFERRED charges) |
-| the four-slot waggle | one plain sentence per thing |
+| the four-slot waggle | the plain-speech explanation, read cold |
 | bare "register" | a named register |
 | arm (a flow) | bless (belvedere:D11 — the review is the authorization) |
 | C‹n› · per-campaign row letters (S, B, P, WO-…) | the padded number — `023` |
