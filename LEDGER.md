@@ -4,22 +4,6 @@ Append per session: date · mantle · changed · decided · next.
 
 ---
 
-**2026-09-01 · Builder · opus-medium (042)** — **the grid prune, landed.** Twenty tiers became twelve: the six zero-use cells plus `haiku-max` and `haiku-high`, both of whose only mentions are probe fixtures. The wire is live — the delete reached three accounts at the `git rm`, `sync/check` green ×3. The mantles README's grid law is now **mint-at-the-lay**: the cross product is the namespace, `canon/agents/` is the inventory, and a tier a new charge names is minted by the Architect before the batch ignites. `TIERS` untouched, so every historical board still parses. Suite 977/0, lint identical to a HEAD worktree (33/167, all belvedere). Ten findings in [042](plans/042-grid-prune.md) — **F4 is the open one:** `haiku-low` fails the blessed rule (probe mentions only, zero fires) but the spec's partition presumes it survives, and killing it retires Haiku entirely — the Architect's call, not the Builder's. F8: a dispatched agent is never given the roster; the probe wanted a real session. Decided: nothing new. Next: ignite 043.
-
-Baton — the dispatch → 043; G3 verifies 041 · 042 · 043, and rules F4.
-
----
-
-**2026-09-01 · Grand Architect · fable-max (grand-architect-22)** — *(fourth act.)* Rec 6 blessed on the record (the Log's read, written at the third act). Rec 4 blessed and written: a ⬡-gate names what he must look at, a baton hands at most three rulings, a one-word yes gets the calibration question before the mark — DOCTRINE §11 and the office's calibration sweep; an amendment, D44 and the baton law served better, birthplace D80's re-legislation. `rooted` registered as a host, his word. The tender's first run stands at 041 and 042 LANDED, 043 IN FLIGHT, G3 OPEN. Decided: nothing minted — two amendments and a register row. Next: unchanged — the dispatch holds the batch.
-
----
-
-**2026-09-01 · Builder · opus-high (043)** — **the citation respell, BLOCKED — the converter never ran.** The spec's form — a dead citation reads as the home that carries the law — is circular wherever the home is the citing document: **58 of the 152** dead citations in the fence, its own worked example included. Only 55 are cross-citations the form fits; 39 may not be touched — other buildings' ids, the tombstone, board records, forms shown. 034-F4 ruled it the other way once, and 035 stripped 88 out of MAP (`898ddf2`). Built anyway: the **39-row home table**, every home quoted. Eleven findings in [043](plans/043-citation-respell.md). Decided: nothing. Next: ⬡ rules F10.
-
-Baton — ⬡ → rule F10: does a self-citation strip (034-F4, 035) or spell its home (043)? On his word the converter is one Builder run — the table is done.
-
----
-
 **2026-09-02 · Grand Architect · fable-max (grand-architect-23)** — **043 unblocked.** F10 ruled (043-F12, ⬡✓): a dead citation is a pointer — cross spells the home, self strips, a bare foreign id qualifies; no dead id survives on a live surface. The amendment clause struck, the hand list inside the fence, the lint arm deferred (F8). DOCTRINE §8 carries the kill's citations (⬡✓). Corrected: D67 is homed in `plans/TENDER.md`; DOCTRINE:531's D5 is Belvedere's. G3 got its doc — the bar attainable, 042-F4 · 041-F3 · 041-F10 pre-chewed, two grants. Inbox swept: the announce duty rejected (homed), the discovery gap deferred. D87 pending, unchanged. Decided: nothing minted — 043-F12 ⬡✓, DOCTRINE §8 amended ⬡✓. Next: the batch resumes — batoned below; the tender resumes on his word, or a fresh one ignites from `plans/TENDER.md` + the batch note.
 
 Baton — the dispatch → reignite 043, then G3.
@@ -129,3 +113,16 @@ Baton — ⬡ → single — verify 049's landing (`plans/049-residue.md`), then
 **2026-09-15 · Grand Architect · fable-max (grand-architect-26)** — The sweep of fourteen: every entry ruled, the inbox cleared (`8542ebf` before it). Minted: D89 the Oxman law (⬢100), D90 the magnitude of the yes and the ⬢ mark (⬢10). The global file gains its head, the approval scale, the communication line and thirteen respelled absolutes — live ×3 on his ⬢10; his one candidate absolute, tabs, died inside the sitting. Amended: DOCTRINE §§3, 4, 7, 8, 10, 12; STANDARD §§1, 5, 7, 8 with `lexicon.ts` (formulas 8, 26); three charters; the coda. Laid: 050 (⬢1), 051 (⬢2). Rejected: *the wall*, the drawer/desk collision. Deferred: *ask*, *first article*. Three sibling inboxes told. Suite 197, lint 20 (belvedere's), wire green. Changed: the global file, the register, the doctrine, the standard and lexicon, three charters, the coda, 050, 051, the board, the inbox, the Log pair. Decided: D89, D90. Next: the baton below.
 
 Baton — ⬡ → batch — ignite 050 · ignite 051 (parallel-safe; each fired by hand, no tender; the office verifies both at its next summons). Behind it: *the usage gauge* respelled *the usage meter* in two charters, his ⬢ owed — the word landed on ⬢ in his head at this sitting.
+
+---
+
+**2026-09-15 · Architect · fable-high (051)** — The absolutes sweep, landed: 192 *never*/*always* over the twenty-one live surfaces ruled one by one — 110 contrasts to *not*, 77 restated or dropped, 3 defaults with their exception named, 0 true absolutes; 2 survive, both STANDARD §8's mention of the words it reserves. Lint byte-identical both arms, suite 197, the five charters' summons paragraph word-identical (*still apply*, the mirror clause). Sixteen commits, one per file; side-quest: this repo's `CLAUDE.md`, two hits. For the office (F5): *immutable* in the dream line, the parser's four messages in the old spelling, stigmergon's TENDER stanza. 050's Builder was live in the shared checkout at close (`doctrine/src`, the global file — uncommitted, untouched). Changed: the door, the doctrine, the standard, seven charters and their README, the templates, BUILDINGS, MAP, TENDER, CLAUDE.md, 051, the board. Decided: none minted — F4's restatements proposed, his ⬢ owed. Next: the baton below.
+
+Baton — ⬡ → single — summon the office to verify 051 (mental: F4's restatements are the read, the Fixer's record law first; 050 rides the same sitting if landed by then):
+
+```
+You are the Grand Architect at fable-max.
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/grand-architect.md,
+then boot ~/code/agents, read plans/051-absolutes-sweep.md §Findings and verify the landing — F4's restatements are the read, F5's candidates the sweep.
+```

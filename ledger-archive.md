@@ -685,3 +685,19 @@ Baton — the dispatch → the tender runs 041 → 042 → 043 → G3; the offic
 **2026-09-01 · Builder · opus-high (041)** — **the statement and the caps, landed.** The reader takes `⬡ go ‹date›` wherever it takes `⬡✓` (D82): `doctrine statement` renders every mark on a live surface with its interest — the LANDED charges whose chain reaches it, off the board's graph, never kept — and `lint` prints its one line. D78 is enforceable: a resolved row's Status cell over 200 characters fails, a ledger entry over 150 words warns. Suite **102 → 109**; agents reads 33 over-cap cells and 166 entry warnings, stigmergon 4 and 30 — red on purpose. Ten findings in [041](plans/041-statement-caps.md); two the office's: BLOCKED is off the statement by D82's list (F3), and 19 of the 33 cells are retired belvedere's, whose prune has no owner (F8). Decided: nothing new. Next: ignite 042.
 
 Baton — the dispatch → 042; G3 verifies 041 and prunes what the linter names.
+
+---
+
+**2026-09-01 · Builder · opus-medium (042)** — **the grid prune, landed.** Twenty tiers became twelve: the six zero-use cells plus `haiku-max` and `haiku-high`, both of whose only mentions are probe fixtures. The wire is live — the delete reached three accounts at the `git rm`, `sync/check` green ×3. The mantles README's grid law is now **mint-at-the-lay**: the cross product is the namespace, `canon/agents/` is the inventory, and a tier a new charge names is minted by the Architect before the batch ignites. `TIERS` untouched, so every historical board still parses. Suite 977/0, lint identical to a HEAD worktree (33/167, all belvedere). Ten findings in [042](plans/042-grid-prune.md) — **F4 is the open one:** `haiku-low` fails the blessed rule (probe mentions only, zero fires) but the spec's partition presumes it survives, and killing it retires Haiku entirely — the Architect's call, not the Builder's. F8: a dispatched agent is never given the roster; the probe wanted a real session. Decided: nothing new. Next: ignite 043.
+
+Baton — the dispatch → 043; G3 verifies 041 · 042 · 043, and rules F4.
+
+---
+
+**2026-09-01 · Grand Architect · fable-max (grand-architect-22)** — *(fourth act.)* Rec 6 blessed on the record (the Log's read, written at the third act). Rec 4 blessed and written: a ⬡-gate names what he must look at, a baton hands at most three rulings, a one-word yes gets the calibration question before the mark — DOCTRINE §11 and the office's calibration sweep; an amendment, D44 and the baton law served better, birthplace D80's re-legislation. `rooted` registered as a host, his word. The tender's first run stands at 041 and 042 LANDED, 043 IN FLIGHT, G3 OPEN. Decided: nothing minted — two amendments and a register row. Next: unchanged — the dispatch holds the batch.
+
+---
+
+**2026-09-01 · Builder · opus-high (043)** — **the citation respell, BLOCKED — the converter never ran.** The spec's form — a dead citation reads as the home that carries the law — is circular wherever the home is the citing document: **58 of the 152** dead citations in the fence, its own worked example included. Only 55 are cross-citations the form fits; 39 may not be touched — other buildings' ids, the tombstone, board records, forms shown. 034-F4 ruled it the other way once, and 035 stripped 88 out of MAP (`898ddf2`). Built anyway: the **39-row home table**, every home quoted. Eleven findings in [043](plans/043-citation-respell.md). Decided: nothing. Next: ⬡ rules F10.
+
+Baton — ⬡ → rule F10: does a self-citation strip (034-F4, 035) or spell its home (043)? On his word the converter is one Builder run — the table is done.
