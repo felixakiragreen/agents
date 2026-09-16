@@ -855,3 +855,138 @@ export function parseIssues(md: string): { issues: Issue[]; fails: Fail[]; block
 	}
 	return { issues, fails, blocks: bs.length };
 }
+
+// ---------- §5 the charge doc's header ----------
+//
+// §5's skeleton writes the contract into one header run: the Status, the dependencies, the
+// staffing, and — when the charge is laid into a parallel batch or runs in a worktree — the two
+// slots the field asked the parser to read (032 (d), (e); stigmergon's canon asks, 2026-09-14).
+// A gate doc's header carries one more: §4's batch note, typed.
+//
+// Nothing here duplicates the board. The board is the work STATE and this is the charge's own
+// copy of its contract; where they disagree the lint's job is to say so, which it cannot do
+// while only one of them parses.
+
+/**
+ * §4's batch note, as a header slot: `**Batch:** ‹shape› · ceiling ‹n› · gauge ‹text› · account
+ * ‹name›`. The MEMBERS are not a slot — they are the gate's Depends-on, by the edge test (§4):
+ * a batch's membership and its dependency graph are one fact, and writing it twice is how the
+ * two drift apart.
+ */
+export type Batch = {
+	shape: 'serial' | 'parallel';
+	ceiling: number | null;       // the concurrency plan's ceiling — engine ignitions at once
+	gauge: string | null;         // what to hold on ("hold timed arms until load < 12")
+	account: string | null;       // whose quota the run spends
+};
+/** §10's tender line: the machinery, or the hand the note names — one of the two, never both. */
+export type Tender = { kind: 'dispatch' } | { kind: 'hand'; text: string };
+
+export type ChargeHeader = {
+	status: string | null;
+	dependsOn: string[];
+	staffing: string | null;
+	parallelSafeWith: string[];
+	branch: { name: string; base: string } | null;
+	batch: Batch | null;
+	tender: Tender | null;
+	line: number;
+};
+
+const BATCH_SHAPES = ['serial', 'parallel'] as const;
+
+/**
+ * The header's slots, read as the labelled run they are. The skeleton writes them on one line
+ * joined by `·` and the batch slot's own value carries `·`, so a slot ends where the NEXT
+ * `**Label:**` begins — one rule that reads both layouts and needs neither to be guessed.
+ */
+function headerSlots(md: string): { slots: Map<string, string>; line: number } | null {
+	const lines = md.split('\n');
+	const at = lines.findIndex(l => /^\**Status:\*\*/.test(l));
+	if (at < 0) return null;
+	let end = at;
+	while (end < lines.length && lines[end]!.trim()) end++;
+	const text = lines.slice(at, end).join(' ');
+	const marks = [...text.matchAll(/\*\*([A-Za-z][A-Za-z -]*):\*\*/g)];
+	const slots = new Map<string, string>();
+	marks.forEach((m, k) => {
+		const value = text.slice(m.index + m[0].length, marks[k + 1]?.index ?? text.length);
+		slots.set(m[1]!.trim(), value.replace(/\s*·\s*$/, '').trim());
+	});
+	return { slots, line: at + 1 };
+}
+
+/**
+ * §10's tender line, read where §10 puts it: the batch note's **Mission**. The record writes it
+ * inside a code span (`` `tender: the dispatch` ``), so the span is NOT masked here — and that is
+ * exactly why the search is bounded to the Mission: a charge doc's Findings quote the form while
+ * discussing it (stigmergon 086's own ruling table), and a quotation is not a tender.
+ */
+export function parseTender(md: string): Tender | null {
+	const lines = md.split('\n');
+	const at = lines.findIndex(l => /^#{1,6}\s+Mission\b/i.test(l));
+	if (at < 0) return null;
+	const level = lines[at]!.match(/^#+/)![0].length;
+	let end = at + 1;
+	for (; end < lines.length; end++) {
+		const h = lines[end]!.match(/^(#{1,6})\s/);
+		if (h && h[1]!.length <= level) break;
+	}
+	const m = lines.slice(at + 1, end).join('\n').match(/\btender:[ \t]*([^`\n]+)/);
+	if (!m) return null;
+	const text = m[1]!.trim().replace(/[.,;:]+$/, '');
+	return /^the dispatch$/i.test(text) ? { kind: 'dispatch' } : { kind: 'hand', text };
+}
+
+/**
+ * `live` arms the FORM, exactly as the kickoff arm's flag does (031 item 4) and for the same
+ * reason: §5's two slots were written into the skeleton on 2026-09-08 (`Branch: ‹name› from
+ * ‹base›`, simmy G21's live case) and the record before it wrote the branch alone. A spent
+ * charge doc is history and nothing re-ignites it, so nothing lints its header — the slots still
+ * PARSE there, because a null is a render decision and not an error (P3 §5).
+ */
+export function parseChargeHeader(md: string, opts: { live?: boolean } = {}): { header: ChargeHeader | null; fails: Fail[] } {
+	const fails: Fail[] = [];
+	const found = headerSlots(md);
+	if (!found) return { header: null, fails };
+	const { slots, line } = found;
+	const slot = (name: string) => { const v = slots.get(name); return v === undefined || /^[—–-]$/.test(strip(delink(v))) ? null : v; };
+
+	const parallel = slot('Parallel-safe with');
+	const branchText = slot('Branch');
+	const batchText = slot('Batch');
+	const dep = slot('Depends on');
+
+	let branch: ChargeHeader['branch'] = null;
+	if (branchText !== null) {
+		const m = strip(delink(branchText)).match(/^(\S+)\s+from\s+(\S+)$/);
+		if (m) branch = { name: m[1]!, base: m[2]! };
+		else fails.push(fail('charge', 'charge.branch', '§5\'s Branch slot is "‹name› from ‹base›" — the base is the branch the worktree is cut from, and a worktree on the wrong base is a false assumption (§10)', JSON.stringify(branchText.slice(0, 160)), line));
+	}
+
+	let batch: Batch | null = null;
+	if (batchText !== null) {
+		const segs = topSplit(strip(delink(batchText)), ['·']);
+		const shape = (segs[0] ?? '').toLowerCase();
+		if (!(BATCH_SHAPES as readonly string[]).includes(shape))
+			fails.push(fail('charge', 'charge.batch', `§4's batch slot opens with its shape — ${BATCH_SHAPES.join(' · ')} — then "ceiling ‹n› · gauge ‹text› · account ‹name›"`, JSON.stringify(batchText.slice(0, 160)), line));
+		else {
+			const find = (key: string) => segs.slice(1).find(x => x.toLowerCase().startsWith(key + ' '))?.slice(key.length + 1).trim() ?? null;
+			const ceiling = find('ceiling');
+			if (ceiling !== null && !/^\d+$/.test(ceiling))
+				fails.push(fail('charge', 'charge.batch', 'the concurrency plan\'s ceiling is a count (§4) — "ceiling 3"', JSON.stringify(ceiling.slice(0, 80)), line));
+			batch = { shape: shape as Batch['shape'], ceiling: ceiling !== null && /^\d+$/.test(ceiling) ? +ceiling : null, gauge: find('gauge'), account: find('account') };
+		}
+	}
+
+	return {
+		fails: opts.live ? fails : [],
+		header: {
+			status: slot('Status') === null ? null : strip(slot('Status')!),
+			dependsOn: dep === null ? [] : topSplit(strip(delink(dep)), ['·', ',', ';']).filter(isId),
+			staffing: slot('Staffing') === null ? null : strip(delink(slot('Staffing')!)),
+			parallelSafeWith: parallel === null ? [] : topSplit(strip(delink(parallel)), ['·', ',', ';']).filter(isId),
+			branch, batch, tender: parseTender(md), line,
+		},
+	};
+}

@@ -16,9 +16,9 @@ import { basename, dirname, join, relative, resolve, sep } from 'path';
 import { homedir } from 'os';
 import {
 	batonFails, boardIds, classifyBaton, isLiveWorkDoc, parseBoards, parseDecisions, parseIssues,
-	parseKickoffs, parseLedgerPair, registerSizeFails,
+	parseChargeHeader, parseKickoffs, parseLedgerPair, registerSizeFails,
 	isBoardHeader, tables,
-	type Baton, type BoardRow, type Decision, type Issue, type Kickoff, type LedgerEntry,
+	type Baton, type BoardRow, type ChargeHeader, type Decision, type Issue, type Kickoff, type LedgerEntry,
 } from './parse';
 import { fail, isLawBook, strip, type Fail } from './grammar';
 import { scanCredits, type Credit, type CreditSources } from './credit';
@@ -69,6 +69,8 @@ export type Building = {
 	magnitudes: Decision[];
 	issues: Issue[];
 	kickoffs: (Kickoff & { doc: string })[];
+	/** §5's header, per work doc: the contract the charge doc carries about itself (032 (d), (e)). */
+	charges: (ChargeHeader & { doc: string })[];
 	credits: Credit[];                // D82's statement, derived from this building's own graph
 	files: { boards: string[]; ledger: string | null; ledgerArchive: string | null; decisions: string | null; issues: string | null; workDocs: string[]; prose: string[]; register: string | null };
 	fails: Fail[];
@@ -438,11 +440,15 @@ export function parseFiles(e: { building: string; path: string; files: Building[
 	}
 
 	const kickoffs: (Kickoff & { doc: string })[] = [];
+	const charges: (ChargeHeader & { doc: string })[] = [];
 	for (const f of e.files.workDocs) {
 		const md = read(f);
 		const r = parseKickoffs(md, { live: isLiveWorkDoc(md) });
 		fails.push(...stamp(r.fails, f));
 		for (const k of r.kickoffs) kickoffs.push({ ...k, doc: f });
+		const h = parseChargeHeader(md, { live: isLiveWorkDoc(md) });
+		fails.push(...stamp(h.fails, f));
+		if (h.header) charges.push({ ...h.header, doc: f });
 	}
 
 	const credit = scanCredits(sources);
@@ -450,7 +456,7 @@ export function parseFiles(e: { building: string; path: string; files: Building[
 
 	return {
 		building: e.building, path: e.path, board, ledgerTail, ledgerEntries, baton,
-		decisions, decisionQueue, magnitudes, issues, kickoffs, credits: credit.credits, files: e.files, fails,
+		decisions, decisionQueue, magnitudes, issues, kickoffs, charges, credits: credit.credits, files: e.files, fails,
 	};
 }
 

@@ -39,7 +39,8 @@ function liveFails(b: Building): Fail[] {
 		// the tail, and the tail's own file: a ledger and its archive both file `ledger` fails
 		// (048), and a line number alone cannot tell the tail from an aged-out entry's twin line
 		|| (f.artifact === 'ledger' && b.ledgerTail !== null && f.file === b.files.ledger && f.line === b.ledgerTail.line)
-		|| (f.artifact === 'kickoff' && openDocs.has(f.file)));
+		// a charge doc's header is its contract, and the contract of an open charge is read today
+		|| ((f.artifact === 'kickoff' || f.artifact === 'charge') && openDocs.has(f.file)));
 }
 
 // ---------- the vocabulary arm (026) ----------

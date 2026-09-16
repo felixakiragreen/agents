@@ -5,7 +5,7 @@
 import { describe, expect, test } from 'bun:test';
 import { readFileSync } from 'fs';
 import { join } from 'path';
-import { parseDecisions } from '../src/parse';
+import { parseChargeHeader, parseDecisions } from '../src/parse';
 import { parse } from '../src/building';
 
 const FX = join(import.meta.dir, '..', 'fixtures');
@@ -44,5 +44,39 @@ describe('item 1 — the ⬢ mark: his yes with its size (D90)', () => {
 		]);
 		// the magnitudes boot prints, in the register's own order — the blessing included
 		expect(b.magnitudes.map(x => [x.id, x.magnitude])).toEqual([['D1', 100], ['D2', 0.1], ['D3', 0.01], ['D4', -1]]);
+	});
+});
+
+describe('items 2 and 4 — the batch slot, the two header slots, the tender line', () => {
+	const header = (name: string) => parseChargeHeader(fx('asks', join('plans', name)), { live: true });
+
+	test('item 2 — a gate doc\'s header carries its batch, and the tender line is its own field', () => {
+		const h = header('G1-batch.md').header!;
+		expect(h.batch).toEqual({ shape: 'parallel', ceiling: 3, gauge: 'hold the timed arms until load < 12', account: 'a-thg-0' });
+		// the members are the gate's Depends-on and no slot of their own — the edge test (§4)
+		expect(h.dependsOn).toEqual(['001', '002']);
+		expect(h.tender).toEqual({ kind: 'dispatch' });
+		// the control: the same literal QUOTED under Findings is a discussion, not a tender — the
+		// read is bounded to the Mission, where §10 puts it (stigmergon 086's own ruling table)
+		expect(header('004-malformed.md').header!.tender).toEqual({ kind: 'hand', text: 'sonnet-medium · plans/TENDER.md' });
+	});
+
+	test('item 4 — `Parallel-safe with:` and `Branch: ‹name› from ‹base›` are typed slots', () => {
+		const h = header('003-branch.md').header!;
+		expect(h.parallelSafeWith).toEqual(['001', '002']);
+		expect(h.branch).toEqual({ name: 'asks/003-slots', base: 'master' });
+		expect(h.staffing).toBe('Builder · opus-high');
+		// the control: a charge in no batch and no worktree carries neither, and says so as absence
+		const g = header('G1-batch.md').header!;
+		expect([g.parallelSafeWith, g.branch]).toEqual([[], null]);
+	});
+
+	test('a slot written wrong fails on a LIVE doc, and history is never linted', () => {
+		expect(header('004-malformed.md').fails.map(f => f.code)).toEqual(['charge.branch', 'charge.batch']);
+		// … and the failures are the form's alone: the rest of the header still parses
+		expect(header('004-malformed.md').header!.batch).toBeNull();
+		// the control: the same defect in a spent doc reports nothing — §5's slot postdates it
+		expect(parseChargeHeader(fx('asks', join('plans', '005-spent.md')), { live: false }).fails).toEqual([]);
+		expect(parseChargeHeader(fx('asks', join('plans', '005-spent.md'))).header!.branch).toBeNull();
 	});
 });

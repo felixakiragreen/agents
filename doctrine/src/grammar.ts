@@ -153,7 +153,7 @@ export const REGISTER_CAP = 30 << 10;
 
 export type Mantle = typeof MANTLES[number];
 export type State = typeof STATES[number];
-export type Artifact = 'board' | 'ledger' | 'decisions' | 'issues' | 'kickoff' | 'prose' | 'register';
+export type Artifact = 'board' | 'ledger' | 'decisions' | 'issues' | 'kickoff' | 'charge' | 'prose' | 'register';
 /**
  * A form defect is a failure — the doc is lying. A `warn` is the vocabulary arm's one softer
  * verdict, and it exists because the standard asks for exactly one (§7's id namespace: one
