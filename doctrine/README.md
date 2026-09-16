@@ -105,7 +105,7 @@ A slot ends where the next `**Label:**` begins, so the skeleton's one-line run a
 
 The cell cap is hard because the fix is the law: status + findings pointer, the story in the charge doc. The entry cap warns because the ledger's *reads* are D78-exempt — the tail-read protocol already bounds them — and its writes are not.
 
-**The entry cap counts the entry's PROSE** (§7, amended 2026-09-15): a fenced instrument is the baton's instrument (D63g) and the baton paragraph is §11's — a Felix-tended baton may carry commands (golos's founding: the Ava checkout switch, four commands). Both leave before the words are counted, and the city's warning count fell 527 → 504 with them.
+**The entry cap counts the entry's PROSE** (§7, amended 2026-09-15): a fenced instrument is the baton's instrument (D63g) and the baton paragraph is §11's — a Felix-tended baton may carry commands (golos's founding: the Ava checkout switch, four commands). Both leave before the words are counted, and the city's `ledger.entry-cap` count fell 527 → 503 with them, at eight of the register's twelve buildings.
 
 ## `doctrine prune` — the ledger's aging (048)
 

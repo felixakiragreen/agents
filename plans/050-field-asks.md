@@ -101,14 +101,14 @@ Each item lands with a fixture under `doctrine/fixtures/` and a control that red
            2  ledger.row
            1  ledger.merged
       === WARNING CLASSES
-         526 → 503  ledger.entry-cap            [item 7, the only thing that moves]
+         527 → 503  ledger.entry-cap            [item 7, the only thing that moves]
            1 →   1  decisions.size
       === TOTALS                                 BEFORE and AFTER, byte-identical
         15 buildings · 21/21 board docs yielded a board · 22 boards · 491 rows · 491 fully typed (100%)
         13/13 ledgers parsed a tail (622 entries) · 4 fireable baton(s) · 414 kickoffs in 482 work docs
         246 decisions (queue 57) · 18 inbox entries · 2 on credit · max interest 0
         228 worktree checkout(s) skipped as branch copies · per-repo special cases: 0
-        141 failure(s) in 5 class(es) · 527 → 504 warning(s) in 2 class(es)
+        141 failure(s) in 5 class(es) · 528 → 504 warning(s) in 2 class(es)
       ```
 
       **Met, with two corrections to the bar's arithmetic (F2).** Item 6's new warning class fires
@@ -117,7 +117,7 @@ Each item lands with a fixture under `doctrine/fixtures/` and a control that red
 
       | building | before | after | | building | before | after |
       |---|---|---|---|---|---|---|
-      | agents | 95 | **88** | | simmy | 44 | **43** |
+      | agents | 96 | **88** | | simmy | 44 | **43** |
       | belvedere | 79 | **78** | | snappy | 44 | **42** |
       | golos | 2 | **1** | | whiteboardy | 107 | **105** |
       | stigmergon | 115 | **107** | | torch-angles | 1 | **0** |
@@ -228,10 +228,10 @@ say('9', `formula edits: ${m.edits.length} · FORMULA_RULE exported: ${'FORMULA_
 
 Two of the old suite's tests still red on the old source and are named on the bar: `boot` reads 050's own count line (item 6), and 049's known harness artifact (the `git archive` copy is not at `~/code/agents/doctrine/fixtures/boot`).
 
-**F2 — the bar's arithmetic, corrected twice; 049-F4's shape.** The bar predicted two exceptions to *identical before and after*. Measured over the register's twelve roots, the failure classes and every entity total are **byte-identical** and only `ledger.entry-cap` moves, 526 → 503. So:
+**F2 — the bar's arithmetic, corrected twice; 049-F4's shape.** The bar predicted two exceptions to *identical before and after*. Measured over the register's twelve roots, the failure classes and every entity total are **byte-identical** and only `ledger.entry-cap` moves, 527 → 503. So:
 
 - **item 6's new warning class fires nowhere in the city.** No board's deferred list shrank between its own last two commits, so `board.deferred-drop` reports zero. The mechanism is proven by fixture instead — a temp git repo, four commits, a drop with no word (fires), the same drop named `promoted` (silent), a shelf that grows (silent). A quiet alarm is the right kind; the class is now on the board's watch, not on its ledger.
-- **item 7's count falls at nine buildings, not two.** agents 95 → 88 · belvedere 79 → 78 · golos 2 → 1 · stigmergon 115 → 107 · simmy 44 → 43 · snappy 44 → 42 · whiteboardy 107 → 105 · torch-angles 1 → 0 · manny 16 → 16 with its longest entry 311 → 254. **Swordmaster is the bar's one miss, and it is honest:** its six entries are 173–927 words of PROSE — over the cap with no instrument and no baton to excuse them — so the counts hold while the words fall (the founding 434 → 288, the third act 385 → 313). The bar named the two buildings whose numbers the office had in hand; the rule reaches every ledger that fences a summons.
+- **item 7's count falls at eight buildings, not two.** agents 96 → 88 · belvedere 79 → 78 · golos 2 → 1 · stigmergon 115 → 107 · simmy 44 → 43 · snappy 44 → 42 · whiteboardy 107 → 105 · torch-angles 1 → 0; manny holds at 16 with its longest entry 311 → 254. Measured at HEAD over the register's twelve roots, so this charge's own ledger entry is in the before count and under the cap in the after. **Swordmaster is the bar's one miss, and it is honest:** its six entries are 173–927 words of PROSE — over the cap with no instrument and no baton to excuse them — so the counts hold while the words fall (the founding 434 → 288, the third act 385 → 313). The bar named the two buildings whose numbers the office had in hand; the rule reaches every ledger that fences a summons.
 
 **F3 — the ⬢ reader's first act was to read D90's own definition as a debt, and the cure is where the mark is typed.** The first build put the sized mark through the statement's line scan beside `⬡ go`. `doctrine statement ~/code/agents` immediately answered `1 on credit · ⬢0.1 · D90`: the entry that DEFINES the magnitude writes a bare `⬢0.1` into its own body — *"the statement does not see a ⬢0.1"*, a sentence about the pre-050 parser that the post-050 parser read as a debt. D82's mask covers code spans and the law book, and the register is neither. **The fix is the spec's own word**: item 1 locates the read in *"`MARK_TAIL` and the attribution parse"*, so on the register the statement reads the parsed `magnitude` off the attribution and never a line of prose; boards and the ledger keep the line scan, because there no field is typed. The statement returned to `0 on credit` and the lint line with it. *Parse, don't validate*, at the one distance a mask cannot reach.
 
