@@ -6,7 +6,7 @@
 // verbatim excerpt — never a parser branch. The shapes below are P3 §5's, normative per D65.
 
 import {
-	BATON_TYPES, BLESSED_MARK, CELL_CAP, DECISION_ID, DEFERRED, DETERMINERS, ENTRY_CAP, FELIX_GATE, HEX_GATE, MANTLES, MARK_TAIL,
+	BATON_TYPES, BLESSED_MARK, CELL_CAP, DECISION_ID, DEFERRED, DETERMINERS, ENTRY_CAP, FELIX_GATE, GATE_ID, HEX_GATE, MANTLES, MARK_TAIL,
 	PARKED, PENDING, PROPOSED_MARK, REGISTER_CAP, RETIRED, STATES, UNRECORDED, UNSTAFFED, VERDICTS,
 	creditDate, delink, fail, isId, isMantle, isSizedBlessing, isSizedCredit, isState, isTier, leadingToken, linkTarget, magnitude,
 	maskCode, strip, topSplit,
@@ -30,8 +30,19 @@ export type BoardRow = {
 	rider: string | null;         // D63d — annotation for eyes, ignored by dispatch
 	state: State | null;
 	annotation: string;           // everything after the state token
+	holds: Hold[];                // §4 — the landing's named remainders (032 (b))
+	escalations: Escalation[];    // §4 — born and ruled, read off this row (032 (c))
 	line: number;
 };
+
+/**
+ * §4's typed remainder on a landing — `LANDED ‹date› — holds: ‹list›`. A hold is an escalation's
+ * id or a `⬡ ‹text›`, and it PAUSES dependent charges: absent means clean, and clearing is
+ * written on the row. The standard's entry is `hold` (§2), minted with the flow grammar (D74).
+ */
+export type Hold = { kind: 'escalation'; id: string } | { kind: 'felix'; text: string };
+/** §4 — an escalation is an id: born `E‹n› — ‹what›`, dead `E‹n› ruled ‹date›`. */
+export type Escalation = { id: string; what: string | null; ruled: string | null; row: string; line: number };
 export type Board = { heading: string; line: number; rows: BoardRow[] };
 
 export type Table = { line: number; header: string[]; rows: { cells: string[]; line: number }[]; heading: string };
@@ -132,6 +143,50 @@ function parseStatus(cell: string, id: string, line: number) {
 }
 
 /**
+ * §4's holds list, off a Status annotation. It opens at `holds:` and runs to the annotation's
+ * NEXT em-dash — the same `—` that joined the list to the state, so a landing writes its
+ * findings pointer behind the holds and neither eats the other.
+ */
+function parseHolds(annotation: string, id: string, line: number): { holds: Hold[]; fails: Fail[] } {
+	const fails: Fail[] = [];
+	const holds: Hold[] = [];
+	const at = annotation.match(/\bholds:[ \t]*/);
+	if (!at) return { holds, fails };
+	const list = topSplit(annotation.slice(at.index! + at[0].length), ['—', '–'])[0] ?? '';
+	// `·` alone separates holds. Depends-on takes the comma too because the record wrote it that
+	// way for a year; `holds:` was minted 2026-09-15 with one separator, and a hold's text is
+	// free prose full of commas — belvedere's B22 lists five paid candidates inside one ⬡-hold.
+	for (const seg of topSplit(list, ['·'])) {
+		const e = seg.match(/^\**(E\d+)\b/);
+		if (e) { holds.push({ kind: 'escalation', id: e[1]! }); continue; }
+		const f = seg.match(/^\**⬡\s*(.+)$/);
+		if (f) { holds.push({ kind: 'felix', text: strip(f[1]!) }); continue; }
+		fails.push(fail('board', 'board.hold', 'a hold is an escalation id or a ⬡-text (§4) — write "LANDED ‹date› — holds: E3 · ⬡ ‹what he owes›"; a hold nobody can address pauses its dependants for nothing', `${id}: ${JSON.stringify(seg.slice(0, 120))}`, line));
+	}
+	return { holds, fails };
+}
+
+/**
+ * §4's escalation ids, off a Status annotation: `E‹n› — ‹what›` is a birth, `E‹n› ruled ‹date›`
+ * a death. Both are read where the record writes them — on the row the escalation belongs to —
+ * and an id that appears only inside a `holds:` list is a REFERENCE, not a birth, so it carries
+ * neither text nor a ruling here.
+ */
+function parseEscalations(annotation: string, id: string, line: number): Escalation[] {
+	const by = new Map<string, Escalation>();
+	const of = (eid: string) => by.get(eid) ?? (by.set(eid, { id: eid, what: null, ruled: null, row: id, line }), by.get(eid)!);
+	// The deaths are read FIRST and they leave the text: one row writes both — `holds: E4 — E4
+	// ruled ‹date›` — and a birth's `— ‹what›` would otherwise swallow the ruling behind it.
+	const births = annotation.replace(/\b(E\d+)\s+ruled\s+(\d{4}-\d{2}-\d{2})/g,
+		(_, eid: string, date: string) => { of(eid).ruled = date; return ''; });
+	for (const m of births.matchAll(/\b(E\d+)\s*[—–]\s*([^·;\n]+)/g)) {
+		const what = strip(m[2]!).trim();
+		if (what) of(m[1]!).what = what;
+	}
+	return [...by.values()];
+}
+
+/**
  * §4's Depends-on: exactly three forms (D63e, respelled by D71) — a charge id in this
  * building, the qualified `<building>:<id>`, or `⬡-gate: <text>`.
  *
@@ -218,13 +273,15 @@ export function parseBoards(md: string, buildingIds?: Set<string>): { boards: Bo
 			const staff = parseStaffing(staffC, statC, id, line);
 			const stat = parseStatus(statC, id, line);
 			const dep = parseDependsOn(depC, id, line, knownIds);
-			fails.push(...staff.fails, ...stat.fails, ...dep.fails);
+			const held = parseHolds(stat.annotation, id, line);
+			fails.push(...staff.fails, ...stat.fails, ...dep.fails, ...held.fails);
 
 			rows.push({
 				id, work: strip(delink(workC)), workDoc: linkTarget(workC),
 				dependsOn: dep.dependsOn, gates: dep.gates, crossings: dep.crossings,
 				mantle: staff.mantle, tier: staff.tier, hexGate: staff.hexGate, dissolved: staff.dissolved,
-				rider: staff.rider, state: stat.state, annotation: stat.annotation, line,
+				rider: staff.rider, state: stat.state, annotation: stat.annotation,
+				holds: held.holds, escalations: parseEscalations(stat.annotation, id, line), line,
 			});
 		}
 		boards.push({ heading: t.heading, line: t.line, rows });
@@ -989,4 +1046,61 @@ export function parseChargeHeader(md: string, opts: { live?: boolean } = {}): { 
 			branch, batch, tender: parseTender(md), line,
 		},
 	};
+}
+
+// ---------- §4's readiness — what is ignitable, and what it waits on ----------
+
+export type Readiness = {
+	id: string;
+	ignitable: boolean;
+	/** Every dependency not yet met, verbatim: a charge id, a crossing, or a `⬡-gate: ‹text›`. */
+	waitingOn: string[];
+};
+
+/**
+ * §4's ignition rule, read off the building's own board (D63e — Depends-on resolves against the
+ * BUILDING's row ids). Three clauses, and the third is 086's ask:
+ *
+ * - a charge waits for each dependency to be **LANDED**;
+ * - a **review gate** waits for LANDED **or KILLED** — *a documented kill is a result the gate
+ *   reads*, and every gate at stigmergon has reviewed one (086, 2026-09-09);
+ * - a dependency carrying an **unresolved hold** pauses its dependants whatever its state (§4,
+ *   the typed holds): a hold whose escalation the building has RULED is cleared, and a `⬡ ‹text›`
+ *   hold is cleared by leaving the row, which is the whole of what "clearing is written on the
+ *   row" means.
+ *
+ * What this reader refuses to call met: a `⬡-gate` dependency — *the batch pauses there; nobody
+ * ignites past it* — and a crossing, whose far board is another building's file and not this
+ * parser's to read (the crossing names a door). Both stay in `waitingOn`, where the engine draws
+ * them pending. A `⬡-gate` STAFFING is never ignited at all, and neither is a row already in
+ * flight or finished: `ignitable` is about a charge somebody could fire right now.
+ */
+export function readiness(rows: BoardRow[]): Readiness[] {
+	const by = new Map(rows.map(r => [r.id, r]));
+	const cleared = new Set(rows.flatMap(r => r.escalations.filter(e => e.ruled).map(e => e.id)));
+	const held = (r: BoardRow) => r.holds.some(h => h.kind === 'felix' || !cleared.has(h.id));
+
+	return rows.map(r => {
+		const met = (dep: BoardRow) =>
+			(dep.state === 'LANDED' || (GATE_ID.test(r.id) && dep.state === 'KILLED')) && !held(dep);
+		const waitingOn = [
+			...r.dependsOn.filter(id => { const d = by.get(id); return !d || !met(d); }),
+			...r.crossings,
+			...r.gates.map(g => `${HEX_GATE}: ${g}`),
+		];
+		return { id: r.id, ignitable: r.state === 'OPEN' && !r.hexGate && !waitingOn.length, waitingOn };
+	});
+}
+
+
+/** Every escalation the building's rows declare, merged by id — born on one row, ruled on another. */
+export function escalationsIn(rows: BoardRow[]): Escalation[] {
+	const by = new Map<string, Escalation>();
+	for (const r of rows) for (const e of r.escalations) {
+		const prev = by.get(e.id);
+		if (!prev) { by.set(e.id, { ...e }); continue; }
+		prev.what ??= e.what;
+		prev.ruled ??= e.ruled;
+	}
+	return [...by.values()];
 }

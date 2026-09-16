@@ -16,11 +16,12 @@ import { basename, dirname, join, relative, resolve, sep } from 'path';
 import { homedir } from 'os';
 import {
 	batonFails, boardIds, classifyBaton, isLiveWorkDoc, parseBoards, parseDecisions, parseIssues,
-	parseChargeHeader, parseKickoffs, parseLedgerPair, registerSizeFails,
+	escalationsIn, parseChargeHeader, parseKickoffs, parseLedgerPair, readiness, registerSizeFails,
 	isBoardHeader, tables,
-	type Baton, type BoardRow, type ChargeHeader, type Decision, type Issue, type Kickoff, type LedgerEntry,
+	type Baton, type BoardRow, type ChargeHeader, type Decision, type Escalation, type Issue, type Kickoff,
+	type LedgerEntry, type Readiness,
 } from './parse';
-import { fail, isLawBook, strip, type Fail } from './grammar';
+import { GATE_ID, fail, isLawBook, strip, type Fail } from './grammar';
 import { scanCredits, type Credit, type CreditSources } from './credit';
 
 /**
@@ -71,6 +72,8 @@ export type Building = {
 	kickoffs: (Kickoff & { doc: string })[];
 	/** §5's header, per work doc: the contract the charge doc carries about itself (032 (d), (e)). */
 	charges: (ChargeHeader & { doc: string })[];
+	escalations: Escalation[];        // §4's E-ids, merged across the building's boards (032 (c))
+	readiness: Readiness[];           // §4's ignition rule, per row — what waits, and on what
 	credits: Credit[];                // D82's statement, derived from this building's own graph
 	files: { boards: string[]; ledger: string | null; ledgerArchive: string | null; decisions: string | null; issues: string | null; workDocs: string[]; prose: string[]; register: string | null };
 	fails: Fail[];
@@ -321,9 +324,6 @@ function assemble(path: string, files: FoundFile[]): Building {
 
 // ---------- §4's gates: a gate is a charge, and a charge is ignited from a kickoff ----------
 
-/** A review gate's id — `G‹n›` on every board in the city (§7's id namespace). */
-const GATE_ID = /^G\d+$/;
-
 type BoardSource = { file: string; md: string; rows: BoardRow[] };
 
 /**
@@ -396,6 +396,7 @@ export function parseFiles(e: { building: string; path: string; files: Building[
 		sources.boards.push({ file: f, md, rows: r.boards.flatMap(b => b.rows) });
 	}
 	fails.push(...gateKickoffFails(sources.boards));
+	const rows = board.flatMap(x => x.rows);
 
 	let ledgerTail: LedgerEntry | null = null, ledgerEntries = 0, baton: Baton | null = null;
 	if (e.files.ledger) {
@@ -456,7 +457,9 @@ export function parseFiles(e: { building: string; path: string; files: Building[
 
 	return {
 		building: e.building, path: e.path, board, ledgerTail, ledgerEntries, baton,
-		decisions, decisionQueue, magnitudes, issues, kickoffs, charges, credits: credit.credits, files: e.files, fails,
+		decisions, decisionQueue, magnitudes, issues, kickoffs, charges,
+		escalations: escalationsIn(rows), readiness: readiness(rows),
+		credits: credit.credits, files: e.files, fails,
 	};
 }
 

@@ -18,6 +18,8 @@ export const TIERS: readonly string[] = MODELS.flatMap(m => EFFORTS.map(e => `${
 
 /** D63a/D71 — the literal token that makes a ⬡-gate a typed field, not a regex over prose. */
 export const HEX_GATE = '⬡-gate';
+/** STANDARD §7's id namespace — a review gate carries the kind's letter, everywhere in the city. */
+export const GATE_ID = /^G\d+$/;
 /** D63b — a verdict rides the annotation; the lifecycle stays five words. */
 export const VERDICTS = ['PASSED', 'MERGED', 'BLESSED'] as const;
 /** §4's retired synonyms, each with the state `doctrine migrate` re-emits it as. */

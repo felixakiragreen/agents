@@ -80,3 +80,43 @@ describe('items 2 and 4 — the batch slot, the two header slots, the tender lin
 		expect(parseChargeHeader(fx('asks', join('plans', '005-spent.md'))).header!.branch).toBeNull();
 	});
 });
+
+describe('items 3 and 5 — typed holds, escalation ids, and a gate\'s readiness', () => {
+	const b = parse(join(FX, 'asks'));
+	const rows = b.board.flatMap(x => x.rows);
+	const row = (id: string) => rows.find(r => r.id === id)!;
+	const ready = (id: string) => b.readiness.find(r => r.id === id)!;
+
+	test('item 3 — a landing\'s holds are typed, each an E-id or a ⬡-text', () => {
+		expect(row('006').holds).toEqual([{ kind: 'escalation', id: 'E3' }, { kind: 'felix', text: 'his pass of the panes' }]);
+		// the list ends at the annotation's next em-dash, so the findings pointer is not a hold
+		expect(row('006').annotation).toContain('findings in');
+		// the control: a clean landing holds nothing, and a hold nobody can address is a failure
+		expect(row('001').holds).toEqual([]);
+		expect(b.fails.filter(f => f.code === 'board.hold').map(f => f.excerpt)).toEqual(['012: "soon"']);
+	});
+
+	test('item 3 — an escalation is an id: born `E‹n› — ‹what›`, dead `E‹n› ruled ‹date›`', () => {
+		expect(b.escalations).toEqual([
+			{ id: 'E4', what: null, ruled: '2026-09-14', row: '009', line: row('009').line },
+			{ id: 'E3', what: 'the account\'s quota, only he can rule it', ruled: null, row: '011', line: row('011').line },
+		]);
+	});
+
+	test('item 3 — a dependency carrying an unresolved hold is not ignitable; a cleared one is', () => {
+		expect(ready('007')).toEqual({ id: '007', ignitable: false, waitingOn: ['006'] });
+		expect(ready('010')).toEqual({ id: '010', ignitable: true, waitingOn: [] });
+		// … and the hold binds a gate too: a hold pauses dependants, whatever reads them
+		expect(ready('G2').ignitable).toBe(false);
+	});
+
+	test('item 5 — a review gate is ready on a KILLED edge; every other charge waits on LANDED', () => {
+		expect(ready('G1')).toEqual({ id: 'G1', ignitable: true, waitingOn: [] });
+		// the control: the same killed dependency under a charge that is no gate still waits
+		expect(ready('008')).toEqual({ id: '008', ignitable: false, waitingOn: ['002'] });
+		// … and a landed one lets an ordinary charge through
+		expect(ready('003')).toEqual({ id: '003', ignitable: true, waitingOn: [] });
+		// nothing already ignited or finished is ignitable — the word is about firing it now
+		expect([ready('001').ignitable, ready('011').ignitable]).toEqual([false, false]);
+	});
+});
