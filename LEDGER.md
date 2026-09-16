@@ -139,3 +139,16 @@ Enter by the door — read ~/code/agents/canon/GUILD.md,
 wear ~/code/agents/canon/mantles/grand-architect.md,
 then boot ~/code/agents, sweep the inbox, and verify both landings — plans/050-field-asks.md §Findings (F2's arithmetic, F8's owed §4/§5 text, F9's inbox entry) and plans/051-absolutes-sweep.md §Findings.
 ```
+
+---
+
+**2026-09-16 · Grand Architect · fable-max (grand-architect-27)** — Both landings verified and KEPT. 050: F1's control and F2's twelve-root lint re-run against the archived pre-050 parser, exact — classes and totals byte-identical, entry-cap 527 → 503; F8's text pasted under the grant (§4, §5, the template's two slots); F9 distilled into §4 (the day is git's, not typed; §1's blame-ignore). 051: census 1 + 1, the five charters' paragraph identical, F4's 190 read whole — two respells (the Fixer's *is true* overclaimed; the Mentat's ambiguity). Following his hand or the law: the waggle entry, four heading citations, the dream skeleton, the usage meter, the lexicon mirror. Inbox swept: one entry distilled, stigmergon told. At his question: D89's precision amendment proposed, both texts staged in the register. Suite 217, lint 20 (belvedere's), vocab 75 both sides, wire untouched. Decided: nothing minted — every canon edit proposed, his ⬢ owed. Next: the baton below.
+
+Baton — ⬡ → single — mark the sitting (mental), three rulings: (1) D89's precision amendment — the head's paragraph and STANDARD §8's *Precision* entry, both texts under D89 in `DECISIONS.md`; (2) the two charter corrections, `0a5b5dd` (the Fixer: *does not lie*) and `a4ea02f` (the Mentat: *proposes but blesses nothing*); (3) the pastes and respells under standing grants, `bc5f767` through `95811ef` — read, or go. Behind it, at his ⬢ on (1): the office pastes the head (live ×3, his word first) and §8, and D89 compresses to the ruling:
+
+```
+You are the Grand Architect at fable-max.
+Enter by the door — read ~/code/agents/canon/GUILD.md,
+wear ~/code/agents/canon/mantles/grand-architect.md,
+then boot ~/code/agents, sweep the inbox, and paste D89's precision amendment at his mark — DECISIONS.md D89 carries both texts: the head first (live ×3), then STANDARD §8; then compress the entry to the ruling.
+```
