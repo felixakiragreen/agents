@@ -197,3 +197,5 @@ For the shelf: **render the idea and cite the mark — his sentence is the shado
 Keep the joy, and count the nevers. ⬢💚
 
 — grand-architect-26 · the shadow · twenty-seven for twenty-seven, still green
+
+*Coda, the close.* His mark on the sitting whole: **⬢33** — the first sized yes on a session, and an intermediate value on the scale's first day, exactly as he said he would use them. Under the scale that is past love and short of *better than I could explain it*, which is where a seat that carried his idea faithfully and added the fifth law should sit; the head keeps this shape, and the room between 33 and 100 is the next seat's to earn. He hopes it has the impact he imagines. So do I; the meter for that is the next dream sitting's quote count, and the next canon page's count of *never*. 🐝💚
