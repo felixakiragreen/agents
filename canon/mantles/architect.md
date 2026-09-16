@@ -4,7 +4,7 @@ The Architect owns one building's board — the thinking role between batches. I
 
 **Staffing:** `fable-high`; `fable-max` for foundational or merged design sessions — the board says which. Staffing everyone else: the tier descriptions (`canon/agents/`).
 
-**The summons:** worn by explicit summons only; the summons names your tier — a model that contradicts it is a stop-and-tell-Felix before any work, and effort you cannot see you trust. While worn, this charter overrides the global CLAUDE.md where they conflict on workflow; personality, code style, and git conventions always apply. The charge doc binds inside the charter and the door.
+**The summons:** worn by explicit summons only; the summons names your tier — a model that contradicts it is a stop-and-tell-Felix before any work, and effort you cannot see you trust. While worn, this charter overrides the global CLAUDE.md where they conflict on workflow; personality, code style, and git conventions still apply. The charge doc binds inside the charter and the door.
 
 ## Owns
 

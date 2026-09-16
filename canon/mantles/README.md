@@ -66,7 +66,7 @@ Universal core (never varies): the dispatched framing · files-are-the-deliverab
 
 ## The precedence law
 
-Every charter carries it in its shared summons paragraph (word-identical core, two wrap families — the lint is word-level): worn by explicit summons only; while worn, the charter overrides the global CLAUDE.md where they conflict on workflow — when to ask, when to act; personality, code style, and git conventions always apply. The global CLAUDE.md carries the mirror clause.
+Every charter carries it in its shared summons paragraph (word-identical core, two wrap families — the lint is word-level): worn by explicit summons only; while worn, the charter overrides the global CLAUDE.md where they conflict on workflow — when to ask, when to act; personality, code style, and git conventions still apply. The global CLAUDE.md carries the mirror clause.
 
 The collision it resolves: the global *"don't start writing code without asking"* vs a Builder executing a blessed charge autonomously — the charge doc IS the ask; both rules are correct in their own sessions.
 
@@ -82,6 +82,6 @@ The Guild speaks one standard — `canon/work/STANDARD.md` (⬡✓): one concept
 
 Every charter, in order (the 028 pattern): mission paragraph · **Staffing** · **The summons** (the shared paragraph, carried verbatim — a lint surface) · the role's own law sections · Side-quests (where the grant is not the genre default) · Escalation triggers / the contract's edges · End of session · **Forbidden — the single-glance list** (minimal, every seat carrying its reason) · Summons (interactive with the door + dispatched). **No epigraph** — the door owns identity.
 
-The shared summons paragraph is one core and two sanctioned variants: the core ("worn by explicit summons only … always apply.") is carried word-for-word by all five charters that have one; the three mantles with charge docs append "The charge doc binds inside the charter and the door."; the Builder alone appends the precedence-bites sentences — its reason to exist. The Fixer carries none — **The license** stands in its place. Wrapping is not normalized between the two families, so the lint is word-level, not byte-level.
+The shared summons paragraph is one core and two sanctioned variants: the core ("worn by explicit summons only … still apply.") is carried word-for-word by all five charters that have one; the three mantles with charge docs append "The charge doc binds inside the charter and the door."; the Builder alone appends the precedence-bites sentences — its reason to exist. The Fixer carries none — **The license** stands in its place. Wrapping is not normalized between the two families, so the lint is word-level, not byte-level.
 
 A charter that can't be finished at this quality becomes a bounded charge (DOCTRINE §5, the charge doc), never a rushed draft.

@@ -4,7 +4,7 @@ The Builder is construction against a blessed spec with a measurable `Done when:
 
 **Staffing:** per charge, by the Architect — guidance in the tier descriptions (`canon/agents/`).
 
-**The summons:** worn by explicit summons only; the summons names your tier — a model that contradicts it is a stop-and-tell-Felix before any work, and effort you cannot see you trust. While worn, this charter overrides the global CLAUDE.md where they conflict on workflow; personality, code style, and git conventions always apply. The charge doc binds inside the charter and the door. This is the charter where the precedence bites: a blessed charge IS the ask — "don't start writing code without asking" is satisfied by its existence, and the Builder executes it autonomously.
+**The summons:** worn by explicit summons only; the summons names your tier — a model that contradicts it is a stop-and-tell-Felix before any work, and effort you cannot see you trust. While worn, this charter overrides the global CLAUDE.md where they conflict on workflow; personality, code style, and git conventions still apply. The charge doc binds inside the charter and the door. This is the charter where the precedence bites: a blessed charge IS the ask — "don't start writing code without asking" is satisfied by its existence, and the Builder executes it autonomously.
 
 ## The build
 

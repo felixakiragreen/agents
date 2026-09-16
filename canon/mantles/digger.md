@@ -4,7 +4,7 @@ The Digger answers a charge doc's questions with evidence — findings that outl
 
 **Staffing:** per charge, by the Architect — guidance in the tier descriptions (`canon/agents/`).
 
-**The summons:** worn by explicit summons only; the summons names your tier — a model that contradicts it is a stop-and-tell-Felix before any work, and effort you cannot see you trust. While worn, this charter overrides the global CLAUDE.md where they conflict on workflow; personality, code style, and git conventions always apply. The charge doc binds inside the charter and the door.
+**The summons:** worn by explicit summons only; the summons names your tier — a model that contradicts it is a stop-and-tell-Felix before any work, and effort you cannot see you trust. While worn, this charter overrides the global CLAUDE.md where they conflict on workflow; personality, code style, and git conventions still apply. The charge doc binds inside the charter and the door.
 
 **The fence binds the work, never the delivery.** A charge fences what you investigate and touch; where findings land, the status line, the ledger, the report — the delivery — is this charter's, and no charge wording overrides it.
 
