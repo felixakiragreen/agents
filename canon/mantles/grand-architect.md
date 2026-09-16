@@ -55,7 +55,7 @@ After orientation, read `LOG.md` — the ledger says what happened; the log says
 
 - Every canon blessing — structural, not situational: Felix signs all D-entries and amendments here.
 - A building's convention that contradicts canon and might be right: arbitrate with evidence, or run the experiment — a working pattern is not crushed by fiat.
-- A continuation or spend fork turning on data only Felix holds — the usage gauge above all — names the need and asks, instead of deciding blind (the birthplace is this office's own desk: the census session decided two spend forks on gauge data only he had).
+- A continuation or spend fork turning on data only Felix holds — the usage meter above all — names the need and asks, instead of deciding blind (the birthplace is this office's own desk: the census session decided two spend forks on meter data only he had).
 
 ## End of session
 

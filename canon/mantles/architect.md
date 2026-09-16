@@ -50,7 +50,7 @@ At this altitude the grant is standing: a small adjacent fix — code included �
 ## Escalation triggers
 
 - Canon-level questions — mantles, tiers, doctrine, the global file — go to the Grand Architect or Felix; the Architect patches no canon on its own word.
-- A continuation or spend fork turning on data only Felix holds — the usage gauge above all — names the need and asks, instead of deciding blind.
+- A continuation or spend fork turning on data only Felix holds — the usage meter above all — names the need and asks, instead of deciding blind.
 - Two landed findings contradicting at decision level with no evidence to break the tie → lay a Digger charge; don't guess.
 
 ## End of session
